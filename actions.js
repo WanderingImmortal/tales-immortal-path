@@ -203,6 +203,7 @@ function buyPill(pillId) {
 // ----- RECRUIT -----
 function actionRecruit() {
     if (actionBlocked()) return;
+    if (!guardAction('recruit')) return;
     const recruitBlock = typeof getRecruitBlockReason === 'function' ? getRecruitBlockReason() : null;
     if (recruitBlock) {
         addLog(`👤 ${recruitBlock}`);
@@ -244,6 +245,7 @@ function actionRecruit() {
 // ----- SECT -----
 function actionSect() {
     if (actionBlocked()) return;
+    if (!guardAction('sect')) return;
     renderSectPopup();
     document.getElementById('sectPopup').classList.add('active');
 }
@@ -251,6 +253,7 @@ function actionSect() {
 // ----- FACTIONS -----
 function actionFactionsWrapper() {
     if (actionBlocked()) return;
+    if (!guardAction('factions')) return;
     if (typeof actionFactions === 'function') actionFactions();
     else addLog('🏯 Faction politics are not yet charted in this region.');
     fullRender();
@@ -301,6 +304,7 @@ function actionTech() {
 // ----- MERIDIANS -----
 function actionMeridian() {
     if (G.gameOver) return;
+    if (!guardAction('meridian')) return;
     renderMeridianPopup();
     document.getElementById('meridianPopup').classList.add('active');
 }
@@ -308,6 +312,7 @@ function actionMeridian() {
 // ----- PHYSIQUE -----
 function actionPhysique() {
     if (G.gameOver) return;
+    if (!guardAction('physique')) return;
     renderPhysiquePopup();
     document.getElementById('physiquePopup').classList.add('active');
 }
@@ -315,6 +320,7 @@ function actionPhysique() {
 // ----- INTENT -----
 function actionIntent() {
     if (G.gameOver) return;
+    if (!guardAction('intent')) return;
     if (typeof ensureIntentState === 'function') ensureIntentState();
     renderIntentPopup();
     document.getElementById('intentPopup')?.classList.add('active');
@@ -323,6 +329,7 @@ function actionIntent() {
 // ----- DAO -----
 function actionDao() {
     if (G.gameOver) return;
+    if (!guardAction('dao')) return;
     renderDaoPopup();
     document.getElementById('daoPopup').classList.add('active');
 }
@@ -396,6 +403,7 @@ function refineLegendaryMaterial(materialName) {
 // ----- ANCIENT SEARCH -----
 function actionSearch() {
     if (actionBlocked()) return;
+    if (!guardAction('search')) return;
     if (typeof getSearchBlockReason !== 'function' || typeof performAncientSearch !== 'function') {
         addLog('🔍 The sealed sites remain beyond your reach.');
         fullRender();

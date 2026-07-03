@@ -1244,6 +1244,36 @@ header .subtitle {
     cursor: not-allowed;
 }
 
+.actions-panel button.action-locked {
+    opacity: 0.42;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
+}
+
+.actions-panel button.action-locked:not(:disabled) {
+    opacity: 0.42;
+}
+
+.action-group-all-locked {
+    opacity: 0.72;
+}
+
+.action-group-all-locked .action-group-label {
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    opacity: 0.65;
+}
+
+@media (max-width: 640px) {
+    .actions-panel button.action-locked[title] {
+        touch-action: manipulation;
+    }
+
+    .action-group-all-locked .actions-row {
+        gap: 4px;
+    }
+}
+
 .quest-journal-tabs {
     display: flex;
     flex-wrap: wrap;

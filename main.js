@@ -354,6 +354,7 @@ function setupCreation() {
         G.questPerks = null;
         G.demonicRedemption = null;
         G.tutorialLog = null;
+        G.milestones = null;
         G._pendingTribulationStyle = null;
         G.affinities = null;
         G.fiveElementCycleIdx = 0;
@@ -376,6 +377,7 @@ function setupCreation() {
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
         fullRender();
+        if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
         saveState();
         setTimeout(function() {
             if (typeof triggerTutorial === 'function') triggerTutorial('first_boot');

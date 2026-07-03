@@ -1978,12 +1978,29 @@ const TUTORIAL_STEPS = {
         highlight: '#npcPresenceGroup',
         text: 'The world is filled with cultivators, villagers, and sages. Listen to them — they may offer wisdom, trade, or challenge.',
         learnMore: 'NPCs appear in the sidebar under Quests and Other People. Some wander, some offer tests or trade. Your Dao Alignment and fame change how they speak to you.'
+    },
+    unlock_factions: {
+        id: 'unlock_factions',
+        title: 'Faction Politics',
+        emoji: '⚖️',
+        highlight: '#btnFactions',
+        text: 'You have walked the wilds and grown strong enough to matter. Zone factions now track your reputation — allies and rivals alike.',
+        learnMore: 'Open Factions to see power structures in your region. Reputation shifts prices, quests, and how cultivators treat you.'
+    },
+    unlock_forbidden: {
+        id: 'unlock_forbidden',
+        title: 'Forbidden Grounds',
+        emoji: '🌑',
+        highlight: '#btnForbidden',
+        text: 'Core Formation opens glimpses of forbidden realms — places where the Dao runs thin and treasures carry a price.',
+        learnMore: 'Forbidden grounds cost time and carry risk. Dao fragments and rare loot await, but tribulation scars and alignment shifts are real.'
     }
 };
 
 const TUTORIAL_ORDER = [
     'first_boot', 'first_cultivate', 'first_breakthrough', 'first_consolidation',
-    'first_tribulation', 'first_alignment', 'first_npc'
+    'first_tribulation', 'first_alignment', 'first_npc',
+    'unlock_factions', 'unlock_forbidden'
 ];
 
 // ===== TIME & LIFESPAN =====
@@ -2029,6 +2046,96 @@ const ACTION_MONTHS = {
     sectBuild: 6,
     ancientSearch: 4,
     ancientUnseal: 12
+};
+
+// ===== ACTION UNLOCKS — realm & milestone gates (not age) =====
+// minRealm uses realmIdx (0 = first realm). Milestones are set by play, not calendar age.
+const MILESTONE_LABELS = {
+    explored: 'Explore the wilds at least once',
+    met_npc: 'Speak with someone on the path', // reserved for future gates (e.g. factions OR met_npc)
+    passed_tribulation: 'Survive a heavenly tribulation'
+};
+
+const ACTION_UNLOCK_LABELS = {
+    intent: 'Weapon Intent',
+    physique: 'Physique',
+    search: 'Search',
+    factions: 'Factions',
+    forbidden: 'Forbidden Grounds',
+    sect: 'Sect',
+    dao: 'Dao',
+    recruit: 'Recruit'
+};
+
+const ACTION_UNLOCK_BUTTONS = {
+    cultivate: 'btnCultivate',
+    consolidate: 'btnConsolidate',
+    breakthrough: 'btnBreakthrough',
+    recuperate: 'btnRecuperate',
+    meridian: 'btnMeridian',
+    dao: 'btnDao',
+    intent: 'btnIntent',
+    tech: 'btnTech',
+    physique: 'btnPhysique',
+    pill: 'btnPill',
+    inventory: 'btnInventory',
+    explore: 'btnExplore',
+    search: 'btnSearch',
+    map: 'btnMap',
+    market: 'btnMarket',
+    combat: 'btnCombat',
+    forbidden: 'btnForbidden',
+    recruit: 'btnRecruit',
+    sect: 'btnSect',
+    factions: 'btnFactions'
+};
+
+const ACTION_UNLOCKS = {
+    cultivate: {},
+    consolidate: {},
+    breakthrough: {},
+    recuperate: {},
+    explore: {},
+    map: {},
+    combat: {},
+    tech: {},
+    pill: {},
+    inventory: {},
+    market: {},
+    meridian: {},
+    intent: {
+        minRealm: 1,
+        hint: 'Foundation Establishment — awaken Weapon Intent.'
+    },
+    physique: {
+        minRealm: 1,
+        hint: 'Foundation Establishment — temper Physique.'
+    },
+    search: {
+        minRealm: 1,
+        hint: 'Foundation Establishment — sense sealed sites.'
+    },
+    factions: {
+        minRealm: 1,
+        milestones: ['explored'],
+        hint: 'Explore once + Foundation Establishment.'
+    },
+    forbidden: {
+        minRealm: 2,
+        hint: 'Core Formation — forbidden grounds await.'
+    },
+    sect: {
+        minRealm: 2,
+        hint: 'Core Formation — found a sect.'
+    },
+    dao: {
+        minRealm: typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5,
+        hint: 'Dao Seeking — pursue fragments.'
+    },
+    recruit: {
+        customCheck: 'canRecruitDisciples',
+        hint: 'Found your sect first.'
+    }
 };
 
 // World scheduler — calendar intervals for off-screen jianghu events

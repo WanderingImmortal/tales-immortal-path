@@ -124,6 +124,7 @@ function rollForbiddenClueFromDao() {
 
 function actionForbidden() {
     if (G.gameOver) return;
+    if (!guardAction('forbidden')) return;
     ensureForbiddenState();
     renderForbiddenPopup();
     document.getElementById('forbiddenPopup').classList.add('active');

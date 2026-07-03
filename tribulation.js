@@ -840,6 +840,7 @@ function applyTribulationOutcome(outcome, choice) {
             if (typeof addFame === 'function') addFame(8 + G.realmIdx * 2);
             else G.fame += 8 + G.realmIdx * 2;
             G.tribulationCount++;
+            if (typeof recordMilestone === 'function') recordMilestone('passed_tribulation');
             return;
         }
         addLog(`✨ TRANSCENDENCE FAILED — you reach for apotheosis, but the heavens withhold it.`);
@@ -857,6 +858,7 @@ function applyTribulationOutcome(outcome, choice) {
         if (passed) {
             applyTribulationSuccessBonus(style, false);
             G.tribulationCount++;
+            if (typeof recordMilestone === 'function') recordMilestone('passed_tribulation');
         } else {
             applyTribulationFailurePenalty(outcome === 'failure_soft');
         }

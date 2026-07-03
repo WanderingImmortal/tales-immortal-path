@@ -898,6 +898,7 @@ function fullRender() {
     renderStatus();
     renderLog();
     updateMarketButton();
+    if (typeof renderActionUnlocks === 'function') renderActionUnlocks();
     if (typeof updateSearchButton === 'function') updateSearchButton();
     if (typeof syncStoryNpcQuests === 'function') syncStoryNpcQuests();
     if (typeof syncStoryQuestLog === 'function') syncStoryQuestLog();

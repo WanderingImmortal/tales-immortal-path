@@ -430,6 +430,7 @@ function actionExplore() {
         rollForbiddenClueFromExplore();
         if (typeof rollAncientClueFromExplore === 'function') rollAncientClueFromExplore(zoneId);
         if (typeof onExploreForStoryQuests === 'function') onExploreForStoryQuests(zoneId);
+        if (typeof recordMilestone === 'function') recordMilestone('explored');
         fullRender();
         return;
     }
@@ -500,6 +501,7 @@ function actionExplore() {
     if (typeof rollAncientClueFromExplore === 'function') rollAncientClueFromExplore(zoneId);
     if (typeof onExploreForFactions === 'function') onExploreForFactions(zoneId);
     if (typeof onExploreForStoryQuests === 'function') onExploreForStoryQuests(zoneId);
+    if (typeof recordMilestone === 'function') recordMilestone('explored');
     fullRender();
 }
 
