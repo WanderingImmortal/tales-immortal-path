@@ -2007,6 +2007,85 @@ const ACTION_MONTHS = {
     ancientUnseal: 12
 };
 
+// ===== ACTION UNLOCKS — realm & milestone gates (not age) =====
+// minRealm uses realmIdx (0 = first realm). Milestones are set by play, not calendar age.
+const MILESTONE_LABELS = {
+    explored: 'Explore the wilds at least once',
+    met_npc: 'Speak with someone on the path',
+    passed_tribulation: 'Survive a heavenly tribulation'
+};
+
+const ACTION_UNLOCK_BUTTONS = {
+    cultivate: 'btnCultivate',
+    consolidate: 'btnConsolidate',
+    breakthrough: 'btnBreakthrough',
+    recuperate: 'btnRecuperate',
+    meridian: 'btnMeridian',
+    dao: 'btnDao',
+    intent: 'btnIntent',
+    tech: 'btnTech',
+    physique: 'btnPhysique',
+    pill: 'btnPill',
+    inventory: 'btnInventory',
+    explore: 'btnExplore',
+    search: 'btnSearch',
+    map: 'btnMap',
+    market: 'btnMarket',
+    combat: 'btnCombat',
+    forbidden: 'btnForbidden',
+    recruit: 'btnRecruit',
+    sect: 'btnSect',
+    factions: 'btnFactions'
+};
+
+const ACTION_UNLOCKS = {
+    cultivate: {},
+    consolidate: {},
+    breakthrough: {},
+    recuperate: {},
+    explore: {},
+    map: {},
+    combat: {},
+    tech: {},
+    pill: {},
+    inventory: {},
+    market: {},
+    meridian: {},
+    intent: {
+        minRealm: 1,
+        hint: 'Reach Foundation Establishment to awaken Weapon Intent.'
+    },
+    physique: {
+        minRealm: 1,
+        hint: 'Reach Foundation Establishment to temper your Physique.'
+    },
+    search: {
+        minRealm: 1,
+        hint: 'Reach Foundation Establishment to sense sealed ancient sites.'
+    },
+    factions: {
+        minRealm: 1,
+        milestones: ['explored'],
+        hint: 'Explore the world and reach Foundation Establishment to chart faction politics.'
+    },
+    forbidden: {
+        minRealm: 2,
+        hint: 'Reach Core Formation before forbidden grounds reveal themselves.'
+    },
+    sect: {
+        minRealm: 2,
+        hint: 'Reach Core Formation before founding a sect.'
+    },
+    dao: {
+        minRealm: typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5,
+        hint: 'Reach Dao Seeking before pursuing fragment comprehension.'
+    },
+    recruit: {
+        customCheck: 'canRecruitDisciples',
+        hint: 'Found your sect before recruiting disciples.'
+    }
+};
+
 // World scheduler — calendar intervals for off-screen jianghu events
 const WORLD_TIME_BALANCE = {
     phoenixWarIntervalMonths: 24,

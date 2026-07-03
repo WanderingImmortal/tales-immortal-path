@@ -380,6 +380,7 @@ function getWorldNpcGreeting(npc) {
 
 function getWorldNpcTalkLine(npc) {
     npc.talkCount = (npc.talkCount || 0) + 1;
+    if (typeof recordMilestone === 'function') recordMilestone('met_npc');
     if (npc.isDemonicTalent) npc.demonicMet = true;
     return pickWeightedTalkLine(buildWorldNpcTalkPool(npc));
 }
@@ -601,6 +602,7 @@ function getNpcTalkLine(npcId) {
     if (!def) return '...';
     const rec = getNpcRecord(npcId);
     rec.talkCount = (rec.talkCount || 0) + 1;
+    if (typeof recordMilestone === 'function') recordMilestone('met_npc');
     bumpNpcFamiliarity(npcId, NPC_BALANCE.familiarityPerTalk);
     const mood = getNpcAlignmentMood(npcId);
     const pool = [];

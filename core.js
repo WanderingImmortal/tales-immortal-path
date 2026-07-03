@@ -123,7 +123,8 @@ let G = {
     questPerks: null,
     demonicRedemption: null,
     tutorialLog: null,
-    sect: null
+    sect: null,
+    milestones: null
 };
 
 // ===== HELPERS =====
@@ -926,6 +927,7 @@ function loadState() {
             if (typeof migrateGearForExistingSave === 'function') migrateGearForExistingSave();
             if (typeof ensureSectState === 'function') ensureSectState();
             if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
+            if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();
             if (typeof ensureAncientsState === 'function') ensureAncientsState();
             if (typeof ensureFactionState === 'function') ensureFactionState();
             ensureAffinities();

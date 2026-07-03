@@ -827,6 +827,13 @@ function updateSearchButton() {
     const btn = document.getElementById('btnSearch');
     if (!btn) return;
     ensureAncientsState();
+    if (typeof isActionUnlocked === 'function' && !isActionUnlocked('search')) {
+        const reason = typeof getActionUnlockReason === 'function' ? getActionUnlockReason('search') : 'Locked';
+        btn.disabled = true;
+        btn.classList.add('action-locked');
+        btn.title = `🔒 ${reason}`;
+        return;
+    }
     const block = typeof getSearchBlockReason === 'function' ? getSearchBlockReason() : null;
     const zoneId = typeof getLootZoneId === 'function' ? getLootZoneId() : (G.currentZone || currentZone);
     const sub = getSubZoneForParent(zoneId);
@@ -850,9 +857,11 @@ function updateSearchButton() {
     if (block) {
         btn.title = block;
         btn.disabled = !!block;
+        btn.classList.toggle('action-locked', !!block);
         return;
     }
     const rate = getSearchSuccessRate(zoneId);
     btn.disabled = false;
+    btn.classList.remove('action-locked');
     btn.title = `Search for ${sub.name} · ~${Math.round(rate)}% · ${qiCost} Qi · ${ACTION_MONTHS.ancientSearch}mo`;
 }

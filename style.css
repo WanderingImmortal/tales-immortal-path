@@ -1211,6 +1211,16 @@ header .subtitle {
     cursor: not-allowed;
 }
 
+.actions-panel button.action-locked {
+    opacity: 0.42;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
+}
+
+.actions-panel button.action-locked:not(:disabled) {
+    opacity: 0.42;
+}
+
 .quest-journal-tabs {
     display: flex;
     flex-wrap: wrap;

@@ -354,6 +354,7 @@ function setupCreation() {
         G.questPerks = null;
         G.demonicRedemption = null;
         G.tutorialLog = null;
+        G.milestones = null;
         G._pendingTribulationStyle = null;
         G.affinities = null;
         G.fiveElementCycleIdx = 0;
