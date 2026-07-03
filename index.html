@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🏔️ Tales of the Immortal Path</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=71" />
+</head>
+<body>
+
+<div id="app">
+    <header>
+        <h1>🏔️ Tales of the Immortal Path</h1>
+        <div class="subtitle">— A Xianxia Text Adventure —</div>
+    </header>
+
+    <!-- CHARACTER CREATION -->
+    <div id="creation-screen" class="creation-screen">
+        <aside class="creation-art creation-art-left" aria-hidden="true">
+            <svg viewBox="0 0 200 360" xmlns="http://www.w3.org/2000/svg" class="ink-art">
+                <defs>
+                    <linearGradient id="mountain-fade" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#3a4a3a" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#1a1410" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <path d="M0 280 L60 120 L110 200 L160 80 L200 260 L200 360 L0 360 Z" fill="url(#mountain-fade)"/>
+                <path d="M0 300 L80 180 L130 240 L200 200 L200 360 L0 360 Z" fill="#2a3028" fill-opacity="0.35"/>
+                <path d="M20 320 Q40 300 55 320 T90 318 T130 322" fill="none" stroke="#4a5a48" stroke-width="1.2" opacity="0.4"/>
+                <path d="M30 340 Q50 325 65 340" fill="none" stroke="#5a6a58" stroke-width="0.8" opacity="0.3"/>
+                <line x1="168" y1="360" x2="168" y2="200" stroke="#3a4a38" stroke-width="2" opacity="0.45"/>
+                <line x1="168" y1="220" x2="148" y2="235" stroke="#3a4a38" stroke-width="1" opacity="0.35"/>
+                <line x1="168" y1="250" x2="185" y2="262" stroke="#3a4a38" stroke-width="1" opacity="0.35"/>
+                <line x1="168" y1="280" x2="152" y2="295" stroke="#3a4a38" stroke-width="1" opacity="0.35"/>
+                <ellipse cx="100" cy="310" rx="70" ry="18" fill="#1a1814" fill-opacity="0.6"/>
+                <path d="M40 290 Q70 270 100 285 Q130 270 160 290" fill="none" stroke="#6a7a68" stroke-width="1" opacity="0.25"/>
+            </svg>
+        </aside>
+
+        <div class="creation-main">
+            <h2 class="creation-title">Begin Your Journey</h2>
+            <div class="creation-field">
+                <label for="nameInput">Your Name</label>
+                <input type="text" id="nameInput" placeholder="Wandering Immortal" maxlength="32" />
+            </div>
+            <div class="creation-section">
+                <div class="creation-label">Choose Your Path</div>
+                <div id="pathOptions" class="creation-options path-grid">
+                    <button type="button" class="popup-item path-card selected" data-path="qi">
+                        <span class="path-icon">⚡</span>
+                        <div class="name">Qi Cultivation</div>
+                        <div class="desc">Qi barrier, balanced offense</div>
+                    </button>
+                    <button type="button" class="popup-item path-card" data-path="body">
+                        <span class="path-icon">💪</span>
+                        <div class="name">Body Cultivation</div>
+                        <div class="desc">High HP, fierce melee</div>
+                    </button>
+                    <button type="button" class="popup-item path-card" data-path="soul">
+                        <span class="path-icon">🧠</span>
+                        <div class="name">Soul Cultivation</div>
+                        <div class="desc">Spirit shield, soul strikes</div>
+                    </button>
+                </div>
+            </div>
+            <div class="creation-section">
+                <div class="creation-label">Choose Your Trait</div>
+                <div id="traitOptions" class="creation-options trait-grid"></div>
+            </div>
+            <button type="button" id="startBtn" class="start-btn">🌟 Begin Cultivation</button>
+        </div>
+
+        <aside class="creation-art creation-art-right" aria-hidden="true">
+            <svg viewBox="0 0 200 360" xmlns="http://www.w3.org/2000/svg" class="ink-art">
+                <circle cx="140" cy="70" r="28" fill="#b8863a" fill-opacity="0.12" stroke="#b8863a" stroke-width="0.8" stroke-opacity="0.35"/>
+                <circle cx="140" cy="70" r="18" fill="#d4a860" fill-opacity="0.08"/>
+                <path d="M30 60 Q60 45 90 55 Q120 40 150 50" fill="none" stroke="#5a5048" stroke-width="1" opacity="0.3"/>
+                <path d="M20 90 Q55 75 85 88 Q115 72 170 85" fill="none" stroke="#4a4540" stroke-width="0.8" opacity="0.25"/>
+                <path d="M120 130 Q130 115 138 125 Q148 112 155 128 Q162 118 172 132" fill="none" stroke="#8a8078" stroke-width="1.2" opacity="0.4"/>
+                <path d="M125 132 L135 128 L145 133 L138 140 Z" fill="#6a6058" fill-opacity="0.35"/>
+                <ellipse cx="135" cy="126" rx="14" ry="5" fill="#5a5048" fill-opacity="0.3"/>
+                <path d="M40 200 Q80 180 120 195 Q160 185 190 200" fill="none" stroke="#3a3530" stroke-width="1.5" opacity="0.35"/>
+                <path d="M50 220 C70 210 90 225 110 215 S150 210 170 222" fill="none" stroke="#4a4540" stroke-width="0.9" opacity="0.3"/>
+                <path d="M60 280 Q100 260 140 278 Q170 268 190 290" fill="none" stroke="#5a5548" stroke-width="1" opacity="0.25"/>
+                <circle cx="55" cy="240" r="2" fill="#b8863a" fill-opacity="0.4"/>
+                <circle cx="75" cy="255" r="1.5" fill="#b8863a" fill-opacity="0.3"/>
+                <circle cx="95" cy="248" r="1.8" fill="#b8863a" fill-opacity="0.35"/>
+            </svg>
+        </aside>
+    </div>
+
+    <div id="game-screen" class="game-screen" style="display:none;">
+        <div class="main-layout">
+            <!-- LEFT: compact controls -->
+            <aside class="sidebar">
+                <section class="hero-panel">
+                    <div class="realm-title">
+                        <span class="realm" id="realmDisplay">Qi Condensation</span>
+                        <span class="title" id="titleDisplay">— Mortal Aspirant</span>
+                    </div>
+
+                    <div class="lifespan-banner" id="lifespanBanner">
+                        <span class="lifespan-banner-icon">🕯️</span>
+                        <span class="lifespan-banner-text" id="lifespanBannerText">80 years remaining</span>
+                    </div>
+
+                    <div class="consolidation-meter" id="consolidationMeter">
+                        <div class="consolidation-meter-header">
+                            <span>🏛️ Peak Progress</span>
+                            <span id="consolidationMeterLabel">—</span>
+                        </div>
+                        <div class="consolidation-meter-track">
+                            <div class="consolidation-meter-fill" id="consolidationMeterFill"></div>
+                        </div>
+                        <div class="consolidation-meter-hint" id="consolidationMeterHint"></div>
+                    </div>
+
+                    <div class="vital-chips">
+                        <div class="chip"><span class="chip-label">⚡ Qi</span><span class="chip-value" id="qiStat">10/10</span></div>
+                        <div class="chip"><span class="chip-label">💧 Density</span><span class="chip-value" id="qiDensityStat">1.0</span></div>
+                        <div class="chip"><span class="chip-label">❤️ Vit</span><span class="chip-value" id="vitStat">4</span></div>
+                        <div class="chip"><span class="chip-label">🧠 Spi</span><span class="chip-value" id="spiStat">5</span></div>
+                        <div class="chip"><span class="chip-label">💪 Will</span><span class="chip-value" id="wilStat">3</span></div>
+                        <div class="chip"><span class="chip-label">❤️ HP</span><span class="chip-value" id="hpStat">70</span></div>
+                        <div class="chip"><span class="chip-label">🛡️ Shield</span><span class="chip-value" id="shieldStat">0</span></div>
+                    </div>
+
+                    <div class="meta-strip">
+                        <span><span class="meta-label">⏳</span> <span id="ageDisplay">16y</span></span>
+                        <span><span class="meta-label">🕯️</span> <span id="lifespanDisplay">80y</span></span>
+                        <span class="trait-meta" id="traitDisplay" title="Starting trait">🍀 Heavenly Luck</span>
+                        <span><span class="meta-label">💎</span> <span id="stonesStat">20</span></span>
+                        <span><span class="meta-label">💊</span> <span id="pillsStat">3</span></span>
+                        <span class="alignment-meta"><span class="meta-label">☯️</span> <span id="daoAlignmentDisplay">0 (Neutral)</span></span>
+                    </div>
+
+                    <div id="sidebarGearStrip" class="sidebar-gear-strip" title="Equipped gear — open Inventory for details"></div>
+
+                    <button type="button" id="btnStatsToggle" class="details-toggle">More stats ▼</button>
+                    <button type="button" id="btnStatGuide" class="details-toggle stat-guide-btn">❓ What do stats mean?</button>
+                    <button type="button" id="btnTutorialLog" class="details-toggle tutorial-log-btn">📖 Cultivation Lessons</button>
+                    <div id="advancedStats" class="advanced-stats">
+                        <div class="stat-item"><span class="label">🎭 Trait</span><span class="value" id="traitStatDisplay">—</span></div>
+                        <div class="stat-item"><span class="label">☯️ Dao Alignment</span><span class="value" id="daoAlignmentStat">0 (Neutral)</span></div>
+                        <div class="stat-item"><span class="label">⭐ Fame</span><span class="value" id="fameDisplay">0</span></div>
+                        <div class="stat-item"><span class="label">🏯 Sect</span><span class="value" id="sectNameDisplay">None</span></div>
+                        <div class="stat-item"><span class="label">🗺️ Zone</span><span class="value" id="currentZoneStatus">Heartlands</span></div>
+                        <div class="stat-item"><span class="label">📚 Techniques</span><span class="value" id="techCountStat">0</span></div>
+                        <div class="stat-item"><span class="label">☯️ Meridians</span><span class="value" id="meridianDisplay">0/13</span></div>
+                        <div class="stat-item"><span class="label">🧬 Physique</span><span class="value" id="physiqueDisplay">None</span></div>
+                        <div class="stat-item"><span class="label">🗡️ Intent</span><span class="value" id="intentDisplay">None</span></div>
+                        <div class="stat-item"><span class="label">📜 Dao</span><span class="value" id="daoDisplay">None</span></div>
+                        <div class="stat-item"><span class="label">Foundation</span><span class="value" id="foundationDisplay">0</span></div>
+                        <div class="stat-item"><span class="label">🏛️ Consolidation</span><span class="value" id="consolidationDisplay">—</span></div>
+                        <div class="stat-item"><span class="label">Next Realm</span><span class="value" id="nextRealm">Foundation</span></div>
+                        <div class="stat-item"><span class="label">Break Chance</span><span class="value" id="breakChance">40%</span></div>
+                        <div class="stat-item"><span class="label">🧑‍🎓 Disciples</span><span class="value" id="discipleCountDisplay">0</span></div>
+                        <div class="stat-item"><span class="label">⚡ Tribulations</span><span class="value" id="tribulationCountDisplay">0</span></div>
+                        <div class="stat-item stat-item-marks" title="Hover or click a mark for details"><span class="label">🩸 Marks</span><span class="value mark-value" id="tribulationMarksDisplay">None</span></div>
+                        <div class="stat-item stat-item-marks" title="Permanent perfect-breakthrough blessings"><span class="label">🌟 Transcendence</span><span class="value mark-value" id="transcendencePerksDisplay">None</span></div>
+                    </div>
+                    <div id="tribulationCueBanner" class="tribulation-cue hidden" role="status"></div>
+                    <div id="perfectDisplay" class="perfect-text"></div>
+                </section>
+
+                <section class="actions-panel">
+                    <div class="actions-panel-core">
+                        <div class="action-group">
+                            <div class="action-group-label">Cultivation</div>
+                            <div class="actions-row">
+                                <button id="btnCultivate" title="Choose Qi, Body, or Soul cultivation">🧘 Cultivate</button>
+                                <button id="btnConsolidate" title="Consolidate at realm peak for Foundation">🏛️ Consolidate</button>
+                                <button id="btnBreakthrough" title="2 years · requires consolidation">🌀 Break</button>
+                                <button id="btnRecuperate" title="3 months · heal HP & barrier">🛌 Recuperate</button>
+                            </div>
+                            <div class="actions-row actions-row-sub" style="margin-top:6px;">
+                                <button id="btnMeridian">☯️ Meridians</button>
+                                <button id="btnDao">📜 Dao</button>
+                                <button id="btnIntent">🗡️ Intent</button>
+                            </div>
+                        </div>
+                        <div class="action-group">
+                            <div class="action-group-label">Arts &amp; Gear</div>
+                            <div class="actions-row actions-row-wrap">
+                                <button id="btnTech">📚 Techs</button>
+                                <button id="btnPhysique">🧬 Physique</button>
+                                <button id="btnPill" title="Choose a pill to consume">💊 Pills</button>
+                                <button id="btnInventory">🎒 Inventory</button>
+                            </div>
+                        </div>
+                        <div class="action-group">
+                            <div class="action-group-label">World</div>
+                            <div class="actions-row">
+                                <button id="btnExplore" title="4 months · loot & manuals">🌿 Explore</button>
+                                <button id="btnSearch" title="4 months · find sealed entrances">🔍 Search</button>
+                                <button id="btnMap" title="8 months to travel">🗺️ Map</button>
+                                <button id="btnMarket" title="Markets in Heartlands & Jade">🏪 Market</button>
+                                <button id="btnCombat" title="2 months + battle time">⚔️ Fight</button>
+                            </div>
+                            <div class="actions-row" style="margin-top:6px;">
+                                <button id="btnForbidden" title="Forbidden grounds">🌑 Forbidden</button>
+                            </div>
+                        </div>
+                        <div class="action-group action-group-sect">
+                            <div class="action-group-label">Sect &amp; People</div>
+                            <div class="actions-row">
+                                <button id="btnRecruit" title="1 year · requires founded sect">👤 Recruit</button>
+                                <button id="btnSect">🏯 Sect</button>
+                                <button id="btnFactions" title="Zone power structures & reputation">⚖️ Factions</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions-panel-people">
+                        <div class="action-group" id="questLogGroup">
+                            <div class="action-group-label">Quests</div>
+                            <div id="questLogList" class="quest-log-list">
+                                <p class="quest-log-empty">No active quests.</p>
+                            </div>
+                            <button type="button" id="btnQuestJournal" class="details-toggle quest-journal-btn">📖 Cultivation Chronicle</button>
+                        </div>
+                        <div class="action-group" id="npcPresenceGroup">
+                            <div class="action-group-label">Other People</div>
+                            <div id="npcPresenceList" class="npc-presence-list">
+                                <p class="npc-presence-empty">No one notable nearby.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="playtest-panel" id="playtestPanel">
+                        <button type="button" id="playtestToggle" class="playtest-toggle details-toggle">📝 Playtest notes ▼</button>
+                        <div id="playtestBody" class="playtest-body">
+                            <p class="playtest-hint">Bugs, balance, ideas — saved in this browser. Export when you want to send them over.</p>
+                            <label class="playtest-label" for="playtestTester">Your name (optional)</label>
+                            <input type="text" id="playtestTester" class="playtest-tester-input" maxlength="32" placeholder="e.g. Alex" autocomplete="nickname" />
+                            <div class="playtest-compose">
+                                <select id="playtestCategory" class="playtest-category" aria-label="Note type">
+                                    <option value="bug">🐛 Bug</option>
+                                    <option value="idea">💡 Idea</option>
+                                    <option value="balance">⚖️ Balance</option>
+                                    <option value="note">📝 Note</option>
+                                </select>
+                                <textarea id="playtestInput" class="playtest-input" rows="3" maxlength="2000" placeholder="What happened? What felt off? Ctrl+Enter to save."></textarea>
+                                <button type="button" id="playtestAdd" class="playtest-add-btn">Add note</button>
+                            </div>
+                            <ul id="playtestList" class="playtest-list"></ul>
+                            <div class="playtest-export-row">
+                                <button type="button" id="playtestCopy" class="playtest-export-btn">📋 Copy all</button>
+                                <button type="button" id="playtestDownload" class="playtest-export-btn">💾 Download .txt</button>
+                                <button type="button" id="playtestClear" class="playtest-export-btn playtest-clear-btn">🗑️ Clear</button>
+                            </div>
+                            <p id="playtestStatus" class="playtest-status" aria-live="polite"></p>
+                        </div>
+                    </section>
+                    <button id="btnReset" class="btn-danger btn-reset">↺ Reset Journey</button>
+                </section>
+            </aside>
+
+            <!-- RIGHT: scene / context -->
+            <main class="scene-panel">
+                <div class="scene-visual" id="sceneVisual" aria-hidden="true"></div>
+
+                <div class="scene-header">
+                    <div class="scene-emoji" id="sceneEmoji">🏜️</div>
+                    <div>
+                        <h2 class="scene-zone-name" id="sceneZoneName">Dustbone Desert</h2>
+                        <p class="scene-zone-biome" id="sceneZoneBiome">Scorched Sands</p>
+                    </div>
+                </div>
+                <p class="scene-desc" id="sceneZoneDesc">Endless dunes and the bones of fallen civilizations.</p>
+
+                <div class="scene-cards">
+                    <div class="scene-card">
+                        <div class="scene-card-label">Cultivator</div>
+                        <div class="scene-card-value" id="sceneCultivator">Wandering Immortal</div>
+                        <div class="scene-card-sub" id="scenePath">Qi Cultivation</div>
+                    </div>
+                    <div class="scene-card">
+                        <div class="scene-card-label">Next Breakthrough</div>
+                        <div class="scene-card-value" id="sceneBreakRealm">Foundation Establishment</div>
+                        <div class="scene-card-sub" id="sceneBreakChance">45% chance</div>
+                    </div>
+                    <div class="scene-card">
+                        <div class="scene-card-label">Sect</div>
+                        <div class="scene-card-value" id="sceneSect">None</div>
+                        <div class="scene-card-sub" id="sceneDisciples">0 disciples</div>
+                        <div class="scene-card-sub scene-sect-influence" id="sceneSectInfluence" style="display:none;"></div>
+                    </div>
+                    <div class="scene-card">
+                        <div class="scene-card-label">Foundation</div>
+                        <div class="scene-card-value" id="sceneFoundation">0</div>
+                        <div class="scene-card-sub" id="sceneFame">Unknown · 0 fame</div>
+                        <div class="scene-card-sub" id="sceneFaction" style="display:none;"></div>
+                    </div>
+                    <div class="scene-card scene-card-wide" id="sceneNpcCard" style="display:none;">
+                        <div class="scene-card-label">People Here</div>
+                        <div class="scene-card-value" id="sceneNpcs">—</div>
+                        <div class="scene-card-sub">Tap a name in the sidebar to speak with them</div>
+                    </div>
+                    <div class="scene-card scene-card-wide">
+                        <div class="scene-card-label">Forbidden Grounds</div>
+                        <div class="scene-card-value" id="sceneForbidden">0/7 · 0/7</div>
+                        <div class="scene-card-sub">Search zones · enter at Nascent Soul</div>
+                    </div>
+                </div>
+
+                <blockquote class="scene-quote" id="sceneQuote">"The path of immortality begins with a single breath."</blockquote>
+
+                <div class="scene-latest">
+                    <div class="scene-card-label">Latest Event</div>
+                    <p id="sceneLastEvent">Your journey awaits...</p>
+                </div>
+            </main>
+        </div>
+
+        <!-- Compact log — bottom right, expandable upward -->
+        <section class="log-panel" id="logPanel">
+            <div class="log-header">
+                <span class="log-title">📜 Event Log</span>
+                <button type="button" id="btnLogExpand" class="log-toggle" title="Expand log">⬆ Expand</button>
+            </div>
+            <div id="log"></div>
+        </section>
+    </div>
+</div>
+
+<!-- ===== POPUPS ===== -->
+<div id="tutorialSpotlight" class="tutorial-spotlight" aria-hidden="true">
+    <div id="tutorialHighlightRing" class="tutorial-highlight-ring"></div>
+</div>
+
+<div class="popup-overlay" id="tutorialPopup">
+    <div class="popup-box tutorial-box">
+        <h2 id="tutorialTitle">🌱 First Steps</h2>
+        <p class="tutorial-text" id="tutorialText"></p>
+        <button type="button" class="tutorial-learn-toggle" id="tutorialLearnMore" aria-expanded="false">Learn More ▼</button>
+        <p class="tutorial-learn-body" id="tutorialLearnBody" hidden></p>
+        <button type="button" class="close-btn tutorial-dismiss" id="tutorialDismiss">I Understand</button>
+        <button type="button" class="tutorial-skip-veteran" id="tutorialSkipVeteran" hidden>I know the path — skip all lessons</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="tutorialLogPopup">
+    <div class="popup-box tutorial-log-box">
+        <h2>📖 Cultivation Lessons</h2>
+        <p class="tutorial-log-summary" id="tutorialLogSummary">0/7 lessons learned</p>
+        <div id="tutorialLogList" class="tutorial-log-list"></div>
+        <button type="button" class="close-btn" id="tutorialLogClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="forbiddenPopup">
+    <div class="popup-box forbidden-box">
+        <h2>🌑 Forbidden Grounds</h2>
+        <p class="forbidden-summary" id="forbiddenSummary">0/7 discovered · 0/7 cleared</p>
+        <p class="forbidden-hint" id="forbiddenHint">Search while in a zone (Core Formation+) to uncover clues.</p>
+        <div id="forbiddenList"></div>
+        <button type="button" class="popup-item" id="btnForbiddenSearch" style="width:100%;text-align:center;margin-top:8px;">
+            <div class="name">🔍 Search This Zone</div>
+            <div class="desc">6 months · rumors &amp; fragments</div>
+        </button>
+        <button class="close-btn" id="forbiddenClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="gardenOverlay">
+    <div class="popup-box garden-box">
+        <h2 id="gardenTitle">🥀 Ashen Garden</h2>
+        <p class="garden-decay" id="gardenDecay">🥀 Decay: 0 / 12</p>
+        <p class="garden-intro" id="gardenIntro"></p>
+        <p class="garden-text" id="gardenText"></p>
+        <div id="gardenChoices" class="garden-choices"></div>
+        <button class="close-btn" id="gardenQuit">Flee the Garden</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="silenceOverlay">
+    <div class="popup-box silence-box">
+        <h2 id="silenceTitle">🏔️ Silent Mountain</h2>
+        <p class="silence-meter" id="silenceMeter">🔇 Noise: 0 / 10</p>
+        <p class="silence-intro" id="silenceIntro"></p>
+        <p class="silence-text" id="silenceText"></p>
+        <div id="silenceChoices" class="silence-choices"></div>
+        <button class="close-btn" id="silenceQuit">Descend the Mountain</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="mawOverlay">
+    <div class="popup-box maw-box">
+        <h2 id="mawTitle">👄 Whispering Maw</h2>
+        <p class="maw-meter" id="mawMeter">👄 Doubt: 0 / 8</p>
+        <p class="maw-intro" id="mawIntro"></p>
+        <p class="maw-text" id="mawText"></p>
+        <div id="mawChoices" class="maw-choices"></div>
+        <button class="close-btn" id="mawQuit">Flee the Maw</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="templeOverlay">
+    <div class="popup-box temple-box">
+        <h2 id="templeTitle">🏛️ Sunken Temple</h2>
+        <p class="temple-meter" id="templeMeter">🔁 Loops: 0 / 3</p>
+        <p class="temple-intro" id="templeIntro"></p>
+        <p class="temple-text" id="templeText"></p>
+        <div id="templeChoices" class="temple-choices"></div>
+        <button class="close-btn" id="templeQuit">Surface Early</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="observatoryOverlay">
+    <div class="popup-box observatory-box">
+        <h2 id="observatoryTitle">🔭 Celestial Observatory</h2>
+        <p class="observatory-meter" id="observatoryMeter">🔭 Scrutiny: 0 / 5</p>
+        <p class="observatory-intro" id="observatoryIntro"></p>
+        <p class="observatory-text" id="observatoryText"></p>
+        <div id="observatoryChoices" class="observatory-choices"></div>
+        <button class="close-btn" id="observatoryQuit">Descend the Tower</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="encounterOverlay">
+    <div class="popup-box encounter-box">
+        <h2 id="encounterTitle">⚡ Encounter</h2>
+        <p class="encounter-text" id="encounterText"></p>
+        <div id="encounterChoices" class="encounter-choices"></div>
+        <button class="close-btn" id="encounterQuit">Walk Away</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="questPopup">
+    <div class="popup-box quest-box">
+        <h2 id="questPopupTitle">📜 Quest</h2>
+        <p class="quest-stage-label" id="questPopupStage"></p>
+        <p class="quest-popup-hint" id="questPopupHint"></p>
+        <p class="quest-popup-text" id="questPopupText"></p>
+        <div id="questPopupChoices" class="quest-popup-choices"></div>
+        <button type="button" class="close-btn" id="questPopupClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="combatRewardPopup">
+    <div class="popup-box combat-reward-box">
+        <h2 id="combatRewardTitle">⚔️ Victory</h2>
+        <p class="combat-reward-sub" id="combatRewardSub"></p>
+        <ul id="combatRewardList" class="combat-reward-list"></ul>
+        <button type="button" class="close-btn" id="combatRewardClose">Continue</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="questJournalPopup">
+    <div class="popup-box quest-journal-box">
+        <h2>📖 Cultivation Chronicle</h2>
+        <p class="quest-journal-hint" id="questJournalHint">Your saga, sect duties, and world leads.</p>
+        <div class="quest-journal-tabs" id="questJournalTabs">
+            <button type="button" class="journal-tab active" data-journal-tab="all">All</button>
+            <button type="button" class="journal-tab" data-journal-tab="faction">⚖️ Factions</button>
+            <button type="button" class="journal-tab" data-journal-tab="faction-chronicle">📜 Faction Log</button>
+            <button type="button" class="journal-tab" data-journal-tab="ancient">🔒 Sealed Sites</button>
+            <button type="button" class="journal-tab" data-journal-tab="active">Active</button>
+            <button type="button" class="journal-tab" data-journal-tab="sect">Sect</button>
+            <button type="button" class="journal-tab" data-journal-tab="world">World</button>
+            <button type="button" class="journal-tab" data-journal-tab="arc">Arcs</button>
+        </div>
+        <div id="questJournalList" class="quest-journal-list"></div>
+        <button type="button" class="close-btn" id="questJournalClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="ancientBargainPopup">
+    <div class="popup-box ancient-bargain-box">
+        <h2 id="ancientBargainTitle">🔒 Ancient Bargain</h2>
+        <p id="ancientBargainText" class="ancient-bargain-text"></p>
+        <div id="ancientBargainChoices" class="ancient-bargain-choices"></div>
+        <button type="button" class="close-btn" id="ancientBargainClose">Decide later (defaults to honor)</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="factionsPopup">
+    <div class="popup-box factions-box">
+        <h2>⚖️ Factions of the Azure Sky</h2>
+        <p class="factions-hint" id="factionsHint">Power structures, reputation, and zone politics.</p>
+        <div id="factionsInfo" class="factions-info"></div>
+        <button type="button" class="close-btn" id="factionsClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="factionPlotPopup">
+    <div class="popup-box faction-plot-box">
+        <h2 id="factionPlotTitle">Faction Crisis</h2>
+        <p id="factionPlotText" class="faction-plot-text"></p>
+        <div id="factionPlotChoices" class="faction-plot-choices"></div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="inventoryPopup">
+    <div class="popup-box inventory-box">
+        <h2>🎒 Inventory &amp; Gear</h2>
+        <p class="inventory-summary" id="inventorySummary">Your pouches are empty.</p>
+        <div id="gearBonusPanel" class="gear-bonus-panel-wrap"></div>
+        <div id="gearSlotsGrid" class="gear-slots-grid"></div>
+        <div id="inventoryList"></div>
+        <button class="close-btn" id="inventoryClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="markDetailPopup">
+    <div class="popup-box mark-detail-box">
+        <h2 id="markDetailTitle">🩸 Tribulation Mark</h2>
+        <p class="mark-detail-kind" id="markDetailKind"></p>
+        <p class="mark-detail-flavor" id="markDetailFlavor"></p>
+        <div class="mark-detail-effects" id="markDetailEffects"></div>
+        <button class="close-btn" id="markDetailClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="cultivationHubOverlay">
+    <div class="cultivation-hub-shell">
+        <header class="cultivation-hub-header">
+            <h2 class="cultivation-hub-title">🧘 Cultivation Paths</h2>
+            <p class="cultivation-hub-subtitle">No cultivator is bound to a single road. Choose where to refine yourself today.</p>
+            <p class="cultivation-hub-path-note">Primary path: <span id="cultivationHubPrimaryPath">—</span></p>
+        </header>
+        <div class="cultivation-hub-choices">
+            <button type="button" class="cultivation-hub-card" id="cultivationHubQi">
+                <span class="cultivation-hub-icon">⚡</span>
+                <span class="cultivation-hub-name">Qi Cultivation</span>
+                <span class="cultivation-hub-desc">Dantian, density, foundation — the chamber of breath and core.</span>
+            </button>
+            <button type="button" class="cultivation-hub-card" id="cultivationHubBody">
+                <span class="cultivation-hub-icon">💪</span>
+                <span class="cultivation-hub-name">Body Cultivation</span>
+                <span class="cultivation-hub-desc">Skin to nerves — temper flesh, bone, blood, and meridians.</span>
+            </button>
+            <button type="button" class="cultivation-hub-card" id="cultivationHubSoul">
+                <span class="cultivation-hub-icon">🧠</span>
+                <span class="cultivation-hub-name">Soul Cultivation</span>
+                <span class="cultivation-hub-desc">Seven layers of consciousness — spirit, will, and the Dao within.</span>
+            </button>
+        </div>
+        <button type="button" class="cultivation-hub-close" id="cultivationHubClose">Cancel</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="soulChamberOverlay">
+    <div class="soul-chamber-shell">
+        <header class="soul-chamber-header">
+            <h2 class="soul-chamber-title">🧠 Soul Cultivation Chamber</h2>
+            <p class="soul-chamber-subtitle">Look inward — refine spirit, will, and the Dao within.</p>
+            <p class="soul-chamber-bonus-summary" id="soulChamberBonusSummary"></p>
+        </header>
+
+        <div class="soul-chamber-main">
+            <div class="soul-chamber-visual-col">
+                <div class="soul-visual-wrap" id="soulVisualWrap" data-layer="awakened">
+                    <div class="soul-visual-stars" aria-hidden="true"></div>
+                    <div class="soul-visual-nebula" id="soulVisualNebula">
+                        <div class="soul-nebula-halo"></div>
+                        <div class="soul-nebula-core"></div>
+                        <div class="soul-nebula-orbit soul-nebula-orbit-a"></div>
+                        <div class="soul-nebula-orbit soul-nebula-orbit-b"></div>
+                        <div class="soul-nebula-orbit soul-nebula-orbit-c"></div>
+                    </div>
+                </div>
+                <div class="soul-chamber-layer-progress">
+                    <div class="soul-chamber-stat-head">
+                        <span class="soul-chamber-stat-label" id="soulLayerProgressLabel">Awakened Spirit — 0%</span>
+                    </div>
+                    <div class="soul-chamber-bar-track">
+                        <div class="soul-chamber-bar-fill" id="soulLayerProgressBar"></div>
+                    </div>
+                </div>
+                <div class="soul-chamber-abilities" id="soulChamberAbilities"></div>
+            </div>
+
+            <div class="soul-chamber-actions-col">
+                <nav class="soul-chamber-tabs" id="soulChamberTabs"></nav>
+                <div class="soul-chamber-actions" id="soulChamberActions"></div>
+            </div>
+        </div>
+
+        <button type="button" class="chamber-btn chamber-btn-return" id="soulChamberReturn">↩ Return</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="bodyChamberOverlay">
+    <div class="body-chamber-shell">
+        <header class="body-chamber-header">
+            <h2 class="body-chamber-title">💪 Body Cultivation Chamber</h2>
+            <p class="body-chamber-subtitle">Refine your form layer by layer — from skin to nerves.</p>
+            <p class="body-chamber-bonus-summary" id="bodyChamberBonusSummary"></p>
+        </header>
+
+        <div class="body-chamber-main">
+            <div class="body-chamber-silhouette-col">
+                <div class="body-silhouette-wrap" id="bodySilhouetteWrap">
+                    <svg class="body-silhouette-svg" viewBox="0 0 206.326 206.326" role="img" aria-label="Interactive body cultivation silhouette">
+                        <defs>
+                            <path id="body-silhouette-path" d="M104.265,117.959c-0.304,3.58,2.126,22.529,3.38,29.959c0.597,3.52,2.234,9.255,1.645,12.3c-0.841,4.244-1.084,9.736-0.621,12.934c0.292,1.942,1.211,10.899-0.104,14.175c-0.688,1.718-1.949,10.522-1.949,10.522c-3.285,8.294-1.431,7.886-1.431,7.886c1.017,1.248,2.759,0.098,2.759,0.098c1.327,0.846,2.246-0.201,2.246-0.201c1.139,0.943,2.467-0.116,2.467-0.116c1.431,0.743,2.758-0.627,2.758-0.627c0.822,0.414,1.023-0.109,1.023-0.109c2.466-0.158-1.376-8.05-1.376-8.05c-0.92-7.088,0.913-11.033,0.913-11.033c6.004-17.805,6.309-22.53,3.909-29.24c-0.676-1.937-0.847-2.704-0.536-3.545c0.719-1.941,0.195-9.748,1.072-12.848c1.692-5.979,3.361-21.142,4.231-28.217c1.169-9.53-4.141-22.308-4.141-22.308c-1.163-5.2,0.542-23.727,0.542-23.727c2.381,3.705,2.29,10.245,2.29,10.245c-0.378,6.859,5.541,17.342,5.541,17.342c2.844,4.332,3.921,8.442,3.921,8.747c0,1.248-0.273,4.269-0.273,4.269l0.109,2.631c0.049,0.67,0.426,2.977,0.365,4.092c-0.444,6.862,0.646,5.571,0.646,5.571c0.92,0,1.931-5.522,1.931-5.522c0,1.424-0.348,5.687,0.42,7.295c0.919,1.918,1.595-0.329,1.607-0.78c0.243-8.737,0.768-6.448,0.768-6.448c0.511,7.088,1.139,8.689,2.265,8.135c0.853-0.407,0.073-8.506,0.073-8.506c1.461,4.811,2.569,5.577,2.569,5.577c2.411,1.693,0.92-2.983,0.585-3.909c-1.784-4.92-1.839-6.625-1.839-6.625c2.229,4.421,3.909,4.257,3.909,4.257c2.174-0.694-1.9-6.954-4.287-9.953c-1.218-1.528-2.789-3.574-3.245-4.789c-0.743-2.058-1.304-8.674-1.304-8.674c-0.225-7.807-2.155-11.198-2.155-11.198c-3.3-5.282-3.921-15.135-3.921-15.135l-0.146-16.635c-1.157-11.347-9.518-11.429-9.518-11.429c-8.451-1.258-9.627-3.988-9.627-3.988c-1.79-2.576-0.767-7.514-0.767-7.514c1.485-1.208,2.058-4.415,2.058-4.415c2.466-1.891,2.345-4.658,1.206-4.628c-0.914,0.024-0.707-0.733-0.707-0.733C115.068,0.636,104.01,0,104.01,0h-1.688c0,0-11.063,0.636-9.523,13.089c0,0,0.207,0.758-0.715,0.733c-1.136-0.03-1.242,2.737,1.215,4.628c0,0,0.572,3.206,2.058,4.415c0,0,1.023,4.938-0.767,7.514c0,0-1.172,2.73-9.627,3.988c0,0-8.375,0.082-9.514,11.429l-0.158,16.635c0,0-0.609,9.853-3.922,15.135c0,0-1.921,3.392-2.143,11.198c0,0-0.563,6.616-1.303,8.674c-0.451,1.209-2.021,3.255-3.249,4.789c-2.408,2.993-6.455,9.24-4.29,9.953c0,0,1.689,0.164,3.909-4.257c0,0-0.046,1.693-1.827,6.625c-0.35,0.914-1.839,5.59,0.573,3.909c0,0,1.117-0.767,2.569-5.577c0,0-0.779,8.099,0.088,8.506c1.133,0.555,1.751-1.047,2.262-8.135c0,0,0.524-2.289,0.767,6.448c0.012,0.451,0.673,2.698,1.596,0.78c0.779-1.608,0.429-5.864,0.429-7.295c0,0,0.999,5.522,1.933,5.522c0,0,1.099,1.291,0.648-5.571c-0.073-1.121,0.32-3.422,0.369-4.092l0.106-2.631c0,0-0.274-3.014-0.274-4.269c0-0.311,1.078-4.415,3.921-8.747c0,0,5.913-10.488,5.532-17.342c0,0-0.082-6.54,2.299-10.245c0,0,1.69,18.526,0.545,23.727c0,0-5.319,12.778-4.146,22.308c0.864,7.094,2.53,22.237,4.226,28.217c0.886,3.094,0.362,10.899,1.072,12.848c0.32,0.847,0.152,1.627-0.536,3.545c-2.387,6.71-2.083,11.436,3.921,29.24c0,0,1.848,3.945,0.914,11.033c0,0-3.836,7.892-1.379,8.05c0,0,0.192,0.523,1.023,0.109c0,0,1.327,1.37,2.761,0.627c0,0,1.328,1.06,2.463,0.116c0,0,0.91,1.047,2.237,0.201c0,0,1.742,1.175,2.777-0.098c0,0,1.839,0.408-1.435-7.886c0,0-1.254-8.793-1.945-10.522c-1.318-3.275-0.387-12.251-0.106-14.175c0.453-3.216,0.21-8.695-0.618-12.934c-0.606-3.038,1.035-8.774,1.641-12.3c1.245-7.423,3.685-26.373,3.38-29.959l1.008,0.354C103.809,118.312,104.265,117.959,104.265,117.959z"/>
+                            <mask id="body-mask-head" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 48,37 C 68,33 86,41 103,41 C 120,41 138,33 158,37 L 206,206 L 0,206 Z"/>
+                            </mask>
+                            <mask id="body-mask-spine" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,28 L 0,28 Z"/>
+                                <path fill="black" d="M 0,28 L 99,28 L 99,206 L 0,206 Z"/>
+                                <path fill="black" d="M 107,28 L 206,28 L 206,206 L 107,206 Z"/>
+                            </mask>
+                            <mask id="body-mask-ribs" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,39 L 0,39 Z"/>
+                                <path fill="black" d="M 0,39 L 74,39 C 78,55 82,78 84,96 L 0,96 Z"/>
+                                <path fill="black" d="M 206,39 L 132,39 C 128,55 124,78 122,96 L 206,96 Z"/>
+                                <path fill="black" d="M 54,94 C 70,98 86,100 103,100 C 120,100 136,98 152,94 L 164,206 L 42,206 Z"/>
+                            </mask>
+                            <mask id="body-mask-arm-l" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,36 L 0,36 Z"/>
+                                <path fill="black" d="M 82,36 C 92,50 98,72 100,96 L 206,96 L 206,206 L 0,206 L 0,96 L 72,96 C 74,72 78,52 82,36 Z"/>
+                            </mask>
+                            <mask id="body-mask-arm-r" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,36 L 0,36 Z"/>
+                                <path fill="black" d="M 124,36 C 114,50 108,72 106,96 L 0,96 L 0,206 L 206,206 L 206,96 L 134,96 C 132,72 128,52 124,36 Z"/>
+                            </mask>
+                            <mask id="body-mask-hand-l" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,82 L 0,82 Z"/>
+                                <path fill="black" d="M 88,82 L 206,82 L 206,206 L 0,206 L 0,110 L 82,110 C 84,98 86,88 88,82 Z"/>
+                            </mask>
+                            <mask id="body-mask-hand-r" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,82 L 0,82 Z"/>
+                                <path fill="black" d="M 118,82 L 0,82 L 0,206 L 206,206 L 206,110 L 124,110 C 122,98 120,88 118,82 Z"/>
+                            </mask>
+                            <mask id="body-mask-leg-l" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,98 L 0,98 Z"/>
+                                <path fill="black" d="M 103,98 L 206,98 L 206,206 L 103,206 Z"/>
+                            </mask>
+                            <mask id="body-mask-leg-r" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,98 L 0,98 Z"/>
+                                <path fill="black" d="M 0,98 L 103,98 L 103,206 L 0,206 Z"/>
+                            </mask>
+                            <mask id="body-mask-foot-l" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,178 L 0,178 Z"/>
+                                <path fill="black" d="M 103,178 L 206,178 L 206,206 L 103,206 Z"/>
+                            </mask>
+                            <mask id="body-mask-foot-r" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                                <path fill="black" d="M 0,0 L 206,0 L 206,178 L 0,178 Z"/>
+                                <path fill="black" d="M 0,178 L 103,178 L 103,206 L 0,206 Z"/>
+                            </mask>
+                            <mask id="body-mask-silhouette-only" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
+                                <rect width="206.326" height="206.326" fill="black"/>
+                                <use href="#body-silhouette-path" fill="white"/>
+                            </mask>
+                        </defs>
+                        <g class="body-sil-base" aria-hidden="true">
+                            <use href="#body-silhouette-path" class="body-sil-base-shape"/>
+                        </g>
+                        <g class="body-sil-regions">
+                            <g class="body-sil-region" id="foot-l" data-region="foot-l" role="button" tabindex="0" aria-label="Left foot">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-foot-l)"/>
+                                <ellipse class="body-sil-hit" cx="80" cy="198" rx="17" ry="8"/>
+                            </g>
+                            <g class="body-sil-region" id="foot-r" data-region="foot-r" role="button" tabindex="0" aria-label="Right foot">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-foot-r)"/>
+                                <ellipse class="body-sil-hit" cx="126" cy="198" rx="17" ry="8"/>
+                            </g>
+                            <g class="body-sil-region" id="leg-l" data-region="leg-l" role="button" tabindex="0" aria-label="Left leg">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-leg-l)"/>
+                                <path class="body-sil-hit" d="M68,178 L82,95 L102,98 L100,145 L88,192 Z"/>
+                            </g>
+                            <g class="body-sil-region" id="leg-r" data-region="leg-r" role="button" tabindex="0" aria-label="Right leg">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-leg-r)"/>
+                                <path class="body-sil-hit" d="M138,178 L124,95 L104,98 L106,145 L118,192 Z"/>
+                            </g>
+                            <g class="body-sil-region" id="hand-l" data-region="hand-l" role="button" tabindex="0" aria-label="Left hand">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-hand-l)"/>
+                                <ellipse class="body-sil-hit" cx="76" cy="94" rx="13" ry="11"/>
+                            </g>
+                            <g class="body-sil-region" id="hand-r" data-region="hand-r" role="button" tabindex="0" aria-label="Right hand">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-hand-r)"/>
+                                <ellipse class="body-sil-hit" cx="130" cy="94" rx="13" ry="11"/>
+                            </g>
+                            <g class="body-sil-region" id="arm-l" data-region="arm-l" role="button" tabindex="0" aria-label="Left arm">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-arm-l)"/>
+                                <path class="body-sil-hit" d="M56,38 L88,40 L94,72 L86,98 L64,92 Z"/>
+                            </g>
+                            <g class="body-sil-region" id="arm-r" data-region="arm-r" role="button" tabindex="0" aria-label="Right arm">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-arm-r)"/>
+                                <path class="body-sil-hit" d="M150,38 L118,40 L112,72 L120,98 L142,92 Z"/>
+                            </g>
+                            <g class="body-sil-region" id="ribs" data-region="ribs" role="button" tabindex="0" aria-label="Torso and ribs">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-ribs)"/>
+                                <ellipse class="body-sil-hit" cx="103" cy="58" rx="30" ry="34"/>
+                            </g>
+                            <g class="body-sil-region" id="spine" data-region="spine" role="button" tabindex="0" aria-label="Spine">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-spine)"/>
+                                <rect class="body-sil-hit" x="99" y="26" width="8" height="78" rx="2"/>
+                            </g>
+                            <g class="body-sil-region" id="head" data-region="head" role="button" tabindex="0" aria-label="Head">
+                                <use href="#body-silhouette-path" class="body-sil-shape" mask="url(#body-mask-head)"/>
+                                <ellipse class="body-sil-hit" cx="103" cy="14" rx="14" ry="16"/>
+                            </g>
+                        </g>
+                        <g class="body-sil-top-overlays" aria-hidden="true">
+                            <g class="body-sil-skin-unified" id="bodySilSkinUnified">
+                                <use href="#body-silhouette-path" class="body-sil-skin-full"/>
+                            </g>
+                            <g class="body-sil-overlay body-sil-overlay-flesh" data-layer="flesh" id="bodySilFleshMuscles" mask="url(#body-mask-silhouette-only)"></g>
+                            <g class="body-sil-overlay body-sil-overlay-bones" data-layer="bones" id="bodySilBones" mask="url(#body-mask-silhouette-only)"></g>
+                            <g class="body-sil-overlay body-sil-overlay-organs" data-layer="organs" id="bodySilOrgans" mask="url(#body-mask-silhouette-only)"></g>
+                            <g class="body-sil-overlay body-sil-overlay-blood" data-layer="blood" id="bodySilBlood" mask="url(#body-mask-silhouette-only)"></g>
+                            <g class="body-sil-overlay body-sil-overlay-meridians" data-layer="meridians" id="bodySilMeridianChannels"></g>
+                            <g class="body-sil-overlay body-sil-overlay-meridians" data-layer="meridians" id="bodySilMeridianStars"></g>
+                            <g class="body-sil-overlay body-sil-overlay-nerves" data-layer="nerves" id="bodySilNerves" mask="url(#body-mask-silhouette-only)"></g>
+                        </g>
+                    </svg>
+                    <div id="bodySilTooltip" class="body-sil-tooltip" hidden></div>
+                </div>
+                <div class="body-chamber-layer-progress">
+                    <div class="body-chamber-stat-head">
+                        <span class="body-chamber-stat-label" id="bodyLayerProgressLabel">Skin — 0%</span>
+                    </div>
+                    <div class="body-chamber-bar-track">
+                        <div class="body-chamber-bar-fill" id="bodyLayerProgressBar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="body-chamber-panel">
+                <nav class="body-chamber-tabs" id="bodyChamberTabs"></nav>
+                <div class="body-chamber-actions" id="bodyChamberActions"></div>
+            </div>
+        </div>
+
+        <button type="button" class="body-chamber-btn body-chamber-btn-return" id="bodyChamberReturn">↩ Return</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="qiChamberOverlay">
+    <div class="chamber-shell">
+        <header class="chamber-header">
+            <h2 class="chamber-title">☯ Qi Cultivation Chamber</h2>
+            <p class="chamber-subtitle">The void hums. Your dantian awaits.</p>
+        </header>
+
+        <div class="chamber-stage" aria-hidden="true">
+            <div class="chamber-dantian-wrap" id="chamberDantianWrap">
+                <div class="chamber-orbit chamber-orbit-3">
+                    <div class="chamber-ring chamber-ring-3"></div>
+                </div>
+                <div class="chamber-orbit chamber-orbit-2">
+                    <div class="chamber-ring chamber-ring-2"></div>
+                </div>
+                <div class="chamber-orbit chamber-orbit-1">
+                    <div class="chamber-ring chamber-ring-1"></div>
+                </div>
+                <div class="chamber-core" id="chamberCore">
+                    <div class="chamber-core-inner"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chamber-stats">
+            <div class="chamber-stat">
+                <div class="chamber-stat-head">
+                    <span class="chamber-stat-label">Qi Density</span>
+                    <span class="chamber-stat-value" id="chamberDensityText">0</span>
+                </div>
+                <div class="chamber-bar-track">
+                    <div class="chamber-bar-fill chamber-bar-density" id="chamberDensityBar"></div>
+                </div>
+            </div>
+            <div class="chamber-stat">
+                <div class="chamber-stat-head">
+                    <span class="chamber-stat-label">Qi Capacity</span>
+                    <span class="chamber-stat-value" id="chamberCapacityText">0 / 0</span>
+                </div>
+                <div class="chamber-bar-track">
+                    <div class="chamber-bar-fill chamber-bar-capacity" id="chamberCapacityBar"></div>
+                </div>
+            </div>
+            <div class="chamber-stat">
+                <div class="chamber-stat-head">
+                    <span class="chamber-stat-label">Foundation</span>
+                    <span class="chamber-stat-value" id="chamberFoundationText">0</span>
+                </div>
+                <div class="chamber-bar-track">
+                    <div class="chamber-bar-fill chamber-bar-foundation" id="chamberFoundationBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chamber-tech-picker" id="chamberTechPicker" hidden>
+            <p class="chamber-tech-picker-label">Sacrifice a technique to anchor your foundation:</p>
+            <div class="chamber-tech-picker-list" id="chamberTechPickerList"></div>
+            <button type="button" class="chamber-btn chamber-btn-return" id="chamberTechPickerCancel">Cancel</button>
+        </div>
+
+        <div class="chamber-actions">
+            <button type="button" class="chamber-btn chamber-btn-primary" id="chamberGatherQi">🌬️ Gather Qi</button>
+            <button type="button" class="chamber-btn" id="chamberExpandDantian">🏺 Expand Dantian</button>
+            <button type="button" class="chamber-btn" id="chamberPerfectFoundation">🪨 Perfect Foundation</button>
+            <button type="button" class="chamber-btn chamber-btn-condense" id="chamberCondenseCore">💎 Condense Core</button>
+            <button type="button" class="chamber-btn chamber-btn-return" id="chamberReturn">↩ Return</button>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="combatOverlay">
+    <div class="popup-box combat-box">
+        <h2 class="combat-title">⚔️ COMBAT ⚔️</h2>
+
+        <div class="combat-layout">
+            <div class="combat-main">
+                <div class="combat-enemy-row">
+                    <span>🐉 <span id="enemyName">Demon Beast</span></span>
+                    <span class="combat-hp-text">❤️ <span id="enemyHp">30</span>/<span id="enemyMaxHp">30</span></span>
+                </div>
+                <div class="combat-bar-track combat-enemy-bar">
+                    <div class="combat-bar-fill enemy-fill" id="enemyHpBar"></div>
+                </div>
+
+                <div class="combat-player-header">
+                    <span>🧘 You</span>
+                    <span class="combat-hp-text">❤️ <span id="playerHp">70</span>/<span id="playerMaxHp">70</span></span>
+                </div>
+                <div class="combat-bar-track combat-hp-bar">
+                    <div class="combat-bar-fill hp-fill" id="playerHpBar"></div>
+                </div>
+
+                <div class="combat-resource-panel" id="combatResourcePanel">
+                    <div class="combat-resource-label">
+                        <span id="combatResourceIcon">🌬️</span>
+                        <span id="combatResourceName">Breath</span>
+                        <span class="combat-resource-nums" id="combatResourceText">40/40</span>
+                    </div>
+                    <div class="combat-bar-track resource-breath" id="combatResourceTrack">
+                        <div class="combat-bar-fill resource-fill" id="combatResourceBar"></div>
+                    </div>
+                </div>
+
+                <div class="combat-shield-row" id="combatShieldRow">
+                    <span id="combatShieldLabel">🛡️ Qi Barrier</span>
+                    <span><span id="playerShield">0</span>/<span id="playerMaxShield">0</span></span>
+                </div>
+
+                <div id="combatHitSummary" class="combat-hit-summary" aria-live="polite"></div>
+                <div id="combatBonusBar" class="combat-bonus-bar"></div>
+                <div id="combatPhaseHint" class="combat-phase-hint"></div>
+
+                <div class="combat-actions">
+                    <button class="combat-btn btn-attack" id="cbAttack">⚔️ Attack</button>
+                    <button class="combat-btn btn-secondary" id="cbSecondary">🛡️ Defend</button>
+                    <button class="combat-btn btn-skill" id="cbSkill">🌀 Tech</button>
+                    <button class="combat-btn btn-flee" id="cbFlee">🏃 Flee</button>
+                    <button class="combat-btn btn-void hidden" id="cbVoidStep">🌑 Void Step</button>
+                </div>
+            </div>
+
+            <aside class="combat-log-col">
+                <div class="combat-log-heading">📜 Battle Log</div>
+                <div id="combatLog" class="combat-log"></div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="techPopup">
+    <div class="popup-box">
+        <h2>📜 Techniques</h2>
+        <div class="tech-sort-bar" id="techSortBar">
+            <button type="button" class="tech-sort-btn active" data-tech-sort="path">By Path</button>
+            <button type="button" class="tech-sort-btn" data-tech-sort="element">By Element</button>
+            <button type="button" class="tech-sort-btn" data-tech-sort="category">By Type</button>
+        </div>
+        <div id="techAffinityPanel" class="tech-side-panel"></div>
+        <div id="techSetPanel" class="tech-side-panel"></div>
+        <div id="techList"></div>
+        <button class="close-btn" id="techClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="pillPopup">
+    <div class="popup-box">
+        <h2>💊 Pill Pouch</h2>
+        <p style="font-size:12px;color:#a09080;margin-bottom:8px;">Select a pill to consume.</p>
+        <div id="pillList"></div>
+        <button class="close-btn" id="pillClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="sectPopup">
+    <div class="popup-box sect-popup-box">
+        <h2>🏯 <span id="sectTitle">Your Sect</span></h2>
+        <div id="sectInfo" class="sect-info-scroll"></div>
+        <button class="close-btn" id="sectClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="sectEventPopup">
+    <div class="popup-box sect-event-box">
+        <h2 id="sectEventTitle">📋 Sect Event</h2>
+        <p class="sect-event-text" id="sectEventText"></p>
+        <div id="sectEventChoices" class="sect-event-choices"></div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="sectSuccessionPopup">
+    <div class="popup-box sect-succession-box">
+        <h2 id="sectSuccessionTitle">👑 Succession</h2>
+        <p class="sect-succession-text" id="sectSuccessionText"></p>
+        <div id="sectSuccessionChoices" class="sect-succession-choices"></div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="meridianPopup">
+    <div class="popup-box">
+        <h2>☯️ Meridians</h2>
+        <div style="font-size:12px;color:#a09080;margin-bottom:6px;">Open all 13 for the Primordial Vessel.</div>
+        <div id="meridianGrid" class="meridian-grid"></div>
+        <div id="meridianAction" style="margin:8px 0;"></div>
+        <button class="close-btn" id="meridianClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="physiquePopup">
+    <div class="popup-box">
+        <h2>🧬 Physiques</h2>
+        <div id="physiqueList"></div>
+        <button class="close-btn" id="physiqueClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="intentPopup">
+    <div class="popup-box">
+        <h2>🗡️ Weapon Intent</h2>
+        <div id="intentList"></div>
+        <button class="close-btn" id="intentClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="daoPopup">
+    <div class="popup-box">
+        <h2>📜 Dao Laws</h2>
+        <div id="daoList"></div>
+        <button class="close-btn" id="daoClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="tribulationOverlay">
+    <div class="popup-box tribulation-box">
+        <h2 id="tribulationTitle">⚡ Heavenly Tribulation</h2>
+        <p class="tribulation-phase" id="tribulationPhase">Phase I — Omen</p>
+        <p class="tribulation-meter" id="tribulationMeter"></p>
+        <p class="tribulation-scar-help">Hover <strong>scar risk</strong> for details. Scars are permanent tribulation marks — see your 🩸 Marks stat.</p>
+        <p class="tribulation-text" id="tribulationText"></p>
+        <div id="tribulationChoices" class="tribulation-choices"></div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="consolidatePopup">
+    <div class="popup-box consolidate-box">
+        <h2 id="consolidateTitle">🏛️ Consolidate</h2>
+        <p class="consolidate-peak" id="consolidatePeak"></p>
+        <p id="consolidateFeedback" class="consolidate-feedback" role="status"></p>
+        <div class="consolidate-section">
+            <div class="consolidate-section-label">Standard rite</div>
+            <div id="consolidateRequirements"></div>
+        </div>
+        <div class="consolidate-section">
+            <div class="consolidate-section-label">Perfect consolidation</div>
+            <div id="consolidatePerfectInfo"></div>
+        </div>
+        <div id="consolidateTechRow" class="consolidate-tech-row hidden">
+            <label for="consolidateTechSelect">Sacrifice technique:</label>
+            <select id="consolidateTechSelect"></select>
+        </div>
+        <div class="consolidate-actions">
+            <button type="button" class="popup-item consolidate-btn" id="consolidateConfirm">🏛️ Consolidate</button>
+            <button type="button" class="popup-item consolidate-btn perfect" id="consolidatePerfect">🌟 Perfect Consolidation</button>
+        </div>
+        <button class="close-btn" id="consolidateClose">Cancel</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="transcendencePerkPopup">
+    <div class="popup-box transcend-perk-box">
+        <h2>🌟 Transcendence</h2>
+        <p class="transcendence-perk-intro" id="transcendencePerkIntro">The heavens open...</p>
+        <div id="transcendencePerkChoices" class="transcendence-perk-choices"></div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="breakthroughPopup">
+    <div class="popup-box" style="border-color:#b8863a;">
+        <h2>🌀 BREAKTHROUGH</h2>
+        <div style="font-style:italic;color:#f0c880;padding:10px 0;border-top:1px solid #3a2a1a;border-bottom:1px solid #3a2a1a;margin:8px 0;line-height:1.5;font-size:14px;" id="visionText">"You see a river of stars..."</div>
+        <div style="font-size:12px;color:#b0a090;padding:6px;background:#0f0c0a;border-radius:10px;margin:6px 0;" id="foundationInfo">Foundation: 0 | Chance: 40%</div>
+        <button class="popup-item" id="btBalanced" style="width:100%;text-align:center;"><div class="name">🌊 Balanced</div><div class="desc">Moderate gains, safest</div></button>
+        <button class="popup-item" id="btPower" style="width:100%;text-align:center;"><div class="name">⚡ Power</div><div class="desc">High Qi/Vitality, risky</div></button>
+        <button class="popup-item" id="btWisdom" style="width:100%;text-align:center;"><div class="name">🧠 Wisdom</div><div class="desc">High Spirit/Will, risky</div></button>
+        <button class="close-btn" id="btCancel" style="border-color:#6a5a4a;margin-top:6px;">Cancel</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="npcPopup">
+    <div class="popup-box npc-box">
+        <h2 id="npcTitle">🧳 NPC</h2>
+        <p id="npcSubtitle" style="font-size:12px;color:#a09080;margin-bottom:6px;"></p>
+        <p id="npcAlignmentNote" class="npc-alignment-note"></p>
+        <p id="npcDialogue" class="npc-dialogue"></p>
+        <div id="npcActions" class="npc-actions"></div>
+        <div id="npcTradeList" class="npc-trade-list"></div>
+        <button class="close-btn" id="npcClose">Leave</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="merchantPopup">
+    <div class="popup-box">
+        <h2>🏪 <span id="merchantTitle">Market</span></h2>
+        <p id="merchantHint" style="font-size:12px;color:#a09080;margin-bottom:8px;"></p>
+        <div id="merchantList"></div>
+        <button class="close-btn" id="merchantClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="mapPopup">
+    <div class="popup-box map-popup-box">
+        <h2>🗺️ Azure Sky Continent</h2>
+        <div class="map-popup-intro">
+            Click a region on the map, then travel or walk to a specific place. <span id="currentZoneDisplay">Current: Unknown</span>
+        </div>
+        <div id="continentMap" class="continent-map-wrap"></div>
+        <div id="zoneInfo" class="zone-info-panel">
+            Tap a region to learn more.
+        </div>
+        <button class="close-btn" id="mapClose">Close Map</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="statGuidePopup">
+    <div class="popup-box stat-guide-box">
+        <h2>❓ Cultivation Stats</h2>
+        <p class="stat-guide-intro">Hover stat chips in the sidebar for quick tips.</p>
+        <div id="statGuideList" class="stat-guide-list"></div>
+        <button class="close-btn" id="statGuideClose">Close</button>
+    </div>
+</div>
+
+<script src="data.js?v=75"></script>
+<script src="world-scheduler.js?v=3"></script>
+<script src="core.js?v=32"></script>
+<script src="tutorial.js?v=2"></script>
+<script src="gear.js?v=6"></script>
+<script src="crafting.js?v=3"></script>
+<script src="alignment.js?v=4"></script>
+<script src="transcendence.js?v=4"></script>
+<script src="consolidation.js?v=5"></script>
+<script src="sect.js?v=15"></script>
+<script src="sect-expand.js?v=9"></script>
+<script src="cultivation.js?v=12"></script>
+<script src="intent.js?v=6"></script>
+<script src="tribulation.js?v=13"></script>
+<script src="locations.js?v=1"></script>
+<script src="world.js?v=25"></script>
+<script src="ancients.js?v=4"></script>
+<script src="factions.js?v=8"></script>
+<script src="factions-expand.js?v=6"></script>
+<script src="forbidden.js?v=2"></script>
+<script src="npc.js?v=25"></script>
+<script src="quests.js?v=10"></script>
+<script src="ui.js?v=40"></script>
+<script src="actions.js?v=30"></script>
+<script src="chamber.js?v=8"></script>
+<script src="body-chamber.js?v=18"></script>
+<script src="soul-chamber.js?v=1"></script>
+<script src="cultivation-hub.js?v=2"></script>
+<script src="story-arcs.js?v=6"></script>
+<script src="combat.js?v=29"></script>
+<script src="playtest-feedback.js?v=1"></script>
+<script src="main.js?v=33"></script>
+</body>
+</html>
