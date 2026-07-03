@@ -40,6 +40,9 @@ function getTribulationSeverity() {
     if (typeof getPlayerTraitTribulationResistPct === 'function') {
         severity = Math.floor(severity * (1 - getPlayerTraitTribulationResistPct() / 100));
     }
+    if (typeof getConsolidationTierTribulationBonus === 'function') {
+        severity += getConsolidationTierTribulationBonus(G.realmIdx - 1);
+    }
     return Math.max(8, Math.floor(severity));
 }
 

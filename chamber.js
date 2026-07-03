@@ -5,14 +5,14 @@
 // PHASE PLAN
 //   [x] Phase 1: Layout + Gather Qi
 //   [x] Phase 2: Expand Dantian
-//   [x] Phase 3: Perfect Foundation
+//   [x] Phase 3: Refine Foundation (incremental chamber grind — distinct from realm seal capstone)
 //   [x] Phase 4: Condense Core
 //   [x] Phase 5: Balance pass (density pacing, bar scaling, animations, fractional time)
 //
 // BALANCE NOTES
 //   • Gather: random 0.14–0.32 density / week + 7% Qi fill (~6× legacy Cultivate pace)
 //   • Expand: +4 capacity, 25 stones, 2 mo CD (stone-gated consolidation-scale bumps)
-//   • Perfect Foundation: +2 foundation, technique tax unchanged
+//   • Refine Foundation: +2 foundation burst in chamber; realm seal capstone is separate (Consolidate/Seal)
 //   • Condense: peak + tribulation gate; fail penalties slightly harsher on trib loss
 //   • Bars scale to consolidation peak targets for the current realm
 //   • Cultivation hub opens Qi / Body / Soul chambers — any character, any primary path

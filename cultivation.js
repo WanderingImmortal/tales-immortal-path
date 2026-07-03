@@ -43,7 +43,30 @@ function openBreakthrough() {
         const alignText = typeof getDaoAlignmentBreakModifierLabel === 'function'
             ? getDaoAlignmentBreakModifierLabel()
             : '';
-        return `Foundation: ${G.foundation} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : ''} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}`;
+        const tierCompare = typeof getBreakthroughTierComparison === 'function'
+            ? getBreakthroughTierComparison()
+            : null;
+        const tierLine = tierCompare && typeof getConsolidationTier === 'function'
+            ? (() => {
+                const sealTier = getConsolidationTier(G.realmIdx) || tierCompare.tier;
+                const scale = typeof getBreakthroughTierScale === 'function'
+                    ? getBreakthroughTierScale(sealTier)
+                    : null;
+                const lifePreview = typeof getBreakthroughLifespanPreview === 'function'
+                    ? getBreakthroughLifespanPreview(G.realmIdx, sealTier)
+                    : null;
+                const parts = [`Seal tier: ${scale?.label || sealTier}`];
+                if (lifePreview) {
+                    parts.push(`Lifespan gain: +${lifePreview.gainedYears}y`);
+                    if (sealTier === 'settled' && lifePreview.peakGainedYears > lifePreview.gainedYears) {
+                        parts.push(`(Peak would be +${lifePreview.peakGainedYears}y)`);
+                    }
+                }
+                if (scale?.breakChancePenalty) parts.push(`${scale.breakChancePenalty}% break chance`);
+                return parts.join(' · ');
+            })()
+            : '';
+        return `Foundation: ${G.foundation} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : ''} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
     })();
     document.getElementById('breakthroughPopup').classList.add('active');
     if (typeof triggerTutorial === 'function') triggerTutorial('first_breakthrough');
@@ -67,7 +90,11 @@ function executeBreakthrough(style) {
     if (style === 'balanced') bonus = 3;
     else if (style === 'power') bonus = 8;
     else if (style === 'wisdom') bonus = 8;
-    const finalChance = clamp(chance + bonus, 10, 95);
+    const sealTier = typeof getConsolidationTier === 'function' ? getConsolidationTier(G.realmIdx) : 'peak';
+    const tierPenalty = typeof getBreakthroughTierScale === 'function'
+        ? getBreakthroughTierScale(sealTier).breakChancePenalty
+        : 0;
+    const finalChance = clamp(chance + bonus + tierPenalty, 10, 95);
     const roll = Math.random() * 100;
     const naturalSuccess = roll < finalChance;
     let success = naturalSuccess;
@@ -81,6 +108,7 @@ function executeBreakthrough(style) {
     if (success) {
         G.realmIdx++;
         G.breakAttempts = 0;
+        G.realmPeakGrindBoost = 0;
         G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(G.realmIdx / 2);
         G.qi = getMaxQi();
         clampCurrentQi();
@@ -93,7 +121,7 @@ function executeBreakthrough(style) {
         G.hp = G.maxHp;
         if (typeof addFame === 'function') addFame(5 + G.realmIdx);
         else G.fame += 5 + G.realmIdx;
-        extendLifespanOnBreakthrough();
+        extendLifespanOnBreakthrough(sealTier);
         commitActionLog(`✨ SUCCESS! You are now a ${getRealm()} (${getTitle()})!`);
         if (perfectBreak) addLog(`🌟 The breakthrough was flawless — your Foundation drew the heavens' attention.`);
         addLog(`📈 Max Qi → ${getMaxQi()}, +${Math.floor(boost/2)+(style==='power'?2:0)} Vit, +${Math.floor(boost/3)+(style==='wisdom'?3:0)} Spi/Will.`);

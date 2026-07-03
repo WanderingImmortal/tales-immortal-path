@@ -563,6 +563,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const tech = document.getElementById('consolidateTechSelect')?.value || null;
         executeConsolidation({ perfect: true, sacrificeTechnique: tech || null });
     });
+    document.getElementById('consolidatePeakGrind')?.addEventListener('click', () => {
+        executePeakGrind();
+    });
 
     // Start the game
     initGame();
