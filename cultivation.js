@@ -21,7 +21,14 @@ function openBreakthrough() {
     if (G.gameOver || G.inCombat || isTribulationActive() || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending())) return;
     const next = getNextRealm();
     if (next === "MAX") {
-        addLog(`🏆 You are already at the peak! Immortality is yours!`);
+        if (isImmortal() && typeof openImmortalPathPopup === 'function' && !G.postImmortal?.pathChosen) {
+            openImmortalPathPopup();
+        } else if (typeof actionHeavenlyCourt === 'function' && isOnHeavenlyImmortalPath?.()) {
+            addLog(`🏆 You stand at Immortal Ascension. The Heavenly Court awaits your decrees.`);
+            actionHeavenlyCourt();
+        } else {
+            addLog(`🏆 You are already at the peak! Immortality is yours!`);
+        }
         fullRender();
         return;
     }
@@ -111,6 +118,9 @@ function executeBreakthrough(style) {
             return;
         }
         checkPerfectCultivation();
+        if (isImmortal() && typeof maybeOfferImmortalPathChoice === 'function') {
+            maybeOfferImmortalPathChoice();
+        }
     } else {
         G.breakAttempts++;
         const rawDmg = 5 + Math.floor(Math.random() * 15) + (style === 'power' ? 5 : 0) + (style === 'wisdom' ? 5 : 0);

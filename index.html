@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=71" />
+    <link rel="stylesheet" href="style.css?v=72" />
 </head>
 <body>
 
@@ -126,6 +126,7 @@
                         <div class="chip"><span class="chip-label">💪 Will</span><span class="chip-value" id="wilStat">3</span></div>
                         <div class="chip"><span class="chip-label">❤️ HP</span><span class="chip-value" id="hpStat">70</span></div>
                         <div class="chip"><span class="chip-label">🛡️ Shield</span><span class="chip-value" id="shieldStat">0</span></div>
+                        <div class="chip" id="celestialFavorChip" style="display:none;"><span class="chip-label">✨ Favor</span><span class="chip-value">0</span></div>
                     </div>
 
                     <div class="meta-strip">
@@ -135,6 +136,7 @@
                         <span><span class="meta-label">💎</span> <span id="stonesStat">20</span></span>
                         <span><span class="meta-label">💊</span> <span id="pillsStat">3</span></span>
                         <span class="alignment-meta"><span class="meta-label">☯️</span> <span id="daoAlignmentDisplay">0 (Neutral)</span></span>
+                        <span class="post-immortal-meta" id="postImmortalDisplay"></span>
                     </div>
 
                     <div id="sidebarGearStrip" class="sidebar-gear-strip" title="Equipped gear — open Inventory for details"></div>
@@ -210,6 +212,7 @@
                                 <button id="btnRecruit" title="1 year · requires founded sect">👤 Recruit</button>
                                 <button id="btnSect">🏯 Sect</button>
                                 <button id="btnFactions" title="Zone power structures & reputation">⚖️ Factions</button>
+                                <button id="btnHeavenlyCourt" title="Heavenly Court — Immortal endgame" style="display:none;">☁️ Court</button>
                             </div>
                         </div>
                     </div>
@@ -482,6 +485,32 @@
         <p class="factions-hint" id="factionsHint">Power structures, reputation, and zone politics.</p>
         <div id="factionsInfo" class="factions-info"></div>
         <button type="button" class="close-btn" id="factionsClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="immortalPathPopup">
+    <div class="popup-box immortal-path-box">
+        <h2>✨ Post-Immortal Path</h2>
+        <p id="immortalPathIntro" class="immortal-path-intro"></p>
+        <div id="immortalPathChoices" class="immortal-path-choices"></div>
+        <button type="button" class="close-btn" id="immortalPathClose">Decide later</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="heavenlyCourtPopup">
+    <div class="popup-box heavenly-court-box">
+        <h2>☁️ Heavenly Court</h2>
+        <p class="heavenly-court-hint">Serve the Heavenly Dao. Earn Celestial Favor through Court Tasks — spend it on Decrees that reshape the world.</p>
+        <div id="heavenlyCourtInfo" class="heavenly-court-info"></div>
+        <button type="button" class="close-btn" id="heavenlyCourtClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="heavenlyIntriguePopup">
+    <div class="popup-box heavenly-intrigue-box">
+        <h2 id="heavenlyIntrigueTitle">Court Intrigue</h2>
+        <p id="heavenlyIntrigueText" class="heavenly-intrigue-text"></p>
+        <div id="heavenlyIntrigueChoices" class="heavenly-intrigue-choices"></div>
     </div>
 </div>
 
@@ -1065,7 +1094,7 @@
     </div>
 </div>
 
-<script src="data.js?v=75"></script>
+<script src="data.js?v=76"></script>
 <script src="world-scheduler.js?v=3"></script>
 <script src="core.js?v=32"></script>
 <script src="tutorial.js?v=2"></script>
@@ -1084,6 +1113,7 @@
 <script src="ancients.js?v=4"></script>
 <script src="factions.js?v=8"></script>
 <script src="factions-expand.js?v=6"></script>
+<script src="post-immortal.js?v=1"></script>
 <script src="forbidden.js?v=2"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=10"></script>

@@ -203,6 +203,9 @@ function continueAfterBreakthrough(breakStyle) {
         return;
     }
     checkPerfectCultivation();
+    if (isImmortal() && typeof maybeOfferImmortalPathChoice === 'function') {
+        maybeOfferImmortalPathChoice();
+    }
     fullRender();
 }
 

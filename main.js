@@ -288,6 +288,8 @@ function setupCreation() {
         if (typeof ensureAncientsState === 'function') ensureAncientsState();
         G.factions = null;
         if (typeof ensureFactionState === 'function') ensureFactionState();
+        G.postImmortal = null;
+        if (typeof ensurePostImmortalState === 'function') ensurePostImmortalState();
         G.sectPassiveIncome = 0;
         G.meridians = Array(13).fill(false);
         G.meridianAttempts = Array(13).fill(0);
@@ -390,6 +392,9 @@ function initGame() {
     if (typeof ensureSectState === 'function') ensureSectState();
     if (typeof ensureAncientsState === 'function') ensureAncientsState();
     if (typeof ensureFactionState === 'function') ensureFactionState();
+    if (typeof ensurePostImmortalState === 'function') ensurePostImmortalState();
+    if (typeof initPostImmortalRegistries === 'function') initPostImmortalRegistries();
+    if (typeof migratePostImmortalState === 'function') migratePostImmortalState();
     if (typeof ensureNpcState === 'function') ensureNpcState();
     if (typeof seedWorldNpcsIfEmpty === 'function') seedWorldNpcsIfEmpty();
     if (typeof tickNpcWorld === 'function') tickNpcWorld(0);
@@ -426,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnRecruit').addEventListener('click', actionRecruit);
     document.getElementById('btnSect').addEventListener('click', actionSect);
     document.getElementById('btnFactions').addEventListener('click', actionFactionsWrapper);
+    document.getElementById('btnHeavenlyCourt')?.addEventListener('click', actionHeavenlyCourtWrapper);
     document.getElementById('btnMap').addEventListener('click', actionMap);
     document.getElementById('btnMarket').addEventListener('click', actionMarket);
     document.getElementById('btnCombat').addEventListener('click', actionCombat);
@@ -545,6 +551,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('factionsClose')?.addEventListener('click', () => {
         document.getElementById('factionsPopup')?.classList.remove('active');
+    });
+    document.getElementById('heavenlyCourtClose')?.addEventListener('click', () => {
+        document.getElementById('heavenlyCourtPopup')?.classList.remove('active');
+    });
+    document.getElementById('immortalPathClose')?.addEventListener('click', () => {
+        document.getElementById('immortalPathPopup')?.classList.remove('active');
     });
     document.getElementById('inventoryClose')?.addEventListener('click', () => {
         document.getElementById('inventoryPopup').classList.remove('active');

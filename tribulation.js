@@ -969,6 +969,9 @@ function finishTribulation() {
         resolveChamberCondenseAfterTribulation();
     }
     checkPerfectCultivation();
+    if (isImmortal() && typeof maybeOfferImmortalPathChoice === 'function') {
+        maybeOfferImmortalPathChoice();
+    }
     saveState();
     fullRender();
     renderTribulationCue();
