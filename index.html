@@ -109,10 +109,12 @@
 
                     <div class="consolidation-meter" id="consolidationMeter">
                         <div class="consolidation-meter-header">
-                            <span>🏛️ Peak Progress</span>
+                            <span id="consolidationMeterTitle">Realm Progress</span>
                             <span id="consolidationMeterLabel">—</span>
                         </div>
                         <div class="consolidation-meter-track">
+                            <div class="consolidation-meter-mark settled" title="Settled (80%) — minimum seal"></div>
+                            <div class="consolidation-meter-mark peak" title="Peak (100%) — full rewards"></div>
                             <div class="consolidation-meter-fill" id="consolidationMeterFill"></div>
                         </div>
                         <div class="consolidation-meter-hint" id="consolidationMeterHint"></div>
@@ -172,8 +174,8 @@
                             <div class="action-group-label">Cultivation</div>
                             <div class="actions-row">
                                 <button id="btnCultivate" title="Choose Qi, Body, or Soul cultivation">🧘 Cultivate</button>
-                                <button id="btnConsolidate" title="Consolidate at realm peak for Foundation">🏛️ Consolidate</button>
-                                <button id="btnBreakthrough" title="2 years · requires consolidation">🌀 Break</button>
+                                <button id="btnConsolidate" title="Seal realm at Settled (80%+) or Peak (100%)">🏛️ Seal Dantian</button>
+                                <button id="btnBreakthrough" title="2 years · requires realm seal">🌀 Break</button>
                                 <button id="btnRecuperate" title="3 months · heal HP & barrier">🛌 Recuperate</button>
                             </div>
                             <div class="actions-row actions-row-sub" style="margin-top:6px;">
@@ -817,7 +819,7 @@
         <div class="chamber-actions">
             <button type="button" class="chamber-btn chamber-btn-primary" id="chamberGatherQi">🌬️ Gather Qi</button>
             <button type="button" class="chamber-btn" id="chamberExpandDantian">🏺 Expand Dantian</button>
-            <button type="button" class="chamber-btn" id="chamberPerfectFoundation">🪨 Perfect Foundation</button>
+            <button type="button" class="chamber-btn" id="chamberPerfectFoundation">🪨 Refine Foundation</button>
             <button type="button" class="chamber-btn chamber-btn-condense" id="chamberCondenseCore">💎 Condense Core</button>
             <button type="button" class="chamber-btn chamber-btn-return" id="chamberReturn">↩ Return</button>
         </div>
@@ -980,6 +982,7 @@
     <div class="popup-box consolidate-box">
         <h2 id="consolidateTitle">🏛️ Consolidate</h2>
         <p class="consolidate-peak" id="consolidatePeak"></p>
+        <div id="consolidateTierCompare" class="consolidate-tier-compare"></div>
         <p id="consolidateFeedback" class="consolidate-feedback" role="status"></p>
         <div class="consolidate-section">
             <div class="consolidate-section-label">Standard rite</div>
@@ -994,7 +997,8 @@
             <select id="consolidateTechSelect"></select>
         </div>
         <div class="consolidate-actions">
-            <button type="button" class="popup-item consolidate-btn" id="consolidateConfirm">🏛️ Consolidate</button>
+            <button type="button" class="popup-item consolidate-btn" id="consolidateConfirm">🏛️ Seal Realm</button>
+            <button type="button" class="popup-item consolidate-btn grind hidden" id="consolidatePeakGrind">⏳ Peak Grind</button>
             <button type="button" class="popup-item consolidate-btn perfect" id="consolidatePerfect">🌟 Perfect Consolidation</button>
         </div>
         <button class="close-btn" id="consolidateClose">Cancel</button>
@@ -1067,18 +1071,18 @@
 
 <script src="data.js?v=75"></script>
 <script src="world-scheduler.js?v=3"></script>
-<script src="core.js?v=32"></script>
+<script src="core.js?v=33"></script>
 <script src="tutorial.js?v=2"></script>
 <script src="gear.js?v=6"></script>
 <script src="crafting.js?v=3"></script>
 <script src="alignment.js?v=4"></script>
 <script src="transcendence.js?v=4"></script>
-<script src="consolidation.js?v=5"></script>
+<script src="consolidation.js?v=6"></script>
 <script src="sect.js?v=15"></script>
 <script src="sect-expand.js?v=9"></script>
-<script src="cultivation.js?v=12"></script>
+<script src="cultivation.js?v=13"></script>
 <script src="intent.js?v=6"></script>
-<script src="tribulation.js?v=13"></script>
+<script src="tribulation.js?v=14"></script>
 <script src="locations.js?v=1"></script>
 <script src="world.js?v=25"></script>
 <script src="ancients.js?v=4"></script>
@@ -1090,8 +1094,8 @@
 <script src="ui.js?v=40"></script>
 <script src="actions.js?v=30"></script>
 <script src="chamber.js?v=8"></script>
-<script src="body-chamber.js?v=18"></script>
-<script src="soul-chamber.js?v=1"></script>
+<script src="body-chamber.js?v=19"></script>
+<script src="soul-chamber.js?v=2"></script>
 <script src="cultivation-hub.js?v=2"></script>
 <script src="story-arcs.js?v=6"></script>
 <script src="combat.js?v=29"></script>
