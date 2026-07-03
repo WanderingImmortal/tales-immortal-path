@@ -7,6 +7,14 @@ const PATHS = {
         name: "Qi Cultivation",
         realms: ["Qi Condensation", "Foundation Establishment", "Core Formation", "Nascent Soul", "Void Refinement", "Dao Seeking", "Immortal Ascension"],
         titles: ["Mortal Aspirant", "Earthbound Immortal", "Golden Core Disciple", "Soul Sovereign", "Void Walker", "Dao Seeker", "Transcendent One"],
+        capstone: {
+            button: "🏛️ Seal Dantian",
+            settledAction: "Seal Dantian",
+            peakAction: "Condense to Peak",
+            meterLabel: "Dantian Progress",
+            settledFlavor: "Qi settles into a workable seal — respectable, but not peak.",
+            peakFlavor: "Dantian sealed at peak density — the realm holds firm."
+        },
         base: { qi: 12, vitality: 4, spirit: 5, will: 3, hp: 70 },
         visions: [
             "You see a river of stars flowing through your meridians...",
@@ -22,6 +30,14 @@ const PATHS = {
         name: "Body Cultivation",
         realms: ["Bronze Skin", "Iron Bones", "Jade Marrow", "Diamond Body", "Sage Flesh", "War God Physique", "Indestructible Vajra"],
         titles: ["Flesh Tempered", "Bone Forged", "Marrow Refined", "Diamond Shell", "Sage Vessel", "War God Incarnate", "Vajra Immortal"],
+        capstone: {
+            button: "🔥 Temper the Vessel",
+            settledAction: "Temper the Vessel",
+            peakAction: "Forge to Peak",
+            meterLabel: "Vessel Progress",
+            settledFlavor: "The flesh holds — tempered enough to advance, if not perfected.",
+            peakFlavor: "The vessel is forged to peak — bone and sinew sing in unison."
+        },
         base: { qi: 4, vitality: 12, spirit: 2, will: 4, hp: 140 },
         visions: [
             "Your bones crack and reform, each fracture forging them stronger...",
@@ -37,6 +53,14 @@ const PATHS = {
         name: "Soul Cultivation",
         realms: ["Awakened Spirit", "Manifestation", "Soul Integration", "Nascent Divinity", "Transcendence", "Dao Heart", "Eternal Spirit"],
         titles: ["Spirit Awakened", "Soul Manifest", "Integrated One", "Divine Nascent", "Transcendent Soul", "Heart of Dao", "Eternal Sage"],
+        capstone: {
+            button: "✨ Anchor the Soul",
+            settledAction: "Anchor the Soul",
+            peakAction: "Integrate to Peak",
+            meterLabel: "Soul Progress",
+            settledFlavor: "The soul is anchored — stable enough to step forward.",
+            peakFlavor: "Soul and realm integrated at peak — nothing leaks between worlds."
+        },
         base: { qi: 5, vitality: 5, spirit: 10, will: 8, hp: 80 },
         visions: [
             "Your consciousness expands beyond your flesh. You see the threads of fate...",
@@ -4390,6 +4414,63 @@ const SOUL_CHAMBER_ACTIONS = {
             bonus: { daoAlignmentPct: 20, willpowerPct: 10 },
             desc: '+20% Dao Alignment, +10% willpower · requires a True Dao (max 3×)' }
     ]
+};
+
+// ===== REALM PROGRESS TIERS (breakthrough quality) =====
+// Hasty tier stubbed — enable when cracked-foundation debuff + recovery hooks exist.
+
+const REALM_PROGRESS_TIERS = {
+    hastyPct: 55,
+    settledPct: 80,
+    peakPct: 100,
+    hastyEnabled: false
+};
+
+/** Multipliers applied at seal time and breakthrough based on consolidation tier. */
+const BREAKTHROUGH_TIER_SCALE = {
+    hasty: {
+        foundationMult: 0.5,
+        maxQiMult: 0.6,
+        densityMult: 0.6,
+        lifespanMult: 0.7,
+        tribulationSeverityBonus: 12,
+        breakChancePenalty: -12,
+        label: 'Hasty'
+    },
+    settled: {
+        foundationMult: 0.75,
+        maxQiMult: 0.85,
+        densityMult: 0.85,
+        lifespanMult: 0.85,
+        tribulationSeverityBonus: 6,
+        breakChancePenalty: -5,
+        label: 'Settled'
+    },
+    peak: {
+        foundationMult: 1,
+        maxQiMult: 1,
+        densityMult: 1,
+        lifespanMult: 1,
+        tribulationSeverityBonus: 0,
+        breakChancePenalty: 0,
+        label: 'Peak'
+    },
+    perfect: {
+        foundationMult: 1,
+        maxQiMult: 1,
+        densityMult: 1,
+        lifespanMult: 1,
+        tribulationSeverityBonus: 0,
+        breakChancePenalty: 0,
+        label: 'Perfect'
+    }
+};
+
+/** Short capstone grind from Settled (~80%) to Peak (100%) — not full chamber re-grind. */
+const PEAK_GRIND_BY_PATH = {
+    qi: { months: 2, progressBoost: 18, label: 'Condense to Peak' },
+    body: { months: 1, progressBoost: 20, label: 'Forge to Peak' },
+    soul: { months: 1, progressBoost: 20, label: 'Integrate to Peak' }
 };
 
 // ===== REALM CONSOLIDATION (Foundation mastery) =====

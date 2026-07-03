@@ -737,18 +737,51 @@ header .subtitle {
 }
 
 .consolidation-meter-track {
+    position: relative;
     height: 8px;
     background: #0a0806;
     border-radius: 4px;
-    overflow: hidden;
+    overflow: visible;
+}
+
+.consolidation-meter-mark {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    width: 2px;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: 1px;
+}
+
+.consolidation-meter-mark.settled {
+    left: 80%;
+    background: #a08050;
+    box-shadow: 0 0 4px rgba(160, 128, 80, 0.5);
+}
+
+.consolidation-meter-mark.peak {
+    left: calc(100% - 2px);
+    background: #80d060;
+    box-shadow: 0 0 4px rgba(128, 208, 96, 0.5);
 }
 
 .consolidation-meter-fill {
+    position: relative;
+    z-index: 1;
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg, #6a5030, #d4a860);
     border-radius: 4px;
     transition: width 0.3s ease;
+}
+
+.consolidation-meter.at-settled:not(.consolidated) .consolidation-meter-fill {
+    background: linear-gradient(90deg, #6a6040, #c8a860);
+}
+
+.consolidation-meter.at-peak:not(.consolidated) .consolidation-meter-fill {
+    background: linear-gradient(90deg, #4a8a40, #80d060);
 }
 
 .consolidation-meter.ready .consolidation-meter-fill {
@@ -4371,6 +4404,24 @@ header .subtitle {
 
 .consolidate-req.perfect {
     color: #c8d8a0;
+}
+
+.consolidate-req.tier-compare {
+    color: #c0b090;
+    font-size: 11px;
+}
+
+.consolidate-tier-compare {
+    margin: 6px 0;
+    padding: 8px;
+    background: #120e0a;
+    border: 1px solid #3a3020;
+    border-radius: 8px;
+}
+
+.consolidate-btn.grind {
+    border-color: #6a8060;
+    color: #a0c890;
 }
 
 .consolidate-tech-row {

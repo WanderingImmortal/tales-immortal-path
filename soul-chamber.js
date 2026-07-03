@@ -68,6 +68,19 @@ function getSoulLayerProgress(layerId) {
     return G.soulChamber.layerProgress[layerId] || 0;
 }
 
+function getSoulRealmProgressPct() {
+    if (typeof SOUL_CHAMBER_LAYER_ORDER === 'undefined') return 0;
+    return getChamberLayerPathProgressPct(SOUL_CHAMBER_LAYER_ORDER, getSoulLayerProgress);
+}
+
+function applySoulPeakGrindBoost(boost) {
+    ensureSoulChamberState();
+    const realmLayerIdx = Math.min(G.realmIdx, SOUL_CHAMBER_LAYER_ORDER.length - 1);
+    const layerId = SOUL_CHAMBER_LAYER_ORDER[realmLayerIdx];
+    const current = getSoulLayerProgress(layerId);
+    G.soulChamber.layerProgress[layerId] = Math.min(100, current + (boost || 20));
+}
+
 function getSoulLayerPrevId(layerId) {
     const idx = SOUL_CHAMBER_LAYER_ORDER.indexOf(layerId);
     return idx > 0 ? SOUL_CHAMBER_LAYER_ORDER[idx - 1] : null;

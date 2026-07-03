@@ -93,10 +93,16 @@ function renderStatus() {
         const fill = document.getElementById('consolidationMeterFill');
         const label = document.getElementById('consolidationMeterLabel');
         const hint = document.getElementById('consolidationMeterHint');
+        const meterTitle = document.getElementById('consolidationMeterTitle');
+        if (meterTitle && typeof getPathCapstone === 'function') {
+            meterTitle.textContent = getPathCapstone().meterLabel || 'Realm Progress';
+        }
         if (meter) {
             meter.classList.toggle('hidden', !getConsolidationDef(G.realmIdx) && !prog.consolidated);
             meter.classList.toggle('ready', !!prog.ready && !prog.consolidated);
             meter.classList.toggle('consolidated', !!prog.consolidated);
+            meter.classList.toggle('at-settled', !prog.consolidated && prog.pct >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.settledPct : 80));
+            meter.classList.toggle('at-peak', !prog.consolidated && prog.pct >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100));
         }
         if (fill) fill.style.width = `${prog.pct}%`;
         if (label) label.textContent = prog.label;
@@ -123,9 +129,11 @@ function renderStatus() {
     const consolidateBtn = document.getElementById('btnConsolidate');
     if (consolidateBtn && typeof isRealmConsolidated === 'function') {
         consolidateBtn.disabled = isRealmConsolidated(G.realmIdx);
+        const capstone = typeof getPathCapstone === 'function' ? getPathCapstone() : null;
+        if (capstone) consolidateBtn.textContent = capstone.button;
         consolidateBtn.title = isRealmConsolidated(G.realmIdx)
-            ? 'This realm is already consolidated'
-            : 'Consolidate at peak for Foundation';
+            ? 'This realm is already sealed'
+            : (capstone ? `${capstone.settledAction} at Settled (80%+) or ${capstone.peakAction} at Peak` : 'Seal realm for Foundation');
     }
     const cultivateBtn = document.getElementById('btnCultivate');
     if (cultivateBtn) {

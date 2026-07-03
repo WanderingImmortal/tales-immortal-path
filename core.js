@@ -837,15 +837,24 @@ function advanceTime(months, activity) {
     return true;
 }
 
-function extendLifespanOnBreakthrough() {
+function extendLifespanOnBreakthrough(tier) {
     const newCap = getLifespanForRealm(G.realmIdx);
     if (newCap <= G.lifespanMonths) return;
-    const gainedYears = Math.floor((newCap - G.lifespanMonths) / 12);
-    G.lifespanMonths = newCap;
+    const scale = typeof getBreakthroughTierScale === 'function' && tier
+        ? getBreakthroughTierScale(tier).lifespanMult
+        : 1;
+    const gainedMonths = Math.floor((newCap - G.lifespanMonths) * scale);
+    if (gainedMonths <= 0) return;
+    G.lifespanMonths += gainedMonths;
+    const gainedYears = Math.floor(gainedMonths / 12);
     if (isImmortal()) {
         addLog(`✨ You transcend mortal lifespan! Old age can no longer claim you.`);
     } else {
-        addLog(`🌿 Breakthrough extends your life by ${gainedYears} years! Lifespan: ${formatYears(G.lifespanMonths)}.`);
+        const tierLabel = tier && typeof getBreakthroughTierScale === 'function'
+            ? getBreakthroughTierScale(tier).label
+            : null;
+        const tierNote = tierLabel && tier !== 'peak' && tier !== 'perfect' ? ` (${tierLabel} seal)` : '';
+        addLog(`🌿 Breakthrough extends your life by ${gainedYears} years${tierNote}! Lifespan: ${formatYears(G.lifespanMonths)}.`);
     }
 }
 

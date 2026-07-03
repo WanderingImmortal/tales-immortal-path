@@ -307,6 +307,19 @@ function getBodyLayerProgress(layerId) {
     return G.bodyChamber.layerProgress[layerId] || 0;
 }
 
+function getBodyRealmProgressPct() {
+    if (typeof BODY_CHAMBER_LAYER_ORDER === 'undefined') return 0;
+    return getChamberLayerPathProgressPct(BODY_CHAMBER_LAYER_ORDER, getBodyLayerProgress);
+}
+
+function applyBodyPeakGrindBoost(boost) {
+    ensureBodyChamberState();
+    const realmLayerIdx = Math.min(G.realmIdx, BODY_CHAMBER_LAYER_ORDER.length - 1);
+    const layerId = BODY_CHAMBER_LAYER_ORDER[realmLayerIdx];
+    const current = getBodyLayerProgress(layerId);
+    G.bodyChamber.layerProgress[layerId] = Math.min(100, current + (boost || 20));
+}
+
 function getBodyLayerPrevId(layerId) {
     const idx = BODY_CHAMBER_LAYER_ORDER.indexOf(layerId);
     return idx > 0 ? BODY_CHAMBER_LAYER_ORDER[idx - 1] : null;

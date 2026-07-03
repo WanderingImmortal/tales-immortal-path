@@ -4,7 +4,11 @@
 
 function ensureConsolidationState() {
     if (!G.realmConsolidation) G.realmConsolidation = {};
-    if (!G.consolidationBonuses) G.consolidationBonuses = { breakthrough: 0, techniqueDmgPct: 0, daoSpeedPct: 0, allStatsPct: 0, mentalResistPct: 0 };
+    if (!G.consolidationBonuses) {
+        G.consolidationBonuses = { breakthrough: 0, techniqueDmgPct: 0, daoSpeedPct: 0, allStatsPct: 0, mentalResistPct: 0 };
+    }
+    // TODO: cracked foundation debuff — stackable condition from Hasty breaks; heal via scar_salve, arrays, elder_hua, forbidden grounds
+    if (G.foundationCracks == null) G.foundationCracks = 0;
 }
 
 function migrateConsolidationState() {
@@ -14,12 +18,17 @@ function migrateConsolidationState() {
         delete G.realmConsolidation[G.realmIdx];
     }
     if (G._consolidationMigrated) return;
-    if (G.realmIdx > 0 || (G.foundation || 0) >= 5) {
-        for (let i = 0; i < G.realmIdx; i++) {
-            if (!G.realmConsolidation[i]?.done) {
-                G.realmConsolidation[i] = { done: true, perfect: false, migrated: true };
-            }
+    for (let i = 0; i < G.realmIdx; i++) {
+        if (!G.realmConsolidation[i]?.done) {
+            G.realmConsolidation[i] = { done: true, perfect: false, tier: 'settled', migrated: true };
+        } else if (!G.realmConsolidation[i].tier) {
+            const entry = G.realmConsolidation[i];
+            entry.tier = entry.perfect ? 'perfect' : 'settled';
         }
+    }
+    if (G.realmConsolidation[G.realmIdx]?.done && !G.realmConsolidation[G.realmIdx].tier) {
+        const entry = G.realmConsolidation[G.realmIdx];
+        entry.tier = entry.perfect ? 'perfect' : 'settled';
     }
     G._consolidationMigrated = true;
 }
@@ -28,8 +37,83 @@ function getConsolidationDef(realmIdx) {
     return CONSOLIDATION_BY_REALM[realmIdx] || null;
 }
 
+function getPathCapstone() {
+    return PATHS[G.path]?.capstone || PATHS.qi.capstone;
+}
+
 function getStatTotal() {
     return getCultivationPowerStat() + G.vitality + G.spirit + G.will;
+}
+
+function getQiPathProgressPct() {
+    const def = getConsolidationDef(G.realmIdx);
+    if (!def) return 0;
+    const peak = def.peak;
+    const maxQi = getMaxQi();
+    const fillNeed = Math.floor(maxQi * (peak.qiFillRatio || 0.85));
+    const densityNeed = peak.minQiDensity || 1.5;
+    const statNeed = peak.minTotalStats || 1;
+    const meridianNeed = peak.minMeridians || 0;
+
+    const checks = [
+        { w: 0.35, p: Math.min(1, G.qi / Math.max(1, fillNeed)) },
+        { w: 0.25, p: Math.min(1, getQiDensity() / densityNeed) },
+        { w: 0.25, p: Math.min(1, getStatTotal() / statNeed) }
+    ];
+    if (meridianNeed > 0) {
+        checks.push({ w: 0.15, p: Math.min(1, getMeridianOpenCount() / meridianNeed) });
+    }
+    const totalW = checks.reduce((s, c) => s + c.w, 0);
+    return Math.round(checks.reduce((s, c) => s + c.w * c.p, 0) / totalW * 100);
+}
+
+function getChamberLayerPathProgressPct(layerOrder, getLayerProgress) {
+    if (!layerOrder?.length || typeof getLayerProgress !== 'function') return 0;
+    const realmLayerIdx = Math.min(G.realmIdx, layerOrder.length - 1);
+    let totalPct = 0;
+    for (let i = 0; i <= realmLayerIdx; i++) {
+        totalPct += i < realmLayerIdx ? 100 : getLayerProgress(layerOrder[i]);
+    }
+    return Math.round(totalPct / (realmLayerIdx + 1));
+}
+
+function getRealmProgressPct() {
+    const def = getConsolidationDef(G.realmIdx);
+    if (!def) return isRealmConsolidated(G.realmIdx) ? 100 : 0;
+
+    let pct;
+    if (G.path === 'body' && typeof getBodyRealmProgressPct === 'function') {
+        pct = getBodyRealmProgressPct();
+    } else if (G.path === 'soul' && typeof getSoulRealmProgressPct === 'function') {
+        pct = getSoulRealmProgressPct();
+    } else {
+        pct = getQiPathProgressPct();
+    }
+
+    if (G.realmPeakGrindBoost) {
+        pct = Math.min(REALM_PROGRESS_TIERS.peakPct, pct + G.realmPeakGrindBoost);
+    }
+    return Math.min(REALM_PROGRESS_TIERS.peakPct, Math.max(0, pct));
+}
+
+function getRealmProgressTierFromPct(pct) {
+    pct = pct == null ? getRealmProgressPct() : pct;
+    if (pct >= REALM_PROGRESS_TIERS.peakPct) return 'peak';
+    if (pct >= REALM_PROGRESS_TIERS.settledPct) return 'settled';
+    if (REALM_PROGRESS_TIERS.hastyEnabled && pct >= REALM_PROGRESS_TIERS.hastyPct) return 'hasty';
+    return 'insufficient';
+}
+
+function getConsolidationTier(realmIdx) {
+    ensureConsolidationState();
+    const entry = G.realmConsolidation[realmIdx ?? G.realmIdx];
+    if (!entry?.done) return null;
+    if (entry.perfect) return 'perfect';
+    return entry.tier || 'peak';
+}
+
+function getBreakthroughTierScale(tier) {
+    return BREAKTHROUGH_TIER_SCALE[tier] || BREAKTHROUGH_TIER_SCALE.peak;
 }
 
 function getPeakProgress() {
@@ -65,7 +149,8 @@ function getPeakProgress() {
 }
 
 function isAtRealmPeak() {
-    return getPeakProgress().ready;
+    return getRealmProgressPct() >= REALM_PROGRESS_TIERS.peakPct
+        && (G.path !== 'qi' || getPeakProgress().ready);
 }
 
 function isRealmConsolidated(realmIdx) {
@@ -77,15 +162,22 @@ function canBreakthroughToNextRealm() {
     return isRealmConsolidated(G.realmIdx);
 }
 
+function canSealAtCurrentProgress() {
+    if (isRealmConsolidated(G.realmIdx)) return false;
+    const tier = getRealmProgressTierFromPct();
+    return tier === 'settled' || tier === 'peak';
+}
+
 function getConsolidationBlockReason() {
     if (canBreakthroughToNextRealm()) return null;
     const def = getConsolidationDef(G.realmIdx);
     if (!def) return 'Consolidation not available at this realm.';
-    if (!isAtRealmPeak()) {
-        const progress = getPeakProgress();
-        return `Not at ${def.peakLabel}. ${progress.reasons.find(r => !r.startsWith('At ')) || 'Keep cultivating.'}`;
+    const pct = getRealmProgressPct();
+    const capstone = getPathCapstone();
+    if (pct < REALM_PROGRESS_TIERS.settledPct) {
+        return `${pct}% realm progress — reach ${REALM_PROGRESS_TIERS.settledPct}% (Settled) via cultivation chambers, then ${capstone.settledAction}.`;
     }
-    return `Consolidate at ${getRealm()} before attempting breakthrough.`;
+    return `${capstone.settledAction} at ${getRealm()} before attempting breakthrough.`;
 }
 
 function getConsolidationStoneCost(def, perfect) {
@@ -102,6 +194,7 @@ function canAffordConsolidation(def, perfect) {
 
 function canPerfectConsolidation(def) {
     if (!def?.perfect) return { ok: false, message: 'No perfect path for this realm.' };
+    if (!isAtRealmPeak()) return { ok: false, message: 'Perfect consolidation requires Peak (100%) progress.' };
     const p = def.perfect;
     if ((p.minMeridians || 0) > getMeridianOpenCount()) {
         return { ok: false, message: `Perfect requires ${p.minMeridians} open meridians.` };
@@ -186,15 +279,19 @@ function applyPerfectConsolidationBonuses(permanent) {
     if (permanent.mentalResistPct) G.consolidationBonuses.mentalResistPct += permanent.mentalResistPct;
 }
 
-function applyConsolidationQiGains(def, perfect) {
-    if (def.maxQiGain) G.maxQiBonus = (G.maxQiBonus || 0) + def.maxQiGain;
-    if (def.qiDensityGain) G.qiDensity = (G.qiDensity || 0) + def.qiDensityGain;
+function applyConsolidationQiGains(def, perfect, tierScale) {
+    tierScale = tierScale || BREAKTHROUGH_TIER_SCALE.peak;
+    const maxQiGain = Math.floor((def.maxQiGain || 0) * tierScale.maxQiMult);
+    const densityGain = Math.round(((def.qiDensityGain || 0) * tierScale.densityMult) * 10) / 10;
+    if (maxQiGain) G.maxQiBonus = (G.maxQiBonus || 0) + maxQiGain;
+    if (densityGain) G.qiDensity = (G.qiDensity || 0) + densityGain;
     if (perfect) {
         G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.perfectConsolidateMaxQiBonus;
         G.qiDensity = (G.qiDensity || 0) + QI_BALANCE.perfectConsolidateDensityBonus;
     }
     G.qi = getMaxQi();
     clampCurrentQi();
+    return { maxQiGain, densityGain };
 }
 
 function getConsolidationBreakBonus() {
@@ -212,6 +309,102 @@ function getConsolidationDaoSpeedMult() {
     return 1 + (G.consolidationBonuses?.daoSpeedPct || 0);
 }
 
+function getBreakthroughTierForRealm(realmIdx) {
+    return getConsolidationTier(realmIdx) || 'peak';
+}
+
+function getBreakthroughLifespanPreview(realmIdx, tier) {
+    realmIdx = realmIdx ?? G.realmIdx;
+    tier = tier || getBreakthroughTierForRealm(realmIdx);
+    const scale = getBreakthroughTierScale(tier);
+    const nextCap = getLifespanForRealm(realmIdx);
+    const gainedMonths = Math.max(0, nextCap - G.lifespanMonths);
+    const scaledGain = Math.floor(gainedMonths * scale.lifespanMult);
+    return {
+        tier,
+        scale,
+        currentLifespan: G.lifespanMonths,
+        nextCap,
+        gainedYears: Math.floor(scaledGain / 12),
+        peakGainedYears: Math.floor(gainedMonths / 12),
+        remainingYears: getYearsRemaining()
+    };
+}
+
+function getPeakGrindEstimate() {
+    const pct = getRealmProgressPct();
+    if (pct >= REALM_PROGRESS_TIERS.peakPct) return { months: 0, pct, canGrind: false };
+    if (pct < REALM_PROGRESS_TIERS.settledPct) return { months: null, pct, canGrind: false };
+
+    const cfg = PEAK_GRIND_BY_PATH[G.path] || PEAK_GRIND_BY_PATH.qi;
+    const gap = REALM_PROGRESS_TIERS.peakPct - pct;
+    const actions = Math.max(1, Math.ceil(gap / (cfg.progressBoost || 18)));
+    return {
+        months: actions * cfg.months,
+        pct,
+        canGrind: true,
+        label: cfg.label,
+        actions
+    };
+}
+
+function getBreakthroughTierComparison() {
+    const pct = getRealmProgressPct();
+    const settledPreview = getBreakthroughLifespanPreview(G.realmIdx, 'settled');
+    const peakPreview = getBreakthroughLifespanPreview(G.realmIdx, 'peak');
+    const def = getConsolidationDef(G.realmIdx);
+    const settledFoundation = def ? Math.floor(def.foundationGain * BREAKTHROUGH_TIER_SCALE.settled.foundationMult) : 0;
+    const peakFoundation = def?.foundationGain || 0;
+    const grind = getPeakGrindEstimate();
+    return {
+        pct,
+        tier: getRealmProgressTierFromPct(pct),
+        settledPreview,
+        peakPreview,
+        settledFoundation,
+        peakFoundation,
+        foundationDelta: peakFoundation - settledFoundation,
+        grind,
+        remainingYears: getYearsRemaining()
+    };
+}
+
+function executePeakGrind() {
+    if (actionBlocked()) return failConsolidation('Cannot grind right now.');
+    if (isRealmConsolidated(G.realmIdx)) return failConsolidation('This realm is already sealed.');
+    const grind = getPeakGrindEstimate();
+    if (!grind.canGrind) return failConsolidation('Reach Settled (80%) before peak grind.');
+
+    const cfg = PEAK_GRIND_BY_PATH[G.path] || PEAK_GRIND_BY_PATH.qi;
+    if (!advanceTime(cfg.months, cfg.label)) {
+        return failConsolidation('Your lifespan ends...');
+    }
+
+    if (G.path === 'body' && typeof applyBodyPeakGrindBoost === 'function') {
+        applyBodyPeakGrindBoost(cfg.progressBoost);
+    } else if (G.path === 'soul' && typeof applySoulPeakGrindBoost === 'function') {
+        applySoulPeakGrindBoost(cfg.progressBoost);
+    } else {
+        G.realmPeakGrindBoost = (G.realmPeakGrindBoost || 0) + cfg.progressBoost;
+        const progress = getPeakProgress();
+        if (progress.def?.peak) {
+            const peak = progress.def.peak;
+            const maxQi = getMaxQi();
+            const fillNeed = Math.floor(maxQi * (peak.qiFillRatio || 0.85));
+            if (G.qi < fillNeed) G.qi = Math.min(getMaxQi(), G.qi + Math.ceil((fillNeed - G.qi) * 0.35));
+            if (getQiDensity() < peak.minQiDensity) {
+                G.qiDensity = (G.qiDensity || 0) + 0.15;
+            }
+        }
+    }
+
+    addLog(`⏳ ${cfg.label} — ${formatDuration(cfg.months)}. Realm progress → ${getRealmProgressPct()}%.`);
+    renderConsolidatePopup();
+    fullRender();
+    saveState();
+    return { success: true };
+}
+
 function executeConsolidation(opts) {
     opts = opts || {};
     const perfect = !!opts.perfect;
@@ -224,7 +417,19 @@ function executeConsolidation(opts) {
 
     const def = getConsolidationDef(G.realmIdx);
     if (!def) return failConsolidation('Consolidation not available.');
-    if (!isAtRealmPeak()) return failConsolidation(getConsolidationBlockReason());
+
+    const pct = getRealmProgressPct();
+    const progressTier = getRealmProgressTierFromPct(pct);
+    if (progressTier === 'insufficient' || progressTier === 'hasty') {
+        return failConsolidation(getConsolidationBlockReason());
+    }
+
+    const sealTier = perfect ? 'perfect' : (progressTier === 'peak' && isAtRealmPeak() ? 'peak' : 'settled');
+    if (perfect && !isAtRealmPeak()) {
+        return failConsolidation('Perfect consolidation requires Peak (100%) progress.');
+    }
+
+    const tierScale = getBreakthroughTierScale(sealTier === 'perfect' ? 'peak' : sealTier);
 
     if (perfect) {
         const perfectCheck = canPerfectConsolidation(def);
@@ -249,13 +454,17 @@ function executeConsolidation(opts) {
 
     consumeConsolidationSpecialCosts(def, sacrificeTechName);
 
-    if (!advanceTime(def.months, `${perfect ? 'Perfect' : 'Realm'} consolidation — ${def.peakLabel}`)) {
+    const capstone = getPathCapstone();
+    const activityLabel = sealTier === 'peak' || sealTier === 'perfect'
+        ? capstone.peakAction
+        : capstone.settledAction;
+    if (!advanceTime(def.months, `${perfect ? 'Perfect' : activityLabel} — ${def.peakLabel}`)) {
         return failConsolidation('Your lifespan ends...');
     }
 
     G.stones -= stoneCost;
 
-    let foundationGain = def.foundationGain;
+    let foundationGain = Math.floor(def.foundationGain * tierScale.foundationMult);
     if (perfect && def.perfect) {
         foundationGain += def.perfect.bonusFoundation || 0;
         applyPerfectConsolidationBonuses(def.perfect.permanent);
@@ -263,17 +472,21 @@ function executeConsolidation(opts) {
     }
 
     G.foundation += foundationGain;
-    applyConsolidationQiGains(def, perfect);
+    const qiGains = applyConsolidationQiGains(def, perfect, tierScale);
     ensureConsolidationState();
     G.realmConsolidation[G.realmIdx] = {
         done: true,
         perfect,
+        tier: perfect ? 'perfect' : sealTier,
+        progressPct: pct,
         atMonths: G.ageMonths,
         foundationGain
     };
+    G.realmPeakGrindBoost = 0;
 
-    addLog(`🏛️ ${getRealm()} consolidated. +${foundationGain} Foundation, +${def.maxQiGain || 0} Max Qi cap, +${def.qiDensityGain || 0} Density.`);
-    addLog(`   ↳ "${def.flavor}"`);
+    const tierLabel = perfect ? 'Perfect' : getBreakthroughTierScale(sealTier).label;
+    addLog(`🏛️ ${getRealm()} sealed (${tierLabel}). +${foundationGain} Foundation, +${qiGains.maxQiGain || 0} Max Qi cap, +${qiGains.densityGain || 0} Density.`);
+    addLog(`   ↳ "${perfect ? def.perfect.flavor : (sealTier === 'peak' ? capstone.peakFlavor : capstone.settledFlavor)}"`);
     if (stoneCost > 0) addLog(`   ↳ −${stoneCost} Spirit Stones.`);
 
     document.getElementById('consolidatePopup')?.classList.remove('active');
@@ -292,7 +505,7 @@ function actionConsolidate() {
         return;
     }
     if (isRealmConsolidated(G.realmIdx)) {
-        addLog(`🏛️ You have already consolidated ${getRealm()}.`);
+        addLog(`🏛️ You have already sealed ${getRealm()}.`);
         fullRender();
         return;
     }
@@ -306,17 +519,38 @@ function renderConsolidatePopup() {
     const def = getConsolidationDef(G.realmIdx);
     if (!def) return;
 
+    const capstone = getPathCapstone();
+    const pct = getRealmProgressPct();
+    const progressTier = getRealmProgressTierFromPct(pct);
     const progress = getPeakProgress();
     const perfectCheck = canPerfectConsolidation(def);
     const afford = canAffordConsolidation(def, false);
     const affordPerfect = canAffordConsolidation(def, true);
     const mini = def.miniTribulation ? getMiniTribulationPreview() : null;
+    const comparison = getBreakthroughTierComparison();
 
-    document.getElementById('consolidateTitle').textContent = `🏛️ Consolidate — ${getRealm()}`;
-    document.getElementById('consolidatePeak').textContent = progress.ready
-        ? `✅ ${def.peakLabel}`
-        : `⏳ Not at peak — ${progress.reasons.filter(r => !r.startsWith('At ')).join(' · ') || 'Keep cultivating.'}`;
+    document.getElementById('consolidateTitle').textContent = `${capstone.button} — ${getRealm()}`;
+    document.getElementById('consolidatePeak').textContent = progressTier === 'peak'
+        ? `✅ ${def.peakLabel} (${pct}%)`
+        : progressTier === 'settled'
+            ? `⏳ Settled (${pct}%) — ${capstone.settledAction} available · Peak grind optional`
+            : `⏳ ${pct}% — reach ${REALM_PROGRESS_TIERS.settledPct}% via cultivation chambers`;
 
+    const tierCompareEl = document.getElementById('consolidateTierCompare');
+    if (tierCompareEl) {
+        const lines = [];
+        if (comparison.grind.canGrind) {
+            lines.push(`⏳ Peak grind: ~${formatDuration(comparison.grind.months)} to reach 100% (${comparison.grind.label})`);
+        }
+        if (progressTier === 'settled' || progressTier === 'peak') {
+            lines.push(`🕯️ Break at Settled (${pct}%): +${comparison.settledPreview.gainedYears}y lifespan vs +${comparison.peakPreview.peakGainedYears}y at Peak`);
+            lines.push(`🏛️ Foundation: +${comparison.settledFoundation} (Settled) vs +${comparison.peakFoundation} (Peak)`);
+        }
+        lines.push(`🕯️ Your lifespan: ${comparison.remainingYears === Infinity ? 'Immortal' : comparison.remainingYears + ' years remaining'}`);
+        tierCompareEl.innerHTML = lines.map(line => `<div class="consolidate-req tier-compare">${line}</div>`).join('');
+    }
+
+    const settledFoundation = Math.floor(def.foundationGain * BREAKTHROUGH_TIER_SCALE.settled.foundationMult);
     const reqLines = [
         `⏳ ${def.months} months seclusion`,
         def.stones ? `💎 ${def.stones} Spirit Stones` : null,
@@ -324,14 +558,16 @@ function renderConsolidatePopup() {
         def.miniTribulation ? `⚡ Mini-tribulation (~${mini.resist} vs ${mini.severity}${mini.likely ? ', favored' : ', risky'})` : null,
         def.legendaryMaterial ? '🏆 Offer one legendary material' : null,
         def.daoFragment ? '📜 Offer one Dao Fragment' : null,
-        `🏛️ +${def.foundationGain} Foundation · +${def.maxQiGain || 0} Max Qi · +${def.qiDensityGain || 0} Density`
+        progressTier === 'peak'
+            ? `🏛️ +${def.foundationGain} Foundation · +${def.maxQiGain || 0} Max Qi · +${def.qiDensityGain || 0} Density (Peak)`
+            : `🏛️ +${settledFoundation} Foundation (Settled) · full rewards at Peak`
     ].filter(Boolean);
 
     document.getElementById('consolidateRequirements').innerHTML = reqLines
         .map(line => `<div class="consolidate-req">${line}</div>`).join('');
 
     const perfectLines = def.perfect ? [
-        `🌟 +${def.perfect.bonusFoundation} bonus Foundation`,
+        `🌟 +${def.perfect.bonusFoundation} bonus Foundation (Peak only)`,
         def.perfect.extraStones ? `💎 Total ${getConsolidationStoneCost(def, true)} Stones` : null,
         def.perfect.minMeridians ? `☯️ Requires ${def.perfect.minMeridians} meridians` : null,
         `✨ +${QI_BALANCE.perfectConsolidateMaxQiBonus} Max Qi · +${QI_BALANCE.perfectConsolidateDensityBonus} Density`,
@@ -359,16 +595,27 @@ function renderConsolidatePopup() {
 
     const btnStandard = document.getElementById('consolidateConfirm');
     const btnPerfect = document.getElementById('consolidatePerfect');
+    const btnGrind = document.getElementById('consolidatePeakGrind');
+    const canSeal = canSealAtCurrentProgress();
+
     if (btnStandard) {
-        const blocked = !progress.ready || !afford.ok;
-        btnStandard.disabled = blocked;
-        btnStandard.title = !progress.ready ? getConsolidationBlockReason() : (!afford.ok ? afford.message : 'Begin consolidation');
+        btnStandard.disabled = !canSeal || !afford.ok;
+        btnStandard.textContent = progressTier === 'peak' && isAtRealmPeak()
+            ? capstone.peakAction
+            : capstone.settledAction;
+        btnStandard.title = !canSeal ? getConsolidationBlockReason() : (!afford.ok ? afford.message : 'Seal this realm');
     }
     if (btnPerfect) {
-        const blocked = !progress.ready || !perfectCheck.ok || !affordPerfect.ok;
+        const blocked = !isAtRealmPeak() || !perfectCheck.ok || !affordPerfect.ok;
         btnPerfect.disabled = blocked;
-        btnPerfect.title = !progress.ready ? getConsolidationBlockReason()
+        btnPerfect.title = !isAtRealmPeak() ? 'Requires Peak (100%) progress'
             : (!perfectCheck.ok ? perfectCheck.message : (!affordPerfect.ok ? affordPerfect.message : def.perfect?.flavor || ''));
+    }
+    if (btnGrind) {
+        const grind = comparison.grind;
+        btnGrind.classList.toggle('hidden', !grind.canGrind || isRealmConsolidated(G.realmIdx));
+        btnGrind.disabled = !grind.canGrind;
+        btnGrind.textContent = `⏳ ${grind.label || 'Peak Grind'} (~${formatDuration(grind.months || 0)})`;
     }
 }
 
@@ -376,11 +623,13 @@ function getConsolidationProgressSummary() {
     ensureConsolidationState();
     if (isRealmConsolidated(G.realmIdx)) {
         const entry = G.realmConsolidation?.[G.realmIdx];
+        const tierLabel = entry?.perfect ? 'Perfect' : getBreakthroughTierScale(entry?.tier || 'peak').label;
         return {
             pct: 100,
-            label: entry?.perfect ? 'Consolidated (Perfect)' : 'Consolidated',
+            label: `Sealed (${tierLabel})`,
             ready: true,
             consolidated: true,
+            tier: entry?.tier || 'peak',
             hint: 'Foundation secured — you may breakthrough when ready.'
         };
     }
@@ -388,41 +637,42 @@ function getConsolidationProgressSummary() {
     if (!def) {
         return { pct: 0, label: '—', ready: false, consolidated: false, hint: '' };
     }
-    const peak = def.peak;
-    const maxQi = getMaxQi();
-    const fillNeed = Math.floor(maxQi * (peak.qiFillRatio || 0.85));
-    const densityNeed = peak.minQiDensity || 1.5;
-    const statNeed = peak.minTotalStats || 1;
-    const meridianNeed = peak.minMeridians || 0;
 
-    const checks = [
-        { w: 0.35, p: Math.min(1, G.qi / Math.max(1, fillNeed)) },
-        { w: 0.25, p: Math.min(1, getQiDensity() / densityNeed) },
-        { w: 0.25, p: Math.min(1, getStatTotal() / statNeed) }
-    ];
-    if (meridianNeed > 0) {
-        checks.push({ w: 0.15, p: Math.min(1, getMeridianOpenCount() / meridianNeed) });
-    }
-    const totalW = checks.reduce((s, c) => s + c.w, 0);
-    const pct = Math.round(checks.reduce((s, c) => s + c.w * c.p, 0) / totalW * 100);
-    const progress = getPeakProgress();
-    const blockers = progress.reasons.filter(r => !r.startsWith('At '));
+    const pct = getRealmProgressPct();
+    const progressTier = getRealmProgressTierFromPct(pct);
+    const capstone = getPathCapstone();
+    const atSettled = progressTier === 'settled' || progressTier === 'peak';
+    const atPeak = progressTier === 'peak' && isAtRealmPeak();
+
     return {
         pct,
-        label: progress.ready ? '🔔 Peak reached!' : `${pct}% toward peak`,
-        ready: progress.ready,
+        label: atPeak ? '🔔 Peak reached!' : `${pct}% · ${getBreakthroughTierScale(progressTier).label}`,
+        ready: atSettled,
         consolidated: false,
-        hint: progress.ready
-            ? 'Open Consolidate to cement your Foundation.'
-            : (blockers.slice(0, 2).join(' · ') || 'Keep cultivating.')
+        tier: progressTier,
+        hint: atPeak
+            ? `Open ${capstone.button} for full rewards.`
+            : atSettled
+                ? `${capstone.settledAction} available — or grind to Peak for full rewards.`
+                : 'Cultivate in chambers to fill realm progress.'
     };
 }
 
 function getConsolidationStatusLabel() {
     if (isRealmConsolidated(G.realmIdx)) {
         const entry = G.realmConsolidation?.[G.realmIdx];
-        return entry?.perfect ? '✅ Consolidated (Perfect)' : '✅ Consolidated';
+        if (entry?.perfect) return '✅ Sealed (Perfect)';
+        return `✅ Sealed (${getBreakthroughTierScale(entry?.tier || 'peak').label})`;
     }
-    if (!isAtRealmPeak()) return '⏳ Not at peak';
-    return '🔔 Ready to consolidate';
+    const pct = getRealmProgressPct();
+    const tier = getRealmProgressTierFromPct(pct);
+    if (tier === 'peak' && isAtRealmPeak()) return '🔔 Peak — ready to seal';
+    if (tier === 'settled' || tier === 'peak') return `⏳ Settled (${pct}%) — can seal`;
+    return `⏳ ${pct}% realm progress`;
+}
+
+function getConsolidationTierTribulationBonus(realmIdx) {
+    const tier = getConsolidationTier(realmIdx);
+    if (!tier) return 0;
+    return getBreakthroughTierScale(tier).tribulationSeverityBonus || 0;
 }
