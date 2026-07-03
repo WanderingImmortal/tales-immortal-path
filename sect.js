@@ -486,6 +486,7 @@ function foundSect(customName, doctrineId) {
         shiftDaoAlignmentHelp('founding a righteous sect');
     }
     if (typeof triggerTutorial === 'function') triggerTutorial('first_sect');
+    if (typeof notifyActionUnlocksFromChange === 'function') notifyActionUnlocksFromChange();
     return { success: true, message: `${sectName} founded under the ${doc.label}.` };
 }
 

@@ -106,6 +106,9 @@ function executeBreakthrough(style) {
     const perfectBreak = typeof rollPerfectBreakthrough === 'function'
         && rollPerfectBreakthrough(roll, finalChance, naturalSuccess, foundationStabilized);
     if (success) {
+        const prevUnlocks = typeof captureActionUnlockSnapshot === 'function'
+            ? captureActionUnlockSnapshot()
+            : null;
         G.realmIdx++;
         G.breakAttempts = 0;
         G.realmPeakGrindBoost = 0;
@@ -123,6 +126,10 @@ function executeBreakthrough(style) {
         else G.fame += 5 + G.realmIdx;
         extendLifespanOnBreakthrough(sealTier);
         commitActionLog(`✨ SUCCESS! You are now a ${getRealm()} (${getTitle()})!`);
+        if (typeof notifyActionUnlocks === 'function' && prevUnlocks) {
+            notifyActionUnlocks(prevUnlocks);
+            if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
+        }
         if (perfectBreak) addLog(`🌟 The breakthrough was flawless — your Foundation drew the heavens' attention.`);
         addLog(`📈 Max Qi → ${getMaxQi()}, +${Math.floor(boost/2)+(style==='power'?2:0)} Vit, +${Math.floor(boost/3)+(style==='wisdom'?3:0)} Spi/Will.`);
         closeBreakthrough();

@@ -1978,12 +1978,29 @@ const TUTORIAL_STEPS = {
         highlight: '#npcPresenceGroup',
         text: 'The world is filled with cultivators, villagers, and sages. Listen to them — they may offer wisdom, trade, or challenge.',
         learnMore: 'NPCs appear in the sidebar under Quests and Other People. Some wander, some offer tests or trade. Your Dao Alignment and fame change how they speak to you.'
+    },
+    unlock_factions: {
+        id: 'unlock_factions',
+        title: 'Faction Politics',
+        emoji: '⚖️',
+        highlight: '#btnFactions',
+        text: 'You have walked the wilds and grown strong enough to matter. Zone factions now track your reputation — allies and rivals alike.',
+        learnMore: 'Open Factions to see power structures in your region. Reputation shifts prices, quests, and how cultivators treat you.'
+    },
+    unlock_forbidden: {
+        id: 'unlock_forbidden',
+        title: 'Forbidden Grounds',
+        emoji: '🌑',
+        highlight: '#btnForbidden',
+        text: 'Core Formation opens glimpses of forbidden realms — places where the Dao runs thin and treasures carry a price.',
+        learnMore: 'Forbidden grounds cost time and carry risk. Dao fragments and rare loot await, but tribulation scars and alignment shifts are real.'
     }
 };
 
 const TUTORIAL_ORDER = [
     'first_boot', 'first_cultivate', 'first_breakthrough', 'first_consolidation',
-    'first_tribulation', 'first_alignment', 'first_npc'
+    'first_tribulation', 'first_alignment', 'first_npc',
+    'unlock_factions', 'unlock_forbidden'
 ];
 
 // ===== TIME & LIFESPAN =====
@@ -2035,8 +2052,19 @@ const ACTION_MONTHS = {
 // minRealm uses realmIdx (0 = first realm). Milestones are set by play, not calendar age.
 const MILESTONE_LABELS = {
     explored: 'Explore the wilds at least once',
-    met_npc: 'Speak with someone on the path',
+    met_npc: 'Speak with someone on the path', // reserved for future gates (e.g. factions OR met_npc)
     passed_tribulation: 'Survive a heavenly tribulation'
+};
+
+const ACTION_UNLOCK_LABELS = {
+    intent: 'Weapon Intent',
+    physique: 'Physique',
+    search: 'Search',
+    factions: 'Factions',
+    forbidden: 'Forbidden Grounds',
+    sect: 'Sect',
+    dao: 'Dao',
+    recruit: 'Recruit'
 };
 
 const ACTION_UNLOCK_BUTTONS = {
@@ -2077,36 +2105,36 @@ const ACTION_UNLOCKS = {
     meridian: {},
     intent: {
         minRealm: 1,
-        hint: 'Reach Foundation Establishment to awaken Weapon Intent.'
+        hint: 'Foundation Establishment — awaken Weapon Intent.'
     },
     physique: {
         minRealm: 1,
-        hint: 'Reach Foundation Establishment to temper your Physique.'
+        hint: 'Foundation Establishment — temper Physique.'
     },
     search: {
         minRealm: 1,
-        hint: 'Reach Foundation Establishment to sense sealed ancient sites.'
+        hint: 'Foundation Establishment — sense sealed sites.'
     },
     factions: {
         minRealm: 1,
         milestones: ['explored'],
-        hint: 'Explore the world and reach Foundation Establishment to chart faction politics.'
+        hint: 'Explore once + Foundation Establishment.'
     },
     forbidden: {
         minRealm: 2,
-        hint: 'Reach Core Formation before forbidden grounds reveal themselves.'
+        hint: 'Core Formation — forbidden grounds await.'
     },
     sect: {
         minRealm: 2,
-        hint: 'Reach Core Formation before founding a sect.'
+        hint: 'Core Formation — found a sect.'
     },
     dao: {
         minRealm: typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5,
-        hint: 'Reach Dao Seeking before pursuing fragment comprehension.'
+        hint: 'Dao Seeking — pursue fragments.'
     },
     recruit: {
         customCheck: 'canRecruitDisciples',
-        hint: 'Found your sect before recruiting disciples.'
+        hint: 'Found your sect first.'
     }
 };
 

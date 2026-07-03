@@ -6,6 +6,8 @@ const ACTION_UNLOCK_CUSTOM_CHECKS = {
     canRecruitDisciples: () => typeof canRecruitDisciples === 'function' && canRecruitDisciples()
 };
 
+const ACTION_UNLOCK_SKIP_RENDER = new Set(['consolidate', 'breakthrough', 'search', 'market']);
+
 function ensureMilestones() {
     if (!G.milestones) G.milestones = {};
 }
@@ -15,27 +17,41 @@ function hasMilestone(id) {
     return !!G.milestones[id];
 }
 
-function recordMilestone(id) {
+function recordMilestone(id, options) {
+    ensureMilestones();
+    if (G.milestones[id]) return false;
+    G.milestones[id] = { months: G.ageMonths || 0 };
+    if (!options?.silent) notifyActionUnlocksFromChange();
+    return true;
+}
+
+function setMilestoneSilent(id) {
     ensureMilestones();
     if (G.milestones[id]) return false;
     G.milestones[id] = { months: G.ageMonths || 0 };
     return true;
 }
 
+function legacySaveHasExplored() {
+    if ((G.foundation || 0) > 0) return true;
+    if (G.realmIdx > 0) return true;
+    if (G.log?.some(entry => typeof entry === 'string' && /Exploring|🌿|🗺️ Exploring/i.test(entry))) {
+        return true;
+    }
+    return false;
+}
+
 function migrateMilestonesFromLegacy() {
     ensureMilestones();
-    if (G.log?.length) recordMilestone('explored');
-    if (G.tribulationCount > 0) recordMilestone('passed_tribulation');
+    if (G.tribulationCount > 0) setMilestoneSilent('passed_tribulation');
     if (G.npcState) {
         const metStory = Object.values(G.npcState).some(rec => rec?.met || (rec?.talkCount || 0) > 0);
-        if (metStory) recordMilestone('met_npc');
+        if (metStory) setMilestoneSilent('met_npc');
     }
     if ((G.worldNpcs || []).some(n => n.met || (n.talkCount || 0) > 0)) {
-        recordMilestone('met_npc');
+        setMilestoneSilent('met_npc');
     }
-    if (G.foundation > 0 || (typeof isRealmConsolidated === 'function' && G.realmIdx > 0)) {
-        recordMilestone('explored');
-    }
+    if (legacySaveHasExplored()) setMilestoneSilent('explored');
 }
 
 function getActionUnlockRealmLabel(realmIdx) {
@@ -92,6 +108,62 @@ function getActionUnlockReason(actionId) {
     return evaluateActionUnlock(actionId).reason;
 }
 
+function captureActionUnlockSnapshot() {
+    if (typeof ACTION_UNLOCKS === 'undefined') return {};
+    const snap = {};
+    Object.keys(ACTION_UNLOCKS).forEach(actionId => {
+        snap[actionId] = isActionUnlocked(actionId);
+    });
+    return snap;
+}
+
+function getActionUnlockLabel(actionId) {
+    if (typeof ACTION_UNLOCK_LABELS !== 'undefined' && ACTION_UNLOCK_LABELS[actionId]) {
+        return ACTION_UNLOCK_LABELS[actionId];
+    }
+    const btnId = typeof ACTION_UNLOCK_BUTTONS !== 'undefined' ? ACTION_UNLOCK_BUTTONS[actionId] : null;
+    const btn = btnId ? document.getElementById(btnId) : null;
+    if (btn?.textContent) return btn.textContent.trim().replace(/^🔒\s*/, '');
+    return actionId;
+}
+
+function notifyActionUnlocks(prevSnap) {
+    if (!prevSnap || typeof ACTION_UNLOCKS === 'undefined') return;
+
+    const newlyUnlocked = [];
+    Object.keys(ACTION_UNLOCKS).forEach(actionId => {
+        if (ACTION_UNLOCK_SKIP_RENDER.has(actionId)) return;
+        const wasUnlocked = !!prevSnap[actionId];
+        const nowUnlocked = isActionUnlocked(actionId);
+        if (!wasUnlocked && nowUnlocked) {
+            newlyUnlocked.push(getActionUnlockLabel(actionId));
+        }
+    });
+
+    if (newlyUnlocked.length && typeof addLog === 'function') {
+        addLog(`🔓 New paths open: ${newlyUnlocked.join(', ')}`);
+    }
+
+    if (typeof triggerTutorial === 'function') {
+        if (!prevSnap.factions && isActionUnlocked('factions')) triggerTutorial('unlock_factions');
+        if (!prevSnap.forbidden && isActionUnlocked('forbidden')) triggerTutorial('unlock_forbidden');
+    }
+}
+
+function initActionUnlockSnapshot() {
+    G._actionUnlockSnapshot = captureActionUnlockSnapshot();
+}
+
+function notifyActionUnlocksFromChange() {
+    const prev = G._actionUnlockSnapshot;
+    if (!prev) {
+        initActionUnlockSnapshot();
+        return;
+    }
+    notifyActionUnlocks(prev);
+    G._actionUnlockSnapshot = captureActionUnlockSnapshot();
+}
+
 function guardAction(actionId) {
     const state = evaluateActionUnlock(actionId);
     if (state.unlocked) return true;
@@ -111,6 +183,26 @@ function cacheActionButtonDefaultTitles() {
     });
 }
 
+function applyRecruitUnlockButton(btn, state) {
+    btn.classList.toggle('action-locked', !state.unlocked);
+    if (!state.unlocked) {
+        btn.disabled = true;
+        btn.title = `🔒 ${state.reason}`;
+        return;
+    }
+    btn.disabled = false;
+    btn.title = btn.dataset.defaultTitle || '';
+}
+
+function renderActionGroupLocks() {
+    document.querySelectorAll('.actions-panel-core .action-group').forEach(group => {
+        const buttons = group.querySelectorAll('button[id^="btn"]');
+        if (!buttons.length) return;
+        const allLocked = Array.from(buttons).every(btn => btn.classList.contains('action-locked'));
+        group.classList.toggle('action-group-all-locked', allLocked);
+    });
+}
+
 function renderActionUnlocks() {
     if (typeof ACTION_UNLOCK_BUTTONS === 'undefined') return;
     cacheActionButtonDefaultTitles();
@@ -119,12 +211,16 @@ function renderActionUnlocks() {
         const btn = document.getElementById(btnId);
         if (!btn) return;
 
-        const state = evaluateActionUnlock(actionId);
-        btn.classList.toggle('action-locked', !state.unlocked);
+        if (ACTION_UNLOCK_SKIP_RENDER.has(actionId)) return;
 
-        if (actionId === 'consolidate' || actionId === 'search' || actionId === 'market') {
+        const state = evaluateActionUnlock(actionId);
+
+        if (actionId === 'recruit') {
+            applyRecruitUnlockButton(btn, state);
             return;
         }
+
+        btn.classList.toggle('action-locked', !state.unlocked);
 
         if (!state.unlocked) {
             btn.disabled = true;
@@ -135,4 +231,6 @@ function renderActionUnlocks() {
         btn.disabled = false;
         btn.title = btn.dataset.defaultTitle || '';
     });
+
+    renderActionGroupLocks();
 }

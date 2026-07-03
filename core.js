@@ -937,6 +937,7 @@ function loadState() {
             if (typeof ensureSectState === 'function') ensureSectState();
             if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
             if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();
+            if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
             if (typeof ensureAncientsState === 'function') ensureAncientsState();
             if (typeof ensureFactionState === 'function') ensureFactionState();
             ensureAffinities();

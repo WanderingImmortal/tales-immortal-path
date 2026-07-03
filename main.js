@@ -377,6 +377,7 @@ function setupCreation() {
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
         fullRender();
+        if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
         saveState();
         setTimeout(function() {
             if (typeof triggerTutorial === 'function') triggerTutorial('first_boot');

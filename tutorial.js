@@ -136,6 +136,11 @@ function migrateTutorialForExistingSave() {
         }
     }
 
+    if (typeof isActionUnlocked === 'function') {
+        if (isActionUnlocked('factions')) completeTutorial('unlock_factions');
+        if (isActionUnlocked('forbidden')) completeTutorial('unlock_forbidden');
+    }
+
     G.tutorialLog.migratedExisting = true;
 }
 
