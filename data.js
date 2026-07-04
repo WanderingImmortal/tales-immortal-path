@@ -478,12 +478,33 @@ const COMBAT_FLEE_BALANCE = {
 const DAO_SEEKING_REALM_IDX = 5;
 
 const TRAINABLE_PHYSIQUES = [
-    { name: "Iron Body", pro: "+5 Vitality", con: "-2 Spirit", type: "trainable", bonus: { vitality: 5, spirit: -2 } },
-    { name: "Spirit Veins", pro: "+5 Spirit", con: "-2 Vitality", type: "trainable", bonus: { spirit: 5, vitality: -2 } },
-    { name: "Qi Sea", pro: "+5 Qi", con: "-2 Will", type: "trainable", bonus: { qi: 5, will: -2 } },
-    { name: "War Blood", pro: "+5 Will", con: "-2 Qi", type: "trainable", bonus: { will: 5, qi: -2 } },
-    { name: "Balanced Heart", pro: "+2 all stats", con: "None", type: "trainable", bonus: { qi: 2, vitality: 2, spirit: 2, will: 2 } }
+    { id: 'iron_body', name: "Iron Body", pro: "+5 Vitality", con: "-2 Spirit", type: "trainable",
+        bonus: { vitality: 5, spirit: -2 }, focusLayers: ['skin', 'flesh', 'bones'],
+        catalystCost: { spirit_herb: 3 } },
+    { id: 'spirit_veins', name: "Spirit Veins", pro: "+5 Spirit", con: "-2 Vitality", type: "trainable",
+        bonus: { spirit: 5, vitality: -2 }, focusLayers: ['meridians', 'blood', 'nerves'],
+        catalystCost: { rare_herb: 1 } },
+    { id: 'qi_sea', name: "Qi Sea", pro: "+5 Qi", con: "-2 Will", type: "trainable",
+        bonus: { qi: 5, will: -2 }, focusLayers: ['organs', 'blood'],
+        catalystCost: { spirit_herb: 2, jade_inlay: 1 } },
+    { id: 'war_blood', name: "War Blood", pro: "+5 Will", con: "-2 Qi", type: "trainable",
+        bonus: { will: 5, qi: -2 }, focusLayers: ['flesh', 'blood'],
+        catalystCost: { demon_core: 1 } },
+    { id: 'balanced_heart', name: "Balanced Heart", pro: "+2 all stats", con: "None", type: "trainable",
+        bonus: { qi: 2, vitality: 2, spirit: 2, will: 2 }, focusLayers: ['skin', 'organs', 'meridians'],
+        catalystCost: { rare_herb: 1, spirit_herb: 2 } }
 ];
+
+/** Staged physique cultivation — refine in the Body Chamber over months, not one-click unlock. */
+const PHYSIQUE_CULTIVATION_BALANCE = {
+    maxStages: 4,
+    stageNames: ['Tempering', 'Forging', 'Perfection', 'Transcendence'],
+    standardRefine: { weeks: 6, progress: 12, label: 'Standard Refinement' },
+    catalystRefine: { weeks: 3, progress: 22, label: 'Catalyst Refinement' },
+    bodyActionProgress: 4,
+    foundationPerStage: 1,
+    foundationOnComplete: 3
+};
 
 const LEGENDARY_PHYSIQUES = [
     { name: "Thunder Soul", trial: "Survive 3 tribulations", bonus: { qi: 10, will: 5, lightningResist: 50 }, effectDesc: "+10 Qi · +5 Will · +50% lightning resist", type: "legendary" },

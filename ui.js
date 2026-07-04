@@ -146,7 +146,13 @@ function renderStatus() {
     renderTribulationMarksPanel();
     renderTranscendencePerksPanel();
     const physEl = document.getElementById('physiqueDisplay');
-    physEl.textContent = G.physique ? G.physique.name : 'None';
+    if (physEl) {
+        if (typeof getPhysiqueCultivationStatusText === 'function' && isPhysiqueCultivationActive?.()) {
+            physEl.textContent = getPhysiqueCultivationStatusText();
+        } else {
+            physEl.textContent = G.physique ? G.physique.name : 'None';
+        }
+    }
     const intentEl = document.getElementById('intentDisplay');
     const activeIntentUi = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
     if (intentEl) {
@@ -1144,13 +1150,29 @@ function renderMeridianPopup() {
 
 function renderPhysiquePopup() {
     const el = document.getElementById('physiqueList');
-    let html = '<div style="font-size:12px;color:#a09080;margin-bottom:6px;">Choose a physique to train or awaken.</div>';
+    if (typeof ensurePhysiqueCultivationState === 'function') ensurePhysiqueCultivationState();
+    let html = '<div style="font-size:12px;color:#a09080;margin-bottom:6px;">Trainable physiques are long-term Body Chamber projects — weak at first, full power when perfected.</div>';
+    if (isPhysiqueCultivationActive?.()) {
+        const status = getPhysiqueCultivationStatusText?.() || '';
+        html += `<div class="popup-item" style="border-color:#9b59b6;margin-bottom:8px;">
+            <div class="name">🔮 Active Project</div>
+            <div class="desc">${status}</div>
+            <div class="meta">Refine in the Body Chamber (Cultivation Hub → Body).</div>
+        </div>`;
+    }
     html += '<div style="font-size:13px;color:#b8863a;margin-top:6px;">━━ Trainable ──</div>';
     for (const p of TRAINABLE_PHYSIQUES) {
-        const isActive = G.physique && G.physique.name === p.name;
-        html += `<div class="popup-item" data-physique="${p.name}" style="${isActive ? 'border-color:#f1c40f;' : ''}">
-            <div class="name">${isActive ? '✅ ' : ''}${p.name} <span style="font-size:11px;color:#6a5a4a;">[Trainable]</span></div>
+        const pid = p.id || getPhysiqueId?.(p.name);
+        const isEquipped = G.physique && (G.physique.name === p.name || G.physique.id === pid);
+        const isCultivating = G.physiqueCultivation?.id === pid;
+        const isDone = isPhysiqueCompleted?.(pid);
+        let tag = '[Begin]';
+        if (isDone) tag = isEquipped ? '[Equipped]' : '[Perfected]';
+        else if (isCultivating) tag = '[Refining]';
+        html += `<div class="popup-item" data-physique="${p.name}" data-physique-id="${pid}" style="${isEquipped || isCultivating ? 'border-color:#f1c40f;' : ''}">
+            <div class="name">${isEquipped ? '✅ ' : isCultivating ? '🔮 ' : ''}${p.name} <span style="font-size:11px;color:#6a5a4a;">${tag}</span></div>
             <div class="desc">${p.pro} | ${p.con}</div>
+            ${isCultivating ? `<div class="meta">${getPhysiqueCultivationStatusText?.() || ''}</div>` : ''}
         </div>`;
     }
     html += '<div style="font-size:13px;color:#f1c40f;margin-top:8px;">━━ Legendary ──</div>';
@@ -1171,8 +1193,13 @@ function renderPhysiquePopup() {
             <div class="desc">${p.pro} | ${p.con}</div>
         </div>`;
     }
+    if (G.physique) {
+        html += `<button type="button" class="popup-item" id="physiqueUnequipBtn" style="width:100%;text-align:center;margin-top:8px;">
+            <div class="name">Unequip ${G.physique.name}</div>
+        </button>`;
+    }
     el.innerHTML = html;
-    el.querySelectorAll('.popup-item').forEach(item => {
+    el.querySelectorAll('.popup-item[data-physique]').forEach(item => {
         item.addEventListener('click', function() {
             const name = this.dataset.physique;
             const p = getPhysiqueByName(name);
@@ -1187,6 +1214,14 @@ function renderPhysiquePopup() {
                 fullRender();
             }
         });
+    });
+    document.getElementById('physiqueUnequipBtn')?.addEventListener('click', function() {
+        const result = typeof unequipPhysique === 'function' ? unequipPhysique() : null;
+        if (result) {
+            logTimedResult(result);
+            renderPhysiquePopup();
+            fullRender();
+        }
     });
 }
 

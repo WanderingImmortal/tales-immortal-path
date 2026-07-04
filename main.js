@@ -292,6 +292,8 @@ function setupCreation() {
         G.meridians = Array(13).fill(false);
         G.meridianAttempts = Array(13).fill(0);
         G.physique = null;
+        G.physiqueCultivation = null;
+        if (typeof ensurePhysiqueCultivationState === 'function') ensurePhysiqueCultivationState();
         G.physiqueUnlocked = [];
         G.weaponIntent = null;
         G.weaponIntents = [];
