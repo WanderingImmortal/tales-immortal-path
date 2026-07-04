@@ -259,6 +259,13 @@ function actionFactionsWrapper() {
     fullRender();
 }
 
+function actionHeavenlyCourtWrapper() {
+    if (actionBlocked()) return;
+    if (typeof actionHeavenlyCourt === 'function') actionHeavenlyCourt();
+    else addLog('☁️ The Heavenly Court has not yet opened to you.');
+    fullRender();
+}
+
 // ----- STATUS -----
 function actionStatus() {
     if (actionBlocked()) return;

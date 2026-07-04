@@ -6479,3 +6479,217 @@ const TRANSCENDENCE_REALM_POOLS = {
     5: ["daos_echo", "daos_clarity", "daos_embrace"],
     6: ["heavenly_mandate", "worldly_resonance", "selfish_truth"]
 };
+
+// ===== POST-IMMORTAL ENDGAME — Immortal paths & Heavenly Court =====
+const IMMORTAL_PATHS = {
+    heavenly: {
+        id: 'heavenly',
+        name: 'Heavenly Immortal',
+        dao: 'Heavenly Dao',
+        emoji: '☁️',
+        desc: 'Serve the Heavenly Court. Issue world-altering decrees — but political intrigue can cast you down.',
+        resource: 'Celestial Favor',
+        resourceEmoji: '✨',
+        minAlignment: 15,
+        maxAlignment: 100,
+        conflict: 'Political intrigue, faction wars, and rivals who seek your fall.',
+        fallDesc: 'If Celestial Favor drops below zero, heaven strips your immortality and you are reborn mortal.'
+    },
+    worldly: {
+        id: 'worldly',
+        name: 'Worldly Immortal',
+        dao: 'Worldly Dao',
+        emoji: '🌍',
+        desc: 'Walk among mortals, sensing and correcting imbalances in the world.',
+        resource: 'Dao Heart Stability',
+        resourceEmoji: '💠',
+        minAlignment: -29,
+        maxAlignment: 29,
+        conflict: 'Dao Heart decay — if Stability reaches zero, you fade into the world.',
+        fallDesc: 'You dissolve into the land itself — game over, but with a legacy bonus.',
+        implemented: false
+    },
+    devil: {
+        id: 'devil',
+        name: 'Heavenly Devil',
+        dao: 'Selfish Dao',
+        emoji: '🌑',
+        desc: 'Defy the Court. Manipulate the Void and evade heavenly envoys.',
+        resource: 'Void Energy',
+        resourceEmoji: '⚫',
+        minAlignment: -100,
+        maxAlignment: -30,
+        conflict: 'Heavenly Envoys hunt you without rest.',
+        fallDesc: 'If caught, face a Celestial Trial. Lose, and you are cast down.',
+        implemented: false
+    }
+};
+
+const HEAVENLY_COURT_BALANCE = {
+    favorMin: -50,
+    favorMax: 150,
+    startingFavor: 30,
+    standingMin: -20,
+    standingMax: 100,
+    intrigueChancePerTick: 0.05,
+    passiveFavorDrain: 0,
+    fallThreshold: 0,
+    castDownRealmIdx: 5
+};
+
+const HEAVENLY_COURT_RANKS = [
+    { id: 'novice', label: 'Novice', emoji: '🌱', minStanding: 0 },
+    { id: 'adept', label: 'Adept', emoji: '📜', minStanding: 12 },
+    { id: 'envoy', label: 'Envoy', emoji: '🕊️', minStanding: 30 },
+    { id: 'councilor', label: 'Councilor', emoji: '🏛️', minStanding: 55 },
+    { id: 'celestial_lord', label: 'Celestial Lord', emoji: '👑', minStanding: 80 },
+    { id: 'celestial_emperor', label: 'Celestial Emperor', emoji: '☀️', minStanding: 100 }
+];
+
+const HEAVENLY_COURT_TASKS = {
+    judge_dispute: {
+        id: 'judge_dispute',
+        title: 'Judge a Mortal Dispute',
+        emoji: '⚖️',
+        desc: 'Two clans petition the Court. Hear both sides and render judgment.',
+        objective: 'Deliberate in seclusion, then report your verdict to the Court.',
+        months: 3,
+        completeOn: 'manual',
+        minRank: 'novice',
+        rewards: { standing: 8, favor: 10, alignment: 4, fame: 3 }
+    },
+    bless_region: {
+        id: 'bless_region',
+        title: 'Bless a Region',
+        emoji: '🌤️',
+        desc: 'The Court sends you to walk a land and restore its spiritual balance.',
+        objective: 'Explore the Heartlands while bearing the Court\'s blessing.',
+        months: 8,
+        completeOn: 'explore',
+        zone: 'heartlands',
+        minRank: 'adept',
+        rewards: { standing: 6, favor: 12, alignment: 5 }
+    },
+    hunt_rogue: {
+        id: 'hunt_rogue',
+        title: 'Hunt a Rogue Immortal',
+        emoji: '⚔️',
+        desc: 'A fallen cultivator defies heavenly order. Bring them before the Court — or end them.',
+        objective: 'Win combat anywhere in the Azure Sky to claim the rogue.',
+        months: 10,
+        completeOn: 'combat',
+        minRank: 'envoy',
+        rewards: { standing: 10, favor: 15, fame: 5, alignment: 3 }
+    }
+};
+
+const HEAVENLY_DECREES = {
+    bless_region: {
+        id: 'bless_region',
+        label: 'Bless Region',
+        emoji: '🌤️',
+        favorCost: 10,
+        minRank: 'adept',
+        months: 2,
+        desc: 'Rain fortune upon a zone — explorers find richer opportunities.',
+        effects: { exploreBonusPct: 12, durationMonths: 24 }
+    },
+    curse_rival: {
+        id: 'curse_rival',
+        label: 'Curse Rival',
+        emoji: '⛈️',
+        favorCost: 14,
+        minRank: 'envoy',
+        months: 3,
+        desc: 'Heaven\'s disfavor falls upon a rival power — their reputation crumbles.',
+        effects: { factionRepDelta: -18 }
+    },
+    guide_disciple: {
+        id: 'guide_disciple',
+        label: 'Guide Disciple',
+        emoji: '📿',
+        favorCost: 12,
+        minRank: 'adept',
+        months: 4,
+        desc: 'Channel celestial insight into a worthy soul — or yourself.',
+        effects: { foundation: 4, spirit: 2, will: 2 }
+    },
+    punish_sinner: {
+        id: 'punish_sinner',
+        label: 'Punish Sinner',
+        emoji: '⚡',
+        favorCost: 16,
+        minRank: 'councilor',
+        months: 2,
+        desc: 'Strike down corruption with heaven\'s authority.',
+        effects: { alignment: 8, standing: 5, corruptionReduce: 10 }
+    },
+    create_forbidden_ground: {
+        id: 'create_forbidden_ground',
+        label: 'Create Forbidden Ground',
+        emoji: '🌑',
+        favorCost: 28,
+        minRank: 'celestial_lord',
+        months: 6,
+        desc: 'Seal a scar upon the world where only the worthy may tread.',
+        effects: { fame: 12, foundation: 3, stones: 40 }
+    },
+    bless_sect: {
+        id: 'bless_sect',
+        label: 'Bless Sect',
+        emoji: '🏯',
+        favorCost: 18,
+        minRank: 'councilor',
+        months: 3,
+        requiresSect: true,
+        desc: 'The Court acknowledges your sect as a pillar of order.',
+        effects: { sectRenown: 15, fame: 8 }
+    }
+};
+
+const HEAVENLY_INTRIGUE_EVENTS = [
+    {
+        id: 'rival_councilor',
+        title: 'Rival Councilor\'s Scheme',
+        emoji: '🗡️',
+        text: 'A jealous Councilor spreads whispers that you hoard Celestial Favor for personal gain.',
+        choices: [
+            { id: 'refute', label: 'Refute publicly', favor: -4, standing: 6, alignment: 2 },
+            { id: 'bribe', label: 'Quiet their tongue with favors', favor: -8, standing: 2, stones: -20 },
+            { id: 'ignore', label: 'Ignore the slander', favor: -10, standing: -3 }
+        ]
+    },
+    {
+        id: 'faction_war',
+        title: 'Heartlands Faction War',
+        emoji: '⚔️',
+        text: 'The Four Powerhouse Sects clash. The Court demands you take a side — or broker peace.',
+        choices: [
+            { id: 'broker', label: 'Broker ceasefire', favor: -6, standing: 8, alignment: 6, months: 4 },
+            { id: 'back_sword', label: 'Back Celestial Sword', favor: -5, standing: 4, factionId: 'celestial_sword', factionRep: 10 },
+            { id: 'exploit', label: 'Exploit the chaos', favor: -12, standing: -2, alignment: -8, stones: 35 }
+        ]
+    },
+    {
+        id: 'petition_mortals',
+        title: 'Mortal Petition',
+        emoji: '📜',
+        text: 'A village begs the Court for rain after drought. Your response will be remembered.',
+        choices: [
+            { id: 'bless', label: 'Bless the village', favor: -5, standing: 5, alignment: 5 },
+            { id: 'defer', label: 'Defer to regional sects', favor: 2, standing: -2 },
+            { id: 'demand_tribute', label: 'Demand tribute first', favor: 3, standing: -4, alignment: -6, stones: 25 }
+        ]
+    },
+    {
+        id: 'envoy_audit',
+        title: 'Heavenly Audit',
+        emoji: '🔍',
+        text: 'Senior Envoys review your recent decrees. Every favor spent is scrutinized.',
+        choices: [
+            { id: 'cooperate', label: 'Open your records', favor: 5, standing: 4, alignment: 3 },
+            { id: 'deflect', label: 'Deflect blame to a rival', favor: -3, standing: -5, alignment: -5 },
+            { id: 'gift', label: 'Offer a ceremonial gift', favor: -7, standing: 3, stones: -30 }
+        ]
+    }
+];

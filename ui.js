@@ -48,6 +48,7 @@ function renderStatus() {
             alignStatEl.className = 'value ' + tierClass;
         }
     }
+    if (typeof renderPostImmortalStatus === 'function') renderPostImmortalStatus();
     document.getElementById('sectNameDisplay').textContent = typeof getSectDisplayName === 'function'
         ? getSectDisplayName() : (G.sectName || 'None');
     const traitDef = typeof getPlayerTraitDef === 'function' ? getPlayerTraitDef() : G.trait;

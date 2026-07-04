@@ -696,12 +696,14 @@ function onExploreForFactions(zoneId) {
     if (typeof onEmberwildRespectfulExplore === 'function') onEmberwildRespectfulExplore();
     if (typeof tryCompleteFactionQuests === 'function') tryCompleteFactionQuests('emberwild_respect', { zone: zoneId });
     tryCompleteFactionQuests('explore', { zone: zoneId });
+    if (typeof onExploreForPostImmortal === 'function') onExploreForPostImmortal(zoneId);
 }
 
 function onCombatForFactions() {
     const zoneId = typeof getLootZoneId === 'function' ? getLootZoneId() : (G.currentZone || currentZone);
     if (typeof onEmberwildCombatVictory === 'function') onEmberwildCombatVictory();
     tryCompleteFactionQuests('combat', { zone: zoneId });
+    if (typeof onCombatForPostImmortal === 'function') onCombatForPostImmortal();
 }
 
 function tickFactionQuestDeadlines() {

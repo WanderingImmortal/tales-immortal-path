@@ -892,6 +892,7 @@ function getFactionExploreBonusMult(zoneId) {
     const pactFx = getActiveFactionSectPactEffects();
     bonus += pactFx.exploreBonusPct || 0;
     if (zoneId === 'jade' && G.factions?.seaBeastResolved) bonus += 5;
+    if (typeof getActiveDecreeExploreBonus === 'function') bonus += getActiveDecreeExploreBonus(zoneId);
     return 1 + bonus / 100;
 }
 
