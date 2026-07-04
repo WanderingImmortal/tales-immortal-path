@@ -394,6 +394,13 @@ function tribulationApplyChoiceEffects(effects, sourceChoice) {
 
 function resolveLightningTrial(choice) {
     const state = G.tribulationState;
+    if (typeof isPlaytestAutoPassTribulation === 'function' && isPlaytestAutoPassTribulation()) {
+        state.trialPassed = true;
+        addLog(`⚗️ [Playtest] Lightning trial auto-passed.`);
+        G.vitality += 1;
+        G.will += 1;
+        return;
+    }
     let resist = getLightningResistPower();
     resist += (choice.resistBonus || 0);
     resist += state.trialScore * 2;
@@ -433,6 +440,17 @@ function applyLightningDamage(gap) {
 }
 
 function startHeartDemonCombat() {
+    if (typeof isPlaytestAutoPassTribulation === 'function' && isPlaytestAutoPassTribulation()) {
+        const state = G.tribulationState;
+        state.trialPassed = true;
+        state.trialScore += 4;
+        addLog(`⚗️ [Playtest] Heart Demon trial auto-passed.`);
+        state.phase = 'aftermath';
+        document.getElementById('tribulationOverlay').classList.add('active');
+        renderTribulationOverlay();
+        fullRender();
+        return;
+    }
     const state = G.tribulationState;
     const scale = 1 + G.realmIdx * TRIBULATION_BALANCE.heartDemonRealmScale;
     let enemyHp = Math.floor(G.maxHp * TRIBULATION_BALANCE.heartDemonHpMult * scale);
@@ -488,6 +506,10 @@ function tribulationCombatVictory() {
 }
 
 function tribulationCombatDefeat() {
+    if (typeof isPlaytestAutoPassTribulation === 'function' && isPlaytestAutoPassTribulation()) {
+        tribulationCombatVictory();
+        return;
+    }
     const state = G.tribulationState;
     G.inCombat = false;
     G.defending = false;
@@ -513,7 +535,10 @@ function tribulationResolveAftermath(choice) {
     const state = G.tribulationState;
     let outcome = choice.outcome;
 
-    if (!tribulationMeetsRequire(choice.require)) {
+    if (typeof isPlaytestAutoPassTribulation === 'function' && isPlaytestAutoPassTribulation()) {
+        state.trialPassed = true;
+        outcome = 'success';
+    } else if (!tribulationMeetsRequire(choice.require)) {
         addLog(`⚡ ${choice.failLog || 'Transcendence eludes you.'}`);
         outcome = choice.fail?.outcome || (state.trialPassed ? 'success' : 'failure_soft');
     } else {

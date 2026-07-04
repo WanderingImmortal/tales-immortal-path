@@ -181,6 +181,10 @@ function getConsolidationBlockReason() {
 }
 
 function getConsolidationStoneCost(def, perfect) {
+    if (typeof isPlaytestMode === 'function' && typeof getPlaytestOption === 'function'
+        && isPlaytestMode() && getPlaytestOption('freeConsolidate')) {
+        return 0;
+    }
     let cost = def.stones || 0;
     if (perfect && def.perfect?.extraStones) cost += def.perfect.extraStones;
     return cost;

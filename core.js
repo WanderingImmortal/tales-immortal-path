@@ -803,6 +803,9 @@ function formatActionTimeMeta(months, remainStr) {
 function advanceTime(months, activity) {
     if (months <= 0) return true;
     if (G.gameOver) return false;
+    if (typeof applyPlaytestTimeMonths === 'function') {
+        months = applyPlaytestTimeMonths(months);
+    }
     if (G.forbiddenLifespanMult && G.forbiddenLifespanMult > 1 && months >= 1) {
         months = Math.max(1, Math.floor(months / G.forbiddenLifespanMult));
     }

@@ -64,6 +64,9 @@ function getActionUnlockDef(actionId) {
 }
 
 function evaluateActionUnlock(actionId) {
+    if (typeof isPlaytestFreeActionGates === 'function' && isPlaytestFreeActionGates()) {
+        return { unlocked: true, reason: null };
+    }
     const def = getActionUnlockDef(actionId);
     if (!def) return { unlocked: true, reason: null };
 
