@@ -364,7 +364,7 @@ function setupCreation() {
         initLifespan();
         if (typeof applyPlayerTraitStartingEffects === 'function') applyPlayerTraitStartingEffects();
         G.log = [];
-        G.stones = 20;
+        G.stones = typeof getPlaytestStartingStones === 'function' ? getPlaytestStartingStones() : 20;
         G.pills = 0;
         G.pillStock = { spirit_gathering: 3, blood_recovery: 1, meridian_soothing: 0, soul_nourishing: 0, foundation_stabilizing: 0 };
         updateShield();
@@ -449,6 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initSoulChamberEvents === 'function') initSoulChamberEvents();
     if (typeof initCultivationHubEvents === 'function') initCultivationHubEvents();
     if (typeof initPlaytestFeedback === 'function') initPlaytestFeedback();
+    if (typeof initPlaytestMode === 'function') initPlaytestMode();
 
     // Popup close buttons
     document.getElementById('techClose').addEventListener('click', function() {

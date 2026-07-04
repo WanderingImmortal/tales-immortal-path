@@ -298,6 +298,9 @@ function applyExploreRewardMult(value) {
     if (typeof getFactionExploreBonusMult === 'function') {
         mult *= getFactionExploreBonusMult(zoneId);
     }
+    if (typeof getPlaytestStoneMult === 'function') {
+        mult *= getPlaytestStoneMult();
+    }
     return Math.max(0, Math.ceil(value * mult));
 }
 

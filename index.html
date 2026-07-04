@@ -15,6 +15,7 @@
     <header>
         <h1>🏔️ Tales of the Immortal Path</h1>
         <div class="subtitle">— A Xianxia Text Adventure —</div>
+        <div id="playtestModeBanner" class="playtest-mode-banner" aria-live="polite">⚗️ PLAYTEST MODE</div>
     </header>
 
     <!-- CHARACTER CREATION -->
@@ -253,6 +254,27 @@
                                 <button type="button" id="playtestClear" class="playtest-export-btn playtest-clear-btn">🗑️ Clear</button>
                             </div>
                             <p id="playtestStatus" class="playtest-status" aria-live="polite"></p>
+                            <button type="button" id="playtestDevToggle" class="playtest-toggle playtest-dev-toggle details-toggle">⚗️ Dev tools ▼</button>
+                            <div id="playtestDevBody" class="playtest-dev-body">
+                                <p class="playtest-hint">QA toggles — off by default; no effect on balance when disabled.</p>
+                                <label class="playtest-check"><input type="checkbox" id="playtestMaster" /> Enable playtest mode</label>
+                                <div class="playtest-dev-toggles">
+                                    <label class="playtest-check"><input type="checkbox" data-playtest-opt="richExplore" /> Rich explore (3× stones)</label>
+                                    <label class="playtest-check"><input type="checkbox" data-playtest-opt="generousStart" /> Generous start (200 stones)</label>
+                                    <label class="playtest-check"><input type="checkbox" data-playtest-opt="freeConsolidate" /> Free consolidate</label>
+                                    <label class="playtest-check"><input type="checkbox" data-playtest-opt="fastTime" /> Fast time (÷4 months)</label>
+                                    <label class="playtest-check"><input type="checkbox" data-playtest-opt="autoPassTribulation" /> Auto-pass tribulation</label>
+                                    <label class="playtest-check"><input type="checkbox" data-playtest-opt="freeActionGates" /> Free action gates</label>
+                                </div>
+                                <div class="playtest-grant-row">
+                                    <button type="button" id="playtestGrant100" class="playtest-grant-btn">💎 +100</button>
+                                    <button type="button" id="playtestGrant500" class="playtest-grant-btn">💎 +500</button>
+                                    <button type="button" id="playtestGrantRealm" class="playtest-grant-btn">🌀 +1 Realm</button>
+                                    <button type="button" id="playtestGrantLifespan" class="playtest-grant-btn">🕯️ +50y</button>
+                                    <button type="button" id="playtestGrantFoundation" class="playtest-grant-btn">🏛️ +10 Fdn</button>
+                                    <button type="button" id="playtestFillQi" class="playtest-grant-btn">⚡ Fill Qi/HP</button>
+                                </div>
+                            </div>
                         </div>
                     </section>
                     <button id="btnReset" class="btn-danger btn-reset">↺ Reset Journey</button>
@@ -1101,6 +1123,7 @@
 <script src="story-arcs.js?v=6"></script>
 <script src="combat.js?v=29"></script>
 <script src="playtest-feedback.js?v=1"></script>
+<script src="playtest-mode.js?v=1"></script>
 <script src="main.js?v=34"></script>
 </body>
 </html>
