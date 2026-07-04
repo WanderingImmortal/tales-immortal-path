@@ -90,7 +90,12 @@ function getAlchemySkillLevel() {
 }
 
 function migrateAlchemySkillLevel() {
-    getAlchemySkillLevel();
+    if (!G.alchemy) return;
+    let level = ALCHEMY_SKILL_LEVELS[0];
+    for (const row of ALCHEMY_SKILL_LEVELS) {
+        if (G.alchemy.skillXp >= row.xpRequired) level = row;
+    }
+    G.alchemy.skillLevel = level.id;
 }
 
 function getAlchemySkillDef(skillId) {
@@ -108,7 +113,12 @@ function getAlchemyReputationLevel() {
 }
 
 function migrateAlchemyReputation() {
-    getAlchemyReputationLevel();
+    if (!G.alchemy) return;
+    let level = ALCHEMY_REPUTATION_LEVELS[0];
+    for (const row of ALCHEMY_REPUTATION_LEVELS) {
+        if (G.alchemy.reputationXp >= row.xpRequired) level = row;
+    }
+    G.alchemy.reputation = level.id;
 }
 
 function getAlchemyCauldronDef(cauldronId) {
@@ -116,7 +126,7 @@ function getAlchemyCauldronDef(cauldronId) {
 }
 
 function migrateAlchemyCauldron() {
-    ensureAlchemyState();
+    if (!G.alchemy) return;
     const crafts = G.alchemy.successfulCrafts || 0;
     let best = ALCHEMY_CAULDRONS[0];
     for (const c of ALCHEMY_CAULDRONS) {

@@ -230,23 +230,36 @@ function grantRandomAdeptTechnique() {
 
 function setupCreation() {
     renderCreationTraits();
-    document.querySelectorAll('#pathOptions .popup-item').forEach(el => {
-        el.addEventListener('click', function() {
-            document.querySelectorAll('#pathOptions .popup-item').forEach(e => e.classList.remove('selected'));
-            this.classList.add('selected');
-            selectedPath = this.dataset.path;
-        });
-    });
-    document.querySelectorAll('#traitOptions .popup-item').forEach(el => {
-        el.addEventListener('click', function() {
-            document.querySelectorAll('#traitOptions .popup-item').forEach(e => e.classList.remove('selected'));
-            this.classList.add('selected');
-            selectedTrait = parseInt(this.dataset.trait, 10);
-        });
-    });
 
-    document.getElementById('startBtn').addEventListener('click', function() {
-        const name = document.getElementById('nameInput').value.trim() || "Wandering Immortal";
+    const pathOptions = document.getElementById('pathOptions');
+    if (pathOptions && !pathOptions.dataset.bound) {
+        pathOptions.dataset.bound = '1';
+        pathOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-path]');
+            if (!card || !pathOptions.contains(card)) return;
+            pathOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedPath = card.dataset.path;
+        });
+    }
+
+    const traitOptions = document.getElementById('traitOptions');
+    if (traitOptions && !traitOptions.dataset.bound) {
+        traitOptions.dataset.bound = '1';
+        traitOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-trait]');
+            if (!card || !traitOptions.contains(card)) return;
+            traitOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedTrait = parseInt(card.dataset.trait, 10);
+        });
+    }
+
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn && !startBtn.dataset.bound) {
+        startBtn.dataset.bound = '1';
+        startBtn.addEventListener('click', function() {
+            const name = document.getElementById('nameInput').value.trim() || "Wandering Immortal";
         G.name = name;
         G.path = selectedPath;
         G.trait = TRAITS[selectedTrait];
@@ -385,7 +398,8 @@ function setupCreation() {
         setTimeout(function() {
             if (typeof triggerTutorial === 'function') triggerTutorial('first_boot');
         }, 500);
-    });
+        });
+    }
 }
 
 // ===== INIT =====
