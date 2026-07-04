@@ -1200,9 +1200,67 @@ function appendBodyActionButton(panel, layerId, action, isSub) {
     panel.appendChild(btn);
 }
 
+function renderBodyPhysiqueProject() {
+    const panel = document.getElementById('bodyPhysiqueProject');
+    if (!panel || typeof ensurePhysiqueCultivationState !== 'function') return;
+    ensurePhysiqueCultivationState();
+    const pc = G.physiqueCultivation;
+    if (!pc.id) {
+        panel.hidden = true;
+        panel.replaceChildren();
+        return;
+    }
+    const def = typeof getPhysiqueDefById === 'function' ? getPhysiqueDefById(pc.id) : null;
+    if (!def) {
+        panel.hidden = true;
+        return;
+    }
+    panel.hidden = false;
+    const bal = typeof getPhysiqueCultivationBalance === 'function' ? getPhysiqueCultivationBalance() : {};
+    const stageName = typeof getPhysiqueStageName === 'function' ? getPhysiqueStageName(pc.stage) : `Stage ${pc.stage}`;
+    const mult = typeof getPhysiqueBonusMultiplier === 'function'
+        ? Math.round(getPhysiqueBonusMultiplier(pc.stage, pc.progress) * 100) : 0;
+    const std = bal.standardRefine || { weeks: 6, progress: 12, label: 'Standard Refinement' };
+    const cat = bal.catalystRefine || { weeks: 3, progress: 22, label: 'Catalyst Refinement' };
+    const catalystCost = typeof getPhysiqueCatalystCost === 'function' ? getPhysiqueCatalystCost(def) : null;
+    const matLine = typeof formatPhysiqueMaterialCost === 'function' ? formatPhysiqueMaterialCost(catalystCost) : '';
+    const stdBlock = typeof getPhysiqueRefineBlockReason === 'function' ? getPhysiqueRefineBlockReason('standard') : null;
+    const catBlock = typeof getPhysiqueRefineBlockReason === 'function' ? getPhysiqueRefineBlockReason('catalyst') : null;
+    const layers = (def.focusLayers || []).map(id => BODY_CHAMBER_LAYERS[id]?.label || id).join(', ');
+    panel.innerHTML = `<div class="body-physique-project-head">
+            <strong>🧬 Physique Project — ${def.name}</strong>
+            <span class="body-physique-stage">${stageName} · Stage ${pc.stage}/${bal.maxStages || 4} · ${Math.round(pc.progress)}% · ~${mult}% power</span>
+        </div>
+        <div class="body-chamber-bar-track body-physique-progress-track"><div class="body-chamber-bar-fill body-physique-progress-fill" style="width:${Math.min(100, pc.progress)}%"></div></div>
+        <p class="body-physique-focus">Layer work on ${layers} also advances this project (+${bal.bodyActionProgress || 4}% each).</p>
+        <div class="body-physique-refine-btns">
+            <button type="button" class="body-chamber-action-btn body-physique-refine-btn" id="bodyPhysiqueRefineStd" ${stdBlock ? 'disabled' : ''} title="${stdBlock || std.label}">
+                <span class="body-action-label">🧘 ${std.label || 'Standard Refinement'}</span>
+                <span class="body-action-meta">+${std.progress}% · ${std.weeks} wk</span>
+            </button>
+            <button type="button" class="body-chamber-action-btn body-physique-refine-btn body-physique-catalyst-btn" id="bodyPhysiqueRefineCat" ${catBlock ? 'disabled' : ''} title="${catBlock || cat.label}">
+                <span class="body-action-label">⚗️ ${cat.label || 'Catalyst Refinement'}</span>
+                <span class="body-action-meta">+${cat.progress}% · ${cat.weeks} wk${matLine ? ' · ' + matLine : ''}</span>
+            </button>
+        </div>`;
+    document.getElementById('bodyPhysiqueRefineStd')?.addEventListener('click', () => {
+        const result = typeof refinePhysiqueStandard === 'function' ? refinePhysiqueStandard() : null;
+        if (result?.message && !result.logged) addLog(result.message);
+        renderBodyChamberUI();
+        fullRender();
+    });
+    document.getElementById('bodyPhysiqueRefineCat')?.addEventListener('click', () => {
+        const result = typeof refinePhysiqueCatalyst === 'function' ? refinePhysiqueCatalyst() : null;
+        if (result?.message && !result.logged) addLog(result.message);
+        renderBodyChamberUI();
+        fullRender();
+    });
+}
+
 function renderBodyChamberUI() {
     if (!G.inBodyChamber) return;
     ensureBodyChamberState();
+    renderBodyPhysiqueProject();
     const tab = G.bodyChamber.activeTab;
     const progress = tab === 'nerves' && isBodyNervesRefined() ? 100 : getBodyLayerProgress(tab);
     const def = BODY_CHAMBER_LAYERS[tab];
@@ -1317,6 +1375,8 @@ function runBodyChamberAction(layerId, actionId) {
         if (typeof addFame === 'function') addFame(fameGain);
         else G.fame = (G.fame || 0) + fameGain;
     }
+    const physiqueNote = typeof onBodyChamberPhysiqueHook === 'function' ? onBodyChamberPhysiqueHook(layerId) : null;
+    if (physiqueNote) msg += ` ${physiqueNote}`;
     commitActionLog(msg);
     if (G.hp != null && typeof getEffectiveMaxHp === 'function') {
         G.hp = Math.min(getEffectiveMaxHp(), G.hp);

@@ -54,6 +54,7 @@ let G = {
     meridians: Array(13).fill(false),
     meridianAttempts: Array(13).fill(0),
     physique: null,
+    physiqueCultivation: null,
     physiqueUnlocked: [],
     weaponIntent: null,
     weaponIntents: [],
@@ -711,6 +712,13 @@ function getPhysiqueByName(name) {
     return ALL_PHYSIQUES.find(p => p.name === name);
 }
 
+function getPhysiqueById(id) {
+    if (!id) return null;
+    const trainable = typeof TRAINABLE_PHYSIQUES !== 'undefined'
+        ? TRAINABLE_PHYSIQUES.find(p => p.id === id) : null;
+    return trainable || null;
+}
+
 function formatPhysiqueEffectDesc(p) {
     if (!p) return '';
     if (p.effectDesc) return p.effectDesc;
@@ -887,6 +895,9 @@ function loadState() {
             if (!G.meridians) G.meridians = Array(13).fill(false);
             if (!G.meridianAttempts) G.meridianAttempts = Array(13).fill(0);
             if (!G.physiqueUnlocked) G.physiqueUnlocked = [];
+            if (typeof ensurePhysiqueCultivationState === 'function') ensurePhysiqueCultivationState();
+            if (typeof migratePhysiqueCultivationForExistingSave === 'function') migratePhysiqueCultivationForExistingSave();
+            if (typeof syncPhysiqueBonuses === 'function') syncPhysiqueBonuses();
             if (!G.daoFragments) G.daoFragments = [];
             if (!G.trueDaos) G.trueDaos = [];
             if (!G.primeDaos) G.primeDaos = [];

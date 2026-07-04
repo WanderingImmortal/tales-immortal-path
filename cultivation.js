@@ -266,26 +266,14 @@ function attemptHidden13th() {
 }
 
 // ===== PHYSIQUES =====
-function trainPhysique(name) {
-    const physique = getPhysiqueByName(name);
-    if (!physique || physique.type !== "trainable") return { success: false, message: "Invalid physique." };
-    beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.physiqueTrain, `Training ${name} physique`)) {
-        cancelActionLog();
-        return { success: false, message: "Your lifespan ends..." };
-    }
-    if (G.physique) removePhysiqueBonus(G.physique);
-    G.physique = { ...physique };
-    applyPhysiqueBonus(G.physique);
-    G.foundation += 3;
-    const msg = `🧬 You train the ${name} physique! ${physique.pro}${physique.con !== "None" ? ' ' + physique.con : ''}`;
-    commitActionLog(msg);
-    return { success: true, message: msg, logged: true };
-}
+// trainPhysique — see physique-cultivation.js (staged Body Chamber projects)
 
 function attemptLegendaryPhysique(name) {
     const physique = getPhysiqueByName(name);
     if (!physique || physique.type !== "legendary") return { success: false, message: "Invalid physique." };
+    if (typeof isPhysiqueCultivationActive === 'function' && isPhysiqueCultivationActive()) {
+        return { success: false, message: "Finish your active physique project in the Body Chamber first." };
+    }
     if (name === "Thunder Soul" && G.tribulationCount < 3) return { success: false, message: "Need to survive 3 tribulations." };
     if (name === "Void Body" && !G.hasAncientText) return { success: false, message: "Need to find the ancient text about spatial rifts." };
     if (name === "Phoenix Blood" && !G.hasGoldenNeedle) return { success: false, message: "Need to find a Phoenix feather (Golden Needle set counts)." };
@@ -295,9 +283,15 @@ function attemptLegendaryPhysique(name) {
         cancelActionLog();
         return { success: false, message: "Your lifespan ends..." };
     }
-    if (G.physique) removePhysiqueBonus(G.physique);
+    if (G._appliedPhysiqueRecord) {
+        removePhysiqueBonus(G._appliedPhysiqueRecord);
+        G._appliedPhysiqueRecord = null;
+    } else if (G.physique) {
+        removePhysiqueBonus(G.physique);
+    }
     G.physique = { ...physique };
     applyPhysiqueBonus(G.physique);
+    G._appliedPhysiqueRecord = { ...G.physique, bonus: { ...(G.physique.bonus || {}) } };
     G.foundation += 10;
     if (typeof addFame === 'function') addFame(10);
     else G.fame += 10;
@@ -309,14 +303,23 @@ function attemptLegendaryPhysique(name) {
 function attemptEvilPhysique(name) {
     const physique = getPhysiqueByName(name);
     if (!physique || physique.type !== "evil") return { success: false, message: "Invalid physique." };
+    if (typeof isPhysiqueCultivationActive === 'function' && isPhysiqueCultivationActive()) {
+        return { success: false, message: "Finish your active physique project in the Body Chamber first." };
+    }
     beginActionLog();
     if (!advanceTime(ACTION_MONTHS.physiqueEvil, `Embracing ${name}`)) {
         cancelActionLog();
         return { success: false, message: "Your lifespan ends..." };
     }
-    if (G.physique) removePhysiqueBonus(G.physique);
+    if (G._appliedPhysiqueRecord) {
+        removePhysiqueBonus(G._appliedPhysiqueRecord);
+        G._appliedPhysiqueRecord = null;
+    } else if (G.physique) {
+        removePhysiqueBonus(G.physique);
+    }
     G.physique = { ...physique };
     applyPhysiqueBonus(G.physique);
+    G._appliedPhysiqueRecord = { ...G.physique, bonus: { ...(G.physique.bonus || {}) } };
     G.corruptionLevel += 20;
     G.foundation += 5;
     const msg = `😈 You embrace the ${name} physique! ${physique.pro} ${physique.con}`;

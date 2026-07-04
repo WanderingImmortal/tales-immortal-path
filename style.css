@@ -6277,6 +6277,55 @@ header .subtitle {
     font-style: italic;
 }
 
+.body-chamber-physique-project {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border: 1px solid rgba(155, 89, 182, 0.45);
+    border-radius: 10px;
+    background: rgba(155, 89, 182, 0.08);
+    text-align: left;
+}
+
+.body-physique-project-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    align-items: baseline;
+    margin-bottom: 8px;
+    color: var(--ink-accent);
+}
+
+.body-physique-stage {
+    font-size: 0.82rem;
+    color: var(--ink-text-muted);
+}
+
+.body-physique-progress-track {
+    height: 8px;
+    margin-bottom: 8px;
+}
+
+.body-physique-progress-fill {
+    background: linear-gradient(90deg, rgba(155, 89, 182, 0.5), #9b59b6) !important;
+}
+
+.body-physique-focus {
+    font-size: 0.78rem;
+    color: var(--ink-text-muted);
+    margin: 0 0 10px;
+}
+
+.body-physique-refine-btns {
+    display: grid;
+    gap: 8px;
+}
+
+@media (min-width: 640px) {
+    .body-physique-refine-btns {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 .body-chamber-bonus-summary {
     font-size: 0.8rem;
     color: var(--ink-text-faint);
