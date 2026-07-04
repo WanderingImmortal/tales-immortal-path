@@ -190,6 +190,7 @@
                                 <button id="btnTech">📚 Techs</button>
                                 <button id="btnPhysique">🧬 Physique</button>
                                 <button id="btnPill" title="Choose a pill to consume">💊 Pills</button>
+                                <button id="btnAlchemy" title="Alchemy Chamber — brew pills">⚗️ Alchemy</button>
                                 <button id="btnInventory">🎒 Inventory</button>
                             </div>
                         </div>
@@ -827,6 +828,54 @@
     </div>
 </div>
 
+<div class="popup-overlay" id="alchemyChamberOverlay">
+    <div class="alchemy-chamber-shell">
+        <header class="alchemy-chamber-header">
+            <h2 class="alchemy-chamber-title">⚗️ Alchemy Chamber</h2>
+            <p class="alchemy-chamber-subtitle">The crucible hums. Essences await refinement.</p>
+        </header>
+
+        <div id="alchemyStatusPanel" class="alchemy-status-panel"></div>
+
+        <div class="alchemy-chamber-main">
+            <div class="alchemy-visual-col">
+                <div class="alchemy-cauldron-stage" id="alchemyCauldronStage" aria-hidden="true">
+                    <div class="alchemy-flame-ring">
+                        <span class="alchemy-flame-visual" id="alchemyFlameVisual">🔥</span>
+                    </div>
+                    <div class="alchemy-cauldron-body">
+                        <span class="alchemy-cauldron-visual" id="alchemyCauldronVisual">⚗️</span>
+                        <div class="alchemy-brew-mist"></div>
+                    </div>
+                    <div class="alchemy-cauldron-glow"></div>
+                </div>
+                <div class="alchemy-ingredient-section">
+                    <h3 class="alchemy-section-title">Ingredients</h3>
+                    <div id="alchemyIngredientPanel"></div>
+                </div>
+            </div>
+
+            <div class="alchemy-panel-col">
+                <div class="alchemy-recipe-section">
+                    <h3 class="alchemy-section-title">Recipes</h3>
+                    <div class="alchemy-recipe-list" id="alchemyRecipeList"></div>
+                </div>
+                <div class="alchemy-detail-section" id="alchemyRecipeDetail">
+                    <p class="alchemy-muted">Select a recipe to view requirements.</p>
+                </div>
+                <div class="alchemy-actions-row">
+                    <button type="button" class="alchemy-brew-btn" id="alchemyBrewBtn" disabled>⚗️ Brew</button>
+                    <button type="button" class="alchemy-chamber-btn-return" id="alchemyChamberReturn">↩ Return</button>
+                </div>
+                <div class="alchemy-sell-section">
+                    <h3 class="alchemy-section-title">Sell Pills</h3>
+                    <div id="alchemySellPanel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="popup-overlay" id="combatOverlay">
     <div class="popup-box combat-box">
         <h2 class="combat-title">⚔️ COMBAT ⚔️</h2>
@@ -1076,6 +1125,9 @@
 <script src="tutorial.js?v=3"></script>
 <script src="gear.js?v=6"></script>
 <script src="crafting.js?v=3"></script>
+<script src="alchemy-data.js?v=1"></script>
+<script src="alchemy.js?v=1"></script>
+<script src="alchemy-chamber.js?v=1"></script>
 <script src="alignment.js?v=4"></script>
 <script src="transcendence.js?v=4"></script>
 <script src="consolidation.js?v=6"></script>

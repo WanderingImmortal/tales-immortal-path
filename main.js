@@ -376,6 +376,7 @@ function setupCreation() {
         addLog(`⏳ You are ${STARTING_AGE_YEARS} years old with ${LIFESPAN_BY_REALM[0]} years ahead. Cultivation may extend your life.`);
         addLog(`🚶 You begin without a sect. Earn Fame, then found your legacy from the Sect panel.`);
         if (typeof grantStarterGear === 'function') grantStarterGear();
+        if (typeof grantStarterAlchemyMaterials === 'function') grantStarterAlchemyMaterials();
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
         fullRender();
@@ -400,6 +401,7 @@ function initGame() {
     if (typeof bindTutorialEvents === 'function') bindTutorialEvents();
     if (typeof ensureChamberState === 'function') ensureChamberState();
     if (typeof ensureBodyChamberState === 'function') ensureBodyChamberState();
+    if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
     if (loaded && G.name && G.path) {
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
@@ -441,6 +443,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnIntent').addEventListener('click', actionIntent);
     document.getElementById('btnDao').addEventListener('click', actionDao);
     document.getElementById('btnInventory').addEventListener('click', actionInventory);
+    document.getElementById('btnAlchemy')?.addEventListener('click', () => {
+        if (typeof actionAlchemy === 'function') actionAlchemy();
+    });
     document.getElementById('sidebarGearStrip')?.addEventListener('click', actionInventory);
     document.getElementById('btnForbidden').addEventListener('click', actionForbidden);
 
@@ -450,6 +455,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initBodyChamberEvents === 'function') initBodyChamberEvents();
     if (typeof initSoulChamberEvents === 'function') initSoulChamberEvents();
     if (typeof initCultivationHubEvents === 'function') initCultivationHubEvents();
+    if (typeof initAlchemyChamberEvents === 'function') initAlchemyChamberEvents();
     if (typeof initPlaytestFeedback === 'function') initPlaytestFeedback();
 
     // Popup close buttons
