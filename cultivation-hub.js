@@ -4,6 +4,7 @@
 
 function cultivationHubBlocked() {
     return G.gameOver || G.inCombat || G.inQiChamber || G.inBodyChamber || G.inSoulChamber
+        || G.inAlchemyChamber
         || (typeof isTribulationActive === 'function' && isTribulationActive())
         || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending());
 }

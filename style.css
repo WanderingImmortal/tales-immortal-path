@@ -4990,6 +4990,7 @@ header .subtitle {
 #bodyChamberOverlay,
 #soulChamberOverlay,
 #cultivationHubOverlay,
+#alchemyChamberOverlay,
 #consolidatePopup,
 #ancientBargainPopup,
 #gardenOverlay,
@@ -7586,5 +7587,485 @@ header .subtitle {
 
     .soul-chamber-tabs {
         justify-content: center;
+    }
+}
+
+/* ===== ALCHEMY CHAMBER ===== */
+
+#alchemyChamberOverlay {
+    z-index: 1050;
+}
+
+#alchemyChamberOverlay .alchemy-chamber-shell {
+    width: min(1040px, 96vw);
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px 28px 28px;
+    background:
+        radial-gradient(ellipse 60% 40% at 30% 20%, rgba(180, 120, 60, 0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 80% 80%, rgba(200, 80, 40, 0.08) 0%, transparent 50%),
+        var(--ink-paper-panel);
+    border: 1px solid var(--ink-border-strong);
+    border-radius: 16px;
+    box-shadow: 0 0 120px rgba(0, 0, 0, 0.75);
+    overflow-y: auto;
+}
+
+.alchemy-chamber-header {
+    text-align: center;
+}
+
+.alchemy-chamber-title {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1.6rem;
+    color: #c89050;
+    margin-bottom: 4px;
+}
+
+.alchemy-chamber-subtitle {
+    font-size: 0.9rem;
+    color: var(--ink-text-muted);
+    font-style: italic;
+}
+
+.alchemy-status-panel {
+    font-size: 0.82rem;
+}
+
+.alchemy-status-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.alchemy-status-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--ink-border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.alchemy-status-label {
+    font-size: 0.72rem;
+    color: var(--ink-text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.alchemy-status-value {
+    font-weight: 600;
+    color: var(--ink-accent);
+}
+
+.alchemy-status-sub {
+    font-size: 0.72rem;
+    color: var(--ink-text-muted);
+}
+
+.alchemy-mini-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.alchemy-mini-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8a6040, #c89050);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+.alchemy-mini-fill-rep {
+    background: linear-gradient(90deg, #604080, #a070c0);
+}
+
+.alchemy-talent-row,
+.alchemy-physique-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.alchemy-talent-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.alchemy-talent-chip,
+.alchemy-physique-chip {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: rgba(180, 120, 60, 0.15);
+    border: 1px solid rgba(180, 120, 60, 0.3);
+    color: #d4a870;
+}
+
+.alchemy-chamber-main {
+    display: grid;
+    grid-template-columns: minmax(240px, 320px) 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.alchemy-cauldron-stage {
+    position: relative;
+    aspect-ratio: 1;
+    max-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(180, 120, 60, 0.25);
+    border-radius: 12px;
+    background: radial-gradient(ellipse at center, #1a1008 0%, #0a0604 70%, #000 100%);
+    overflow: hidden;
+}
+
+.alchemy-flame-ring {
+    position: absolute;
+    bottom: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: alchemy-flame-flicker 1.2s ease-in-out infinite alternate;
+}
+
+.alchemy-flame-visual {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 12px rgba(255, 120, 40, 0.8));
+    display: block;
+}
+
+.alchemy-flame-visual[data-flame="frost_flame"] { filter: drop-shadow(0 0 12px rgba(100, 180, 255, 0.8)); }
+.alchemy-flame-visual[data-flame="void_flame"] { filter: drop-shadow(0 0 12px rgba(80, 40, 120, 0.9)); }
+.alchemy-flame-visual[data-flame="heavenly_flame"] { filter: drop-shadow(0 0 16px rgba(255, 220, 100, 0.9)); }
+.alchemy-flame-visual[data-flame="demonic_flame"] { filter: drop-shadow(0 0 14px rgba(200, 40, 40, 0.9)); }
+
+@keyframes alchemy-flame-flicker {
+    0% { transform: translateX(-50%) scale(1); opacity: 0.85; }
+    100% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+
+.alchemy-cauldron-body {
+    position: relative;
+    z-index: 2;
+    font-size: 4.5rem;
+    line-height: 1;
+}
+
+.alchemy-cauldron-visual {
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+}
+
+.alchemy-brew-mist {
+    position: absolute;
+    inset: -20% -30% auto;
+    height: 60%;
+    background: radial-gradient(ellipse at center bottom, rgba(180, 140, 80, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.alchemy-cauldron-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 70%, rgba(255, 140, 40, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.alchemy-anim-brewing .alchemy-brew-mist { opacity: 1; animation: alchemy-mist-rise 1.8s ease-out; }
+.alchemy-anim-brewing .alchemy-cauldron-body { animation: alchemy-cauldron-shake 0.4s ease-in-out 3; }
+
+.alchemy-anim-success .alchemy-cauldron-glow {
+    background: radial-gradient(ellipse at 50% 60%, rgba(100, 220, 120, 0.25) 0%, transparent 65%);
+    animation: alchemy-success-flash 1.2s ease-out;
+}
+
+.alchemy-anim-failure .alchemy-cauldron-glow {
+    background: radial-gradient(ellipse at 50% 60%, rgba(220, 60, 40, 0.3) 0%, transparent 65%);
+    animation: alchemy-failure-flash 1.2s ease-out;
+}
+
+@keyframes alchemy-mist-rise {
+    0% { transform: translateY(20px); opacity: 0; }
+    40% { opacity: 0.8; }
+    100% { transform: translateY(-30px); opacity: 0; }
+}
+
+@keyframes alchemy-cauldron-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px) rotate(-1deg); }
+    75% { transform: translateX(3px) rotate(1deg); }
+}
+
+@keyframes alchemy-success-flash {
+    0% { opacity: 0; }
+    30% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes alchemy-failure-flash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.alchemy-section-title {
+    font-size: 0.85rem;
+    color: var(--ink-text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.alchemy-ingredient-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.alchemy-ingredient-chip {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--ink-border);
+}
+
+.alchemy-recipe-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+}
+
+.alchemy-recipe-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--ink-border);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.15);
+    color: var(--ink-text);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.alchemy-recipe-btn:hover {
+    background: var(--ink-hover);
+    border-color: rgba(180, 120, 60, 0.4);
+}
+
+.alchemy-recipe-btn.selected {
+    border-color: #c89050;
+    background: rgba(180, 120, 60, 0.12);
+}
+
+.alchemy-recipe-emoji {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.alchemy-recipe-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.alchemy-recipe-name {
+    font-weight: 600;
+}
+
+.alchemy-recipe-meta {
+    font-size: 0.72rem;
+    color: var(--ink-text-muted);
+}
+
+.alchemy-recipe-can.ready { color: #6aba80; }
+.alchemy-recipe-can.blocked { color: #ba6060; }
+
+.alchemy-detail-section {
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px solid var(--ink-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+}
+
+.alchemy-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.alchemy-detail-emoji {
+    font-size: 2rem;
+}
+
+.alchemy-detail-name {
+    font-size: 1.05rem;
+    color: var(--ink-accent);
+    margin: 0;
+}
+
+.alchemy-detail-tier {
+    font-size: 0.78rem;
+    color: var(--ink-text-muted);
+    margin: 0;
+}
+
+.alchemy-detail-desc,
+.alchemy-detail-effect {
+    color: var(--ink-text-muted);
+    margin: 6px 0;
+    font-size: 0.82rem;
+}
+
+.alchemy-detail-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 10px 0;
+    font-size: 0.82rem;
+}
+
+.alchemy-rate {
+    color: #8aba70;
+}
+
+.alchemy-detail-bonuses {
+    font-size: 0.75rem;
+    color: var(--ink-text-faint);
+    margin: 4px 0;
+}
+
+.alchemy-detail-ingredients {
+    margin-top: 8px;
+    font-size: 0.8rem;
+}
+
+.alchemy-detail-block {
+    color: #c07070;
+    font-size: 0.8rem;
+    margin-top: 8px;
+}
+
+.alchemy-actions-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.alchemy-brew-btn {
+    flex: 1;
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(180, 120, 60, 0.5);
+    background: linear-gradient(180deg, rgba(180, 120, 60, 0.25), rgba(120, 80, 40, 0.2));
+    color: #e8c890;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.alchemy-brew-btn:hover:not(:disabled) {
+    background: linear-gradient(180deg, rgba(200, 140, 70, 0.35), rgba(140, 90, 50, 0.3));
+}
+
+.alchemy-brew-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.alchemy-chamber-btn-return {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--ink-border);
+    background: transparent;
+    color: var(--ink-text-muted);
+    cursor: pointer;
+}
+
+.alchemy-chamber-btn-return:hover {
+    background: var(--ink-hover);
+    color: var(--ink-text);
+}
+
+.alchemy-sell-section {
+    border-top: 1px solid var(--ink-border);
+    padding-top: 12px;
+}
+
+.alchemy-sell-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.alchemy-sell-price {
+    color: #c8a050;
+    margin-left: auto;
+}
+
+.alchemy-sell-btn {
+    font-family: inherit;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--ink-border);
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--ink-text-muted);
+    cursor: pointer;
+}
+
+.alchemy-sell-btn:hover {
+    background: var(--ink-hover);
+    color: var(--ink-text);
+}
+
+.alchemy-muted {
+    color: var(--ink-text-faint);
+    font-size: 0.82rem;
+    font-style: italic;
+}
+
+@media (max-width: 800px) {
+    .alchemy-status-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .alchemy-chamber-main {
+        grid-template-columns: 1fr;
     }
 }

@@ -4,7 +4,7 @@
 
 function actionBlocked() {
     return G.gameOver || G.inCombat || G.inQiChamber || G.inBodyChamber || G.inSoulChamber
-        || G.inCultivationHub
+        || G.inAlchemyChamber || G.inCultivationHub
         || (typeof isTribulationActive === 'function' && isTribulationActive())
         || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending());
 }

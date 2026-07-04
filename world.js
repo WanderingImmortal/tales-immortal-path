@@ -502,6 +502,7 @@ function actionExplore() {
     if (typeof onExploreForFactions === 'function') onExploreForFactions(zoneId);
     if (typeof onExploreForStoryQuests === 'function') onExploreForStoryQuests(zoneId);
     if (typeof recordMilestone === 'function') recordMilestone('explored');
+    if (typeof tryRollAlchemyMaterialFromExplore === 'function') tryRollAlchemyMaterialFromExplore();
     fullRender();
 }
 

@@ -811,6 +811,7 @@ function advanceTime(months, activity) {
         }
         G.ageMonths = toMonths;
     }
+    if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
     if (deferLogs) G._deferringLogs = false;
     const remaining = getYearsRemaining();
     const remainStr = isImmortal() ? 'immortal' : `${remaining}y left`;
@@ -934,6 +935,8 @@ function loadState() {
             if (typeof migrateTutorialForExistingSave === 'function') migrateTutorialForExistingSave();
             if (typeof ensureGearState === 'function') ensureGearState();
             if (typeof migrateGearForExistingSave === 'function') migrateGearForExistingSave();
+            if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
+            if (typeof migrateAlchemyForExistingSave === 'function') migrateAlchemyForExistingSave();
             if (typeof ensureSectState === 'function') ensureSectState();
             if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
             if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();
