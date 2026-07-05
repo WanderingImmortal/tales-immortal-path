@@ -307,6 +307,9 @@ function renderTribulationOverlay() {
 
 function tribulationMeetsRequire(req) {
     if (!req) return true;
+    if (req.stat === 'foundation') {
+        return getEffectiveFoundation() >= req.min;
+    }
     return (G[req.stat] || 0) >= req.min;
 }
 
@@ -905,8 +908,8 @@ function applyTribulationSuccessBonus(style, isTranscend) {
     G.vitality += Math.floor((bonus / 2) * statMult);
     G.spirit += Math.floor((bonus / 2) * statMult);
     G.will += Math.floor((bonus / 2) * statMult);
-    G.foundation += Math.max(2, Math.floor(2 * statMult));
-    addLog(`🌟 Tribulation weathered! +${Math.floor(bonus * statMult)} stats, +${fameAdded} Fame, +${Math.max(2, Math.floor(2 * statMult))} Foundation.`);
+    const foundationGain = grantFoundation(Math.max(2, Math.floor(2 * statMult)));
+    addLog(`🌟 Tribulation weathered! +${Math.floor(bonus * statMult)} stats, +${fameAdded} Fame, +${foundationGain} Foundation.`);
     if (typeof tryCompleteSectQuests === 'function') tryCompleteSectQuests('tribulation_pass');
     if (typeof onTribulationForFactions === 'function') onTribulationForFactions();
     if (typeof shiftDaoAlignment === 'function') {
@@ -921,7 +924,10 @@ function applyTribulationFailurePenalty(soft) {
     G.vitality = Math.max(1, G.vitality - loss);
     G.spirit = Math.max(1, G.spirit - loss);
     G.will = Math.max(1, G.will - loss);
-    G.foundation = Math.max(0, G.foundation - (typeof scaleStatDebuff === 'function' ? Math.max(1, scaleStatDebuff(TRIBULATION_BALANCE.failureFoundationLoss)) : TRIBULATION_BALANCE.failureFoundationLoss));
+    const foundationLoss = typeof scaleStatDebuff === 'function'
+        ? Math.max(1, scaleStatDebuff(TRIBULATION_BALANCE.failureFoundationLoss))
+        : TRIBULATION_BALANCE.failureFoundationLoss;
+    loseFoundation(soft ? Math.max(1, Math.floor(foundationLoss / 2)) : foundationLoss);
     addLog(soft ? `💢 The tribulation leaves you shaken. Minor stat loss.` : `💀 The tribulation cripples your foundation. Heavy losses.`);
 }
 

@@ -35,13 +35,15 @@ function getCultivationPillarTotal() {
     return (b.root || 0) + (b.flow || 0) + (b.stability || 0);
 }
 
-function grantCultivationPillar(pillar, amount) {
+function grantCultivationPillar(pillar, amount, options) {
     if (!amount || !pillar) return 0;
     ensureCultivationBaseState();
     const caps = getCultivationPillarCaps();
     const cap = caps[pillar];
     const before = G.cultivationBase[pillar] || 0;
-    const next = cap != null ? Math.min(cap, before + amount) : before + amount;
+    const next = options?.uncapped || cap == null
+        ? before + amount
+        : Math.min(cap, before + amount);
     const gained = Math.max(0, next - before);
     if (gained > 0) {
         G.cultivationBase[pillar] = next;
@@ -174,9 +176,9 @@ function migrateCultivationBaseFromLegacy() {
 
     if (legacy > 0) {
         split = splitLegacyFoundationAmount(legacy);
-        if (split.root) grantCultivationPillar('root', split.root);
-        if (split.flow) grantCultivationPillar('flow', split.flow);
-        if (split.stability) grantCultivationPillar('stability', split.stability);
+        if (split.root) grantCultivationPillar('root', split.root, { uncapped: true });
+        if (split.flow) grantCultivationPillar('flow', split.flow, { uncapped: true });
+        if (split.stability) grantCultivationPillar('stability', split.stability, { uncapped: true });
         G._legacyFoundationTotal = legacy;
         G.foundation = 0;
     }
@@ -259,4 +261,16 @@ function getFoundationDisplayText() {
         return `${s.effective} ${s.gradeLabel} (🌱${s.root} ☯️${s.flow} 🏛️${s.stability}${crackText})`;
     }
     return `${s.effective} ${s.gradeLabel}${crackText}`;
+}
+
+/** Grant legacy-style foundation points as Stability pillar. */
+function grantFoundation(amount) {
+    if (!amount) return 0;
+    return grantCultivationPillar('stability', amount);
+}
+
+/** Apply legacy-style foundation loss as cracks. */
+function loseFoundation(amount) {
+    if (!amount) return 0;
+    return applyFoundationLossAsCracks(amount);
 }

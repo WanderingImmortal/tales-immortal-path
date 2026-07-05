@@ -108,8 +108,9 @@ function playtestGrantFoundation(amount) {
         playtestAfterGrant(`+${amount} Foundation pillars (${effective} effective).`);
         return;
     }
-    G.foundation = (G.foundation || 0) + amount;
-    playtestAfterGrant(`+${amount} Foundation (now ${G.foundation}).`);
+    const gained = grantFoundation(amount);
+    const effective = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : amount;
+    playtestAfterGrant(`+${gained || amount} Foundation (now ${effective}).`);
 }
 
 function playtestFillQiHealHp() {

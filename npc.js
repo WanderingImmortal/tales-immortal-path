@@ -798,7 +798,7 @@ function npcSubmitHuaTest(choiceIdx) {
     if (choice.correct) {
         if (!rec.testsPassed.includes(test.id)) rec.testsPassed.push(test.id);
         bumpNpcFamiliarity('elder_hua', NPC_BALANCE.familiarityPerTest);
-        G.foundation += NPC_BALANCE.huaTestFoundation;
+        grantFoundation(NPC_BALANCE.huaTestFoundation);
         commitActionLog(`${def.emoji} ${choice.log} · +${NPC_BALANCE.huaTestFoundation} Foundation`);
         if (typeof completeNpcQuestByGiver === 'function') {
             completeNpcQuestByGiver({ storyId: 'elder_hua' }, 'hua_guidance');

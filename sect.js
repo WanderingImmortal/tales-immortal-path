@@ -1323,7 +1323,7 @@ function sectRivalDuelVictory() {
         addSectRenown(b.duelVictoryRenown);
         shiftSectReputation('sect_rival_victory');
         G.fame += b.duelVictoryFame;
-        G.foundation += b.duelVictoryFoundation;
+        grantFoundation(b.duelVictoryFoundation);
         G.stones += b.duelVictoryStones;
         addLog(`🏆 ${rival.championName} falls! ${rival.name} acknowledges defeat (+${b.duelVictoryRenown} Renown).`);
         if (typeof applyWorldSectRelationshipDrift === 'function') {
@@ -1477,6 +1477,13 @@ function payConstructionMaterials(cost) {
     return removeCraftMaterials(cost.materials);
 }
 
+function refundConstructionMaterials(cost) {
+    if (!cost?.materials || typeof addCraftMaterial !== 'function') return;
+    for (const [matId, qty] of Object.entries(cost.materials)) {
+        addCraftMaterial(matId, qty);
+    }
+}
+
 function completeSectConstruction() {
     const c = G.sect.construction;
     if (!c) return;
@@ -1554,6 +1561,7 @@ function startSectConstruction(targetId, targetLevel, mode) {
 
     if (isPersonal) {
         if (!advanceTime(months, `Overseeing ${label} (Lv ${targetLevel})`)) {
+            refundConstructionMaterials(cost);
             return { success: false, message: 'Your lifespan ends before construction finishes.' };
         }
         G.sect.construction = { buildingId: targetId, targetLevel, mode: 'personal' };

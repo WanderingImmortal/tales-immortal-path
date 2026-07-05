@@ -645,7 +645,7 @@ function encounterApplyEffects(effects, closeOverlay) {
     if (effects.hp) G.hp = clamp(G.hp + effects.hp, 1, G.maxHp);
     if (effects.stones) G.stones = Math.max(0, G.stones + effects.stones);
     if (effects.fame) G.fame = Math.max(0, G.fame + effects.fame);
-    if (effects.foundation) G.foundation += effects.foundation;
+    if (effects.foundation) grantFoundation(effects.foundation);
     if (effects.qi) G.qi = Math.max(0, G.qi + effects.qi);
     if (effects.will) G.will += effects.will;
     if (effects.spirit) G.spirit += effects.spirit;
@@ -711,7 +711,7 @@ function encounterCombatVictory() {
     } else {
         const stones = 5 + G.realmIdx * 2;
         G.stones += stones;
-        G.foundation += 2;
+        grantFoundation(2);
         addLog(`⚡ Victory spoils: +${stones} Stones, +2 Foundation.`);
         if (typeof showCombatVictoryPopup === 'function') {
             showCombatVictoryPopup({

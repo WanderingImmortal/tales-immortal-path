@@ -445,7 +445,7 @@ function ancientGuardianVictory() {
     document.getElementById('combatOverlay')?.classList.remove('active');
     G.enemy = null;
     if (typeof showCombatVictoryPopup === 'function') {
-        G.foundation += 3;
+        grantFoundation(3);
         showCombatVictoryPopup({
             title: '⚔️ Guardian Slain',
             enemyName: def?.name || 'Guardian beast',
@@ -453,7 +453,7 @@ function ancientGuardianVictory() {
             rewards: ['🗝️ Ritual unsealing unlocked', '🏛️ +3 Foundation']
         });
     } else {
-        G.foundation += 3;
+        grantFoundation(3);
     }
     fullRender();
 }
@@ -553,7 +553,7 @@ function openAncientBargainPopup(subZoneId) {
 function applyAncientBargainReward(reward) {
     if (!reward) return [];
     const lines = [];
-    if (reward.foundation) { G.foundation += reward.foundation; lines.push(`🏛️ +${reward.foundation} Foundation`); }
+    if (reward.foundation) { grantFoundation(reward.foundation); lines.push(`🏛️ +${reward.foundation} Foundation`); }
     if (reward.fame) {
         if (typeof addFame === 'function') addFame(reward.fame);
         else G.fame += reward.fame;

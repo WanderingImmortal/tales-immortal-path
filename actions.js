@@ -49,6 +49,7 @@ function runCultivateSession(options) {
         G.qiExhausted = false;
         addLog(`⚡ Your Qi recovers!`);
     }
+    let titheAmount = 0;
     if (G.disciples.length > 0) {
         const income = typeof getSectDiscipleIncome === 'function'
             ? getSectDiscipleIncome() + getFameLevel().bonus
@@ -57,6 +58,7 @@ function runCultivateSession(options) {
             && typeof addTreasuryPendingTithe === 'function') {
             addTreasuryPendingTithe(income);
             G.sectPassiveIncome = income;
+            titheAmount = income;
         } else {
             G.stones += income;
             G.sectPassiveIncome = income;
@@ -69,11 +71,11 @@ function runCultivateSession(options) {
         G.sectPassiveIncome = (G.sectPassiveIncome || 0) + factionTrade;
     }
     const factionPassive = typeof getFactionPassiveCultivateBonus === 'function' ? getFactionPassiveCultivateBonus() : null;
-    if (factionPassive?.foundation) G.foundation += factionPassive.foundation;
+    if (factionPassive?.foundation) grantFoundation(factionPassive.foundation);
     if (factionPassive?.spirit) G.spirit += factionPassive.spirit;
     const mergedFx = typeof getMergedDaoEffects === 'function' ? getMergedDaoEffects() : null;
-    if (mergedFx?.foundationPerCultivate) G.foundation += mergedFx.foundationPerCultivate;
-    if (opts.extraFoundation) G.foundation += opts.extraFoundation;
+    if (mergedFx?.foundationPerCultivate) grantFoundation(mergedFx.foundationPerCultivate);
+    if (opts.extraFoundation) grantFoundation(opts.extraFoundation);
     if (tradeIncome > 0) {
         G.stones += tradeIncome;
         G.sectPassiveIncome = (G.sectPassiveIncome || 0) + tradeIncome;
@@ -93,8 +95,8 @@ function runCultivateSession(options) {
     if (opts.extraFoundation) cultParts.push(`formation +${opts.extraFoundation}f`);
     if (cultParts.length) cultMsg += ` (${cultParts.join(', ')})`;
     if (buildingNotes.length) cultMsg += ` · ${buildingNotes.join(', ')}`;
-    if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0 && G.sectPassiveIncome > 0) {
-        cultMsg += ` · Treasury tithe +${G.sectPassiveIncome}💎`;
+    if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0 && titheAmount > 0) {
+        cultMsg += ` · Treasury tithe +${titheAmount}💎`;
     }
     if (getMeridianOpenCount() < 11 && Math.random() < 0.05) {
         addLog(`☯️ You sense a new meridian... (check Meridians)`);
@@ -246,7 +248,7 @@ function actionRecruit() {
     G.vitality += 1;
     G.spirit += 1;
     G.will += 1;
-    G.foundation += 1;
+    grantFoundation(1);
     if (typeof ensureSectState === 'function') {
         ensureSectState();
         addSectRenown(2);
@@ -288,7 +290,7 @@ function actionStatus() {
         ? `${activeIntent.weapon} (${getIntentTier(activeIntent).name}${G.weaponIntents?.length > 1 ? ', +' + (G.weaponIntents.length - 1) : ''})`
         : 'None';
     const daos = [...G.trueDaos, ...G.mergedDaos].join(', ') || 'None';
-    addLog(`📜 ${G.name} | ${getRealm()} (${getTitle()}) | Fame: ${G.fame} | Foundation: ${G.foundation} | Meridians: ${openCount}/13 | Physique: ${phys} | Intent: ${intent} | Dao: ${daos}`);
+    addLog(`📜 ${G.name} | ${getRealm()} (${getTitle()}) | Fame: ${G.fame} | Foundation: ${getEffectiveFoundation()} | Meridians: ${openCount}/13 | Physique: ${phys} | Intent: ${intent} | Dao: ${daos}`);
     fullRender();
 }
 
@@ -366,7 +368,7 @@ function applyRefinementEffect(effect) {
         G.vitality += effect.vitality;
         applyVitalityToMaxHp();
     }
-    if (effect.foundation) G.foundation += effect.foundation;
+    if (effect.foundation) grantFoundation(effect.foundation);
     if (effect.fame) {
         if (typeof addFame === 'function') addFame(effect.fame);
         else G.fame += effect.fame;

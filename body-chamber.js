@@ -414,7 +414,7 @@ function openBodyChamberMeridian(index) {
     if (!G.meridians) G.meridians = Array(13).fill(false);
     if (G.meridians[index]) return false;
     G.meridians[index] = true;
-    G.foundation = (G.foundation || 0) + 1;
+    grantFoundation(1);
     if (typeof getMaxQi === 'function') {
         G.qi = Math.min(getMaxQi(), (G.qi || 0) + 2);
         if (typeof clampCurrentQi === 'function') clampCurrentQi();

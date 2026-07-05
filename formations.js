@@ -4,7 +4,10 @@
 
 function ensureFormationState() {
     if (!G.knownFormations) G.knownFormations = [];
-    if (typeof ensureSectGroundsView === 'function') ensureSectGroundsView();
+    ensureSectState();
+    if (!G.sect.residence) {
+        G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
+    }
     if (!G.sect.residence.formations) G.sect.residence.formations = { slots: [] };
     if (!Array.isArray(G.sect.residence.formations.slots)) {
         G.sect.residence.formations.slots = [];
@@ -26,8 +29,7 @@ function getFormationDef(formationId) {
 }
 
 function knowsFormation(formationId) {
-    ensureFormationState();
-    return G.knownFormations.includes(formationId);
+    return Array.isArray(G.knownFormations) && G.knownFormations.includes(formationId);
 }
 
 function learnFormation(formationId, options) {
@@ -53,7 +55,7 @@ function grantFormationsForResidenceLevel(level, options) {
 }
 
 function getResidenceFormationSlotCount() {
-    const lv = typeof getResidenceLevel === 'function' ? getResidenceLevel() : (G.sect?.residence?.level || 0);
+    const lv = G.sect?.residence?.level || 0;
     const table = SECT_RESIDENCE?.formationSlotsByLevel;
     if (Array.isArray(table) && table[lv] != null) return table[lv];
     return Math.max(0, lv);
@@ -64,8 +66,9 @@ function ensureResidenceFormationSlots() {
     const slots = G.sect.residence.formations.slots;
     while (slots.length < max) slots.push(null);
     while (slots.length > max) slots.pop();
+    const known = G.knownFormations || [];
     for (let i = 0; i < slots.length; i++) {
-        if (slots[i] && !knowsFormation(slots[i])) slots[i] = null;
+        if (slots[i] && !known.includes(slots[i])) slots[i] = null;
     }
 }
 
@@ -123,11 +126,16 @@ function layResidenceFormation(slotIndex, formationId) {
     const cost = def.layCost;
     const months = cost.months || 2;
     const label = `Inscribing ${def.name}`;
-    if (!advanceTime(months, label)) {
-        return { success: false, message: 'Your lifespan ends before the inscription completes.' };
-    }
     if (cost.materials && typeof removeCraftMaterials === 'function' && !removeCraftMaterials(cost.materials)) {
         return { success: false, message: 'Missing materials.' };
+    }
+    if (!advanceTime(months, label)) {
+        if (cost.materials && typeof addCraftMaterial === 'function') {
+            for (const [matId, qty] of Object.entries(cost.materials)) {
+                addCraftMaterial(matId, qty);
+            }
+        }
+        return { success: false, message: 'Your lifespan ends before the inscription completes.' };
     }
     ensureResidenceFormationSlots();
     const prev = G.sect.residence.formations.slots[slotIndex];
@@ -135,8 +143,7 @@ function layResidenceFormation(slotIndex, formationId) {
     const replaceNote = prev && prev !== formationId
         ? ` Replaced ${getFormationDef(prev)?.name || 'previous pattern'}.`
         : '';
-    addLog(`☯️ ${def.emoji} ${def.name} inscribed around your quarters.${replaceNote}`);
-    return { success: true, message: `${def.name} active in slot ${slotIndex + 1}.` };
+    return { success: true, message: `${def.emoji} ${def.name} inscribed around your quarters.${replaceNote}` };
 }
 
 function clearResidenceFormationSlot(slotIndex) {
@@ -149,8 +156,7 @@ function clearResidenceFormationSlot(slotIndex) {
     if (!prev) return { success: false, message: 'Slot is already empty.' };
     G.sect.residence.formations.slots[slotIndex] = null;
     const def = getFormationDef(prev);
-    addLog(`☯️ ${def?.emoji || '☯️'} Formation cleared from slot ${slotIndex + 1}.`);
-    return { success: true, message: 'Formation slot cleared.' };
+    return { success: true, message: `${def?.emoji || '☯️'} Formation cleared from slot ${slotIndex + 1}.` };
 }
 
 function actionResidenceCultivate() {

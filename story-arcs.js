@@ -602,7 +602,7 @@ function finishSectQuest(sq) {
     if (q) { q.status = 'complete'; q.completedMonths = G.ageMonths; }
     if (typeof addFame === 'function') addFame(sq.scaledFame);
     else G.fame += sq.scaledFame;
-    G.foundation += sq.scaledFoundation;
+    grantFoundation(sq.scaledFoundation);
     G.stones += sq.scaledStones;
     if (def.materials && typeof addCraftMaterial === 'function') {
         Object.entries(def.materials).forEach(([matId, qty]) => addCraftMaterial(matId, qty));
@@ -738,7 +738,7 @@ function tryCompleteWorldEventOnExplore(zoneId) {
         const r = wq.rewards || {};
         if (r.fame && typeof addFame === 'function') addFame(r.fame);
         else G.fame += r.fame || 0;
-        G.foundation += r.foundation || 0;
+        grantFoundation(r.foundation || 0);
         G.stones += r.stones || 0;
         if (r.alignment && typeof shiftDaoAlignment === 'function') shiftDaoAlignment(r.alignment, 'Wei world quest');
         if (r.ancientClue && typeof addAncientClue === 'function') addAncientClue(r.ancientClue);
