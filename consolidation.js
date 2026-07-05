@@ -402,7 +402,8 @@ function executePeakGrind() {
         }
     }
 
-    addLog(`⏳ ${cfg.label} — ${formatDuration(cfg.months)}. Realm progress → ${getRealmProgressPct()}%.`);
+    const stabilityGain = typeof grantPeakGrindStability === 'function' ? grantPeakGrindStability() : 0;
+    addLog(`⏳ ${cfg.label} — ${formatDuration(cfg.months)}. Realm progress → ${getRealmProgressPct()}%.${stabilityGain ? ' ' + formatPillarGrant('stability', stabilityGain) + '.' : ''}`);
     renderConsolidatePopup();
     fullRender();
     saveState();
@@ -468,14 +469,16 @@ function executeConsolidation(opts) {
 
     G.stones -= stoneCost;
 
-    let foundationGain = Math.floor(def.foundationGain * tierScale.foundationMult);
+    let stabilityGain = Math.floor(def.foundationGain * tierScale.foundationMult);
     if (perfect && def.perfect) {
-        foundationGain += def.perfect.bonusFoundation || 0;
+        stabilityGain += def.perfect.bonusFoundation || 0;
         applyPerfectConsolidationBonuses(def.perfect.permanent);
         addLog(`🌟 PERFECT CONSOLIDATION — ${def.perfect.flavor}`);
     }
 
-    G.foundation += foundationGain;
+    const grantedStability = typeof grantConsolidationStability === 'function'
+        ? grantConsolidationStability(stabilityGain)
+        : stabilityGain;
     const qiGains = applyConsolidationQiGains(def, perfect, tierScale);
     ensureConsolidationState();
     G.realmConsolidation[G.realmIdx] = {
@@ -484,12 +487,13 @@ function executeConsolidation(opts) {
         tier: perfect ? 'perfect' : sealTier,
         progressPct: pct,
         atMonths: G.ageMonths,
-        foundationGain
+        foundationGain: grantedStability,
+        stabilityGain: grantedStability
     };
     G.realmPeakGrindBoost = 0;
 
     const tierLabel = perfect ? 'Perfect' : getBreakthroughTierScale(sealTier).label;
-    addLog(`🏛️ ${getRealm()} sealed (${tierLabel}). +${foundationGain} Foundation, +${qiGains.maxQiGain || 0} Max Qi cap, +${qiGains.densityGain || 0} Density.`);
+    addLog(`🏛️ ${getRealm()} sealed (${tierLabel}). ${formatPillarGrant('stability', grantedStability)}, +${qiGains.maxQiGain || 0} Max Qi cap, +${qiGains.qiDensityGain || 0} Density.`);
     addLog(`   ↳ "${perfect ? def.perfect.flavor : (sealTier === 'peak' ? capstone.peakFlavor : capstone.settledFlavor)}"`);
     if (stoneCost > 0) addLog(`   ↳ −${stoneCost} Spirit Stones.`);
 
@@ -497,7 +501,7 @@ function executeConsolidation(opts) {
     showConsolidateFeedback('');
     fullRender();
     saveState();
-    return { success: true, message: `+${foundationGain} Foundation.` };
+    return { success: true, message: `${formatPillarGrant('stability', grantedStability)}.` };
 }
 
 function actionConsolidate() {
@@ -548,7 +552,7 @@ function renderConsolidatePopup() {
         }
         if (progressTier === 'settled' || progressTier === 'peak') {
             lines.push(`🕯️ Break at Settled (${pct}%): +${comparison.settledPreview.gainedYears}y lifespan vs +${comparison.peakPreview.peakGainedYears}y at Peak`);
-            lines.push(`🏛️ Foundation: +${comparison.settledFoundation} (Settled) vs +${comparison.peakFoundation} (Peak)`);
+            lines.push(`🏛️ Stability: +${comparison.settledFoundation} (Settled) vs +${comparison.peakFoundation} (Peak)`);
         }
         lines.push(`🕯️ Your lifespan: ${comparison.remainingYears === Infinity ? 'Immortal' : comparison.remainingYears + ' years remaining'}`);
         tierCompareEl.innerHTML = lines.map(line => `<div class="consolidate-req tier-compare">${line}</div>`).join('');
@@ -563,15 +567,15 @@ function renderConsolidatePopup() {
         def.legendaryMaterial ? '🏆 Offer one legendary material' : null,
         def.daoFragment ? '📜 Offer one Dao Fragment' : null,
         progressTier === 'peak'
-            ? `🏛️ +${def.foundationGain} Foundation · +${def.maxQiGain || 0} Max Qi · +${def.qiDensityGain || 0} Density (Peak)`
-            : `🏛️ +${settledFoundation} Foundation (Settled) · full rewards at Peak`
+            ? `🏛️ +${def.foundationGain} Stability · +${def.maxQiGain || 0} Max Qi · +${def.qiDensityGain || 0} Density (Peak)`
+            : `🏛️ +${settledFoundation} Stability (Settled) · full rewards at Peak`
     ].filter(Boolean);
 
     document.getElementById('consolidateRequirements').innerHTML = reqLines
         .map(line => `<div class="consolidate-req">${line}</div>`).join('');
 
     const perfectLines = def.perfect ? [
-        `🌟 +${def.perfect.bonusFoundation} bonus Foundation (Peak only)`,
+        `🌟 +${def.perfect.bonusFoundation} bonus Stability (Peak only)`,
         def.perfect.extraStones ? `💎 Total ${getConsolidationStoneCost(def, true)} Stones` : null,
         def.perfect.minMeridians ? `☯️ Requires ${def.perfect.minMeridians} meridians` : null,
         `✨ +${QI_BALANCE.perfectConsolidateMaxQiBonus} Max Qi · +${QI_BALANCE.perfectConsolidateDensityBonus} Density`,

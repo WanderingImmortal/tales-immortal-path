@@ -4169,6 +4169,19 @@ const CULTIVATION_BASE_BALANCE = {
         4: { root: 52, flow: 52, stability: 48 },
         5: { root: 60, flow: 60, stability: 56 },
         6: { root: 72, flow: 72, stability: 68 }
+    },
+    pillarGrants: {
+        gatherQiRoot: 0.25,
+        expandDantianRoot: 1.5,
+        densityMilestoneRoot: 1,
+        densityMilestones: [1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0],
+        meridianOpenFlowFirst: 3,
+        meridianOpenFlowEarly: 2.5,
+        meridianOpenFlowLater: 2,
+        meridianFailFlow: 0.25,
+        perfectFoundationFlow: 2,
+        peakGrindStability: 1,
+        foundationLossPerCrack: 2
     }
 };
 

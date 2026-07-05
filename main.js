@@ -277,8 +277,9 @@ function setupCreation() {
         applyVitalityToMaxHp();
         G.foundation = 0;
         G.cultivationBase = { root: 0, flow: 0, stability: 0 };
+        G.cultivationMilestones = { density: {} };
         G.foundationCracks = 0;
-        G._cultivationBaseMigrated = false;
+        G._cultivationBaseMigrated = true;
         G.breakAttempts = 0;
         G.qiExhausted = false;
         G.combatResource = 0;

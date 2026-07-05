@@ -43,8 +43,97 @@ function grantCultivationPillar(pillar, amount) {
     const before = G.cultivationBase[pillar] || 0;
     const next = cap != null ? Math.min(cap, before + amount) : before + amount;
     const gained = Math.max(0, next - before);
-    if (gained > 0) G.cultivationBase[pillar] = next;
+    if (gained > 0) {
+        G.cultivationBase[pillar] = next;
+        G._cultivationBaseMigrated = true;
+    }
     return gained;
+}
+
+function grantFoundationCrack(count) {
+    count = Math.max(1, count || 1);
+    ensureCultivationBaseState();
+    G.foundationCracks = (G.foundationCracks || 0) + count;
+    G._cultivationBaseMigrated = true;
+    return count;
+}
+
+/** Map legacy foundation-loss amounts to foundation cracks. */
+function applyFoundationLossAsCracks(loss) {
+    const perCrack = CULTIVATION_BASE_BALANCE.pillarGrants?.foundationLossPerCrack || 2;
+    const cracks = Math.max(1, Math.ceil((loss || perCrack) / perCrack));
+    return grantFoundationCrack(cracks);
+}
+
+function ensureCultivationMilestones() {
+    if (!G.cultivationMilestones) G.cultivationMilestones = { density: {} };
+    if (!G.cultivationMilestones.density) G.cultivationMilestones.density = {};
+}
+
+function getMeridianFlowGrant(openCountBefore) {
+    const g = CULTIVATION_BASE_BALANCE.pillarGrants || {};
+    if (openCountBefore <= 0) return g.meridianOpenFlowFirst ?? 3;
+    if (openCountBefore <= 3) return g.meridianOpenFlowEarly ?? 2.5;
+    return g.meridianOpenFlowLater ?? 2;
+}
+
+function applyChamberGatherRootGrant() {
+    const amount = CULTIVATION_BASE_BALANCE.pillarGrants?.gatherQiRoot ?? 0.25;
+    return grantCultivationPillar('root', amount);
+}
+
+function applyChamberExpandRootGrant() {
+    const amount = CULTIVATION_BASE_BALANCE.pillarGrants?.expandDantianRoot ?? 1.5;
+    return grantCultivationPillar('root', amount);
+}
+
+function checkCultivationDensityMilestones() {
+    if (typeof getQiDensity !== 'function') return 0;
+    ensureCultivationMilestones();
+    const cfg = CULTIVATION_BASE_BALANCE.pillarGrants || {};
+    const thresholds = cfg.densityMilestones || [1.5, 2.0, 2.5, 3.0];
+    const rootPer = cfg.densityMilestoneRoot ?? 1;
+    const total = getQiDensity();
+    let granted = 0;
+    thresholds.forEach(t => {
+        const key = String(t);
+        if (total >= t && !G.cultivationMilestones.density[key]) {
+            G.cultivationMilestones.density[key] = true;
+            granted += grantCultivationPillar('root', rootPer);
+        }
+    });
+    return granted;
+}
+
+function grantConsolidationStability(amount) {
+    return grantCultivationPillar('stability', amount);
+}
+
+function grantMeridianOpenFlow(openCountBefore) {
+    return grantCultivationPillar('flow', getMeridianFlowGrant(openCountBefore));
+}
+
+function grantMeridianAttemptFlow() {
+    const amount = CULTIVATION_BASE_BALANCE.pillarGrants?.meridianFailFlow ?? 0.25;
+    return grantCultivationPillar('flow', amount);
+}
+
+function grantPerfectFoundationFlow() {
+    const amount = CULTIVATION_BASE_BALANCE.pillarGrants?.perfectFoundationFlow ?? 2;
+    return grantCultivationPillar('flow', amount);
+}
+
+function grantPeakGrindStability() {
+    const amount = CULTIVATION_BASE_BALANCE.pillarGrants?.peakGrindStability ?? 1;
+    return grantCultivationPillar('stability', amount);
+}
+
+function formatPillarGrant(pillar, amount) {
+    if (!amount) return '';
+    const labels = { root: 'Root', flow: 'Flow', stability: 'Stability' };
+    const emojis = { root: '🌱', flow: '☯️', stability: '🏛️' };
+    const shown = Number.isInteger(amount) ? amount : Math.round(amount * 100) / 100;
+    return `+${shown} ${emojis[pillar] || ''} ${labels[pillar] || pillar}`.trim();
 }
 
 function getFoundationCrackPenalty() {

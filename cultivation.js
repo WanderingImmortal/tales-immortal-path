@@ -157,7 +157,10 @@ function executeBreakthrough(style) {
         G.will = Math.max(1, G.will - Math.floor(dmg / 3));
         G.hp = Math.max(1, G.hp - Math.floor(dmg / 2));
         commitActionLog(`💥 FAILED! The heavens reject you. -${dmg} damage.`);
-        G.foundation = Math.max(0, G.foundation - (typeof scaleStatDebuff === 'function' ? Math.max(1, scaleStatDebuff(2)) : 2));
+        const loss = typeof scaleStatDebuff === 'function' ? Math.max(1, scaleStatDebuff(2)) : 2;
+        const cracks = typeof applyFoundationLossAsCracks === 'function'
+            ? applyFoundationLossAsCracks(loss) : 1;
+        addLog(`🩸 Your foundation cracks under the backlash (${cracks} crack${cracks === 1 ? '' : 's'}).`);
     }
     closeBreakthrough();
     fullRender();
@@ -189,8 +192,11 @@ function attemptOpenMeridian(index) {
     let chance = 30 + getEffectiveFoundation() * 1.5 + (G.qi + G.vitality + G.spirit + G.will) * 0.5 - index * 2 + (G.meridianAttempts[index] || 0) * 2;
     chance = Math.max(10, Math.min(85, chance));
     if (Math.random() * 100 < chance) {
+        const openBefore = getMeridianOpenCount();
         G.meridians[index] = true;
-        G.foundation += 2;
+        const flowGain = typeof grantMeridianOpenFlow === 'function'
+            ? grantMeridianOpenFlow(openBefore)
+            : grantCultivationPillar('flow', 2);
         G.qi = Math.min(getMaxQi(), G.qi + 3);
         clampCurrentQi();
         const bonus = 1 + Math.floor(index / 3);
@@ -198,14 +204,16 @@ function attemptOpenMeridian(index) {
         G.spirit += Math.floor(bonus / 2);
         G.will += Math.floor(bonus / 2);
         applyVitalityToMaxHp();
-        const msg = `☯️ ${getMeridianIcon(index)} ${getMeridianName(index)} meridian opened! Max Qi → ${getMaxQi()}.`;
+        const msg = `☯️ ${getMeridianIcon(index)} ${getMeridianName(index)} meridian opened! ${formatPillarGrant('flow', flowGain)} Max Qi → ${getMaxQi()}.`;
         checkPerfectCultivation();
         commitActionLog(msg);
         return { success: true, message: msg, logged: true };
     } else {
+        const flowGain = typeof grantMeridianAttemptFlow === 'function' ? grantMeridianAttemptFlow() : 0;
         const dmg = 2 + Math.floor(index / 3);
         G.hp = Math.max(1, G.hp - dmg);
-        const msg = `💢 Failed to open ${getMeridianName(index)}. Lost ${dmg} HP.`;
+        let msg = `💢 Failed to open ${getMeridianName(index)}. Lost ${dmg} HP.`;
+        if (flowGain) msg += ` ${formatPillarGrant('flow', flowGain)}.`;
         commitActionLog(msg);
         return { success: false, message: msg, logged: true };
     }
@@ -225,8 +233,11 @@ function attemptGoldenNeedle() {
     const chance = 70 + getEffectiveFoundation() * 1.5;
     if (Math.random() * 100 < chance) {
         G.meridians[11] = true;
-        G.foundation += 5;
-        const msg = `🌟 Golden Needle Set opens the Governor Vessel meridian! +5 Foundation.`;
+        const openBefore = getMeridianOpenCount() - 1;
+        const flowGain = typeof grantMeridianOpenFlow === 'function'
+            ? grantMeridianOpenFlow(openBefore)
+            : grantCultivationPillar('flow', 5);
+        const msg = `🌟 Golden Needle Set opens the Governor Vessel meridian! ${formatPillarGrant('flow', flowGain)}.`;
         checkPerfectCultivation();
         commitActionLog(msg);
         return { success: true, message: msg, logged: true };
@@ -251,10 +262,13 @@ function attemptHidden13th() {
     const chance = 50 + getEffectiveFoundation() * 2 + G.tribulationCount * 2;
     if (Math.random() * 100 < chance) {
         G.meridians[12] = true;
-        G.foundation += 10;
+        const openBefore = getMeridianOpenCount() - 1;
+        const flowGain = typeof grantMeridianOpenFlow === 'function'
+            ? grantMeridianOpenFlow(openBefore)
+            : grantCultivationPillar('flow', 10);
         if (typeof addFame === 'function') addFame(20);
         else G.fame += 20;
-        const msg = `🌟 The 13th Meridian awakens! The Primordial Vessel is complete! +10 Foundation, +20 Fame.`;
+        const msg = `🌟 The 13th Meridian awakens! The Primordial Vessel is complete! ${formatPillarGrant('flow', flowGain)}, +20 Fame.`;
         checkPerfectCultivation();
         commitActionLog(msg);
         return { success: true, message: msg, logged: true };
