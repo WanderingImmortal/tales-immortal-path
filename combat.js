@@ -101,7 +101,7 @@ function getCombatFleeChance(ctx) {
     const b = COMBAT_FLEE_BALANCE || {};
     let chance = (b.baseChance || 48) + (G.spirit || 0) * (b.spiritScale || 2.2)
         + (G.realmIdx || 0) * (b.realmBonus || 3)
-        + Math.floor((G.foundation || 0) / (b.foundationPerPct || 10));
+        + Math.floor(getEffectiveFoundation() / (b.foundationPerPct || 10));
     if (G.path === 'soul') chance += (G.will || 0) * (b.soulWillScale || 1.5);
     if (G.path === 'body') chance += b.bodyPenalty || -6;
     if (G.path === 'qi') chance += b.qiBonus || 6;
@@ -160,7 +160,7 @@ function getPlayerOffensivePower() {
     }
     else stat = getQiDensity() * 1.2 + G.will * 0.3;
 
-    let power = stat + G.realmIdx * COMBAT_BALANCE.realmPowerBonus + Math.floor(G.foundation / 5);
+    let power = stat + G.realmIdx * COMBAT_BALANCE.realmPowerBonus + Math.floor(getEffectiveFoundation() / 5);
     if (G.techniques.length) {
         const bestTech = Math.max(...G.techniques.map(t => getTechDamage(t)));
         power += Math.floor(bestTech * 0.25);
@@ -406,7 +406,7 @@ function startCombat() {
     const cfg = getCombatConfig();
     addCombatLog(`⚔️ A ${G.enemy.name} appears! (${G.enemy.hp} HP, ${G.enemy.dmg} dmg)`);
     addCombatLog(`${cfg.icon} ${cfg.resource}: ${G.combatResource}/${G.maxCombatResource}`);
-    if ((G.foundation || 0) >= 20) {
+    if (getEffectiveFoundation() >= 20) {
         addCombatLog(`🌬️ Deep foundation — your dantian holds a wider combat reserve.`);
     }
     setupCombatActions();

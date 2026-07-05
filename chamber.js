@@ -58,13 +58,14 @@ function getChamberDensityCap() {
 
 function getChamberFoundationCap() {
     const b = CHAMBER_BALANCE;
+    const foundation = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : (G.foundation || 0);
     const def = typeof getConsolidationDef === 'function' ? getConsolidationDef(G.realmIdx) : null;
     if (def?.foundationGain) {
-        const target = (G.foundation || 0) + def.foundationGain;
-        return Math.max(target * (b.foundationBarHeadroom || 1.15), G.foundation || 0, 1);
+        const target = foundation + def.foundationGain;
+        return Math.max(target * (b.foundationBarHeadroom || 1.15), foundation, 1);
     }
     const row = typeof CONSOLIDATION_BY_REALM !== 'undefined' ? CONSOLIDATION_BY_REALM[G.realmIdx] : null;
-    return row?.foundationGain ? G.foundation + row.foundationGain + 10 : Math.max(20, G.foundation + 15);
+    return row?.foundationGain ? foundation + row.foundationGain + 10 : Math.max(20, foundation + 15);
 }
 
 function isChamberOnCooldown(key) {
@@ -118,7 +119,7 @@ function getChamberCondenseChance() {
     const readiness = getChamberCondenseReadiness();
     if (!readiness.ready) return 0;
     const cfg = CHAMBER_BALANCE.condenseCore;
-    let chance = 40 + G.foundation * 1.8 + getQiDensity() * 3.5 + getQiFillRatio() * 22;
+    let chance = 40 + getEffectiveFoundation() * 1.8 + getQiDensity() * 3.5 + getQiFillRatio() * 22;
     if (typeof getBreakChance === 'function') chance += getBreakChance() * 0.12;
     if ((G.chamberFoundationCount || 0) > 0) chance += Math.min(6, G.chamberFoundationCount * 2);
     if ((G.chamberExpandCount || 0) > 0) chance += Math.min(4, G.chamberExpandCount);
@@ -220,7 +221,7 @@ function renderChamberUI() {
     const densityCap = getChamberDensityCap();
     const maxQi = getMaxQi();
     const qi = G.qi != null ? G.qi : maxQi;
-    const foundation = G.foundation || 0;
+    const foundation = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : (G.foundation || 0);
     const foundationCap = getChamberFoundationCap();
 
     const densityBar = document.getElementById('chamberDensityBar');

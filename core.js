@@ -205,7 +205,7 @@ function getBreakChance() {
     if (typeof ensureConsolidationState === 'function') ensureConsolidationState();
     const statMult = (typeof getTranscendenceStatMult === 'function' ? getTranscendenceStatMult() : 1)
         * (1 + (G.consolidationBonuses?.allStatsPct || 0));
-    let base = 30 + G.foundation * 2 + (getCultivationPowerStat() + G.vitality + G.spirit + G.will) * 1.5 * statMult;
+    let base = 30 + getEffectiveFoundation() * 2 + (getCultivationPowerStat() + G.vitality + G.spirit + G.will) * 1.5 * statMult;
     base += getPlayerTraitBonus('breakthroughPct', 0);
     if (G.trait?.bonus?.breakthrough) base += G.trait.bonus.breakthrough;
     base -= G.breakAttempts * 5;
@@ -237,7 +237,8 @@ function getMeridianOpenCount() { return G.meridians.filter(m => m).length; }
 
 function getMaxQi() {
     const b = QI_BALANCE;
-    const base = b.maxQiBase + G.realmIdx * b.maxQiPerRealm + G.foundation * b.maxQiPerFoundation
+    const foundation = getEffectiveFoundation();
+    const base = b.maxQiBase + G.realmIdx * b.maxQiPerRealm + foundation * b.maxQiPerFoundation
         + getMeridianOpenCount() * b.maxQiPerMeridian;
     let total = base + (G.maxQiBonus || 0);
     if (typeof getGearBonuses === 'function') total += getGearBonuses().maxQiBonus || 0;
@@ -248,7 +249,8 @@ function getMaxQi() {
 
 function getQiDensity() {
     const b = QI_BALANCE;
-    const base = b.densityBase + G.realmIdx * b.densityPerRealm + G.foundation * b.densityPerFoundation;
+    const foundation = getEffectiveFoundation();
+    const base = b.densityBase + G.realmIdx * b.densityPerRealm + foundation * b.densityPerFoundation;
     let total = base + (G.qiDensity || 0);
     if (typeof getGearBonuses === 'function') total += getGearBonuses().qiDensityBonus || 0;
     if (typeof getScarQiRegenMult === 'function') total *= getScarQiRegenMult();

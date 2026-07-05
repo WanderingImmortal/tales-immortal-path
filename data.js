@@ -762,7 +762,7 @@ const STAT_GUIDE = {
     will: { label: 'Will', emoji: '💪', desc: 'Determination and inner strength. Helps resist demonic influence, mental attacks, and tribulation pressure.' },
     hp: { label: 'HP', emoji: '❤️', desc: 'Health points. When depleted in combat you may fall. Recuperate or use pills to recover.' },
     shield: { label: 'Shield', emoji: '🛡️', desc: 'Protective barrier absorbing damage before HP. Regenerates slowly; some techniques and gear boost it.' },
-    foundation: { label: 'Foundation', emoji: '🏛️', desc: 'Permanent realm mastery from consolidation. Required before breakthrough and improves long-term growth.' },
+    foundation: { label: 'Foundation', emoji: '🏛️', desc: 'Cultivation base quality from Root (dantian), Flow (meridians), and Stability (seals). Higher foundation improves breakthrough odds, max Qi, density, and tribulation resistance. Cracks reduce effective foundation.' },
     lifespan: { label: 'Lifespan', emoji: '🕯️', desc: 'Years you may live before your soul scatters. Cultivation extends it; running out ends the journey unless you transcend.' },
     stones: { label: 'Spirit Stones', emoji: '💎', desc: 'Currency of cultivators. Buy techniques, pills, and gear at markets; pay for sect and crafting costs.' },
     consolidation: { label: 'Consolidation', emoji: '🏛️', desc: 'At realm peak, seclude to cement your foundation before breaking through. Perfect consolidation grants lasting bonuses.' },
@@ -4669,12 +4669,16 @@ const COMBAT_PATH = {
         secondaryLabel: '🛡️ Defend',
         maxResource(g) {
             const cap = typeof getMaxQi === 'function' ? getMaxQi() : g.qi * 2;
-            const rootDepth = Math.floor((g.foundation || 0) / 5);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const rootDepth = Math.floor(foundation / 5);
             return 25 + Math.floor(cap * 0.65) + g.realmIdx * 4 + rootDepth;
         },
         regen(g) {
             const dens = typeof getQiDensity === 'function' ? getQiDensity() : g.qi / 8;
-            const circulation = Math.floor((g.foundation || 0) / 15);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const circulation = Math.floor(foundation / 15);
             return 2 + Math.floor(g.realmIdx / 3) + Math.floor(dens * 1.0) + circulation;
         },
         costs: { attack: 3, defend: 3, flee: 6, technique: 0, special: 4 }
@@ -4688,11 +4692,15 @@ const COMBAT_PATH = {
         secondaryAction: 'fortify',
         secondaryLabel: '💪 Fortify',
         maxResource(g) {
-            const rootDepth = Math.floor((g.foundation || 0) / 6);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const rootDepth = Math.floor(foundation / 6);
             return 40 + Math.floor(g.vitality * 2.5) + g.realmIdx * 3 + rootDepth;
         },
         regen(g) {
-            const circulation = Math.floor((g.foundation || 0) / 18);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const circulation = Math.floor(foundation / 18);
             return 2 + Math.floor(g.realmIdx / 4) + Math.floor(g.vitality / 10) + circulation;
         },
         costs: { attack: 4, defend: 4, flee: 8, technique: 0, special: 12 }
@@ -4706,11 +4714,15 @@ const COMBAT_PATH = {
         secondaryAction: 'intimidate',
         secondaryLabel: '👁️ Intimidate',
         maxResource(g) {
-            const rootDepth = Math.floor((g.foundation || 0) / 8);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const rootDepth = Math.floor(foundation / 8);
             return 22 + g.will * 2 + g.spirit + g.realmIdx * 3 + rootDepth;
         },
         regen(g) {
-            const circulation = Math.floor((g.foundation || 0) / 20);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const circulation = Math.floor(foundation / 20);
             return 3 + Math.floor(g.will / 5) + Math.floor(g.realmIdx / 3) + circulation;
         },
         costs: { attack: 4, defend: 5, flee: 6, technique: 0, special: 10 }

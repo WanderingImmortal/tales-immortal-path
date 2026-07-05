@@ -66,7 +66,7 @@ function openBreakthrough() {
                 return parts.join(' · ');
             })()
             : '';
-        return `Foundation: ${G.foundation} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : ''} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
+        return `Foundation: ${typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation()} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : ''} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
     })();
     document.getElementById('breakthroughPopup').classList.add('active');
     if (typeof triggerTutorial === 'function') triggerTutorial('first_breakthrough');
@@ -98,9 +98,10 @@ function executeBreakthrough(style) {
     const roll = Math.random() * 100;
     const naturalSuccess = roll < finalChance;
     let success = naturalSuccess;
+    const foundation = getEffectiveFoundation();
     const foundationStabilized = !naturalSuccess
-        && G.foundation > 10
-        && Math.random() * 100 < Math.min(15, Math.floor(G.foundation / 2));
+        && foundation > 10
+        && Math.random() * 100 < Math.min(15, Math.floor(foundation / 2));
     if (foundationStabilized) success = true;
     if (G.perfectCultivation && Math.random() * 100 < 30) success = true;
     const perfectBreak = typeof rollPerfectBreakthrough === 'function'
@@ -185,7 +186,7 @@ function attemptOpenMeridian(index) {
     }
     G.qi -= cost;
     G.meridianAttempts[index] = (G.meridianAttempts[index] || 0) + 1;
-    let chance = 30 + G.foundation * 1.5 + (G.qi + G.vitality + G.spirit + G.will) * 0.5 - index * 2 + (G.meridianAttempts[index] || 0) * 2;
+    let chance = 30 + getEffectiveFoundation() * 1.5 + (G.qi + G.vitality + G.spirit + G.will) * 0.5 - index * 2 + (G.meridianAttempts[index] || 0) * 2;
     chance = Math.max(10, Math.min(85, chance));
     if (Math.random() * 100 < chance) {
         G.meridians[index] = true;
@@ -221,7 +222,7 @@ function attemptGoldenNeedle() {
         return { success: false, message: "Your lifespan ends..." };
     }
     G.qi -= cost;
-    const chance = 70 + G.foundation * 1.5;
+    const chance = 70 + getEffectiveFoundation() * 1.5;
     if (Math.random() * 100 < chance) {
         G.meridians[11] = true;
         G.foundation += 5;
@@ -247,7 +248,7 @@ function attemptHidden13th() {
         return { success: false, message: "Your lifespan ends..." };
     }
     G.qi -= cost;
-    const chance = 50 + G.foundation * 2 + G.tribulationCount * 2;
+    const chance = 50 + getEffectiveFoundation() * 2 + G.tribulationCount * 2;
     if (Math.random() * 100 < chance) {
         G.meridians[12] = true;
         G.foundation += 10;

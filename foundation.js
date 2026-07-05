@@ -52,16 +52,26 @@ function getFoundationCrackPenalty() {
 }
 
 /** Effective foundation for formulas — pillars minus crack penalty, with legacy fallback until migration. */
-function getEffectiveFoundation() {
-    ensureCultivationBaseState();
-    const pillarTotal = getCultivationPillarTotal();
-    const crackPenalty = getFoundationCrackPenalty();
+function getEffectiveFoundationFromState(g) {
+    g = g || G;
+    const b = g.cultivationBase || {};
+    const root = b.root || 0;
+    const flow = b.flow || 0;
+    const stability = b.stability || 0;
+    const pillarTotal = root + flow + stability;
+    const cracks = g.foundationCracks || 0;
+    const crackPenalty = cracks * (CULTIVATION_BASE_BALANCE.crackPenalty || 4);
     const fromPillars = Math.max(0, pillarTotal - crackPenalty);
 
-    if (!G._cultivationBaseMigrated && pillarTotal <= 0) {
-        return Math.max(0, (G.foundation || 0) - crackPenalty);
+    if (!g._cultivationBaseMigrated && pillarTotal <= 0) {
+        return Math.max(0, (g.foundation || 0) - crackPenalty);
     }
     return fromPillars;
+}
+
+function getEffectiveFoundation() {
+    ensureCultivationBaseState();
+    return getEffectiveFoundationFromState(G);
 }
 
 function getFoundationGrade(effective) {

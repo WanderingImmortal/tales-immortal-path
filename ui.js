@@ -82,7 +82,20 @@ function renderStatus() {
     document.getElementById('techCountStat').textContent = G.techniques.length;
     document.getElementById('nextRealm').textContent = getNextRealm();
     document.getElementById('breakChance').textContent = Math.round(getBreakChance()) + '%';
-    document.getElementById('foundationDisplay').textContent = G.foundation;
+    if (typeof getCultivationPillarSummary === 'function') {
+        const fs = getCultivationPillarSummary();
+        const foundationEl = document.getElementById('foundationDisplay');
+        if (foundationEl) {
+            foundationEl.textContent = `${fs.effective} ${fs.grade.label}`;
+            const foundationItem = foundationEl.closest('.stat-item');
+            if (foundationItem) {
+                const crackNote = fs.cracks > 0 ? ` · ${fs.cracks} crack${fs.cracks === 1 ? '' : 's'}` : '';
+                foundationItem.title = `Root ${fs.root} · Flow ${fs.flow} · Stability ${fs.stability}${crackNote}`;
+            }
+        }
+    } else {
+        document.getElementById('foundationDisplay').textContent = getEffectiveFoundation();
+    }
     const consolEl = document.getElementById('consolidationDisplay');
     if (consolEl && typeof getConsolidationStatusLabel === 'function') {
         consolEl.textContent = getConsolidationStatusLabel();
@@ -389,7 +402,9 @@ function renderScenePanel() {
             infEl.style.display = 'none';
         }
     }
-    document.getElementById('sceneFoundation').textContent = G.foundation;
+    document.getElementById('sceneFoundation').textContent = typeof getFoundationDisplayText === 'function'
+        ? getFoundationDisplayText()
+        : String(getEffectiveFoundation());
     const sceneFame = document.getElementById('sceneFame');
     if (sceneFame) {
         const consol = typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : '';

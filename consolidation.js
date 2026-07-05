@@ -210,7 +210,7 @@ function canPerfectConsolidation(def) {
 
 function getMiniTribulationPreview() {
     const severity = 14 + G.realmIdx * 5;
-    let resist = G.foundation * 3 + G.will * 0.9 + G.spirit * 0.9 + getQiDensity() * 2
+    let resist = getEffectiveFoundation() * 3 + G.will * 0.9 + G.spirit * 0.9 + getQiDensity() * 2
         + Math.floor((G.lightningResist || 0) / 4);
     if (typeof getTranscendenceTribulationResistPct === 'function') {
         resist = Math.floor(resist * (1 + getTranscendenceTribulationResistPct()));
