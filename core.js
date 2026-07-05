@@ -127,7 +127,8 @@ let G = {
     demonicRedemption: null,
     tutorialLog: null,
     sect: null,
-    milestones: null
+    milestones: null,
+    knownFormations: []
 };
 
 // ===== HELPERS =====
@@ -959,6 +960,7 @@ function loadState() {
             if (typeof migrateAlchemyForExistingSave === 'function') migrateAlchemyForExistingSave();
             if (typeof ensureSectState === 'function') ensureSectState();
             if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
+            if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
             if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();
             if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
             if (typeof ensureAncientsState === 'function') ensureAncientsState();

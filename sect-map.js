@@ -6,10 +6,11 @@ function ensureSectGroundsView() {
     ensureSectState();
     if (!G.sect.groundsView) G.sect.groundsView = 'map';
     if (!G.sect.residence) {
-        G.sect.residence = { level: 0, stash: [], lastRestMonths: null };
+        G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
     }
     if (G.sect.residence.level == null) G.sect.residence.level = isSectFounded() ? 0 : 0;
     if (!G.sect.residence.stash) G.sect.residence.stash = [];
+    if (typeof ensureFormationState === 'function') ensureFormationState();
 }
 
 function setSectGroundsView(viewId) {
@@ -236,9 +237,9 @@ function renderSectResidenceDetailHtml() {
 
     html += `<div class="sect-building-actions">`;
     html += `<div class="sect-section-title">Your Quarters</div>`;
-    html += `<p class="sect-hint">Your personal anchor on the grounds. Upgrades use materials only — oversee small works yourself, or hire craftsmen for larger expansions.</p>`;
-    if (lv >= 1) {
-        html += `<p class="sect-hint">🧘 Meditation focus and personal stash unlock at higher levels.</p>`;
+    html += `<p class="sect-hint">Your personal anchor on the grounds. Inscribe formations in the courtyard, then cultivate here for their blessing.</p>`;
+    if (typeof renderResidenceFormationsHtml === 'function') {
+        html += renderResidenceFormationsHtml();
     }
     html += `</div>`;
 
@@ -343,7 +344,7 @@ function renderBuildingActionsHtml(buildingId, lv) {
 
     if (buildingId === 'cultivation_hall') {
         html += `<div class="sect-section-title">🧘 Sect Cultivation</div>`;
-        html += `<p class="sect-hint">Cultivate within the hall and draw on sect arrays.</p>`;
+        html += `<p class="sect-hint">Cultivate within the hall — disciple training expands in a future update.</p>`;
         html += renderSectCultivationBreakdownHtml();
         html += `<button type="button" class="sect-action-btn" id="btnHallCultivate">🧘 Cultivate here (${ACTION_MONTHS.cultivate} months)</button>`;
     }
@@ -430,6 +431,33 @@ function bindSectGroundsEvents(container) {
     });
     container.querySelector('#btnHallCultivate')?.addEventListener('click', () => {
         if (typeof actionCultivationHallCultivate === 'function') actionCultivationHallCultivate();
+    });
+    container.querySelector('#btnResidenceCultivate')?.addEventListener('click', () => {
+        document.getElementById('sectPopup')?.classList.remove('active');
+        if (typeof actionResidenceCultivate === 'function') actionResidenceCultivate();
+    });
+    container.querySelectorAll('[data-formation-lay]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const slot = parseInt(this.dataset.formationSlot, 10);
+            const formationId = this.dataset.formationLay;
+            const result = typeof layResidenceFormation === 'function'
+                ? layResidenceFormation(slot, formationId)
+                : { success: false, message: 'Formations unavailable.' };
+            if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-formation-clear]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const slot = parseInt(this.dataset.formationClear, 10);
+            const result = typeof clearResidenceFormationSlot === 'function'
+                ? clearResidenceFormationSlot(slot)
+                : { success: false, message: 'Formations unavailable.' };
+            if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
     });
     container.querySelectorAll('.sect-build-btn').forEach(btn => {
         btn.addEventListener('click', function() {

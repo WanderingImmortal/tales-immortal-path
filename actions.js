@@ -10,15 +10,14 @@ function actionBlocked() {
 }
 
 // ----- CULTIVATE -----
-function actionCultivate() {
-    if (actionBlocked()) return;
-    beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.cultivate, "Secluded meditation")) { cancelActionLog(); fullRender(); return; }
+function runCultivateSession(options) {
+    const opts = options || {};
     const b = QI_BALANCE;
     const sectMult = typeof getSectCultivationMult === 'function' ? getSectCultivationMult() : 1;
     const factionMult = typeof getFactionCultivateMult === 'function' ? getFactionCultivateMult() : 1;
     const traitMult = getPlayerTraitMultPct('cultivateSpeedPct', 0) * getPlayerTraitMultPct('qiEfficiencyPct', 0);
-    const cultMult = sectMult * factionMult * traitMult;
+    const extraMult = opts.extraMult || 1;
+    const cultMult = sectMult * factionMult * traitMult * extraMult;
     const densGainRaw = b.cultivateDensityMin + Math.random() * (b.cultivateDensityMax - b.cultivateDensityMin);
     const densGain = Math.round(densGainRaw * cultMult * 100) / 100;
     G.qiDensity = (G.qiDensity || 0) + densGain;
@@ -74,12 +73,13 @@ function actionCultivate() {
     if (factionPassive?.spirit) G.spirit += factionPassive.spirit;
     const mergedFx = typeof getMergedDaoEffects === 'function' ? getMergedDaoEffects() : null;
     if (mergedFx?.foundationPerCultivate) G.foundation += mergedFx.foundationPerCultivate;
+    if (opts.extraFoundation) G.foundation += opts.extraFoundation;
     if (tradeIncome > 0) {
         G.stones += tradeIncome;
         G.sectPassiveIncome = (G.sectPassiveIncome || 0) + tradeIncome;
     }
-    let cultMsg = `🧘 You refine your Qi. +${densGain.toFixed(2)} Density, dantian +${fillGain}/${getMaxQi()}, +${statGain} secondary stats.`;
-    const cultParts = [];
+    let cultMsg = `${opts.logPrefix || '🧘 You refine your Qi'}. +${densGain.toFixed(2)} Density, dantian +${fillGain}/${getMaxQi()}, +${statGain} secondary stats.`;
+    const cultParts = [...(opts.bonusNoteParts || [])];
     if (sectMult > 1) cultParts.push(`Hall +${Math.round((getSectBuildingBonus('cultivationSpeedPct') || 0))}%`);
     if (factionMult > 1) cultParts.push(`faction +${Math.round((factionMult - 1) * 100)}%`);
     if (typeof isInSectInfluenceZone === 'function' && isInSectInfluenceZone(typeof getActiveZoneId === 'function' ? getActiveZoneId() : G.currentZone)) {
@@ -90,16 +90,24 @@ function actionCultivate() {
     if (factionPassive?.foundation || factionPassive?.spirit) {
         cultParts.push(`faction +${factionPassive.foundation || 0}f/${factionPassive.spirit || 0}s`);
     }
+    if (opts.extraFoundation) cultParts.push(`formation +${opts.extraFoundation}f`);
     if (cultParts.length) cultMsg += ` (${cultParts.join(', ')})`;
     if (buildingNotes.length) cultMsg += ` · ${buildingNotes.join(', ')}`;
     if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0 && G.sectPassiveIncome > 0) {
         cultMsg += ` · Treasury tithe +${G.sectPassiveIncome}💎`;
     }
-    commitActionLog(cultMsg);
-    if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
     if (getMeridianOpenCount() < 11 && Math.random() < 0.05) {
         addLog(`☯️ You sense a new meridian... (check Meridians)`);
     }
+    return cultMsg;
+}
+
+function actionCultivate() {
+    if (actionBlocked()) return;
+    beginActionLog();
+    if (!advanceTime(ACTION_MONTHS.cultivate, "Secluded meditation")) { cancelActionLog(); fullRender(); return; }
+    commitActionLog(runCultivateSession());
+    if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
     fullRender();
 }
 
