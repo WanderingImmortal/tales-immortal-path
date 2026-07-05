@@ -147,14 +147,30 @@ function renderStatus() {
     if (consolidateBtn && typeof isRealmConsolidated === 'function') {
         consolidateBtn.disabled = isRealmConsolidated(G.realmIdx);
         const capstone = typeof getPathCapstone === 'function' ? getPathCapstone() : null;
+        const sealGuide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.sealDantian : null;
         if (capstone) consolidateBtn.textContent = capstone.button;
         consolidateBtn.title = isRealmConsolidated(G.realmIdx)
             ? 'This realm is already sealed'
-            : (capstone ? `${capstone.settledAction} at Settled (80%+) or ${capstone.peakAction} at Peak` : 'Seal realm for Foundation');
+            : (sealGuide?.desc || (capstone ? `${capstone.settledAction} at Settled (80%+) or ${capstone.peakAction} at Peak` : 'Seal realm for Foundation'));
     }
     const cultivateBtn = document.getElementById('btnCultivate');
     if (cultivateBtn) {
-        cultivateBtn.title = 'Choose Qi, Body, or Soul cultivation';
+        const guide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.cultivate : null;
+        cultivateBtn.title = guide?.desc || 'Choose Qi, Body, or Soul cultivation';
+    }
+    const breakBtn = document.getElementById('btnBreakthrough');
+    if (breakBtn) {
+        const guide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.breakthrough : null;
+        const chance = typeof getBreakChance === 'function' ? getBreakChance() : null;
+        breakBtn.title = guide?.desc
+            ? `${guide.desc}${chance != null ? ` Current odds: ~${chance}%.` : ''}`
+            : breakBtn.title;
+    }
+    const recuperateBtn = document.getElementById('btnRecuperate');
+    if (recuperateBtn) {
+        const guide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.recuperate : null;
+        const months = typeof ACTION_MONTHS !== 'undefined' ? ACTION_MONTHS.recuperate : 3;
+        recuperateBtn.title = guide?.desc || `Rest ${months} months · heal HP & barrier`;
     }
     document.getElementById('discipleCountDisplay').textContent = G.disciples.length;
     document.getElementById('meridianDisplay').textContent = openCount + '/13';

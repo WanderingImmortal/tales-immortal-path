@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=74" />
+    <link rel="stylesheet" href="style.css?v=75" />
 </head>
 <body>
 
@@ -833,7 +833,7 @@
         <div class="chamber-stats">
             <div class="chamber-stat">
                 <div class="chamber-stat-head">
-                    <span class="chamber-stat-label">Qi Density</span>
+                    <span class="chamber-stat-label" id="chamberDensityLabel">Qi Density</span>
                     <span class="chamber-stat-value" id="chamberDensityText">0</span>
                 </div>
                 <div class="chamber-bar-track">
@@ -842,7 +842,7 @@
             </div>
             <div class="chamber-stat">
                 <div class="chamber-stat-head">
-                    <span class="chamber-stat-label">Qi Capacity</span>
+                    <span class="chamber-stat-label" id="chamberCapacityLabel">Qi Capacity</span>
                     <span class="chamber-stat-value" id="chamberCapacityText">0 / 0</span>
                 </div>
                 <div class="chamber-bar-track">
@@ -851,7 +851,7 @@
             </div>
             <div class="chamber-stat">
                 <div class="chamber-stat-head">
-                    <span class="chamber-stat-label">Foundation</span>
+                    <span class="chamber-stat-label" id="chamberFoundationLabel">Foundation</span>
                     <span class="chamber-stat-value" id="chamberFoundationText">0</span>
                 </div>
                 <div class="chamber-bar-track">
@@ -859,6 +859,7 @@
                 </div>
             </div>
         </div>
+        <p class="chamber-stats-hint" id="chamberStatsHint">Density = refinement · Capacity = max Qi · Foundation = Root + Flow + Stability</p>
 
         <div class="chamber-tech-picker" id="chamberTechPicker" hidden>
             <p class="chamber-tech-picker-label">Sacrifice a technique to anchor your foundation:</p>
@@ -867,10 +868,22 @@
         </div>
 
         <div class="chamber-actions">
-            <button type="button" class="chamber-btn chamber-btn-primary" id="chamberGatherQi">🌬️ Gather Qi</button>
-            <button type="button" class="chamber-btn" id="chamberExpandDantian">🏺 Expand Dantian</button>
-            <button type="button" class="chamber-btn" id="chamberPerfectFoundation">🪨 Refine Foundation</button>
-            <button type="button" class="chamber-btn chamber-btn-condense" id="chamberCondenseCore">💎 Condense Core</button>
+            <button type="button" class="chamber-btn chamber-btn-primary chamber-action-card" id="chamberGatherQi">
+                <span class="chamber-action-label">🌬️ Gather Qi</span>
+                <span class="chamber-action-meta" id="chamberGatherMeta"></span>
+            </button>
+            <button type="button" class="chamber-btn chamber-action-card" id="chamberExpandDantian">
+                <span class="chamber-action-label">🏺 Expand Dantian</span>
+                <span class="chamber-action-meta" id="chamberExpandMeta"></span>
+            </button>
+            <button type="button" class="chamber-btn chamber-action-card" id="chamberPerfectFoundation">
+                <span class="chamber-action-label">🪨 Refine Foundation</span>
+                <span class="chamber-action-meta" id="chamberFoundationMeta"></span>
+            </button>
+            <button type="button" class="chamber-btn chamber-btn-condense chamber-action-card" id="chamberCondenseCore">
+                <span class="chamber-action-label">💎 Condense Core</span>
+                <span class="chamber-action-meta" id="chamberCondenseMeta"></span>
+            </button>
             <button type="button" class="chamber-btn chamber-btn-return" id="chamberReturn">↩ Return</button>
         </div>
     </div>
@@ -1167,7 +1180,7 @@
     </div>
 </div>
 
-<script src="data.js?v=78"></script>
+<script src="data.js?v=79"></script>
 <script src="talent.js?v=1"></script>
 <script src="legacy.js?v=1"></script>
 <script src="world-scheduler.js?v=3"></script>
@@ -1199,10 +1212,10 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=10"></script>
-<script src="ui.js?v=41"></script>
+<script src="ui.js?v=42"></script>
 <script src="action-gates.js?v=2"></script>
 <script src="actions.js?v=32"></script>
-<script src="chamber.js?v=9"></script>
+<script src="chamber.js?v=10"></script>
 <script src="body-chamber.js?v=21"></script>
 <script src="physique-cultivation.js?v=2"></script>
 <script src="soul-chamber.js?v=2"></script>

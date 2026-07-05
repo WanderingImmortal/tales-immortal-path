@@ -4527,6 +4527,50 @@ const CHAMBER_BALANCE = {
     densityBarCapPerRealm: 2.5
 };
 
+// Qi chamber + main-panel cultivation action helpers (inline meta + tooltips)
+const CULTIVATION_ACTION_GUIDE = {
+    gatherQi: {
+        label: 'Gather Qi',
+        emoji: '🌬️',
+        desc: 'Draw heaven\'s breath into your dantian. Raises Qi Density (technique power & peak requirements), refills current Qi toward max, and slowly builds Root (dantian pillar). Bonuses scale with sect, talents, and body cultivation.'
+    },
+    expandDantian: {
+        label: 'Expand Dantian',
+        emoji: '🏺',
+        desc: 'Permanently widen your dantian to hold more Qi. Costs spirit stones and needs recovery time between expansions. Also grants a burst of Root. Does not raise Density or Flow.'
+    },
+    refineFoundation: {
+        label: 'Refine Foundation',
+        emoji: '🪨',
+        desc: 'Burn a technique into bedrock Flow (meridian pillar). Chamber grind between realm seals — separate from Seal Dantian capstones. Requires spare techniques, stones, and a cooldown while your foundation settles.'
+    },
+    condenseCore: {
+        label: 'Condense Core',
+        emoji: '💎',
+        desc: 'At Foundation Establishment peak, attempt to form a golden core and advance to Core Formation. Costs stones, takes a month, then faces heavenly tribulation. Failure cracks foundation; success is a major realm leap.'
+    },
+    cultivate: {
+        label: 'Cultivate',
+        emoji: '🧘',
+        desc: 'Open the cultivation hub — Qi, Body, or Soul chambers. Any path can be trained regardless of your primary path.'
+    },
+    sealDantian: {
+        label: 'Seal Dantian',
+        emoji: '🏛️',
+        desc: 'Realm capstone at Settled (80%+) or Peak (100%). Cements Stability (seal pillar), unlocks breakthrough, and perfect seals grant lasting bonuses. Distinct from chamber Refine Foundation.'
+    },
+    breakthrough: {
+        label: 'Break Through',
+        emoji: '🌀',
+        desc: 'Attempt the next cultivation realm. Requires this realm to be sealed first. Takes 2 years; success raises stats, max Qi, and lifespan. Odds depend on foundation, density, and consolidation tier.'
+    },
+    recuperate: {
+        label: 'Recuperate',
+        emoji: '🛌',
+        desc: 'Rest 3 months to heal HP and regenerate your protective barrier. Does not cultivate stats or Qi.'
+    }
+};
+
 // ===== BODY CULTIVATION CHAMBER =====
 
 const BODY_CHAMBER_LAYER_ORDER = ['skin', 'flesh', 'bones', 'organs', 'blood', 'meridians', 'nerves'];

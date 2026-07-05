@@ -6871,6 +6871,16 @@ header .subtitle {
     background: linear-gradient(90deg, rgba(140, 110, 60, 0.7), rgba(200, 170, 90, 0.9));
 }
 
+.chamber-stats-hint {
+    width: 100%;
+    max-width: 640px;
+    margin: -4px 0 8px;
+    font-size: 0.78rem;
+    color: var(--ink-text-muted);
+    text-align: center;
+    line-height: 1.35;
+}
+
 .chamber-actions {
     width: 100%;
     max-width: 640px;
@@ -6889,6 +6899,25 @@ header .subtitle {
     color: var(--ink-text);
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.chamber-action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    text-align: left;
+}
+
+.chamber-action-label {
+    font-size: 0.95rem;
+}
+
+.chamber-action-meta {
+    font-size: 0.76rem;
+    color: var(--ink-text-muted);
+    line-height: 1.35;
+    font-weight: normal;
 }
 
 .chamber-btn:hover:not(:disabled) {

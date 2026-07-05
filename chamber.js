@@ -154,6 +154,41 @@ function formatChamberCooldown(untilMonths) {
     return ` (${formatDuration(left)} left)`;
 }
 
+function getChamberActionGuide(key) {
+    return typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE[key] : null;
+}
+
+function formatChamberGatherMeta() {
+    const g = CHAMBER_BALANCE.gatherQi;
+    const cultMult = getChamberCultivateMult();
+    const minD = (g.densityGainMin * cultMult).toFixed(2);
+    const maxD = (g.densityGainMax * cultMult).toFixed(2);
+    const fillPct = Math.round(g.fillRatio * 100 * cultMult);
+    return `+${minD}–${maxD} Density, refill ~${fillPct}% max Qi, +Root · ${g.weeks} wk`;
+}
+
+function formatChamberExpandMeta(block) {
+    if (block) return block;
+    const cfg = CHAMBER_BALANCE.expandDantian;
+    const cd = formatChamberCooldown(G.chamberCooldowns.expandDantian);
+    return `+${cfg.maxQiBonusGain} max Qi · ${cfg.weeks} wk · ${cfg.stones}💎 · CD ${cfg.cooldownMonths} mo${cd}`;
+}
+
+function formatChamberFoundationMeta(block) {
+    if (block) return block;
+    const cfg = CHAMBER_BALANCE.perfectFoundation;
+    const cd = formatChamberCooldown(G.chamberCooldowns.perfectFoundation);
+    return `+${cfg.foundationGain} Flow · sacrifice 1 tech · ${cfg.weeks} wk · ${cfg.stones}💎 · CD ${cfg.cooldownMonths} mo${cd}`;
+}
+
+function formatChamberCondenseMeta(block) {
+    if (block) return block;
+    const cfg = CHAMBER_BALANCE.condenseCore;
+    const cd = formatChamberCooldown(G.chamberCooldowns.condenseCore);
+    const chance = getChamberCondenseChance();
+    return `Core Formation · ${cfg.months} mo · ${cfg.stones}💎 · tribulation · ~${chance}% · CD ${cfg.cooldownMonths} mo${cd}`;
+}
+
 function chamberActionBlocked() {
     return G.gameOver || G.inCombat
         || (typeof isTribulationActive === 'function' && isTribulationActive());
@@ -264,38 +299,41 @@ function renderChamberUI() {
     const foundationBtn = document.getElementById('chamberPerfectFoundation');
     const coreBtn = document.getElementById('chamberCondenseCore');
 
+    const densityGuide = getChamberActionGuide('gatherQi');
+    const expandGuide = getChamberActionGuide('expandDantian');
+    const foundationGuide = getChamberActionGuide('refineFoundation');
+    const condenseGuide = getChamberActionGuide('condenseCore');
+    document.getElementById('chamberDensityLabel')?.setAttribute('title', STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
+    document.getElementById('chamberCapacityLabel')?.setAttribute('title', STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
+    document.getElementById('chamberFoundationLabel')?.setAttribute('title', STAT_GUIDE?.foundation?.desc || '');
+
     if (gatherBtn) {
         const g = b.gatherQi;
+        const guide = getChamberActionGuide('gatherQi');
         gatherBtn.disabled = chamberActionBlocked();
-        gatherBtn.title = `+${g.densityGainMin}–${g.densityGainMax} Density, Qi fill · ${g.weeks} week`;
+        gatherBtn.title = guide?.desc || `+${g.densityGainMin}–${g.densityGainMax} Density, Qi fill · ${g.weeks} week`;
+        document.getElementById('chamberGatherMeta').textContent = formatChamberGatherMeta();
     }
     if (expandBtn) {
-        const cfg = b.expandDantian;
         const block = getChamberExpandDantianBlockReason();
-        const cd = formatChamberCooldown(G.chamberCooldowns.expandDantian);
+        const guide = getChamberActionGuide('expandDantian');
         expandBtn.disabled = chamberActionBlocked() || !!block;
-        expandBtn.title = block
-            ? block
-            : `+${cfg.maxQiBonusGain} Qi Capacity · ${cfg.weeks} weeks + ${cfg.stones} Stones · CD ${cfg.cooldownMonths} mo${cd}`;
+        expandBtn.title = block || guide?.desc || expandBtn.title;
+        document.getElementById('chamberExpandMeta').textContent = formatChamberExpandMeta(block);
     }
     if (foundationBtn) {
-        const cfg = b.perfectFoundation;
         const block = getChamberPerfectFoundationBlockReason();
-        const cd = formatChamberCooldown(G.chamberCooldowns.perfectFoundation);
+        const guide = getChamberActionGuide('refineFoundation');
         foundationBtn.disabled = chamberActionBlocked() || !!block;
-        foundationBtn.title = block
-            ? block
-            : `+${cfg.foundationGain} Foundation · ${cfg.weeks} weeks + ${cfg.stones} Stones + sacrifice 1 technique · CD ${cfg.cooldownMonths} mo${cd}`;
+        foundationBtn.title = block || guide?.desc || foundationBtn.title;
+        document.getElementById('chamberFoundationMeta').textContent = formatChamberFoundationMeta(block);
     }
     if (coreBtn) {
-        const cfg = b.condenseCore;
         const block = getChamberCondenseCoreBlockReason();
-        const cd = formatChamberCooldown(G.chamberCooldowns.condenseCore);
-        const chance = getChamberCondenseChance();
+        const guide = getChamberActionGuide('condenseCore');
         coreBtn.disabled = chamberActionBlocked() || !!block;
-        coreBtn.title = block
-            ? block
-            : `Unlock Core Formation · ${cfg.months} month + ${cfg.stones} Stones + face heavenly tribulation · ~${chance}% form · CD ${cfg.cooldownMonths} mo${cd}`;
+        coreBtn.title = block || guide?.desc || coreBtn.title;
+        document.getElementById('chamberCondenseMeta').textContent = formatChamberCondenseMeta(block);
     }
 }
 
