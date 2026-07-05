@@ -50,13 +50,17 @@ function renderStatus() {
     }
     document.getElementById('sectNameDisplay').textContent = typeof getSectDisplayName === 'function'
         ? getSectDisplayName() : (G.sectName || 'None');
-    const traitDef = typeof getPlayerTraitDef === 'function' ? getPlayerTraitDef() : G.trait;
-    const traitLabel = traitDef ? `${traitDef.emoji || '🎭'} ${traitDef.name}` : '—';
-    const traitTip = traitDef ? `${traitDef.flavor || traitDef.desc}\n${traitDef.upside || ''}\n${traitDef.downside || ''}` : '';
+    const traits = typeof getPlayerTraits === 'function' ? getPlayerTraits() : (G.trait ? [G.trait] : []);
+    const traitLabel = traits.length
+        ? traits.map(t => `${t.emoji || '🎭'} ${t.name}`).join(' · ')
+        : '—';
+    const traitTip = traits.map(t => `${t.flavor || t.desc}\n${t.upside || ''}\n${t.downside || ''}`).join('\n\n');
+    const talentDef = typeof getTalentDef === 'function' ? getTalentDef() : G.talent;
     const traitDisplay = document.getElementById('traitDisplay');
     if (traitDisplay) {
-        traitDisplay.textContent = traitLabel;
-        traitDisplay.title = traitTip;
+        const talentPrefix = talentDef ? `🌱 ${talentDef.name}` : '';
+        traitDisplay.textContent = talentPrefix ? `${talentPrefix} · ${traitLabel}` : traitLabel;
+        traitDisplay.title = [talentDef ? `Root: ${talentDef.name}${talentDef.element ? ' (' + talentDef.element + ')' : ''}` : '', traitTip].filter(Boolean).join('\n\n');
     }
     const traitStat = document.getElementById('traitStatDisplay');
     if (traitStat) {
@@ -927,6 +931,8 @@ function fullRender() {
     renderNpcPresencePanel();
     if (typeof processTutorialQueue === 'function') processTutorialQueue();
     if (typeof refreshTutorialHighlight === 'function') refreshTutorialHighlight();
+    const reincBtn = document.getElementById('btnTrueReincarnation');
+    if (reincBtn) reincBtn.style.display = (typeof isImmortal === 'function' && isImmortal()) ? '' : 'none';
     saveState();
 }
 

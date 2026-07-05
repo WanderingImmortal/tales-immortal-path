@@ -16,6 +16,8 @@ function getDaoActionMonths(baseMonths) {
     if (typeof getConsolidationDaoSpeedMult === 'function') mult *= getConsolidationDaoSpeedMult();
     if (typeof getGearDaoSpeedMult === 'function') mult *= getGearDaoSpeedMult();
     mult *= getPlayerTraitMultPct('daoSpeedPct', 0);
+    if (typeof getDrawbackDaoSpeedMult === 'function') mult *= getDrawbackDaoSpeedMult();
+    if (typeof getLegacyDaoBonusMult === 'function') mult *= getLegacyDaoBonusMult();
     if (typeof getSoulChamberDaoComprehensionMult === 'function') mult *= getSoulChamberDaoComprehensionMult();
     return Math.max(1, Math.ceil(baseMonths / mult));
 }
@@ -199,37 +201,180 @@ function useTechnique(techName) {
     return { damage: dmg, tier: tier.name, cost: cost };
 }
 
-// ===== CREATION =====
-let selectedPath = "qi";
-let selectedTrait = 0;
+// ===== CREATION (CP budget + legacy) =====
+const creationState = {
+    selectedPath: 'qi',
+    selectedTalent: 'single_superior',
+    selectedTraits: new Set(),
+    selectedOrigin: 'village_orphan',
+    selectedDrawbacks: new Set()
+};
 
-function renderCreationTraits() {
-    const container = document.getElementById('traitOptions');
-    if (!container || typeof TRAITS === 'undefined') return;
-    container.innerHTML = TRAITS.map((t, i) => {
-        const selected = i === selectedTrait ? ' selected' : '';
-        const tip = `${t.flavor}\n${t.upside}\n${t.downside}`;
-        return `<button type="button" class="popup-item trait-card${selected}" data-trait="${i}" title="${tip.replace(/"/g, '&quot;')}">
-            <div class="name">${t.emoji} ${t.name}</div>
-            <div class="desc trait-upside">${t.upside}</div>
-            <div class="desc trait-downside">${t.downside}</div>
+function calcCreationSpend() {
+    let spent = 0;
+    const talent = TALENT_BY_ID[creationState.selectedTalent];
+    if (talent) spent += talent.cpCost;
+    creationState.selectedTraits.forEach(id => {
+        spent += TRAIT_CP_COSTS[id] || 0;
+    });
+    const origin = ORIGIN_BY_ID[creationState.selectedOrigin];
+    if (origin) spent += origin.cpCost;
+    creationState.selectedDrawbacks.forEach(id => {
+        const d = DRAWBACK_BY_ID[id];
+        if (d) spent -= d.cpRefund;
+    });
+    return spent;
+}
+
+function getCreationRemainingCP() {
+    return getCreationTotalCP() - calcCreationSpend();
+}
+
+function isTalentSelectable(talentId) {
+    const def = TALENT_BY_ID[talentId];
+    if (!def) return false;
+    if (talentId === 'heavenly' && typeof isHeavenlyRootLocked === 'function' && isHeavenlyRootLocked()) return false;
+    return true;
+}
+
+function getCreationValidationHint() {
+    if (!creationState.selectedTalent) return 'Select a spiritual root.';
+    if (getCreationRemainingCP() < 0) return 'Not enough Creation Points.';
+    return '';
+}
+
+function updateCreationUI() {
+    const total = getCreationTotalCP();
+    const remaining = getCreationRemainingCP();
+    const totalEl = document.getElementById('cpTotalDisplay');
+    const remainEl = document.getElementById('cpRemainingDisplay');
+    if (totalEl) totalEl.textContent = String(total);
+    if (remainEl) {
+        remainEl.textContent = String(remaining);
+        const bar = document.getElementById('creationCpBar');
+        if (bar) bar.classList.toggle('cp-negative', remaining < 0);
+    }
+    const previewRemain = document.getElementById('previewRemainingCp');
+    if (previewRemain) previewRemain.textContent = String(remaining);
+    const talentDef = TALENT_BY_ID[creationState.selectedTalent];
+    const path = creationState.selectedPath || 'qi';
+    const realms = PATHS[path]?.realms || [];
+    const capIdx = talentDef?.naturalRealmCap ?? 6;
+    const previewSpeed = document.getElementById('previewCultivateSpeed');
+    if (previewSpeed && talentDef) {
+        const originDef = ORIGIN_BY_ID[creationState.selectedOrigin];
+        const originPct = originDef?.startEffect?.cultivateSpeedPct || 0;
+        const speed = Math.round((talentDef.cultivateSpeedMult || 1) * (1 + originPct / 100) * 100);
+        previewSpeed.textContent = `${speed}%`;
+    }
+    const previewCap = document.getElementById('previewRealmCap');
+    if (previewCap) previewCap.textContent = realms[capIdx] || `Realm ${capIdx}`;
+    const previewCore = document.getElementById('previewCoreFeasibility');
+    if (previewCore) previewCore.textContent = talentDef?.coreFeasibility || '—';
+    const hint = document.getElementById('creationValidationHint');
+    if (hint) hint.textContent = getCreationValidationHint();
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) startBtn.disabled = !!getCreationValidationHint();
+    const slotLabel = document.getElementById('traitSlotLabel');
+    if (slotLabel) slotLabel.textContent = `(optional, max ${getMaxTraitSlots()})`;
+}
+
+function renderCreationTalents() {
+    const container = document.getElementById('talentOptions');
+    if (!container || typeof TALENT_GRADES === 'undefined') return;
+    container.innerHTML = TALENT_GRADES.map(t => {
+        const selected = t.id === creationState.selectedTalent ? ' selected' : '';
+        const locked = !isTalentSelectable(t.id) ? ' locked' : '';
+        const costLabel = t.cpCost < 0 ? `Refunds ${Math.abs(t.cpCost)} CP` : `${t.cpCost} CP`;
+        const tip = `${t.notes}\n${costLabel}`;
+        return `<button type="button" class="popup-item trait-card${selected}${locked}" data-talent="${t.id}" title="${tip.replace(/"/g, '&quot;')}">
+            <div class="name">${t.name}</div>
+            <div class="desc">${t.notes}</div>
+            <div class="cp-tag">${costLabel}</div>
         </button>`;
     }).join('');
 }
 
-function grantRandomAdeptTechnique() {
-    const pool = TECHNIQUE_POOL.filter(t => (t.path === G.path || t.path === 'neutral') && t.category !== 'utility');
-    if (!pool.length) return null;
-    const template = pool[Math.floor(Math.random() * pool.length)];
-    if (!learnTechnique(template.name)) return null;
-    const tech = G.techniques.find(t => t.name === template.name);
-    if (tech) tech.uses = 5;
-    addLog(`📜 Your master's legacy awakens: ${template.name} (Adept).`);
-    return template.name;
+function renderCreationTraits() {
+    const container = document.getElementById('traitOptions');
+    if (!container || typeof TRAITS === 'undefined') return;
+    const maxSlots = getMaxTraitSlots();
+    container.innerHTML = TRAITS.map(t => {
+        const selected = creationState.selectedTraits.has(t.id) ? ' selected' : '';
+        const cost = TRAIT_CP_COSTS[t.id] || 0;
+        const tip = `${t.flavor}\n${t.upside}\n${t.downside}`;
+        return `<button type="button" class="popup-item trait-card${selected}" data-trait="${t.id}" title="${tip.replace(/"/g, '&quot;')}">
+            <div class="name">${t.emoji} ${t.name}</div>
+            <div class="desc trait-upside">${t.upside}</div>
+            <div class="cp-tag">${cost} CP</div>
+        </button>`;
+    }).join('');
+    container.dataset.maxSlots = String(maxSlots);
 }
 
-function setupCreation() {
+function renderCreationOrigins() {
+    const container = document.getElementById('originOptions');
+    if (!container || typeof ORIGINS === 'undefined') return;
+    container.innerHTML = ORIGINS.map(o => {
+        const selected = o.id === creationState.selectedOrigin ? ' selected' : '';
+        const locked = !isOriginUnlocked(o.id) ? ' locked' : '';
+        const costLabel = o.cpCost === 0 ? 'Free' : `${o.cpCost} CP`;
+        return `<button type="button" class="popup-item trait-card${selected}${locked}" data-origin="${o.id}">
+            <div class="name">${o.name}</div>
+            <div class="desc">${o.desc}</div>
+            <div class="cp-tag">${costLabel}</div>
+        </button>`;
+    }).join('');
+}
+
+function renderCreationDrawbacks() {
+    const container = document.getElementById('drawbackOptions');
+    if (!container || typeof CREATION_DRAWBACKS === 'undefined') return;
+    container.innerHTML = CREATION_DRAWBACKS.map(d => {
+        const selected = creationState.selectedDrawbacks.has(d.id) ? ' selected' : '';
+        return `<button type="button" class="popup-item trait-card refund${selected}" data-drawback="${d.id}">
+            <div class="name">${d.name}</div>
+            <div class="desc">${d.desc}</div>
+            <div class="cp-tag">+${d.cpRefund} CP</div>
+        </button>`;
+    }).join('');
+}
+
+function applyOriginEffects() {
+    const def = ORIGIN_BY_ID[G.origin?.id || 'village_orphan'];
+    if (!def?.startEffect) return;
+    const fx = def.startEffect;
+    if (fx.stones) G.stones = Math.max(0, (G.stones || 0) + fx.stones);
+    if (fx.fame) G.fame = Math.max(0, (G.fame || 0) + fx.fame);
+    if (fx.randomCommonTechnique) {
+        const pool = TECHNIQUE_POOL.filter(t =>
+            (t.path === G.path || t.path === 'neutral') && t.rarity === 'common' && t.category !== 'utility'
+        );
+        if (pool.length) {
+            const pick = pool[Math.floor(Math.random() * pool.length)];
+            learnTechnique(pick.name);
+            addLog(`📜 Origin technique: ${pick.name}.`);
+        }
+    }
+}
+
+function applyDrawbackStartingEffects() {
+    (G.creationDrawbacks || []).forEach(id => {
+        const d = DRAWBACK_BY_ID[id];
+        if (d?.effect?.fame) G.fame = Math.max(0, (G.fame || 0) + d.effect.fame);
+    });
+}
+
+function setupCreation(refreshOnly) {
+    if (typeof loadLegacy === 'function') loadLegacy();
+    renderLegacyChroniclePanel(document.getElementById('legacyChroniclePanel'));
+    renderCreationTalents();
     renderCreationTraits();
+    renderCreationOrigins();
+    renderCreationDrawbacks();
+    updateCreationUI();
+
+    if (refreshOnly) return;
 
     const pathOptions = document.getElementById('pathOptions');
     if (pathOptions && !pathOptions.dataset.bound) {
@@ -239,7 +384,21 @@ function setupCreation() {
             if (!card || !pathOptions.contains(card)) return;
             pathOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
             card.classList.add('selected');
-            selectedPath = card.dataset.path;
+            creationState.selectedPath = card.dataset.path;
+            updateCreationUI();
+        });
+    }
+
+    const talentOptions = document.getElementById('talentOptions');
+    if (talentOptions && !talentOptions.dataset.bound) {
+        talentOptions.dataset.bound = '1';
+        talentOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-talent]');
+            if (!card || card.classList.contains('locked') || !talentOptions.contains(card)) return;
+            talentOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+            card.classList.add('selected');
+            creationState.selectedTalent = card.dataset.talent;
+            updateCreationUI();
         });
     }
 
@@ -249,9 +408,50 @@ function setupCreation() {
         traitOptions.addEventListener('click', function(e) {
             const card = e.target.closest('.popup-item[data-trait]');
             if (!card || !traitOptions.contains(card)) return;
-            traitOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+            const id = card.dataset.trait;
+            const maxSlots = getMaxTraitSlots();
+            if (creationState.selectedTraits.has(id)) {
+                creationState.selectedTraits.delete(id);
+                card.classList.remove('selected');
+            } else {
+                if (creationState.selectedTraits.size >= maxSlots) return;
+                creationState.selectedTraits.add(id);
+                card.classList.add('selected');
+            }
+            updateCreationUI();
+        });
+    }
+
+    const originOptions = document.getElementById('originOptions');
+    if (originOptions && !originOptions.dataset.bound) {
+        originOptions.dataset.bound = '1';
+        originOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-origin]');
+            if (!card || card.classList.contains('locked') || !originOptions.contains(card)) return;
+            originOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
             card.classList.add('selected');
-            selectedTrait = parseInt(card.dataset.trait, 10);
+            creationState.selectedOrigin = card.dataset.origin;
+            updateCreationUI();
+        });
+    }
+
+    const drawbackOptions = document.getElementById('drawbackOptions');
+    if (drawbackOptions && !drawbackOptions.dataset.bound) {
+        drawbackOptions.dataset.bound = '1';
+        drawbackOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-drawback]');
+            if (!card || !drawbackOptions.contains(card)) return;
+            const id = card.dataset.drawback;
+            const max = typeof CREATION_MAX_DRAWDACKS !== 'undefined' ? CREATION_MAX_DRAWDACKS : 2;
+            if (creationState.selectedDrawbacks.has(id)) {
+                creationState.selectedDrawbacks.delete(id);
+                card.classList.remove('selected');
+            } else {
+                if (creationState.selectedDrawbacks.size >= max) return;
+                creationState.selectedDrawbacks.add(id);
+                card.classList.add('selected');
+            }
+            updateCreationUI();
         });
     }
 
@@ -259,10 +459,19 @@ function setupCreation() {
     if (startBtn && !startBtn.dataset.bound) {
         startBtn.dataset.bound = '1';
         startBtn.addEventListener('click', function() {
-            const name = document.getElementById('nameInput').value.trim() || "Wandering Immortal";
-        G.name = name;
-        G.path = selectedPath;
-        G.trait = TRAITS[selectedTrait];
+            if (getCreationValidationHint()) return;
+            const name = document.getElementById('nameInput').value.trim() || 'Wandering Immortal';
+            G.name = name;
+            G.path = creationState.selectedPath;
+            G.talent = buildTalentFromGrade(creationState.selectedTalent);
+            G.talentCapBypassed = false;
+            G.origin = { id: creationState.selectedOrigin, name: ORIGIN_BY_ID[creationState.selectedOrigin]?.name };
+            G.creationDrawbacks = [...creationState.selectedDrawbacks];
+            const traitIds = [...creationState.selectedTraits];
+            G.traits = traitIds.map(id => TRAIT_BY_ID[id]).filter(Boolean);
+            G.trait = G.traits[0] || null;
+            G._reincarnationHandled = false;
+            G.gameOver = false;
         const base = PATHS[G.path].base;
         G.qiDensity = 0;
         G.maxQiBonus = Math.max(0, (base.qi || 10) - QI_BALANCE.maxQiBase);
@@ -377,19 +586,31 @@ function setupCreation() {
         G._pendingTribulationStyle = null;
         G.affinities = null;
         G.fiveElementCycleIdx = 0;
-        currentZone = "dustbone";
-        G.currentZone = "dustbone";
+        G.realmIdx = 0;
+        currentZone = 'dustbone';
+        G.currentZone = 'dustbone';
         G.currentLocation = typeof getDefaultLocationForZone === 'function' ? getDefaultLocationForZone('dustbone') : 'bone_crossroads';
         initLifespan();
-        if (typeof applyPlayerTraitStartingEffects === 'function') applyPlayerTraitStartingEffects();
+        ensureAffinities();
+        if (typeof applyTalentStartingAffinity === 'function') applyTalentStartingAffinity();
         G.log = [];
         G.stones = typeof getPlaytestStartingStones === 'function' ? getPlaytestStartingStones() : 20;
         G.pills = 0;
         G.pillStock = { spirit_gathering: 3, blood_recovery: 1, meridian_soothing: 0, soul_nourishing: 0, foundation_stabilizing: 0 };
+        applyOriginEffects();
+        applyDrawbackStartingEffects();
+        if (typeof applyPendingCarryPerk === 'function') applyPendingCarryPerk();
+        if (typeof applyPlayerTraitStartingEffects === 'function') applyPlayerTraitStartingEffects();
         updateShield();
         addLog(`🌟 Welcome, ${G.name}. You begin as a wandering cultivator.`);
-        addLog(`🧘 Path: ${PATHS[G.path].name} — ${G.trait.emoji || ''} ${G.trait.name}`);
-        addLog(`🎭 ${G.trait.flavor || G.trait.desc}`);
+        addLog(`🧘 Path: ${PATHS[G.path].name} — 🌱 ${G.talent.name}${G.talent.element ? ' (' + G.talent.element + ')' : ''}`);
+        if (G.traits.length) {
+            addLog(`🎭 Traits: ${G.traits.map(t => `${t.emoji || ''} ${t.name}`).join(', ')}`);
+        }
+        if (G.origin?.name) addLog(`📜 Origin: ${G.origin.name}`);
+        if (G.creationDrawbacks?.length) {
+            addLog(`⚠️ Drawbacks: ${G.creationDrawbacks.map(id => DRAWBACK_BY_ID[id]?.name || id).join(', ')}`);
+        }
         addLog(`⏳ You are ${STARTING_AGE_YEARS} years old with ${LIFESPAN_BY_REALM[0]} years ahead. Cultivation may extend your life.`);
         addLog(`🚶 You begin without a sect. Earn Fame, then found your legacy from the Sect panel.`);
         if (typeof grantStarterGear === 'function') grantStarterGear();
@@ -406,8 +627,21 @@ function setupCreation() {
     }
 }
 
+function grantRandomAdeptTechnique() {
+    const pool = TECHNIQUE_POOL.filter(t => (t.path === G.path || t.path === 'neutral') && t.category !== 'utility');
+    if (!pool.length) return null;
+    const template = pool[Math.floor(Math.random() * pool.length)];
+    if (!learnTechnique(template.name)) return null;
+    const tech = G.techniques.find(t => t.name === template.name);
+    if (tech) tech.uses = 5;
+    addLog(`📜 Your master's legacy awakens: ${template.name} (Adept).`);
+    return template.name;
+}
+
+
 // ===== INIT =====
 function initGame() {
+    if (typeof loadLegacy === 'function') loadLegacy();
     ensureForbiddenState();
     const loaded = loadState();
     if (typeof ensureSectState === 'function') ensureSectState();
@@ -455,6 +689,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnCombat').addEventListener('click', actionCombat);
     document.getElementById('btnTech').addEventListener('click', actionTech);
     document.getElementById('btnReset').addEventListener('click', resetGame);
+    document.getElementById('btnTrueReincarnation')?.addEventListener('click', () => {
+        if (typeof openTrueReincarnationChoice === 'function') openTrueReincarnationChoice();
+    });
 
     document.getElementById('btnMeridian').addEventListener('click', actionMeridian);
     document.getElementById('btnPhysique').addEventListener('click', actionPhysique);

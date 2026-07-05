@@ -43,6 +43,11 @@
 
         <div class="creation-main">
             <h2 class="creation-title">Begin Your Journey</h2>
+            <div id="legacyChroniclePanel" class="legacy-chronicle-panel"></div>
+            <div class="creation-cp-bar" id="creationCpBar">
+                <span class="cp-total">Creation Points: <strong id="cpTotalDisplay">10</strong></span>
+                <span class="cp-remaining">Remaining: <strong id="cpRemainingDisplay">10</strong></span>
+            </div>
             <div class="creation-field">
                 <label for="nameInput">Your Name</label>
                 <input type="text" id="nameInput" placeholder="Wandering Immortal" maxlength="32" />
@@ -68,10 +73,30 @@
                 </div>
             </div>
             <div class="creation-section">
-                <div class="creation-label">Choose Your Trait</div>
+                <div class="creation-label">Spiritual Root <span class="creation-sublabel">(required — talent grade)</span></div>
+                <div id="talentOptions" class="creation-options trait-grid"></div>
+            </div>
+            <div class="creation-section">
+                <div class="creation-label">Traits <span class="creation-sublabel" id="traitSlotLabel">(optional, max 1)</span></div>
                 <div id="traitOptions" class="creation-options trait-grid"></div>
             </div>
-            <button type="button" id="startBtn" class="start-btn">🌟 Begin Cultivation</button>
+            <div class="creation-section">
+                <div class="creation-label">Origin</div>
+                <div id="originOptions" class="creation-options trait-grid"></div>
+            </div>
+            <div class="creation-section">
+                <div class="creation-label">Drawbacks <span class="creation-sublabel">(optional, earn CP back — max 2)</span></div>
+                <div id="drawbackOptions" class="creation-options trait-grid"></div>
+            </div>
+            <aside class="creation-preview-panel" id="creationPreviewPanel">
+                <div class="creation-preview-title">Creation Preview</div>
+                <div class="preview-line"><span>Cultivate speed</span><strong id="previewCultivateSpeed">100%</strong></div>
+                <div class="preview-line"><span>Natural ceiling</span><strong id="previewRealmCap">—</strong></div>
+                <div class="preview-line"><span>Core feasibility</span><strong id="previewCoreFeasibility">—</strong></div>
+                <div class="preview-line"><span>Remaining CP</span><strong id="previewRemainingCp">10</strong></div>
+                <div class="preview-hint" id="creationValidationHint"></div>
+            </aside>
+            <button type="button" id="startBtn" class="start-btn" disabled>🌟 Begin Cultivation</button>
         </div>
 
         <aside class="creation-art creation-art-right" aria-hidden="true">
@@ -278,6 +303,7 @@
                             </div>
                         </div>
                     </section>
+                    <button type="button" id="btnTrueReincarnation" class="btn-reset" style="display:none;">🌀 True Reincarnation</button>
                     <button id="btnReset" class="btn-danger btn-reset">↺ Reset Journey</button>
                 </section>
             </aside>
@@ -1141,9 +1167,11 @@
     </div>
 </div>
 
-<script src="data.js?v=77"></script>
+<script src="data.js?v=78"></script>
+<script src="talent.js?v=1"></script>
+<script src="legacy.js?v=1"></script>
 <script src="world-scheduler.js?v=3"></script>
-<script src="core.js?v=34"></script>
+<script src="core.js?v=35"></script>
 <script src="foundation.js?v=5"></script>
 <script src="tutorial.js?v=3"></script>
 <script src="gear.js?v=6"></script>
@@ -1160,7 +1188,7 @@
 <script src="sect-map.js?v=3"></script>
 <script src="sect.js?v=18"></script>
 <script src="sect-expand.js?v=9"></script>
-<script src="cultivation.js?v=14"></script>
+<script src="cultivation.js?v=15"></script>
 <script src="intent.js?v=6"></script>
 <script src="tribulation.js?v=15"></script>
 <script src="locations.js?v=1"></script>
@@ -1171,18 +1199,18 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=10"></script>
-<script src="ui.js?v=40"></script>
+<script src="ui.js?v=41"></script>
 <script src="action-gates.js?v=2"></script>
 <script src="actions.js?v=32"></script>
-<script src="chamber.js?v=8"></script>
+<script src="chamber.js?v=9"></script>
 <script src="body-chamber.js?v=21"></script>
 <script src="physique-cultivation.js?v=2"></script>
 <script src="soul-chamber.js?v=2"></script>
 <script src="cultivation-hub.js?v=2"></script>
 <script src="story-arcs.js?v=6"></script>
-<script src="combat.js?v=29"></script>
+<script src="combat.js?v=30"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
-<script src="main.js?v=36"></script>
+<script src="main.js?v=37"></script>
 </body>
 </html>

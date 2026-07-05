@@ -28,6 +28,11 @@ let G = {
     foundationCracks: 0,
     fame: 0,
     trait: TRAITS[0],
+    traits: [],
+    talent: null,
+    origin: null,
+    creationDrawbacks: [],
+    talentCapBypassed: false,
     log: [],
     gameOver: false,
     inCombat: false,
@@ -134,16 +139,40 @@ let G = {
 // ===== HELPERS =====
 function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
+function getPlayerTraits() {
+    if (G?.traits?.length) {
+        return G.traits.map(t => {
+            if (t.id && typeof TRAIT_BY_ID !== 'undefined') return TRAIT_BY_ID[t.id] || t;
+            return t;
+        }).filter(Boolean);
+    }
+    if (!G?.trait) return [];
+    if (G.trait.id && typeof TRAIT_BY_ID !== 'undefined') return [TRAIT_BY_ID[G.trait.id] || G.trait];
+    return [G.trait];
+}
+
 function getPlayerTraitDef() {
-    if (!G?.trait) return null;
-    if (G.trait.id && typeof TRAIT_BY_ID !== 'undefined') return TRAIT_BY_ID[G.trait.id] || G.trait;
-    return G.trait;
+    const traits = getPlayerTraits();
+    return traits.length ? traits[0] : null;
+}
+
+function getTraitBonus(key, fallback = 0) {
+    return getPlayerTraitBonus(key, fallback);
 }
 
 function getPlayerTraitBonus(key, fallback = 0) {
-    const b = getPlayerTraitDef()?.bonus;
-    if (!b || b[key] == null) return fallback;
-    return b[key];
+    const traits = getPlayerTraits();
+    let sum = 0;
+    let found = false;
+    for (const trait of traits) {
+        const val = trait.bonus?.[key];
+        if (val != null) {
+            sum += val;
+            found = true;
+        }
+    }
+    if (found) return sum;
+    return fallback;
 }
 
 function getPlayerTraitMultPct(key, fallbackPct = 0) {
@@ -173,19 +202,24 @@ function getPlayerTraitNpcMoodShift() {
 }
 
 function applyPlayerTraitStartingEffects() {
-    const trait = getPlayerTraitDef();
-    if (!trait) return;
-    if (trait.bonus?.lightningResist) {
-        G.lightningResist = (G.lightningResist || 0) + trait.bonus.lightningResist;
-    }
-    if (trait.bonus?.startingFamePenalty) {
-        G.fame = Math.max(0, (G.fame || 0) - Math.max(1, Math.floor(trait.bonus.startingFamePenalty / 5)));
-    }
-    if (trait.bonus?.startAdeptTechnique && typeof grantRandomAdeptTechnique === 'function') {
-        grantRandomAdeptTechnique();
-    }
-    if (trait.bonus?.forgottenHeirQuest && typeof tryStartTraitStoryArcs === 'function') {
-        tryStartTraitStoryArcs();
+    const traits = getPlayerTraits();
+    let adeptGranted = false;
+    let heirStarted = false;
+    for (const trait of traits) {
+        if (trait.bonus?.lightningResist) {
+            G.lightningResist = (G.lightningResist || 0) + trait.bonus.lightningResist;
+        }
+        if (trait.bonus?.startingFamePenalty) {
+            G.fame = Math.max(0, (G.fame || 0) - Math.max(1, Math.floor(trait.bonus.startingFamePenalty / 5)));
+        }
+        if (trait.bonus?.startAdeptTechnique && !adeptGranted && typeof grantRandomAdeptTechnique === 'function') {
+            grantRandomAdeptTechnique();
+            adeptGranted = true;
+        }
+        if (trait.bonus?.forgottenHeirQuest && !heirStarted && typeof tryStartTraitStoryArcs === 'function') {
+            tryStartTraitStoryArcs();
+            heirStarted = true;
+        }
     }
 }
 
@@ -208,6 +242,7 @@ function getBreakChance() {
         * (1 + (G.consolidationBonuses?.allStatsPct || 0));
     let base = 30 + getEffectiveFoundation() * 2 + (getCultivationPowerStat() + G.vitality + G.spirit + G.will) * 1.5 * statMult;
     base += getPlayerTraitBonus('breakthroughPct', 0);
+    if (typeof getTalentBreakthroughBonus === 'function') base += getTalentBreakthroughBonus();
     if (G.trait?.bonus?.breakthrough) base += G.trait.bonus.breakthrough;
     base -= G.breakAttempts * 5;
     const openCount = G.meridians.filter(m => m).length;
@@ -849,6 +884,9 @@ function advanceTime(months, activity) {
         }
         G.gameOver = true;
         addLog(`💀 Your lifespan ends at ${formatYears(G.lifespanMonths)}. The Dao remains unclaimed...`);
+        if (typeof triggerBitterReincarnation === 'function') {
+            setTimeout(() => triggerBitterReincarnation(), 600);
+        }
         return false;
     }
     return true;
@@ -896,6 +934,9 @@ function loadState() {
                 const match = TRAITS.find(t => t.name === G.trait.name);
                 if (match) G.trait = match;
             }
+            if (!G.traits?.length && G.trait) G.traits = [G.trait];
+            if (typeof ensureTalentState === 'function') ensureTalentState();
+            if (!G.creationDrawbacks) G.creationDrawbacks = [];
             if (!G.techniques) G.techniques = [];
             if (!G.disciples) G.disciples = [];
             if (!G.log) G.log = [];

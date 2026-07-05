@@ -191,6 +191,179 @@ const TRAITS = [
 
 const TRAIT_BY_ID = Object.fromEntries(TRAITS.map(t => [t.id, t]));
 
+const TRAIT_CP_COSTS = {
+    heavenly_luck: 2,
+    ancient_bloodline: 2,
+    crippled_meridians: 2,
+    lightning_attractor: 2,
+    immortals_disciple: 2,
+    wandering_sage: 2,
+    cursed_scholar: 2,
+    forgotten_heir: 2
+};
+
+const CREATION_BASE_CP = 10;
+const CREATION_MAX_TRAITS_DEFAULT = 1;
+const CREATION_MAX_TRAITS_LEGACY = 2;
+const CREATION_MAX_DRAWDACKS = 2;
+
+const TALENT_ELEMENTS = ['fire', 'water', 'wind', 'earth', 'lightning'];
+
+const TALENT_GRADES = [
+    {
+        id: 'rootless',
+        name: 'Rootless',
+        cpCost: -2,
+        cultivateSpeedMult: 0.45,
+        breakthroughBonus: -15,
+        coreCondenseMult: 0.6,
+        naturalRealmCap: 1,
+        notes: 'Core Formation nearly impossible without pills or events.',
+        coreFeasibility: 'Unlikely in one lifetime without aid'
+    },
+    {
+        id: 'mixed_inferior',
+        name: 'Mixed Inferior',
+        cpCost: 0,
+        cultivateSpeedMult: 0.70,
+        breakthroughBonus: -8,
+        coreCondenseMult: 0.75,
+        naturalRealmCap: 2,
+        notes: 'Hard life; Core tight on lifespan.',
+        coreFeasibility: 'Core possible but lifespan will pinch'
+    },
+    {
+        id: 'single_inferior',
+        name: 'Single Inferior',
+        cpCost: 1,
+        cultivateSpeedMult: 0.85,
+        breakthroughBonus: -3,
+        coreCondenseMult: 0.90,
+        naturalRealmCap: 2,
+        notes: 'Viable cultivator baseline-low.',
+        coreFeasibility: 'Core achievable with discipline'
+    },
+    {
+        id: 'single_superior',
+        name: 'Single Superior',
+        cpCost: 3,
+        cultivateSpeedMult: 1.00,
+        breakthroughBonus: 0,
+        coreCondenseMult: 1.00,
+        naturalRealmCap: 6,
+        notes: 'Standard protagonist baseline.',
+        coreFeasibility: 'Natural path to high realms'
+    },
+    {
+        id: 'mutant',
+        name: 'Mutant Root',
+        cpCost: 5,
+        cultivateSpeedMult: 1.20,
+        breakthroughBonus: 5,
+        coreCondenseMult: 1.10,
+        naturalRealmCap: 6,
+        requiresUnlock: 'mutantRoot',
+        canBuyWithoutUnlock: true,
+        notes: 'Rare spiritual mutation.',
+        coreFeasibility: 'Strong condense aptitude'
+    },
+    {
+        id: 'heavenly',
+        name: 'Heavenly Root',
+        cpCost: 7,
+        cultivateSpeedMult: 1.35,
+        breakthroughBonus: 10,
+        coreCondenseMult: 1.15,
+        naturalRealmCap: 6,
+        requiresUnlock: 'heavenlyRoot',
+        notes: 'Heaven-blessed aptitude.',
+        coreFeasibility: 'Destined for the peak'
+    }
+];
+
+const TALENT_BY_ID = Object.fromEntries(TALENT_GRADES.map(t => [t.id, t]));
+
+const ORIGINS = [
+    {
+        id: 'village_orphan',
+        name: 'Village Orphan',
+        cpCost: 0,
+        desc: 'A humble beginning — no debts, no patrons.',
+        requiresUnlock: null
+    },
+    {
+        id: 'merchant_heir',
+        name: 'Merchant Heir',
+        cpCost: 2,
+        desc: '+40 spirit stones, −5% cultivate speed.',
+        requiresUnlock: 'merchantHeir',
+        startEffect: { stones: 40, cultivateSpeedPct: -5 }
+    },
+    {
+        id: 'sect_reject',
+        name: 'Sect Reject',
+        cpCost: 1,
+        desc: '+1 random common technique, −10 starting Fame.',
+        requiresUnlock: 'sectReject',
+        startEffect: { randomCommonTechnique: true, fame: -10 }
+    },
+    {
+        id: 'fallen_noble',
+        name: 'Fallen Noble',
+        cpCost: 2,
+        desc: '+15 Fame, −20 spirit stones.',
+        requiresUnlock: 'fallenNoble',
+        startEffect: { fame: 15, stones: -20 }
+    }
+];
+
+const ORIGIN_BY_ID = Object.fromEntries(ORIGINS.map(o => [o.id, o]));
+
+const CREATION_DRAWBACKS = [
+    {
+        id: 'sworn_enemy',
+        name: 'Sworn Enemy',
+        cpRefund: 2,
+        desc: 'A deadly grudge follows you (+5% combat damage taken).',
+        effect: { combatDamageTakenPct: 5 }
+    },
+    {
+        id: 'frail_body',
+        name: 'Frail Body',
+        cpRefund: 1,
+        desc: 'Your vessel is weak (−10% max HP).',
+        effect: { maxHpPct: -10 }
+    },
+    {
+        id: 'poor_memory',
+        name: 'Poor Memory',
+        cpRefund: 1,
+        desc: 'Insights slip away (−10% Dao comprehension).',
+        effect: { daoSpeedPct: -10 }
+    },
+    {
+        id: 'hunted',
+        name: 'Hunted',
+        cpRefund: 2,
+        desc: 'Bounty hunters whisper your name (−15 starting Fame).',
+        effect: { fame: -15 }
+    }
+];
+
+const DRAWBACK_BY_ID = Object.fromEntries(CREATION_DRAWBACKS.map(d => [d.id, d]));
+
+const LEGACY_CARRY_PERKS = [
+    { id: 'echo_of_qi', name: 'Echo of Qi', desc: '+5% cultivate speed next run.' },
+    { id: 'echo_of_foundation', name: 'Echo of Foundation', desc: '+3 Foundation at run start.' },
+    { id: 'echo_of_fortune', name: 'Echo of Fortune', desc: '+25 spirit stones next run.' },
+    { id: 'echo_of_memory', name: 'Echo of Memory', desc: '+5% Dao comprehension next run.' }
+];
+
+const LEGACY_BONUS_CP = {
+    bitter: 1,
+    true: 2
+};
+
 const TECHNIQUE_POOL = [
     { name: "Heavenly Palm", path: "qi", element: "neutral", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 8, baseCost: 5, costType: "qi", rarity: "common", desc: "A classic palm strike channeling refined qi." },
     { name: "Iron Mountain Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Roots your stance like a mountain — absorb blows with tempered flesh." },

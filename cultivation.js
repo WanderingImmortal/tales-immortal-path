@@ -22,11 +22,20 @@ function openBreakthrough() {
     const next = getNextRealm();
     if (next === "MAX") {
         addLog(`🏆 You are already at the peak! Immortality is yours!`);
+        if (typeof openTrueReincarnationChoice === 'function') {
+            setTimeout(() => openTrueReincarnationChoice(), 400);
+        }
         fullRender();
         return;
     }
     if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
         addLog(`🚫 ${getConsolidationBlockReason()}`);
+        fullRender();
+        return;
+    }
+    const nextIdx = G.realmIdx + 1;
+    if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(nextIdx)) {
+        addLog(`🚫 ${getTalentRealmCapMessage()}`);
         fullRender();
         return;
     }
@@ -79,6 +88,13 @@ function closeBreakthrough() {
 function executeBreakthrough(style) {
     if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
         addLog(`🚫 ${getConsolidationBlockReason()}`);
+        closeBreakthrough();
+        fullRender();
+        return;
+    }
+    const nextIdx = G.realmIdx + 1;
+    if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(nextIdx)) {
+        addLog(`🚫 ${getTalentRealmCapMessage()}`);
         closeBreakthrough();
         fullRender();
         return;
@@ -345,6 +361,9 @@ function attemptEvilPhysique(name) {
     if (G.corruptionLevel >= G.corruptionThreshold) {
         addLog(`💀 CORRUPTION OVERWHELMS YOU! You lose control...`);
         G.gameOver = true;
+        if (typeof triggerBitterReincarnation === 'function') {
+            setTimeout(() => triggerBitterReincarnation('💀 Corruption overwhelms you. Bitter reincarnation is your only path forward.'), 600);
+        }
     }
     return { success: true, message: msg, logged: true };
 }
