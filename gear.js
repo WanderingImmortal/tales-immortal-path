@@ -339,6 +339,9 @@ function getEffectiveMaxHp() {
     if (typeof getBodyChamberFlatHp === 'function') {
         hp += getBodyChamberFlatHp();
     }
+    if (typeof getDrawbackMaxHpMult === 'function') {
+        hp = Math.floor(hp * getDrawbackMaxHpMult());
+    }
     return Math.max(20, hp);
 }
 

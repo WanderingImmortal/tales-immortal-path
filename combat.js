@@ -1002,6 +1002,9 @@ function enemyTurn() {
         G.hp = 0;
         addCombatLog(`💀 You have been defeated...`, 'entry-hp');
         G.gameOver = true;
+        if (typeof triggerBitterReincarnation === 'function') {
+            setTimeout(() => triggerBitterReincarnation(), 600);
+        }
         endCombat();
         return;
     }
@@ -1047,6 +1050,9 @@ function takeDamage(dmg) {
     }
     if (typeof getTranscendenceDamageTakenMult === 'function') {
         dmg = Math.max(1, Math.floor(dmg * getTranscendenceDamageTakenMult()));
+    }
+    if (typeof getDrawbackCombatDamageTakenMult === 'function') {
+        dmg = Math.max(1, Math.floor(dmg * getDrawbackCombatDamageTakenMult()));
     }
 
     if (G.voidStepActive) {

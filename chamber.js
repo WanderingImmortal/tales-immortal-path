@@ -45,8 +45,10 @@ function getChamberCultivateMult() {
     const sectMult = typeof getSectCultivationMult === 'function' ? getSectCultivationMult() : 1;
     const factionMult = typeof getFactionCultivateMult === 'function' ? getFactionCultivateMult() : 1;
     const traitMult = getPlayerTraitMultPct('cultivateSpeedPct', 0) * getPlayerTraitMultPct('qiEfficiencyPct', 0);
+    const talentMult = typeof getCombinedCultivateMult === 'function' ? getCombinedCultivateMult() : 1;
+    const legacyMult = typeof getLegacyCultivateBonusMult === 'function' ? getLegacyCultivateBonusMult() : 1;
     const bodyQiEff = typeof getBodyChamberQiEfficiencyMult === 'function' ? getBodyChamberQiEfficiencyMult() : 1;
-    return sectMult * factionMult * traitMult * bodyQiEff;
+    return sectMult * factionMult * traitMult * talentMult * legacyMult * bodyQiEff;
 }
 
 function getChamberDensityCap() {
@@ -113,6 +115,10 @@ function getChamberCondenseReadiness() {
         const reason = progress?.reasons?.find(r => !r.startsWith('At ')) || 'Not ready to condense a core.';
         return { ready: false, reason };
     }
+    const nextRealm = (G.realmIdx || 0) + 1;
+    if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(nextRealm)) {
+        return { ready: false, reason: getTalentRealmCapMessage() };
+    }
     return { ready: true };
 }
 
@@ -124,6 +130,7 @@ function getChamberCondenseChance() {
     if (typeof getBreakChance === 'function') chance += getBreakChance() * 0.12;
     if ((G.chamberFoundationCount || 0) > 0) chance += Math.min(6, G.chamberFoundationCount * 2);
     if ((G.chamberExpandCount || 0) > 0) chance += Math.min(4, G.chamberExpandCount);
+    if (typeof getTalentCoreCondenseMult === 'function') chance *= getTalentCoreCondenseMult();
     return Math.max(cfg.minCondenseChance, Math.min(cfg.maxCondenseChance, Math.round(chance)));
 }
 
