@@ -24,6 +24,8 @@ let G = {
     disciples: [],
     breakAttempts: 0,
     foundation: 0,
+    cultivationBase: { root: 0, flow: 0, stability: 0 },
+    foundationCracks: 0,
     fame: 0,
     trait: TRAITS[0],
     log: [],
@@ -926,6 +928,7 @@ function loadState() {
             G.lastTranscendenceCue = null;
             if (typeof migrateConsolidationState === 'function') migrateConsolidationState();
             else if (typeof ensureConsolidationState === 'function') ensureConsolidationState();
+            if (typeof ensureCultivationBaseState === 'function') ensureCultivationBaseState();
             if (typeof migrateQiSystem === 'function') migrateQiSystem();
             if (typeof migrateTechniqueRenames === 'function') migrateTechniqueRenames();
             if (typeof migrateLegacyScars === 'function') migrateLegacyScars();

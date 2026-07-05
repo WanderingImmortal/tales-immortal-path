@@ -4151,6 +4151,27 @@ const SECT_HEIRLOOMS = {
 
 const SECT_TREASURES = SECT_HEIRLOOMS;
 
+// ===== CULTIVATION BASE (Root / Flow / Stability pillars) =====
+
+const CULTIVATION_BASE_BALANCE = {
+    crackPenalty: 4,
+    grades: [
+        { id: 'crude', min: 0, label: 'Crude', emoji: '🪨' },
+        { id: 'firm', min: 19, label: 'Firm', emoji: '🏛️' },
+        { id: 'unshakable', min: 33, label: 'Unshakable', emoji: '⛰️' },
+        { id: 'peerless', min: 46, label: 'Peerless', emoji: '🌟' }
+    ],
+    pillarCapsByRealm: {
+        0: { root: 18, flow: 18, stability: 16 },
+        1: { root: 28, flow: 28, stability: 24 },
+        2: { root: 36, flow: 36, stability: 32 },
+        3: { root: 44, flow: 44, stability: 40 },
+        4: { root: 52, flow: 52, stability: 48 },
+        5: { root: 60, flow: 60, stability: 56 },
+        6: { root: 72, flow: 72, stability: 68 }
+    }
+};
+
 // ===== QI CULTIVATION (capacity + density) =====
 
 const QI_BALANCE = {
