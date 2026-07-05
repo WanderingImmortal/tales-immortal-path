@@ -1,0 +1,4 @@
+# Static site — no build step. Drop or deploy the repo root as-is.
+[build]
+  publish = "."
+  command = "echo 'No build — static HTML/JS game'"
