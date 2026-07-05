@@ -2134,6 +2134,319 @@ header .subtitle {
     line-height: 1.4;
 }
 
+/* ----- Sect grounds map ----- */
+.sect-map-header {
+    margin-bottom: 10px;
+}
+
+.sect-map-stat-grid {
+    margin-bottom: 8px;
+}
+
+.sect-stat-clickable {
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.sect-stat-clickable:hover {
+    border-color: #5a4a30;
+}
+
+.sect-construction-banner {
+    font-size: 12px;
+    color: #d4b060;
+    background: #1a1408;
+    border: 1px solid #4a3a18;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+
+.sect-map-scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    min-height: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #2a2018;
+    margin-bottom: 10px;
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.45);
+}
+
+.sect-map-sky {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #1a2838 0%, #2a3848 35%, #3a4858 55%, #4a5848 100%);
+}
+
+.sect-map-mountains {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 18%;
+    height: 55%;
+    background:
+        linear-gradient(135deg, transparent 40%, #1a1810 40%, #2a2820 55%, transparent 55%),
+        linear-gradient(225deg, transparent 35%, #141210 35%, #222018 50%, transparent 50%),
+        linear-gradient(160deg, transparent 55%, #0f0e0c 55%, #1a1814 70%, transparent 70%);
+    opacity: 0.85;
+}
+
+.sect-map-mist {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 25%;
+    height: 35%;
+    background: linear-gradient(180deg, transparent, rgba(200, 210, 220, 0.08) 40%, rgba(180, 190, 200, 0.12) 100%);
+    pointer-events: none;
+}
+
+.sect-map-ground {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 42%;
+    background: linear-gradient(180deg, #1a2818 0%, #243020 30%, #2a3820 60%, #1a2010 100%);
+}
+
+.sect-map-paths {
+    position: absolute;
+    left: 50%;
+    top: 38%;
+    width: 2px;
+    height: 45%;
+    background: rgba(180, 160, 120, 0.15);
+    transform: translateX(-50%);
+    box-shadow:
+        -60px 20px 0 rgba(180, 160, 120, 0.1),
+        60px 30px 0 rgba(180, 160, 120, 0.1),
+        0 80px 80px 2px rgba(180, 160, 120, 0.08);
+    pointer-events: none;
+}
+
+.sect-map-nodes {
+    position: absolute;
+    inset: 0;
+}
+
+.sect-map-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 8px;
+    min-width: 52px;
+    background: rgba(20, 16, 10, 0.82);
+    border: 1px solid #4a3828;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #e8dcc8;
+    font-size: 10px;
+    transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+
+.sect-map-node:hover {
+    transform: translate(-50%, -52%);
+    border-color: #8a7040;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.sect-map-node.tier-hub {
+    background: rgba(30, 24, 14, 0.92);
+    border-color: #6a5830;
+    min-width: 64px;
+}
+
+.sect-map-node.tier-max {
+    border-color: #a08040;
+    box-shadow: 0 0 12px rgba(212, 168, 96, 0.25);
+}
+
+.sect-map-node.tier-locked,
+.sect-map-node.is-locked {
+    opacity: 0.45;
+    filter: grayscale(0.6);
+}
+
+.sect-map-node.tier-scaffold {
+    border-style: dashed;
+    opacity: 0.75;
+}
+
+.sect-map-node.has-collect {
+    border-color: #60a060;
+    animation: sect-collect-pulse 2s ease-in-out infinite;
+}
+
+@keyframes sect-collect-pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(96, 160, 96, 0); }
+    50% { box-shadow: 0 0 10px rgba(96, 160, 96, 0.45); }
+}
+
+.sect-map-node-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.sect-map-node-label {
+    font-size: 9px;
+    color: #a09080;
+    text-align: center;
+    max-width: 72px;
+    line-height: 1.2;
+}
+
+.sect-map-node-lv {
+    font-size: 8px;
+    color: #d4a860;
+    font-weight: bold;
+}
+
+.sect-map-collect-dot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 7px;
+    height: 7px;
+    background: #60c060;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #60c060;
+}
+
+.sect-map-scaffold {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    font-size: 10px;
+}
+
+.sect-map-hint {
+    margin-top: 0;
+}
+
+.sect-grounds-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #a09080;
+}
+
+.sect-bc-btn {
+    background: none;
+    border: none;
+    color: #d4a860;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+}
+
+.sect-bc-btn:hover {
+    text-decoration: underline;
+}
+
+.sect-bc-sep {
+    color: #5a4a38;
+}
+
+.sect-grounds-panel {
+    margin-bottom: 12px;
+}
+
+.sect-building-detail-head {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #141008;
+    border: 1px solid #2a2018;
+    border-radius: 10px;
+}
+
+.sect-building-detail-emoji {
+    font-size: 32px;
+    line-height: 1;
+}
+
+.sect-building-detail-title {
+    margin: 0 0 4px;
+    font-size: 16px;
+    color: #e8d0a8;
+}
+
+.sect-building-actions {
+    margin-bottom: 12px;
+}
+
+.sect-harvest-display {
+    font-size: 14px;
+    color: #80c080;
+    margin: 8px 0;
+}
+
+.sect-construction-block {
+    background: #1a1410;
+    border: 1px solid #3a3020;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.sect-construction-blocked {
+    color: #c08060;
+}
+
+.sect-construction-block .sect-action-btn {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.sect-building-max {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.sect-inventory-panel .sect-inventory-cap {
+    font-size: 13px;
+    color: #d4a860;
+    margin-bottom: 10px;
+}
+
+.sect-inventory-section {
+    margin-bottom: 12px;
+}
+
+.sect-inventory-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #1a1412;
+    font-size: 13px;
+}
+
+.sect-inventory-row .sect-action-btn {
+    font-size: 10px;
+    padding: 4px 8px;
+    flex-shrink: 0;
+}
+
+.sect-inventory-empty {
+    margin: 4px 0;
+}
+
 .sect-disciple-info {
     display: flex;
     flex-direction: column;

@@ -30,7 +30,12 @@ function createEmptySectState() {
         leaderGeneration: 1,
         treasureEnshrinedThisLeader: false,
         legendUnlocked: false,
-        sectSpiritUnlocked: false
+        sectSpiritUnlocked: false,
+        inventory: { stones: 0, materials: {}, items: [] },
+        residence: { level: 0, stash: [], lastRestMonths: null },
+        construction: null,
+        buildingMeta: { spirit_garden: { pendingHerbs: 0 } },
+        groundsView: 'map'
     };
 }
 
@@ -260,6 +265,11 @@ function migrateSectForExistingSave() {
         G.sect.name = G.sectName || (G.name + "'s Sect");
     }
     if (isSectFounded() && !G.sect.doctrine) inferSectDoctrineFromAlignment();
+    if (isSectFounded()) {
+        if (typeof ensureSectGroundsView === 'function') ensureSectGroundsView();
+        if (typeof ensureSectInventory === 'function') ensureSectInventory();
+        if (!G.sect.residence) G.sect.residence = { level: 0, stash: [], lastRestMonths: null };
+    }
     syncSectLegacyFields();
     G._sectMigrated = true;
 }
@@ -378,9 +388,14 @@ function applySectCultivateBuildingEffects(statGain) {
     const notes = [];
 
     const herbYield = getSectBuildingBonus('spiritHerbPerLevel');
-    if (herbYield > 0 && typeof addCraftMaterial === 'function') {
-        addCraftMaterial('spirit_herb', herbYield);
-        notes.push(`Garden +${herbYield} herb${herbYield > 1 ? 's' : ''}`);
+    if (herbYield > 0) {
+        if (typeof addSpiritGardenPendingHerbs === 'function') {
+            addSpiritGardenPendingHerbs(herbYield);
+            notes.push(`Garden +${herbYield} herb${herbYield > 1 ? 's' : ''} (ready to harvest)`);
+        } else if (typeof addCraftMaterial === 'function') {
+            addCraftMaterial('spirit_herb', herbYield);
+            notes.push(`Garden +${herbYield} herb${herbYield > 1 ? 's' : ''}`);
+        }
     }
 
     const beastChance = getSectBuildingBonus('beastMaterialChancePct') / 100;
@@ -487,6 +502,9 @@ function foundSect(customName, doctrineId) {
     }
     if (typeof triggerTutorial === 'function') triggerTutorial('first_sect');
     if (typeof notifyActionUnlocksFromChange === 'function') notifyActionUnlocksFromChange();
+    if (typeof ensureSectGroundsView === 'function') ensureSectGroundsView();
+    G.sect.residence = { level: 0, stash: [], lastRestMonths: null };
+    G.sect.groundsView = 'map';
     return { success: true, message: `${sectName} founded under the ${doc.label}.` };
 }
 
@@ -1390,21 +1408,8 @@ function formSectAlliance(rivalId) {
     return { success: true, message: `Allied with ${rival.name}.` };
 }
 
-function getBuildingUpgradeBlockReason(buildingId) {
-    ensureSectState();
-    const def = SECT_BUILDINGS[buildingId];
-    if (!def) return 'Unknown building.';
-    if (!def.implemented) return `${def.name} is not yet available.`;
-    if (!meetsStageRequirement(def.minStage)) {
-        const min = SECT_STAGES[def.minStage];
-        return `Requires ${min?.label || def.minStage} sect stage.`;
-    }
-    const current = getBuildingLevel(buildingId);
-    if (current >= def.maxLevel) return `${def.name} is fully upgraded.`;
-    const nextLevel = current + 1;
-    const cost = def.levels[nextLevel];
-    if (!cost) return 'Cannot upgrade further.';
-    if ((G.stones || 0) < cost.stones) return `Need ${cost.stones} Spirit Stones.`;
+function getConstructionMaterialsBlock(cost) {
+    if (!cost) return 'Invalid cost.';
     for (const [matId, qty] of Object.entries(cost.materials || {})) {
         const have = typeof getMaterialCount === 'function' ? getMaterialCount(matId) : 0;
         if (have < qty) {
@@ -1415,29 +1420,162 @@ function getBuildingUpgradeBlockReason(buildingId) {
     return null;
 }
 
+function formatConstructionCost(cost) {
+    if (!cost) return '';
+    const mats = Object.entries(cost.materials || {}).map(([id, qty]) => {
+        const mat = CRAFT_MATERIALS[id];
+        const have = typeof getMaterialCount === 'function' ? getMaterialCount(id) : 0;
+        return `${have >= qty ? '✓' : '✗'} ${qty}× ${mat?.emoji || '◆'} ${mat?.name || id}`;
+    }).join(' · ');
+    const stones = cost.stones ? `${cost.stones}💎` : '';
+    return [stones, mats].filter(Boolean).join(' · ');
+}
+
+function getConstructionBlockReason(targetId, targetLevel, cost) {
+    ensureSectState();
+    if (!isSectFounded()) return 'Found a sect first.';
+    if (G.sect.construction) return 'Another construction project is already underway.';
+    if (!cost) return 'Cannot upgrade further.';
+
+    if (targetId === 'residence') {
+        const current = typeof getResidenceLevel === 'function' ? getResidenceLevel() : (G.sect.residence?.level || 0);
+        if (current >= SECT_RESIDENCE.maxLevel) return 'Quarters are fully upgraded.';
+        if (targetLevel !== current + 1) return 'Upgrade one level at a time.';
+    } else {
+        const def = SECT_BUILDINGS[targetId];
+        if (!def) return 'Unknown building.';
+        if (!def.implemented) return `${def.name} is not yet available.`;
+        if (!meetsStageRequirement(def.minStage)) {
+            const min = SECT_STAGES[def.minStage];
+            return `Requires ${min?.label || def.minStage} sect stage.`;
+        }
+        const current = getBuildingLevel(targetId);
+        if (current >= def.maxLevel) return `${def.name} is fully upgraded.`;
+        if (targetLevel !== current + 1) return 'Upgrade one level at a time.';
+    }
+
+    return getConstructionMaterialsBlock(cost);
+}
+
+function getBuildingUpgradeBlockReason(buildingId) {
+    ensureSectState();
+    const def = SECT_BUILDINGS[buildingId];
+    if (!def) return 'Unknown building.';
+    const current = getBuildingLevel(buildingId);
+    const nextLevel = current + 1;
+    const cost = def.levels[nextLevel];
+    const block = getConstructionBlockReason(buildingId, nextLevel, cost);
+    if (block) return block;
+    if ((G.stones || 0) < (cost?.stones || 0)) return `Need ${cost.stones} Spirit Stones to hire craftsmen.`;
+    return null;
+}
+
+function payConstructionMaterials(cost) {
+    if (!cost?.materials || typeof removeCraftMaterials !== 'function') return true;
+    return removeCraftMaterials(cost.materials);
+}
+
+function completeSectConstruction() {
+    const c = G.sect.construction;
+    if (!c) return;
+    const targetId = c.buildingId;
+    const targetLevel = c.targetLevel;
+    let label = '';
+    let emoji = '🏗️';
+
+    if (targetId === 'residence') {
+        G.sect.residence.level = targetLevel;
+        const def = SECT_RESIDENCE.levels[targetLevel];
+        label = def?.name || SECT_RESIDENCE.name;
+        emoji = SECT_RESIDENCE.emoji;
+        addSectRenown(SECT_RESIDENCE.upgradeCosts[targetLevel]?.renown || 0);
+    } else {
+        G.sect.buildings[targetId] = targetLevel;
+        const def = SECT_BUILDINGS[targetId];
+        label = def?.name || targetId;
+        emoji = def?.emoji || '🏗️';
+        addSectRenown(def?.levels[targetLevel]?.renown || 0);
+    }
+
+    G.sect.construction = null;
+    addLog(`${emoji} ${label} upgraded to Level ${targetLevel}!`);
+}
+
+function tickSectConstruction() {
+    ensureSectState();
+    const c = G.sect.construction;
+    if (!c) return;
+    if (G.ageMonths >= (c.completesAtMonths || 0)) {
+        completeSectConstruction();
+    }
+}
+
+function startSectConstruction(targetId, targetLevel, mode) {
+    ensureSectState();
+    let cost;
+    if (targetId === 'residence') {
+        cost = SECT_RESIDENCE.upgradeCosts[targetLevel];
+    } else {
+        cost = SECT_BUILDINGS[targetId]?.levels[targetLevel];
+    }
+    const block = getConstructionBlockReason(targetId, targetLevel, cost);
+    if (block) return { success: false, message: block };
+
+    const months = cost.months || ACTION_MONTHS.sectBuild;
+    const isPersonal = mode === 'personal';
+    const isContractors = mode === 'contractors';
+
+    if (isPersonal && months > SECT_CONSTRUCTION.personalCapMonths) {
+        return { success: false, message: `Too large to oversee alone (${months} months). Hire craftsmen instead.` };
+    }
+    if (isContractors && (cost.stones || 0) > (G.stones || 0)) {
+        return { success: false, message: `Need ${cost.stones} Spirit Stones to hire craftsmen.` };
+    }
+    if (!isPersonal && !isContractors) {
+        return { success: false, message: 'Choose a construction mode.' };
+    }
+
+    if (!payConstructionMaterials(cost)) {
+        return { success: false, message: 'Could not pay materials.' };
+    }
+
+    let label;
+    if (targetId === 'residence') {
+        label = SECT_RESIDENCE.name;
+    } else {
+        label = SECT_BUILDINGS[targetId]?.name || targetId;
+    }
+
+    if (isPersonal) {
+        if (!advanceTime(months, `Overseeing ${label} (Lv ${targetLevel})`)) {
+            return { success: false, message: 'Your lifespan ends before construction finishes.' };
+        }
+        G.sect.construction = { buildingId: targetId, targetLevel, mode: 'personal' };
+        completeSectConstruction();
+        return { success: true, message: `${label} upgraded to Level ${targetLevel}!` };
+    }
+
+    G.stones -= cost.stones || 0;
+    G.sect.construction = {
+        buildingId: targetId,
+        targetLevel,
+        mode: 'contractors',
+        startedAtMonths: G.ageMonths,
+        completesAtMonths: G.ageMonths + months
+    };
+    addLog(`🏗️ Craftsmen begin work on ${label} (Lv ${targetLevel}) — ${months} months.`);
+    return { success: true, message: `Construction started (${months} months). You are free to travel.` };
+}
+
 function canUpgradeBuilding(buildingId) {
     return !getBuildingUpgradeBlockReason(buildingId);
 }
 
 function upgradeBuilding(buildingId) {
-    ensureSectState();
-    const block = getBuildingUpgradeBlockReason(buildingId);
-    if (block) return { success: false, message: block };
-    const def = SECT_BUILDINGS[buildingId];
     const nextLevel = getBuildingLevel(buildingId) + 1;
-    const cost = def.levels[nextLevel];
-    const months = cost.months || ACTION_MONTHS.sectBuild;
-    if (!advanceTime(months, `Building ${def.name} (Lv ${nextLevel})`)) {
-        return { success: false, message: 'Your lifespan ends before construction finishes.' };
-    }
-    G.stones -= cost.stones;
-    if (cost.materials && typeof removeCraftMaterials === 'function') {
-        removeCraftMaterials(cost.materials);
-    }
-    G.sect.buildings[buildingId] = nextLevel;
-    addSectRenown(cost.renown || 0);
-    addLog(`🏗️ ${def.emoji} ${def.name} upgraded to Level ${nextLevel}! ${def.desc}`);
-    return { success: true, message: `${def.name} Lv ${nextLevel}.` };
+    const months = SECT_BUILDINGS[buildingId]?.levels[nextLevel]?.months || ACTION_MONTHS.sectBuild;
+    const mode = months <= SECT_CONSTRUCTION.personalCapMonths ? 'personal' : 'contractors';
+    return startSectConstruction(buildingId, nextLevel, mode);
 }
 
 function formatBuildingCost(buildingId) {
@@ -1474,6 +1612,7 @@ function getSectDiscipleIncome() {
 function tickSectSystems(monthsPassed) {
     ensureSectState();
     if (!isSectFounded() || monthsPassed <= 0) return;
+    tickSectConstruction();
     tickSectAlliances();
     if (typeof tickWorldSectGrowth === 'function') tickWorldSectGrowth(monthsPassed);
     if (typeof tickSectExpansion === 'function') tickSectExpansion(monthsPassed);
@@ -1508,40 +1647,16 @@ function renderSectPanelHtml() {
     migrateSectForExistingSave();
     const stage = getSectStageDef();
     const docDef = getSectDoctrineDef();
-    const cultBonus = getSectBuildingBonus('cultivationSpeedPct');
-    const treasuryBonus = getSectBuildingBonus('passiveIncomePct');
-    const armoryBonus = getSectBuildingBonus('armoryCombatPct');
-    const vaultBonus = getSectBuildingBonus('vaultStoneSavePct');
-    const infZone = getSectInfluenceZone();
-    const infLabel = infZone && ZONES[infZone]
-        ? `${ZONES[infZone].emoji} ${ZONES[infZone].name}`
-        : '—';
     let html = '';
 
-    html += `<div class="sect-panel-header">
-        <div class="sect-stage-badge">${stage.emoji} ${stage.label}</div>
-        ${docDef
-            ? `<div class="sect-doctrine-tag">${docDef.emoji} ${docDef.label}</div>`
-            : `<div class="sect-align-tag">${getSectAlignmentTag().emoji} ${getSectAlignmentTag().label}</div>`}
-    </div>`;
-    html += `<p class="sect-stage-desc">${stage.desc}</p>`;
-
-    if (isSectFounded() && docDef) {
-        html += `<div class="sect-doctrine-display">${docDef.emoji} <strong>${docDef.label}</strong> · ${docDef.subtitle}<br><span class="sect-doctrine-effect">${docDef.desc}</span></div>`;
-        html += renderSectReputationMeterHtml();
-    }
-
-    html += `<div class="sect-stat-grid">
-        <div class="sect-stat"><span class="label">Renown</span><span class="value">${G.sect.renown || 0}</span></div>
-        <div class="sect-stat"><span class="label">Disciples</span><span class="value">${getDiscipleCount()}</span></div>
-        <div class="sect-stat"><span class="label">Cult. Bonus</span><span class="value">${cultBonus ? '+' + cultBonus + '%' : '—'}${treasuryBonus ? ' · 💰+' + treasuryBonus + '%' : ''}${armoryBonus ? ' · 🗡️+' + armoryBonus + '%' : ''}${vaultBonus ? ' · 🏛️' + vaultBonus + '%' : ''}</span></div>
-        <div class="sect-stat"><span class="label">Income</span><span class="value">💎 ${getSectDiscipleIncome() || 0}/cultivate</span></div>
-    </div>`;
-    if (infZone) {
-        html += `<div class="sect-influence-banner">🌏 Influence: <strong>${infLabel}</strong> — bonus explore loot & +${SECT_INFLUENCE.cultivateBonusPct}% cultivate here</div>`;
-    }
-
     if (!isSectFounded()) {
+        html += `<div class="sect-panel-header">
+            <div class="sect-stage-badge">${stage.emoji} ${stage.label}</div>
+            ${docDef
+                ? `<div class="sect-doctrine-tag">${docDef.emoji} ${docDef.label}</div>`
+                : `<div class="sect-align-tag">${getSectAlignmentTag().emoji} ${getSectAlignmentTag().label}</div>`}
+        </div>`;
+        html += `<p class="sect-stage-desc">${stage.desc}</p>`;
         const block = getFoundSectBlockReason();
         const defaultName = (G.name || 'Wandering') + "'s Sect";
         html += `<div class="sect-action-block">
@@ -1552,68 +1667,11 @@ function renderSectPanelHtml() {
             <button type="button" class="sect-action-btn" id="btnFoundSect" ${block ? 'disabled title="' + escapeSectAttr(block) + '"' : ''}>🏯 Found Sect</button>
         </div>`;
     } else {
-        const advBlock = getAdvanceSectBlockReason();
-        if (stage.next) {
-            const next = SECT_STAGES[stage.next];
-            html += `<div class="sect-progress-block">
-                <div class="sect-progress-label">Next: ${next.emoji} ${next.label}</div>
-                <div class="sect-progress-hint">${advBlock || 'Ready to advance!'}</div>
-                <button type="button" class="sect-action-btn" id="btnAdvanceSect" ${advBlock ? 'disabled' : ''}>⬆️ Advance Sect</button>
-            </div>`;
-        }
-
-        html += `<div class="sect-section-title">🏗️ Buildings</div>`;
-        html += `<div class="sect-buildings-list">`;
-        Object.entries(SECT_BUILDINGS).forEach(([id, def]) => {
-            const lv = getBuildingLevel(id);
-            const locked = !meetsStageRequirement(def.minStage);
-            const maxed = lv >= def.maxLevel;
-            const upgradeBlock = locked ? `Requires ${SECT_STAGES[def.minStage]?.label}` : getBuildingUpgradeBlockReason(id);
-            const canUp = !locked && def.implemented && !maxed && !upgradeBlock;
-            html += `<div class="sect-building-row${locked ? ' locked' : ''}${!def.implemented ? ' upcoming' : ''}">
-                <div class="sect-building-head">
-                    <span class="name">${def.emoji} ${def.name} <span class="sect-bld-lv">Lv ${lv}/${def.maxLevel}</span></span>
-                    ${def.implemented && !locked && !maxed
-                        ? `<button type="button" class="sect-upgrade-btn" data-sect-build="${id}" ${canUp ? '' : 'disabled title="' + (upgradeBlock || '') + '"'}>Upgrade</button>`
-                        : (maxed ? '<span class="sect-max-tag">MAX</span>' : '<span class="sect-lock-tag">🔒</span>')}
-                </div>
-                <div class="sect-building-desc">${def.desc}${!def.implemented ? ' <em>(coming soon)</em>' : ''}</div>
-                ${def.implemented && !locked && !maxed ? `<div class="sect-building-cost">${formatBuildingCost(id)}</div>` : ''}
-            </div>`;
-        });
-        html += `</div>`;
-
-        if (getDiscipleCount()) {
-            html += `<div class="sect-section-title">📿 Disciples</div><div class="sect-disciple-list">`;
-            G.sect.discipleRecords.forEach(d => {
-                const role = DISCIPLE_ROLES[d.role] || DISCIPLE_ROLES.acolyte;
-                const traitDef = typeof getDiscipleTraitDef === 'function' ? getDiscipleTraitDef(d.trait) : null;
-                const traitTip = traitDef
-                    ? escapeSectAttr(`${traitDef.desc}${traitDef.effectDesc ? ' — ' + traitDef.effectDesc : ''}`)
-                    : '';
-                const served = Math.floor(getDiscipleMonthsServed(d) / 12);
-                const promoteBlock = getPromoteBlockReason(d.uid);
-                const canPromote = !promoteBlock && role.promoteReq;
-                html += `<div class="sect-disciple-row">
-                    <div class="sect-disciple-info">
-                        <span class="name">${role.emoji} ${d.name}${traitDef ? ` <span class="sect-trait-tag" title="${traitTip}">${traitDef.emoji} ${traitDef.label}</span>` : ''}</span>
-                        <span class="role">${role.label} · ${served}y service${traitDef?.effectDesc ? ` · <span class="sect-trait-effect">${traitDef.effectDesc}</span>` : ''}</span>
-                    </div>
-                    ${canPromote
-                        ? `<button type="button" class="sect-promote-btn" data-promote-disc="${d.uid}">↑ Promote</button>`
-                        : (role.promoteReq ? `<span class="sect-promote-hint" title="${escapeSectAttr(promoteBlock || '')}">—</span>` : '')}
-                </div>`;
-            });
-            html += `</div>`;
+        if (typeof renderSectGroundsHtml === 'function') {
+            html += renderSectGroundsHtml();
         }
 
         html += renderWorldSectsPanelHtml();
-
-        if (meetsStageRequirement('regional')) {
-            html += `<div class="sect-section-title">🌏 Zone Influence</div>`;
-            html += `<p class="sect-hint">Claim the zone you're in as your sphere of influence (${SECT_INFLUENCE.shiftMonths}mo, ${SECT_INFLUENCE.shiftRenownCost} Renown).</p>`;
-            html += `<button type="button" class="sect-action-btn" id="btnShiftInfluence">🌏 Shift Influence Here</button>`;
-        }
 
         html += `<div class="sect-section-title sect-section-muted">📋 Conflict Types</div>`;
         Object.values(SECT_CONFLICT_TYPES).forEach(c => {
@@ -1741,6 +1799,7 @@ function bindSectPanelEvents(container) {
         });
     });
     if (typeof bindSectExpansionPanelEvents === 'function') bindSectExpansionPanelEvents(container);
+    if (typeof bindSectGroundsEvents === 'function') bindSectGroundsEvents(container);
 }
 
 function actionFoundSectFromPanel() {
