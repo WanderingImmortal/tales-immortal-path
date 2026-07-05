@@ -3484,7 +3484,7 @@ const SECT_BUILDINGS = {
         id: 'cultivation_hall',
         name: 'Cultivation Hall',
         emoji: '🧘',
-        desc: '+10% cultivation speed per level for the sect leader.',
+        desc: '+10% cultivation speed per level. Cultivate here to see your sect bonus breakdown.',
         effectKey: 'cultivationSpeedPct',
         effectPerLevel: 10,
         maxLevel: 3,
@@ -3518,7 +3518,7 @@ const SECT_BUILDINGS = {
         id: 'training_ground',
         name: 'Training Ground',
         emoji: '⚔️',
-        desc: '+10% combat XP for disciples per level (technique mastery on victory).',
+        desc: '+10% combat XP per level. Spar with disciples for technique mastery.',
         effectKey: 'combatXpPct',
         effectPerLevel: 10,
         maxLevel: 3,
@@ -3535,7 +3535,7 @@ const SECT_BUILDINGS = {
         id: 'treasury',
         name: 'Treasury',
         emoji: '💰',
-        desc: '+10% disciple stone income per level when you cultivate.',
+        desc: '+10% disciple stone income per level. Tithe accumulates here — collect into sect stores.',
         effectKey: 'passiveIncomePct',
         effectPerLevel: 10,
         maxLevel: 3,
@@ -3671,7 +3671,7 @@ const SECT_BUILDINGS = {
         id: 'vault',
         name: 'Vault',
         emoji: '🏛️',
-        desc: '+12% protection against stone losses from sect events per level. Expands sect stores.',
+        desc: '+12% event stone protection per level. Deposit stones into protected sect stores.',
         effectKey: 'vaultStoneSavePct',
         effectPerLevel: 12,
         maxLevel: 3,
@@ -3710,6 +3710,11 @@ const SECT_CONSTRUCTION = {
         personal: { id: 'personal', label: 'Oversee personally', emoji: '👷' },
         contractors: { id: 'contractors', label: 'Hire craftsmen', emoji: '🏗️' }
     }
+};
+
+const SECT_BUILDING_ACTIONS = {
+    trainingSparMonths: 2,
+    vaultDepositPresets: [10, 25, 50]
 };
 
 const SECT_INVENTORY_BALANCE = {

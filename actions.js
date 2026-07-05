@@ -54,8 +54,14 @@ function actionCultivate() {
         const income = typeof getSectDiscipleIncome === 'function'
             ? getSectDiscipleIncome() + getFameLevel().bonus
             : G.disciples.length + getFameLevel().bonus;
-        G.stones += income;
-        G.sectPassiveIncome = income;
+        if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0
+            && typeof addTreasuryPendingTithe === 'function') {
+            addTreasuryPendingTithe(income);
+            G.sectPassiveIncome = income;
+        } else {
+            G.stones += income;
+            G.sectPassiveIncome = income;
+        }
     }
     const tradeIncome = typeof getSectTradeRouteIncome === 'function' ? getSectTradeRouteIncome() : 0;
     const factionTrade = typeof getFactionTradeIncomeBonus === 'function' ? getFactionTradeIncomeBonus() : 0;
@@ -86,6 +92,9 @@ function actionCultivate() {
     }
     if (cultParts.length) cultMsg += ` (${cultParts.join(', ')})`;
     if (buildingNotes.length) cultMsg += ` · ${buildingNotes.join(', ')}`;
+    if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0 && G.sectPassiveIncome > 0) {
+        cultMsg += ` · Treasury tithe +${G.sectPassiveIncome}💎`;
+    }
     commitActionLog(cultMsg);
     if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
     if (getMeridianOpenCount() < 11 && Math.random() < 0.05) {

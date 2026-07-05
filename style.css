@@ -2447,6 +2447,66 @@ header .subtitle {
     margin: 4px 0;
 }
 
+.sect-breakdown-list {
+    list-style: none;
+    margin: 8px 0;
+    padding: 0;
+    background: #0f0c0a;
+    border: 1px solid #2a2018;
+    border-radius: 8px;
+}
+
+.sect-breakdown-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-bottom: 1px solid #1a1412;
+    color: #a09080;
+}
+
+.sect-breakdown-list li:last-child {
+    border-bottom: none;
+}
+
+.sect-breakdown-val {
+    color: #80c080;
+    font-weight: bold;
+}
+
+.sect-breakdown-total {
+    font-size: 13px;
+    color: #d4a860;
+    margin: 8px 0 10px;
+}
+
+.sect-deposit-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.sect-deposit-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+    background: #1a1810;
+    border: 1px solid #4a4030;
+    border-radius: 6px;
+    color: #d4a860;
+    cursor: pointer;
+}
+
+.sect-deposit-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.sect-deposit-btn:not(:disabled):hover {
+    border-color: #8a7040;
+}
+
 .sect-disciple-info {
     display: flex;
     flex-direction: column;

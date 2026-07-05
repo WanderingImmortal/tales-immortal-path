@@ -49,10 +49,7 @@ function isSectMapNodeUnderConstruction(nodeId) {
 }
 
 function hasSectMapNodeCollectable(nodeId) {
-    if (nodeId === 'spirit_garden' && typeof getSpiritGardenPendingHerbs === 'function') {
-        return getSpiritGardenPendingHerbs() > 0;
-    }
-    return false;
+    return typeof hasSectBuildingCollectable === 'function' && hasSectBuildingCollectable(nodeId);
 }
 
 function getSectMapNodeLevel(nodeId) {
@@ -309,6 +306,48 @@ function renderBuildingActionsHtml(buildingId, lv) {
         html += `<button type="button" class="sect-action-btn" id="btnHarvestGarden" ${pending <= 0 ? 'disabled' : ''}>🌸 Harvest to Sect Stores</button>`;
     }
 
+    if (buildingId === 'treasury') {
+        const pending = typeof getTreasuryPendingTithe === 'function' ? getTreasuryPendingTithe() : 0;
+        const income = typeof getSectDiscipleIncome === 'function' ? getSectDiscipleIncome() : 0;
+        const fameBonus = typeof getFameLevel === 'function' ? getFameLevel().bonus : 0;
+        const bonus = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('passiveIncomePct') : 0;
+        html += `<div class="sect-section-title">💰 Tithe Chest</div>`;
+        html += `<p class="sect-hint">Disciple offerings accumulate when you cultivate (+${bonus}% treasury bonus). Collect stones into sect stores.</p>`;
+        html += `<div class="sect-harvest-display">Ready: <strong>${pending}</strong>💎 · Rate: ${income + fameBonus}/cultivate</div>`;
+        html += `<button type="button" class="sect-action-btn" id="btnCollectTithe" ${pending <= 0 ? 'disabled' : ''}>💰 Collect Tithe</button>`;
+    }
+
+    if (buildingId === 'vault') {
+        const stored = G.sect?.inventory?.stones || 0;
+        const protect = typeof getVaultProtectionPct === 'function' ? getVaultProtectionPct() : 0;
+        const cap = typeof getSectInventoryCapacity === 'function' ? getSectInventoryCapacity() : 50;
+        html += `<div class="sect-section-title">🏛️ Vault</div>`;
+        html += `<p class="sect-hint">Stones in sect stores are safe from sect event losses. Event losses softened by <strong>${protect}%</strong> on personal stones.</p>`;
+        html += `<div class="sect-harvest-display">Sect stores: <strong>${stored}</strong>💎 · Capacity: ${cap}</div>`;
+        html += `<div class="sect-deposit-row">`;
+        html += `<span class="sect-hint">You carry: ${G.stones || 0}💎</span>`;
+        (SECT_BUILDING_ACTIONS?.vaultDepositPresets || [10, 25, 50]).forEach(amt => {
+            html += `<button type="button" class="sect-deposit-btn" data-vault-deposit="${amt}" ${(G.stones || 0) < amt ? 'disabled' : ''}>${amt}💎</button>`;
+        });
+        html += `<button type="button" class="sect-deposit-btn" data-vault-deposit="all" ${!(G.stones > 0) ? 'disabled' : ''}>All</button>`;
+        html += `</div>`;
+    }
+
+    if (buildingId === 'training_ground') {
+        const pct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('combatXpPct') : 0;
+        const months = SECT_BUILDING_ACTIONS?.trainingSparMonths || 2;
+        html += `<div class="sect-section-title">⚔️ Spar</div>`;
+        html += `<p class="sect-hint">Drill with your disciples. Wins technique mastery (+${pct}% training bonus).</p>`;
+        html += `<button type="button" class="sect-action-btn" id="btnTrainingSpar">⚔️ Spar (${months} months)</button>`;
+    }
+
+    if (buildingId === 'cultivation_hall') {
+        html += `<div class="sect-section-title">🧘 Sect Cultivation</div>`;
+        html += `<p class="sect-hint">Cultivate within the hall and draw on sect arrays.</p>`;
+        html += renderSectCultivationBreakdownHtml();
+        html += `<button type="button" class="sect-action-btn" id="btnHallCultivate">🧘 Cultivate here (${ACTION_MONTHS.cultivate} months)</button>`;
+    }
+
     if (buildingId === 'disciple_hall') {
         const slots = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('discipleAssignSlots') : lv;
         html += `<div class="sect-section-title">📿 Assignments</div>`;
@@ -366,6 +405,31 @@ function bindSectGroundsEvents(container) {
         if (result.message) addLog(result.success ? `🌸 ${result.message}` : `🌸 ${result.message}`);
         if (typeof renderSectPopup === 'function') renderSectPopup();
         fullRender();
+    });
+    container.querySelector('#btnCollectTithe')?.addEventListener('click', () => {
+        const result = typeof collectTreasuryTithe === 'function' ? collectTreasuryTithe() : { success: false };
+        if (result.message) addLog(result.success ? `💰 ${result.message}` : `💰 ${result.message}`);
+        if (typeof renderSectPopup === 'function') renderSectPopup();
+        fullRender();
+    });
+    container.querySelectorAll('[data-vault-deposit]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const raw = this.dataset.vaultDeposit;
+            const amount = raw === 'all' ? (G.stones || 0) : parseInt(raw, 10);
+            const result = typeof depositVaultStones === 'function' ? depositVaultStones(amount) : { success: false };
+            if (result.message) addLog(result.success ? `🏛️ ${result.message}` : `🏛️ ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelector('#btnTrainingSpar')?.addEventListener('click', () => {
+        const result = typeof actionTrainingGroundSpar === 'function' ? actionTrainingGroundSpar() : { success: false };
+        if (result.message) addLog(result.success ? `⚔️ ${result.message}` : `⚔️ ${result.message}`);
+        if (typeof renderSectPopup === 'function') renderSectPopup();
+        fullRender();
+    });
+    container.querySelector('#btnHallCultivate')?.addEventListener('click', () => {
+        if (typeof actionCultivationHallCultivate === 'function') actionCultivationHallCultivate();
     });
     container.querySelectorAll('.sect-build-btn').forEach(btn => {
         btn.addEventListener('click', function() {

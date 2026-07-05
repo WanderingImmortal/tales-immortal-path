@@ -150,7 +150,7 @@ function renderSectInventoryPanelHtml() {
             </div>`;
         });
     } else {
-        html += `<p class="sect-hint sect-inventory-empty">No materials stored yet. Harvest the Spirit Garden to fill stores.</p>`;
+        html += `<p class="sect-hint sect-inventory-empty">No materials stored yet. Harvest the Spirit Garden or collect treasury tithe.</p>`;
     }
     html += `</div></div>`;
     return html;

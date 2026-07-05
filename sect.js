@@ -268,6 +268,7 @@ function migrateSectForExistingSave() {
     if (isSectFounded()) {
         if (typeof ensureSectGroundsView === 'function') ensureSectGroundsView();
         if (typeof ensureSectInventory === 'function') ensureSectInventory();
+        if (typeof ensureSectBuildingMeta === 'function') ensureSectBuildingMeta();
         if (!G.sect.residence) G.sect.residence = { level: 0, stash: [], lastRestMonths: null };
     }
     syncSectLegacyFields();
