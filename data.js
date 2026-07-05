@@ -3727,11 +3727,13 @@ const SECT_RESIDENCE = {
     name: "Leader's Quarters",
     emoji: '🏠',
     maxLevel: 3,
+    /** Formation slots unlocked at each residence level (index = level). */
+    formationSlotsByLevel: [0, 1, 2, 3],
     levels: [
-        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Your anchor while the sect grows.' },
-        { name: 'Inner Court Room', desc: 'A proper chamber for meditation focus and personal stores.' },
-        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with a yield chest and heirloom display.' },
-        { name: 'Immortal Abode', desc: 'A peak dwelling worthy of a sect founder.' }
+        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Upgrade to lay cultivation formations.' },
+        { name: 'Inner Court Room', desc: 'A proper chamber — one formation slot for personal qi gathering.' },
+        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with two formation slots.' },
+        { name: 'Immortal Abode', desc: 'A peak dwelling with three formation slots woven into the courtyard.' }
     ],
     upgradeCosts: [
         null,
@@ -3739,6 +3741,43 @@ const SECT_RESIDENCE = {
         { materials: { spirit_herb: 6, jade_inlay: 2, celestial_silk: 1 }, months: 8, renown: 5 },
         { materials: { spirit_herb: 8, jade_inlay: 3, celestial_silk: 2 }, months: 12, renown: 8 }
     ]
+};
+
+// ----- Formations (v1: residence deploy only) -----
+const FORMATIONS = {
+    spirit_gathering: {
+        id: 'spirit_gathering',
+        name: 'Spirit Gathering Formation',
+        emoji: '🌀',
+        desc: 'Draws ambient qi to your quarters. +8% cultivation per active slot.',
+        deploy: 'residence',
+        minResidenceLevel: 1,
+        effects: { cultivatePct: 8 },
+        layCost: { months: 2, materials: { spirit_herb: 3, silk_thread: 1 } },
+        learnOnResidenceLevel: 1
+    },
+    qi_stabilizer: {
+        id: 'qi_stabilizer',
+        name: 'Qi Stabilizer',
+        emoji: '⚖️',
+        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation per session at quarters.',
+        deploy: 'residence',
+        minResidenceLevel: 2,
+        effects: { cultivatePct: 4, foundationPerCultivate: 1 },
+        layCost: { months: 3, materials: { spirit_herb: 4, jade_inlay: 1 } },
+        learnOnResidenceLevel: 2
+    },
+    iron_wall_ward: {
+        id: 'iron_wall_ward',
+        name: 'Iron Wall Ward',
+        emoji: '🛡️',
+        desc: 'A defensive ward pattern. Combat deployment coming in a future update.',
+        deploy: 'residence',
+        minResidenceLevel: 1,
+        implemented: false,
+        effects: {},
+        layCost: { months: 2, materials: { iron_ore: 4, jade_inlay: 1 } }
+    }
 };
 
 const SECT_MAP_NODES = {

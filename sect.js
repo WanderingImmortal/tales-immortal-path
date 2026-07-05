@@ -32,7 +32,7 @@ function createEmptySectState() {
         legendUnlocked: false,
         sectSpiritUnlocked: false,
         inventory: { stones: 0, materials: {}, items: [] },
-        residence: { level: 0, stash: [], lastRestMonths: null },
+        residence: { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } },
         construction: null,
         buildingMeta: { spirit_garden: { pendingHerbs: 0 } },
         groundsView: 'map'
@@ -269,7 +269,8 @@ function migrateSectForExistingSave() {
         if (typeof ensureSectGroundsView === 'function') ensureSectGroundsView();
         if (typeof ensureSectInventory === 'function') ensureSectInventory();
         if (typeof ensureSectBuildingMeta === 'function') ensureSectBuildingMeta();
-        if (!G.sect.residence) G.sect.residence = { level: 0, stash: [], lastRestMonths: null };
+        if (!G.sect.residence) G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
+        if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
     }
     syncSectLegacyFields();
     G._sectMigrated = true;
@@ -504,7 +505,7 @@ function foundSect(customName, doctrineId) {
     if (typeof triggerTutorial === 'function') triggerTutorial('first_sect');
     if (typeof notifyActionUnlocksFromChange === 'function') notifyActionUnlocksFromChange();
     if (typeof ensureSectGroundsView === 'function') ensureSectGroundsView();
-    G.sect.residence = { level: 0, stash: [], lastRestMonths: null };
+    G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
     G.sect.groundsView = 'map';
     return { success: true, message: `${sectName} founded under the ${doc.label}.` };
 }
@@ -1490,6 +1491,10 @@ function completeSectConstruction() {
         label = def?.name || SECT_RESIDENCE.name;
         emoji = SECT_RESIDENCE.emoji;
         addSectRenown(SECT_RESIDENCE.upgradeCosts[targetLevel]?.renown || 0);
+        if (typeof grantFormationsForResidenceLevel === 'function') {
+            grantFormationsForResidenceLevel(targetLevel);
+        }
+        if (typeof ensureResidenceFormationSlots === 'function') ensureResidenceFormationSlots();
     } else {
         G.sect.buildings[targetId] = targetLevel;
         const def = SECT_BUILDINGS[targetId];
