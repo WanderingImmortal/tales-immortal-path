@@ -931,6 +931,7 @@ function loadState() {
             if (typeof migrateConsolidationState === 'function') migrateConsolidationState();
             else if (typeof ensureConsolidationState === 'function') ensureConsolidationState();
             if (typeof ensureCultivationBaseState === 'function') ensureCultivationBaseState();
+            if (typeof migrateCultivationBaseFromLegacy === 'function') migrateCultivationBaseFromLegacy();
             if (typeof migrateQiSystem === 'function') migrateQiSystem();
             if (typeof migrateTechniqueRenames === 'function') migrateTechniqueRenames();
             if (typeof migrateLegacyScars === 'function') migrateLegacyScars();

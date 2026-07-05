@@ -136,6 +136,62 @@ function formatPillarGrant(pillar, amount) {
     return `+${shown} ${emojis[pillar] || ''} ${labels[pillar] || pillar}`.trim();
 }
 
+function backfillCultivationDensityMilestones() {
+    if (typeof getQiDensity !== 'function') return;
+    ensureCultivationMilestones();
+    const thresholds = CULTIVATION_BASE_BALANCE.pillarGrants?.densityMilestones || [1.5, 2.0, 2.5, 3.0];
+    const total = getQiDensity();
+    thresholds.forEach(t => {
+        if (total >= t) G.cultivationMilestones.density[String(t)] = true;
+    });
+}
+
+function splitLegacyFoundationAmount(legacy) {
+    legacy = Math.max(0, Math.floor(legacy || 0));
+    if (legacy <= 0) return { root: 0, flow: 0, stability: 0, total: 0 };
+
+    const cfg = CULTIVATION_BASE_BALANCE.legacyMigration || {};
+    const rootRatio = cfg.rootRatio ?? 0.35;
+    const flowRatio = cfg.flowRatio ?? 0.35;
+    const root = Math.floor(legacy * rootRatio);
+    const flow = Math.floor(legacy * flowRatio);
+    const stability = legacy - root - flow;
+    return { root, flow, stability, total: legacy };
+}
+
+/** One-time save migration: split G.foundation into pillars and clear the legacy stat. */
+function migrateCultivationBaseFromLegacy() {
+    ensureCultivationBaseState();
+    ensureCultivationMilestones();
+
+    if (G._cultivationBaseMigrated) {
+        backfillCultivationDensityMilestones();
+        return { migrated: false };
+    }
+
+    const legacy = Math.max(0, Math.floor(G.foundation || 0));
+    let split = { root: 0, flow: 0, stability: 0, total: 0 };
+
+    if (legacy > 0) {
+        split = splitLegacyFoundationAmount(legacy);
+        if (split.root) grantCultivationPillar('root', split.root);
+        if (split.flow) grantCultivationPillar('flow', split.flow);
+        if (split.stability) grantCultivationPillar('stability', split.stability);
+        G._legacyFoundationTotal = legacy;
+        G.foundation = 0;
+    }
+
+    backfillCultivationDensityMilestones();
+    G._cultivationBaseMigrated = true;
+
+    return {
+        migrated: legacy > 0,
+        legacy,
+        split,
+        effective: getEffectiveFoundation()
+    };
+}
+
 function getFoundationCrackPenalty() {
     return getFoundationCrackCount() * (CULTIVATION_BASE_BALANCE.crackPenalty || 4);
 }

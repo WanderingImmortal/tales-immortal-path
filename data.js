@@ -4182,6 +4182,10 @@ const CULTIVATION_BASE_BALANCE = {
         perfectFoundationFlow: 2,
         peakGrindStability: 1,
         foundationLossPerCrack: 2
+    },
+    legacyMigration: {
+        rootRatio: 0.35,
+        flowRatio: 0.35
     }
 };
 

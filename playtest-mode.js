@@ -97,6 +97,17 @@ function playtestGrantLifespan(years) {
 
 function playtestGrantFoundation(amount) {
     if (typeof G === 'undefined' || !G) return;
+    amount = Math.max(0, Math.floor(amount || 0));
+    if (!amount) return;
+    if (G._cultivationBaseMigrated && typeof splitLegacyFoundationAmount === 'function') {
+        const split = splitLegacyFoundationAmount(amount);
+        if (split.root) grantCultivationPillar('root', split.root);
+        if (split.flow) grantCultivationPillar('flow', split.flow);
+        if (split.stability) grantCultivationPillar('stability', split.stability);
+        const effective = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : amount;
+        playtestAfterGrant(`+${amount} Foundation pillars (${effective} effective).`);
+        return;
+    }
     G.foundation = (G.foundation || 0) + amount;
     playtestAfterGrant(`+${amount} Foundation (now ${G.foundation}).`);
 }
