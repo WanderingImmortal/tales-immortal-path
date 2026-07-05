@@ -139,7 +139,11 @@ function renderStatus() {
             const el = document.getElementById(id);
             if (el && guide) {
                 const chip = el.closest('.chip');
-                if (chip) chip.title = `${guide.emoji} ${guide.label}: ${guide.desc}`;
+                if (chip) {
+                    const tip = `${guide.emoji} ${guide.label}: ${guide.desc}`;
+                    if (typeof setHoverTooltip === 'function') setHoverTooltip(chip, tip);
+                    else chip.title = tip;
+                }
             }
         });
     }
@@ -149,28 +153,36 @@ function renderStatus() {
         const capstone = typeof getPathCapstone === 'function' ? getPathCapstone() : null;
         const sealGuide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.sealDantian : null;
         if (capstone) consolidateBtn.textContent = capstone.button;
-        consolidateBtn.title = isRealmConsolidated(G.realmIdx)
+        const sealTip = isRealmConsolidated(G.realmIdx)
             ? 'This realm is already sealed'
             : (sealGuide?.desc || (capstone ? `${capstone.settledAction} at Settled (80%+) or ${capstone.peakAction} at Peak` : 'Seal realm for Foundation'));
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(consolidateBtn, sealTip);
+        else consolidateBtn.title = sealTip;
     }
     const cultivateBtn = document.getElementById('btnCultivate');
     if (cultivateBtn) {
         const guide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.cultivate : null;
-        cultivateBtn.title = guide?.desc || 'Choose Qi, Body, or Soul cultivation';
+        const tip = guide?.desc || 'Choose Qi, Body, or Soul cultivation';
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(cultivateBtn, tip);
+        else cultivateBtn.title = tip;
     }
     const breakBtn = document.getElementById('btnBreakthrough');
     if (breakBtn) {
         const guide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.breakthrough : null;
         const chance = typeof getBreakChance === 'function' ? getBreakChance() : null;
-        breakBtn.title = guide?.desc
+        const tip = guide?.desc
             ? `${guide.desc}${chance != null ? ` Current odds: ~${chance}%.` : ''}`
-            : breakBtn.title;
+            : breakBtn.getAttribute('title') || '';
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(breakBtn, tip);
+        else if (tip) breakBtn.title = tip;
     }
     const recuperateBtn = document.getElementById('btnRecuperate');
     if (recuperateBtn) {
         const guide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.recuperate : null;
         const months = typeof ACTION_MONTHS !== 'undefined' ? ACTION_MONTHS.recuperate : 3;
-        recuperateBtn.title = guide?.desc || `Rest ${months} months · heal HP & barrier`;
+        const tip = guide?.desc || `Rest ${months} months · heal HP & barrier`;
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(recuperateBtn, tip);
+        else recuperateBtn.title = tip;
     }
     document.getElementById('discipleCountDisplay').textContent = G.disciples.length;
     document.getElementById('meridianDisplay').textContent = openCount + '/13';

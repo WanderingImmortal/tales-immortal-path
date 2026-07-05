@@ -276,22 +276,33 @@ function appendSoulActionButton(panel, layerId, action) {
     const block = getSoulActionBlockReason(layerId, action);
     const maxStacks = getSoulActionMaxStacks(action);
     const atMax = count >= maxStacks;
+    const wrap = document.createElement('div');
+    wrap.className = 'action-card-wrap soul-chamber-action-wrap';
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'soul-chamber-action-btn' + (atMax ? ' soul-chamber-action-maxed' : '');
     btn.dataset.layer = layerId;
     btn.dataset.action = action.id;
     btn.disabled = soulChamberActionBlocked() || !!block;
-    btn.title = block || action.desc;
-    const matLine = formatSoulMaterialCost(action);
-    const trueDaoLine = action.requiresTrueDao ? ' · True Dao required' : '';
+    const flavor = typeof getSoulActionFlavor === 'function'
+        ? getSoulActionFlavor(layerId, action)
+        : action.desc;
+    if (typeof setHoverTooltip === 'function') setHoverTooltip(btn, block || action.desc);
+    else btn.title = block || action.desc;
     btn.innerHTML = `<span class="soul-action-label">${action.emoji} ${action.label}</span>`
-        + `<span class="soul-action-meta">${action.desc} · ${action.weeks} wk`
-        + (matLine ? ` · ${matLine}` : '')
-        + trueDaoLine
-        + ` · ×${count}/${maxStacks}</span>`;
+        + `<span class="soul-action-meta soul-action-flavor">${block ? block : flavor}</span>`;
     btn.addEventListener('click', () => runSoulChamberAction(layerId, action.id));
-    panel.appendChild(btn);
+    wrap.appendChild(btn);
+    if (typeof createActionHelpBtn === 'function') {
+        wrap.appendChild(createActionHelpBtn({
+            className: 'soul-chamber-action-help',
+            title: `${action.emoji} ${action.label}`,
+            desc: action.desc,
+            getBlock: () => getSoulActionBlockReason(layerId, action),
+            getStats: () => formatSoulChamberActionStats(layerId, action)
+        }));
+    }
+    panel.appendChild(wrap);
 }
 
 function renderSoulChamberActions() {

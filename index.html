@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=75" />
+    <link rel="stylesheet" href="style.css?v=76" />
 </head>
 <body>
 
@@ -169,6 +169,11 @@
 
                     <button type="button" id="btnStatsToggle" class="details-toggle">More stats ▼</button>
                     <button type="button" id="btnStatGuide" class="details-toggle stat-guide-btn">❓ What do stats mean?</button>
+                    <button type="button" id="btnSettingsToggle" class="details-toggle settings-toggle-btn">⚙️ Settings ▼</button>
+                    <div id="settingsPanel" class="settings-panel" hidden>
+                        <label class="settings-check"><input type="checkbox" id="settingHoverTooltips" /> Show hover tooltips</label>
+                        <p class="settings-hint">Action details use the <span class="action-help-inline-demo">?</span> button by default.</p>
+                    </div>
                     <button type="button" id="btnTutorialLog" class="details-toggle tutorial-log-btn">📖 Cultivation Lessons</button>
                     <div id="advancedStats" class="advanced-stats">
                         <div class="stat-item"><span class="label">🎭 Trait</span><span class="value" id="traitStatDisplay">—</span></div>
@@ -199,10 +204,22 @@
                         <div class="action-group">
                             <div class="action-group-label">Cultivation</div>
                             <div class="actions-row">
-                                <button id="btnCultivate" title="Choose Qi, Body, or Soul cultivation">🧘 Cultivate</button>
-                                <button id="btnConsolidate" title="Seal realm at Settled (80%+) or Peak (100%)">🏛️ Seal Dantian</button>
-                                <button id="btnBreakthrough" title="2 years · requires realm seal">🌀 Break</button>
-                                <button id="btnRecuperate" title="3 months · heal HP & barrier">🛌 Recuperate</button>
+                                <div class="action-with-help">
+                                    <button id="btnCultivate">🧘 Cultivate</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpCultivate" aria-label="About Cultivate">?</button>
+                                </div>
+                                <div class="action-with-help">
+                                    <button id="btnConsolidate">🏛️ Seal Dantian</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpConsolidate" aria-label="About Seal Dantian">?</button>
+                                </div>
+                                <div class="action-with-help">
+                                    <button id="btnBreakthrough">🌀 Break</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpBreakthrough" aria-label="About Break Through">?</button>
+                                </div>
+                                <div class="action-with-help">
+                                    <button id="btnRecuperate">🛌 Recuperate</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpRecuperate" aria-label="About Recuperate">?</button>
+                                </div>
                             </div>
                             <div class="actions-row actions-row-sub" style="margin-top:6px;">
                                 <button id="btnMeridian">☯️ Meridians</button>
@@ -868,22 +885,34 @@
         </div>
 
         <div class="chamber-actions">
-            <button type="button" class="chamber-btn chamber-btn-primary chamber-action-card" id="chamberGatherQi">
-                <span class="chamber-action-label">🌬️ Gather Qi</span>
-                <span class="chamber-action-meta" id="chamberGatherMeta"></span>
-            </button>
-            <button type="button" class="chamber-btn chamber-action-card" id="chamberExpandDantian">
-                <span class="chamber-action-label">🏺 Expand Dantian</span>
-                <span class="chamber-action-meta" id="chamberExpandMeta"></span>
-            </button>
-            <button type="button" class="chamber-btn chamber-action-card" id="chamberPerfectFoundation">
-                <span class="chamber-action-label">🪨 Refine Foundation</span>
-                <span class="chamber-action-meta" id="chamberFoundationMeta"></span>
-            </button>
-            <button type="button" class="chamber-btn chamber-btn-condense chamber-action-card" id="chamberCondenseCore">
-                <span class="chamber-action-label">💎 Condense Core</span>
-                <span class="chamber-action-meta" id="chamberCondenseMeta"></span>
-            </button>
+            <div class="chamber-action-wrap">
+                <button type="button" class="chamber-btn chamber-btn-primary chamber-action-card" id="chamberGatherQi">
+                    <span class="chamber-action-label">🌬️ Gather Qi</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberGatherFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberGatherHelp" aria-label="About Gather Qi">?</button>
+            </div>
+            <div class="chamber-action-wrap">
+                <button type="button" class="chamber-btn chamber-action-card" id="chamberExpandDantian">
+                    <span class="chamber-action-label">🏺 Expand Dantian</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberExpandFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberExpandHelp" aria-label="About Expand Dantian">?</button>
+            </div>
+            <div class="chamber-action-wrap">
+                <button type="button" class="chamber-btn chamber-action-card" id="chamberPerfectFoundation">
+                    <span class="chamber-action-label">🪨 Refine Foundation</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberFoundationFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberFoundationHelp" aria-label="About Refine Foundation">?</button>
+            </div>
+            <div class="chamber-action-wrap chamber-action-wrap-condense">
+                <button type="button" class="chamber-btn chamber-btn-condense chamber-action-card" id="chamberCondenseCore">
+                    <span class="chamber-action-label">💎 Condense Core</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberCondenseFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberCondenseHelp" aria-label="About Condense Core">?</button>
+            </div>
             <button type="button" class="chamber-btn chamber-btn-return" id="chamberReturn">↩ Return</button>
         </div>
     </div>
@@ -1180,7 +1209,14 @@
     </div>
 </div>
 
-<script src="data.js?v=79"></script>
+<div id="actionHelpPopover" class="action-help-popover" hidden>
+    <button type="button" class="action-help-popover-close" id="actionHelpPopoverClose" aria-label="Close">×</button>
+    <div class="action-help-popover-title" id="actionHelpTitle"></div>
+    <div class="action-help-popover-desc" id="actionHelpDesc"></div>
+    <div class="action-help-popover-stats" id="actionHelpStats"></div>
+</div>
+
+<script src="data.js?v=80"></script>
 <script src="talent.js?v=1"></script>
 <script src="legacy.js?v=1"></script>
 <script src="world-scheduler.js?v=3"></script>
@@ -1212,18 +1248,20 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=10"></script>
-<script src="ui.js?v=42"></script>
+<script src="ui.js?v=43"></script>
 <script src="action-gates.js?v=2"></script>
 <script src="actions.js?v=32"></script>
-<script src="chamber.js?v=10"></script>
-<script src="body-chamber.js?v=21"></script>
+<script src="chamber.js?v=11"></script>
+<script src="body-chamber.js?v=22"></script>
 <script src="physique-cultivation.js?v=2"></script>
-<script src="soul-chamber.js?v=2"></script>
+<script src="soul-chamber.js?v=3"></script>
 <script src="cultivation-hub.js?v=2"></script>
 <script src="story-arcs.js?v=6"></script>
 <script src="combat.js?v=30"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
-<script src="main.js?v=37"></script>
+<script src="settings.js?v=1"></script>
+<script src="action-help.js?v=1"></script>
+<script src="main.js?v=38"></script>
 </body>
 </html>

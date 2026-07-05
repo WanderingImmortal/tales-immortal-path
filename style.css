@@ -982,6 +982,152 @@ header .subtitle {
     margin-top: 4px;
 }
 
+.settings-toggle-btn {
+    margin-top: 4px;
+}
+
+.settings-panel {
+    margin: 6px 0 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--ink-border);
+    background: var(--ink-wash);
+}
+
+.settings-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    cursor: pointer;
+}
+
+.settings-hint {
+    margin: 8px 0 0;
+    font-size: 0.78rem;
+    color: var(--ink-text-muted);
+    line-height: 1.35;
+}
+
+.action-help-inline-demo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    border: 1px solid var(--ink-border-strong);
+    font-size: 0.72rem;
+    vertical-align: middle;
+}
+
+.action-with-help {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.action-help-btn {
+    flex-shrink: 0;
+    width: 1.35rem;
+    height: 1.35rem;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--ink-border-strong);
+    background: var(--ink-wash);
+    color: var(--ink-text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.action-help-btn:hover {
+    background: var(--ink-wash-light);
+    color: var(--ink-text);
+    border-color: rgba(120, 200, 175, 0.45);
+}
+
+.action-help-btn-inline {
+    margin-top: 1px;
+}
+
+.action-card-wrap {
+    position: relative;
+}
+
+.body-chamber-action-wrap .body-chamber-action-btn,
+.soul-chamber-action-wrap .soul-chamber-action-btn {
+    width: 100%;
+    padding-right: 38px;
+}
+
+.body-chamber-action-help,
+.soul-chamber-action-help {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+.action-help-popover {
+    position: absolute;
+    z-index: 1200;
+    max-width: min(300px, calc(100vw - 24px));
+    padding: 12px 14px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--ink-border-strong);
+    background: rgba(14, 12, 10, 0.96);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    color: var(--ink-text);
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.action-help-popover-close {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    border: none;
+    background: transparent;
+    color: var(--ink-text-muted);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+.action-help-popover-close:hover {
+    color: var(--ink-text);
+}
+
+.action-help-popover-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding-right: 18px;
+}
+
+.action-help-popover-desc {
+    color: var(--ink-text-muted);
+    margin-bottom: 8px;
+}
+
+.action-help-popover-stats {
+    border-top: 1px solid var(--ink-border);
+    padding-top: 8px;
+}
+
+.action-help-stat-line {
+    color: var(--ink-pale);
+    font-size: 0.78rem;
+    margin-top: 4px;
+}
+
+.action-help-stat-line:first-child {
+    margin-top: 0;
+}
+
 /* ----- Playtest feedback (sidebar) ----- */
 .playtest-panel {
     margin-top: 10px;
@@ -6879,6 +7025,32 @@ header .subtitle {
     color: var(--ink-text-muted);
     text-align: center;
     line-height: 1.35;
+}
+
+.chamber-action-wrap {
+    position: relative;
+}
+
+.chamber-action-wrap-condense {
+    grid-column: span 2;
+}
+
+.chamber-action-wrap .chamber-action-card {
+    width: 100%;
+    padding-right: 38px;
+}
+
+.chamber-action-help {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+.chamber-action-flavor,
+.body-action-flavor,
+.soul-action-flavor {
+    font-style: italic;
 }
 
 .chamber-actions {

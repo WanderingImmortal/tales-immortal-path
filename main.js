@@ -713,6 +713,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initAlchemyChamberEvents === 'function') initAlchemyChamberEvents();
     if (typeof initPlaytestFeedback === 'function') initPlaytestFeedback();
     if (typeof initPlaytestMode === 'function') initPlaytestMode();
+    if (typeof initUiSettings === 'function') initUiSettings();
+    if (typeof initActionHelp === 'function') initActionHelp();
+    if (typeof initMainPanelActionHelp === 'function') initMainPanelActionHelp();
 
     // Popup close buttons
     document.getElementById('techClose').addEventListener('click', function() {

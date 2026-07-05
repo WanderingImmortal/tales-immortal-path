@@ -158,35 +158,52 @@ function getChamberActionGuide(key) {
     return typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE[key] : null;
 }
 
-function formatChamberGatherMeta() {
+function formatChamberGatherStats() {
     const g = CHAMBER_BALANCE.gatherQi;
     const cultMult = getChamberCultivateMult();
     const minD = (g.densityGainMin * cultMult).toFixed(2);
     const maxD = (g.densityGainMax * cultMult).toFixed(2);
     const fillPct = Math.round(g.fillRatio * 100 * cultMult);
-    return `+${minD}–${maxD} Density, refill ~${fillPct}% max Qi, +Root · ${g.weeks} wk`;
+    return [
+        `+${minD}–${maxD} Qi Density`,
+        `Refill ~${fillPct}% of max Qi`,
+        '+Root (slow); density milestones grant bonus Root',
+        `${g.weeks} week${g.weeks === 1 ? '' : 's'}`
+    ];
 }
 
-function formatChamberExpandMeta(block) {
-    if (block) return block;
+function formatChamberExpandStats() {
     const cfg = CHAMBER_BALANCE.expandDantian;
     const cd = formatChamberCooldown(G.chamberCooldowns.expandDantian);
-    return `+${cfg.maxQiBonusGain} max Qi · ${cfg.weeks} wk · ${cfg.stones}💎 · CD ${cfg.cooldownMonths} mo${cd}`;
+    return [
+        `+${cfg.maxQiBonusGain} max Qi capacity (permanent)`,
+        `+Root burst`,
+        `${cfg.weeks} weeks · ${cfg.stones} spirit stones`,
+        `Cooldown: ${cfg.cooldownMonths} months${cd}`
+    ];
 }
 
-function formatChamberFoundationMeta(block) {
-    if (block) return block;
+function formatChamberFoundationStats() {
     const cfg = CHAMBER_BALANCE.perfectFoundation;
     const cd = formatChamberCooldown(G.chamberCooldowns.perfectFoundation);
-    return `+${cfg.foundationGain} Flow · sacrifice 1 tech · ${cfg.weeks} wk · ${cfg.stones}💎 · CD ${cfg.cooldownMonths} mo${cd}`;
+    return [
+        `+${cfg.foundationGain} Flow (meridian pillar)`,
+        'Sacrifice 1 technique (need a spare)',
+        `${cfg.weeks} weeks · ${cfg.stones} spirit stones`,
+        `Cooldown: ${cfg.cooldownMonths} months${cd}`
+    ];
 }
 
-function formatChamberCondenseMeta(block) {
-    if (block) return block;
+function formatChamberCondenseStats() {
     const cfg = CHAMBER_BALANCE.condenseCore;
     const cd = formatChamberCooldown(G.chamberCooldowns.condenseCore);
     const chance = getChamberCondenseChance();
-    return `Core Formation · ${cfg.months} mo · ${cfg.stones}💎 · tribulation · ~${chance}% · CD ${cfg.cooldownMonths} mo${cd}`;
+    return [
+        'Target: Core Formation (realm advance)',
+        `${cfg.months} month · ${cfg.stones} spirit stones`,
+        `Form chance: ~${chance}% · then heavenly tribulation`,
+        `Cooldown: ${cfg.cooldownMonths} months${cd}`
+    ];
 }
 
 function chamberActionBlocked() {
@@ -303,37 +320,47 @@ function renderChamberUI() {
     const expandGuide = getChamberActionGuide('expandDantian');
     const foundationGuide = getChamberActionGuide('refineFoundation');
     const condenseGuide = getChamberActionGuide('condenseCore');
-    document.getElementById('chamberDensityLabel')?.setAttribute('title', STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
-    document.getElementById('chamberCapacityLabel')?.setAttribute('title', STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
-    document.getElementById('chamberFoundationLabel')?.setAttribute('title', STAT_GUIDE?.foundation?.desc || '');
+    if (typeof setHoverTooltip === 'function') {
+        setHoverTooltip(document.getElementById('chamberDensityLabel'), STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
+        setHoverTooltip(document.getElementById('chamberCapacityLabel'), STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
+        setHoverTooltip(document.getElementById('chamberFoundationLabel'), STAT_GUIDE?.foundation?.desc || '');
+    } else {
+        document.getElementById('chamberDensityLabel')?.setAttribute('title', STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
+        document.getElementById('chamberCapacityLabel')?.setAttribute('title', STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
+        document.getElementById('chamberFoundationLabel')?.setAttribute('title', STAT_GUIDE?.foundation?.desc || '');
+    }
+
+    const gatherFlavor = document.getElementById('chamberGatherFlavor');
+    const expandFlavor = document.getElementById('chamberExpandFlavor');
+    const foundationFlavor = document.getElementById('chamberFoundationFlavor');
+    const condenseFlavor = document.getElementById('chamberCondenseFlavor');
 
     if (gatherBtn) {
-        const g = b.gatherQi;
         const guide = getChamberActionGuide('gatherQi');
         gatherBtn.disabled = chamberActionBlocked();
-        gatherBtn.title = guide?.desc || `+${g.densityGainMin}–${g.densityGainMax} Density, Qi fill · ${g.weeks} week`;
-        document.getElementById('chamberGatherMeta').textContent = formatChamberGatherMeta();
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(gatherBtn, guide?.desc || '');
+        if (gatherFlavor) gatherFlavor.textContent = guide?.flavor || '';
     }
     if (expandBtn) {
         const block = getChamberExpandDantianBlockReason();
         const guide = getChamberActionGuide('expandDantian');
         expandBtn.disabled = chamberActionBlocked() || !!block;
-        expandBtn.title = block || guide?.desc || expandBtn.title;
-        document.getElementById('chamberExpandMeta').textContent = formatChamberExpandMeta(block);
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(expandBtn, block || guide?.desc || '');
+        if (expandFlavor) expandFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
     if (foundationBtn) {
         const block = getChamberPerfectFoundationBlockReason();
         const guide = getChamberActionGuide('refineFoundation');
         foundationBtn.disabled = chamberActionBlocked() || !!block;
-        foundationBtn.title = block || guide?.desc || foundationBtn.title;
-        document.getElementById('chamberFoundationMeta').textContent = formatChamberFoundationMeta(block);
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(foundationBtn, block || guide?.desc || '');
+        if (foundationFlavor) foundationFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
     if (coreBtn) {
         const block = getChamberCondenseCoreBlockReason();
         const guide = getChamberActionGuide('condenseCore');
         coreBtn.disabled = chamberActionBlocked() || !!block;
-        coreBtn.title = block || guide?.desc || coreBtn.title;
-        document.getElementById('chamberCondenseMeta').textContent = formatChamberCondenseMeta(block);
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(coreBtn, block || guide?.desc || '');
+        if (condenseFlavor) condenseFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
 }
 
@@ -536,6 +563,34 @@ function chamberCondenseCore() {
     fullRender();
 }
 
+function initChamberActionHelp() {
+    if (typeof bindChamberActionHelp !== 'function') return;
+    const g = (key) => getChamberActionGuide(key);
+    bindChamberActionHelp('chamberGatherHelp', {
+        title: `${g('gatherQi')?.emoji || ''} ${g('gatherQi')?.label || 'Gather Qi'}`.trim(),
+        desc: g('gatherQi')?.desc,
+        getStats: formatChamberGatherStats
+    });
+    bindChamberActionHelp('chamberExpandHelp', {
+        title: `${g('expandDantian')?.emoji || ''} ${g('expandDantian')?.label || 'Expand Dantian'}`.trim(),
+        desc: g('expandDantian')?.desc,
+        getBlock: getChamberExpandDantianBlockReason,
+        getStats: formatChamberExpandStats
+    });
+    bindChamberActionHelp('chamberFoundationHelp', {
+        title: `${g('refineFoundation')?.emoji || ''} ${g('refineFoundation')?.label || 'Refine Foundation'}`.trim(),
+        desc: g('refineFoundation')?.desc,
+        getBlock: getChamberPerfectFoundationBlockReason,
+        getStats: formatChamberFoundationStats
+    });
+    bindChamberActionHelp('chamberCondenseHelp', {
+        title: `${g('condenseCore')?.emoji || ''} ${g('condenseCore')?.label || 'Condense Core'}`.trim(),
+        desc: g('condenseCore')?.desc,
+        getBlock: getChamberCondenseCoreBlockReason,
+        getStats: formatChamberCondenseStats
+    });
+}
+
 function initChamberEvents() {
     document.getElementById('chamberGatherQi')?.addEventListener('click', chamberGatherQi);
     document.getElementById('chamberReturn')?.addEventListener('click', closeQiChamber);
@@ -543,4 +598,5 @@ function initChamberEvents() {
     document.getElementById('chamberPerfectFoundation')?.addEventListener('click', chamberPerfectFoundation);
     document.getElementById('chamberTechPickerCancel')?.addEventListener('click', hideChamberTechPicker);
     document.getElementById('chamberCondenseCore')?.addEventListener('click', chamberCondenseCore);
+    initChamberActionHelp();
 }
