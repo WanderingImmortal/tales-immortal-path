@@ -3484,7 +3484,7 @@ const SECT_BUILDINGS = {
         id: 'cultivation_hall',
         name: 'Cultivation Hall',
         emoji: '🧘',
-        desc: '+10% cultivation speed per level for the sect leader.',
+        desc: '+10% cultivation speed per level. Cultivate here to see your sect bonus breakdown.',
         effectKey: 'cultivationSpeedPct',
         effectPerLevel: 10,
         maxLevel: 3,
@@ -3518,7 +3518,7 @@ const SECT_BUILDINGS = {
         id: 'training_ground',
         name: 'Training Ground',
         emoji: '⚔️',
-        desc: '+10% combat XP for disciples per level (technique mastery on victory).',
+        desc: '+10% combat XP per level. Spar with disciples for technique mastery.',
         effectKey: 'combatXpPct',
         effectPerLevel: 10,
         maxLevel: 3,
@@ -3535,7 +3535,7 @@ const SECT_BUILDINGS = {
         id: 'treasury',
         name: 'Treasury',
         emoji: '💰',
-        desc: '+10% disciple stone income per level when you cultivate.',
+        desc: '+10% disciple stone income per level. Tithe accumulates here — collect into sect stores.',
         effectKey: 'passiveIncomePct',
         effectPerLevel: 10,
         maxLevel: 3,
@@ -3671,7 +3671,7 @@ const SECT_BUILDINGS = {
         id: 'vault',
         name: 'Vault',
         emoji: '🏛️',
-        desc: '+12% protection against stone losses from sect events per level.',
+        desc: '+12% event stone protection per level. Deposit stones into protected sect stores.',
         effectKey: 'vaultStoneSavePct',
         effectPerLevel: 12,
         maxLevel: 3,
@@ -3683,7 +3683,81 @@ const SECT_BUILDINGS = {
             { stones: 55, materials: { iron_ore: 5, jade_inlay: 2 }, months: 8, renown: 5 },
             { stones: 95, materials: { iron_ore: 6, jade_inlay: 3 }, months: 11, renown: 7 }
         ]
+    },
+    disciple_hall: {
+        id: 'disciple_hall',
+        name: 'Disciple Hall',
+        emoji: '📿',
+        desc: 'Seat of disciple assignments and construction crews. +1 assignment slot per level.',
+        effectKey: 'discipleAssignSlots',
+        effectPerLevel: 1,
+        maxLevel: 3,
+        minStage: 'founding',
+        implemented: true,
+        levels: [
+            null,
+            { stones: 22, materials: { silk_thread: 2, spirit_herb: 2 }, months: 5, renown: 2 },
+            { stones: 48, materials: { silk_thread: 4, spirit_herb: 4 }, months: 8, renown: 4 },
+            { stones: 85, materials: { silk_thread: 6, jade_inlay: 2 }, months: 11, renown: 7 }
+        ]
     }
+};
+
+// ----- Sect grounds map, inventory, construction, residence -----
+const SECT_CONSTRUCTION = {
+    personalCapMonths: 6,
+    modes: {
+        personal: { id: 'personal', label: 'Oversee personally', emoji: '👷' },
+        contractors: { id: 'contractors', label: 'Hire craftsmen', emoji: '🏗️' }
+    }
+};
+
+const SECT_BUILDING_ACTIONS = {
+    trainingSparMonths: 2,
+    vaultDepositPresets: [10, 25, 50]
+};
+
+const SECT_INVENTORY_BALANCE = {
+    baseCapacity: 50,
+    vaultCapacityPerLevel: 30
+};
+
+const SECT_RESIDENCE = {
+    id: 'residence',
+    name: "Leader's Quarters",
+    emoji: '🏠',
+    maxLevel: 3,
+    levels: [
+        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Your anchor while the sect grows.' },
+        { name: 'Inner Court Room', desc: 'A proper chamber for meditation focus and personal stores.' },
+        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with a yield chest and heirloom display.' },
+        { name: 'Immortal Abode', desc: 'A peak dwelling worthy of a sect founder.' }
+    ],
+    upgradeCosts: [
+        null,
+        { materials: { spirit_herb: 4, silk_thread: 2 }, months: 4, renown: 2 },
+        { materials: { spirit_herb: 6, jade_inlay: 2, celestial_silk: 1 }, months: 8, renown: 5 },
+        { materials: { spirit_herb: 8, jade_inlay: 3, celestial_silk: 2 }, months: 12, renown: 8 }
+    ]
+};
+
+const SECT_MAP_NODES = {
+    residence: { id: 'residence', type: 'residence', x: 50, y: 62, layer: 2 },
+    courtyard: { id: 'courtyard', type: 'hub', x: 50, y: 44, layer: 2 },
+    inventory: { id: 'inventory', type: 'inventory', x: 92, y: 8, layer: 3 },
+    defense_array: { id: 'defense_array', type: 'building', x: 18, y: 18, layer: 1 },
+    messenger_post: { id: 'messenger_post', type: 'building', x: 82, y: 18, layer: 1 },
+    armory: { id: 'armory', type: 'building', x: 22, y: 38, layer: 1 },
+    treasury: { id: 'treasury', type: 'building', x: 78, y: 38, layer: 1 },
+    training_ground: { id: 'training_ground', type: 'building', x: 28, y: 56, layer: 1 },
+    cultivation_hall: { id: 'cultivation_hall', type: 'building', x: 42, y: 72, layer: 1 },
+    spirit_garden: { id: 'spirit_garden', type: 'building', x: 58, y: 72, layer: 1 },
+    disciple_hall: { id: 'disciple_hall', type: 'building', x: 50, y: 52, layer: 1 },
+    library: { id: 'library', type: 'building', x: 72, y: 56, layer: 1 },
+    meditation_chamber: { id: 'meditation_chamber', type: 'building', x: 38, y: 48, layer: 1 },
+    beast_pen: { id: 'beast_pen', type: 'building', x: 62, y: 48, layer: 1 },
+    alchemy_lab: { id: 'alchemy_lab', type: 'building', x: 50, y: 82, layer: 1 },
+    vault: { id: 'vault', type: 'building', x: 50, y: 92, layer: 1 }
 };
 
 const SECT_CONFLICT_TYPES = {
