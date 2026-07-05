@@ -288,7 +288,7 @@ function npcCombatVictory(fromTechnique) {
             killWorldNpc(npc, 'combat');
             completeNpcQuestByGiver({ uid: npc.uid }, 'rival_duel');
             const fame = typeof addFame === 'function' ? addFame(b.rivalVictoryFame) : (G.fame += b.rivalVictoryFame, b.rivalVictoryFame);
-            G.foundation += b.rivalVictoryFoundation;
+            grantFoundation(b.rivalVictoryFoundation);
             addCombatLog(`🏆 Rival defeated! +${fame} Fame, +${b.rivalVictoryFoundation} Foundation`);
             addLog(`⚔️ You defeated ${npc.name} in a formal duel. The jianghu takes note.`);
             rewardLines.push(`⭐ +${fame} Fame`, `🏛️ +${b.rivalVictoryFoundation} Foundation`);
@@ -297,7 +297,7 @@ function npcCombatVictory(fromTechnique) {
             killWorldNpc(npc, 'combat');
             completeNpcQuestByGiver({ uid: npc.uid }, 'demonic_confront');
             const fame = typeof addFame === 'function' ? addFame(b.demonicVictoryFame) : (G.fame += b.demonicVictoryFame, b.demonicVictoryFame);
-            G.foundation += b.demonicVictoryFoundation;
+            grantFoundation(b.demonicVictoryFoundation);
             if (typeof shiftDaoAlignment === 'function') shiftDaoAlignment(b.demonicVictoryAlignment);
             else G.daoAlignment = clamp((G.daoAlignment || 0) + b.demonicVictoryAlignment, -100, 100);
             addCombatLog(`😈 Demonic Talent slain! +${fame} Fame — heaven takes note.`);
@@ -625,7 +625,7 @@ function applyStoryArcRewards(rewards) {
         if (gained) addLog(`⭐ +${gained} Fame`);
     }
     if (rewards.foundation) {
-        G.foundation += rewards.foundation;
+        grantFoundation(rewards.foundation);
         addLog(`🏛️ +${rewards.foundation} Foundation`);
     }
     if (rewards.alignment && typeof shiftDaoAlignment === 'function') {
@@ -1000,7 +1000,7 @@ function bindQuestPopupEvents(arcId, bossId) {
     document.querySelectorAll('[data-quest-action="observe"]').forEach(btn => {
         btn.onclick = function() {
             if (!advanceTime(2, 'Studying demonic corruption')) return;
-            G.foundation += 2;
+            grantFoundation(2);
             addLog('👁️ You discern the corruption\'s root — +2 Foundation. The fight will be easier.');
             const state = getStoryArcState(arcId);
             if (state) state.flags.observedCorruption = true;

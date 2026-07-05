@@ -240,7 +240,7 @@ function performFactionSectPact(pactId) {
     G.stones -= pact.stones || 0;
     G.factions.sectPacts[pact.factionId] = pactId;
     if (pact.effects?.sectRenown && typeof addSectRenown === 'function') addSectRenown(pact.effects.sectRenown);
-    if (pact.effects?.foundation) G.foundation += pact.effects.foundation;
+    if (pact.effects?.foundation) grantFoundation(pact.effects.foundation);
     if (pact.effects?.stones) G.stones += pact.effects.stones;
     addLog(`${pact.emoji} Sect pact signed: ${pact.label} with ${getFactionDef(pact.factionId)?.name}.`);
     appendFactionChronicleEntry({

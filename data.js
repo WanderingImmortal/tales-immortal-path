@@ -369,7 +369,7 @@ const PILL_TYPES = {
         desc: "Unblocks meridians — foundation and qi flow.",
         months: 2,
         apply() {
-            G.foundation += 4;
+            grantFoundation(4);
             G.qi = Math.min(getMaxQi(), G.qi + 4 + G.realmIdx);
             clampCurrentQi();
             return `+4 Foundation, dantian +${4 + G.realmIdx} Qi.`;
@@ -395,7 +395,7 @@ const PILL_TYPES = {
         desc: "Stabilizes your cultivation base before breakthroughs.",
         months: 3,
         apply() {
-            G.foundation += 8;
+            grantFoundation(8);
             G.qi += 3;
             G.vitality += 2;
             applyVitalityToMaxHp();
@@ -6206,7 +6206,7 @@ const DAO_ALIGNMENT = {
         {
             id: 'foundation_gift',
             log: 'Heavenly Blessing — the Dao rewards your harmony with deeper Foundation!',
-            apply() { G.foundation += 3; }
+            apply() { grantFoundation(3); }
         },
         {
             id: 'spirit_clarity',
@@ -6233,7 +6233,7 @@ const DAO_ALIGNMENT = {
         {
             id: 'foundation_crack',
             log: 'Heavenly Punishment — your Foundation cracks under heaven\'s displeasure!',
-            apply() { G.foundation = Math.max(0, G.foundation - 2); }
+            apply() { loseFoundation(2); }
         },
         {
             id: 'spirit_wound',

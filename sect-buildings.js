@@ -81,7 +81,8 @@ function getSectCultivationBreakdown() {
         const s = getSectSpiritCultivateMult();
         if (s > 1) rows.push({ label: 'Sect spirit', value: `+${Math.round((s - 1) * 100)}%`, emoji: '👻' });
     }
-    const totalMult = typeof getSectCultivationMult === 'function' ? getSectCultivationMult() : 1;
+    const totalMult = (typeof getSectCultivationMult === 'function' ? getSectCultivationMult() : 1)
+        * (typeof getFactionCultivateMult === 'function' ? getFactionCultivateMult() : 1);
     return { rows, totalMult, totalPct: Math.round((totalMult - 1) * 100) };
 }
 

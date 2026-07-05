@@ -890,7 +890,7 @@ function combatVictory(fromTechnique) {
     const foundationGain = fromTechnique ? 3 : 2;
     G.stones += reward;
     const fameAdded = typeof addFame === 'function' ? addFame(fameGain) : (G.fame += fameGain, fameGain);
-    G.foundation += foundationGain;
+    grantFoundation(foundationGain);
     addCombatLog(`💎 +${reward} Stones, +${fameAdded} Fame, +${foundationGain} Foundation`);
     if (typeof applyTrainingGroundCombatXp === 'function') {
         const uses = applyTrainingGroundCombatXp();

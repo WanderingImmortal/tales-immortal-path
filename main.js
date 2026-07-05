@@ -75,7 +75,7 @@ function comprehendDao(fragmentName) {
             if (primeName && !G.primeDaos.includes(primeName)) {
                 G.primeDaos.push(primeName);
                 G.daoFragments = G.daoFragments.filter(f => f !== fragmentName);
-                G.foundation += 12;
+                grantFoundation(12);
                 const fameAdded = typeof addFame === 'function' ? addFame(18) : (G.fame += 18, 18);
                 const msg = `🌌 You comprehend Prime Dao: ${primeName}! +12 Foundation, +${fameAdded} Fame.`;
                 commitActionLog(msg);
@@ -86,7 +86,7 @@ function comprehendDao(fragmentName) {
         if (trueDao && !G.trueDaos.includes(trueDao.name)) {
             G.trueDaos.push(trueDao.name);
             G.daoFragments = G.daoFragments.filter(f => f !== fragmentName);
-            G.foundation += 10;
+            grantFoundation(10);
             const fameAdded = typeof addFame === 'function' ? addFame(15) : (G.fame += 15, 15);
             const msg = `🌟 You comprehend the ${trueDao.name}! ${trueDao.desc} +10 Foundation, +${fameAdded} Fame.`;
             if (typeof shiftDaoAlignment === 'function') {
@@ -98,7 +98,7 @@ function comprehendDao(fragmentName) {
             commitActionLog(msg);
             return { success: true, message: msg, logged: true };
         }
-        G.foundation += 5;
+        grantFoundation(5);
         const insightMsg = `📜 You gain insight but do not comprehend a new Dao. +5 Foundation.`;
         commitActionLog(insightMsg);
         return { success: true, message: insightMsg, logged: true };
@@ -144,7 +144,7 @@ function mergeDaoPair(mergedName) {
         G.primeDaos = G.primeDaos.filter(n => n !== p);
     });
     G.mergedDaos.push(def.name);
-    G.foundation += bal.foundationBonus || 0;
+    grantFoundation(bal.foundationBonus || 0);
     const fameAdded = typeof addFame === 'function' ? addFame(bal.fameReward || 0) : (G.fame += (bal.fameReward || 0), bal.fameReward || 0);
     const msg = `🌀 SUPREME DAO — ${def.name}! ${def.desc} +${bal.foundationBonus} Foundation, +${fameAdded} Fame.`;
     if (typeof shiftDaoAlignment === 'function') shiftDaoAlignment(8, 'merging supreme Daos');

@@ -160,7 +160,7 @@ function actionForbiddenSearch() {
         G.stones += stones;
         addLog(`🌑 Legends hide well. You find only wind — and ${stones} stones overlooked.`);
     } else {
-        G.foundation += 1;
+        grantFoundation(1);
         addLog(`🌑 You sense something watching, but it slips away. +1 Foundation from the attempt.`);
     }
     refreshForbiddenPopupIfOpen();
@@ -470,7 +470,7 @@ function forbiddenMirrorDefeat() {
 function applyMirrorLakeRewards() {
     learnTechnique('Mirror Step');
     G.fame += 15;
-    G.foundation += 10;
+    grantFoundation(10);
     if (!G.forbiddenTitles.includes('Reflection Walker')) G.forbiddenTitles.push('Reflection Walker');
     addLog(`📜 Learned Mirror Step! +15 Fame, +10 Foundation. Title: Reflection Walker.`);
 }
@@ -607,7 +607,7 @@ function gardenApplyEffects(effects) {
     if (effects.hp) G.hp = clamp(G.hp + effects.hp, 1, G.maxHp);
     if (effects.stones) G.stones = Math.max(0, G.stones + effects.stones);
     if (effects.fame) G.fame += effects.fame;
-    if (effects.foundation) G.foundation += effects.foundation;
+    if (effects.foundation) grantFoundation(effects.foundation);
 
     if (ts.decay >= FORBIDDEN_BALANCE.gardenDecayCap) {
         document.getElementById('gardenOverlay').classList.remove('active');
@@ -658,7 +658,7 @@ function applyAshenGardenRewards(tier) {
         addLog(`🏆 Legendary Material: Heartwood Ash`);
     }
     G.fame += 20;
-    G.foundation += 12;
+    grantFoundation(12);
 
     if (tier === 'pure') {
         G.forbiddenLifespanMult = 1.08;
@@ -801,7 +801,7 @@ function applyIronCrucibleRewards() {
     }
     G.crucibleRegenMult = 1.12;
     G.fame += 25;
-    G.foundation += 15;
+    grantFoundation(15);
     if (!G.forbiddenTitles.includes('The Unbroken')) G.forbiddenTitles.push('The Unbroken');
     addLog(`✨ Title: The Unbroken. +12% combat resource recovery. +25 Fame, +15 Foundation.`);
 }
@@ -944,7 +944,7 @@ function silenceApplyEffects(effects) {
         addLog(`⚠️ Critical Noise — lifespan cost surges on each step.`);
     }
 
-    if (effects.foundation) G.foundation += effects.foundation;
+    if (effects.foundation) grantFoundation(effects.foundation);
     if (effects.stones) G.stones = Math.max(0, G.stones + effects.stones);
 
     if (ts.noise >= FORBIDDEN_BALANCE.silenceCap) {
@@ -1105,7 +1105,7 @@ function applySilentMountainRewards(tier) {
         addLog(`🏆 Legendary Material: Peak Silence Stone`);
     }
     G.will += 3;
-    G.foundation += 12;
+    grantFoundation(12);
     G.fame += 20;
     if (tier === 'pure') {
         G.silenceEchoResist = 1;
@@ -1254,7 +1254,7 @@ function mawApplyEffects(effects) {
     if (effects.hp) G.hp = clamp(G.hp + effects.hp, 1, G.maxHp);
     if (effects.stones) G.stones = Math.max(0, G.stones + effects.stones);
     if (effects.fame) G.fame += effects.fame;
-    if (effects.foundation) G.foundation += effects.foundation;
+    if (effects.foundation) grantFoundation(effects.foundation);
 
     if (ts.doubt >= getMawDoubtCap()) {
         document.getElementById('mawOverlay').classList.remove('active');
@@ -1375,7 +1375,7 @@ function applyWhisperingMawRewards(tier) {
         addLog(`🏆 Legendary Material: Fragment of True Speech`);
     }
     G.will += 2;
-    G.foundation += 10;
+    grantFoundation(10);
     G.fame += 18;
     if (tier === 'pure' || tier === 'honest') {
         G.mawDoubtResist = 1;
@@ -1505,8 +1505,8 @@ function templeApplyEffects(effects) {
 
     if (effects.hp) G.hp = clamp(G.hp + effects.hp, 1, G.maxHp);
     if (effects.stones) G.stones = Math.max(0, G.stones + effects.stones);
-    if (effects.foundation) G.foundation += effects.foundation;
-    if (effects.insight) G.foundation += effects.insight;
+    if (effects.foundation) grantFoundation(effects.foundation);
+    if (effects.insight) grantFoundation(effects.insight);
 
     if (effects.loop) {
         templeTriggerLoop(ts);
@@ -1543,7 +1543,7 @@ function applySunkenTempleRewards(tier) {
         addLog(`🏆 Legendary Material: Jade Loop Pearl`);
     }
     G.spirit += 2;
-    G.foundation += 12;
+    grantFoundation(12);
     G.fame += 15;
     if (tier === 'pure') {
         if (!G.forbiddenTitles.includes('Loop Breaker')) G.forbiddenTitles.push('Loop Breaker');
@@ -1840,7 +1840,7 @@ function applyObservatoryRewards(tier) {
         addLog(`🏆 Legendary Material: Celestial Lens`);
     }
     G.spirit += 3;
-    G.foundation += 14;
+    grantFoundation(14);
     G.fame += 22;
     if (tier === 'pure') {
         if (!G.forbiddenTitles.includes('Star Witness')) G.forbiddenTitles.push('Star Witness');

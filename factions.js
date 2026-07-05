@@ -409,7 +409,7 @@ function completeFactionQuest(questId) {
         if (typeof addFame === 'function') addFame(r.fame);
         else G.fame += r.fame;
     }
-    if (r.foundation) G.foundation += r.foundation;
+    if (r.foundation) grantFoundation(r.foundation);
     if (r.stones) G.stones += r.stones;
     if (r.spirit) G.spirit += r.spirit;
     if (r.alignment && typeof shiftDaoAlignment === 'function') shiftDaoAlignment(r.alignment, def.title);

@@ -307,7 +307,7 @@ function attemptLegendaryPhysique(name) {
     G.physique = { ...physique };
     applyPhysiqueBonus(G.physique);
     G._appliedPhysiqueRecord = { ...G.physique, bonus: { ...(G.physique.bonus || {}) } };
-    G.foundation += 10;
+    grantFoundation(10);
     if (typeof addFame === 'function') addFame(10);
     else G.fame += 10;
     const msg = `🏆 You awaken the ${name} physique! Legendary power flows through you! +10 Foundation, +10 Fame.`;
@@ -336,7 +336,7 @@ function attemptEvilPhysique(name) {
     applyPhysiqueBonus(G.physique);
     G._appliedPhysiqueRecord = { ...G.physique, bonus: { ...(G.physique.bonus || {}) } };
     G.corruptionLevel += 20;
-    G.foundation += 5;
+    grantFoundation(5);
     const msg = `😈 You embrace the ${name} physique! ${physique.pro} ${physique.con}`;
     commitActionLog(msg);
     if (typeof shiftDaoAlignment === 'function') {

@@ -876,7 +876,7 @@ function applySectEventChoice(eventId, choiceKey) {
         G.stones = Math.max(0, (G.stones || 0) + stones);
     }
     if (fx.renown) addSectRenown(fx.renown);
-    if (fx.foundation) G.foundation += fx.foundation;
+    if (fx.foundation) grantFoundation(fx.foundation);
     if (fx.respect || fx.fear || fx.reviled) {
         shiftSectReputation('sect_event', { respect: fx.respect || 0, fear: fx.fear || 0, reviled: fx.reviled || 0 });
     }
@@ -904,7 +904,7 @@ function applySectEventChoice(eventId, choiceKey) {
         if (wise > 0) {
             const per = DISCIPLE_TRAITS.wise.cultivateFoundationBonus || 1;
             const gain = wise * per;
-            G.foundation += gain;
+            grantFoundation(gain);
             addLog(`🦉 Wise disciples guide the breakthrough (+${gain} Foundation).`);
         }
     }
@@ -1077,7 +1077,7 @@ function applySectSuccession(discipleUid) {
     G.ageMonths = SECT_LEGACY.successorAgeYears * 12;
     G.lifespanMonths = G.ageMonths + getLifespanForRealm(G.realmIdx) * 12;
     const tBonus = getSectHeirloomBonuses();
-    G.foundation += tBonus.foundationBonus || 0;
+    grantFoundation(tBonus.foundationBonus || 0);
     addSectRenown(tBonus.renownBonus || 0);
 
     appendSectChronicle(`${disciple.name} became Generation ${G.sect.leaderGeneration} leader.`, '👑');

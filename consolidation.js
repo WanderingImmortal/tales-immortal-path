@@ -493,7 +493,7 @@ function executeConsolidation(opts) {
     G.realmPeakGrindBoost = 0;
 
     const tierLabel = perfect ? 'Perfect' : getBreakthroughTierScale(sealTier).label;
-    addLog(`🏛️ ${getRealm()} sealed (${tierLabel}). ${formatPillarGrant('stability', grantedStability)}, +${qiGains.maxQiGain || 0} Max Qi cap, +${qiGains.qiDensityGain || 0} Density.`);
+    addLog(`🏛️ ${getRealm()} sealed (${tierLabel}). ${formatPillarGrant('stability', grantedStability)}, +${qiGains.maxQiGain || 0} Max Qi cap, +${qiGains.densityGain || 0} Density.`);
     addLog(`   ↳ "${perfect ? def.perfect.flavor : (sealTier === 'peak' ? capstone.peakFlavor : capstone.settledFlavor)}"`);
     if (stoneCost > 0) addLog(`   ↳ −${stoneCost} Spirit Stones.`);
 

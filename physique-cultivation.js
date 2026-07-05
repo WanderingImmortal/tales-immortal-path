@@ -258,7 +258,7 @@ function advancePhysiqueProgress(amount) {
         }
         pc.stage += 1;
         pc.progress = 0;
-        G.foundation = (G.foundation || 0) + (bal.foundationPerStage || 1);
+        grantFoundation(bal.foundationPerStage || 1);
         const stageName = getPhysiqueStageName(pc.stage);
         msgExtra = ` Stage ${pc.stage} — ${stageName} begins!`;
     }
@@ -343,7 +343,7 @@ function completePhysiqueCultivation() {
     pc.stage = 0;
     pc.progress = 0;
     pc.startedAtMonths = null;
-    G.foundation = (G.foundation || 0) + (bal.foundationOnComplete || 3);
+    grantFoundation(bal.foundationOnComplete || 3);
     if (G._appliedPhysiqueRecord) {
         removePhysiqueBonus(G._appliedPhysiqueRecord);
         G._appliedPhysiqueRecord = null;
