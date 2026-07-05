@@ -28,6 +28,7 @@ function ensureChamberState() {
     }
     if (G.chamberExpandCount == null) G.chamberExpandCount = 0;
     if (G.chamberFoundationCount == null) G.chamberFoundationCount = 0;
+    if (G.chamberGatherCount == null) G.chamberGatherCount = 0;
     if (G.chamberCoreCondensed == null) G.chamberCoreCondensed = false;
 }
 
@@ -58,13 +59,14 @@ function getChamberDensityCap() {
 
 function getChamberFoundationCap() {
     const b = CHAMBER_BALANCE;
+    const foundation = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : (G.foundation || 0);
     const def = typeof getConsolidationDef === 'function' ? getConsolidationDef(G.realmIdx) : null;
     if (def?.foundationGain) {
-        const target = (G.foundation || 0) + def.foundationGain;
-        return Math.max(target * (b.foundationBarHeadroom || 1.15), G.foundation || 0, 1);
+        const target = foundation + def.foundationGain;
+        return Math.max(target * (b.foundationBarHeadroom || 1.15), foundation, 1);
     }
     const row = typeof CONSOLIDATION_BY_REALM !== 'undefined' ? CONSOLIDATION_BY_REALM[G.realmIdx] : null;
-    return row?.foundationGain ? G.foundation + row.foundationGain + 10 : Math.max(20, G.foundation + 15);
+    return row?.foundationGain ? foundation + row.foundationGain + 10 : Math.max(20, foundation + 15);
 }
 
 function isChamberOnCooldown(key) {
@@ -118,7 +120,7 @@ function getChamberCondenseChance() {
     const readiness = getChamberCondenseReadiness();
     if (!readiness.ready) return 0;
     const cfg = CHAMBER_BALANCE.condenseCore;
-    let chance = 40 + G.foundation * 1.8 + getQiDensity() * 3.5 + getQiFillRatio() * 22;
+    let chance = 40 + getEffectiveFoundation() * 1.8 + getQiDensity() * 3.5 + getQiFillRatio() * 22;
     if (typeof getBreakChance === 'function') chance += getBreakChance() * 0.12;
     if ((G.chamberFoundationCount || 0) > 0) chance += Math.min(6, G.chamberFoundationCount * 2);
     if ((G.chamberExpandCount || 0) > 0) chance += Math.min(4, G.chamberExpandCount);
@@ -220,7 +222,7 @@ function renderChamberUI() {
     const densityCap = getChamberDensityCap();
     const maxQi = getMaxQi();
     const qi = G.qi != null ? G.qi : maxQi;
-    const foundation = G.foundation || 0;
+    const foundation = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : (G.foundation || 0);
     const foundationCap = getChamberFoundationCap();
 
     const densityBar = document.getElementById('chamberDensityBar');
@@ -309,9 +311,15 @@ function chamberGatherQi() {
     G.qi = Math.min(getMaxQi(), (G.qi || 0) + fillGain);
     clampCurrentQi();
     if (G.qiExhausted && G.qi > 0) G.qiExhausted = false;
+    G.chamberGatherCount = (G.chamberGatherCount || 0) + 1;
+    const rootGain = typeof applyChamberGatherRootGrant === 'function' ? applyChamberGatherRootGrant() : 0;
+    const milestoneGain = typeof checkCultivationDensityMilestones === 'function'
+        ? checkCultivationDensityMilestones() : 0;
     triggerChamberAnim('gather');
     const total = getQiDensity();
     let msg = `🌬️ You draw heaven's breath into your dantian. +${densGain.toFixed(2)} Density (${total.toFixed(2)} total), dantian +${fillGain}.`;
+    if (rootGain) msg += ` ${formatPillarGrant('root', rootGain)}.`;
+    if (milestoneGain) msg += ` ${formatPillarGrant('root', milestoneGain)} (density milestone).`;
     if (cultMult > 1.05) msg += ` (×${cultMult.toFixed(2)} cultivation bonus)`;
     commitActionLog(msg);
     if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
@@ -339,11 +347,12 @@ function chamberExpandDantian() {
     G.stones -= cfg.stones;
     G.maxQiBonus = (G.maxQiBonus || 0) + cfg.maxQiBonusGain;
     G.chamberExpandCount = (G.chamberExpandCount || 0) + 1;
+    const rootGain = typeof applyChamberExpandRootGrant === 'function' ? applyChamberExpandRootGrant() : 0;
     clampCurrentQi();
     G.chamberCooldowns.expandDantian = G.ageMonths + cfg.cooldownMonths;
     triggerChamberAnim('expand');
     const afterCap = getMaxQi();
-    commitActionLog(`🏺 Your dantian swells to hold more Qi. +${cfg.maxQiBonusGain} Capacity (${beforeCap} → ${afterCap}), −${cfg.stones} Stones.`);
+    commitActionLog(`🏺 Your dantian swells to hold more Qi. +${cfg.maxQiBonusGain} Capacity (${beforeCap} → ${afterCap}), −${cfg.stones} Stones.${rootGain ? ' ' + formatPillarGrant('root', rootGain) + '.' : ''}`);
     renderChamberUI();
     fullRender();
 }
@@ -373,7 +382,7 @@ function executeChamberPerfectFoundation(techName) {
     }
     ensureChamberState();
     const cfg = CHAMBER_BALANCE.perfectFoundation;
-    const beforeFoundation = G.foundation || 0;
+    const beforeFlow = typeof getCultivationPillarValue === 'function' ? getCultivationPillarValue('flow') : 0;
     beginActionLog();
     if (!advanceChamberWeeks(cfg.weeks, 'Perfecting foundation in the chamber')) {
         cancelActionLog();
@@ -383,12 +392,14 @@ function executeChamberPerfectFoundation(techName) {
     G.stones -= cfg.stones;
     const idx = G.techniques.findIndex(t => t.name === techName);
     const sacrificed = G.techniques.splice(idx, 1)[0];
-    G.foundation = beforeFoundation + cfg.foundationGain;
+    const flowGain = typeof grantPerfectFoundationFlow === 'function'
+        ? grantPerfectFoundationFlow()
+        : grantCultivationPillar('flow', cfg.foundationGain);
     G.chamberFoundationCount = (G.chamberFoundationCount || 0) + 1;
     clampCurrentQi();
     G.chamberCooldowns.perfectFoundation = G.ageMonths + cfg.cooldownMonths;
     triggerChamberAnim('foundation');
-    commitActionLog(`🪨 You burn ${sacrificed.name} into bedrock foundation. +${cfg.foundationGain} Foundation (${beforeFoundation} → ${G.foundation}), −${cfg.stones} Stones.`);
+    commitActionLog(`🪨 You burn ${sacrificed.name} into bedrock foundation. ${formatPillarGrant('flow', flowGain)} (${beforeFlow} → ${getCultivationPillarValue('flow')}), −${cfg.stones} Stones.`);
     renderChamberUI();
     fullRender();
 }
@@ -425,10 +436,11 @@ function resolveChamberCondenseAfterTribulation() {
     } else {
         G.chamberCoreCondensed = false;
         const loss = cfg.tribFailFoundationLoss || 3;
-        G.foundation = Math.max(0, (G.foundation || 0) - loss);
+        const cracks = typeof applyFoundationLossAsCracks === 'function'
+            ? applyFoundationLossAsCracks(loss) : 1;
         G.qi = Math.max(1, Math.floor(G.qi * 0.65));
         clampCurrentQi();
-        addLog(`💥 Heaven rejects the nascent core. It shatters — Foundation −${loss}.`);
+        addLog(`💥 Heaven rejects the nascent core. It shatters — ${cracks} foundation crack${cracks === 1 ? '' : 's'}.`);
     }
     fullRender();
 }
@@ -455,8 +467,9 @@ function chamberCondenseCore() {
     const roll = Math.random() * 100;
     if (roll >= chance) {
         const loss = cfg.failFoundationLoss || 2;
-        G.foundation = Math.max(0, (G.foundation || 0) - loss);
-        commitActionLog(`💎 The Qi refuses to crystallize (${Math.round(chance)}% chance, rolled ${Math.round(roll)}). Foundation −${loss}.`);
+        const cracks = typeof applyFoundationLossAsCracks === 'function'
+            ? applyFoundationLossAsCracks(loss) : 1;
+        commitActionLog(`💎 The Qi refuses to crystallize (${Math.round(chance)}% chance, rolled ${Math.round(roll)}). ${cracks} foundation crack${cracks === 1 ? '' : 's'}.`);
         renderChamberUI();
         fullRender();
         return;

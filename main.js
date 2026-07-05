@@ -67,7 +67,7 @@ function comprehendDao(fragmentName) {
     G.qi -= cost;
     G.spirit -= Math.floor(cost / 2);
     G.daoComprehensionAttempts++;
-    let chance = 30 + G.foundation * 2 + G.spirit * 1.5 + G.will * 1.5;
+    let chance = 30 + getEffectiveFoundation() * 2 + G.spirit * 1.5 + G.will * 1.5;
     if (typeof getSectBuildingBonus === 'function') chance += getSectBuildingBonus('daoSpeedPct');
     if (Math.random() * 100 < chance) {
         if (fragment.type === 'prime') {
@@ -133,7 +133,7 @@ function mergeDaoPair(mergedName) {
     }
     G.qi -= bal.qiCost;
     G.spirit -= bal.spiritCost;
-    let chance = bal.baseChance + G.foundation * 1.2 + G.spirit * 0.8;
+    let chance = bal.baseChance + getEffectiveFoundation() * 1.2 + G.spirit * 0.8;
     if (typeof getSectBuildingBonus === 'function') chance += getSectBuildingBonus('daoSpeedPct');
     if (Math.random() * 100 >= chance) {
         const failMsg = `💫 The merge collapses — the supreme Dao slips away.`;
@@ -276,6 +276,10 @@ function setupCreation() {
         G.vitalityHpBonus = 0;
         applyVitalityToMaxHp();
         G.foundation = 0;
+        G.cultivationBase = { root: 0, flow: 0, stability: 0 };
+        G.cultivationMilestones = { density: {} };
+        G.foundationCracks = 0;
+        G._cultivationBaseMigrated = true;
         G.breakAttempts = 0;
         G.qiExhausted = false;
         G.combatResource = 0;

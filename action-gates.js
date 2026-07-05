@@ -33,7 +33,7 @@ function setMilestoneSilent(id) {
 }
 
 function legacySaveHasExplored() {
-    if ((G.foundation || 0) > 0) return true;
+    if (getEffectiveFoundation() > 0) return true;
     if (G.realmIdx > 0) return true;
     if (G.log?.some(entry => typeof entry === 'string' && /Exploring|🌿|🗺️ Exploring/i.test(entry))) {
         return true;

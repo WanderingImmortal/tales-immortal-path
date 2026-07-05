@@ -24,7 +24,7 @@ function getTribulationSeverity() {
     let severity = TRIBULATION_BALANCE.baseSeverity + G.realmIdx * TRIBULATION_BALANCE.severityPerRealm;
     severity += getPlayerTraitBonus('tribulationSeverityPct', 0);
     if (G.trait?.bonus?.tribulation_risk) severity += G.trait.bonus.tribulation_risk;
-    severity -= Math.floor(G.foundation / 4);
+    severity -= Math.floor(getEffectiveFoundation() / 4);
     severity -= Math.floor((G.lightningResist || 0) / 12);
     severity -= Math.floor(getScarLightningResistBonus() / 2);
     severity = Math.floor(severity * (1 - getScarDown('perceptionPct', 0)));

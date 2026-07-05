@@ -762,7 +762,7 @@ const STAT_GUIDE = {
     will: { label: 'Will', emoji: '💪', desc: 'Determination and inner strength. Helps resist demonic influence, mental attacks, and tribulation pressure.' },
     hp: { label: 'HP', emoji: '❤️', desc: 'Health points. When depleted in combat you may fall. Recuperate or use pills to recover.' },
     shield: { label: 'Shield', emoji: '🛡️', desc: 'Protective barrier absorbing damage before HP. Regenerates slowly; some techniques and gear boost it.' },
-    foundation: { label: 'Foundation', emoji: '🏛️', desc: 'Permanent realm mastery from consolidation. Required before breakthrough and improves long-term growth.' },
+    foundation: { label: 'Foundation', emoji: '🏛️', desc: 'Cultivation base quality from Root (dantian), Flow (meridians), and Stability (seals). Higher foundation improves breakthrough odds, max Qi, density, and tribulation resistance. Cracks reduce effective foundation.' },
     lifespan: { label: 'Lifespan', emoji: '🕯️', desc: 'Years you may live before your soul scatters. Cultivation extends it; running out ends the journey unless you transcend.' },
     stones: { label: 'Spirit Stones', emoji: '💎', desc: 'Currency of cultivators. Buy techniques, pills, and gear at markets; pay for sect and crafting costs.' },
     consolidation: { label: 'Consolidation', emoji: '🏛️', desc: 'At realm peak, seclude to cement your foundation before breaking through. Perfect consolidation grants lasting bonuses.' },
@@ -4151,6 +4151,44 @@ const SECT_HEIRLOOMS = {
 
 const SECT_TREASURES = SECT_HEIRLOOMS;
 
+// ===== CULTIVATION BASE (Root / Flow / Stability pillars) =====
+
+const CULTIVATION_BASE_BALANCE = {
+    crackPenalty: 4,
+    grades: [
+        { id: 'crude', min: 0, label: 'Crude', emoji: '🪨' },
+        { id: 'firm', min: 19, label: 'Firm', emoji: '🏛️' },
+        { id: 'unshakable', min: 33, label: 'Unshakable', emoji: '⛰️' },
+        { id: 'peerless', min: 46, label: 'Peerless', emoji: '🌟' }
+    ],
+    pillarCapsByRealm: {
+        0: { root: 18, flow: 18, stability: 16 },
+        1: { root: 28, flow: 28, stability: 24 },
+        2: { root: 36, flow: 36, stability: 32 },
+        3: { root: 44, flow: 44, stability: 40 },
+        4: { root: 52, flow: 52, stability: 48 },
+        5: { root: 60, flow: 60, stability: 56 },
+        6: { root: 72, flow: 72, stability: 68 }
+    },
+    pillarGrants: {
+        gatherQiRoot: 0.25,
+        expandDantianRoot: 1.5,
+        densityMilestoneRoot: 1,
+        densityMilestones: [1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0],
+        meridianOpenFlowFirst: 3,
+        meridianOpenFlowEarly: 2.5,
+        meridianOpenFlowLater: 2,
+        meridianFailFlow: 0.25,
+        perfectFoundationFlow: 2,
+        peakGrindStability: 1,
+        foundationLossPerCrack: 2
+    },
+    legacyMigration: {
+        rootRatio: 0.35,
+        flowRatio: 0.35
+    }
+};
+
 // ===== QI CULTIVATION (capacity + density) =====
 
 const QI_BALANCE = {
@@ -4648,12 +4686,16 @@ const COMBAT_PATH = {
         secondaryLabel: '🛡️ Defend',
         maxResource(g) {
             const cap = typeof getMaxQi === 'function' ? getMaxQi() : g.qi * 2;
-            const rootDepth = Math.floor((g.foundation || 0) / 5);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const rootDepth = Math.floor(foundation / 5);
             return 25 + Math.floor(cap * 0.65) + g.realmIdx * 4 + rootDepth;
         },
         regen(g) {
             const dens = typeof getQiDensity === 'function' ? getQiDensity() : g.qi / 8;
-            const circulation = Math.floor((g.foundation || 0) / 15);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const circulation = Math.floor(foundation / 15);
             return 2 + Math.floor(g.realmIdx / 3) + Math.floor(dens * 1.0) + circulation;
         },
         costs: { attack: 3, defend: 3, flee: 6, technique: 0, special: 4 }
@@ -4667,11 +4709,15 @@ const COMBAT_PATH = {
         secondaryAction: 'fortify',
         secondaryLabel: '💪 Fortify',
         maxResource(g) {
-            const rootDepth = Math.floor((g.foundation || 0) / 6);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const rootDepth = Math.floor(foundation / 6);
             return 40 + Math.floor(g.vitality * 2.5) + g.realmIdx * 3 + rootDepth;
         },
         regen(g) {
-            const circulation = Math.floor((g.foundation || 0) / 18);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const circulation = Math.floor(foundation / 18);
             return 2 + Math.floor(g.realmIdx / 4) + Math.floor(g.vitality / 10) + circulation;
         },
         costs: { attack: 4, defend: 4, flee: 8, technique: 0, special: 12 }
@@ -4685,11 +4731,15 @@ const COMBAT_PATH = {
         secondaryAction: 'intimidate',
         secondaryLabel: '👁️ Intimidate',
         maxResource(g) {
-            const rootDepth = Math.floor((g.foundation || 0) / 8);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const rootDepth = Math.floor(foundation / 8);
             return 22 + g.will * 2 + g.spirit + g.realmIdx * 3 + rootDepth;
         },
         regen(g) {
-            const circulation = Math.floor((g.foundation || 0) / 20);
+            const foundation = typeof getEffectiveFoundationFromState === 'function'
+                ? getEffectiveFoundationFromState(g) : (g.foundation || 0);
+            const circulation = Math.floor(foundation / 20);
             return 3 + Math.floor(g.will / 5) + Math.floor(g.realmIdx / 3) + circulation;
         },
         costs: { attack: 4, defend: 5, flee: 6, technique: 0, special: 10 }

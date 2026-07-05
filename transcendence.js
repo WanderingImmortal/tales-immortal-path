@@ -37,7 +37,7 @@ function hasTranscendenceFlag(key) {
 }
 
 function getRequiredPerfectMargin() {
-    const reduction = Math.floor(G.foundation * (TRANSCENDENCE_BALANCE.foundationMarginPerPoint || 0));
+    const reduction = Math.floor(getEffectiveFoundation() * (TRANSCENDENCE_BALANCE.foundationMarginPerPoint || 0));
     return Math.max(
         TRANSCENDENCE_BALANCE.minPerfectMargin || 5,
         TRANSCENDENCE_BALANCE.perfectMargin - reduction
@@ -46,17 +46,18 @@ function getRequiredPerfectMargin() {
 
 function getFoundationPerfectSalvageChance(margin, reqMargin) {
     if (margin < 0) return 0;
-    const base = G.foundation * (TRANSCENDENCE_BALANCE.foundationPerfectPerPoint || 0);
+    const base = getEffectiveFoundation() * (TRANSCENDENCE_BALANCE.foundationPerfectPerPoint || 0);
     const cap = TRANSCENDENCE_BALANCE.foundationPerfectCap || 40;
     const closeness = reqMargin > 0 ? margin / reqMargin : 1;
     return Math.min(cap, base * Math.max(0.35, Math.min(1, closeness)));
 }
 
 function getFoundationStabilizePerfectChance() {
-    if (G.foundation < (TRANSCENDENCE_BALANCE.foundationStabilizeMin || 12)) return 0;
+    const foundation = getEffectiveFoundation();
+    if (foundation < (TRANSCENDENCE_BALANCE.foundationStabilizeMin || 12)) return 0;
     return Math.min(
         TRANSCENDENCE_BALANCE.foundationStabilizePerfectCap || 18,
-        G.foundation * 0.65
+        foundation * 0.65
     );
 }
 
