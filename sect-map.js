@@ -309,12 +309,11 @@ function renderBuildingActionsHtml(buildingId, lv) {
 
     if (buildingId === 'treasury') {
         const pending = typeof getTreasuryPendingTithe === 'function' ? getTreasuryPendingTithe() : 0;
-        const income = typeof getSectDiscipleIncome === 'function' ? getSectDiscipleIncome() : 0;
-        const fameBonus = typeof getFameLevel === 'function' ? getFameLevel().bonus : 0;
+        const titheRate = typeof getTreasuryTithePerCultivate === 'function' ? getTreasuryTithePerCultivate() : 0;
         const bonus = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('passiveIncomePct') : 0;
         html += `<div class="sect-section-title">💰 Tithe Chest</div>`;
         html += `<p class="sect-hint">Disciple offerings accumulate when you cultivate (+${bonus}% treasury bonus). Collect stones into sect stores.</p>`;
-        html += `<div class="sect-harvest-display">Ready: <strong>${pending}</strong>💎 · Rate: ${income + fameBonus}/cultivate</div>`;
+        html += `<div class="sect-harvest-display">Ready: <strong>${pending}</strong>💎 · Rate: ${titheRate}/cultivate</div>`;
         html += `<button type="button" class="sect-action-btn" id="btnCollectTithe" ${pending <= 0 ? 'disabled' : ''}>💰 Collect Tithe</button>`;
     }
 

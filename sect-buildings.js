@@ -17,6 +17,14 @@ function getTreasuryPendingTithe() {
     return G.sect.buildingMeta.treasury?.pendingTithe || 0;
 }
 
+/** Disciple tithe banked per cultivate when treasury is built (0 without disciples). */
+function getTreasuryTithePerCultivate() {
+    if (!G.disciples?.length) return 0;
+    const income = typeof getSectDiscipleIncome === 'function' ? getSectDiscipleIncome() : G.disciples.length;
+    const fameBonus = typeof getFameLevel === 'function' ? getFameLevel().bonus : 0;
+    return income + fameBonus;
+}
+
 function addTreasuryPendingTithe(amount) {
     ensureSectBuildingMeta();
     if (!amount) return;

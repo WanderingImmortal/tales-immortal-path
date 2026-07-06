@@ -23,7 +23,6 @@ function shouldTriggerTribulation() {
 function getTribulationSeverity() {
     let severity = TRIBULATION_BALANCE.baseSeverity + G.realmIdx * TRIBULATION_BALANCE.severityPerRealm;
     severity += getPlayerTraitBonus('tribulationSeverityPct', 0);
-    if (G.trait?.bonus?.tribulation_risk) severity += G.trait.bonus.tribulation_risk;
     severity -= Math.floor(getEffectiveFoundation() / 4);
     severity -= Math.floor((G.lightningResist || 0) / 12);
     severity -= Math.floor(getScarLightningResistBonus() / 2);
@@ -418,9 +417,12 @@ function resolveLightningTrial(choice) {
         addLog(`🌩️ Lightning subsides! (${Math.round(resist)} vs ${state.severity})`);
         G.vitality += 1;
         G.will += 1;
-        if (G.trait.bonus.tribulation_risk) {
-            G.stones += 20 + G.realmIdx * 5;
-            addLog(`💎 Heaven's gambler pays out: +${20 + G.realmIdx * 5} Stones!`);
+        const gamblerPct = getPlayerTraitBonus('tribulationRewardPct', 0);
+        if (gamblerPct > 0) {
+            const base = 20 + G.realmIdx * 5;
+            const payout = Math.max(1, Math.floor(base * (1 + gamblerPct / 100)));
+            G.stones += payout;
+            addLog(`💎 Heaven's gambler pays out: +${payout} Stones!`);
         }
     } else {
         const gap = state.severity - resist;
@@ -702,7 +704,7 @@ function getScarRollChance(state) {
         ? TRIBULATION_BALANCE.scarBaseChancePassed
         : TRIBULATION_BALANCE.scarBaseChanceFailed;
     chance += (state.scarRisk || 0) * TRIBULATION_BALANCE.scarRiskPerPoint;
-    if (G.trait?.bonus?.tribulation_risk) chance += 0.06;
+    chance += getPlayerTraitBonus('tribulationLikelihoodPct', 0) / 500;
     chance += getPlayerTraitBonus('tribulationSeverityPct', 0) / 200;
     if (typeof getTranscendenceTribulationResistPct === 'function') {
         chance *= (1 - getTranscendenceTribulationResistPct());

@@ -210,6 +210,20 @@ const creationState = {
     selectedDrawbacks: new Set()
 };
 
+function resetCreationState() {
+    creationState.selectedPath = 'qi';
+    creationState.selectedTalent = 'single_superior';
+    creationState.selectedTraits = new Set();
+    creationState.selectedOrigin = 'village_orphan';
+    creationState.selectedDrawbacks = new Set();
+    const pathOptions = document.getElementById('pathOptions');
+    if (pathOptions) {
+        pathOptions.querySelectorAll('.popup-item').forEach(el => {
+            el.classList.toggle('selected', el.dataset.path === 'qi');
+        });
+    }
+}
+
 function calcCreationSpend() {
     let spent = 0;
     const talent = TALENT_BY_ID[creationState.selectedTalent];
