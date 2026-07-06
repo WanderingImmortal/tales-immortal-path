@@ -1831,6 +1831,29 @@ header .subtitle {
     margin-bottom: 10px;
 }
 
+.factions-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.factions-tab {
+    font-size: 11px;
+    padding: 5px 10px;
+    background: #1a1410;
+    border: 1px solid #3a3028;
+    border-radius: 4px;
+    color: #a09080;
+    cursor: pointer;
+}
+
+.factions-tab.active {
+    border-color: #c9a050;
+    color: #f0d8a0;
+    background: #2a2218;
+}
+
 .factions-info {
     max-height: 58vh;
     overflow-y: auto;
@@ -3550,6 +3573,13 @@ header .subtitle {
     color: #807060;
     margin: 0;
     padding: 4px 2px;
+}
+
+.quest-log-summary {
+    font-size: 11px;
+    color: #a09080;
+    margin: 0 0 4px;
+    padding: 0 2px;
 }
 
 .quest-log-item {
@@ -5810,6 +5840,51 @@ header .subtitle {
     display: flex;
 }
 
+.overlay-lifespan-chip {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1110;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--ink-border);
+    background: rgba(12, 10, 8, 0.88);
+    color: var(--ink-text-muted);
+    font-size: 0.78rem;
+    line-height: 1.2;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+}
+
+.overlay-lifespan-chip[hidden] {
+    display: none !important;
+}
+
+.overlay-lifespan-icon {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.overlay-lifespan-chip.lifespan-low {
+    color: #d4a060;
+    border-color: rgba(212, 160, 96, 0.35);
+}
+
+.overlay-lifespan-chip.lifespan-critical {
+    color: #e07050;
+    border-color: rgba(224, 112, 80, 0.45);
+}
+
+.overlay-lifespan-chip.immortal {
+    color: #f1c40f;
+    border-color: rgba(241, 196, 15, 0.35);
+}
+
 #tutorialPopup,
 #tutorialLogPopup {
     z-index: 1100;
@@ -7181,6 +7256,113 @@ header .subtitle {
     font-size: 0.9rem;
     color: var(--ink-text-muted);
     font-style: italic;
+}
+
+.body-chamber-physique-section {
+    margin-top: 12px;
+    text-align: left;
+}
+
+.body-chamber-physique-manage {
+    margin-top: 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(120, 100, 70, 0.35);
+    border-radius: 10px;
+    background: rgba(20, 16, 12, 0.45);
+    max-height: 38vh;
+    overflow-y: auto;
+}
+
+.body-chamber-physique-project + .body-chamber-physique-manage {
+    margin-top: 10px;
+}
+
+.body-physique-manage-title {
+    font-size: 0.95rem;
+    color: var(--ink-accent);
+    margin-bottom: 4px;
+}
+
+.body-physique-manage-hint {
+    font-size: 0.78rem;
+    color: var(--ink-text-muted);
+    margin: 0 0 10px;
+    line-height: 1.4;
+}
+
+.body-physique-locked {
+    font-size: 0.85rem;
+    color: var(--ink-text-muted);
+    margin: 0;
+}
+
+.body-physique-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-top: 6px;
+    padding: 8px 10px;
+    background: rgba(15, 12, 10, 0.6);
+    border: 1px solid rgba(120, 100, 70, 0.3);
+    border-radius: 8px;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+}
+
+.body-physique-item:hover {
+    border-color: rgba(200, 168, 96, 0.45);
+    background: rgba(25, 20, 16, 0.75);
+}
+
+.body-physique-item .name {
+    font-size: 0.88rem;
+    color: var(--ink-accent);
+}
+
+.body-physique-item .desc,
+.body-physique-item .meta {
+    font-size: 0.75rem;
+    color: var(--ink-text-muted);
+    margin-top: 3px;
+    line-height: 1.35;
+}
+
+.body-physique-tag {
+    font-size: 0.68rem;
+    color: #6a5a4a;
+}
+
+.body-physique-tag.legendary { color: #f1c40f; }
+.body-physique-tag.evil { color: #e74c3c; }
+
+.body-physique-section-label {
+    font-size: 0.78rem;
+    margin-top: 8px;
+    color: #b8863a;
+}
+
+.body-physique-active-note {
+    cursor: default;
+}
+
+.body-physique-active-note:hover {
+    border-color: rgba(155, 89, 182, 0.45) !important;
+    background: rgba(155, 89, 182, 0.08) !important;
+}
+
+.body-physique-unequip {
+    margin-top: 10px;
+    text-align: center;
+    border-color: rgba(160, 112, 112, 0.4) !important;
+}
+
+.cultivation-hub-note {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: #9b59b6;
+    font-style: normal;
 }
 
 .body-chamber-physique-project {

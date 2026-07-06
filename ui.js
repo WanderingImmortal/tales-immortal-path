@@ -2,6 +2,54 @@
 // UI.JS — Rendering, popups, display updates
 // ============================================
 
+// Overlays where time-costing choices are common — show a compact lifespan chip.
+const OVERLAY_LIFESPAN_IDS = [
+    'cultivationHubOverlay',
+    'qiChamberOverlay',
+    'bodyChamberOverlay',
+    'soulChamberOverlay',
+    'alchemyChamberOverlay',
+    'consolidatePopup',
+    'breakthroughPopup',
+    'meridianPopup',
+    'tribulationOverlay'
+];
+
+function getLifespanUrgencyClass() {
+    if (typeof isImmortal === 'function' && isImmortal()) return 'immortal';
+    const remaining = typeof getYearsRemaining === 'function' ? getYearsRemaining() : 0;
+    if (remaining <= 10) return 'lifespan-critical';
+    if (remaining <= 25) return 'lifespan-low';
+    return '';
+}
+
+function isOverlayLifespanVisible() {
+    return OVERLAY_LIFESPAN_IDS.some(id => document.getElementById(id)?.classList.contains('active'));
+}
+
+function renderOverlayLifespanChip() {
+    const chip = document.getElementById('overlayLifespanChip');
+    const textEl = document.getElementById('overlayLifespanText');
+    if (!chip || !textEl) return;
+
+    if (!isOverlayLifespanVisible()) {
+        chip.hidden = true;
+        return;
+    }
+
+    chip.hidden = false;
+    const urgency = getLifespanUrgencyClass();
+    chip.className = 'overlay-lifespan-chip' + (urgency ? ` ${urgency}` : '');
+
+    const age = typeof formatYears === 'function' ? formatYears(G.ageMonths) : `${G.ageMonths || 0}m`;
+    if (urgency === 'immortal') {
+        textEl.textContent = `Age ${age} · Immortal`;
+        return;
+    }
+    const remaining = typeof getYearsRemaining === 'function' ? getYearsRemaining() : 0;
+    textEl.textContent = `Age ${age} · ${remaining}y left`;
+}
+
 function renderStatus() {
     const realm = getRealm();
     const title = getTitle();
@@ -460,20 +508,6 @@ function renderScenePanel() {
     if (forbiddenEl && typeof forbiddenDiscoveredCount === 'function') {
         ensureForbiddenState();
         forbiddenEl.textContent = forbiddenDiscoveredCount() + '/7 discovered · ' + forbiddenClearedCount() + '/7 cleared';
-    }
-
-    const npcCard = document.getElementById('sceneNpcCard');
-    const npcEl = document.getElementById('sceneNpcs');
-    if (npcCard && npcEl && typeof getNpcPresenceLabel === 'function') {
-        const label = getNpcPresenceLabel(G.currentZone || currentZone);
-        if (label) {
-            npcCard.style.display = '';
-            const wanderHint = typeof getWeiWanderHint === 'function' ? getWeiWanderHint() : '';
-            npcEl.textContent = label + (wanderHint ? ` · ${wanderHint}` : '');
-        } else {
-            npcCard.style.display = 'none';
-            npcEl.textContent = '—';
-        }
     }
 
     const lastEl = document.getElementById('sceneLastEvent');
@@ -959,6 +993,7 @@ function fullRender() {
     renderNpcPresencePanel();
     if (typeof processTutorialQueue === 'function') processTutorialQueue();
     if (typeof refreshTutorialHighlight === 'function') refreshTutorialHighlight();
+    renderOverlayLifespanChip();
     const reincBtn = document.getElementById('btnTrueReincarnation');
     if (reincBtn) reincBtn.style.display = (typeof isImmortal === 'function' && isImmortal()) ? '' : 'none';
     saveState();
@@ -1197,59 +1232,100 @@ function renderMeridianPopup() {
     });
 }
 
-function renderPhysiquePopup() {
-    const el = document.getElementById('physiqueList');
+function renderPhysiquePanel(containerEl, options) {
+    options = options || {};
+    const el = typeof containerEl === 'string' ? document.getElementById(containerEl) : containerEl;
+    if (!el) return;
+
+    const inChamber = !!options.inChamber;
+    const itemClass = inChamber ? 'body-physique-item' : 'popup-item';
+    const sectionClass = inChamber ? 'body-physique-section-label' : '';
+    const sectionStyle = inChamber ? '' : 'font-size:13px;';
+
     if (typeof ensurePhysiqueCultivationState === 'function') ensurePhysiqueCultivationState();
-    let html = '<div style="font-size:12px;color:#a09080;margin-bottom:6px;">Trainable physiques are long-term Body Chamber projects — weak at first, full power when perfected.</div>';
-    if (isPhysiqueCultivationActive?.()) {
+
+    const locked = typeof isActionUnlocked === 'function' && !isActionUnlocked('physique');
+    if (locked) {
+        const reason = typeof getActionUnlockReason === 'function' ? getActionUnlockReason('physique') : 'Physique cultivation locked.';
+        el.innerHTML = `<p class="body-physique-locked">🔒 ${reason}</p>`;
+        return;
+    }
+
+    const activeProject = isPhysiqueCultivationActive?.();
+    const showTrainable = !options.hideTrainable && (!activeProject || !options.skipTrainableWhenActive);
+
+    const refresh = () => {
+        if (typeof options.onUpdate === 'function') options.onUpdate();
+        else renderPhysiquePanel(el, options);
+    };
+
+    let html = '';
+    if (inChamber) {
+        html += '<div class="body-physique-manage-title">🧬 Physiques</div>';
+        html += '<p class="body-physique-manage-hint">Trainable physiques are long-term chamber projects — weak at first, full power when perfected.</p>';
+    } else {
+        html += '<div style="font-size:12px;color:#a09080;margin-bottom:6px;">Trainable physiques are long-term Body Chamber projects — weak at first, full power when perfected.</div>';
+    }
+
+    if (activeProject && options.skipTrainableWhenActive) {
         const status = getPhysiqueCultivationStatusText?.() || '';
-        html += `<div class="popup-item" style="border-color:#9b59b6;margin-bottom:8px;">
-            <div class="name">🔮 Active Project</div>
+        html += `<div class="${itemClass} body-physique-active-note" style="border-color:#9b59b6;margin-bottom:8px;">
+            <div class="name">🔮 Active project</div>
             <div class="desc">${status}</div>
-            <div class="meta">Refine in the Body Chamber (Cultivation Hub → Body).</div>
+            <div class="meta">Use refinement below, or layer work on focus regions.</div>
         </div>`;
     }
-    html += '<div style="font-size:13px;color:#b8863a;margin-top:6px;">━━ Trainable ──</div>';
-    for (const p of TRAINABLE_PHYSIQUES) {
-        const pid = p.id || getPhysiqueId?.(p.name);
-        const isEquipped = G.physique && (G.physique.name === p.name || G.physique.id === pid);
-        const isCultivating = G.physiqueCultivation?.id === pid;
-        const isDone = isPhysiqueCompleted?.(pid);
-        let tag = '[Begin]';
-        if (isDone) tag = isEquipped ? '[Equipped]' : '[Perfected]';
-        else if (isCultivating) tag = '[Refining]';
-        html += `<div class="popup-item" data-physique="${p.name}" data-physique-id="${pid}" style="${isEquipped || isCultivating ? 'border-color:#f1c40f;' : ''}">
-            <div class="name">${isEquipped ? '✅ ' : isCultivating ? '🔮 ' : ''}${p.name} <span style="font-size:11px;color:#6a5a4a;">${tag}</span></div>
-            <div class="desc">${p.pro} | ${p.con}</div>
-            ${isCultivating ? `<div class="meta">${getPhysiqueCultivationStatusText?.() || ''}</div>` : ''}
-        </div>`;
+
+    if (showTrainable) {
+        html += `<div class="${sectionClass}" style="${sectionStyle}color:#b8863a;margin-top:6px;">━━ Trainable ──</div>`;
+        for (const p of TRAINABLE_PHYSIQUES) {
+            const pid = p.id || getPhysiqueId?.(p.name);
+            const isEquipped = G.physique && (G.physique.name === p.name || G.physique.id === pid);
+            const isCultivating = G.physiqueCultivation?.id === pid;
+            const isDone = isPhysiqueCompleted?.(pid);
+            let tag = '[Begin]';
+            if (isDone) tag = isEquipped ? '[Equipped]' : '[Perfected]';
+            else if (isCultivating) tag = '[Refining]';
+            const border = isEquipped || isCultivating ? 'border-color:#f1c40f;' : '';
+            html += `<button type="button" class="${itemClass}" data-physique="${p.name}" data-physique-id="${pid}" style="${border}">
+                <div class="name">${isEquipped ? '✅ ' : isCultivating ? '🔮 ' : ''}${p.name} <span class="body-physique-tag">${tag}</span></div>
+                <div class="desc">${p.pro} | ${p.con}</div>
+                ${isCultivating ? `<div class="meta">${getPhysiqueCultivationStatusText?.() || ''}</div>` : ''}
+            </button>`;
+        }
     }
-    html += '<div style="font-size:13px;color:#f1c40f;margin-top:8px;">━━ Legendary ──</div>';
+
+    html += `<div class="${sectionClass}" style="${sectionStyle}color:#f1c40f;margin-top:8px;">━━ Legendary ──</div>`;
     for (const p of LEGENDARY_PHYSIQUES) {
         const isActive = G.physique && G.physique.name === p.name;
         const effects = typeof formatPhysiqueEffectDesc === 'function' ? formatPhysiqueEffectDesc(p) : '';
-        html += `<div class="popup-item" data-physique="${p.name}" style="${isActive ? 'border-color:#f1c40f;' : ''}">
-            <div class="name">${isActive ? '✅ ' : ''}${p.name} <span style="font-size:11px;color:#f1c40f;">[Legendary]</span></div>
+        html += `<button type="button" class="${itemClass}" data-physique="${p.name}" style="${isActive ? 'border-color:#f1c40f;' : ''}">
+            <div class="name">${isActive ? '✅ ' : ''}${p.name} <span class="body-physique-tag legendary">[Legendary]</span></div>
             <div class="desc">Trial: ${p.trial}</div>
             <div class="meta physique-effect">${effects}</div>
-        </div>`;
+        </button>`;
     }
-    html += '<div style="font-size:13px;color:#e74c3c;margin-top:8px;">━━ Evil ──</div>';
+
+    html += `<div class="${sectionClass}" style="${sectionStyle}color:#e74c3c;margin-top:8px;">━━ Evil ──</div>`;
     for (const p of EVIL_PHYSIQUES) {
         const isActive = G.physique && G.physique.name === p.name;
-        html += `<div class="popup-item" data-physique="${p.name}" style="${isActive ? 'border-color:#e74c3c;' : ''}">
-            <div class="name">${isActive ? '✅ ' : ''}${p.name} <span style="font-size:11px;color:#e74c3c;">[Evil]</span></div>
+        html += `<button type="button" class="${itemClass}" data-physique="${p.name}" style="${isActive ? 'border-color:#e74c3c;' : ''}">
+            <div class="name">${isActive ? '✅ ' : ''}${p.name} <span class="body-physique-tag evil">[Evil]</span></div>
             <div class="desc">${p.pro} | ${p.con}</div>
-        </div>`;
+        </button>`;
     }
+
     if (G.physique) {
-        html += `<button type="button" class="popup-item" id="physiqueUnequipBtn" style="width:100%;text-align:center;margin-top:8px;">
+        html += `<button type="button" class="${itemClass} body-physique-unequip" id="physiqueUnequipBtn">
             <div class="name">Unequip ${G.physique.name}</div>
         </button>`;
     }
+
     el.innerHTML = html;
-    el.querySelectorAll('.popup-item[data-physique]').forEach(item => {
+
+    el.querySelectorAll(`[data-physique]`).forEach(item => {
         item.addEventListener('click', function() {
+            if (typeof guardAction === 'function' && !guardAction('physique')) return;
             const name = this.dataset.physique;
             const p = getPhysiqueByName(name);
             if (!p) return;
@@ -1259,19 +1335,26 @@ function renderPhysiquePopup() {
             else if (p.type === 'evil') result = attemptEvilPhysique(name);
             if (result) {
                 logTimedResult(result);
-                renderPhysiquePopup();
-                fullRender();
+                refresh();
+                if (typeof fullRender === 'function') fullRender();
             }
         });
     });
-    document.getElementById('physiqueUnequipBtn')?.addEventListener('click', function() {
+
+    el.querySelector('#physiqueUnequipBtn')?.addEventListener('click', function() {
         const result = typeof unequipPhysique === 'function' ? unequipPhysique() : null;
         if (result) {
             logTimedResult(result);
-            renderPhysiquePopup();
-            fullRender();
+            refresh();
+            if (typeof fullRender === 'function') fullRender();
         }
     });
+}
+
+/** @deprecated Popup removed — physiques live in Body Chamber. */
+function renderPhysiquePopup() {
+    const el = document.getElementById('physiqueList');
+    if (el) renderPhysiquePanel(el, { inChamber: false });
 }
 
 function renderIntentPopup() {
@@ -1401,7 +1484,7 @@ function renderDaoPopup() {
             }
         }
     } else if (!daoLocked) {
-        html += '<div class="popup-empty">No Dao fragments found. Search below or explore forbidden grounds.</div>';
+        html += '<div class="popup-empty">No Dao fragments found. Seek insight below, explore, or visit forbidden grounds.</div>';
     }
     if (G.trueDaos.length > 0) {
         html += '<div style="font-size:13px;color:#8e44ad;margin-top:8px;">🌟 True Daos:</div>';
@@ -1449,8 +1532,8 @@ function renderDaoPopup() {
         });
     }
     html += `<button class="popup-item" id="findFragmentBtn" style="width:100%;text-align:center;margin-top:8px;" ${daoLocked ? 'disabled' : ''}>
-        <div class="name">🔍 Search for Dao Fragment</div>
-        <div class="desc">${daoLocked ? `Requires ${daoLabel}` : 'Costs time and Qi'}</div>
+        <div class="name">📜 Seek Dao Insight</div>
+        <div class="desc">${daoLocked ? `Requires ${daoLabel}` : 'Costs time and Qi — not sealed sites or forbidden grounds'}</div>
     </button>`;
     el.innerHTML = html;
     document.getElementById('findFragmentBtn')?.addEventListener('click', function() {
@@ -1860,7 +1943,7 @@ function renderTutorialLogPopup() {
 }
 
 function renderQuestJournalPopup(tabId) {
-    tabId = tabId || window._journalTab || 'all';
+    tabId = tabId || window._journalTab || 'active';
     window._journalTab = tabId;
     const list = document.getElementById('questJournalList');
     const hint = document.getElementById('questJournalHint');
@@ -1901,73 +1984,8 @@ function renderQuestJournalPopup(tabId) {
         return;
     }
 
-    if (tabId === 'faction' && typeof getZoneFactionMechanic === 'function') {
-        if (hint) hint.textContent = 'Reputation with the Azure Sky\'s power structures.';
-        let html = '';
-        Object.values(ZONE_FACTION_MECHANICS).forEach(mech => {
-            if (!mech?.implemented) return;
-            html += `<div class="factions-mechanic" style="margin-bottom:10px;">${mech.emoji} <strong>${ZONES[mech.zoneId]?.name || mech.zoneId}</strong> — ${mech.powerName}</div>`;
-            if (typeof renderFactionMechanicBanner === 'function') html += renderFactionMechanicBanner(mech.zoneId);
-            mech.factionIds.forEach(fid => {
-                const def = FACTION_DEFINITIONS[fid];
-                if (!def) return;
-                const tier = typeof getFactionTier === 'function' ? getFactionTier(fid) : { emoji: '', label: '' };
-                const rep = typeof getFactionRep === 'function' ? getFactionRep(fid) : 0;
-                html += `<div class="quest-journal-entry journal-done">
-                    <div class="quest-journal-title">${def.emoji} ${def.name}</div>
-                    <div class="quest-journal-meta">${tier.emoji} ${tier.label} · ${rep} rep</div>
-                </div>`;
-            });
-        });
-        list.innerHTML = html || '<p class="quest-journal-empty">No faction standing yet — explore the Azure Sky Continent.</p>';
-        return;
-    }
-
-    if (tabId === 'faction-chronicle' && typeof getFactionChronicleSummary === 'function') {
-        const summary = getFactionChronicleSummary();
-        if (hint) {
-            hint.textContent = `${summary.allied} allied · ${summary.pacts} sect pacts · ${summary.eventCount} events logged`;
-        }
-        let html = '';
-        if (summary.highlights.length) {
-            html += '<div class="faction-chronicle-highlights">';
-            summary.highlights.forEach(h => {
-                html += `<span class="faction-chronicle-chip">${h.emoji} ${h.label}</span>`;
-            });
-            html += '</div>';
-        }
-        if (summary.zoneStandings.length) {
-            html += '<div class="faction-chronicle-zones">';
-            summary.zoneStandings.forEach(z => {
-                const zoneName = ZONES[z.zoneId]?.name || z.zoneId;
-                html += `<div class="faction-chronicle-zone-card">
-                    <div class="faction-chronicle-zone-head">${z.emoji} ${zoneName}</div>
-                    <div class="faction-chronicle-zone-meta">${z.label} · strongest: ${z.topFaction} (${z.topTier}, ${z.topRep} rep)</div>
-                </div>`;
-            });
-            html += '</div>';
-        }
-        const chronicle = (G.factions?.chronicle || []).slice(0, 20);
-        if (chronicle.length) {
-            html += '<div class="faction-chronicle-title">Political Log</div>';
-            html += chronicle.map(e => {
-                const zoneName = e.zoneId && ZONES[e.zoneId] ? ZONES[e.zoneId].name : '';
-                const catLabel = e.category ? e.category.charAt(0).toUpperCase() + e.category.slice(1) : '';
-                return `<div class="quest-journal-entry journal-done faction-chronicle-entry cat-${e.category || 'logged'}">
-                    <div class="quest-journal-title">${e.emoji || '📜'} ${e.title}</div>
-                    <div class="quest-journal-meta">${catLabel}${e.status ? ` · ${e.status}` : ''}${e.ageLabel ? ` · ${e.ageLabel}` : ''}${zoneName ? ` · ${zoneName}` : ''}</div>
-                    ${e.text ? `<div class="quest-journal-objective">${e.text}</div>` : ''}
-                </div>`;
-            }).join('');
-        } else {
-            html += '<p class="quest-journal-empty">No political events yet — earn reputation, broker treaties, and shape the continent\'s fate.</p>';
-        }
-        list.innerHTML = html;
-        return;
-    }
-
     const entries = typeof getQuestJournalEntries === 'function' ? getQuestJournalEntries() : [];
-    const filtered = tabId === 'all' ? entries : entries.filter(e => {
+    const filtered = entries.filter(e => {
         if (tabId === 'active') return e.status === 'active';
         return e.kind === tabId || (tabId === 'arc' && e.kind === 'legacy');
     });
@@ -1993,8 +2011,10 @@ function renderQuestJournalPopup(tabId) {
     }).join('');
 }
 
-function openQuestJournal() {
-    if (typeof renderQuestJournalPopup === 'function') renderQuestJournalPopup(window._journalTab || 'all');
+function openQuestJournal(tabId) {
+    tabId = tabId || window._journalTab || 'active';
+    window._journalTab = tabId;
+    if (typeof renderQuestJournalPopup === 'function') renderQuestJournalPopup(tabId);
     document.getElementById('questJournalPopup')?.classList.add('active');
 }
 
@@ -2024,30 +2044,32 @@ function closeCombatRewardPopup() {
 function renderQuestLogPanel() {
     const list = document.getElementById('questLogList');
     if (!list) return;
-    const getQuests = typeof getRecentQuests === 'function' ? getRecentQuests : getRecentNpcQuests;
-    if (typeof getQuests !== 'function') return;
 
-    const quests = getQuests(6);
-    if (!quests.length) {
+    const count = typeof getActiveQuestCount === 'function' ? getActiveQuestCount() : 0;
+    if (!count) {
         list.innerHTML = '<p class="quest-log-empty">No active quests.</p>';
         return;
     }
 
-    list.innerHTML = quests.map(q => {
-        const statusClass = q.status === 'active' ? 'quest-active' : q.status === 'complete' ? 'quest-complete' : 'quest-failed';
-        const icon = q.status === 'complete' ? '✓' : q.status === 'failed' ? '✗' : (q.typeEmoji || '◆');
-        const zoneName = ZONES[q.zoneHint]?.name || q.zoneHint || '';
-        const stageLine = q.stageName ? `${q.stageName}` : '';
-        const meta = [q.giverName, zoneName, stageLine].filter(Boolean).join(' · ');
-        const hint = q.status === 'active' && typeof getQuestProgressHint === 'function' ? getQuestProgressHint(q) : '';
+    const top = typeof getTopPriorityQuest === 'function' ? getTopPriorityQuest() : null;
+    const countLabel = count === 1 ? '1 active quest' : `${count} active quests`;
+    let html = `<p class="quest-log-summary">${countLabel}</p>`;
+
+    if (top) {
+        const icon = top.typeEmoji || '◆';
+        const zoneName = ZONES[top.zoneHint]?.name || top.zoneHint || '';
+        const meta = [top.giverName, zoneName, top.stageName].filter(Boolean).join(' · ');
+        const hint = typeof getQuestProgressHint === 'function' ? getQuestProgressHint(top) : '';
         const hintLine = hint ? `<div class="quest-log-hint">💡 ${hint}</div>` : '';
-        return `<button type="button" class="quest-log-item ${statusClass}" data-quest-id="${q.id}" title="${q.objective}">
-            <div class="quest-log-title">${icon} ${q.title}</div>
-            <div class="quest-log-meta">${meta}${q.typeLabel ? ` · ${q.typeLabel}` : ''}</div>
-            <div class="quest-log-objective">${q.objective}</div>
+        html += `<button type="button" class="quest-log-item quest-active" data-quest-id="${top.id}" title="${top.objective || top.title}">
+            <div class="quest-log-title">${icon} ${top.title}</div>
+            <div class="quest-log-meta">${meta}${top.typeLabel ? ` · ${top.typeLabel}` : ''}</div>
+            ${top.objective ? `<div class="quest-log-objective">${top.objective}</div>` : ''}
             ${hintLine}
         </button>`;
-    }).join('');
+    }
+
+    list.innerHTML = html;
 
     list.querySelectorAll('.quest-log-item').forEach(btn => {
         btn.onclick = function() {
