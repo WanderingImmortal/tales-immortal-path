@@ -145,6 +145,7 @@ function returnToCreationAfterReincarnation(endType, message) {
     clearRunStateForReincarnation();
     document.getElementById('game-screen').style.display = 'none';
     document.getElementById('creation-screen').style.display = '';
+    if (typeof resetCreationState === 'function') resetCreationState();
     if (typeof setupCreation === 'function') setupCreation(true);
     openReincarnationSummaryModal(endType, message, result.cpGain);
 }

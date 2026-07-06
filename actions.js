@@ -53,9 +53,11 @@ function runCultivateSession(options) {
     }
     let titheAmount = 0;
     if (G.disciples.length > 0) {
-        const income = typeof getSectDiscipleIncome === 'function'
-            ? getSectDiscipleIncome() + getFameLevel().bonus
-            : G.disciples.length + getFameLevel().bonus;
+        const income = typeof getTreasuryTithePerCultivate === 'function'
+            ? getTreasuryTithePerCultivate()
+            : (typeof getSectDiscipleIncome === 'function'
+                ? getSectDiscipleIncome() + getFameLevel().bonus
+                : G.disciples.length + getFameLevel().bonus);
         if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0
             && typeof addTreasuryPendingTithe === 'function') {
             addTreasuryPendingTithe(income);
