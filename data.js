@@ -2480,6 +2480,12 @@ const TRAVEL_KIT_BALANCE = {
     }
 };
 
+/** Home shelves at Leader's Quarters — bulk storage, scales with residence upgrades. */
+const RESIDENCE_STASH_BALANCE = {
+    capacityByLevel: [16, 28, 44, 64],
+    stashAllManualsMax: 20
+};
+
 /** Intent synergy tiers — mid = soft debuff, high = hard debuff without matching intent stage. */
 const INTENT_TECHNIQUE_BALANCE = {
     low: { noMatchMult: 1, costMult: 1, matchBonus: 0.06, stageBonusPerTier: 0.025 },
@@ -4174,10 +4180,10 @@ const SECT_RESIDENCE = {
     /** Formation slots unlocked at each residence level (index = level). */
     formationSlotsByLevel: [0, 1, 2, 3],
     levels: [
-        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Upgrade to lay cultivation formations.' },
-        { name: 'Inner Court Room', desc: 'A proper chamber — one formation slot for personal qi gathering.' },
-        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with two formation slots.' },
-        { name: 'Immortal Abode', desc: 'A peak dwelling with three formation slots woven into the courtyard.' }
+        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Personal shelves hold spare manuals and materials.' },
+        { name: 'Inner Court Room', desc: 'A proper chamber — formation slot plus expanded home storage.' },
+        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with two formation slots and deep shelves.' },
+        { name: 'Immortal Abode', desc: 'A peak dwelling — three formation slots and a vast personal archive.' }
     ],
     upgradeCosts: [
         null,

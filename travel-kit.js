@@ -160,6 +160,12 @@ function renderTravelKitBarHtml() {
     if (bd.over) {
         html += `<p class="travel-kit-warn">Over capacity — new pickups blocked until you lighten your load.</p>`;
     }
+    if (typeof canAccessResidenceStash === 'function' && canAccessResidenceStash()) {
+        const home = typeof getResidenceStashBreakdown === 'function' ? getResidenceStashBreakdown() : null;
+        if (home) {
+            html += `<p class="travel-kit-home-hint">🏠 Home shelves: ${formatTravelKitLoad(home.total)}/${home.capacity} — manage at Leader's Quarters on the sect map.</p>`;
+        }
+    }
     html += `</div>`;
     return html;
 }
@@ -201,6 +207,9 @@ function renderTravelKitManualsHtml() {
             && typeof getBuildingLevel === 'function' && getBuildingLevel('manual_hall') >= 1) {
             actions += `<button type="button" class="manual-shelf-btn" data-deposit-hall-kit="${escapeAttr(entry.technique)}">📜 Deposit to Hall</button>`;
         }
+        if (typeof canAccessResidenceStash === 'function' && canAccessResidenceStash()) {
+            actions += `<button type="button" class="manual-shelf-btn" data-stash-manual-kit="${escapeAttr(entry.technique)}">🏠 Shelve at Quarters</button>`;
+        }
         const tierLabel = typeof getCultivationTierLabel === 'function'
             ? getCultivationTierLabel(getTechniqueCultivationTierId(template), template.path)
             : '';
@@ -241,6 +250,16 @@ function bindTravelKitManualActions(container) {
                 ? depositManualToHall(this.dataset.depositHallKit, 1)
                 : { success: false, message: 'Manual Hall unavailable.' };
             if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
+            fullRender();
+        });
+    });
+    root.querySelectorAll('[data-stash-manual-kit]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof stashManualToResidence === 'function'
+                ? stashManualToResidence(this.dataset.stashManualKit, 1)
+                : { success: false, message: 'Home storage unavailable.' };
+            if (result.message) addLog(result.success ? `🏠 ${result.message}` : `🏠 ${result.message}`);
             if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
             fullRender();
         });
