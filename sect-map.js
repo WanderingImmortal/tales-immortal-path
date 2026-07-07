@@ -363,6 +363,15 @@ function renderBuildingActionsHtml(buildingId, lv) {
         html += typeof renderManualHallPanelHtml === 'function' ? renderManualHallPanelHtml() : '';
     }
 
+    if (buildingId === 'armory') {
+        const forgePct = typeof getArmoryForgeMonthsPct === 'function' ? getArmoryForgeMonthsPct() : 0;
+        const affixPct = typeof getSectBuildingBonus === 'function' ? (getSectBuildingBonus('armoryForgeAffixPct') || 0) : 0;
+        const combatPct = typeof getSectBuildingBonus === 'function' ? (getSectBuildingBonus('armoryCombatPct') || 0) : 0;
+        html += `<div class="sect-section-title">🔨 Forge</div>`;
+        html += `<p class="sect-hint">Armory bonuses: −${forgePct}% forge time, +${affixPct}% affix quality, +${combatPct}% sect combat.</p>`;
+        html += `<button type="button" class="sect-action-btn" id="btnArmoryForge">🔨 Open Forge Chamber</button>`;
+    }
+
     html += `</div>`;
     return html;
 }
@@ -443,6 +452,10 @@ function bindSectGroundsEvents(container) {
     container.querySelector('#btnResidenceCultivate')?.addEventListener('click', () => {
         document.getElementById('sectPopup')?.classList.remove('active');
         if (typeof actionResidenceCultivate === 'function') actionResidenceCultivate();
+    });
+    container.querySelector('#btnArmoryForge')?.addEventListener('click', () => {
+        document.getElementById('sectPopup')?.classList.remove('active');
+        if (typeof openForgeChamber === 'function') openForgeChamber({ atSect: true });
     });
     container.querySelectorAll('[data-formation-lay]').forEach(btn => {
         btn.addEventListener('click', function() {

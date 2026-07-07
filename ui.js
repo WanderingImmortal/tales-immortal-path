@@ -9,6 +9,7 @@ const OVERLAY_LIFESPAN_IDS = [
     'bodyChamberOverlay',
     'soulChamberOverlay',
     'alchemyChamberOverlay',
+    'forgeChamberOverlay',
     'consolidatePopup',
     'breakthroughPopup',
     'meridianPopup',
@@ -1627,31 +1628,11 @@ function renderSectPopup() {
 
     const sectRecipes = typeof getCraftableRecipes === 'function' ? getCraftableRecipes() : [];
     const legRecipes = typeof getLegendaryGearRecipes === 'function' ? getLegendaryGearRecipes() : [];
-    const forgeMult = typeof getSectForgeMonthsMult === 'function' ? getSectForgeMonthsMult() : 1;
-    const discipleHint = G.disciples.length
-        ? `Disciples speed forging (−${Math.round((1 - forgeMult) * 100)}% time).`
-        : 'Recruit disciples to speed forging.';
     if (sectRecipes.length || legRecipes.length) {
+        const readyCount = sectRecipes.filter(({ id }) => canCraftGear(id).ok).length;
         html += `<div class="sect-forge-section"><div class="sect-forge-title">🔨 Sect Forge</div>`;
-        html += `<p class="sect-forge-hint">${discipleHint}</p>`;
-        sectRecipes.forEach(({ id, def, recipe }) => {
-            const check = canCraftGear(id);
-            const months = Math.max(1, Math.ceil(recipe.months * forgeMult));
-            html += `<div class="sect-forge-row${check.ok ? ' craft-ready' : ''}">
-                <span class="name">${def.emoji} ${def.name} <span class="gear-tier">T${recipe.tier}</span></span>
-                <button type="button" class="sect-refine-btn" data-sect-craft="${id}" ${check.ok ? '' : 'disabled'}>${months}mo · ${recipe.stones}💎</button>
-            </div>`;
-        });
-        legRecipes.forEach(({ id, def, recipe }) => {
-            const check = canCraftGear(id, { legendary: true });
-            html += `<div class="sect-forge-row sect-forge-legend${check.ok ? ' craft-ready' : ''}">
-                <span class="name">${def.emoji} ${def.name} <span class="gear-tier">Legendary</span></span>
-                <button type="button" class="sect-refine-btn" data-leg-craft="${id}" ${check.ok ? '' : 'disabled'}>${recipe.months}mo · ${recipe.stones}💎</button>
-            </div>`;
-            if (recipe.consumesLegendary) {
-                html += `<div class="sect-forge-sub">Uses ${recipe.consumesLegendary} · ${formatRecipeMaterials(recipe)}</div>`;
-            }
-        });
+        html += `<p class="sect-forge-hint">${readyCount ? `${readyCount} recipes ready.` : 'Gather materials to forge gear.'} Use the Forge Chamber for full crafting, repair, and progression.</p>`;
+        html += `<button type="button" class="sect-refine-btn sect-open-forge-btn" id="sectOpenForge">🔨 Open Forge Chamber</button>`;
         html += `</div>`;
     }
 
@@ -1662,15 +1643,9 @@ function renderSectPopup() {
             refineLegendaryMaterial(this.dataset.refine);
         });
     });
-    el.querySelectorAll('[data-sect-craft]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (typeof craftGearAtSect === 'function') craftGearAtSect(this.dataset.sectCraft);
-        });
-    });
-    el.querySelectorAll('[data-leg-craft]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (typeof craftLegendaryGear === 'function') craftLegendaryGear(this.dataset.legCraft);
-        });
+    el.querySelector('#sectOpenForge')?.addEventListener('click', () => {
+        document.getElementById('sectPopup')?.classList.remove('active');
+        if (typeof openForgeChamber === 'function') openForgeChamber({ atSect: true });
     });
 }
 
@@ -1794,28 +1769,11 @@ function renderInventoryPopup() {
     if (typeof getCraftableRecipes === 'function') {
         const recipes = getCraftableRecipes();
         const ready = recipes.filter(({ id }) => canCraftGear(id).ok);
-        const blocked = recipes.filter(({ id }) => !canCraftGear(id).ok);
-        if (ready.length) {
-            html += `<div class="inventory-section-title inventory-section-craft sticky-section">✅ Ready to Craft <span class="section-badge craft-ready-badge">${ready.length}</span></div>`;
-            html += ready.map(({ id, def, recipe }) =>
-                `<div class="popup-item inventory-row gear-craft-row craft-ready" data-craft-gear="${id}" style="cursor:pointer;">
-                    <div class="name">${def.emoji} ${def.name} <span class="gear-tier">T${recipe.tier}</span> <span class="craft-status ready">CRAFT NOW</span></div>
-                    <div class="desc">${def.desc}</div>
-                    <div class="desc gear-recipe-meta">${recipe.months} mo · ${recipe.stones} stones · ${formatRecipeMaterials(recipe)}</div>
-                </div>`
-            ).join('');
-        }
-        if (blocked.length) {
-            html += `<div class="inventory-section-title inventory-section-needs sticky-section">🔨 Recipes (need materials) <span class="section-badge needs-badge">${blocked.length}</span></div>`;
-            html += blocked.map(({ id, def, recipe }) => {
-                const check = canCraftGear(id);
-                return `<div class="popup-item inventory-row gear-craft-row needs-materials" title="${escapeAttr(check.reason || '')}">
-                    <div class="name">${def.emoji} ${def.name} <span class="gear-tier">T${recipe.tier}</span> <span class="craft-status blocked">MISSING MATS</span></div>
-                    <div class="desc">${def.desc}</div>
-                    <div class="desc gear-recipe-meta">${recipe.months} mo · ${recipe.stones} stones · ${formatRecipeMaterials(recipe)}</div>
-                </div>`;
-            }).join('');
-        }
+        html += `<div class="inventory-section-title inventory-section-craft sticky-section">🔨 Forging <span class="section-badge craft-ready-badge">${ready.length} ready</span></div>`;
+        html += `<div class="inventory-forge-cta">
+            <p class="inventory-forge-hint">${ready.length ? `${ready.length} recipes ready to forge.` : `${recipes.length} recipes — explore for materials.`}</p>
+            <button type="button" class="inventory-forge-btn" id="inventoryOpenForge">Open Forge Chamber →</button>
+        </div>`;
     }
 
     const bagUids = G.gearBag || [];
@@ -1881,10 +1839,9 @@ function renderInventoryPopup() {
             fullRender();
         };
     });
-    list.querySelectorAll('[data-craft-gear]').forEach(row => {
-        row.onclick = function() {
-            craftGear(this.dataset.craftGear);
-        };
+    list.querySelector('#inventoryOpenForge')?.addEventListener('click', () => {
+        document.getElementById('inventoryPopup')?.classList.remove('active');
+        if (typeof openForgeChamber === 'function') openForgeChamber();
     });
 }
 

@@ -705,6 +705,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnAlchemy')?.addEventListener('click', () => {
         if (typeof actionAlchemy === 'function') actionAlchemy();
     });
+    document.getElementById('btnForge')?.addEventListener('click', () => {
+        if (typeof actionForge === 'function') actionForge();
+    });
+    document.getElementById('inventoryHeaderForge')?.addEventListener('click', () => {
+        document.getElementById('inventoryPopup')?.classList.remove('active');
+        if (typeof openForgeChamber === 'function') openForgeChamber();
+    });
     document.getElementById('sidebarGearStrip')?.addEventListener('click', actionInventory);
     document.getElementById('btnForbidden').addEventListener('click', actionForbidden);
 
@@ -715,6 +722,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initSoulChamberEvents === 'function') initSoulChamberEvents();
     if (typeof initCultivationHubEvents === 'function') initCultivationHubEvents();
     if (typeof initAlchemyChamberEvents === 'function') initAlchemyChamberEvents();
+    if (typeof initForgeChamberEvents === 'function') initForgeChamberEvents();
     if (typeof initPlaytestFeedback === 'function') initPlaytestFeedback();
     if (typeof initPlaytestMode === 'function') initPlaytestMode();
     if (typeof initUiSettings === 'function') initUiSettings();

@@ -1041,6 +1041,8 @@ function loadState() {
             if (typeof migrateGearForExistingSave === 'function') migrateGearForExistingSave();
             if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
             if (typeof migrateAlchemyForExistingSave === 'function') migrateAlchemyForExistingSave();
+            if (typeof ensureForgeState === 'function') ensureForgeState();
+            if (typeof migrateForgeForExistingSave === 'function') migrateForgeForExistingSave();
             if (typeof ensureSectState === 'function') ensureSectState();
             if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
             if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();

@@ -4107,9 +4107,13 @@ const SECT_BUILDINGS = {
         id: 'armory',
         name: 'Armory',
         emoji: '🗡️',
-        desc: '+5% sect combat power per level for duels and raids.',
+        desc: '+5% sect combat power per level. +4% forge speed and +2% affix quality per level.',
         effectKey: 'armoryCombatPct',
         effectPerLevel: 5,
+        extraEffects: [
+            { effectKey: 'armoryForgePct', effectPerLevel: 4 },
+            { effectKey: 'armoryForgeAffixPct', effectPerLevel: 2 }
+        ],
         maxLevel: 3,
         minStage: 'established',
         implemented: true,

@@ -233,6 +233,7 @@
                                 <button id="btnTech">📚 Techs</button>
                                 <button id="btnPill" title="Choose a pill to consume">💊 Pills</button>
                                 <button id="btnAlchemy" title="Alchemy Chamber — brew pills">⚗️ Alchemy</button>
+                                <button id="btnForge" title="Forge Chamber — craft and repair gear">🔨 Forge</button>
                                 <button id="btnInventory">🎒 Inventory</button>
                             </div>
                         </div>
@@ -559,7 +560,7 @@
 
 <div class="popup-overlay" id="inventoryPopup">
     <div class="popup-box inventory-box">
-        <h2>🎒 Inventory &amp; Travel Kit</h2>
+        <h2 class="inventory-header-row">🎒 Inventory &amp; Travel Kit <button type="button" class="inventory-header-forge" id="inventoryHeaderForge">🔨 Open Forge</button></h2>
         <div id="travelKitPanel"></div>
         <p class="inventory-summary" id="inventorySummary">Your pouches are empty.</p>
         <div id="gearBonusPanel" class="gear-bonus-panel-wrap"></div>
@@ -967,6 +968,58 @@
     </div>
 </div>
 
+<div class="popup-overlay" id="forgeChamberOverlay">
+    <div class="forge-chamber-shell">
+        <header class="forge-chamber-header">
+            <h2 class="forge-chamber-title">🔨 Forge Chamber</h2>
+            <p class="forge-chamber-subtitle">The anvil remembers every strike. Metal awaits your will.</p>
+        </header>
+
+        <div id="forgeStatusPanel" class="forge-status-panel"></div>
+
+        <div class="forge-chamber-main">
+            <div class="forge-visual-col">
+                <div class="forge-anvil-stage" id="forgeAnvilStage" aria-hidden="true">
+                    <div class="forge-ember-ring">
+                        <span class="forge-ember" aria-hidden="true">✨</span>
+                        <span class="forge-ember forge-ember-b">🔥</span>
+                        <span class="forge-ember forge-ember-c">✨</span>
+                    </div>
+                    <div class="forge-anvil-body">
+                        <span class="forge-anvil-visual" id="forgeAnvilVisual">⚫</span>
+                        <span class="forge-hammer-visual" id="forgeHammerVisual">🔨</span>
+                        <div class="forge-spark-burst"></div>
+                    </div>
+                    <div class="forge-anvil-glow"></div>
+                </div>
+                <div class="forge-material-section">
+                    <h3 class="forge-section-title">Materials</h3>
+                    <div id="forgeMaterialPanel"></div>
+                </div>
+            </div>
+
+            <div class="forge-panel-col">
+                <div id="forgeTabBar" class="forge-tab-bar"></div>
+                <div class="forge-recipe-section">
+                    <h3 class="forge-section-title">Recipes</h3>
+                    <div class="forge-recipe-list" id="forgeRecipeList"></div>
+                </div>
+                <div class="forge-detail-section" id="forgeRecipeDetail">
+                    <p class="forge-muted">Select a recipe to view requirements.</p>
+                </div>
+                <div id="forgeSectToggle" class="forge-sect-toggle-wrap"></div>
+                <div class="forge-actions-row">
+                    <button type="button" class="forge-action-btn" id="forgeActionBtn" disabled>🔨 Forge</button>
+                    <button type="button" class="forge-chamber-btn-return" id="forgeChamberReturn">↩ Return</button>
+                </div>
+                <div class="forge-repair-section">
+                    <div id="forgeRepairPanel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="popup-overlay" id="combatOverlay">
     <div class="popup-box combat-box">
         <h2 class="combat-title">⚔️ COMBAT ⚔️</h2>
@@ -1226,7 +1279,9 @@
 <script src="foundation.js?v=5"></script>
 <script src="tutorial.js?v=3"></script>
 <script src="gear.js?v=7"></script>
-<script src="crafting.js?v=3"></script>
+<script src="crafting.js?v=4"></script>
+<script src="forge-data.js?v=1"></script>
+<script src="forge-chamber.js?v=1"></script>
 <script src="alchemy-data.js?v=1"></script>
 <script src="alchemy.js?v=2"></script>
 <script src="alchemy-chamber.js?v=1"></script>
