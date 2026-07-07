@@ -148,7 +148,28 @@ function canLearnTechnique(template) {
     if (template.reqPath && G.path !== template.reqPath) return false;
     if (G.realmIdx < getTechniqueReqRealm(template)) return false;
     if (template.reqTechnique && !G.techniques.some(t => t.name === template.reqTechnique)) return false;
+    const talentBlock = getTechniqueTalentBlockReason(template);
+    if (talentBlock) return false;
     return true;
+}
+
+function hasPlayerTrait(traitId) {
+    if (!traitId || typeof getPlayerTraits !== 'function') return false;
+    return getPlayerTraits().some(t => t.id === traitId);
+}
+
+function getTechniqueTalentBlockReason(template) {
+    if (!template?.reqTalent) return null;
+    if (hasPlayerTrait(template.reqTalent)) return null;
+    const def = typeof TRAIT_BY_ID !== 'undefined' ? TRAIT_BY_ID[template.reqTalent] : null;
+    return `Requires trait: ${def?.name || template.reqTalent}`;
+}
+
+/** Market realm gates derive from cultivation tier — not catalog reqRealm. */
+function getMarketTechniqueReqRealm(techName) {
+    const template = TECHNIQUE_POOL.find(t => t.name === techName);
+    if (!template) return 0;
+    return getTechniqueReqRealm(template);
 }
 
 function grantManual(techName, opts) {
@@ -192,6 +213,8 @@ function getComprehendBlockReason(template) {
     if (template.reqTechnique && !G.techniques.some(t => t.name === template.reqTechnique)) {
         return `Requires ${template.reqTechnique} first.`;
     }
+    const talentBlock = getTechniqueTalentBlockReason(template);
+    if (talentBlock) return `${talentBlock} — shelve or consign until you qualify.`;
     if (G.inCombat) return 'Cannot study during combat.';
     if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot study manuals right now.';
     return null;

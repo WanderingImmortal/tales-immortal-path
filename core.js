@@ -391,7 +391,7 @@ function getTechniqueMeta(tech) {
         affinityCycle: tpl?.affinityCycle || null,
         cultivationTier: tpl?.cultivationTier || getTechniqueCultivationTierId?.(tech.name) || 'condensation',
         techniqueQuality: tpl?.techniqueQuality || null,
-        intentReq: tpl?.intentReq || null
+        reqTalent: tpl?.reqTalent || null
     };
 }
 

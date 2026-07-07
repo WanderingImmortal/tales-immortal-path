@@ -1030,8 +1030,11 @@ function renderManualShelfHtml() {
         const elemLabel = TECH_ELEMENT_LABELS[template.element] || template.element;
         const months = getComprehendManualMonths(template);
         const block = known ? null : getComprehendBlockReason(template);
+        const talentBlock = getTechniqueTalentBlockReason(template);
         const canStudy = !known && !block;
         const countBadge = entry.count > 1 ? ` <span style="color:#b8863a;">×${entry.count}</span>` : '';
+        const talentLine = talentBlock && !known
+            ? `<div class="manual-shelf-lock">🎭 ${talentBlock}</div>` : '';
         let actions = '';
         if (!known) {
             actions += `<button type="button" class="manual-shelf-btn" data-comprehend-manual="${escapeAttr(entry.technique)}"${canStudy ? '' : ' disabled'}>📖 Comprehend (${months} mo)</button>`;
@@ -1049,6 +1052,7 @@ function renderManualShelfHtml() {
         return `<div class="popup-item manual-shelf-row">
             <div class="name">${pathIcon} ${entry.technique}${countBadge} <span class="tech-cultivation-tier">${tierLabel}</span> <span style="color:#a09080;font-size:12px;">[${track}]</span></div>
             <div class="desc">${template.desc} · ${elemLabel} · ${template.rarity}</div>
+            ${talentLine}
             ${lockLine}
             <div class="manual-shelf-actions">${actions}</div>
         </div>`;
@@ -2250,15 +2254,19 @@ function renderMerchantPopup() {
     let html = catalog.stock.map(item => {
         const template = TECHNIQUE_POOL.find(t => t.name === item.technique);
         const owned = G.techniques.some(t => t.name === item.technique);
-        const tierReq = template ? getTechniqueReqRealm(template) : 0;
-        const reqRealm = Math.max(item.reqRealm ?? 0, tierReq);
+        const reqRealm = typeof getMarketTechniqueReqRealm === 'function'
+            ? getMarketTechniqueReqRealm(item.technique)
+            : (item.reqRealm ?? 0);
         const locked = G.realmIdx < reqRealm;
+        const talentBlock = template ? getTechniqueTalentBlockReason(template) : null;
         const bodyManual = template?.path === 'body' && G.path !== 'body';
         const factionLocked = typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(item.technique, zoneId);
         const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
         const canBuy = !locked && !factionLocked && G.stones >= finalPrice;
         const realmName = PATHS[G.path].realms[reqRealm] || `Realm ${reqRealm + 1}`;
-        let status = locked ? `Need ${realmName}` : bodyManual
+        let status = locked ? `Need ${realmName}` : talentBlock
+            ? `${talentBlock} to comprehend`
+            : bodyManual
             ? 'Manual · body path to comprehend'
             : factionLocked
             ? (typeof getMarketTechniqueLockReason === 'function' ? getMarketTechniqueLockReason(item.technique, zoneId) : 'Faction locked')

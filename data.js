@@ -373,13 +373,13 @@ const TECHNIQUE_POOL = [
     { name: "Tide Spiral", path: "qi", element: "water", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Flowing water redirects force back at the foe." },
     { name: "Blood Refining Art", path: "body", element: "blood", category: "attack", combatTier: "medium", baseDamage: 12, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Drains life force from foes to mend your flesh." },
     { name: "Demon Seal", path: "soul", element: "soul", category: "attack", combatTier: "medium", baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
-    { name: "Gentle Repression", path: "qi", element: "neutral", category: "utility", combatTier: "utility", weaponType: "fist", baseDamage: 6, baseCost: 4, costType: "qi", rarity: "rare", desc: "Story art — suppress corruption and steady the meridians." },
+    { name: "Gentle Repression", path: "qi", element: "neutral", category: "utility", combatTier: "utility", weaponType: "fist", reqTalent: "cursed_scholar", baseDamage: 6, baseCost: 4, costType: "qi", rarity: "rare", desc: "Story art — suppress corruption and steady the meridians." },
     { name: "Void Step", path: "neutral", element: "neutral", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 4, costType: "qi", rarity: "rare", desc: "Evade the next attack." },
-    { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Staff", minStage: 2 }, baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
+    { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Staff", minStage: 2 }, reqTalent: "lightning_attractor", baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
     { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
     { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
     { name: "Frostbite Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "An icy palm strike that chills to the bone." },
-    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." },
+    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", reqTalent: "immortals_disciple", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." },
     // —— Qi arts (expanded) ——
     { name: "Gale Spiral", path: "qi", element: "wind", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "A spiraling gust compressed into a palm strike." },
     { name: "Earth Pulse Palm", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 11, baseCost: 6, costType: "qi", rarity: "common", desc: "Qi ripples through stone — steady, crushing force." },
@@ -394,7 +394,7 @@ const TECHNIQUE_POOL = [
     { name: "Raging Ember Fist", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Volcanic embers packed into rapid strikes." },
     { name: "Cinder Volley", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "Scattered embers strike in rapid succession." },
     { name: "Maelstrom Lance", path: "qi", element: "water", category: "attack", combatTier: "medium", weaponType: "spear", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "rare", desc: "A spear of spiraling tide-force from the deep." },
-    { name: "Void Rend", path: "qi", element: "void", category: "attack", combatTier: "medium", baseDamage: 13, baseCost: 8, costType: "qi", rarity: "rare", desc: "Tears a rift of nothingness through the enemy's guard." },
+    { name: "Void Rend", path: "qi", element: "void", category: "attack", combatTier: "medium", reqTalent: "ancient_bloodline", baseDamage: 13, baseCost: 8, costType: "qi", rarity: "rare", desc: "Tears a rift of nothingness through the enemy's guard." },
     // —— Body arts (expanded) ——
     { name: "Bone Tempering Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", setId: "body_tempering", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Temper marrow and bone until blows glance off." },
     { name: "Crushing Fist", path: "body", element: "neutral", category: "attack", combatTier: "light", weaponType: "fist", setId: "body_tempering", baseDamage: 9, baseCost: 4, costType: "qi", rarity: "common", desc: "Raw physical force — no qi ornament, just impact." },
@@ -411,7 +411,7 @@ const TECHNIQUE_POOL = [
     { name: "Mind Sever", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "Severs the link between mind and body for an instant." },
     { name: "Ghost Spear Thrust", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of ghostly intent that pierces from afar." },
     { name: "Spectral Shield", path: "soul", element: "soul", category: "defense", combatTier: "defense", baseDamage: 5, baseCost: 6, costType: "spirit", rarity: "uncommon", desc: "A barrier of soul energy that absorbs spiritual attacks." },
-    { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
+    { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", reqTalent: "cursed_scholar", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
     // —— Universal arts ——
     { name: "Quickfoot Art", path: "neutral", element: "wind", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 3, costType: "qi", rarity: "common", desc: "Light footwork — reposition before the enemy strikes." },
     { name: "Focused Breath", path: "neutral", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 2, baseCost: 4, costType: "qi", rarity: "common", desc: "Center breath and intent — steady the next exchange." }
@@ -1127,17 +1127,17 @@ const MERCHANT_CATALOG = {
     heartlands: {
         name: "Celestial Market",
         stock: [
-            { technique: "Heavenly Palm", price: 45, reqRealm: 0 },
-            { technique: "Earth Pulse Palm", price: 50, reqRealm: 0 },
-            { technique: "Meridian Flow", price: 40, reqRealm: 0 },
-            { technique: "Five Elements Fist", price: 90, reqRealm: 1 },
-            { technique: "Scorching Palm", price: 75, reqRealm: 1 },
-            { technique: "Tide Spiral", price: 75, reqRealm: 1 },
-            { technique: "Storm Needle", price: 85, reqRealm: 1 },
-            { technique: "Root-Vein Surge", price: 95, reqRealm: 1 },
-            { technique: "Wind Blade Strike", price: 100, reqRealm: 2 },
-            { technique: "Frostbite Palm", price: 160, reqRealm: 2 },
-            { technique: "Celestial Judgment", price: 220, reqRealm: 3 }
+            { technique: "Heavenly Palm", price: 45 },
+            { technique: "Earth Pulse Palm", price: 50 },
+            { technique: "Meridian Flow", price: 40 },
+            { technique: "Five Elements Fist", price: 90 },
+            { technique: "Scorching Palm", price: 75 },
+            { technique: "Tide Spiral", price: 75 },
+            { technique: "Storm Needle", price: 85 },
+            { technique: "Root-Vein Surge", price: 95 },
+            { technique: "Wind Blade Strike", price: 100 },
+            { technique: "Frostbite Palm", price: 160 },
+            { technique: "Celestial Judgment", price: 220 }
         ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
@@ -1148,20 +1148,20 @@ const MERCHANT_CATALOG = {
     jade: {
         name: "Tide Merchant Guild",
         stock: [
-            { technique: "Crushing Fist", price: 45, reqRealm: 0 },
-            { technique: "Bone Tempering Stance", price: 50, reqRealm: 0 },
-            { technique: "Blood Aegis", price: 85, reqRealm: 1 },
-            { technique: "Mountain Crash", price: 175, reqRealm: 2 },
-            { technique: "Bronze Skin Palm", price: 120, reqRealm: 1 },
-            { technique: "Soul Lash", price: 55, reqRealm: 0 },
-            { technique: "Quickfoot Art", price: 35, reqRealm: 0 },
-            { technique: "Soul Severing Sword", price: 75, reqRealm: 1 },
-            { technique: "Phantom Blade", price: 90, reqRealm: 1 },
-            { technique: "Ghost Spear Thrust", price: 95, reqRealm: 1 },
-            { technique: "Demon Seal", price: 130, reqRealm: 2 },
-            { technique: "Spirit Suppression Art", price: 140, reqRealm: 2 },
-            { technique: "Void Step", price: 200, reqRealm: 2 },
-            { technique: "Spectral Shield", price: 110, reqRealm: 2 }
+            { technique: "Crushing Fist", price: 45 },
+            { technique: "Bone Tempering Stance", price: 50 },
+            { technique: "Blood Aegis", price: 85 },
+            { technique: "Mountain Crash", price: 175 },
+            { technique: "Bronze Skin Palm", price: 120 },
+            { technique: "Soul Lash", price: 55 },
+            { technique: "Quickfoot Art", price: 35 },
+            { technique: "Soul Severing Sword", price: 75 },
+            { technique: "Phantom Blade", price: 90 },
+            { technique: "Ghost Spear Thrust", price: 95 },
+            { technique: "Demon Seal", price: 130 },
+            { technique: "Spirit Suppression Art", price: 140 },
+            { technique: "Void Step", price: 200 },
+            { technique: "Spectral Shield", price: 110 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
