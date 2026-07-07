@@ -3,7 +3,7 @@
 // ============================================
 
 function ensureResidenceStash() {
-    ensureSectState();
+    if (!G.sect) return;
     if (!G.sect.residence) {
         G.sect.residence = { level: 0, stash: null, lastRestMonths: null, formations: { slots: [] } };
     }
