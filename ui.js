@@ -2257,7 +2257,7 @@ function renderMerchantPopup() {
         const factionLocked = typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(item.technique, zoneId);
         const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
         const canBuy = !locked && !factionLocked && G.stones >= finalPrice;
-        const realmName = PATHS[G.path].realms[item.reqRealm] || `Realm ${item.reqRealm + 1}`;
+        const realmName = PATHS[G.path].realms[reqRealm] || `Realm ${reqRealm + 1}`;
         let status = locked ? `Need ${realmName}` : bodyManual
             ? 'Manual · body path to comprehend'
             : factionLocked
