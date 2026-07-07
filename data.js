@@ -367,19 +367,18 @@ const LEGACY_BONUS_CP = {
 const TECHNIQUE_POOL = [
     { name: "Heavenly Palm", path: "qi", element: "neutral", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 8, baseCost: 5, costType: "qi", rarity: "common", desc: "A classic palm strike channeling refined qi." },
     { name: "Iron Mountain Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Roots your stance like a mountain — absorb blows with tempered flesh." },
-    { name: "Soul Severing Sword", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "sword", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "common", desc: "A blade that cuts the soul." },
-    { name: "Five Elements Fist", path: "qi", element: "elemental", category: "attack", combatTier: "medium", weaponType: "fist", setId: "five_elements", affinityCycle: ["fire", "water", "earth", "wind", "lightning"], baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Cycles through five elemental strikes." },
-    { name: "Scorching Palm", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A palm strike wreathed in flame." },
-    { name: "Tide Spiral", path: "qi", element: "water", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Flowing water redirects force back at the foe." },
+    { name: "Soul Severing Sword", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "sword", techniqueQuality: "high", intentReq: { weapon: "Sword", minStage: 1 }, baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "common", desc: "A blade that cuts the soul." },
+    { name: "Five Elements Fist", path: "qi", element: "elemental", category: "attack", combatTier: "medium", weaponType: "fist", setId: "five_elements", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, affinityCycle: ["fire", "water", "earth", "wind", "lightning"], baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Cycles through five elemental strikes." },
+    { name: "Scorching Palm", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", techniqueQuality: "mid", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A palm strike wreathed in flame." },
+    { name: "Tide Spiral", path: "qi", element: "water", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", techniqueQuality: "mid", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Flowing water redirects force back at the foe." },
     { name: "Blood Refining Art", path: "body", element: "blood", category: "attack", combatTier: "medium", baseDamage: 12, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Drains life force from foes to mend your flesh." },
-    { name: "Demon Seal", path: "soul", element: "soul", category: "attack", combatTier: "medium", baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
     { name: "Gentle Repression", path: "qi", element: "neutral", category: "utility", combatTier: "utility", weaponType: "fist", reqTalent: "cursed_scholar", baseDamage: 6, baseCost: 4, costType: "qi", rarity: "rare", desc: "Story art — suppress corruption and steady the meridians." },
     { name: "Void Step", path: "neutral", element: "neutral", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 4, costType: "qi", rarity: "rare", desc: "Evade the next attack." },
     { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Staff", minStage: 2 }, reqTalent: "lightning_attractor", baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
-    { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
-    { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
+    { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 2 }, baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
+    { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
     { name: "Frostbite Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "An icy palm strike that chills to the bone." },
-    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", reqTalent: "immortals_disciple", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." },
+    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, reqTalent: "immortals_disciple", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." },
     // —— Qi arts (expanded) ——
     { name: "Gale Spiral", path: "qi", element: "wind", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "A spiraling gust compressed into a palm strike." },
     { name: "Earth Pulse Palm", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 11, baseCost: 6, costType: "qi", rarity: "common", desc: "Qi ripples through stone — steady, crushing force." },
@@ -389,11 +388,12 @@ const TECHNIQUE_POOL = [
     { name: "Meridian Flow", path: "qi", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 3, baseCost: 4, costType: "qi", rarity: "common", desc: "Circulates qi through meridians — light recovery mid-fight." },
     { name: "Root-Vein Surge", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Draws power from the continental spiritual veins." },
     { name: "Sandburrow Palm", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Burrowing sand qi that finds cracks in armor." },
-    { name: "Glacier Heart Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "The frozen heart of a glacier spirit — numbing cold." },
-    { name: "Phoenix Ascent Palm", path: "qi", element: "fire", category: "attack", combatTier: "heavy", weaponType: "fist", setId: "ember_fury", baseDamage: 20, baseCost: 11, costType: "qi", rarity: "rare", desc: "Rising flame like a phoenix breaching the caldera sky." },
+    { name: "Glacier Heart Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "The frozen heart of a glacier spirit — numbing cold." },
+    { name: "Demon Seal", path: "soul", element: "soul", category: "attack", combatTier: "medium", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
+    { name: "Phoenix Ascent Palm", path: "qi", element: "fire", category: "attack", combatTier: "heavy", weaponType: "fist", setId: "ember_fury", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 2 }, baseDamage: 20, baseCost: 11, costType: "qi", rarity: "rare", desc: "Rising flame like a phoenix breaching the caldera sky." },
     { name: "Raging Ember Fist", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Volcanic embers packed into rapid strikes." },
     { name: "Cinder Volley", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "Scattered embers strike in rapid succession." },
-    { name: "Maelstrom Lance", path: "qi", element: "water", category: "attack", combatTier: "medium", weaponType: "spear", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "rare", desc: "A spear of spiraling tide-force from the deep." },
+    { name: "Maelstrom Lance", path: "qi", element: "water", category: "attack", combatTier: "medium", weaponType: "spear", techniqueQuality: "high", intentReq: { weapon: "Spear", minStage: 1 }, baseDamage: 13, baseCost: 7, costType: "qi", rarity: "rare", desc: "A spear of spiraling tide-force from the deep." },
     { name: "Void Rend", path: "qi", element: "void", category: "attack", combatTier: "medium", reqTalent: "ancient_bloodline", baseDamage: 13, baseCost: 8, costType: "qi", rarity: "rare", desc: "Tears a rift of nothingness through the enemy's guard." },
     // —— Body arts (expanded) ——
     { name: "Bone Tempering Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", setId: "body_tempering", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Temper marrow and bone until blows glance off." },
@@ -403,15 +403,15 @@ const TECHNIQUE_POOL = [
     { name: "Viper Fang Strike", path: "body", element: "blood", category: "attack", combatTier: "light", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A venomous strike that draws blood and feeds vitality." },
     { name: "Mountain Crash", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, baseDamage: 19, baseCost: 9, costType: "qi", rarity: "rare", desc: "Your body becomes the mountain — a devastating slam." },
     { name: "Blood Aegis", path: "body", element: "blood", category: "buff", combatTier: "buff", baseDamage: 4, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Blood qi forms a brief protective membrane." },
-    { name: "Staff Shatter", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Shatter a staff's worth of force through tempered limbs." },
+    { name: "Staff Shatter", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", techniqueQuality: "mid", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Shatter a staff's worth of force through tempered limbs." },
     // —— Soul arts (expanded) ——
     { name: "Soul Lash", path: "soul", element: "soul", category: "attack", combatTier: "light", setId: "soul_suppression", baseDamage: 11, baseCost: 7, costType: "spirit", rarity: "common", desc: "A whip of condensed soul force." },
     { name: "Phantom Blade", path: "soul", element: "soul", category: "attack", combatTier: "light", weaponType: "blade", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 10, baseCost: 7, costType: "spirit", rarity: "uncommon", desc: "A blade of spirit that passes through flesh to cut the soul." },
     { name: "Spirit Suppression Art", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 14, baseCost: 9, costType: "spirit", rarity: "uncommon", desc: "Suppresses the enemy's spirit, weakening their techniques." },
     { name: "Mind Sever", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "Severs the link between mind and body for an instant." },
-    { name: "Ghost Spear Thrust", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of ghostly intent that pierces from afar." },
+    { name: "Ghost Spear Thrust", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", techniqueQuality: "mid", baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of ghostly intent that pierces from afar." },
     { name: "Spectral Shield", path: "soul", element: "soul", category: "defense", combatTier: "defense", baseDamage: 5, baseCost: 6, costType: "spirit", rarity: "uncommon", desc: "A barrier of soul energy that absorbs spiritual attacks." },
-    { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", reqTalent: "cursed_scholar", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
+    { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, reqTalent: "cursed_scholar", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
     // —— Universal arts ——
     { name: "Quickfoot Art", path: "neutral", element: "wind", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 3, costType: "qi", rarity: "common", desc: "Light footwork — reposition before the enemy strikes." },
     { name: "Focused Breath", path: "neutral", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 2, baseCost: 4, costType: "qi", rarity: "common", desc: "Center breath and intent — steady the next exchange." }
@@ -2453,6 +2453,22 @@ const MANUAL_BALANCE = {
     },
     defaultIntentDebuff: { dmgMult: 0.45, costMult: 1.25 }
 };
+
+/** Intent synergy tiers — mid = soft debuff, high = hard debuff without matching intent stage. */
+const INTENT_TECHNIQUE_BALANCE = {
+    low: { noMatchMult: 1, costMult: 1, matchBonus: 0.06, stageBonusPerTier: 0.025 },
+    mid: { noMatchMult: 0.85, costMult: 1.08, matchBonus: 0.10, stageBonusPerTier: 0.035 },
+    high: { noMatchMult: 0.45, costMult: 1.25, matchBonus: 0.15, stageBonusPerTier: 0.05 },
+    wrongStageMult: 0.72
+};
+
+/** Apex arts — hard intent gate unless noted in pool. */
+const HIGH_INTENT_TECHNIQUES = new Set([
+    'Wind Blade Strike', 'Heavenly Sword Qi', 'Phantom Blade', 'Mountain Crash', 'Celestial Judgment',
+    'Soul Severing Sword', 'War God\'s Roar', 'Phoenix Ascent Palm', 'Abyss Gaze', 'Soul Rend',
+    'Glacier Heart Palm', 'Maelstrom Lance', 'Void Rend', 'Demon Seal', 'Five Elements Fist',
+    'Mirror Step'
+]);
 
 // ===== ACTION UNLOCKS — realm & milestone gates (not age) =====
 // minRealm uses realmIdx (0 = first realm). Milestones are set by play, not calendar age.

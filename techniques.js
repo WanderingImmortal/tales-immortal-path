@@ -295,10 +295,130 @@ function comprehendManual(techName) {
     return true;
 }
 
+function weaponTypeToIntentWeapon(weaponType) {
+    if (!weaponType) return null;
+    const map = { sword: 'Sword', blade: 'Blade', fist: 'Fist', spear: 'Spear', staff: 'Staff' };
+    return map[String(weaponType).toLowerCase()] || null;
+}
+
+function inferTechniqueQuality(template) {
+    if (!template) return 'low';
+    if (template.techniqueQuality) return template.techniqueQuality;
+    if (typeof HIGH_INTENT_TECHNIQUES !== 'undefined' && HIGH_INTENT_TECHNIQUES.has(template.name)) return 'high';
+    const tierId = template.cultivationTier || getTechniqueCultivationTierId(template);
+    const tierIdx = CULTIVATION_TIER_ORDER.indexOf(tierId);
+    const foundationIdx = CULTIVATION_TIER_ORDER.indexOf('foundation');
+    if (template.weaponType && template.category === 'attack' && tierIdx >= foundationIdx) return 'mid';
+    return 'low';
+}
+
+function resolveIntentReq(template) {
+    if (!template) return null;
+    if (template.intentReq) return template.intentReq;
+    const quality = inferTechniqueQuality(template);
+    if (quality === 'low') return null;
+    const weapon = weaponTypeToIntentWeapon(template.weaponType);
+    if (!weapon) return null;
+    const tierId = template.cultivationTier || getTechniqueCultivationTierId(template);
+    let minStage = quality === 'high' ? 1 : 0;
+    if (quality === 'high' && (tierId === 'dao_seeking' || tierId === 'immortal' || tierId === 'nascent')) {
+        minStage = Math.max(minStage, 2);
+    }
+    return { weapon, minStage };
+}
+
+function getTechniqueIntentProfile(template) {
+    if (!template) return null;
+    const quality = inferTechniqueQuality(template);
+    const intentReq = resolveIntentReq(template);
+    const balance = INTENT_TECHNIQUE_BALANCE[quality] || INTENT_TECHNIQUE_BALANCE.low;
+    return { quality, intentReq, balance };
+}
+
+function getTechniqueIntentMatch(tech) {
+    const template = TECHNIQUE_POOL.find(t => t.name === tech.name);
+    const profile = getTechniqueIntentProfile(template);
+    const result = {
+        quality: profile?.quality || 'low',
+        intentReq: profile?.intentReq || null,
+        weaponMatch: false,
+        stageOk: false,
+        stage: -1,
+        dmgMult: 1,
+        costMult: 1,
+        bonus: 0,
+        warnIcon: '',
+        warnText: '',
+        matched: false
+    };
+    if (!profile) return result;
+
+    const active = typeof getActiveIntent === 'function' ? getActiveIntent() : null;
+    const stage = active && typeof getIntentTierIndex === 'function' ? getIntentTierIndex(active.uses) : -1;
+    result.stage = stage;
+
+    if (!profile.intentReq) {
+        const weapon = weaponTypeToIntentWeapon(template?.weaponType);
+        if (weapon && active?.weapon === weapon) {
+            result.weaponMatch = true;
+            result.matched = true;
+            result.bonus = profile.balance.matchBonus * 0.5;
+            result.dmgMult = 1 + result.bonus;
+        }
+        return result;
+    }
+
+    const req = profile.intentReq;
+    result.weaponMatch = !!(active && active.weapon === req.weapon);
+    result.stageOk = result.weaponMatch && stage >= (req.minStage ?? 0);
+
+    if (result.stageOk) {
+        result.matched = true;
+        const stageExtra = Math.max(0, stage - (req.minStage ?? 0)) * profile.balance.stageBonusPerTier;
+        result.bonus = profile.balance.matchBonus + stageExtra;
+        result.dmgMult = 1 + result.bonus;
+        return result;
+    }
+
+    if (result.weaponMatch && !result.stageOk) {
+        const b = INTENT_TECHNIQUE_BALANCE;
+        result.dmgMult = b.wrongStageMult;
+        result.costMult = profile.balance.costMult;
+        result.warnIcon = '🗡️';
+        const stageName = INTENT_TIERS[req.minStage]?.name || 'higher';
+        result.warnText = `${req.weapon} intent too shallow — need ${stageName}+ (currently ${INTENT_TIERS[Math.max(0, stage)]?.name || 'none'}).`;
+        return result;
+    }
+
+    result.dmgMult = profile.balance.noMatchMult;
+    result.costMult = profile.balance.costMult;
+    if (profile.quality !== 'low') {
+        result.warnIcon = profile.quality === 'high' ? '🗡️' : '⚔️';
+        const stageName = INTENT_TIERS[req.minStage]?.name || 'any';
+        const need = req.minStage > 0 ? ` (${stageName}+)` : '';
+        result.warnText = profile.quality === 'high'
+            ? `Art barely forms without ${req.weapon} intent${need}.`
+            : `Weakened without ${req.weapon} intent${need}.`;
+    }
+    return result;
+}
+
+function getTechniqueIntentHint(template) {
+    const profile = getTechniqueIntentProfile(template);
+    if (!profile?.intentReq) return '';
+    const req = profile.intentReq;
+    const stageName = req.minStage > 0 ? ` · ${INTENT_TIERS[req.minStage]?.name}+` : '';
+    const qLabel = profile.quality === 'high' ? 'Master art' : 'Weapon art';
+    return `${qLabel}: ${req.weapon} intent${stageName}`;
+}
+
+function getTechniqueIntentMult(tech) {
+    return getTechniqueIntentMatch(tech);
+}
+
 /** Combat + UI viability — path, intent, obsolescence. */
 function getTechniqueCombatViability(tech) {
     const meta = getTechniqueMeta(tech);
-    const template = TECHNIQUE_POOL.find(t => t.name === tech.name);
     const result = { usable: true, dmgMult: 1, costMult: 1, warnIcon: '', warnText: '' };
 
     if (meta.path === 'body' && G.path !== 'body') {
@@ -317,33 +437,30 @@ function getTechniqueCombatViability(tech) {
         result.warnIcon = result.warnIcon || '📉';
         const pct = Math.round(obsMult * 100);
         const obsNote = `Outdated art — ${pct}% power (${gap} realm${gap > 1 ? 's' : ''} behind).`;
-        result.warnText = result.warnText ? `${result.warnText} ${obsNote}` : obsNote;
+        result.warnText = obsNote;
     }
 
-    if (template?.intentReq && typeof getActiveIntent === 'function' && typeof getIntentTierIndex === 'function') {
-        const req = template.intentReq;
-        const active = getActiveIntent();
-        const stage = active ? getIntentTierIndex(active.uses) : -1;
-        const weaponMatch = active && active.weapon === req.weapon;
-        const stageOk = stage >= (req.minStage ?? 0);
-        if (!weaponMatch || !stageOk) {
-            const debuff = template.intentDebuff || MANUAL_BALANCE.defaultIntentDebuff;
-            result.dmgMult *= debuff.dmgMult ?? 0.45;
-            result.costMult *= debuff.costMult ?? 1.25;
-            result.warnIcon = '🗡️';
-            const stageName = INTENT_TIERS[req.minStage]?.name || 'higher';
-            const intentNote = `Weak without ${req.weapon} intent (${stageName}+).`;
-            result.warnText = result.warnText ? `${result.warnText} ${intentNote}` : intentNote;
-        }
+    const intent = getTechniqueIntentMatch(tech);
+    if (intent.warnIcon && !result.warnIcon) result.warnIcon = intent.warnIcon;
+    else if (intent.warnIcon === '🗡️') result.warnIcon = '🗡️';
+    if (intent.warnText) {
+        result.warnText = result.warnText ? `${result.warnText} ${intent.warnText}` : intent.warnText;
     }
+    result.intentDmgMult = intent.dmgMult;
+    result.intentCostMult = intent.costMult;
+    result.intentMatched = intent.matched;
 
     return result;
 }
 
 function getTechniqueViabilityBadge(tech) {
     const v = getTechniqueCombatViability(tech);
+    const intent = getTechniqueIntentMatch(tech);
     const title = String(v.warnText || '').replace(/"/g, '&quot;');
     if (!v.usable) return `<span class="tech-viability-warn" title="${title}">${v.warnIcon} ✕</span>`;
+    if (intent.matched && intent.bonus > 0) {
+        return `<span class="tech-viability-warn tech-viability-synergy" title="Intent synergy active (+${Math.round(intent.bonus * 100)}%)">🗡️ ✦</span>`;
+    }
     if (v.warnIcon === '📉') return `<span class="tech-viability-warn tech-viability-outdated" title="${title}">📉</span>`;
     if (v.warnIcon) return `<span class="tech-viability-warn" title="${title}">${v.warnIcon} ⚠</span>`;
     return '';

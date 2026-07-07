@@ -32,7 +32,10 @@ function getTechniqueCombatCost(tech) {
         cost = Math.floor(cost * getBodyChamberTechniqueCostMult());
     }
     if (typeof getTechniqueCombatViability === 'function') {
-        cost = Math.floor(cost * getTechniqueCombatViability(tech).costMult);
+        const v = getTechniqueCombatViability(tech);
+        cost = Math.floor(cost * (v.intentCostMult != null ? v.intentCostMult : 1));
+    } else if (typeof getTechniqueIntentMatch === 'function') {
+        cost = Math.floor(cost * getTechniqueIntentMatch(tech).costMult);
     }
     return Math.max(1, cost);
 }
@@ -362,12 +365,6 @@ function calcCombatTechniqueDamage(tech) {
         dmg = Math.max(1, Math.floor(dmg * getBodyChamberBloodTechniqueMult(tech)));
     }
     if (typeof applyBodyChamberPhysicalDmg === 'function') dmg = applyBodyChamberPhysicalDmg(dmg, tech);
-    if (typeof getTechniqueCombatViability === 'function') {
-        const v = getTechniqueCombatViability(tech);
-        if (v.dmgMult !== 1 && v.warnIcon === '🗡️') {
-            dmg = Math.max(tech.baseDamage === 0 ? 0 : 1, Math.floor(dmg * v.dmgMult));
-        }
-    }
     return dmg;
 }
 
@@ -710,6 +707,9 @@ function combatUseTechnique(name) {
             addCombatLog(`📜 ${v.warnText}`);
             scheduleOpponentTurn();
             return;
+        }
+        if (v.warnText && v.warnIcon && v.warnIcon !== '📉' && !v.intentMatched) {
+            addCombatLog(`🗡️ ${v.warnText.split('.')[0]}.`);
         }
     }
 

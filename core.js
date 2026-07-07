@@ -391,6 +391,7 @@ function getTechniqueMeta(tech) {
         affinityCycle: tpl?.affinityCycle || null,
         cultivationTier: tpl?.cultivationTier || getTechniqueCultivationTierId?.(tech.name) || 'condensation',
         techniqueQuality: tpl?.techniqueQuality || null,
+        intentReq: tpl?.intentReq || (typeof resolveIntentReq === 'function' ? resolveIntentReq(tpl) : null),
         reqTalent: tpl?.reqTalent || null
     };
 }
@@ -721,8 +722,8 @@ function getTechCost(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
     const base = typeof getTechniqueBaseStats === 'function' ? getTechniqueBaseStats(tech).baseCost : tech.baseCost;
     let cost = base * (1 - tier.bonusCost);
-    if (typeof getTechniqueCombatViability === 'function') {
-        cost *= getTechniqueCombatViability(tech).costMult;
+    if (typeof getTechniqueIntentMatch === 'function') {
+        cost *= getTechniqueIntentMatch(tech).costMult;
     }
     return Math.max(1, Math.round(cost));
 }
@@ -741,6 +742,10 @@ function getTechDamage(tech) {
     dmg *= getTechniqueSetDamageMult(tech);
     if (typeof getTechniqueObsolescenceMult === 'function') dmg *= getTechniqueObsolescenceMult(tech);
     if (G.weaponIntent) dmg *= (1 + getIntentBonus());
+    if (typeof getTechniqueIntentMatch === 'function') {
+        const intent = getTechniqueIntentMatch(tech);
+        if (intent.dmgMult !== 1) dmg *= intent.dmgMult;
+    }
     if (G.dmgMult > 1) dmg *= G.dmgMult;
     dmg *= getPlayerTraitMultPct('techniqueDmgPct', 0);
     const baseDmg = baseStats.baseDamage;

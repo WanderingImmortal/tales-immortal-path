@@ -1030,6 +1030,8 @@ function renderManualShelfHtml() {
         const elemLabel = TECH_ELEMENT_LABELS[template.element] || template.element;
         const months = getComprehendManualMonths(template);
         const block = known ? null : getComprehendBlockReason(template);
+        const intentHint = getTechniqueIntentHint(template);
+        const intentLine = intentHint ? `<div class="manual-shelf-lock" style="color:#8a9ab0;font-style:normal;">🗡️ ${intentHint}</div>` : '';
         const talentBlock = getTechniqueTalentBlockReason(template);
         const canStudy = !known && !block;
         const countBadge = entry.count > 1 ? ` <span style="color:#b8863a;">×${entry.count}</span>` : '';
@@ -1052,6 +1054,7 @@ function renderManualShelfHtml() {
         return `<div class="popup-item manual-shelf-row">
             <div class="name">${pathIcon} ${entry.technique}${countBadge} <span class="tech-cultivation-tier">${tierLabel}</span> <span style="color:#a09080;font-size:12px;">[${track}]</span></div>
             <div class="desc">${template.desc} · ${elemLabel} · ${template.rarity}</div>
+            ${intentLine}
             ${talentLine}
             ${lockLine}
             <div class="manual-shelf-actions">${actions}</div>
@@ -1102,12 +1105,19 @@ function renderTechItemHtml(tech) {
     if (bd.affinityMult > 1) multParts.push('Aff ×' + bd.affinityMult.toFixed(2));
     if (bd.setMult > 1) multParts.push('Set ×' + bd.setMult.toFixed(2));
     if (bd.obsoleteMult < 1) multParts.push('Age ×' + bd.obsoleteMult.toFixed(2));
+    const intentMatch = typeof getTechniqueIntentMatch === 'function' ? getTechniqueIntentMatch(tech) : null;
+    if (intentMatch?.matched && intentMatch.bonus > 0) multParts.push('Intent +' + Math.round(intentMatch.bonus * 100) + '%');
+    else if (intentMatch?.warnText) multParts.push('Intent ⚠');
     const multStr = multParts.length ? ' | ' + multParts.join(' · ') : '';
     const tierBadge = `<span class="tech-tier-badge tier-${combatTierId}">${combatTierLabel}</span>`;
     const cultTierLabel = typeof getCultivationTierLabel === 'function'
         ? getCultivationTierLabel(meta.cultivationTier, meta.path)
         : '';
     const cultBadge = cultTierLabel ? `<span class="tech-cultivation-tier">${cultTierLabel}</span>` : '';
+    const intentHint = typeof getTechniqueIntentHint === 'function'
+        ? getTechniqueIntentHint(TECHNIQUE_POOL.find(t => t.name === tech.name))
+        : '';
+    const intentLine = intentHint ? ` · ${intentHint}` : '';
     const costLine = G.inCombat
         ? `⚔️ ${dmg} dmg | ${cfg.icon} ${combatCost} ${cfg.resource}${canAfford ? '' : ' (insufficient)'}${multStr}`
         : `⚔️ ${dmg} dmg (${scaleHint}) | 💰 ${cost} ${tech.costType} | Uses: ${tech.uses || 0}${multStr}`;
@@ -1115,7 +1125,7 @@ function renderTechItemHtml(tech) {
     const viabilityBadge = typeof getTechniqueViabilityBadge === 'function' ? getTechniqueViabilityBadge(tech) : '';
     return `<div class="popup-item${affordClass}" data-tech="${tech.name}"${canAfford ? '' : ' data-unaffordable="1"'}>
         <div class="name">${pathIcon} ${tech.name} ${viabilityBadge} ${cultBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
-        <div class="desc">${tech.desc} · ${elemLabel} · ${tech.rarity}${affLine ? ' · ' + affLine : ''}</div>
+        <div class="desc">${tech.desc} · ${elemLabel} · ${tech.rarity}${intentLine}${affLine ? ' · ' + affLine : ''}</div>
         <div class="meta">${costLine}</div>
     </div>`;
 }
