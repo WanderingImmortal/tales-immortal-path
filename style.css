@@ -6406,6 +6406,113 @@ header .subtitle {
     margin: 8px 0;
 }
 
+.travel-kit-ring-line {
+    font-size: 11px;
+    color: #b8863a;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.spatial-ring-panel {
+    background: #121418;
+    border: 1px solid #2a3040;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+}
+
+.spatial-ring-head {
+    margin-bottom: 4px;
+}
+
+.spatial-ring-title {
+    font-size: 14px;
+    color: #c8d0e0;
+    font-weight: 600;
+}
+
+.spatial-ring-flavor,
+.spatial-ring-empty {
+    font-size: 11px;
+    color: #7a8498;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.spatial-ring-active {
+    background: #1a2030;
+    border: 1px solid #3a4860;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+
+.spatial-ring-active-name {
+    font-size: 13px;
+    color: #e8ecf8;
+    font-weight: 600;
+}
+
+.spatial-ring-active-stats {
+    font-size: 11px;
+    color: #8a9ab8;
+    margin-top: 2px;
+}
+
+.spatial-ring-active-desc {
+    font-size: 11px;
+    color: #6a7488;
+    margin-top: 4px;
+}
+
+.spatial-ring-recipe-row {
+    border-top: 1px solid #2a3040;
+    padding: 8px 0;
+}
+
+.spatial-ring-recipe-row.owned {
+    opacity: 0.85;
+}
+
+.spatial-ring-recipe-head {
+    font-size: 12px;
+    color: #e8ecf8;
+}
+
+.spatial-ring-req {
+    color: #7a8498;
+    font-size: 11px;
+}
+
+.spatial-ring-recipe-desc {
+    font-size: 11px;
+    color: #8a9ab0;
+    margin: 3px 0;
+}
+
+.spatial-ring-recipe-meta {
+    font-size: 10px;
+    color: #6a7488;
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.spatial-ring-forge-btn {
+    margin-top: 2px;
+}
+
+.spatial-ring-attuned {
+    font-size: 11px;
+    color: #80c0a0;
+}
+
+.spatial-ring-hint {
+    display: block;
+    font-size: 10px;
+    color: #6a7488;
+    margin-top: 4px;
+}
+
 .tech-viability-outdated {
     color: #a08060;
 }

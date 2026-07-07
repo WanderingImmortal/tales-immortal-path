@@ -1700,6 +1700,9 @@ function renderInventoryPopup() {
 
     if (kitPanel && typeof renderTravelKitBarHtml === 'function') {
         kitPanel.innerHTML = renderTravelKitBarHtml();
+        if (typeof renderSpatialRingPanelHtml === 'function') {
+            kitPanel.innerHTML += renderSpatialRingPanelHtml();
+        }
     }
 
     const items = G.inventory || [];
@@ -1860,6 +1863,7 @@ function renderInventoryPopup() {
     list.innerHTML = html;
 
     if (typeof bindTravelKitManualActions === 'function') bindTravelKitManualActions(list);
+    if (typeof bindSpatialRingActions === 'function') bindSpatialRingActions(kitPanel || list);
 
     list.querySelectorAll('[data-gear-equip]').forEach(btn => {
         btn.onclick = function() {

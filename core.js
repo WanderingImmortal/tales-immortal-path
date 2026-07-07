@@ -93,6 +93,7 @@ let G = {
     gearInstances: null,
     gearBag: null,
     materials: null,
+    travelRingId: null,
     gearMigrated: false,
     refinedLegendary: [],
     encounterState: null,
@@ -997,6 +998,8 @@ function loadState() {
             if (!G.inventory) G.inventory = [];
             if (!G.legendaryMaterials) G.legendaryMaterials = [];
             if (typeof ensureGearState === 'function') ensureGearState();
+            if (G.travelRingId === undefined) G.travelRingId = null;
+            if (typeof ensureTravelRing === 'function') ensureTravelRing();
             if (!G.refinedLegendary) G.refinedLegendary = [];
             if (G.encounterState === undefined) G.encounterState = null;
             if (G.encounterCombat === undefined) G.encounterCombat = null;

@@ -2486,6 +2486,44 @@ const RESIDENCE_STASH_BALANCE = {
     stashAllManualsMax: 20
 };
 
+/** Spatial storage rings — expand travel kit capacity; materials weigh less inside. */
+const SPATIAL_RING_BALANCE = {
+    rings: {
+        storage_ring: {
+            id: 'storage_ring',
+            name: 'Storage Ring',
+            emoji: '💍',
+            tier: 1,
+            capacityBonus: 6,
+            materialWeightMult: 0.65,
+            reqRealm: 2,
+            desc: 'A qi-bound ring that folds space around your travel bundle — +6 kit capacity, materials weigh 35% less.',
+            craft: {
+                months: 6,
+                stones: 45,
+                materials: { jade_inlay: 2, silk_thread: 4, spirit_herb: 6 }
+            }
+        },
+        void_storage_ring: {
+            id: 'void_storage_ring',
+            name: 'Void Storage Ring',
+            emoji: '🌀',
+            tier: 2,
+            capacityBonus: 14,
+            materialWeightMult: 0.45,
+            reqRealm: 3,
+            requiresRing: 'storage_ring',
+            desc: 'Rift-woven storage — +14 kit capacity, materials weigh 55% less. Replaces a Storage Ring.',
+            craft: {
+                months: 10,
+                stones: 80,
+                materials: { jade_inlay: 3, celestial_silk: 2, demon_core: 2 },
+                consumesCurio: 'Dao Insight Fragment'
+            }
+        }
+    }
+};
+
 /** Intent synergy tiers — mid = soft debuff, high = hard debuff without matching intent stage. */
 const INTENT_TECHNIQUE_BALANCE = {
     low: { noMatchMult: 1, costMult: 1, matchBonus: 0.06, stageBonusPerTier: 0.025 },

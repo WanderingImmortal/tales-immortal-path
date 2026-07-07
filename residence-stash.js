@@ -37,7 +37,7 @@ function getStashManualLoad(manuals) {
 function getStashMaterialLoad(materials) {
     let load = 0;
     Object.entries(materials || {}).forEach(([matId, qty]) => {
-        if (qty > 0) load += qty * getMaterialTravelWeight(matId);
+        if (qty > 0) load += qty * (typeof getMaterialBaseWeight === 'function' ? getMaterialBaseWeight(matId) : 0.12);
     });
     return load;
 }

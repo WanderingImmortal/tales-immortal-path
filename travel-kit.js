@@ -8,9 +8,17 @@ function ensureTravelKit() {
     if (typeof ensurePillStock === 'function') ensurePillStock();
 }
 
-function getMaterialTravelWeight(matId) {
+function getMaterialBaseWeight(matId) {
     const b = TRAVEL_KIT_BALANCE;
     return b.materialWeight?.[matId] ?? b.defaultMaterialWeight ?? 0.12;
+}
+
+function getMaterialTravelWeight(matId) {
+    let w = getMaterialBaseWeight(matId);
+    if (typeof getSpatialRingMaterialWeightMult === 'function') {
+        w *= getSpatialRingMaterialWeightMult();
+    }
+    return w;
 }
 
 function getTravelKitManualLoad() {
@@ -50,7 +58,11 @@ function getTravelKitCurioLoad() {
 }
 
 function getTravelKitCapacity() {
-    return TRAVEL_KIT_BALANCE.baseCapacity ?? 8;
+    let cap = TRAVEL_KIT_BALANCE.baseCapacity ?? 8;
+    if (typeof getSpatialRingCapacityBonus === 'function') {
+        cap += getSpatialRingCapacityBonus();
+    }
+    return cap;
 }
 
 function getTravelKitUsed() {
@@ -70,6 +82,8 @@ function isTravelKitOverCapacity() {
 }
 
 function getTravelKitBreakdown() {
+    const baseCap = TRAVEL_KIT_BALANCE.baseCapacity ?? 8;
+    const ringBonus = typeof getSpatialRingCapacityBonus === 'function' ? getSpatialRingCapacityBonus() : 0;
     const capacity = getTravelKitCapacity();
     const manuals = getTravelKitManualLoad();
     const materials = getTravelKitMaterialLoad();
@@ -78,6 +92,8 @@ function getTravelKitBreakdown() {
     const curios = getTravelKitCurioLoad();
     const total = manuals + materials + pills + gear + curios;
     return {
+        baseCap,
+        ringBonus,
         capacity,
         manuals,
         materials,
@@ -143,6 +159,10 @@ function renderTravelKitBarHtml() {
         <span class="travel-kit-cap">${formatTravelKitLoad(bd.total)} / ${bd.capacity}</span>
     </div>`;
     html += `<p class="travel-kit-flavor">Waxed scroll bundle at your bedroll. Worn gear is free — everything else counts.</p>`;
+    const ring = typeof getActiveSpatialRingDef === 'function' ? getActiveSpatialRingDef() : null;
+    if (ring) {
+        html += `<p class="travel-kit-ring-line">${ring.emoji} <strong>${ring.name}</strong> — +${ring.capacityBonus} capacity · materials ×${ring.materialWeightMult} weight</p>`;
+    }
     html += `<div class="travel-kit-bar-track"><div class="travel-kit-bar-fill" style="width:${pct}%"></div></div>`;
     html += `<div class="travel-kit-breakdown">`;
     const rows = [
