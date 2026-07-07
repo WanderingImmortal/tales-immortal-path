@@ -268,11 +268,6 @@ function getZoneTechniquePool(zoneId) {
         const key = item.technique || item.name;
         if (seen.has(key)) return false;
         seen.add(key);
-        const techName = item.technique;
-        if (techName) {
-            const template = TECHNIQUE_POOL.find(t => t.name === techName);
-            if (template && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) return false;
-        }
         return true;
     });
 }
@@ -314,9 +309,9 @@ function applyExploreLoot(loot) {
     if (loot.type === "technique") {
         const techName = loot.technique || loot.name;
         const template = TECHNIQUE_POOL.find(t => t.name === techName);
-        if (template && !G.techniques.some(t => t.name === techName)) {
-            learnTechnique(techName);
-            addLog(`📜 You learned ${techName}!`);
+        if (template && typeof grantManual === 'function') {
+            grantManual(techName, { silent: true, source: typeof getLootZoneId === 'function' ? getLootZoneId() : G.currentZone });
+            addLog(`📜 Manual found: ${techName}! Check your technique shelf.`);
         } else {
             const soldFor = applyExploreRewardMult(loot.value || 5);
             G.stones += soldFor;
@@ -380,11 +375,6 @@ function buyTechnique(techName) {
     if (!catalog) return;
     const item = catalog.stock.find(s => s.technique === techName);
     if (!item) return;
-    if (G.techniques.some(t => t.name === techName)) {
-        addLog(`📜 You already know ${techName}.`);
-        fullRender();
-        return;
-    }
     if (G.realmIdx < item.reqRealm) {
         addLog(`📜 ${techName} requires a higher realm.`);
         fullRender();
@@ -393,12 +383,6 @@ function buyTechnique(techName) {
     if (typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(techName, zoneId)) {
         const reason = typeof getMarketTechniqueLockReason === 'function' ? getMarketTechniqueLockReason(techName, zoneId) : 'Faction standing required.';
         addLog(`🏪 ${techName} locked — ${reason}`);
-        fullRender();
-        return;
-    }
-    const template = TECHNIQUE_POOL.find(t => t.name === techName);
-    if (template && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) {
-        addLog(`📜 You cannot yet comprehend ${techName}.`);
         fullRender();
         return;
     }
@@ -416,10 +400,10 @@ function buyTechnique(techName) {
         return;
     }
     G.stones -= finalPrice;
-    const learned = learnTechnique(techName, { silent: true });
+    const gotManual = typeof grantManual === 'function' && grantManual(techName, { silent: true });
     const discountNote = finalPrice < item.price ? ` (Jade Lotus favor: −${item.price - finalPrice})` : '';
-    const learnNote = learned ? ' — technique mastered' : '';
-    commitActionLog(`🏪 Purchased ${techName} for ${finalPrice} Stones${discountNote}${learnNote}.`);
+    const learnNote = gotManual ? ' — manual shelved' : '';
+    commitActionLog(`🏪 Purchased ${techName} manual for ${finalPrice} Stones${discountNote}${learnNote}.`);
     renderMerchantPopup();
     fullRender();
 }

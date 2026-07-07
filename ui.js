@@ -1001,6 +1001,74 @@ function fullRender() {
 
 // ===== POPUP RENDERERS =====
 let techSortMode = 'path';
+let techPopupTab = 'known';
+
+function bindTechPopupTabs() {
+    const bar = document.getElementById('techTabBar');
+    if (!bar || bar.dataset.bound) return;
+    bar.dataset.bound = '1';
+    bar.querySelectorAll('[data-tech-tab]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            techPopupTab = this.dataset.techTab;
+            renderTechPopup();
+        });
+    });
+}
+
+function renderManualShelfHtml() {
+    ensureManualShelf();
+    const entries = Object.values(G.manualShelf).sort((a, b) => a.technique.localeCompare(b.technique));
+    if (!entries.length) {
+        return `<div class="popup-empty">No manuals on your shelf. Explore zones or visit markets to find scrolls and inscriptions.</div>`;
+    }
+    return entries.map(entry => {
+        const template = TECHNIQUE_POOL.find(t => t.name === entry.technique);
+        if (!template) return '';
+        const known = G.techniques.some(t => t.name === entry.technique);
+        const track = getTechniqueTrackLabel(template);
+        const pathIcon = template.path === 'qi' ? '⚡' : template.path === 'body' ? '💪' : template.path === 'soul' ? '🧠' : '◆';
+        const elemLabel = TECH_ELEMENT_LABELS[template.element] || template.element;
+        const months = getComprehendManualMonths(template);
+        const block = known ? null : getComprehendBlockReason(template);
+        const canStudy = !known && !block;
+        const countBadge = entry.count > 1 ? ` <span style="color:#b8863a;">×${entry.count}</span>` : '';
+        let actions = '';
+        if (!known) {
+            actions += `<button type="button" class="manual-shelf-btn" data-comprehend-manual="${escapeAttr(entry.technique)}"${canStudy ? '' : ' disabled'}>📖 Comprehend (${months} mo)</button>`;
+        } else {
+            actions += `<span class="manual-shelf-lock">Already comprehended — spare copies only.</span>`;
+        }
+        if (entry.count >= 1) {
+            const price = getManualConsignPrice(template);
+            actions += `<button type="button" class="manual-shelf-btn" data-consign-manual="${escapeAttr(entry.technique)}">💎 Consign (+${price})</button>`;
+        }
+        const lockLine = block && !known ? `<div class="manual-shelf-lock">🔒 ${block}</div>` : '';
+        return `<div class="popup-item manual-shelf-row">
+            <div class="name">${pathIcon} ${entry.technique}${countBadge} <span style="color:#a09080;font-size:12px;">[${track}]</span></div>
+            <div class="desc">${template.desc} · ${elemLabel} · ${template.rarity}</div>
+            ${lockLine}
+            <div class="manual-shelf-actions">${actions}</div>
+        </div>`;
+    }).join('');
+}
+
+function bindManualShelfActions() {
+    const el = document.getElementById('techList');
+    if (!el) return;
+    el.querySelectorAll('[data-comprehend-manual]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.disabled) return;
+            comprehendManual(this.dataset.comprehendManual);
+            renderTechPopup();
+        });
+    });
+    el.querySelectorAll('[data-consign-manual]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            consignManual(this.dataset.consignManual);
+            renderTechPopup();
+        });
+    });
+}
 
 function renderTechItemHtml(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
@@ -1032,8 +1100,9 @@ function renderTechItemHtml(tech) {
         ? `⚔️ ${dmg} dmg | ${cfg.icon} ${combatCost} ${cfg.resource}${canAfford ? '' : ' (insufficient)'}${multStr}`
         : `⚔️ ${dmg} dmg (${scaleHint}) | 💰 ${cost} ${tech.costType} | Uses: ${tech.uses || 0}${multStr}`;
     const affordClass = canAfford ? '' : ' tech-unaffordable';
+    const viabilityBadge = typeof getTechniqueViabilityBadge === 'function' ? getTechniqueViabilityBadge(tech) : '';
     return `<div class="popup-item${affordClass}" data-tech="${tech.name}"${canAfford ? '' : ' data-unaffordable="1"'}>
-        <div class="name">${pathIcon} ${tech.name} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
+        <div class="name">${pathIcon} ${tech.name} ${viabilityBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
         <div class="desc">${tech.desc} · ${elemLabel} · ${tech.rarity}${affLine ? ' · ' + affLine : ''}</div>
         <div class="meta">${costLine}</div>
     </div>`;
@@ -1122,17 +1191,38 @@ function groupTechniquesForDisplay(techniques) {
 }
 
 function renderTechPopup() {
+    bindTechPopupTabs();
     renderAffinityPanel();
     renderSetResonancePanel();
     const el = document.getElementById('techList');
     const sortBar = document.getElementById('techSortBar');
+    const tabBar = document.getElementById('techTabBar');
+    const shelfBadge = document.getElementById('techShelfBadge');
+    if (typeof countManualShelfTotal === 'function' && shelfBadge) {
+        const n = countManualShelfTotal();
+        shelfBadge.textContent = n > 0 ? String(n) : '';
+    }
+    if (tabBar) {
+        tabBar.querySelectorAll('[data-tech-tab]').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.techTab === techPopupTab);
+        });
+    }
     if (sortBar) {
+        sortBar.style.display = techPopupTab === 'known' ? '' : 'none';
         sortBar.querySelectorAll('[data-tech-sort]').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.techSort === techSortMode);
         });
     }
+    if (techPopupTab === 'shelf') {
+        el.innerHTML = renderManualShelfHtml();
+        bindManualShelfActions();
+        return;
+    }
     if (G.techniques.length === 0) {
-        el.innerHTML = `<div class="popup-empty">No techniques yet. Explore any zone for manuals, or visit a market in the Heartlands / Jade Archipelago.</div>`;
+        const shelfHint = typeof countManualShelfTotal === 'function' && countManualShelfTotal() > 0
+            ? ' Open the <strong>Manual Shelf</strong> tab to comprehend a manual.'
+            : ' Explore any zone for manuals, or visit a market in the Heartlands / Jade Archipelago.';
+        el.innerHTML = `<div class="popup-empty">No techniques comprehended yet.${shelfHint}</div>`;
         return;
     }
     const groups = groupTechniquesForDisplay(G.techniques);
@@ -2152,20 +2242,22 @@ function renderMerchantPopup() {
     let html = catalog.stock.map(item => {
         const template = TECHNIQUE_POOL.find(t => t.name === item.technique);
         const owned = G.techniques.some(t => t.name === item.technique);
-        const locked = G.realmIdx < item.reqRealm;
-        const pathLocked = template && typeof canLearnTechnique === 'function' && !canLearnTechnique(template);
+        const locked = item.reqRealm != null && G.realmIdx < item.reqRealm;
+        const bodyManual = template?.path === 'body' && G.path !== 'body';
         const factionLocked = typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(item.technique, zoneId);
         const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
-        const canBuy = !owned && !locked && !pathLocked && !factionLocked && G.stones >= finalPrice;
+        const canBuy = !locked && !factionLocked && G.stones >= finalPrice;
         const realmName = PATHS[G.path].realms[item.reqRealm] || `Realm ${item.reqRealm + 1}`;
-        let status = owned ? 'Known' : pathLocked ? (template?.reqPath ? `Requires ${template.reqPath} path` : 'Requirements not met')
-            : locked ? `Need ${realmName}` : factionLocked
+        let status = locked ? `Need ${realmName}` : bodyManual
+            ? 'Manual · body path to comprehend'
+            : factionLocked
             ? (typeof getMarketTechniqueLockReason === 'function' ? getMarketTechniqueLockReason(item.technique, zoneId) : 'Faction locked')
-            : `${finalPrice} Stones`;
-        if (!owned && !locked && finalPrice < item.price) status += ` (was ${item.price})`;
+            : `${finalPrice} Stones · Manual`;
+        if (owned) status = `Known · ${status}`;
+        if (!locked && finalPrice < item.price) status += ` (was ${item.price})`;
         if (canBuy) status += ' · Click to buy';
-        return `<div class="popup-item merchant-row${owned ? ' owned' : ''}${canBuy ? ' can-buy' : ''}" data-buy="${escapeAttr(item.technique)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
-            <div class="name">${item.technique}</div>
+        return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy="${escapeAttr(item.technique)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
+            <div class="name">📜 ${item.technique}${owned ? ' <span style="color:#7a9a7a;font-size:11px;">(known)</span>' : ''}</div>
             <div class="desc">${template ? template.desc : ''} · ${template ? template.rarity : ''}</div>
             <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
         </div>`;

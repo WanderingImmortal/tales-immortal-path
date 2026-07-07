@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=79" />
+    <link rel="stylesheet" href="style.css?v=80" />
 </head>
 <body>
 
@@ -1028,6 +1028,10 @@
 <div class="popup-overlay" id="techPopup">
     <div class="popup-box">
         <h2>📜 Techniques</h2>
+        <div class="tech-tab-bar" id="techTabBar">
+            <button type="button" class="tech-tab-btn active" data-tech-tab="known">Known Arts</button>
+            <button type="button" class="tech-tab-btn" data-tech-tab="shelf">Manual Shelf <span id="techShelfBadge" class="tech-shelf-badge"></span></button>
+        </div>
         <div class="tech-sort-bar" id="techSortBar">
             <button type="button" class="tech-sort-btn active" data-tech-sort="path">By Path</button>
             <button type="button" class="tech-sort-btn" data-tech-sort="element">By Element</button>
@@ -1218,6 +1222,7 @@
 <script src="legacy.js?v=1"></script>
 <script src="world-scheduler.js?v=3"></script>
 <script src="core.js?v=35"></script>
+<script src="techniques.js?v=1"></script>
 <script src="foundation.js?v=5"></script>
 <script src="tutorial.js?v=3"></script>
 <script src="gear.js?v=6"></script>
@@ -1245,7 +1250,7 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=46"></script>
+<script src="ui.js?v=47"></script>
 <script src="action-gates.js?v=2"></script>
 <script src="actions.js?v=33"></script>
 <script src="chamber.js?v=11"></script>

@@ -155,18 +155,10 @@ function mergeDaoPair(mergedName) {
 }
 
 // ===== TECHNIQUE FUNCTION =====
-function canLearnTechnique(template) {
-    if (!template) return false;
-    if (template.reqPath && G.path !== template.reqPath) return false;
-    if (template.reqRealm != null && G.realmIdx < template.reqRealm) return false;
-    if (template.reqTechnique && !G.techniques.some(t => t.name === template.reqTechnique)) return false;
-    return true;
-}
-
 function learnTechnique(techName, opts) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return false;
-    if (!canLearnTechnique(template)) {
+    if (!opts?.skipGates && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) {
         if (!opts?.silent) addLog(`📜 You cannot yet comprehend ${techName}.`);
         return false;
     }

@@ -2345,7 +2345,25 @@ const ACTION_MONTHS = {
     sectFound: 12,
     sectBuild: 6,
     ancientSearch: 4,
-    ancientUnseal: 12
+    ancientUnseal: 12,
+    manualComprehend: 2
+};
+
+const MANUAL_BALANCE = {
+    defaultMonths: 2,
+    monthsByRarity: {
+        common: 1,
+        uncommon: 2,
+        rare: 3,
+        legendary: 5
+    },
+    consignByRarity: {
+        common: 12,
+        uncommon: 22,
+        rare: 45,
+        legendary: 90
+    },
+    defaultIntentDebuff: { dmgMult: 0.45, costMult: 1.25 }
 };
 
 // ===== ACTION UNLOCKS — realm & milestone gates (not age) =====

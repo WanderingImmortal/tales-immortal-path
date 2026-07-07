@@ -634,7 +634,7 @@ function applyStoryArcRewards(rewards) {
         G.daoAlignment = clamp((G.daoAlignment || 0) + rewards.alignment, -100, 100);
     }
     if (rewards.technique && typeof learnTechnique === 'function') {
-        learnTechnique(rewards.technique);
+        learnTechnique(rewards.technique, { skipGates: true });
         addLog(`📜 Learned ${rewards.technique}!`);
     }
     if (rewards.stones) {
@@ -771,6 +771,43 @@ function getRecentQuests(limit) {
     const done = G.npcQuests.filter(q => q.status !== 'active')
         .sort((a, b) => (b.completedMonths || b.startedMonths) - (a.completedMonths || a.startedMonths));
     return [...active, ...done].slice(0, limit);
+}
+
+function syncActiveQuestLogs() {
+    ensureNpcQuestState();
+    if (typeof syncStoryQuestLog === 'function') syncStoryQuestLog();
+    if (typeof syncSectQuestLog === 'function') syncSectQuestLog();
+    if (typeof syncWorldEventQuestLog === 'function') syncWorldEventQuestLog();
+    if (typeof syncDemonicRedemptionQuestLog === 'function') syncDemonicRedemptionQuestLog();
+}
+
+function getActiveQuestCount() {
+    syncActiveQuestLogs();
+    return G.npcQuests.filter(q => q.status === 'active').length;
+}
+
+function scoreQuestPriority(q) {
+    if (!q || q.status !== 'active') return -1;
+    let score = 0;
+    if (q.storyArcId) score += 100;
+    const zoneId = G.currentZone || currentZone;
+    if (q.zoneHint && q.zoneHint === zoneId) score += 50;
+    if (q.deadlineMonths != null) {
+        const remaining = q.deadlineMonths - (G.ageMonths || 0);
+        if (remaining <= 0) score += 90;
+        else if (remaining <= 24) score += 60 + Math.max(0, 24 - remaining);
+        else score += 20;
+    }
+    if (q.id?.startsWith('faction_') || (q.typeLabel && /faction/i.test(q.typeLabel))) score += 25;
+    if (q.worldEvent) score += 15;
+    return score;
+}
+
+function getTopPriorityQuest() {
+    syncActiveQuestLogs();
+    const active = G.npcQuests.filter(q => q.status === 'active');
+    if (!active.length) return null;
+    return active.slice().sort((a, b) => scoreQuestPriority(b) - scoreQuestPriority(a))[0];
 }
 
 function focusQuestEntry(q) {

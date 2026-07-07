@@ -359,6 +359,10 @@ function calcCombatTechniqueDamage(tech) {
         dmg = Math.max(1, Math.floor(dmg * getBodyChamberBloodTechniqueMult(tech)));
     }
     if (typeof applyBodyChamberPhysicalDmg === 'function') dmg = applyBodyChamberPhysicalDmg(dmg, tech);
+    if (typeof getTechniqueCombatViability === 'function') {
+        const v = getTechniqueCombatViability(tech);
+        if (v.dmgMult !== 1) dmg = Math.max(tech.baseDamage === 0 ? 0 : 1, Math.floor(dmg * v.dmgMult));
+    }
     return dmg;
 }
 
@@ -694,6 +698,15 @@ function combatUseTechnique(name) {
     if (!canPlayerAct()) return;
     const tech = getTechniqueByName(name);
     if (!tech) return;
+
+    if (typeof getTechniqueCombatViability === 'function') {
+        const v = getTechniqueCombatViability(tech);
+        if (!v.usable) {
+            addCombatLog(`📜 ${v.warnText}`);
+            scheduleOpponentTurn();
+            return;
+        }
+    }
 
     const cost = getTechniqueCombatCost(tech);
     if (!spendCombatResource(cost, tech.name)) return;

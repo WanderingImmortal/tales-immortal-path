@@ -976,6 +976,7 @@ function loadState() {
             if (typeof migrateCultivationBaseFromLegacy === 'function') migrateCultivationBaseFromLegacy();
             if (typeof migrateQiSystem === 'function') migrateQiSystem();
             if (typeof migrateTechniqueRenames === 'function') migrateTechniqueRenames();
+            if (typeof migrateTechniqueManuals === 'function') migrateTechniqueManuals();
             if (typeof migrateLegacyScars === 'function') migrateLegacyScars();
             if (G.daoAlignment == null) G.daoAlignment = 0;
             if (typeof ensureDaoAlignment === 'function') ensureDaoAlignment();

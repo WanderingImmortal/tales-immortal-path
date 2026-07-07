@@ -6079,6 +6079,91 @@ header .subtitle {
     flex-wrap: wrap;
 }
 
+.tech-tab-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #3a3228;
+    padding-bottom: 8px;
+}
+
+.tech-tab-btn {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background: transparent;
+    color: #908070;
+    cursor: pointer;
+}
+
+.tech-tab-btn.active {
+    color: #e8dcc8;
+    border-color: #4a4038;
+    background: #1e1a16;
+    border-bottom: 1px solid #1e1a16;
+    margin-bottom: -1px;
+}
+
+.tech-shelf-badge {
+    display: inline-block;
+    min-width: 18px;
+    padding: 0 5px;
+    margin-left: 4px;
+    font-size: 11px;
+    border-radius: 10px;
+    background: #4a3828;
+    color: #d4a860;
+}
+
+.tech-shelf-badge:empty {
+    display: none;
+}
+
+.tech-viability-warn {
+    margin-left: 6px;
+    font-size: 12px;
+    cursor: help;
+}
+
+.manual-shelf-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.manual-shelf-btn {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 1px solid #4a4038;
+    background: #221c16;
+    color: #c4b4a0;
+    cursor: pointer;
+}
+
+.manual-shelf-btn:hover {
+    border-color: #b8863a;
+    color: #e8dcc8;
+}
+
+.manual-shelf-btn:disabled,
+.manual-shelf-btn.manual-locked {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.manual-shelf-lock {
+    font-size: 11px;
+    color: #a07060;
+    margin-top: 4px;
+    font-style: italic;
+}
+
 .tech-sort-btn {
     font-family: inherit;
     font-size: 12px;

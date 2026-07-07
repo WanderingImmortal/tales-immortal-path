@@ -392,7 +392,7 @@ function resolveDemonicRedemption(choiceId) {
             npc.demonicThreat = (npc.demonicThreat || 0) + 8;
         }
         applyStoryArcRewards(def.rewards?.enemy);
-        if (typeof learnTechnique === 'function') learnTechnique('Demon Seal');
+        if (typeof learnTechnique === 'function') learnTechnique('Demon Seal', { skipGates: true });
     }
     completeNpcQuestByGiver({ uid: d.targetUid }, 'demonic_confront');
     const q = findNpcQuest(x => x.id === 'story_demonic_redemption');
