@@ -31,6 +31,9 @@ function getTechniqueCombatCost(tech) {
     if (typeof getBodyChamberTechniqueCostMult === 'function') {
         cost = Math.floor(cost * getBodyChamberTechniqueCostMult());
     }
+    if (typeof getTechniqueCombatViability === 'function') {
+        cost = Math.floor(cost * getTechniqueCombatViability(tech).costMult);
+    }
     return Math.max(1, cost);
 }
 
@@ -361,7 +364,9 @@ function calcCombatTechniqueDamage(tech) {
     if (typeof applyBodyChamberPhysicalDmg === 'function') dmg = applyBodyChamberPhysicalDmg(dmg, tech);
     if (typeof getTechniqueCombatViability === 'function') {
         const v = getTechniqueCombatViability(tech);
-        if (v.dmgMult !== 1) dmg = Math.max(tech.baseDamage === 0 ? 0 : 1, Math.floor(dmg * v.dmgMult));
+        if (v.dmgMult !== 1 && v.warnIcon === '🗡️') {
+            dmg = Math.max(tech.baseDamage === 0 ? 0 : 1, Math.floor(dmg * v.dmgMult));
+        }
     }
     return dmg;
 }

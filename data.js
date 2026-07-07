@@ -375,7 +375,7 @@ const TECHNIQUE_POOL = [
     { name: "Demon Seal", path: "soul", element: "soul", category: "attack", combatTier: "medium", baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
     { name: "Gentle Repression", path: "qi", element: "neutral", category: "utility", combatTier: "utility", weaponType: "fist", baseDamage: 6, baseCost: 4, costType: "qi", rarity: "rare", desc: "Story art — suppress corruption and steady the meridians." },
     { name: "Void Step", path: "neutral", element: "neutral", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 4, costType: "qi", rarity: "rare", desc: "Evade the next attack." },
-    { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
+    { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Staff", minStage: 2 }, baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
     { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
     { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
     { name: "Frostbite Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "An icy palm strike that chills to the bone." },
@@ -384,8 +384,8 @@ const TECHNIQUE_POOL = [
     { name: "Gale Spiral", path: "qi", element: "wind", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "A spiraling gust compressed into a palm strike." },
     { name: "Earth Pulse Palm", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 11, baseCost: 6, costType: "qi", rarity: "common", desc: "Qi ripples through stone — steady, crushing force." },
     { name: "Storm Needle", path: "qi", element: "lightning", category: "attack", combatTier: "light", baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "A needle-thin bolt that pierces meridian defenses." },
-    { name: "Wind Blade Strike", path: "qi", element: "wind", category: "attack", combatTier: "medium", weaponType: "blade", setId: "sword_dominion", baseDamage: 12, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Cutting wind shaped like a crescent blade." },
-    { name: "Heavenly Sword Qi", path: "qi", element: "neutral", category: "attack", combatTier: "medium", weaponType: "sword", setId: "sword_dominion", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Condensed sword intent without a physical blade." },
+    { name: "Wind Blade Strike", path: "qi", element: "wind", category: "attack", combatTier: "medium", weaponType: "blade", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 12, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Cutting wind shaped like a crescent blade." },
+    { name: "Heavenly Sword Qi", path: "qi", element: "neutral", category: "attack", combatTier: "medium", weaponType: "sword", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Sword", minStage: 1 }, baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Condensed sword intent without a physical blade." },
     { name: "Meridian Flow", path: "qi", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 3, baseCost: 4, costType: "qi", rarity: "common", desc: "Circulates qi through meridians — light recovery mid-fight." },
     { name: "Root-Vein Surge", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Draws power from the continental spiritual veins." },
     { name: "Sandburrow Palm", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Burrowing sand qi that finds cracks in armor." },
@@ -401,12 +401,12 @@ const TECHNIQUE_POOL = [
     { name: "Bronze Skin Palm", path: "body", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", setId: "body_tempering", reqPath: "body", reqRealm: 1, baseDamage: 6, baseCost: 4, costType: "qi", rarity: "uncommon", desc: "Flesh hardens to bronze — body cultivators only." },
     { name: "Sandstorm Body Art", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Desert winds and grit scour foes while you advance." },
     { name: "Viper Fang Strike", path: "body", element: "blood", category: "attack", combatTier: "light", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A venomous strike that draws blood and feeds vitality." },
-    { name: "Mountain Crash", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", baseDamage: 19, baseCost: 9, costType: "qi", rarity: "rare", desc: "Your body becomes the mountain — a devastating slam." },
+    { name: "Mountain Crash", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, baseDamage: 19, baseCost: 9, costType: "qi", rarity: "rare", desc: "Your body becomes the mountain — a devastating slam." },
     { name: "Blood Aegis", path: "body", element: "blood", category: "buff", combatTier: "buff", baseDamage: 4, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Blood qi forms a brief protective membrane." },
     { name: "Staff Shatter", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Shatter a staff's worth of force through tempered limbs." },
     // —— Soul arts (expanded) ——
     { name: "Soul Lash", path: "soul", element: "soul", category: "attack", combatTier: "light", setId: "soul_suppression", baseDamage: 11, baseCost: 7, costType: "spirit", rarity: "common", desc: "A whip of condensed soul force." },
-    { name: "Phantom Blade", path: "soul", element: "soul", category: "attack", combatTier: "light", weaponType: "blade", setId: "sword_dominion", baseDamage: 10, baseCost: 7, costType: "spirit", rarity: "uncommon", desc: "A blade of spirit that passes through flesh to cut the soul." },
+    { name: "Phantom Blade", path: "soul", element: "soul", category: "attack", combatTier: "light", weaponType: "blade", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 10, baseCost: 7, costType: "spirit", rarity: "uncommon", desc: "A blade of spirit that passes through flesh to cut the soul." },
     { name: "Spirit Suppression Art", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 14, baseCost: 9, costType: "spirit", rarity: "uncommon", desc: "Suppresses the enemy's spirit, weakening their techniques." },
     { name: "Mind Sever", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "Severs the link between mind and body for an instant." },
     { name: "Ghost Spear Thrust", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of ghostly intent that pierces from afar." },
@@ -427,17 +427,95 @@ const TECHNIQUE_COMBAT_TIERS = {
 };
 
 const TECHNIQUE_BALANCE = {
-    statCoeff: 0.55,
-    statCoeffLight: 0.48,
-    statCoeffHeavy: 0.62,
-    statCoeffUtility: 0.15,
-    statCoeffBodyAttack: 0.44,
-    statCoeffBodyHeavy: 0.58,
-    statCoeffBodyLow: 0.12,
-    realmBonus: 2,
+    statCoeff: 0.58,
+    statCoeffLight: 0.52,
+    statCoeffHeavy: 0.66,
+    statCoeffUtility: 0.18,
+    statCoeffBodyAttack: 0.48,
+    statCoeffBodyHeavy: 0.62,
+    statCoeffBodyLow: 0.14,
+    realmBonus: 3,
     masteryPerTenUses: 1,
     daoDamageMult: 1.5,
-    iceFromWaterDaoMult: 1.25
+    iceFromWaterDaoMult: 1.25,
+    obsolescence: {
+        gapMult: { 1: 0.58, 2: 0.40, 3: 0.28, 4: 0.22, 5: 0.18, 6: 0.15 },
+        floor: 0.15,
+        masteryGrandmaster: 0.10,
+        masteryTranscendent: 0.05
+    }
+};
+
+/** Cultivation tier of a manual — gates comprehension realm and base power band. */
+const CULTIVATION_TIERS = {
+    mortal:       { reqRealm: 0, emoji: '🪶', damageBand: [6, 9],  costBase: 3 },
+    condensation: { reqRealm: 0, emoji: '💧', damageBand: [9, 13], costBase: 5 },
+    foundation:   { reqRealm: 1, emoji: '🏛️', damageBand: [12, 17], costBase: 6 },
+    core:         { reqRealm: 2, emoji: '🔮', damageBand: [16, 23], costBase: 8 },
+    nascent:      { reqRealm: 3, emoji: '✨', damageBand: [21, 30], costBase: 10 },
+    void:         { reqRealm: 4, emoji: '🌌', damageBand: [27, 36], costBase: 12 },
+    dao_seeking:  { reqRealm: 5, emoji: '☯️', damageBand: [33, 44], costBase: 14 },
+    immortal:     { reqRealm: 6, emoji: '👑', damageBand: [40, 52], costBase: 16 }
+};
+
+const CULTIVATION_TIER_ORDER = ['mortal', 'condensation', 'foundation', 'core', 'nascent', 'void', 'dao_seeking', 'immortal'];
+
+const TECHNIQUE_CULTIVATION_TIERS = {
+    'Quickfoot Art': 'mortal',
+    'Focused Breath': 'mortal',
+    'Cinder Volley': 'mortal',
+    'Heavenly Palm': 'condensation',
+    'Iron Mountain Stance': 'condensation',
+    'Soul Severing Sword': 'condensation',
+    'Gale Spiral': 'condensation',
+    'Earth Pulse Palm': 'condensation',
+    'Meridian Flow': 'condensation',
+    'Crushing Fist': 'condensation',
+    'Bone Tempering Stance': 'condensation',
+    'Soul Lash': 'condensation',
+    'Five Elements Fist': 'foundation',
+    'Scorching Palm': 'foundation',
+    'Tide Spiral': 'foundation',
+    'Storm Needle': 'foundation',
+    'Wind Blade Strike': 'foundation',
+    'Heavenly Sword Qi': 'foundation',
+    'Root-Vein Surge': 'foundation',
+    'Sandburrow Palm': 'foundation',
+    'Raging Ember Fist': 'foundation',
+    'Blood Refining Art': 'foundation',
+    'Demon Seal': 'foundation',
+    'Bronze Skin Palm': 'foundation',
+    'Sandstorm Body Art': 'foundation',
+    'Viper Fang Strike': 'foundation',
+    'Blood Aegis': 'foundation',
+    'Phantom Blade': 'foundation',
+    'Spirit Suppression Art': 'foundation',
+    'Mind Sever': 'foundation',
+    'Ghost Spear Thrust': 'foundation',
+    'Spectral Shield': 'foundation',
+    'Staff Shatter': 'foundation',
+    'Frostbite Palm': 'core',
+    'Glacier Heart Palm': 'core',
+    'Void Rend': 'core',
+    'Maelstrom Lance': 'core',
+    'Mountain Crash': 'core',
+    "War God's Roar": 'core',
+    'Soul Rend': 'core',
+    'Void Step': 'core',
+    'Gentle Repression': 'core',
+    'Phoenix Ascent Palm': 'nascent',
+    'Abyss Gaze': 'nascent',
+    'Celestial Judgment': 'dao_seeking',
+    'Mirror Step': 'immortal'
+};
+
+const TECHNIQUE_COMBAT_DAMAGE_MULT = {
+    light: 0.88,
+    medium: 1.0,
+    heavy: 1.34,
+    defense: 0.62,
+    buff: 0.48,
+    utility: 0
 };
 
 const TECH_PATH_LABELS = {
@@ -711,8 +789,8 @@ const COMBAT_BALANCE = {
     basicAttackScaleQi: 0.85,
     basicAttackScaleBody: 0.78,
     basicAttackScaleSoul: 0.55,
-    techniqueScale: 1.28,
-    techniqueScaleBodyHeavy: 1.38,
+    techniqueScale: 1.38,
+    techniqueScaleBodyHeavy: 1.48,
     techniqueDefenseDmgMult: 0.45,
     combatRegenCap: 10,
     enemyTurnDelayMs: 550
@@ -2356,6 +2434,16 @@ const MANUAL_BALANCE = {
         uncommon: 2,
         rare: 3,
         legendary: 5
+    },
+    monthsByCultivationTier: {
+        mortal: 1,
+        condensation: 1,
+        foundation: 2,
+        core: 3,
+        nascent: 4,
+        void: 5,
+        dao_seeking: 6,
+        immortal: 8
     },
     consignByRarity: {
         common: 12,

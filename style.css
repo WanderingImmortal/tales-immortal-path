@@ -6164,6 +6164,17 @@ header .subtitle {
     font-style: italic;
 }
 
+.tech-viability-outdated {
+    color: #a08060;
+}
+
+.tech-cultivation-tier {
+    font-size: 11px;
+    color: #8a9ab0;
+    margin-left: 4px;
+    white-space: nowrap;
+}
+
 .tech-sort-btn {
     font-family: inherit;
     font-size: 12px;

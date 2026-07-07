@@ -1042,9 +1042,12 @@ function renderManualShelfHtml() {
             const price = getManualConsignPrice(template);
             actions += `<button type="button" class="manual-shelf-btn" data-consign-manual="${escapeAttr(entry.technique)}">💎 Consign (+${price})</button>`;
         }
+        const tierLabel = typeof getCultivationTierLabel === 'function'
+            ? getCultivationTierLabel(getTechniqueCultivationTierId(template), template.path)
+            : '';
         const lockLine = block && !known ? `<div class="manual-shelf-lock">🔒 ${block}</div>` : '';
         return `<div class="popup-item manual-shelf-row">
-            <div class="name">${pathIcon} ${entry.technique}${countBadge} <span style="color:#a09080;font-size:12px;">[${track}]</span></div>
+            <div class="name">${pathIcon} ${entry.technique}${countBadge} <span class="tech-cultivation-tier">${tierLabel}</span> <span style="color:#a09080;font-size:12px;">[${track}]</span></div>
             <div class="desc">${template.desc} · ${elemLabel} · ${template.rarity}</div>
             ${lockLine}
             <div class="manual-shelf-actions">${actions}</div>
@@ -1094,15 +1097,20 @@ function renderTechItemHtml(tech) {
     if (bd.elementMult > 1) multParts.push('Dao ×' + bd.elementMult);
     if (bd.affinityMult > 1) multParts.push('Aff ×' + bd.affinityMult.toFixed(2));
     if (bd.setMult > 1) multParts.push('Set ×' + bd.setMult.toFixed(2));
+    if (bd.obsoleteMult < 1) multParts.push('Age ×' + bd.obsoleteMult.toFixed(2));
     const multStr = multParts.length ? ' | ' + multParts.join(' · ') : '';
     const tierBadge = `<span class="tech-tier-badge tier-${combatTierId}">${combatTierLabel}</span>`;
+    const cultTierLabel = typeof getCultivationTierLabel === 'function'
+        ? getCultivationTierLabel(meta.cultivationTier, meta.path)
+        : '';
+    const cultBadge = cultTierLabel ? `<span class="tech-cultivation-tier">${cultTierLabel}</span>` : '';
     const costLine = G.inCombat
         ? `⚔️ ${dmg} dmg | ${cfg.icon} ${combatCost} ${cfg.resource}${canAfford ? '' : ' (insufficient)'}${multStr}`
         : `⚔️ ${dmg} dmg (${scaleHint}) | 💰 ${cost} ${tech.costType} | Uses: ${tech.uses || 0}${multStr}`;
     const affordClass = canAfford ? '' : ' tech-unaffordable';
     const viabilityBadge = typeof getTechniqueViabilityBadge === 'function' ? getTechniqueViabilityBadge(tech) : '';
     return `<div class="popup-item${affordClass}" data-tech="${tech.name}"${canAfford ? '' : ' data-unaffordable="1"'}>
-        <div class="name">${pathIcon} ${tech.name} ${viabilityBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
+        <div class="name">${pathIcon} ${tech.name} ${viabilityBadge} ${cultBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
         <div class="desc">${tech.desc} · ${elemLabel} · ${tech.rarity}${affLine ? ' · ' + affLine : ''}</div>
         <div class="meta">${costLine}</div>
     </div>`;
@@ -2242,7 +2250,9 @@ function renderMerchantPopup() {
     let html = catalog.stock.map(item => {
         const template = TECHNIQUE_POOL.find(t => t.name === item.technique);
         const owned = G.techniques.some(t => t.name === item.technique);
-        const locked = item.reqRealm != null && G.realmIdx < item.reqRealm;
+        const tierReq = template ? getTechniqueReqRealm(template) : 0;
+        const reqRealm = Math.max(item.reqRealm ?? 0, tierReq);
+        const locked = G.realmIdx < reqRealm;
         const bodyManual = template?.path === 'body' && G.path !== 'body';
         const factionLocked = typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(item.technique, zoneId);
         const finalPrice = Math.max(1, Math.floor(item.price * priceMult));

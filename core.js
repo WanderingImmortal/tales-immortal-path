@@ -380,6 +380,7 @@ function getTechniqueTemplate(name) {
 
 function getTechniqueMeta(tech) {
     const tpl = getTechniqueTemplate(tech.name);
+    if (typeof ensureTechniqueCultivationTiers === 'function') ensureTechniqueCultivationTiers();
     return {
         path: tech.path || tpl?.path || 'neutral',
         element: tech.element || tpl?.element || 'neutral',
@@ -387,7 +388,10 @@ function getTechniqueMeta(tech) {
         combatTier: tech.combatTier || tpl?.combatTier || null,
         setId: tech.setId || tpl?.setId || null,
         weaponType: tech.weaponType || tpl?.weaponType || null,
-        affinityCycle: tpl?.affinityCycle || null
+        affinityCycle: tpl?.affinityCycle || null,
+        cultivationTier: tpl?.cultivationTier || getTechniqueCultivationTierId?.(tech.name) || 'condensation',
+        techniqueQuality: tpl?.techniqueQuality || null,
+        intentReq: tpl?.intentReq || null
     };
 }
 
@@ -715,37 +719,57 @@ function getTechniqueTier(uses) {
 
 function getTechCost(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
-    const cost = tech.baseCost * (1 - tier.bonusCost);
+    const base = typeof getTechniqueBaseStats === 'function' ? getTechniqueBaseStats(tech).baseCost : tech.baseCost;
+    let cost = base * (1 - tier.bonusCost);
+    if (typeof getTechniqueCombatViability === 'function') {
+        cost *= getTechniqueCombatViability(tech).costMult;
+    }
     return Math.max(1, Math.round(cost));
 }
 
 function getTechDamage(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
     const meta = getTechniqueMeta(tech);
+    const baseStats = typeof getTechniqueBaseStats === 'function' ? getTechniqueBaseStats(tech) : tech;
     const mastery = Math.floor((tech.uses || 0) / 10) * TECHNIQUE_BALANCE.masteryPerTenUses;
     const statPart = Math.floor(getTechniqueStatScale(tech) * getTechniqueStatCoeff(tech));
     const realmPart = G.realmIdx * TECHNIQUE_BALANCE.realmBonus;
-    let dmg = tech.baseDamage + mastery + statPart + realmPart;
+    let dmg = baseStats.baseDamage + mastery + statPart + realmPart;
     dmg *= (1 + tier.bonusDmg);
     dmg *= getElementDamageMult(meta.element);
     dmg *= getTechniqueAffinityDamageMult(tech);
     dmg *= getTechniqueSetDamageMult(tech);
+    if (typeof getTechniqueObsolescenceMult === 'function') dmg *= getTechniqueObsolescenceMult(tech);
     if (G.weaponIntent) dmg *= (1 + getIntentBonus());
     if (G.dmgMult > 1) dmg *= G.dmgMult;
     dmg *= getPlayerTraitMultPct('techniqueDmgPct', 0);
-    return Math.max(tech.baseDamage === 0 ? 0 : 1, Math.round(dmg));
+    const baseDmg = baseStats.baseDamage;
+    return Math.max(baseDmg === 0 ? 0 : 1, Math.round(dmg));
 }
 
 function getTechDamageBreakdown(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
     const meta = getTechniqueMeta(tech);
+    const baseStats = typeof getTechniqueBaseStats === 'function' ? getTechniqueBaseStats(tech) : tech;
     const mastery = Math.floor((tech.uses || 0) / 10) * TECHNIQUE_BALANCE.masteryPerTenUses;
     const statPart = Math.floor(getTechniqueStatScale(tech) * getTechniqueStatCoeff(tech));
     const realmPart = G.realmIdx * TECHNIQUE_BALANCE.realmBonus;
     const elementMult = getElementDamageMult(meta.element);
     const affinityMult = getTechniqueAffinityDamageMult(tech);
     const setMult = getTechniqueSetDamageMult(tech);
-    return { base: tech.baseDamage, mastery, statPart, realmPart, tier: tier.name, elementMult, affinityMult, setMult };
+    const obsoleteMult = typeof getTechniqueObsolescenceMult === 'function' ? getTechniqueObsolescenceMult(tech) : 1;
+    return {
+        base: baseStats.baseDamage,
+        mastery,
+        statPart,
+        realmPart,
+        tier: tier.name,
+        elementMult,
+        affinityMult,
+        setMult,
+        obsoleteMult,
+        cultivationTier: meta.cultivationTier
+    };
 }
 
 function getPhysiqueByName(name) {

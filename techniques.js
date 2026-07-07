@@ -1,6 +1,120 @@
 // ============================================
-// TECHNIQUES.JS — Manual shelf, comprehension, combat viability
+// TECHNIQUES.JS — Manual shelf, tiers, comprehension, combat viability
 // ============================================
+
+let _techniqueTiersInitialized = false;
+
+function ensureTechniqueCultivationTiers() {
+    if (_techniqueTiersInitialized) return;
+    _techniqueTiersInitialized = true;
+    if (typeof TECHNIQUE_POOL === 'undefined') return;
+    TECHNIQUE_POOL.forEach(t => {
+        if (!t.cultivationTier) {
+            t.cultivationTier = TECHNIQUE_CULTIVATION_TIERS[t.name] || inferTechniqueCultivationTier(t);
+        }
+        recomputeTechniqueTierStats(t);
+    });
+}
+
+function inferTechniqueCultivationTier(template) {
+    if (template.reqRealm != null) {
+        const match = CULTIVATION_TIER_ORDER.find(id => CULTIVATION_TIERS[id]?.reqRealm === template.reqRealm);
+        if (match) return match;
+    }
+    if (template.rarity === 'legendary') return 'immortal';
+    if (template.rarity === 'rare') return 'core';
+    if (template.rarity === 'uncommon') return 'foundation';
+    return 'condensation';
+}
+
+function recomputeTechniqueTierStats(template) {
+    const tierId = template.cultivationTier || 'condensation';
+    const tier = CULTIVATION_TIERS[tierId];
+    if (!tier) return;
+    const combatTier = template.combatTier || template.category || 'medium';
+    const dmgMult = TECHNIQUE_COMBAT_DAMAGE_MULT[combatTier] ?? 1;
+    const [lo, hi] = tier.damageBand;
+    const mid = (lo + hi) / 2;
+    if (template.category === 'utility') {
+        template.baseDamage = 0;
+    } else if (template.category === 'defense' || template.category === 'buff') {
+        template.baseDamage = Math.max(3, Math.round(mid * dmgMult * 0.85));
+    } else {
+        template.baseDamage = Math.max(1, Math.round(mid * dmgMult));
+    }
+    const ct = TECHNIQUE_COMBAT_TIERS[combatTier];
+    const costMid = ct ? (ct.minCost + ct.maxCost) / 2 : tier.costBase + 4;
+    template.baseCost = Math.max(2, Math.round(costMid * (0.7 + tier.reqRealm * 0.07)));
+    if (template.costType === 'spirit') {
+        template.baseCost = Math.max(3, Math.round(template.baseCost * 1.12));
+    }
+}
+
+function getTechniqueCultivationTierId(techOrName) {
+    ensureTechniqueCultivationTiers();
+    const name = typeof techOrName === 'string' ? techOrName : techOrName?.name;
+    const tpl = typeof techOrName === 'object' && techOrName?.cultivationTier
+        ? techOrName
+        : TECHNIQUE_POOL.find(t => t.name === name);
+    if (tpl?.cultivationTier) return tpl.cultivationTier;
+    return TECHNIQUE_CULTIVATION_TIERS[name] || 'condensation';
+}
+
+function getTechniqueCultivationTierDef(techOrName) {
+    const id = getTechniqueCultivationTierId(techOrName);
+    return CULTIVATION_TIERS[id] || CULTIVATION_TIERS.condensation;
+}
+
+function getTechniqueReqRealm(techOrName) {
+    const tpl = typeof techOrName === 'string'
+        ? TECHNIQUE_POOL.find(t => t.name === techOrName)
+        : (TECHNIQUE_POOL.find(t => t.name === techOrName?.name) || techOrName);
+    if (tpl?.reqRealm != null) return tpl.reqRealm;
+    return getTechniqueCultivationTierDef(tpl || techOrName).reqRealm;
+}
+
+function getCultivationTierLabel(tierId, path) {
+    const def = CULTIVATION_TIERS[tierId];
+    if (!def) return tierId;
+    const p = path || G.path || 'qi';
+    const realmName = PATHS[p]?.realms[def.reqRealm];
+    if (tierId === 'mortal') return `${def.emoji} Mortal`;
+    if (tierId === 'condensation' && realmName) return `${def.emoji} ${realmName}`;
+    const short = {
+        foundation: 'Foundation',
+        core: 'Core',
+        nascent: 'Nascent',
+        void: 'Void Refinement',
+        dao_seeking: 'Dao Seeking',
+        immortal: 'Immortal'
+    };
+    return `${def.emoji} ${short[tierId] || realmName || tierId}`;
+}
+
+function getTechniqueRealmGap(tech) {
+    const techRealm = getTechniqueReqRealm(tech);
+    return Math.max(0, G.realmIdx - techRealm);
+}
+
+function getTechniqueObsolescenceMult(tech) {
+    const gap = getTechniqueRealmGap(tech);
+    if (gap <= 0) return 1;
+    const b = TECHNIQUE_BALANCE.obsolescence;
+    let mult = b.gapMult[gap] ?? b.gapMult[6] ?? b.floor;
+    const uses = tech.uses || 0;
+    if (uses >= 30) mult += b.masteryGrandmaster;
+    if (uses >= 50) mult += b.masteryTranscendent;
+    return Math.min(1, mult);
+}
+
+function getTechniqueBaseStats(tech) {
+    ensureTechniqueCultivationTiers();
+    const tpl = TECHNIQUE_POOL.find(t => t.name === tech.name);
+    return {
+        baseDamage: tpl?.baseDamage ?? tech.baseDamage,
+        baseCost: tpl?.baseCost ?? tech.baseCost
+    };
+}
 
 function ensureManualShelf() {
     if (!G.manualShelf) G.manualShelf = {};
@@ -8,6 +122,7 @@ function ensureManualShelf() {
 
 function migrateTechniqueManuals() {
     ensureManualShelf();
+    ensureTechniqueCultivationTiers();
 }
 
 function getManualShelfEntry(techName) {
@@ -31,7 +146,7 @@ function getTechniqueTrackLabel(template) {
 function canLearnTechnique(template) {
     if (!template) return false;
     if (template.reqPath && G.path !== template.reqPath) return false;
-    if (template.reqRealm != null && G.realmIdx < template.reqRealm) return false;
+    if (G.realmIdx < getTechniqueReqRealm(template)) return false;
     if (template.reqTechnique && !G.techniques.some(t => t.name === template.reqTechnique)) return false;
     return true;
 }
@@ -53,7 +168,8 @@ function grantManual(techName, opts) {
     }
     if (!opts?.silent) {
         const track = getTechniqueTrackLabel(template);
-        addLog(`📜 ${track} manual shelved: ${techName}.`);
+        const tierLabel = getCultivationTierLabel(getTechniqueCultivationTierId(template), template.path);
+        addLog(`📜 ${track} manual shelved: ${techName} (${tierLabel}).`);
     }
     return true;
 }
@@ -68,8 +184,9 @@ function getComprehendBlockReason(template) {
     if (template.reqPath && G.path !== template.reqPath) {
         return `Requires ${template.reqPath} cultivation path.`;
     }
-    if (template.reqRealm != null && G.realmIdx < template.reqRealm) {
-        const realmName = PATHS[G.path]?.realms[template.reqRealm] || `realm ${template.reqRealm + 1}`;
+    const reqRealm = getTechniqueReqRealm(template);
+    if (G.realmIdx < reqRealm) {
+        const realmName = PATHS[G.path]?.realms[reqRealm] || `realm ${reqRealm + 1}`;
         return `Requires ${realmName} or higher.`;
     }
     if (template.reqTechnique && !G.techniques.some(t => t.name === template.reqTechnique)) {
@@ -87,6 +204,9 @@ function canComprehendManual(techName) {
 
 function getComprehendManualMonths(template) {
     const b = MANUAL_BALANCE;
+    const tierId = getTechniqueCultivationTierId(template);
+    const tierMonths = b.monthsByCultivationTier?.[tierId];
+    if (tierMonths != null) return tierMonths;
     const rarity = template?.rarity || 'common';
     return b.monthsByRarity[rarity] ?? b.defaultMonths;
 }
@@ -101,7 +221,9 @@ function removeManualFromShelf(techName, qty) {
 
 function getManualConsignPrice(template) {
     const b = MANUAL_BALANCE.consignByRarity;
-    return b[template.rarity] || 8;
+    const tierId = getTechniqueCultivationTierId(template);
+    const tierBonus = (CULTIVATION_TIERS[tierId]?.reqRealm || 0) * 8;
+    return (b[template.rarity] || 8) + tierBonus;
 }
 
 function consignManual(techName) {
@@ -144,12 +266,13 @@ function comprehendManual(techName) {
     }
     removeManualFromShelf(techName, 1);
     const track = getTechniqueTrackLabel(template);
-    commitActionLog(`📜 ${track} art comprehended: ${techName}! (${months} mo)`);
+    const tierLabel = getCultivationTierLabel(getTechniqueCultivationTierId(template), template.path);
+    commitActionLog(`📜 ${track} art comprehended: ${techName}! (${tierLabel}, ${months} mo)`);
     fullRender();
     return true;
 }
 
-/** Combat + UI viability — body arts fail off-path; intent gates debuff later-tier arts. */
+/** Combat + UI viability — path, intent, obsolescence. */
 function getTechniqueCombatViability(tech) {
     const meta = getTechniqueMeta(tech);
     const template = TECHNIQUE_POOL.find(t => t.name === tech.name);
@@ -165,6 +288,15 @@ function getTechniqueCombatViability(tech) {
         };
     }
 
+    const obsMult = getTechniqueObsolescenceMult(tech);
+    if (obsMult < 1) {
+        const gap = getTechniqueRealmGap(tech);
+        result.warnIcon = result.warnIcon || '📉';
+        const pct = Math.round(obsMult * 100);
+        const obsNote = `Outdated art — ${pct}% power (${gap} realm${gap > 1 ? 's' : ''} behind).`;
+        result.warnText = result.warnText ? `${result.warnText} ${obsNote}` : obsNote;
+    }
+
     if (template?.intentReq && typeof getActiveIntent === 'function' && typeof getIntentTierIndex === 'function') {
         const req = template.intentReq;
         const active = getActiveIntent();
@@ -177,7 +309,8 @@ function getTechniqueCombatViability(tech) {
             result.costMult *= debuff.costMult ?? 1.25;
             result.warnIcon = '🗡️';
             const stageName = INTENT_TIERS[req.minStage]?.name || 'higher';
-            result.warnText = `Weak without ${req.weapon} intent (${stageName}+).`;
+            const intentNote = `Weak without ${req.weapon} intent (${stageName}+).`;
+            result.warnText = result.warnText ? `${result.warnText} ${intentNote}` : intentNote;
         }
     }
 
@@ -186,7 +319,9 @@ function getTechniqueCombatViability(tech) {
 
 function getTechniqueViabilityBadge(tech) {
     const v = getTechniqueCombatViability(tech);
-    if (!v.usable) return `<span class="tech-viability-warn" title="${v.warnText}">${v.warnIcon} ✕</span>`;
-    if (v.warnIcon) return `<span class="tech-viability-warn" title="${v.warnText}">${v.warnIcon} ⚠</span>`;
+    const title = String(v.warnText || '').replace(/"/g, '&quot;');
+    if (!v.usable) return `<span class="tech-viability-warn" title="${title}">${v.warnIcon} ✕</span>`;
+    if (v.warnIcon === '📉') return `<span class="tech-viability-warn tech-viability-outdated" title="${title}">📉</span>`;
+    if (v.warnIcon) return `<span class="tech-viability-warn" title="${title}">${v.warnIcon} ⚠</span>`;
     return '';
 }

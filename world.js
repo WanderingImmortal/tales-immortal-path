@@ -375,8 +375,12 @@ function buyTechnique(techName) {
     if (!catalog) return;
     const item = catalog.stock.find(s => s.technique === techName);
     if (!item) return;
-    if (G.realmIdx < item.reqRealm) {
-        addLog(`📜 ${techName} requires a higher realm.`);
+    const template = TECHNIQUE_POOL.find(t => t.name === techName);
+    const tierReq = template && typeof getTechniqueReqRealm === 'function' ? getTechniqueReqRealm(template) : 0;
+    const reqRealm = Math.max(item.reqRealm ?? 0, tierReq);
+    if (G.realmIdx < reqRealm) {
+        const realmName = PATHS[G.path]?.realms[reqRealm] || `realm ${reqRealm + 1}`;
+        addLog(`📜 ${techName} requires ${realmName} or higher.`);
         fullRender();
         return;
     }
