@@ -155,9 +155,21 @@ function mergeDaoPair(mergedName) {
 }
 
 // ===== TECHNIQUE FUNCTION =====
+function canLearnTechnique(template) {
+    if (!template) return false;
+    if (template.reqPath && G.path !== template.reqPath) return false;
+    if (template.reqRealm != null && G.realmIdx < template.reqRealm) return false;
+    if (template.reqTechnique && !G.techniques.some(t => t.name === template.reqTechnique)) return false;
+    return true;
+}
+
 function learnTechnique(techName, opts) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return false;
+    if (!canLearnTechnique(template)) {
+        if (!opts?.silent) addLog(`📜 You cannot yet comprehend ${techName}.`);
+        return false;
+    }
     if (G.techniques.some(t => t.name === techName)) {
         if (!opts?.silent) addLog(`📜 You already know ${techName}.`);
         return false;
@@ -694,7 +706,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('btnMeridian').addEventListener('click', actionMeridian);
-    document.getElementById('btnPhysique').addEventListener('click', actionPhysique);
     document.getElementById('btnIntent').addEventListener('click', actionIntent);
     document.getElementById('btnDao').addEventListener('click', actionDao);
     document.getElementById('btnInventory').addEventListener('click', actionInventory);
@@ -716,6 +727,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initUiSettings === 'function') initUiSettings();
     if (typeof initActionHelp === 'function') initActionHelp();
     if (typeof initMainPanelActionHelp === 'function') initMainPanelActionHelp();
+    if (typeof initFactionsPopupTabs === 'function') initFactionsPopupTabs();
 
     // Popup close buttons
     document.getElementById('techClose').addEventListener('click', function() {
@@ -735,9 +747,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('meridianClose').addEventListener('click', function() {
         document.getElementById('meridianPopup').classList.remove('active');
-    });
-    document.getElementById('physiqueClose').addEventListener('click', function() {
-        document.getElementById('physiquePopup').classList.remove('active');
     });
     document.getElementById('intentClose').addEventListener('click', function() {
         document.getElementById('intentPopup').classList.remove('active');

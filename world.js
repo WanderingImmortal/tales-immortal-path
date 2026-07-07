@@ -268,6 +268,11 @@ function getZoneTechniquePool(zoneId) {
         const key = item.technique || item.name;
         if (seen.has(key)) return false;
         seen.add(key);
+        const techName = item.technique;
+        if (techName) {
+            const template = TECHNIQUE_POOL.find(t => t.name === techName);
+            if (template && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) return false;
+        }
         return true;
     });
 }
@@ -388,6 +393,12 @@ function buyTechnique(techName) {
     if (typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(techName, zoneId)) {
         const reason = typeof getMarketTechniqueLockReason === 'function' ? getMarketTechniqueLockReason(techName, zoneId) : 'Faction standing required.';
         addLog(`🏪 ${techName} locked — ${reason}`);
+        fullRender();
+        return;
+    }
+    const template = TECHNIQUE_POOL.find(t => t.name === techName);
+    if (template && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) {
+        addLog(`📜 You cannot yet comprehend ${techName}.`);
         fullRender();
         return;
     }

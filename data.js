@@ -379,7 +379,42 @@ const TECHNIQUE_POOL = [
     { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
     { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
     { name: "Frostbite Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "An icy palm strike that chills to the bone." },
-    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." }
+    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." },
+    // —— Qi arts (expanded) ——
+    { name: "Gale Spiral", path: "qi", element: "wind", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "A spiraling gust compressed into a palm strike." },
+    { name: "Earth Pulse Palm", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 11, baseCost: 6, costType: "qi", rarity: "common", desc: "Qi ripples through stone — steady, crushing force." },
+    { name: "Storm Needle", path: "qi", element: "lightning", category: "attack", combatTier: "light", baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "A needle-thin bolt that pierces meridian defenses." },
+    { name: "Wind Blade Strike", path: "qi", element: "wind", category: "attack", combatTier: "medium", weaponType: "blade", setId: "sword_dominion", baseDamage: 12, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Cutting wind shaped like a crescent blade." },
+    { name: "Heavenly Sword Qi", path: "qi", element: "neutral", category: "attack", combatTier: "medium", weaponType: "sword", setId: "sword_dominion", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Condensed sword intent without a physical blade." },
+    { name: "Meridian Flow", path: "qi", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 3, baseCost: 4, costType: "qi", rarity: "common", desc: "Circulates qi through meridians — light recovery mid-fight." },
+    { name: "Root-Vein Surge", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Draws power from the continental spiritual veins." },
+    { name: "Sandburrow Palm", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Burrowing sand qi that finds cracks in armor." },
+    { name: "Glacier Heart Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "The frozen heart of a glacier spirit — numbing cold." },
+    { name: "Phoenix Ascent Palm", path: "qi", element: "fire", category: "attack", combatTier: "heavy", weaponType: "fist", setId: "ember_fury", baseDamage: 20, baseCost: 11, costType: "qi", rarity: "rare", desc: "Rising flame like a phoenix breaching the caldera sky." },
+    { name: "Raging Ember Fist", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Volcanic embers packed into rapid strikes." },
+    { name: "Cinder Volley", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "Scattered embers strike in rapid succession." },
+    { name: "Maelstrom Lance", path: "qi", element: "water", category: "attack", combatTier: "medium", weaponType: "spear", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "rare", desc: "A spear of spiraling tide-force from the deep." },
+    { name: "Void Rend", path: "qi", element: "void", category: "attack", combatTier: "medium", baseDamage: 13, baseCost: 8, costType: "qi", rarity: "rare", desc: "Tears a rift of nothingness through the enemy's guard." },
+    // —— Body arts (expanded) ——
+    { name: "Bone Tempering Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", setId: "body_tempering", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Temper marrow and bone until blows glance off." },
+    { name: "Crushing Fist", path: "body", element: "neutral", category: "attack", combatTier: "light", weaponType: "fist", setId: "body_tempering", baseDamage: 9, baseCost: 4, costType: "qi", rarity: "common", desc: "Raw physical force — no qi ornament, just impact." },
+    { name: "Bronze Skin Palm", path: "body", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", setId: "body_tempering", reqPath: "body", reqRealm: 1, baseDamage: 6, baseCost: 4, costType: "qi", rarity: "uncommon", desc: "Flesh hardens to bronze — body cultivators only." },
+    { name: "Sandstorm Body Art", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Desert winds and grit scour foes while you advance." },
+    { name: "Viper Fang Strike", path: "body", element: "blood", category: "attack", combatTier: "light", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A venomous strike that draws blood and feeds vitality." },
+    { name: "Mountain Crash", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", baseDamage: 19, baseCost: 9, costType: "qi", rarity: "rare", desc: "Your body becomes the mountain — a devastating slam." },
+    { name: "Blood Aegis", path: "body", element: "blood", category: "buff", combatTier: "buff", baseDamage: 4, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Blood qi forms a brief protective membrane." },
+    { name: "Staff Shatter", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Shatter a staff's worth of force through tempered limbs." },
+    // —— Soul arts (expanded) ——
+    { name: "Soul Lash", path: "soul", element: "soul", category: "attack", combatTier: "light", setId: "soul_suppression", baseDamage: 11, baseCost: 7, costType: "spirit", rarity: "common", desc: "A whip of condensed soul force." },
+    { name: "Phantom Blade", path: "soul", element: "soul", category: "attack", combatTier: "light", weaponType: "blade", setId: "sword_dominion", baseDamage: 10, baseCost: 7, costType: "spirit", rarity: "uncommon", desc: "A blade of spirit that passes through flesh to cut the soul." },
+    { name: "Spirit Suppression Art", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 14, baseCost: 9, costType: "spirit", rarity: "uncommon", desc: "Suppresses the enemy's spirit, weakening their techniques." },
+    { name: "Mind Sever", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "Severs the link between mind and body for an instant." },
+    { name: "Ghost Spear Thrust", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of ghostly intent that pierces from afar." },
+    { name: "Spectral Shield", path: "soul", element: "soul", category: "defense", combatTier: "defense", baseDamage: 5, baseCost: 6, costType: "spirit", rarity: "uncommon", desc: "A barrier of soul energy that absorbs spiritual attacks." },
+    { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
+    // —— Universal arts ——
+    { name: "Quickfoot Art", path: "neutral", element: "wind", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 3, costType: "qi", rarity: "common", desc: "Light footwork — reposition before the enemy strikes." },
+    { name: "Focused Breath", path: "neutral", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 2, baseCost: 4, costType: "qi", rarity: "common", desc: "Center breath and intent — steady the next exchange." }
 ];
 
 const TECHNIQUE_COMBAT_TIERS = {
@@ -418,6 +453,8 @@ const TECH_ELEMENT_LABELS = {
     ice: "❄️ Ice",
     lightning: "⚡ Lightning",
     earth: "🌍 Earth",
+    wind: "🌪️ Wind",
+    void: "🌌 Void",
     soul: "👻 Soul",
     blood: "🩸 Blood",
     elemental: "☯️ Elemental",
@@ -497,6 +534,54 @@ const TECHNIQUE_SETS = {
                 costMult: 0.05,
                 affinityGainBonus: 1,
                 desc: "+10% set damage, −5% set cost, +1 affinity per elemental strike"
+            }
+        }
+    },
+    sword_dominion: {
+        id: "sword_dominion",
+        name: "Sword Dominion",
+        emoji: "⚔️",
+        techniques: ["Soul Severing Sword", "Phantom Blade", "Heavenly Sword Qi", "Wind Blade Strike"],
+        bonuses: {
+            2: { dmgMult: 0.06, desc: "+6% damage with sword and blade techniques" },
+            3: { dmgMult: 0.10, costMult: 0.04, desc: "+10% set damage, −4% set cost" },
+            4: { dmgMult: 0.15, costMult: 0.06, desc: "+15% set damage, −6% cost — blade intent perfected" }
+        }
+    },
+    body_tempering: {
+        id: "body_tempering",
+        name: "Body Tempering Cycle",
+        emoji: "💪",
+        techniques: ["Iron Mountain Stance", "Bone Tempering Stance", "Crushing Fist", "Bronze Skin Palm"],
+        bonuses: {
+            2: { dmgMult: 0.04, desc: "+4% body technique damage" },
+            3: { dmgMult: 0.08, costMult: 0.05, desc: "+8% set damage, −5% set cost" },
+            4: { dmgMult: 0.12, costMult: 0.08, desc: "+12% set damage, −8% cost — flesh like forged iron" }
+        }
+    },
+    soul_suppression: {
+        id: "soul_suppression",
+        name: "Soul Suppression",
+        emoji: "👻",
+        techniques: ["Demon Seal", "Spirit Suppression Art", "Soul Lash", "Mind Sever"],
+        bonuses: {
+            2: { dmgMult: 0.05, desc: "+5% soul technique damage" },
+            3: { dmgMult: 0.10, costMult: 0.05, desc: "+10% set damage, −5% spirit cost" },
+            4: { dmgMult: 0.14, costMult: 0.08, desc: "+14% set damage, −8% spirit cost — spirits bow" }
+        }
+    },
+    ember_fury: {
+        id: "ember_fury",
+        name: "Ember Fury",
+        emoji: "🔥",
+        techniques: ["Raging Ember Fist", "Cinder Volley", "Phoenix Ascent Palm"],
+        bonuses: {
+            2: { dmgMult: 0.06, desc: "+6% fire technique damage" },
+            3: {
+                dmgMult: 0.12,
+                costMult: 0.05,
+                affinityGainBonus: 1,
+                desc: "+12% set damage, −5% cost, +1 fire affinity per strike"
             }
         }
     }
@@ -841,13 +926,14 @@ const ZONE_LOOT = {
         ],
         rare: [
             { name: "Frozen Manual", type: "technique", value: 15, desc: "Ice-element technique (rare).", technique: "Frostbite Palm" },
+            { name: "Glacier Heart Scripture", type: "technique", value: 22, desc: "Frostbite-exclusive ice art.", technique: "Glacier Heart Palm" },
             { name: "Yeti Hide", type: "material", value: 12, desc: "Thick, frost-resistant fur." },
             { name: "Rare Spirit Herb", type: "material", value: 14, desc: "A frost-hardened herb that nourishes marrow." }
         ],
         ultra: [
             { name: "Glacial Heart", type: "legendary_material", value: 50, desc: "The frozen core of a glacier spirit." }
         ],
-        techniques: ["Frostbite Palm", "Heavenly Palm"]
+        techniques: ["Glacier Heart Palm", "Frostbite Palm", "Gale Spiral"]
     },
     dustbone: {
         common: [
@@ -857,13 +943,14 @@ const ZONE_LOOT = {
         ],
         rare: [
             { name: "Ancient Relic Fragment", type: "material", value: 15, desc: "A shard of a lost civilization." },
+            { name: "Sandburrow Manual", type: "technique", value: 18, desc: "Dustbone-exclusive burrowing palm art.", technique: "Sandburrow Palm" },
             { name: "Sand Serpent Scale", type: "material", value: 12, desc: "A scale from a massive sand serpent." },
             { name: "Marrow Herb", type: "material", value: 14, desc: "Root that burrows deep as bone." }
         ],
         ultra: [
             { name: "Wandering Oasis Map", type: "legendary_material", value: 50, desc: "A map that leads to a moving oasis." }
         ],
-        techniques: ["Five Elements Fist", "Scorching Palm", "Tide Spiral", "Heavenly Palm"]
+        techniques: ["Sandburrow Palm", "Sandstorm Body Art", "Bronze Skin Palm", "Earth Pulse Palm"]
     },
     heartlands: {
         common: [
@@ -875,12 +962,14 @@ const ZONE_LOOT = {
             { name: "Sect Token", type: "material", value: 15, desc: "A token that grants access to a sect library." },
             { name: "Heavenly Pill", type: "pill", pillId: "spirit_gathering", value: 20, desc: "A pill that boosts Qi permanently." },
             { name: "Celestial Judgment Scroll", type: "technique", value: 25, desc: "A scroll of heavenly light.", technique: "Celestial Judgment" },
+            { name: "Void Rend Scroll", type: "technique", value: 28, desc: "A scripture on tearing rifts in space.", technique: "Void Rend" },
+            { name: "Root-Vein Manual", type: "technique", value: 20, desc: "Heartlands vein-cultivation art.", technique: "Root-Vein Surge" },
             { name: "Marrow Herb", type: "material", value: 16, desc: "A rare herb that seeps into bone marrow when refined." }
         ],
         ultra: [
             { name: "Dao Insight Fragment", type: "legendary_material", value: 50, desc: "A fragment of profound Dao understanding." }
         ],
-        techniques: ["Heavenly Palm", "Celestial Judgment", "Five Elements Fist"]
+        techniques: ["Root-Vein Surge", "Void Rend", "Heavenly Palm", "Storm Needle", "Meridian Flow"]
     },
     jade: {
         common: [
@@ -890,12 +979,13 @@ const ZONE_LOOT = {
         ],
         rare: [
             { name: "Storm Pearl", type: "material", value: 15, desc: "A pearl charged with storm energy." },
+            { name: "Maelstrom Lance Manual", type: "technique", value: 22, desc: "Jade Coast-exclusive spear art.", technique: "Maelstrom Lance" },
             { name: "Pirate Manual", type: "technique", value: 18, desc: "A waterlogged combat manual.", technique: "Soul Severing Sword" }
         ],
         ultra: [
             { name: "Dragon Scale (Sea)", type: "legendary_material", value: 50, desc: "A scale from a sea dragon." }
         ],
-        techniques: ["Soul Severing Sword", "Demon Seal", "Void Step"]
+        techniques: ["Maelstrom Lance", "Tide Spiral", "Ghost Spear Thrust", "Phantom Blade", "Abyss Gaze"]
     },
     emberwild: {
         common: [
@@ -906,13 +996,14 @@ const ZONE_LOOT = {
         rare: [
             { name: "Obsidian Shard", type: "material", value: 15, desc: "A shard of volcanic glass." },
             { name: "Beast Fury Manual", type: "technique", value: 18, desc: "Techniques carved into obsidian.", technique: "War God's Roar" },
+            { name: "Phoenix Ascent Scroll", type: "technique", value: 24, desc: "Emberwild-exclusive flame art.", technique: "Phoenix Ascent Palm" },
             { name: "Rare Spirit Herb", type: "material", value: 14, desc: "Ash-fed herb prized for marrow refinement." },
             { name: "Demon Core", type: "material", value: 18, desc: "Condensed malice from a slain demonic beast." }
         ],
         ultra: [
             { name: "Phoenix Feather", type: "legendary_material", value: 50, desc: "A feather from a legendary phoenix." }
         ],
-        techniques: ["Iron Mountain Stance", "War God's Roar", "Blood Refining Art"]
+        techniques: ["Phoenix Ascent Palm", "Raging Ember Fist", "Cinder Volley", "Viper Fang Strike", "Blood Refining Art"]
     }
 };
 
@@ -959,11 +1050,16 @@ const MERCHANT_CATALOG = {
         name: "Celestial Market",
         stock: [
             { technique: "Heavenly Palm", price: 45, reqRealm: 0 },
+            { technique: "Earth Pulse Palm", price: 50, reqRealm: 0 },
+            { technique: "Meridian Flow", price: 40, reqRealm: 0 },
             { technique: "Five Elements Fist", price: 90, reqRealm: 1 },
             { technique: "Scorching Palm", price: 75, reqRealm: 1 },
             { technique: "Tide Spiral", price: 75, reqRealm: 1 },
-            { technique: "Celestial Judgment", price: 220, reqRealm: 3 },
-            { technique: "Frostbite Palm", price: 160, reqRealm: 2 }
+            { technique: "Storm Needle", price: 85, reqRealm: 1 },
+            { technique: "Root-Vein Surge", price: 95, reqRealm: 1 },
+            { technique: "Wind Blade Strike", price: 100, reqRealm: 2 },
+            { technique: "Frostbite Palm", price: 160, reqRealm: 2 },
+            { technique: "Celestial Judgment", price: 220, reqRealm: 3 }
         ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
@@ -974,10 +1070,20 @@ const MERCHANT_CATALOG = {
     jade: {
         name: "Tide Merchant Guild",
         stock: [
-            { technique: "Iron Mountain Stance", price: 40, reqRealm: 0 },
+            { technique: "Crushing Fist", price: 45, reqRealm: 0 },
+            { technique: "Bone Tempering Stance", price: 50, reqRealm: 0 },
+            { technique: "Blood Aegis", price: 85, reqRealm: 1 },
+            { technique: "Mountain Crash", price: 175, reqRealm: 2 },
+            { technique: "Bronze Skin Palm", price: 120, reqRealm: 1 },
+            { technique: "Soul Lash", price: 55, reqRealm: 0 },
+            { technique: "Quickfoot Art", price: 35, reqRealm: 0 },
             { technique: "Soul Severing Sword", price: 75, reqRealm: 1 },
+            { technique: "Phantom Blade", price: 90, reqRealm: 1 },
+            { technique: "Ghost Spear Thrust", price: 95, reqRealm: 1 },
             { technique: "Demon Seal", price: 130, reqRealm: 2 },
-            { technique: "Void Step", price: 200, reqRealm: 2 }
+            { technique: "Spirit Suppression Art", price: 140, reqRealm: 2 },
+            { technique: "Void Step", price: 200, reqRealm: 2 },
+            { technique: "Spectral Shield", price: 110, reqRealm: 2 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -2253,7 +2359,7 @@ const MILESTONE_LABELS = {
 const ACTION_UNLOCK_LABELS = {
     intent: 'Weapon Intent',
     physique: 'Physique',
-    search: 'Search',
+    search: 'Probe Sealed Sites',
     factions: 'Factions',
     forbidden: 'Forbidden Grounds',
     sect: 'Sect',
@@ -2270,7 +2376,6 @@ const ACTION_UNLOCK_BUTTONS = {
     dao: 'btnDao',
     intent: 'btnIntent',
     tech: 'btnTech',
-    physique: 'btnPhysique',
     pill: 'btnPill',
     inventory: 'btnInventory',
     explore: 'btnExplore',
@@ -2563,12 +2668,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Sunless Pearl', type: 'legendary_material', value: 40, desc: 'A pearl formed in absolute dark.' },
-            { name: 'Frozen Manual', type: 'technique', value: 18, technique: 'Frostbite Palm', desc: 'Ice-path scripture from the abyss.' }
+            { name: 'Frozen Manual', type: 'technique', value: 18, technique: 'Glacier Heart Palm', desc: 'Ice-path scripture from the abyss.' }
         ],
         ultra: [
             { name: 'Pre-Heaven Frost Shard', type: 'legendary_material', value: 60, desc: 'A shard of the array that sealed the Sage.' }
         ],
-        techniques: ['Frostbite Palm', 'Heavenly Palm']
+        techniques: ['Glacier Heart Palm', 'Frostbite Palm', 'Gale Spiral']
     },
     whistling_dunes: {
         common: [
@@ -2577,12 +2682,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Whistle Stone', type: 'legendary_material', value: 38, desc: 'Stone that echoes the buried king\'s voice.' },
-            { name: 'Scorching Palm', type: 'technique', value: 16, technique: 'Scorching Palm', desc: 'Desert heat compressed into a palm strike.' }
+            { name: 'Sandburrow Manual', type: 'technique', value: 18, technique: 'Sandburrow Palm', desc: 'Burrowing palm art from the singing dunes.' }
         ],
         ultra: [
             { name: 'Gilded Burial Mask', type: 'legendary_material', value: 55, desc: 'The Dune Sovereign\'s half-melted crown.' }
         ],
-        techniques: ['Five Elements Fist', 'Scorching Palm']
+        techniques: ['Sandburrow Palm', 'Sandstorm Body Art']
     },
     root_of_world: {
         common: [
@@ -2596,7 +2701,7 @@ const SUBZONE_LOOT = {
         ultra: [
             { name: 'Primordial Root Seed', type: 'legendary_material', value: 65, desc: 'Could grow a sect\'s formation array on its own.' }
         ],
-        techniques: ['Heavenly Palm', 'Tide Spiral']
+        techniques: ['Root-Vein Surge', 'Heavenly Sword Qi', 'Storm Needle']
     },
     sunken_atoll: {
         common: [
@@ -2605,12 +2710,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Drowned Crown Coral', type: 'legendary_material', value: 42, desc: 'Coral shaped like a forgotten crown.' },
-            { name: 'Tide Spiral', type: 'technique', value: 17, technique: 'Tide Spiral', desc: 'Water-path manual from the drowned palace.' }
+            { name: 'Maelstrom Lance Manual', type: 'technique', value: 20, technique: 'Maelstrom Lance', desc: 'Spear art from the drowned palace currents.' }
         ],
         ultra: [
             { name: 'Dragon-Tide Pearl', type: 'legendary_material', value: 58, desc: 'The Sleeper\'s dream made solid.' }
         ],
-        techniques: ['Tide Spiral', 'Heavenly Palm']
+        techniques: ['Maelstrom Lance', 'Phantom Blade', 'Tide Spiral']
     },
     ashvein_caldera: {
         common: [
@@ -2619,12 +2724,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Caldera Heart Shard', type: 'legendary_material', value: 40, desc: 'A fragment of living flame.' },
-            { name: 'Scorching Palm', type: 'technique', value: 16, technique: 'Scorching Palm', desc: 'First flame-path teaching, ash-scorched.' }
+            { name: 'Phoenix Ascent Scroll', type: 'technique', value: 20, technique: 'Phoenix Ascent Palm', desc: 'First flame-path teaching, ash-scorched.' }
         ],
         ultra: [
             { name: 'Primordial Ash Core', type: 'legendary_material', value: 62, desc: 'The Heart\'s breath crystallized.' }
         ],
-        techniques: ['Scorching Palm', 'Five Elements Fist']
+        techniques: ['Phoenix Ascent Palm', 'Raging Ember Fist', 'Cinder Volley']
     }
 };
 

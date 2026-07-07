@@ -1102,7 +1102,7 @@ function groupTechniquesForDisplay(techniques) {
     });
 
     const order = techSortMode === 'element'
-        ? ['fire', 'water', 'ice', 'lightning', 'earth', 'soul', 'blood', 'elemental', 'neutral']
+        ? ['fire', 'water', 'ice', 'lightning', 'earth', 'wind', 'void', 'soul', 'blood', 'elemental', 'neutral']
         : techSortMode === 'category'
             ? ['attack', 'utility']
             : ['qi', 'body', 'soul', 'neutral'];
@@ -2153,11 +2153,13 @@ function renderMerchantPopup() {
         const template = TECHNIQUE_POOL.find(t => t.name === item.technique);
         const owned = G.techniques.some(t => t.name === item.technique);
         const locked = G.realmIdx < item.reqRealm;
+        const pathLocked = template && typeof canLearnTechnique === 'function' && !canLearnTechnique(template);
         const factionLocked = typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(item.technique, zoneId);
         const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
-        const canBuy = !owned && !locked && !factionLocked && G.stones >= finalPrice;
+        const canBuy = !owned && !locked && !pathLocked && !factionLocked && G.stones >= finalPrice;
         const realmName = PATHS[G.path].realms[item.reqRealm] || `Realm ${item.reqRealm + 1}`;
-        let status = owned ? 'Known' : locked ? `Need ${realmName}` : factionLocked
+        let status = owned ? 'Known' : pathLocked ? (template?.reqPath ? `Requires ${template.reqPath} path` : 'Requirements not met')
+            : locked ? `Need ${realmName}` : factionLocked
             ? (typeof getMarketTechniqueLockReason === 'function' ? getMarketTechniqueLockReason(item.technique, zoneId) : 'Faction locked')
             : `${finalPrice} Stones`;
         if (!owned && !locked && finalPrice < item.price) status += ` (was ${item.price})`;
