@@ -188,7 +188,7 @@ function removeHalfCraftMaterials(materials) {
 
 function craftGear(recipeId, options) {
     options = options || {};
-    if (typeof actionBlocked === 'function' && actionBlocked()) return { ok: false };
+    if (typeof actionBlocked === 'function' && actionBlocked() && !G.inForgeChamber) return { ok: false };
     const check = canCraftGear(recipeId, options);
     if (!check.ok) {
         addLog(`🔨 ${check.reason}`);
@@ -279,7 +279,7 @@ function craftLegendaryGear(recipeId) {
 }
 
 function forgeRepairGear(uid) {
-    const result = repairGear(uid);
+    const result = repairGear(uid, { fromForgeChamber: true });
     if (result.success && typeof triggerForgeAnim === 'function') triggerForgeAnim('repair');
     if (typeof renderForgeChamberUI === 'function') renderForgeChamberUI();
     return result;

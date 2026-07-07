@@ -513,8 +513,10 @@ function getRepairCost(inst) {
     };
 }
 
-function repairGear(uid) {
-    if (typeof actionBlocked === 'function' && actionBlocked()) return { success: false };
+function repairGear(uid, options) {
+    options = options || {};
+    const inForgeRepair = options.fromForgeChamber && G.inForgeChamber;
+    if (typeof actionBlocked === 'function' && actionBlocked() && !inForgeRepair) return { success: false };
     ensureGearState();
     const inst = getGearInstance(uid);
     if (!inst) return { success: false, message: 'Item not found.' };
