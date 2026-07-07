@@ -691,9 +691,18 @@ function getTotalPills() {
 }
 
 function addPill(id, qty) {
-    if (!PILL_TYPES[id]) return;
+    if (!PILL_TYPES[id]) return false;
     ensurePillStock();
+    qty = qty || 1;
+    if (typeof getTravelKitPillBlockReason === 'function') {
+        const block = getTravelKitPillBlockReason(qty);
+        if (block) {
+            if (typeof addLog === 'function') addLog(`🎒 ${block}`);
+            return false;
+        }
+    }
     G.pillStock[id] = (G.pillStock[id] || 0) + qty;
+    return true;
 }
 
 function rollRandomPillId() {

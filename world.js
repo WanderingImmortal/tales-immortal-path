@@ -311,7 +311,7 @@ function applyExploreLoot(loot) {
         const template = TECHNIQUE_POOL.find(t => t.name === techName);
         if (template && typeof grantManual === 'function') {
             grantManual(techName, { silent: true, source: typeof getLootZoneId === 'function' ? getLootZoneId() : G.currentZone });
-            addLog(`📜 Manual found: ${techName}! Check your technique shelf.`);
+            addLog(`📜 Manual found: ${techName}! Check your travel kit in Inventory.`);
         } else {
             const soldFor = applyExploreRewardMult(loot.value || 5);
             G.stones += soldFor;

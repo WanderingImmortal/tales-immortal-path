@@ -2461,6 +2461,25 @@ const MANUAL_HALL_BALANCE = {
     traitStudySpeed: { wise: 0.85, ambitious: 0.92, loyal: 1, generous: 1, mysterious: 0.9 }
 };
 
+/** Personal travel kit — worn gear is free; bag contents count against capacity. */
+const TRAVEL_KIT_BALANCE = {
+    baseCapacity: 8,
+    manualUniqueWeight: 1,
+    pillWeight: 0.25,
+    gearBagWeight: 1,
+    curioWeight: 0.5,
+    defaultMaterialWeight: 0.12,
+    materialWeight: {
+        spirit_herb: 0.1,
+        iron_ore: 0.15,
+        leather_scrap: 0.12,
+        silk_thread: 0.08,
+        jade_inlay: 0.25,
+        demon_core: 0.3,
+        celestial_silk: 0.2
+    }
+};
+
 /** Intent synergy tiers — mid = soft debuff, high = hard debuff without matching intent stage. */
 const INTENT_TECHNIQUE_BALANCE = {
     low: { noMatchMult: 1, costMult: 1, matchBonus: 0.06, stageBonusPerTier: 0.025 },

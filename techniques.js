@@ -176,6 +176,13 @@ function grantManual(techName, opts) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return false;
     ensureManualShelf();
+    const isNewTitle = !G.manualShelf[techName];
+    if (isNewTitle && typeof canAddManualToTravelKit === 'function' && !canAddManualToTravelKit(techName)) {
+        if (!opts?.silent) {
+            addLog(`📜 ${typeof getTravelKitFullMessage === 'function' ? getTravelKitFullMessage() : 'Travel kit full.'} Could not stow ${techName}.`);
+        }
+        return false;
+    }
     const entry = G.manualShelf[techName];
     if (entry) {
         entry.count = (entry.count || 1) + 1;
@@ -190,7 +197,7 @@ function grantManual(techName, opts) {
     if (!opts?.silent) {
         const track = getTechniqueTrackLabel(template);
         const tierLabel = getCultivationTierLabel(getTechniqueCultivationTierId(template), template.path);
-        addLog(`📜 ${track} manual shelved: ${techName} (${tierLabel}).`);
+        addLog(`📜 ${track} manual stowed in travel kit: ${techName} (${tierLabel}).`);
     }
     return true;
 }
@@ -198,7 +205,7 @@ function grantManual(techName, opts) {
 function getComprehendBlockReason(template) {
     if (!template) return 'Unknown manual.';
     if (G.techniques.some(t => t.name === template.name)) return 'Already comprehended.';
-    if (!getManualShelfEntry(template.name)) return 'No manual on your shelf.';
+    if (!getManualShelfEntry(template.name)) return 'No manual in your travel kit.';
     if (template.path === 'body' && G.path !== 'body') {
         return 'Martial arts require the body path — shelve or consign, but you cannot comprehend this art.';
     }
