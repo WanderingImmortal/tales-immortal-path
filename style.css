@@ -2901,6 +2901,97 @@ header .subtitle {
     border-color: #8a7040;
 }
 
+.sect-subsection {
+    margin-top: 14px;
+}
+
+.sect-action-btn-sm {
+    font-size: 11px;
+    padding: 4px 10px;
+    margin-top: 4px;
+}
+
+.manual-hall-study-row {
+    background: #1a1410;
+    border: 1px solid #3a2a1a;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+}
+
+.manual-hall-study-head {
+    font-size: 13px;
+    color: #e8dcc8;
+    margin-bottom: 4px;
+}
+
+.manual-hall-progress {
+    height: 6px;
+    background: #2a2018;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 4px 0;
+}
+
+.manual-hall-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6a5030, #b8863a);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.manual-hall-study-meta {
+    font-size: 11px;
+    color: #8a7a68;
+    margin-bottom: 4px;
+}
+
+.manual-hall-collection-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid #2a2018;
+    font-size: 13px;
+}
+
+.manual-hall-title {
+    flex: 1;
+    color: #e8dcc8;
+}
+
+.manual-hall-meta {
+    font-size: 11px;
+    color: #6a5a48;
+    min-width: 56px;
+}
+
+.manual-hall-assign-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.manual-hall-select {
+    flex: 1;
+    min-width: 120px;
+    background: #1a1410;
+    border: 1px solid #4a3828;
+    color: #e8dcc8;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.manual-hall-disciple-arts {
+    font-size: 12px;
+    color: #a09080;
+    padding: 4px 0;
+    border-bottom: 1px solid #2a2018;
+}
+
 .sect-disciple-info {
     display: flex;
     flex-direction: column;

@@ -2454,6 +2454,13 @@ const MANUAL_BALANCE = {
     defaultIntentDebuff: { dmgMult: 0.45, costMult: 1.25 }
 };
 
+const MANUAL_HALL_BALANCE = {
+    studyMonthsMult: 3,
+    renownByRarity: { common: 1, uncommon: 2, rare: 4, legendary: 8 },
+    roleStudySpeed: { acolyte: 1, elder: 0.88, core: 0.78, successor: 0.68 },
+    traitStudySpeed: { wise: 0.85, ambitious: 0.92, loyal: 1, generous: 1, mysterious: 0.9 }
+};
+
 /** Intent synergy tiers — mid = soft debuff, high = hard debuff without matching intent stage. */
 const INTENT_TECHNIQUE_BALANCE = {
     low: { noMatchMult: 1, costMult: 1, matchBonus: 0.06, stageBonusPerTier: 0.025 },
@@ -4100,6 +4107,24 @@ const SECT_BUILDINGS = {
             { stones: 48, materials: { silk_thread: 4, spirit_herb: 4 }, months: 8, renown: 4 },
             { stones: 85, materials: { silk_thread: 6, jade_inlay: 2 }, months: 11, renown: 7 }
         ]
+    },
+    manual_hall: {
+        id: 'manual_hall',
+        name: 'Manual Hall',
+        emoji: '📜',
+        desc: 'Archive martial manuals for your sect. +6 collection slots and +1 disciple study slot per level.',
+        effectKey: 'manualHallCapacity',
+        effectPerLevel: 6,
+        maxLevel: 3,
+        minStage: 'founding',
+        implemented: true,
+        levels: [
+            null,
+            { stones: 24, materials: { silk_thread: 3, spirit_herb: 2 }, months: 5, renown: 2 },
+            { stones: 50, materials: { silk_thread: 5, jade_inlay: 1 }, months: 8, renown: 4 },
+            { stones: 88, materials: { silk_thread: 6, jade_inlay: 2 }, months: 11, renown: 6 }
+        ],
+        extraEffects: [{ effectKey: 'manualStudySlots', effectPerLevel: 1 }, { effectKey: 'studySpeedPct', effectPerLevel: 10 }]
     }
 };
 
@@ -4193,6 +4218,7 @@ const SECT_MAP_NODES = {
     spirit_garden: { id: 'spirit_garden', type: 'building', x: 58, y: 72, layer: 1 },
     disciple_hall: { id: 'disciple_hall', type: 'building', x: 50, y: 52, layer: 1 },
     library: { id: 'library', type: 'building', x: 72, y: 56, layer: 1 },
+    manual_hall: { id: 'manual_hall', type: 'building', x: 64, y: 44, layer: 1 },
     meditation_chamber: { id: 'meditation_chamber', type: 'building', x: 38, y: 48, layer: 1 },
     beast_pen: { id: 'beast_pen', type: 'building', x: 62, y: 48, layer: 1 },
     alchemy_lab: { id: 'alchemy_lab', type: 'building', x: 50, y: 82, layer: 1 },

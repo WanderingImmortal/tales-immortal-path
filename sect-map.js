@@ -350,9 +350,14 @@ function renderBuildingActionsHtml(buildingId, lv) {
     }
 
     if (buildingId === 'disciple_hall') {
-        const slots = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('discipleAssignSlots') : lv;
+        const assignSlots = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('discipleAssignSlots') : lv;
+        const studySlots = typeof getManualStudySlots === 'function' ? getManualStudySlots() : 0;
         html += `<div class="sect-section-title">📿 Assignments</div>`;
-        html += `<p class="sect-hint">Assignment slots: <strong>${slots}</strong>. Construction crews and production posts — expanding soon.</p>`;
+        html += `<p class="sect-hint">Construction crew slots: <strong>${assignSlots}</strong>. Manual study uses the <strong>Manual Hall</strong> (${studySlots} slot${studySlots !== 1 ? 's' : ''}).</p>`;
+    }
+
+    if (buildingId === 'manual_hall') {
+        html += typeof renderManualHallPanelHtml === 'function' ? renderManualHallPanelHtml() : '';
     }
 
     html += `</div>`;
@@ -487,5 +492,45 @@ function bindSectGroundsEvents(container) {
             if (typeof renderSectPopup === 'function') renderSectPopup();
             fullRender();
         });
+    });
+    container.querySelectorAll('[data-deposit-hall]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof depositManualToHall === 'function'
+                ? depositManualToHall(this.dataset.depositHall, 1)
+                : { success: false, message: 'Manual Hall unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-withdraw-hall]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof withdrawManualFromHall === 'function'
+                ? withdrawManualFromHall(this.dataset.withdrawHall, 1)
+                : { success: false, message: 'Manual Hall unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-cancel-study]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof cancelDiscipleStudy === 'function'
+                ? cancelDiscipleStudy(this.dataset.cancelStudy)
+                : { success: false, message: 'Manual Hall unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelector('#btnAssignStudy')?.addEventListener('click', () => {
+        const discipleUid = container.querySelector('#manualHallDiscipleSelect')?.value;
+        const techName = container.querySelector('#manualHallTechSelect')?.value;
+        const result = typeof assignDiscipleStudy === 'function'
+            ? assignDiscipleStudy(discipleUid, techName)
+            : { success: false, message: 'Manual Hall unavailable.' };
+        if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+        if (typeof renderSectPopup === 'function') renderSectPopup();
+        fullRender();
     });
 }

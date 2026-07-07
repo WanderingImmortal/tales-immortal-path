@@ -59,6 +59,9 @@ function ensureSectState() {
     if (G.sect.stage && G.sect.stage !== 'wandering' && !G.sect.doctrine) inferSectDoctrineFromAlignment();
     syncDisciplesFromLegacy();
     syncSectLegacyFields();
+    G.sect.discipleRecords.forEach(d => {
+        if (!d.knownTechniques) d.knownTechniques = [];
+    });
 }
 
 function ensureSectReputation() {
@@ -339,9 +342,17 @@ function getSectBuildingBonus(effectKey) {
     ensureSectState();
     let total = 0;
     Object.entries(SECT_BUILDINGS).forEach(([id, def]) => {
-        if (def.effectKey !== effectKey || !def.implemented) return;
+        if (!def.implemented) return;
         const lv = getBuildingLevel(id);
-        if (lv > 0) total += lv * (def.effectPerLevel || 0);
+        if (lv <= 0) return;
+        if (def.effectKey === effectKey) {
+            total += lv * (def.effectPerLevel || 0);
+        }
+        (def.extraEffects || []).forEach(ex => {
+            if (ex.effectKey === effectKey) {
+                total += lv * (ex.effectPerLevel || 0);
+            }
+        });
     });
     return total;
 }
@@ -431,7 +442,8 @@ function createDiscipleRecord(name, role) {
         name,
         role: role || 'acolyte',
         trait,
-        joinedMonths: G.ageMonths || 0
+        joinedMonths: G.ageMonths || 0,
+        knownTechniques: []
     };
 }
 
@@ -1628,6 +1640,7 @@ function tickSectSystems(monthsPassed) {
     if (!isSectFounded() || monthsPassed <= 0) return;
     tickSectConstruction();
     tickSectAlliances();
+    if (typeof tickManualHallStudy === 'function') tickManualHallStudy(monthsPassed);
     if (typeof tickWorldSectGrowth === 'function') tickWorldSectGrowth(monthsPassed);
     if (typeof tickSectExpansion === 'function') tickSectExpansion(monthsPassed);
     if (meetsStageRequirement('established')) ensureProceduralWorldSects();
