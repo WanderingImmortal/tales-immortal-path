@@ -9357,6 +9357,55 @@ header .subtitle {
     cursor: not-allowed;
 }
 
+.track-strip {
+    font-size: 0.72rem;
+    color: var(--ink-text-muted);
+    margin-top: 4px;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+}
+
+.soul-palace-embryo-status,
+.soul-palace-embryo-line {
+    font-size: 0.85rem;
+    color: var(--ink-text-muted);
+    margin: 6px 0 0;
+    font-style: italic;
+}
+
+.soul-prelude-lock-note {
+    padding: 8px 0;
+}
+
+.soul-spirit-breakthrough-wrap {
+    margin: 8px 0 12px;
+}
+
+.soul-spirit-breakthrough-btn {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(155, 127, 212, 0.45);
+    background: rgba(80, 60, 120, 0.25);
+    color: #d4c0f8;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.soul-spirit-breakthrough-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.soul-chamber-track-head {
+    margin-bottom: 8px;
+}
+
+.soul-track-realm {
+    font-size: 0.88rem;
+    color: var(--ink-text-muted);
+}
+
 .soul-chamber-tab:not(.locked):hover {
     background: var(--ink-wash-light);
 }

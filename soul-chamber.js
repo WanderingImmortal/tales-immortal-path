@@ -29,9 +29,11 @@ const SOUL_CHAMBER_BONUS_LABELS = {
 function ensureSoulChamberState() {
     if (!G.soulChamber) {
         G.soulChamber = {
-            activeTab: 'awakened',
+            activeTab: 'prelude',
             layerProgress: {},
             actionCounts: {},
+            preludeProgress: 0,
+            preludeActionCounts: {},
             bonuses: {},
             transcendentComplete: false
         };
@@ -40,10 +42,61 @@ function ensureSoulChamberState() {
         if (G.soulChamber.layerProgress[id] == null) G.soulChamber.layerProgress[id] = 0;
     });
     if (!G.soulChamber.bonuses) G.soulChamber.bonuses = {};
+    if (!G.soulChamber.preludeActionCounts) G.soulChamber.preludeActionCounts = {};
+    if (G.soulChamber.preludeProgress == null) G.soulChamber.preludeProgress = 0;
     SOUL_CHAMBER_BONUS_KEYS.forEach(k => {
         if (G.soulChamber.bonuses[k] == null) G.soulChamber.bonuses[k] = 0;
     });
     if (G.soulChamber.transcendentComplete == null) G.soulChamber.transcendentComplete = false;
+}
+
+function isSoulPalaceDeepUnlocked() {
+    return typeof canAccessSoulPalaceDeep === 'function' && canAccessSoulPalaceDeep();
+}
+
+function getSpiritPreludeProgressPct() {
+    ensureSoulChamberState();
+    return Math.min(100, G.soulChamber.preludeProgress || 0);
+}
+
+function getSpiritTrackProgressPct() {
+    if (!isSoulPalaceDeepUnlocked()) return getSpiritPreludeProgressPct();
+    return getSoulRealmProgressPct();
+}
+
+function canSpiritTrackBreakthrough() {
+    const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('spirit') : 0;
+    const max = getMaxCultivationRealmIdx('soul');
+    if (idx >= max) return false;
+    if (typeof isSpiritTrackConsolidated === 'function' && isSpiritTrackConsolidated(idx)) return true;
+    if (idx === 0 && getSpiritPreludeProgressPct() >= 40) return true;
+    return false;
+}
+
+function getSpiritTrackBreakthroughBlockReason() {
+    const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('spirit') : 0;
+    const next = PATHS.soul.realms[idx + 1];
+    if (!next) return 'Spirit track is at the peak.';
+    if (canSpiritTrackBreakthrough()) return null;
+    if (idx === 0) {
+        return `Mortal spirit needs more refinement (${getSpiritPreludeProgressPct()}% / 40%) — practice in the Soul Palace prelude.`;
+    }
+    return 'Anchor the spirit realm before breakthrough.';
+}
+
+function getSpiritTrackBreakthroughStatus() {
+    if (canSpiritTrackBreakthrough()) return 'Ready to breakthrough';
+    return getSpiritTrackBreakthroughBlockReason() || 'Not ready';
+}
+
+function isSpiritTrackConsolidated(realmIdx) {
+    ensureCultivationTracksState();
+    return !!(G.cultivation.spirit.consolidation[realmIdx]?.done);
+}
+
+function markSpiritTrackConsolidated(realmIdx) {
+    ensureCultivationTracksState();
+    G.cultivation.spirit.consolidation[realmIdx] = { done: true, perfect: false, tier: 'settled' };
 }
 
 function getSoulChamberBonuses() {
@@ -75,8 +128,13 @@ function getSoulRealmProgressPct() {
 
 function applySoulPeakGrindBoost(boost) {
     ensureSoulChamberState();
-    const realmLayerIdx = Math.min(G.realmIdx, SOUL_CHAMBER_LAYER_ORDER.length - 1);
-    const layerId = SOUL_CHAMBER_LAYER_ORDER[realmLayerIdx];
+    if (!isSoulPalaceDeepUnlocked()) {
+        G.soulChamber.preludeProgress = Math.min(100, (G.soulChamber.preludeProgress || 0) + (boost || 20));
+        return;
+    }
+    const spiritIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('spirit') : 0;
+    const layerIdx = Math.min(spiritIdx, SOUL_CHAMBER_LAYER_ORDER.length - 1);
+    const layerId = SOUL_CHAMBER_LAYER_ORDER[layerIdx];
     const current = getSoulLayerProgress(layerId);
     G.soulChamber.layerProgress[layerId] = Math.min(100, current + (boost || 20));
 }
@@ -87,6 +145,8 @@ function getSoulLayerPrevId(layerId) {
 }
 
 function isSoulLayerUnlocked(layerId) {
+    if (layerId === 'prelude') return true;
+    if (!isSoulPalaceDeepUnlocked()) return false;
     const def = SOUL_CHAMBER_LAYERS[layerId];
     if (!def) return false;
     const prev = getSoulLayerPrevId(layerId);
@@ -172,7 +232,9 @@ function openSoulChamber() {
     ensureSoulChamberState();
     G.inSoulChamber = true;
     document.getElementById('soulChamberOverlay')?.classList.add('active');
-    if (!isSoulLayerUnlocked(G.soulChamber.activeTab)) {
+    if (!isSoulPalaceDeepUnlocked()) {
+        G.soulChamber.activeTab = 'prelude';
+    } else if (!isSoulLayerUnlocked(G.soulChamber.activeTab)) {
         G.soulChamber.activeTab = 'awakened';
     }
     renderSoulChamberUI();
@@ -185,7 +247,7 @@ function closeSoulChamber() {
 }
 
 function setSoulChamberTab(layerId) {
-    if (!isSoulLayerUnlocked(layerId)) return;
+    if (layerId !== 'prelude' && !isSoulLayerUnlocked(layerId)) return;
     ensureSoulChamberState();
     G.soulChamber.activeTab = layerId;
     renderSoulChamberUI();
@@ -220,9 +282,26 @@ function renderSoulChamberTabs() {
     const nav = document.getElementById('soulChamberTabs');
     if (!nav) return;
     nav.replaceChildren();
+    const embryoLine = document.createElement('p');
+    embryoLine.className = 'soul-palace-embryo-line';
+    embryoLine.textContent = typeof formatEmbryoStatusLine === 'function'
+        ? formatEmbryoStatusLine()
+        : '';
+    nav.appendChild(embryoLine);
+
+    const preludeBtn = document.createElement('button');
+    preludeBtn.type = 'button';
+    const preludePct = Math.round(getSpiritPreludeProgressPct());
+    preludeBtn.className = 'soul-chamber-tab' + (G.soulChamber.activeTab === 'prelude' ? ' active' : '');
+    preludeBtn.innerHTML = `🌙 Mortal Spirit<span class="soul-tab-pct">${preludePct}%</span>`;
+    preludeBtn.title = 'Phase 1 — mortal spirit refinement (always available)';
+    preludeBtn.addEventListener('click', () => setSoulChamberTab('prelude'));
+    nav.appendChild(preludeBtn);
+
     SOUL_CHAMBER_LAYER_ORDER.forEach(layerId => {
         const def = SOUL_CHAMBER_LAYERS[layerId];
-        const unlocked = isSoulLayerUnlocked(layerId);
+        const deepOpen = isSoulPalaceDeepUnlocked();
+        const unlocked = deepOpen && isSoulLayerUnlocked(layerId);
         const progress = Math.round(getSoulLayerProgress(layerId));
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -230,9 +309,11 @@ function renderSoulChamberTabs() {
             + (unlocked ? '' : ' locked');
         btn.disabled = !unlocked;
         btn.innerHTML = `${def.emoji} ${def.label}<span class="soul-tab-pct">${unlocked ? progress + '%' : '🔒'}</span>`;
-        btn.title = unlocked
-            ? `${def.label}: ${progress}% refined`
-            : `Unlock at ${def.unlockPrevPct}% of ${SOUL_CHAMBER_LAYERS[getSoulLayerPrevId(layerId)]?.label || 'previous layer'}`;
+        btn.title = !deepOpen
+            ? 'Soul embryo required — born from dantian, vessel, or spirit tier four'
+            : unlocked
+                ? `${def.label}: ${progress}% refined`
+                : `Unlock at ${def.unlockPrevPct}% of ${SOUL_CHAMBER_LAYERS[getSoulLayerPrevId(layerId)]?.label || 'previous layer'}`;
         btn.addEventListener('click', () => setSoulChamberTab(layerId));
         nav.appendChild(btn);
     });
@@ -242,6 +323,13 @@ function renderSoulChamberAbilities() {
     const panel = document.getElementById('soulChamberAbilities');
     if (!panel) return;
     panel.replaceChildren();
+    if (!isSoulPalaceDeepUnlocked()) {
+        const note = document.createElement('p');
+        note.className = 'soul-abilities-note soul-prelude-lock-note';
+        note.textContent = 'Soul combat arts awaken when a cultivator\'s soul embryo is born.';
+        panel.appendChild(note);
+        return;
+    }
     const head = document.createElement('div');
     head.className = 'soul-chamber-abilities-head';
     head.innerHTML = '<h4>Soul Combat Abilities</h4><p class="soul-abilities-note">Unlocked as each layer opens — combat hooks arrive in a future pass.</p>';
@@ -309,9 +397,44 @@ function renderSoulChamberActions() {
     const panel = document.getElementById('soulChamberActions');
     if (!panel) return;
     const tab = G.soulChamber.activeTab;
+    panel.replaceChildren();
+
+    const spiritRealm = typeof getSpiritRealm === 'function' ? getSpiritRealm() : '—';
+    const nextSpirit = PATHS.soul.realms[(typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('spirit') : 0) + 1];
+    const trackHead = document.createElement('div');
+    trackHead.className = 'soul-chamber-track-head';
+    trackHead.innerHTML = `<p class="soul-track-realm">Spirit track: <strong>${spiritRealm}</strong>${nextSpirit ? ` → ${nextSpirit}` : ''}</p>`;
+    panel.appendChild(trackHead);
+
+    const breakWrap = document.createElement('div');
+    breakWrap.className = 'soul-spirit-breakthrough-wrap';
+    const breakBtn = document.createElement('button');
+    breakBtn.type = 'button';
+    breakBtn.className = 'soul-spirit-breakthrough-btn';
+    const canBreak = typeof canSpiritTrackBreakthrough === 'function' && canSpiritTrackBreakthrough();
+    breakBtn.disabled = soulChamberActionBlocked() || !canBreak || !nextSpirit;
+    breakBtn.textContent = canBreak && nextSpirit ? `🌀 Spirit Breakthrough → ${nextSpirit}` : '🌀 Spirit Breakthrough';
+    breakBtn.title = typeof getSpiritTrackBreakthroughBlockReason === 'function'
+        ? (getSpiritTrackBreakthroughBlockReason() || 'Attempt spirit realm breakthrough')
+        : '';
+    breakBtn.addEventListener('click', () => {
+        if (typeof openSpiritBreakthrough === 'function') openSpiritBreakthrough();
+    });
+    breakWrap.appendChild(breakBtn);
+    panel.appendChild(breakWrap);
+
+    if (tab === 'prelude') {
+        const head = document.createElement('div');
+        head.className = 'soul-chamber-tab-head';
+        head.innerHTML = '<h3>🌙 Mortal Spirit</h3><p class="soul-chamber-tab-desc">Phase 1 — humble spirit work before the soul embryo awakens.</p>';
+        panel.appendChild(head);
+        const actions = typeof SOUL_PALACE_PRELUDE_ACTIONS !== 'undefined' ? SOUL_PALACE_PRELUDE_ACTIONS : [];
+        actions.forEach(action => appendSoulPreludeActionButton(panel, action));
+        return;
+    }
+
     const def = SOUL_CHAMBER_LAYERS[tab];
     const actions = SOUL_CHAMBER_ACTIONS[tab];
-    panel.replaceChildren();
     const head = document.createElement('div');
     head.className = 'soul-chamber-tab-head';
     head.innerHTML = `<h3>${def.emoji} ${def.label}</h3><p class="soul-chamber-tab-desc">Refine this layer of your inner self.</p>`;
@@ -326,18 +449,69 @@ function renderSoulChamberActions() {
     actions.forEach(action => appendSoulActionButton(panel, tab, action));
 }
 
+function appendSoulPreludeActionButton(panel, action) {
+    ensureSoulChamberState();
+    const count = G.soulChamber.preludeActionCounts[action.id] || 0;
+    const maxStacks = action.maxStacks || 3;
+    const atMax = count >= maxStacks;
+    const wrap = document.createElement('div');
+    wrap.className = 'action-card-wrap soul-chamber-action-wrap';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'soul-chamber-action-btn' + (atMax ? ' soul-chamber-action-maxed' : '');
+    btn.disabled = soulChamberActionBlocked() || atMax;
+    btn.innerHTML = `<span class="soul-action-label">${action.emoji} ${action.label}</span>`
+        + `<span class="soul-action-meta soul-action-flavor">${atMax ? 'Fully refined' : action.desc}</span>`;
+    btn.addEventListener('click', () => runSoulPreludeAction(action.id));
+    wrap.appendChild(btn);
+    panel.appendChild(wrap);
+}
+
+function runSoulPreludeAction(actionId) {
+    const action = SOUL_PALACE_PRELUDE_ACTIONS?.find(a => a.id === actionId);
+    if (!action) return;
+    ensureSoulChamberState();
+    const count = G.soulChamber.preludeActionCounts[actionId] || 0;
+    if (count >= (action.maxStacks || 3)) return;
+    beginActionLog();
+    if (!advanceChamberWeeks(action.weeks, `${action.label} — Mortal Spirit`)) {
+        cancelActionLog();
+        renderSoulChamberUI();
+        return;
+    }
+    applySoulChamberBonusDelta(action.bonus);
+    G.soulChamber.preludeActionCounts[actionId] = count + 1;
+    G.soulChamber.preludeProgress = Math.min(100, (G.soulChamber.preludeProgress || 0) + (action.progress || 20));
+    const bonusText = formatSoulBonusDelta(action.bonus);
+    commitActionLog(`🌙 ${action.label} complete. ${bonusText} · Prelude ${Math.round(G.soulChamber.preludeProgress)}%.`);
+    renderSoulChamberUI();
+    fullRender();
+}
+
 function renderSoulChamberUI() {
     if (!G.inSoulChamber) return;
     ensureSoulChamberState();
     const tab = G.soulChamber.activeTab;
-    const progress = getSoulLayerProgress(tab);
-    const def = SOUL_CHAMBER_LAYERS[tab];
+    const embryoEl = document.getElementById('soulPalaceEmbryoStatus');
+    if (embryoEl && typeof formatEmbryoStatusLine === 'function') {
+        embryoEl.textContent = formatEmbryoStatusLine();
+    }
+    let progress, labelText;
+    if (tab === 'prelude') {
+        progress = getSpiritPreludeProgressPct();
+        labelText = `Mortal Spirit — ${Math.round(progress)}%`;
+    } else {
+        progress = getSoulLayerProgress(tab);
+        const def = SOUL_CHAMBER_LAYERS[tab];
+        labelText = `${def.label} — ${Math.round(progress)}%`;
+    }
     const label = document.getElementById('soulLayerProgressLabel');
     const bar = document.getElementById('soulLayerProgressBar');
-    if (label) label.textContent = `${def.label} — ${Math.round(progress)}%`;
+    if (label) label.textContent = labelText;
     if (bar) {
+        const def = tab === 'prelude' ? { color: '#7a9fd4' } : SOUL_CHAMBER_LAYERS[tab];
         bar.style.width = `${Math.min(100, progress)}%`;
-        bar.style.background = `linear-gradient(90deg, ${def.color}88, ${def.color})`;
+        bar.style.background = `linear-gradient(90deg, ${def?.color || '#9b7fd4'}88, ${def?.color || '#9b7fd4'})`;
     }
     renderSoulChamberTabs();
     renderSoulChamberActions();
@@ -469,5 +643,5 @@ function getSoulChamberStaminaEfficiencyMult() {
 }
 
 function isSoulLayerAbilityUnlocked(layerId) {
-    return isSoulLayerUnlocked(layerId);
+    return isSoulPalaceDeepUnlocked() && isSoulLayerUnlocked(layerId);
 }

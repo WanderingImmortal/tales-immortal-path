@@ -74,6 +74,9 @@ const PATHS = {
     }
 };
 
+/** Spirit track — same realm table as legacy soul path; UI label is "Spirit track", not a class. */
+const SPIRIT_TRACK = PATHS.soul;
+
 const TRAITS = [
     {
         id: 'heavenly_luck',
@@ -5149,13 +5152,38 @@ const SOUL_CHAMBER_LAYER_ORDER = [
 ];
 
 const SOUL_CHAMBER_LAYERS = {
-    awakened: { id: 'awakened', label: 'Awakened Spirit', emoji: '✨', unlockPrevPct: 0, color: '#9b7fd4' },
-    clarity: { id: 'clarity', label: 'Clarity of Mind', emoji: '🪞', unlockPrevPct: 50, color: '#7eb8e8' },
-    purity: { id: 'purity', label: 'Purity of Will', emoji: '⚔️', unlockPrevPct: 50, color: '#c8d0e0' },
-    dao_heart: { id: 'dao_heart', label: 'Dao Heart Formation', emoji: '☯️', unlockPrevPct: 50, color: '#d4b85c' },
-    manifestation: { id: 'manifestation', label: 'Soul Manifestation', emoji: '👁️', unlockPrevPct: 50, color: '#c86eb8' },
-    void: { id: 'void', label: 'Void Resonance', emoji: '🌌', unlockPrevPct: 50, color: '#4a6a8a' },
-    transcendent: { id: 'transcendent', label: 'Transcendent Soul', emoji: '🌟', unlockPrevPct: 50, color: '#f0e8d0' }
+    awakened: { id: 'awakened', label: 'Soul Core', emoji: '✨', unlockPrevPct: 0, color: '#9b7fd4' },
+    clarity: { id: 'clarity', label: 'Mind Lake', emoji: '🪞', unlockPrevPct: 50, color: '#7eb8e8' },
+    purity: { id: 'purity', label: 'Will Forge', emoji: '⚔️', unlockPrevPct: 50, color: '#c8d0e0' },
+    dao_heart: { id: 'dao_heart', label: 'Dao Mirror', emoji: '☯️', unlockPrevPct: 50, color: '#d4b85c' },
+    manifestation: { id: 'manifestation', label: 'Outer Soul', emoji: '👁️', unlockPrevPct: 50, color: '#c86eb8' },
+    void: { id: 'void', label: 'Void Touch', emoji: '🌌', unlockPrevPct: 50, color: '#4a6a8a' },
+    transcendent: { id: 'transcendent', label: 'Soul Dominion', emoji: '🌟', unlockPrevPct: 50, color: '#f0e8d0' }
+};
+
+/** Phase 1 mortal spirit — always available before soul embryo. */
+const SOUL_PALACE_PRELUDE_ACTIONS = [
+    { id: 'sense_inward', label: 'Sense Inward', emoji: '🧘', weeks: 2, progress: 20,
+        bonus: { willpowerPct: 2, fearResistPct: 2 },
+        desc: 'Turn awareness inward — +2% willpower & fear resistance (max 3×)' },
+    { id: 'steady_heart', label: 'Steady Heart', emoji: '💠', weeks: 2, progress: 20,
+        bonus: { daoAlignmentPct: 2 },
+        desc: 'Calm mortal spirit — +2% Dao Alignment (max 3×)' },
+    { id: 'gather_essence', label: 'Gather Essence', emoji: '🌊', weeks: 2, progress: 20,
+        bonus: { qiRegenPct: 1, staminaRegenPct: 1 },
+        desc: 'Draw faint essence into the soul — +1% Qi & stamina regen (max 3×)' }
+];
+
+const SOUL_EMBRYO_AWAKEN_MESSAGES = {
+    dantian: '🌟 The dantian births a Nascent Soul — the palace depths awaken.',
+    vessel: '🌟 Vitality coils inward; a Vital Soul manifests — the palace depths awaken.',
+    spirit: '🌟 Spirit condenses into Nascent Divinity — the palace depths awaken.'
+};
+
+const SOUL_EMBRYO_ORIGIN_PERKS = {
+    dantian: { willpowerPct: 2 },
+    vessel: { fearResistPct: 2 },
+    spirit: { daoComprehensionPct: 2 }
 };
 
 const SOUL_CHAMBER_BALANCE = {

@@ -58,6 +58,13 @@ function renderStatus() {
     const openCount = getMeridianOpenCount();
     document.getElementById('realmDisplay').textContent = realm + (G.perfectCultivation ? ' 🌟' : '');
     document.getElementById('titleDisplay').textContent = '— ' + title;
+    const trackStrip = document.getElementById('trackStrip');
+    if (trackStrip && typeof getDantianRealm === 'function') {
+        const embryoBadge = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo() ? ' · ✨ embryo' : '';
+        const focus = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
+        const mark = t => t === focus ? '▸' : '·';
+        trackStrip.textContent = `${mark('dantian')}⚡ ${getDantianRealm()}  ${mark('vessel')}💪 ${getVesselRealm()}  ${mark('spirit')}🧠 ${getSpiritRealm()}${embryoBadge}`;
+    }
     const ageEl = document.getElementById('ageDisplay');
     ageEl.textContent = formatYears(G.ageMonths);
     const lifeEl = document.getElementById('lifespanDisplay');

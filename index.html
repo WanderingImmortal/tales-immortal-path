@@ -53,22 +53,22 @@
                 <input type="text" id="nameInput" placeholder="Wandering Immortal" maxlength="32" />
             </div>
             <div class="creation-section">
-                <div class="creation-label">Choose Your Path</div>
-                <div id="pathOptions" class="creation-options path-grid">
-                    <button type="button" class="popup-item path-card selected" data-path="qi">
+                <div class="creation-label">Where will you begin? <span class="creation-sublabel">(starting emphasis — not a class lock)</span></div>
+                <div id="emphasisOptions" class="creation-options path-grid">
+                    <button type="button" class="popup-item path-card selected" data-emphasis="dantian">
                         <span class="path-icon">⚡</span>
-                        <div class="name">Qi Cultivation</div>
-                        <div class="desc">Qi barrier, balanced offense</div>
+                        <div class="name">Dantian</div>
+                        <div class="desc">Qi road — breath, core, tribulation</div>
                     </button>
-                    <button type="button" class="popup-item path-card" data-path="body">
+                    <button type="button" class="popup-item path-card" data-emphasis="vessel">
                         <span class="path-icon">💪</span>
-                        <div class="name">Body Cultivation</div>
-                        <div class="desc">High HP, fierce melee</div>
+                        <div class="name">Vessel</div>
+                        <div class="desc">Body road — flesh, bone, endurance</div>
                     </button>
-                    <button type="button" class="popup-item path-card" data-path="soul">
+                    <button type="button" class="popup-item path-card" data-emphasis="spirit">
                         <span class="path-icon">🧠</span>
-                        <div class="name">Soul Cultivation</div>
-                        <div class="desc">Spirit shield, soul strikes</div>
+                        <div class="name">Spirit</div>
+                        <div class="desc">Spirit road — will, palace, Dao within</div>
                     </button>
                 </div>
             </div>
@@ -127,6 +127,7 @@
                         <span class="realm" id="realmDisplay">Qi Condensation</span>
                         <span class="title" id="titleDisplay">— Mortal Aspirant</span>
                     </div>
+                    <div class="track-strip" id="trackStrip" title="Three refinements — no class lock"></div>
 
                     <div class="lifespan-banner" id="lifespanBanner">
                         <span class="lifespan-banner-icon">🕯️</span>
@@ -592,26 +593,27 @@
 <div class="popup-overlay" id="cultivationHubOverlay">
     <div class="cultivation-hub-shell">
         <header class="cultivation-hub-header">
-            <h2 class="cultivation-hub-title">🧘 Cultivation Paths</h2>
-            <p class="cultivation-hub-subtitle">No cultivator is bound to a single road. Choose where to refine yourself today.</p>
-            <p class="cultivation-hub-path-note">Primary path: <span id="cultivationHubPrimaryPath">—</span></p>
+            <h2 class="cultivation-hub-title">🧘 Three Refinements</h2>
+            <p class="cultivation-hub-subtitle">Every cultivator walks dantian, vessel, and spirit. Choose where to refine yourself today.</p>
+            <p class="cultivation-hub-path-note">Current emphasis: <span id="cultivationHubPrimaryPath">—</span></p>
         </header>
         <div class="cultivation-hub-choices">
             <button type="button" class="cultivation-hub-card" id="cultivationHubQi">
                 <span class="cultivation-hub-icon">⚡</span>
-                <span class="cultivation-hub-name">Qi Cultivation</span>
-                <span class="cultivation-hub-desc">Dantian, density, foundation — the chamber of breath and core.</span>
+                <span class="cultivation-hub-name">Dantian Chamber</span>
+                <span class="cultivation-hub-desc">Qi road — dantian, density, foundation seals.</span>
             </button>
             <button type="button" class="cultivation-hub-card" id="cultivationHubBody">
                 <span class="cultivation-hub-icon">💪</span>
-                <span class="cultivation-hub-name">Body Cultivation</span>
-                <span class="cultivation-hub-desc">Skin to nerves — temper flesh, bone, blood, meridians, and physiques.</span>
+                <span class="cultivation-hub-name">Vessel Chamber</span>
+                <span class="cultivation-hub-desc">Body road — skin to nerves, physiques, tempered flesh.</span>
                 <span class="cultivation-hub-note" id="cultivationHubBodyNote"></span>
             </button>
             <button type="button" class="cultivation-hub-card" id="cultivationHubSoul">
                 <span class="cultivation-hub-icon">🧠</span>
-                <span class="cultivation-hub-name">Soul Cultivation</span>
-                <span class="cultivation-hub-desc">Seven layers of consciousness — spirit, will, and the Dao within.</span>
+                <span class="cultivation-hub-name">Soul Palace</span>
+                <span class="cultivation-hub-desc">Spirit road — mortal spirit prelude always open; depths need a soul embryo.</span>
+                <span class="cultivation-hub-note" id="cultivationHubSoulNote"></span>
             </button>
         </div>
         <button type="button" class="cultivation-hub-close" id="cultivationHubClose">Cancel</button>
@@ -621,8 +623,9 @@
 <div class="popup-overlay" id="soulChamberOverlay">
     <div class="soul-chamber-shell">
         <header class="soul-chamber-header">
-            <h2 class="soul-chamber-title">🧠 Soul Cultivation Chamber</h2>
-            <p class="soul-chamber-subtitle">Look inward — refine spirit, will, and the Dao within.</p>
+            <h2 class="soul-chamber-title">🧠 Soul Palace</h2>
+            <p class="soul-chamber-subtitle">Spirit track — refine mortal spirit from day one; true depths open when the soul embryo awakens.</p>
+            <p class="soul-palace-embryo-status" id="soulPalaceEmbryoStatus"></p>
             <p class="soul-chamber-bonus-summary" id="soulChamberBonusSummary"></p>
         </header>
 
@@ -1278,7 +1281,8 @@
     <span id="overlayLifespanText"></span>
 </div>
 
-<script src="data.js?v=89"></script>
+<script src="data.js?v=90"></script>
+<script src="cultivation-tracks.js?v=1"></script>
 <script src="talent.js?v=1"></script>
 <script src="legacy.js?v=1"></script>
 <script src="world-scheduler.js?v=3"></script>

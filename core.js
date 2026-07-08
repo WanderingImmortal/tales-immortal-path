@@ -231,10 +231,24 @@ function getMaxCultivationRealmIdx(path) {
     return Math.max(0, (PATHS[p]?.realms?.length || 7) - 1);
 }
 
-function getRealm() { return PATHS[G.path].realms[G.realmIdx] || "MAX"; }
-function getTitle() { return PATHS[G.path].titles[G.realmIdx] || "Transcendent"; }
+function getRealm(track) {
+    if (typeof getTrackRealmName === 'function' && track) return getTrackRealmName(track);
+    if (typeof getFocusTrack === 'function') return getTrackRealmName(getFocusTrack());
+    return PATHS[G.path].realms[G.realmIdx] || "MAX";
+}
+function getTitle(track) {
+    if (typeof getTrackTitle === 'function' && track) return getTrackTitle(track);
+    if (typeof getFocusTrack === 'function') return getTrackTitle(getFocusTrack());
+    return PATHS[G.path].titles[G.realmIdx] || "Transcendent";
+}
 
-function getNextRealm() {
+function getNextRealm(track) {
+    const t = track || (typeof getFocusTrack === 'function' ? getFocusTrack() : null);
+    if (t && typeof getTrackPathData === 'function') {
+        const realms = getTrackPathData(t).realms;
+        const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(t) : G.realmIdx;
+        return (idx + 1 < realms.length) ? realms[idx + 1] : "MAX";
+    }
     const realms = PATHS[G.path].realms;
     return (G.realmIdx + 1 < realms.length) ? realms[G.realmIdx + 1] : "MAX";
 }
@@ -850,6 +864,14 @@ function getLifespanForRealm(realmIdx) {
 }
 
 function isImmortal() {
+    if (typeof getEffectiveRealmTier === 'function') {
+        const maxIdx = Math.max(
+            PATHS.qi.realms.length,
+            PATHS.body.realms.length,
+            PATHS.soul.realms.length
+        ) - 1;
+        return getEffectiveRealmTier() >= maxIdx;
+    }
     return G.realmIdx >= PATHS[G.path].realms.length - 1;
 }
 
@@ -934,7 +956,9 @@ function advanceTime(months, activity) {
 }
 
 function extendLifespanOnBreakthrough(tier) {
-    const newCap = getLifespanForRealm(G.realmIdx);
+    // Lifespan uses highest tier across dantian, vessel, and spirit tracks.
+    const tierIdx = typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx;
+    const newCap = getLifespanForRealm(tierIdx);
     if (newCap <= G.lifespanMonths) return;
     const scale = typeof getBreakthroughTierScale === 'function' && tier
         ? getBreakthroughTierScale(tier).lifespanMult
@@ -1013,6 +1037,8 @@ function loadState() {
             G.transcendencePerkOffer = null;
             G.lastTribulationCue = null;
             G.lastTranscendenceCue = null;
+            if (typeof migrateSaveToCultivationTracks === 'function') migrateSaveToCultivationTracks();
+            else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
             if (typeof migrateConsolidationState === 'function') migrateConsolidationState();
             else if (typeof ensureConsolidationState === 'function') ensureConsolidationState();
             if (typeof ensureCultivationBaseState === 'function') ensureCultivationBaseState();

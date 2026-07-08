@@ -477,20 +477,26 @@ function executeChamberPerfectFoundation(techName) {
 }
 
 function applyChamberCoreFormationAdvance() {
-    G.realmIdx++;
+    const prev = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('dantian') : G.realmIdx;
+    const newIdx = prev + 1;
+    if (typeof setTrackRealmIdx === 'function') setTrackRealmIdx('dantian', newIdx);
+    else G.realmIdx++;
     G.breakAttempts = 0;
-    G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(G.realmIdx / 2);
+    G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(newIdx / 2);
     G.qi = getMaxQi();
     clampCurrentQi();
     G.vitality += 3;
     G.spirit += 2;
     G.will += 2;
-    G.maxHp += 10 + G.realmIdx * 2;
+    G.maxHp += 10 + newIdx * 2;
     if (typeof applyVitalityToMaxHp === 'function') applyVitalityToMaxHp();
     G.hp = G.maxHp;
-    if (typeof addFame === 'function') addFame(5 + G.realmIdx);
-    else G.fame += 5 + G.realmIdx;
+    if (typeof addFame === 'function') addFame(5 + newIdx);
+    else G.fame += 5 + newIdx;
     if (typeof extendLifespanOnBreakthrough === 'function') extendLifespanOnBreakthrough();
+    if (typeof tryAwakenSoulEmbryo === 'function' && newIdx >= SOUL_EMBRYO_REALM_IDX) {
+        tryAwakenSoulEmbryo('dantian');
+    }
     if (typeof updateShield === 'function') updateShield();
     G.chamberCoreCondensed = true;
 }
