@@ -951,7 +951,15 @@ function openNpcPopup(npcId) {
         npcUiTarget = null;
         npcUiMode = 'pick';
     } else {
-        npcUiTarget = npcId || present[0].id;
+        const targetId = npcId || present[0].id;
+        if (isWorldNpcId(targetId)) {
+            const npc = getWorldNpcById(targetId);
+            if (npc && typeof checkAlignmentNpcRefusal === 'function' && checkAlignmentNpcRefusal(npc)) {
+                fullRender();
+                return;
+            }
+        }
+        npcUiTarget = targetId;
         npcUiMode = 'menu';
         npcUiActiveTest = null;
         recordNpcSeen(npcUiTarget);
@@ -1182,6 +1190,13 @@ function bindNpcPopupEvents(def) {
                 renderNpcPopup();
                 fullRender();
             } else if (action === 'talk') {
+                if (isWorldNpcId(npcUiTarget)) {
+                    const npc = getWorldNpcById(npcUiTarget);
+                    if (npc && typeof checkAlignmentNpcRefusal === 'function' && checkAlignmentNpcRefusal(npc)) {
+                        fullRender();
+                        return;
+                    }
+                }
                 if (typeof isFactionNpcId === 'function' && isFactionNpcId(npcUiTarget)) {
                     if (typeof npcFactionTalk === 'function') npcFactionTalk(npcUiTarget);
                     renderNpcPopup();

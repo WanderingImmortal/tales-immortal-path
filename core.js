@@ -114,6 +114,8 @@ let G = {
     ageMonths: STARTING_AGE_YEARS * 12,
     lifespanMonths: LIFESPAN_BY_REALM[0] * 12,
     daoAlignment: 0,
+    alignmentLog: [],
+    alignmentActionUses: {},
     npcState: null,
     worldNpcs: [],
     nextDemonicEmergenceMonths: null,
@@ -1020,7 +1022,10 @@ function loadState() {
             if (typeof migrateTechniqueManuals === 'function') migrateTechniqueManuals();
             if (typeof migrateLegacyScars === 'function') migrateLegacyScars();
             if (G.daoAlignment == null) G.daoAlignment = 0;
+            if (!G.alignmentLog) G.alignmentLog = [];
+            if (!G.alignmentActionUses) G.alignmentActionUses = {};
             if (typeof ensureDaoAlignment === 'function') ensureDaoAlignment();
+            if (typeof ensureAlignmentState === 'function') ensureAlignmentState();
             if (typeof ensureNpcState === 'function') ensureNpcState();
             if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
             if (G.worldNpcs == null) G.worldNpcs = [];

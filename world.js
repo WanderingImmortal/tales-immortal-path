@@ -519,7 +519,10 @@ function rollZoneEncounter(zoneId) {
 
 function tryStartZoneEncounter(source) {
     if (G.gameOver || G.inCombat || (typeof isTribulationActive === 'function' && isTribulationActive())) return false;
-    const chance = source === 'travel' ? ENCOUNTER_BALANCE.travelChance : ENCOUNTER_BALANCE.exploreChance;
+    let chance = source === 'travel' ? ENCOUNTER_BALANCE.travelChance : ENCOUNTER_BALANCE.exploreChance;
+    if (typeof getDaoAlignmentEncounterChanceMult === 'function') {
+        chance *= getDaoAlignmentEncounterChanceMult();
+    }
     if (Math.random() >= chance) return false;
     const encounter = rollZoneEncounter(currentZone);
     if (!encounter) return false;
@@ -547,8 +550,12 @@ function formatEncounterChoiceMeta(c) {
     if (c.spirit) parts.push(`✨ +${c.spirit} Spirit`);
     if (c.pill) parts.push('💊 Pill reward');
     if (c.require) {
-        const statName = { will: 'Will', spirit: 'Spirit', fame: 'Fame' }[c.require.stat] || c.require.stat;
-        parts.push(`📊 ${statName} ${c.require.min}+`);
+        if (c.require.alignment != null) parts.push(`☯️ Align ${c.require.alignment}+`);
+        else if (c.require.alignmentMax != null) parts.push(`☯️ Align ≤${c.require.alignmentMax}`);
+        else {
+            const statName = { will: 'Will', spirit: 'Spirit', fame: 'Fame' }[c.require.stat] || c.require.stat;
+            parts.push(`📊 ${statName} ${c.require.min}+`);
+        }
     }
     return parts.join(' · ') || 'Choose wisely';
 }
@@ -577,6 +584,8 @@ function renderEncounterOverlay() {
 
 function encounterMeetsRequire(req) {
     if (!req) return true;
+    if (req.alignment != null && (G.daoAlignment || 0) < req.alignment) return false;
+    if (req.alignmentMax != null && (G.daoAlignment || 0) > req.alignmentMax) return false;
     const val = G[req.stat] || 0;
     return val >= req.min;
 }
@@ -650,6 +659,13 @@ function encounterApplyEffects(effects, closeOverlay) {
     if (effects.will) G.will += effects.will;
     if (effects.spirit) G.spirit += effects.spirit;
     if (effects.pill) addPill(effects.pill, 1);
+    if (effects.alignmentShift && typeof shiftDaoAlignment === 'function') {
+        shiftDaoAlignment(effects.alignmentShift, state?.encounter?.title || 'zone encounter');
+    }
+    if (effects.corruptionGain) {
+        G.corruptionLevel = (G.corruptionLevel || 0) + effects.corruptionGain;
+        addLog(`🩸 Corruption +${effects.corruptionGain}.`);
+    }
 
     commitActionLog(formatEncounterOutcomeMessage(effects));
 

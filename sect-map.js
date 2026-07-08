@@ -104,6 +104,12 @@ function renderSectMapHeaderHtml() {
     if (infLabel) {
         html += `<div class="sect-influence-banner">🌏 Influence: <strong>${infLabel}</strong></div>`;
     }
+    if (typeof getSectDoctrineAlignmentSynergy === 'function') {
+        const synergy = getSectDoctrineAlignmentSynergy();
+        if (synergy?.label) {
+            html += `<div class="sect-alignment-synergy-banner">☯️ ${synergy.label}</div>`;
+        }
+    }
     const c = G.sect.construction;
     if (c) {
         const def = getSectMapNodeDef(c.buildingId);

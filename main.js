@@ -159,7 +159,12 @@ function learnTechnique(techName, opts) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return false;
     if (!opts?.skipGates && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) {
-        if (!opts?.silent) addLog(`📜 You cannot yet comprehend ${techName}.`);
+        if (!opts?.silent) {
+            const alignBlock = typeof getTechniqueAlignmentBlockReason === 'function'
+                ? getTechniqueAlignmentBlockReason(template) : null;
+            if (alignBlock) addLog(`📜 ${alignBlock}`);
+            else addLog(`📜 You cannot yet comprehend ${techName}.`);
+        }
         return false;
     }
     if (G.techniques.some(t => t.name === techName)) {
@@ -569,6 +574,9 @@ function setupCreation(refreshOnly) {
         G._consolidationMigrated = false;
         G._qiMigrated = true;
         G.daoAlignment = 0;
+        G.alignmentLog = [];
+        G.alignmentActionUses = {};
+        G.pendingAlignmentFriction = null;
         G.npcState = null;
         G.worldNpcs = [];
         G.nextDemonicEmergenceMonths = null;
@@ -824,6 +832,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('factionsClose')?.addEventListener('click', () => {
         document.getElementById('factionsPopup')?.classList.remove('active');
+    });
+    document.getElementById('btnAlignmentPanel')?.addEventListener('click', () => {
+        if (typeof actionAlignment === 'function') actionAlignment();
+    });
+    document.getElementById('alignmentClose')?.addEventListener('click', () => {
+        document.getElementById('alignmentPopup')?.classList.remove('active');
     });
     document.getElementById('inventoryClose')?.addEventListener('click', () => {
         document.getElementById('inventoryPopup').classList.remove('active');

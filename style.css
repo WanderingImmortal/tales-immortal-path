@@ -1820,6 +1820,204 @@ header .subtitle {
     color: #e8a0a0;
 }
 
+.alignment-rebellious { color: #c87070; }
+
+.alignment-meta-btn {
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+.alignment-meta-btn:hover {
+    background: rgba(212, 168, 96, 0.12);
+}
+
+.alignment-box {
+    max-width: 520px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+.alignment-hint {
+    color: #a09080;
+    font-size: 0.9em;
+    margin: 0 0 12px;
+}
+.alignment-header {
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    margin-bottom: 12px;
+}
+.alignment-value {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+.alignment-tier {
+    font-size: 1em;
+    opacity: 0.9;
+}
+.alignment-tier-cap {
+    font-size: 0.85em;
+    color: #c89070;
+}
+.alignment-progress-wrap {
+    margin-bottom: 12px;
+}
+.alignment-progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.alignment-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7ec8a0, #a8c87e);
+    border-radius: 3px;
+}
+.alignment-progress-label {
+    font-size: 0.8em;
+    color: #a09080;
+    margin-top: 4px;
+}
+.alignment-corruption-wrap {
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 6px;
+    background: rgba(120, 40, 40, 0.15);
+}
+.alignment-corruption-label {
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+.corruption-bar .corruption-fill {
+    background: linear-gradient(90deg, #8b3030, #c85050);
+}
+.alignment-corruption-warn {
+    font-size: 0.8em;
+    color: #c89070;
+    margin-top: 4px;
+}
+.alignment-omen {
+    font-size: 0.85em;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    background: rgba(126, 200, 160, 0.1);
+}
+.alignment-omen-punishment {
+    background: rgba(200, 112, 112, 0.12);
+}
+.alignment-omen-near {
+    background: rgba(212, 168, 96, 0.1);
+}
+.alignment-section-title {
+    font-weight: 600;
+    margin: 14px 0 6px;
+    color: #d4a860;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.alignment-perks {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.88em;
+    color: #c8b8a8;
+}
+.alignment-perks li {
+    margin-bottom: 3px;
+}
+.alignment-modifiers {
+    display: flex;
+    gap: 12px;
+    font-size: 0.85em;
+    color: #a09080;
+    margin-top: 8px;
+}
+.alignment-synergy {
+    font-size: 0.88em;
+    padding: 8px;
+    border-radius: 6px;
+    background: rgba(126, 168, 200, 0.1);
+    margin-top: 10px;
+}
+.alignment-log-entry {
+    font-size: 0.85em;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.alignment-log-delta {
+    font-weight: 600;
+    color: #7ec8a0;
+}
+.alignment-log-entry .alignment-log-delta:empty + span,
+.alignment-log-entry:has(.alignment-log-delta:first-child) .alignment-log-delta {
+    color: inherit;
+}
+.alignment-empty {
+    font-size: 0.85em;
+    color: #807060;
+    font-style: italic;
+}
+.alignment-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.alignment-action-btn {
+    text-align: left;
+    padding: 10px 12px;
+    border: 1px solid rgba(212, 168, 96, 0.25);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    color: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+.alignment-action-btn:hover:not(.disabled):not(:disabled) {
+    border-color: rgba(212, 168, 96, 0.5);
+    background: rgba(212, 168, 96, 0.08);
+}
+.alignment-action-btn.disabled,
+.alignment-action-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+.alignment-action-btn .name {
+    font-weight: 600;
+}
+.alignment-action-btn .desc {
+    font-size: 0.85em;
+    color: #a09080;
+    margin-top: 2px;
+}
+.alignment-action-block {
+    font-size: 0.8em;
+    color: #c89070;
+    margin-top: 4px;
+}
+.alignment-friction {
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(200, 144, 112, 0.1);
+    border: 1px solid rgba(200, 144, 112, 0.3);
+    margin: 12px 0;
+}
+.alignment-friction-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+}
+.sect-alignment-synergy-banner {
+    font-size: 0.85em;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: rgba(126, 200, 160, 0.08);
+    margin-top: 8px;
+    color: #a8c8b0;
+}
+
 .factions-box {
     max-width: 520px;
     max-height: 85vh;

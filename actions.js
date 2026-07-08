@@ -103,6 +103,7 @@ function runCultivateSession(options) {
     if (getMeridianOpenCount() < 11 && Math.random() < 0.05) {
         addLog(`☯️ You sense a new meridian... (check Meridians)`);
     }
+    if (typeof applyCorruptionAlignmentDrift === 'function') applyCorruptionAlignmentDrift();
     return cultMsg;
 }
 

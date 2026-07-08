@@ -91,6 +91,7 @@ function renderStatus() {
         if (alignEl) {
             alignEl.textContent = alignText;
             alignEl.className = tierClass;
+            alignEl.title = 'Click to open Dao Alignment panel';
         }
         if (alignStatEl) {
             alignStatEl.textContent = alignText;
@@ -2272,6 +2273,131 @@ function renderMerchantPopup() {
             const result = buyMerchantGear(this.dataset.buyGear);
             if (result.message) logTimedResult(result);
             renderMerchantPopup();
+            fullRender();
+        });
+    });
+}
+
+function renderAlignmentPopup() {
+    const container = document.getElementById('alignmentInfo');
+    const hint = document.getElementById('alignmentHint');
+    if (!container || typeof getDaoAlignmentTier !== 'function') return;
+    ensureAlignmentState();
+
+    const tier = getDaoAlignmentTier();
+    const effTier = typeof getEffectiveDaoAlignmentTier === 'function' ? getEffectiveDaoAlignmentTier() : tier;
+    const prog = typeof getDaoAlignmentProgress === 'function' ? getDaoAlignmentProgress() : null;
+    const fx = typeof getDaoAlignmentTierEffects === 'function' ? getDaoAlignmentTierEffects() : {};
+    const corruption = G.corruptionLevel || 0;
+    const corruptionMax = G.corruptionThreshold || 100;
+
+    if (hint) hint.textContent = 'The heavens weigh your deeds — not as morality, but as harmony with the natural order.';
+
+    let html = `<div class="alignment-header ${getDaoAlignmentTierClass()}">
+        <div class="alignment-value">${formatDaoAlignmentValue()}</div>
+        <div class="alignment-tier">${tier.label}${effTier.id !== tier.id ? ' <span class="alignment-tier-cap">(perks capped)</span>' : ''}</div>
+    </div>`;
+
+    if (prog?.next) {
+        const pct = Math.round(prog.progress * 100);
+        const nextLabel = prog.next.label;
+        html += `<div class="alignment-progress-wrap">
+            <div class="alignment-progress-bar"><div class="alignment-progress-fill" style="width:${pct}%"></div></div>
+            <div class="alignment-progress-label">${pct}% toward ${nextLabel}</div>
+        </div>`;
+    }
+
+    if (corruption > 0) {
+        const corrPct = Math.min(100, Math.round((corruption / corruptionMax) * 100));
+        html += `<div class="alignment-corruption-wrap">
+            <div class="alignment-corruption-label">🩸 Corruption ${corruption}/${corruptionMax}</div>
+            <div class="alignment-progress-bar corruption-bar"><div class="alignment-progress-fill corruption-fill" style="width:${corrPct}%"></div></div>
+            ${corruption >= (DAO_ALIGNMENT.corruptionDriftThreshold || 50) ? '<div class="alignment-corruption-warn">High corruption drifts alignment downward when cultivating.</div>' : ''}
+        </div>`;
+    }
+
+    const omen = typeof getHeavenlyAlignmentOmenReadout === 'function' ? getHeavenlyAlignmentOmenReadout() : null;
+    if (omen) {
+        html += `<div class="alignment-omen alignment-omen-${omen.type}">🌤️ Omen: ${omen.label}</div>`;
+    }
+
+    html += `<div class="alignment-section-title">Tier Effects</div><ul class="alignment-perks">`;
+    (fx.perks || []).forEach(p => { html += `<li>${p}</li>`; });
+    html += `</ul>`;
+    html += `<div class="alignment-modifiers">
+        <span>${typeof getDaoAlignmentBreakModifierLabel === 'function' ? getDaoAlignmentBreakModifierLabel() || '—' : '—'}</span>
+        <span>${typeof getDaoAlignmentTribulationModifierLabel === 'function' ? getDaoAlignmentTribulationModifierLabel() || '—' : '—'}</span>
+    </div>`;
+
+    const synergy = typeof getSectDoctrineAlignmentSynergy === 'function' ? getSectDoctrineAlignmentSynergy() : null;
+    if (synergy?.label) {
+        html += `<div class="alignment-synergy">🏯 Sect synergy: ${synergy.label}</div>`;
+    }
+
+    if (G.pendingAlignmentFriction) {
+        const ev = G.pendingAlignmentFriction;
+        html += `<div class="alignment-friction">
+            <div class="alignment-section-title">⚠️ ${ev.title}</div>
+            <p>${ev.text}</p>
+            <div class="alignment-friction-choices">`;
+        ev.choices.forEach(c => {
+            html += `<button type="button" class="alignment-action-btn alignment-friction-btn" data-alignment-friction="${c.id}">${c.label}</button>`;
+        });
+        html += `</div></div>`;
+    }
+
+    html += `<div class="alignment-section-title">Recent Shifts</div>`;
+    if (G.alignmentLog?.length) {
+        html += `<div class="alignment-log">`;
+        G.alignmentLog.forEach(entry => {
+            const sign = entry.delta > 0 ? '+' : '';
+            html += `<div class="alignment-log-entry"><span class="alignment-log-delta">${sign}${entry.delta}</span> ${entry.reason}</div>`;
+        });
+        html += `</div>`;
+    } else {
+        html += `<p class="alignment-empty">No shifts recorded yet — your deeds will write themselves here.</p>`;
+    }
+
+    html += `<div class="alignment-section-title">Walk Your Path</div><div class="alignment-actions">`;
+    (DAO_ALIGNMENT.actions || []).forEach(action => {
+        const block = typeof getAlignmentActionBlockReason === 'function' ? getAlignmentActionBlockReason(action) : null;
+        const months = typeof getAlignmentActionMonths === 'function' ? getAlignmentActionMonths(action) : action.months;
+        const costs = [];
+        if (action.stonesCost) costs.push(`💎 ${action.stonesCost}`);
+        if (action.spiritCost) costs.push(`✨ ${action.spiritCost} Spirit`);
+        if (action.fameCost) costs.push(`⭐ ${action.fameCost} Fame`);
+        html += `<button type="button" class="alignment-action-btn${block ? ' disabled' : ''}" data-alignment-action="${action.id}" ${block ? `disabled title="${block.replace(/"/g, '&quot;')}"` : ''}>
+            <div class="name">${action.emoji} ${action.label}</div>
+            <div class="desc">${action.desc}</div>
+            <div class="desc">⏳ ${months} mo${costs.length ? ' · ' + costs.join(' · ') : ''}</div>
+            ${block ? `<div class="alignment-action-block">${block}</div>` : ''}
+        </button>`;
+    });
+    html += `</div>`;
+
+    container.innerHTML = html;
+    bindAlignmentPopupEvents(container);
+}
+
+function bindAlignmentPopupEvents(container) {
+    container.querySelectorAll('[data-alignment-action]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.disabled) return;
+            const result = typeof performAlignmentAction === 'function'
+                ? performAlignmentAction(this.dataset.alignmentAction)
+                : { success: false, message: 'Unavailable.' };
+            if (result.message && !result.success) addLog(`☯️ ${result.message}`);
+            renderAlignmentPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-alignment-friction]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof resolveAlignmentFriction === 'function'
+                ? resolveAlignmentFriction(this.dataset.alignmentFriction)
+                : { success: false };
+            if (result.message) addLog(`☯️ ${result.message}`);
+            renderAlignmentPopup();
             fullRender();
         });
     });

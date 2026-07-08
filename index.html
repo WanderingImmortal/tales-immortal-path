@@ -162,7 +162,7 @@
                         <span class="trait-meta" id="traitDisplay" title="Starting trait">🍀 Heavenly Luck</span>
                         <span><span class="meta-label">💎</span> <span id="stonesStat">20</span></span>
                         <span><span class="meta-label">💊</span> <span id="pillsStat">3</span></span>
-                        <span class="alignment-meta"><span class="meta-label">☯️</span> <span id="daoAlignmentDisplay">0 (Neutral)</span></span>
+                        <span class="alignment-meta alignment-meta-btn" id="btnAlignmentPanel" title="Open Dao Alignment panel"><span class="meta-label">☯️</span> <span id="daoAlignmentDisplay">0 (Neutral)</span></span>
                     </div>
 
                     <div id="sidebarGearStrip" class="sidebar-gear-strip" title="Equipped gear — click to open Inventory (pouches &amp; crafting)"></div>
@@ -533,6 +533,15 @@
         <p id="ancientBargainText" class="ancient-bargain-text"></p>
         <div id="ancientBargainChoices" class="ancient-bargain-choices"></div>
         <button type="button" class="close-btn" id="ancientBargainClose">Decide later (defaults to honor)</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="alignmentPopup">
+    <div class="popup-box alignment-box">
+        <h2>☯️ Dao Alignment</h2>
+        <p class="alignment-hint" id="alignmentHint">The heavens weigh your deeds.</p>
+        <div id="alignmentInfo" class="alignment-info"></div>
+        <button type="button" class="close-btn" id="alignmentClose">Close</button>
     </div>
 </div>
 
@@ -1287,7 +1296,7 @@
 <script src="alchemy-data.js?v=1"></script>
 <script src="alchemy.js?v=2"></script>
 <script src="alchemy-chamber.js?v=1"></script>
-<script src="alignment.js?v=4"></script>
+<script src="alignment.js?v=5"></script>
 <script src="transcendence.js?v=4"></script>
 <script src="consolidation.js?v=7"></script>
 <script src="sect-inventory.js?v=2"></script>
@@ -1300,14 +1309,14 @@
 <script src="intent.js?v=6"></script>
 <script src="tribulation.js?v=15"></script>
 <script src="locations.js?v=1"></script>
-<script src="world.js?v=28"></script>
+<script src="world.js?v=29"></script>
 <script src="ancients.js?v=5"></script>
 <script src="factions.js?v=9"></script>
 <script src="factions-expand.js?v=6"></script>
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=52"></script>
+<script src="ui.js?v=53"></script>
 <script src="action-gates.js?v=2"></script>
 <script src="actions.js?v=33"></script>
 <script src="chamber.js?v=11"></script>
@@ -1321,6 +1330,6 @@
 <script src="playtest-mode.js?v=2"></script>
 <script src="settings.js?v=1"></script>
 <script src="action-help.js?v=1"></script>
-<script src="main.js?v=41"></script>
+<script src="main.js?v=42"></script>
 </body>
 </html>
