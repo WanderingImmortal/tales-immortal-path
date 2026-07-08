@@ -764,16 +764,97 @@ const PILL_LOOT_WEIGHTS = [
 ];
 
 const ENEMIES = [
-    { name: "Feral Spirit Wolf", hp: 35, dmg: 4, minRealm: 0 },
-    { name: "Corrupted Cultivator", hp: 50, dmg: 6, minRealm: 0 },
-    { name: "Demon Beast", hp: 65, dmg: 7, minRealm: 1 },
-    { name: "Shadow Assassin", hp: 45, dmg: 8, minRealm: 1 },
-    { name: "Heavenly Tribulation Phantom", hp: 80, dmg: 9, minRealm: 2 },
-    { name: "Nascent Soul Raider", hp: 110, dmg: 12, minRealm: 3 },
-    { name: "Void Horror", hp: 140, dmg: 15, minRealm: 4 },
-    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, minRealm: 5 },
-    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, minRealm: 6 }
+    { name: "Feral Spirit Wolf", hp: 35, dmg: 4, minRealm: 0, zones: ['frostbite', 'emberwild'], element: 'wind',
+        abilities: [
+            { id: 'snap', weight: 50, telegraph: 'The wolf bares frost-caked fangs.', effect: { bonusDmgMult: 1.1 } },
+            { id: 'circle', weight: 30, effect: { selfDefend: true, bonusDmgMult: 0.7, log: 'It circles, waiting for an opening.' } },
+            { id: 'lunge', weight: 20, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.025 } } }
+        ] },
+    { name: "Corrupted Cultivator", hp: 50, dmg: 6, minRealm: 0, zones: ['dustbone', 'heartlands'], element: 'neutral',
+        abilities: [
+            { id: 'dark_pulse', weight: 45, telegraph: 'Corrupted qi gathers in their palm.', effect: { bonusDmgMult: 1.15 } },
+            { id: 'guard', weight: 35, effect: { selfDefend: true, log: 'They raise a sloppy barrier.' } },
+            { id: 'drain', weight: 20, cooldown: 3, effect: { bonusDmgMult: 0.9, applyPlayer: { slowResourceRegen: 1 } } }
+        ] },
+    { name: "Demon Beast", hp: 65, dmg: 7, minRealm: 1, zones: ['emberwild', 'dustbone'], element: 'fire',
+        enrageThreshold: 0.4,
+        abilities: [
+            { id: 'claw', weight: 50, effect: { bonusDmgMult: 1.1 } },
+            { id: 'roar', weight: 30, effect: { applyPlayer: { slowResourceRegen: 1 }, bonusDmgMult: 0.85, log: 'A demonic roar shakes your focus!' } },
+            { id: 'charge', weight: 20, cooldown: 2, telegraph: 'The beast lowers its horns.', effect: { bonusDmgMult: 1.5, log: 'It charges with hellfire momentum!' } }
+        ],
+        enrageAbilities: [
+            { id: 'rampage', weight: 60, effect: { bonusDmgMult: 1.4, extraHits: 1 } },
+            { id: 'frenzy_claw', weight: 40, effect: { bonusDmgMult: 1.55 } }
+        ] },
+    { name: "Shadow Assassin", hp: 45, dmg: 8, minRealm: 1, zones: ['jade', 'heartlands'], element: 'wind',
+        abilities: [
+            { id: 'stab', weight: 45, effect: { bonusDmgMult: 1.2 } },
+            { id: 'smoke', weight: 30, effect: { selfDefend: true, log: 'Smoke obscures their form.' } },
+            { id: 'vitals', weight: 25, cooldown: 2, telegraph: 'A blade seeks your meridians.', effect: { bonusDmgMult: 1.35, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.035 } } }
+        ] },
+    { name: "Heavenly Tribulation Phantom", hp: 80, dmg: 9, minRealm: 2, zones: ['heartlands', 'frostbite'], element: 'soul',
+        abilities: [
+            { id: 'spirit_bolt', weight: 40, telegraph: 'Heavenly wrath condenses.', effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
+            { id: 'phase', weight: 35, effect: { selfDefend: true, noDamage: true, log: 'The phantom flickers out of reach.' } },
+            { id: 'tribulation_strike', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.4, applyPlayer: { spiritDamage: true } } }
+        ] },
+    { name: "Nascent Soul Raider", hp: 110, dmg: 12, minRealm: 3, zones: ['jade', 'dustbone'], element: 'soul',
+        abilities: [
+            { id: 'soul_rend', weight: 45, effect: { bonusDmgMult: 1.15, applyPlayer: { spiritDamage: true } } },
+            { id: 'barrier', weight: 30, effect: { selfDefend: true } },
+            { id: 'harvest', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.25, stealStones: { min: 3, max: 8, chance: 0.6 } } }
+        ] },
+    { name: "Void Horror", hp: 140, dmg: 15, minRealm: 4, zones: ['emberwild', 'frostbite'], element: 'neutral',
+        enrageThreshold: 0.35,
+        abilities: [
+            { id: 'void_lash', weight: 50, effect: { bonusDmgMult: 1.15 } },
+            { id: 'consume', weight: 30, effect: { bonusDmgMult: 1.0, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.035 } } },
+            { id: 'rift', weight: 20, cooldown: 3, telegraph: 'Reality tears around the horror.', effect: { bonusDmgMult: 1.45 } }
+        ],
+        enrageAbilities: [
+            { id: 'void_maw', weight: 100, effect: { bonusDmgMult: 1.5, applyPlayer: { skipPlayerTurn: 1 } } }
+        ] },
+    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, minRealm: 5, zones: ['heartlands'], element: 'neutral',
+        abilities: [
+            { id: 'counter_stance', weight: 35, effect: { selfDefend: true, log: 'Your nemesis reads your intent.' } },
+            { id: 'dao_slash', weight: 40, telegraph: 'A blade of pure conviction falls.', effect: { bonusDmgMult: 1.2 } },
+            { id: 'breakthrough', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.4, applyPlayer: { slowResourceRegen: 2 } } }
+        ] },
+    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, minRealm: 6, zones: ['heartlands', 'jade'], element: 'neutral',
+        enrageThreshold: 0.3,
+        abilities: [
+            { id: 'sentinel_strike', weight: 40, effect: { bonusDmgMult: 1.15 } },
+            { id: 'immortal_guard', weight: 35, effect: { selfDefend: true, healSelfPct: 0.05, log: 'Ancient armor mends itself.' } },
+            { id: 'judgment', weight: 25, cooldown: 3, telegraph: 'The sentinel invokes heavenly judgment.', effect: { bonusDmgMult: 1.5 } }
+        ],
+        enrageAbilities: [
+            { id: 'final_verdict', weight: 100, effect: { bonusDmgMult: 1.6, extraHits: 1 } }
+        ] }
 ];
+
+const ENEMY_ELEMENT_ICONS = {
+    ice: '❄️', fire: '🔥', earth: '🌍', water: '💧', wind: '🌪️', soul: '👻', neutral: '⚔️', blood: '🩸'
+};
+
+const ENEMY_AFFIXES = {
+    armored: { label: 'Armored', hpMult: 1.2, dmgMult: 0.9, desc: 'Heavy scales resist blows.' },
+    frenzied: { label: 'Frenzied', hpMult: 0.85, dmgMult: 1.25, enrageThreshold: 0.5, desc: 'Wild and reckless.' },
+    frostbound: { label: 'Frostbound', hpMult: 1.05, dmgMult: 1.0, element: 'ice', zones: ['frostbite'],
+        desc: 'Ice clings to every movement.',
+        abilities: [{ id: 'frost_aura', weight: 100, telegraph: 'Frost crawls across the ground.', effect: { applyPlayer: { slowResourceRegen: 1 }, bonusDmgMult: 1.05 } }] },
+    scorched: { label: 'Scorched', hpMult: 0.95, dmgMult: 1.15, element: 'fire', zones: ['emberwild'],
+        desc: 'Heat radiates from its hide.',
+        abilities: [{ id: 'ember_burst', weight: 100, effect: { bonusDmgMult: 1.1, applyPlayer: { poisonTurns: 1, poisonDmgPct: 0.03 } } }] },
+    venomous: { label: 'Venomous', hpMult: 0.95, dmgMult: 1.05, zones: ['dustbone', 'emberwild'], minRealm: 1,
+        desc: 'Toxin drips from every strike.',
+        abilities: [{ id: 'venom_touch', weight: 100, effect: { bonusDmgMult: 1.05, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.03 } } }] },
+    tidal: { label: 'Tidal', hpMult: 1.1, dmgMult: 0.95, element: 'water', zones: ['jade'],
+        desc: 'Power ebbs and flows like the sea.',
+        abilities: [{ id: 'tide_pull', weight: 100, telegraph: 'A wave crashes inward.', effect: { stripShieldPct: 0.35, bonusDmgMult: 1.05 } }] },
+    pack_leader: { label: 'Pack Leader', hpMult: 1.0, dmgMult: 1.1, traits: ['swarm'], zones: ['frostbite', 'emberwild'],
+        desc: 'Commands lesser strikes alongside its own.' }
+};
 
 // Combat pacing — enemies scale with YOUR power so fights stay relevant at every realm
 const COMBAT_BALANCE = {
@@ -6241,6 +6322,16 @@ const ZONE_ENCOUNTERS = {
                 { label: "Intimidate the alpha", months: 1, require: { stat: "will", min: 8 }, failLog: "They laugh with their eyes.", fail: { hp: -10, months: 1 }, stones: 4, fame: 3, log: "The alpha backs down. The pack disperses." },
                 { label: "Flee across the ice", months: 2, hp: -6, log: "You escape, bleeding but alive." }
             ]
+        },
+        {
+            id: "ice_wraith",
+            title: "Ice Wraith",
+            text: "A specter of killing frost drifts from a shattered ice spire. Your breath crystallizes before it reaches your lips.",
+            choices: [
+                { label: "Shatter the wraith", months: 1, combat: "ice_wraith", log: "Spirit frost lashes out — fight!" },
+                { label: "Channel fire qi", months: 1, require: { stat: "qi", min: 15 }, failLog: "Your qi freezes solid.", fail: { hp: -12, months: 1 }, foundation: 1, log: "Heat drives the wraith back. You claim a shard of its core." },
+                { label: "Retreat downwind", months: 2, hp: -4, log: "The wraith does not pursue. Your fingers numb for days." }
+            ]
         }
     ],
     dustbone: [
@@ -6273,6 +6364,16 @@ const ZONE_ENCOUNTERS = {
                 { label: "Offer spirit stones", months: 1, stones: -12, fame: 2, log: "It accepts tribute and sinks away." },
                 { label: "Run", months: 2, hp: -8, log: "Its fangs graze your heel as you flee." }
             ]
+        },
+        {
+            id: "scorpion_nest",
+            title: "Scorpion Nest",
+            text: "Chitin clicks beneath the sand. A nest of venom-tail scorpions surges from a buried burrow.",
+            choices: [
+                { label: "Crush the nest", months: 1, combat: "scorpion_nest", log: "The swarm boils up — fight!" },
+                { label: "Flare qi to scatter them", months: 1, qi: -6, stones: 5, log: "The scorpions scatter. You grab what the nest guarded." },
+                { label: "Back away slowly", months: 2, hp: -5, log: "One stinger finds your ankle before you clear the dunes." }
+            ]
         }
     ],
     heartlands: [
@@ -6304,6 +6405,16 @@ const ZONE_ENCOUNTERS = {
                 { label: "Browse the stalls", months: 2, pill: "spirit_gathering", log: "You acquire a rare pill at a fair price." },
                 { label: "Haggle aggressively", months: 1, stones: 12, fame: -1, log: "You win the bargain. The merchant scowls." },
                 { label: "Share tea with a merchant", months: 2, fame: 3, foundation: 1, log: "Connections matter in the Heartlands." }
+            ]
+        },
+        {
+            id: "bandit_ambush",
+            title: "Bandit Ambush",
+            text: "Cultivators in rough sect robes block the road. Their leader twirls a notched blade.",
+            choices: [
+                { label: "Fight through", months: 1, combat: "bandit_ambush", log: "Steel flashes from the roadside!" },
+                { label: "Pay the toll", months: 1, stones: -10, log: "They take your stones and melt into the wheat fields." },
+                { label: "Intimidate them", months: 1, require: { stat: "fame", min: 15 }, failLog: "They call your bluff.", fail: { hp: -8, months: 1, combat: "bandit_ambush" }, fame: 2, log: "They scatter at the mention of your name." }
             ]
         }
     ],
@@ -6369,20 +6480,175 @@ const ZONE_ENCOUNTERS = {
                 { label: "Loot the offering bowl", months: 1, stones: 14, hp: -8, log: "The temple bites back." },
                 { label: "Mark the location and leave", months: 1, fame: 1, log: "You will return when stronger." }
             ]
+        },
+        {
+            id: "obsidian_golem",
+            title: "Obsidian Golem",
+            text: "Volcanic glass animates into a hulking guardian. Its joints glow like embers.",
+            choices: [
+                { label: "Break the construct", months: 1, combat: "obsidian_golem", log: "The golem turns — obsidian fists rise!" },
+                { label: "Circle to its blind side", months: 2, require: { stat: "spirit", min: 8 }, failLog: "It tracks you perfectly.", fail: { hp: -14, months: 1, combat: "obsidian_golem" }, stones: 8, log: "You find a crack in its carapace and claim its core." },
+                { label: "Withdraw", months: 1, log: "Some guardians are not meant to be fought today." }
+            ]
         }
     ]
 };
 
 const ENCOUNTER_ENEMIES = {
-    ice_guardian: { name: "Frost Guardian", template: "Demon Beast", hpMult: 1.0, dmgMult: 0.95 },
-    wolf_pack: { name: "Alpha Frost Wolf", template: "Feral Spirit Wolf", hpMult: 1.1, dmgMult: 1.0 },
-    sand_serpent: { name: "Sand Serpent", template: "Demon Beast", hpMult: 1.05, dmgMult: 1.05 },
-    tournament_rival: { name: "Tournament Rival", template: "Corrupted Cultivator", hpMult: 1.0, dmgMult: 1.1 },
-    elder_phantom: { name: "Elder's Phantom", template: "Heavenly Tribulation Phantom", hpMult: 0.95, dmgMult: 1.15 },
-    sea_beast: { name: "Tide Leviathan", template: "Demon Beast", hpMult: 1.15, dmgMult: 1.0 },
-    pirates: { name: "Jade Pirate Captain", template: "Shadow Assassin", hpMult: 1.0, dmgMult: 1.05 },
-    beast_tide: { name: "Beast Tide Alpha", template: "Demon Beast", hpMult: 1.2, dmgMult: 1.1 },
-    ashvein_guardian_beast: { name: "Ashvein Warden Beast", template: "Demon Beast", hpMult: 1.4, dmgMult: 1.18, emoji: '🐲' }
+    ice_guardian: {
+        name: "Frost Guardian", template: "Demon Beast", hpMult: 1.0, dmgMult: 0.95,
+        zone: "frostbite", element: "ice",
+        weakness: { fire: 1.25, ice: 0.75 },
+        abilities: [
+            { id: "ice_shield", weight: 35, telegraph: "Frost crawls up the guardian's limbs.", effect: { selfDefend: true, log: "A shell of ice hardens around it!" } },
+            { id: "frost_breath", weight: 40, telegraph: "Killing cold exhales from its maw.", effect: { bonusDmgMult: 1.15, applyPlayer: { slowResourceRegen: 1 } } },
+            { id: "shatter_rush", weight: 25, cooldown: 3, telegraph: "Ice crystals crack along its spine.", effect: { bonusDmgMult: 1.35 } }
+        ],
+        enrageThreshold: 0.3,
+        enrageAbilities: [
+            { id: "avalanche", weight: 100, telegraph: "The guardian's ice shell explodes outward!", effect: { bonusDmgMult: 1.45, applyPlayer: { slowResourceRegen: 2 } } }
+        ],
+        loot: { materials: { frost_essence: 1, glacial_shard: 1 }, chance: 0.65 }
+    },
+    wolf_pack: {
+        name: "Alpha Frost Wolf", template: "Feral Spirit Wolf", hpMult: 1.1, dmgMult: 1.0,
+        zone: "frostbite", element: "ice", traits: ["swarm"],
+        abilities: [
+            { id: "pack_bite", weight: 45, effect: { bonusDmgMult: 1.1, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.03 } } },
+            { id: "alpha_howl", weight: 30, telegraph: "The alpha howls — the pack answers.", effect: { bonusDmgMult: 0.85, applyPlayer: { slowResourceRegen: 1 }, log: "Your nerves fray under the chorus!" } },
+            { id: "frenzy", weight: 25, cooldown: 3, telegraph: "Blood-matted fur bristles.", effect: { bonusDmgMult: 1.3, extraHits: 1 } }
+        ],
+        enrageThreshold: 0.4,
+        enrageAbilities: [
+            { id: "pack_frenzy", weight: 100, effect: { bonusDmgMult: 1.35, extraHits: 1, applyPlayer: { bleedTurns: 3, bleedDmgPct: 0.035 } } }
+        ],
+        loot: { materials: { leather_scrap: 2, frost_essence: 1 }, chance: 0.7 }
+    },
+    sand_serpent: {
+        name: "Sand Serpent", template: "Demon Beast", hpMult: 1.05, dmgMult: 1.05,
+        zone: "dustbone", element: "earth",
+        abilities: [
+            { id: "burrow", weight: 30, telegraph: "The serpent dives beneath the sand…", effect: { selfDefend: true, noDamage: true, log: "It surfaces armored in grit!" } },
+            { id: "venom_fang", weight: 40, telegraph: "Venom drips from its fangs.", effect: { bonusDmgMult: 1.3, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.04 } } },
+            { id: "constrict", weight: 30, cooldown: 3, effect: { bonusDmgMult: 0.85, applyPlayer: { slowResourceRegen: 1, bleedTurns: 1, bleedDmgPct: 0.025 } } }
+        ],
+        loot: { materials: { leather_scrap: 1, silk_thread: 1 }, chance: 0.6 }
+    },
+    tournament_rival: {
+        name: "Tournament Rival", template: "Corrupted Cultivator", hpMult: 1.0, dmgMult: 1.1,
+        zone: "heartlands", element: "neutral",
+        abilities: [
+            { id: "rival_strike", weight: 40, telegraph: "Your rival's technique flares.", effect: { bonusDmgMult: 1.15 } },
+            { id: "counter_guard", weight: 35, effect: { selfDefend: true, log: "They settle into a counter stance." } },
+            { id: "secret_art", weight: 25, cooldown: 3, telegraph: "A forbidden palm technique unfolds.", effect: { bonusDmgMult: 1.4 } }
+        ],
+        loot: { materials: { spirit_herb: 1 }, chance: 0.5 }
+    },
+    elder_phantom: {
+        name: "Elder's Phantom", template: "Heavenly Tribulation Phantom", hpMult: 0.95, dmgMult: 1.15,
+        zone: "heartlands", element: "soul",
+        abilities: [
+            { id: "spirit_rend", weight: 40, telegraph: "The phantom's gaze pierces your soul.", effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
+            { id: "dao_test", weight: 30, telegraph: "Ancient will presses against yours.", effect: { willCheck: { min: 10, failSkip: 1 }, bonusDmgMult: 0.8 } },
+            { id: "phantom_strike", weight: 30, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { spiritDamage: true } } }
+        ],
+        loot: { materials: { spirit_herb: 2 }, chance: 0.55 }
+    },
+    sea_beast: {
+        name: "Tide Leviathan", template: "Demon Beast", hpMult: 1.15, dmgMult: 1.0,
+        zone: "jade", element: "water",
+        abilities: [
+            { id: "tide_slam", weight: 40, effect: { bonusDmgMult: 1.15 } },
+            { id: "tide_wave", weight: 35, telegraph: "A wall of water rises.", effect: { stripShieldPct: 0.45, bonusDmgMult: 1.05, log: "The wave strips your defenses!" } },
+            { id: "deep_regen", weight: 25, cooldown: 3, telegraph: "The leviathan dives and surfaces renewed.", effect: { healSelfPct: 0.12, bonusDmgMult: 0.75, log: "Salt spray hisses as wounds close." } }
+        ],
+        loot: { materials: { silk_thread: 1, jade_inlay: 1 }, chance: 0.6 }
+    },
+    pirates: {
+        name: "Jade Pirate Captain", template: "Shadow Assassin", hpMult: 1.0, dmgMult: 1.05,
+        zone: "jade", element: "water",
+        abilities: [
+            { id: "cutlass", weight: 45, effect: { bonusDmgMult: 1.15 } },
+            { id: "dirty_trick", weight: 30, telegraph: "The captain grins — too wide.", effect: { bonusDmgMult: 1.0, stealStones: { min: 2, max: 6, chance: 0.55 } } },
+            { id: "smoke_bomb", weight: 25, cooldown: 3, telegraph: "A smoke pellet shatters at your feet.", effect: { selfDefend: true, applyPlayer: { slowResourceRegen: 1 }, log: "Acrid smoke fills your lungs!" } }
+        ],
+        enrageThreshold: 0.35,
+        enrageAbilities: [
+            { id: "last_stand", weight: 100, effect: { bonusDmgMult: 1.45, stealStones: { min: 3, max: 8, chance: 0.7 } } }
+        ],
+        loot: { materials: { iron_ore: 1, jade_inlay: 1 }, chance: 0.55 }
+    },
+    beast_tide: {
+        name: "Beast Tide Alpha", template: "Demon Beast", hpMult: 1.2, dmgMult: 1.1,
+        zone: "emberwild", element: "fire", traits: ["swarm"],
+        abilities: [
+            { id: "stampede", weight: 45, effect: { bonusDmgMult: 1.1, extraHits: 1 } },
+            { id: "crushing_hoof", weight: 35, effect: { bonusDmgMult: 1.25 } },
+            { id: "rally", weight: 20, cooldown: 3, telegraph: "The alpha bellows — the herd answers.", effect: { healSelfPct: 0.1, bonusDmgMult: 1.0, log: "Reinforcements surge at its side!" } }
+        ],
+        enrageThreshold: 0.5,
+        enrageAbilities: [
+            { id: "tide_frenzy", weight: 100, telegraph: "The beast tide reaches fever pitch!", effect: { bonusDmgMult: 1.35, extraHits: 2 } }
+        ],
+        loot: { materials: { demon_core: 1, leather_scrap: 2 }, chance: 0.65 }
+    },
+    ashvein_guardian_beast: {
+        name: "Ashvein Warden Beast", template: "Demon Beast", hpMult: 1.4, dmgMult: 1.18, emoji: '🐲',
+        zone: "emberwild", element: "fire",
+        weakness: { water: 1.2, fire: 0.8 },
+        abilities: [
+            { id: "magma_claw", weight: 40, telegraph: "Molten veins pulse beneath its scales.", effect: { bonusDmgMult: 1.2, applyPlayer: { poisonTurns: 1, poisonDmgPct: 0.035 } } },
+            { id: "warden_roar", weight: 35, effect: { applyPlayer: { slowResourceRegen: 2 }, bonusDmgMult: 1.05, log: "The roar shakes the caldera!" } },
+            { id: "obsidian_hide", weight: 25, cooldown: 2, effect: { selfDefend: true, log: "Obsidian plates lock into place." } }
+        ],
+        enrageThreshold: 0.4,
+        enrageAbilities: [
+            { id: "caldera_awakening", weight: 100, telegraph: "Phase II — the Warden's true form erupts!", effect: { bonusDmgMult: 1.5, extraHits: 1, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.04 } } }
+        ],
+        loot: { materials: { phoenix_ash: 1, demon_core: 2 }, chance: 0.75 }
+    },
+    ice_wraith: {
+        name: "Ice Wraith", template: "Heavenly Tribulation Phantom", hpMult: 0.9, dmgMult: 1.1,
+        zone: "frostbite", element: "ice",
+        weakness: { fire: 1.3, ice: 0.7 },
+        abilities: [
+            { id: "spirit_frost", weight: 45, telegraph: "Spectral frost needles toward your meridians.", effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
+            { id: "wraith_phase", weight: 30, effect: { selfDefend: true, noDamage: true, log: "The wraith dissolves into mist." } },
+            { id: "killing_cold", weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { spiritDamage: true, slowResourceRegen: 1 } } }
+        ],
+        loot: { materials: { frost_essence: 2, glacial_shard: 1 }, chance: 0.6 }
+    },
+    obsidian_golem: {
+        name: "Obsidian Golem", template: "Demon Beast", hpMult: 1.25, dmgMult: 0.9,
+        zone: "emberwild", element: "fire",
+        weakness: { fire: 1.25, water: 0.85 },
+        abilities: [
+            { id: "obsidian_fist", weight: 40, effect: { bonusDmgMult: 1.1 } },
+            { id: "glass_shell", weight: 35, telegraph: "Obsidian plates interlock.", effect: { selfDefend: true, log: "Its hide becomes near-impenetrable!" } },
+            { id: "ember_core", weight: 25, cooldown: 3, telegraph: "The golem's core flares white-hot.", effect: { bonusDmgMult: 1.35, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.03 } } }
+        ],
+        loot: { materials: { iron_ore: 2, phoenix_ash: 1 }, chance: 0.6 }
+    },
+    scorpion_nest: {
+        name: "Venomtail Swarm", template: "Feral Spirit Wolf", hpMult: 0.85, dmgMult: 1.0,
+        zone: "dustbone", element: "earth", traits: ["swarm"],
+        abilities: [
+            { id: "stinger_volley", weight: 50, effect: { bonusDmgMult: 0.9, extraHits: 1, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.035 } } },
+            { id: "burrow_swarm", weight: 30, telegraph: "Scorpions boil from the sand.", effect: { bonusDmgMult: 0.85, extraHits: 1 } },
+            { id: "venom_spray", weight: 20, cooldown: 2, telegraph: "A cloud of venom mist erupts.", effect: { noDamage: true, applyPlayer: { poisonTurns: 3, poisonDmgPct: 0.03 }, log: "Toxin fills the air!" } }
+        ],
+        loot: { materials: { demon_core: 1, leather_scrap: 1 }, chance: 0.65 }
+    },
+    bandit_ambush: {
+        name: "Roadside Bandit Chief", template: "Shadow Assassin", hpMult: 0.75, dmgMult: 1.15,
+        zone: "heartlands", element: "neutral",
+        abilities: [
+            { id: "ambush_slash", weight: 50, telegraph: "The chief strikes from your blind spot!", effect: { bonusDmgMult: 1.25 } },
+            { id: "throw_dirt", weight: 30, effect: { applyPlayer: { skipPlayerTurn: 1 }, bonusDmgMult: 0.7, log: "Dirt blinds you momentarily!" } },
+            { id: "desperate_lunge", weight: 20, cooldown: 2, effect: { bonusDmgMult: 1.4, stealStones: { min: 2, max: 5, chance: 0.4 } } }
+        ],
+        loot: { materials: { iron_ore: 1, leather_scrap: 1 }, chance: 0.55 }
+    }
 };
 
 // ===== GEAR & CRAFTING =====

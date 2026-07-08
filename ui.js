@@ -913,6 +913,12 @@ function updateCombatUI() {
     document.getElementById('playerShield').textContent = G.shield;
     document.getElementById('playerMaxShield').textContent = G.maxShield;
 
+    if (G.enemy.intimidateTurns > 0) {
+        document.getElementById('enemyName').textContent = G.enemy.name + ' (Shaken)';
+    }
+
+    renderEnemyCombatStatus();
+
     setBarWidth('enemyHpBar', G.enemy.hp, G.enemyMaxHp);
     setBarWidth('playerHpBar', G.hp, typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp);
 
@@ -944,10 +950,6 @@ function updateCombatUI() {
         }
     }
 
-    if (G.enemy.intimidateTurns > 0) {
-        document.getElementById('enemyName').textContent = G.enemy.name + ' (Shaken)';
-    }
-
     setCombatInputEnabled(G.combatPhase === 'player');
     if (typeof updateFleeButton === 'function') updateFleeButton();
     renderCombatBonusBar();
@@ -955,11 +957,51 @@ function updateCombatUI() {
     if (typeof updateVoidStepButton === 'function') updateVoidStepButton();
 }
 
+function renderEnemyCombatStatus() {
+    const row = document.getElementById('enemyStatusRow');
+    const tele = document.getElementById('enemyTelegraph');
+    if (!row || !G.enemy) return;
+    const e = G.enemy;
+    const chips = [];
+    if (e.element && typeof ENEMY_ELEMENT_ICONS !== 'undefined') {
+        const icon = ENEMY_ELEMENT_ICONS[e.element] || '⚔️';
+        chips.push(`<span class="enemy-status-chip element-chip" title="Element: ${e.element}">${icon} ${e.element}</span>`);
+    }
+    (e.affixes || []).forEach(id => {
+        const affix = typeof ENEMY_AFFIXES !== 'undefined' ? ENEMY_AFFIXES[id] : null;
+        if (affix) chips.push(`<span class="enemy-status-chip affix-chip" title="${affix.desc || affix.label}">${affix.label}</span>`);
+    });
+    if (e.defending) chips.push('<span class="enemy-status-chip guard-chip">🛡️ Guarding</span>');
+    if (typeof isEnemyEnraged === 'function' && isEnemyEnraged(e)) {
+        chips.push('<span class="enemy-status-chip enrage-chip">🔥 Enraged</span>');
+    }
+    if (e.chargeTurns > 0) chips.push('<span class="enemy-status-chip charge-chip">⏳ Charging</span>');
+    if (e.traits && e.traits.includes('swarm')) chips.push('<span class="enemy-status-chip swarm-chip">🐾 Swarm</span>');
+    if (e.weakness) {
+        const weakKeys = Object.entries(e.weakness).filter(([, mult]) => mult > 1).map(([k]) => k);
+        if (weakKeys.length) chips.push(`<span class="enemy-status-chip weak-chip" title="Weak to ${weakKeys.join(', ')}">⚡ Weak: ${weakKeys.join('/')}</span>`);
+    }
+    row.innerHTML = chips.join('');
+    row.style.display = chips.length ? 'flex' : 'none';
+    if (tele) {
+        const action = e.lastAction;
+        const showTele = action && action.length > 3;
+        tele.textContent = showTele ? action : '';
+        tele.style.display = showTele ? 'block' : 'none';
+    }
+}
+
 function renderCombatBonusBar() {
     const el = document.getElementById('combatBonusBar');
     if (!el) return;
     ensureAffinities();
     const chips = [];
+    if (G.combatStatus) {
+        const cs = G.combatStatus;
+        if (cs.poisonTurns > 0) chips.push(`<span class="combat-bonus-chip debuff-chip" title="Poison damage each turn">☠️ Poison (${cs.poisonTurns})</span>`);
+        if (cs.bleedTurns > 0) chips.push(`<span class="combat-bonus-chip debuff-chip" title="Bleed damage each turn">🩸 Bleed (${cs.bleedTurns})</span>`);
+        if (cs.slowResourceRegenTurns > 0) chips.push(`<span class="combat-bonus-chip debuff-chip" title="Reduced resource recovery">🐌 Slowed (${cs.slowResourceRegenTurns})</span>`);
+    }
     Object.values(TECHNIQUE_SETS).forEach(set => {
         const bonus = getSetBonusesForId(set.id);
         if (bonus) {

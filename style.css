@@ -6755,6 +6755,63 @@ header .subtitle {
     color: #f0c878;
 }
 
+.combat-bonus-chip.debuff-chip {
+    border-color: #6a3030;
+    color: #e8a0a0;
+}
+
+.combat-enemy-status {
+    display: none;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 4px 0 2px;
+    min-height: 0;
+}
+
+.enemy-status-chip {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid #3a4858;
+    background: rgba(0, 0, 0, 0.4);
+    color: #b8c8d8;
+    white-space: nowrap;
+}
+
+.enemy-status-chip.affix-chip {
+    border-color: #6a5080;
+    color: #d8b8f0;
+}
+
+.enemy-status-chip.enrage-chip {
+    border-color: #8a4020;
+    color: #ffb080;
+}
+
+.enemy-status-chip.guard-chip {
+    border-color: #4a6080;
+    color: #a0c0e8;
+}
+
+.enemy-status-chip.swarm-chip {
+    border-color: #506040;
+    color: #b8d8a0;
+}
+
+.enemy-status-chip.weak-chip {
+    border-color: #806020;
+    color: #f0d080;
+}
+
+.combat-enemy-telegraph {
+    display: none;
+    font-size: 11px;
+    font-style: italic;
+    color: #c0a878;
+    margin: 2px 0 4px;
+    min-height: 0;
+}
+
 .pill-row {
     cursor: pointer;
 }

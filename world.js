@@ -664,32 +664,22 @@ function startEncounterCombat(combatKey) {
     const def = ENCOUNTER_ENEMIES[combatKey];
     if (!def) return;
     const template = ENEMIES.find(e => e.name === def.template) || ENEMIES[Math.min(G.realmIdx, ENEMIES.length - 1)];
-    let enemyHp = calcEnemyHp(template, { context: 'normal' });
-    let enemyDmg = calcEnemyDamage(template, { context: 'normal' });
-    enemyHp = Math.floor(enemyHp * (def.hpMult || 1));
-    enemyDmg = Math.floor(enemyDmg * (def.dmgMult || 1));
 
     G.encounterCombat = combatKey;
     G.inCombat = true;
     G.defending = false;
     G.fortifyActive = false;
     G.combatLog = [];
+    initCombatStatus();
     initCombatResource();
     updateShield();
     if (G.path === 'soul') G.shield = G.maxShield;
 
-    G.enemy = {
-        name: def.name,
-        hp: enemyHp,
-        maxHp: enemyHp,
-        dmg: enemyDmg,
-        originalDmg: enemyDmg,
-        intimidateTurns: 0,
-        isEncounter: true
-    };
+    G.enemy = buildEnemyFromDef(def, template, { extraFlags: { isEncounter: true } });
+    if (def.emoji) G.enemy.name = `${def.emoji} ${def.name}`;
     G.enemyMaxHp = G.enemy.maxHp;
 
-    addCombatLog(`⚡ ${def.name} appears! (${enemyHp} HP)`);
+    addCombatLog(`⚡ ${def.name} appears! (${G.enemy.hp} HP)`);
     setupCombatActions();
     G.combatPhase = 'player';
     clearCombatTurnTimer();
@@ -700,24 +690,32 @@ function startEncounterCombat(combatKey) {
 
 function encounterCombatVictory() {
     const state = G.encounterState;
+    const combatKey = G.encounterCombat;
+    const lootLines = typeof grantEncounterCombatLoot === 'function' ? grantEncounterCombatLoot(combatKey) : [];
     G.inCombat = false;
     G.defending = false;
     G.encounterCombat = null;
+    clearCombatStatus();
     document.getElementById('combatOverlay').classList.remove('active');
     G.enemy = null;
     addCombatLog(`💀 Encounter won!`);
     if (state?.pending) {
         encounterApplyEffects(state.pending, true);
+        if (lootLines.length) {
+            addLog(`📦 Spoils: ${lootLines.join(', ')}`);
+        }
     } else {
         const stones = 5 + G.realmIdx * 2;
         G.stones += stones;
         grantFoundation(2);
         addLog(`⚡ Victory spoils: +${stones} Stones, +2 Foundation.`);
+        if (lootLines.length) addLog(`📦 Materials: ${lootLines.join(', ')}`);
         if (typeof showCombatVictoryPopup === 'function') {
+            const rewards = [`💎 +${stones} Spirit Stones`, '🏛️ +2 Foundation', ...lootLines];
             showCombatVictoryPopup({
-                enemyName: 'Encounter foe',
+                enemyName: ENCOUNTER_ENEMIES[combatKey]?.name || 'Encounter foe',
                 subtitle: 'You survived the wild encounter.',
-                rewards: [`💎 +${stones} Spirit Stones`, '🏛️ +2 Foundation']
+                rewards
             });
         }
         closeEncounterOverlay();
