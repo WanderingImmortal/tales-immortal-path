@@ -37,6 +37,7 @@ function openSpiritBreakthrough() {
 function openTrackBreakthrough(track) {
     if (G.gameOver || G.inCombat || isTribulationActive() || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending())) return;
     setBreakthroughTrack(track);
+    setBreakthroughTrack(track);
     const pathKey = typeof getTrackPathKey === 'function' ? getTrackPathKey(track) : G.path;
     const realmIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : G.realmIdx;
     const pathData = PATHS[pathKey];
