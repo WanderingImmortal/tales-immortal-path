@@ -680,6 +680,10 @@ function startEncounterCombat(combatKey) {
     G.enemyMaxHp = G.enemy.maxHp;
 
     addCombatLog(`⚡ ${def.name} appears! (${G.enemy.hp} HP)`);
+    if (typeof isCombatQiLinked === 'function' && isCombatQiLinked()) {
+        const pool = getQiLinkedCombatStartPool();
+        addCombatLog(`🌬️ Breath ${G.combatResource}/${G.maxCombatResource} drawn from dantian (${pool.currentQi}/${pool.maxQi} Qi).`);
+    }
     setupCombatActions();
     G.combatPhase = 'player';
     clearCombatTurnTimer();
@@ -692,6 +696,7 @@ function encounterCombatVictory() {
     const state = G.encounterState;
     const combatKey = G.encounterCombat;
     const lootLines = typeof grantEncounterCombatLoot === 'function' ? grantEncounterCombatLoot(combatKey) : [];
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: true });
     G.inCombat = false;
     G.defending = false;
     G.encounterCombat = null;
@@ -725,6 +730,7 @@ function encounterCombatVictory() {
 
 function encounterCombatDefeat() {
     G.hp = Math.max(1, 1);
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: false });
     G.inCombat = false;
     G.defending = false;
     G.encounterCombat = null;

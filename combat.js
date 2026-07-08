@@ -12,8 +12,70 @@ function calcMaxCombatResource() {
 }
 
 function initCombatResource() {
+    G.combatResourceSpent = 0;
+    G.combatQiDrainApplied = false;
+    if (isCombatQiLinked()) {
+        const pool = getQiLinkedCombatStartPool();
+        G.maxCombatResource = pool.barMax;
+        G.combatResource = pool.start;
+        return;
+    }
     G.maxCombatResource = calcMaxCombatResource();
     G.combatResource = G.maxCombatResource;
+}
+
+function isCombatQiLinked() {
+    return G.path === 'qi' && !shouldSkipCombatQiDrain();
+}
+
+function getQiLinkedCombatStartPool() {
+    const b = COMBAT_QI_LINK || {};
+    const fullMax = calcMaxCombatResource();
+    const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : 50;
+    const currentQi = Math.max(0, G.qi != null ? G.qi : maxQi);
+    const fillRatio = maxQi > 0 ? currentQi / maxQi : 1;
+    const floorPct = b.startFloorPct != null ? b.startFloorPct : 0.4;
+    const effectivePct = floorPct + (1 - floorPct) * fillRatio;
+    const barMax = Math.max(8, Math.floor(fullMax * effectivePct));
+    const start = Math.min(barMax, Math.max(1, currentQi));
+    return { barMax, start, currentQi, maxQi, fillRatio };
+}
+
+function getQiLinkedBreathCap() {
+    const qi = Math.max(0, G.qi != null ? G.qi : 0);
+    return Math.min(G.maxCombatResource || 0, qi);
+}
+
+function shouldSkipCombatQiDrain() {
+    const b = COMBAT_QI_LINK || {};
+    if (!b.skipTrials) return false;
+    if (G.mirrorTrial || G.crucibleTrial || G.silenceTrial || G.mawTrial) return true;
+    if (typeof isTribulationCombat === 'function' && isTribulationCombat()) return true;
+    return false;
+}
+
+function finalizeCombatQiDrain(exitCtx) {
+    exitCtx = exitCtx || {};
+    if (G.combatQiDrainApplied || G.path !== 'qi' || shouldSkipCombatQiDrain()) {
+        G.combatResourceSpent = 0;
+        G.combatQiDrainApplied = true;
+        return null;
+    }
+    G.combatResourceSpent = 0;
+    G.combatQiDrainApplied = true;
+    const b = COMBAT_QI_LINK || { victoryRefundPct: 0.06 };
+    const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : 50;
+    const qiNow = Math.max(0, G.qi != null ? G.qi : 0);
+    let refund = 0;
+    if (exitCtx.victory && b.victoryRefundPct) {
+        refund = Math.max(1, Math.floor(maxQi * b.victoryRefundPct));
+        G.qi = Math.min(maxQi, qiNow + refund);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
+        addLog(`🌬️ Victory circulation — +${refund} Qi recovered. Dantian ${G.qi}/${maxQi}. Gather to fully restore.`);
+    } else if (qiNow < Math.floor(maxQi * 0.5)) {
+        addLog(`🌬️ Your dantian runs low after battle (${qiNow}/${maxQi}). Gather Qi to restore.`);
+    }
+    return { refund, qiNow: G.qi };
 }
 
 function getTechniqueCombatCost(tech) {
@@ -146,13 +208,29 @@ function updateFleeButton() {
 }
 
 function spendCombatResource(amount, actionLabel) {
+    const cfg = getCombatConfig();
+    if (isCombatQiLinked()) {
+        const qiAvailable = Math.max(0, G.qi != null ? G.qi : 0);
+        if (G.combatResource < amount) {
+            addCombatLog(`❌ Not enough ${cfg.resource}! Need ${amount}, have ${G.combatResource}.`);
+            return false;
+        }
+        if (qiAvailable < amount) {
+            addCombatLog(`❌ Dantian too depleted — need ${amount} Qi, have ${qiAvailable}. Gather Qi to fight longer.`);
+            return false;
+        }
+        G.combatResource -= amount;
+        G.qi = Math.max(0, G.qi - amount);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
+        G.combatResource = Math.min(G.combatResource, getQiLinkedBreathCap());
+        addCombatLog(`${cfg.icon} −${amount} ${cfg.resource} (${actionLabel}) · Dantian ${G.qi}/${typeof getMaxQi === 'function' ? getMaxQi() : '?'}`);
+        return true;
+    }
     if (G.combatResource < amount) {
-        const cfg = getCombatConfig();
         addCombatLog(`❌ Not enough ${cfg.resource}! Need ${amount}, have ${G.combatResource}.`);
         return false;
     }
     G.combatResource -= amount;
-    const cfg = getCombatConfig();
     addCombatLog(`${cfg.icon} −${amount} ${cfg.resource} (${actionLabel})`);
     return true;
 }
@@ -773,6 +851,10 @@ function startCombat() {
     const cfg = getCombatConfig();
     const affixNote = affixes.length ? ` [${affixes.map(id => ENEMY_AFFIXES[id]?.label || id).join(', ')}]` : '';
     addCombatLog(`⚔️ A ${G.enemy.name} appears!${affixNote} (${G.enemy.hp} HP, ${G.enemy.dmg} dmg)`);
+    if (isCombatQiLinked()) {
+        const pool = getQiLinkedCombatStartPool();
+        addCombatLog(`🌬️ Breath ${G.combatResource}/${G.maxCombatResource} drawn from dantian (${pool.currentQi}/${pool.maxQi} Qi).`);
+    }
     addCombatLog(`${cfg.icon} ${cfg.resource}: ${G.combatResource}/${G.maxCombatResource}`);
     if (getEffectiveFoundation() >= 20) {
         addCombatLog(`🌬️ Deep foundation — your dantian holds a wider combat reserve.`);
@@ -785,7 +867,8 @@ function startCombat() {
     document.getElementById('combatOverlay').classList.add('active');
 }
 
-function endCombat() {
+function endCombat(exitCtx) {
+    finalizeCombatQiDrain(exitCtx || {});
     clearCombatTurnTimer();
     G.combatPhase = 'player';
     G.inCombat = false;
@@ -1179,7 +1262,7 @@ function combatFlee() {
         addCombatLog(`🏃 You break for open ground... (${chance}% chance)`);
         if (Math.random() * 100 < chance) {
             if (typeof npcCombatFleeSuccess === 'function') npcCombatFleeSuccess();
-            else endCombat();
+            else endCombat({ fled: true });
         } else {
             refundFailedFleeCost(cost);
             addCombatLog(`😰 Failed to flee! Your opponent cuts off the retreat.`);
@@ -1207,7 +1290,7 @@ function combatFlee() {
     if (Math.random() * 100 < chance) {
         addCombatLog(`🏃 You escape!`);
         if (G.fame > 0) G.fame -= 1;
-        endCombat();
+        endCombat({ fled: true });
     } else {
         refundFailedFleeCost(cost);
         addCombatLog(`😰 Failed to flee! ${G.enemy?.name || 'The enemy'} cuts off your retreat.`);
@@ -1221,6 +1304,12 @@ function refundFailedFleeCost(cost) {
     const refund = Math.max(1, Math.floor(cost * pct));
     const before = G.combatResource;
     G.combatResource = Math.min(G.maxCombatResource, G.combatResource + refund);
+    if (isCombatQiLinked()) {
+        const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : (G.qi || 0);
+        G.qi = Math.min(maxQi, (G.qi || 0) + refund);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
+        G.combatResource = Math.min(getQiLinkedBreathCap(), G.combatResource);
+    }
     if (G.combatResource > before) {
         addCombatLog(`${cfg.icon} ${refund} ${cfg.resource} recovered in the scramble.`);
     }
@@ -1303,7 +1392,7 @@ function combatVictory(fromTechnique) {
             rewards: lines
         });
     }
-    endCombat();
+    endCombat({ victory: true });
 }
 
 function enemyTurn() {
@@ -1451,7 +1540,11 @@ function combatEndOfTurnRegen() {
         }
     }
     const before = G.combatResource;
-    G.combatResource = Math.min(G.maxCombatResource, G.combatResource + resGain);
+    if (isCombatQiLinked()) {
+        G.combatResource = Math.min(getQiLinkedBreathCap(), G.combatResource + resGain);
+    } else {
+        G.combatResource = Math.min(G.maxCombatResource, G.combatResource + resGain);
+    }
     const gained = G.combatResource - before;
     if (gained > 0) {
         const flavor = G.path === 'qi' ? 'Qi circulation steadies' : G.path === 'body' ? 'Breath returns to tired limbs' : 'Focus sharpens anew';

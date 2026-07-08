@@ -448,11 +448,13 @@ function ancientGuardianVictory() {
     } else {
         grantFoundation(3);
     }
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: true });
     fullRender();
 }
 
 function ancientGuardianDefeat() {
     G.hp = Math.max(1, 1);
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: false });
     G.inCombat = false;
     G.defending = false;
     G.ancientGuardianCombat = null;

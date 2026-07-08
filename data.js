@@ -891,6 +891,13 @@ const COMBAT_FLEE_BALANCE = {
     failRefundPct: 0.4
 };
 
+// Qi-path: Breath is combat circulation drawn from dantian Qi (Gather restores).
+const COMBAT_QI_LINK = {
+    startFloorPct: 0.4,
+    victoryRefundPct: 0.06,
+    skipTrials: true
+};
+
 /** Minimum realm to find or comprehend Dao fragments (Dao Seeking). */
 const DAO_SEEKING_REALM_IDX = 5;
 
@@ -4907,7 +4914,7 @@ const CHAMBER_BALANCE = {
         weeks: 1,
         densityGainMin: 0.14,
         densityGainMax: 0.32,
-        fillRatio: 0.07
+        fillRatio: 0.11
     },
     expandDantian: { weeks: 2, stones: 25, maxQiBonusGain: 4, cooldownMonths: 2 },
     perfectFoundation: { weeks: 3, stones: 50, techniques: 1, foundationGain: 2, cooldownMonths: 3 },
@@ -4934,7 +4941,7 @@ const CULTIVATION_ACTION_GUIDE = {
         label: 'Gather Qi',
         emoji: '🌬️',
         flavor: 'Draw heaven\'s breath into the void of your dantian.',
-        desc: 'Raises Qi Density (technique power & peak requirements), refills current Qi toward max, and slowly builds Root (dantian pillar). Bonuses scale with sect, talents, and body cultivation.'
+        desc: 'Raises Qi Density (technique power & peak requirements), refills dantian Qi toward max, and slowly builds Root. Qi-path combat draws Breath directly from your dantian — gather between fights to recover. Bonuses scale with sect, talents, and body cultivation.'
     },
     expandDantian: {
         label: 'Expand Dantian',

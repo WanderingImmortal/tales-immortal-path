@@ -323,6 +323,7 @@ function npcCombatVictory(fromTechnique) {
             rewards: rewardLines
         });
     }
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: true });
     fullRender();
 }
 
@@ -345,6 +346,7 @@ function npcCombatDefeat() {
     } else {
         addLog(`⚔️ Defeated in personal combat. You retreat, wounded.`);
     }
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: false });
     fullRender();
 }
 
@@ -369,6 +371,7 @@ function npcCombatFleeSuccess() {
     } else if (ctx?.type === 'sect_rival') {
         addLog(`⚔️ The rival sect's champion watches you flee — your sect's reputation suffers.`);
     }
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ fled: true });
     fullRender();
 }
 
@@ -1175,6 +1178,7 @@ function storyCombatVictory(fromTechnique) {
             rewards: ['📜 Quest stage advanced', '🏛️ Foundation and fame may have increased']
         });
     }
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: true });
     fullRender();
     if (ctx.arcId === 'lost_disciple' || ctx.arcId === 'dustbone_caravan' || ctx.arcId === 'liang_chen_rival' || ctx.arcId === 'forgotten_heir') {
         setTimeout(() => openStoryResolutionPopup(ctx.arcId), 400);
@@ -1195,6 +1199,7 @@ function storyCombatDefeat() {
     const heir = getStoryArcState('forgotten_heir');
     if (heir) heir.flags.confrontationStarted = false;
     addLog('⚔️ Master Zhong\'s corrupted qi overwhelms you. Retreat and prepare again.');
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: false });
     fullRender();
 }
 

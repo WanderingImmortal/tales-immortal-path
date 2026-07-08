@@ -933,7 +933,13 @@ function updateCombatUI() {
         resTrack.style.setProperty('--resource-color', cfg.barColor);
         if (resIcon) resIcon.textContent = cfg.icon;
         if (resName) resName.textContent = cfg.resource;
-        if (resText) resText.textContent = `${G.combatResource}/${G.maxCombatResource}`;
+        if (resText) {
+            if (typeof isCombatQiLinked === 'function' && isCombatQiLinked() && typeof getMaxQi === 'function') {
+                resText.textContent = `${G.combatResource}/${G.maxCombatResource} · Dantian ${G.qi}/${getMaxQi()}`;
+            } else {
+                resText.textContent = `${G.combatResource}/${G.maxCombatResource}`;
+            }
+        }
         setBarWidth('combatResourceBar', G.combatResource, G.maxCombatResource);
     }
 
