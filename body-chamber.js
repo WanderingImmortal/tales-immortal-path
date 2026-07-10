@@ -1176,6 +1176,8 @@ function renderBodyChamberActions() {
 function appendBodyActionButton(panel, layerId, action, isSub) {
     const count = getBodyLayerActionCount(layerId, action.id);
     const block = getBodyActionBlockReason(layerId, action);
+    const wrap = document.createElement('div');
+    wrap.className = 'action-card-wrap body-chamber-action-wrap';
     const btn = document.createElement('button');
     btn.type = 'button';
     const maxStacks = getBodyActionMaxStacks(action);
@@ -1187,17 +1189,25 @@ function appendBodyActionButton(panel, layerId, action, isSub) {
     btn.dataset.layer = layerId;
     btn.dataset.action = action.id;
     btn.disabled = bodyChamberActionBlocked() || !!block;
-    btn.title = block || action.desc;
-    const matLine = formatBodyMaterialCost(action);
-    const meridianOpen = action.meridianIndex != null && isBodyMeridianOpen(action.meridianIndex);
+    const flavor = typeof getBodyActionFlavor === 'function'
+        ? getBodyActionFlavor(layerId, action)
+        : action.desc;
+    if (typeof setHoverTooltip === 'function') setHoverTooltip(btn, block || action.desc);
+    else btn.title = block || action.desc;
     btn.innerHTML = `<span class="body-action-label">${action.emoji} ${action.label}</span>`
-        + `<span class="body-action-meta">${action.desc} · ${action.weeks} wk`
-        + (action.once ? ' · one-time' : '')
-        + (matLine ? ` · ${matLine}` : '')
-        + (meridianOpen ? ' · ☯️ open' : '')
-        + ` · ×${count}/${maxStacks}</span>`;
+        + `<span class="body-action-meta body-action-flavor">${block ? block : flavor}</span>`;
     btn.addEventListener('click', () => runBodyChamberAction(layerId, action.id));
-    panel.appendChild(btn);
+    wrap.appendChild(btn);
+    if (typeof createActionHelpBtn === 'function') {
+        wrap.appendChild(createActionHelpBtn({
+            className: 'body-chamber-action-help',
+            title: `${action.emoji} ${action.label}`,
+            desc: action.desc,
+            getBlock: () => getBodyActionBlockReason(layerId, action),
+            getStats: () => formatBodyChamberActionStats(layerId, action)
+        }));
+    }
+    panel.appendChild(wrap);
 }
 
 function renderBodyPhysiqueProject() {

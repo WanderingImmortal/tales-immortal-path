@@ -588,6 +588,7 @@ function exploitHuntCombatVictory() {
     shiftFactionRep('golden_phoenix', -6, 'killed enforcer');
     shiftFactionRep('jade_lotus', -6, 'killed enforcer');
     addLog('⚔️ You cut down the enforcer — both sects know your name now.');
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: true });
     finishExploitHuntAfterChoice('stand_fight');
     fullRender();
 }
@@ -601,6 +602,7 @@ function exploitHuntCombatDefeat() {
     shiftFactionRep('golden_phoenix', -10, 'hunted down');
     shiftFactionRep('jade_lotus', -10, 'hunted down');
     addLog('🩸 You escape the enforcer barely alive — wounded and infamous.');
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: false });
     finishExploitHuntAfterChoice('stand_fight_fled');
     fullRender();
 }

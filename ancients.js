@@ -381,31 +381,24 @@ function startAncientGuardianFight(subZoneId) {
     if (G.inCombat) return { success: false, message: 'Already in combat.' };
 
     const template = ENEMIES.find(e => e.name === def.template) || ENEMIES[Math.min(G.realmIdx, ENEMIES.length - 1)];
-    let hp = Math.floor(calcEnemyHp(template, { context: 'normal' }) * (def.hpMult || 1));
-    let dmg = Math.floor(calcEnemyDamage(template, { context: 'normal' }) * (def.dmgMult || 1));
 
     G.ancientGuardianCombat = { subZoneId, guardianKey: key };
     G.inCombat = true;
     G.defending = false;
     G.fortifyActive = false;
     G.combatLog = [];
+    initCombatStatus();
     initCombatResource();
     updateShield();
     if (G.path === 'soul') G.shield = G.maxShield;
 
-    G.enemy = {
-        name: `${def.emoji || '⚔️'} ${def.name}`,
-        hp,
-        maxHp: hp,
-        dmg,
-        originalDmg: dmg,
-        intimidateTurns: 0,
-        isAncientGuardian: true,
-        ancientSubZoneId: subZoneId
-    };
-    G.enemyMaxHp = hp;
+    G.enemy = buildEnemyFromDef(def, template, {
+        namePrefix: `${def.emoji || '⚔️'} `,
+        extraFlags: { isAncientGuardian: true, ancientSubZoneId: subZoneId }
+    });
+    G.enemyMaxHp = G.enemy.maxHp;
 
-    addCombatLog(`🔥 ${def.name} blocks the seal! (${hp} HP)`);
+    addCombatLog(`🔥 ${def.name} blocks the seal! (${G.enemy.hp} HP)`);
     addLog(`🐲 The ${sub.unseal?.barrierLabel || 'barrier'} stirs — ${def.name} awakens to defend the ancient!`);
     setupCombatActions();
     G.combatPhase = 'player';
@@ -455,11 +448,13 @@ function ancientGuardianVictory() {
     } else {
         grantFoundation(3);
     }
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: true });
     fullRender();
 }
 
 function ancientGuardianDefeat() {
     G.hp = Math.max(1, 1);
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: false });
     G.inCombat = false;
     G.defending = false;
     G.ancientGuardianCombat = null;
@@ -863,5 +858,5 @@ function updateSearchButton() {
     const rate = getSearchSuccessRate(zoneId);
     btn.disabled = false;
     btn.classList.remove('action-locked');
-    btn.title = `Search for ${sub.name} · ~${Math.round(rate)}% · ${qiCost} Qi · ${ACTION_MONTHS.ancientSearch}mo`;
+    btn.title = `Probe for ${sub.name} · ~${Math.round(rate)}% · ${qiCost} Qi · ${ACTION_MONTHS.ancientSearch}mo`;
 }

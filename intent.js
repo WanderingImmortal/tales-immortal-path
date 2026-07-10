@@ -365,7 +365,11 @@ function applyIntentResourceGain(amount) {
     if (!amount || amount <= 0) return;
     const cfg = getCombatConfig();
     const before = G.combatResource;
-    G.combatResource = Math.min(G.maxCombatResource, G.combatResource + amount);
+    if (typeof isCombatQiLinked === 'function' && isCombatQiLinked()) {
+        G.combatResource = Math.min(getQiLinkedBreathCap(), G.combatResource + amount);
+    } else {
+        G.combatResource = Math.min(G.maxCombatResource, G.combatResource + amount);
+    }
     const gained = G.combatResource - before;
     if (gained > 0) addCombatLog(`${cfg.icon} Circulating Guard — +${gained} ${cfg.resource}.`);
 }

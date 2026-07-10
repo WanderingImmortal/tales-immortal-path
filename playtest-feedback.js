@@ -52,6 +52,7 @@ function getPlaytestGameContext() {
     if (G.inBodyChamber) flags.push('body-chamber');
     if (G.inQiChamber) flags.push('qi-chamber');
     if (G.inAlchemyChamber) flags.push('alchemy-chamber');
+    if (G.inForgeChamber) flags.push('forge-chamber');
     if (G.inCultivationHub) flags.push('cultivation-hub');
     if (typeof isTribulationActive === 'function' && isTribulationActive()) flags.push('tribulation');
     return {

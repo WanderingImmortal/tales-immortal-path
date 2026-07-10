@@ -12,8 +12,70 @@ function calcMaxCombatResource() {
 }
 
 function initCombatResource() {
+    G.combatResourceSpent = 0;
+    G.combatQiDrainApplied = false;
+    if (isCombatQiLinked()) {
+        const pool = getQiLinkedCombatStartPool();
+        G.maxCombatResource = pool.barMax;
+        G.combatResource = pool.start;
+        return;
+    }
     G.maxCombatResource = calcMaxCombatResource();
     G.combatResource = G.maxCombatResource;
+}
+
+function isCombatQiLinked() {
+    return G.path === 'qi' && !shouldSkipCombatQiDrain();
+}
+
+function getQiLinkedCombatStartPool() {
+    const b = COMBAT_QI_LINK || {};
+    const fullMax = calcMaxCombatResource();
+    const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : 50;
+    const currentQi = Math.max(0, G.qi != null ? G.qi : maxQi);
+    const fillRatio = maxQi > 0 ? currentQi / maxQi : 1;
+    const floorPct = b.startFloorPct != null ? b.startFloorPct : 0.4;
+    const effectivePct = floorPct + (1 - floorPct) * fillRatio;
+    const barMax = Math.max(8, Math.floor(fullMax * effectivePct));
+    const start = Math.min(barMax, Math.max(1, currentQi));
+    return { barMax, start, currentQi, maxQi, fillRatio };
+}
+
+function getQiLinkedBreathCap() {
+    const qi = Math.max(0, G.qi != null ? G.qi : 0);
+    return Math.min(G.maxCombatResource || 0, qi);
+}
+
+function shouldSkipCombatQiDrain() {
+    const b = COMBAT_QI_LINK || {};
+    if (!b.skipTrials) return false;
+    if (G.mirrorTrial || G.crucibleTrial || G.silenceTrial || G.mawTrial) return true;
+    if (typeof isTribulationCombat === 'function' && isTribulationCombat()) return true;
+    return false;
+}
+
+function finalizeCombatQiDrain(exitCtx) {
+    exitCtx = exitCtx || {};
+    if (G.combatQiDrainApplied || G.path !== 'qi' || shouldSkipCombatQiDrain()) {
+        G.combatResourceSpent = 0;
+        G.combatQiDrainApplied = true;
+        return null;
+    }
+    G.combatResourceSpent = 0;
+    G.combatQiDrainApplied = true;
+    const b = COMBAT_QI_LINK || { victoryRefundPct: 0.06 };
+    const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : 50;
+    const qiNow = Math.max(0, G.qi != null ? G.qi : 0);
+    let refund = 0;
+    if (exitCtx.victory && b.victoryRefundPct) {
+        refund = Math.max(1, Math.floor(maxQi * b.victoryRefundPct));
+        G.qi = Math.min(maxQi, qiNow + refund);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
+        addLog(`🌬️ Victory circulation — +${refund} Qi recovered. Dantian ${G.qi}/${maxQi}. Gather to fully restore.`);
+    } else if (qiNow < Math.floor(maxQi * 0.5)) {
+        addLog(`🌬️ Your dantian runs low after battle (${qiNow}/${maxQi}). Gather Qi to restore.`);
+    }
+    return { refund, qiNow: G.qi };
 }
 
 function getTechniqueCombatCost(tech) {
@@ -30,6 +92,12 @@ function getTechniqueCombatCost(tech) {
     }
     if (typeof getBodyChamberTechniqueCostMult === 'function') {
         cost = Math.floor(cost * getBodyChamberTechniqueCostMult());
+    }
+    if (typeof getTechniqueCombatViability === 'function') {
+        const v = getTechniqueCombatViability(tech);
+        cost = Math.floor(cost * (v.intentCostMult != null ? v.intentCostMult : 1));
+    } else if (typeof getTechniqueIntentMatch === 'function') {
+        cost = Math.floor(cost * getTechniqueIntentMatch(tech).costMult);
     }
     return Math.max(1, cost);
 }
@@ -140,13 +208,29 @@ function updateFleeButton() {
 }
 
 function spendCombatResource(amount, actionLabel) {
+    const cfg = getCombatConfig();
+    if (isCombatQiLinked()) {
+        const qiAvailable = Math.max(0, G.qi != null ? G.qi : 0);
+        if (G.combatResource < amount) {
+            addCombatLog(`❌ Not enough ${cfg.resource}! Need ${amount}, have ${G.combatResource}.`);
+            return false;
+        }
+        if (qiAvailable < amount) {
+            addCombatLog(`❌ Dantian too depleted — need ${amount} Qi, have ${qiAvailable}. Gather Qi to fight longer.`);
+            return false;
+        }
+        G.combatResource -= amount;
+        G.qi = Math.max(0, G.qi - amount);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
+        G.combatResource = Math.min(G.combatResource, getQiLinkedBreathCap());
+        addCombatLog(`${cfg.icon} −${amount} ${cfg.resource} (${actionLabel}) · Dantian ${G.qi}/${typeof getMaxQi === 'function' ? getMaxQi() : '?'}`);
+        return true;
+    }
     if (G.combatResource < amount) {
-        const cfg = getCombatConfig();
         addCombatLog(`❌ Not enough ${cfg.resource}! Need ${amount}, have ${G.combatResource}.`);
         return false;
     }
     G.combatResource -= amount;
-    const cfg = getCombatConfig();
     addCombatLog(`${cfg.icon} −${amount} ${cfg.resource} (${actionLabel})`);
     return true;
 }
@@ -210,14 +294,373 @@ function estimateTypicalHitDamage() {
 }
 
 function pickEnemyTemplate() {
-    const eligible = ENEMIES.filter(e => (e.minRealm || 0) <= G.realmIdx);
-    const pool = eligible.length ? eligible : ENEMIES;
+    const zoneId = typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || 'dustbone');
+    let eligible = ENEMIES.filter(e => (e.minRealm || 0) <= G.realmIdx);
+    if (!eligible.length) eligible = ENEMIES;
+    const zoneMatches = eligible.filter(e => e.zones && e.zones.includes(zoneId));
+    const pool = zoneMatches.length && Math.random() < 0.65 ? zoneMatches : eligible;
     const weighted = [];
     pool.forEach(e => {
         const weight = 1 + (e.minRealm || 0);
         for (let i = 0; i < weight; i++) weighted.push(e);
     });
     return weighted[Math.floor(Math.random() * weighted.length)];
+}
+
+function rollGenericEnemyAffixes() {
+    const zoneId = typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || 'dustbone');
+    const maxAffixes = G.realmIdx >= 5 ? 2 : 1;
+    let count = Math.random() < (0.35 + G.realmIdx * 0.06) ? 1 : 0;
+    if (G.realmIdx >= 4 && Math.random() < 0.25) count = Math.min(maxAffixes, count + 1);
+    const picked = [];
+    for (let i = 0; i < count; i++) {
+        const weighted = [];
+        Object.keys(ENEMY_AFFIXES || {}).forEach(id => {
+            const a = ENEMY_AFFIXES[id];
+            if (!a) return;
+            if (a.minRealm != null && G.realmIdx < a.minRealm) return;
+            let w = 10;
+            if (a.zones && a.zones.includes(zoneId)) w += 25;
+            for (let j = 0; j < w; j++) weighted.push(id);
+        });
+        if (!weighted.length) break;
+        const choice = weighted[Math.floor(Math.random() * weighted.length)];
+        if (!picked.includes(choice)) picked.push(choice);
+    }
+    return picked;
+}
+
+function initCombatStatus() {
+    G.combatStatus = {
+        poisonTurns: 0,
+        poisonDmgPct: 0,
+        bleedTurns: 0,
+        bleedDmgPct: 0,
+        slowResourceRegenTurns: 0,
+        skipPlayerTurns: 0
+    };
+}
+
+function clearCombatStatus() {
+    G.combatStatus = null;
+}
+
+function hasEnemyAbilityKit(enemy) {
+    return !!(enemy && ((enemy.abilities && enemy.abilities.length) || (enemy.enrageAbilities && enemy.enrageAbilities.length)));
+}
+
+function isEnemyEnraged(enemy) {
+    if (!enemy) return false;
+    if (enemy.enraged) return true;
+    if (enemy.enrageThreshold == null) return false;
+    return enemy.hp / Math.max(1, enemy.maxHp) <= enemy.enrageThreshold;
+}
+
+function checkEnemyEnrage(enemy) {
+    if (!enemy || enemy.enraged || enemy.enrageThreshold == null) return;
+    if (enemy.hp / Math.max(1, enemy.maxHp) > enemy.enrageThreshold) return;
+    enemy.enraged = true;
+    if (!enemy.phaseTriggered) {
+        enemy.phaseTriggered = true;
+        addCombatLog(`🔥 ${stripEnemyDisplayPrefix(enemy.name)} enters a berserk frenzy!`, 'entry-mod');
+    }
+}
+
+function stripEnemyDisplayPrefix(name) {
+    return (name || '').replace(/^[^\w]*\s*/, '').trim();
+}
+
+function getEnemyActiveAbilities(enemy) {
+    if (!enemy) return [];
+    if (isEnemyEnraged(enemy) && enemy.enrageAbilities && enemy.enrageAbilities.length) {
+        return enemy.enrageAbilities;
+    }
+    return enemy.abilities || [];
+}
+
+function pickEnemyAbility(enemy) {
+    const pool = getEnemyActiveAbilities(enemy);
+    if (!pool.length) return null;
+    enemy.abilityCooldowns = enemy.abilityCooldowns || {};
+    const weighted = [];
+    pool.forEach(ab => {
+        const cd = enemy.abilityCooldowns[ab.id] || 0;
+        if (cd > 0) return;
+        const w = Math.max(1, ab.weight || 10);
+        for (let i = 0; i < w; i++) weighted.push(ab);
+    });
+    if (!weighted.length) return null;
+    return weighted[Math.floor(Math.random() * weighted.length)];
+}
+
+function tickEnemyAbilityCooldowns(enemy) {
+    if (!enemy?.abilityCooldowns) return;
+    Object.keys(enemy.abilityCooldowns).forEach(id => {
+        if (enemy.abilityCooldowns[id] > 0) enemy.abilityCooldowns[id]--;
+    });
+}
+
+function applyPlayerCombatStatus(effect) {
+    if (!effect || !G.combatStatus) return;
+    const cs = G.combatStatus;
+    if (effect.poisonTurns) {
+        cs.poisonTurns = Math.max(cs.poisonTurns || 0, effect.poisonTurns);
+        cs.poisonDmgPct = Math.max(cs.poisonDmgPct || 0, effect.poisonDmgPct || 0.04);
+    }
+    if (effect.bleedTurns) {
+        cs.bleedTurns = Math.max(cs.bleedTurns || 0, effect.bleedTurns);
+        cs.bleedDmgPct = Math.max(cs.bleedDmgPct || 0, effect.bleedDmgPct || 0.03);
+    }
+    if (effect.slowResourceRegen) {
+        cs.slowResourceRegenTurns = Math.max(cs.slowResourceRegenTurns || 0, effect.slowResourceRegen);
+    }
+    if (effect.skipPlayerTurn) {
+        cs.skipPlayerTurns = (cs.skipPlayerTurns || 0) + effect.skipPlayerTurn;
+    }
+}
+
+function processPlayerTurnStart() {
+    if (!G.inCombat || !G.combatStatus) return false;
+    const cs = G.combatStatus;
+    const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
+    let dotTotal = 0;
+    if (cs.poisonTurns > 0 && cs.poisonDmgPct > 0) {
+        const poisonDmg = Math.max(1, Math.floor(hpCap * cs.poisonDmgPct));
+        G.hp = Math.max(0, G.hp - poisonDmg);
+        dotTotal += poisonDmg;
+        cs.poisonTurns--;
+        addCombatLog(`☠️ Poison courses through you for ${poisonDmg} damage.`, 'entry-hp');
+        if (cs.poisonTurns === 0) addCombatLog(`☠️ The venom fades.`, 'entry-mod');
+    }
+    if (cs.bleedTurns > 0 && cs.bleedDmgPct > 0) {
+        const bleedDmg = Math.max(1, Math.floor(hpCap * cs.bleedDmgPct));
+        G.hp = Math.max(0, G.hp - bleedDmg);
+        dotTotal += bleedDmg;
+        cs.bleedTurns--;
+        addCombatLog(`🩸 Bleeding wounds seep for ${bleedDmg} damage.`, 'entry-hp');
+        if (cs.bleedTurns === 0) addCombatLog(`🩸 The bleeding stops.`, 'entry-mod');
+    }
+    if (dotTotal > 0 && G.hp <= 0) {
+        handlePlayerCombatDefeat();
+        return true;
+    }
+    if (cs.skipPlayerTurns > 0) {
+        cs.skipPlayerTurns--;
+        addCombatLog(`⏸️ You are staggered — you cannot act this turn!`, 'entry-mod');
+        return true;
+    }
+    return false;
+}
+
+function handlePlayerCombatDefeat() {
+    if (typeof isMirrorTrial === 'function' && isMirrorTrial()) { forbiddenMirrorDefeat(); return; }
+    if (typeof isCrucibleTrial === 'function' && isCrucibleTrial()) { forbiddenCrucibleDefeat(); return; }
+    if (typeof isSilenceTrial === 'function' && isSilenceTrial()) { forbiddenSilenceDefeat(); return; }
+    if (typeof isMawTrial === 'function' && isMawTrial()) { forbiddenMawDefeat(); return; }
+    if (typeof isEncounterCombat === 'function' && isEncounterCombat()) { encounterCombatDefeat(); return; }
+    if (typeof isAncientGuardianCombat === 'function' && isAncientGuardianCombat()) { ancientGuardianDefeat(); return; }
+    if (typeof isStoryCombat === 'function' && isStoryCombat()) { storyCombatDefeat(); return; }
+    if (typeof isNpcCombat === 'function' && isNpcCombat()) { npcCombatDefeat(); return; }
+    if (typeof isFactionHuntCombat === 'function' && isFactionHuntCombat()) { exploitHuntCombatDefeat(); return; }
+    if (typeof isTribulationCombat === 'function' && isTribulationCombat()) { tribulationCombatDefeat(); return; }
+    G.hp = 0;
+    addCombatLog(`💀 You have been defeated...`, 'entry-hp');
+    G.gameOver = true;
+    if (typeof triggerBitterReincarnation === 'function') setTimeout(() => triggerBitterReincarnation(), 600);
+    endCombat();
+}
+
+function applyEnemyElementModifier(dmg, element) {
+    if (!G.enemy?.weakness || !element) return dmg;
+    const mult = G.enemy.weakness[element];
+    if (mult == null || mult === 1) return dmg;
+    const adjusted = Math.max(1, Math.floor(dmg * mult));
+    if (mult > 1 && adjusted > dmg) {
+        const icon = (typeof ENEMY_ELEMENT_ICONS !== 'undefined' && ENEMY_ELEMENT_ICONS[element]) || '';
+        addCombatLog(`${icon} ${stripEnemyDisplayPrefix(G.enemy.name)} is weak to ${element} — shattering blow!`, 'entry-mod');
+    } else if (mult < 1) {
+        addCombatLog(`🛡️ ${stripEnemyDisplayPrefix(G.enemy.name)} resists ${element} damage.`, 'entry-mod');
+    }
+    return adjusted;
+}
+
+function buildEnemyFromDef(def, template, options = {}) {
+    const calcCtx = options.calcContext || { context: 'normal' };
+    let hp = calcEnemyHp(template, calcCtx);
+    let dmg = calcEnemyDamage(template, calcCtx);
+    hp = Math.floor(hp * (def.hpMult || 1));
+    dmg = Math.floor(dmg * (def.dmgMult || 1));
+
+    const affixes = options.affixes || def.affixes || [];
+    let displayName = def.name || template.name;
+    const affixLabels = [];
+    affixes.forEach(affixId => {
+        const affix = ENEMY_AFFIXES?.[affixId];
+        if (!affix) return;
+        affixLabels.push(affix.label);
+        hp = Math.floor(hp * (affix.hpMult || 1));
+        dmg = Math.floor(dmg * (affix.dmgMult || 1));
+    });
+    if (affixLabels.length) displayName = `${affixLabels.join(' ')} ${displayName}`;
+
+    const enemy = {
+        name: options.namePrefix ? `${options.namePrefix}${displayName}` : displayName,
+        hp,
+        maxHp: hp,
+        dmg,
+        originalDmg: dmg,
+        intimidateTurns: 0,
+        skipTurns: 0,
+        slowTurns: 0,
+        defending: false,
+        abilityCooldowns: {},
+        enraged: false,
+        phaseTriggered: false,
+        affixes: affixes.slice(),
+        lastAction: null,
+        ...(options.extraFlags || {})
+    };
+
+    if (def.element) enemy.element = def.element;
+    if (def.weakness) enemy.weakness = { ...def.weakness };
+    if (def.resistance) enemy.resistance = { ...def.resistance };
+    if (def.abilities) enemy.abilities = def.abilities.map(a => ({ ...a, effect: { ...a.effect, applyPlayer: a.effect?.applyPlayer ? { ...a.effect.applyPlayer } : undefined } }));
+    if (def.enrageAbilities) enemy.enrageAbilities = def.enrageAbilities.map(a => ({ ...a, effect: { ...a.effect, applyPlayer: a.effect?.applyPlayer ? { ...a.effect.applyPlayer } : undefined } }));
+    if (def.enrageThreshold != null) enemy.enrageThreshold = def.enrageThreshold;
+    if (def.traits) enemy.traits = def.traits.slice();
+    if (def.emoji && !options.namePrefix) enemy.emoji = def.emoji;
+
+    affixes.forEach(id => {
+        const affix = ENEMY_AFFIXES?.[id];
+        if (!affix) return;
+        if (affix.enrageThreshold != null && enemy.enrageThreshold == null) enemy.enrageThreshold = affix.enrageThreshold;
+        if (affix.element && !enemy.element) enemy.element = affix.element;
+        if (affix.abilities) {
+            enemy.abilities = (enemy.abilities || []).concat(affix.abilities);
+        }
+        if (affix.traits) {
+            enemy.traits = (enemy.traits || []).concat(affix.traits);
+        }
+    });
+
+    if (template?.element && !enemy.element) enemy.element = template.element;
+    if (template?.abilities && !enemy.abilities) enemy.abilities = template.abilities;
+    if (template?.enrageThreshold != null && enemy.enrageThreshold == null) enemy.enrageThreshold = template.enrageThreshold;
+    if (template?.enrageAbilities && !enemy.enrageAbilities) enemy.enrageAbilities = template.enrageAbilities;
+    if (template?.weakness && !enemy.weakness) enemy.weakness = template.weakness;
+    if (template?.traits && !enemy.traits) enemy.traits = template.traits;
+
+    return enemy;
+}
+
+function calcEnemyStrikeDamage(enemy, mult) {
+    mult = mult || 1;
+    let raw = enemy.dmg + Math.floor(Math.random() * 4);
+    if (isEnemyEnraged(enemy)) raw = Math.floor(raw * 1.2);
+    raw = Math.floor(raw * mult);
+    if (enemy.intimidateTurns > 0) {
+        const reduction = 0.25 + Math.min(0.25, G.will * 0.01);
+        raw = Math.floor(raw * (1 - reduction));
+    }
+    if (enemy.slowTurns > 0) raw = Math.floor(raw * 0.7);
+    return Math.max(1, raw);
+}
+
+function resolveEnemyAbilityStrike(enemy, dmgMult, effect) {
+    effect = effect || {};
+    const hits = 1 + (enemy.traits?.includes('swarm') ? 1 : 0) + (effect.extraHits || 0);
+    const perHitMult = enemy.traits?.includes('swarm') ? 0.6 : 1;
+    for (let i = 0; i < hits; i++) {
+        const rawDmg = calcEnemyStrikeDamage(enemy, (dmgMult || 1) * perHitMult);
+        let afterIntimidate = rawDmg;
+        let intimidateReduced = 0;
+        if (enemy.intimidateTurns > 0) {
+            const baseRaw = enemy.dmg + Math.floor(Math.random() * 4);
+            intimidateReduced = baseRaw - rawDmg;
+        }
+        resolveEnemyStrike(enemy.name, afterIntimidate, {
+            intimidateReduced,
+            displayRaw: rawDmg,
+            spiritDamage: effect.applyPlayer?.spiritDamage || effect.spiritDamage,
+            bypassShieldPct: effect.bypassShieldPct
+        });
+        if (G.hp <= 0) break;
+    }
+}
+
+function executeEnemyAbility(enemy, ability) {
+    const effect = ability.effect || {};
+    enemy.lastAction = ability.telegraph || ability.id;
+    if (ability.telegraph) addCombatLog(ability.telegraph, 'entry-mod');
+    if (effect.log) addCombatLog(effect.log, 'entry-mod');
+
+    if (effect.selfDefend) {
+        enemy.defending = true;
+        addCombatLog(`🛡️ ${stripEnemyDisplayPrefix(enemy.name)} braces for your next strike.`, 'entry-mod');
+    }
+    if (effect.selfSkipTurns) {
+        enemy.chargeTurns = (enemy.chargeTurns || 0) + effect.selfSkipTurns;
+        addCombatLog(`⏳ ${stripEnemyDisplayPrefix(enemy.name)} gathers power...`, 'entry-mod');
+    }
+    if (effect.healSelfPct) {
+        const heal = Math.max(1, Math.floor(enemy.maxHp * effect.healSelfPct));
+        enemy.hp = Math.min(enemy.maxHp, enemy.hp + heal);
+        addCombatLog(`💚 ${stripEnemyDisplayPrefix(enemy.name)} recovers ${heal} HP!`, 'entry-mod');
+    }
+    if (effect.stripShieldPct && G.shield > 0) {
+        const stripped = Math.max(1, Math.floor(G.shield * effect.stripShieldPct));
+        G.shield = Math.max(0, G.shield - stripped);
+        updateShield();
+        addCombatLog(`🌊 Your ${getBarrierLabel()} is torn away (−${stripped})!`, 'entry-mod');
+    }
+    if (effect.stealStones && G.stones > 0) {
+        const chance = effect.stealStones.chance != null ? effect.stealStones.chance : 0.5;
+        if (Math.random() < chance) {
+            const amt = Math.min(G.stones, effect.stealStones.min + Math.floor(Math.random() * ((effect.stealStones.max - effect.stealStones.min) + 1)));
+            G.stones -= amt;
+            addCombatLog(`💰 ${stripEnemyDisplayPrefix(enemy.name)} pilfers ${amt} spirit stones!`, 'entry-mod');
+        }
+    }
+    if (effect.applyPlayer) applyPlayerCombatStatus(effect.applyPlayer);
+    if (effect.willCheck && G.will < effect.willCheck.min) {
+        applyPlayerCombatStatus({ skipPlayerTurn: effect.willCheck.failSkip || 1 });
+        addCombatLog(`👁️ Your will falters under the phantom's gaze!`, 'entry-mod');
+    }
+
+    if (!effect.noDamage) {
+        resolveEnemyAbilityStrike(enemy, effect.bonusDmgMult || 1, effect);
+    }
+
+    if (ability.cooldown) {
+        enemy.abilityCooldowns[ability.id] = ability.cooldown;
+    }
+}
+
+function enemyAbilityTurn(enemy) {
+    checkEnemyEnrage(enemy);
+    tickEnemyAbilityCooldowns(enemy);
+    const ability = pickEnemyAbility(enemy);
+    if (ability) {
+        executeEnemyAbility(enemy, ability);
+    } else {
+        enemy.lastAction = 'Strike';
+        const rawDmg = calcEnemyStrikeDamage(enemy, 1);
+        resolveEnemyStrike(enemy.name, rawDmg, { displayRaw: rawDmg });
+    }
+}
+
+function grantEncounterCombatLoot(combatKey) {
+    const def = ENCOUNTER_ENEMIES?.[combatKey];
+    if (!def?.loot || typeof addCraftMaterial !== 'function') return [];
+    const chance = def.loot.chance != null ? def.loot.chance : 1;
+    if (Math.random() > chance) return [];
+    const lines = [];
+    Object.entries(def.loot.materials || {}).forEach(([matId, qty]) => {
+        addCraftMaterial(matId, qty);
+        const mat = CRAFT_MATERIALS?.[matId];
+        lines.push(`${mat?.emoji || '📦'} +${qty} ${mat?.name || matId}`);
+    });
+    return lines;
 }
 
 function pickCrucibleTemplate(wave) {
@@ -378,19 +821,21 @@ function rollPlayerCombatHit() {
 
 function startCombat() {
     if (G.inCombat) return;
+    initCombatStatus();
     const enemyTemplate = pickEnemyTemplate();
-    const enemyHp = calcEnemyHp(enemyTemplate);
-    const enemyDmg = calcEnemyDamage(enemyTemplate);
-    G.enemy = {
+    const affixes = rollGenericEnemyAffixes();
+    const def = {
         name: enemyTemplate.name,
-        hp: enemyHp,
-        maxHp: enemyHp,
-        dmg: enemyDmg,
-        originalDmg: enemyDmg,
-        intimidateTurns: 0,
-        skipTurns: 0,
-        slowTurns: 0
+        hpMult: 1,
+        dmgMult: 1,
+        element: enemyTemplate.element,
+        abilities: enemyTemplate.abilities,
+        enrageThreshold: enemyTemplate.enrageThreshold,
+        enrageAbilities: enemyTemplate.enrageAbilities,
+        weakness: enemyTemplate.weakness,
+        traits: enemyTemplate.traits
     };
+    G.enemy = buildEnemyFromDef(def, enemyTemplate, { affixes });
     G.enemyMaxHp = G.enemy.hp;
     G.inCombat = true;
     G.defending = false;
@@ -404,7 +849,12 @@ function startCombat() {
         G.shield = G.maxShield;
     }
     const cfg = getCombatConfig();
-    addCombatLog(`⚔️ A ${G.enemy.name} appears! (${G.enemy.hp} HP, ${G.enemy.dmg} dmg)`);
+    const affixNote = affixes.length ? ` [${affixes.map(id => ENEMY_AFFIXES[id]?.label || id).join(', ')}]` : '';
+    addCombatLog(`⚔️ A ${G.enemy.name} appears!${affixNote} (${G.enemy.hp} HP, ${G.enemy.dmg} dmg)`);
+    if (isCombatQiLinked()) {
+        const pool = getQiLinkedCombatStartPool();
+        addCombatLog(`🌬️ Breath ${G.combatResource}/${G.maxCombatResource} drawn from dantian (${pool.currentQi}/${pool.maxQi} Qi).`);
+    }
     addCombatLog(`${cfg.icon} ${cfg.resource}: ${G.combatResource}/${G.maxCombatResource}`);
     if (getEffectiveFoundation() >= 20) {
         addCombatLog(`🌬️ Deep foundation — your dantian holds a wider combat reserve.`);
@@ -417,7 +867,8 @@ function startCombat() {
     document.getElementById('combatOverlay').classList.add('active');
 }
 
-function endCombat() {
+function endCombat(exitCtx) {
+    finalizeCombatQiDrain(exitCtx || {});
     clearCombatTurnTimer();
     G.combatPhase = 'player';
     G.inCombat = false;
@@ -429,6 +880,7 @@ function endCombat() {
     G.mawTrial = false;
     G.encounterCombat = null;
     G.npcCombat = null;
+    clearCombatStatus();
     document.getElementById('combatOverlay').classList.remove('active');
     const fleeBtn = document.getElementById('cbFlee');
     if (fleeBtn) {
@@ -470,6 +922,11 @@ function scheduleOpponentTurn() {
         if (!G.inCombat || !G.enemy) return;
         opponentTurn();
         if (G.inCombat && !G.gameOver) {
+            if (processPlayerTurnStart()) {
+                updateCombatUI();
+                if (G.inCombat && !G.gameOver) scheduleOpponentTurn();
+                return;
+            }
             G.combatPhase = 'player';
             setCombatInputEnabled(true);
             updateCombatUI();
@@ -508,7 +965,10 @@ function resolveEnemyStrike(enemyName, dmgAfterMods, opts) {
         G.fortifyActive = false;
     }
 
-    const result = takeDamage(breakdown.afterModifiers);
+    const result = takeDamage(breakdown.afterModifiers, {
+        spiritDamage: opts.spiritDamage,
+        bypassShieldPct: opts.bypassShieldPct
+    });
     breakdown.evaded = result.evaded;
     breakdown.physiqueReduced = result.physiqueReduced || 0;
     breakdown.barrierAbsorbed = result.barrierAbsorbed || 0;
@@ -569,6 +1029,8 @@ function combatAttack() {
     const intentFx = typeof applyIntentArtsOnBasicAttack === 'function'
         ? applyIntentArtsOnBasicAttack(dmg) : { dmg, extraDmg: 0, logs: [], resourceGain: 0 };
     dmg = intentFx.dmg;
+    const basicElement = G.path === 'soul' ? 'soul' : (G.path === 'body' ? 'earth' : 'neutral');
+    dmg = applyEnemyElementModifier(dmg, basicElement);
 
     if (G.path === 'soul') {
         addCombatLog(`🧠 Soul Strike! ${dmg} damage (ignores block).`);
@@ -695,6 +1157,18 @@ function combatUseTechnique(name) {
     const tech = getTechniqueByName(name);
     if (!tech) return;
 
+    if (typeof getTechniqueCombatViability === 'function') {
+        const v = getTechniqueCombatViability(tech);
+        if (!v.usable) {
+            addCombatLog(`📜 ${v.warnText}`);
+            scheduleOpponentTurn();
+            return;
+        }
+        if (v.warnText && v.warnIcon && v.warnIcon !== '📉' && !v.intentMatched) {
+            addCombatLog(`🗡️ ${v.warnText.split('.')[0]}.`);
+        }
+    }
+
     const cost = getTechniqueCombatCost(tech);
     if (!spendCombatResource(cost, tech.name)) return;
     if (!combatSpendRound()) return;
@@ -706,6 +1180,7 @@ function combatUseTechnique(name) {
     const result = executeCombatTechnique(tech);
     const meta = getTechniqueMeta(tech);
     let dmg = applyMirrorDamageToReflection(result.damage);
+    dmg = applyEnemyElementModifier(dmg, meta.element);
     if (result.igniteBonus) {
         dmg += result.igniteBonus;
         addCombatLog(`🔥 Fire Affinity ignites! +${result.igniteBonus} bonus damage!`);
@@ -787,7 +1262,7 @@ function combatFlee() {
         addCombatLog(`🏃 You break for open ground... (${chance}% chance)`);
         if (Math.random() * 100 < chance) {
             if (typeof npcCombatFleeSuccess === 'function') npcCombatFleeSuccess();
-            else endCombat();
+            else endCombat({ fled: true });
         } else {
             refundFailedFleeCost(cost);
             addCombatLog(`😰 Failed to flee! Your opponent cuts off the retreat.`);
@@ -815,7 +1290,7 @@ function combatFlee() {
     if (Math.random() * 100 < chance) {
         addCombatLog(`🏃 You escape!`);
         if (G.fame > 0) G.fame -= 1;
-        endCombat();
+        endCombat({ fled: true });
     } else {
         refundFailedFleeCost(cost);
         addCombatLog(`😰 Failed to flee! ${G.enemy?.name || 'The enemy'} cuts off your retreat.`);
@@ -829,6 +1304,12 @@ function refundFailedFleeCost(cost) {
     const refund = Math.max(1, Math.floor(cost * pct));
     const before = G.combatResource;
     G.combatResource = Math.min(G.maxCombatResource, G.combatResource + refund);
+    if (isCombatQiLinked()) {
+        const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : (G.qi || 0);
+        G.qi = Math.min(maxQi, (G.qi || 0) + refund);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
+        G.combatResource = Math.min(getQiLinkedBreathCap(), G.combatResource);
+    }
     if (G.combatResource > before) {
         addCombatLog(`${cfg.icon} ${refund} ${cfg.resource} recovered in the scramble.`);
     }
@@ -911,7 +1392,7 @@ function combatVictory(fromTechnique) {
             rewards: lines
         });
     }
-    endCombat();
+    endCombat({ victory: true });
 }
 
 function enemyTurn() {
@@ -923,89 +1404,47 @@ function enemyTurn() {
 
     if (G.enemy.skipTurns > 0) {
         G.enemy.skipTurns--;
-        addCombatLog(`❄️ ${G.enemy.name} is bound by True Dao — they cannot act!`, 'entry-mod');
+        addCombatLog(`❄️ ${stripEnemyDisplayPrefix(G.enemy.name)} is bound by True Dao — they cannot act!`, 'entry-mod');
         combatEndOfTurnRegen();
         updateCombatUI();
         return;
     }
 
-    const rawDmg = G.enemy.dmg + Math.floor(Math.random() * 4);
-    let afterIntimidate = rawDmg;
-    let intimidateReduced = 0;
-    if (G.enemy.intimidateTurns > 0) {
-        const reduction = 0.25 + Math.min(0.25, G.will * 0.01);
-        afterIntimidate = Math.floor(rawDmg * (1 - reduction));
-        intimidateReduced = rawDmg - afterIntimidate;
-    }
-    if (G.enemy.slowTurns > 0) {
-        const slowReduced = Math.floor(afterIntimidate * 0.3);
-        afterIntimidate -= slowReduced;
-        intimidateReduced += slowReduced;
+    if (G.enemy.chargeTurns > 0) {
+        G.enemy.chargeTurns--;
+        addCombatLog(`⏳ ${stripEnemyDisplayPrefix(G.enemy.name)} is still gathering power!`, 'entry-mod');
+        combatEndOfTurnRegen();
+        updateCombatUI();
+        return;
     }
 
-    resolveEnemyStrike(G.enemy.name, afterIntimidate, { intimidateReduced, displayRaw: rawDmg });
+    if (hasEnemyAbilityKit(G.enemy)) {
+        enemyAbilityTurn(G.enemy);
+    } else {
+        const rawDmg = calcEnemyStrikeDamage(G.enemy, 1);
+        let intimidateReduced = 0;
+        if (G.enemy.intimidateTurns > 0 || G.enemy.slowTurns > 0) {
+            const unmod = G.enemy.dmg + Math.floor(Math.random() * 4);
+            intimidateReduced = Math.max(0, unmod - rawDmg);
+        }
+        resolveEnemyStrike(G.enemy.name, rawDmg, { intimidateReduced, displayRaw: rawDmg });
+    }
 
     if (G.enemy.intimidateTurns > 0) {
         G.enemy.intimidateTurns--;
         if (G.enemy.intimidateTurns === 0) {
-            addCombatLog(`👁️ ${G.enemy.name} shakes off your intimidation.`, 'entry-mod');
+            addCombatLog(`👁️ ${stripEnemyDisplayPrefix(G.enemy.name)} shakes off your intimidation.`, 'entry-mod');
         }
     }
     if (G.enemy.slowTurns > 0) {
         G.enemy.slowTurns--;
         if (G.enemy.slowTurns === 0) {
-            addCombatLog(`🌪️ ${G.enemy.name} breaks free of the wind's drag.`, 'entry-mod');
+            addCombatLog(`🌪️ ${stripEnemyDisplayPrefix(G.enemy.name)} breaks free of the wind's drag.`, 'entry-mod');
         }
     }
 
     if (G.hp <= 0) {
-        if (typeof isMirrorTrial === 'function' && isMirrorTrial()) {
-            forbiddenMirrorDefeat();
-            return;
-        }
-        if (typeof isCrucibleTrial === 'function' && isCrucibleTrial()) {
-            forbiddenCrucibleDefeat();
-            return;
-        }
-        if (typeof isSilenceTrial === 'function' && isSilenceTrial()) {
-            forbiddenSilenceDefeat();
-            return;
-        }
-        if (typeof isMawTrial === 'function' && isMawTrial()) {
-            forbiddenMawDefeat();
-            return;
-        }
-        if (typeof isEncounterCombat === 'function' && isEncounterCombat()) {
-            encounterCombatDefeat();
-            return;
-        }
-        if (typeof isAncientGuardianCombat === 'function' && isAncientGuardianCombat()) {
-            ancientGuardianDefeat();
-            return;
-        }
-        if (typeof isStoryCombat === 'function' && isStoryCombat()) {
-            storyCombatDefeat();
-            return;
-        }
-        if (typeof isNpcCombat === 'function' && isNpcCombat()) {
-            npcCombatDefeat();
-            return;
-        }
-        if (typeof isFactionHuntCombat === 'function' && isFactionHuntCombat()) {
-            exploitHuntCombatDefeat();
-            return;
-        }
-        if (typeof isTribulationCombat === 'function' && isTribulationCombat()) {
-            tribulationCombatDefeat();
-            return;
-        }
-        G.hp = 0;
-        addCombatLog(`💀 You have been defeated...`, 'entry-hp');
-        G.gameOver = true;
-        if (typeof triggerBitterReincarnation === 'function') {
-            setTimeout(() => triggerBitterReincarnation(), 600);
-        }
-        endCombat();
+        handlePlayerCombatDefeat();
         return;
     }
 
@@ -1013,7 +1452,8 @@ function enemyTurn() {
     updateCombatUI();
 }
 
-function takeDamage(dmg) {
+function takeDamage(dmg, opts) {
+    opts = opts || {};
     let physiqueReduced = 0;
     const defensePct = (G.defenseBonus || 0)
         + (typeof getGearDefenseBonus === 'function' ? getGearDefenseBonus() : 0)
@@ -1064,9 +1504,17 @@ function takeDamage(dmg) {
     const hpBefore = G.hp;
 
     if ((G.path === 'qi' || G.path === 'soul') && G.shield > 0) {
-        barrierAbsorbed = Math.min(G.shield, dmg);
+        let shieldable = dmg;
+        if (opts.spiritDamage || opts.bypassShieldPct) {
+            const bypass = opts.bypassShieldPct != null ? opts.bypassShieldPct : 0.5;
+            shieldable = Math.floor(dmg * (1 - bypass));
+        }
+        barrierAbsorbed = Math.min(G.shield, shieldable);
         G.shield -= barrierAbsorbed;
         dmg -= barrierAbsorbed;
+        if (opts.spiritDamage && barrierAbsorbed < shieldable) {
+            addCombatLog(`👻 Spirit force pierces partially through your ${getBarrierLabel()}.`, 'entry-mod');
+        }
     }
 
     G.hp -= Math.max(0, dmg);
@@ -1083,9 +1531,20 @@ function takeDamage(dmg) {
 
 function combatEndOfTurnRegen() {
     const cfg = getCombatConfig();
-    const resGain = getCombatResourceRegenGain();
+    let resGain = getCombatResourceRegenGain();
+    if (G.combatStatus?.slowResourceRegenTurns > 0) {
+        resGain = Math.max(0, Math.floor(resGain * 0.5));
+        G.combatStatus.slowResourceRegenTurns--;
+        if (G.combatStatus.slowResourceRegenTurns === 0) {
+            addCombatLog(`🌬️ Your circulation clears — resource recovery normalizes.`, 'entry-mod');
+        }
+    }
     const before = G.combatResource;
-    G.combatResource = Math.min(G.maxCombatResource, G.combatResource + resGain);
+    if (isCombatQiLinked()) {
+        G.combatResource = Math.min(getQiLinkedBreathCap(), G.combatResource + resGain);
+    } else {
+        G.combatResource = Math.min(G.maxCombatResource, G.combatResource + resGain);
+    }
     const gained = G.combatResource - before;
     if (gained > 0) {
         const flavor = G.path === 'qi' ? 'Qi circulation steadies' : G.path === 'body' ? 'Breath returns to tired limbs' : 'Focus sharpens anew';

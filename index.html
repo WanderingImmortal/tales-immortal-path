@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=74" />
+    <link rel="stylesheet" href="style.css?v=86" />
 </head>
 <body>
 
@@ -165,10 +165,15 @@
                         <span class="alignment-meta"><span class="meta-label">☯️</span> <span id="daoAlignmentDisplay">0 (Neutral)</span></span>
                     </div>
 
-                    <div id="sidebarGearStrip" class="sidebar-gear-strip" title="Equipped gear — open Inventory for details"></div>
+                    <div id="sidebarGearStrip" class="sidebar-gear-strip" title="Equipped gear — click to open Inventory (pouches &amp; crafting)"></div>
 
                     <button type="button" id="btnStatsToggle" class="details-toggle">More stats ▼</button>
                     <button type="button" id="btnStatGuide" class="details-toggle stat-guide-btn">❓ What do stats mean?</button>
+                    <button type="button" id="btnSettingsToggle" class="details-toggle settings-toggle-btn">⚙️ Settings ▼</button>
+                    <div id="settingsPanel" class="settings-panel" hidden>
+                        <label class="settings-check"><input type="checkbox" id="settingHoverTooltips" /> Show hover tooltips</label>
+                        <p class="settings-hint">Action details use the <span class="action-help-inline-demo">?</span> button by default.</p>
+                    </div>
                     <button type="button" id="btnTutorialLog" class="details-toggle tutorial-log-btn">📖 Cultivation Lessons</button>
                     <div id="advancedStats" class="advanced-stats">
                         <div class="stat-item"><span class="label">🎭 Trait</span><span class="value" id="traitStatDisplay">—</span></div>
@@ -199,10 +204,22 @@
                         <div class="action-group">
                             <div class="action-group-label">Cultivation</div>
                             <div class="actions-row">
-                                <button id="btnCultivate" title="Choose Qi, Body, or Soul cultivation">🧘 Cultivate</button>
-                                <button id="btnConsolidate" title="Seal realm at Settled (80%+) or Peak (100%)">🏛️ Seal Dantian</button>
-                                <button id="btnBreakthrough" title="2 years · requires realm seal">🌀 Break</button>
-                                <button id="btnRecuperate" title="3 months · heal HP & barrier">🛌 Recuperate</button>
+                                <div class="action-with-help">
+                                    <button id="btnCultivate">🧘 Cultivate</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpCultivate" aria-label="About Cultivate">?</button>
+                                </div>
+                                <div class="action-with-help">
+                                    <button id="btnConsolidate">🏛️ Seal Dantian</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpConsolidate" aria-label="About Seal Dantian">?</button>
+                                </div>
+                                <div class="action-with-help">
+                                    <button id="btnBreakthrough">🌀 Break</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpBreakthrough" aria-label="About Break Through">?</button>
+                                </div>
+                                <div class="action-with-help">
+                                    <button id="btnRecuperate">🛌 Recuperate</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpRecuperate" aria-label="About Recuperate">?</button>
+                                </div>
                             </div>
                             <div class="actions-row actions-row-sub" style="margin-top:6px;">
                                 <button id="btnMeridian">☯️ Meridians</button>
@@ -214,9 +231,9 @@
                             <div class="action-group-label">Arts &amp; Gear</div>
                             <div class="actions-row actions-row-wrap">
                                 <button id="btnTech">📚 Techs</button>
-                                <button id="btnPhysique">🧬 Physique</button>
                                 <button id="btnPill" title="Choose a pill to consume">💊 Pills</button>
                                 <button id="btnAlchemy" title="Alchemy Chamber — brew pills">⚗️ Alchemy</button>
+                                <button id="btnForge" title="Forge Chamber — craft and repair gear">🔨 Forge</button>
                                 <button id="btnInventory">🎒 Inventory</button>
                             </div>
                         </div>
@@ -224,7 +241,7 @@
                             <div class="action-group-label">World</div>
                             <div class="actions-row">
                                 <button id="btnExplore" title="4 months · loot & manuals">🌿 Explore</button>
-                                <button id="btnSearch" title="4 months · find sealed entrances">🔍 Search</button>
+                                <button id="btnSearch" title="Probe rumored sealed-site entrances in this region — not forbidden grounds or Dao fragments">🗝️ Probe Sealed Sites</button>
                                 <button id="btnMap" title="8 months to travel">🗺️ Map</button>
                                 <button id="btnMarket" title="Markets in Heartlands & Jade">🏪 Market</button>
                                 <button id="btnCombat" title="2 months + battle time">⚔️ Fight</button>
@@ -248,7 +265,7 @@
                             <div id="questLogList" class="quest-log-list">
                                 <p class="quest-log-empty">No active quests.</p>
                             </div>
-                            <button type="button" id="btnQuestJournal" class="details-toggle quest-journal-btn">📖 Cultivation Chronicle</button>
+                            <button type="button" id="btnQuestJournal" class="details-toggle quest-journal-btn">📖 Open Chronicle</button>
                         </div>
                         <div class="action-group" id="npcPresenceGroup">
                             <div class="action-group-label">Other People</div>
@@ -344,11 +361,6 @@
                         <div class="scene-card-sub" id="sceneFame">Unknown · 0 fame</div>
                         <div class="scene-card-sub" id="sceneFaction" style="display:none;"></div>
                     </div>
-                    <div class="scene-card scene-card-wide" id="sceneNpcCard" style="display:none;">
-                        <div class="scene-card-label">People Here</div>
-                        <div class="scene-card-value" id="sceneNpcs">—</div>
-                        <div class="scene-card-sub">Tap a name in the sidebar to speak with them</div>
-                    </div>
                     <div class="scene-card scene-card-wide">
                         <div class="scene-card-label">Forbidden Grounds</div>
                         <div class="scene-card-value" id="sceneForbidden">0/7 · 0/7</div>
@@ -408,8 +420,8 @@
         <p class="forbidden-hint" id="forbiddenHint">Search while in a zone (Core Formation+) to uncover clues.</p>
         <div id="forbiddenList"></div>
         <button type="button" class="popup-item" id="btnForbiddenSearch" style="width:100%;text-align:center;margin-top:8px;">
-            <div class="name">🔍 Search This Zone</div>
-            <div class="desc">6 months · rumors &amp; fragments</div>
+            <div class="name">🌑 Scry Forbidden Paths</div>
+            <div class="desc">6 months · rumors &amp; fragments in this zone</div>
         </button>
         <button class="close-btn" id="forbiddenClose">Close</button>
     </div>
@@ -504,14 +516,11 @@
         <h2>📖 Cultivation Chronicle</h2>
         <p class="quest-journal-hint" id="questJournalHint">Your saga, sect duties, and world leads.</p>
         <div class="quest-journal-tabs" id="questJournalTabs">
-            <button type="button" class="journal-tab active" data-journal-tab="all">All</button>
-            <button type="button" class="journal-tab" data-journal-tab="faction">⚖️ Factions</button>
-            <button type="button" class="journal-tab" data-journal-tab="faction-chronicle">📜 Faction Log</button>
-            <button type="button" class="journal-tab" data-journal-tab="ancient">🔒 Sealed Sites</button>
-            <button type="button" class="journal-tab" data-journal-tab="active">Active</button>
+            <button type="button" class="journal-tab active" data-journal-tab="active">Active</button>
             <button type="button" class="journal-tab" data-journal-tab="sect">Sect</button>
             <button type="button" class="journal-tab" data-journal-tab="world">World</button>
             <button type="button" class="journal-tab" data-journal-tab="arc">Arcs</button>
+            <button type="button" class="journal-tab" data-journal-tab="ancient">🔒 Sealed Sites</button>
         </div>
         <div id="questJournalList" class="quest-journal-list"></div>
         <button type="button" class="close-btn" id="questJournalClose">Close</button>
@@ -531,6 +540,11 @@
     <div class="popup-box factions-box">
         <h2>⚖️ Factions of the Azure Sky</h2>
         <p class="factions-hint" id="factionsHint">Power structures, reputation, and zone politics.</p>
+        <div class="factions-tabs" id="factionsTabs">
+            <button type="button" class="factions-tab active" data-factions-tab="here">Here</button>
+            <button type="button" class="factions-tab" data-factions-tab="standing">Standing</button>
+            <button type="button" class="factions-tab" data-factions-tab="chronicle">Chronicle</button>
+        </div>
         <div id="factionsInfo" class="factions-info"></div>
         <button type="button" class="close-btn" id="factionsClose">Close</button>
     </div>
@@ -546,7 +560,8 @@
 
 <div class="popup-overlay" id="inventoryPopup">
     <div class="popup-box inventory-box">
-        <h2>🎒 Inventory &amp; Gear</h2>
+        <h2 class="inventory-header-row">🎒 Inventory &amp; Travel Kit <button type="button" class="inventory-header-forge" id="inventoryHeaderForge">🔨 Open Forge</button></h2>
+        <div id="travelKitPanel"></div>
         <p class="inventory-summary" id="inventorySummary">Your pouches are empty.</p>
         <div id="gearBonusPanel" class="gear-bonus-panel-wrap"></div>
         <div id="gearSlotsGrid" class="gear-slots-grid"></div>
@@ -581,7 +596,8 @@
             <button type="button" class="cultivation-hub-card" id="cultivationHubBody">
                 <span class="cultivation-hub-icon">💪</span>
                 <span class="cultivation-hub-name">Body Cultivation</span>
-                <span class="cultivation-hub-desc">Skin to nerves — temper flesh, bone, blood, and meridians.</span>
+                <span class="cultivation-hub-desc">Skin to nerves — temper flesh, bone, blood, meridians, and physiques.</span>
+                <span class="cultivation-hub-note" id="cultivationHubBodyNote"></span>
             </button>
             <button type="button" class="cultivation-hub-card" id="cultivationHubSoul">
                 <span class="cultivation-hub-icon">🧠</span>
@@ -639,7 +655,10 @@
         <header class="body-chamber-header">
             <h2 class="body-chamber-title">💪 Body Cultivation Chamber</h2>
             <p class="body-chamber-subtitle">Refine your form layer by layer — from skin to nerves.</p>
-            <div class="body-chamber-physique-project" id="bodyPhysiqueProject" hidden></div>
+            <div class="body-chamber-physique-section" id="bodyPhysiqueSection">
+                <div class="body-chamber-physique-project" id="bodyPhysiqueProject" hidden></div>
+                <div class="body-chamber-physique-manage" id="bodyPhysiqueManage"></div>
+            </div>
             <p class="body-chamber-bonus-summary" id="bodyChamberBonusSummary"></p>
         </header>
 
@@ -833,7 +852,7 @@
         <div class="chamber-stats">
             <div class="chamber-stat">
                 <div class="chamber-stat-head">
-                    <span class="chamber-stat-label">Qi Density</span>
+                    <span class="chamber-stat-label" id="chamberDensityLabel">Qi Density</span>
                     <span class="chamber-stat-value" id="chamberDensityText">0</span>
                 </div>
                 <div class="chamber-bar-track">
@@ -842,7 +861,7 @@
             </div>
             <div class="chamber-stat">
                 <div class="chamber-stat-head">
-                    <span class="chamber-stat-label">Qi Capacity</span>
+                    <span class="chamber-stat-label" id="chamberCapacityLabel">Qi Capacity</span>
                     <span class="chamber-stat-value" id="chamberCapacityText">0 / 0</span>
                 </div>
                 <div class="chamber-bar-track">
@@ -851,7 +870,7 @@
             </div>
             <div class="chamber-stat">
                 <div class="chamber-stat-head">
-                    <span class="chamber-stat-label">Foundation</span>
+                    <span class="chamber-stat-label" id="chamberFoundationLabel">Foundation</span>
                     <span class="chamber-stat-value" id="chamberFoundationText">0</span>
                 </div>
                 <div class="chamber-bar-track">
@@ -859,6 +878,7 @@
                 </div>
             </div>
         </div>
+        <p class="chamber-stats-hint" id="chamberStatsHint">Density = refinement · Capacity = max Qi · Foundation = Root + Flow + Stability</p>
 
         <div class="chamber-tech-picker" id="chamberTechPicker" hidden>
             <p class="chamber-tech-picker-label">Sacrifice a technique to anchor your foundation:</p>
@@ -867,10 +887,34 @@
         </div>
 
         <div class="chamber-actions">
-            <button type="button" class="chamber-btn chamber-btn-primary" id="chamberGatherQi">🌬️ Gather Qi</button>
-            <button type="button" class="chamber-btn" id="chamberExpandDantian">🏺 Expand Dantian</button>
-            <button type="button" class="chamber-btn" id="chamberPerfectFoundation">🪨 Refine Foundation</button>
-            <button type="button" class="chamber-btn chamber-btn-condense" id="chamberCondenseCore">💎 Condense Core</button>
+            <div class="chamber-action-wrap">
+                <button type="button" class="chamber-btn chamber-btn-primary chamber-action-card" id="chamberGatherQi">
+                    <span class="chamber-action-label">🌬️ Gather Qi</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberGatherFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberGatherHelp" aria-label="About Gather Qi">?</button>
+            </div>
+            <div class="chamber-action-wrap">
+                <button type="button" class="chamber-btn chamber-action-card" id="chamberExpandDantian">
+                    <span class="chamber-action-label">🏺 Expand Dantian</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberExpandFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberExpandHelp" aria-label="About Expand Dantian">?</button>
+            </div>
+            <div class="chamber-action-wrap">
+                <button type="button" class="chamber-btn chamber-action-card" id="chamberPerfectFoundation">
+                    <span class="chamber-action-label">🪨 Refine Foundation</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberFoundationFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberFoundationHelp" aria-label="About Refine Foundation">?</button>
+            </div>
+            <div class="chamber-action-wrap chamber-action-wrap-condense">
+                <button type="button" class="chamber-btn chamber-btn-condense chamber-action-card" id="chamberCondenseCore">
+                    <span class="chamber-action-label">💎 Condense Core</span>
+                    <span class="chamber-action-meta chamber-action-flavor" id="chamberCondenseFlavor"></span>
+                </button>
+                <button type="button" class="action-help-btn chamber-action-help" id="chamberCondenseHelp" aria-label="About Condense Core">?</button>
+            </div>
             <button type="button" class="chamber-btn chamber-btn-return" id="chamberReturn">↩ Return</button>
         </div>
     </div>
@@ -924,6 +968,58 @@
     </div>
 </div>
 
+<div class="popup-overlay" id="forgeChamberOverlay">
+    <div class="forge-chamber-shell">
+        <header class="forge-chamber-header">
+            <h2 class="forge-chamber-title">🔨 Forge Chamber</h2>
+            <p class="forge-chamber-subtitle">The anvil remembers every strike. Metal awaits your will.</p>
+        </header>
+
+        <div id="forgeStatusPanel" class="forge-status-panel"></div>
+
+        <div class="forge-chamber-main">
+            <div class="forge-visual-col">
+                <div class="forge-anvil-stage" id="forgeAnvilStage" aria-hidden="true">
+                    <div class="forge-ember-ring">
+                        <span class="forge-ember" aria-hidden="true">✨</span>
+                        <span class="forge-ember forge-ember-b">🔥</span>
+                        <span class="forge-ember forge-ember-c">✨</span>
+                    </div>
+                    <div class="forge-anvil-body">
+                        <span class="forge-anvil-visual" id="forgeAnvilVisual">⚫</span>
+                        <span class="forge-hammer-visual" id="forgeHammerVisual">🔨</span>
+                        <div class="forge-spark-burst"></div>
+                    </div>
+                    <div class="forge-anvil-glow"></div>
+                </div>
+                <div class="forge-material-section">
+                    <h3 class="forge-section-title">Materials</h3>
+                    <div id="forgeMaterialPanel"></div>
+                </div>
+            </div>
+
+            <div class="forge-panel-col">
+                <div id="forgeTabBar" class="forge-tab-bar"></div>
+                <div class="forge-recipe-section">
+                    <h3 class="forge-section-title">Recipes</h3>
+                    <div class="forge-recipe-list" id="forgeRecipeList"></div>
+                </div>
+                <div class="forge-detail-section" id="forgeRecipeDetail">
+                    <p class="forge-muted">Select a recipe to view requirements.</p>
+                </div>
+                <div id="forgeSectToggle" class="forge-sect-toggle-wrap"></div>
+                <div class="forge-actions-row">
+                    <button type="button" class="forge-action-btn" id="forgeActionBtn" disabled>🔨 Forge</button>
+                    <button type="button" class="forge-chamber-btn-return" id="forgeChamberReturn">↩ Return</button>
+                </div>
+                <div class="forge-repair-section">
+                    <div id="forgeRepairPanel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="popup-overlay" id="combatOverlay">
     <div class="popup-box combat-box">
         <h2 class="combat-title">⚔️ COMBAT ⚔️</h2>
@@ -937,6 +1033,8 @@
                 <div class="combat-bar-track combat-enemy-bar">
                     <div class="combat-bar-fill enemy-fill" id="enemyHpBar"></div>
                 </div>
+                <div id="enemyStatusRow" class="combat-enemy-status"></div>
+                <div id="enemyTelegraph" class="combat-enemy-telegraph"></div>
 
                 <div class="combat-player-header">
                     <span>🧘 You</span>
@@ -1038,14 +1136,6 @@
         <div id="meridianGrid" class="meridian-grid"></div>
         <div id="meridianAction" style="margin:8px 0;"></div>
         <button class="close-btn" id="meridianClose">Close</button>
-    </div>
-</div>
-
-<div class="popup-overlay" id="physiquePopup">
-    <div class="popup-box">
-        <h2>🧬 Physiques</h2>
-        <div id="physiqueList"></div>
-        <button class="close-btn" id="physiqueClose">Close</button>
     </div>
 </div>
 
@@ -1167,15 +1257,33 @@
     </div>
 </div>
 
-<script src="data.js?v=78"></script>
+<div id="actionHelpPopover" class="action-help-popover" hidden>
+    <button type="button" class="action-help-popover-close" id="actionHelpPopoverClose" aria-label="Close">×</button>
+    <div class="action-help-popover-title" id="actionHelpTitle"></div>
+    <div class="action-help-popover-desc" id="actionHelpDesc"></div>
+    <div class="action-help-popover-stats" id="actionHelpStats"></div>
+</div>
+
+<div id="overlayLifespanChip" class="overlay-lifespan-chip" hidden aria-live="polite">
+    <span class="overlay-lifespan-icon">🕯️</span>
+    <span id="overlayLifespanText"></span>
+</div>
+
+<script src="data.js?v=89"></script>
 <script src="talent.js?v=1"></script>
 <script src="legacy.js?v=2"></script>
 <script src="world-scheduler.js?v=3"></script>
-<script src="core.js?v=35"></script>
+<script src="core.js?v=39"></script>
+<script src="techniques.js?v=5"></script>
+<script src="travel-kit.js?v=3"></script>
+<script src="residence-stash.js?v=3"></script>
+<script src="spatial-ring.js?v=1"></script>
 <script src="foundation.js?v=5"></script>
 <script src="tutorial.js?v=3"></script>
-<script src="gear.js?v=6"></script>
-<script src="crafting.js?v=3"></script>
+<script src="gear.js?v=7"></script>
+<script src="crafting.js?v=4"></script>
+<script src="forge-data.js?v=1"></script>
+<script src="forge-chamber.js?v=1"></script>
 <script src="alchemy-data.js?v=1"></script>
 <script src="alchemy.js?v=2"></script>
 <script src="alchemy-chamber.js?v=1"></script>
@@ -1183,34 +1291,36 @@
 <script src="transcendence.js?v=4"></script>
 <script src="consolidation.js?v=7"></script>
 <script src="sect-inventory.js?v=2"></script>
-<script src="sect-buildings.js?v=2"></script>
+<script src="sect-buildings.js?v=3"></script>
 <script src="formations.js?v=2"></script>
-<script src="sect-map.js?v=3"></script>
-<script src="sect.js?v=18"></script>
+<script src="sect-map.js?v=5"></script>
+<script src="sect.js?v=20"></script>
 <script src="sect-expand.js?v=9"></script>
 <script src="cultivation.js?v=15"></script>
 <script src="intent.js?v=6"></script>
 <script src="tribulation.js?v=15"></script>
 <script src="locations.js?v=1"></script>
-<script src="world.js?v=25"></script>
-<script src="ancients.js?v=4"></script>
-<script src="factions.js?v=8"></script>
+<script src="world.js?v=28"></script>
+<script src="ancients.js?v=5"></script>
+<script src="factions.js?v=9"></script>
 <script src="factions-expand.js?v=6"></script>
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
-<script src="quests.js?v=10"></script>
-<script src="ui.js?v=41"></script>
+<script src="quests.js?v=11"></script>
+<script src="ui.js?v=52"></script>
 <script src="action-gates.js?v=2"></script>
-<script src="actions.js?v=32"></script>
-<script src="chamber.js?v=9"></script>
-<script src="body-chamber.js?v=21"></script>
-<script src="physique-cultivation.js?v=2"></script>
-<script src="soul-chamber.js?v=2"></script>
-<script src="cultivation-hub.js?v=2"></script>
+<script src="actions.js?v=33"></script>
+<script src="chamber.js?v=11"></script>
+<script src="body-chamber.js?v=23"></script>
+<script src="physique-cultivation.js?v=3"></script>
+<script src="soul-chamber.js?v=3"></script>
+<script src="cultivation-hub.js?v=3"></script>
 <script src="story-arcs.js?v=6"></script>
-<script src="combat.js?v=30"></script>
+<script src="combat.js?v=32"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
-<script src="main.js?v=37"></script>
+<script src="settings.js?v=1"></script>
+<script src="action-help.js?v=1"></script>
+<script src="main.js?v=41"></script>
 </body>
 </html>

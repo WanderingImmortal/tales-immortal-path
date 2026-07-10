@@ -241,6 +241,9 @@ function renderSectResidenceDetailHtml() {
     if (typeof renderResidenceFormationsHtml === 'function') {
         html += renderResidenceFormationsHtml();
     }
+    if (typeof renderResidenceStashPanelHtml === 'function') {
+        html += renderResidenceStashPanelHtml();
+    }
     html += `</div>`;
 
     if (!maxed && nextCost) {
@@ -349,9 +352,23 @@ function renderBuildingActionsHtml(buildingId, lv) {
     }
 
     if (buildingId === 'disciple_hall') {
-        const slots = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('discipleAssignSlots') : lv;
+        const assignSlots = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('discipleAssignSlots') : lv;
+        const studySlots = typeof getManualStudySlots === 'function' ? getManualStudySlots() : 0;
         html += `<div class="sect-section-title">📿 Assignments</div>`;
-        html += `<p class="sect-hint">Assignment slots: <strong>${slots}</strong>. Construction crews and production posts — expanding soon.</p>`;
+        html += `<p class="sect-hint">Construction crew slots: <strong>${assignSlots}</strong>. Manual study uses the <strong>Manual Hall</strong> (${studySlots} slot${studySlots !== 1 ? 's' : ''}).</p>`;
+    }
+
+    if (buildingId === 'manual_hall') {
+        html += typeof renderManualHallPanelHtml === 'function' ? renderManualHallPanelHtml() : '';
+    }
+
+    if (buildingId === 'armory') {
+        const forgePct = typeof getArmoryForgeMonthsPct === 'function' ? getArmoryForgeMonthsPct() : 0;
+        const affixPct = typeof getSectBuildingBonus === 'function' ? (getSectBuildingBonus('armoryForgeAffixPct') || 0) : 0;
+        const combatPct = typeof getSectBuildingBonus === 'function' ? (getSectBuildingBonus('armoryCombatPct') || 0) : 0;
+        html += `<div class="sect-section-title">🔨 Forge</div>`;
+        html += `<p class="sect-hint">Armory bonuses: −${forgePct}% forge time, +${affixPct}% affix quality, +${combatPct}% sect combat.</p>`;
+        html += `<button type="button" class="sect-action-btn" id="btnArmoryForge">🔨 Open Forge Chamber</button>`;
     }
 
     html += `</div>`;
@@ -435,6 +452,10 @@ function bindSectGroundsEvents(container) {
         document.getElementById('sectPopup')?.classList.remove('active');
         if (typeof actionResidenceCultivate === 'function') actionResidenceCultivate();
     });
+    container.querySelector('#btnArmoryForge')?.addEventListener('click', () => {
+        document.getElementById('sectPopup')?.classList.remove('active');
+        if (typeof openForgeChamber === 'function') openForgeChamber({ atSect: true });
+    });
     container.querySelectorAll('[data-formation-lay]').forEach(btn => {
         btn.addEventListener('click', function() {
             const slot = parseInt(this.dataset.formationSlot, 10);
@@ -487,4 +508,45 @@ function bindSectGroundsEvents(container) {
             fullRender();
         });
     });
+    container.querySelectorAll('[data-deposit-hall]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof depositManualToHall === 'function'
+                ? depositManualToHall(this.dataset.depositHall, 1)
+                : { success: false, message: 'Manual Hall unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-withdraw-hall]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof withdrawManualFromHall === 'function'
+                ? withdrawManualFromHall(this.dataset.withdrawHall, 1)
+                : { success: false, message: 'Manual Hall unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-cancel-study]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof cancelDiscipleStudy === 'function'
+                ? cancelDiscipleStudy(this.dataset.cancelStudy)
+                : { success: false, message: 'Manual Hall unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelector('#btnAssignStudy')?.addEventListener('click', () => {
+        const discipleUid = container.querySelector('#manualHallDiscipleSelect')?.value;
+        const techName = container.querySelector('#manualHallTechSelect')?.value;
+        const result = typeof assignDiscipleStudy === 'function'
+            ? assignDiscipleStudy(discipleUid, techName)
+            : { success: false, message: 'Manual Hall unavailable.' };
+        if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+        if (typeof renderSectPopup === 'function') renderSectPopup();
+        fullRender();
+    });
+    if (typeof bindResidenceStashEvents === 'function') bindResidenceStashEvents(container);
 }

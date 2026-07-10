@@ -632,7 +632,8 @@ function getNpcStockPrice(item, npcId) {
 
 function isNpcStockItemOwned(item) {
     if (item.type === 'technique') {
-        return G.techniques.some(t => t.name === item.technique);
+        if (item.oneTime && G.npcState?.purchased?.includes(item.id)) return true;
+        return false;
     }
     if (item.type === 'dao_fragment') return false;
     if (item.oneTime && G.npcState?.purchased?.includes(item.id)) return true;
@@ -683,6 +684,10 @@ function applyNpcPurchase(item, npcId) {
         return `Unsealed ${frag.name}! ${frag.desc}`;
     }
     if (item.type === 'technique') {
+        if (typeof grantManual === 'function') {
+            grantManual(item.technique, { silent: true });
+            return `Received ${item.technique} manual — shelved in your technique hall.`;
+        }
         learnTechnique(item.technique);
         return `Learned ${item.technique}.`;
     }

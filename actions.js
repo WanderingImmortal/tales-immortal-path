@@ -4,7 +4,7 @@
 
 function actionBlocked() {
     return G.gameOver || G.inCombat || G.inQiChamber || G.inBodyChamber || G.inSoulChamber
-        || G.inAlchemyChamber || G.inCultivationHub
+        || G.inAlchemyChamber || G.inForgeChamber || G.inCultivationHub
         || (typeof isTribulationActive === 'function' && isTribulationActive())
         || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending());
 }
@@ -336,8 +336,7 @@ function actionMeridian() {
 function actionPhysique() {
     if (G.gameOver) return;
     if (!guardAction('physique')) return;
-    renderPhysiquePopup();
-    document.getElementById('physiquePopup').classList.add('active');
+    if (typeof openBodyChamber === 'function') openBodyChamber();
 }
 
 // ----- INTENT -----

@@ -309,9 +309,9 @@ function applyExploreLoot(loot) {
     if (loot.type === "technique") {
         const techName = loot.technique || loot.name;
         const template = TECHNIQUE_POOL.find(t => t.name === techName);
-        if (template && !G.techniques.some(t => t.name === techName)) {
-            learnTechnique(techName);
-            addLog(`📜 You learned ${techName}!`);
+        if (template && typeof grantManual === 'function') {
+            grantManual(techName, { silent: true, source: typeof getLootZoneId === 'function' ? getLootZoneId() : G.currentZone });
+            addLog(`📜 Manual found: ${techName}! Check your travel kit in Inventory.`);
         } else {
             const soldFor = applyExploreRewardMult(loot.value || 5);
             G.stones += soldFor;
@@ -375,13 +375,13 @@ function buyTechnique(techName) {
     if (!catalog) return;
     const item = catalog.stock.find(s => s.technique === techName);
     if (!item) return;
-    if (G.techniques.some(t => t.name === techName)) {
-        addLog(`📜 You already know ${techName}.`);
-        fullRender();
-        return;
-    }
-    if (G.realmIdx < item.reqRealm) {
-        addLog(`📜 ${techName} requires a higher realm.`);
+    const template = TECHNIQUE_POOL.find(t => t.name === techName);
+    const reqRealm = typeof getMarketTechniqueReqRealm === 'function'
+        ? getMarketTechniqueReqRealm(techName)
+        : (item.reqRealm ?? 0);
+    if (G.realmIdx < reqRealm) {
+        const realmName = PATHS[G.path]?.realms[reqRealm] || `realm ${reqRealm + 1}`;
+        addLog(`📜 ${techName} requires ${realmName} or higher.`);
         fullRender();
         return;
     }
@@ -405,10 +405,10 @@ function buyTechnique(techName) {
         return;
     }
     G.stones -= finalPrice;
-    const learned = learnTechnique(techName, { silent: true });
+    const gotManual = typeof grantManual === 'function' && grantManual(techName, { silent: true });
     const discountNote = finalPrice < item.price ? ` (Jade Lotus favor: −${item.price - finalPrice})` : '';
-    const learnNote = learned ? ' — technique mastered' : '';
-    commitActionLog(`🏪 Purchased ${techName} for ${finalPrice} Stones${discountNote}${learnNote}.`);
+    const learnNote = gotManual ? ' — manual shelved' : '';
+    commitActionLog(`🏪 Purchased ${techName} manual for ${finalPrice} Stones${discountNote}${learnNote}.`);
     renderMerchantPopup();
     fullRender();
 }
@@ -664,32 +664,26 @@ function startEncounterCombat(combatKey) {
     const def = ENCOUNTER_ENEMIES[combatKey];
     if (!def) return;
     const template = ENEMIES.find(e => e.name === def.template) || ENEMIES[Math.min(G.realmIdx, ENEMIES.length - 1)];
-    let enemyHp = calcEnemyHp(template, { context: 'normal' });
-    let enemyDmg = calcEnemyDamage(template, { context: 'normal' });
-    enemyHp = Math.floor(enemyHp * (def.hpMult || 1));
-    enemyDmg = Math.floor(enemyDmg * (def.dmgMult || 1));
 
     G.encounterCombat = combatKey;
     G.inCombat = true;
     G.defending = false;
     G.fortifyActive = false;
     G.combatLog = [];
+    initCombatStatus();
     initCombatResource();
     updateShield();
     if (G.path === 'soul') G.shield = G.maxShield;
 
-    G.enemy = {
-        name: def.name,
-        hp: enemyHp,
-        maxHp: enemyHp,
-        dmg: enemyDmg,
-        originalDmg: enemyDmg,
-        intimidateTurns: 0,
-        isEncounter: true
-    };
+    G.enemy = buildEnemyFromDef(def, template, { extraFlags: { isEncounter: true } });
+    if (def.emoji) G.enemy.name = `${def.emoji} ${def.name}`;
     G.enemyMaxHp = G.enemy.maxHp;
 
-    addCombatLog(`⚡ ${def.name} appears! (${enemyHp} HP)`);
+    addCombatLog(`⚡ ${def.name} appears! (${G.enemy.hp} HP)`);
+    if (typeof isCombatQiLinked === 'function' && isCombatQiLinked()) {
+        const pool = getQiLinkedCombatStartPool();
+        addCombatLog(`🌬️ Breath ${G.combatResource}/${G.maxCombatResource} drawn from dantian (${pool.currentQi}/${pool.maxQi} Qi).`);
+    }
     setupCombatActions();
     G.combatPhase = 'player';
     clearCombatTurnTimer();
@@ -700,24 +694,33 @@ function startEncounterCombat(combatKey) {
 
 function encounterCombatVictory() {
     const state = G.encounterState;
+    const combatKey = G.encounterCombat;
+    const lootLines = typeof grantEncounterCombatLoot === 'function' ? grantEncounterCombatLoot(combatKey) : [];
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: true });
     G.inCombat = false;
     G.defending = false;
     G.encounterCombat = null;
+    clearCombatStatus();
     document.getElementById('combatOverlay').classList.remove('active');
     G.enemy = null;
     addCombatLog(`💀 Encounter won!`);
     if (state?.pending) {
         encounterApplyEffects(state.pending, true);
+        if (lootLines.length) {
+            addLog(`📦 Spoils: ${lootLines.join(', ')}`);
+        }
     } else {
         const stones = 5 + G.realmIdx * 2;
         G.stones += stones;
         grantFoundation(2);
         addLog(`⚡ Victory spoils: +${stones} Stones, +2 Foundation.`);
+        if (lootLines.length) addLog(`📦 Materials: ${lootLines.join(', ')}`);
         if (typeof showCombatVictoryPopup === 'function') {
+            const rewards = [`💎 +${stones} Spirit Stones`, '🏛️ +2 Foundation', ...lootLines];
             showCombatVictoryPopup({
-                enemyName: 'Encounter foe',
+                enemyName: ENCOUNTER_ENEMIES[combatKey]?.name || 'Encounter foe',
                 subtitle: 'You survived the wild encounter.',
-                rewards: [`💎 +${stones} Spirit Stones`, '🏛️ +2 Foundation']
+                rewards
             });
         }
         closeEncounterOverlay();
@@ -727,6 +730,7 @@ function encounterCombatVictory() {
 
 function encounterCombatDefeat() {
     G.hp = Math.max(1, 1);
+    if (typeof finalizeCombatQiDrain === 'function') finalizeCombatQiDrain({ victory: false });
     G.inCombat = false;
     G.defending = false;
     G.encounterCombat = null;

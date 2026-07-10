@@ -367,19 +367,54 @@ const LEGACY_BONUS_CP = {
 const TECHNIQUE_POOL = [
     { name: "Heavenly Palm", path: "qi", element: "neutral", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 8, baseCost: 5, costType: "qi", rarity: "common", desc: "A classic palm strike channeling refined qi." },
     { name: "Iron Mountain Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Roots your stance like a mountain — absorb blows with tempered flesh." },
-    { name: "Soul Severing Sword", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "sword", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "common", desc: "A blade that cuts the soul." },
-    { name: "Five Elements Fist", path: "qi", element: "elemental", category: "attack", combatTier: "medium", weaponType: "fist", setId: "five_elements", affinityCycle: ["fire", "water", "earth", "wind", "lightning"], baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Cycles through five elemental strikes." },
-    { name: "Scorching Palm", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A palm strike wreathed in flame." },
-    { name: "Tide Spiral", path: "qi", element: "water", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Flowing water redirects force back at the foe." },
+    { name: "Soul Severing Sword", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "sword", techniqueQuality: "high", intentReq: { weapon: "Sword", minStage: 1 }, baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "common", desc: "A blade that cuts the soul." },
+    { name: "Five Elements Fist", path: "qi", element: "elemental", category: "attack", combatTier: "medium", weaponType: "fist", setId: "five_elements", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, affinityCycle: ["fire", "water", "earth", "wind", "lightning"], baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Cycles through five elemental strikes." },
+    { name: "Scorching Palm", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", techniqueQuality: "mid", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A palm strike wreathed in flame." },
+    { name: "Tide Spiral", path: "qi", element: "water", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", techniqueQuality: "mid", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Flowing water redirects force back at the foe." },
     { name: "Blood Refining Art", path: "body", element: "blood", category: "attack", combatTier: "medium", baseDamage: 12, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Drains life force from foes to mend your flesh." },
-    { name: "Demon Seal", path: "soul", element: "soul", category: "attack", combatTier: "medium", baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
-    { name: "Gentle Repression", path: "qi", element: "neutral", category: "utility", combatTier: "utility", weaponType: "fist", baseDamage: 6, baseCost: 4, costType: "qi", rarity: "rare", desc: "Story art — suppress corruption and steady the meridians." },
+    { name: "Gentle Repression", path: "qi", element: "neutral", category: "utility", combatTier: "utility", weaponType: "fist", reqTalent: "cursed_scholar", baseDamage: 6, baseCost: 4, costType: "qi", rarity: "rare", desc: "Story art — suppress corruption and steady the meridians." },
     { name: "Void Step", path: "neutral", element: "neutral", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 4, costType: "qi", rarity: "rare", desc: "Evade the next attack." },
-    { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
-    { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
-    { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
+    { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Staff", minStage: 2 }, reqTalent: "lightning_attractor", baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
+    { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 2 }, baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
+    { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
     { name: "Frostbite Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "An icy palm strike that chills to the bone." },
-    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." }
+    { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, reqTalent: "immortals_disciple", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." },
+    // —— Qi arts (expanded) ——
+    { name: "Gale Spiral", path: "qi", element: "wind", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "A spiraling gust compressed into a palm strike." },
+    { name: "Earth Pulse Palm", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 11, baseCost: 6, costType: "qi", rarity: "common", desc: "Qi ripples through stone — steady, crushing force." },
+    { name: "Storm Needle", path: "qi", element: "lightning", category: "attack", combatTier: "light", baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "A needle-thin bolt that pierces meridian defenses." },
+    { name: "Wind Blade Strike", path: "qi", element: "wind", category: "attack", combatTier: "medium", weaponType: "blade", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 12, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Cutting wind shaped like a crescent blade." },
+    { name: "Heavenly Sword Qi", path: "qi", element: "neutral", category: "attack", combatTier: "medium", weaponType: "sword", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Sword", minStage: 1 }, baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Condensed sword intent without a physical blade." },
+    { name: "Meridian Flow", path: "qi", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 3, baseCost: 4, costType: "qi", rarity: "common", desc: "Circulates qi through meridians — light recovery mid-fight." },
+    { name: "Root-Vein Surge", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Draws power from the continental spiritual veins." },
+    { name: "Sandburrow Palm", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Burrowing sand qi that finds cracks in armor." },
+    { name: "Glacier Heart Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "The frozen heart of a glacier spirit — numbing cold." },
+    { name: "Demon Seal", path: "soul", element: "soul", category: "attack", combatTier: "medium", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
+    { name: "Phoenix Ascent Palm", path: "qi", element: "fire", category: "attack", combatTier: "heavy", weaponType: "fist", setId: "ember_fury", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 2 }, baseDamage: 20, baseCost: 11, costType: "qi", rarity: "rare", desc: "Rising flame like a phoenix breaching the caldera sky." },
+    { name: "Raging Ember Fist", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Volcanic embers packed into rapid strikes." },
+    { name: "Cinder Volley", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "Scattered embers strike in rapid succession." },
+    { name: "Maelstrom Lance", path: "qi", element: "water", category: "attack", combatTier: "medium", weaponType: "spear", techniqueQuality: "high", intentReq: { weapon: "Spear", minStage: 1 }, baseDamage: 13, baseCost: 7, costType: "qi", rarity: "rare", desc: "A spear of spiraling tide-force from the deep." },
+    { name: "Void Rend", path: "qi", element: "void", category: "attack", combatTier: "medium", reqTalent: "ancient_bloodline", baseDamage: 13, baseCost: 8, costType: "qi", rarity: "rare", desc: "Tears a rift of nothingness through the enemy's guard." },
+    // —— Body arts (expanded) ——
+    { name: "Bone Tempering Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", setId: "body_tempering", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Temper marrow and bone until blows glance off." },
+    { name: "Crushing Fist", path: "body", element: "neutral", category: "attack", combatTier: "light", weaponType: "fist", setId: "body_tempering", baseDamage: 9, baseCost: 4, costType: "qi", rarity: "common", desc: "Raw physical force — no qi ornament, just impact." },
+    { name: "Bronze Skin Palm", path: "body", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", setId: "body_tempering", reqPath: "body", reqRealm: 1, baseDamage: 6, baseCost: 4, costType: "qi", rarity: "uncommon", desc: "Flesh hardens to bronze — body cultivators only." },
+    { name: "Sandstorm Body Art", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "fist", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Desert winds and grit scour foes while you advance." },
+    { name: "Viper Fang Strike", path: "body", element: "blood", category: "attack", combatTier: "light", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A venomous strike that draws blood and feeds vitality." },
+    { name: "Mountain Crash", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, baseDamage: 19, baseCost: 9, costType: "qi", rarity: "rare", desc: "Your body becomes the mountain — a devastating slam." },
+    { name: "Blood Aegis", path: "body", element: "blood", category: "buff", combatTier: "buff", baseDamage: 4, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Blood qi forms a brief protective membrane." },
+    { name: "Staff Shatter", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", techniqueQuality: "mid", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Shatter a staff's worth of force through tempered limbs." },
+    // —— Soul arts (expanded) ——
+    { name: "Soul Lash", path: "soul", element: "soul", category: "attack", combatTier: "light", setId: "soul_suppression", baseDamage: 11, baseCost: 7, costType: "spirit", rarity: "common", desc: "A whip of condensed soul force." },
+    { name: "Phantom Blade", path: "soul", element: "soul", category: "attack", combatTier: "light", weaponType: "blade", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 10, baseCost: 7, costType: "spirit", rarity: "uncommon", desc: "A blade of spirit that passes through flesh to cut the soul." },
+    { name: "Spirit Suppression Art", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 14, baseCost: 9, costType: "spirit", rarity: "uncommon", desc: "Suppresses the enemy's spirit, weakening their techniques." },
+    { name: "Mind Sever", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "Severs the link between mind and body for an instant." },
+    { name: "Ghost Spear Thrust", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", techniqueQuality: "mid", baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of ghostly intent that pierces from afar." },
+    { name: "Spectral Shield", path: "soul", element: "soul", category: "defense", combatTier: "defense", baseDamage: 5, baseCost: 6, costType: "spirit", rarity: "uncommon", desc: "A barrier of soul energy that absorbs spiritual attacks." },
+    { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, reqTalent: "cursed_scholar", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
+    // —— Universal arts ——
+    { name: "Quickfoot Art", path: "neutral", element: "wind", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 3, costType: "qi", rarity: "common", desc: "Light footwork — reposition before the enemy strikes." },
+    { name: "Focused Breath", path: "neutral", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 2, baseCost: 4, costType: "qi", rarity: "common", desc: "Center breath and intent — steady the next exchange." }
 ];
 
 const TECHNIQUE_COMBAT_TIERS = {
@@ -392,17 +427,95 @@ const TECHNIQUE_COMBAT_TIERS = {
 };
 
 const TECHNIQUE_BALANCE = {
-    statCoeff: 0.55,
-    statCoeffLight: 0.48,
-    statCoeffHeavy: 0.62,
-    statCoeffUtility: 0.15,
-    statCoeffBodyAttack: 0.44,
-    statCoeffBodyHeavy: 0.58,
-    statCoeffBodyLow: 0.12,
-    realmBonus: 2,
+    statCoeff: 0.58,
+    statCoeffLight: 0.52,
+    statCoeffHeavy: 0.66,
+    statCoeffUtility: 0.18,
+    statCoeffBodyAttack: 0.48,
+    statCoeffBodyHeavy: 0.62,
+    statCoeffBodyLow: 0.14,
+    realmBonus: 3,
     masteryPerTenUses: 1,
     daoDamageMult: 1.5,
-    iceFromWaterDaoMult: 1.25
+    iceFromWaterDaoMult: 1.25,
+    obsolescence: {
+        gapMult: { 1: 0.58, 2: 0.40, 3: 0.28, 4: 0.22, 5: 0.18, 6: 0.15 },
+        floor: 0.15,
+        masteryGrandmaster: 0.10,
+        masteryTranscendent: 0.05
+    }
+};
+
+/** Cultivation tier of a manual — gates comprehension realm and base power band. */
+const CULTIVATION_TIERS = {
+    mortal:       { reqRealm: 0, emoji: '🪶', damageBand: [6, 9],  costBase: 3 },
+    condensation: { reqRealm: 0, emoji: '💧', damageBand: [9, 13], costBase: 5 },
+    foundation:   { reqRealm: 1, emoji: '🏛️', damageBand: [12, 17], costBase: 6 },
+    core:         { reqRealm: 2, emoji: '🔮', damageBand: [16, 23], costBase: 8 },
+    nascent:      { reqRealm: 3, emoji: '✨', damageBand: [21, 30], costBase: 10 },
+    void:         { reqRealm: 4, emoji: '🌌', damageBand: [27, 36], costBase: 12 },
+    dao_seeking:  { reqRealm: 5, emoji: '☯️', damageBand: [33, 44], costBase: 14 },
+    immortal:     { reqRealm: 6, emoji: '👑', damageBand: [40, 52], costBase: 16 }
+};
+
+const CULTIVATION_TIER_ORDER = ['mortal', 'condensation', 'foundation', 'core', 'nascent', 'void', 'dao_seeking', 'immortal'];
+
+const TECHNIQUE_CULTIVATION_TIERS = {
+    'Quickfoot Art': 'mortal',
+    'Focused Breath': 'mortal',
+    'Cinder Volley': 'mortal',
+    'Heavenly Palm': 'condensation',
+    'Iron Mountain Stance': 'condensation',
+    'Soul Severing Sword': 'condensation',
+    'Gale Spiral': 'condensation',
+    'Earth Pulse Palm': 'condensation',
+    'Meridian Flow': 'condensation',
+    'Crushing Fist': 'condensation',
+    'Bone Tempering Stance': 'condensation',
+    'Soul Lash': 'condensation',
+    'Five Elements Fist': 'foundation',
+    'Scorching Palm': 'foundation',
+    'Tide Spiral': 'foundation',
+    'Storm Needle': 'foundation',
+    'Wind Blade Strike': 'foundation',
+    'Heavenly Sword Qi': 'foundation',
+    'Root-Vein Surge': 'foundation',
+    'Sandburrow Palm': 'foundation',
+    'Raging Ember Fist': 'foundation',
+    'Blood Refining Art': 'foundation',
+    'Demon Seal': 'foundation',
+    'Bronze Skin Palm': 'foundation',
+    'Sandstorm Body Art': 'foundation',
+    'Viper Fang Strike': 'foundation',
+    'Blood Aegis': 'foundation',
+    'Phantom Blade': 'foundation',
+    'Spirit Suppression Art': 'foundation',
+    'Mind Sever': 'foundation',
+    'Ghost Spear Thrust': 'foundation',
+    'Spectral Shield': 'foundation',
+    'Staff Shatter': 'foundation',
+    'Frostbite Palm': 'core',
+    'Glacier Heart Palm': 'core',
+    'Void Rend': 'core',
+    'Maelstrom Lance': 'core',
+    'Mountain Crash': 'core',
+    "War God's Roar": 'core',
+    'Soul Rend': 'core',
+    'Void Step': 'core',
+    'Gentle Repression': 'core',
+    'Phoenix Ascent Palm': 'nascent',
+    'Abyss Gaze': 'nascent',
+    'Celestial Judgment': 'dao_seeking',
+    'Mirror Step': 'immortal'
+};
+
+const TECHNIQUE_COMBAT_DAMAGE_MULT = {
+    light: 0.88,
+    medium: 1.0,
+    heavy: 1.34,
+    defense: 0.62,
+    buff: 0.48,
+    utility: 0
 };
 
 const TECH_PATH_LABELS = {
@@ -418,6 +531,8 @@ const TECH_ELEMENT_LABELS = {
     ice: "❄️ Ice",
     lightning: "⚡ Lightning",
     earth: "🌍 Earth",
+    wind: "🌪️ Wind",
+    void: "🌌 Void",
     soul: "👻 Soul",
     blood: "🩸 Blood",
     elemental: "☯️ Elemental",
@@ -497,6 +612,54 @@ const TECHNIQUE_SETS = {
                 costMult: 0.05,
                 affinityGainBonus: 1,
                 desc: "+10% set damage, −5% set cost, +1 affinity per elemental strike"
+            }
+        }
+    },
+    sword_dominion: {
+        id: "sword_dominion",
+        name: "Sword Dominion",
+        emoji: "⚔️",
+        techniques: ["Soul Severing Sword", "Phantom Blade", "Heavenly Sword Qi", "Wind Blade Strike"],
+        bonuses: {
+            2: { dmgMult: 0.06, desc: "+6% damage with sword and blade techniques" },
+            3: { dmgMult: 0.10, costMult: 0.04, desc: "+10% set damage, −4% set cost" },
+            4: { dmgMult: 0.15, costMult: 0.06, desc: "+15% set damage, −6% cost — blade intent perfected" }
+        }
+    },
+    body_tempering: {
+        id: "body_tempering",
+        name: "Body Tempering Cycle",
+        emoji: "💪",
+        techniques: ["Iron Mountain Stance", "Bone Tempering Stance", "Crushing Fist", "Bronze Skin Palm"],
+        bonuses: {
+            2: { dmgMult: 0.04, desc: "+4% body technique damage" },
+            3: { dmgMult: 0.08, costMult: 0.05, desc: "+8% set damage, −5% set cost" },
+            4: { dmgMult: 0.12, costMult: 0.08, desc: "+12% set damage, −8% cost — flesh like forged iron" }
+        }
+    },
+    soul_suppression: {
+        id: "soul_suppression",
+        name: "Soul Suppression",
+        emoji: "👻",
+        techniques: ["Demon Seal", "Spirit Suppression Art", "Soul Lash", "Mind Sever"],
+        bonuses: {
+            2: { dmgMult: 0.05, desc: "+5% soul technique damage" },
+            3: { dmgMult: 0.10, costMult: 0.05, desc: "+10% set damage, −5% spirit cost" },
+            4: { dmgMult: 0.14, costMult: 0.08, desc: "+14% set damage, −8% spirit cost — spirits bow" }
+        }
+    },
+    ember_fury: {
+        id: "ember_fury",
+        name: "Ember Fury",
+        emoji: "🔥",
+        techniques: ["Raging Ember Fist", "Cinder Volley", "Phoenix Ascent Palm"],
+        bonuses: {
+            2: { dmgMult: 0.06, desc: "+6% fire technique damage" },
+            3: {
+                dmgMult: 0.12,
+                costMult: 0.05,
+                affinityGainBonus: 1,
+                desc: "+12% set damage, −5% cost, +1 fire affinity per strike"
             }
         }
     }
@@ -601,16 +764,97 @@ const PILL_LOOT_WEIGHTS = [
 ];
 
 const ENEMIES = [
-    { name: "Feral Spirit Wolf", hp: 35, dmg: 4, minRealm: 0 },
-    { name: "Corrupted Cultivator", hp: 50, dmg: 6, minRealm: 0 },
-    { name: "Demon Beast", hp: 65, dmg: 7, minRealm: 1 },
-    { name: "Shadow Assassin", hp: 45, dmg: 8, minRealm: 1 },
-    { name: "Heavenly Tribulation Phantom", hp: 80, dmg: 9, minRealm: 2 },
-    { name: "Nascent Soul Raider", hp: 110, dmg: 12, minRealm: 3 },
-    { name: "Void Horror", hp: 140, dmg: 15, minRealm: 4 },
-    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, minRealm: 5 },
-    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, minRealm: 6 }
+    { name: "Feral Spirit Wolf", hp: 35, dmg: 4, minRealm: 0, zones: ['frostbite', 'emberwild'], element: 'wind',
+        abilities: [
+            { id: 'snap', weight: 50, telegraph: 'The wolf bares frost-caked fangs.', effect: { bonusDmgMult: 1.1 } },
+            { id: 'circle', weight: 30, effect: { selfDefend: true, bonusDmgMult: 0.7, log: 'It circles, waiting for an opening.' } },
+            { id: 'lunge', weight: 20, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.025 } } }
+        ] },
+    { name: "Corrupted Cultivator", hp: 50, dmg: 6, minRealm: 0, zones: ['dustbone', 'heartlands'], element: 'neutral',
+        abilities: [
+            { id: 'dark_pulse', weight: 45, telegraph: 'Corrupted qi gathers in their palm.', effect: { bonusDmgMult: 1.15 } },
+            { id: 'guard', weight: 35, effect: { selfDefend: true, log: 'They raise a sloppy barrier.' } },
+            { id: 'drain', weight: 20, cooldown: 3, effect: { bonusDmgMult: 0.9, applyPlayer: { slowResourceRegen: 1 } } }
+        ] },
+    { name: "Demon Beast", hp: 65, dmg: 7, minRealm: 1, zones: ['emberwild', 'dustbone'], element: 'fire',
+        enrageThreshold: 0.4,
+        abilities: [
+            { id: 'claw', weight: 50, effect: { bonusDmgMult: 1.1 } },
+            { id: 'roar', weight: 30, effect: { applyPlayer: { slowResourceRegen: 1 }, bonusDmgMult: 0.85, log: 'A demonic roar shakes your focus!' } },
+            { id: 'charge', weight: 20, cooldown: 2, telegraph: 'The beast lowers its horns.', effect: { bonusDmgMult: 1.5, log: 'It charges with hellfire momentum!' } }
+        ],
+        enrageAbilities: [
+            { id: 'rampage', weight: 60, effect: { bonusDmgMult: 1.4, extraHits: 1 } },
+            { id: 'frenzy_claw', weight: 40, effect: { bonusDmgMult: 1.55 } }
+        ] },
+    { name: "Shadow Assassin", hp: 45, dmg: 8, minRealm: 1, zones: ['jade', 'heartlands'], element: 'wind',
+        abilities: [
+            { id: 'stab', weight: 45, effect: { bonusDmgMult: 1.2 } },
+            { id: 'smoke', weight: 30, effect: { selfDefend: true, log: 'Smoke obscures their form.' } },
+            { id: 'vitals', weight: 25, cooldown: 2, telegraph: 'A blade seeks your meridians.', effect: { bonusDmgMult: 1.35, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.035 } } }
+        ] },
+    { name: "Heavenly Tribulation Phantom", hp: 80, dmg: 9, minRealm: 2, zones: ['heartlands', 'frostbite'], element: 'soul',
+        abilities: [
+            { id: 'spirit_bolt', weight: 40, telegraph: 'Heavenly wrath condenses.', effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
+            { id: 'phase', weight: 35, effect: { selfDefend: true, noDamage: true, log: 'The phantom flickers out of reach.' } },
+            { id: 'tribulation_strike', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.4, applyPlayer: { spiritDamage: true } } }
+        ] },
+    { name: "Nascent Soul Raider", hp: 110, dmg: 12, minRealm: 3, zones: ['jade', 'dustbone'], element: 'soul',
+        abilities: [
+            { id: 'soul_rend', weight: 45, effect: { bonusDmgMult: 1.15, applyPlayer: { spiritDamage: true } } },
+            { id: 'barrier', weight: 30, effect: { selfDefend: true } },
+            { id: 'harvest', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.25, stealStones: { min: 3, max: 8, chance: 0.6 } } }
+        ] },
+    { name: "Void Horror", hp: 140, dmg: 15, minRealm: 4, zones: ['emberwild', 'frostbite'], element: 'neutral',
+        enrageThreshold: 0.35,
+        abilities: [
+            { id: 'void_lash', weight: 50, effect: { bonusDmgMult: 1.15 } },
+            { id: 'consume', weight: 30, effect: { bonusDmgMult: 1.0, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.035 } } },
+            { id: 'rift', weight: 20, cooldown: 3, telegraph: 'Reality tears around the horror.', effect: { bonusDmgMult: 1.45 } }
+        ],
+        enrageAbilities: [
+            { id: 'void_maw', weight: 100, effect: { bonusDmgMult: 1.5, applyPlayer: { skipPlayerTurn: 1 } } }
+        ] },
+    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, minRealm: 5, zones: ['heartlands'], element: 'neutral',
+        abilities: [
+            { id: 'counter_stance', weight: 35, effect: { selfDefend: true, log: 'Your nemesis reads your intent.' } },
+            { id: 'dao_slash', weight: 40, telegraph: 'A blade of pure conviction falls.', effect: { bonusDmgMult: 1.2 } },
+            { id: 'breakthrough', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.4, applyPlayer: { slowResourceRegen: 2 } } }
+        ] },
+    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, minRealm: 6, zones: ['heartlands', 'jade'], element: 'neutral',
+        enrageThreshold: 0.3,
+        abilities: [
+            { id: 'sentinel_strike', weight: 40, effect: { bonusDmgMult: 1.15 } },
+            { id: 'immortal_guard', weight: 35, effect: { selfDefend: true, healSelfPct: 0.05, log: 'Ancient armor mends itself.' } },
+            { id: 'judgment', weight: 25, cooldown: 3, telegraph: 'The sentinel invokes heavenly judgment.', effect: { bonusDmgMult: 1.5 } }
+        ],
+        enrageAbilities: [
+            { id: 'final_verdict', weight: 100, effect: { bonusDmgMult: 1.6, extraHits: 1 } }
+        ] }
 ];
+
+const ENEMY_ELEMENT_ICONS = {
+    ice: '❄️', fire: '🔥', earth: '🌍', water: '💧', wind: '🌪️', soul: '👻', neutral: '⚔️', blood: '🩸'
+};
+
+const ENEMY_AFFIXES = {
+    armored: { label: 'Armored', hpMult: 1.2, dmgMult: 0.9, desc: 'Heavy scales resist blows.' },
+    frenzied: { label: 'Frenzied', hpMult: 0.85, dmgMult: 1.25, enrageThreshold: 0.5, desc: 'Wild and reckless.' },
+    frostbound: { label: 'Frostbound', hpMult: 1.05, dmgMult: 1.0, element: 'ice', zones: ['frostbite'],
+        desc: 'Ice clings to every movement.',
+        abilities: [{ id: 'frost_aura', weight: 100, telegraph: 'Frost crawls across the ground.', effect: { applyPlayer: { slowResourceRegen: 1 }, bonusDmgMult: 1.05 } }] },
+    scorched: { label: 'Scorched', hpMult: 0.95, dmgMult: 1.15, element: 'fire', zones: ['emberwild'],
+        desc: 'Heat radiates from its hide.',
+        abilities: [{ id: 'ember_burst', weight: 100, effect: { bonusDmgMult: 1.1, applyPlayer: { poisonTurns: 1, poisonDmgPct: 0.03 } } }] },
+    venomous: { label: 'Venomous', hpMult: 0.95, dmgMult: 1.05, zones: ['dustbone', 'emberwild'], minRealm: 1,
+        desc: 'Toxin drips from every strike.',
+        abilities: [{ id: 'venom_touch', weight: 100, effect: { bonusDmgMult: 1.05, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.03 } } }] },
+    tidal: { label: 'Tidal', hpMult: 1.1, dmgMult: 0.95, element: 'water', zones: ['jade'],
+        desc: 'Power ebbs and flows like the sea.',
+        abilities: [{ id: 'tide_pull', weight: 100, telegraph: 'A wave crashes inward.', effect: { stripShieldPct: 0.35, bonusDmgMult: 1.05 } }] },
+    pack_leader: { label: 'Pack Leader', hpMult: 1.0, dmgMult: 1.1, traits: ['swarm'], zones: ['frostbite', 'emberwild'],
+        desc: 'Commands lesser strikes alongside its own.' }
+};
 
 // Combat pacing — enemies scale with YOUR power so fights stay relevant at every realm
 const COMBAT_BALANCE = {
@@ -626,8 +870,8 @@ const COMBAT_BALANCE = {
     basicAttackScaleQi: 0.85,
     basicAttackScaleBody: 0.78,
     basicAttackScaleSoul: 0.55,
-    techniqueScale: 1.28,
-    techniqueScaleBodyHeavy: 1.38,
+    techniqueScale: 1.38,
+    techniqueScaleBodyHeavy: 1.48,
     techniqueDefenseDmgMult: 0.45,
     combatRegenCap: 10,
     enemyTurnDelayMs: 550
@@ -645,6 +889,13 @@ const COMBAT_FLEE_BALANCE = {
     minChance: 28,
     maxChance: 85,
     failRefundPct: 0.4
+};
+
+// Qi-path: Breath is combat circulation drawn from dantian Qi (Gather restores).
+const COMBAT_QI_LINK = {
+    startFloorPct: 0.4,
+    victoryRefundPct: 0.06,
+    skipTrials: true
 };
 
 /** Minimum realm to find or comprehend Dao fragments (Dao Seeking). */
@@ -841,13 +1092,14 @@ const ZONE_LOOT = {
         ],
         rare: [
             { name: "Frozen Manual", type: "technique", value: 15, desc: "Ice-element technique (rare).", technique: "Frostbite Palm" },
+            { name: "Glacier Heart Scripture", type: "technique", value: 22, desc: "Frostbite-exclusive ice art.", technique: "Glacier Heart Palm" },
             { name: "Yeti Hide", type: "material", value: 12, desc: "Thick, frost-resistant fur." },
             { name: "Rare Spirit Herb", type: "material", value: 14, desc: "A frost-hardened herb that nourishes marrow." }
         ],
         ultra: [
             { name: "Glacial Heart", type: "legendary_material", value: 50, desc: "The frozen core of a glacier spirit." }
         ],
-        techniques: ["Frostbite Palm", "Heavenly Palm"]
+        techniques: ["Glacier Heart Palm", "Frostbite Palm", "Gale Spiral"]
     },
     dustbone: {
         common: [
@@ -857,13 +1109,14 @@ const ZONE_LOOT = {
         ],
         rare: [
             { name: "Ancient Relic Fragment", type: "material", value: 15, desc: "A shard of a lost civilization." },
+            { name: "Sandburrow Manual", type: "technique", value: 18, desc: "Dustbone-exclusive burrowing palm art.", technique: "Sandburrow Palm" },
             { name: "Sand Serpent Scale", type: "material", value: 12, desc: "A scale from a massive sand serpent." },
             { name: "Marrow Herb", type: "material", value: 14, desc: "Root that burrows deep as bone." }
         ],
         ultra: [
             { name: "Wandering Oasis Map", type: "legendary_material", value: 50, desc: "A map that leads to a moving oasis." }
         ],
-        techniques: ["Five Elements Fist", "Scorching Palm", "Tide Spiral", "Heavenly Palm"]
+        techniques: ["Sandburrow Palm", "Sandstorm Body Art", "Bronze Skin Palm", "Earth Pulse Palm"]
     },
     heartlands: {
         common: [
@@ -875,12 +1128,14 @@ const ZONE_LOOT = {
             { name: "Sect Token", type: "material", value: 15, desc: "A token that grants access to a sect library." },
             { name: "Heavenly Pill", type: "pill", pillId: "spirit_gathering", value: 20, desc: "A pill that boosts Qi permanently." },
             { name: "Celestial Judgment Scroll", type: "technique", value: 25, desc: "A scroll of heavenly light.", technique: "Celestial Judgment" },
+            { name: "Void Rend Scroll", type: "technique", value: 28, desc: "A scripture on tearing rifts in space.", technique: "Void Rend" },
+            { name: "Root-Vein Manual", type: "technique", value: 20, desc: "Heartlands vein-cultivation art.", technique: "Root-Vein Surge" },
             { name: "Marrow Herb", type: "material", value: 16, desc: "A rare herb that seeps into bone marrow when refined." }
         ],
         ultra: [
             { name: "Dao Insight Fragment", type: "legendary_material", value: 50, desc: "A fragment of profound Dao understanding." }
         ],
-        techniques: ["Heavenly Palm", "Celestial Judgment", "Five Elements Fist"]
+        techniques: ["Root-Vein Surge", "Void Rend", "Heavenly Palm", "Storm Needle", "Meridian Flow"]
     },
     jade: {
         common: [
@@ -890,12 +1145,13 @@ const ZONE_LOOT = {
         ],
         rare: [
             { name: "Storm Pearl", type: "material", value: 15, desc: "A pearl charged with storm energy." },
+            { name: "Maelstrom Lance Manual", type: "technique", value: 22, desc: "Jade Coast-exclusive spear art.", technique: "Maelstrom Lance" },
             { name: "Pirate Manual", type: "technique", value: 18, desc: "A waterlogged combat manual.", technique: "Soul Severing Sword" }
         ],
         ultra: [
             { name: "Dragon Scale (Sea)", type: "legendary_material", value: 50, desc: "A scale from a sea dragon." }
         ],
-        techniques: ["Soul Severing Sword", "Demon Seal", "Void Step"]
+        techniques: ["Maelstrom Lance", "Tide Spiral", "Ghost Spear Thrust", "Phantom Blade", "Abyss Gaze"]
     },
     emberwild: {
         common: [
@@ -906,13 +1162,14 @@ const ZONE_LOOT = {
         rare: [
             { name: "Obsidian Shard", type: "material", value: 15, desc: "A shard of volcanic glass." },
             { name: "Beast Fury Manual", type: "technique", value: 18, desc: "Techniques carved into obsidian.", technique: "War God's Roar" },
+            { name: "Phoenix Ascent Scroll", type: "technique", value: 24, desc: "Emberwild-exclusive flame art.", technique: "Phoenix Ascent Palm" },
             { name: "Rare Spirit Herb", type: "material", value: 14, desc: "Ash-fed herb prized for marrow refinement." },
             { name: "Demon Core", type: "material", value: 18, desc: "Condensed malice from a slain demonic beast." }
         ],
         ultra: [
             { name: "Phoenix Feather", type: "legendary_material", value: 50, desc: "A feather from a legendary phoenix." }
         ],
-        techniques: ["Iron Mountain Stance", "War God's Roar", "Blood Refining Art"]
+        techniques: ["Phoenix Ascent Palm", "Raging Ember Fist", "Cinder Volley", "Viper Fang Strike", "Blood Refining Art"]
     }
 };
 
@@ -958,12 +1215,17 @@ const MERCHANT_CATALOG = {
     heartlands: {
         name: "Celestial Market",
         stock: [
-            { technique: "Heavenly Palm", price: 45, reqRealm: 0 },
-            { technique: "Five Elements Fist", price: 90, reqRealm: 1 },
-            { technique: "Scorching Palm", price: 75, reqRealm: 1 },
-            { technique: "Tide Spiral", price: 75, reqRealm: 1 },
-            { technique: "Celestial Judgment", price: 220, reqRealm: 3 },
-            { technique: "Frostbite Palm", price: 160, reqRealm: 2 }
+            { technique: "Heavenly Palm", price: 45 },
+            { technique: "Earth Pulse Palm", price: 50 },
+            { technique: "Meridian Flow", price: 40 },
+            { technique: "Five Elements Fist", price: 90 },
+            { technique: "Scorching Palm", price: 75 },
+            { technique: "Tide Spiral", price: 75 },
+            { technique: "Storm Needle", price: 85 },
+            { technique: "Root-Vein Surge", price: 95 },
+            { technique: "Wind Blade Strike", price: 100 },
+            { technique: "Frostbite Palm", price: 160 },
+            { technique: "Celestial Judgment", price: 220 }
         ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
@@ -974,10 +1236,20 @@ const MERCHANT_CATALOG = {
     jade: {
         name: "Tide Merchant Guild",
         stock: [
-            { technique: "Iron Mountain Stance", price: 40, reqRealm: 0 },
-            { technique: "Soul Severing Sword", price: 75, reqRealm: 1 },
-            { technique: "Demon Seal", price: 130, reqRealm: 2 },
-            { technique: "Void Step", price: 200, reqRealm: 2 }
+            { technique: "Crushing Fist", price: 45 },
+            { technique: "Bone Tempering Stance", price: 50 },
+            { technique: "Blood Aegis", price: 85 },
+            { technique: "Mountain Crash", price: 175 },
+            { technique: "Bronze Skin Palm", price: 120 },
+            { technique: "Soul Lash", price: 55 },
+            { technique: "Quickfoot Art", price: 35 },
+            { technique: "Soul Severing Sword", price: 75 },
+            { technique: "Phantom Blade", price: 90 },
+            { technique: "Ghost Spear Thrust", price: 95 },
+            { technique: "Demon Seal", price: 130 },
+            { technique: "Spirit Suppression Art", price: 140 },
+            { technique: "Void Step", price: 200 },
+            { technique: "Spectral Shield", price: 110 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -2239,8 +2511,122 @@ const ACTION_MONTHS = {
     sectFound: 12,
     sectBuild: 6,
     ancientSearch: 4,
-    ancientUnseal: 12
+    ancientUnseal: 12,
+    manualComprehend: 2
 };
+
+const MANUAL_BALANCE = {
+    defaultMonths: 2,
+    monthsByRarity: {
+        common: 1,
+        uncommon: 2,
+        rare: 3,
+        legendary: 5
+    },
+    monthsByCultivationTier: {
+        mortal: 1,
+        condensation: 1,
+        foundation: 2,
+        core: 3,
+        nascent: 4,
+        void: 5,
+        dao_seeking: 6,
+        immortal: 8
+    },
+    consignByRarity: {
+        common: 12,
+        uncommon: 22,
+        rare: 45,
+        legendary: 90
+    },
+    defaultIntentDebuff: { dmgMult: 0.45, costMult: 1.25 }
+};
+
+const MANUAL_HALL_BALANCE = {
+    studyMonthsMult: 3,
+    renownByRarity: { common: 1, uncommon: 2, rare: 4, legendary: 8 },
+    roleStudySpeed: { acolyte: 1, elder: 0.88, core: 0.78, successor: 0.68 },
+    traitStudySpeed: { wise: 0.85, ambitious: 0.92, loyal: 1, generous: 1, mysterious: 0.9 }
+};
+
+/** Personal travel kit — worn gear is free; bag contents count against capacity. */
+const TRAVEL_KIT_BALANCE = {
+    baseCapacity: 8,
+    manualUniqueWeight: 1,
+    pillWeight: 0.25,
+    gearBagWeight: 1,
+    curioWeight: 0.5,
+    defaultMaterialWeight: 0.12,
+    materialWeight: {
+        spirit_herb: 0.1,
+        iron_ore: 0.15,
+        leather_scrap: 0.12,
+        silk_thread: 0.08,
+        jade_inlay: 0.25,
+        demon_core: 0.3,
+        celestial_silk: 0.2
+    }
+};
+
+/** Home shelves at Leader's Quarters — bulk storage, scales with residence upgrades. */
+const RESIDENCE_STASH_BALANCE = {
+    capacityByLevel: [16, 28, 44, 64],
+    stashAllManualsMax: 20
+};
+
+/** Spatial storage rings — expand travel kit capacity; materials weigh less inside. */
+const SPATIAL_RING_BALANCE = {
+    rings: {
+        storage_ring: {
+            id: 'storage_ring',
+            name: 'Storage Ring',
+            emoji: '💍',
+            tier: 1,
+            capacityBonus: 6,
+            materialWeightMult: 0.65,
+            reqRealm: 2,
+            desc: 'A qi-bound ring that folds space around your travel bundle — +6 kit capacity, materials weigh 35% less.',
+            craft: {
+                months: 6,
+                stones: 45,
+                materials: { jade_inlay: 2, silk_thread: 4, spirit_herb: 6 }
+            }
+        },
+        void_storage_ring: {
+            id: 'void_storage_ring',
+            name: 'Void Storage Ring',
+            emoji: '🌀',
+            tier: 2,
+            capacityBonus: 14,
+            materialWeightMult: 0.45,
+            reqRealm: 3,
+            requiresRing: 'storage_ring',
+            desc: 'Rift-woven storage — +14 kit capacity, materials weigh 55% less. Replaces a Storage Ring.',
+            craft: {
+                months: 10,
+                stones: 80,
+                materials: { jade_inlay: 3, celestial_silk: 2, demon_core: 2 },
+                consumesCurio: 'Dao Insight Fragment'
+            }
+        }
+    }
+};
+
+/** Intent synergy tiers — mid = soft debuff, high = hard debuff without matching intent stage. */
+const INTENT_TECHNIQUE_BALANCE = {
+    low: { noMatchMult: 1, costMult: 1, matchBonus: 0.06, stageBonusPerTier: 0.025 },
+    mid: { noMatchMult: 0.85, costMult: 1.08, matchBonus: 0.10, stageBonusPerTier: 0.035 },
+    high: { noMatchMult: 0.45, costMult: 1.25, matchBonus: 0.15, stageBonusPerTier: 0.05 },
+    wrongStageMult: 0.72
+};
+
+/** Apex arts — hard intent gate unless noted in pool. */
+const HIGH_INTENT_TECHNIQUES = new Set([
+    'Wind Blade Strike', 'Heavenly Sword Qi', 'Phantom Blade', 'Mountain Crash', 'Celestial Judgment',
+    'Soul Severing Sword', 'War God\'s Roar', 'Phoenix Ascent Palm', 'Abyss Gaze', 'Soul Rend',
+    'Glacier Heart Palm', 'Maelstrom Lance', 'Void Rend', 'Demon Seal', 'Five Elements Fist',
+    'Mirror Step'
+]);
 
 // ===== ACTION UNLOCKS — realm & milestone gates (not age) =====
 // minRealm uses realmIdx (0 = first realm). Milestones are set by play, not calendar age.
@@ -2253,7 +2639,7 @@ const MILESTONE_LABELS = {
 const ACTION_UNLOCK_LABELS = {
     intent: 'Weapon Intent',
     physique: 'Physique',
-    search: 'Search',
+    search: 'Probe Sealed Sites',
     factions: 'Factions',
     forbidden: 'Forbidden Grounds',
     sect: 'Sect',
@@ -2270,7 +2656,6 @@ const ACTION_UNLOCK_BUTTONS = {
     dao: 'btnDao',
     intent: 'btnIntent',
     tech: 'btnTech',
-    physique: 'btnPhysique',
     pill: 'btnPill',
     inventory: 'btnInventory',
     explore: 'btnExplore',
@@ -2563,12 +2948,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Sunless Pearl', type: 'legendary_material', value: 40, desc: 'A pearl formed in absolute dark.' },
-            { name: 'Frozen Manual', type: 'technique', value: 18, technique: 'Frostbite Palm', desc: 'Ice-path scripture from the abyss.' }
+            { name: 'Frozen Manual', type: 'technique', value: 18, technique: 'Glacier Heart Palm', desc: 'Ice-path scripture from the abyss.' }
         ],
         ultra: [
             { name: 'Pre-Heaven Frost Shard', type: 'legendary_material', value: 60, desc: 'A shard of the array that sealed the Sage.' }
         ],
-        techniques: ['Frostbite Palm', 'Heavenly Palm']
+        techniques: ['Glacier Heart Palm', 'Frostbite Palm', 'Gale Spiral']
     },
     whistling_dunes: {
         common: [
@@ -2577,12 +2962,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Whistle Stone', type: 'legendary_material', value: 38, desc: 'Stone that echoes the buried king\'s voice.' },
-            { name: 'Scorching Palm', type: 'technique', value: 16, technique: 'Scorching Palm', desc: 'Desert heat compressed into a palm strike.' }
+            { name: 'Sandburrow Manual', type: 'technique', value: 18, technique: 'Sandburrow Palm', desc: 'Burrowing palm art from the singing dunes.' }
         ],
         ultra: [
             { name: 'Gilded Burial Mask', type: 'legendary_material', value: 55, desc: 'The Dune Sovereign\'s half-melted crown.' }
         ],
-        techniques: ['Five Elements Fist', 'Scorching Palm']
+        techniques: ['Sandburrow Palm', 'Sandstorm Body Art']
     },
     root_of_world: {
         common: [
@@ -2596,7 +2981,7 @@ const SUBZONE_LOOT = {
         ultra: [
             { name: 'Primordial Root Seed', type: 'legendary_material', value: 65, desc: 'Could grow a sect\'s formation array on its own.' }
         ],
-        techniques: ['Heavenly Palm', 'Tide Spiral']
+        techniques: ['Root-Vein Surge', 'Heavenly Sword Qi', 'Storm Needle']
     },
     sunken_atoll: {
         common: [
@@ -2605,12 +2990,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Drowned Crown Coral', type: 'legendary_material', value: 42, desc: 'Coral shaped like a forgotten crown.' },
-            { name: 'Tide Spiral', type: 'technique', value: 17, technique: 'Tide Spiral', desc: 'Water-path manual from the drowned palace.' }
+            { name: 'Maelstrom Lance Manual', type: 'technique', value: 20, technique: 'Maelstrom Lance', desc: 'Spear art from the drowned palace currents.' }
         ],
         ultra: [
             { name: 'Dragon-Tide Pearl', type: 'legendary_material', value: 58, desc: 'The Sleeper\'s dream made solid.' }
         ],
-        techniques: ['Tide Spiral', 'Heavenly Palm']
+        techniques: ['Maelstrom Lance', 'Phantom Blade', 'Tide Spiral']
     },
     ashvein_caldera: {
         common: [
@@ -2619,12 +3004,12 @@ const SUBZONE_LOOT = {
         ],
         rare: [
             { name: 'Caldera Heart Shard', type: 'legendary_material', value: 40, desc: 'A fragment of living flame.' },
-            { name: 'Scorching Palm', type: 'technique', value: 16, technique: 'Scorching Palm', desc: 'First flame-path teaching, ash-scorched.' }
+            { name: 'Phoenix Ascent Scroll', type: 'technique', value: 20, technique: 'Phoenix Ascent Palm', desc: 'First flame-path teaching, ash-scorched.' }
         ],
         ultra: [
             { name: 'Primordial Ash Core', type: 'legendary_material', value: 62, desc: 'The Heart\'s breath crystallized.' }
         ],
-        techniques: ['Scorching Palm', 'Five Elements Fist']
+        techniques: ['Phoenix Ascent Palm', 'Raging Ember Fist', 'Cinder Volley']
     }
 };
 
@@ -3810,9 +4195,13 @@ const SECT_BUILDINGS = {
         id: 'armory',
         name: 'Armory',
         emoji: '🗡️',
-        desc: '+5% sect combat power per level for duels and raids.',
+        desc: '+5% sect combat power per level. +4% forge speed and +2% affix quality per level.',
         effectKey: 'armoryCombatPct',
         effectPerLevel: 5,
+        extraEffects: [
+            { effectKey: 'armoryForgePct', effectPerLevel: 4 },
+            { effectKey: 'armoryForgeAffixPct', effectPerLevel: 2 }
+        ],
         maxLevel: 3,
         minStage: 'established',
         implemented: true,
@@ -3873,6 +4262,24 @@ const SECT_BUILDINGS = {
             { stones: 48, materials: { silk_thread: 4, spirit_herb: 4 }, months: 8, renown: 4 },
             { stones: 85, materials: { silk_thread: 6, jade_inlay: 2 }, months: 11, renown: 7 }
         ]
+    },
+    manual_hall: {
+        id: 'manual_hall',
+        name: 'Manual Hall',
+        emoji: '📜',
+        desc: 'Archive martial manuals for your sect. +6 collection slots and +1 disciple study slot per level.',
+        effectKey: 'manualHallCapacity',
+        effectPerLevel: 6,
+        maxLevel: 3,
+        minStage: 'founding',
+        implemented: true,
+        levels: [
+            null,
+            { stones: 24, materials: { silk_thread: 3, spirit_herb: 2 }, months: 5, renown: 2 },
+            { stones: 50, materials: { silk_thread: 5, jade_inlay: 1 }, months: 8, renown: 4 },
+            { stones: 88, materials: { silk_thread: 6, jade_inlay: 2 }, months: 11, renown: 6 }
+        ],
+        extraEffects: [{ effectKey: 'manualStudySlots', effectPerLevel: 1 }, { effectKey: 'studySpeedPct', effectPerLevel: 10 }]
     }
 };
 
@@ -3903,10 +4310,10 @@ const SECT_RESIDENCE = {
     /** Formation slots unlocked at each residence level (index = level). */
     formationSlotsByLevel: [0, 1, 2, 3],
     levels: [
-        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Upgrade to lay cultivation formations.' },
-        { name: 'Inner Court Room', desc: 'A proper chamber — one formation slot for personal qi gathering.' },
-        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with two formation slots.' },
-        { name: 'Immortal Abode', desc: 'A peak dwelling with three formation slots woven into the courtyard.' }
+        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Personal shelves hold spare manuals and materials.' },
+        { name: 'Inner Court Room', desc: 'A proper chamber — formation slot plus expanded home storage.' },
+        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with two formation slots and deep shelves.' },
+        { name: 'Immortal Abode', desc: 'A peak dwelling — three formation slots and a vast personal archive.' }
     ],
     upgradeCosts: [
         null,
@@ -3966,6 +4373,7 @@ const SECT_MAP_NODES = {
     spirit_garden: { id: 'spirit_garden', type: 'building', x: 58, y: 72, layer: 1 },
     disciple_hall: { id: 'disciple_hall', type: 'building', x: 50, y: 52, layer: 1 },
     library: { id: 'library', type: 'building', x: 72, y: 56, layer: 1 },
+    manual_hall: { id: 'manual_hall', type: 'building', x: 64, y: 44, layer: 1 },
     meditation_chamber: { id: 'meditation_chamber', type: 'building', x: 38, y: 48, layer: 1 },
     beast_pen: { id: 'beast_pen', type: 'building', x: 62, y: 48, layer: 1 },
     alchemy_lab: { id: 'alchemy_lab', type: 'building', x: 50, y: 82, layer: 1 },
@@ -4506,7 +4914,7 @@ const CHAMBER_BALANCE = {
         weeks: 1,
         densityGainMin: 0.14,
         densityGainMax: 0.32,
-        fillRatio: 0.07
+        fillRatio: 0.11
     },
     expandDantian: { weeks: 2, stones: 25, maxQiBonusGain: 4, cooldownMonths: 2 },
     perfectFoundation: { weeks: 3, stones: 50, techniques: 1, foundationGain: 2, cooldownMonths: 3 },
@@ -4525,6 +4933,58 @@ const CHAMBER_BALANCE = {
     foundationBarHeadroom: 1.15,
     densityBarCapBase: 5,
     densityBarCapPerRealm: 2.5
+};
+
+// Qi chamber + main-panel cultivation action helpers (inline meta + tooltips)
+const CULTIVATION_ACTION_GUIDE = {
+    gatherQi: {
+        label: 'Gather Qi',
+        emoji: '🌬️',
+        flavor: 'Draw heaven\'s breath into the void of your dantian.',
+        desc: 'Raises Qi Density (technique power & peak requirements), refills dantian Qi toward max, and slowly builds Root. Qi-path combat draws Breath directly from your dantian — gather between fights to recover. Bonuses scale with sect, talents, and body cultivation.'
+    },
+    expandDantian: {
+        label: 'Expand Dantian',
+        emoji: '🏺',
+        flavor: 'Widen the vessel so more Qi may dwell within.',
+        desc: 'Permanently increases max Qi capacity. Also grants a burst of Root. Does not raise Density or Flow. Costs spirit stones; your dantian must stabilize between expansions.'
+    },
+    refineFoundation: {
+        label: 'Refine Foundation',
+        emoji: '🪨',
+        flavor: 'Burn a technique into bedrock — anchor your Flow.',
+        desc: 'Chamber grind between realm seals — separate from Seal Dantian capstones. Sacrifice a spare technique to strengthen the Flow (meridian) pillar. Requires stones and recovery time.'
+    },
+    condenseCore: {
+        label: 'Condense Core',
+        emoji: '💎',
+        flavor: 'Compress peak Qi into a nascent golden core.',
+        desc: 'At Foundation Establishment peak, attempt to form a golden core and advance to Core Formation. Then face heavenly tribulation. Failure cracks foundation; success is a major realm leap.'
+    },
+    cultivate: {
+        label: 'Cultivate',
+        emoji: '🧘',
+        flavor: 'Choose where to refine yourself today.',
+        desc: 'Open the cultivation hub — Qi, Body, or Soul chambers. Any path can be trained regardless of your primary path.'
+    },
+    sealDantian: {
+        label: 'Seal Dantian',
+        emoji: '🏛️',
+        flavor: 'Cement your realm before reaching for the next.',
+        desc: 'Realm capstone at Settled (80%+) or Peak (100%). Cements Stability (seal pillar), unlocks breakthrough, and perfect seals grant lasting bonuses. Distinct from chamber Refine Foundation.'
+    },
+    breakthrough: {
+        label: 'Break Through',
+        emoji: '🌀',
+        flavor: 'Shatter the bottleneck and ascend.',
+        desc: 'Attempt the next cultivation realm. Requires this realm to be sealed first. Success raises stats, max Qi, and lifespan. Odds depend on foundation, density, and consolidation tier.'
+    },
+    recuperate: {
+        label: 'Recuperate',
+        emoji: '🛌',
+        flavor: 'Still the body and mend what combat has torn.',
+        desc: 'Rest to heal HP and regenerate your protective barrier. Does not cultivate stats or Qi.'
+    }
 };
 
 // ===== BODY CULTIVATION CHAMBER =====
@@ -5869,6 +6329,16 @@ const ZONE_ENCOUNTERS = {
                 { label: "Intimidate the alpha", months: 1, require: { stat: "will", min: 8 }, failLog: "They laugh with their eyes.", fail: { hp: -10, months: 1 }, stones: 4, fame: 3, log: "The alpha backs down. The pack disperses." },
                 { label: "Flee across the ice", months: 2, hp: -6, log: "You escape, bleeding but alive." }
             ]
+        },
+        {
+            id: "ice_wraith",
+            title: "Ice Wraith",
+            text: "A specter of killing frost drifts from a shattered ice spire. Your breath crystallizes before it reaches your lips.",
+            choices: [
+                { label: "Shatter the wraith", months: 1, combat: "ice_wraith", log: "Spirit frost lashes out — fight!" },
+                { label: "Channel fire qi", months: 1, require: { stat: "qi", min: 15 }, failLog: "Your qi freezes solid.", fail: { hp: -12, months: 1 }, foundation: 1, log: "Heat drives the wraith back. You claim a shard of its core." },
+                { label: "Retreat downwind", months: 2, hp: -4, log: "The wraith does not pursue. Your fingers numb for days." }
+            ]
         }
     ],
     dustbone: [
@@ -5901,6 +6371,16 @@ const ZONE_ENCOUNTERS = {
                 { label: "Offer spirit stones", months: 1, stones: -12, fame: 2, log: "It accepts tribute and sinks away." },
                 { label: "Run", months: 2, hp: -8, log: "Its fangs graze your heel as you flee." }
             ]
+        },
+        {
+            id: "scorpion_nest",
+            title: "Scorpion Nest",
+            text: "Chitin clicks beneath the sand. A nest of venom-tail scorpions surges from a buried burrow.",
+            choices: [
+                { label: "Crush the nest", months: 1, combat: "scorpion_nest", log: "The swarm boils up — fight!" },
+                { label: "Flare qi to scatter them", months: 1, qi: -6, stones: 5, log: "The scorpions scatter. You grab what the nest guarded." },
+                { label: "Back away slowly", months: 2, hp: -5, log: "One stinger finds your ankle before you clear the dunes." }
+            ]
         }
     ],
     heartlands: [
@@ -5932,6 +6412,16 @@ const ZONE_ENCOUNTERS = {
                 { label: "Browse the stalls", months: 2, pill: "spirit_gathering", log: "You acquire a rare pill at a fair price." },
                 { label: "Haggle aggressively", months: 1, stones: 12, fame: -1, log: "You win the bargain. The merchant scowls." },
                 { label: "Share tea with a merchant", months: 2, fame: 3, foundation: 1, log: "Connections matter in the Heartlands." }
+            ]
+        },
+        {
+            id: "bandit_ambush",
+            title: "Bandit Ambush",
+            text: "Cultivators in rough sect robes block the road. Their leader twirls a notched blade.",
+            choices: [
+                { label: "Fight through", months: 1, combat: "bandit_ambush", log: "Steel flashes from the roadside!" },
+                { label: "Pay the toll", months: 1, stones: -10, log: "They take your stones and melt into the wheat fields." },
+                { label: "Intimidate them", months: 1, require: { stat: "fame", min: 15 }, failLog: "They call your bluff.", fail: { hp: -8, months: 1, combat: "bandit_ambush" }, fame: 2, log: "They scatter at the mention of your name." }
             ]
         }
     ],
@@ -5997,20 +6487,175 @@ const ZONE_ENCOUNTERS = {
                 { label: "Loot the offering bowl", months: 1, stones: 14, hp: -8, log: "The temple bites back." },
                 { label: "Mark the location and leave", months: 1, fame: 1, log: "You will return when stronger." }
             ]
+        },
+        {
+            id: "obsidian_golem",
+            title: "Obsidian Golem",
+            text: "Volcanic glass animates into a hulking guardian. Its joints glow like embers.",
+            choices: [
+                { label: "Break the construct", months: 1, combat: "obsidian_golem", log: "The golem turns — obsidian fists rise!" },
+                { label: "Circle to its blind side", months: 2, require: { stat: "spirit", min: 8 }, failLog: "It tracks you perfectly.", fail: { hp: -14, months: 1, combat: "obsidian_golem" }, stones: 8, log: "You find a crack in its carapace and claim its core." },
+                { label: "Withdraw", months: 1, log: "Some guardians are not meant to be fought today." }
+            ]
         }
     ]
 };
 
 const ENCOUNTER_ENEMIES = {
-    ice_guardian: { name: "Frost Guardian", template: "Demon Beast", hpMult: 1.0, dmgMult: 0.95 },
-    wolf_pack: { name: "Alpha Frost Wolf", template: "Feral Spirit Wolf", hpMult: 1.1, dmgMult: 1.0 },
-    sand_serpent: { name: "Sand Serpent", template: "Demon Beast", hpMult: 1.05, dmgMult: 1.05 },
-    tournament_rival: { name: "Tournament Rival", template: "Corrupted Cultivator", hpMult: 1.0, dmgMult: 1.1 },
-    elder_phantom: { name: "Elder's Phantom", template: "Heavenly Tribulation Phantom", hpMult: 0.95, dmgMult: 1.15 },
-    sea_beast: { name: "Tide Leviathan", template: "Demon Beast", hpMult: 1.15, dmgMult: 1.0 },
-    pirates: { name: "Jade Pirate Captain", template: "Shadow Assassin", hpMult: 1.0, dmgMult: 1.05 },
-    beast_tide: { name: "Beast Tide Alpha", template: "Demon Beast", hpMult: 1.2, dmgMult: 1.1 },
-    ashvein_guardian_beast: { name: "Ashvein Warden Beast", template: "Demon Beast", hpMult: 1.4, dmgMult: 1.18, emoji: '🐲' }
+    ice_guardian: {
+        name: "Frost Guardian", template: "Demon Beast", hpMult: 1.0, dmgMult: 0.95,
+        zone: "frostbite", element: "ice",
+        weakness: { fire: 1.25, ice: 0.75 },
+        abilities: [
+            { id: "ice_shield", weight: 35, telegraph: "Frost crawls up the guardian's limbs.", effect: { selfDefend: true, log: "A shell of ice hardens around it!" } },
+            { id: "frost_breath", weight: 40, telegraph: "Killing cold exhales from its maw.", effect: { bonusDmgMult: 1.15, applyPlayer: { slowResourceRegen: 1 } } },
+            { id: "shatter_rush", weight: 25, cooldown: 3, telegraph: "Ice crystals crack along its spine.", effect: { bonusDmgMult: 1.35 } }
+        ],
+        enrageThreshold: 0.3,
+        enrageAbilities: [
+            { id: "avalanche", weight: 100, telegraph: "The guardian's ice shell explodes outward!", effect: { bonusDmgMult: 1.45, applyPlayer: { slowResourceRegen: 2 } } }
+        ],
+        loot: { materials: { frost_essence: 1, glacial_shard: 1 }, chance: 0.65 }
+    },
+    wolf_pack: {
+        name: "Alpha Frost Wolf", template: "Feral Spirit Wolf", hpMult: 1.1, dmgMult: 1.0,
+        zone: "frostbite", element: "ice", traits: ["swarm"],
+        abilities: [
+            { id: "pack_bite", weight: 45, effect: { bonusDmgMult: 1.1, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.03 } } },
+            { id: "alpha_howl", weight: 30, telegraph: "The alpha howls — the pack answers.", effect: { bonusDmgMult: 0.85, applyPlayer: { slowResourceRegen: 1 }, log: "Your nerves fray under the chorus!" } },
+            { id: "frenzy", weight: 25, cooldown: 3, telegraph: "Blood-matted fur bristles.", effect: { bonusDmgMult: 1.3, extraHits: 1 } }
+        ],
+        enrageThreshold: 0.4,
+        enrageAbilities: [
+            { id: "pack_frenzy", weight: 100, effect: { bonusDmgMult: 1.35, extraHits: 1, applyPlayer: { bleedTurns: 3, bleedDmgPct: 0.035 } } }
+        ],
+        loot: { materials: { leather_scrap: 2, frost_essence: 1 }, chance: 0.7 }
+    },
+    sand_serpent: {
+        name: "Sand Serpent", template: "Demon Beast", hpMult: 1.05, dmgMult: 1.05,
+        zone: "dustbone", element: "earth",
+        abilities: [
+            { id: "burrow", weight: 30, telegraph: "The serpent dives beneath the sand…", effect: { selfDefend: true, noDamage: true, log: "It surfaces armored in grit!" } },
+            { id: "venom_fang", weight: 40, telegraph: "Venom drips from its fangs.", effect: { bonusDmgMult: 1.3, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.04 } } },
+            { id: "constrict", weight: 30, cooldown: 3, effect: { bonusDmgMult: 0.85, applyPlayer: { slowResourceRegen: 1, bleedTurns: 1, bleedDmgPct: 0.025 } } }
+        ],
+        loot: { materials: { leather_scrap: 1, silk_thread: 1 }, chance: 0.6 }
+    },
+    tournament_rival: {
+        name: "Tournament Rival", template: "Corrupted Cultivator", hpMult: 1.0, dmgMult: 1.1,
+        zone: "heartlands", element: "neutral",
+        abilities: [
+            { id: "rival_strike", weight: 40, telegraph: "Your rival's technique flares.", effect: { bonusDmgMult: 1.15 } },
+            { id: "counter_guard", weight: 35, effect: { selfDefend: true, log: "They settle into a counter stance." } },
+            { id: "secret_art", weight: 25, cooldown: 3, telegraph: "A forbidden palm technique unfolds.", effect: { bonusDmgMult: 1.4 } }
+        ],
+        loot: { materials: { spirit_herb: 1 }, chance: 0.5 }
+    },
+    elder_phantom: {
+        name: "Elder's Phantom", template: "Heavenly Tribulation Phantom", hpMult: 0.95, dmgMult: 1.15,
+        zone: "heartlands", element: "soul",
+        abilities: [
+            { id: "spirit_rend", weight: 40, telegraph: "The phantom's gaze pierces your soul.", effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
+            { id: "dao_test", weight: 30, telegraph: "Ancient will presses against yours.", effect: { willCheck: { min: 10, failSkip: 1 }, bonusDmgMult: 0.8 } },
+            { id: "phantom_strike", weight: 30, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { spiritDamage: true } } }
+        ],
+        loot: { materials: { spirit_herb: 2 }, chance: 0.55 }
+    },
+    sea_beast: {
+        name: "Tide Leviathan", template: "Demon Beast", hpMult: 1.15, dmgMult: 1.0,
+        zone: "jade", element: "water",
+        abilities: [
+            { id: "tide_slam", weight: 40, effect: { bonusDmgMult: 1.15 } },
+            { id: "tide_wave", weight: 35, telegraph: "A wall of water rises.", effect: { stripShieldPct: 0.45, bonusDmgMult: 1.05, log: "The wave strips your defenses!" } },
+            { id: "deep_regen", weight: 25, cooldown: 3, telegraph: "The leviathan dives and surfaces renewed.", effect: { healSelfPct: 0.12, bonusDmgMult: 0.75, log: "Salt spray hisses as wounds close." } }
+        ],
+        loot: { materials: { silk_thread: 1, jade_inlay: 1 }, chance: 0.6 }
+    },
+    pirates: {
+        name: "Jade Pirate Captain", template: "Shadow Assassin", hpMult: 1.0, dmgMult: 1.05,
+        zone: "jade", element: "water",
+        abilities: [
+            { id: "cutlass", weight: 45, effect: { bonusDmgMult: 1.15 } },
+            { id: "dirty_trick", weight: 30, telegraph: "The captain grins — too wide.", effect: { bonusDmgMult: 1.0, stealStones: { min: 2, max: 6, chance: 0.55 } } },
+            { id: "smoke_bomb", weight: 25, cooldown: 3, telegraph: "A smoke pellet shatters at your feet.", effect: { selfDefend: true, applyPlayer: { slowResourceRegen: 1 }, log: "Acrid smoke fills your lungs!" } }
+        ],
+        enrageThreshold: 0.35,
+        enrageAbilities: [
+            { id: "last_stand", weight: 100, effect: { bonusDmgMult: 1.45, stealStones: { min: 3, max: 8, chance: 0.7 } } }
+        ],
+        loot: { materials: { iron_ore: 1, jade_inlay: 1 }, chance: 0.55 }
+    },
+    beast_tide: {
+        name: "Beast Tide Alpha", template: "Demon Beast", hpMult: 1.2, dmgMult: 1.1,
+        zone: "emberwild", element: "fire", traits: ["swarm"],
+        abilities: [
+            { id: "stampede", weight: 45, effect: { bonusDmgMult: 1.1, extraHits: 1 } },
+            { id: "crushing_hoof", weight: 35, effect: { bonusDmgMult: 1.25 } },
+            { id: "rally", weight: 20, cooldown: 3, telegraph: "The alpha bellows — the herd answers.", effect: { healSelfPct: 0.1, bonusDmgMult: 1.0, log: "Reinforcements surge at its side!" } }
+        ],
+        enrageThreshold: 0.5,
+        enrageAbilities: [
+            { id: "tide_frenzy", weight: 100, telegraph: "The beast tide reaches fever pitch!", effect: { bonusDmgMult: 1.35, extraHits: 2 } }
+        ],
+        loot: { materials: { demon_core: 1, leather_scrap: 2 }, chance: 0.65 }
+    },
+    ashvein_guardian_beast: {
+        name: "Ashvein Warden Beast", template: "Demon Beast", hpMult: 1.4, dmgMult: 1.18, emoji: '🐲',
+        zone: "emberwild", element: "fire",
+        weakness: { water: 1.2, fire: 0.8 },
+        abilities: [
+            { id: "magma_claw", weight: 40, telegraph: "Molten veins pulse beneath its scales.", effect: { bonusDmgMult: 1.2, applyPlayer: { poisonTurns: 1, poisonDmgPct: 0.035 } } },
+            { id: "warden_roar", weight: 35, effect: { applyPlayer: { slowResourceRegen: 2 }, bonusDmgMult: 1.05, log: "The roar shakes the caldera!" } },
+            { id: "obsidian_hide", weight: 25, cooldown: 2, effect: { selfDefend: true, log: "Obsidian plates lock into place." } }
+        ],
+        enrageThreshold: 0.4,
+        enrageAbilities: [
+            { id: "caldera_awakening", weight: 100, telegraph: "Phase II — the Warden's true form erupts!", effect: { bonusDmgMult: 1.5, extraHits: 1, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.04 } } }
+        ],
+        loot: { materials: { phoenix_ash: 1, demon_core: 2 }, chance: 0.75 }
+    },
+    ice_wraith: {
+        name: "Ice Wraith", template: "Heavenly Tribulation Phantom", hpMult: 0.9, dmgMult: 1.1,
+        zone: "frostbite", element: "ice",
+        weakness: { fire: 1.3, ice: 0.7 },
+        abilities: [
+            { id: "spirit_frost", weight: 45, telegraph: "Spectral frost needles toward your meridians.", effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
+            { id: "wraith_phase", weight: 30, effect: { selfDefend: true, noDamage: true, log: "The wraith dissolves into mist." } },
+            { id: "killing_cold", weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { spiritDamage: true, slowResourceRegen: 1 } } }
+        ],
+        loot: { materials: { frost_essence: 2, glacial_shard: 1 }, chance: 0.6 }
+    },
+    obsidian_golem: {
+        name: "Obsidian Golem", template: "Demon Beast", hpMult: 1.25, dmgMult: 0.9,
+        zone: "emberwild", element: "fire",
+        weakness: { fire: 1.25, water: 0.85 },
+        abilities: [
+            { id: "obsidian_fist", weight: 40, effect: { bonusDmgMult: 1.1 } },
+            { id: "glass_shell", weight: 35, telegraph: "Obsidian plates interlock.", effect: { selfDefend: true, log: "Its hide becomes near-impenetrable!" } },
+            { id: "ember_core", weight: 25, cooldown: 3, telegraph: "The golem's core flares white-hot.", effect: { bonusDmgMult: 1.35, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.03 } } }
+        ],
+        loot: { materials: { iron_ore: 2, phoenix_ash: 1 }, chance: 0.6 }
+    },
+    scorpion_nest: {
+        name: "Venomtail Swarm", template: "Feral Spirit Wolf", hpMult: 0.85, dmgMult: 1.0,
+        zone: "dustbone", element: "earth", traits: ["swarm"],
+        abilities: [
+            { id: "stinger_volley", weight: 50, effect: { bonusDmgMult: 0.9, extraHits: 1, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.035 } } },
+            { id: "burrow_swarm", weight: 30, telegraph: "Scorpions boil from the sand.", effect: { bonusDmgMult: 0.85, extraHits: 1 } },
+            { id: "venom_spray", weight: 20, cooldown: 2, telegraph: "A cloud of venom mist erupts.", effect: { noDamage: true, applyPlayer: { poisonTurns: 3, poisonDmgPct: 0.03 }, log: "Toxin fills the air!" } }
+        ],
+        loot: { materials: { demon_core: 1, leather_scrap: 1 }, chance: 0.65 }
+    },
+    bandit_ambush: {
+        name: "Roadside Bandit Chief", template: "Shadow Assassin", hpMult: 0.75, dmgMult: 1.15,
+        zone: "heartlands", element: "neutral",
+        abilities: [
+            { id: "ambush_slash", weight: 50, telegraph: "The chief strikes from your blind spot!", effect: { bonusDmgMult: 1.25 } },
+            { id: "throw_dirt", weight: 30, effect: { applyPlayer: { skipPlayerTurn: 1 }, bonusDmgMult: 0.7, log: "Dirt blinds you momentarily!" } },
+            { id: "desperate_lunge", weight: 20, cooldown: 2, effect: { bonusDmgMult: 1.4, stealStones: { min: 2, max: 5, chance: 0.4 } } }
+        ],
+        loot: { materials: { iron_ore: 1, leather_scrap: 1 }, chance: 0.55 }
+    }
 };
 
 // ===== GEAR & CRAFTING =====

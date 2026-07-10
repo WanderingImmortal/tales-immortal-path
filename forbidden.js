@@ -468,7 +468,7 @@ function forbiddenMirrorDefeat() {
 }
 
 function applyMirrorLakeRewards() {
-    learnTechnique('Mirror Step');
+    learnTechnique('Mirror Step', { skipGates: true });
     G.fame += 15;
     grantFoundation(10);
     if (!G.forbiddenTitles.includes('Reflection Walker')) G.forbiddenTitles.push('Reflection Walker');

@@ -154,6 +154,58 @@ function formatChamberCooldown(untilMonths) {
     return ` (${formatDuration(left)} left)`;
 }
 
+function getChamberActionGuide(key) {
+    return typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE[key] : null;
+}
+
+function formatChamberGatherStats() {
+    const g = CHAMBER_BALANCE.gatherQi;
+    const cultMult = getChamberCultivateMult();
+    const minD = (g.densityGainMin * cultMult).toFixed(2);
+    const maxD = (g.densityGainMax * cultMult).toFixed(2);
+    const fillPct = Math.round(g.fillRatio * 100 * cultMult);
+    return [
+        `+${minD}–${maxD} Qi Density`,
+        `Refill ~${fillPct}% of max Qi`,
+        '+Root (slow); density milestones grant bonus Root',
+        `${g.weeks} week${g.weeks === 1 ? '' : 's'}`
+    ];
+}
+
+function formatChamberExpandStats() {
+    const cfg = CHAMBER_BALANCE.expandDantian;
+    const cd = formatChamberCooldown(G.chamberCooldowns.expandDantian);
+    return [
+        `+${cfg.maxQiBonusGain} max Qi capacity (permanent)`,
+        `+Root burst`,
+        `${cfg.weeks} weeks · ${cfg.stones} spirit stones`,
+        `Cooldown: ${cfg.cooldownMonths} months${cd}`
+    ];
+}
+
+function formatChamberFoundationStats() {
+    const cfg = CHAMBER_BALANCE.perfectFoundation;
+    const cd = formatChamberCooldown(G.chamberCooldowns.perfectFoundation);
+    return [
+        `+${cfg.foundationGain} Flow (meridian pillar)`,
+        'Sacrifice 1 technique (need a spare)',
+        `${cfg.weeks} weeks · ${cfg.stones} spirit stones`,
+        `Cooldown: ${cfg.cooldownMonths} months${cd}`
+    ];
+}
+
+function formatChamberCondenseStats() {
+    const cfg = CHAMBER_BALANCE.condenseCore;
+    const cd = formatChamberCooldown(G.chamberCooldowns.condenseCore);
+    const chance = getChamberCondenseChance();
+    return [
+        'Target: Core Formation (realm advance)',
+        `${cfg.months} month · ${cfg.stones} spirit stones`,
+        `Form chance: ~${chance}% · then heavenly tribulation`,
+        `Cooldown: ${cfg.cooldownMonths} months${cd}`
+    ];
+}
+
 function chamberActionBlocked() {
     return G.gameOver || G.inCombat
         || (typeof isTribulationActive === 'function' && isTribulationActive());
@@ -264,38 +316,51 @@ function renderChamberUI() {
     const foundationBtn = document.getElementById('chamberPerfectFoundation');
     const coreBtn = document.getElementById('chamberCondenseCore');
 
+    const densityGuide = getChamberActionGuide('gatherQi');
+    const expandGuide = getChamberActionGuide('expandDantian');
+    const foundationGuide = getChamberActionGuide('refineFoundation');
+    const condenseGuide = getChamberActionGuide('condenseCore');
+    if (typeof setHoverTooltip === 'function') {
+        setHoverTooltip(document.getElementById('chamberDensityLabel'), STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
+        setHoverTooltip(document.getElementById('chamberCapacityLabel'), STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
+        setHoverTooltip(document.getElementById('chamberFoundationLabel'), STAT_GUIDE?.foundation?.desc || '');
+    } else {
+        document.getElementById('chamberDensityLabel')?.setAttribute('title', STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
+        document.getElementById('chamberCapacityLabel')?.setAttribute('title', STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
+        document.getElementById('chamberFoundationLabel')?.setAttribute('title', STAT_GUIDE?.foundation?.desc || '');
+    }
+
+    const gatherFlavor = document.getElementById('chamberGatherFlavor');
+    const expandFlavor = document.getElementById('chamberExpandFlavor');
+    const foundationFlavor = document.getElementById('chamberFoundationFlavor');
+    const condenseFlavor = document.getElementById('chamberCondenseFlavor');
+
     if (gatherBtn) {
-        const g = b.gatherQi;
+        const guide = getChamberActionGuide('gatherQi');
         gatherBtn.disabled = chamberActionBlocked();
-        gatherBtn.title = `+${g.densityGainMin}–${g.densityGainMax} Density, Qi fill · ${g.weeks} week`;
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(gatherBtn, guide?.desc || '');
+        if (gatherFlavor) gatherFlavor.textContent = guide?.flavor || '';
     }
     if (expandBtn) {
-        const cfg = b.expandDantian;
         const block = getChamberExpandDantianBlockReason();
-        const cd = formatChamberCooldown(G.chamberCooldowns.expandDantian);
+        const guide = getChamberActionGuide('expandDantian');
         expandBtn.disabled = chamberActionBlocked() || !!block;
-        expandBtn.title = block
-            ? block
-            : `+${cfg.maxQiBonusGain} Qi Capacity · ${cfg.weeks} weeks + ${cfg.stones} Stones · CD ${cfg.cooldownMonths} mo${cd}`;
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(expandBtn, block || guide?.desc || '');
+        if (expandFlavor) expandFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
     if (foundationBtn) {
-        const cfg = b.perfectFoundation;
         const block = getChamberPerfectFoundationBlockReason();
-        const cd = formatChamberCooldown(G.chamberCooldowns.perfectFoundation);
+        const guide = getChamberActionGuide('refineFoundation');
         foundationBtn.disabled = chamberActionBlocked() || !!block;
-        foundationBtn.title = block
-            ? block
-            : `+${cfg.foundationGain} Foundation · ${cfg.weeks} weeks + ${cfg.stones} Stones + sacrifice 1 technique · CD ${cfg.cooldownMonths} mo${cd}`;
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(foundationBtn, block || guide?.desc || '');
+        if (foundationFlavor) foundationFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
     if (coreBtn) {
-        const cfg = b.condenseCore;
         const block = getChamberCondenseCoreBlockReason();
-        const cd = formatChamberCooldown(G.chamberCooldowns.condenseCore);
-        const chance = getChamberCondenseChance();
+        const guide = getChamberActionGuide('condenseCore');
         coreBtn.disabled = chamberActionBlocked() || !!block;
-        coreBtn.title = block
-            ? block
-            : `Unlock Core Formation · ${cfg.months} month + ${cfg.stones} Stones + face heavenly tribulation · ~${chance}% form · CD ${cfg.cooldownMonths} mo${cd}`;
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(coreBtn, block || guide?.desc || '');
+        if (condenseFlavor) condenseFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
 }
 
@@ -498,6 +563,34 @@ function chamberCondenseCore() {
     fullRender();
 }
 
+function initChamberActionHelp() {
+    if (typeof bindChamberActionHelp !== 'function') return;
+    const g = (key) => getChamberActionGuide(key);
+    bindChamberActionHelp('chamberGatherHelp', {
+        title: `${g('gatherQi')?.emoji || ''} ${g('gatherQi')?.label || 'Gather Qi'}`.trim(),
+        desc: g('gatherQi')?.desc,
+        getStats: formatChamberGatherStats
+    });
+    bindChamberActionHelp('chamberExpandHelp', {
+        title: `${g('expandDantian')?.emoji || ''} ${g('expandDantian')?.label || 'Expand Dantian'}`.trim(),
+        desc: g('expandDantian')?.desc,
+        getBlock: getChamberExpandDantianBlockReason,
+        getStats: formatChamberExpandStats
+    });
+    bindChamberActionHelp('chamberFoundationHelp', {
+        title: `${g('refineFoundation')?.emoji || ''} ${g('refineFoundation')?.label || 'Refine Foundation'}`.trim(),
+        desc: g('refineFoundation')?.desc,
+        getBlock: getChamberPerfectFoundationBlockReason,
+        getStats: formatChamberFoundationStats
+    });
+    bindChamberActionHelp('chamberCondenseHelp', {
+        title: `${g('condenseCore')?.emoji || ''} ${g('condenseCore')?.label || 'Condense Core'}`.trim(),
+        desc: g('condenseCore')?.desc,
+        getBlock: getChamberCondenseCoreBlockReason,
+        getStats: formatChamberCondenseStats
+    });
+}
+
 function initChamberEvents() {
     document.getElementById('chamberGatherQi')?.addEventListener('click', chamberGatherQi);
     document.getElementById('chamberReturn')?.addEventListener('click', closeQiChamber);
@@ -505,4 +598,5 @@ function initChamberEvents() {
     document.getElementById('chamberPerfectFoundation')?.addEventListener('click', chamberPerfectFoundation);
     document.getElementById('chamberTechPickerCancel')?.addEventListener('click', hideChamberTechPicker);
     document.getElementById('chamberCondenseCore')?.addEventListener('click', chamberCondenseCore);
+    initChamberActionHelp();
 }

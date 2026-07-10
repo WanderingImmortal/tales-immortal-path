@@ -93,6 +93,7 @@ let G = {
     gearInstances: null,
     gearBag: null,
     materials: null,
+    travelRingId: null,
     gearMigrated: false,
     refinedLegendary: [],
     encounterState: null,
@@ -380,6 +381,7 @@ function getTechniqueTemplate(name) {
 
 function getTechniqueMeta(tech) {
     const tpl = getTechniqueTemplate(tech.name);
+    if (typeof ensureTechniqueCultivationTiers === 'function') ensureTechniqueCultivationTiers();
     return {
         path: tech.path || tpl?.path || 'neutral',
         element: tech.element || tpl?.element || 'neutral',
@@ -387,7 +389,11 @@ function getTechniqueMeta(tech) {
         combatTier: tech.combatTier || tpl?.combatTier || null,
         setId: tech.setId || tpl?.setId || null,
         weaponType: tech.weaponType || tpl?.weaponType || null,
-        affinityCycle: tpl?.affinityCycle || null
+        affinityCycle: tpl?.affinityCycle || null,
+        cultivationTier: tpl?.cultivationTier || getTechniqueCultivationTierId?.(tech.name) || 'condensation',
+        techniqueQuality: tpl?.techniqueQuality || null,
+        intentReq: tpl?.intentReq || (typeof resolveIntentReq === 'function' ? resolveIntentReq(tpl) : null),
+        reqTalent: tpl?.reqTalent || null
     };
 }
 
@@ -686,9 +692,18 @@ function getTotalPills() {
 }
 
 function addPill(id, qty) {
-    if (!PILL_TYPES[id]) return;
+    if (!PILL_TYPES[id]) return false;
     ensurePillStock();
+    qty = qty || 1;
+    if (typeof getTravelKitPillBlockReason === 'function') {
+        const block = getTravelKitPillBlockReason(qty);
+        if (block) {
+            if (typeof addLog === 'function') addLog(`🎒 ${block}`);
+            return false;
+        }
+    }
     G.pillStock[id] = (G.pillStock[id] || 0) + qty;
+    return true;
 }
 
 function rollRandomPillId() {
@@ -715,37 +730,61 @@ function getTechniqueTier(uses) {
 
 function getTechCost(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
-    const cost = tech.baseCost * (1 - tier.bonusCost);
+    const base = typeof getTechniqueBaseStats === 'function' ? getTechniqueBaseStats(tech).baseCost : tech.baseCost;
+    let cost = base * (1 - tier.bonusCost);
+    if (typeof getTechniqueIntentMatch === 'function') {
+        cost *= getTechniqueIntentMatch(tech).costMult;
+    }
     return Math.max(1, Math.round(cost));
 }
 
 function getTechDamage(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
     const meta = getTechniqueMeta(tech);
+    const baseStats = typeof getTechniqueBaseStats === 'function' ? getTechniqueBaseStats(tech) : tech;
     const mastery = Math.floor((tech.uses || 0) / 10) * TECHNIQUE_BALANCE.masteryPerTenUses;
     const statPart = Math.floor(getTechniqueStatScale(tech) * getTechniqueStatCoeff(tech));
     const realmPart = G.realmIdx * TECHNIQUE_BALANCE.realmBonus;
-    let dmg = tech.baseDamage + mastery + statPart + realmPart;
+    let dmg = baseStats.baseDamage + mastery + statPart + realmPart;
     dmg *= (1 + tier.bonusDmg);
     dmg *= getElementDamageMult(meta.element);
     dmg *= getTechniqueAffinityDamageMult(tech);
     dmg *= getTechniqueSetDamageMult(tech);
+    if (typeof getTechniqueObsolescenceMult === 'function') dmg *= getTechniqueObsolescenceMult(tech);
     if (G.weaponIntent) dmg *= (1 + getIntentBonus());
+    if (typeof getTechniqueIntentMatch === 'function') {
+        const intent = getTechniqueIntentMatch(tech);
+        if (intent.dmgMult !== 1) dmg *= intent.dmgMult;
+    }
     if (G.dmgMult > 1) dmg *= G.dmgMult;
     dmg *= getPlayerTraitMultPct('techniqueDmgPct', 0);
-    return Math.max(tech.baseDamage === 0 ? 0 : 1, Math.round(dmg));
+    const baseDmg = baseStats.baseDamage;
+    return Math.max(baseDmg === 0 ? 0 : 1, Math.round(dmg));
 }
 
 function getTechDamageBreakdown(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
     const meta = getTechniqueMeta(tech);
+    const baseStats = typeof getTechniqueBaseStats === 'function' ? getTechniqueBaseStats(tech) : tech;
     const mastery = Math.floor((tech.uses || 0) / 10) * TECHNIQUE_BALANCE.masteryPerTenUses;
     const statPart = Math.floor(getTechniqueStatScale(tech) * getTechniqueStatCoeff(tech));
     const realmPart = G.realmIdx * TECHNIQUE_BALANCE.realmBonus;
     const elementMult = getElementDamageMult(meta.element);
     const affinityMult = getTechniqueAffinityDamageMult(tech);
     const setMult = getTechniqueSetDamageMult(tech);
-    return { base: tech.baseDamage, mastery, statPart, realmPart, tier: tier.name, elementMult, affinityMult, setMult };
+    const obsoleteMult = typeof getTechniqueObsolescenceMult === 'function' ? getTechniqueObsolescenceMult(tech) : 1;
+    return {
+        base: baseStats.baseDamage,
+        mastery,
+        statPart,
+        realmPart,
+        tier: tier.name,
+        elementMult,
+        affinityMult,
+        setMult,
+        obsoleteMult,
+        cultivationTier: meta.cultivationTier
+    };
 }
 
 function getPhysiqueByName(name) {
@@ -959,6 +998,8 @@ function loadState() {
             if (!G.inventory) G.inventory = [];
             if (!G.legendaryMaterials) G.legendaryMaterials = [];
             if (typeof ensureGearState === 'function') ensureGearState();
+            if (G.travelRingId === undefined) G.travelRingId = null;
+            if (typeof ensureTravelRing === 'function') ensureTravelRing();
             if (!G.refinedLegendary) G.refinedLegendary = [];
             if (G.encounterState === undefined) G.encounterState = null;
             if (G.encounterCombat === undefined) G.encounterCombat = null;
@@ -976,6 +1017,7 @@ function loadState() {
             if (typeof migrateCultivationBaseFromLegacy === 'function') migrateCultivationBaseFromLegacy();
             if (typeof migrateQiSystem === 'function') migrateQiSystem();
             if (typeof migrateTechniqueRenames === 'function') migrateTechniqueRenames();
+            if (typeof migrateTechniqueManuals === 'function') migrateTechniqueManuals();
             if (typeof migrateLegacyScars === 'function') migrateLegacyScars();
             if (G.daoAlignment == null) G.daoAlignment = 0;
             if (typeof ensureDaoAlignment === 'function') ensureDaoAlignment();
@@ -999,6 +1041,8 @@ function loadState() {
             if (typeof migrateGearForExistingSave === 'function') migrateGearForExistingSave();
             if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
             if (typeof migrateAlchemyForExistingSave === 'function') migrateAlchemyForExistingSave();
+            if (typeof ensureForgeState === 'function') ensureForgeState();
+            if (typeof migrateForgeForExistingSave === 'function') migrateForgeForExistingSave();
             if (typeof ensureSectState === 'function') ensureSectState();
             if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
             if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();

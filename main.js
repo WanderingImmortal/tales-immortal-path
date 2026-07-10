@@ -158,6 +158,10 @@ function mergeDaoPair(mergedName) {
 function learnTechnique(techName, opts) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return false;
+    if (!opts?.skipGates && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) {
+        if (!opts?.silent) addLog(`📜 You cannot yet comprehend ${techName}.`);
+        return false;
+    }
     if (G.techniques.some(t => t.name === techName)) {
         if (!opts?.silent) addLog(`📜 You already know ${techName}.`);
         return false;
@@ -564,6 +568,7 @@ function setupCreation(refreshOnly) {
         G.gearInstances = null;
         G.gearBag = null;
         G.materials = null;
+        G.travelRingId = null;
         G.gearMigrated = false;
         G.refinedLegendary = [];
         G.encounterState = null;
@@ -708,12 +713,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('btnMeridian').addEventListener('click', actionMeridian);
-    document.getElementById('btnPhysique').addEventListener('click', actionPhysique);
     document.getElementById('btnIntent').addEventListener('click', actionIntent);
     document.getElementById('btnDao').addEventListener('click', actionDao);
     document.getElementById('btnInventory').addEventListener('click', actionInventory);
     document.getElementById('btnAlchemy')?.addEventListener('click', () => {
         if (typeof actionAlchemy === 'function') actionAlchemy();
+    });
+    document.getElementById('btnForge')?.addEventListener('click', () => {
+        if (typeof actionForge === 'function') actionForge();
+    });
+    document.getElementById('inventoryHeaderForge')?.addEventListener('click', () => {
+        document.getElementById('inventoryPopup')?.classList.remove('active');
+        if (typeof openForgeChamber === 'function') openForgeChamber();
     });
     document.getElementById('sidebarGearStrip')?.addEventListener('click', actionInventory);
     document.getElementById('btnForbidden').addEventListener('click', actionForbidden);
@@ -725,8 +736,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof initSoulChamberEvents === 'function') initSoulChamberEvents();
     if (typeof initCultivationHubEvents === 'function') initCultivationHubEvents();
     if (typeof initAlchemyChamberEvents === 'function') initAlchemyChamberEvents();
+    if (typeof initForgeChamberEvents === 'function') initForgeChamberEvents();
     if (typeof initPlaytestFeedback === 'function') initPlaytestFeedback();
     if (typeof initPlaytestMode === 'function') initPlaytestMode();
+    if (typeof initUiSettings === 'function') initUiSettings();
+    if (typeof initActionHelp === 'function') initActionHelp();
+    if (typeof initMainPanelActionHelp === 'function') initMainPanelActionHelp();
+    if (typeof initFactionsPopupTabs === 'function') initFactionsPopupTabs();
 
     // Popup close buttons
     document.getElementById('techClose').addEventListener('click', function() {
@@ -746,9 +762,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('meridianClose').addEventListener('click', function() {
         document.getElementById('meridianPopup').classList.remove('active');
-    });
-    document.getElementById('physiqueClose').addEventListener('click', function() {
-        document.getElementById('physiquePopup').classList.remove('active');
     });
     document.getElementById('intentClose').addEventListener('click', function() {
         document.getElementById('intentPopup').classList.remove('active');
