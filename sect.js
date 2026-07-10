@@ -62,6 +62,7 @@ function ensureSectState() {
     G.sect.discipleRecords.forEach(d => {
         if (!d.knownTechniques) d.knownTechniques = [];
     });
+    if (typeof ensureResidenceStash === 'function') ensureResidenceStash();
 }
 
 function ensureSectReputation() {

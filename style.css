@@ -6255,6 +6255,264 @@ header .subtitle {
     font-style: italic;
 }
 
+/* Travel kit (personal carry capacity) */
+.travel-kit-panel {
+    background: #1a1410;
+    border: 1px solid #3a2a1a;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+}
+
+.travel-kit-panel.travel-kit-over {
+    border-color: #6a3030;
+    background: #1f1414;
+}
+
+.travel-kit-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.travel-kit-title {
+    font-size: 14px;
+    color: #e8dcc8;
+    font-weight: 600;
+}
+
+.travel-kit-cap {
+    font-size: 13px;
+    color: #b8863a;
+}
+
+.travel-kit-flavor {
+    font-size: 11px;
+    color: #7a6a58;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.travel-kit-bar-track {
+    height: 8px;
+    background: #2a2018;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.travel-kit-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4a3828, #b8863a);
+    border-radius: 4px;
+    transition: width 0.25s ease;
+}
+
+.travel-kit-over .travel-kit-bar-fill {
+    background: linear-gradient(90deg, #6a3030, #c85050);
+}
+
+.travel-kit-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.travel-kit-chip {
+    font-size: 10px;
+    padding: 2px 6px;
+    background: #2a2018;
+    border: 1px solid #3a2a1a;
+    border-radius: 4px;
+    color: #a09080;
+}
+
+.travel-kit-warn {
+    font-size: 11px;
+    color: #c87070;
+    margin: 8px 0 0;
+}
+
+.travel-kit-manual-known {
+    font-size: 10px;
+    padding: 1px 5px;
+    background: #2a3820;
+    border: 1px solid #4a6040;
+    border-radius: 4px;
+    color: #a0d080;
+}
+
+.travel-kit-manual-unread {
+    font-size: 10px;
+    padding: 1px 5px;
+    background: #2a2418;
+    border: 1px solid #5a4828;
+    border-radius: 4px;
+    color: #d4b060;
+}
+
+.travel-kit-manuals-empty {
+    font-size: 12px;
+    color: #8a7a68;
+    padding: 8px 0 12px;
+    font-style: italic;
+}
+
+.travel-kit-manual-row {
+    margin-bottom: 6px;
+}
+
+.travel-kit-home-hint {
+    font-size: 11px;
+    color: #8a9ab0;
+    margin: 8px 0 0;
+    line-height: 1.4;
+}
+
+.residence-stash-panel {
+    background: #141810;
+    border: 1px solid #2a3820;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin: 8px 0;
+}
+
+.residence-stash-panel.residence-stash-over {
+    border-color: #6a3030;
+    background: #1a1414;
+}
+
+.residence-stash-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #a0d080;
+    margin-bottom: 6px;
+}
+
+.residence-stash-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 5px 0;
+    border-bottom: 1px solid #2a2018;
+    font-size: 12px;
+    color: #e8dcc8;
+}
+
+.residence-stash-actions {
+    margin: 8px 0;
+}
+
+.travel-kit-ring-line {
+    font-size: 11px;
+    color: #b8863a;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.spatial-ring-panel {
+    background: #121418;
+    border: 1px solid #2a3040;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+}
+
+.spatial-ring-head {
+    margin-bottom: 4px;
+}
+
+.spatial-ring-title {
+    font-size: 14px;
+    color: #c8d0e0;
+    font-weight: 600;
+}
+
+.spatial-ring-flavor,
+.spatial-ring-empty {
+    font-size: 11px;
+    color: #7a8498;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.spatial-ring-active {
+    background: #1a2030;
+    border: 1px solid #3a4860;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+
+.spatial-ring-active-name {
+    font-size: 13px;
+    color: #e8ecf8;
+    font-weight: 600;
+}
+
+.spatial-ring-active-stats {
+    font-size: 11px;
+    color: #8a9ab8;
+    margin-top: 2px;
+}
+
+.spatial-ring-active-desc {
+    font-size: 11px;
+    color: #6a7488;
+    margin-top: 4px;
+}
+
+.spatial-ring-recipe-row {
+    border-top: 1px solid #2a3040;
+    padding: 8px 0;
+}
+
+.spatial-ring-recipe-row.owned {
+    opacity: 0.85;
+}
+
+.spatial-ring-recipe-head {
+    font-size: 12px;
+    color: #e8ecf8;
+}
+
+.spatial-ring-req {
+    color: #7a8498;
+    font-size: 11px;
+}
+
+.spatial-ring-recipe-desc {
+    font-size: 11px;
+    color: #8a9ab0;
+    margin: 3px 0;
+}
+
+.spatial-ring-recipe-meta {
+    font-size: 10px;
+    color: #6a7488;
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.spatial-ring-forge-btn {
+    margin-top: 2px;
+}
+
+.spatial-ring-attuned {
+    font-size: 11px;
+    color: #80c0a0;
+}
+
+.spatial-ring-hint {
+    display: block;
+    font-size: 10px;
+    color: #6a7488;
+    margin-top: 4px;
+}
+
 .tech-viability-outdated {
     color: #a08060;
 }

@@ -241,6 +241,9 @@ function renderSectResidenceDetailHtml() {
     if (typeof renderResidenceFormationsHtml === 'function') {
         html += renderResidenceFormationsHtml();
     }
+    if (typeof renderResidenceStashPanelHtml === 'function') {
+        html += renderResidenceStashPanelHtml();
+    }
     html += `</div>`;
 
     if (!maxed && nextCost) {
@@ -533,4 +536,5 @@ function bindSectGroundsEvents(container) {
         if (typeof renderSectPopup === 'function') renderSectPopup();
         fullRender();
     });
+    if (typeof bindResidenceStashEvents === 'function') bindResidenceStashEvents(container);
 }

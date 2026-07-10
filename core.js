@@ -93,6 +93,7 @@ let G = {
     gearInstances: null,
     gearBag: null,
     materials: null,
+    travelRingId: null,
     gearMigrated: false,
     refinedLegendary: [],
     encounterState: null,
@@ -691,9 +692,18 @@ function getTotalPills() {
 }
 
 function addPill(id, qty) {
-    if (!PILL_TYPES[id]) return;
+    if (!PILL_TYPES[id]) return false;
     ensurePillStock();
+    qty = qty || 1;
+    if (typeof getTravelKitPillBlockReason === 'function') {
+        const block = getTravelKitPillBlockReason(qty);
+        if (block) {
+            if (typeof addLog === 'function') addLog(`🎒 ${block}`);
+            return false;
+        }
+    }
     G.pillStock[id] = (G.pillStock[id] || 0) + qty;
+    return true;
 }
 
 function rollRandomPillId() {
@@ -988,6 +998,8 @@ function loadState() {
             if (!G.inventory) G.inventory = [];
             if (!G.legendaryMaterials) G.legendaryMaterials = [];
             if (typeof ensureGearState === 'function') ensureGearState();
+            if (G.travelRingId === undefined) G.travelRingId = null;
+            if (typeof ensureTravelRing === 'function') ensureTravelRing();
             if (!G.refinedLegendary) G.refinedLegendary = [];
             if (G.encounterState === undefined) G.encounterState = null;
             if (G.encounterCombat === undefined) G.encounterCombat = null;

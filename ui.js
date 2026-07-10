@@ -1001,84 +1001,6 @@ function fullRender() {
 
 // ===== POPUP RENDERERS =====
 let techSortMode = 'path';
-let techPopupTab = 'known';
-
-function bindTechPopupTabs() {
-    const bar = document.getElementById('techTabBar');
-    if (!bar || bar.dataset.bound) return;
-    bar.dataset.bound = '1';
-    bar.querySelectorAll('[data-tech-tab]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            techPopupTab = this.dataset.techTab;
-            renderTechPopup();
-        });
-    });
-}
-
-function renderManualShelfHtml() {
-    ensureManualShelf();
-    const entries = Object.values(G.manualShelf).sort((a, b) => a.technique.localeCompare(b.technique));
-    if (!entries.length) {
-        return `<div class="popup-empty">No manuals on your shelf. Explore zones or visit markets to find scrolls and inscriptions.</div>`;
-    }
-    return entries.map(entry => {
-        const template = TECHNIQUE_POOL.find(t => t.name === entry.technique);
-        if (!template) return '';
-        const known = G.techniques.some(t => t.name === entry.technique);
-        const track = getTechniqueTrackLabel(template);
-        const pathIcon = template.path === 'qi' ? '⚡' : template.path === 'body' ? '💪' : template.path === 'soul' ? '🧠' : '◆';
-        const elemLabel = TECH_ELEMENT_LABELS[template.element] || template.element;
-        const months = getComprehendManualMonths(template);
-        const block = known ? null : getComprehendBlockReason(template);
-        const intentHint = getTechniqueIntentHint(template);
-        const intentLine = intentHint ? `<div class="manual-shelf-lock" style="color:#8a9ab0;font-style:normal;">🗡️ ${intentHint}</div>` : '';
-        const talentBlock = getTechniqueTalentBlockReason(template);
-        const canStudy = !known && !block;
-        const countBadge = entry.count > 1 ? ` <span style="color:#b8863a;">×${entry.count}</span>` : '';
-        const talentLine = talentBlock && !known
-            ? `<div class="manual-shelf-lock">🎭 ${talentBlock}</div>` : '';
-        let actions = '';
-        if (!known) {
-            actions += `<button type="button" class="manual-shelf-btn" data-comprehend-manual="${escapeAttr(entry.technique)}"${canStudy ? '' : ' disabled'}>📖 Comprehend (${months} mo)</button>`;
-        } else {
-            actions += `<span class="manual-shelf-lock">Already comprehended — spare copies only.</span>`;
-        }
-        if (entry.count >= 1) {
-            const price = getManualConsignPrice(template);
-            actions += `<button type="button" class="manual-shelf-btn" data-consign-manual="${escapeAttr(entry.technique)}">💎 Consign (+${price})</button>`;
-        }
-        const tierLabel = typeof getCultivationTierLabel === 'function'
-            ? getCultivationTierLabel(getTechniqueCultivationTierId(template), template.path)
-            : '';
-        const lockLine = block && !known ? `<div class="manual-shelf-lock">🔒 ${block}</div>` : '';
-        return `<div class="popup-item manual-shelf-row">
-            <div class="name">${pathIcon} ${entry.technique}${countBadge} <span class="tech-cultivation-tier">${tierLabel}</span> <span style="color:#a09080;font-size:12px;">[${track}]</span></div>
-            <div class="desc">${template.desc} · ${elemLabel} · ${template.rarity}</div>
-            ${intentLine}
-            ${talentLine}
-            ${lockLine}
-            <div class="manual-shelf-actions">${actions}</div>
-        </div>`;
-    }).join('');
-}
-
-function bindManualShelfActions() {
-    const el = document.getElementById('techList');
-    if (!el) return;
-    el.querySelectorAll('[data-comprehend-manual]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (this.disabled) return;
-            comprehendManual(this.dataset.comprehendManual);
-            renderTechPopup();
-        });
-    });
-    el.querySelectorAll('[data-consign-manual]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            consignManual(this.dataset.consignManual);
-            renderTechPopup();
-        });
-    });
-}
 
 function renderTechItemHtml(tech) {
     const tier = getTechniqueTier(tech.uses || 0);
@@ -1213,38 +1135,20 @@ function groupTechniquesForDisplay(techniques) {
 }
 
 function renderTechPopup() {
-    bindTechPopupTabs();
     renderAffinityPanel();
     renderSetResonancePanel();
     const el = document.getElementById('techList');
     const sortBar = document.getElementById('techSortBar');
-    const tabBar = document.getElementById('techTabBar');
-    const shelfBadge = document.getElementById('techShelfBadge');
-    if (typeof countManualShelfTotal === 'function' && shelfBadge) {
-        const n = countManualShelfTotal();
-        shelfBadge.textContent = n > 0 ? String(n) : '';
-    }
-    if (tabBar) {
-        tabBar.querySelectorAll('[data-tech-tab]').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.techTab === techPopupTab);
-        });
-    }
     if (sortBar) {
-        sortBar.style.display = techPopupTab === 'known' ? '' : 'none';
         sortBar.querySelectorAll('[data-tech-sort]').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.techSort === techSortMode);
         });
     }
-    if (techPopupTab === 'shelf') {
-        el.innerHTML = renderManualShelfHtml();
-        bindManualShelfActions();
-        return;
-    }
     if (G.techniques.length === 0) {
-        const shelfHint = typeof countManualShelfTotal === 'function' && countManualShelfTotal() > 0
-            ? ' Open the <strong>Manual Shelf</strong> tab to comprehend a manual.'
+        const kitHint = typeof countManualShelfTotal === 'function' && countManualShelfTotal() > 0
+            ? ' Open <strong>Inventory</strong> to comprehend manuals in your travel kit.'
             : ' Explore any zone for manuals, or visit a market in the Heartlands / Jade Archipelago.';
-        el.innerHTML = `<div class="popup-empty">No techniques comprehended yet.${shelfHint}</div>`;
+        el.innerHTML = `<div class="popup-empty">No techniques comprehended yet.${kitHint}</div>`;
         return;
     }
     const groups = groupTechniquesForDisplay(G.techniques);
@@ -1791,20 +1695,31 @@ function renderInventoryPopup() {
     const list = document.getElementById('inventoryList');
     const summary = document.getElementById('inventorySummary');
     const slotsEl = document.getElementById('gearSlotsGrid');
+    const kitPanel = document.getElementById('travelKitPanel');
     if (!list) return;
+
+    if (kitPanel && typeof renderTravelKitBarHtml === 'function') {
+        kitPanel.innerHTML = renderTravelKitBarHtml();
+        if (typeof renderSpatialRingPanelHtml === 'function') {
+            kitPanel.innerHTML += renderSpatialRingPanelHtml();
+        }
+    }
 
     const items = G.inventory || [];
     const legend = G.legendaryMaterials || [];
     const refined = G.refinedLegendary || [];
-    const gearBonuses = typeof getGearBonuses === 'function' ? getGearBonuses() : null;
     const matCount = Object.values(G.materials || {}).reduce((s, n) => s + n, 0);
     const gearCount = typeof getGearBagCount === 'function' ? getGearBagCount() : 0;
     const equippedCount = GEAR_SLOT_IDS.filter(s => G.equipment[s]).length;
+    const manualCount = typeof countManualShelfTotal === 'function' ? countManualShelfTotal() : 0;
+    const kitBd = typeof getTravelKitBreakdown === 'function' ? getTravelKitBreakdown() : null;
 
     if (summary) {
-        const resonance = typeof getPathResonanceLabel === 'function' ? getPathResonanceLabel() : '';
-        summary.textContent = `${gearCount} in bag · ${equippedCount} equipped · ${matCount} materials · ${items.length} curios · ${legend.length} legendary`
-            + (resonance ? ` · ${resonance} resonance` : '');
+        const kitLine = kitBd
+            ? `Kit ${formatTravelKitLoad(kitBd.total)}/${kitBd.capacity}`
+            : '';
+        summary.textContent = [kitLine, `${gearCount} spare gear · ${equippedCount} worn · ${matCount} materials · ${manualCount} manuals · ${items.length} curios`]
+            .filter(Boolean).join(' · ');
     }
 
     const bonusPanel = document.getElementById('gearBonusPanel');
@@ -1859,6 +1774,11 @@ function renderInventoryPopup() {
     }
 
     let html = '';
+
+    if (typeof renderTravelKitManualsHtml === 'function') {
+        html += `<div class="inventory-section-title sticky-section">📜 Travel Kit — Manuals <span class="section-badge">${manualCount}</span></div>`;
+        html += renderTravelKitManualsHtml();
+    }
 
     const matEntries = Object.entries(G.materials || {}).filter(([, qty]) => qty > 0);
     if (matEntries.length) {
@@ -1941,6 +1861,9 @@ function renderInventoryPopup() {
         html = `<div class="popup-empty">Explore for materials, forge gear below, or clear forbidden grounds for treasures.</div>`;
     }
     list.innerHTML = html;
+
+    if (typeof bindTravelKitManualActions === 'function') bindTravelKitManualActions(list);
+    if (typeof bindSpatialRingActions === 'function') bindSpatialRingActions(kitPanel || list);
 
     list.querySelectorAll('[data-gear-equip]').forEach(btn => {
         btn.onclick = function() {

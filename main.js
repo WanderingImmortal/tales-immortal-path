@@ -554,6 +554,7 @@ function setupCreation(refreshOnly) {
         G.gearInstances = null;
         G.gearBag = null;
         G.materials = null;
+        G.travelRingId = null;
         G.gearMigrated = false;
         G.refinedLegendary = [];
         G.encounterState = null;

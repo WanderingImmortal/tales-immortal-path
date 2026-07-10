@@ -2461,6 +2461,69 @@ const MANUAL_HALL_BALANCE = {
     traitStudySpeed: { wise: 0.85, ambitious: 0.92, loyal: 1, generous: 1, mysterious: 0.9 }
 };
 
+/** Personal travel kit — worn gear is free; bag contents count against capacity. */
+const TRAVEL_KIT_BALANCE = {
+    baseCapacity: 8,
+    manualUniqueWeight: 1,
+    pillWeight: 0.25,
+    gearBagWeight: 1,
+    curioWeight: 0.5,
+    defaultMaterialWeight: 0.12,
+    materialWeight: {
+        spirit_herb: 0.1,
+        iron_ore: 0.15,
+        leather_scrap: 0.12,
+        silk_thread: 0.08,
+        jade_inlay: 0.25,
+        demon_core: 0.3,
+        celestial_silk: 0.2
+    }
+};
+
+/** Home shelves at Leader's Quarters — bulk storage, scales with residence upgrades. */
+const RESIDENCE_STASH_BALANCE = {
+    capacityByLevel: [16, 28, 44, 64],
+    stashAllManualsMax: 20
+};
+
+/** Spatial storage rings — expand travel kit capacity; materials weigh less inside. */
+const SPATIAL_RING_BALANCE = {
+    rings: {
+        storage_ring: {
+            id: 'storage_ring',
+            name: 'Storage Ring',
+            emoji: '💍',
+            tier: 1,
+            capacityBonus: 6,
+            materialWeightMult: 0.65,
+            reqRealm: 2,
+            desc: 'A qi-bound ring that folds space around your travel bundle — +6 kit capacity, materials weigh 35% less.',
+            craft: {
+                months: 6,
+                stones: 45,
+                materials: { jade_inlay: 2, silk_thread: 4, spirit_herb: 6 }
+            }
+        },
+        void_storage_ring: {
+            id: 'void_storage_ring',
+            name: 'Void Storage Ring',
+            emoji: '🌀',
+            tier: 2,
+            capacityBonus: 14,
+            materialWeightMult: 0.45,
+            reqRealm: 3,
+            requiresRing: 'storage_ring',
+            desc: 'Rift-woven storage — +14 kit capacity, materials weigh 55% less. Replaces a Storage Ring.',
+            craft: {
+                months: 10,
+                stones: 80,
+                materials: { jade_inlay: 3, celestial_silk: 2, demon_core: 2 },
+                consumesCurio: 'Dao Insight Fragment'
+            }
+        }
+    }
+};
+
 /** Intent synergy tiers — mid = soft debuff, high = hard debuff without matching intent stage. */
 const INTENT_TECHNIQUE_BALANCE = {
     low: { noMatchMult: 1, costMult: 1, matchBonus: 0.06, stageBonusPerTier: 0.025 },
@@ -4155,10 +4218,10 @@ const SECT_RESIDENCE = {
     /** Formation slots unlocked at each residence level (index = level). */
     formationSlotsByLevel: [0, 1, 2, 3],
     levels: [
-        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Upgrade to lay cultivation formations.' },
-        { name: 'Inner Court Room', desc: 'A proper chamber — one formation slot for personal qi gathering.' },
-        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with two formation slots.' },
-        { name: 'Immortal Abode', desc: 'A peak dwelling with three formation slots woven into the courtyard.' }
+        { name: 'Makeshift Shelter', desc: 'A lean-to on the sect grounds. Personal shelves hold spare manuals and materials.' },
+        { name: 'Inner Court Room', desc: 'A proper chamber — formation slot plus expanded home storage.' },
+        { name: 'Spirit Pavilion', desc: 'Spirit-refined quarters with two formation slots and deep shelves.' },
+        { name: 'Immortal Abode', desc: 'A peak dwelling — three formation slots and a vast personal archive.' }
     ],
     upgradeCosts: [
         null,

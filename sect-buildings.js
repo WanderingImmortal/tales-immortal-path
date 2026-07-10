@@ -111,7 +111,7 @@ function depositManualToHall(techName, qty) {
     if (!template) return { success: false, message: 'Unknown manual.' };
     const shelfEntry = typeof getManualShelfEntry === 'function' ? getManualShelfEntry(techName) : null;
     const amount = Math.min(qty || 1, shelfEntry?.count || 0);
-    if (amount <= 0) return { success: false, message: 'No copies on your personal shelf.' };
+    if (amount <= 0) return { success: false, message: 'No copies in your travel kit.' };
     ensureManualHallMeta();
     const collection = G.sect.buildingMeta.manual_hall.collection;
     const isNew = !collection[techName];
@@ -155,7 +155,7 @@ function withdrawManualFromHall(techName, qty) {
     }
     return {
         success: true,
-        message: `Withdrew ${amount}× ${techName} to your personal shelf.`,
+        message: `Withdrew ${amount}× ${techName} to your travel kit.`,
         withdrawn: amount
     };
 }
@@ -266,7 +266,7 @@ function renderManualHallPanelHtml() {
     const speedPct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('studySpeedPct') : 0;
 
     let html = `<div class="sect-section-title">📜 Sect Archive</div>`;
-    html += `<p class="sect-hint">Deposit spare manuals from your shelf. Disciples study in the background as time passes — Library (+${daoPct}% speed) and hall upgrades (+${speedPct}%) accelerate progress.</p>`;
+    html += `<p class="sect-hint">Deposit spare manuals from your travel kit. Disciples study in the background as time passes — Library (+${daoPct}% speed) and hall upgrades (+${speedPct}%) accelerate progress.</p>`;
     html += `<div class="sect-harvest-display">Archive: <strong>${unique}/${cap}</strong> titles · <strong>${copies}</strong> copies · Study slots: <strong>${studies.length}/${slots}</strong></div>`;
 
     if (studies.length) {
@@ -311,7 +311,7 @@ function renderManualHallPanelHtml() {
         : [];
     html += `<div class="sect-section-title sect-subsection">📚 Deposit from Shelf</div>`;
     if (!shelfEntries.length) {
-        html += `<p class="sect-hint">Your personal shelf is empty — explore or visit markets to find manuals.</p>`;
+        html += `<p class="sect-hint">Your travel kit is empty — explore or visit markets to find manuals.</p>`;
     } else {
         shelfEntries.forEach(entry => {
             const template = TECHNIQUE_POOL.find(t => t.name === entry.technique);

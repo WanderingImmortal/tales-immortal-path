@@ -64,6 +64,13 @@ function createGearInstance(defId, options) {
     ensureGearState();
     const def = getGearDef(defId);
     if (!def) return null;
+    if (!options.skipBag && typeof getTravelKitGearBlockReason === 'function') {
+        const block = getTravelKitGearBlockReason();
+        if (block) {
+            if (typeof addLog === 'function') addLog(`🎒 ${block}`);
+            return null;
+        }
+    }
     const maxDur = getGearMaxDurability(def);
     const uid = nextGearUid();
     const inst = {
@@ -172,6 +179,13 @@ function addCraftMaterial(matId, qty) {
     ensureGearState();
     qty = qty || 1;
     if (!CRAFT_MATERIALS[matId]) return false;
+    if (typeof getTravelKitMaterialBlockReason === 'function') {
+        const block = getTravelKitMaterialBlockReason(matId, qty);
+        if (block) {
+            if (typeof addLog === 'function') addLog(`🎒 ${block}`);
+            return false;
+        }
+    }
     G.materials[matId] = (G.materials[matId] || 0) + qty;
     return true;
 }
@@ -465,6 +479,10 @@ function unequipGear(slot) {
     if (!GEAR_SLOT_IDS.includes(slot)) return { success: false, message: 'Invalid slot.' };
     const uid = G.equipment[slot];
     if (!uid) return { success: false, message: 'Nothing equipped there.' };
+    if (typeof getTravelKitGearBlockReason === 'function') {
+        const block = getTravelKitGearBlockReason();
+        if (block) return { success: false, message: block };
+    }
     G.gearBag.push(uid);
     G.equipment[slot] = null;
     clampCurrentQi();
