@@ -159,7 +159,12 @@ function learnTechnique(techName, opts) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return false;
     if (!opts?.skipGates && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) {
-        if (!opts?.silent) addLog(`📜 You cannot yet comprehend ${techName}.`);
+        if (!opts?.silent) {
+            const alignBlock = typeof getTechniqueAlignmentBlockReason === 'function'
+                ? getTechniqueAlignmentBlockReason(template) : null;
+            if (alignBlock) addLog(`📜 ${alignBlock}`);
+            else addLog(`📜 You cannot yet comprehend ${techName}.`);
+        }
         return false;
     }
     if (G.techniques.some(t => t.name === techName)) {
@@ -207,7 +212,7 @@ function useTechnique(techName) {
 
 // ===== CREATION (CP budget + legacy) =====
 const creationState = {
-    selectedPath: 'qi',
+    selectedEmphasis: 'dantian',
     selectedTalent: 'single_superior',
     selectedTraits: new Set(),
     selectedOrigin: 'village_orphan',
@@ -275,8 +280,7 @@ function updateCreationUI() {
     const previewRemain = document.getElementById('previewRemainingCp');
     if (previewRemain) previewRemain.textContent = String(remaining);
     const talentDef = TALENT_BY_ID[creationState.selectedTalent];
-    const path = creationState.selectedPath || 'qi';
-    const realms = PATHS[path]?.realms || [];
+    const realms = PATHS.qi?.realms || [];
     const capIdx = talentDef?.naturalRealmCap ?? 6;
     const previewSpeed = document.getElementById('previewCultivateSpeed');
     if (previewSpeed && talentDef) {
@@ -394,15 +398,15 @@ function setupCreation(refreshOnly) {
 
     if (refreshOnly) return;
 
-    const pathOptions = document.getElementById('pathOptions');
-    if (pathOptions && !pathOptions.dataset.bound) {
-        pathOptions.dataset.bound = '1';
-        pathOptions.addEventListener('click', function(e) {
-            const card = e.target.closest('.popup-item[data-path]');
-            if (!card || !pathOptions.contains(card)) return;
-            pathOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+    const emphasisOptions = document.getElementById('emphasisOptions');
+    if (emphasisOptions && !emphasisOptions.dataset.bound) {
+        emphasisOptions.dataset.bound = '1';
+        emphasisOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-emphasis]');
+            if (!card || !emphasisOptions.contains(card)) return;
+            emphasisOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
             card.classList.add('selected');
-            creationState.selectedPath = card.dataset.path;
+            creationState.selectedEmphasis = card.dataset.emphasis;
             updateCreationUI();
         });
     }
@@ -480,7 +484,10 @@ function setupCreation(refreshOnly) {
             if (getCreationValidationHint()) return;
             const name = document.getElementById('nameInput').value.trim() || 'Wandering Immortal';
             G.name = name;
-            G.path = creationState.selectedPath;
+            const emphasis = creationState.selectedEmphasis || 'dantian';
+            if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
+            if (typeof setFocusTrack === 'function') setFocusTrack(emphasis);
+            else G.path = typeof TRACK_TO_LEGACY_PATH !== 'undefined' ? TRACK_TO_LEGACY_PATH[emphasis] : 'qi';
             G.talent = buildTalentFromGrade(creationState.selectedTalent);
             G.talentCapBypassed = false;
             G.origin = { id: creationState.selectedOrigin, name: ORIGIN_BY_ID[creationState.selectedOrigin]?.name };
@@ -490,7 +497,9 @@ function setupCreation(refreshOnly) {
             G.trait = G.traits[0] || null;
             G._reincarnationHandled = false;
             G.gameOver = false;
-        const base = PATHS[G.path].base;
+        const base = typeof NEUTRAL_STARTING_BASE !== 'undefined'
+            ? NEUTRAL_STARTING_BASE
+            : PATHS.qi.base;
         G.qiDensity = 0;
         G.maxQiBonus = Math.max(0, (base.qi || 10) - QI_BALANCE.maxQiBase);
         G.vitality = base.vitality;
@@ -583,6 +592,9 @@ function setupCreation(refreshOnly) {
         G._consolidationMigrated = false;
         G._qiMigrated = true;
         G.daoAlignment = 0;
+        G.alignmentLog = [];
+        G.alignmentActionUses = {};
+        G.pendingAlignmentFriction = null;
         G.npcState = null;
         G.worldNpcs = [];
         G.nextDemonicEmergenceMonths = null;
@@ -606,6 +618,14 @@ function setupCreation(refreshOnly) {
         G.affinities = null;
         G.fiveElementCycleIdx = 0;
         G.realmIdx = 0;
+        if (typeof ensureCultivationTracksState === 'function') {
+            ensureCultivationTracksState();
+            CULTIVATION_TRACKS.forEach(t => { G.cultivation[t].realmIdx = 0; });
+            G.cultivation.soulEmbryo = false;
+            G.cultivation.soulEmbryoOrigin = null;
+            G.cultivation.focusTrack = emphasis;
+            if (typeof syncLegacyPathShims === 'function') syncLegacyPathShims();
+        }
         currentZone = 'dustbone';
         G.currentZone = 'dustbone';
         G.currentLocation = typeof getDefaultLocationForZone === 'function' ? getDefaultLocationForZone('dustbone') : 'bone_crossroads';
@@ -621,8 +641,9 @@ function setupCreation(refreshOnly) {
         if (typeof applyPendingCarryPerk === 'function') applyPendingCarryPerk();
         if (typeof applyPlayerTraitStartingEffects === 'function') applyPlayerTraitStartingEffects();
         updateShield();
-        addLog(`🌟 Welcome, ${G.name}. You begin as a wandering cultivator.`);
-        addLog(`🧘 Path: ${PATHS[G.path].name} — 🌱 ${G.talent.name}${G.talent.element ? ' (' + G.talent.element + ')' : ''}`);
+        addLog(`🌟 Welcome, ${G.name}. You begin as a wandering cultivator — all three roads lie open.`);
+        const emphasisLabels = { dantian: 'Dantian', vessel: 'Vessel', spirit: 'Spirit' };
+        addLog(`🧘 Starting emphasis: ${emphasisLabels[emphasis] || emphasis} — 🌱 ${G.talent.name}${G.talent.element ? ' (' + G.talent.element + ')' : ''}`);
         if (G.traits.length) {
             addLog(`🎭 Traits: ${G.traits.map(t => `${t.emoji || ''} ${t.name}`).join(', ')}`);
         }
@@ -647,7 +668,9 @@ function setupCreation(refreshOnly) {
 }
 
 function grantRandomAdeptTechnique() {
-    const pool = TECHNIQUE_POOL.filter(t => (t.path === G.path || t.path === 'neutral') && t.category !== 'utility');
+    const track = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
+    const legacyPath = typeof getLegacyPathForTrack === 'function' ? getLegacyPathForTrack(track) : (G.path || 'qi');
+    const pool = TECHNIQUE_POOL.filter(t => (t.path === legacyPath || t.path === 'neutral') && t.category !== 'utility');
     if (!pool.length) return null;
     const template = pool[Math.floor(Math.random() * pool.length)];
     if (!learnTechnique(template.name)) return null;
@@ -673,7 +696,7 @@ function initGame() {
     if (typeof ensureChamberState === 'function') ensureChamberState();
     if (typeof ensureBodyChamberState === 'function') ensureBodyChamberState();
     if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
-    if (loaded && G.name && G.path) {
+    if (loaded && G.name && (G.path || G.cultivation)) {
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
         addLog(`📜 Welcome back, ${G.name}. Your journey continues.`);
@@ -838,6 +861,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('factionsClose')?.addEventListener('click', () => {
         document.getElementById('factionsPopup')?.classList.remove('active');
+    });
+    document.getElementById('btnAlignmentPanel')?.addEventListener('click', () => {
+        if (typeof actionAlignment === 'function') actionAlignment();
+    });
+    document.getElementById('alignmentClose')?.addEventListener('click', () => {
+        document.getElementById('alignmentPopup')?.classList.remove('active');
     });
     document.getElementById('inventoryClose')?.addEventListener('click', () => {
         document.getElementById('inventoryPopup').classList.remove('active');

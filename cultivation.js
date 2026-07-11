@@ -17,31 +17,59 @@ function updateShield() {
 }
 
 // ===== BREAKTHROUGH =====
-function openBreakthrough() {
+function getBreakthroughTrack() {
+    return G._breakthroughTrack || 'dantian';
+}
+
+function setBreakthroughTrack(track) {
+    G._breakthroughTrack = track;
+}
+
+function openBreakthrough(track) {
+    const t = track || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');
+    openTrackBreakthrough(t);
+}
+
+function openSpiritBreakthrough() {
+    openTrackBreakthrough('spirit');
+}
+
+function openTrackBreakthrough(track) {
     if (G.gameOver || G.inCombat || isTribulationActive() || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending())) return;
-    const next = getNextRealm();
+    setBreakthroughTrack(track);
+    setBreakthroughTrack(track);
+    const pathKey = typeof getTrackPathKey === 'function' ? getTrackPathKey(track) : G.path;
+    const realmIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : G.realmIdx;
+    const pathData = PATHS[pathKey];
+    const next = pathData.realms[realmIdx + 1] || "MAX";
     if (next === "MAX") {
-        addLog(`🏆 You are already at the peak! Immortality is yours!`);
-        if (typeof openTrueReincarnationChoice === 'function') {
+        addLog(`🏆 ${getTrackRealmName(track)} is already at the peak on this road!`);
+        if (track === 'dantian' && typeof openTrueReincarnationChoice === 'function') {
             setTimeout(() => openTrueReincarnationChoice(), 400);
         }
         fullRender();
         return;
     }
-    if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
+    if (track === 'spirit' && typeof canSpiritTrackBreakthrough === 'function' && !canSpiritTrackBreakthrough()) {
+        addLog(`🚫 ${getSpiritTrackBreakthroughBlockReason()}`);
+        fullRender();
+        return;
+    }
+    if (track !== 'spirit' && typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
         addLog(`🚫 ${getConsolidationBlockReason()}`);
         fullRender();
         return;
     }
-    const nextIdx = G.realmIdx + 1;
+    const nextIdx = realmIdx + 1;
     if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(nextIdx)) {
         addLog(`🚫 ${getTalentRealmCapMessage()}`);
         fullRender();
         return;
     }
-    const visions = PATHS[G.path].visions;
-    const vision = visions[G.realmIdx % visions.length] || visions[0];
+    const visions = pathData.visions;
+    const vision = visions[realmIdx % visions.length] || visions[0];
     document.getElementById('visionText').textContent = '"' + vision + '"';
+    const trackLabel = track === 'dantian' ? 'Dantian' : track === 'vessel' ? 'Vessel' : 'Spirit';
     document.getElementById('foundationInfo').textContent = (() => {
         const preview = typeof getPerfectBreakthroughPreview === 'function'
             ? getPerfectBreakthroughPreview(3)
@@ -57,12 +85,12 @@ function openBreakthrough() {
             : null;
         const tierLine = tierCompare && typeof getConsolidationTier === 'function'
             ? (() => {
-                const sealTier = getConsolidationTier(G.realmIdx) || tierCompare.tier;
+                const sealTier = getConsolidationTier(realmIdx) || tierCompare.tier;
                 const scale = typeof getBreakthroughTierScale === 'function'
                     ? getBreakthroughTierScale(sealTier)
                     : null;
                 const lifePreview = typeof getBreakthroughLifespanPreview === 'function'
-                    ? getBreakthroughLifespanPreview(G.realmIdx, sealTier)
+                    ? getBreakthroughLifespanPreview(realmIdx, sealTier)
                     : null;
                 const parts = [`Seal tier: ${scale?.label || sealTier}`];
                 if (lifePreview) {
@@ -75,7 +103,11 @@ function openBreakthrough() {
                 return parts.join(' · ');
             })()
             : '';
-        return `Foundation: ${typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation()} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : ''} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
+        const realmName = typeof getTrackRealmName === 'function' ? getTrackRealmName(track) : getRealm();
+        const statusLabel = track === 'spirit' && typeof getSpiritTrackBreakthroughStatus === 'function'
+            ? getSpiritTrackBreakthroughStatus()
+            : (typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : '');
+        return `${trackLabel} · ${realmName} → ${next} | Foundation: ${typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation()} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${statusLabel} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
     })();
     document.getElementById('breakthroughPopup').classList.add('active');
     if (typeof triggerTutorial === 'function') triggerTutorial('first_breakthrough');
@@ -86,13 +118,26 @@ function closeBreakthrough() {
 }
 
 function executeBreakthrough(style) {
-    if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
+    executeTrackBreakthrough(style, getBreakthroughTrack());
+}
+
+function executeTrackBreakthrough(style, track) {
+    track = track || 'dantian';
+    const realmIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : G.realmIdx;
+    if (track === 'spirit') {
+        if (typeof canSpiritTrackBreakthrough === 'function' && !canSpiritTrackBreakthrough()) {
+            addLog(`🚫 ${getSpiritTrackBreakthroughBlockReason()}`);
+            closeBreakthrough();
+            fullRender();
+            return;
+        }
+    } else if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
         addLog(`🚫 ${getConsolidationBlockReason()}`);
         closeBreakthrough();
         fullRender();
         return;
     }
-    const nextIdx = G.realmIdx + 1;
+    const nextIdx = realmIdx + 1;
     if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(nextIdx)) {
         addLog(`🚫 ${getTalentRealmCapMessage()}`);
         closeBreakthrough();
@@ -100,13 +145,13 @@ function executeBreakthrough(style) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.breakthrough, "Breakthrough seclusion")) { cancelActionLog(); closeBreakthrough(); fullRender(); return; }
+    if (!advanceTime(ACTION_MONTHS.breakthrough, `${getTrackRealmName(track)} breakthrough seclusion`)) { cancelActionLog(); closeBreakthrough(); fullRender(); return; }
     const chance = getBreakChance();
     let bonus = 0;
     if (style === 'balanced') bonus = 3;
     else if (style === 'power') bonus = 8;
     else if (style === 'wisdom') bonus = 8;
-    const sealTier = typeof getConsolidationTier === 'function' ? getConsolidationTier(G.realmIdx) : 'peak';
+    const sealTier = typeof getConsolidationTier === 'function' ? getConsolidationTier(realmIdx) : 'peak';
     const tierPenalty = typeof getBreakthroughTierScale === 'function'
         ? getBreakthroughTierScale(sealTier).breakChancePenalty
         : 0;
@@ -126,35 +171,57 @@ function executeBreakthrough(style) {
         const prevUnlocks = typeof captureActionUnlockSnapshot === 'function'
             ? captureActionUnlockSnapshot()
             : null;
-        G.realmIdx++;
+        const newIdx = realmIdx + 1;
+        if (typeof setTrackRealmIdx === 'function') setTrackRealmIdx(track, newIdx);
+        else G.realmIdx++;
+        if (track === getFocusTrack() && typeof syncLegacyPathShims === 'function') syncLegacyPathShims();
         G.breakAttempts = 0;
         G.realmPeakGrindBoost = 0;
-        G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(G.realmIdx / 2);
-        G.qi = getMaxQi();
-        clampCurrentQi();
+        if (track === 'dantian') {
+            G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(newIdx / 2);
+            G.qi = getMaxQi();
+            clampCurrentQi();
+        }
         const boost = 3 + Math.floor(Math.random() * 6) + (style === 'power' ? 3 : 0) + (style === 'wisdom' ? 2 : 0);
-        G.vitality += Math.floor(boost / 2) + (style === 'power' ? 2 : 0);
-        G.spirit += Math.floor(boost / 3) + (style === 'wisdom' ? 3 : 0);
-        G.will += Math.floor(boost / 3) + (style === 'wisdom' ? 2 : 0);
-        G.maxHp += 10 + G.realmIdx * 2 + (style === 'power' ? 5 : 0);
+        if (track === 'dantian' || track === 'vessel') {
+            G.vitality += Math.floor(boost / 2) + (style === 'power' ? 2 : 0);
+        }
+        if (track === 'dantian' || track === 'spirit') {
+            G.spirit += Math.floor(boost / 3) + (style === 'wisdom' ? 3 : 0);
+            G.will += Math.floor(boost / 3) + (style === 'wisdom' ? 2 : 0);
+        }
+        if (track === 'vessel') {
+            G.vitality += Math.floor(boost / 2) + (style === 'power' ? 3 : 0);
+            G.maxHp += 12 + newIdx * 3 + (style === 'power' ? 5 : 0);
+        } else {
+            G.maxHp += 10 + newIdx * 2 + (style === 'power' ? 5 : 0);
+        }
         applyVitalityToMaxHp();
         G.hp = G.maxHp;
-        if (typeof addFame === 'function') addFame(5 + G.realmIdx);
-        else G.fame += 5 + G.realmIdx;
+        if (typeof addFame === 'function') addFame(5 + newIdx);
+        else G.fame += 5 + newIdx;
         extendLifespanOnBreakthrough(sealTier);
-        commitActionLog(`✨ SUCCESS! You are now a ${getRealm()} (${getTitle()})!`);
+        const realmName = typeof getTrackRealmName === 'function' ? getTrackRealmName(track) : getRealm();
+        const titleName = typeof getTrackTitle === 'function' ? getTrackTitle(track) : getTitle();
+        commitActionLog(`✨ SUCCESS! ${track === 'spirit' ? 'Spirit track' : track === 'vessel' ? 'Vessel' : 'Dantian'}: ${realmName} (${titleName})!`);
         if (typeof notifyActionUnlocks === 'function' && prevUnlocks) {
             notifyActionUnlocks(prevUnlocks);
             if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
         }
         if (perfectBreak) addLog(`🌟 The breakthrough was flawless — your Foundation drew the heavens' attention.`);
-        addLog(`📈 Max Qi → ${getMaxQi()}, +${Math.floor(boost/2)+(style==='power'?2:0)} Vit, +${Math.floor(boost/3)+(style==='wisdom'?3:0)} Spi/Will.`);
+        addLog(`📈 ${track === 'dantian' ? `Max Qi → ${getMaxQi()}, ` : ''}+${Math.floor(boost/2)+(style==='power'?2:0)} Vit, +${Math.floor(boost/3)+(style==='wisdom'?3:0)} Spi/Will.`);
+        if (typeof tryAwakenSoulEmbryo === 'function' && newIdx >= SOUL_EMBRYO_REALM_IDX) {
+            tryAwakenSoulEmbryo(track);
+        }
+        if (track === 'spirit' && typeof markSpiritTrackConsolidated === 'function') {
+            markSpiritTrackConsolidated(newIdx);
+        }
         closeBreakthrough();
-        if (perfectBreak && typeof canOfferTranscendencePerks === 'function' && canOfferTranscendencePerks(G.realmIdx)) {
-            offerTranscendencePerkChoice(G.realmIdx, style);
+        if (perfectBreak && track === 'dantian' && typeof canOfferTranscendencePerks === 'function' && canOfferTranscendencePerks(newIdx)) {
+            offerTranscendencePerkChoice(newIdx, style);
             return;
         }
-        if (shouldTriggerTribulation()) {
+        if (track === 'dantian' && shouldTriggerTribulation()) {
             if (typeof beginTribulationWithTutorial === 'function') {
                 beginTribulationWithTutorial(style);
             } else {
@@ -162,7 +229,7 @@ function executeBreakthrough(style) {
             }
             return;
         }
-        checkPerfectCultivation();
+        if (track === 'dantian') checkPerfectCultivation();
     } else {
         G.breakAttempts++;
         const rawDmg = 5 + Math.floor(Math.random() * 15) + (style === 'power' ? 5 : 0) + (style === 'wisdom' ? 5 : 0);
@@ -179,6 +246,7 @@ function executeBreakthrough(style) {
         addLog(`🩸 Your foundation cracks under the backlash (${cracks} crack${cracks === 1 ? '' : 's'}).`);
     }
     closeBreakthrough();
+    setBreakthroughTrack(typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');
     fullRender();
 }
 

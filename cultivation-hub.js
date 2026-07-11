@@ -15,29 +15,46 @@ function hasBodyPhysiqueActivity() {
 }
 
 function renderCultivationHubCards() {
-    const note = document.getElementById('cultivationHubBodyNote');
-    if (!note) return;
-    if (typeof hasBodyPhysiqueActivity === 'function' && hasBodyPhysiqueActivity()) {
-        if (typeof isPhysiqueCultivationActive === 'function' && isPhysiqueCultivationActive()) {
-            const status = typeof getPhysiqueCultivationStatusText === 'function'
-                ? getPhysiqueCultivationStatusText() : 'Physique project active';
-            note.textContent = `🧬 ${status}`;
-        } else if (G.physique) {
-            note.textContent = `🧬 ${G.physique.name} equipped`;
+    const bodyNote = document.getElementById('cultivationHubBodyNote');
+    const soulNote = document.getElementById('cultivationHubSoulNote');
+    if (bodyNote) {
+        if (typeof hasBodyPhysiqueActivity === 'function' && hasBodyPhysiqueActivity()) {
+            if (typeof isPhysiqueCultivationActive === 'function' && isPhysiqueCultivationActive()) {
+                const status = typeof getPhysiqueCultivationStatusText === 'function'
+                    ? getPhysiqueCultivationStatusText() : 'Physique project active';
+                bodyNote.textContent = `🧬 ${status}`;
+            } else if (G.physique) {
+                bodyNote.textContent = `🧬 ${G.physique.name} equipped`;
+            } else {
+                bodyNote.textContent = '🧬 Physique active';
+            }
         } else {
-            note.textContent = '🧬 Physique active';
+            bodyNote.textContent = typeof getVesselRealm === 'function' ? `Vessel: ${getVesselRealm()}` : '';
         }
-    } else {
-        note.textContent = '';
     }
+    if (soulNote) {
+        if (typeof hasSoulEmbryo === 'function' && hasSoulEmbryo()) {
+            soulNote.textContent = '✨ Soul embryo — palace depths open';
+        } else {
+            soulNote.textContent = '🌙 Prelude open · depths locked';
+        }
+    }
+}
+
+function getEmphasisLabel(track) {
+    const labels = { dantian: 'Dantian', vessel: 'Vessel', spirit: 'Spirit' };
+    return labels[track] || track;
 }
 
 function openCultivationHub() {
     if (cultivationHubBlocked()) return;
     G.inCultivationHub = true;
     const pathEl = document.getElementById('cultivationHubPrimaryPath');
-    if (pathEl && typeof PATHS !== 'undefined' && G.path) {
-        pathEl.textContent = PATHS[G.path]?.name || G.path;
+    if (pathEl) {
+        const track = typeof getFocusTrack === 'function' ? getFocusTrack() : null;
+        pathEl.textContent = track && typeof getEmphasisLabel === 'function'
+            ? getEmphasisLabel(track)
+            : (PATHS[G.path]?.name || G.path);
     }
     if (typeof renderCultivationHubCards === 'function') renderCultivationHubCards();
     document.getElementById('cultivationHubOverlay')?.classList.add('active');

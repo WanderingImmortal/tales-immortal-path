@@ -26,12 +26,15 @@ function runCultivateSession(options) {
     const fillGain = Math.max(1, Math.floor(getMaxQi() * b.cultivateFillRatio * cultMult));
     G.qi = Math.min(getMaxQi(), G.qi + fillGain);
     clampCurrentQi();
-    const statGain = 1 + Math.floor(G.realmIdx / 2);
-    if (G.path === 'body') {
+    const statGain = 1 + Math.floor((typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx) / 2);
+    const focusPath = typeof getLegacyPathForTrack === 'function'
+        ? getLegacyPathForTrack(typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian')
+        : G.path;
+    if (focusPath === 'body') {
         G.vitality += statGain + 1;
         G.spirit += Math.floor(statGain / 2);
         G.will += Math.floor(statGain / 2);
-    } else if (G.path === 'soul') {
+    } else if (focusPath === 'soul') {
         G.vitality += Math.floor(statGain / 2);
         G.spirit += statGain;
         G.will += statGain;
@@ -105,6 +108,7 @@ function runCultivateSession(options) {
     if (getMeridianOpenCount() < 11 && Math.random() < 0.05) {
         addLog(`☯️ You sense a new meridian... (check Meridians)`);
     }
+    if (typeof applyCorruptionAlignmentDrift === 'function') applyCorruptionAlignmentDrift();
     return cultMsg;
 }
 

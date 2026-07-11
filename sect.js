@@ -99,6 +99,10 @@ function addSectRenown(amount) {
     const def = getSectDoctrineDef();
     let mult = def?.renownMult || 1;
     if (typeof getSectLegendRenownMult === 'function') mult *= getSectLegendRenownMult();
+    if (typeof getSectDoctrineAlignmentSynergy === 'function') {
+        const synergy = getSectDoctrineAlignmentSynergy();
+        if (synergy?.renownMultBonus) mult += synergy.renownMultBonus;
+    }
     const final = Math.ceil(amount * mult);
     G.sect.renown = (G.sect.renown || 0) + final;
     return final;
@@ -165,6 +169,10 @@ function getSectIncomeMult() {
 function getSectCombatMult() {
     const def = getSectDoctrineDef();
     let mult = def?.combatMult || 1;
+    if (typeof getSectDoctrineAlignmentSynergy === 'function') {
+        const synergy = getSectDoctrineAlignmentSynergy();
+        if (synergy?.combatMultBonus) mult += synergy.combatMultBonus;
+    }
     if (typeof getSectTraitCombatMult === 'function') mult *= getSectTraitCombatMult();
     mult *= 1 + getSectBuildingBonus('armoryCombatPct') / 100;
     if (typeof getSectDefensePactCombatBonusPct === 'function') {
@@ -515,6 +523,7 @@ function foundSect(customName, doctrineId) {
     if (typeof shiftDaoAlignmentHelp === 'function' && doctrineId === 'righteous') {
         shiftDaoAlignmentHelp('founding a righteous sect');
     }
+    if (typeof maybeTriggerSectAlignmentFriction === 'function') maybeTriggerSectAlignmentFriction();
     if (typeof triggerTutorial === 'function') triggerTutorial('first_sect');
     if (typeof notifyActionUnlocksFromChange === 'function') notifyActionUnlocksFromChange();
     if (typeof ensureSectGroundsView === 'function') ensureSectGroundsView();

@@ -67,9 +67,13 @@ function getQiPathProgressPct() {
     return Math.round(checks.reduce((s, c) => s + c.w * c.p, 0) / totalW * 100);
 }
 
-function getChamberLayerPathProgressPct(layerOrder, getLayerProgress) {
+function getChamberLayerPathProgressPct(layerOrder, getLayerProgress, trackRealmIdx) {
     if (!layerOrder?.length || typeof getLayerProgress !== 'function') return 0;
-    const realmLayerIdx = Math.min(G.realmIdx, layerOrder.length - 1);
+    const realmLayerIdx = trackRealmIdx != null
+        ? Math.min(trackRealmIdx, layerOrder.length - 1)
+        : (typeof getTrackRealmIdx === 'function'
+            ? Math.min(getTrackRealmIdx('spirit'), layerOrder.length - 1)
+            : Math.min(G.realmIdx, layerOrder.length - 1));
     let totalPct = 0;
     for (let i = 0; i <= realmLayerIdx; i++) {
         totalPct += i < realmLayerIdx ? 100 : getLayerProgress(layerOrder[i]);
@@ -84,6 +88,8 @@ function getRealmProgressPct() {
     let pct;
     if (G.path === 'body' && typeof getBodyRealmProgressPct === 'function') {
         pct = getBodyRealmProgressPct();
+    } else if (G.path === 'soul' && typeof getSpiritTrackProgressPct === 'function') {
+        pct = getSpiritTrackProgressPct();
     } else if (G.path === 'soul' && typeof getSoulRealmProgressPct === 'function') {
         pct = getSoulRealmProgressPct();
     } else {
@@ -490,6 +496,7 @@ function executeConsolidation(opts) {
         foundationGain: grantedStability,
         stabilityGain: grantedStability
     };
+    if (typeof syncConsolidationToFocusTrack === 'function') syncConsolidationToFocusTrack();
     G.realmPeakGrindBoost = 0;
 
     const tierLabel = perfect ? 'Perfect' : getBreakthroughTierScale(sealTier).label;

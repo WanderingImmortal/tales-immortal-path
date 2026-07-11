@@ -150,6 +150,7 @@ function canLearnTechnique(template) {
     if (template.reqTechnique && !G.techniques.some(t => t.name === template.reqTechnique)) return false;
     const talentBlock = getTechniqueTalentBlockReason(template);
     if (talentBlock) return false;
+    if (typeof getTechniqueAlignmentBlockReason === 'function' && getTechniqueAlignmentBlockReason(template)) return false;
     return true;
 }
 
@@ -222,6 +223,9 @@ function getComprehendBlockReason(template) {
     }
     const talentBlock = getTechniqueTalentBlockReason(template);
     if (talentBlock) return `${talentBlock} — shelve or consign until you qualify.`;
+    const alignBlock = typeof getTechniqueAlignmentBlockReason === 'function'
+        ? getTechniqueAlignmentBlockReason(template) : null;
+    if (alignBlock) return alignBlock;
     if (G.inCombat) return 'Cannot study during combat.';
     if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot study manuals right now.';
     return null;

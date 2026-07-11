@@ -218,6 +218,21 @@ const ALCHEMY_RECIPES = {
         marketValue: 40,
         potencyMult: 1.5,
         desc: 'A refined spirit gathering pill with greater potency.'
+    },
+    earth_purifying_elixir: {
+        id: 'earth_purifying_elixir',
+        pillId: 'purifying_elixir',
+        tier: 'earth',
+        name: 'Purifying Elixir',
+        emoji: '☯️',
+        element: 'light',
+        ingredients: { spirit_herb: 3, rare_herb: 2, soul_mist: 1 },
+        months: 3,
+        minSkill: 'disciple',
+        unlockByDefault: false,
+        daoAlignmentMin: 30,
+        marketValue: 55,
+        desc: 'Cleanses corruption and steadies the Dao heart — righteous alchemists only.'
     }
 };
 

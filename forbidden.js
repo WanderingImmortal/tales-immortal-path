@@ -108,15 +108,19 @@ function grantRandomClueInZone(preferType) {
     return grantClue(groundId, missing);
 }
 
+function getForbiddenRealmGate() {
+    return typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : (G.realmIdx || 0);
+}
+
 function rollForbiddenClueFromExplore() {
-    if (G.realmIdx < FORBIDDEN_BALANCE.searchRealmMin) return;
+    if (getForbiddenRealmGate() < FORBIDDEN_BALANCE.searchRealmMin) return;
     if (Math.random() >= FORBIDDEN_BALANCE.exploreFragmentChance) return;
     const groundId = pickGroundForClue(currentZone, 'fragment');
     if (groundId) grantClue(groundId, 'fragment');
 }
 
 function rollForbiddenClueFromDao() {
-    if (G.realmIdx < FORBIDDEN_BALANCE.searchRealmMin) return;
+    if (getForbiddenRealmGate() < FORBIDDEN_BALANCE.searchRealmMin) return;
     if (!G.trueDaos || G.trueDaos.length < 1) return;
     const groundId = pickGroundForClue(currentZone, 'resonance');
     if (groundId) grantClue(groundId, 'resonance');
@@ -132,7 +136,7 @@ function actionForbidden() {
 
 function actionForbiddenSearch() {
     if (G.gameOver || G.inCombat || G.forbidden?.activeTrial) return;
-    if (G.realmIdx < FORBIDDEN_BALANCE.searchRealmMin) {
+    if (getForbiddenRealmGate() < FORBIDDEN_BALANCE.searchRealmMin) {
         addLog(`🌑 You are too weak to perceive hidden paths. Need Core Formation.`);
         refreshForbiddenPopupIfOpen();
         fullRender();
@@ -183,7 +187,7 @@ function enterForbiddenGround(id) {
         return;
     }
     if (!canEnterForbiddenGround(id)) return;
-    if (G.realmIdx < FORBIDDEN_BALANCE.enterRealmMin) {
+    if (getForbiddenRealmGate() < FORBIDDEN_BALANCE.enterRealmMin) {
         addLog(`🌑 You must reach Nascent Soul before entering ${g.name}.`);
         return;
     }

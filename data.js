@@ -74,6 +74,9 @@ const PATHS = {
     }
 };
 
+/** Spirit track — same realm table as legacy soul path; UI label is "Spirit track", not a class. */
+const SPIRIT_TRACK = PATHS.soul;
+
 const TRAITS = [
     {
         id: 'heavenly_luck',
@@ -414,7 +417,9 @@ const TECHNIQUE_POOL = [
     { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, reqTalent: "cursed_scholar", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
     // —— Universal arts ——
     { name: "Quickfoot Art", path: "neutral", element: "wind", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 3, costType: "qi", rarity: "common", desc: "Light footwork — reposition before the enemy strikes." },
-    { name: "Focused Breath", path: "neutral", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 2, baseCost: 4, costType: "qi", rarity: "common", desc: "Center breath and intent — steady the next exchange." }
+    { name: "Focused Breath", path: "neutral", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 2, baseCost: 4, costType: "qi", rarity: "common", desc: "Center breath and intent — steady the next exchange." },
+    { name: "Purifying Palm", path: "qi", element: "light", category: "attack", combatTier: "medium", weaponType: "fist", reqAlignment: 40, baseDamage: 11, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Righteous qi purges corruption from foe and self — only those in accord may learn it." },
+    { name: "Blood Sever", path: "body", element: "blood", category: "attack", combatTier: "heavy", weaponType: "blade", reqAlignment: -40, baseDamage: 18, baseCost: 9, costType: "qi", rarity: "rare", desc: "Sever life force without mercy — the demonic path rewards the unrestrained." }
 ];
 
 const TECHNIQUE_COMBAT_TIERS = {
@@ -709,6 +714,20 @@ const PILL_TYPES = {
             G.qi = Math.min(getMaxQi(), G.qi + 4 + G.realmIdx);
             clampCurrentQi();
             return `+4 Foundation, dantian +${4 + G.realmIdx} Qi.`;
+        }
+    },
+    purifying_elixir: {
+        name: "Purifying Elixir",
+        emoji: "✨",
+        desc: "Cleanses corruption and steadies the Dao heart.",
+        months: 2,
+        apply() {
+            const reduced = typeof reduceCorruption === 'function'
+                ? reduceCorruption(6 + Math.floor(Math.random() * 6), 'purifying elixir')
+                : 0;
+            if (typeof shiftDaoAlignment === 'function') shiftDaoAlignment(2 + Math.floor(Math.random() * 3), 'purifying elixir');
+            G.will += 2;
+            return `corruption cleansed${reduced ? '' : ' (minimal)'}, +Will, Dao steadied.`;
         }
     },
     soul_nourishing: {
@@ -2512,7 +2531,12 @@ const ACTION_MONTHS = {
     sectBuild: 6,
     ancientSearch: 4,
     ancientUnseal: 12,
-    manualComprehend: 2
+    manualComprehend: 2,
+    alignMeditate: 2,
+    alignGoodDeed: 2,
+    alignAtonement: 6,
+    alignWickedPath: 2,
+    alignDemonicImpulse: 3
 };
 
 const MANUAL_BALANCE = {
@@ -5128,13 +5152,38 @@ const SOUL_CHAMBER_LAYER_ORDER = [
 ];
 
 const SOUL_CHAMBER_LAYERS = {
-    awakened: { id: 'awakened', label: 'Awakened Spirit', emoji: '✨', unlockPrevPct: 0, color: '#9b7fd4' },
-    clarity: { id: 'clarity', label: 'Clarity of Mind', emoji: '🪞', unlockPrevPct: 50, color: '#7eb8e8' },
-    purity: { id: 'purity', label: 'Purity of Will', emoji: '⚔️', unlockPrevPct: 50, color: '#c8d0e0' },
-    dao_heart: { id: 'dao_heart', label: 'Dao Heart Formation', emoji: '☯️', unlockPrevPct: 50, color: '#d4b85c' },
-    manifestation: { id: 'manifestation', label: 'Soul Manifestation', emoji: '👁️', unlockPrevPct: 50, color: '#c86eb8' },
-    void: { id: 'void', label: 'Void Resonance', emoji: '🌌', unlockPrevPct: 50, color: '#4a6a8a' },
-    transcendent: { id: 'transcendent', label: 'Transcendent Soul', emoji: '🌟', unlockPrevPct: 50, color: '#f0e8d0' }
+    awakened: { id: 'awakened', label: 'Soul Core', emoji: '✨', unlockPrevPct: 0, color: '#9b7fd4' },
+    clarity: { id: 'clarity', label: 'Mind Lake', emoji: '🪞', unlockPrevPct: 50, color: '#7eb8e8' },
+    purity: { id: 'purity', label: 'Will Forge', emoji: '⚔️', unlockPrevPct: 50, color: '#c8d0e0' },
+    dao_heart: { id: 'dao_heart', label: 'Dao Mirror', emoji: '☯️', unlockPrevPct: 50, color: '#d4b85c' },
+    manifestation: { id: 'manifestation', label: 'Outer Soul', emoji: '👁️', unlockPrevPct: 50, color: '#c86eb8' },
+    void: { id: 'void', label: 'Void Touch', emoji: '🌌', unlockPrevPct: 50, color: '#4a6a8a' },
+    transcendent: { id: 'transcendent', label: 'Soul Dominion', emoji: '🌟', unlockPrevPct: 50, color: '#f0e8d0' }
+};
+
+/** Phase 1 mortal spirit — always available before soul embryo. */
+const SOUL_PALACE_PRELUDE_ACTIONS = [
+    { id: 'sense_inward', label: 'Sense Inward', emoji: '🧘', weeks: 2, progress: 20,
+        bonus: { willpowerPct: 2, fearResistPct: 2 },
+        desc: 'Turn awareness inward — +2% willpower & fear resistance (max 3×)' },
+    { id: 'steady_heart', label: 'Steady Heart', emoji: '💠', weeks: 2, progress: 20,
+        bonus: { daoAlignmentPct: 2 },
+        desc: 'Calm mortal spirit — +2% Dao Alignment (max 3×)' },
+    { id: 'gather_essence', label: 'Gather Essence', emoji: '🌊', weeks: 2, progress: 20,
+        bonus: { qiRegenPct: 1, staminaRegenPct: 1 },
+        desc: 'Draw faint essence into the soul — +1% Qi & stamina regen (max 3×)' }
+];
+
+const SOUL_EMBRYO_AWAKEN_MESSAGES = {
+    dantian: '🌟 The dantian births a Nascent Soul — the palace depths awaken.',
+    vessel: '🌟 Vitality coils inward; a Vital Soul manifests — the palace depths awaken.',
+    spirit: '🌟 Spirit condenses into Nascent Divinity — the palace depths awaken.'
+};
+
+const SOUL_EMBRYO_ORIGIN_PERKS = {
+    dantian: { willpowerPct: 2 },
+    vessel: { fearResistPct: 2 },
+    spirit: { daoComprehensionPct: 2 }
 };
 
 const SOUL_CHAMBER_BALANCE = {
@@ -6415,6 +6464,16 @@ const ZONE_ENCOUNTERS = {
             ]
         },
         {
+            id: "sect_dispute",
+            title: "Sect Dispute",
+            text: "Two junior sects quarrel over a spiritual vein. Elders watch — they need a mediator, not a champion.",
+            choices: [
+                { label: "Mediate fairly", months: 2, require: { alignment: 50 }, fame: 4, foundation: 1, alignmentShift: 3, log: "Both sides accept your judgment. The Dao rewards impartiality." },
+                { label: "Side with the stronger sect", months: 1, stones: 10, fame: -2, alignmentShift: -4, log: "Might makes right — you take your cut and move on." },
+                { label: "Walk away", months: 1, log: "Their feud is not yours — yet." }
+            ]
+        },
+        {
             id: "bandit_ambush",
             title: "Bandit Ambush",
             text: "Cultivators in rough sect robes block the road. Their leader twirls a notched blade.",
@@ -6486,6 +6545,16 @@ const ZONE_ENCOUNTERS = {
                 { label: "Pray at the altar", months: 2, foundation: 2, will: 1, log: "The temple accepts your sincerity." },
                 { label: "Loot the offering bowl", months: 1, stones: 14, hp: -8, log: "The temple bites back." },
                 { label: "Mark the location and leave", months: 1, fame: 1, log: "You will return when stronger." }
+            ]
+        },
+        {
+            id: "demonic_shrine",
+            title: "Demonic Shrine",
+            text: "A blood-stained altar hums in the deep jungle. Demonic cultivators have marked this place.",
+            choices: [
+                { label: "Desecrate the altar for power", months: 2, require: { alignmentMax: -30 }, stones: 12, corruptionGain: 5, alignmentShift: -5, log: "Dark qi floods your meridians — the shrine accepts your offering." },
+                { label: "Purify the site", months: 3, require: { alignment: 40 }, fame: 3, alignmentShift: 4, log: "You cleanse the shrine. The jungle exhales." },
+                { label: "Leave it undisturbed", months: 1, log: "Some places are best forgotten." }
             ]
         },
         {
@@ -7068,7 +7137,117 @@ const DAO_ALIGNMENT = {
             log: 'Heavenly Punishment — dissonance festers; corruption gnaws at your heart!',
             apply() { G.corruptionLevel = (G.corruptionLevel || 0) + 8; }
         }
-    ]
+    ],
+    corruptionBlockHarmony: 50,
+    corruptionDriftThreshold: 50,
+    corruptionDriftPerCultivate: -1,
+    tierEffects: {
+        harmony: {
+            perks: ['NPCs greet you warmly (+1 mood)', 'Corruption resists heavenly punishment', 'Righteous techniques unlock', 'Occasional free rumors'],
+            npcMoodBonus: 1,
+            corruptionResistPct: 25,
+            heavenlyPunishmentMult: 0.5,
+            npcRefusalChance: 0
+        },
+        favored: {
+            perks: ['Slight NPC warmth', 'Reduced heavenly punishment chance', 'Good deeds resonate stronger'],
+            npcMoodBonus: 0,
+            corruptionResistPct: 10,
+            heavenlyPunishmentMult: 0.75,
+            npcRefusalChance: 0
+        },
+        neutral: {
+            perks: ['No lockouts — walk either path', 'Weaker extremes than committed tiers'],
+            npcMoodBonus: 0,
+            corruptionResistPct: 0,
+            heavenlyPunishmentMult: 1,
+            npcRefusalChance: 0
+        },
+        dissonant: {
+            perks: ['Demonic cultivators take interest', 'Demonic techniques unlock', 'Heavens grow restless'],
+            npcMoodBonus: 0,
+            demonicEncounterMult: 1.12,
+            npcRefusalChance: 0.08
+        },
+        rebellious: {
+            perks: ['NPCs may refuse interaction (25%)', 'Demonic encounters more frequent', 'Scar risk doubled (existing)', 'Blood arts unlock'],
+            npcMoodBonus: -1,
+            demonicEncounterMult: 1.25,
+            npcRefusalChance: 0.25
+        }
+    },
+    actions: [
+        {
+            id: 'meditate_dao_heart',
+            label: 'Meditate on the Dao Heart',
+            emoji: '🧘',
+            desc: 'Contemplate your place in the natural order.',
+            months: 2,
+            spiritCost: 1,
+            alignMin: -100,
+            alignMax: 69,
+            alignDelta: [2, 5],
+            maxUsesPerRealm: 3
+        },
+        {
+            id: 'good_deed',
+            label: 'Perform a Good Deed',
+            emoji: '🤝',
+            desc: 'Donate stones and materials to those in need.',
+            months: 2,
+            stonesCost: 8,
+            alignMin: -29,
+            alignMax: 100,
+            useHelpShift: true,
+            maxUsesPerRealm: 3
+        },
+        {
+            id: 'public_atonement',
+            label: 'Public Atonement',
+            emoji: '🙏',
+            desc: 'Confess your misdeeds before the jianghu and seek cleansing.',
+            months: 6,
+            fameCost: 5,
+            alignMin: -69,
+            alignMax: 29,
+            alignDelta: [8, 15],
+            corruptionReduce: [8, 15],
+            tierOnly: ['dissonant', 'rebellious'],
+            maxUsesPerRealm: 2
+        },
+        {
+            id: 'walk_wicked_path',
+            label: 'Walk the Wicked Path',
+            emoji: '🌑',
+            desc: 'Deliberately reject restraint and embrace selfish impulse.',
+            months: 2,
+            alignMin: -100,
+            alignMax: 29,
+            alignDelta: [-10, -5],
+            maxUsesPerRealm: 3
+        },
+        {
+            id: 'embrace_demonic',
+            label: 'Embrace Demonic Impulse',
+            emoji: '😈',
+            desc: 'Let corruption guide your hand — power at a cost.',
+            months: 3,
+            alignMin: -100,
+            alignMax: 29,
+            alignDelta: [-12, -12],
+            corruptionGain: 6,
+            requireCorruption: 20,
+            tierOnly: ['dissonant', 'rebellious'],
+            maxUsesPerRealm: 2
+        }
+    ],
+    sectSynergy: {
+        righteous_harmony: { renownMultBonus: 0.15, helpShiftBonus: true, label: 'Righteous sect + Harmony alignment — renown and virtue compound.' },
+        righteous_rebellious: { friction: true, label: 'Righteous sect + rebellious leader — disciples question your hypocrisy.' },
+        shadow_low: { combatMultBonus: 0.08, label: 'Shadow sect + low alignment — combat power stacks.' },
+        shadow_harmony: { intimidatePenalty: 2, label: 'Shadow sect + high alignment — inner conflict weakens intimidation.' },
+        balanced: { alignmentDampenPct: 10, label: 'Balanced doctrine — alignment swings soften.' }
+    }
 };
 
 // ===== HEAVENLY TRIBULATIONS =====
