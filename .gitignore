@@ -5,8 +5,10 @@ desktop.ini
 *.swp
 *~
 
-# IDE / Cursor
-.cursor/
+# IDE / Cursor (keep shared rules in repo)
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
 .vscode/
 *.code-workspace
 

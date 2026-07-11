@@ -1,0 +1,18 @@
+---
+description: Work on GitHub feature branches like cloud agents — commit and push instead of only editing local files
+alwaysApply: true
+---
+
+# GitHub branch workflow (cloud-agent style)
+
+When making code changes in this repo:
+
+1. **Never commit directly to `main`.** Create a feature branch first:
+   - Naming: `cursor/<short-kebab-description>` (e.g. `cursor/cultivation-action-helpers`)
+2. **Make changes, commit, and push** the branch to `origin` with `git push -u origin HEAD`.
+3. **Tell the user** the branch name and GitHub link when done. Offer to open a PR if they want it merged.
+4. **Local files still update** while you work — that is normal. The important part is that every completed task ends up on a pushed remote branch, not stranded as uncommitted local edits on `main`.
+5. **Do not force-push** to `main`/`master`. Do not update git config.
+6. Only push when the user has asked for GitHub updates or this rule applies (ongoing preference).
+
+If the user is continuing work from a prior branch, stay on that branch or branch from it — do not pile unrelated changes onto an old branch without reason.

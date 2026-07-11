@@ -1,0 +1,51 @@
+---
+description: Agent chat naming, branch visibility, and dev-status workflow (phone ↔ home)
+alwaysApply: true
+---
+
+# Agent organization & dev visibility
+
+Goal: always know **who is working on what**, **which branch**, and **whether it reached main** — especially when brainstorming on phone and continuing at home.
+
+## At session start
+
+1. **Rename this chat immediately** (Agents sidebar → Rename, or ask the agent):
+   - Format: `[WIP] <topic> — cursor/<branch>`
+   - Example: `[WIP] Alignment depth — cursor/alignment-depth`
+2. **Check you are on the right branch** — never continue on a merged branch:
+   ```powershell
+   git branch --show-current
+   .\scripts\agent-status.ps1
+   ```
+3. If starting new work, branch from latest `main`:
+   ```powershell
+   git checkout main; git pull
+   git checkout -b cursor/<short-kebab-topic>
+   ```
+
+## During work (local or cloud)
+
+- **One agent = one topic = one `cursor/*` branch.** Do not pile unrelated changes onto an old branch.
+- **Cloud agents** push to `origin/cursor/<topic>`. **Local agents** must push the same branch when done — GitHub is the source of truth, not local files alone.
+- If resuming phone brainstorming at home: run `.\scripts\agent-status.ps1` first to see what is WIP vs merged.
+
+## At session end
+
+1. Commit and push: `git push -u origin HEAD`
+2. Open a PR if none exists (or tell the user the PR link).
+3. **Rename chat** to `[PR #N] <title> — cursor/<branch>`
+4. After merge: rename to `[merged] <title> — cursor/<branch>`, then `git checkout main && git pull`
+
+## Chat title status prefixes
+
+| Prefix | Meaning |
+|--------|---------|
+| `[WIP]` | Active work, branch may be unpushed |
+| `[PR #N]` | PR open, awaiting review/merge |
+| `[merged]` | In main — do not add new work here |
+| `[stale]` | Branch behind main with no unique commits — safe to delete |
+| `[cloud]` | Optional: work started as a cloud agent |
+
+## When the user asks "where am I?"
+
+Run `.\scripts\agent-status.ps1` and summarize: open PRs, WIP branches (ahead of main, no PR), stale branches (behind main), and merged count.
