@@ -920,6 +920,13 @@ function getFactionNpcMenuActions(npcId) {
             }
         });
     }
+    if (npcId === 'faction_ashen_seer' && typeof hasKarmaDaoAccess === 'function' && hasKarmaDaoAccess()) {
+        actions.splice(1, 0, {
+            action: 'read_fate',
+            label: '🔮 Read Fate',
+            desc: `Costs ${KARMA_SEER_BALANCE.lifespanMonthsCost} months lifespan — tendencies only, never certainties`
+        });
+    }
     if (typeof getElderFactionQuests === 'function') {
         getElderFactionQuests(def.factionId).forEach(q => {
             actions.push({

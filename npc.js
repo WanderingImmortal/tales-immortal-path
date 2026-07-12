@@ -648,12 +648,15 @@ function canBuyNpcStockItem(item, npcId) {
 }
 
 function pickNpcDaoFragment() {
-    const pool = DAO_FRAGMENTS.filter(f => {
-        if (G.daoFragments.includes(f.name)) return false;
+    ensureDaoState();
+    const pool = DAO_FRAGMENT_POOL.filter(f => {
+        if (G.daoState.fragments.includes(f.name)) return false;
         if (typeof getDaoFragmentReqRealm === 'function' && G.realmIdx < getDaoFragmentReqRealm(f)) return false;
         if (f.forbiddenClear && typeof getGroundProgress === 'function' && !getGroundProgress(f.forbiddenClear).cleared) {
             return false;
         }
+        if (f.requiresGreaterCount != null && countComprehendedTier('greater') < f.requiresGreaterCount) return false;
+        if (isDaoComprehended(f.daoId)) return false;
         return true;
     });
     if (!pool.length) return null;
@@ -679,10 +682,15 @@ function applyNpcPurchase(item, npcId) {
         return `Received ${item.qty || 1}× ${pill?.name || item.label}.`;
     }
     if (item.type === 'dao_fragment') {
+        ensureDaoState();
         const frag = pickNpcDaoFragment();
         if (!frag) return 'No Dao fragments available at your cultivation level.';
-        if (!G.daoFragments.includes(frag.name)) G.daoFragments.push(frag.name);
-        return `Unsealed ${frag.name}! ${frag.desc}`;
+        if (!G.daoState.fragments.includes(frag.name)) {
+            G.daoState.fragments.push(frag.name);
+            syncDaoFragmentArrays();
+        }
+        const def = getDaoDef(frag.daoId);
+        return `Unsealed ${frag.name}! ${def?.desc || ''}`;
     }
     if (item.type === 'technique') {
         if (typeof grantManual === 'function') {
@@ -1188,6 +1196,13 @@ function bindNpcPopupEvents(def) {
                     ? acceptFactionQuest(questId)
                     : { success: false, message: 'Quest unavailable.' };
                 if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+                renderNpcPopup();
+                fullRender();
+            } else if (action === 'read_fate') {
+                const result = typeof performKarmaSeerReading === 'function'
+                    ? performKarmaSeerReading(npcUiTarget)
+                    : { success: false, message: 'Fate reading unavailable.' };
+                if (result.message) addLog(result.success ? result.message : `🔮 ${result.message}`);
                 renderNpcPopup();
                 fullRender();
             } else if (action === 'talk') {

@@ -807,6 +807,7 @@ function calcCombatTechniqueDamage(tech) {
     if (typeof getIntentTechniqueSynergyBonus === 'function') {
         dmg = Math.max(1, Math.floor(dmg * (1 + getIntentTechniqueSynergyBonus(tech))));
     }
+    if (typeof getDaoIntentSynergyMult === 'function') dmg = Math.max(1, Math.floor(dmg * getDaoIntentSynergyMult(tech)));
     if (typeof getFactionCombatDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getFactionCombatDmgMult()));
     if (typeof getScarCombatDamageMult === 'function') dmg = Math.max(1, Math.floor(dmg * getScarCombatDamageMult()));
     if (typeof getBodyChamberCombatDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getBodyChamberCombatDmgMult()));
