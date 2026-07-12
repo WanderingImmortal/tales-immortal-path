@@ -1026,6 +1026,8 @@ function loadState() {
             if (G.vesselRule === undefined) G.vesselRule = null;
             if (G.vesselRuleCooldownUntilMonth == null) G.vesselRuleCooldownUntilMonth = 0;
             if (typeof ensureVesselRuleState === 'function') ensureVesselRuleState();
+            if (G.soulMass === undefined) G.soulMass = null;
+            if (typeof ensureSoulMassState === 'function') ensureSoulMassState();
             if (!G.inventory) G.inventory = [];
             if (!G.legendaryMaterials) G.legendaryMaterials = [];
             if (typeof ensureGearState === 'function') ensureGearState();

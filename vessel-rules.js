@@ -251,6 +251,11 @@ function getVesselRuleSoulSlipPct() {
     return bal.soulSlipPctBase + (bal.soulSlipPctAtComplete - bal.soulSlipPctBase) * t;
 }
 
+/** Active vessel rule soul mitigation — contest (Blood) or slip (Unnamed), never both. */
+function getVesselRuleSoulMitigationPct() {
+    return Math.max(getVesselRuleSoulContestPct(), getVesselRuleSoulSlipPct());
+}
+
 function vesselRuleActionBlocked() {
     return G.gameOver || G.inCombat
         || (typeof isTribulationActive === 'function' && isTribulationActive());

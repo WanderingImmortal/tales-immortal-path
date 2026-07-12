@@ -430,6 +430,14 @@ function renderSoulChamberActions() {
         panel.appendChild(head);
         const actions = typeof SOUL_PALACE_PRELUDE_ACTIONS !== 'undefined' ? SOUL_PALACE_PRELUDE_ACTIONS : [];
         actions.forEach(action => appendSoulPreludeActionButton(panel, action));
+        const condense = typeof SOUL_PALACE_CONDENSE_ACTIONS !== 'undefined' ? SOUL_PALACE_CONDENSE_ACTIONS.prelude : [];
+        if (condense.length) {
+            const condenseHead = document.createElement('div');
+            condenseHead.className = 'soul-chamber-tab-head soul-condense-head';
+            condenseHead.innerHTML = '<h4>💠 Soul Mass</h4><p class="soul-chamber-tab-desc">Condense spirit into cultivated interior weight.</p>';
+            panel.appendChild(condenseHead);
+            condense.forEach(action => appendSoulCondenseActionButton(panel, 'prelude', action));
+        }
         return;
     }
 
@@ -447,6 +455,14 @@ function renderSoulChamberActions() {
         return;
     }
     actions.forEach(action => appendSoulActionButton(panel, tab, action));
+    const condense = typeof SOUL_PALACE_CONDENSE_ACTIONS !== 'undefined' ? SOUL_PALACE_CONDENSE_ACTIONS[tab] : null;
+    if (condense?.length) {
+        const condenseHead = document.createElement('div');
+        condenseHead.className = 'soul-chamber-tab-head soul-condense-head';
+        condenseHead.innerHTML = '<h4>💠 Soul Mass</h4><p class="soul-chamber-tab-desc">Deepen cultivated soul density.</p>';
+        panel.appendChild(condenseHead);
+        condense.forEach(action => appendSoulCondenseActionButton(panel, tab, action));
+    }
 }
 
 function appendSoulPreludeActionButton(panel, action) {
@@ -467,6 +483,63 @@ function appendSoulPreludeActionButton(panel, action) {
     panel.appendChild(wrap);
 }
 
+function appendSoulCondenseActionButton(panel, layerId, action) {
+    const count = typeof getSoulCondenseActionCount === 'function'
+        ? getSoulCondenseActionCount(layerId, action.id) : 0;
+    const maxStacks = action.maxStacks || 3;
+    const block = typeof getSoulCondenseActionBlockReason === 'function'
+        ? getSoulCondenseActionBlockReason(layerId, action) : null;
+    const atMax = count >= maxStacks;
+    const wrap = document.createElement('div');
+    wrap.className = 'action-card-wrap soul-chamber-action-wrap soul-condense-action-wrap';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'soul-chamber-action-btn soul-condense-action-btn' + (atMax ? ' soul-chamber-action-maxed' : '');
+    btn.disabled = soulChamberActionBlocked() || !!block || atMax;
+    btn.innerHTML = `<span class="soul-action-label">${action.emoji} ${action.label}</span>`
+        + `<span class="soul-action-meta soul-action-flavor">${block || (atMax ? 'Fully condensed' : action.desc)}</span>`;
+    btn.addEventListener('click', () => runSoulCondenseAction(layerId, action.id));
+    wrap.appendChild(btn);
+    panel.appendChild(wrap);
+}
+
+function runSoulCondenseAction(layerId, actionId) {
+    const actions = typeof SOUL_PALACE_CONDENSE_ACTIONS !== 'undefined' ? SOUL_PALACE_CONDENSE_ACTIONS[layerId] : null;
+    const action = actions?.find(a => a.id === actionId);
+    if (!action) return;
+    const block = typeof getSoulCondenseActionBlockReason === 'function'
+        ? getSoulCondenseActionBlockReason(layerId, action) : null;
+    if (block) {
+        addLog(`💠 ${block}`);
+        renderSoulChamberUI();
+        return;
+    }
+    beginActionLog();
+    const layerLabel = layerId === 'prelude' ? 'Mortal Spirit'
+        : (SOUL_CHAMBER_LAYERS[layerId]?.label || layerId);
+    if (!advanceChamberWeeks(action.weeks, `${action.label} — ${layerLabel}`)) {
+        cancelActionLog();
+        renderSoulChamberUI();
+        return;
+    }
+    if (typeof grantSoulMass === 'function' && action.massGain) {
+        grantSoulMass(action.massGain, `condense:${action.id}`);
+    }
+    if (typeof grantSoulApexProgress === 'function' && action.apexProgress) {
+        grantSoulApexProgress(action.apexProgress, `condense:${action.id}`);
+    }
+    if (typeof ensureSoulMassState === 'function') {
+        ensureSoulMassState();
+        const key = `${layerId}:${actionId}`;
+        G.soulMass.condenseActionCounts[key] = (G.soulMass.condenseActionCounts[key] || 0) + 1;
+    }
+    const mass = typeof getSoulMass === 'function' ? getSoulMass() : 0;
+    const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
+    commitActionLog(`💠 ${action.label} complete. Soul Mass ${mass} (${tierLabel}).`);
+    renderSoulChamberUI();
+    fullRender();
+}
+
 function runSoulPreludeAction(actionId) {
     const action = SOUL_PALACE_PRELUDE_ACTIONS?.find(a => a.id === actionId);
     if (!action) return;
@@ -482,6 +555,10 @@ function runSoulPreludeAction(actionId) {
     applySoulChamberBonusDelta(action.bonus);
     G.soulChamber.preludeActionCounts[actionId] = count + 1;
     G.soulChamber.preludeProgress = Math.min(100, (G.soulChamber.preludeProgress || 0) + (action.progress || 20));
+    if (typeof grantSoulApexProgress === 'function') {
+        const bal = typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : null;
+        if (bal?.progressionPerPalaceAction) grantSoulApexProgress(bal.progressionPerPalaceAction, 'palace_prelude');
+    }
     const bonusText = formatSoulBonusDelta(action.bonus);
     commitActionLog(`🌙 ${action.label} complete. ${bonusText} · Prelude ${Math.round(G.soulChamber.preludeProgress)}%.`);
     renderSoulChamberUI();
@@ -495,6 +572,17 @@ function renderSoulChamberUI() {
     const embryoEl = document.getElementById('soulPalaceEmbryoStatus');
     if (embryoEl && typeof formatEmbryoStatusLine === 'function') {
         embryoEl.textContent = formatEmbryoStatusLine();
+    }
+    const massEl = document.getElementById('soulMassStatus');
+    if (massEl && typeof getSoulMass === 'function') {
+        const mass = getSoulMass();
+        const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
+        massEl.textContent = mass > 0
+            ? `Soul Mass: ${mass} (${tierLabel})`
+            : 'Soul Mass: 0 (Unformed) — condense spirit to cultivate interior weight.';
+        if (typeof isInteriorSoulWeak === 'function' && isInteriorSoulWeak()) {
+            massEl.textContent += ' · Your interior soul is thin.';
+        }
     }
     let progress, labelText;
     if (tab === 'prelude') {
@@ -575,6 +663,10 @@ function runSoulChamberAction(layerId, actionId) {
     G.soulChamber.actionCounts[key] = (G.soulChamber.actionCounts[key] || 0) + 1;
     G.soulChamber.layerProgress[layerId] = Math.min(100,
         (G.soulChamber.layerProgress[layerId] || 0) + (action.progress || 17));
+    if (typeof grantSoulApexProgress === 'function') {
+        const bal = typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : null;
+        if (bal?.progressionPerPalaceAction) grantSoulApexProgress(bal.progressionPerPalaceAction, 'palace_action');
+    }
     if (layerId === 'transcendent' && getSoulLayerProgress('transcendent') >= 100) {
         G.soulChamber.transcendentComplete = true;
     }
