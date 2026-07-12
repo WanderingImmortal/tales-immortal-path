@@ -842,6 +842,7 @@ function startCombat() {
     G.combatLog = [];
     initCombatResource();
     if (typeof resetIntentCombatState === 'function') resetIntentCombatState();
+    if (typeof onCombatStartVesselRule === 'function') onCombatStartVesselRule();
     updateShield();
     if (G.path === 'soul') {
         G.shield = G.maxShield;
@@ -1517,6 +1518,7 @@ function takeDamage(dmg, opts) {
 
     G.hp -= Math.max(0, dmg);
     if (G.hp < 0) G.hp = 0;
+    if (typeof onPlayerDamagedVesselRule === 'function') onPlayerDamagedVesselRule(dmg, opts);
     updateShield();
 
     return {

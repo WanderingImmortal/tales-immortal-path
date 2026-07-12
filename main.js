@@ -553,6 +553,8 @@ function setupCreation(refreshOnly) {
         G.activeIntentWeapon = null;
         G.weaponIntentChoices = [];
         G.intentCombatState = null;
+        G.vesselRule = null;
+        G.vesselRuleCooldownUntilMonth = 0;
         G.daoFragments = [];
         G.trueDaos = [];
         G.primeDaos = [];

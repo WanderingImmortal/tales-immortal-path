@@ -247,3 +247,16 @@ function formatEmbryoStatusLine() {
     }
     return 'Mortal spirit only — a cultivator\'s soul must be born before the palace\'s depths open.';
 }
+
+/** Regress vessel track to the start of the current realm (Rule abandon punishment). */
+function regressVesselTrackToCurrentRealmStart() {
+    ensureCultivationTracksState();
+    const realmIdx = getTrackRealmIdx('vessel');
+    if (G.cultivation.vessel.consolidation[realmIdx] != null) {
+        delete G.cultivation.vessel.consolidation[realmIdx];
+    }
+    if (getFocusTrack() === 'vessel') {
+        G.realmPeakGrindBoost = 0;
+        syncRealmConsolidationFromFocusTrack();
+    }
+}

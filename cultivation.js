@@ -259,8 +259,7 @@ function checkPerfectCultivation() {
     if (focus === 'dantian' || G.path === 'qi') {
         if (!hasQiInteriorPeak()) return;
     } else if (focus === 'vessel') {
-        // TODO: sworn Vessel Rule peak.
-        return;
+        if (typeof hasVesselInteriorPeak !== 'function' || !hasVesselInteriorPeak()) return;
     } else if (focus === 'spirit') {
         // TODO: Soul Mass apex.
         return;

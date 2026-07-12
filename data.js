@@ -5007,6 +5007,42 @@ const CULTIVATION_ACTION_GUIDE = {
         emoji: '🛌',
         flavor: 'Still the body and mend what combat has torn.',
         desc: 'Rest to heal HP and regenerate your protective barrier. Does not cultivate stats or Qi.'
+    },
+    vesselRules: {
+        label: 'Vessel Rules',
+        emoji: '⚖️',
+        flavor: 'Swear a defining oath upon the flesh — one law, one vessel.',
+        desc: 'Body path interior peak: swear a single Vessel Rule in the Body Chamber. Rules are self-imposed laws of the flesh — not cosmic Dao, not weapon intent. Release is voluntary but punishing.'
+    }
+};
+
+// ===== VESSEL RULES (framework) =====
+
+const VESSEL_RULE_BALANCE = {
+    swearMonths: 6,
+    releaseCooldownMonths: 12,
+    abandonRegressRealm: true,
+    progressionCompletePct: 100
+};
+
+const VESSEL_RULES = {
+    blood: {
+        id: 'blood',
+        name: 'Rule of Blood',
+        oath: 'Blood is not for mending. Blood is for serving the flesh.',
+        emoji: '🩸',
+        swearGate: { vesselRealmIdx: 2, bodyLayer: 'blood', bodyLayerPct: 50 },
+        releaseWarning: 'You will regress to the start of your current vessel realm and lose all Rule progression. The flesh will not forgive this breach lightly.',
+        implemented: false
+    },
+    unnamed: {
+        id: 'unnamed',
+        name: 'Rule of the Unnamed',
+        oath: 'The apex is not the form perfected. It is the body that never stops moving.',
+        emoji: '👊',
+        swearGate: { vesselRealmIdx: 2, bodyLayer: 'bones', bodyLayerPct: 50 },
+        releaseWarning: 'You will regress to the start of your current vessel realm and lose all Rule progression. Motion without law collapses into chaos.',
+        implemented: false
     }
 };
 
