@@ -10,21 +10,24 @@ const root = path.join(__dirname, '..');
 const files = fs.readdirSync(root).filter(f => f.endsWith('.js'));
 
 function extractFunctions(src) {
-    const re = /function\s+(ensure\w+|sync\w+)\s*\([^)]*\)\s*\{/g;
+    // Bound each ensure/sync body at the next top-level function, not only the next ensure/sync.
+    const re = /^function\s+(\w+)\s*\(/gm;
     const idxs = [];
     let m;
     while ((m = re.exec(src))) idxs.push({ name: m[1], start: m.index });
     const out = {};
     for (let i = 0; i < idxs.length; i++) {
+        const name = idxs[i].name;
+        if (!name.startsWith('ensure') && !name.startsWith('sync')) continue;
         const end = i + 1 < idxs.length ? idxs[i + 1].start : src.length;
         const body = src.slice(idxs[i].start, end);
         const callRe = /\b((?:ensure|sync)\w+)\s*\(/g;
         const calls = new Set();
         let c;
         while ((c = callRe.exec(body))) {
-            if (c[1] !== idxs[i].name) calls.add(c[1]);
+            if (c[1] !== name) calls.add(c[1]);
         }
-        out[idxs[i].name] = [...calls];
+        out[name] = [...calls];
     }
     return out;
 }
