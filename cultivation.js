@@ -216,6 +216,12 @@ function executeTrackBreakthrough(style, track) {
         if (track === 'spirit' && typeof markSpiritTrackConsolidated === 'function') {
             markSpiritTrackConsolidated(newIdx);
         }
+        if (track === 'spirit' && typeof grantSoulApexProgress === 'function') {
+            const bal = typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : null;
+            if (bal?.progressionPerSpiritBreakthrough) {
+                grantSoulApexProgress(bal.progressionPerSpiritBreakthrough, 'spirit_breakthrough');
+            }
+        }
         closeBreakthrough();
         if (perfectBreak && track === 'dantian' && typeof canOfferTranscendencePerks === 'function' && canOfferTranscendencePerks(newIdx)) {
             offerTranscendencePerkChoice(newIdx, style);
@@ -261,8 +267,7 @@ function checkPerfectCultivation() {
     } else if (focus === 'vessel') {
         if (typeof hasVesselInteriorPeak !== 'function' || !hasVesselInteriorPeak()) return;
     } else if (focus === 'spirit') {
-        // TODO: Soul Mass apex.
-        return;
+        if (typeof hasSoulInteriorPeak !== 'function' || !hasSoulInteriorPeak()) return;
     } else {
         return;
     }

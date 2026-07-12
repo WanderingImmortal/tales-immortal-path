@@ -9536,6 +9536,24 @@ header .subtitle {
     font-style: italic;
 }
 
+.soul-mass-status {
+    font-size: 0.85rem;
+    color: var(--ink-accent-soft, #9b7fd4);
+    margin: 6px 0 0;
+}
+
+.soul-vuln-hint {
+    font-size: 0.78rem;
+    color: #c97a6a;
+    margin: 4px 0 0;
+    font-style: italic;
+}
+
+.soul-condense-head h4 {
+    margin: 12px 0 4px;
+    font-size: 0.95rem;
+}
+
 .soul-prelude-lock-note {
     padding: 8px 0;
 }

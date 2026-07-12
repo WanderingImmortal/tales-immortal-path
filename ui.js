@@ -281,6 +281,28 @@ function renderStatus() {
             intentEl.textContent = '—';
         }
     }
+    const soulMassEl = document.getElementById('soulMassDisplay');
+    if (soulMassEl && typeof getSoulMass === 'function') {
+        const mass = getSoulMass();
+        if (mass > 0) {
+            const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
+            soulMassEl.textContent = `${mass} (${tierLabel})`;
+            const weakHint = typeof isInteriorSoulWeak === 'function' && isInteriorSoulWeak()
+                ? ' · thin interior' : '';
+            soulMassEl.title = `Cultivated soul density${weakHint}`;
+        } else {
+            soulMassEl.textContent = '—';
+            soulMassEl.title = 'Condense spirit in the Soul Palace';
+        }
+    }
+    const soulVulnEl = document.getElementById('soulVulnHint');
+    if (soulVulnEl) {
+        const showWeak = typeof isInteriorSoulWeak === 'function' && isInteriorSoulWeak();
+        soulVulnEl.classList.toggle('hidden', !showWeak);
+        if (showWeak) {
+            soulVulnEl.textContent = 'Your interior soul is thin — soul strikes would wound deeply.';
+        }
+    }
     const daoEl = document.getElementById('daoDisplay');
     const allDaos = [...G.trueDaos, ...G.mergedDaos];
     if (allDaos.length > 0) {

@@ -550,6 +550,8 @@ function buildEnemyFromDef(def, template, options = {}) {
     });
 
     if (template?.element && !enemy.element) enemy.element = template.element;
+    if (template?.minRealm != null) enemy.minRealm = template.minRealm;
+    else if (def.minRealm != null) enemy.minRealm = def.minRealm;
     if (template?.abilities && !enemy.abilities) enemy.abilities = template.abilities;
     if (template?.enrageThreshold != null && enemy.enrageThreshold == null) enemy.enrageThreshold = template.enrageThreshold;
     if (template?.enrageAbilities && !enemy.enrageAbilities) enemy.enrageAbilities = template.enrageAbilities;
@@ -565,7 +567,10 @@ function calcEnemyStrikeDamage(enemy, mult) {
     if (isEnemyEnraged(enemy)) raw = Math.floor(raw * 1.2);
     raw = Math.floor(raw * mult);
     if (enemy.intimidateTurns > 0) {
-        const reduction = 0.25 + Math.min(0.25, G.will * 0.01);
+        let reduction = 0.25 + Math.min(0.25, G.will * 0.01);
+        if (typeof getSoulMassIntimidateReductionBonus === 'function') {
+            reduction += getSoulMassIntimidateReductionBonus();
+        }
         raw = Math.floor(raw * (1 - reduction));
     }
     if (enemy.slowTurns > 0) raw = Math.floor(raw * 0.7);
@@ -865,6 +870,7 @@ function startCombat() {
     initCombatResource();
     if (typeof resetIntentCombatState === 'function') resetIntentCombatState();
     if (typeof onCombatStartVesselRule === 'function') onCombatStartVesselRule();
+    if (typeof onCombatStartSoulMass === 'function') onCombatStartSoulMass();
     updateShield();
     if (G.path === 'soul') {
         G.shield = G.maxShield;
@@ -1149,8 +1155,11 @@ function combatIntimidate() {
     const cost = getCombatConfig().costs.special;
     if (!spendCombatResource(cost, 'Intimidate')) return;
     if (!combatSpendRound()) return;
-    G.enemy.intimidateTurns = 2;
-    addCombatLog(`👁️ Your spirit pressure unnerves ${G.enemy.name}! Their attacks weaken for 2 turns.`);
+    const turns = typeof getSoulMassIntimidateTurns === 'function' ? getSoulMassIntimidateTurns() : 2;
+    const pressure = typeof isSoulMassPressureActive === 'function' && isSoulMassPressureActive();
+    G.enemy.intimidateTurns = turns;
+    if (pressure) addCombatLog('Spiritual weight presses the room.', 'entry-mod');
+    addCombatLog(`👁️ Your spirit pressure unnerves ${G.enemy.name}! Their attacks weaken for ${turns} turn${turns === 1 ? '' : 's'}.`);
     trackMirrorAction('secondary');
     if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('intimidate')) return;
     updateCombatUI();
@@ -1511,6 +1520,9 @@ function enemyTurn() {
 
 function takeDamage(dmg, opts) {
     opts = opts || {};
+    if ((opts.spiritDamage || opts.soulDamage) && typeof applySoulDamageMitigation === 'function') {
+        dmg = applySoulDamageMitigation(dmg, opts);
+    }
     let physiqueReduced = 0;
     const defensePct = (G.defenseBonus || 0)
         + (typeof getGearDefenseBonus === 'function' ? getGearDefenseBonus() : 0)

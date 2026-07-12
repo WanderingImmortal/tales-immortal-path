@@ -5233,6 +5233,51 @@ const SOUL_CHAMBER_LAYERS = {
     transcendent: { id: 'transcendent', label: 'Soul Dominion', emoji: '🌟', unlockPrevPct: 50, color: '#f0e8d0' }
 };
 
+// ===== SOUL MASS (spirit interior) =====
+
+const SOUL_MASS_BALANCE = {
+    massPerTier: 25,
+    maxTier: 4,
+    apexProgressComplete: 100,
+    baselineResistPerSpirit: 0.008,
+    baselineResistPerWill: 0.01,
+    baselineResistCap: 0.20,
+    massDefenderPctPerMass: 0.004,
+    massDefenderCap: 0.25,
+    pressureMassMin: 10,
+    pressureIntimidateBonusTurns: 1,
+    weakInteriorSpiritWillSum: 12,
+    hollowDebuffAfterOveruse: false,
+    progressionPerCondense: 4,
+    progressionPerPalaceAction: 2,
+    progressionPerSpiritBreakthrough: 15,
+};
+
+const SOUL_MASS_TIERS = [
+    { tier: 0, label: 'Unformed', massMin: 0 },
+    { tier: 1, label: 'Condensed', massMin: 10 },
+    { tier: 2, label: 'Weighted', massMin: 25 },
+    { tier: 3, label: 'Dominant', massMin: 50 },
+    { tier: 4, label: 'Apex', massMin: 75 },
+];
+
+/** Soul Mass condensation — prelude + deep palace layers. */
+const SOUL_PALACE_CONDENSE_ACTIONS = {
+    prelude: [
+        { id: 'condense_spirit', label: 'Condense Spirit', emoji: '💠', weeks: 3, massGain: 4, apexProgress: 4, maxStacks: 5,
+            desc: 'Compress mortal spirit into weight — +4 Soul Mass, +4% apex progress (max 5×)' }
+    ],
+    awakened: [
+        { id: 'weigh_will', label: 'Weigh the Will', emoji: '⚖️', weeks: 4, massGain: 6, apexProgress: 2, maxStacks: 4,
+            requiresLayerProgress: 25,
+            desc: 'Press will into the soul core — +6 Soul Mass (requires 25% Soul Core, max 4×)' }
+    ],
+    clarity: [
+        { id: 'settle_mass', label: 'Settle Mass', emoji: '🔮', weeks: 3, massGain: 5, apexProgress: 3, maxStacks: 3,
+            desc: 'Anchor condensed spirit at the mind lake — +5 Soul Mass, +3% apex (max 3×)' }
+    ]
+};
+
 /** Phase 1 mortal spirit — always available before soul embryo. */
 const SOUL_PALACE_PRELUDE_ACTIONS = [
     { id: 'sense_inward', label: 'Sense Inward', emoji: '🧘', weeks: 2, progress: 20,
