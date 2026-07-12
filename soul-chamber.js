@@ -70,6 +70,18 @@ function canSpiritTrackBreakthrough() {
     if (idx >= max) return false;
     if (typeof isSpiritTrackConsolidated === 'function' && isSpiritTrackConsolidated(idx)) return true;
     if (idx === 0 && getSpiritPreludeProgressPct() >= 40) return true;
+    if (idx === SOUL_EMBRYO_REALM_IDX - 1) {
+        const hasEmbryo = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo();
+        if (hasEmbryo) {
+            const active = typeof getSoulMass === 'function' ? getSoulMass() : 0;
+            const hardMin = typeof getSoulMassHardMin === 'function' ? getSoulMassHardMin() : 10;
+            if (active >= hardMin) return true;
+        } else {
+            const latent = typeof getLatentSoulMass === 'function' ? getLatentSoulMass() : 0;
+            const cap = typeof getLatentMassCap === 'function' ? getLatentMassCap() : 9;
+            if (latent >= cap) return true;
+        }
+    }
     return false;
 }
 
@@ -79,7 +91,23 @@ function getSpiritTrackBreakthroughBlockReason() {
     if (!next) return 'Spirit track is at the peak.';
     if (canSpiritTrackBreakthrough()) return null;
     if (idx === 0) {
-        return `Mortal spirit needs more refinement (${getSpiritPreludeProgressPct()}% / 40%) — practice in the Soul Palace prelude.`;
+        return `Spirit foundation needs more refinement (${getSpiritPreludeProgressPct()}% / 40%) — practice in the Soul Palace prelude.`;
+    }
+    if (idx === SOUL_EMBRYO_REALM_IDX - 1) {
+        const hasEmbryo = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo();
+        const cap = typeof getLatentMassCap === 'function' ? getLatentMassCap() : 9;
+        const hardMin = typeof getSoulMassHardMin === 'function' ? getSoulMassHardMin() : 10;
+        if (!hasEmbryo) {
+            const latent = typeof getLatentSoulMass === 'function' ? getLatentSoulMass() : 0;
+            if (latent < cap) {
+                return `Fill latent spirit weight (${latent} / ${cap}) before Soul Integration — or anchor Spirit Confluence.`;
+            }
+        } else {
+            const active = typeof getSoulMass === 'function' ? getSoulMass() : 0;
+            if (active < hardMin) {
+                return `Soul Mass too thin (${active} / ${hardMin}) — condense in the palace before Soul Integration.`;
+            }
+        }
     }
     return 'Anchor the spirit realm before breakthrough.';
 }
@@ -293,8 +321,8 @@ function renderSoulChamberTabs() {
     preludeBtn.type = 'button';
     const preludePct = Math.round(getSpiritPreludeProgressPct());
     preludeBtn.className = 'soul-chamber-tab' + (G.soulChamber.activeTab === 'prelude' ? ' active' : '');
-    preludeBtn.innerHTML = `🌙 Mortal Spirit<span class="soul-tab-pct">${preludePct}%</span>`;
-    preludeBtn.title = 'Phase 1 — mortal spirit refinement (always available)';
+    preludeBtn.innerHTML = `🌙 Spirit Foundation<span class="soul-tab-pct">${preludePct}%</span>`;
+    preludeBtn.title = 'Chapter 1 — spirit foundation before soul birth (always available)';
     preludeBtn.addEventListener('click', () => setSoulChamberTab('prelude'));
     nav.appendChild(preludeBtn);
 
@@ -310,7 +338,7 @@ function renderSoulChamberTabs() {
         btn.disabled = !unlocked;
         btn.innerHTML = `${def.emoji} ${def.label}<span class="soul-tab-pct">${unlocked ? progress + '%' : '🔒'}</span>`;
         btn.title = !deepOpen
-            ? 'Soul embryo required — born from dantian, vessel, or spirit tier four'
+            ? 'Soul birth required — fourth realm on dantian, vessel, or spirit track'
             : unlocked
                 ? `${def.label}: ${progress}% refined`
                 : `Unlock at ${def.unlockPrevPct}% of ${SOUL_CHAMBER_LAYERS[getSoulLayerPrevId(layerId)]?.label || 'previous layer'}`;
@@ -326,7 +354,7 @@ function renderSoulChamberAbilities() {
     if (!isSoulPalaceDeepUnlocked()) {
         const note = document.createElement('p');
         note.className = 'soul-abilities-note soul-prelude-lock-note';
-        note.textContent = 'Soul combat arts awaken when a cultivator\'s soul embryo is born.';
+        note.textContent = 'Soul combat arts awaken when the soul is born — reach the fourth realm on any path.';
         panel.appendChild(note);
         return;
     }
@@ -426,7 +454,7 @@ function renderSoulChamberActions() {
     if (tab === 'prelude') {
         const head = document.createElement('div');
         head.className = 'soul-chamber-tab-head';
-        head.innerHTML = '<h3>🌙 Mortal Spirit</h3><p class="soul-chamber-tab-desc">Phase 1 — humble spirit work before the soul embryo awakens.</p>';
+        head.innerHTML = '<h3>🌙 Spirit Foundation</h3><p class="soul-chamber-tab-desc">Chapter 1 — refine spirit before soul birth. Condense latent weight (cap 9) to prepare for Soul Cultivation.</p>';
         panel.appendChild(head);
         const actions = typeof SOUL_PALACE_PRELUDE_ACTIONS !== 'undefined' ? SOUL_PALACE_PRELUDE_ACTIONS : [];
         actions.forEach(action => appendSoulPreludeActionButton(panel, action));
@@ -434,7 +462,7 @@ function renderSoulChamberActions() {
         if (condense.length) {
             const condenseHead = document.createElement('div');
             condenseHead.className = 'soul-chamber-tab-head soul-condense-head';
-            condenseHead.innerHTML = '<h4>💠 Soul Mass</h4><p class="soul-chamber-tab-desc">Condense spirit into cultivated interior weight.</p>';
+            condenseHead.innerHTML = '<h4>💠 Latent Weight</h4><p class="soul-chamber-tab-desc">Compress spirit foundation — crystallizes into Soul Mass at soul birth.</p>';
             panel.appendChild(condenseHead);
             condense.forEach(action => appendSoulCondenseActionButton(panel, 'prelude', action));
         }
@@ -459,7 +487,7 @@ function renderSoulChamberActions() {
     if (condense?.length) {
         const condenseHead = document.createElement('div');
         condenseHead.className = 'soul-chamber-tab-head soul-condense-head';
-        condenseHead.innerHTML = '<h4>💠 Soul Mass</h4><p class="soul-chamber-tab-desc">Deepen cultivated soul density.</p>';
+        condenseHead.innerHTML = '<h4>💠 Soul Mass</h4><p class="soul-chamber-tab-desc">Deepen cultivated soul density — active Soul Mass for combat & techniques.</p>';
         panel.appendChild(condenseHead);
         condense.forEach(action => appendSoulCondenseActionButton(panel, tab, action));
     }
@@ -515,7 +543,7 @@ function runSoulCondenseAction(layerId, actionId) {
         return;
     }
     beginActionLog();
-    const layerLabel = layerId === 'prelude' ? 'Mortal Spirit'
+    const layerLabel = layerId === 'prelude' ? 'Spirit Foundation'
         : (SOUL_CHAMBER_LAYERS[layerId]?.label || layerId);
     if (!advanceChamberWeeks(action.weeks, `${action.label} — ${layerLabel}`)) {
         cancelActionLog();
@@ -523,7 +551,13 @@ function runSoulCondenseAction(layerId, actionId) {
         return;
     }
     if (typeof grantSoulMass === 'function' && action.massGain) {
-        grantSoulMass(action.massGain, `condense:${action.id}`);
+        const applied = grantSoulMass(action.massGain, `condense:${action.id}`);
+        if (applied <= 0 && layerId === 'prelude' && typeof isLatentMassAtCap === 'function' && isLatentMassAtCap()) {
+            commitActionLog(`💠 Latent spirit weight already at cap (${getLatentMassCap()}).`);
+            renderSoulChamberUI();
+            fullRender();
+            return;
+        }
     }
     if (typeof grantSoulApexProgress === 'function' && action.apexProgress) {
         grantSoulApexProgress(action.apexProgress, `condense:${action.id}`);
@@ -534,8 +568,13 @@ function runSoulCondenseAction(layerId, actionId) {
         G.soulMass.condenseActionCounts[key] = (G.soulMass.condenseActionCounts[key] || 0) + 1;
     }
     const mass = typeof getSoulMass === 'function' ? getSoulMass() : 0;
-    const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
-    commitActionLog(`💠 ${action.label} complete. Soul Mass ${mass} (${tierLabel}).`);
+    const latent = typeof getLatentSoulMass === 'function' ? getLatentSoulMass() : 0;
+    if (typeof hasSoulEmbryo === 'function' && hasSoulEmbryo()) {
+        const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
+        commitActionLog(`💠 ${action.label} complete. Soul Mass ${mass} (${tierLabel}).`);
+    } else {
+        commitActionLog(`💠 ${action.label} complete. Latent weight ${latent}/${getLatentMassCap()}.`);
+    }
     if (typeof tryGrantSoulSpikeManual === 'function') tryGrantSoulSpikeManual();
     renderSoulChamberUI();
     fullRender();
@@ -548,7 +587,7 @@ function runSoulPreludeAction(actionId) {
     const count = G.soulChamber.preludeActionCounts[actionId] || 0;
     if (count >= (action.maxStacks || 3)) return;
     beginActionLog();
-    if (!advanceChamberWeeks(action.weeks, `${action.label} — Mortal Spirit`)) {
+    if (!advanceChamberWeeks(action.weeks, `${action.label} — Spirit Foundation`)) {
         cancelActionLog();
         renderSoulChamberUI();
         return;
@@ -561,7 +600,7 @@ function runSoulPreludeAction(actionId) {
         if (bal?.progressionPerPalaceAction) grantSoulApexProgress(bal.progressionPerPalaceAction, 'palace_prelude');
     }
     const bonusText = formatSoulBonusDelta(action.bonus);
-    commitActionLog(`🌙 ${action.label} complete. ${bonusText} · Prelude ${Math.round(G.soulChamber.preludeProgress)}%.`);
+    commitActionLog(`🌙 ${action.label} complete. ${bonusText} · Foundation ${Math.round(G.soulChamber.preludeProgress)}%.`);
     renderSoulChamberUI();
     fullRender();
 }
@@ -575,25 +614,24 @@ function renderSoulChamberUI() {
         embryoEl.textContent = formatEmbryoStatusLine();
     }
     const massEl = document.getElementById('soulMassStatus');
-    if (massEl && typeof getSoulMass === 'function') {
-        const mass = getSoulMass();
-        const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
-        massEl.textContent = mass > 0
-            ? `Soul Mass: ${mass} (${tierLabel})`
-            : 'Soul Mass: 0 (Unformed) — condense spirit to cultivate interior weight.';
+    if (massEl && typeof formatSoulMassStatusLine === 'function') {
+        massEl.textContent = formatSoulMassStatusLine();
         if (typeof isInteriorSoulWeak === 'function' && isInteriorSoulWeak()) {
             massEl.textContent += ' · Your interior soul is thin.';
         }
-        const manualNotes = [];
-        if (mass >= 10) manualNotes.push('Soul Search @ 10');
-        if (mass >= 25) manualNotes.push('Soul Spike @ 25');
-        if (manualNotes.length) massEl.textContent += ` · Condensation manuals: ${manualNotes.join(', ')}.`;
+        if (typeof hasSoulEmbryo === 'function' && hasSoulEmbryo()) {
+            const mass = typeof getSoulMass === 'function' ? getSoulMass() : 0;
+            const manualNotes = [];
+            if (mass >= 10) manualNotes.push('Soul Search @ 10');
+            if (mass >= 25) manualNotes.push('Soul Spike @ 25');
+            if (manualNotes.length) massEl.textContent += ` · Condensation manuals: ${manualNotes.join(', ')}.`;
+        }
         if (typeof tryGrantSoulSpikeManual === 'function') tryGrantSoulSpikeManual();
     }
     let progress, labelText;
     if (tab === 'prelude') {
         progress = getSpiritPreludeProgressPct();
-        labelText = `Mortal Spirit — ${Math.round(progress)}%`;
+        labelText = `Spirit Foundation — ${Math.round(progress)}%`;
     } else {
         progress = getSoulLayerProgress(tab);
         const def = SOUL_CHAMBER_LAYERS[tab];

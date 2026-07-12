@@ -3,7 +3,7 @@
 // ============================================
 //
 // Tier index: realmIdx is 0-based. Player-facing tier 4 (Nascent Soul / Diamond Body /
-// Nascent Divinity) = realmIdx === 3. Soul embryo gate: realmIdx >= 3 on any track.
+// Soul Integration) = realmIdx === 3. Soul embryo gate: realmIdx >= 3 on any track.
 
 const CULTIVATION_TRACKS = ['dantian', 'vessel', 'spirit'];
 
@@ -205,6 +205,10 @@ function tryAwakenSoulEmbryo(origin) {
     G.cultivation.soulEmbryo = true;
     G.cultivation.soulEmbryoOrigin = track;
 
+    if (typeof resolveSoulMassOnBirth === 'function') {
+        resolveSoulMassOnBirth(track);
+    }
+
     const msg = typeof SOUL_EMBRYO_AWAKEN_MESSAGES !== 'undefined'
         ? SOUL_EMBRYO_AWAKEN_MESSAGES[track]
         : null;
@@ -242,10 +246,12 @@ function getLegacyPathForTrack(track) {
 function formatEmbryoStatusLine() {
     if (hasSoulEmbryo()) {
         const origin = G.cultivation.soulEmbryoOrigin;
-        const labels = { dantian: 'Nascent Soul', vessel: 'Vital Soul', spirit: 'Nascent Divinity' };
-        return `Soul embryo awakened (${labels[origin] || origin}) — the palace depths are open.`;
+        const labels = { dantian: 'Nascent Soul', vessel: 'Vital Soul', spirit: 'Soul Integration' };
+        const maturity = typeof getSoulMaturityLabel === 'function' ? getSoulMaturityLabel() : null;
+        const maturityBit = maturity ? ` · ${maturity}` : '';
+        return `Soul born (${labels[origin] || origin})${maturityBit} — Soul Cultivation unlocked, palace depths open.`;
     }
-    return 'Mortal spirit only — a cultivator\'s soul must be born before the palace\'s depths open.';
+    return 'Spirit foundation — soul birth awaits the fourth realm on any path; then Soul Cultivation begins.';
 }
 
 /** Regress vessel track to the start of the current realm (Rule abandon punishment). */

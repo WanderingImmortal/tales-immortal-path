@@ -1,22 +1,179 @@
 // ============================================
 // SOUL-MASS.JS — Soul Mass interior cultivation + soul damage mitigation
 // ============================================
+//
+// Pre–soul-birth: condense builds latent mass (capped below hard minimum).
+// On soul birth: latent crystallizes into active Soul Mass; maturity tier set.
+// Post-birth: condense grants active Soul Mass for combat & techniques.
 
 function ensureSoulMassState() {
     if (!G.soulMass) {
         G.soulMass = {
             mass: 0,
+            latentMass: 0,
+            soulMaturity: null,
             tier: 0,
             apexProgressPct: 0,
             condenseCount: 0,
             condenseActionCounts: {}
         };
     }
+    if (G.soulMass.latentMass == null) G.soulMass.latentMass = 0;
+    if (G.soulMass.soulMaturity === undefined) G.soulMass.soulMaturity = null;
     if (G.soulMass.tier == null) G.soulMass.tier = 0;
     if (G.soulMass.apexProgressPct == null) G.soulMass.apexProgressPct = 0;
     if (G.soulMass.condenseCount == null) G.soulMass.condenseCount = 0;
     if (!G.soulMass.condenseActionCounts) G.soulMass.condenseActionCounts = {};
+    migrateLegacySoulMassIfNeeded();
     syncSoulMassTier();
+    if (G.soulMass.soulMaturity == null && typeof hasSoulEmbryo === 'function' && hasSoulEmbryo()) {
+        G.soulMass.soulMaturity = computeSoulMaturityFromMass(getSoulMass());
+    }
+}
+
+/** Saves from before latent/active split: move pre-birth mass into latent (capped). */
+function migrateLegacySoulMassIfNeeded() {
+    if (G._soulMassLatentMigrated) return;
+    const hasEmbryo = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo();
+    const cap = getLatentMassCap();
+    if (!hasEmbryo && (G.soulMass.mass || 0) > 0 && (G.soulMass.latentMass || 0) === 0) {
+        G.soulMass.latentMass = Math.min(cap, G.soulMass.mass);
+        G.soulMass.mass = 0;
+    }
+    if (hasEmbryo && G.soulMass.latentMass > 0) {
+        G.soulMass.mass = (G.soulMass.mass || 0) + G.soulMass.latentMass;
+        G.soulMass.latentMass = 0;
+        G.soulMass.soulMaturity = computeSoulMaturityFromMass(getSoulMass());
+    }
+    G._soulMassLatentMigrated = true;
+}
+
+function getSoulMassBalance() {
+    return typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : {};
+}
+
+function getLatentMassCap() {
+    return getSoulMassBalance().latentMassCap ?? 9;
+}
+
+function getSoulMassHardMin() {
+    return getSoulMassBalance().hardMinMass ?? 10;
+}
+
+function getSoulMassSoftMin() {
+    return getSoulMassBalance().softMinMass ?? 25;
+}
+
+function hasActiveSoulMass() {
+    return typeof hasSoulEmbryo === 'function' && hasSoulEmbryo();
+}
+
+function getLatentSoulMass() {
+    ensureSoulMassState();
+    if (hasActiveSoulMass()) return 0;
+    return G.soulMass.latentMass || 0;
+}
+
+function isLatentMassAtCap() {
+    return getLatentSoulMass() >= getLatentMassCap();
+}
+
+function computeSoulMaturityFromMass(mass) {
+    const hard = getSoulMassHardMin();
+    const soft = getSoulMassSoftMin();
+    if (mass < hard) return 'hollow';
+    if (mass < soft) return 'nascent';
+    if (mass >= (getSoulMassBalance().massPerTier ?? 25) * 3) return 'ascendant';
+    return 'settled';
+}
+
+function getSoulMaturity() {
+    ensureSoulMassState();
+    if (!hasActiveSoulMass()) return null;
+    if (!G.soulMass.soulMaturity) {
+        G.soulMass.soulMaturity = computeSoulMaturityFromMass(getSoulMass());
+    }
+    return G.soulMass.soulMaturity;
+}
+
+function getSoulMaturityLabel() {
+    const m = getSoulMaturity();
+    if (!m) return null;
+    const labels = typeof SOUL_MATURITY_LABELS !== 'undefined' ? SOUL_MATURITY_LABELS : {};
+    return labels[m] || m;
+}
+
+function getSoulMaturityPowerMult() {
+    const m = getSoulMaturity();
+    const bal = getSoulMassBalance();
+    if (m === 'hollow') return bal.hollowPowerMult ?? 0.65;
+    if (m === 'nascent') return bal.nascentMitigationMult ?? 0.85;
+    return 1;
+}
+
+function getSoulMaturityMitigationMult() {
+    const m = getSoulMaturity();
+    const bal = getSoulMassBalance();
+    if (m === 'hollow') return bal.hollowMitigationMult ?? 0.5;
+    if (m === 'nascent') return bal.nascentMitigationMult ?? 0.85;
+    return 1;
+}
+
+/** Crystallize latent foundation weight into active Soul Mass on soul birth. */
+function resolveSoulMassOnBirth(origin) {
+    ensureSoulMassState();
+    const bal = getSoulMassBalance();
+    const latent = G.soulMass.latentMass || 0;
+    const spiritIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('spirit') : 0;
+    const preludePct = typeof getSpiritPreludeProgressPct === 'function' ? getSpiritPreludeProgressPct() : 0;
+
+    let rate = bal.offPathConversionRate ?? 0.55;
+    if (origin === 'spirit') {
+        rate = bal.spiritPathConversionRate ?? 1.0;
+    } else if (spiritIdx >= 2) {
+        rate = bal.partialSpiritConversionRate ?? 0.75;
+    }
+    if (preludePct >= 40) rate = Math.min(1, rate + 0.1);
+    if (preludePct >= 80) rate = Math.min(1, rate + 0.05);
+
+    let active = Math.floor(latent * rate);
+    if (origin === 'spirit' && latent >= getSoulMassSoftMin()) {
+        active = Math.max(active, latent);
+    }
+
+    G.soulMass.mass = active;
+    G.soulMass.latentMass = 0;
+    G.soulMass.soulMaturity = computeSoulMaturityFromMass(active);
+    syncSoulMassTier();
+
+    const maturityLabel = getSoulMaturityLabel() || 'Nascent Soul';
+    const msg = active >= getSoulMassSoftMin()
+        ? `💠 Foundation crystallizes — Soul Mass ${active} (${maturityLabel}).`
+        : active >= getSoulMassHardMin()
+            ? `💠 A ${maturityLabel} forms — Soul Mass ${active}. Condense further in the palace.`
+            : `💠 A hollow nascent soul stirs — Soul Mass ${active}. Cultivate interior weight in the palace.`;
+    if (typeof addLog === 'function') addLog(msg);
+}
+
+function formatSoulMassStatusLine() {
+    ensureSoulMassState();
+    if (!hasActiveSoulMass()) {
+        const latent = getLatentSoulMass();
+        const cap = getLatentMassCap();
+        if (latent > 0) {
+            return `Latent spirit weight: ${latent}/${cap} — crystallizes when the soul is born (fourth realm on any path).`;
+        }
+        return `Spirit foundation — condense latent weight (cap ${cap}) before soul birth.`;
+    }
+    const mass = getSoulMass();
+    const tierLabel = getSoulMassTierLabel();
+    const maturityLabel = getSoulMaturityLabel();
+    let line = `Soul Mass: ${mass} (${tierLabel})`;
+    if (maturityLabel) line += ` · ${maturityLabel}`;
+    if (mass < getSoulMassSoftMin()) {
+        line += ` · ${getSoulMassSoftMin()}+ for a settled soul`;
+    }
+    return line;
 }
 
 function syncSoulMassTier() {
@@ -52,14 +209,29 @@ function getSoulMassTierLabel() {
 function grantSoulMass(amount, source) {
     ensureSoulMassState();
     const gain = Math.max(0, amount || 0);
-    if (gain <= 0) return;
-    G.soulMass.mass += gain;
+    if (gain <= 0) return 0;
+    let applied = gain;
+
+    if (hasActiveSoulMass()) {
+        G.soulMass.mass += gain;
+    } else {
+        const cap = getLatentMassCap();
+        const before = G.soulMass.latentMass || 0;
+        G.soulMass.latentMass = Math.min(cap, before + gain);
+        applied = G.soulMass.latentMass - before;
+    }
+
+    if (applied <= 0) return 0;
     G.soulMass.condenseCount = (G.soulMass.condenseCount || 0) + 1;
     syncSoulMassTier();
-    const bal = typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : null;
+    if (hasActiveSoulMass()) {
+        G.soulMass.soulMaturity = computeSoulMaturityFromMass(getSoulMass());
+    }
+    const bal = getSoulMassBalance();
     if (bal?.progressionPerCondense) {
         grantSoulApexProgress(bal.progressionPerCondense, source || 'condense');
     }
+    return applied;
 }
 
 function grantSoulApexProgress(amount, source) {
@@ -72,8 +244,8 @@ function grantSoulApexProgress(amount, source) {
 }
 
 function isSoulMassPressureActive() {
-    const bal = typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : null;
-    const min = bal?.pressureMassMin ?? 10;
+    if (!hasActiveSoulMass()) return false;
+    const min = getSoulMassBalance().pressureMassMin ?? 10;
     return getSoulMass() >= min;
 }
 
@@ -90,8 +262,13 @@ function getPlayerInteriorSoulScore() {
 }
 
 function isInteriorSoulWeak() {
-    const bal = typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : null;
-    const threshold = bal?.weakInteriorSpiritWillSum ?? 12;
+    if (!hasActiveSoulMass()) {
+        const bal = getSoulMassBalance();
+        const threshold = bal.weakInteriorSpiritWillSum ?? 12;
+        return (G.spirit || 0) + (G.will || 0) < threshold;
+    }
+    const bal = getSoulMassBalance();
+    const threshold = bal.weakInteriorSpiritWillSum ?? 12;
     return (G.spirit || 0) + (G.will || 0) < threshold && getSoulMassTier() < 1;
 }
 
@@ -106,9 +283,10 @@ function getBaselineSoulResistPct() {
 }
 
 function getSoulMassDefenderPct() {
-    const bal = typeof SOUL_MASS_BALANCE !== 'undefined' ? SOUL_MASS_BALANCE : null;
-    if (!bal) return 0;
-    return Math.min(bal.massDefenderCap || 0.25, getSoulMass() * (bal.massDefenderPctPerMass || 0));
+    if (!hasActiveSoulMass()) return 0;
+    const bal = getSoulMassBalance();
+    const raw = Math.min(bal.massDefenderCap || 0.25, getSoulMass() * (bal.massDefenderPctPerMass || 0));
+    return raw * getSoulMaturityMitigationMult();
 }
 
 function getTotalSoulMitigationPct(opts) {
@@ -145,6 +323,9 @@ function getSoulCondenseActionBlockReason(layerId, action) {
     const count = getSoulCondenseActionCount(layerId, action.id);
     if (count >= maxStacks) {
         return `${action.label} fully condensed (${maxStacks}×).`;
+    }
+    if (layerId === 'prelude' && !hasActiveSoulMass() && isLatentMassAtCap()) {
+        return `Latent spirit weight at cap (${getLatentMassCap()}) — soul must be born before more weight can settle.`;
     }
     if (action.requiresLayerProgress != null) {
         const progress = typeof getSoulLayerProgress === 'function' ? getSoulLayerProgress(layerId) : 0;
@@ -201,6 +382,9 @@ function getSoulMassLabelForThreshold(massMin) {
 
 function getSoulCondensationMassBlockReason(template) {
     if (!template || !isSoulCondensationTechnique(template)) return null;
+    if (!hasActiveSoulMass()) {
+        return 'Soul condensation arts require an awakened soul — reach the fourth realm on any path.';
+    }
     const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
     const massMin = template.soulMassMin ?? bal?.defaultMassMin ?? 10;
     if (getSoulMass() >= massMin) return null;
@@ -214,11 +398,12 @@ function isSoulCondensationMassMet(template) {
 
 function getSoulCondensationPowerMult(template) {
     if (!isSoulCondensationTechnique(template)) return 1;
+    if (!hasActiveSoulMass()) return 0;
     const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
     if (!bal) return 1;
     const massMin = template.soulMassMin ?? bal.defaultMassMin;
     const massMet = getSoulMass() >= massMin;
-    let mult = 1;
+    let mult = getSoulMaturityPowerMult();
     if (G.path !== 'soul') mult *= bal.offPathDamageMult;
     if (!massMet) mult *= bal.lowMassDamageMult;
     return mult;
