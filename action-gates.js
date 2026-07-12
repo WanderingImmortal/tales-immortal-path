@@ -167,13 +167,13 @@ function notifyActionUnlocksFromChange() {
     G._actionUnlockSnapshot = captureActionUnlockSnapshot();
 }
 
-function guardAction(actionId) {
+function guardAction(actionId, options) {
     const state = evaluateActionUnlock(actionId);
     if (state.unlocked) return true;
-    if (typeof addLog === 'function' && state.reason) {
+    if (!options?.silent && typeof addLog === 'function' && state.reason) {
         addLog(`🔒 ${state.reason}`);
     }
-    if (typeof fullRender === 'function') fullRender();
+    if (!options?.silent && typeof fullRender === 'function') fullRender();
     return false;
 }
 
@@ -213,6 +213,12 @@ function renderActionUnlocks() {
     Object.entries(ACTION_UNLOCK_BUTTONS).forEach(([actionId, btnId]) => {
         const btn = document.getElementById(btnId);
         if (!btn) return;
+
+        if (actionId === 'intent' && typeof shouldShowIntentButton === 'function') {
+            const showIntent = shouldShowIntentButton();
+            btn.style.display = showIntent ? '' : 'none';
+            if (!showIntent) return;
+        }
 
         if (ACTION_UNLOCK_SKIP_RENDER.has(actionId)) return;
 

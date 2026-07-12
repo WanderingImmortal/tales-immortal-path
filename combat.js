@@ -249,7 +249,7 @@ function getPlayerOffensivePower() {
         const bestTech = Math.max(...G.techniques.map(t => getTechDamage(t)));
         power += Math.floor(bestTech * 0.25);
     }
-    if (resolveActiveIntent()) {
+    if (resolveActiveIntent() && (typeof isWeaponIntentPathActive === 'function' ? isWeaponIntentPathActive() : G.path === 'qi')) {
         power += Math.floor(stat * getIntentBonus());
     }
     if (G.dmgMult > 1) power *= G.dmgMult;
@@ -271,13 +271,12 @@ function estimateBasicAttackDamage() {
         scale = COMBAT_BALANCE.basicAttackScaleBody;
     } else {
         const innate = Math.floor(getQiDensity() * 0.15 + G.will * 0.1) + 3;
-        const hasIntent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
+        const qiIntentActive = typeof isWeaponIntentPathActive === 'function' ? isWeaponIntentPathActive() : G.path === 'qi';
+        const hasIntent = qiIntentActive && (typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent);
         const intentPart = hasIntent ? Math.floor((8 + G.realmIdx * 2) * (1 + getIntentBonus())) : 0;
         dmg = innate + getWeaponBasicAttackBonus() + intentPart;
         scale = COMBAT_BALANCE.basicAttackScaleQi;
     }
-    const activeIntentEst = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
-    if (activeIntentEst && G.path !== 'qi') dmg = Math.floor(dmg * (1 + getIntentBonus()));
     if (G.dmgMult > 1) dmg = Math.floor(dmg * G.dmgMult);
     if (typeof getFactionCombatDmgMult === 'function') dmg = Math.floor(dmg * getFactionCombatDmgMult());
     if (typeof getGearDamageMult === 'function') dmg = Math.floor(dmg * getGearDamageMult());
@@ -744,13 +743,12 @@ function calcBasicAttackDamage() {
         scale = COMBAT_BALANCE.basicAttackScaleBody;
     } else {
         const innate = Math.floor(getQiDensity() * 0.15 + G.will * 0.1) + Math.floor(Math.random() * 3) + 2;
-        const hasIntent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
+        const qiIntentActive = typeof isWeaponIntentPathActive === 'function' ? isWeaponIntentPathActive() : G.path === 'qi';
+        const hasIntent = qiIntentActive && (typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent);
         const intentPart = hasIntent ? Math.floor((8 + G.realmIdx * 2) * (1 + getIntentBonus())) : 0;
         dmg = innate + getWeaponBasicAttackBonus() + intentPart;
         scale = COMBAT_BALANCE.basicAttackScaleQi;
     }
-    const activeIntent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
-    if (activeIntent && G.path !== 'qi') dmg = Math.floor(dmg * (1 + getIntentBonus()));
     if (G.dmgMult > 1) dmg = Math.floor(dmg * G.dmgMult);
     if (typeof getFactionCombatDmgMult === 'function') dmg = Math.floor(dmg * getFactionCombatDmgMult());
     if (typeof getGearDamageMult === 'function') dmg = Math.floor(dmg * getGearDamageMult());

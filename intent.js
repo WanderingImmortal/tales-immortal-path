@@ -1,6 +1,47 @@
 // ============================================
-// INTENT.JS — Multi-intent cultivation (Weapon Intent / Martial Will / Killing Intent)
+// INTENT.JS — Weapon Intent (dantian / qi path only)
+// Body → Vessel Rules; Soul → Soul Mass (future systems).
 // ============================================
+
+const WEAPON_INTENT_DANTIAN_MSG = 'Weapon Intent is cultivated on the dantian path.';
+
+function isWeaponIntentPathActive() {
+    const focus = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
+    return focus === 'dantian' || G.path === 'qi';
+}
+
+function canAccessWeaponIntent() {
+    if (!isWeaponIntentPathActive()) return false;
+    return typeof guardAction === 'function' ? guardAction('intent', { silent: true }) : true;
+}
+
+function shouldShowIntentButton() {
+    ensureIntentState();
+    if (G.weaponIntents?.length > 0) return true;
+    return canAccessWeaponIntent();
+}
+
+function weaponIntentPathGate() {
+    if (isWeaponIntentPathActive()) return null;
+    return { success: false, message: WEAPON_INTENT_DANTIAN_MSG };
+}
+
+/** Soul Mass PR hook — not wired into combat yet. */
+function getIntentSoulMitigationPct() {
+    const intent = getActiveIntent();
+    if (!intent) return 0;
+    const tierIdx = getIntentTierIndex(intent.uses);
+    return Math.min(0.25, 0.05 + tierIdx * 0.04 + getIntentDeepenCount(intent) * 0.02);
+}
+
+function notifyIntentSleepIfNeeded() {
+    if (G._intentSleepNotified) return;
+    ensureIntentState();
+    if (!G.weaponIntents?.length) return;
+    if (isWeaponIntentPathActive()) return;
+    G._intentSleepNotified = true;
+    if (typeof addLog === 'function') addLog('Your weapon intents sleep while your focus is elsewhere.');
+}
 
 function resolveActiveIntent() {
     ensureIntentState();
@@ -12,6 +53,7 @@ function ensureIntentState() {
     if (G.intentCombatState == null) G.intentCombatState = {};
     migrateLegacyIntentState();
     syncLegacyIntentPointer();
+    notifyIntentSleepIfNeeded();
 }
 
 function migrateLegacyIntentState() {
@@ -54,8 +96,8 @@ function syncLegacyIntentPointer() {
     G.weaponIntentChoices = active?.choices || [];
 }
 
-function getIntentTrackForPath(path) {
-    return INTENT_TRACK_BY_PATH[path] || INTENT_TRACK_BY_PATH.qi;
+function getIntentTrackForPath(_path) {
+    return INTENT_TRACK_BY_PATH.qi;
 }
 
 function getIntentRecord(weapon) {
@@ -151,6 +193,7 @@ function checkIntentTierBreakpoint(intent) {
 }
 
 function addIntentUseProgress(fromWeapon) {
+    if (!isWeaponIntentPathActive()) return;
     ensureIntentState();
     const activeWeapon = fromWeapon || getActiveIntent()?.weapon;
     if (!activeWeapon) return;
@@ -172,6 +215,8 @@ function addIntentUseProgress(fromWeapon) {
 }
 
 function chooseWeaponIntent(weapon) {
+    const pathGate = weaponIntentPathGate();
+    if (pathGate) return pathGate;
     if (!WEAPON_TYPES.includes(weapon)) return { success: false, message: 'Invalid weapon.' };
     ensureIntentState();
     if (getIntentRecord(weapon)) return { success: false, message: `You already cultivate ${weapon} Intent.` };
@@ -201,6 +246,8 @@ function chooseWeaponIntent(weapon) {
 }
 
 function switchActiveIntent(weapon) {
+    const pathGate = weaponIntentPathGate();
+    if (pathGate) return pathGate;
     ensureIntentState();
     const intent = getIntentRecord(weapon);
     if (!intent) return { success: false, message: 'Intent not awakened.' };
@@ -220,6 +267,8 @@ function switchActiveIntent(weapon) {
 }
 
 function refineActiveIntent() {
+    const pathGate = weaponIntentPathGate();
+    if (pathGate) return pathGate;
     const intent = getActiveIntent();
     if (!intent) return { success: false, message: 'No active intent to refine.' };
     beginActionLog();
@@ -245,6 +294,8 @@ function useWeaponIntent() {
 }
 
 function makeIntentChoice(choice) {
+    const pathGate = weaponIntentPathGate();
+    if (pathGate) return pathGate;
     if (!G.pendingIntentChoice) return { success: false, message: 'No pending choice.' };
     const intent = getIntentRecord(G.pendingIntentChoice.weapon);
     if (!intent) return { success: false, message: 'Intent not found.' };
@@ -282,6 +333,7 @@ function resetIntentCombatState() {
 }
 
 function getBasicDefendDamageMult() {
+    if (!isWeaponIntentPathActive()) return 0.45;
     const intent = getActiveIntent();
     if (intent && intentHasArt(intent, 'penetrating_line')) {
         return INTENT_BALANCE.penetratingLineDefendMult;
@@ -309,7 +361,7 @@ function getIntentTechniqueSynergyBonus(tech) {
 function applyIntentArtsOnBasicAttack(baseDmg) {
     const intent = getActiveIntent();
     const result = { dmg: baseDmg, extraDmg: 0, logs: [], resourceGain: 0, attackCostDiscount: 0 };
-    if (!intent || !G.inCombat) return result;
+    if (!isWeaponIntentPathActive() || !intent || !G.inCombat) return result;
 
     G.intentCombatState.basicAttackCount = (G.intentCombatState.basicAttackCount || 0) + 1;
     result.dmg = applySlaughterAuraMult(baseDmg);
@@ -375,6 +427,7 @@ function applyIntentResourceGain(amount) {
 }
 
 function getIntentBasicAttackCostDiscount() {
+    if (!isWeaponIntentPathActive()) return 0;
     const intent = getActiveIntent();
     if (intent && intentHasArt(intent, 'iron_knuckle')) return 1;
     return 0;
