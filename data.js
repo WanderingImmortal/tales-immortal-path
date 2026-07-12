@@ -5042,6 +5042,26 @@ const RULE_OF_BLOOD_BALANCE = {
     progressionPerBloodChamberAction: 2
 };
 
+const RULE_OF_UNNAMED_BALANCE = {
+    dissipateCostMult: 0.5,
+    flowCap: 5,
+    flowPerBasic: 1,
+    flowDamagePerStack: 0.03,
+    flowStaminaDiscountPerStack: 1,
+    livingStrikeVesselScale: 0.04,
+    livingStrikeVitalityScale: 0.06,
+    stagnationAfterAttempts: 3,
+    stagnationDamageMult: 0.85,
+    stagnationStaminaCostBonus: 1,
+    slipTechniqueDamageReduction: 0.12,
+    soulSlipPctBase: 0.10,
+    soulSlipPctAtComplete: 0.20,
+    progressionPerFlowWin: 8,
+    progressionPerBasicMilestone: 2,
+    progressionPerBonesChamberAction: 2,
+    basicMilestoneEvery: 15
+};
+
 const VESSEL_RULES = {
     blood: {
         id: 'blood',
@@ -5059,7 +5079,7 @@ const VESSEL_RULES = {
         emoji: '👊',
         swearGate: { vesselRealmIdx: 2, bodyLayer: 'bones', bodyLayerPct: 50 },
         releaseWarning: 'You will regress to the start of your current vessel realm and lose all Rule progression. Motion without law collapses into chaos.',
-        implemented: false
+        implemented: true
     }
 };
 

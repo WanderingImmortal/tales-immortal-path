@@ -588,7 +588,8 @@ function resolveEnemyAbilityStrike(enemy, dmgMult, effect) {
             intimidateReduced,
             displayRaw: rawDmg,
             spiritDamage: effect.applyPlayer?.spiritDamage || effect.spiritDamage,
-            bypassShieldPct: effect.bypassShieldPct
+            bypassShieldPct: effect.bypassShieldPct,
+            fromTechnique: true
         });
         if (G.hp <= 0) break;
     }
@@ -763,6 +764,17 @@ function calcBasicAttackDamage() {
     if (typeof getScarCombatDamageMult === 'function') dmg = Math.max(1, Math.floor(dmg * getScarCombatDamageMult()));
     if (typeof getBodyChamberCombatDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getBodyChamberCombatDmgMult()));
     if (typeof getBloodRuleDamageMult === 'function') dmg = Math.max(1, Math.floor(dmg * getBloodRuleDamageMult()));
+    if (G.path === 'body' && typeof isRuleOfUnnamedActive === 'function' && isRuleOfUnnamedActive()) {
+        if (typeof getUnnamedLivingStrikeMult === 'function') {
+            dmg = Math.max(1, Math.floor(dmg * getUnnamedLivingStrikeMult()));
+        }
+        if (typeof getUnnamedFlowDamageMult === 'function') {
+            dmg = Math.max(1, Math.floor(dmg * getUnnamedFlowDamageMult()));
+        }
+        if (typeof getUnnamedStagnationMult === 'function') {
+            dmg = Math.max(1, Math.floor(dmg * getUnnamedStagnationMult()));
+        }
+    }
     if (typeof getTranscendenceTechniqueDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getTranscendenceTechniqueDmgMult(null)));
     if (typeof getMergedDaoEffects === 'function') {
         const mfx = getMergedDaoEffects();
@@ -1041,6 +1053,12 @@ function combatAttack() {
     if (typeof getIntentBasicAttackCostDiscount === 'function') {
         cost = Math.max(1, cost - getIntentBasicAttackCostDiscount());
     }
+    if (typeof getUnnamedBasicAttackStaminaDiscount === 'function') {
+        cost = Math.max(1, cost - getUnnamedBasicAttackStaminaDiscount());
+    }
+    if (typeof getUnnamedStagnationStaminaPenalty === 'function') {
+        cost += getUnnamedStagnationStaminaPenalty();
+    }
     if (!spendCombatResource(cost, 'Attack')) return;
     if (!combatSpendRound()) return;
     if (!rollPlayerCombatHit()) {
@@ -1088,6 +1106,7 @@ function combatAttack() {
     if (intentFx.resourceGain > 0 && typeof applyIntentResourceGain === 'function') {
         applyIntentResourceGain(intentFx.resourceGain);
     }
+    if (typeof onUnnamedBasicAttack === 'function') onUnnamedBasicAttack();
     if (G.enemy.hp <= 0) {
         if (typeof useWeaponIntent === 'function') useWeaponIntent();
         combatVictory(false);
@@ -1179,6 +1198,15 @@ function combatUseTechnique(name) {
     if (!canPlayerAct()) return;
     const tech = getTechniqueByName(name);
     if (!tech) return;
+
+    if (typeof tryDissipateTechnique === 'function') {
+        const diss = tryDissipateTechnique(tech);
+        if (diss?.dissipated) {
+            scheduleOpponentTurn();
+            updateCombatUI();
+            return;
+        }
+    }
 
     if (typeof getTechniqueCombatViability === 'function') {
         const v = getTechniqueCombatViability(tech);
@@ -1525,6 +1553,9 @@ function takeDamage(dmg, opts) {
     }
     if (typeof applyBloodRuleDamageReduction === 'function') {
         dmg = applyBloodRuleDamageReduction(dmg);
+    }
+    if (opts.fromTechnique && typeof applyUnnamedTechniqueSlip === 'function') {
+        dmg = applyUnnamedTechniqueSlip(dmg);
     }
 
     if (G.voidStepActive) {
