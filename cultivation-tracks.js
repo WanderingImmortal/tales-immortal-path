@@ -103,10 +103,10 @@ function syncConsolidationToFocusTrack() {
 }
 
 function syncLegacyPathShims() {
-    ensureCultivationTracksState();
+    if (!G.cultivation) return;
     const track = getFocusTrack();
     G.path = TRACK_TO_LEGACY_PATH[track] || 'qi';
-    G.realmIdx = getTrackRealmIdx(track);
+    G.realmIdx = G.cultivation[track]?.realmIdx ?? 0;
 }
 
 function getFocusTrack() {
@@ -123,7 +123,7 @@ function setFocusTrack(track) {
 }
 
 function getTrackRealmIdx(track) {
-    ensureCultivationTracksState();
+    if (!G.cultivation?.[track]) ensureCultivationTracksState();
     return G.cultivation[track]?.realmIdx ?? 0;
 }
 
