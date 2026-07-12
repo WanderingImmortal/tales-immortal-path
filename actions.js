@@ -3,10 +3,22 @@
 // ============================================
 
 function actionBlocked() {
-    return G.gameOver || G.inCombat || G.inQiChamber || G.inBodyChamber || G.inSoulChamber
-        || G.inAlchemyChamber || G.inForgeChamber || G.inCultivationHub
-        || (typeof isTribulationActive === 'function' && isTribulationActive())
-        || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending());
+    return !!getActionBlockReason();
+}
+
+/** Human-readable reason main-world actions cannot run, or null if ok. */
+function getActionBlockReason() {
+    if (G.gameOver) return 'Your journey has ended.';
+    if (G.inCombat) return 'You are still flagged as in combat — finish or clear the fight first.';
+    if (G.inQiChamber) return 'Leave the Qi Chamber first.';
+    if (G.inBodyChamber) return 'Leave the Body Chamber first.';
+    if (G.inSoulChamber) return 'Leave the Soul Palace first.';
+    if (G.inAlchemyChamber) return 'Leave the Alchemy Chamber first.';
+    if (G.inForgeChamber) return 'Leave the Forge Chamber first.';
+    if (G.inCultivationHub) return 'Leave the Cultivation Hub first.';
+    if (typeof isTribulationActive === 'function' && isTribulationActive()) return 'Heavenly tribulation holds your focus.';
+    if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) return 'Choose your transcendence perk first.';
+    return null;
 }
 
 // ----- CULTIVATE -----
@@ -309,20 +321,38 @@ function actionStatus() {
 
 // ----- COMBAT -----
 function actionCombat() {
-    if (actionBlocked()) return;
+    // Stuck save: inCombat true but overlay gone — Fight used to no-op with no log.
+    if (G.inCombat && typeof isCombatOverlayActive === 'function' && !isCombatOverlayActive()) {
+        if (typeof clearOrphanedCombatState === 'function') {
+            clearOrphanedCombatState({ log: true });
+        }
+    }
+    const block = typeof getActionBlockReason === 'function' ? getActionBlockReason() : (actionBlocked() ? 'Cannot act right now.' : null);
+    if (block) {
+        addLog(`🔒 ${block}`);
+        fullRender();
+        return;
+    }
     if (G.hp <= 0) {
         addLog(`💀 You are too injured. Rest first.`);
         fullRender();
         return;
     }
     if (typeof timeCombatStart === 'function') {
-        if (!timeCombatStart('⚔️ You seek a worthy opponent.', 'Seeking a worthy opponent')) { fullRender(); return; }
+        if (!timeCombatStart('⚔️ You seek a worthy opponent.', 'Seeking a worthy opponent')) {
+            if (!G.gameOver) addLog(`⏳ Could not seek a fight right now.`);
+            fullRender();
+            return;
+        }
     } else {
         beginActionLog();
         if (!advanceTime(ACTION_MONTHS.combatStart, "Seeking a worthy opponent")) { cancelActionLog(); fullRender(); return; }
         commitActionLog('⚔️ You seek a worthy opponent.');
     }
     startCombat();
+    if (!G.inCombat) {
+        addLog(`⚔️ The fight failed to start — try again.`);
+    }
     fullRender();
 }
 

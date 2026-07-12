@@ -452,6 +452,15 @@ function setupCreation(refreshOnly) {
             G.trait = G.traits[0] || null;
             G._reincarnationHandled = false;
             G.gameOver = false;
+            G.inCombat = false;
+            G.combatPhase = 'player';
+            G.enemy = null;
+            G.inQiChamber = false;
+            G.inBodyChamber = false;
+            G.inSoulChamber = false;
+            G.inAlchemyChamber = false;
+            G.inForgeChamber = false;
+            G.inCultivationHub = false;
         const base = typeof NEUTRAL_STARTING_BASE !== 'undefined'
             ? NEUTRAL_STARTING_BASE
             : PATHS.qi.base;
@@ -659,6 +668,9 @@ function initGame() {
     if (loaded && G.name && (G.path || G.cultivation)) {
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
+        if (typeof sanitizeOrphanedUiLocks === 'function') {
+            sanitizeOrphanedUiLocks({ log: true });
+        }
         addLog(`📜 Welcome back, ${G.name}. Your journey continues.`);
         if (G.ancients?.pendingBargain && typeof openAncientBargainPopup === 'function') {
             setTimeout(() => openAncientBargainPopup(G.ancients.pendingBargain), 600);

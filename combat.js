@@ -931,7 +931,8 @@ function endCombat(exitCtx) {
     G.npcCombat = null;
     clearCombatStatus();
     G.vesselRuleCombat = null;
-    document.getElementById('combatOverlay').classList.remove('active');
+    const overlay = document.getElementById('combatOverlay');
+    if (overlay) overlay.classList.remove('active');
     const fleeBtn = document.getElementById('cbFlee');
     if (fleeBtn) {
         fleeBtn.disabled = false;
@@ -949,6 +950,69 @@ function endCombat(exitCtx) {
         G.shield = Math.max(G.shield, Math.floor(G.maxShield * 0.5));
     }
     fullRender();
+}
+
+function isCombatOverlayActive() {
+    const el = document.getElementById('combatOverlay');
+    return !!(el && el.classList.contains('active'));
+}
+
+/** Clear combat flags when save/reload left inCombat true with no live overlay. */
+function clearOrphanedCombatState(opts) {
+    opts = opts || {};
+    const wasStuck = !!(G.inCombat || G.enemy || G.npcCombat || G.encounterCombat
+        || G.tribulationCombat || G.storyCombat || G.ancientGuardianCombat);
+    clearCombatTurnTimer();
+    G.inCombat = false;
+    G.combatPhase = 'player';
+    G.defending = false;
+    G.fortifyActive = false;
+    G.voidStepActive = false;
+    G.mirrorTrial = false;
+    G.crucibleTrial = false;
+    G.silenceTrial = false;
+    G.mawTrial = false;
+    G.enemy = null;
+    G.encounterCombat = null;
+    G.npcCombat = null;
+    G.tribulationCombat = null;
+    G.storyCombat = null;
+    G.ancientGuardianCombat = null;
+    G.vesselRuleCombat = null;
+    if (typeof clearCombatStatus === 'function') clearCombatStatus();
+    const overlay = document.getElementById('combatOverlay');
+    if (overlay) overlay.classList.remove('active');
+    if (typeof setCombatInputEnabled === 'function') setCombatInputEnabled(true);
+    const fleeBtn = document.getElementById('cbFlee');
+    if (fleeBtn) {
+        fleeBtn.disabled = false;
+        fleeBtn.style.opacity = '';
+    }
+    if (wasStuck && opts.log && typeof addLog === 'function') {
+        addLog('⚔️ Interrupted combat cleared — you can fight again.');
+    }
+    return wasStuck;
+}
+
+/** On boot: drop modal/combat locks that cannot survive a page reload. */
+function sanitizeOrphanedUiLocks(opts) {
+    opts = opts || {};
+    const notes = [];
+    if (G.inCombat || G.enemy || G.npcCombat || G.encounterCombat
+        || G.tribulationCombat || G.storyCombat || G.ancientGuardianCombat) {
+        clearOrphanedCombatState({ log: false });
+        notes.push('combat');
+    }
+    if (G.inQiChamber) { G.inQiChamber = false; notes.push('qi chamber'); }
+    if (G.inBodyChamber) { G.inBodyChamber = false; notes.push('body chamber'); }
+    if (G.inSoulChamber) { G.inSoulChamber = false; notes.push('soul palace'); }
+    if (G.inAlchemyChamber) { G.inAlchemyChamber = false; notes.push('alchemy'); }
+    if (G.inForgeChamber) { G.inForgeChamber = false; notes.push('forge'); }
+    if (G.inCultivationHub) { G.inCultivationHub = false; notes.push('cultivation hub'); }
+    if (notes.length && opts.log && typeof addLog === 'function') {
+        addLog(`🔧 Cleared stuck UI lock (${notes.join(', ')}).`);
+    }
+    return notes;
 }
 
 function canPlayerAct() {
