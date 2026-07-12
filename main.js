@@ -158,7 +158,7 @@ function mergeDaoPair(mergedName) {
 function learnTechnique(techName, opts) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return false;
-    if (!opts?.skipGates && typeof canLearnTechnique === 'function' && !canLearnTechnique(template)) {
+    if (!opts?.skipGates && typeof canLearnTechnique === 'function' && !canLearnTechnique(template, opts)) {
         if (!opts?.silent) {
             const alignBlock = typeof getTechniqueAlignmentBlockReason === 'function'
                 ? getTechniqueAlignmentBlockReason(template) : null;
@@ -371,6 +371,7 @@ function applyOriginEffects() {
     if (fx.randomCommonTechnique) {
         const pool = TECHNIQUE_POOL.filter(t =>
             (t.path === G.path || t.path === 'neutral') && t.rarity === 'common' && t.category !== 'utility'
+            && (typeof canRandomGrantTechnique !== 'function' || canRandomGrantTechnique(t))
         );
         if (pool.length) {
             const pick = pool[Math.floor(Math.random() * pool.length)];
@@ -672,7 +673,8 @@ function setupCreation(refreshOnly) {
 function grantRandomAdeptTechnique() {
     const track = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
     const legacyPath = typeof getLegacyPathForTrack === 'function' ? getLegacyPathForTrack(track) : (G.path || 'qi');
-    const pool = TECHNIQUE_POOL.filter(t => (t.path === legacyPath || t.path === 'neutral') && t.category !== 'utility');
+    const pool = TECHNIQUE_POOL.filter(t => (t.path === legacyPath || t.path === 'neutral') && t.category !== 'utility'
+        && (typeof canRandomGrantTechnique !== 'function' || canRandomGrantTechnique(t)));
     if (!pool.length) return null;
     const template = pool[Math.floor(Math.random() * pool.length)];
     if (!learnTechnique(template.name)) return null;

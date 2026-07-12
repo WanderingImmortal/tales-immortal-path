@@ -99,6 +99,10 @@ function getTechniqueCombatCost(tech) {
     } else if (typeof getTechniqueIntentMatch === 'function') {
         cost = Math.floor(cost * getTechniqueIntentMatch(tech).costMult);
     }
+    const template = typeof getTechniqueTemplate === 'function' ? getTechniqueTemplate(tech.name) : null;
+    if (template && typeof getSoulCondensationCostMult === 'function') {
+        cost = Math.floor(cost * getSoulCondensationCostMult(template));
+    }
     return Math.max(1, cost);
 }
 
@@ -574,6 +578,7 @@ function calcEnemyStrikeDamage(enemy, mult) {
         raw = Math.floor(raw * (1 - reduction));
     }
     if (enemy.slowTurns > 0) raw = Math.floor(raw * 0.7);
+    if (enemy.soulSearchDmgMult) raw = Math.floor(raw * enemy.soulSearchDmgMult);
     return Math.max(1, raw);
 }
 
@@ -825,6 +830,10 @@ function calcCombatTechniqueDamage(tech) {
         dmg = Math.max(1, Math.floor(dmg * getBodyChamberBloodTechniqueMult(tech)));
     }
     if (typeof applyBodyChamberPhysicalDmg === 'function') dmg = applyBodyChamberPhysicalDmg(dmg, tech);
+    const template = typeof getTechniqueTemplate === 'function' ? getTechniqueTemplate(tech.name) : null;
+    if (meta.school === 'soul_condensation' && template && typeof getSoulCondensationPowerMult === 'function') {
+        dmg = Math.max(1, Math.floor(dmg * getSoulCondensationPowerMult(template)));
+    }
     return dmg;
 }
 
@@ -1080,7 +1089,7 @@ function combatAttack() {
     dmg = applyEnemyElementModifier(dmg, basicElement);
 
     if (G.path === 'soul') {
-        addCombatLog(`🧠 Soul Strike! ${dmg} damage (ignores block).`);
+        addCombatLog(`🧠 Soul Strike! ${dmg} damage.`);
     } else if (G.path === 'body') {
         addCombatLog(`💪 Crushing blow! ${dmg} damage.`);
     } else {
@@ -1232,13 +1241,32 @@ function combatUseTechnique(name) {
     const cost = getTechniqueCombatCost(tech);
     if (!spendCombatResource(cost, tech.name)) return;
     if (!combatSpendRound()) return;
+
+    const template = typeof getTechniqueTemplate === 'function' ? getTechniqueTemplate(tech.name) : null;
+    const meta = getTechniqueMeta(tech);
+    if (tech.name === 'Soul Search') {
+        if (typeof useWeaponIntent === 'function') useWeaponIntent();
+        tech.uses = (tech.uses || 0) + 1;
+        const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+        G.enemy.soulSearchedTurns = bal?.searchCombatWeakTurns ?? 2;
+        G.enemy.soulSearchDmgMult = bal?.searchCombatDmgMult ?? 0.75;
+        addCombatLog('You probe their interior — their strikes falter.');
+        grantTechniqueAffinity(tech, addCombatLog);
+        scheduleOpponentTurn();
+        updateCombatUI();
+        return;
+    }
+
     if (!rollPlayerCombatHit()) {
         scheduleOpponentTurn();
         return;
     }
 
+    if (template && typeof warnSoulCondensationCombatOnce === 'function') {
+        warnSoulCondensationCombatOnce(tech.name, template);
+    }
+
     const result = executeCombatTechnique(tech);
-    const meta = getTechniqueMeta(tech);
     let dmg = applyMirrorDamageToReflection(result.damage);
     dmg = applyEnemyElementModifier(dmg, meta.element);
     if (result.igniteBonus) {
@@ -1254,13 +1282,24 @@ function combatUseTechnique(name) {
         G.fortifyActive = meta.path === 'body' || G.path === 'body';
         addCombatLog(`🛡️ ${name} — your guard hardens for the next blow.`);
     }
-    if (G.enemy.defending && tech.name !== 'Mirror Step') {
-        dmg = Math.floor(dmg * 0.45);
+    const wasDefending = G.enemy.defending && tech.name !== 'Mirror Step';
+    if (wasDefending) {
         G.enemy.defending = false;
-        addCombatLog(`🪞 Your technique glances off the reflection's guard.`);
+        if (meta.spiritDamage && typeof applySpiritDamageToEnemy === 'function') {
+            dmg = applySpiritDamageToEnemy(dmg, {
+                bypassPhysiquePct: meta.spiritBypassPhysiquePct,
+                defending: true
+            });
+            addCombatLog(`🪞 Condensed soul force slips past part of their guard.`);
+        } else {
+            dmg = Math.floor(dmg * 0.45);
+            addCombatLog(`🪞 Your technique glances off the reflection's guard.`);
+        }
     } else if (G.enemy.defending && tech.name === 'Mirror Step') {
         G.enemy.defending = false;
         addCombatLog(`🪞 Mirror Step passes through the reflection's guard!`);
+    } else if (meta.spiritDamage && typeof applySpiritDamageToEnemy === 'function') {
+        dmg = applySpiritDamageToEnemy(dmg, { bypassPhysiquePct: meta.spiritBypassPhysiquePct });
     }
     trackMirrorAction('technique');
     if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('technique')) return;
@@ -1506,6 +1545,13 @@ function enemyTurn() {
         G.enemy.slowTurns--;
         if (G.enemy.slowTurns === 0) {
             addCombatLog(`🌪️ ${stripEnemyDisplayPrefix(G.enemy.name)} breaks free of the wind's drag.`, 'entry-mod');
+        }
+    }
+    if (G.enemy.soulSearchedTurns > 0) {
+        G.enemy.soulSearchedTurns--;
+        if (G.enemy.soulSearchedTurns === 0) {
+            G.enemy.soulSearchDmgMult = null;
+            addCombatLog(`🔍 ${stripEnemyDisplayPrefix(G.enemy.name)} steadies their interior.`, 'entry-mod');
         }
     }
 

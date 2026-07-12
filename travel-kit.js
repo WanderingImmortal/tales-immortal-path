@@ -204,6 +204,10 @@ function renderTravelKitManualsHtml() {
         const elemLabel = TECH_ELEMENT_LABELS[template.element] || template.element;
         const months = getComprehendManualMonths(template);
         const block = known ? null : getComprehendBlockReason(template);
+        const condensationHint = typeof getSoulCondensationGateHint === 'function'
+            ? getSoulCondensationGateHint(template) : '';
+        const condensationLine = condensationHint
+            ? `<div class="manual-shelf-lock" style="color:#9b8fd4;font-style:normal;">${condensationHint}</div>` : '';
         const intentHint = typeof getTechniqueIntentHint === 'function' ? getTechniqueIntentHint(template) : '';
         const intentLine = intentHint ? `<div class="manual-shelf-lock" style="color:#8a9ab0;font-style:normal;">🗡️ ${intentHint}</div>` : '';
         const talentBlock = typeof getTechniqueTalentBlockReason === 'function'
@@ -237,6 +241,7 @@ function renderTravelKitManualsHtml() {
         const lockLine = block && !known ? `<div class="manual-shelf-lock">🔒 ${block}</div>` : '';
         return `<div class="popup-item manual-shelf-row travel-kit-manual-row">
             <div class="name">${pathIcon} ${entry.technique}${countBadge} ${statusBadge} <span class="tech-cultivation-tier">${tierLabel}</span> <span style="color:#a09080;font-size:12px;">[${track}]</span></div>
+            ${condensationLine}
             <div class="desc">${template.desc} · ${elemLabel} · ${template.rarity}</div>
             ${intentLine}
             ${talentLine}

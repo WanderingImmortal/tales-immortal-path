@@ -268,6 +268,11 @@ function getZoneTechniquePool(zoneId) {
         const key = item.technique || item.name;
         if (seen.has(key)) return false;
         seen.add(key);
+        const techName = item.technique || item.name;
+        const template = TECHNIQUE_POOL.find(t => t.name === techName);
+        if (template && typeof canRandomGrantTechnique === 'function' && !canRandomGrantTechnique(template)) {
+            return false;
+        }
         return true;
     });
 }
@@ -415,6 +420,7 @@ function buyTechnique(techName) {
 
 function actionExplore() {
     if (G.gameOver || G.inCombat) return;
+    if (typeof resetSoulSearchExploreBonus === 'function') resetSoulSearchExploreBonus();
     const zoneId = typeof getLootZoneId === 'function' ? getLootZoneId() : (G.currentZone || currentZone);
     const zone = ZONES[zoneId];
     if (!zone) return;
@@ -459,13 +465,14 @@ function actionExplore() {
         if (subLoot) addLog(`🔒 Hidden realm treasure from the sealed site.`);
     } else {
         const reward = applyExploreRewardMult(2 + Math.floor(Math.random() * 5) + G.realmIdx);
+        let soulSearchMult = typeof getSoulSearchExploreRollMult === 'function' ? getSoulSearchExploreRollMult() : 1;
         let bonusStones = 0;
         if (typeof getSectExploreBonus === 'function') {
             const inf = getSectExploreBonus(zoneId);
             if (inf) bonusStones = inf.exploreStoneBonus || 0;
         }
-        G.stones += reward + bonusStones;
-        let msg = `💎 +${reward} Stones`;
+        G.stones += Math.max(0, Math.floor((reward + bonusStones) * soulSearchMult));
+        let msg = `💎 +${Math.max(0, Math.floor(reward * soulSearchMult))} Stones`;
         if (bonusStones) msg += ` (+${bonusStones} sect influence)`;
         addLog(msg + '.');
         if (typeof getSectExploreBonus === 'function') {

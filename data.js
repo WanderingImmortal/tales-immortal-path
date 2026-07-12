@@ -370,7 +370,7 @@ const LEGACY_BONUS_CP = {
 const TECHNIQUE_POOL = [
     { name: "Heavenly Palm", path: "qi", element: "neutral", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 8, baseCost: 5, costType: "qi", rarity: "common", desc: "A classic palm strike channeling refined qi." },
     { name: "Iron Mountain Stance", path: "body", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Roots your stance like a mountain — absorb blows with tempered flesh." },
-    { name: "Soul Severing Sword", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "sword", techniqueQuality: "high", intentReq: { weapon: "Sword", minStage: 1 }, baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "common", desc: "A blade that cuts the soul." },
+    { name: "Soul Severing Sword", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "medium", weaponType: "sword", techniqueQuality: "high", soulMassMin: 25, spiritDamage: true, baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "common", desc: "A blade that cuts the soul." },
     { name: "Five Elements Fist", path: "qi", element: "elemental", category: "attack", combatTier: "medium", weaponType: "fist", setId: "five_elements", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, affinityCycle: ["fire", "water", "earth", "wind", "lightning"], baseDamage: 10, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Cycles through five elemental strikes." },
     { name: "Scorching Palm", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", techniqueQuality: "mid", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "A palm strike wreathed in flame." },
     { name: "Tide Spiral", path: "qi", element: "water", category: "attack", combatTier: "light", weaponType: "fist", setId: "five_elements", techniqueQuality: "mid", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Flowing water redirects force back at the foe." },
@@ -379,7 +379,7 @@ const TECHNIQUE_POOL = [
     { name: "Void Step", path: "neutral", element: "neutral", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 4, costType: "qi", rarity: "rare", desc: "Evade the next attack." },
     { name: "Celestial Judgment", path: "qi", element: "lightning", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Staff", minStage: 2 }, reqTalent: "lightning_attractor", baseDamage: 22, baseCost: 12, costType: "qi", rarity: "rare", desc: "A blast of heavenly lightning — devastating qi expenditure." },
     { name: "War God's Roar", path: "body", element: "earth", category: "attack", combatTier: "heavy", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 2 }, baseDamage: 20, baseCost: 8, costType: "qi", rarity: "rare", desc: "A roar that shatters bone — a costly finishing blow." },
-    { name: "Soul Rend", path: "soul", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
+    { name: "Soul Rend", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", soulMassMin: 40, spiritDamage: true, baseDamage: 22, baseCost: 14, costType: "spirit", rarity: "rare", desc: "Tears the enemy's soul apart." },
     { name: "Frostbite Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "An icy palm strike that chills to the bone." },
     { name: "Mirror Step", path: "neutral", element: "neutral", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, reqTalent: "immortals_disciple", baseDamage: 12, baseCost: 8, costType: "qi", rarity: "legendary", desc: "Strike through reflection — ignores enemy guard." },
     // —— Qi arts (expanded) ——
@@ -392,7 +392,7 @@ const TECHNIQUE_POOL = [
     { name: "Root-Vein Surge", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Draws power from the continental spiritual veins." },
     { name: "Sandburrow Palm", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Burrowing sand qi that finds cracks in armor." },
     { name: "Glacier Heart Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "The frozen heart of a glacier spirit — numbing cold." },
-    { name: "Demon Seal", path: "soul", element: "soul", category: "attack", combatTier: "medium", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
+    { name: "Demon Seal", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "medium", techniqueQuality: "high", soulMassMin: 20, spiritDamage: true, baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
     { name: "Phoenix Ascent Palm", path: "qi", element: "fire", category: "attack", combatTier: "heavy", weaponType: "fist", setId: "ember_fury", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 2 }, baseDamage: 20, baseCost: 11, costType: "qi", rarity: "rare", desc: "Rising flame like a phoenix breaching the caldera sky." },
     { name: "Raging Ember Fist", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Volcanic embers packed into rapid strikes." },
     { name: "Cinder Volley", path: "qi", element: "fire", category: "attack", combatTier: "light", weaponType: "fist", setId: "ember_fury", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "Scattered embers strike in rapid succession." },
@@ -408,13 +408,15 @@ const TECHNIQUE_POOL = [
     { name: "Blood Aegis", path: "body", element: "blood", category: "buff", combatTier: "buff", baseDamage: 4, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Blood qi forms a brief protective membrane." },
     { name: "Staff Shatter", path: "body", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", techniqueQuality: "mid", baseDamage: 13, baseCost: 7, costType: "qi", rarity: "uncommon", desc: "Shatter a staff's worth of force through tempered limbs." },
     // —— Soul arts (expanded) ——
-    { name: "Soul Lash", path: "soul", element: "soul", category: "attack", combatTier: "light", setId: "soul_suppression", baseDamage: 11, baseCost: 7, costType: "spirit", rarity: "common", desc: "A whip of condensed soul force." },
-    { name: "Phantom Blade", path: "soul", element: "soul", category: "attack", combatTier: "light", weaponType: "blade", setId: "sword_dominion", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 1 }, baseDamage: 10, baseCost: 7, costType: "spirit", rarity: "uncommon", desc: "A blade of spirit that passes through flesh to cut the soul." },
-    { name: "Spirit Suppression Art", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 14, baseCost: 9, costType: "spirit", rarity: "uncommon", desc: "Suppresses the enemy's spirit, weakening their techniques." },
-    { name: "Mind Sever", path: "soul", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "Severs the link between mind and body for an instant." },
-    { name: "Ghost Spear Thrust", path: "soul", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", techniqueQuality: "mid", baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of ghostly intent that pierces from afar." },
-    { name: "Spectral Shield", path: "soul", element: "soul", category: "defense", combatTier: "defense", baseDamage: 5, baseCost: 6, costType: "spirit", rarity: "uncommon", desc: "A barrier of soul energy that absorbs spiritual attacks." },
-    { name: "Abyss Gaze", path: "soul", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", intentReq: { weapon: "Blade", minStage: 2 }, reqTalent: "cursed_scholar", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
+    { name: "Soul Lash", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "light", setId: "soul_suppression", soulMassMin: 10, spiritDamage: true, baseDamage: 11, baseCost: 7, costType: "spirit", rarity: "common", desc: "A whip of condensed soul force." },
+    { name: "Phantom Blade", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "light", weaponType: "blade", setId: "sword_dominion", techniqueQuality: "high", soulMassMin: 30, spiritDamage: true, baseDamage: 10, baseCost: 7, costType: "spirit", rarity: "uncommon", desc: "A blade of spirit that passes through flesh to cut the soul." },
+    { name: "Spirit Suppression Art", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", soulMassMin: 15, spiritDamage: true, baseDamage: 14, baseCost: 9, costType: "spirit", rarity: "uncommon", desc: "Suppresses the enemy's spirit, weakening their techniques." },
+    { name: "Mind Sever", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "medium", setId: "soul_suppression", soulMassMin: 10, spiritDamage: true, baseDamage: 12, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "Severs the link between mind and body for an instant." },
+    { name: "Ghost Spear Thrust", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "medium", weaponType: "spear", techniqueQuality: "mid", soulMassMin: 25, spiritDamage: true, baseDamage: 13, baseCost: 8, costType: "spirit", rarity: "uncommon", desc: "A spear of condensed soul force that pierces from afar." },
+    { name: "Spectral Shield", path: "soul", school: "soul_condensation", element: "soul", category: "defense", combatTier: "defense", soulMassMin: 15, spiritDamage: true, baseDamage: 5, baseCost: 6, costType: "spirit", rarity: "uncommon", desc: "A barrier of soul energy that absorbs spiritual attacks." },
+    { name: "Abyss Gaze", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "heavy", techniqueQuality: "high", soulMassMin: 50, spiritDamage: true, reqTalent: "cursed_scholar", baseDamage: 21, baseCost: 13, costType: "spirit", rarity: "rare", desc: "Lock eyes with the abyss — the enemy's soul trembles." },
+    { name: "Soul Spike", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "medium", soulMassMin: 25, baseDamage: 14, baseCost: 9, costType: "spirit", rarity: "uncommon", spiritDamage: true, spiritBypassPhysiquePct: 0.50, desc: "A needle of condensed soul force — pierces flesh-guard, not spirit-guard." },
+    { name: "Soul Search", path: "soul", school: "soul_condensation", element: "soul", category: "utility", combatTier: "utility", soulMassMin: 10, baseDamage: 0, baseCost: 6, costType: "spirit", rarity: "uncommon", desc: "Probe an enemy's interior in combat; sense hidden truths when exploring or speaking with others." },
     // —— Universal arts ——
     { name: "Quickfoot Art", path: "neutral", element: "wind", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 3, costType: "qi", rarity: "common", desc: "Light footwork — reposition before the enemy strikes." },
     { name: "Focused Breath", path: "neutral", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 2, baseCost: 4, costType: "qi", rarity: "common", desc: "Center breath and intent — steady the next exchange." },
@@ -644,13 +646,13 @@ const TECHNIQUE_SETS = {
     },
     soul_suppression: {
         id: "soul_suppression",
-        name: "Soul Suppression",
-        emoji: "👻",
+        name: "Soul Condensation",
+        emoji: "💠",
         techniques: ["Demon Seal", "Spirit Suppression Art", "Soul Lash", "Mind Sever"],
         bonuses: {
-            2: { dmgMult: 0.05, desc: "+5% soul technique damage" },
+            2: { dmgMult: 0.05, desc: "+5% condensation technique damage" },
             3: { dmgMult: 0.10, costMult: 0.05, desc: "+10% set damage, −5% spirit cost" },
-            4: { dmgMult: 0.14, costMult: 0.08, desc: "+14% set damage, −8% spirit cost — spirits bow" }
+            4: { dmgMult: 0.14, costMult: 0.08, desc: "+14% set damage, −8% spirit cost — interior weight dominates" }
         }
     },
     ember_fury: {
@@ -1267,7 +1269,8 @@ const MERCHANT_CATALOG = {
             { technique: "Demon Seal", price: 130 },
             { technique: "Spirit Suppression Art", price: 140 },
             { technique: "Void Step", price: 200 },
-            { technique: "Spectral Shield", price: 110 }
+            { technique: "Spectral Shield", price: 110 },
+            { technique: "Soul Search", price: 65 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -5259,6 +5262,27 @@ const SOUL_MASS_TIERS = [
     { tier: 2, label: 'Weighted', massMin: 25 },
     { tier: 3, label: 'Dominant', massMin: 50 },
     { tier: 4, label: 'Apex', massMin: 75 },
+];
+
+const SOUL_CONDENSATION_BALANCE = {
+    defaultMassMin: 10,
+    enemyPhysiqueBypassPct: 0.35,
+    soulSpikeBypassPct: 0.50,
+    weakInteriorBonusPct: 0.20,
+    weakInteriorStatSum: 14,
+    offPathDamageMult: 0.82,
+    offPathCostMult: 1.15,
+    lowMassDamageMult: 0.70,
+    lowMassCostMult: 1.20,
+    searchCombatWeakTurns: 2,
+    searchCombatDmgMult: 0.75,
+    searchExploreBonusPct: 8,
+    searchNpcInsightChance: 0.35,
+};
+
+const SOUL_CONDENSATION_MANUALS = [
+    { technique: 'Soul Spike', massMin: 25, source: 'soul_palace', layer: 'awakened' },
+    { technique: 'Soul Search', massMin: 10, source: 'market', zone: 'spirit_market' },
 ];
 
 /** Soul Mass condensation — prelude + deep palace layers. */

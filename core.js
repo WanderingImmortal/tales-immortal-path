@@ -411,7 +411,11 @@ function getTechniqueMeta(tech) {
         cultivationTier: tpl?.cultivationTier || getTechniqueCultivationTierId?.(tech.name) || 'condensation',
         techniqueQuality: tpl?.techniqueQuality || null,
         intentReq: tpl?.intentReq || (typeof resolveIntentReq === 'function' ? resolveIntentReq(tpl) : null),
-        reqTalent: tpl?.reqTalent || null
+        reqTalent: tpl?.reqTalent || null,
+        school: tech.school || tpl?.school || null,
+        soulMassMin: tpl?.soulMassMin ?? null,
+        spiritDamage: tpl?.spiritDamage || false,
+        spiritBypassPhysiquePct: tpl?.spiritBypassPhysiquePct ?? null
     };
 }
 

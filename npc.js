@@ -398,7 +398,8 @@ function getWorldNpcObserveText(npc) {
     if (npc.isDemonicTalent) {
         lines.push(`Demonic threat: ${npc.demonicThreat || 0}`);
     }
-    return lines.join(' · ');
+    const insight = typeof getSoulSearchNpcInsight === 'function' ? getSoulSearchNpcInsight(npc) : '';
+    return lines.join(' · ') + insight;
 }
 
 function getPresentNpcCards(zoneId) {
