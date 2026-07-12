@@ -73,6 +73,12 @@ function migrateSaveToCultivationTracks() {
                 if (!G.cultivation.soulEmbryoOrigin) {
                     G.cultivation.soulEmbryoOrigin = track;
                 }
+                // Crystallize latent mass for legacy high-realm saves (preserve existing active mass).
+                if (typeof resolveSoulMassOnBirth === 'function' && (G.soulMass?.latentMass || 0) > 0) {
+                    resolveSoulMassOnBirth(track);
+                } else if (typeof ensureSoulMassState === 'function') {
+                    ensureSoulMassState();
+                }
                 break;
             }
         }

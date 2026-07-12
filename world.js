@@ -225,6 +225,7 @@ function travelToZone(zoneId) {
     }
     currentZone = zoneId;
     G.currentZone = zoneId;
+    if (typeof resetSoulSearchExploreBonus === 'function') resetSoulSearchExploreBonus();
     let msg = `🗺️ You travel to the ${zone.emoji} ${zone.name}`;
     if (typeof getDefaultLocationForZone === 'function') {
         G.currentLocation = getDefaultLocationForZone(zoneId);
@@ -420,7 +421,6 @@ function buyTechnique(techName) {
 
 function actionExplore() {
     if (G.gameOver || G.inCombat) return;
-    if (typeof resetSoulSearchExploreBonus === 'function') resetSoulSearchExploreBonus();
     const zoneId = typeof getLootZoneId === 'function' ? getLootZoneId() : (G.currentZone || currentZone);
     const zone = ZONES[zoneId];
     if (!zone) return;

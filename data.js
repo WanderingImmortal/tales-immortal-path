@@ -5387,6 +5387,7 @@ const SOUL_MASS_BALANCE = {
     hollowPowerMult: 0.65,
     /** Nascent: at hard min but below soft min. */
     nascentMitigationMult: 0.85,
+    nascentPowerMult: 0.9,
 };
 
 const SOUL_MATURITY_LABELS = {

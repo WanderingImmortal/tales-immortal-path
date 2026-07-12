@@ -1038,7 +1038,6 @@ function loadState() {
             if (G.vesselRuleCooldownUntilMonth == null) G.vesselRuleCooldownUntilMonth = 0;
             if (typeof ensureVesselRuleState === 'function') ensureVesselRuleState();
             if (G.soulMass === undefined) G.soulMass = null;
-            if (typeof ensureSoulMassState === 'function') ensureSoulMassState();
             if (!G.inventory) G.inventory = [];
             if (!G.legendaryMaterials) G.legendaryMaterials = [];
             if (typeof ensureGearState === 'function') ensureGearState();
@@ -1057,6 +1056,8 @@ function loadState() {
             G.lastTranscendenceCue = null;
             if (typeof migrateSaveToCultivationTracks === 'function') migrateSaveToCultivationTracks();
             else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
+            // Soul Mass after track/embryo migration so latent↔active split sees correct soul birth state.
+            if (typeof ensureSoulMassState === 'function') ensureSoulMassState();
             if (typeof migrateConsolidationState === 'function') migrateConsolidationState();
             else if (typeof ensureConsolidationState === 'function') ensureConsolidationState();
             if (typeof ensureCultivationBaseState === 'function') ensureCultivationBaseState();

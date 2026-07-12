@@ -811,6 +811,18 @@ function calcCombatTechniqueDamage(tech) {
     if (typeof getFactionCombatDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getFactionCombatDmgMult()));
     if (typeof getScarCombatDamageMult === 'function') dmg = Math.max(1, Math.floor(dmg * getScarCombatDamageMult()));
     if (typeof getBodyChamberCombatDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getBodyChamberCombatDmgMult()));
+    if (typeof getBloodRuleDamageMult === 'function') dmg = Math.max(1, Math.floor(dmg * getBloodRuleDamageMult()));
+    if (G.path === 'body' && typeof isRuleOfUnnamedActive === 'function' && isRuleOfUnnamedActive()) {
+        if (typeof getUnnamedLivingStrikeMult === 'function') {
+            dmg = Math.max(1, Math.floor(dmg * getUnnamedLivingStrikeMult()));
+        }
+        if (typeof getUnnamedFlowDamageMult === 'function') {
+            dmg = Math.max(1, Math.floor(dmg * getUnnamedFlowDamageMult()));
+        }
+        if (typeof getUnnamedStagnationMult === 'function') {
+            dmg = Math.max(1, Math.floor(dmg * getUnnamedStagnationMult()));
+        }
+    }
     if (typeof getTranscendenceTechniqueDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getTranscendenceTechniqueDmgMult(tech)));
     if (typeof getConsolidationTechniqueDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getConsolidationTechniqueDmgMult()));
     if (typeof getSectCombatMult === 'function') dmg = Math.max(1, Math.floor(dmg * getSectCombatMult()));
@@ -1314,7 +1326,7 @@ function combatUseTechnique(name) {
     if (tech.name === 'Blood Refining Art' && dmg > 0) {
         const heal = Math.max(1, Math.floor(dmg * 0.22));
         const healed = typeof tryCombatPlayerHeal === 'function'
-            ? tryCombatPlayerHeal(heal)
+            ? tryCombatPlayerHeal(heal, { lifesteal: true })
             : (() => {
                 const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
                 const hpBefore = G.hp;
@@ -1567,27 +1579,31 @@ function enemyTurn() {
 
 function takeDamage(dmg, opts) {
     opts = opts || {};
-    if ((opts.spiritDamage || opts.soulDamage) && typeof applySoulDamageMitigation === 'function') {
+    const isSpiritOrSoul = !!(opts.spiritDamage || opts.soulDamage);
+    if (isSpiritOrSoul && typeof applySoulDamageMitigation === 'function') {
         dmg = applySoulDamageMitigation(dmg, opts);
     }
     let physiqueReduced = 0;
-    const defensePct = (G.defenseBonus || 0)
-        + (typeof getGearDefenseBonus === 'function' ? getGearDefenseBonus() : 0)
-        + (typeof getScarDefenseBonus === 'function' ? getScarDefenseBonus() : 0)
-        + (typeof getTranscendenceDefenseBonus === 'function' ? getTranscendenceDefenseBonus() : 0)
-        + (typeof getBodyChamberDefensePct === 'function' ? getBodyChamberDefensePct() : 0);
-    if (defensePct) {
-        const after = Math.max(1, Math.floor(dmg * (1 - defensePct / 100)));
-        physiqueReduced = dmg - after;
-        dmg = after;
-    }
-    const elemResist = typeof getBodyChamberElementalResistPct === 'function' ? getBodyChamberElementalResistPct() : 0;
-    if (elemResist) {
-        dmg = Math.max(1, Math.floor(dmg * (1 - elemResist / 100)));
-    }
-    const poisonResist = typeof getBodyChamberPoisonResistPct === 'function' ? getBodyChamberPoisonResistPct() : 0;
-    if (poisonResist && typeof isPoisonSourceEnemy === 'function' && isPoisonSourceEnemy(G.enemy)) {
-        dmg = Math.max(1, Math.floor(dmg * (1 - poisonResist / 100)));
+    // Spirit/soul hits bypass physique & elemental flesh resists (mirror outgoing spirit arts).
+    if (!isSpiritOrSoul) {
+        const defensePct = (G.defenseBonus || 0)
+            + (typeof getGearDefenseBonus === 'function' ? getGearDefenseBonus() : 0)
+            + (typeof getScarDefenseBonus === 'function' ? getScarDefenseBonus() : 0)
+            + (typeof getTranscendenceDefenseBonus === 'function' ? getTranscendenceDefenseBonus() : 0)
+            + (typeof getBodyChamberDefensePct === 'function' ? getBodyChamberDefensePct() : 0);
+        if (defensePct) {
+            const after = Math.max(1, Math.floor(dmg * (1 - defensePct / 100)));
+            physiqueReduced = dmg - after;
+            dmg = after;
+        }
+        const elemResist = typeof getBodyChamberElementalResistPct === 'function' ? getBodyChamberElementalResistPct() : 0;
+        if (elemResist) {
+            dmg = Math.max(1, Math.floor(dmg * (1 - elemResist / 100)));
+        }
+        const poisonResist = typeof getBodyChamberPoisonResistPct === 'function' ? getBodyChamberPoisonResistPct() : 0;
+        if (poisonResist && typeof isPoisonSourceEnemy === 'function' && isPoisonSourceEnemy(G.enemy)) {
+            dmg = Math.max(1, Math.floor(dmg * (1 - poisonResist / 100)));
+        }
     }
     const evasionPct = (G.evasionBonus || 0)
         + (typeof getScarEvasionBonus === 'function' ? getScarEvasionBonus() : 0)

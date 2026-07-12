@@ -33,17 +33,20 @@ function ensureSoulMassState() {
 
 /** Saves from before latent/active split: move pre-birth mass into latent (capped). */
 function migrateLegacySoulMassIfNeeded() {
-    if (G._soulMassLatentMigrated) return;
     const hasEmbryo = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo();
+    // Always fold latent → active once the soul exists (fixes saves migrated out of order).
+    if (hasEmbryo && (G.soulMass.latentMass || 0) > 0) {
+        G.soulMass.mass = (G.soulMass.mass || 0) + G.soulMass.latentMass;
+        G.soulMass.latentMass = 0;
+        G.soulMass.soulMaturity = computeSoulMaturityFromMass(G.soulMass.mass || 0);
+        G._soulMassLatentMigrated = true;
+        return;
+    }
+    if (G._soulMassLatentMigrated) return;
     const cap = getLatentMassCap();
     if (!hasEmbryo && (G.soulMass.mass || 0) > 0 && (G.soulMass.latentMass || 0) === 0) {
         G.soulMass.latentMass = Math.min(cap, G.soulMass.mass);
         G.soulMass.mass = 0;
-    }
-    if (hasEmbryo && G.soulMass.latentMass > 0) {
-        G.soulMass.mass = (G.soulMass.mass || 0) + G.soulMass.latentMass;
-        G.soulMass.latentMass = 0;
-        G.soulMass.soulMaturity = computeSoulMaturityFromMass(getSoulMass());
     }
     G._soulMassLatentMigrated = true;
 }
@@ -107,7 +110,7 @@ function getSoulMaturityPowerMult() {
     const m = getSoulMaturity();
     const bal = getSoulMassBalance();
     if (m === 'hollow') return bal.hollowPowerMult ?? 0.65;
-    if (m === 'nascent') return bal.nascentMitigationMult ?? 0.85;
+    if (m === 'nascent') return bal.nascentPowerMult ?? 0.9;
     return 1;
 }
 
@@ -177,11 +180,11 @@ function formatSoulMassStatusLine() {
 }
 
 function syncSoulMassTier() {
-    ensureSoulMassState();
+    if (!G.soulMass) return;
     const tiers = typeof SOUL_MASS_TIERS !== 'undefined' ? SOUL_MASS_TIERS : [{ tier: 0, massMin: 0 }];
     let tier = 0;
     for (let i = tiers.length - 1; i >= 0; i--) {
-        if (G.soulMass.mass >= tiers[i].massMin) {
+        if ((G.soulMass.mass || 0) >= tiers[i].massMin) {
             tier = tiers[i].tier;
             break;
         }

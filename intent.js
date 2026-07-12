@@ -28,6 +28,7 @@ function weaponIntentPathGate() {
 
 /** Wired into soul-mass mitigation via soul-mass.js */
 function getIntentSoulMitigationPct() {
+    if (!isWeaponIntentPathActive()) return 0;
     const intent = getActiveIntent();
     if (!intent) return 0;
     const tierIdx = getIntentTierIndex(intent.uses);
