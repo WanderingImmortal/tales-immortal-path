@@ -71,6 +71,7 @@ let G = {
     vesselRule: null,
     vesselRuleCooldownUntilMonth: 0,
     daoFragments: [],
+    daoState: null,
     trueDaos: [],
     primeDaos: [],
     mergedDaos: [],
@@ -638,27 +639,35 @@ function rollFireIgniteBonus(tech) {
 
 function rollTrueDaoCombatEffects(tech) {
     const fx = { bonusDmg: 0, skipTurns: 0, slowTurns: 0, root: false, log: '' };
-    if (!G.trueDaos?.length || !tech) return fx;
+    if (!tech) return fx;
+    ensureDaoState();
     const el = getTechniquePrimaryAffinityKey(tech);
-    const tryProc = (daoName, chance) => G.trueDaos.includes(daoName) && Math.random() < chance;
+    const phaseId = ELEMENT_DAO_MAP[el] || ELEMENT_TO_PHASE_DAO[el];
+    if (!phaseId) return fx;
+    const hasPhase = isDaoComprehended(phaseId);
+    const hasFive = isDaoComprehended('five_phases');
+    if (!hasPhase && !hasFive) return fx;
+    const def = getDaoDef(phaseId);
+    if (!def) return fx;
+    const proc = (chance) => Math.random() < chance;
 
-    if (el === 'fire' && tryProc('Dao of Fire', 0.28)) {
+    if (el === 'fire' && def.igniteChance && proc(def.igniteChance)) {
         fx.bonusDmg = Math.max(2, Math.floor(G.maxHp * 0.05));
-        fx.log = '🔥 True Dao of Fire ignites!';
-    } else if (el === 'water' && tryProc('Dao of Water', 0.24)) {
+        fx.log = '🔥 Phase of Fire ignites!';
+    } else if ((el === 'water' || el === 'ice') && def.freezeChance && proc(def.freezeChance)) {
         fx.bonusDmg = Math.max(2, Math.floor(G.maxHp * 0.03));
         fx.skipTurns = 1;
-        fx.log = '💧 True Dao of Water freezes their meridians!';
-    } else if (el === 'lightning' && tryProc('Dao of Lightning', 0.22)) {
+        fx.log = '💧 Phase of Water freezes their meridians!';
+    } else if (el === 'lightning' && proc(0.22)) {
         fx.bonusDmg = Math.max(2, Math.floor(G.maxHp * 0.04));
         fx.skipTurns = 1;
-        fx.log = '⚡ True Dao of Lightning stuns them rigid!';
-    } else if (el === 'wind' && tryProc('Dao of Wind', 0.2)) {
+        fx.log = '⚡ Phase of Metal thunders through them!';
+    } else if (el === 'wind' && proc(0.2)) {
         fx.slowTurns = 2;
-        fx.log = '🌪️ True Dao of Wind shears their momentum!';
-    } else if (el === 'earth' && tryProc('Dao of Earth', 0.2)) {
+        fx.log = '🌪️ Phase of Wood shears their momentum!';
+    } else if (el === 'earth' && def.rootChance && proc(def.rootChance)) {
         fx.root = true;
-        fx.log = '🪨 True Dao of Earth roots them in place!';
+        fx.log = '🪨 Phase of Earth roots them in place!';
     }
     return fx;
 }
@@ -686,12 +695,8 @@ function getTechniqueStatScale(tech) {
 }
 
 function getElementDamageMult(element) {
+    if (typeof getDaoElementMult === 'function') return getDaoElementMult(element);
     if (!element || element === 'neutral' || element === 'elemental' || element === 'blood') return 1;
-    const daoName = ELEMENT_DAO_MAP[element];
-    if (!daoName) return 1;
-    if (G.trueDaos && G.trueDaos.includes(daoName)) {
-        return element === 'ice' ? TECHNIQUE_BALANCE.iceFromWaterDaoMult : TECHNIQUE_BALANCE.daoDamageMult;
-    }
     return 1;
 }
 
@@ -778,6 +783,7 @@ function getTechDamage(tech) {
         const intent = getTechniqueIntentMatch(tech);
         if (intent.dmgMult !== 1) dmg *= intent.dmgMult;
     }
+    if (typeof getDaoIntentSynergyMult === 'function') dmg *= getDaoIntentSynergyMult(tech);
     if (G.dmgMult > 1) dmg *= G.dmgMult;
     dmg *= getPlayerTraitMultPct('techniqueDmgPct', 0);
     const baseDmg = baseStats.baseDamage;
@@ -1023,6 +1029,7 @@ function loadState() {
             if (!G.trueDaos) G.trueDaos = [];
             if (!G.primeDaos) G.primeDaos = [];
             if (!G.mergedDaos) G.mergedDaos = [];
+            if (typeof ensureDaoState === 'function') ensureDaoState();
             if (!G.weaponIntentChoices) G.weaponIntentChoices = [];
             if (!G.weaponIntents) G.weaponIntents = [];
             if (G.activeIntentWeapon == null) G.activeIntentWeapon = null;
@@ -1119,9 +1126,10 @@ function loadState() {
             ensurePillStock();
             applyVitalityToMaxHp();
             ensureForbiddenState();
-            DAO_FRAGMENTS.filter(f => f.forbiddenClear).forEach(f => {
-                if (G.daoFragments.includes(f.name) && !getGroundProgress(f.forbiddenClear).cleared) {
-                    G.daoFragments = G.daoFragments.filter(d => d !== f.name);
+            DAO_FRAGMENT_POOL.filter(f => f.forbiddenClear).forEach(f => {
+                if (G.daoState?.fragments?.includes(f.name) && !getGroundProgress(f.forbiddenClear).cleared) {
+                    G.daoState.fragments = G.daoState.fragments.filter(d => d !== f.name);
+                    syncDaoFragmentArrays();
                 }
             });
             return true;

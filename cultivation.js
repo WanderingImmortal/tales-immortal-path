@@ -280,8 +280,12 @@ function checkPerfectCultivation() {
 }
 
 function hasQiInteriorPeak() {
-    const hasIntent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
-    return !!(hasIntent && G.trueDaos.length > 0);
+    const intent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
+    if (!intent) return false;
+    const tierIdx = typeof getIntentTierIndex === 'function' ? getIntentTierIndex(intent.uses) : 0;
+    const intentPeak = tierIdx >= 2;
+    const daoPeak = typeof hasDaoInteriorPeak === 'function' && hasDaoInteriorPeak();
+    return intentPeak && daoPeak;
 }
 
 // ===== MERIDIANS =====

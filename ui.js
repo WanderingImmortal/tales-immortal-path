@@ -304,13 +304,10 @@ function renderStatus() {
         }
     }
     const daoEl = document.getElementById('daoDisplay');
-    const allDaos = [...G.trueDaos, ...G.mergedDaos];
-    if (allDaos.length > 0) {
-        daoEl.textContent = allDaos.slice(0, 2).join(', ');
-    } else if (G.daoFragments.length > 0) {
-        daoEl.textContent = `${G.daoFragments.length} fragments`;
-    } else {
-        daoEl.textContent = 'None';
+    if (daoEl) {
+        daoEl.textContent = typeof getDaoDisplaySummary === 'function'
+            ? getDaoDisplaySummary()
+            : 'None';
     }
     document.getElementById('perfectDisplay').textContent = G.perfectCultivation ? '🌟 MYTHIC CULTIVATOR 🌟' : '';
     if (typeof renderSidebarGearStrip === 'function') renderSidebarGearStrip();
@@ -1608,6 +1605,7 @@ function renderIntentPopup() {
 function renderDaoPopup() {
     const el = document.getElementById('daoList');
     if (!el) return;
+    ensureDaoState();
     const daoRealm = typeof getDaoFragmentReqRealm === 'function' ? getDaoFragmentReqRealm(null) : 5;
     const daoLabel = typeof getDaoSeekingRealmLabel === 'function' ? getDaoSeekingRealmLabel() : 'Dao Seeking';
     const daoLocked = G.realmIdx < daoRealm;
@@ -1615,66 +1613,102 @@ function renderDaoPopup() {
     if (daoLocked) {
         html += `<div class="popup-empty">Reach ${daoLabel} to seek and comprehend Dao fragments.</div>`;
     }
-    if (G.daoFragments.length > 0) {
-        html += '<div style="font-size:13px;color:#b8863a;">📜 Dao Fragments:</div>';
-        for (const f of G.daoFragments) {
-            const fragment = DAO_FRAGMENTS.find(d => d.name === f);
-            if (fragment) {
-                html += `<div class="popup-item dao-fragment-item" data-fragment="${f}" style="cursor:pointer;">
-                    <div class="name">${f}</div>
-                    <div class="desc">${fragment.desc}</div>
-                    <div class="meta">Click to comprehend · ${daoLabel}+</div>
-                </div>`;
+
+    const branchOrder = ['balance', 'void', 'cycle', 'elements', 'karma'];
+    const tierSections = [
+        { tier: 'primordial', title: '☯️ Primordial', color: '#9b59b6' },
+        { tier: 'fundamental', title: '🌀 Fundamental', color: '#e67e22' },
+        { tier: 'greater', title: '🌌 Greater', color: '#f1c40f' },
+        { tier: 'lesser', title: '📜 Lesser', color: '#b8863a' }
+    ];
+
+    tierSections.forEach(section => {
+        if (section.tier === 'primordial') {
+            const wuji = DAO_TAXONOMY.wuji;
+            const locked = countComprehendedTier('fundamental') < (wuji.reqFundamentals || 2);
+            html += `<div style="font-size:13px;color:${section.color};margin-top:10px;">${section.title}</div>`;
+            if (isDaoComprehended('wuji')) {
+                html += `<div class="popup-item" style="border-color:${section.color};"><div class="name">${wuji.emoji} ${wuji.name}</div><div class="desc">${wuji.desc}</div></div>`;
+            } else if (locked) {
+                html += `<div class="popup-empty">Reunify ${wuji.reqFundamentals || 2} fundamental laws to approach Wuji.</div>`;
+            } else if (canAttainWuji()) {
+                html += `<button type="button" class="popup-item dao-wuji-btn" style="width:100%;text-align:left;border-color:${section.color};"><div class="name">${wuji.emoji} Attain ${wuji.name}</div><div class="desc">${wuji.desc}</div></button>`;
             }
+            return;
         }
-    } else if (!daoLocked) {
-        html += '<div class="popup-empty">No Dao fragments found. Seek insight below, explore, or visit forbidden grounds.</div>';
-    }
-    if (G.trueDaos.length > 0) {
-        html += '<div style="font-size:13px;color:#8e44ad;margin-top:8px;">🌟 True Daos:</div>';
-        for (const d of G.trueDaos) {
-            const dao = TRUE_DAOS.find(t => t.name === d);
-            if (dao) {
-                html += `<div class="popup-item" style="border-color:#8e44ad;">
-                    <div class="name">${dao.name} <span style="font-size:11px;color:#8e44ad;">[True]</span></div>
-                    <div class="desc">${dao.desc}</div>
+
+        const defs = Object.values(DAO_TAXONOMY).filter(d => d.tier === section.tier);
+        const owned = defs.filter(d => isDaoComprehended(d.id));
+        const inProgress = defs.filter(d => !isDaoComprehended(d.id) && getDaoComprehensionProgress(d.id) > 0);
+        const fragments = section.tier === 'lesser'
+            ? G.daoState.fragments.map(name => ({ name, entry: getDaoFragmentPoolEntry(name) })).filter(f => f.entry && getDaoDef(f.entry.daoId)?.tier === 'lesser')
+            : [];
+
+        if (!owned.length && !inProgress.length && !fragments.length) return;
+
+        html += `<div style="font-size:13px;color:${section.color};margin-top:10px;">${section.title}</div>`;
+
+        branchOrder.forEach(branch => {
+            const branchOwned = owned.filter(d => d.branch === branch);
+            const branchProgress = inProgress.filter(d => d.branch === branch);
+            const branchFrags = fragments.filter(f => getDaoDef(f.entry.daoId)?.branch === branch);
+            if (!branchOwned.length && !branchProgress.length && !branchFrags.length) return;
+            html += `<div style="font-size:11px;color:#888;margin:4px 0 2px;">${DAO_BRANCH_LABELS[branch] || branch}</div>`;
+            branchOwned.forEach(d => {
+                html += `<div class="popup-item" style="border-color:${section.color};"><div class="name">${d.emoji || '◆'} ${d.name}</div><div class="desc">${d.desc || ''}</div></div>`;
+            });
+            branchProgress.forEach(d => {
+                const pct = getDaoComprehensionProgress(d.id);
+                html += `<div class="popup-item" style="border-color:${section.color};"><div class="name">${d.name}</div><div class="desc">Comprehension ${pct}%</div><div style="background:#333;height:6px;border-radius:3px;margin-top:4px;"><div style="background:${section.color};width:${pct}%;height:100%;border-radius:3px;"></div></div></div>`;
+            });
+            branchFrags.forEach(f => {
+                const def = getDaoDef(f.entry.daoId);
+                const pct = getDaoComprehensionProgress(f.entry.daoId);
+                html += `<div class="popup-item dao-fragment-item" data-fragment="${escapeAttr(f.name)}" style="cursor:pointer;border-color:${section.color};">
+                    <div class="name">${f.name}</div>
+                    <div class="desc">${def?.desc || ''}</div>
+                    <div class="meta">Click to comprehend · ${pct}%</div>
+                    <div style="background:#333;height:6px;border-radius:3px;margin-top:4px;"><div style="background:${section.color};width:${pct}%;height:100%;border-radius:3px;"></div></div>
                 </div>`;
-            }
-        }
-    }
-    if (G.primeDaos.length > 0) {
-        html += '<div style="font-size:13px;color:#f1c40f;margin-top:8px;">🌌 Prime Daos:</div>';
-        for (const d of G.primeDaos) {
-            const dao = PRIME_DAOS.find(p => p.name === d);
-            if (dao) {
-                html += `<div class="popup-item" style="border-color:#f1c40f;">
-                    <div class="name">${dao.name} <span style="font-size:11px;color:#f1c40f;">[Prime]</span></div>
-                    <div class="desc">${dao.desc}</div>
-                    <div class="meta">Can merge with ${dao.mergeWith} → ${dao.mergeResult}</div>
-                </div>`;
-            }
-        }
-    }
-    if (G.mergedDaos.length > 0) {
-        html += '<div style="font-size:13px;color:#e67e22;margin-top:8px;">🌀 Merged Daos:</div>';
-        for (const d of G.mergedDaos) {
-            const mdef = MERGED_DAOS[d];
-            html += `<div class="popup-item" style="border-color:#e67e22;">
-                <div class="name">${d} <span style="font-size:11px;color:#e67e22;">[Merged]</span></div>
-                <div class="desc">${mdef?.desc || 'Supreme Dao Law'}</div>
-            </div>`;
-        }
-    }
+            });
+        });
+    });
+
     const merges = typeof getAvailableDaoMerges === 'function' ? getAvailableDaoMerges() : [];
     if (merges.length) {
-        html += '<div style="font-size:12px;color:#e67e22;margin-top:8px;">Supreme merges available:</div>';
+        html += '<div style="font-size:12px;color:#e67e22;margin-top:8px;">Fundamental reunifications available:</div>';
         merges.forEach(def => {
-            html += `<button type="button" class="popup-item dao-merge-btn" data-merge-dao="${escapeAttr(def.name)}" style="width:100%;text-align:left;margin-top:4px;border-color:#e67e22;">
-                <div class="name">🌀 Merge ${def.pair.join(' + ')} → ${def.name}</div>
-                <div class="desc">${def.desc} · ${DAO_MERGE_BALANCE.months}mo · ${DAO_MERGE_BALANCE.qiCost} Qi</div>
+            const fromNames = (def.mergeFrom || []).map(id => getDaoDef(id)?.name || id);
+            const min = def.mergeMin || fromNames.length;
+            html += `<button type="button" class="popup-item dao-merge-btn" data-merge-dao="${escapeAttr(def.id)}" style="width:100%;text-align:left;margin-top:4px;border-color:#e67e22;">
+                <div class="name">🌀 Reunify ${fromNames.slice(0, min).join(' + ')} → ${def.name}</div>
+                <div class="desc">${def.desc} · ${DAO_MERGE_BALANCE.months}mo · ${DAO_MERGE_BALANCE.qiCost} Qi · ${DAO_MERGE_BALANCE.spiritCost} Spirit</div>
             </button>`;
         });
     }
+
+    const greaterFrags = G.daoState.fragments.filter(name => {
+        const entry = getDaoFragmentPoolEntry(name);
+        return entry && getDaoDef(entry.daoId)?.tier === 'greater';
+    });
+    if (greaterFrags.length) {
+        html += '<div style="font-size:12px;color:#f1c40f;margin-top:8px;">Greater insights held:</div>';
+        greaterFrags.forEach(name => {
+            const entry = getDaoFragmentPoolEntry(name);
+            const def = getDaoDef(entry.daoId);
+            const pct = getDaoComprehensionProgress(entry.daoId);
+            html += `<div class="popup-item dao-fragment-item" data-fragment="${escapeAttr(name)}" style="cursor:pointer;border-color:#f1c40f;">
+                <div class="name">${name}</div>
+                <div class="desc">${def?.desc || ''}</div>
+                <div class="meta">Click to comprehend · ${pct}%</div>
+            </div>`;
+        });
+    }
+
+    if (!G.daoState.fragments.length && !daoLocked) {
+        html += '<div class="popup-empty">No Dao fragments held. Seek insight below, explore, or visit forbidden grounds.</div>';
+    }
+
     html += `<button class="popup-item" id="findFragmentBtn" style="width:100%;text-align:center;margin-top:8px;" ${daoLocked ? 'disabled' : ''}>
         <div class="name">📜 Seek Dao Insight</div>
         <div class="desc">${daoLocked ? `Requires ${daoLabel}` : 'Costs time and Qi — not sealed sites or forbidden grounds'}</div>
@@ -1688,7 +1722,17 @@ function renderDaoPopup() {
     });
     el.querySelectorAll('.dao-merge-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const result = typeof mergeDaoPair === 'function' ? mergeDaoPair(this.dataset.mergeDao) : { success: false, message: 'Unavailable.' };
+            const result = typeof mergeDaoFundamental === 'function'
+                ? mergeDaoFundamental(this.dataset.mergeDao)
+                : (typeof mergeDaoPair === 'function' ? mergeDaoPair(this.dataset.mergeDao) : { success: false, message: 'Unavailable.' });
+            logTimedResult(result);
+            renderDaoPopup();
+            fullRender();
+        });
+    });
+    el.querySelectorAll('.dao-wuji-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const result = typeof attainWuji === 'function' ? attainWuji() : { success: false, message: 'Unavailable.' };
             logTimedResult(result);
             renderDaoPopup();
             fullRender();

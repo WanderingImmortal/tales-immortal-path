@@ -554,12 +554,12 @@ const TECH_CATEGORY_LABELS = {
 };
 
 const ELEMENT_DAO_MAP = {
-    fire: "Dao of Fire",
-    water: "Dao of Water",
-    lightning: "Dao of Lightning",
-    earth: "Dao of Earth",
-    wind: "Dao of Wind",
-    ice: "Dao of Water"
+    fire: 'phase_fire',
+    water: 'phase_water',
+    lightning: 'phase_metal',
+    earth: 'phase_earth',
+    wind: 'phase_wood',
+    ice: 'phase_water'
 };
 
 // ===== AFFINITY & TECHNIQUE SETS =====
@@ -966,73 +966,189 @@ const EVIL_PHYSIQUES = [
 
 const ALL_PHYSIQUES = [...TRAINABLE_PHYSIQUES, ...LEGENDARY_PHYSIQUES, ...EVIL_PHYSIQUES];
 
-const DAO_FRAGMENTS = [
-    { name: "Dao of Fire", element: "fire", type: "false", reqRealm: 5, desc: "+20% fire damage for 10 turns" },
-    { name: "Dao of Water", element: "water", type: "false", reqRealm: 5, desc: "+20% water damage for 10 turns" },
-    { name: "Dao of Wind", element: "wind", type: "false", reqRealm: 5, desc: "+20% speed for 10 turns" },
-    { name: "Dao of Earth", element: "earth", type: "false", reqRealm: 5, desc: "+20% defense for 10 turns" },
-    { name: "Dao of Lightning", element: "lightning", type: "false", reqRealm: 5, desc: "+20% lightning damage for 10 turns" },
-    { name: "Fragment of the Ashen Cycle", element: "cycle", type: "false", reqRealm: 5, desc: "Life and death negotiate as one.", forbiddenClear: "ashen_garden" },
-    { name: "Prime Insight: Yin", element: "yin", type: "prime", primeName: "Yin", reqRealm: 6, desc: "The soft half of creation stirs.", requiresTrueDaos: 2 },
-    { name: "Prime Insight: Yang", element: "yang", type: "prime", primeName: "Yang", reqRealm: 6, desc: "The hard half of creation stirs.", requiresTrueDaos: 2 },
-    { name: "Prime Insight: Space", element: "space", type: "prime", primeName: "Space", reqRealm: 6, desc: "Distance collapses to a thought.", requiresTrueDaos: 2 },
-    { name: "Prime Insight: Time", element: "time", type: "prime", primeName: "Time", reqRealm: 6, desc: "Moments braid like threads.", requiresTrueDaos: 2 },
-    { name: "Prime Insight: Life", element: "life", type: "prime", primeName: "Life", reqRealm: 6, desc: "Vitality without vessel.", requiresTrueDaos: 2 },
-    { name: "Prime Insight: Death", element: "death", type: "prime", primeName: "Death", reqRealm: 6, desc: "Ending without grief.", requiresTrueDaos: 2 }
+const DAO_TIER_ORDER = ['primordial', 'fundamental', 'greater', 'lesser'];
+
+const DAO_TAXONOMY = {
+    wuji: {
+        id: 'wuji', name: 'Wuji', tier: 'primordial', emoji: '☯️',
+        desc: 'The undifferentiated Dao — all laws return here.',
+        reqRealm: 6, reqFundamentals: 2,
+        effects: { daoComprehensionPct: 10, allElementMult: 1.08 }
+    },
+
+    yin_yang: {
+        id: 'yin_yang', name: 'Yin-Yang Dao', tier: 'fundamental', branch: 'balance', emoji: '☯️',
+        mergeFrom: ['yin', 'yang'],
+        desc: 'Soft and hard creation in balance.',
+        qiPct: 0.08, spiritPct: 0.08, combatDmgPct: 5, alignmentDampenPct: 25
+    },
+    spacetime: {
+        id: 'spacetime', name: 'Spacetime Dao', tier: 'fundamental', branch: 'void', emoji: '🌌',
+        mergeFrom: ['space', 'time'],
+        desc: 'Distance and duration are one law.',
+        exploreBonusPct: 10, combatDmgPct: 8, evasionPct: 5
+    },
+    samsara: {
+        id: 'samsara', name: 'Samsara Dao', tier: 'fundamental', branch: 'cycle', emoji: '♾️',
+        mergeFrom: ['life', 'death'],
+        desc: 'Life and death cycle without end.',
+        hpRegenPct: 15, foundationPerCultivate: 1, decayResistPct: 20
+    },
+    five_phases: {
+        id: 'five_phases', name: 'Five Phases Dao', tier: 'fundamental', branch: 'elements', emoji: '🔥',
+        mergeFrom: ['phase_fire', 'phase_water', 'phase_earth', 'phase_metal', 'phase_wood'],
+        mergeMin: 3,
+        desc: 'The elements speak as one chorus.',
+        elementMult: 1.35, combatDmgPct: 6
+    },
+    karma: {
+        id: 'karma', name: 'Karma Dao', tier: 'fundamental', branch: 'karma', emoji: '⚖️',
+        mergeFrom: ['karma_debt', 'karma_grace'],
+        desc: 'Cause and consequence are written in the same ink.',
+        seerUnlock: true, alignmentShiftMult: 1.25, tribulationInsightPct: 15
+    },
+
+    yin:       { id: 'yin', name: 'Yin', tier: 'greater', branch: 'balance', element: 'yin', mergeTarget: 'yin_yang', spiritPct: 0.05 },
+    yang:      { id: 'yang', name: 'Yang', tier: 'greater', branch: 'balance', element: 'yang', mergeTarget: 'yin_yang', qiPct: 0.05 },
+    space:     { id: 'space', name: 'Space', tier: 'greater', branch: 'void', element: 'space', mergeTarget: 'spacetime', evasionPct: 3 },
+    time:      { id: 'time', name: 'Time', tier: 'greater', branch: 'void', element: 'time', mergeTarget: 'spacetime', slowResistPct: 10 },
+    life:      { id: 'life', name: 'Life', tier: 'greater', branch: 'cycle', element: 'life', mergeTarget: 'samsara', hpRegenPct: 8 },
+    death:     { id: 'death', name: 'Death', tier: 'greater', branch: 'cycle', element: 'death', mergeTarget: 'samsara', combatDmgPct: 4 },
+    phase_fire:     { id: 'phase_fire', name: 'Phase of Fire', tier: 'greater', branch: 'elements', element: 'fire', mergeTarget: 'five_phases', elementMult: 1.25, igniteChance: 0.28 },
+    phase_water:    { id: 'phase_water', name: 'Phase of Water', tier: 'greater', branch: 'elements', element: 'water', mergeTarget: 'five_phases', elementMult: 1.25, freezeChance: 0.24 },
+    phase_earth:    { id: 'phase_earth', name: 'Phase of Earth', tier: 'greater', branch: 'elements', element: 'earth', mergeTarget: 'five_phases', elementMult: 1.25, rootChance: 0.20 },
+    phase_metal:    { id: 'phase_metal', name: 'Phase of Metal', tier: 'greater', branch: 'elements', element: 'metal', mergeTarget: 'five_phases', elementMult: 1.20, armorPenPct: 0.10 },
+    phase_wood:     { id: 'phase_wood', name: 'Phase of Wood', tier: 'greater', branch: 'elements', element: 'wood', mergeTarget: 'five_phases', elementMult: 1.20, regenPct: 5 },
+    karma_debt:  { id: 'karma_debt', name: 'Karma of Debt', tier: 'greater', branch: 'karma', mergeTarget: 'karma', alignmentReadPct: 10 },
+    karma_grace: { id: 'karma_grace', name: 'Karma of Grace', tier: 'greater', branch: 'karma', mergeTarget: 'karma', alignmentReadPct: 10 },
+
+    lesser_fire:      { id: 'lesser_fire', name: 'Ember Insight', tier: 'lesser', branch: 'elements', element: 'fire', progressTo: 'phase_fire', progressGrant: 25, desc: '+20% fire damage for 10 turns (temporary)' },
+    lesser_water:     { id: 'lesser_water', name: 'Tide Insight', tier: 'lesser', branch: 'elements', element: 'water', progressTo: 'phase_water', progressGrant: 25 },
+    lesser_wind:      { id: 'lesser_wind', name: 'Gale Insight', tier: 'lesser', branch: 'elements', element: 'wind', progressTo: 'phase_wood', progressGrant: 15, desc: 'Wind is wood in motion' },
+    lesser_earth:     { id: 'lesser_earth', name: 'Stone Insight', tier: 'lesser', branch: 'elements', element: 'earth', progressTo: 'phase_earth', progressGrant: 25 },
+    lesser_lightning: { id: 'lesser_lightning', name: 'Thunder Insight', tier: 'lesser', branch: 'elements', element: 'lightning', progressTo: 'phase_metal', progressGrant: 15, desc: 'Lightning is metal heaven' },
+    lesser_ashen:     { id: 'lesser_ashen', name: 'Ashen Cycle Fragment', tier: 'lesser', branch: 'cycle', progressTo: 'death', progressGrant: 20, forbiddenClear: 'ashen_garden' }
+};
+
+const DAO_LEGACY_MAP = {
+    'Dao of Fire': 'phase_fire', 'Dao of Water': 'phase_water', 'Dao of Wind': 'phase_wood',
+    'Dao of Earth': 'phase_earth', 'Dao of Lightning': 'phase_metal',
+    'Yin': 'yin', 'Yang': 'yang', 'Space': 'space', 'Time': 'time', 'Life': 'life', 'Death': 'death',
+    'Yin-Yang Dao': 'yin_yang', 'Void Dao': 'spacetime', 'Cycle Dao': 'samsara'
+};
+
+const DAO_LEGACY_FRAGMENT_MAP = {
+    'Dao of Fire': 'Ember Insight',
+    'Dao of Water': 'Tide Insight',
+    'Dao of Wind': 'Gale Insight',
+    'Dao of Earth': 'Stone Insight',
+    'Dao of Lightning': 'Thunder Insight',
+    'Fragment of the Ashen Cycle': 'Ashen Cycle Fragment'
+};
+
+const DAO_FRAGMENT_POOL = [
+    { name: 'Ember Insight', daoId: 'lesser_fire', type: 'lesser', reqRealm: 5 },
+    { name: 'Tide Insight', daoId: 'lesser_water', type: 'lesser', reqRealm: 5 },
+    { name: 'Gale Insight', daoId: 'lesser_wind', type: 'lesser', reqRealm: 5 },
+    { name: 'Stone Insight', daoId: 'lesser_earth', type: 'lesser', reqRealm: 5 },
+    { name: 'Thunder Insight', daoId: 'lesser_lightning', type: 'lesser', reqRealm: 5 },
+    { name: 'Ashen Cycle Fragment', daoId: 'lesser_ashen', type: 'lesser', reqRealm: 5, forbiddenClear: 'ashen_garden' },
+    { name: 'Prime Insight: Yin', daoId: 'yin', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Yang', daoId: 'yang', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Space', daoId: 'space', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Time', daoId: 'time', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Life', daoId: 'life', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Death', daoId: 'death', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
+    { name: 'Karma Thread: Debt', daoId: 'karma_debt', type: 'greater', reqRealm: 6, requiresFundamental: 0 },
+    { name: 'Karma Thread: Grace', daoId: 'karma_grace', type: 'greater', reqRealm: 6, requiresFundamental: 0 }
 ];
 
+const DAO_COMPREHENSION_BALANCE = {
+    baseProgressPerSession: 18,
+    foundationScale: 1.2,
+    spiritScale: 0.8,
+    willScale: 0.8,
+    lesserToGreaterThreshold: 100,
+    greaterToFundamentalMergeMonths: 12,
+    mergeQiCost: 80,
+    mergeSpiritCost: 40,
+    wujiReqFundamentals: 2
+};
+
+const KARMA_SEER_BALANCE = {
+    lifespanMonthsCost: 6,
+    minKarmaGreater: 1,
+    readingCooldownMonths: 24,
+    hintPool: [
+        { weight: 30, type: 'tendency', text: 'A weight gathers toward {zone} — not certainty, but pull.' },
+        { weight: 25, type: 'warning', text: 'Your next tribulation will test {element} — prepare inwardly.' },
+        { weight: 20, type: 'opportunity', text: 'A fragment of {branch} may surface if you seek in the wilds.' },
+        { weight: 15, type: 'karma', text: 'Old deeds stir — alignment may shift if you repeat recent choices.' },
+        { weight: 10, type: 'vague', text: 'The thread frays. Too many paths; the reading scatters.' }
+    ],
+    noHardFutures: true
+};
+
+/** @deprecated — use DAO_FRAGMENT_POOL + dao-taxonomy.js */
+const DAO_FRAGMENTS = DAO_FRAGMENT_POOL.map(f => {
+    const def = DAO_TAXONOMY[f.daoId];
+    return {
+        name: f.name,
+        daoId: f.daoId,
+        element: def?.element || def?.branch || 'neutral',
+        type: f.type === 'greater' ? 'prime' : 'false',
+        reqRealm: f.reqRealm,
+        desc: def?.desc || '',
+        forbiddenClear: f.forbiddenClear,
+        requiresTrueDaos: f.requiresGreaterCount,
+        primeName: f.type === 'greater' ? def?.name : undefined
+    };
+});
+
+/** @deprecated — use DAO_TAXONOMY greater element daos */
 const TRUE_DAOS = [
-    { name: "Dao of Fire", element: "fire", type: "true", desc: "+50% fire damage permanently, can ignite enemies" },
-    { name: "Dao of Water", element: "water", type: "true", desc: "+50% water damage permanently, can freeze enemies" },
-    { name: "Dao of Wind", element: "wind", type: "true", desc: "+50% speed permanently, can dodge anything" },
-    { name: "Dao of Earth", element: "earth", type: "true", desc: "+50% defense permanently, can root enemies" },
-    { name: "Dao of Lightning", element: "lightning", type: "true", desc: "+50% lightning damage permanently, can stun enemies" }
+    { name: 'Dao of Fire', element: 'fire', type: 'true', desc: '+25% fire damage permanently, can ignite enemies' },
+    { name: 'Dao of Water', element: 'water', type: 'true', desc: '+25% water damage permanently, can freeze enemies' },
+    { name: 'Dao of Wind', element: 'wind', type: 'true', desc: 'Wood-phase insight — wind in motion' },
+    { name: 'Dao of Earth', element: 'earth', type: 'true', desc: '+25% earth damage permanently, can root enemies' },
+    { name: 'Dao of Lightning', element: 'lightning', type: 'true', desc: 'Metal-phase insight — thunder from heaven' }
 ];
 
+/** @deprecated — use DAO_TAXONOMY greater balance/void/cycle daos */
 const PRIME_DAOS = [
-    { name: "Yin", element: "yin", type: "prime", desc: "+Spirit, illusion/defense", mergeWith: "Yang", mergeResult: "Yin-Yang Dao" },
-    { name: "Yang", element: "yang", type: "prime", desc: "+Qi, offense/aggression", mergeWith: "Yin", mergeResult: "Yin-Yang Dao" },
-    { name: "Space", element: "space", type: "prime", desc: "Teleport, spatial attacks", mergeWith: "Time", mergeResult: "Void Dao" },
-    { name: "Time", element: "time", type: "prime", desc: "Slow enemies, speed self", mergeWith: "Space", mergeResult: "Void Dao" },
-    { name: "Life", element: "life", type: "prime", desc: "Regeneration, healing", mergeWith: "Death", mergeResult: "Cycle Dao" },
-    { name: "Death", element: "death", type: "prime", desc: "Damage, fear, decay", mergeWith: "Life", mergeResult: "Cycle Dao" }
+    { name: 'Yin', element: 'yin', type: 'prime', desc: '+Spirit, illusion/defense', mergeWith: 'Yang', mergeResult: 'Yin-Yang Dao' },
+    { name: 'Yang', element: 'yang', type: 'prime', desc: '+Qi, offense/aggression', mergeWith: 'Yin', mergeResult: 'Yin-Yang Dao' },
+    { name: 'Space', element: 'space', type: 'prime', desc: 'Teleport, spatial attacks', mergeWith: 'Time', mergeResult: 'Void Dao' },
+    { name: 'Time', element: 'time', type: 'prime', desc: 'Slow enemies, speed self', mergeWith: 'Space', mergeResult: 'Void Dao' },
+    { name: 'Life', element: 'life', type: 'prime', desc: 'Regeneration, healing', mergeWith: 'Death', mergeResult: 'Cycle Dao' },
+    { name: 'Death', element: 'death', type: 'prime', desc: 'Damage, fear, decay', mergeWith: 'Life', mergeResult: 'Cycle Dao' }
 ];
 
+/** @deprecated — use DAO_TAXONOMY fundamentals */
 const MERGED_DAOS = {
-    'Yin-Yang Dao': {
-        name: 'Yin-Yang Dao',
-        pair: ['Yin', 'Yang'],
-        desc: 'Balance offense and defense — alignment swings soften, Qi and Spirit rise.',
-        qiPct: 0.08,
-        spiritPct: 0.08,
-        combatDmgPct: 5,
-        alignmentDampenPct: 25
-    },
-    'Void Dao': {
-        name: 'Void Dao',
-        pair: ['Space', 'Time'],
-        desc: 'Space and time bend — explore rewards swell, techniques strike harder.',
-        exploreBonusPct: 10,
-        combatDmgPct: 8,
-        evasionPct: 5
-    },
-    'Cycle Dao': {
-        name: 'Cycle Dao',
-        pair: ['Life', 'Death'],
-        desc: 'Life and death cycle through you — recuperation strengthens, decay weakens.',
-        hpRegenPct: 15,
-        foundationPerCultivate: 1,
-        decayResistPct: 20
-    }
+    'Yin-Yang Dao': { name: 'Yin-Yang Dao', pair: ['Yin', 'Yang'], id: 'yin_yang', desc: DAO_TAXONOMY.yin_yang.desc, qiPct: 0.08, spiritPct: 0.08, combatDmgPct: 5, alignmentDampenPct: 25 },
+    'Void Dao': { name: 'Void Dao', pair: ['Space', 'Time'], id: 'spacetime', desc: DAO_TAXONOMY.spacetime.desc, exploreBonusPct: 10, combatDmgPct: 8, evasionPct: 5 },
+    'Cycle Dao': { name: 'Cycle Dao', pair: ['Life', 'Death'], id: 'samsara', desc: DAO_TAXONOMY.samsara.desc, hpRegenPct: 15, foundationPerCultivate: 1, decayResistPct: 20 },
+    'Spacetime Dao': { name: 'Spacetime Dao', pair: ['Space', 'Time'], id: 'spacetime', desc: DAO_TAXONOMY.spacetime.desc, exploreBonusPct: 10, combatDmgPct: 8, evasionPct: 5 },
+    'Samsara Dao': { name: 'Samsara Dao', pair: ['Life', 'Death'], id: 'samsara', desc: DAO_TAXONOMY.samsara.desc, hpRegenPct: 15, foundationPerCultivate: 1, decayResistPct: 20 },
+    'Five Phases Dao': { name: 'Five Phases Dao', id: 'five_phases', desc: DAO_TAXONOMY.five_phases.desc, elementMult: 1.35, combatDmgPct: 6 },
+    'Karma Dao': { name: 'Karma Dao', pair: ['Karma of Debt', 'Karma of Grace'], id: 'karma', desc: DAO_TAXONOMY.karma.desc, alignmentShiftMult: 1.25, tribulationInsightPct: 15 }
 };
 
 const DAO_MERGE_BALANCE = {
-    qiCost: 80,
-    spiritCost: 40,
-    months: 12,
-    baseChance: 35,
+    qiCost: DAO_COMPREHENSION_BALANCE.mergeQiCost,
+    spiritCost: DAO_COMPREHENSION_BALANCE.mergeSpiritCost,
+    months: DAO_COMPREHENSION_BALANCE.greaterToFundamentalMergeMonths,
     foundationBonus: 15,
     fameReward: 20
+};
+
+const DAO_BRANCH_LABELS = {
+    balance: 'Balance',
+    void: 'Void',
+    cycle: 'Cycle',
+    elements: 'Elements',
+    karma: 'Karma'
 };
 
 const WEAPON_TYPES = ["Sword", "Blade", "Spear", "Fist", "Staff"];

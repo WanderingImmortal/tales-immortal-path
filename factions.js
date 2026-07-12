@@ -304,8 +304,20 @@ function getElderFactionQuests(factionId) {
 
 function getMergedDaoEffects() {
     const fx = { combatDmgPct: 0, exploreBonusPct: 0, evasionPct: 0, hpRegenPct: 0, qiPct: 0, spiritPct: 0, alignmentDampenPct: 0, foundationPerCultivate: 0, decayResistPct: 0 };
-    (G.mergedDaos || []).forEach(name => {
-        const def = MERGED_DAOS[name];
+    if (typeof getActiveDaoEffects !== 'function' || typeof ensureDaoState !== 'function') {
+        (G.mergedDaos || []).forEach(name => {
+            const def = MERGED_DAOS[name];
+            if (!def) return;
+            Object.entries(def).forEach(([k, v]) => {
+                if (typeof v === 'number' && fx[k] != null) fx[k] += v;
+            });
+        });
+        return fx;
+    }
+    ensureDaoState();
+    G.daoState.comprehended.forEach(id => {
+        if (getDaoTier(id) !== 'fundamental') return;
+        const def = getDaoDef(id);
         if (!def) return;
         Object.entries(def).forEach(([k, v]) => {
             if (typeof v === 'number' && fx[k] != null) fx[k] += v;

@@ -26,7 +26,7 @@ function weaponIntentPathGate() {
     return { success: false, message: WEAPON_INTENT_DANTIAN_MSG };
 }
 
-/** Soul Mass PR hook — not wired into combat yet. */
+/** Wired into soul-mass mitigation via soul-mass.js */
 function getIntentSoulMitigationPct() {
     const intent = getActiveIntent();
     if (!intent) return 0;
@@ -356,6 +356,20 @@ function getIntentTechniqueSynergyBonus(tech) {
     if (!intent || !tech) return 0;
     if (intentHasArt(intent, 'blade_pressure')) return 0.06;
     return 0;
+}
+
+function getDaoIntentSynergyMult(tech) {
+    if (!isWeaponIntentPathActive() || !getActiveIntent() || !tech) return 1;
+    const el = typeof getTechniquePrimaryAffinityKey === 'function'
+        ? getTechniquePrimaryAffinityKey(tech)
+        : (tech.element || 'neutral');
+    const phaseId = ELEMENT_DAO_MAP[el];
+    const elementAligned = (phaseId && isDaoComprehended(phaseId)) || isDaoComprehended('five_phases');
+    let mult = 1;
+    if (elementAligned) mult += 0.08;
+    const intentMatch = typeof getTechniqueIntentMatch === 'function' ? getTechniqueIntentMatch(tech) : null;
+    if (intentMatch?.matched && elementAligned) mult += 0.07;
+    return Math.min(1.20, mult);
 }
 
 function applyIntentArtsOnBasicAttack(baseDmg) {

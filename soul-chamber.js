@@ -203,8 +203,8 @@ function getSoulActionBlockReason(layerId, action) {
     if (count >= maxStacks) {
         return `${action.label} fully refined (${maxStacks}×).`;
     }
-    if (action.requiresTrueDao && !(G.trueDaos?.length > 0)) {
-        return `${action.label} requires comprehending at least one True Dao.`;
+    if (action.requiresTrueDao && !(typeof hasAnyGreaterElementDao === 'function' ? hasAnyGreaterElementDao() : G.trueDaos?.length > 0)) {
+        return `${action.label} requires comprehending at least one Greater element Dao.`;
     }
     const costs = getSoulActionMaterialCosts(action);
     if (costs) {

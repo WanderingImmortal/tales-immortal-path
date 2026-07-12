@@ -121,7 +121,7 @@ function rollForbiddenClueFromExplore() {
 
 function rollForbiddenClueFromDao() {
     if (getForbiddenRealmGate() < FORBIDDEN_BALANCE.searchRealmMin) return;
-    if (!G.trueDaos || G.trueDaos.length < 1) return;
+    if (typeof countComprehendedTier === 'function' ? countComprehendedTier('greater') < 1 : (!G.trueDaos || G.trueDaos.length < 1)) return;
     const groundId = pickGroundForClue(currentZone, 'resonance');
     if (groundId) grantClue(groundId, 'resonance');
 }

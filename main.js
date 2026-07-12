@@ -23,17 +23,19 @@ function getDaoActionMonths(baseMonths) {
 }
 
 function findDaoFragment() {
+    ensureDaoState();
     if (G.realmIdx < getDaoFragmentReqRealm(null)) {
         return { success: false, message: `You must reach ${getDaoSeekingRealmLabel()} before seeking Dao fragments.` };
     }
-    const available = DAO_FRAGMENTS.filter(f => {
-        if (G.daoFragments.includes(f.name)) return false;
+    const available = DAO_FRAGMENT_POOL.filter(f => {
+        if (G.daoState.fragments.includes(f.name)) return false;
         if (!canFindDaoFragment(f)) return false;
-        if (f.type === 'prime') {
-            if ((G.trueDaos?.length || 0) < (f.requiresTrueDaos || 2)) return false;
+        if (f.requiresGreaterCount != null) {
+            if (countComprehendedTier('greater') < f.requiresGreaterCount) return false;
             if (G.realmIdx < (f.reqRealm || 6)) return false;
-            if (f.primeName && G.primeDaos.includes(f.primeName)) return false;
+            if (isDaoComprehended(f.daoId)) return false;
         }
+        if (f.type === 'greater' && isDaoComprehended(f.daoId)) return false;
         return true;
     });
     if (available.length === 0) return { success: false, message: "No new fragments available." };
@@ -43,20 +45,23 @@ function findDaoFragment() {
         return { success: false, message: "Your lifespan ends..." };
     }
     const fragment = available[Math.floor(Math.random() * available.length)];
-    G.daoFragments.push(fragment.name);
-    const msg = `📜 You find a Dao Fragment: ${fragment.name}. ${fragment.desc}`;
-    if (G.trueDaos && G.trueDaos.length >= 1) rollForbiddenClueFromDao();
+    G.daoState.fragments.push(fragment.name);
+    syncDaoFragmentArrays();
+    const def = getDaoDef(fragment.daoId);
+    const desc = def?.desc || '';
+    const msg = `📜 You find a Dao Fragment: ${fragment.name}. ${desc}`;
+    if (hasAnyGreaterElementDao() || countComprehendedTier('greater') >= 1) rollForbiddenClueFromDao();
     commitActionLog(msg);
     return { success: true, message: msg, logged: true };
 }
 
 function comprehendDao(fragmentName) {
-    const fragment = DAO_FRAGMENTS.find(f => f.name === fragmentName);
+    ensureDaoState();
+    const fragment = getDaoFragmentPoolEntry(fragmentName);
     if (!fragment) return { success: false, message: "Fragment not found." };
-    if (!G.daoFragments.includes(fragmentName)) return { success: false, message: "You don't have this fragment." };
-    if (G.realmIdx < getDaoFragmentReqRealm(fragment)) {
-        return { success: false, message: `You must be ${getDaoSeekingRealmLabel()} or higher to comprehend fragments.` };
-    }
+    const block = canComprehendFragment(fragment);
+    if (block) return { success: false, message: block };
+
     const cost = 30 + G.daoComprehensionAttempts * 5;
     if (G.qi < cost || G.spirit < Math.floor(cost / 2)) {
         return { success: false, message: `Need ${cost} Qi and ${Math.floor(cost/2)} Spirit.` };
@@ -69,89 +74,38 @@ function comprehendDao(fragmentName) {
     G.qi -= cost;
     G.spirit -= Math.floor(cost / 2);
     G.daoComprehensionAttempts++;
-    let chance = 30 + getEffectiveFoundation() * 2 + G.spirit * 1.5 + G.will * 1.5;
-    if (typeof getSectBuildingBonus === 'function') chance += getSectBuildingBonus('daoSpeedPct');
-    if (Math.random() * 100 < chance) {
-        if (fragment.type === 'prime') {
-            const primeName = fragment.primeName || PRIME_DAOS.find(p => p.element === fragment.element)?.name;
-            if (primeName && !G.primeDaos.includes(primeName)) {
-                G.primeDaos.push(primeName);
-                G.daoFragments = G.daoFragments.filter(f => f !== fragmentName);
-                grantFoundation(12);
-                const fameAdded = typeof addFame === 'function' ? addFame(18) : (G.fame += 18, 18);
-                const msg = `🌌 You comprehend Prime Dao: ${primeName}! +12 Foundation, +${fameAdded} Fame.`;
-                commitActionLog(msg);
-                return { success: true, message: msg, logged: true };
-            }
-        }
-        const trueDao = TRUE_DAOS.find(d => d.element === fragment.element);
-        if (trueDao && !G.trueDaos.includes(trueDao.name)) {
-            G.trueDaos.push(trueDao.name);
-            G.daoFragments = G.daoFragments.filter(f => f !== fragmentName);
-            grantFoundation(10);
-            const fameAdded = typeof addFame === 'function' ? addFame(15) : (G.fame += 15, 15);
-            const msg = `🌟 You comprehend the ${trueDao.name}! ${trueDao.desc} +10 Foundation, +${fameAdded} Fame.`;
-            if (typeof shiftDaoAlignment === 'function') {
-                shiftDaoAlignment(DAO_ALIGNMENT.shifts.trueDao, 'comprehending True Dao');
-            }
-            if (typeof getActiveScars === 'function' && getActiveScars().length && typeof healScarByMethod === 'function') {
-                healScarByMethod('dao_enlightenment', getActiveScars()[0].id);
-            }
-            commitActionLog(msg);
-            return { success: true, message: msg, logged: true };
-        }
-        grantFoundation(5);
-        const insightMsg = `📜 You gain insight but do not comprehend a new Dao. +5 Foundation.`;
-        commitActionLog(insightMsg);
-        return { success: true, message: insightMsg, logged: true };
-    }
-    const failMsg = `💫 The Dao eludes you. Try again later.`;
-    commitActionLog(failMsg);
-    return { success: false, message: failMsg, logged: true };
-}
 
-function getAvailableDaoMerges() {
-    return Object.values(MERGED_DAOS).filter(def => {
-        if (G.mergedDaos.includes(def.name)) return false;
-        return def.pair.every(p => G.primeDaos.includes(p));
-    });
+    const prevPct = getDaoComprehensionProgress(fragment.daoId);
+    const result = comprehendFragment(fragmentName);
+    if (!result.success) {
+        cancelActionLog();
+        return result;
+    }
+
+    if (result.comprehended) {
+        const cdef = getDaoDef(result.comprehended);
+        const foundationGain = cdef?.branch === 'elements' ? 10 : 12;
+        grantFoundation(foundationGain);
+        const fameGain = cdef?.branch === 'elements' ? 15 : 18;
+        const fameAdded = typeof addFame === 'function' ? addFame(fameGain) : (G.fame += fameGain, fameGain);
+        result.message += ` +${foundationGain} Foundation, +${fameAdded} Fame.`;
+        if (typeof shiftDaoAlignment === 'function' && cdef?.branch === 'elements') {
+            shiftDaoAlignment(DAO_ALIGNMENT.shifts.trueDao, 'comprehending Greater Dao');
+        }
+        if (typeof getActiveScars === 'function' && getActiveScars().length && typeof healScarByMethod === 'function') {
+            healScarByMethod('dao_enlightenment', getActiveScars()[0].id);
+        }
+    } else if (getDaoComprehensionProgress(fragment.daoId) > prevPct) {
+        grantFoundation(Math.min(5, Math.floor((getDaoComprehensionProgress(fragment.daoId) - prevPct) / 10)));
+    }
+
+    commitActionLog(result.message);
+    return { success: true, message: result.message, logged: true };
 }
 
 function mergeDaoPair(mergedName) {
-    const def = MERGED_DAOS[mergedName];
-    if (!def) return { success: false, message: 'Unknown supreme Dao.' };
-    if (G.mergedDaos.includes(def.name)) return { success: false, message: 'Already merged.' };
-    if (!def.pair.every(p => G.primeDaos.includes(p))) {
-        return { success: false, message: `Need both ${def.pair.join(' and ')} Prime Daos.` };
-    }
-    const bal = DAO_MERGE_BALANCE;
-    if (G.qi < bal.qiCost || G.spirit < bal.spiritCost) {
-        return { success: false, message: `Need ${bal.qiCost} Qi and ${bal.spiritCost} Spirit.` };
-    }
-    beginActionLog();
-    if (!advanceTime(bal.months, `Merging into ${def.name}`)) {
-        cancelActionLog();
-        return { success: false, message: 'Your lifespan ends during the merge.' };
-    }
-    G.qi -= bal.qiCost;
-    G.spirit -= bal.spiritCost;
-    let chance = bal.baseChance + getEffectiveFoundation() * 1.2 + G.spirit * 0.8;
-    if (typeof getSectBuildingBonus === 'function') chance += getSectBuildingBonus('daoSpeedPct');
-    if (Math.random() * 100 >= chance) {
-        const failMsg = `💫 The merge collapses — the supreme Dao slips away.`;
-        commitActionLog(failMsg);
-        return { success: false, message: failMsg, logged: true };
-    }
-    def.pair.forEach(p => {
-        G.primeDaos = G.primeDaos.filter(n => n !== p);
-    });
-    G.mergedDaos.push(def.name);
-    grantFoundation(bal.foundationBonus || 0);
-    const fameAdded = typeof addFame === 'function' ? addFame(bal.fameReward || 0) : (G.fame += (bal.fameReward || 0), bal.fameReward || 0);
-    const msg = `🌀 SUPREME DAO — ${def.name}! ${def.desc} +${bal.foundationBonus} Foundation, +${fameAdded} Fame.`;
-    if (typeof shiftDaoAlignment === 'function') shiftDaoAlignment(8, 'merging supreme Daos');
-    commitActionLog(msg);
-    return { success: true, message: msg, logged: true };
+    const fundamentalId = DAO_LEGACY_MAP[mergedName] || MERGED_DAOS[mergedName]?.id || mergedName;
+    return mergeDaoFundamental(fundamentalId);
 }
 
 // ===== TECHNIQUE FUNCTION =====
@@ -560,6 +514,8 @@ function setupCreation(refreshOnly) {
         G.trueDaos = [];
         G.primeDaos = [];
         G.mergedDaos = [];
+        G.daoState = { comprehended: [], progress: {}, fragments: [], seerLastReadingMonth: null };
+        G._daoMigrated = true;
         G.perfectCultivation = false;
         G.hasGoldenNeedle = false;
         G.hasAncientText = false;
