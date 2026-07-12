@@ -175,9 +175,149 @@ function getSoulMassIntimidateReductionBonus() {
 
 function isEnemyInteriorWeak(enemy) {
     if (!enemy) return false;
-    const playerRealm = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('spirit') : (G.realmIdx || 0);
-    const enemyBand = enemy.minRealm != null ? enemy.minRealm : 1;
-    return enemyBand <= 1 || playerRealm >= enemyBand + 2;
+    const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+    const threshold = bal?.weakInteriorStatSum ?? 14;
+    if (enemy.will != null || enemy.spirit != null) {
+        return (enemy.will || 0) + (enemy.spirit || 0) < threshold;
+    }
+    const realm = enemy.minRealm != null ? enemy.minRealm : 1;
+    return realm * 4 < threshold;
+}
+
+// ===== Soul Condensation technique school =====
+
+function isSoulCondensationTechnique(template) {
+    return template?.school === 'soul_condensation';
+}
+
+function getSoulMassLabelForThreshold(massMin) {
+    const tiers = typeof SOUL_MASS_TIERS !== 'undefined' ? SOUL_MASS_TIERS : [];
+    let label = 'Unformed';
+    for (const t of tiers) {
+        if (massMin >= t.massMin) label = t.label;
+    }
+    return label;
+}
+
+function getSoulCondensationMassBlockReason(template) {
+    if (!template || !isSoulCondensationTechnique(template)) return null;
+    const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+    const massMin = template.soulMassMin ?? bal?.defaultMassMin ?? 10;
+    if (getSoulMass() >= massMin) return null;
+    const tierLabel = getSoulMassLabelForThreshold(massMin);
+    return `Requires Soul Mass ${massMin}+ (${tierLabel}) — condense spirit in the Soul Palace.`;
+}
+
+function isSoulCondensationMassMet(template) {
+    return !getSoulCondensationMassBlockReason(template);
+}
+
+function getSoulCondensationPowerMult(template) {
+    if (!isSoulCondensationTechnique(template)) return 1;
+    const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+    if (!bal) return 1;
+    const massMin = template.soulMassMin ?? bal.defaultMassMin;
+    const massMet = getSoulMass() >= massMin;
+    let mult = 1;
+    if (G.path !== 'soul') mult *= bal.offPathDamageMult;
+    if (!massMet) mult *= bal.lowMassDamageMult;
+    return mult;
+}
+
+function getSoulCondensationCostMult(template) {
+    if (!isSoulCondensationTechnique(template)) return 1;
+    const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+    if (!bal) return 1;
+    const massMin = template.soulMassMin ?? bal.defaultMassMin;
+    const massMet = getSoulMass() >= massMin;
+    let mult = 1;
+    if (G.path !== 'soul') mult *= bal.offPathCostMult;
+    if (!massMet) mult *= bal.lowMassCostMult;
+    return mult;
+}
+
+function applySpiritDamageToEnemy(rawDmg, opts) {
+    opts = opts || {};
+    const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+    let dmg = rawDmg || 0;
+    const bypassPct = opts.bypassPhysiquePct ?? bal?.enemyPhysiqueBypassPct ?? 0.35;
+    if (opts.defending) {
+        const baseDefendMult = 0.45;
+        const effectiveMult = baseDefendMult + (1 - baseDefendMult) * bypassPct;
+        dmg = Math.floor(dmg * effectiveMult);
+    }
+    if (isEnemyInteriorWeak(G.enemy)) {
+        dmg = Math.floor(dmg * (1 + (bal?.weakInteriorBonusPct ?? 0.20)));
+    }
+    return Math.max(0, dmg);
+}
+
+function playerKnowsSoulSearch() {
+    return G.techniques?.some(t => t.name === 'Soul Search');
+}
+
+function isSoulSearchActive() {
+    return playerKnowsSoulSearch() && !G.soulSearchExploreBonusConsumed;
+}
+
+function getSoulSearchExploreRollMult() {
+    if (!playerKnowsSoulSearch() || G.soulSearchExploreBonusConsumed) return 1;
+    const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+    G.soulSearchExploreBonusConsumed = true;
+    G.soulSearchExploreBonus = bal?.searchExploreBonusPct ?? 8;
+    addLog('🔍 Soul Search sensitizes you to hidden trails.');
+    return 1 + (G.soulSearchExploreBonus / 100);
+}
+
+function resetSoulSearchExploreBonus() {
+    if (!playerKnowsSoulSearch()) return;
+    G.soulSearchExploreBonusConsumed = false;
+    G.soulSearchExploreBonus = null;
+}
+
+function canRandomGrantSoulCondensationTechnique(template) {
+    if (!isSoulCondensationTechnique(template)) return true;
+    return isSoulCondensationMassMet(template);
+}
+
+function warnSoulCondensationCombatOnce(techName, template) {
+    if (!template || isSoulCondensationMassMet(template)) return;
+    if (!G.soulCondensationCombatWarned) G.soulCondensationCombatWarned = {};
+    if (G.soulCondensationCombatWarned[techName]) return;
+    G.soulCondensationCombatWarned[techName] = true;
+    addCombatLog('💠 Your Soul Mass is thin — this condensation art fades.', 'entry-mod');
+}
+
+function getSoulSearchNpcInsight(npc) {
+    if (!playerKnowsSoulSearch()) return '';
+    const bal = typeof SOUL_CONDENSATION_BALANCE !== 'undefined' ? SOUL_CONDENSATION_BALANCE : null;
+    if (Math.random() >= (bal?.searchNpcInsightChance ?? 0.35)) return '';
+    const hints = [];
+    if (npc.disposition) hints.push(`hidden bearing: ${npc.disposition}`);
+    if (npc.alignment != null) hints.push(`moral tint: ${npc.alignment > 0 ? 'righteous' : npc.alignment < 0 ? 'corrupt' : 'neutral'}`);
+    if (npc.isDemonicTalent) hints.push('demonic taint beneath the surface');
+    if (typeof getWorldNpcStrengthLabel === 'function') {
+        hints.push(`true strength: ${getWorldNpcStrengthLabel(npc)}`);
+    }
+    return hints.length ? ` · Soul Search: ${hints.join('; ')}` : '';
+}
+
+function tryGrantSoulSpikeManual() {
+    if (G.soulPalaceSpikeGranted) return;
+    if (typeof grantManual !== 'function') return;
+    if (G.techniques?.some(t => t.name === 'Soul Spike')) {
+        G.soulPalaceSpikeGranted = true;
+        return;
+    }
+    if (typeof getManualShelfEntry === 'function' && getManualShelfEntry('Soul Spike')) {
+        G.soulPalaceSpikeGranted = true;
+        return;
+    }
+    if (getSoulMass() < 25) return;
+    if (typeof isSoulLayerUnlocked === 'function' && !isSoulLayerUnlocked('awakened')) return;
+    G.soulPalaceSpikeGranted = true;
+    grantManual('Soul Spike', { source: 'soul_palace' });
+    addLog('💠 Soul Mass coalesces into a manual — Soul Spike awaits in your travel kit.');
 }
 
 function onCombatStartSoulMass() {

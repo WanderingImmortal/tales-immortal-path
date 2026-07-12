@@ -1151,6 +1151,12 @@ function renderTechItemHtml(tech) {
         ? getCultivationTierLabel(meta.cultivationTier, meta.path)
         : '';
     const cultBadge = cultTierLabel ? `<span class="tech-cultivation-tier">${cultTierLabel}</span>` : '';
+    const condensationBadge = meta.school === 'soul_condensation'
+        ? '<span class="tech-set-badge">💠 Condensation</span>' : '';
+    const gateHint = typeof getSoulCondensationGateHint === 'function'
+        ? getSoulCondensationGateHint(TECHNIQUE_POOL.find(t => t.name === tech.name))
+        : '';
+    const gateLine = gateHint ? ` · <span style="color:#9b8fd4;">${gateHint}</span>` : '';
     const intentHint = typeof getTechniqueIntentHint === 'function'
         ? getTechniqueIntentHint(TECHNIQUE_POOL.find(t => t.name === tech.name))
         : '';
@@ -1161,8 +1167,8 @@ function renderTechItemHtml(tech) {
     const affordClass = canAfford ? '' : ' tech-unaffordable';
     const viabilityBadge = typeof getTechniqueViabilityBadge === 'function' ? getTechniqueViabilityBadge(tech) : '';
     return `<div class="popup-item${affordClass}" data-tech="${tech.name}"${canAfford ? '' : ' data-unaffordable="1"'}>
-        <div class="name">${pathIcon} ${tech.name} ${viabilityBadge} ${cultBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
-        <div class="desc">${tech.desc} · ${elemLabel} · ${tech.rarity}${intentLine}${affLine ? ' · ' + affLine : ''}</div>
+        <div class="name">${pathIcon} ${tech.name} ${viabilityBadge} ${cultBadge} ${condensationBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
+        <div class="desc">${tech.desc} · ${elemLabel} · ${tech.rarity}${intentLine}${gateLine}${affLine ? ' · ' + affLine : ''}</div>
         <div class="meta">${costLine}</div>
     </div>`;
 }
@@ -2272,10 +2278,14 @@ function renderMerchantPopup() {
         const talentBlock = template ? getTechniqueTalentBlockReason(template) : null;
         const bodyManual = template?.path === 'body' && G.path !== 'body';
         const factionLocked = typeof isMarketTechniqueUnlocked === 'function' && !isMarketTechniqueUnlocked(item.technique, zoneId);
+        const massBlock = template && typeof getSoulCondensationMassBlockReason === 'function'
+            ? getSoulCondensationMassBlockReason(template) : null;
         const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
-        const canBuy = !locked && !factionLocked && G.stones >= finalPrice;
+        const canBuy = !locked && !factionLocked && !massBlock && G.stones >= finalPrice;
         const realmName = PATHS[G.path].realms[reqRealm] || `Realm ${reqRealm + 1}`;
-        let status = locked ? `Need ${realmName}` : talentBlock
+        let status = locked ? `Need ${realmName}` : massBlock
+            ? massBlock
+            : talentBlock
             ? `${talentBlock} to comprehend`
             : bodyManual
             ? 'Manual · body path to comprehend'

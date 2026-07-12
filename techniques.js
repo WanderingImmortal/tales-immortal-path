@@ -137,13 +137,35 @@ function countManualShelfTotal() {
 
 function getTechniqueTrackLabel(template) {
     if (!template) return 'Technique';
+    if (template.school === 'soul_condensation') return 'Condensation';
     if (template.path === 'body') return 'Martial';
     if (template.path === 'soul') return 'Soul';
     if (template.path === 'qi') return 'Qi';
     return 'Technique';
 }
 
-function canLearnTechnique(template) {
+function getSoulCondensationGateHint(template) {
+    if (!isSoulCondensationTechnique(template)) return '';
+    const mass = typeof getSoulMass === 'function' ? getSoulMass() : 0;
+    const massMin = template.soulMassMin ?? SOUL_CONDENSATION_BALANCE?.defaultMassMin ?? 10;
+    const tierLabel = typeof getSoulMassLabelForThreshold === 'function'
+        ? getSoulMassLabelForThreshold(massMin) : '';
+    const block = typeof getSoulCondensationMassBlockReason === 'function'
+        ? getSoulCondensationMassBlockReason(template) : null;
+    let hint = `💠 Soul Mass ${massMin}+ (${tierLabel}) · yours: ${mass}`;
+    if (block) hint += ' · below gate (grandfathered arts weakened)';
+    else if (G.path !== 'soul') hint += ' · off-path penalty';
+    return hint;
+}
+
+function canRandomGrantTechnique(template) {
+    if (!template) return false;
+    if (typeof canRandomGrantSoulCondensationTechnique === 'function'
+        && !canRandomGrantSoulCondensationTechnique(template)) return false;
+    return true;
+}
+
+function canLearnTechnique(template, opts) {
     if (!template) return false;
     if (template.reqPath && G.path !== template.reqPath) return false;
     if (G.realmIdx < getTechniqueReqRealm(template)) return false;
@@ -151,6 +173,10 @@ function canLearnTechnique(template) {
     const talentBlock = getTechniqueTalentBlockReason(template);
     if (talentBlock) return false;
     if (typeof getTechniqueAlignmentBlockReason === 'function' && getTechniqueAlignmentBlockReason(template)) return false;
+    if (typeof isSoulCondensationTechnique === 'function' && isSoulCondensationTechnique(template) && !opts?.skipGates) {
+        const massBlock = getSoulCondensationMassBlockReason(template);
+        if (massBlock) return false;
+    }
     return true;
 }
 
@@ -226,6 +252,10 @@ function getComprehendBlockReason(template) {
     const alignBlock = typeof getTechniqueAlignmentBlockReason === 'function'
         ? getTechniqueAlignmentBlockReason(template) : null;
     if (alignBlock) return alignBlock;
+    if (typeof isSoulCondensationTechnique === 'function' && isSoulCondensationTechnique(template)) {
+        const massBlock = getSoulCondensationMassBlockReason(template);
+        if (massBlock) return massBlock;
+    }
     if (G.inCombat) return 'Cannot study during combat.';
     if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot study manuals right now.';
     return null;
@@ -240,9 +270,9 @@ function getComprehendManualMonths(template) {
     const b = MANUAL_BALANCE;
     const tierId = getTechniqueCultivationTierId(template);
     const tierMonths = b.monthsByCultivationTier?.[tierId];
-    if (tierMonths != null) return tierMonths;
-    const rarity = template?.rarity || 'common';
-    return b.monthsByRarity[rarity] ?? b.defaultMonths;
+    let months = tierMonths != null ? tierMonths : (b.monthsByRarity[template?.rarity || 'common'] ?? b.defaultMonths);
+    if (template?.soulMassMin >= 25) months += 1;
+    return months;
 }
 
 function removeManualFromShelf(techName, qty) {
@@ -325,6 +355,7 @@ function inferTechniqueQuality(template) {
 
 function resolveIntentReq(template) {
     if (!template) return null;
+    if (typeof isSoulCondensationTechnique === 'function' && isSoulCondensationTechnique(template)) return null;
     if (template.intentReq) return template.intentReq;
     const quality = inferTechniqueQuality(template);
     if (quality === 'low') return null;
@@ -340,6 +371,7 @@ function resolveIntentReq(template) {
 
 function getTechniqueIntentProfile(template) {
     if (!template) return null;
+    if (typeof isSoulCondensationTechnique === 'function' && isSoulCondensationTechnique(template)) return null;
     const quality = inferTechniqueQuality(template);
     const intentReq = resolveIntentReq(template);
     const balance = INTENT_TECHNIQUE_BALANCE[quality] || INTENT_TECHNIQUE_BALANCE.low;
@@ -449,6 +481,19 @@ function getTechniqueCombatViability(tech) {
         const pct = Math.round(obsMult * 100);
         const obsNote = `Outdated art — ${pct}% power (${gap} realm${gap > 1 ? 's' : ''} behind).`;
         result.warnText = obsNote;
+    }
+
+    const template = getTechniqueTemplate(tech.name);
+    if (typeof isSoulCondensationTechnique === 'function' && isSoulCondensationTechnique(template)) {
+        if (!isSoulCondensationMassMet(template)) {
+            result.warnIcon = result.warnIcon || '💠';
+            const thinNote = 'Soul Mass thin — condensation art weakened.';
+            result.warnText = result.warnText ? `${result.warnText} ${thinNote}` : thinNote;
+        } else if (G.path !== 'soul') {
+            result.warnIcon = result.warnIcon || '💠';
+            const offNote = 'Off-path wielder — condensation art muted.';
+            result.warnText = result.warnText ? `${result.warnText} ${offNote}` : offNote;
+        }
     }
 
     const intent = getTechniqueIntentMatch(tech);

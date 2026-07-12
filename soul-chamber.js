@@ -536,6 +536,7 @@ function runSoulCondenseAction(layerId, actionId) {
     const mass = typeof getSoulMass === 'function' ? getSoulMass() : 0;
     const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
     commitActionLog(`💠 ${action.label} complete. Soul Mass ${mass} (${tierLabel}).`);
+    if (typeof tryGrantSoulSpikeManual === 'function') tryGrantSoulSpikeManual();
     renderSoulChamberUI();
     fullRender();
 }
@@ -583,6 +584,11 @@ function renderSoulChamberUI() {
         if (typeof isInteriorSoulWeak === 'function' && isInteriorSoulWeak()) {
             massEl.textContent += ' · Your interior soul is thin.';
         }
+        const manualNotes = [];
+        if (mass >= 10) manualNotes.push('Soul Search @ 10');
+        if (mass >= 25) manualNotes.push('Soul Spike @ 25');
+        if (manualNotes.length) massEl.textContent += ` · Condensation manuals: ${manualNotes.join(', ')}.`;
+        if (typeof tryGrantSoulSpikeManual === 'function') tryGrantSoulSpikeManual();
     }
     let progress, labelText;
     if (tab === 'prelude') {
