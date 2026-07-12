@@ -1,10 +1,9 @@
 // ============================================
-// VESSEL-RULES.JS — One sworn physical oath per vessel (framework shell)
+// VESSEL-RULES.JS — One sworn physical oath per vessel
 // ============================================
 //
 // Dantian → Weapon Intent; Vessel → Vessel Rules; Spirit → Soul Mass (future).
-// Blood and Unnamed mechanics arrive in follow-up PRs — this module owns swear/release,
-// progression meter, Perfect Cultivation stub, and combat hook placeholders.
+// Rule of Blood is fully playable; Rule of the Unnamed arrives in a follow-up PR.
 
 /** Map legacy/alternate layer ids to Body Chamber keys. */
 function normalizeVesselRuleBodyLayer(layerId) {
@@ -19,6 +18,18 @@ function ensureVesselRuleState() {
     if (!G.vesselRule.progression) G.vesselRule.progression = {};
     if (G.vesselRule.progressionPct == null) G.vesselRule.progressionPct = 0;
     if (G.vesselRule.swornAtMonth == null) G.vesselRule.swornAtMonth = G.ageMonths || 0;
+}
+
+function ensureVesselRuleCombatState() {
+    if (!G.vesselRuleCombat) {
+        G.vesselRuleCombat = {
+            bloodSealedTurns: 0,
+            sealCooldownTurns: 0,
+            damageTakenThisFight: 0,
+            wasBloodiedThisFight: false,
+            loggedBloodied: false
+        };
+    }
 }
 
 function hasVesselRule() {
@@ -38,6 +49,14 @@ function getVesselRuleDef(id) {
 function getActiveVesselRuleDef() {
     const id = getVesselRuleId();
     return id ? getVesselRuleDef(id) : null;
+}
+
+function hasActiveVesselRule(id) {
+    return getVesselRuleId() === id;
+}
+
+function isRuleOfBloodActive() {
+    return hasActiveVesselRule('blood');
 }
 
 function isVesselRuleCooldownActive() {
@@ -146,7 +165,6 @@ function applyVesselRuleAbandonPunishment() {
     if (bal.abandonRegressRealm && typeof regressVesselTrackToCurrentRealmStart === 'function') {
         regressVesselTrackToCurrentRealmStart();
     }
-    // Cooldown blocks re-swear until this month — no extra time cost on release.
     const cooldownMonths = bal.releaseCooldownMonths || 12;
     G.vesselRuleCooldownUntilMonth = (G.ageMonths || 0) + cooldownMonths;
 }
@@ -208,7 +226,11 @@ function hasVesselInteriorPeak() {
 }
 
 function getVesselRuleSoulContestPct() {
-    return 0;
+    if (!isRuleOfBloodActive()) return 0;
+    const bal = typeof RULE_OF_BLOOD_BALANCE !== 'undefined' ? RULE_OF_BLOOD_BALANCE : null;
+    if (!bal) return 0;
+    const t = getVesselRuleProgressionPct() / 100;
+    return bal.soulContestPctBase + (bal.soulContestPctAtComplete - bal.soulContestPctBase) * t;
 }
 
 function vesselRuleActionBlocked() {
@@ -216,7 +238,191 @@ function vesselRuleActionBlocked() {
         || (typeof isTribulationActive === 'function' && isTribulationActive());
 }
 
-// Combat hooks — no-op until Blood / Unnamed PRs wire mechanics.
-function onCombatStartVesselRule() {}
+// ===== Rule of Blood — combat helpers =====
 
-function onPlayerDamagedVesselRule(_dmg, _opts) {}
+function getBloodRuleBalance() {
+    return typeof RULE_OF_BLOOD_BALANCE !== 'undefined' ? RULE_OF_BLOOD_BALANCE : null;
+}
+
+function blockBloodRuleHealing() {
+    return G.inCombat && isRuleOfBloodActive();
+}
+
+function isBloodied() {
+    if (!G.inCombat || !isRuleOfBloodActive()) return false;
+    const bal = getBloodRuleBalance();
+    if (!bal) return false;
+    ensureVesselRuleCombatState();
+    const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
+    if (hpCap > 0 && G.hp / hpCap < bal.bloodiedHpPct) return true;
+    if (G.combatStatus?.bleedTurns > 0) return true;
+    const dmgThreshold = Math.floor(hpCap * bal.bloodiedDamageTakenPct);
+    if ((G.vesselRuleCombat.damageTakenThisFight || 0) >= dmgThreshold) return true;
+    return false;
+}
+
+function markBloodiedThisFight() {
+    if (!G.inCombat || !isRuleOfBloodActive()) return;
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    if (!isBloodied()) return;
+    if (!vc.wasBloodiedThisFight) {
+        vc.wasBloodiedThisFight = true;
+        if (G.vesselRule?.progression) {
+            G.vesselRule.progression.fightsBloodied = (G.vesselRule.progression.fightsBloodied || 0) + 1;
+        }
+    }
+    if (!vc.loggedBloodied) {
+        vc.loggedBloodied = true;
+        if (typeof addCombatLog === 'function') {
+            addCombatLog(`🩸 Blood coats the vessel. The Rule awakens.`, 'entry-mod');
+        }
+    }
+}
+
+function getBloodRuleDamageMult() {
+    if (!isBloodied() || G.path !== 'body') return 1;
+    const bal = getBloodRuleBalance();
+    return bal ? bal.bloodiedDamageMult : 1;
+}
+
+function getBloodRuleDamageReduction() {
+    if (!isBloodied()) return 0;
+    const bal = getBloodRuleBalance();
+    return bal ? bal.bloodiedDamageReductionPct : 0;
+}
+
+function applyBloodRuleDamageReduction(dmg) {
+    const reduction = getBloodRuleDamageReduction();
+    if (!reduction || dmg < 1) return dmg;
+    return Math.max(1, Math.floor(dmg * (1 - reduction)));
+}
+
+function canSealBlood() {
+    if (!G.inCombat || !isRuleOfBloodActive() || G.path !== 'body') return false;
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    if ((vc.sealCooldownTurns || 0) > 0) return false;
+    const hasBleed = (G.combatStatus?.bleedTurns || 0) > 0;
+    return hasBleed || isBloodied();
+}
+
+function getSealBloodBlockReason() {
+    if (!G.inCombat || !isRuleOfBloodActive() || G.path !== 'body') {
+        return 'Requires body path and Rule of Blood.';
+    }
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    if ((vc.sealCooldownTurns || 0) > 0) {
+        return `Seal Blood on cooldown (${vc.sealCooldownTurns} turns).`;
+    }
+    const bal = getBloodRuleBalance();
+    const cost = bal?.sealStaminaCost || 4;
+    if ((G.combatResource || 0) < cost) {
+        const cfg = typeof getCombatConfig === 'function' ? getCombatConfig() : { resource: 'Stamina' };
+        return `Need ${cost} ${cfg.resource}.`;
+    }
+    if (!canSealBlood()) return 'No bleeding wound to seal.';
+    return null;
+}
+
+function combatSealBlood() {
+    if (!canPlayerAct?.()) return false;
+    const block = getSealBloodBlockReason();
+    if (block) {
+        if (typeof addCombatLog === 'function') addCombatLog(`🩸 ${block}`);
+        return false;
+    }
+    const bal = getBloodRuleBalance();
+    if (!bal) return false;
+    const cost = bal.sealStaminaCost;
+    if (!spendCombatResource(cost, 'Seal Blood')) return false;
+    if (!combatSpendRound()) return false;
+
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    if (G.combatStatus) {
+        G.combatStatus.bleedTurns = 0;
+        G.combatStatus.bleedDmgPct = 0;
+    }
+    vc.bloodSealedTurns = bal.sealBleedPauseTurns;
+    vc.sealCooldownTurns = bal.sealCooldownTurns;
+    if (G.vesselRule?.progression) {
+        G.vesselRule.progression.sealsUsed = (G.vesselRule.progression.sealsUsed || 0) + 1;
+    }
+    grantVesselRuleProgression(bal.progressionPerSeal, 'seal');
+    addCombatLog(`🩸 Seal Blood — you refuse to bleed out. The wound holds by will alone.`);
+    if (typeof updateCombatUI === 'function') updateCombatUI();
+    if (typeof scheduleOpponentTurn === 'function') scheduleOpponentTurn();
+    return true;
+}
+
+function tryCombatPlayerHeal(amount, opts) {
+    opts = opts || {};
+    if (!amount || amount < 1) return 0;
+    const allowLifesteal = opts.lifesteal === true;
+    if (blockBloodRuleHealing() && !allowLifesteal) {
+        if (typeof addCombatLog === 'function') {
+            addCombatLog(`🩸 The Rule forbids mending — blood serves the flesh, not comfort.`);
+        }
+        return 0;
+    }
+    const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
+    const hpBefore = G.hp;
+    G.hp = Math.min(hpCap, G.hp + amount);
+    const healed = G.hp - hpBefore;
+    if (healed > 0 && allowLifesteal && blockBloodRuleHealing() && typeof addCombatLog === 'function') {
+        addCombatLog(`🩸 Blood returns to blood.`, 'entry-mod');
+    }
+    return healed;
+}
+
+function tickVesselRulePlayerTurnStart() {
+    if (!G.inCombat || !isRuleOfBloodActive()) return;
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    if ((vc.sealCooldownTurns || 0) > 0) vc.sealCooldownTurns--;
+    markBloodiedThisFight();
+}
+
+function onCombatStartVesselRule() {
+    G.vesselRuleCombat = {
+        bloodSealedTurns: 0,
+        sealCooldownTurns: 0,
+        damageTakenThisFight: 0,
+        wasBloodiedThisFight: false,
+        loggedBloodied: false
+    };
+}
+
+function onCombatVictoryVesselRule() {
+    if (!isRuleOfBloodActive()) return;
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    if (!vc?.wasBloodiedThisFight) return;
+    const bal = getBloodRuleBalance();
+    if (!bal) return;
+    grantVesselRuleProgression(bal.progressionPerBloodiedWin, 'bloodiedWin');
+    if (G.vesselRule?.progression) {
+        G.vesselRule.progression.bloodiedWins = (G.vesselRule.progression.bloodiedWins || 0) + 1;
+    }
+}
+
+function onPlayerDamagedVesselRule(dmg, opts) {
+    if (!isRuleOfBloodActive() || !G.inCombat) return;
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    const hpDamage = Math.max(0, dmg || 0);
+    if (hpDamage > 0) vc.damageTakenThisFight = (vc.damageTakenThisFight || 0) + hpDamage;
+    markBloodiedThisFight();
+
+    if (!isBloodied() || !G.enemy) return;
+    const bal = getBloodRuleBalance();
+    if (!bal) return;
+    if (Math.random() < bal.backlashSlowChance) {
+        G.enemy.slowTurns = (G.enemy.slowTurns || 0) + bal.backlashSlowTurns;
+        if (typeof addCombatLog === 'function') {
+            addCombatLog(`🩸 Their strike disturbs your blood — their rhythm breaks.`, 'entry-mod');
+        }
+    }
+}

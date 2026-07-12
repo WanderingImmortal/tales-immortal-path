@@ -420,6 +420,7 @@ function applyPlayerCombatStatus(effect) {
 
 function processPlayerTurnStart() {
     if (!G.inCombat || !G.combatStatus) return false;
+    if (typeof tickVesselRulePlayerTurnStart === 'function') tickVesselRulePlayerTurnStart();
     const cs = G.combatStatus;
     const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
     let dotTotal = 0;
@@ -432,12 +433,18 @@ function processPlayerTurnStart() {
         if (cs.poisonTurns === 0) addCombatLog(`☠️ The venom fades.`, 'entry-mod');
     }
     if (cs.bleedTurns > 0 && cs.bleedDmgPct > 0) {
-        const bleedDmg = Math.max(1, Math.floor(hpCap * cs.bleedDmgPct));
-        G.hp = Math.max(0, G.hp - bleedDmg);
-        dotTotal += bleedDmg;
-        cs.bleedTurns--;
-        addCombatLog(`🩸 Bleeding wounds seep for ${bleedDmg} damage.`, 'entry-hp');
-        if (cs.bleedTurns === 0) addCombatLog(`🩸 The bleeding stops.`, 'entry-mod');
+        const sealedTurns = G.vesselRuleCombat?.bloodSealedTurns || 0;
+        if (sealedTurns > 0) {
+            G.vesselRuleCombat.bloodSealedTurns--;
+            addCombatLog(`🩸 The blood obeys — the wound holds.`, 'entry-mod');
+        } else {
+            const bleedDmg = Math.max(1, Math.floor(hpCap * cs.bleedDmgPct));
+            G.hp = Math.max(0, G.hp - bleedDmg);
+            dotTotal += bleedDmg;
+            cs.bleedTurns--;
+            addCombatLog(`🩸 Bleeding wounds seep for ${bleedDmg} damage.`, 'entry-hp');
+            if (cs.bleedTurns === 0) addCombatLog(`🩸 The bleeding stops.`, 'entry-mod');
+        }
     }
     if (dotTotal > 0 && G.hp <= 0) {
         handlePlayerCombatDefeat();
@@ -755,6 +762,7 @@ function calcBasicAttackDamage() {
     dmg = Math.max(1, Math.floor(dmg * scale));
     if (typeof getScarCombatDamageMult === 'function') dmg = Math.max(1, Math.floor(dmg * getScarCombatDamageMult()));
     if (typeof getBodyChamberCombatDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getBodyChamberCombatDmgMult()));
+    if (typeof getBloodRuleDamageMult === 'function') dmg = Math.max(1, Math.floor(dmg * getBloodRuleDamageMult()));
     if (typeof getTranscendenceTechniqueDmgMult === 'function') dmg = Math.max(1, Math.floor(dmg * getTranscendenceTechniqueDmgMult(null)));
     if (typeof getMergedDaoEffects === 'function') {
         const mfx = getMergedDaoEffects();
@@ -806,7 +814,9 @@ function calcCombatTechniqueDamage(tech) {
 function logBodyChamberLifeSteal(dmg) {
     if (!dmg || dmg < 1 || typeof applyBodyChamberLifeSteal !== 'function') return;
     const healed = applyBodyChamberLifeSteal(dmg);
-    if (healed > 0) addCombatLog(`🩸 Life steal restores ${healed} HP.`);
+    if (healed > 0 && !(typeof blockBloodRuleHealing === 'function' && blockBloodRuleHealing())) {
+        addCombatLog(`🩸 Life steal restores ${healed} HP.`);
+    }
 }
 
 function rollPlayerCombatHit() {
@@ -880,6 +890,7 @@ function endCombat(exitCtx) {
     G.encounterCombat = null;
     G.npcCombat = null;
     clearCombatStatus();
+    G.vesselRuleCombat = null;
     document.getElementById('combatOverlay').classList.remove('active');
     const fleeBtn = document.getElementById('cbFlee');
     if (fleeBtn) {
@@ -984,6 +995,19 @@ function setupCombatActions() {
     secondaryBtn.textContent = cfg.secondaryLabel;
     secondaryBtn.className = 'combat-btn btn-secondary path-' + G.path;
     updateVoidStepButton();
+    updateSealBloodButton();
+}
+
+function updateSealBloodButton() {
+    const btn = document.getElementById('cbSealBlood');
+    if (!btn) return;
+    const show = G.inCombat && typeof isRuleOfBloodActive === 'function'
+        && isRuleOfBloodActive() && G.path === 'body';
+    btn.classList.toggle('hidden', !show);
+    if (!show) return;
+    const block = typeof getSealBloodBlockReason === 'function' ? getSealBloodBlockReason() : null;
+    btn.disabled = G.combatPhase !== 'player' || !!block;
+    btn.title = block || 'Seal Blood — refuse to bleed out (no HP restored)';
 }
 
 function updateVoidStepButton() {
@@ -1212,10 +1236,15 @@ function combatUseTechnique(name) {
     }
     if (tech.name === 'Blood Refining Art' && dmg > 0) {
         const heal = Math.max(1, Math.floor(dmg * 0.22));
-        const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
-        const hpBefore = G.hp;
-        G.hp = Math.min(hpCap, G.hp + heal);
-        if (G.hp > hpBefore) addCombatLog(`🩸 Blood Refining restores ${G.hp - hpBefore} HP.`);
+        const healed = typeof tryCombatPlayerHeal === 'function'
+            ? tryCombatPlayerHeal(heal)
+            : (() => {
+                const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
+                const hpBefore = G.hp;
+                G.hp = Math.min(hpCap, G.hp + heal);
+                return G.hp - hpBefore;
+            })();
+        if (healed > 0) addCombatLog(`🩸 Blood Refining restores ${healed} HP.`);
     }
     logBodyChamberLifeSteal(dmg);
 
@@ -1320,6 +1349,7 @@ function opponentTurn() {
 }
 
 function combatVictory(fromTechnique) {
+    if (typeof onCombatVictoryVesselRule === 'function') onCombatVictoryVesselRule();
     if (typeof isMirrorTrial === 'function' && isMirrorTrial()) {
         forbiddenMirrorVictory();
         return;
@@ -1493,6 +1523,9 @@ function takeDamage(dmg, opts) {
     if (typeof getDrawbackCombatDamageTakenMult === 'function') {
         dmg = Math.max(1, Math.floor(dmg * getDrawbackCombatDamageTakenMult()));
     }
+    if (typeof applyBloodRuleDamageReduction === 'function') {
+        dmg = applyBloodRuleDamageReduction(dmg);
+    }
 
     if (G.voidStepActive) {
         G.voidStepActive = false;
@@ -1552,19 +1585,27 @@ function combatEndOfTurnRegen() {
     }
 
     if (G.path === 'body') {
-        const vit = typeof getBodyChamberEffectiveVitality === 'function' ? getBodyChamberEffectiveVitality() : G.vitality;
-        let hpGain = Math.floor(vit / 3) + G.realmIdx;
-        if (G.regenBonus) hpGain += Math.floor(G.regenBonus / 10);
-        if (typeof getGearBonuses === 'function') hpGain += getGearBonuses().hpRegenBonus || 0;
-        if (typeof getScarHpRegenMult === 'function') hpGain = Math.floor(hpGain * getScarHpRegenMult());
-        if (typeof getBodyChamberHpRegenMult === 'function') hpGain = Math.floor(hpGain * getBodyChamberHpRegenMult());
-        const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp()
-            : (typeof getEffectiveMaxHpFromScars === 'function' ? getEffectiveMaxHpFromScars() : G.maxHp);
-        const hpBefore = G.hp;
-        G.hp = Math.min(hpCap, G.hp + hpGain);
-        const healed = G.hp - hpBefore;
-        if (healed > 0) {
-            addCombatLog(`💪 Body regenerates ${healed} HP.`);
+        const skipRegen = typeof isRuleOfBloodActive === 'function' && isRuleOfBloodActive();
+        if (!skipRegen) {
+            const vit = typeof getBodyChamberEffectiveVitality === 'function' ? getBodyChamberEffectiveVitality() : G.vitality;
+            let hpGain = Math.floor(vit / 3) + G.realmIdx;
+            if (G.regenBonus) hpGain += Math.floor(G.regenBonus / 10);
+            if (typeof getGearBonuses === 'function') hpGain += getGearBonuses().hpRegenBonus || 0;
+            if (typeof getScarHpRegenMult === 'function') hpGain = Math.floor(hpGain * getScarHpRegenMult());
+            if (typeof getBodyChamberHpRegenMult === 'function') hpGain = Math.floor(hpGain * getBodyChamberHpRegenMult());
+            const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp()
+                : (typeof getEffectiveMaxHpFromScars === 'function' ? getEffectiveMaxHpFromScars() : G.maxHp);
+            let healed = 0;
+            if (typeof tryCombatPlayerHeal === 'function') {
+                healed = tryCombatPlayerHeal(hpGain);
+            } else {
+                const hpBefore = G.hp;
+                G.hp = Math.min(hpCap, G.hp + hpGain);
+                healed = G.hp - hpBefore;
+            }
+            if (healed > 0) {
+                addCombatLog(`💪 Body regenerates ${healed} HP.`);
+            }
         }
     }
 

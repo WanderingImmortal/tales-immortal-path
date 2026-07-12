@@ -5544,6 +5544,23 @@ header .subtitle {
     background: #1c1630;
 }
 
+.combat-btn.btn-seal {
+    border-color: #6a2020;
+    background: #1a0808;
+    color: #e8a0a0;
+}
+
+.combat-btn.btn-seal:hover:not(:disabled) {
+    border-color: #a03030;
+    background: #2a1010;
+}
+
+.combat-bonus-chip.bloodied-chip {
+    border-color: rgba(192, 57, 43, 0.55);
+    color: #e8a0a0;
+    background: rgba(192, 57, 43, 0.12);
+}
+
 .consolidate-box {
     border-color: #6a5a3a !important;
     max-width: 480px;
@@ -8135,6 +8152,22 @@ header .subtitle {
     font-size: 0.8rem;
     color: var(--ink-text-muted);
     margin-top: 8px;
+}
+
+.body-vessel-rule-mechanics {
+    font-size: 0.78rem;
+    color: var(--ink-text-muted);
+    margin-top: 10px;
+    line-height: 1.45;
+}
+
+.body-vessel-rule-mechanics p {
+    margin: 0 0 6px;
+}
+
+.body-vessel-rule-soul {
+    color: #c9a87c;
+    font-style: italic;
 }
 
 .body-vessel-rule-progress-label {

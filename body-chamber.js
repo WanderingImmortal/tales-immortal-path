@@ -1249,12 +1249,29 @@ function renderBodyVesselRuleActive(panel) {
     const pct = Math.round(getVesselRuleProgressionPct());
     const card = document.createElement('div');
     card.className = 'body-vessel-rule-card body-vessel-rule-active';
+    let mechanicsHtml = '';
+    if (def.implemented && def.id === 'blood') {
+        const bal = typeof RULE_OF_BLOOD_BALANCE !== 'undefined' ? RULE_OF_BLOOD_BALANCE : null;
+        const soulPct = typeof getVesselRuleSoulContestPct === 'function'
+            ? Math.round(getVesselRuleSoulContestPct() * 100) : 0;
+        const bloodiedHp = bal ? Math.round(bal.bloodiedHpPct * 100) : 65;
+        const dmgBoost = bal ? Math.round((bal.bloodiedDamageMult - 1) * 100) : 8;
+        const drPct = bal ? Math.round(bal.bloodiedDamageReductionPct * 100) : 10;
+        mechanicsHtml = `<div class="body-vessel-rule-mechanics">
+            <p><strong>Bloodied</strong> — below ~${bloodiedHp}% HP, bleeding, or heavy damage this fight: +${dmgBoost}% strike damage, −${drPct}% damage taken.</p>
+            <p><strong>Seal Blood</strong> — combat action: stop bleed ticks without healing. Costs stamina; short cooldown.</p>
+            <p><strong>Sacrifice</strong> — no HP regen or healing in combat while sworn.</p>
+            <p class="body-vessel-rule-soul">Soul contest: ${soulPct}% (scales with progression)</p>
+        </div>`;
+    } else if (!def.implemented) {
+        mechanicsHtml = '<p class="body-vessel-rule-stub">Rule sworn — mechanics arrive in a future update.</p>';
+    }
     card.innerHTML = `<div class="body-vessel-rule-name">${def.emoji} ${def.name}</div>`
         + `<blockquote class="body-vessel-rule-oath">"${def.oath}"</blockquote>`
         + `<div class="body-vessel-rule-progress-label">Rule progression — ${pct}%</div>`
         + `<div class="body-chamber-bar-track body-vessel-rule-progress-track">`
         + `<div class="body-chamber-bar-fill body-vessel-rule-progress-fill" style="width:${pct}%"></div></div>`
-        + (def.implemented ? '' : '<p class="body-vessel-rule-stub">Rule sworn — mechanics arrive in a future update.</p>');
+        + mechanicsHtml;
     panel.appendChild(card);
 
     const releaseWrap = document.createElement('div');
@@ -1523,6 +1540,12 @@ function runBodyChamberAction(layerId, actionId) {
     }
     const physiqueNote = typeof onBodyChamberPhysiqueHook === 'function' ? onBodyChamberPhysiqueHook(layerId) : null;
     if (physiqueNote) msg += ` ${physiqueNote}`;
+    if (layerId === 'blood' && typeof isRuleOfBloodActive === 'function' && isRuleOfBloodActive()) {
+        const bloodBal = typeof RULE_OF_BLOOD_BALANCE !== 'undefined' ? RULE_OF_BLOOD_BALANCE : null;
+        if (bloodBal && typeof grantVesselRuleProgression === 'function') {
+            grantVesselRuleProgression(bloodBal.progressionPerBloodChamberAction, 'bloodChamber');
+        }
+    }
     commitActionLog(msg);
     if (G.hp != null && typeof getEffectiveMaxHp === 'function') {
         G.hp = Math.min(getEffectiveMaxHp(), G.hp);
@@ -1739,6 +1762,9 @@ function applyBodyChamberLifeSteal(dmg) {
     const pct = getBodyChamberBonus('lifeStealPct');
     if (!pct || dmg < 1) return 0;
     const heal = Math.max(1, Math.floor(dmg * pct / 100));
+    if (G.inCombat && typeof tryCombatPlayerHeal === 'function') {
+        return tryCombatPlayerHeal(heal, { lifesteal: true });
+    }
     const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp() : G.maxHp;
     const hpBefore = G.hp;
     G.hp = Math.min(hpCap, G.hp + heal);
