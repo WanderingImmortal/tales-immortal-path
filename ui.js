@@ -258,12 +258,15 @@ function renderStatus() {
     const intentEl = document.getElementById('intentDisplay');
     const activeIntentUi = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
     if (intentEl) {
+        const track = getIntentTrackForPath('qi');
         if (activeIntentUi) {
             const tier = getIntentTier(activeIntentUi);
-            const track = getIntentTrackForPath(G.path);
-            intentEl.textContent = `${track.emoji} ${activeIntentUi.weapon} (${tier.name})`;
-        } else {
+            const dormant = typeof isWeaponIntentPathActive === 'function' && !isWeaponIntentPathActive();
+            intentEl.textContent = `${track.emoji} ${activeIntentUi.weapon} (${tier.name})${dormant ? ' · dormant' : ''}`;
+        } else if (typeof isWeaponIntentPathActive === 'function' && isWeaponIntentPathActive()) {
             intentEl.textContent = 'None';
+        } else {
+            intentEl.textContent = '—';
         }
     }
     const daoEl = document.getElementById('daoDisplay');
@@ -1434,8 +1437,12 @@ function renderIntentPopup() {
     const el = document.getElementById('intentList');
     if (!el) return;
     if (typeof ensureIntentState === 'function') ensureIntentState();
-    const track = getIntentTrackForPath(G.path);
+    const track = getIntentTrackForPath('qi');
+    const pathActive = typeof isWeaponIntentPathActive === 'function' && isWeaponIntentPathActive();
     let html = `<div style="font-size:12px;color:#a09080;margin-bottom:8px;">${track.emoji} ${track.label} — awaken multiple paths, but time and focus limit how far each refines.</div>`;
+    if (!pathActive) {
+        html += `<div style="font-size:12px;color:#b8863a;margin-bottom:8px;">Your weapon intents sleep while your focus is elsewhere. Return to the dantian path to cultivate them.</div>`;
+    }
 
     if (G.weaponIntents?.length) {
         html += `<div class="tech-group"><div class="tech-group-header">Awakened <span class="tech-group-count">${G.weaponIntents.length}</span></div>`;
@@ -1444,22 +1451,25 @@ function renderIntentPopup() {
             const isActive = G.activeIntentWeapon === intent.weapon;
             const arts = getIntentExpandArtDefs(intent);
             const bonus = getIntentBonusForRecord(intent);
-            html += `<div class="popup-item intent-row${isActive ? ' intent-active' : ''}" data-intent-weapon="${intent.weapon}">
+            const rowClass = pathActive ? 'intent-row' : 'intent-row intent-dormant';
+            html += `<div class="popup-item ${rowClass}${isActive ? ' intent-active' : ''}"${pathActive ? ` data-intent-weapon="${intent.weapon}"` : ''}>
                 <div class="name">${isActive ? '★ ' : ''}${intent.weapon} — ${tier.name}</div>
                 <div class="desc">${Math.floor(intent.uses)} uses · +${Math.round(bonus * 100)}% basics · ${getIntentDeepenCount(intent)} Deepen</div>
-                <div class="meta">${arts.length ? 'Arts: ' + arts.map(a => a.name).join(', ') : 'No Expand arts yet'}${isActive ? ' · Active focus' : ''}</div>
+                <div class="meta">${arts.length ? 'Arts: ' + arts.map(a => a.name).join(', ') : 'No Expand arts yet'}${isActive ? ' · Active focus' : ''}${!pathActive ? ' · Dormant' : ''}</div>
             </div>`;
         }
         html += '</div>';
-        html += `<button type="button" class="popup-item" id="intentRefineBtn" style="width:100%;text-align:center;margin-top:6px;">
-            <div class="name">🧘 Refine Active Intent</div>
-            <div class="desc">${ACTION_MONTHS.intentRefine} months — steady progress without combat</div>
-        </button>`;
+        if (pathActive) {
+            html += `<button type="button" class="popup-item" id="intentRefineBtn" style="width:100%;text-align:center;margin-top:6px;">
+                <div class="name">🧘 Refine Active Intent</div>
+                <div class="desc">${ACTION_MONTHS.intentRefine} months — steady progress without combat</div>
+            </button>`;
+        }
     }
 
     const awakened = new Set(G.weaponIntents.map(i => i.weapon));
     const available = WEAPON_TYPES.filter(w => !awakened.has(w));
-    if (available.length) {
+    if (pathActive && available.length) {
         html += `<div class="tech-group"><div class="tech-group-header">Awaken New</div>`;
         for (const w of available) {
             const months = G.weaponIntents.length === 0 ? ACTION_MONTHS.intentChoose : ACTION_MONTHS.intentAwaken;
@@ -1475,7 +1485,7 @@ function renderIntentPopup() {
         html += `<div style="font-size:11px;color:#a08070;margin:8px 0;">☯ Divided heart — multiple refined intents progress slightly slower.</div>`;
     }
 
-    if (G.pendingIntentChoice && G.activeIntentWeapon === G.pendingIntentChoice.weapon) {
+    if (pathActive && G.pendingIntentChoice && G.activeIntentWeapon === G.pendingIntentChoice.weapon) {
         const pendingArt = getPendingExpandArt(G.pendingIntentChoice.weapon, G.pendingIntentChoice.tierIdx);
         html += `<div style="font-size:12px;color:#b8863a;margin-top:8px;">⚠️ ${G.pendingIntentChoice.weapon} reached ${G.pendingIntentChoice.tier} — choose for your <b>active</b> focus:</div>
             <button type="button" class="popup-item" id="intentDeepen" style="width:100%;text-align:center;margin-top:4px;">

@@ -294,11 +294,16 @@ function actionStatus() {
     const openCount = getMeridianOpenCount();
     const phys = G.physique ? G.physique.name : 'None';
     const activeIntent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
-    const intent = activeIntent
-        ? `${activeIntent.weapon} (${getIntentTier(activeIntent).name}${G.weaponIntents?.length > 1 ? ', +' + (G.weaponIntents.length - 1) : ''})`
-        : 'None';
+    const showIntentStatus = (G.weaponIntents?.length > 0)
+        || (typeof isWeaponIntentPathActive === 'function' && isWeaponIntentPathActive());
+    const intent = showIntentStatus
+        ? (activeIntent
+            ? `${activeIntent.weapon} (${getIntentTier(activeIntent).name}${G.weaponIntents?.length > 1 ? ', +' + (G.weaponIntents.length - 1) : ''})`
+            : 'None')
+        : null;
     const daos = [...G.trueDaos, ...G.mergedDaos].join(', ') || 'None';
-    addLog(`📜 ${G.name} | ${getRealm()} (${getTitle()}) | Fame: ${G.fame} | Foundation: ${getEffectiveFoundation()} | Meridians: ${openCount}/13 | Physique: ${phys} | Intent: ${intent} | Dao: ${daos}`);
+    const intentPart = intent != null ? ` | Intent: ${intent}` : '';
+    addLog(`📜 ${G.name} | ${getRealm()} (${getTitle()}) | Fame: ${G.fame} | Foundation: ${getEffectiveFoundation()} | Meridians: ${openCount}/13 | Physique: ${phys}${intentPart} | Dao: ${daos}`);
     fullRender();
 }
 
@@ -346,8 +351,17 @@ function actionPhysique() {
 // ----- INTENT -----
 function actionIntent() {
     if (G.gameOver) return;
-    if (!guardAction('intent')) return;
     if (typeof ensureIntentState === 'function') ensureIntentState();
+    if (typeof shouldShowIntentButton === 'function' && !shouldShowIntentButton()) {
+        if (typeof addLog === 'function') {
+            addLog(`🔒 ${typeof WEAPON_INTENT_DANTIAN_MSG !== 'undefined' ? WEAPON_INTENT_DANTIAN_MSG : 'Weapon Intent is cultivated on the dantian path.'}`);
+        }
+        fullRender();
+        return;
+    }
+    if (typeof canAccessWeaponIntent === 'function' && canAccessWeaponIntent()) {
+        if (!guardAction('intent')) return;
+    }
     renderIntentPopup();
     document.getElementById('intentPopup')?.classList.add('active');
 }

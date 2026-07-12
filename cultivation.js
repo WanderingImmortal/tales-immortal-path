@@ -252,13 +252,32 @@ function executeTrackBreakthrough(style, track) {
 
 function checkPerfectCultivation() {
     const openCount = G.meridians.filter(m => m).length;
-    const hasIntent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
-    if (openCount === 13 && G.physique && G.physique.type === "legendary" && hasIntent && G.trueDaos.length > 0) {
-        G.perfectCultivation = true;
-        if (typeof addFame === 'function') addFame(50);
-        else G.fame += 50;
-        addLog(`🏆 PERFECT CULTIVATION ACHIEVED! You are a Mythic Cultivator! +50 Fame.`);
+    if (openCount !== 13) return;
+    if (!G.physique || G.physique.type !== 'legendary') return;
+
+    const focus = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
+    if (focus === 'dantian' || G.path === 'qi') {
+        if (!hasQiInteriorPeak()) return;
+    } else if (focus === 'vessel') {
+        // TODO: sworn Vessel Rule peak.
+        return;
+    } else if (focus === 'spirit') {
+        // TODO: Soul Mass apex.
+        return;
+    } else {
+        return;
     }
+
+    if (G.perfectCultivation) return;
+    G.perfectCultivation = true;
+    if (typeof addFame === 'function') addFame(50);
+    else G.fame += 50;
+    addLog(`🏆 PERFECT CULTIVATION ACHIEVED! You are a Mythic Cultivator! +50 Fame.`);
+}
+
+function hasQiInteriorPeak() {
+    const hasIntent = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
+    return !!(hasIntent && G.trueDaos.length > 0);
 }
 
 // ===== MERIDIANS =====

@@ -1044,9 +1044,8 @@ const INTENT_TIERS = [
 ];
 
 const INTENT_TRACK_BY_PATH = {
-    qi: { id: 'weaponIntent', label: 'Weapon Intent', emoji: '🗡️' },
-    body: { id: 'martialWill', label: 'Martial Will', emoji: '💪' },
-    soul: { id: 'killingIntent', label: 'Killing Intent', emoji: '👁️' }
+    qi: { id: 'weaponIntent', label: 'Weapon Intent', emoji: '🗡️' }
+    // body/soul tracks removed — Vessel Rules and Soul Mass are separate systems.
 };
 
 const INTENT_BALANCE = {
@@ -2708,7 +2707,7 @@ const ACTION_UNLOCKS = {
     meridian: {},
     intent: {
         minRealm: 1,
-        hint: 'Foundation Establishment — awaken Weapon Intent.'
+        hint: 'Foundation Establishment on the dantian path — awaken Weapon Intent.'
     },
     physique: {
         minRealm: 1,
