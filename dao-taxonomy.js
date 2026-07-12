@@ -45,8 +45,18 @@ function syncDaoFragmentArrays() {
 }
 
 function migrateDaoStateFromLegacy() {
-    ensureDaoState();
     if (G._daoMigrated) return;
+    if (!G.daoState) {
+        G.daoState = {
+            comprehended: [],
+            progress: {},
+            fragments: [],
+            seerLastReadingMonth: null
+        };
+    }
+    if (!G.daoState.comprehended) G.daoState.comprehended = [];
+    if (!G.daoState.progress) G.daoState.progress = {};
+    if (!G.daoState.fragments) G.daoState.fragments = [];
 
     (G.trueDaos || []).forEach(name => {
         const id = DAO_LEGACY_MAP[name] || name;
@@ -83,12 +93,12 @@ function migrateDaoStateFromLegacy() {
 }
 
 function syncLegacyDaoArrays() {
-    ensureDaoState();
+    if (!G.daoState) return;
     const trueDaos = [];
     const primeDaos = [];
     const mergedDaos = [];
 
-    G.daoState.comprehended.forEach(id => {
+    (G.daoState.comprehended || []).forEach(id => {
         const def = getDaoDef(id);
         if (!def) return;
         const legacy = DAO_LEGACY_REVERSE_MAP[id];
