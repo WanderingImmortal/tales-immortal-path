@@ -1210,6 +1210,141 @@ function appendBodyActionButton(panel, layerId, action, isSub) {
     panel.appendChild(wrap);
 }
 
+let _bodyVesselRuleReleaseConfirmOpen = false;
+
+function renderBodyVesselRuleSection() {
+    const panel = document.getElementById('bodyVesselRuleSection');
+    if (!panel || typeof ensureVesselRuleState !== 'function') return;
+    ensureVesselRuleState();
+    panel.replaceChildren();
+    _bodyVesselRuleReleaseConfirmOpen = false;
+
+    const head = document.createElement('div');
+    head.className = 'body-vessel-rule-head';
+    head.innerHTML = '<strong>⚖️ Vessel Rule</strong>'
+        + '<span class="body-vessel-rule-sub">One sworn oath upon the flesh — defining, hard to change.</span>';
+    panel.appendChild(head);
+    if (typeof createActionHelpBtn === 'function') {
+        const guide = typeof CULTIVATION_ACTION_GUIDE !== 'undefined' ? CULTIVATION_ACTION_GUIDE.vesselRules : null;
+        if (guide) {
+            head.appendChild(createActionHelpBtn({
+                className: 'body-vessel-rule-help',
+                title: `${guide.emoji} ${guide.label}`,
+                desc: guide.desc,
+                stats: [guide.flavor]
+            }));
+        }
+    }
+
+    if (hasVesselRule()) {
+        renderBodyVesselRuleActive(panel);
+    } else {
+        renderBodyVesselRuleSwearList(panel);
+    }
+}
+
+function renderBodyVesselRuleActive(panel) {
+    const def = getActiveVesselRuleDef();
+    if (!def) return;
+    const pct = Math.round(getVesselRuleProgressionPct());
+    const card = document.createElement('div');
+    card.className = 'body-vessel-rule-card body-vessel-rule-active';
+    card.innerHTML = `<div class="body-vessel-rule-name">${def.emoji} ${def.name}</div>`
+        + `<blockquote class="body-vessel-rule-oath">"${def.oath}"</blockquote>`
+        + `<div class="body-vessel-rule-progress-label">Rule progression — ${pct}%</div>`
+        + `<div class="body-chamber-bar-track body-vessel-rule-progress-track">`
+        + `<div class="body-chamber-bar-fill body-vessel-rule-progress-fill" style="width:${pct}%"></div></div>`
+        + (def.implemented ? '' : '<p class="body-vessel-rule-stub">Rule sworn — mechanics arrive in a future update.</p>');
+    panel.appendChild(card);
+
+    const releaseWrap = document.createElement('div');
+    releaseWrap.className = 'body-vessel-rule-release-wrap';
+    const releaseBtn = document.createElement('button');
+    releaseBtn.type = 'button';
+    releaseBtn.className = 'body-chamber-action-btn body-vessel-rule-release-btn';
+    releaseBtn.textContent = '💔 Release Rule';
+    releaseBtn.disabled = vesselRuleActionBlocked();
+    releaseBtn.addEventListener('click', () => showBodyVesselRuleReleaseConfirm(releaseWrap));
+    releaseWrap.appendChild(releaseBtn);
+    panel.appendChild(releaseWrap);
+}
+
+function showBodyVesselRuleReleaseConfirm(releaseWrap) {
+    if (_bodyVesselRuleReleaseConfirmOpen) return;
+    const check = canReleaseVesselRule();
+    if (!check.ok) {
+        addLog(`⚖️ ${check.reason}`);
+        return;
+    }
+    const def = getActiveVesselRuleDef();
+    _bodyVesselRuleReleaseConfirmOpen = true;
+    const confirm = document.createElement('div');
+    confirm.className = 'body-vessel-rule-confirm';
+    confirm.innerHTML = `<p class="body-vessel-rule-confirm-warn">${def?.releaseWarning || 'You will regress to the start of your current vessel realm and lose all Rule progression.'}</p>`
+        + `<p class="body-vessel-rule-confirm-detail">You will regress to the start of your current vessel realm and lose all Rule progression.</p>`
+        + `<div class="body-vessel-rule-confirm-btns">`
+        + `<button type="button" class="body-vessel-rule-confirm-yes">Break the oath</button>`
+        + `<button type="button" class="body-vessel-rule-confirm-no">Keep the Rule</button>`
+        + `</div>`;
+    releaseWrap.appendChild(confirm);
+    confirm.querySelector('.body-vessel-rule-confirm-yes')?.addEventListener('click', () => {
+        _bodyVesselRuleReleaseConfirmOpen = false;
+        const result = releaseVesselRule();
+        if (result?.message && !result.logged) addLog(result.message);
+        renderBodyChamberUI();
+        fullRender();
+    });
+    confirm.querySelector('.body-vessel-rule-confirm-no')?.addEventListener('click', () => {
+        _bodyVesselRuleReleaseConfirmOpen = false;
+        confirm.remove();
+    });
+}
+
+function renderBodyVesselRuleSwearList(panel) {
+    if (typeof VESSEL_RULES === 'undefined') return;
+    if (isVesselRuleCooldownActive()) {
+        const months = getVesselRuleCooldownRemainingMonths();
+        const hint = document.createElement('p');
+        hint.className = 'body-vessel-rule-cooldown';
+        hint.textContent = `The flesh still remembers your broken oath — ${months} months before you may swear again.`;
+        panel.appendChild(hint);
+        return;
+    }
+    const list = document.createElement('div');
+    list.className = 'body-vessel-rule-list';
+    Object.values(VESSEL_RULES).forEach(rule => {
+        const gate = canSwearVesselRule(rule.id);
+        const gateDetail = checkVesselRuleSwearGate(rule.id);
+        const unlocked = gateDetail.ok && !hasVesselRule();
+        const card = document.createElement('div');
+        card.className = 'body-vessel-rule-card' + (unlocked ? '' : ' locked');
+        const bal = typeof VESSEL_RULE_BALANCE !== 'undefined' ? VESSEL_RULE_BALANCE : { swearMonths: 6 };
+        const statusLine = unlocked
+            ? `${formatVesselRuleGateReason(rule.swearGate)} — ready`
+            : (gate.reason || gateDetail.reason || formatVesselRuleGateReason(rule.swearGate));
+        card.innerHTML = `<div class="body-vessel-rule-name">${rule.emoji} ${rule.name}${unlocked ? '' : ' 🔒'}</div>`
+            + `<p class="body-vessel-rule-oath-preview">"${rule.oath}"</p>`
+            + `<p class="body-vessel-rule-gate">${statusLine}</p>`;
+        if (unlocked) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'body-chamber-action-btn body-vessel-rule-swear-btn';
+            btn.disabled = bodyChamberActionBlocked() || !gate.ok;
+            btn.innerHTML = `<span class="body-action-label">⚖️ Swear ${rule.name}</span>`
+                + `<span class="body-action-meta">${bal.swearMonths} months</span>`;
+            btn.addEventListener('click', () => {
+                const result = swearVesselRule(rule.id);
+                if (result?.message && !result.logged) addLog(result.message);
+                renderBodyChamberUI();
+                fullRender();
+            });
+            card.appendChild(btn);
+        }
+        list.appendChild(card);
+    });
+    panel.appendChild(list);
+}
+
 function renderBodyPhysiqueProject() {
     const panel = document.getElementById('bodyPhysiqueProject');
     if (!panel || typeof ensurePhysiqueCultivationState !== 'function') return;
@@ -1271,6 +1406,7 @@ function renderBodyChamberUI() {
     if (!G.inBodyChamber) return;
     ensureBodyChamberState();
     renderBodyPhysiqueProject();
+    if (typeof renderBodyVesselRuleSection === 'function') renderBodyVesselRuleSection();
     const tab = G.bodyChamber.activeTab;
     const progress = tab === 'nerves' && isBodyNervesRefined() ? 100 : getBodyLayerProgress(tab);
     const def = BODY_CHAMBER_LAYERS[tab];

@@ -255,6 +255,18 @@ function renderStatus() {
             physEl.textContent = G.physique ? G.physique.name : 'None';
         }
     }
+    const vesselRuleEl = document.getElementById('vesselRuleDisplay');
+    if (vesselRuleEl) {
+        if (typeof hasVesselRule === 'function' && hasVesselRule()) {
+            const def = typeof getActiveVesselRuleDef === 'function' ? getActiveVesselRuleDef() : null;
+            const pct = typeof getVesselRuleProgressionPct === 'function' ? Math.round(getVesselRuleProgressionPct()) : 0;
+            vesselRuleEl.textContent = def
+                ? `${def.emoji} ${def.name} (${pct}%)`
+                : 'Sworn';
+        } else {
+            vesselRuleEl.textContent = '—';
+        }
+    }
     const intentEl = document.getElementById('intentDisplay');
     const activeIntentUi = typeof getActiveIntent === 'function' ? getActiveIntent() : G.weaponIntent;
     if (intentEl) {

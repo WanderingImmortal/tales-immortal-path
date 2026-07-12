@@ -8070,6 +8070,136 @@ header .subtitle {
     font-style: normal;
 }
 
+.body-chamber-vessel-rule {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border: 1px solid rgba(192, 57, 43, 0.35);
+    border-radius: 10px;
+    background: rgba(192, 57, 43, 0.06);
+    text-align: left;
+}
+
+.body-vessel-rule-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--ink-accent);
+}
+
+.body-vessel-rule-sub {
+    font-size: 0.78rem;
+    color: var(--ink-text-muted);
+    font-weight: normal;
+}
+
+.body-vessel-rule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.body-vessel-rule-card {
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.body-vessel-rule-card.locked {
+    opacity: 0.72;
+}
+
+.body-vessel-rule-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.body-vessel-rule-oath,
+.body-vessel-rule-oath-preview {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--ink-text-muted);
+    margin: 4px 0 8px;
+}
+
+.body-vessel-rule-gate {
+    font-size: 0.78rem;
+    color: #c9a87c;
+    margin-bottom: 8px;
+}
+
+.body-vessel-rule-stub,
+.body-vessel-rule-cooldown {
+    font-size: 0.8rem;
+    color: var(--ink-text-muted);
+    margin-top: 8px;
+}
+
+.body-vessel-rule-progress-label {
+    font-size: 0.8rem;
+    margin: 8px 0 4px;
+}
+
+.body-vessel-rule-progress-track {
+    height: 8px;
+}
+
+.body-vessel-rule-progress-fill {
+    background: linear-gradient(90deg, #c0392b88, #e74c3c);
+}
+
+.body-vessel-rule-release-btn {
+    margin-top: 10px;
+    border-color: rgba(231, 76, 60, 0.5) !important;
+    color: #e74c3c !important;
+}
+
+.body-vessel-rule-confirm {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid rgba(231, 76, 60, 0.45);
+    border-radius: 8px;
+    background: rgba(231, 76, 60, 0.08);
+}
+
+.body-vessel-rule-confirm-warn {
+    color: #e74c3c;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.body-vessel-rule-confirm-detail {
+    font-size: 0.85rem;
+    color: var(--ink-text-muted);
+    margin-bottom: 10px;
+}
+
+.body-vessel-rule-confirm-btns {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.body-vessel-rule-confirm-yes {
+    padding: 6px 12px;
+    border: 1px solid #c0392b;
+    border-radius: 6px;
+    background: rgba(192, 57, 43, 0.25);
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+.body-vessel-rule-confirm-no {
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--ink-text);
+    cursor: pointer;
+}
+
 .body-chamber-physique-project {
     margin-top: 12px;
     padding: 12px 14px;

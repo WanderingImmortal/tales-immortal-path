@@ -68,6 +68,8 @@ let G = {
     activeIntentWeapon: null,
     weaponIntentChoices: [],
     intentCombatState: null,
+    vesselRule: null,
+    vesselRuleCooldownUntilMonth: 0,
     daoFragments: [],
     trueDaos: [],
     primeDaos: [],
@@ -1021,6 +1023,9 @@ function loadState() {
             if (!G.weaponIntents) G.weaponIntents = [];
             if (G.activeIntentWeapon == null) G.activeIntentWeapon = null;
             if (typeof ensureIntentState === 'function') ensureIntentState();
+            if (G.vesselRule === undefined) G.vesselRule = null;
+            if (G.vesselRuleCooldownUntilMonth == null) G.vesselRuleCooldownUntilMonth = 0;
+            if (typeof ensureVesselRuleState === 'function') ensureVesselRuleState();
             if (!G.inventory) G.inventory = [];
             if (!G.legendaryMaterials) G.legendaryMaterials = [];
             if (typeof ensureGearState === 'function') ensureGearState();
