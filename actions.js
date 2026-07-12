@@ -349,7 +349,15 @@ function actionCombat() {
         if (!advanceTime(ACTION_MONTHS.combatStart, "Seeking a worthy opponent")) { cancelActionLog(); fullRender(); return; }
         commitActionLog('⚔️ You seek a worthy opponent.');
     }
-    startCombat();
+    try {
+        startCombat();
+    } catch (err) {
+        if (typeof clearOrphanedCombatState === 'function') clearOrphanedCombatState({ log: false });
+        console.error('startCombat failed', err);
+        addLog(`⚔️ Combat failed to start (${err && err.message ? err.message : 'unknown error'}).`);
+        fullRender();
+        return;
+    }
     if (!G.inCombat) {
         addLog(`⚔️ The fight failed to start — try again.`);
     }

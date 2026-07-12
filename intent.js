@@ -37,7 +37,7 @@ function getIntentSoulMitigationPct() {
 
 function notifyIntentSleepIfNeeded() {
     if (G._intentSleepNotified) return;
-    ensureIntentState();
+    // Do not call ensureIntentState() here — ensure already invokes this (recursion).
     if (!G.weaponIntents?.length) return;
     if (isWeaponIntentPathActive()) return;
     G._intentSleepNotified = true;
