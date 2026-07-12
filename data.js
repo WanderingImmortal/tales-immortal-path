@@ -51,8 +51,8 @@ const PATHS = {
     },
     soul: {
         name: "Soul Cultivation",
-        realms: ["Awakened Spirit", "Manifestation", "Soul Integration", "Nascent Divinity", "Transcendence", "Dao Heart", "Eternal Spirit"],
-        titles: ["Spirit Awakened", "Soul Manifest", "Integrated One", "Divine Nascent", "Transcendent Soul", "Heart of Dao", "Eternal Sage"],
+        realms: ["Awakened Spirit", "Manifestation", "Spirit Confluence", "Soul Integration", "Transcendence", "Dao Heart", "Eternal Spirit"],
+        titles: ["Spirit Awakened", "Soul Manifest", "Confluent Spirit", "Soul Integrator", "Transcendent Soul", "Heart of Dao", "Eternal Sage"],
         capstone: {
             button: "✨ Anchor the Soul",
             settledAction: "Anchor the Soul",
@@ -5370,6 +5370,30 @@ const SOUL_MASS_BALANCE = {
     progressionPerCondense: 4,
     progressionPerPalaceAction: 2,
     progressionPerSpiritBreakthrough: 15,
+    /** Pre–soul-birth latent mass cap (below hard minimum — cannot stockpile combat-ready weight). */
+    latentMassCap: 9,
+    /** Hard minimum active Soul Mass — legal floor for soul cultivation & techniques. */
+    hardMinMass: 10,
+    /** Soft minimum — settled nascent soul; spirit-focused players naturally clear this. */
+    softMinMass: 25,
+    /** Off-path soul birth: latent → active conversion rate when embryo born from dantian/vessel. */
+    offPathConversionRate: 0.55,
+    /** Spirit-track soul birth with some foundation progress. */
+    spiritPathConversionRate: 1.0,
+    /** Dantian/vessel birth but spirit track realm II+ invested. */
+    partialSpiritConversionRate: 0.75,
+    /** Hollow nascent: below hard min after birth — combat & mitigation penalties. */
+    hollowMitigationMult: 0.5,
+    hollowPowerMult: 0.65,
+    /** Nascent: at hard min but below soft min. */
+    nascentMitigationMult: 0.85,
+};
+
+const SOUL_MATURITY_LABELS = {
+    hollow: 'Hollow Nascent',
+    nascent: 'Nascent Soul',
+    settled: 'Settled Soul',
+    ascendant: 'Ascendant Soul'
 };
 
 const SOUL_MASS_TIERS = [
@@ -5405,7 +5429,7 @@ const SOUL_CONDENSATION_MANUALS = [
 const SOUL_PALACE_CONDENSE_ACTIONS = {
     prelude: [
         { id: 'condense_spirit', label: 'Condense Spirit', emoji: '💠', weeks: 3, massGain: 4, apexProgress: 4, maxStacks: 5,
-            desc: 'Compress mortal spirit into weight — +4 Soul Mass, +4% apex progress (max 5×)' }
+            desc: 'Compress spirit foundation into latent weight — +4 latent mass (cap 9 pre-birth), +4% apex progress (max 5×)' }
     ],
     awakened: [
         { id: 'weigh_will', label: 'Weigh the Will', emoji: '⚖️', weeks: 4, massGain: 6, apexProgress: 2, maxStacks: 4,
@@ -5418,7 +5442,7 @@ const SOUL_PALACE_CONDENSE_ACTIONS = {
     ]
 };
 
-/** Phase 1 mortal spirit — always available before soul embryo. */
+/** Phase 1 spirit foundation — always available before soul birth. */
 const SOUL_PALACE_PRELUDE_ACTIONS = [
     { id: 'sense_inward', label: 'Sense Inward', emoji: '🧘', weeks: 2, progress: 20,
         bonus: { willpowerPct: 2, fearResistPct: 2 },
@@ -5434,7 +5458,7 @@ const SOUL_PALACE_PRELUDE_ACTIONS = [
 const SOUL_EMBRYO_AWAKEN_MESSAGES = {
     dantian: '🌟 The dantian births a Nascent Soul — the palace depths awaken.',
     vessel: '🌟 Vitality coils inward; a Vital Soul manifests — the palace depths awaken.',
-    spirit: '🌟 Spirit condenses into Nascent Divinity — the palace depths awaken.'
+    spirit: '🌟 Spirit reaches Soul Integration — the soul is born and palace depths awaken.'
 };
 
 const SOUL_EMBRYO_ORIGIN_PERKS = {

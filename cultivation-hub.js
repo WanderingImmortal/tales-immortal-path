@@ -34,9 +34,12 @@ function renderCultivationHubCards() {
     }
     if (soulNote) {
         if (typeof hasSoulEmbryo === 'function' && hasSoulEmbryo()) {
-            soulNote.textContent = '✨ Soul embryo — palace depths open';
+            const maturity = typeof getSoulMaturityLabel === 'function' ? getSoulMaturityLabel() : null;
+            soulNote.textContent = maturity
+                ? `✨ Soul born — ${maturity}`
+                : '✨ Soul born — Soul Cultivation unlocked';
         } else {
-            soulNote.textContent = '🌙 Prelude open · depths locked';
+            soulNote.textContent = '🌙 Spirit foundation open · Soul Cultivation locked';
         }
     }
 }

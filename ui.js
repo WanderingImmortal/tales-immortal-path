@@ -60,7 +60,11 @@ function renderStatus() {
     document.getElementById('titleDisplay').textContent = '— ' + title;
     const trackStrip = document.getElementById('trackStrip');
     if (trackStrip && typeof getDantianRealm === 'function') {
-        const embryoBadge = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo() ? ' · ✨ embryo' : '';
+        const embryoBadge = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo()
+            ? (typeof getSoulMaturityLabel === 'function' && getSoulMaturityLabel()
+                ? ` · ✨ ${getSoulMaturityLabel()}`
+                : ' · ✨ soul born')
+            : '';
         const focus = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
         const mark = t => t === focus ? '▸' : '·';
         trackStrip.textContent = `${mark('dantian')}⚡ ${getDantianRealm()}  ${mark('vessel')}💪 ${getVesselRealm()}  ${mark('spirit')}🧠 ${getSpiritRealm()}${embryoBadge}`;
@@ -283,16 +287,24 @@ function renderStatus() {
     }
     const soulMassEl = document.getElementById('soulMassDisplay');
     if (soulMassEl && typeof getSoulMass === 'function') {
+        const hasEmbryo = typeof hasSoulEmbryo === 'function' && hasSoulEmbryo();
         const mass = getSoulMass();
-        if (mass > 0) {
+        const latent = typeof getLatentSoulMass === 'function' ? getLatentSoulMass() : 0;
+        if (hasEmbryo && mass > 0) {
             const tierLabel = typeof getSoulMassTierLabel === 'function' ? getSoulMassTierLabel() : '';
+            const maturity = typeof getSoulMaturityLabel === 'function' ? getSoulMaturityLabel() : '';
             soulMassEl.textContent = `${mass} (${tierLabel})`;
-            const weakHint = typeof isInteriorSoulWeak === 'function' && isInteriorSoulWeak()
-                ? ' · thin interior' : '';
-            soulMassEl.title = `Cultivated soul density${weakHint}`;
+            const weakHint = typeof isInteriorSoulWeak === 'function' && isInteriorSoulWeak() ? ' · thin interior' : '';
+            soulMassEl.title = `Active Soul Mass${maturity ? ' · ' + maturity : ''}${weakHint}`;
+        } else if (!hasEmbryo && latent > 0) {
+            const cap = typeof getLatentMassCap === 'function' ? getLatentMassCap() : 9;
+            soulMassEl.textContent = `${latent}/${cap} latent`;
+            soulMassEl.title = 'Latent spirit weight — crystallizes at soul birth';
         } else {
             soulMassEl.textContent = '—';
-            soulMassEl.title = 'Condense spirit in the Soul Palace';
+            soulMassEl.title = hasEmbryo
+                ? 'Condense spirit in the Soul Palace'
+                : 'Condense latent weight in Spirit Foundation';
         }
     }
     const soulVulnEl = document.getElementById('soulVulnHint');
