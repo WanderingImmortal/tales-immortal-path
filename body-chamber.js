@@ -1263,6 +1263,21 @@ function renderBodyVesselRuleActive(panel) {
             <p><strong>Sacrifice</strong> — no HP regen or healing in combat while sworn.</p>
             <p class="body-vessel-rule-soul">Soul contest: ${soulPct}% (scales with progression)</p>
         </div>`;
+    } else if (def.implemented && def.id === 'unnamed') {
+        const bal = typeof RULE_OF_UNNAMED_BALANCE !== 'undefined' ? RULE_OF_UNNAMED_BALANCE : null;
+        const soulPct = typeof getVesselRuleSoulSlipPct === 'function'
+            ? Math.round(getVesselRuleSoulSlipPct() * 100) : 0;
+        const flowCap = bal?.flowCap || 5;
+        const flowDmg = bal ? Math.round(bal.flowDamagePerStack * 100 * flowCap) : 15;
+        const slipPct = bal ? Math.round(bal.slipTechniqueDamageReduction * 100) : 12;
+        const stagnationAttempts = bal?.stagnationAfterAttempts || 3;
+        mechanicsHtml = `<div class="body-vessel-rule-mechanics">
+            <p><strong>Living Strike</strong> — basics scale with vessel realm and vitality. Build <strong>Flow</strong> (up to ${flowCap}) for modest damage and stamina benefits.</p>
+            <p><strong>Dissipate</strong> — techniques may be attempted in combat but never succeed; half cost, Flow resets. Oath holds unless you Release the Rule.</p>
+            <p><strong>Stagnation</strong> — ${stagnationAttempts}+ technique attempts in one fight stiffen motion (−damage, +stamina cost) without breaking the oath.</p>
+            <p><strong>Slip</strong> — enemy techniques deal ~${slipPct}% less damage against your moving flesh.</p>
+            <p class="body-vessel-rule-soul">Soul slip: ${soulPct}% (scales with progression)</p>
+        </div>`;
     } else if (!def.implemented) {
         mechanicsHtml = '<p class="body-vessel-rule-stub">Rule sworn — mechanics arrive in a future update.</p>';
     }
@@ -1544,6 +1559,12 @@ function runBodyChamberAction(layerId, actionId) {
         const bloodBal = typeof RULE_OF_BLOOD_BALANCE !== 'undefined' ? RULE_OF_BLOOD_BALANCE : null;
         if (bloodBal && typeof grantVesselRuleProgression === 'function') {
             grantVesselRuleProgression(bloodBal.progressionPerBloodChamberAction, 'bloodChamber');
+        }
+    }
+    if (layerId === 'bones' && typeof isRuleOfUnnamedActive === 'function' && isRuleOfUnnamedActive()) {
+        const unnamedBal = typeof RULE_OF_UNNAMED_BALANCE !== 'undefined' ? RULE_OF_UNNAMED_BALANCE : null;
+        if (unnamedBal && typeof grantVesselRuleProgression === 'function') {
+            grantVesselRuleProgression(unnamedBal.progressionPerBonesChamberAction, 'bonesChamber');
         }
     }
     commitActionLog(msg);

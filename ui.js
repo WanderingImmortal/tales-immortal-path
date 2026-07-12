@@ -985,6 +985,12 @@ function updateCombatUI() {
     renderCombatLog();
     if (typeof updateVoidStepButton === 'function') updateVoidStepButton();
     if (typeof updateSealBloodButton === 'function') updateSealBloodButton();
+    const skillBtn = document.getElementById('cbSkill');
+    if (skillBtn && typeof isRuleOfUnnamedActive === 'function' && isRuleOfUnnamedActive() && G.inCombat) {
+        skillBtn.title = 'Forms dissipate under your Rule — living motion only.';
+    } else if (skillBtn) {
+        skillBtn.title = '';
+    }
 }
 
 function renderEnemyCombatStatus() {
@@ -1037,6 +1043,14 @@ function renderCombatBonusBar() {
     }
     if (G.vesselRuleCombat?.bloodSealedTurns > 0) {
         chips.push(`<span class="combat-bonus-chip buff-chip" title="Bleed ticks paused">🩸 Sealed (${G.vesselRuleCombat.bloodSealedTurns})</span>`);
+    }
+    if (typeof isRuleOfUnnamedActive === 'function' && isRuleOfUnnamedActive() && G.inCombat) {
+        const flow = typeof getFlowStacks === 'function' ? getFlowStacks() : (G.vesselRuleCombat?.flowStacks || 0);
+        const flowCap = typeof RULE_OF_UNNAMED_BALANCE !== 'undefined' ? RULE_OF_UNNAMED_BALANCE.flowCap : 5;
+        chips.push(`<span class="combat-bonus-chip flow-chip" title="Rule of the Unnamed — motion builds rhythm">👊 Flow ${flow}/${flowCap}</span>`);
+        if (typeof isStagnationActive === 'function' && isStagnationActive()) {
+            chips.push(`<span class="combat-bonus-chip debuff-chip" title="Clinging to forms stiffens motion">👊 Stagnation</span>`);
+        }
     }
     Object.values(TECHNIQUE_SETS).forEach(set => {
         const bonus = getSetBonusesForId(set.id);

@@ -3,7 +3,7 @@
 // ============================================
 //
 // Dantian → Weapon Intent; Vessel → Vessel Rules; Spirit → Soul Mass (future).
-// Rule of Blood is fully playable; Rule of the Unnamed arrives in a follow-up PR.
+// Rule of Blood and Rule of the Unnamed are fully playable.
 
 /** Map legacy/alternate layer ids to Body Chamber keys. */
 function normalizeVesselRuleBodyLayer(layerId) {
@@ -27,7 +27,13 @@ function ensureVesselRuleCombatState() {
             sealCooldownTurns: 0,
             damageTakenThisFight: 0,
             wasBloodiedThisFight: false,
-            loggedBloodied: false
+            loggedBloodied: false,
+            flowStacks: 0,
+            techniqueAttempts: 0,
+            stagnationActive: false,
+            basicsThisFight: 0,
+            loggedFlowPeak: false,
+            loggedSlipFlavor: false
         };
     }
 }
@@ -57,6 +63,10 @@ function hasActiveVesselRule(id) {
 
 function isRuleOfBloodActive() {
     return hasActiveVesselRule('blood');
+}
+
+function isRuleOfUnnamedActive() {
+    return hasActiveVesselRule('unnamed');
 }
 
 function isVesselRuleCooldownActive() {
@@ -233,6 +243,14 @@ function getVesselRuleSoulContestPct() {
     return bal.soulContestPctBase + (bal.soulContestPctAtComplete - bal.soulContestPctBase) * t;
 }
 
+function getVesselRuleSoulSlipPct() {
+    if (!isRuleOfUnnamedActive()) return 0;
+    const bal = typeof RULE_OF_UNNAMED_BALANCE !== 'undefined' ? RULE_OF_UNNAMED_BALANCE : null;
+    if (!bal) return 0;
+    const t = getVesselRuleProgressionPct() / 100;
+    return bal.soulSlipPctBase + (bal.soulSlipPctAtComplete - bal.soulSlipPctBase) * t;
+}
+
 function vesselRuleActionBlocked() {
     return G.gameOver || G.inCombat
         || (typeof isTribulationActive === 'function' && isTribulationActive());
@@ -391,20 +409,41 @@ function onCombatStartVesselRule() {
         sealCooldownTurns: 0,
         damageTakenThisFight: 0,
         wasBloodiedThisFight: false,
-        loggedBloodied: false
+        loggedBloodied: false,
+        flowStacks: 0,
+        techniqueAttempts: 0,
+        stagnationActive: false,
+        basicsThisFight: 0,
+        loggedFlowPeak: false,
+        loggedSlipFlavor: false
     };
 }
 
 function onCombatVictoryVesselRule() {
-    if (!isRuleOfBloodActive()) return;
-    ensureVesselRuleCombatState();
-    const vc = G.vesselRuleCombat;
-    if (!vc?.wasBloodiedThisFight) return;
-    const bal = getBloodRuleBalance();
-    if (!bal) return;
-    grantVesselRuleProgression(bal.progressionPerBloodiedWin, 'bloodiedWin');
-    if (G.vesselRule?.progression) {
-        G.vesselRule.progression.bloodiedWins = (G.vesselRule.progression.bloodiedWins || 0) + 1;
+    if (isRuleOfBloodActive()) {
+        ensureVesselRuleCombatState();
+        const vc = G.vesselRuleCombat;
+        if (vc?.wasBloodiedThisFight) {
+            const bal = getBloodRuleBalance();
+            if (bal) {
+                grantVesselRuleProgression(bal.progressionPerBloodiedWin, 'bloodiedWin');
+                if (G.vesselRule?.progression) {
+                    G.vesselRule.progression.bloodiedWins = (G.vesselRule.progression.bloodiedWins || 0) + 1;
+                }
+            }
+        }
+    }
+    if (isRuleOfUnnamedActive()) {
+        ensureVesselRuleCombatState();
+        const vc = G.vesselRuleCombat;
+        const bal = getUnnamedRuleBalance();
+        if (!bal || !vc) return;
+        if ((vc.flowStacks || 0) >= 2) {
+            grantVesselRuleProgression(bal.progressionPerFlowWin, 'flowWin');
+            if (G.vesselRule?.progression) {
+                G.vesselRule.progression.flowWins = (G.vesselRule.progression.flowWins || 0) + 1;
+            }
+        }
     }
 }
 
@@ -423,6 +462,153 @@ function onPlayerDamagedVesselRule(dmg, opts) {
         G.enemy.slowTurns = (G.enemy.slowTurns || 0) + bal.backlashSlowTurns;
         if (typeof addCombatLog === 'function') {
             addCombatLog(`🩸 Their strike disturbs your blood — their rhythm breaks.`, 'entry-mod');
+        }
+    }
+}
+
+// ===== Rule of the Unnamed — combat helpers =====
+
+function getUnnamedRuleBalance() {
+    return typeof RULE_OF_UNNAMED_BALANCE !== 'undefined' ? RULE_OF_UNNAMED_BALANCE : null;
+}
+
+function isRuleOfUnnamedBlockingTechniques() {
+    return G.inCombat && isRuleOfUnnamedActive();
+}
+
+function getFlowStacks() {
+    if (!G.inCombat || !isRuleOfUnnamedActive()) return 0;
+    ensureVesselRuleCombatState();
+    return G.vesselRuleCombat.flowStacks || 0;
+}
+
+function isStagnationActive() {
+    if (!G.inCombat || !isRuleOfUnnamedActive()) return false;
+    ensureVesselRuleCombatState();
+    return !!G.vesselRuleCombat.stagnationActive;
+}
+
+function addFlowStacks(n) {
+    if (!n || !isRuleOfUnnamedActive() || !G.inCombat) return;
+    const bal = getUnnamedRuleBalance();
+    if (!bal) return;
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    const before = vc.flowStacks || 0;
+    vc.flowStacks = Math.min(bal.flowCap, before + n);
+    if (vc.flowStacks >= bal.flowCap && !vc.loggedFlowPeak) {
+        vc.loggedFlowPeak = true;
+        if (typeof addCombatLog === 'function') {
+            addCombatLog(`👊 Rhythm settles. The body knows the next beat.`, 'entry-mod');
+        }
+    }
+}
+
+function getUnnamedLivingStrikeMult() {
+    if (!isRuleOfUnnamedActive() || G.path !== 'body' || !G.inCombat) return 1;
+    const bal = getUnnamedRuleBalance();
+    if (!bal) return 1;
+    const vesselIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : 0;
+    const vit = typeof getBodyChamberEffectiveVitality === 'function'
+        ? getBodyChamberEffectiveVitality() : G.vitality;
+    let mult = 1 + vesselIdx * bal.livingStrikeVesselScale
+        + (vit / 100) * bal.livingStrikeVitalityScale;
+    return mult;
+}
+
+function getUnnamedFlowDamageMult() {
+    if (!isRuleOfUnnamedActive() || G.path !== 'body' || !G.inCombat) return 1;
+    const bal = getUnnamedRuleBalance();
+    if (!bal) return 1;
+    const stacks = getFlowStacks();
+    return 1 + stacks * bal.flowDamagePerStack;
+}
+
+function getUnnamedStagnationMult() {
+    if (!isStagnationActive() || G.path !== 'body') return 1;
+    const bal = getUnnamedRuleBalance();
+    return bal ? bal.stagnationDamageMult : 1;
+}
+
+function getUnnamedBasicAttackStaminaDiscount() {
+    if (!isRuleOfUnnamedActive() || G.path !== 'body' || !G.inCombat) return 0;
+    const bal = getUnnamedRuleBalance();
+    if (!bal) return 0;
+    return getFlowStacks() * bal.flowStaminaDiscountPerStack;
+}
+
+function getUnnamedStagnationStaminaPenalty() {
+    if (!isStagnationActive() || G.path !== 'body') return 0;
+    const bal = getUnnamedRuleBalance();
+    return bal ? bal.stagnationStaminaCostBonus : 0;
+}
+
+function applyUnnamedTechniqueSlip(dmg) {
+    if (!isRuleOfUnnamedActive() || !G.inCombat || dmg < 1) return dmg;
+    const bal = getUnnamedRuleBalance();
+    if (!bal) return dmg;
+    const reduced = Math.max(1, Math.floor(dmg * (1 - bal.slipTechniqueDamageReduction)));
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    if (reduced < dmg && !vc.loggedSlipFlavor && Math.random() < 0.35) {
+        vc.loggedSlipFlavor = true;
+        if (typeof addCombatLog === 'function') {
+            addCombatLog(`👊 Their form meets flesh that will not hold still.`, 'entry-mod');
+        }
+    }
+    return reduced;
+}
+
+function tryDissipateTechnique(tech) {
+    if (!isRuleOfUnnamedBlockingTechniques() || !tech) return { dissipated: false };
+    const bal = getUnnamedRuleBalance();
+    if (!bal) return { dissipated: false };
+
+    const fullCost = typeof getTechniqueCombatCost === 'function' ? getTechniqueCombatCost(tech) : 1;
+    const partialCost = Math.max(1, Math.floor(fullCost * bal.dissipateCostMult));
+    if (typeof spendCombatResource === 'function' && !spendCombatResource(partialCost, `${tech.name} (dissipates)`)) {
+        return { dissipated: false };
+    }
+    if (typeof combatSpendRound === 'function' && !combatSpendRound()) {
+        return { dissipated: false };
+    }
+
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    vc.flowStacks = 0;
+    vc.techniqueAttempts = (vc.techniqueAttempts || 0) + 1;
+
+    if (typeof addCombatLog === 'function') {
+        addCombatLog(`👊 The shape begins to settle — your vessel dissolves it. Only living motion remains.`, 'entry-mod');
+    }
+
+    if (vc.techniqueAttempts >= bal.stagnationAfterAttempts && !vc.stagnationActive) {
+        vc.stagnationActive = true;
+        if (typeof addCombatLog === 'function') {
+            addCombatLog(`👊 You cling to dead forms — motion grows stiff. Stagnation grips the flesh.`, 'entry-mod');
+        }
+    }
+
+    return { dissipated: true };
+}
+
+function onUnnamedBasicAttack() {
+    if (!isRuleOfUnnamedActive() || !G.inCombat || G.path !== 'body') return;
+    const bal = getUnnamedRuleBalance();
+    if (!bal) return;
+    ensureVesselRuleCombatState();
+    const vc = G.vesselRuleCombat;
+    vc.basicsThisFight = (vc.basicsThisFight || 0) + 1;
+    addFlowStacks(bal.flowPerBasic);
+
+    if (!G.vesselRule?.progression) G.vesselRule.progression = {};
+    const prevLifetime = G.vesselRule.progression.basicsLifetime || 0;
+    const newLifetime = prevLifetime + 1;
+    G.vesselRule.progression.basicsLifetime = newLifetime;
+    if (newLifetime % bal.basicMilestoneEvery === 0) {
+        grantVesselRuleProgression(bal.progressionPerBasicMilestone, 'basicMilestone');
+        if (G.vesselRule.progression) {
+            G.vesselRule.progression.basicMilestones = (G.vesselRule.progression.basicMilestones || 0) + 1;
         }
     }
 }
