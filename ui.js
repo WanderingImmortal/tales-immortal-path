@@ -984,6 +984,7 @@ function updateCombatUI() {
     renderCombatBonusBar();
     renderCombatLog();
     if (typeof updateVoidStepButton === 'function') updateVoidStepButton();
+    if (typeof updateSealBloodButton === 'function') updateSealBloodButton();
 }
 
 function renderEnemyCombatStatus() {
@@ -1030,6 +1031,12 @@ function renderCombatBonusBar() {
         if (cs.poisonTurns > 0) chips.push(`<span class="combat-bonus-chip debuff-chip" title="Poison damage each turn">☠️ Poison (${cs.poisonTurns})</span>`);
         if (cs.bleedTurns > 0) chips.push(`<span class="combat-bonus-chip debuff-chip" title="Bleed damage each turn">🩸 Bleed (${cs.bleedTurns})</span>`);
         if (cs.slowResourceRegenTurns > 0) chips.push(`<span class="combat-bonus-chip debuff-chip" title="Reduced resource recovery">🐌 Slowed (${cs.slowResourceRegenTurns})</span>`);
+    }
+    if (typeof isBloodied === 'function' && isBloodied()) {
+        chips.push(`<span class="combat-bonus-chip bloodied-chip" title="Rule of Blood — modest combat upside">🩸 Bloodied</span>`);
+    }
+    if (G.vesselRuleCombat?.bloodSealedTurns > 0) {
+        chips.push(`<span class="combat-bonus-chip buff-chip" title="Bleed ticks paused">🩸 Sealed (${G.vesselRuleCombat.bloodSealedTurns})</span>`);
     }
     Object.values(TECHNIQUE_SETS).forEach(set => {
         const bonus = getSetBonusesForId(set.id);

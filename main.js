@@ -805,6 +805,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Combat buttons
     document.getElementById('cbAttack').addEventListener('click', combatAttack);
     document.getElementById('cbSecondary').addEventListener('click', combatSecondary);
+    document.getElementById('cbSealBlood')?.addEventListener('click', () => {
+        if (typeof combatSealBlood === 'function') combatSealBlood();
+    });
     document.getElementById('cbSkill').addEventListener('click', combatSkill);
     document.getElementById('cbFlee').addEventListener('click', combatFlee);
     document.getElementById('cbVoidStep').addEventListener('click', combatVoidStep);

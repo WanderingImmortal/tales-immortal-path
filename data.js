@@ -5025,6 +5025,23 @@ const VESSEL_RULE_BALANCE = {
     progressionCompletePct: 100
 };
 
+const RULE_OF_BLOOD_BALANCE = {
+    bloodiedHpPct: 0.65,
+    bloodiedDamageTakenPct: 0.08,
+    bloodiedDamageMult: 1.08,
+    bloodiedDamageReductionPct: 0.10,
+    sealStaminaCost: 4,
+    sealBleedPauseTurns: 3,
+    sealCooldownTurns: 4,
+    backlashSlowChance: 0.35,
+    backlashSlowTurns: 1,
+    soulContestPctBase: 0.15,
+    soulContestPctAtComplete: 0.25,
+    progressionPerBloodiedWin: 8,
+    progressionPerSeal: 3,
+    progressionPerBloodChamberAction: 2
+};
+
 const VESSEL_RULES = {
     blood: {
         id: 'blood',
@@ -5033,7 +5050,7 @@ const VESSEL_RULES = {
         emoji: '🩸',
         swearGate: { vesselRealmIdx: 2, bodyLayer: 'blood', bodyLayerPct: 50 },
         releaseWarning: 'You will regress to the start of your current vessel realm and lose all Rule progression. The flesh will not forgive this breach lightly.',
-        implemented: false
+        implemented: true
     },
     unnamed: {
         id: 'unnamed',
