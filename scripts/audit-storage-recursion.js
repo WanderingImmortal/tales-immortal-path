@@ -109,6 +109,27 @@ global.ensureSectInventory = function ensureSectInventory() {
     if (!global.G.sect.inventory) global.G.sect.inventory = { stones: 0, materials: {}, items: [] };
 };
 
+global.ensureGearState = function ensureGearState() {
+    if (!global.G.materials) global.G.materials = {};
+};
+global.ensurePillStock = function ensurePillStock() {
+    if (!global.G.pillStock) global.G.pillStock = {};
+    Object.keys(global.PILL_TYPES).forEach(id => {
+        if (global.G.pillStock[id] == null) global.G.pillStock[id] = 0;
+    });
+};
+global.addCraftMaterial = function addCraftMaterial(matId, qty) {
+    ensureGearState();
+    qty = qty || 1;
+    if (!global.CRAFT_MATERIALS[matId]) return false;
+    if (typeof getTravelKitMaterialBlockReason === 'function') {
+        const block = getTravelKitMaterialBlockReason(matId, qty);
+        if (block) return false;
+    }
+    global.G.materials[matId] = (global.G.materials[matId] || 0) + qty;
+    return true;
+};
+
 loadScript('techniques.js');
 loadScript('travel-kit.js');
 loadScript('spatial-ring.js');
