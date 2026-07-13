@@ -109,7 +109,8 @@ function grantRandomClueInZone(preferType) {
 }
 
 function getForbiddenRealmGate() {
-    return typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : (G.realmIdx || 0);
+    return typeof getGateRealmTier === 'function' ? getGateRealmTier()
+        : (typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : (G.realmIdx || 0));
 }
 
 function rollForbiddenClueFromExplore() {
@@ -137,7 +138,10 @@ function actionForbidden() {
 function actionForbiddenSearch() {
     if (G.gameOver || G.inCombat || G.forbidden?.activeTrial) return;
     if (getForbiddenRealmGate() < FORBIDDEN_BALANCE.searchRealmMin) {
-        addLog(`🌑 You are too weak to perceive hidden paths. Need Core Formation.`);
+        const needRealm = typeof formatGateRealmRequirement === 'function'
+            ? formatGateRealmRequirement(FORBIDDEN_BALANCE.searchRealmMin)
+            : 'a major realm on any refinement';
+        addLog(`🌑 You are too weak to perceive hidden paths. Need ${needRealm}.`);
         refreshForbiddenPopupIfOpen();
         fullRender();
         return;

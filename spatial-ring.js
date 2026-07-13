@@ -42,8 +42,10 @@ function getSpatialRingCraftBlockReason(ringId) {
         const req = getSpatialRingDef(def.requiresRing);
         return `Need a ${req?.name || def.requiresRing} to upgrade.`;
     }
-    if (def.reqRealm != null && G.realmIdx < def.reqRealm) {
-        const realmName = PATHS[G.path]?.realms[def.reqRealm] || `realm ${def.reqRealm + 1}`;
+    if (def.reqRealm != null && getGateRealmTier() < def.reqRealm) {
+        const realmName = typeof formatGateRealmRequirement === 'function'
+            ? formatGateRealmRequirement(def.reqRealm)
+            : (PATHS[G.path]?.realms[def.reqRealm] || `realm ${def.reqRealm + 1}`);
         return `Requires ${realmName} or higher.`;
     }
     const craft = def.craft;
@@ -123,7 +125,10 @@ function renderSpatialRingPanelHtml() {
         html += `<div class="spatial-ring-active-desc">${active.desc}</div>`;
         html += `</div>`;
     } else {
-        html += `<p class="spatial-ring-empty">No storage ring attuned — craft one below when you reach Core Formation.</p>`;
+        const craftRealm = typeof formatGateRealmRequirement === 'function'
+            ? formatGateRealmRequirement(2)
+            : 'a major realm on any refinement';
+        html += `<p class="spatial-ring-empty">No storage ring attuned — craft one below when you reach ${craftRealm}.</p>`;
     }
 
     const ringIds = Object.keys(SPATIAL_RING_BALANCE.rings).sort((a, b) => {

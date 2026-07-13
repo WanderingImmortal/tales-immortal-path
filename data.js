@@ -2595,7 +2595,7 @@ const TUTORIAL_STEPS = {
         title: 'Forbidden Grounds',
         emoji: '🌑',
         highlight: '#btnForbidden',
-        text: 'Core Formation opens glimpses of forbidden realms — places where the Dao runs thin and treasures carry a price.',
+        text: 'A major realm on any refinement opens glimpses of forbidden realms — places where the Dao runs thin and treasures carry a price.',
         learnMore: 'Forbidden grounds cost time and carry risk. Dao fragments and rare loot await, but tribulation scars and alignment shifts are real.'
     }
 };
@@ -2834,20 +2834,20 @@ const ACTION_UNLOCKS = {
     },
     search: {
         minRealm: 1,
-        hint: 'Foundation Establishment — sense sealed sites.'
+        hint: 'Reach the second realm on any refinement — sense sealed sites.'
     },
     factions: {
         minRealm: 1,
         milestones: ['explored'],
-        hint: 'Explore once + Foundation Establishment.'
+        hint: 'Explore once + second realm on any refinement.'
     },
     forbidden: {
         minRealm: 2,
-        hint: 'Core Formation — forbidden grounds await.'
+        hint: 'Reach a major realm (any refinement) — forbidden grounds await.'
     },
     sect: {
         minRealm: 2,
-        hint: 'Core Formation — found a sect.'
+        hint: 'Reach a major realm (any refinement) — found a sect.'
     },
     dao: {
         minRealm: typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5,
