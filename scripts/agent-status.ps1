@@ -77,12 +77,12 @@ $rows = foreach ($branch in $cursorBranches) {
         Title  = if ($pr) { $pr.title } else { '' }
         Note   = $note
         Chat   = switch ($status) {
-            'merged'   { "[merged] $($pr.title) 窶・$branch" }
-            'draft PR' { "[PR #$($pr.number)] $($pr.title) 窶・$branch" }
-            'open PR'  { "[PR #$($pr.number)] $($pr.title) 窶・$branch" }
-            'WIP'      { "[WIP] 窶・$branch" }
-            'stale'    { "[stale] 窶・$branch" }
-            default    { "[?] 窶・$branch" }
+            'merged'   { "[L·MERGED] $($pr.title) — PR #$($pr.number)" }
+            'draft PR' { "[L·PR#$($pr.number)] $($pr.title) — PR #$($pr.number)" }
+            'open PR'  { "[L·PR#$($pr.number)] $($pr.title) — PR #$($pr.number)" }
+            'WIP'      { "[L·WIP] — $branch" }
+            'stale'    { "[L·STALE] — $branch" }
+            default    { "[L·?] — $branch" }
         }
     }
 }
@@ -91,7 +91,7 @@ if ($StaleOnly) { $rows = @($rows | Where-Object { $_.Status -eq 'stale' }) }
 if ($WipOnly)   { $rows = @($rows | Where-Object { $_.Status -in @('WIP', 'open PR', 'draft PR') }) }
 
 Write-Host ''
-Write-Host '=== Wandering Immortal 窶・agent branch status ===' -ForegroundColor Cyan
+Write-Host '=== Wandering Immortal — agent branch status ===' -ForegroundColor Cyan
 Write-Host "main @ $($mainTip.Substring(0, 7))  |  cursor branches: $($cursorBranches.Count)" -ForegroundColor DarkGray
 Write-Host ''
 
@@ -106,12 +106,12 @@ Write-Host 'Summary:' -ForegroundColor Cyan
 Write-Host "  merged to main : $merged"
 Write-Host "  open PRs       : $open"
 Write-Host "  WIP (no PR)    : $wip"
-Write-Host "  stale branches : $stale  (safe to delete 窶・work already in main)"
+Write-Host "  stale branches : $stale  (safe to delete — work already in main)"
 Write-Host ''
 
 $active = @($rows | Where-Object { $_.Status -in @('WIP', 'open PR', 'draft PR') })
 if ($active.Count -gt 0) {
-    Write-Host 'Active work (rename chats to match):' -ForegroundColor Yellow
+    Write-Host 'Active work (rename chats to match; use C instead of L for cloud):' -ForegroundColor Yellow
     $active | ForEach-Object { Write-Host "  $($_.Chat)" }
     Write-Host ''
 }
