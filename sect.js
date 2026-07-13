@@ -545,9 +545,11 @@ function getAdvanceSectBlockReason() {
     if (getDiscipleCount() < (req.disciples || 0)) {
         return `Need ${req.disciples} disciples (have ${getDiscipleCount()}).`;
     }
-    if ((req.realmIdx || 0) > G.realmIdx) {
-        const realmName = PATHS[G.path].realms[req.realmIdx] || `Realm ${req.realmIdx + 1}`;
-        return `The sect leader must reach ${realmName}.`;
+    if ((req.realmIdx || 0) > getGateRealmTier()) {
+        const realmLabel = typeof formatGateRealmRequirement === 'function'
+            ? formatGateRealmRequirement(req.realmIdx)
+            : (PATHS[G.path].realms[req.realmIdx] || `Realm ${req.realmIdx + 1}`);
+        return `The sect leader must reach ${realmLabel}.`;
     }
     if ((req.buildingLevels || 0) > getTotalBuildingLevels()) {
         return `Need ${req.buildingLevels} total building levels (have ${getTotalBuildingLevels()}).`;

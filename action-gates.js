@@ -8,6 +8,53 @@ const ACTION_UNLOCK_CUSTOM_CHECKS = {
 
 const ACTION_UNLOCK_SKIP_RENDER = new Set(['consolidate', 'breakthrough', 'search', 'market']);
 
+/** Neutral tier labels for shared world gates (minRealm index). */
+const GATE_TIER_LABELS = [
+    'first realm',
+    'second realm',
+    'major realm',
+    'fourth realm',
+    'fifth realm',
+    'sixth realm',
+    'seventh realm'
+];
+
+/** Path-specific action unlocks — all other minRealm checks use effective tier. */
+const ACTION_UNLOCK_TIER_SOURCE = {
+    intent: 'dantian',
+    physique: 'vessel'
+};
+
+/** Max tier across dantian / vessel / spirit — world gates (sect, forbidden, factions, etc.). */
+function getGateRealmTier() {
+    if (typeof getEffectiveRealmTier === 'function') return getEffectiveRealmTier();
+    return G.realmIdx || 0;
+}
+
+function getGateTierNeutralLabel(realmIdx) {
+    return GATE_TIER_LABELS[realmIdx] || `realm ${realmIdx + 1}`;
+}
+
+function getMajorRealmGateLabel() {
+    return 'a major realm on any refinement';
+}
+
+function formatGateRealmRequirement(minRealm) {
+    if (minRealm === 2) return getMajorRealmGateLabel();
+    return `the ${getGateTierNeutralLabel(minRealm)} on any refinement`;
+}
+
+function getActionUnlockRealmTier(actionId) {
+    const source = ACTION_UNLOCK_TIER_SOURCE[actionId] || 'effective';
+    if (source === 'dantian') {
+        return typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('dantian') : (G.realmIdx || 0);
+    }
+    if (source === 'vessel') {
+        return typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx || 0);
+    }
+    return getGateRealmTier();
+}
+
 function ensureMilestones() {
     if (!G.milestones) G.milestones = {};
 }
@@ -70,8 +117,10 @@ function evaluateActionUnlock(actionId) {
     const def = getActionUnlockDef(actionId);
     if (!def) return { unlocked: true, reason: null };
 
-    if (def.minRealm != null && G.realmIdx < def.minRealm) {
-        const realmLabel = getActionUnlockRealmLabel(def.minRealm);
+    if (def.minRealm != null && getActionUnlockRealmTier(actionId) < def.minRealm) {
+        const realmLabel = ACTION_UNLOCK_TIER_SOURCE[actionId]
+            ? getActionUnlockRealmLabel(def.minRealm)
+            : formatGateRealmRequirement(def.minRealm);
         return {
             unlocked: false,
             reason: def.hint || `Reach ${realmLabel} first.`

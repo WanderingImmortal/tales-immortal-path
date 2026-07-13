@@ -2042,8 +2042,11 @@ function renderForbiddenPopup() {
     const zone = ZONES[currentZone];
     const zoneGrounds = groundsInZone(currentZone);
     if (hint) {
-        if (G.realmIdx < FORBIDDEN_BALANCE.searchRealmMin) {
-            hint.textContent = 'Reach Core Formation to search for forbidden legends.';
+        if (getForbiddenRealmGate() < FORBIDDEN_BALANCE.searchRealmMin) {
+            const needRealm = typeof formatGateRealmRequirement === 'function'
+                ? formatGateRealmRequirement(FORBIDDEN_BALANCE.searchRealmMin)
+                : 'a major realm on any refinement';
+            hint.textContent = `Reach ${needRealm} to search for forbidden legends.`;
         } else if (zoneGrounds.length === 0) {
             hint.textContent = `No forbidden grounds are tied to ${zone ? zone.name : 'this zone'}. Travel elsewhere.`;
         } else {
