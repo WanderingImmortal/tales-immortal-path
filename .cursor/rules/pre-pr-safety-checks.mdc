@@ -1,0 +1,55 @@
+---
+description: Run recursion audits before PRs; fix in-scope loops, report other findings
+alwaysApply: true
+---
+
+# Pre-PR safety checks (recursion)
+
+Applies to **every** agent before opening or updating a PR with `.js` changes.
+
+Goal: catch infinite recursion and render/ensure loops **before** merge — the most common game-breaking bug in this repo.
+
+## Before you open a PR
+
+If the task changed any `.js` file:
+
+1. **Run both audits** (from repo root):
+   ```bash
+   node scripts/audit-ensure-sync-recursion.js
+   node scripts/audit-storage-recursion.js
+   ```
+   Or: `bash scripts/pre-pr-check.sh` / `.\scripts\pre-pr-check.ps1`
+
+2. **If an audit fails because of recursion in your changes** (or code your diff directly calls):
+   - Fix it on **this branch** — prefer a small guard (`if (_ensuringX) return`) or splitting `ensureX` / `ensureXCore`.
+   - Re-run both audits until they pass.
+   - Do **not** leave a PR open with a failing audit you introduced.
+
+3. **If an audit fails on unrelated legacy code** you did not touch:
+   - Do **not** drive-by fix it.
+   - Note it in the PR test plan: file, function, and "pre-existing — not in scope."
+
+4. **Other suspected game-breakers** (save corruption, gate bypass, render thrash):
+   - Mention in the PR test plan if you spot them.
+   - Do **not** auto-fix unless the user asked for that work.
+
+Skip audits for investigation-only tasks with **no** `.js` changes.
+
+## PR test plan (required line)
+
+Include a short **Safety checks** block:
+
+```markdown
+### Safety checks
+- audit-ensure-sync-recursion.js: pass
+- audit-storage-recursion.js: pass
+- (optional) Other notes: …
+```
+
+## What counts as "your changes"
+
+- Files you edited in this branch.
+- `ensure*` / `sync*` / `render*` / `fullRender` / `notifyActionUnlocksFromChange` chains you added or rewired.
+- New getters that call `ensure*` during render or unlock evaluation.
+
+When unsure, trace one call chain manually: A → B → A means fix before PR.

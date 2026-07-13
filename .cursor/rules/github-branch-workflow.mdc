@@ -12,9 +12,10 @@ Same workflow for **local** and **cloud** agents. Cloud VMs are not a substitute
 1. **Never commit to `main`.** Branch first: `cursor/<short-kebab-description>`
 2. Commit with a clear message (use env `GIT_AUTHOR_*` / `GIT_COMMITTER_*` if identity is unset — do **not** change git config).
 3. **Push:** `git push -u origin HEAD`
-4. **Open a PR** when the task is complete (`gh pr create`), especially **cloud agents** — push alone is not done.
-5. Reply with branch name + PR URL.
-6. **No force-push** to `main`/`master`. Do not update git config.
+4. **Pre-PR safety** (if `.js` changed): run `bash scripts/pre-pr-check.sh` — fix any recursion your diff introduced; see `pre-pr-safety-checks.mdc`.
+5. **Open a PR** when the task is complete (`gh pr create`), especially **cloud agents** — push alone is not done.
+6. Reply with branch name + PR URL.
+7. **No force-push** to `main`/`master`. Do not update git config.
 
 ## Cloud agents (extra)
 
