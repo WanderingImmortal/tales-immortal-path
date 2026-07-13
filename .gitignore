@@ -5,8 +5,11 @@ desktop.ini
 *.swp
 *~
 
-# IDE / Cursor
-.cursor/
+# IDE / Cursor — keep project rules in git so cloud agents see them
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
 .vscode/
 *.code-workspace
 

@@ -1,0 +1,82 @@
+---
+description: Chat titles + branch/PR workflow for local AND cloud agents (easy to scan)
+alwaysApply: true
+---
+
+# Agent organization (local + cloud)
+
+Applies to **every** agent in this repo — local Composer, Cloud Agents, phone, home.
+
+Goal: glance at the Agents sidebar and know **where it runs**, **status**, **topic**, and **branch/PR**.
+
+## Chat title (rename immediately)
+
+Use `rename_chat` (or ask the user) at session start, when a PR opens, and after merge.
+
+**Format (fixed order — easy to scan):**
+
+```text
+[<L|C>·<STATUS>] <short-topic> — <branch-or-PR>
+```
+
+| Slot | Values | Meaning |
+|------|--------|---------|
+| `L` / `C` | `L` = local, `C` = cloud | Where the agent is running |
+| `STATUS` | `WIP` · `PR#N` · `MERGED` · `STALE` | Lifecycle |
+| topic | 2–5 words | What the work is |
+| tail | `cursor/...` or `PR #N` | Branch while WIP; PR number once opened |
+
+**Examples:**
+
+- `[L·WIP] Fight button no-op — cursor/dead-button-bugs`
+- `[C·WIP] Dao taxonomy — cursor/dao-taxonomy-overhaul`
+- `[L·PR#31] Intent combat start — PR #31`
+- `[C·PR#30] Dead button bugs — PR #30`
+- `[L·MERGED] Creation recursion — PR #29`
+
+Do **not** leave default titles like “New chat”. Do **not** keep `[WIP]` after a PR exists.
+
+## Session start (both local and cloud)
+
+1. Rename chat with the format above (`C` if cloud, `L` if local).
+2. Confirm branch — never continue on a merged/stale branch:
+   ```powershell
+   git branch --show-current
+   .\scripts\agent-status.ps1
+   ```
+3. New work → branch from latest `main`:
+   ```powershell
+   git checkout main; git pull
+   git checkout -b cursor/<short-kebab-topic>
+   ```
+4. Call `SetActiveBranch` (or equivalent) so the UI tracks the feature branch.
+
+## One agent = one topic = one `cursor/*` branch
+
+- Do not pile unrelated fixes onto an old branch.
+- GitHub is source of truth — **push**; do not leave work only in a cloud VM or local disk.
+
+## PRs — required for cloud, expected for local
+
+**Cloud agents (mandatory when the task is done):**
+
+1. Commit on `cursor/<topic>` (never `main`).
+2. `git push -u origin HEAD`
+3. `gh pr create` with Summary + Test plan (unless a PR for this branch already exists).
+4. Rename chat to `[C·PR#N] <topic> — PR #N` and paste the PR URL in the reply.
+5. Do not stop at “branch pushed” without a PR.
+
+**Local agents:**
+
+- Same push + PR flow when finishing a task (this repo’s standing preference).
+- If the user only asked for an investigation with no code change, skip the PR.
+
+## After merge
+
+1. Rename to `[L·MERGED]` / `[C·MERGED] … — PR #N`
+2. `git checkout main && git pull`
+3. Do not add new commits on the old feature branch.
+
+## “Where am I?”
+
+Run `.\scripts\agent-status.ps1` and summarize: open PRs, WIP (ahead, no PR), stale (behind, no unique commits), merged.

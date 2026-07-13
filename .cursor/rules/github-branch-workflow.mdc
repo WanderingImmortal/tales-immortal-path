@@ -1,0 +1,33 @@
+---
+description: Feature branches + push + PR for local and cloud agents (never commit to main)
+alwaysApply: true
+---
+
+# GitHub branch + PR workflow (local and cloud)
+
+Same workflow for **local** and **cloud** agents. Cloud VMs are not a substitute for GitHub.
+
+## Always
+
+1. **Never commit to `main`.** Branch first: `cursor/<short-kebab-description>`
+2. Commit with a clear message (use env `GIT_AUTHOR_*` / `GIT_COMMITTER_*` if identity is unset — do **not** change git config).
+3. **Push:** `git push -u origin HEAD`
+4. **Open a PR** when the task is complete (`gh pr create`), especially **cloud agents** — push alone is not done.
+5. Reply with branch name + PR URL.
+6. **No force-push** to `main`/`master`. Do not update git config.
+
+## Cloud agents (extra)
+
+- Your workspace is ephemeral. If it is not on `origin` with a PR, the work is effectively lost to the user.
+- End every completed coding task with: pushed `cursor/*` branch **and** an open PR (or a clear link to the existing PR for that branch).
+- If more commits land after the user already merged, open a **new** follow-up PR — do not assume the old PR still accepts commits.
+
+## Local agents
+
+- Prefer the same push + PR habit so phone/home/cloud stay in sync.
+- Uncommitted edits on `main` are not acceptable as the final state of a task.
+
+## Branch continuity
+
+- Continuing prior work → stay on that branch (or branch from it).
+- Unrelated work → new `cursor/*` branch from latest `main`.
