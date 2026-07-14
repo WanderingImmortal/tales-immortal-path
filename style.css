@@ -4569,6 +4569,13 @@ header .subtitle {
     border-color: #4a4030;
 }
 
+.npc-converse-line .name {
+    font-size: 12px;
+    line-height: 1.45;
+    font-style: italic;
+    color: #d8ccb8;
+}
+
 #log::-webkit-scrollbar {
     width: 4px;
 }

@@ -284,6 +284,9 @@ function npcCombatVictory(fromTechnique) {
         addCombatLog(`🏆 Rival champion defeated!`);
         rewardLines.push('🏯 Sect renown and stones gained');
     } else if (npc) {
+        if (typeof recordWorldNpcDuelImpression === 'function') {
+            recordWorldNpcDuelImpression(npc, true);
+        }
         if (ctx.type === 'rival') {
             killWorldNpc(npc, 'combat');
             completeNpcQuestByGiver({ uid: npc.uid }, 'rival_duel');

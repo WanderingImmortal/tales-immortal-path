@@ -21,6 +21,7 @@ function ensureAmbientNpcState() {
         if (npc.state === 'persistent' && npc.history && npc.history.length > 12) {
             npc.history = npc.history.slice(-10);
         }
+        if (typeof ensureWorldNpcRelationship === 'function') ensureWorldNpcRelationship(npc);
     });
 }
 
@@ -254,6 +255,7 @@ function promoteAmbientToPersistent(npc, context) {
     npc.metAtZone = context.zoneId || npc.zone;
     npc.metAtLocationId = context.locationId != null ? context.locationId : (G.currentLocation || null);
     npc.impression = 0;
+    npc.trust = 0;
     npc.history = [{ month: G.ageMonths || 0, text: 'First met on the road.' }];
     npc.state = 'persistent';
     npc.met = true;
@@ -267,16 +269,6 @@ function promoteAmbientToPersistent(npc, context) {
     clampWorldNpcProgress(npc);
     enforcePersistentCap();
     return npc;
-}
-
-function getWorldNpcRemeetLine(npc) {
-    if (!npc || npc.state !== 'persistent' || !npc.metAtZone) return '';
-    if ((npc.talkCount || 0) < 1) return '';
-    const zoneName = ZONES[npc.metAtZone]?.name || npc.metAtZone;
-    const monthsAgo = (G.ageMonths || 0) - (npc.metAtMonth || 0);
-    if (monthsAgo > 24) return `We've met before — on the road near ${zoneName}, seasons ago.`;
-    if (monthsAgo > 6) return `We've met before — near ${zoneName}, some months back.`;
-    return `We've met before — on the road near ${zoneName}.`;
 }
 
 function showRoadEncounter(npc) {

@@ -151,6 +151,7 @@ function initWorldSchedulerRegistries() {
     }, 30);
     registerWorldTick('ambientNpcs', (delta) => {
         if (typeof tickAmbientNpcs === 'function') tickAmbientNpcs(delta);
+        if (typeof tickWorldNpcRelationships === 'function') tickWorldNpcRelationships(delta);
     }, 35);
     registerWorldTick('worldNpcs', (delta) => {
         if (typeof tickWorldNpcGrowth === 'function') tickWorldNpcGrowth(delta);

@@ -2628,6 +2628,94 @@ const AMBIENT_RECENT_BEATS = {
     }
 };
 
+// ===== WORLD NPC CONVERSE (v1.1 — jianghu talk) =====
+const NPC_CONVERSE_BALANCE = {
+    monthsCost: 1,
+    impressionDecayPerMonth: 1,
+    trustDecayPerMonth: 1,
+    impressionMin: -100,
+    impressionMax: 100,
+    trustMin: -100,
+    trustMax: 100,
+    lightTopicCount: 2
+};
+
+const NPC_CONVERSE_TOPICS = [
+    { id: 'why_here', label: 'What brings you out here?' },
+    { id: 'not_passing', label: "You don't look like you're just passing through." },
+    { id: 'names', label: 'Heard any names worth remembering?' }
+];
+
+const NPC_CONVERSE_PLAYER_LINES = {
+    why_here: [
+        { stance: 'warm', line: "Rough time on the road? I've seen worse — tell me what's going on." },
+        { stance: 'pragmatic', line: "Everyone's running from something or toward something. Which are you?" },
+        { stance: 'cold', line: "I haven't got long. Make it brief." }
+    ],
+    not_passing: [
+        { stance: 'probe', line: "You're carrying yourself like someone waiting for something. Who?" },
+        { stance: 'firm', line: "I've met enough cultivators to know when someone's measuring me. Don't." },
+        { stance: 'cold', line: "If you're trouble, walk on. I didn't ask for a fight." }
+    ],
+    names: [
+        { stance: 'warm', line: "I'll trade you — a name for a name." },
+        { stance: 'pragmatic', line: "I'm not interested in gossip unless it pays." },
+        { stance: 'cold', line: 'Names get people killed. Keep yours to yourself.' }
+    ]
+};
+
+const NPC_CONVERSE_IMPRESSION_DELTAS = {
+    warm: 4,
+    pragmatic: 2,
+    cold: -3,
+    probe: 1,
+    firm: 0
+};
+
+const NPC_CONVERSE_TRUST_DELTAS = {
+    warm: 3,
+    pragmatic: 1,
+    cold: -2,
+    probe: 0,
+    firm: -1
+};
+
+const NPC_CONVERSE_SYNERGY_MODS = {
+    schemer: { impressionGain: 0.55, trustGain: 0.35, warmTrust: 0.2 },
+    silver_tongue: { impressionGain: 1.1, trustGain: 0.65, warmTrust: 0.5 },
+    grudge_keeper: { impressionGain: 0.85, trustGain: 0.5, coldImpression: -2 },
+    soft_survivor: { impressionGain: 1.15, trustGain: 1.2, warmTrust: 1.3 },
+    righteous: { impressionGain: 0.9, trustGain: 0.8 },
+    reluctant_dealer: { impressionGain: 1.0, trustGain: 0.7, pragmaticTrust: 1.2 }
+};
+
+const NPC_CONVERSE_REMEET_GREETS = {
+    recent: [
+        "Small world — I remember you from the road.",
+        "We've spoken before. Say what you came to say."
+    ],
+    months: [
+        "We've crossed paths before — some months back.",
+        "I remember you. The jianghu isn't that large."
+    ],
+    seasons: [
+        "Seasons pass quickly. I still recall meeting you on the road.",
+        "You've aged in the way cultivators do. We have met before."
+    ],
+    warm: [
+        "Good to see a familiar face out here.",
+        "Ah — you again. I hoped the road would be kinder to you."
+    ],
+    cool: [
+        "You again. I remember.",
+        "I haven't forgotten our last conversation."
+    ],
+    wary: [
+        "You. I remember what you said last time.",
+        "Speak carefully. I have not forgotten you."
+    ]
+};
+
 // ===== TUTORIAL =====
 const TUTORIAL_STEPS = {
     first_boot: {
@@ -2746,6 +2834,7 @@ const ACTION_MONTHS = {
     forbiddenEnter: 12,
     consolidate: 3,
     interact: 1,
+    npcConverse: 1,
     npcTrade: 2,
     npcRumor: 2,
     npcTest: 3,
