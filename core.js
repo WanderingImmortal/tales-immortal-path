@@ -1074,6 +1074,7 @@ function loadState() {
             if (typeof ensureNpcState === 'function') ensureNpcState();
             if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
             if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
+            if (typeof ensureAllWorldNpcRelationships === 'function') ensureAllWorldNpcRelationships();
             if (G.worldNpcs == null) G.worldNpcs = [];
             if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
                 scheduleNextDemonicEmergence();

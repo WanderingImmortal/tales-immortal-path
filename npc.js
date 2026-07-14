@@ -402,10 +402,16 @@ function getWorldNpcObserveText(npc) {
         `Age: ~${formatYears(npc.ageMonths)}`,
         `Growth: ${Math.round(npc.growthProgress || 0)}/${NPC_ECOSYSTEM.growthMonthsPerBreakthrough} progress`
     ].filter(Boolean);
+    if (typeof getWorldNpcImpressionLabel === 'function' && hasWorldNpcRelationship(npc)) {
+        lines.push(`Impression: ${getWorldNpcImpressionLabel(npc)} (${npc.impression > 0 ? '+' : ''}${npc.impression || 0})`);
+    }
     if (npc.isDemonicTalent) {
         lines.push(`Demonic threat: ${npc.demonicThreat || 0}`);
     }
-    const insight = typeof getSoulSearchNpcInsight === 'function' ? getSoulSearchNpcInsight(npc) : '';
+    let insight = typeof getSoulSearchNpcInsight === 'function' ? getSoulSearchNpcInsight(npc) : '';
+    if (typeof getWorldNpcTrustObserveHint === 'function') {
+        insight += getWorldNpcTrustObserveHint(npc);
+    }
     return lines.join(' · ') + insight;
 }
 
@@ -448,7 +454,9 @@ function getPresentNpcCards(zoneId) {
             disposition: getWorldNpcDispositionLabel(n),
             dispositionMood: getWorldNpcAlignmentMood(n),
             strength: getWorldNpcStrengthLabel(n),
-            familiarity: n.met ? (n.talkCount >= 5 ? 'Familiar' : 'Recognized') : '',
+            familiarity: n.met && typeof getWorldNpcImpressionLabel === 'function'
+                ? `${getWorldNpcImpressionLabel(n)}${n.talkCount >= 3 ? ' · Known' : n.talkCount >= 1 ? ' · Spoken' : ''}`
+                : (n.met ? (n.talkCount >= 5 ? 'Familiar' : 'Recognized') : ''),
             met: n.met
         };
     });
@@ -864,6 +872,64 @@ function npcTalk(npcId) {
 let npcUiMode = 'menu';
 let npcUiTarget = null;
 let npcUiActiveTest = null;
+let npcUiConverseTopic = null;
+
+function renderWorldNpcConversePopup(npc) {
+    const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
+    const emoji = npc.isDemonicTalent ? '😈' : role.emoji;
+    const alignEl = document.getElementById('npcAlignmentNote');
+    const tradeList = document.getElementById('npcTradeList');
+    const actions = document.getElementById('npcActions');
+    document.getElementById('npcTitle').textContent = `${emoji} ${npc.name}`;
+    const personalityHint = formatPersonalityLabels(npc);
+    let subtitle = personalityHint
+        ? `${role.label} · ${personalityHint}`
+        : `${role.label} · ${getNpcRealmName(npc.realmIdx)}`;
+    if (npc.recentBeat && npc.state === 'persistent') subtitle += ` · ${npc.recentBeat}`;
+    if (typeof getWorldNpcImpressionLabel === 'function') {
+        subtitle += ` · ${getWorldNpcImpressionLabel(npc)}`;
+    }
+    document.getElementById('npcSubtitle').textContent = subtitle;
+    tradeList.innerHTML = '';
+    tradeList.style.display = 'none';
+    if (alignEl) {
+        alignEl.textContent = `${getWorldNpcDispositionLabel(npc)} · ${getWorldNpcStrengthLabel(npc)} · Dao ${formatDaoAlignmentDisplay()}`;
+    }
+
+    if (npcUiMode === 'converse_topic' && npcUiConverseTopic) {
+        document.getElementById('npcDialogue').textContent = buildConverseTopicOpening(npc, npcUiConverseTopic);
+        const lines = NPC_CONVERSE_PLAYER_LINES[npcUiConverseTopic] || [];
+        actions.innerHTML = lines.map((entry, i) =>
+            `<button type="button" class="popup-item npc-action npc-converse-line" data-converse-line="${i}">
+                <div class="name">"${escapeHtml(entry.line)}"</div>
+            </button>`
+        ).join('') + `<button type="button" class="popup-item npc-action" data-npc-action="converse_back"><div class="name">← Other topics</div></button>`;
+        bindNpcPopupEvents();
+        return;
+    }
+
+    document.getElementById('npcDialogue').textContent = getWorldNpcGreeting(npc);
+    const session = getNpcConverseSession(npc);
+    const topics = getConverseTopicsForNpc(npc).filter(t => !session.topicsUsed.includes(t.id));
+    let html = '';
+    if (topics.length) {
+        html += topics.map(t =>
+            `<button type="button" class="popup-item npc-action" data-converse-topic="${t.id}">
+                <div class="name">💬 ${escapeHtml(t.label)}</div>
+            </button>`
+        ).join('');
+    } else {
+        html += `<div class="popup-empty" style="padding:8px 0;color:#a09080;">They have little more to say for now.</div>`;
+    }
+    const timeNote = session.timeCharged ? '' : ` · ${ACTION_MONTHS.npcConverse || 1}mo on first reply`;
+    html += `<button type="button" class="popup-item npc-action" data-npc-action="converse_done">
+        <div class="name">🚪 Done talking</div>
+        <div class="desc">End the conversation${timeNote}</div>
+    </button>`;
+    html += `<button type="button" class="popup-item npc-action" data-npc-action="back"><div class="name">← Back to menu</div></button>`;
+    actions.innerHTML = html;
+    bindNpcPopupEvents();
+}
 
 function getNpcMenuActions(npcId) {
     if (typeof isFactionNpcId === 'function' && isFactionNpcId(npcId)) {
@@ -874,7 +940,7 @@ function getNpcMenuActions(npcId) {
     if (isWorldNpcId(npcId)) {
         const npc = getWorldNpcById(npcId);
         const actions = [
-            { action: 'talk', label: '💬 Talk', desc: 'Exchange words' },
+            { action: 'talk', label: '💬 Talk', desc: 'Speak on the road — topics and replies' },
             { action: 'observe', label: '👁️ Observe', desc: 'Read their cultivation and intent' }
         ];
         if (npc && typeof shouldOfferNpcDuel === 'function' && shouldOfferNpcDuel(npc)) {
@@ -995,6 +1061,8 @@ function closeNpcPopup() {
     npcUiTarget = null;
     npcUiMode = 'menu';
     npcUiActiveTest = null;
+    npcUiConverseTopic = null;
+    G.npcConverseSession = null;
     const tradeList = document.getElementById('npcTradeList');
     if (tradeList) tradeList.innerHTML = '';
 }
@@ -1050,6 +1118,10 @@ function renderNpcPopup() {
     if (isWorldNpcId(npcUiTarget)) {
         const npc = getWorldNpcById(npcUiTarget);
         if (!npc) return;
+        if (npcUiMode === 'converse' || npcUiMode === 'converse_topic') {
+            renderWorldNpcConversePopup(npc);
+            return;
+        }
         const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
         const emoji = npc.isDemonicTalent ? '😈' : role.emoji;
         document.getElementById('npcTitle').textContent = `${emoji} ${npc.name}`;
@@ -1066,7 +1138,6 @@ function renderNpcPopup() {
             : getWorldNpcGreeting(npc);
         tradeList.innerHTML = '';
         tradeList.style.display = 'none';
-        const mood = getWorldNpcAlignmentMood(npc);
         if (alignEl) {
             alignEl.textContent = `${getWorldNpcDispositionLabel(npc)} · ${getWorldNpcStrengthLabel(npc)} · Dao ${formatDaoAlignmentDisplay()}`;
         }
@@ -1242,13 +1313,15 @@ function bindNpcPopupEvents(def) {
                             locationId: typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation
                         });
                     }
-                    const line = getWorldNpcTalkLine(npc);
-                    addLog(`${npc.isDemonicTalent ? '😈' : NPC_ROLES[npc.role]?.emoji || '🧍'} ${npc.name}: "${line}"`);
-                    document.getElementById('npcDialogue').textContent = `"${line}"`;
-                    if (npc && typeof shouldOfferNpcDuel === 'function' && shouldOfferNpcDuel(npc)
-                        && (npc.role === 'rival' || getWorldNpcBehaviorWeight(npc, 'duelWeight') >= 1.4)
-                        && Math.random() < 0.3) {
-                        addLog(`⚔️ ${npc.name} challenges you openly. Accept the duel from their menu.`);
+                    if (npc && typeof canWorldNpcConverse === 'function' && canWorldNpcConverse(npc)) {
+                        if (typeof resetNpcConverseSession === 'function') resetNpcConverseSession(npc);
+                        npcUiMode = 'converse';
+                        npcUiConverseTopic = null;
+                        renderNpcPopup();
+                    } else if (npc) {
+                        const line = getWorldNpcTalkLine(npc);
+                        addLog(`${npc.isDemonicTalent ? '😈' : NPC_ROLES[npc.role]?.emoji || '🧍'} ${npc.name}: "${line}"`);
+                        document.getElementById('npcDialogue').textContent = `"${line}"`;
                     }
                 } else {
                     npcTalk(npcUiTarget);
@@ -1315,6 +1388,16 @@ function bindNpcPopupEvents(def) {
             } else if (action === 'back') {
                 npcUiMode = 'menu';
                 npcUiActiveTest = null;
+                npcUiConverseTopic = null;
+                renderNpcPopup();
+            } else if (action === 'converse_back') {
+                npcUiMode = 'converse';
+                npcUiConverseTopic = null;
+                renderNpcPopup();
+            } else if (action === 'converse_done') {
+                npcUiMode = 'menu';
+                npcUiConverseTopic = null;
+                G.npcConverseSession = null;
                 renderNpcPopup();
             } else if (action === 'leave') {
                 closeNpcPopup();
@@ -1398,6 +1481,31 @@ function bindNpcPopupEvents(def) {
         row.onclick = function() {
             const result = npcBuyItem(npcUiTarget, this.dataset.npcBuy);
             if (!result.success) addLog(`${getNpcDef(npcUiTarget)?.emoji || '🧳'} ${result.message}`);
+            renderNpcPopup();
+            fullRender();
+        };
+    });
+    document.querySelectorAll('[data-converse-topic]').forEach(btn => {
+        btn.onclick = function() {
+            const npc = getWorldNpcById(npcUiTarget);
+            if (!npc) return;
+            npcUiMode = 'converse_topic';
+            npcUiConverseTopic = this.dataset.converseTopic;
+            renderNpcPopup();
+        };
+    });
+    document.querySelectorAll('[data-converse-line]').forEach(btn => {
+        btn.onclick = function() {
+            const npc = getWorldNpcById(npcUiTarget);
+            if (!npc || !npcUiConverseTopic) return;
+            const result = commitConversePlayerLine(npc, npcUiConverseTopic, parseInt(this.dataset.converseLine, 10));
+            if (!result.ok) {
+                if (result.dead) fullRender();
+                return;
+            }
+            document.getElementById('npcDialogue').textContent = result.npcReply;
+            npcUiMode = 'converse';
+            npcUiConverseTopic = null;
             renderNpcPopup();
             fullRender();
         };
