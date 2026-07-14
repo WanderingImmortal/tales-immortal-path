@@ -850,6 +850,7 @@ function renderLog() {
     }).join('');
     el.scrollTop = 0;
     if (typeof bindRoadEncounterEvents === 'function') bindRoadEncounterEvents();
+    if (typeof bindBetrayalAmbushEvents === 'function') bindBetrayalAmbushEvents();
 }
 
 function getBarrierLabel() {

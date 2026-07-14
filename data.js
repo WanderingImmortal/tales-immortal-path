@@ -2716,6 +2716,74 @@ const NPC_CONVERSE_REMEET_GREETS = {
     ]
 };
 
+const NPC_BETRAYAL_BALANCE = {
+    minMonthsAfterHook: 6,
+    ambushChanceTravel: 0.32,
+    ambushChanceExplore: 0.28,
+    weakHpPct: 0.4,
+    weakQiPct: 0.3,
+    impressionTrustGapMin: 6,
+    maxTrustForHook: 12,
+    minImpressionForHook: 6,
+    ambushFirstStrikeHpMin: 4,
+    ambushFirstStrikeHpMax: 10,
+    talkDownBaseChance: 0.22,
+    talkDownCharmingBonus: 0.12,
+    callbackBaseChance: 0.32,
+    misleadingIntelChance: 0.38,
+    trustIntelGapMin: 8
+};
+
+const NPC_CONVERSE_CALLBACKS = [
+    {
+        topicId: 'not_passing',
+        requireFlag: 'dueledPlayer',
+        synergies: ['grudge_keeper'],
+        chance: 0.42,
+        onceKey: 'callback_duel_not_passing',
+        line: '"Still sore from our duel? Good — remember it."'
+    },
+    {
+        topicId: 'not_passing',
+        requireFlag: 'schemer_hook',
+        synergies: ['schemer'],
+        chance: 0.36,
+        onceKey: 'callback_schemer_waiting',
+        line: '"Still waiting for something worth my time. Perhaps that is you."'
+    },
+    {
+        topicId: 'names',
+        requireFlag: 'schemer_hook',
+        synergies: ['schemer'],
+        chance: 0.38,
+        onceKey: 'callback_schemer_offer',
+        line: '"That offer still stands — if you are listening."'
+    },
+    {
+        topicId: 'names',
+        minFame: 20,
+        requireFlag: 'boasted_fame',
+        chance: 0.34,
+        onceKey: 'callback_fame_names',
+        line: '"Everyone knows {name}. Including the wrong people."'
+    },
+    {
+        topicId: 'why_here',
+        requireActivity: 'fleeing_trouble',
+        chance: 0.33,
+        onceKey: 'callback_fleeing_beat',
+        line: '"Still running. The road has long memory — as do I."'
+    },
+    {
+        topicId: 'why_here',
+        requireFlag: 'threatened',
+        synergies: ['cowardly', 'soft_survivor'],
+        chance: 0.3,
+        onceKey: 'callback_threatened_why',
+        line: '"You were sharp last time. I have not forgotten the tone."'
+    }
+];
+
 // ===== TUTORIAL =====
 const TUTORIAL_STEPS = {
     first_boot: {

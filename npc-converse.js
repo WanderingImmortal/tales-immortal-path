@@ -10,6 +10,7 @@ function ensureWorldNpcRelationship(npc) {
     if (!hasWorldNpcRelationship(npc)) return;
     if (npc.impression == null) npc.impression = 0;
     if (npc.trust == null) npc.trust = 0;
+    if (typeof ensureBetrayalNpcFields === 'function') ensureBetrayalNpcFields(npc);
 }
 
 function ensureAllWorldNpcRelationships() {
@@ -63,6 +64,9 @@ function getWorldNpcTrustObserveHint(npc) {
     const imp = npc.impression || 0;
     const trust = npc.trust || 0;
     const gap = imp - trust;
+    if (npc.intent === 'pending') {
+        return ' Their warmth feels like a mask — you suspect ill intent.';
+    }
     if (syn === 'schemer' && gap >= 8) {
         return ' They speak warmly, but something in their bearing does not match.';
     }
@@ -185,6 +189,11 @@ function fillConverseTemplate(text, npc) {
 }
 
 function buildConverseTopicOpening(npc, topicId) {
+    if (typeof pickConverseCallback === 'function') {
+        const callback = pickConverseCallback(npc, topicId);
+        if (callback) return callback;
+    }
+
     const syn = getNpcPersonalitySynergy(npc);
     const beat = npc.recentBeat || generateRecentBeat(npc);
     const zoneName = ZONES[npc.zone]?.name || npc.zone;
@@ -291,6 +300,9 @@ function buildConverseNpcReply(npc, topicId, stance) {
 
 function pickWorldNpcRemeetGreet(npc) {
     if ((npc.talkCount || 0) < 1) return '';
+    if (hasConverseFlag(npc, 'schemer_hook') && getNpcPersonalitySynergy(npc) === 'schemer' && Math.random() < 0.28) {
+        return 'Still walking the jianghu? I remember our talk on the road.';
+    }
     const monthsAgo = (G.ageMonths || 0) - (npc.metAtMonth || 0);
     const imp = npc.impression || 0;
     let pool;
@@ -358,12 +370,24 @@ function commitConversePlayerLine(npc, topicId, lineIdx) {
     addLog(`🧍 You: "${playerLine}"`);
     addLog(`${roleEmoji} ${npc.name}: ${npcReply}`);
 
+    if (typeof applyConverseFlagsFromLine === 'function') {
+        applyConverseFlagsFromLine(npc, topicId, entry.stance);
+    }
+    if (typeof maybeSetupBetrayalIntent === 'function') {
+        maybeSetupBetrayalIntent(npc, topicId, entry.stance);
+    }
+    if (topicId === 'names' && typeof getMisleadingNamesIntel === 'function') {
+        const misleading = getMisleadingNamesIntel(npc);
+        if (misleading) addLog(`${roleEmoji} ${misleading}`);
+    }
+
     return { ok: true, playerLine, npcReply };
 }
 
 function recordWorldNpcDuelImpression(npc, playerWon) {
     if (!hasWorldNpcRelationship(npc)) return;
     npc.dueledPlayer = true;
+    if (typeof addConverseFlag === 'function') addConverseFlag(npc, 'dueledPlayer');
     if (playerWon) {
         shiftWorldNpcImpression(npc, -20);
         shiftWorldNpcTrust(npc, -25, 'cold');

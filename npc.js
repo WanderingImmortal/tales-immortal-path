@@ -1331,6 +1331,7 @@ function bindNpcPopupEvents(def) {
             } else if (action === 'observe') {
                 const npc = getWorldNpcById(npcUiTarget);
                 if (npc) {
+                    if (typeof markBetrayalIntentFromObserve === 'function') markBetrayalIntentFromObserve(npc);
                     document.getElementById('npcDialogue').textContent = getWorldNpcObserveText(npc);
                     addLog(`👁️ You observe ${npc.name} — ${getWorldNpcStrengthLabel(npc)}.`);
                 }
