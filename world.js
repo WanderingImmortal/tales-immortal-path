@@ -243,6 +243,7 @@ function travelToZone(zoneId) {
         addLog(`💎 +${reward} Stones from exploration.`);
     }
     if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('travel');
+    if (typeof tryNpcBetrayalAmbush === 'function') tryNpcBetrayalAmbush('travel');
     renderMapPopup();
     fullRender();
 }
@@ -515,6 +516,7 @@ function actionExplore() {
     if (typeof recordMilestone === 'function') recordMilestone('explored');
     if (typeof tryRollAlchemyMaterialFromExplore === 'function') tryRollAlchemyMaterialFromExplore();
     if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('explore');
+    if (typeof tryNpcBetrayalAmbush === 'function') tryNpcBetrayalAmbush('explore');
     fullRender();
 }
 
