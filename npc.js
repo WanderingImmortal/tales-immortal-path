@@ -210,6 +210,7 @@ function getPresentNpcEntries(zoneId) {
         });
         if (typeof getWorldNpcsInZone === 'function') {
             getWorldNpcsInZone(zoneId).forEach(npc => {
+                if (npc.state === 'ambient') return;
                 entries.push({ type: 'world', id: worldNpcId(npc.uid), npc });
             });
         }
@@ -363,19 +364,25 @@ function getWorldNpcBehaviorWeight(npc, kind) {
 }
 
 function getWorldNpcGreeting(npc) {
+    const remeet = typeof getWorldNpcRemeetLine === 'function' ? getWorldNpcRemeetLine(npc) : '';
     const famePrefix = G.fame >= 60
         ? `Word of ${G.name} travels far. `
         : G.fame >= 10 ? `I've heard of you. ` : '';
     const personalityGreet = getWorldNpcPersonalityGreeting(npc);
-    if (personalityGreet) return `${famePrefix}${personalityGreet}`;
+    if (personalityGreet) {
+        const greet = remeet ? `${remeet} ${personalityGreet}` : `${famePrefix}${personalityGreet}`;
+        return greet;
+    }
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
     if (npc.isDemonicTalent) {
         return `${famePrefix}I am ${npc.name}. Heaven wrote limits — I rewrite them.`;
     }
     if (npc.role === 'villager') {
-        return `${famePrefix}Just a mortal, ${npc.name}. Pay no mind unless you need directions.`;
+        const intro = remeet || famePrefix;
+        return `${intro}Just a mortal, ${npc.name}. Pay no mind unless you need directions.`;
     }
-    return `${famePrefix}${role.label} ${npc.name}, ${getNpcRealmName(npc.realmIdx)} cultivation.`;
+    const prefix = remeet || famePrefix;
+    return `${prefix}${role.label} ${npc.name}, ${getNpcRealmName(npc.realmIdx)} cultivation.`;
 }
 
 function getWorldNpcTalkLine(npc) {
@@ -469,6 +476,12 @@ function recordNpcSeen(npcId) {
     if (isWorldNpcId(npcId)) {
         const npc = getWorldNpcById(npcId);
         if (!npc) return;
+        if (typeof maybePromoteAmbientNpc === 'function') {
+            maybePromoteAmbientNpc(npc, {
+                zoneId: npc.zone,
+                locationId: typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation
+            });
+        }
         npc._gapBeforeSeen = npc.lastSeenMonths != null ? G.ageMonths - npc.lastSeenMonths : null;
         npc.met = true;
         if (npc.isDemonicTalent) npc.demonicMet = true;
@@ -1041,9 +1054,13 @@ function renderNpcPopup() {
         const emoji = npc.isDemonicTalent ? '😈' : role.emoji;
         document.getElementById('npcTitle').textContent = `${emoji} ${npc.name}`;
         const personalityHint = formatPersonalityLabels(npc);
-        document.getElementById('npcSubtitle').textContent = personalityHint
+        let subtitle = personalityHint
             ? `${role.label} · ${personalityHint}`
             : `${role.label} · ${getNpcRealmName(npc.realmIdx)}`;
+        if (npc.recentBeat && npc.state === 'persistent') {
+            subtitle += ` · ${npc.recentBeat}`;
+        }
+        document.getElementById('npcSubtitle').textContent = subtitle;
         document.getElementById('npcDialogue').textContent = npcUiMode === 'observe'
             ? getWorldNpcObserveText(npc)
             : getWorldNpcGreeting(npc);
@@ -1219,6 +1236,12 @@ function bindNpcPopupEvents(def) {
                     fullRender();
                 } else if (isWorldNpcId(npcUiTarget)) {
                     const npc = getWorldNpcById(npcUiTarget);
+                    if (npc && typeof maybePromoteAmbientNpc === 'function') {
+                        maybePromoteAmbientNpc(npc, {
+                            zoneId: npc.zone,
+                            locationId: typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation
+                        });
+                    }
                     const line = getWorldNpcTalkLine(npc);
                     addLog(`${npc.isDemonicTalent ? '😈' : NPC_ROLES[npc.role]?.emoji || '🧍'} ${npc.name}: "${line}"`);
                     document.getElementById('npcDialogue').textContent = `"${line}"`;
@@ -1258,6 +1281,12 @@ function bindNpcPopupEvents(def) {
                 document.getElementById('npcDialogue').textContent = `"${block}"`;
             } else if (action === 'duel') {
                 const npc = getWorldNpcById(npcUiTarget);
+                if (npc && typeof maybePromoteAmbientNpc === 'function') {
+                    maybePromoteAmbientNpc(npc, {
+                        zoneId: npc.zone,
+                        locationId: typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation
+                    });
+                }
                 if (npc && typeof startNpcDuelCombat === 'function') {
                     if (typeof timeCombatStart === 'function'
                         && timeCombatStart(`⚔️ You challenge ${npc.name} to a duel.`, `Dueling ${npc.name}`)) {

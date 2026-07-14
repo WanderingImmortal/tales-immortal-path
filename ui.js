@@ -849,6 +849,7 @@ function renderLog() {
         return `<div class="entry${cls}">${entry.html}</div>`;
     }).join('');
     el.scrollTop = 0;
+    if (typeof bindRoadEncounterEvents === 'function') bindRoadEncounterEvents();
 }
 
 function getBarrierLabel() {

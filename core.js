@@ -1073,6 +1073,7 @@ function loadState() {
             if (typeof ensureAlignmentState === 'function') ensureAlignmentState();
             if (typeof ensureNpcState === 'function') ensureNpcState();
             if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
+            if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
             if (G.worldNpcs == null) G.worldNpcs = [];
             if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
                 scheduleNextDemonicEmergence();

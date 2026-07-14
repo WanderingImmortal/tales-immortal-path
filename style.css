@@ -4537,6 +4537,38 @@ header .subtitle {
     color: #e8dcc8;
 }
 
+#log .entry.log-road-encounter {
+    border-left: 2px solid #6a5a3a;
+    padding-left: 8px;
+}
+
+.road-encounter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.road-enc-btn {
+    background: #2a2218;
+    border: 1px solid #6a5a3a;
+    color: #e8dcc8;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.road-enc-btn:hover {
+    background: #3a3020;
+    border-color: #8a7a50;
+}
+
+.road-enc-btn--muted {
+    opacity: 0.85;
+    border-color: #4a4030;
+}
+
 #log::-webkit-scrollbar {
     width: 4px;
 }

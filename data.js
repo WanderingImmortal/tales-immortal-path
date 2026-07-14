@@ -2524,6 +2524,110 @@ const NPC_ROLE_PERSONALITY_BIAS = {
     demonic_talent: ['ambitious', 'vengeful', 'bold', 'zealous', 'cunning', 'proud']
 };
 
+// ===== AMBIENT NPCs (road strangers — lightweight until promoted) =====
+const AMBIENT_NPC_CAPS = {
+    perZone: 10,
+    persistentGlobal: 100,
+    spawnChanceTravel: 0.35,
+    spawnChanceExplore: 0.30,
+    spawnChanceLocalTravel: 0.28,
+    activityRefreshChance: 0.05
+};
+
+const AMBIENT_DISPLAY_HINTS = [
+    'dust-stained robes',
+    'travel-worn cloak',
+    'qi-tinted eyes',
+    'a hooded face',
+    'bandaged hands',
+    'a heavy pack',
+    'sect outer robes',
+    'mud-caked boots',
+    'incense on their clothes',
+    'a wary glance'
+];
+
+const AMBIENT_ROLE_WORDS = {
+    villager: 'villager',
+    disciple: 'disciple',
+    wanderer: 'wanderer',
+    hermit: 'hermit',
+    rival: 'rival',
+    merchant: 'merchant'
+};
+
+const AMBIENT_ACTIVITIES = [
+    { id: 'traveling_trade', flavorSeed: 'A {role} adjusts a heavy pack — goods bound for market.', typicalRoles: ['merchant', 'villager'] },
+    { id: 'returning_home', flavorSeed: 'A traveler on the road home, unhurried but tired.', typicalRoles: ['villager', 'wanderer'] },
+    { id: 'fleeing_trouble', flavorSeed: 'Someone keeps glancing over their shoulder as they walk.', typicalRoles: ['wanderer', 'disciple'] },
+    { id: 'seeking_work', flavorSeed: 'A cultivator studies passing travelers — looking for hire or escort.', typicalRoles: ['wanderer', 'disciple'] },
+    { id: 'patrol_duty', flavorSeed: 'A guarded figure walks with the posture of militia or clan security.', typicalRoles: ['disciple'] },
+    { id: 'cultivating_roadside', flavorSeed: 'Someone meditates beside the path, qi faintly stirring.', typicalRoles: ['hermit', 'disciple'] },
+    { id: 'injured_recovery', flavorSeed: 'A bandaged traveler rests by the road, jaw set against the pain.', typicalRoles: ['wanderer', 'villager'] },
+    { id: 'pilgrimage', flavorSeed: 'A devout traveler carries shrine incense — destination still far.', typicalRoles: ['villager'] },
+    { id: 'smuggling_run', flavorSeed: 'A hooded figure avoids the main road, sticking to the margins.', typicalRoles: ['wanderer', 'merchant'] },
+    { id: 'beast_hunting', flavorSeed: 'Tracks in the dust — a hunter reads the ground as they walk.', typicalRoles: ['wanderer', 'rival'] },
+    { id: 'herb_gathering', flavorSeed: 'Basket and blade — gathering spirit herbs from the roadside wilds.', typicalRoles: ['villager'] },
+    { id: 'escorting_caravan', flavorSeed: 'Walking beside laden beasts, eyes on the horizon.', typicalRoles: ['merchant', 'disciple'] },
+    { id: 'exiled_wandering', flavorSeed: 'Far from home, bitterness in every line of their posture.', typicalRoles: ['wanderer', 'hermit'] },
+    { id: 'recruiting', flavorSeed: 'Someone watches cultivators pass with appraising eyes — sect outer disciple.', typicalRoles: ['disciple'] },
+    { id: 'delivering_message', flavorSeed: 'Hurried steps, a sealed letter tucked against the chest.', typicalRoles: ['wanderer', 'disciple'] },
+    { id: 'lost', flavorSeed: 'A traveler argues with a crude map, clearly in the wrong place.', typicalRoles: ['villager', 'wanderer'] },
+    { id: 'celebrating', flavorSeed: 'Light step, barely contained grin — recent good fortune.', typicalRoles: ['disciple', 'wanderer'] },
+    { id: 'mourning', flavorSeed: 'Quiet grief; funeral ashes or memorial token in hand.', typicalRoles: ['villager', 'sorrowful'] },
+    { id: 'toll_avoidance', flavorSeed: 'Taking a rough detour to avoid the toll road.', typicalRoles: ['merchant', 'wanderer'] },
+    { id: 'rumor_spreading', flavorSeed: 'Eager to speak with anyone passing — news from the road.', typicalRoles: ['villager', 'wanderer'] }
+];
+
+const AMBIENT_RECENT_BEATS = {
+    traveling_trade: {
+        cunning: 'Lost a cargo contract to a rival merchant last season.',
+        default: 'Hauling goods between markets along the dusty routes.'
+    },
+    fleeing_trouble: {
+        vengeful: 'Running from someone who owes a blood debt.',
+        cowardly: 'Fled a dispute they want no part of.',
+        default: 'Keeping ahead of trouble on the road.'
+    },
+    cultivating_roadside: {
+        wise: 'Seeks breakthrough before winter closes the pass.',
+        zealous: 'Refuses to break meditation until qi stirs.',
+        default: 'Practices where the path meets open sky.'
+    },
+    returning_home: {
+        sorrowful: 'Returns to a village that may not remember them.',
+        default: 'Homeward bound after long months away.'
+    },
+    seeking_work: {
+        ambitious: 'Hopes this journey leads to a patron sect.',
+        default: 'Needs coin and will guard a caravan for pay.'
+    },
+    smuggling_run: {
+        secretive: 'Carries something best left unmentioned.',
+        cunning: 'Knows every back trail between toll stations.',
+        default: 'Avoids main roads for reasons they will not say.'
+    },
+    beast_hunting: {
+        bold: 'Tracking a beast that wounded a village elder.',
+        default: 'Following spoor along the trade routes.'
+    },
+    mourning: {
+        sorrowful: 'Carries ashes from a funeral on the western road.',
+        default: 'Walks in quiet grief after a recent loss.'
+    },
+    rumor_spreading: {
+        charming: 'Cannot resist sharing every scrap of road news.',
+        default: 'Collects tales from every traveler they meet.'
+    },
+    lost: {
+        foolish: 'Insists the map is correct — the road is wrong.',
+        default: 'Clearly far from where they intended to be.'
+    },
+    default: {
+        default: 'Recently seen along the roads of the jianghu.'
+    }
+};
+
 // ===== TUTORIAL =====
 const TUTORIAL_STEPS = {
     first_boot: {

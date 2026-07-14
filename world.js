@@ -242,6 +242,7 @@ function travelToZone(zoneId) {
         G.stones += reward;
         addLog(`💎 +${reward} Stones from exploration.`);
     }
+    if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('travel');
     renderMapPopup();
     fullRender();
 }
@@ -513,6 +514,7 @@ function actionExplore() {
     if (typeof onExploreForStoryQuests === 'function') onExploreForStoryQuests(zoneId);
     if (typeof recordMilestone === 'function') recordMilestone('explored');
     if (typeof tryRollAlchemyMaterialFromExplore === 'function') tryRollAlchemyMaterialFromExplore();
+    if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('explore');
     fullRender();
 }
 
@@ -824,9 +826,12 @@ function ensureNpcPersonalities(npc) {
 
 function ensureWorldNpcs() {
     if (!G.worldNpcs) G.worldNpcs = [];
+    if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
     if (!G.nextDemonicEmergenceMonths) scheduleNextDemonicEmergence();
     G.worldNpcs.forEach(n => {
         if (n.alive) {
+            if (!n.state) n.state = 'persistent';
+            if (n.state === 'persistent' && n.unnamed == null) n.unnamed = false;
             ensureNpcPersonalities(n);
             clampWorldNpcProgress(n);
         }
@@ -980,6 +985,7 @@ function tickWorldNpcGrowth(monthsPassed) {
     const base = NPC_ECOSYSTEM.growthMonthsPerBreakthrough;
     G.worldNpcs.forEach(npc => {
         if (!npc.alive) return;
+        if (npc.state === 'ambient') return;
         npc.ageMonths += monthsPassed;
         if (npc.ageMonths >= getWorldNpcLifespanMonths(npc)) {
             killWorldNpc(npc, 'old age');

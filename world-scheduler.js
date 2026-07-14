@@ -149,6 +149,9 @@ function initWorldSchedulerRegistries() {
     registerWorldTick('quests', (delta) => {
         if (typeof tickQuestSystems === 'function') tickQuestSystems(delta);
     }, 30);
+    registerWorldTick('ambientNpcs', (delta) => {
+        if (typeof tickAmbientNpcs === 'function') tickAmbientNpcs(delta);
+    }, 35);
     registerWorldTick('worldNpcs', (delta) => {
         if (typeof tickWorldNpcGrowth === 'function') tickWorldNpcGrowth(delta);
     }, 40);
