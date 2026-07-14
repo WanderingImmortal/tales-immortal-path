@@ -100,6 +100,7 @@ function travelToLocation(locationId) {
     if (typeof tryCompleteFactionQuests === 'function') {
         tryCompleteFactionQuests('travel', { zone: loc.parentZone, locationId });
     }
+    if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('localTravel');
     return { success: true, message: `Arrived at ${loc.name}.` };
 }
 
