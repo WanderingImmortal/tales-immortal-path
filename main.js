@@ -691,6 +691,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('btnConsolidate').addEventListener('click', actionConsolidate);
     document.getElementById('btnExplore').addEventListener('click', actionExplore);
+    document.getElementById('btnLookAround')?.addEventListener('click', () => {
+        if (typeof actionLookAround === 'function') actionLookAround();
+    });
     document.getElementById('btnSearch').addEventListener('click', actionSearch);
     document.getElementById('btnBreakthrough').addEventListener('click', openBreakthrough);
     document.getElementById('btnPill').addEventListener('click', actionPill);

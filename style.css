@@ -4569,6 +4569,12 @@ header .subtitle {
     border-color: #4a4030;
 }
 
+#log .entry.log-scene-notice {
+    border-left: 2px solid #4a5568;
+    padding-left: 8px;
+    color: #b8b0a0;
+}
+
 .npc-converse-line .name {
     font-size: 12px;
     line-height: 1.45;

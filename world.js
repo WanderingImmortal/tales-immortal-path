@@ -244,6 +244,9 @@ function travelToZone(zoneId) {
     }
     if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('travel');
     if (typeof tryNpcBetrayalAmbush === 'function') tryNpcBetrayalAmbush('travel');
+    if (typeof fireSceneNoticesOnArrive === 'function') {
+        fireSceneNoticesOnArrive({ locationId: G.currentLocation, zoneId });
+    }
     renderMapPopup();
     fullRender();
 }

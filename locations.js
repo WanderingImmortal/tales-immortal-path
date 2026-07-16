@@ -101,6 +101,9 @@ function travelToLocation(locationId) {
         tryCompleteFactionQuests('travel', { zone: loc.parentZone, locationId });
     }
     if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('localTravel');
+    if (typeof fireSceneNoticesOnArrive === 'function') {
+        fireSceneNoticesOnArrive({ locationId, zoneId: loc.parentZone });
+    }
     return { success: true, message: `Arrived at ${loc.name}.` };
 }
 

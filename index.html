@@ -251,6 +251,7 @@
                                 <button id="btnCombat" title="2 months + battle time">⚔️ Fight</button>
                             </div>
                             <div class="actions-row" style="margin-top:6px;">
+                                <button id="btnLookAround" title="1 month · scan for strangers">👁️ Look around</button>
                                 <button id="btnForbidden" title="Forbidden grounds">🌑 Forbidden</button>
                             </div>
                         </div>
@@ -272,9 +273,9 @@
                             <button type="button" id="btnQuestJournal" class="details-toggle quest-journal-btn">📖 Open Chronicle</button>
                         </div>
                         <div class="action-group" id="npcPresenceGroup">
-                            <div class="action-group-label">Other People</div>
+                            <div class="action-group-label">People you know</div>
                             <div id="npcPresenceList" class="npc-presence-list">
-                                <p class="npc-presence-empty">No one notable nearby.</p>
+                                <p class="npc-presence-empty">You do not know anyone here yet. Look around or walk the roads.</p>
                             </div>
                         </div>
                     </div>
@@ -1324,6 +1325,7 @@
 <script src="ambient-npcs.js?v=1"></script>
 <script src="npc-converse.js?v=1"></script>
 <script src="npc-betrayal.js?v=1"></script>
+<script src="npc-presence.js?v=1"></script>
 <script src="ancients.js?v=5"></script>
 <script src="factions.js?v=9"></script>
 <script src="factions-expand.js?v=6"></script>

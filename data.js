@@ -2531,7 +2531,70 @@ const AMBIENT_NPC_CAPS = {
     spawnChanceTravel: 0.35,
     spawnChanceExplore: 0.30,
     spawnChanceLocalTravel: 0.28,
-    activityRefreshChance: 0.05
+    activityRefreshChance: 0.05,
+    crowdPerLocationMax: 10
+};
+
+const LOOK_AROUND_COUNTS = {
+    market: { min: 5, max: 8 },
+    city: { min: 4, max: 8 },
+    outpost: { min: 2, max: 5 },
+    sect_hq: { min: 1, max: 4 },
+    wilderness: { min: 0, max: 2 },
+    default: { min: 0, max: 3 }
+};
+
+const SCENE_NOTICE_COUNTS = {
+    market: { min: 2, max: 3 },
+    city: { min: 2, max: 3 },
+    outpost: { min: 1, max: 2 },
+    sect_hq: { min: 1, max: 2 },
+    wilderness: { min: 1, max: 2 },
+    default: { min: 1, max: 2 }
+};
+
+const SCENE_NOTICES = {
+    disturbance: [
+        'Shouting breaks out nearby — someone accuses a merchant of shorting spirit stones.',
+        'A cultivator stumbles from an alley, robes torn, refusing to say who did it.',
+        'Two disciples argue over a cracked jade slip; a crowd is forming.',
+        'Guards hurry past toward a commotion you cannot yet see.',
+        'A beast handler loses control of a pack beast; bystanders scatter.'
+    ],
+    out_of_place: [
+        'A hooded figure stands in full noon sun without sweating — wrong, somehow.',
+        'Sect robes where only mortals should trade. Someone important, or someone lost.',
+        'Incense smoke in a place that should smell only of dust and sweat.',
+        'Silence where the market should be loud — then noise again, as if nothing happened.',
+        'Someone watches the road from a rooftop. Not a guard. Not a friend you recognize.'
+    ],
+    crowd: [
+        'A crowd gathers in the square — preaching, or warning, you cannot tell yet.',
+        'Caravaners clog the street, beasts and curses in equal measure.',
+        'People press toward a stall where something rare is being unpacked.',
+        'Children and idle cultivators chase the same rumor down the main road.'
+    ],
+    quiet: [
+        'The path is empty. Even the wind seems to wait.',
+        'Bird calls stop when you step forward. Nothing moves in the treeline.',
+        'Old tracks cross the road — none of them recent.',
+        'A cold patch of air where sunlight should be. The jianghu feels thin here.',
+        'Distant thunder, but no cloud. You walk on alone.'
+    ],
+    mood: [
+        'The place hums with ordinary life — for now.',
+        'Smoke, voices, the clatter of commerce. Someone here needs something.',
+        'Travelers eye each other the way cultivators do: measuring, not greeting.'
+    ]
+};
+
+const SCENE_NOTICE_WEIGHTS = {
+    market: { disturbance: 3, out_of_place: 2, crowd: 4, mood: 2, quiet: 0 },
+    city: { disturbance: 3, out_of_place: 2, crowd: 3, mood: 2, quiet: 0 },
+    outpost: { disturbance: 2, out_of_place: 2, crowd: 2, mood: 2, quiet: 1 },
+    sect_hq: { disturbance: 1, out_of_place: 3, crowd: 1, mood: 2, quiet: 1 },
+    wilderness: { disturbance: 1, out_of_place: 2, crowd: 0, mood: 0, quiet: 5 },
+    default: { disturbance: 1, out_of_place: 1, crowd: 1, mood: 2, quiet: 2 }
 };
 
 const AMBIENT_DISPLAY_HINTS = [
@@ -2902,6 +2965,7 @@ const ACTION_MONTHS = {
     forbiddenEnter: 12,
     consolidate: 3,
     interact: 1,
+    lookAround: 1,
     npcConverse: 1,
     npcTrade: 2,
     npcRumor: 2,

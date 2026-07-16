@@ -416,6 +416,9 @@ function getWorldNpcObserveText(npc) {
 }
 
 function getPresentNpcCards(zoneId) {
+    if (typeof getKnownNpcCards === 'function') {
+        return getKnownNpcCards(zoneId);
+    }
     return getPresentNpcEntries(zoneId).map(entry => {
         if (entry.type === 'faction') {
             const def = typeof getFactionNpcDef === 'function' ? getFactionNpcDef(entry.id) : null;
@@ -467,7 +470,7 @@ function getNpcPresenceHint() {
     const wei = G.npcState.wei_collector;
     if (!wei?.met || isNpcPresent('wei_collector', currentZone)) return '';
     const zone = ZONES[wei.wanderZone];
-    return `🧳 Wei the Collector — last rumored in ${zone?.name || wei.wanderZone}`;
+    return `🧍 Try Look around, or travel the roads — Wei was rumored near ${zone?.name || wei.wanderZone}.`;
 }
 
 function getPresentNpcs(zoneId) {
@@ -1031,9 +1034,11 @@ function getNpcMenuActions(npcId) {
     return [{ action: 'talk', label: '💬 Talk', desc: 'Speak' }, { action: 'leave', label: '🚪 Leave', desc: 'Go' }];
 }
 
-function openNpcPopup(npcId) {
+function     openNpcPopup(npcId) {
     const zoneId = G.currentZone || currentZone;
-    const present = getPresentNpcEntries(zoneId);
+    const present = typeof getKnownNpcEntries === 'function'
+        ? getKnownNpcEntries(zoneId)
+        : getPresentNpcEntries(zoneId);
     if (!present.length) return;
     if (!npcId && present.length > 1) {
         npcUiTarget = null;
@@ -1063,6 +1068,7 @@ function closeNpcPopup() {
     npcUiActiveTest = null;
     npcUiConverseTopic = null;
     G.npcConverseSession = null;
+    G.crowdSessionUids = null;
     const tradeList = document.getElementById('npcTradeList');
     if (tradeList) tradeList.innerHTML = '';
 }
@@ -1088,19 +1094,25 @@ function renderNpcPopup() {
     const alignEl = document.getElementById('npcAlignmentNote');
     if (!actions || !tradeList) return;
 
-    if (npcUiMode === 'pick') {
-        const cards = getPresentNpcCards(G.currentZone || currentZone);
-        document.getElementById('npcTitle').textContent = '🧍 Who do you approach?';
+    if (npcUiMode === 'pick' || npcUiMode === 'crowd') {
+        const cards = npcUiMode === 'crowd' && typeof getCrowdNpcCards === 'function'
+            ? getCrowdNpcCards()
+            : getPresentNpcCards(G.currentZone || currentZone);
+        document.getElementById('npcTitle').textContent = npcUiMode === 'crowd'
+            ? '👁️ Who catches your eye?'
+            : '🧍 Who do you approach?';
         document.getElementById('npcSubtitle').textContent = typeof getPlaceDisplayLabel === 'function'
             ? getPlaceDisplayLabel()
             : (ZONES[G.currentZone || currentZone]?.name || currentZone);
-        document.getElementById('npcDialogue').textContent = 'Several figures are nearby.';
+        document.getElementById('npcDialogue').textContent = npcUiMode === 'crowd'
+            ? 'Strangers in the crowd — approach one if you wish.'
+            : 'Several figures are nearby.';
         if (alignEl) alignEl.textContent = '';
         tradeList.innerHTML = '';
         tradeList.style.display = 'none';
         actions.innerHTML = cards.map(c => {
             const fam = c.familiarity ? ` · ${c.familiarity}` : '';
-            return `<button type="button" class="popup-item npc-action" data-npc-pick="${c.id}">
+            return `<button type="button" class="popup-item npc-action" data-npc-pick="${c.id}" data-crowd-pick="${c.isCrowd ? c.id.slice(6) : ''}">
                 <div class="name">${c.emoji} ${c.name}</div>
                 <div class="desc">${c.occupation}${fam}</div>
             </button>`;
@@ -1240,6 +1252,12 @@ function renderNpcTradeRows(def) {
 function bindNpcPopupEvents(def) {
     document.querySelectorAll('[data-npc-pick]').forEach(btn => {
         btn.onclick = function() {
+            const crowdUid = this.dataset.crowdPick;
+            if (crowdUid && typeof approachCrowdNpc === 'function') {
+                approachCrowdNpc(crowdUid);
+                fullRender();
+                return;
+            }
             npcUiTarget = this.dataset.npcPick;
             npcUiMode = 'menu';
             recordNpcSeen(npcUiTarget);
@@ -1515,9 +1533,11 @@ function bindNpcPopupEvents(def) {
 
 function actionInteract() {
     if (actionBlocked()) return;
-    const present = getPresentNpcEntries(currentZone);
+    const present = typeof getKnownNpcEntries === 'function'
+        ? getKnownNpcEntries(currentZone)
+        : getPresentNpcEntries(currentZone);
     if (!present.length) {
-        addLog('🧍 No one of note is here to speak with.');
+        addLog('🧍 You do not know anyone here yet. Look around or walk the roads.');
         fullRender();
         return;
     }
