@@ -427,4 +427,5 @@ Most players should start **mixed or single inferior/common**, not superior.
 - `data.js` — `TALENT_GRADES`, `TALENT_ELEMENTS`, creation CP
 - `talent.js` — caps, mults
 - `main.js` — creation UI, preview (speed, cap, core feasibility)
-- `technique-driven-cultivation.md` — breathing method × root
+- [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — method pool, essence, active method
+- `technique-driven-cultivation.md` — foundation variant × method at seal
