@@ -147,17 +147,20 @@ function renderStatus() {
     document.getElementById('techCountStat').textContent = G.techniques.length;
     document.getElementById('nextRealm').textContent = getNextRealm();
     document.getElementById('breakChance').textContent = Math.round(getBreakChance()) + '%';
-    if (typeof getCultivationPillarSummary === 'function') {
-        const fs = getCultivationPillarSummary();
+    if (typeof getFoundationPlayerLabel === 'function') {
         const foundationEl = document.getElementById('foundationDisplay');
         if (foundationEl) {
-            foundationEl.textContent = `${fs.effective} ${fs.grade.label}`;
+            const grade = typeof getFoundationGrade === 'function' ? getFoundationGrade() : null;
+            foundationEl.textContent = getFoundationPlayerLabel();
+            foundationEl.className = 'value' + (grade?.id ? ` foundation-grade-${grade.id}` : '');
             const foundationItem = foundationEl.closest('.stat-item');
-            if (foundationItem) {
-                const crackNote = fs.cracks > 0 ? ` · ${fs.cracks} crack${fs.cracks === 1 ? '' : 's'}` : '';
-                foundationItem.title = `Root ${fs.root} · Flow ${fs.flow} · Stability ${fs.stability}${crackNote}`;
+            if (foundationItem && typeof getFoundationPlayerTooltip === 'function') {
+                foundationItem.title = getFoundationPlayerTooltip();
             }
         }
+    } else if (typeof getCultivationPillarSummary === 'function') {
+        const fs = getCultivationPillarSummary();
+        document.getElementById('foundationDisplay').textContent = fs.grade.label;
     } else {
         document.getElementById('foundationDisplay').textContent = getEffectiveFoundation();
     }
@@ -537,9 +540,11 @@ function renderScenePanel() {
             infEl.style.display = 'none';
         }
     }
-    document.getElementById('sceneFoundation').textContent = typeof getFoundationDisplayText === 'function'
-        ? getFoundationDisplayText()
-        : String(getEffectiveFoundation());
+    document.getElementById('sceneFoundation').textContent = typeof getFoundationPlayerLabel === 'function'
+        ? getFoundationPlayerLabel()
+        : (typeof getFoundationDisplayText === 'function'
+            ? getFoundationDisplayText()
+            : String(getEffectiveFoundation()));
     const sceneFame = document.getElementById('sceneFame');
     if (sceneFame) {
         const consol = typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : '';
@@ -1837,12 +1842,23 @@ function renderSectPopup() {
 function renderStatGuidePopup() {
     const list = document.getElementById('statGuideList');
     if (!list || typeof STAT_GUIDE === 'undefined') return;
-    list.innerHTML = Object.values(STAT_GUIDE).map(g =>
+    let html = Object.values(STAT_GUIDE).map(g =>
         `<div class="stat-guide-row">
             <div class="stat-guide-label">${g.emoji} ${g.label}</div>
             <div class="stat-guide-desc">${g.desc}</div>
         </div>`
     ).join('');
+    const grades = typeof CULTIVATION_BASE_BALANCE !== 'undefined' ? CULTIVATION_BASE_BALANCE.grades : null;
+    if (grades?.length) {
+        const gradeLines = grades.map(g =>
+            `<strong>${g.emoji} ${g.label}</strong> — ${g.playerDesc || ''}${g.playerEffects ? ' ' + g.playerEffects : ''}`
+        ).join('<br>');
+        html += `<div class="stat-guide-row">
+            <div class="stat-guide-label">🏛️ Foundation grades</div>
+            <div class="stat-guide-desc">${gradeLines}</div>
+        </div>`;
+    }
+    list.innerHTML = html;
 }
 
 function actionStatGuide() {

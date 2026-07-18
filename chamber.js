@@ -59,18 +59,6 @@ function getChamberDensityCap() {
     return b.densityBarCapBase + G.realmIdx * b.densityBarCapPerRealm;
 }
 
-function getChamberFoundationCap() {
-    const b = CHAMBER_BALANCE;
-    const foundation = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : (G.foundation || 0);
-    const def = typeof getConsolidationDef === 'function' ? getConsolidationDef(G.realmIdx) : null;
-    if (def?.foundationGain) {
-        const target = foundation + def.foundationGain;
-        return Math.max(target * (b.foundationBarHeadroom || 1.15), foundation, 1);
-    }
-    const row = typeof CONSOLIDATION_BY_REALM !== 'undefined' ? CONSOLIDATION_BY_REALM[G.realmIdx] : null;
-    return row?.foundationGain ? foundation + row.foundationGain + 10 : Math.max(20, foundation + 15);
-}
-
 function isChamberOnCooldown(key) {
     ensureChamberState();
     const until = G.chamberCooldowns[key] || 0;
@@ -276,27 +264,27 @@ function triggerChamberAnim(kind) {
 function renderChamberUI() {
     if (!G.inQiChamber) return;
     ensureChamberState();
-    const b = CHAMBER_BALANCE;
     const density = getQiDensity();
     const densityCap = getChamberDensityCap();
     const maxQi = getMaxQi();
     const qi = G.qi != null ? G.qi : maxQi;
-    const foundation = typeof getEffectiveFoundation === 'function' ? getEffectiveFoundation() : (G.foundation || 0);
-    const foundationCap = getChamberFoundationCap();
+    const grade = typeof getFoundationGrade === 'function' ? getFoundationGrade() : null;
 
     const densityBar = document.getElementById('chamberDensityBar');
     const capacityBar = document.getElementById('chamberCapacityBar');
-    const foundationBar = document.getElementById('chamberFoundationBar');
     if (densityBar) densityBar.style.width = `${Math.min(100, (density / densityCap) * 100)}%`;
     if (capacityBar) capacityBar.style.width = `${Math.min(100, (qi / Math.max(1, maxQi)) * 100)}%`;
-    if (foundationBar) foundationBar.style.width = `${Math.min(100, (foundation / Math.max(1, foundationCap)) * 100)}%`;
 
     const densityText = document.getElementById('chamberDensityText');
     const capacityText = document.getElementById('chamberCapacityText');
     const foundationText = document.getElementById('chamberFoundationText');
     if (densityText) densityText.textContent = density.toFixed(2);
     if (capacityText) capacityText.textContent = `${qi} / ${maxQi}`;
-    if (foundationText) foundationText.textContent = String(foundation);
+    if (foundationText) {
+        foundationText.textContent = typeof getFoundationPlayerLabel === 'function'
+            ? getFoundationPlayerLabel()
+            : (typeof getFoundationGradeLabel === 'function' ? getFoundationGradeLabel() : 'Crude');
+    }
 
     const core = document.getElementById('chamberCore');
     const wrap = document.getElementById('chamberDantianWrap');
@@ -304,6 +292,9 @@ function renderChamberUI() {
         wrap.style.setProperty('--chamber-persist-scale', getChamberPersistScale().toFixed(3));
         wrap.classList.toggle('chamber-has-foundation', (G.chamberFoundationCount || 0) > 0);
         wrap.classList.toggle('chamber-has-core', !!G.chamberCoreCondensed || G.realmIdx >= 2);
+        ['crude', 'firm', 'unshakable', 'peerless'].forEach(id => {
+            wrap.classList.toggle(`chamber-grade-${id}`, grade?.id === id);
+        });
     }
     if (core) {
         const fill = qi / Math.max(1, maxQi);
@@ -323,11 +314,15 @@ function renderChamberUI() {
     if (typeof setHoverTooltip === 'function') {
         setHoverTooltip(document.getElementById('chamberDensityLabel'), STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
         setHoverTooltip(document.getElementById('chamberCapacityLabel'), STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
-        setHoverTooltip(document.getElementById('chamberFoundationLabel'), STAT_GUIDE?.foundation?.desc || '');
+        setHoverTooltip(document.getElementById('chamberFoundationLabel'), typeof getFoundationPlayerTooltip === 'function'
+            ? getFoundationPlayerTooltip()
+            : (STAT_GUIDE?.foundation?.desc || ''));
     } else {
         document.getElementById('chamberDensityLabel')?.setAttribute('title', STAT_GUIDE?.qiDensity?.desc || densityGuide?.desc || '');
         document.getElementById('chamberCapacityLabel')?.setAttribute('title', STAT_GUIDE?.qi?.desc || 'Max Qi your dantian can hold. Expand Dantian raises this permanently.');
-        document.getElementById('chamberFoundationLabel')?.setAttribute('title', STAT_GUIDE?.foundation?.desc || '');
+        document.getElementById('chamberFoundationLabel')?.setAttribute('title', typeof getFoundationPlayerTooltip === 'function'
+            ? getFoundationPlayerTooltip()
+            : (STAT_GUIDE?.foundation?.desc || ''));
     }
 
     const gatherFlavor = document.getElementById('chamberGatherFlavor');

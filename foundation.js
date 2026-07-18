@@ -44,10 +44,12 @@ function grantCultivationPillar(pillar, amount, options) {
     const next = options?.uncapped || cap == null
         ? before + amount
         : Math.min(cap, before + amount);
+    const prevEffective = getEffectiveFoundation();
     const gained = Math.max(0, next - before);
     if (gained > 0) {
         G.cultivationBase[pillar] = next;
         G._cultivationBaseMigrated = true;
+        checkFoundationGradeChange(prevEffective);
     }
     return gained;
 }
@@ -55,8 +57,10 @@ function grantCultivationPillar(pillar, amount, options) {
 function grantFoundationCrack(count) {
     count = Math.max(1, count || 1);
     ensureCultivationBaseState();
+    const prevEffective = getEffectiveFoundation();
     G.foundationCracks = (G.foundationCracks || 0) + count;
     G._cultivationBaseMigrated = true;
+    checkFoundationGradeChange(prevEffective);
     return count;
 }
 
@@ -236,6 +240,35 @@ function getFoundationGradeLabel(effective) {
     return `${grade.emoji} ${grade.label}`;
 }
 
+/** Player-facing label — grade only, no numeric foundation. */
+function getFoundationPlayerLabel(effective) {
+    return getFoundationGradeLabel(effective);
+}
+
+function getFoundationPlayerTooltip() {
+    const grade = getFoundationGrade();
+    const parts = [];
+    if (grade.playerDesc) parts.push(grade.playerDesc);
+    if (grade.playerEffects) parts.push(grade.playerEffects);
+    const guide = typeof CULTIVATION_BASE_BALANCE !== 'undefined'
+        ? CULTIVATION_BASE_BALANCE.foundationGuideEffects
+        : '';
+    if (guide) parts.push(guide);
+    if (getFoundationCrackCount() > 0) {
+        parts.push('Your foundation bears cracks — restore it before advancing.');
+    }
+    return parts.join(' ');
+}
+
+function checkFoundationGradeChange(prevEffective) {
+    const prevGrade = getFoundationGrade(prevEffective);
+    const newGrade = getFoundationGrade();
+    if (prevGrade.id === newGrade.id) return;
+    if (typeof addLog === 'function') {
+        addLog(`🏛️ Your foundation settles at ${newGrade.label}.`);
+    }
+}
+
 function getCultivationPillarSummary() {
     ensureCultivationBaseState();
     const b = G.cultivationBase;
@@ -255,12 +288,7 @@ function getCultivationPillarSummary() {
 }
 
 function getFoundationDisplayText() {
-    const s = getCultivationPillarSummary();
-    const crackText = s.cracks > 0 ? ` · ${s.cracks} crack${s.cracks === 1 ? '' : 's'}` : '';
-    if (s.total > 0 || G._cultivationBaseMigrated) {
-        return `${s.effective} ${s.gradeLabel} (🌱${s.root} ☯️${s.flow} 🏛️${s.stability}${crackText})`;
-    }
-    return `${s.effective} ${s.gradeLabel}${crackText}`;
+    return getFoundationPlayerLabel();
 }
 
 /** Grant legacy-style foundation points as Stability pillar. */
