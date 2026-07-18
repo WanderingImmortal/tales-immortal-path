@@ -72,21 +72,28 @@ Methods are grouped by **how qi enters the body**, not only by realm tier.
 
 ---
 
-## Method grades (qi-gathering ladder)
+## Method grades (shared ladder — qi and essence)
 
-**Every** cultivation method has a **grade** independent of family. Regular qi methods compete on grade alone; essence methods add a second axis (infrastructure).
+**Every** cultivation method has a **grade** for manual quality: crude → common → superior → peerless. Grade affects **how well you execute the art** (cultivate speed, stability). It applies **equally** to qi-gathering and essence manuals.
 
-| Grade | Fiction | Typical gather mult (qi methods) | Availability |
-|-------|---------|----------------------------------|--------------|
+| Grade | Fiction | Typical speed mult | Availability |
+|-------|---------|-------------------|--------------|
 | **Crude** | Village pamphlet, damaged copy | 0.70–0.85 | Default mortal start |
 | **Common** | Sect outer syllabus | 0.90–1.00 | Sect, markets |
 | **Superior** | Inner court inheritance | 1.10–1.25 | Quest, rep, rare loot |
 | **Peerless** | Ancestor’s complete transmission | 1.30–1.45 | Legendary find, reincarnation unlock |
-| **Fragment / incomplete** | Essence scripture missing array chapters | N/A — see essence track | Loot with missing infra knowledge |
+| **Fragment** | Incomplete scripture | Grade capped until completed | Missing chapters / array volume |
 
-**Player sentence:** *“Outer Sect Qi Cycling (common) beats Basic Meditation Breath (crude). Peerless Nine Turn Cycle is still qi-gathering — no storm required — but you’ll hunt for years to find it.”*
+**Separate axis — energy type:**
 
-Grade stacks with **root grade** (speed) and **root fit** (composition/element match). Essence methods use the same grade labels for **manual quality** (how much ceiling the art allows when infra is perfect).
+| Energy | What you cultivate | Power character (typical) | Infra |
+|--------|-------------------|---------------------------|-------|
+| **Qi** | Ambient spiritual qi | Baseline density & foundation; portable | None |
+| **Essence** | World force (yang, yin, thunder…) | **Higher power per session** — stronger density jumps, distinct foundation variants | Formation/array to access fuel |
+
+Essence is **not** “faster cultivation.” A **common-grade** essence method and a **common-grade** qi method can cultivate at the **same speed** if infra is met. Essence produces **more potent** results (`powerMult`), not necessarily fewer months-to-peak.
+
+Grade stacks with **root grade** (innate speed) and **root fit** (element/composition match).
 
 ### What “peerless qi” means (glossary)
 
@@ -292,18 +299,20 @@ const CULTIVATION_METHOD_POOL = [
 ### Player state
 
 ```js
-G.cultivationMethods = {
-  known: { 'basic_meditation_breath': { comprehended: true, mastery: 0 } },
-  activeId: 'basic_meditation_breath',
-  methodShelf: { /* parallel to manualShelf — scroll copies */ },
+G.cultivationMethod = {
+  primaryId: 'basic_meditation_breath',  // ONE path — locked at FE seal
+  primaryLocked: false,
+  lineageId: 'meditation_breath_line',   // upgrades stay in-lineage
+  grade: 'crude',                          // rises via lineage upgrade, not swap
+  studiedScrolls: ['outer_sect_qi_cycling'], // owned, not practised
   essenceMilestones: { sun_yang: 0 },
-  essenceStock: { sun_yang_dew: 0 },   // condensed consumables
-  foundationLineage: 'hasty_meditation'
+  essenceStock: { sun_yang_dew: 0 },
+  foundationLineage: null                  // set at seal
 };
 
 // Sect / residence — extends existing formations.js
-G.sect.residence.formations.slots     // personal formations
-G.sect.arrays = { sun_pillar: { level: 1, condensate: 3 } }  // sect-scale (future)
+G.sect.residence.formations.slots
+G.sect.arrays = { sun_pillar: { level: 1, condensate: 3 } }
 ```
 
 ### Derived gather (chamber hook)

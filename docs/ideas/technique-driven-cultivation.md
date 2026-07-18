@@ -55,14 +55,13 @@ Today FE is mostly technique-agnostic except **Refine Foundation** (sacrifice a 
 - [ ] Clarify FE player fantasy end-to-end (gather → stabilise → seal → leave realm)
 - [ ] [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — method pool + active method (P0+)
 - [ ] Data model for foundation `variantId` + method `profile.foundationVariant`
-- [ ] UI: active cultivation technique picker in chamber
+- [ ] UI: cultivation path display + pre-seal commit / meridian-washing rite (not equip swap)
 
 ## Open questions
 
-- One active breathing technique at a time, or swap with cooldown / penalty?
-- Can you change technique mid-FE and blend foundations, or lock variant at first seal?
+- Meridian-washing: once per life post-seal, or never? (see framework doc)
 - Do variants affect combat, tribulation, and markets — or only cultivation gates?
-- How does this interact with body/soul paths (parallel "method" systems)?
+- Body/soul paths: separate primary method each, or one dao for all three tracks?
 
 ## Implementation crumbs
 
