@@ -23,4 +23,13 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
-| _(none yet — add rows as files appear)_ | | | |
+| [Cultivation manuals framework](cultivation-manuals-framework.md) | `designed` | Roots v2 sign-off; FE direction | — |
+| [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `idea` | Cultivation manuals framework; FE redesign | — |
+| [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
+| [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
+| [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | Realm naming; FE breakthrough | — |
+| [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
+| [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
+| [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `idea` | Root taxonomy v2; per-realm age anchors | — |
+| [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `idea` | Owner axis decisions | — |
+| [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots, breathing manuals, event hooks | — |

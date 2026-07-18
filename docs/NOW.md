@@ -5,10 +5,11 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-18
 
 ## Focus
-- Set up hybrid work tracking (this scaffolding)
+- Cultivation **methods** framework designed (`docs/ideas/cultivation-manuals-framework.md`) — separate from combat manuals; essence draws at high tier
 
 ## Next
-- (promote designed ideas → GitHub Issues when ready to build)
+- Owner pass: roots v2 + cultivation methods P0 → GitHub Issues
+- FE redesign + foundation variants once methods framework approved
 
 ## Blocked
 - (none)
