@@ -315,7 +315,10 @@ function actionStatus() {
         : null;
     const daos = typeof getDaoDisplaySummary === 'function' ? getDaoDisplaySummary() : ([...G.trueDaos, ...G.mergedDaos].join(', ') || 'None');
     const intentPart = intent != null ? ` | Intent: ${intent}` : '';
-    addLog(`📜 ${G.name} | ${getRealm()} (${getTitle()}) | Fame: ${G.fame} | Foundation: ${getEffectiveFoundation()} | Meridians: ${openCount}/13 | Physique: ${phys}${intentPart} | Dao: ${daos}`);
+    const foundationLabel = typeof getFoundationPlayerLabel === 'function'
+        ? getFoundationPlayerLabel()
+        : String(getEffectiveFoundation());
+    addLog(`📜 ${G.name} | ${getRealm()} (${getTitle()}) | Fame: ${G.fame} | Foundation: ${foundationLabel} | Meridians: ${openCount}/13 | Physique: ${phys}${intentPart} | Dao: ${daos}`);
     fullRender();
 }
 

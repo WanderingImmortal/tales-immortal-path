@@ -107,7 +107,7 @@ function openTrackBreakthrough(track) {
         const statusLabel = track === 'spirit' && typeof getSpiritTrackBreakthroughStatus === 'function'
             ? getSpiritTrackBreakthroughStatus()
             : (typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : '');
-        return `${trackLabel} · ${realmName} → ${next} | Foundation: ${typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation()} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${statusLabel} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
+        return `${trackLabel} · ${realmName} → ${next} | Foundation: ${typeof getFoundationPlayerLabel === 'function' ? getFoundationPlayerLabel() : (typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation())} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${statusLabel} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
     })();
     document.getElementById('breakthroughPopup').classList.add('active');
     if (typeof triggerTutorial === 'function') triggerTutorial('first_breakthrough');

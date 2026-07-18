@@ -7855,9 +7855,37 @@ header .subtitle {
     background: linear-gradient(90deg, rgba(80, 120, 160, 0.7), rgba(140, 180, 220, 0.9));
 }
 
-.chamber-bar-foundation {
-    background: linear-gradient(90deg, rgba(140, 110, 60, 0.7), rgba(200, 170, 90, 0.9));
+.chamber-stat-foundation .chamber-stat-grade {
+    font-variant-numeric: normal;
+    letter-spacing: 0.02em;
 }
+
+.chamber-dantian-wrap.chamber-grade-crude .chamber-ring-2 {
+    border-color: rgba(120, 100, 80, 0.35);
+    box-shadow: 0 0 24px rgba(100, 80, 60, 0.15);
+}
+
+.chamber-dantian-wrap.chamber-grade-firm .chamber-ring-2 {
+    border-color: rgba(160, 140, 90, 0.4);
+    box-shadow: 0 0 28px rgba(180, 150, 90, 0.2);
+}
+
+.chamber-dantian-wrap.chamber-grade-unshakable .chamber-ring-2 {
+    border-color: rgba(100, 140, 120, 0.45);
+    box-shadow: 0 0 32px rgba(80, 160, 120, 0.25);
+}
+
+.chamber-dantian-wrap.chamber-grade-peerless .chamber-ring-2 {
+    border-color: rgba(220, 190, 110, 0.5);
+    box-shadow:
+        0 0 36px rgba(220, 190, 110, 0.3),
+        0 0 60px rgba(180, 140, 60, 0.15);
+}
+
+.foundation-grade-crude { color: #a89888; }
+.foundation-grade-firm { color: #c4a860; }
+.foundation-grade-unshakable { color: #7ab89a; }
+.foundation-grade-peerless { color: #e8c860; }
 
 .chamber-stats-hint {
     width: 100%;

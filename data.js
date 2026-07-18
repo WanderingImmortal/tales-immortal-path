@@ -1328,7 +1328,11 @@ const STAT_GUIDE = {
     will: { label: 'Will', emoji: '💪', desc: 'Determination and inner strength. Helps resist demonic influence, mental attacks, and tribulation pressure.' },
     hp: { label: 'HP', emoji: '❤️', desc: 'Health points. When depleted in combat you may fall. Recuperate or use pills to recover.' },
     shield: { label: 'Shield', emoji: '🛡️', desc: 'Protective barrier absorbing damage before HP. Regenerates slowly; some techniques and gear boost it.' },
-    foundation: { label: 'Foundation', emoji: '🏛️', desc: 'Cultivation base quality from Root (dantian), Flow (meridians), and Stability (seals). Higher foundation improves breakthrough odds, max Qi, density, and tribulation resistance. Cracks reduce effective foundation.' },
+    foundation: {
+        label: 'Foundation',
+        emoji: '🏛️',
+        desc: 'Your cultivation base is rated Crude → Firm → Unshakable → Peerless — a quality grade, not a number. Stronger foundation improves breakthrough odds, max Qi, Qi density, meridian success, tribulation survival, technique power, and perfect-breakthrough chances. Raise it by gathering and expanding in the Qi chamber, opening meridians, sealing realms at peak, refining foundation (sacrificing a technique), and special events. Cracks weaken your grade until healed.'
+    },
     lifespan: { label: 'Lifespan', emoji: '🕯️', desc: 'Years you may live before your soul scatters. Cultivation extends it; running out ends the journey unless you transcend.' },
     stones: { label: 'Spirit Stones', emoji: '💎', desc: 'Currency of cultivators. Buy techniques, pills, and gear at markets; pay for sect and crafting costs.' },
     consolidation: { label: 'Consolidation', emoji: '🏛️', desc: 'At realm peak, seclude to cement your foundation before breaking through. Perfect consolidation grants lasting bonuses.' },
@@ -5316,11 +5320,40 @@ const SECT_TREASURES = SECT_HEIRLOOMS;
 
 const CULTIVATION_BASE_BALANCE = {
     crackPenalty: 4,
+    foundationGuideEffects: 'Improving foundation raises max Qi and Qi density, makes breakthroughs and meridians easier, softens tribulation severity, and strengthens techniques in combat.',
     grades: [
-        { id: 'crude', min: 0, label: 'Crude', emoji: '🪨' },
-        { id: 'firm', min: 19, label: 'Firm', emoji: '🏛️' },
-        { id: 'unshakable', min: 33, label: 'Unshakable', emoji: '⛰️' },
-        { id: 'peerless', min: 46, label: 'Peerless', emoji: '🌟' }
+        {
+            id: 'crude',
+            min: 0,
+            label: 'Crude',
+            emoji: '🪨',
+            playerDesc: 'Loose sand and shifting stone — your cultivation base has not yet taken shape.',
+            playerEffects: 'Breakthroughs are risky; tribulations hit harder; meridians resist opening.'
+        },
+        {
+            id: 'firm',
+            min: 19,
+            label: 'Firm',
+            emoji: '🏛️',
+            playerDesc: 'Bedrock holds beneath your dantian — enough to advance with confidence.',
+            playerEffects: 'Reliable breakthrough footing; tribulations less punishing; meridians yield more readily.'
+        },
+        {
+            id: 'unshakable',
+            min: 33,
+            label: 'Unshakable',
+            emoji: '⛰️',
+            playerDesc: 'Mountain-rooted — heaven\'s weight settles on you and finds no crack.',
+            playerEffects: 'Strong breakthrough odds; high max Qi and density; tribulations bow slightly; techniques hit harder.'
+        },
+        {
+            id: 'peerless',
+            min: 46,
+            label: 'Peerless',
+            emoji: '🌟',
+            playerDesc: 'A foundation others spend lifetimes chasing — the sect elders would envy this footing.',
+            playerEffects: 'Peak cultivation base: best breakthrough and perfect-break odds, tribulation resilience, and combat technique power.'
+        }
     ],
     pillarCapsByRealm: {
         0: { root: 18, flow: 18, stability: 16 },
