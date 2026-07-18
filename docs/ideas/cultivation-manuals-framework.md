@@ -6,15 +6,15 @@
 | **Blocked on** | [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) owner sign-off; FE redesign direction |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 (peerless qi glossary, travel condensate, infra upkeep) |
+| **Updated** | 2026-07-18 (method commitment, qi vs essence as energy type, grade on both) |
 
 ## Intent
 
-**Cultivation methods** (manuals for *how you cultivate*) are a separate system from **combat techniques** (manuals for *how you fight*). The active cultivation method should drive chamber gather speed, realm gates, foundation shape, and — at higher tiers — **where** and **when** you can cultivate at all.
+**Cultivation methods** (manuals for *how you cultivate*) are a separate system from **combat techniques** (manuals for *how you fight*). A cultivator follows **one primary method** — it shapes meridians, foundation, and dao for that life. This is **not** an equippable slot you swap when loot drops something better.
 
-Early methods are often **breathing arts** — inward, portable, sect-basement fare. **Essence methods** draw on worldly forces (sun yang, moon yin, storm thunder): potent and high-ceiling, but **infrastructure-hungry** — formations and arrays to gather, direct, and condense essence (sometimes into liquid consumables). Without that setup they underperform a decent **graded qi-gathering** method.
+**Qi methods** draw ambient spiritual qi. **Essence methods** cultivate a **different energy** (sun yang, moon yin, thunder…) — usually **more potent per unit** (density, breakthrough weight, tribulation character), not inherently faster. Both use the same **method grade** ladder (crude → peerless) for manual quality and cultivate speed.
 
-Essence cultivation is **not locked to midgame** — a manual can be learned early — but **affording** the formations/arrays usually lands midgame. Later lives may **reclaim a prior sect** (world-persistent choice) and start with arrays already in place, making top essence methods viable from day one.
+Essence needs formations/arrays to gather and direct that energy at useful volume; qi does not. All infra requires **upkeep**. On the road: ambient trickle or carried condensate.
 
 This doc is the **framework** (taxonomy, data model, hooks). Foundation **variants** and per-realm journeys are detailed in [`technique-driven-cultivation.md`](technique-driven-cultivation.md) and realm-specific idea files.
 
@@ -30,6 +30,29 @@ This doc is the **framework** (taxonomy, data model, hooks). Foundation **varian
 **Do not** fold cultivation methods into `TECHNIQUE_POOL`. Combat comprehension already shares UI (`manualShelf`, travel kit). Reuse **shelf / comprehend / consign** patterns, but separate pools and save keys.
 
 `Focused Breath` today is a **combat buff** in `TECHNIQUE_POOL`, not a cultivation engine — rename or split when methods land so players are not confused.
+
+---
+
+## One path — not an equippable (owner direction)
+
+Xianxia default: you **walk one cultivation road**. The manual you follow rewrites your body; you do not hot-swap arts like gear.
+
+| Concept | Design |
+|---------|--------|
+| **Primary method** | One `G.cultivationMethod.primaryId` per life (until rare rite) |
+| **Manuals on shelf** | Scrolls you **own** ≠ arts you **practice** — loot can sit unread or “studied for reference” |
+| **Commitment windows** | Choose / confirm primary at creation; **hard lock at FE seal** (foundation lineage set); optional lock again at major realm pivots |
+| **Changing path** | **Meridian-washing rite** — months, materials, foundation crack risk, possible cultivation regression; not a menu click |
+| **Upgrading *your* art** | **Same lineage** — complete a fragment, receive master’s annotation, pill polish — bumps **grade** without switching identity |
+
+**Anti-equip feel:** Finding *Inner Court Meridian Cycle* while on *Basic Meditation Breath* does not auto-replace. Options: (a) stash until a future life / disciple, (b) begin expensive **path conversion** rite, or (c) if **pre-seal** and uncommitted, one-time “this is my dao” choice.
+
+**Anti-punish feel:** Crude start is **real** (rich sect heirs get superior manuals — xianxia) but not a run killer:
+
+- Crude → common **within same lineage** via sect teaching, quest, or reincarnation CP
+- **Grade** affects speed and efficiency; it does not hard-block reaching FE peak on inferior roots pacing
+- **Power ceiling** differs more by **energy type** (qi vs essence) and **foundation variant** than by starting at common vs crude
+- Reincarnation unlocks better **starting** grade / sect reclaim — meta fairness without nullifying birth advantage fantasy
 
 ---
 
@@ -81,9 +104,11 @@ Grade stacks with **root grade** (speed) and **root fit** (composition/element m
 
 - Not “peerless foundation” (that’s a foundation **quality** tier — separate axis)
 - Not essence cultivation (yang/yin/thunder) — those are a **different track** with higher ceiling but infra cost
-- Not automatically better than essence at peak — peerless qi caps lower on **foundation variant / ceilingMult** than a fully built essence path, but wins on **portability and zero upkeep**
+- Not automatically **faster** than essence — speed comes from **grade**, not energy type
+- Not automatically **stronger** at peak than essence — essence usually wins on **power per unit** and ceiling when infra is paid for
+- Wins on **portability** — no array, no condensate, cultivate anywhere at full grade speed
 
-**Why it matters in design:** When we compare “peerless qi vs Vermillion Sun + array,” we mean: *best portable generic grind* vs *best infrastructure-dependent specialty grind*. Most cultivators live their whole life on common–superior qi methods; peerless manuals are **rare finds**. Essence is the bet that decades of array upkeep buys a higher heaven.
+**Why it matters:** “Peerless qi vs Vermillion Sun” compares *best portable qi art* vs *essence dao with maintained array* — different **energy**, similar **grade** vocabulary, different **power output** and **infra bill**.
 
 ---
 
@@ -91,12 +116,14 @@ Grade stacks with **root grade** (speed) and **root fit** (composition/element m
 
 **Essence** = a tag on a method, on world tiles, and on **infrastructure** that harvests it.
 
-### Two layers of essence income
+### Two layers of essence access (not “speed tiers”)
 
-| Layer | Source | Yield | Fiction |
-|-------|--------|-------|---------|
-| **Ambient** | World tile + time/weather | **Trickle** — enough to practise, not to peak | Sitting in dawn light; hair stands in a storm |
-| **Directed** | Formation or **Array** | **Bulk** — condense, store, cultivate at full method rating | Sect sun-pillar, thunder-cage array, moon pool |
+| Layer | Source | What it enables | Fiction |
+|-------|--------|-----------------|---------|
+| **Ambient** | World tile + time/weather | Trickle — practise the art, minimal power gain | Feel the sun; cannot fuel real progress |
+| **Directed** | Formation or **Array** (+ upkeep) | Cultivate essence at **full grade speed** with **full power output** | Array gathers, filters, condenses |
+
+Without directed infra, essence methods are **starved of fuel** — not “slow qi,” but **wrong fuel line hooked up**. Qi methods always have fuel (ambient qi).
 
 **Formation** — personal/sect scale (courtyard slot, meditation chamber). Existing v1: `FORMATIONS` + residence slots in `formations.js`.
 
@@ -131,35 +158,37 @@ Fiction: raw sun yang is too wild to breathe at volume — the array **gathers, 
 
 Essence cultivators are **not locked to sect** — but away from home they have two options:
 
-| Mode | How | Effective rating |
-|------|-----|------------------|
-| **Ambient only** | Cultivate on the road | Minimal benefit (~ambient mult) — maintain mastery, avoid rust |
-| **Condensed stock** | Spend **essence liquid** (or dew/bead) from travel kit | Approaches formation-tier for those sessions; stock is finite and costly to replace |
+| Mode | How | Effect |
+|------|-----|--------|
+| **Ambient only** | Cultivate on the road | Minimal power — maintain the art only |
+| **Condensed stock** | Spend essence liquid from travel kit | Full **grade** session for that art; potency from essence type; stock finite |
 
-Qi-gathering methods (including **peerless qi**) need **no stock** — full rating anywhere. That portability is the peerless qi value proposition on long explore arcs.
+Qi methods (any grade) need **no stock** — full speed and qi-type power anywhere.
 
 **No free lunch:** Liquid in the kit was produced by a maintained array/formation at home (upkeep already paid). Buying flasks on the market = someone else’s upkeep priced in.
 
-### The trade-off (owner direction)
+### Qi vs essence — power, not pace (owner direction)
 
 ```
-essenceMethodEffective =
-  method.ceilingMult                    // high when infra satisfied
-  × infrastructureSatisfaction          // 0.15 ambient … 1.0 full array
-  × condensedStockBonus                 // optional consumable top-up
-
-qiMethodEffective =
-  method.gradeMult                      // predictable, portable
+cultivateSpeed =
+  root.cultivateSpeedMult
+  × methodGradeMult(method.methodGrade)    // same formula for qi AND essence
   × rootFit
+  × hasEssenceFuel(method) ? 1 : ambientPracticeOnly   // 0 or tiny if no fuel
+
+powerPerSession =
+  method.energyTypePowerMult               // qi baseline 1.0; essence often 1.2–1.5+
+  × methodGradeMult (partial)
+  × infrastructureQuality (essence only)
 ```
 
-| Situation | Essence method (e.g. Vermillion Sun) | Qi method (e.g. Superior Nine Turn) |
-|-----------|-------------------------------------|---------------------------------------|
-| No formation | **Slow**, low ceiling — worse than common qi art | Full grade speed — **reliable** |
-| Courtyard formation | Moderate — approaching parity | Still portable; essence pulls ahead on ceiling |
-| Full sect array + stock | **Peak** speed + highest foundation ceiling | Grade-capped; may lack yang-firm variant |
+| Comparison | Same grade, fuel available | Typical outcome |
+|------------|---------------------------|-----------------|
+| Common qi cycling | Common Vermillion Sun + array | **Similar months** to density target |
+| | | Essence: **higher density jump**, yang-firm variant, different trib |
+| Crude qi start | — | Slower from **grade**, still reaches peak — weaker foundation **variant** |
 
-**Design intent:** essence = **investment fantasy** (build the sun pillar, stock dew). Qi-gathering = **road fantasy** (find a better manual, cultivate anywhere). Neither obsoletes the other — rushing a fragment scripture without arrays is a **trap**; staying on peerless qi-gathering is a **valid** peak-FE path with lower tribulation upside.
+**Design intent:** Choose **dao** (qi road vs sun scripture), not “fast vs slow.” Rich heir with superior qi manual starts **faster** (grade); essence heir needs **array spend** but peaks **harder** if they maintain infra.
 
 ### Essence tags (world)
 
@@ -174,17 +203,18 @@ qiMethodEffective =
 | `metal_edge` | *Sharp Qi Forging* | Mine, battlefield | Edge-refinement furnace |
 | `fire_heart` | *Crimson Furnace Cycle* | Volcano, forge | Furnace heart array |
 
-### Infrastructure satisfaction (player-facing)
+### Infrastructure satisfaction (essence fuel — player-facing)
 
-Method card shows **Infrastructure:** **None / Formation / Array** and current satisfaction %.
+Method card shows **Fuel:** **Starved / Formation / Array / Condensate (travel)**.
 
-| Band | Mult (example) | Notes |
-|------|----------------|-------|
-| **Ambient only** | 0.15–0.35 | Can “feel” the method; mastery/practice; not viable main grind |
-| **Formation active** | 0.55–0.75 | Personal setup; good for hybrid lives |
-| **Array + condensate** | 0.90–1.00+ | Full method rating; essence milestones progress |
+| Band | Cultivate speed | Power output | Notes |
+|------|-----------------|--------------|-------|
+| **Starved** (ambient only) | Practice-only (~0) | ~0 | Cannot main-grind essence |
+| **Formation** | Full grade speed | Partial–full power | Personal plate; upkeep due |
+| **Array + upkeep** | Full grade speed | Full power + milestones | Sect-scale |
+| **Condensate dose** | Full grade speed (session) | Full power | Travel bridge |
 
-Optional world band still applies on top (clear sky vs overcast for sun). Arrays reduce weather sensitivity — another reason to build them.
+Weather still modulates array **efficiency**; upkeep must be current or band drops.
 
 ---
 
@@ -205,11 +235,11 @@ const CULTIVATION_METHOD_POOL = [
     essences: [],
     rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
     profile: {
-      gatherMult: 0.80,                // includes grade
-      ceilingMult: 1.0,                // foundation / peak ceiling
+      gatherMult: 0.80,                // grade → speed
+      powerMult: 1.0,                  // qi baseline
+      ceilingMult: 1.0,
       densityEfficiency: 1.0,
       stabilityBias: 0.1,
-      peakGateSoft: null,
       foundationVariant: 'hasty_meditation'
     },
     infrastructure: null,            // qi methods: no infra req
@@ -239,14 +269,12 @@ const CULTIVATION_METHOD_POOL = [
     essences: ['sun_yang'],
     rootFit: { fire: 1.15, single: 1.05 },
     profile: {
-      gatherMult: 1.0,                 // baseline at full infra; see infrastructure curve
-      ceilingMult: 1.35,               // why you bother building the array
+      gatherMult: 1.0,
+      powerMult: 1.30,                 // essence potency — not extra speed
+      ceilingMult: 1.35,
       densityEfficiency: 1.1,
       stabilityBias: -0.05,
-      foundationVariant: 'yang_firm',
-      ambientMult: 0.25,               // trickle without formation
-      formationMult: 0.70,
-      arrayMult: 1.05
+      foundationVariant: 'yang_firm'
     },
     infrastructure: {
       essence: 'sun_yang',
@@ -283,19 +311,21 @@ G.sect.arrays = { sun_pillar: { level: 1, condensate: 3 } }  // sect-scale (futu
 Replace or multiply `getChamberCultivateMult()`:
 
 ```
-effectiveMult =
+cultivateSpeed =
   root.cultivateSpeedMult
-  × methodGradeMult(method.methodGrade)
+  × methodGradeMult(G.cultivationMethod.grade)
   × method.profile.gatherMult
-  × getInfrastructureMult(method)       // ambient | formation | array | + condensate
+  × essenceFuelMult(method)             // 1 if qi or fueled; ~0 if essence-starved
   × rootFitMatch(method, root)
-  × worldAmbienceMult(essence, world)   // weather/time on top; arrays dampen
-  × sect / trait / legacy (unchanged)
+  × sect / trait / legacy
+
+powerPerSession =
+  method.profile.powerMult
+  × methodGradeMult (partial)
+  × essenceFuelQuality
 ```
 
-`getInfrastructureMult`: for `essences.length === 0`, use 1.0. For essence methods, interpolate `ambientMult → formationMult → arrayMult` based on active setup and optional `essenceStock` spend.
-
-`chamberGatherQi()` reads `G.cultivationMethods.activeId`; ceiling for peak checks uses `ceilingMult` (essence methods can exceed peerless qi-gathering **when** infra is built).
+`chamberGatherQi()` uses `G.cultivationMethod.primaryId` only. Shelf scrolls do not apply until committed via rite or pre-seal choice.
 
 ---
 
@@ -342,13 +372,16 @@ If a prior life’s **world state** preserved the player’s sect (founder legac
 
 Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and `legacy.js` unlock catalog. Reclaim is **earned**, not default new-game+.
 
-**Upgrades within a line:** fragment I → II → complete (same `lineageId`, bump `profile` + unlock array chapter). Prefer **materials + time** over sacrificing combat techniques.
+**Upgrades within a lineage:** fragment II → complete edition; master annotation; pill polish — raises **`grade`** on the **same** `primaryId` / `lineageId`. Does not feel like equipping a new item — feels like *your* art deepening.
 
-**Switching active method:**
+**Changing primary method (meridian-washing rite):**
 
-- **Recommended:** free swap in chamber, **no** mid-FE foundation blend — lineage locks at **Seal** (see technique-driven doc).
-- Optional: 1-month “adjust meridians” penalty if swapping across incompatible elements.
-- Wrong method for your root: legal but **leaky** (fit mult &lt; 1).
+- Available only at specific gates (pre-FE seal recommended last easy window)
+- Cost: months, rare materials, stones; **foundation crack** or realm regression risk
+- Cannot blend — old lineage scars remain as flavour / minor debuff (optional)
+- Post-seal: extremely expensive or story-gated only
+
+**Wrong method for root:** legal but leaky (`rootFit` &lt; 1) — another reason not to swap lightly.
 
 ---
 
@@ -362,7 +395,7 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 | **Arrays (new)** | Sect buildings / `defense_array` / cultivation hall — multi-slot essence harvest |
 | **Foundation / seal** | `ceilingMult` + `essenceMilestones` → [`technique-driven-cultivation.md`](technique-driven-cultivation.md) |
 | **FE redesign** | Gather → stabilise → seal; method + infra at seal sets lineage |
-| **Lifespan pacing** | Qi-grade path = steady; essence path = slow early, spike after array ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)) |
+| **Lifespan pacing** | Grade affects months-to-peak; energy type affects **how strong** at peak |
 | **World / travel** | Ambient trickle on road; **essence liquid** in travel kit; blueprints by region |
 | **Economy** | Formation/array **upkeep** drains stones & materials — core sink |
 | **Tribulation** | Volatile essence overload ± trib odds |
@@ -384,24 +417,23 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 | `nine_turn_peerless_cycle` | Nine Turn Peerless Cycle | peerless | 1.38 | Rare; portable endgame qi path |
 | `impure_meridian_breath` | Impure Meridian Breath | common | 0.95 | Pentamixed-friendly |
 
-### Essence — same tiers, infra-gated
+### Essence — same grades, different energy
 
-| id | Name | Grade | ceilingMult | Infra | Notes |
-|----|------|-------|-------------|-------|-------|
-| `vermillion_sun_fragment` | Vermillion Sun Scripture (Fragment) | superior | 1.35 | Sun pillar array | Trap without array; best FE ceiling if built |
-| `pale_moon_refinement` | Pale Moon Refinement | common | 1.20 | Moon pool | Weaker ceiling than peerless qi; wins with array + night stock |
-| `nine_heavens_induction` | Nine Heavens Induction | superior | 1.45 | Thunder-cage array | Storm chase + array build |
-| `bedrock_breathing` | Bedrock Breathing | common | 1.15 | Vein tap formation | Gentler essence entry — formation-only, no array |
+| id | Name | Grade | powerMult | Infra | Notes |
+|----|------|-------|-----------|-------|-------|
+| `vermillion_sun_fragment` | Vermillion Sun Scripture (Fragment) | superior | 1.30 | Sun pillar array | Starved without fuel; potent when fed |
+| `pale_moon_refinement` | Pale Moon Refinement | common | 1.22 | Moon pool | Same speed as common qi at full fuel |
+| `nine_heavens_induction` | Nine Heavens Induction | superior | 1.40 | Thunder-cage array | High tribulation character |
+| `bedrock_breathing` | Bedrock Breathing | common | 1.15 | Vein tap formation | Entry essence — formation-only |
 
 ---
 
 ## UI (minimal)
 
-1. **Cultivation hub / qi chamber** — active method chip + “Change method” picker (known methods only).
-2. **Inventory** — separate section: **Cultivation manuals** vs **Combat manuals** (or filter on `track`).
-3. **Method detail** — grade, family, essences, infra requirement, ambient vs array rating, condensate stock, ceiling preview.
-4. **Sect map** — array construction on cultivation hall / defense array; formation slots for personal essence plates.
-5. **World map** — ambient essence thin/rich; blueprint POIs.
+1. **Cultivation hub / qi chamber** — **Your cultivation path** (primary method + grade + lineage); no casual swap button.
+2. **Inventory** — **Cultivation scrolls** (uncommitted) vs **Combat manuals**; committed path shown separately.
+3. **Method detail** — grade, energy type (qi/essence), fuel state, power vs speed breakdown, seal lock warning.
+4. **Pre-seal** — one-time “Walk this dao” confirm; post-seal only **meridian-washing** rite (dangerous).
 
 Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array blueprints may be separate manuals (`track: 'array'`).
 
@@ -425,6 +457,8 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 
 ## Prerequisites
 
+- [x] One primary method — commitment not equippable (owner 2026-07-18)
+- [x] Qi vs essence = energy type / power, shared grade for speed (owner 2026-07-18)
 - [x] Travel: ambient minimal + carried condensate (owner 2026-07-18)
 - [x] All formations/arrays require upkeep — nothing free (owner 2026-07-18)
 - [ ] Owner OK on infra curve (ambient vs formation vs array mults)
@@ -436,13 +470,14 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 
 ## Open questions
 
-- **Fragment without blueprint:** sell manual before array chapter exists — ambient-only until found?
-- **Upkeep tuning:** flat stones/month vs scaling with array level and condensate output?
-- **Dual essence arrays:** sun + fire furnace — one array or chained formations?
-- **NPC cultivation:** rivals show method grade + visible array backing?
-- **Peerless qi vs essence ceiling:** should peerless nine-turn match inferior essence at full array, or always lose on ceiling?
+- **Meridian-washing:** allowed once per life post-seal, or never?
+- **Lineage upgrade UI:** “Complete scripture” vs new item — how shown?
+- **Fragment without blueprint:** ambient practice only until array chapter found?
+- **Upkeep tuning:** flat stones/month vs scaling with array output?
+- **Dual essence arrays:** one array or chained formations?
+- **NPC cultivation:** sense reads primary path + grade, not shelf clutter?
 - **Pentamixed + Five Phase:** reward or trap?
-- **Body/soul:** same pool with `path` tag, or separate?
+- **Body/soul:** separate primary path per track, or one dao only?
 
 ## Implementation crumbs
 

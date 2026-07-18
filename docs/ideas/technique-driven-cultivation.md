@@ -22,8 +22,8 @@ Each major realm should feel like its own journey — not a reused four-layer te
 
 ### Core loop (sketch)
 
-- Player selects an active **cultivation method** (breathing, circulation, essence resonance, etc.) while in the qi chamber — see framework doc for families.
-- That technique modifies:
+- Player follows **one primary cultivation method** — see commitment rules in framework doc.
+- That method modifies:
   - **Gather / circulate speed** (time cost, density gain, fill rate)
   - **Realm gate** — hard or soft cap on progress % or peak requirements until a better method is learned
   - **Foundation outcome** — variant id, pillar skew (Root / Flow / Stability), grade ceiling, special tags (e.g. `sword-aligned`, `volatile`, `meridian-hungry`)
