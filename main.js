@@ -167,7 +167,10 @@ function useTechnique(techName) {
 // ===== CREATION (CP budget + legacy) =====
 const creationState = {
     selectedEmphasis: 'dantian',
-    selectedTalent: 'single_superior',
+    selectedComposition: 'pentamixed',
+    selectedGrade: 'inferior',
+    selectedDeviant: null,
+    previewElements: null,
     selectedTraits: new Set(),
     selectedOrigin: 'village_orphan',
     selectedDrawbacks: new Set()
@@ -175,7 +178,10 @@ const creationState = {
 
 function resetCreationState() {
     creationState.selectedPath = 'qi';
-    creationState.selectedTalent = 'single_superior';
+    creationState.selectedComposition = 'pentamixed';
+    creationState.selectedGrade = 'inferior';
+    creationState.selectedDeviant = null;
+    creationState.previewElements = null;
     creationState.selectedTraits = new Set();
     creationState.selectedOrigin = 'village_orphan';
     creationState.selectedDrawbacks = new Set();
@@ -189,8 +195,14 @@ function resetCreationState() {
 
 function calcCreationSpend() {
     let spent = 0;
-    const talent = TALENT_BY_ID[creationState.selectedTalent];
-    if (talent) spent += talent.cpCost;
+    const comp = SPIRIT_ROOT_COMPOSITION_BY_ID?.[creationState.selectedComposition];
+    const grade = SPIRIT_ROOT_GRADE_BY_ID?.[creationState.selectedGrade];
+    if (comp) spent += comp.cpCost;
+    if (grade) spent += grade.cpCost;
+    if (creationState.selectedDeviant) {
+        const dev = SPIRIT_ROOT_DEVIANT_BY_ID?.[creationState.selectedDeviant];
+        if (dev) spent += dev.cpCost;
+    }
     creationState.selectedTraits.forEach(id => {
         spent += TRAIT_CP_COSTS[id] || 0;
     });
@@ -208,14 +220,69 @@ function getCreationRemainingCP() {
 }
 
 function isTalentSelectable(talentId) {
-    const def = TALENT_BY_ID[talentId];
+    const def = TALENT_BY_ID?.[talentId];
     if (!def) return false;
     if (talentId === 'heavenly' && typeof isHeavenlyRootLocked === 'function' && isHeavenlyRootLocked()) return false;
     return true;
 }
 
+function bindSpiritRootCreationOptions() {
+    const compositionOptions = document.getElementById('spiritCompositionOptions');
+    if (compositionOptions && !compositionOptions.dataset.bound) {
+        compositionOptions.dataset.bound = '1';
+        compositionOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-composition]');
+            if (!card || !compositionOptions.contains(card)) return;
+            compositionOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+            card.classList.add('selected');
+            creationState.selectedComposition = card.dataset.composition;
+            invalidateCreationPreviewElements();
+            updateCreationUI();
+        });
+    }
+    const gradeOptions = document.getElementById('spiritGradeOptions');
+    if (gradeOptions && !gradeOptions.dataset.bound) {
+        gradeOptions.dataset.bound = '1';
+        gradeOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-grade]');
+            if (!card || card.classList.contains('locked') || !gradeOptions.contains(card)) return;
+            gradeOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+            card.classList.add('selected');
+            creationState.selectedGrade = card.dataset.grade;
+            updateCreationUI();
+        });
+    }
+    const deviantOptions = document.getElementById('spiritDeviantOptions');
+    if (deviantOptions && !deviantOptions.dataset.bound) {
+        deviantOptions.dataset.bound = '1';
+        deviantOptions.addEventListener('click', function(e) {
+            const card = e.target.closest('.popup-item[data-deviant]');
+            if (!card || !deviantOptions.contains(card)) return;
+            deviantOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
+            card.classList.add('selected');
+            creationState.selectedDeviant = card.dataset.deviant || null;
+            updateCreationUI();
+        });
+    }
+}
+
+function getCreationPreviewElements() {
+    if (!creationState.previewElements?.length) {
+        creationState.previewElements = rollSpiritRootElements(creationState.selectedComposition);
+    }
+    return creationState.previewElements;
+}
+
+function invalidateCreationPreviewElements() {
+    creationState.previewElements = null;
+}
+
 function getCreationValidationHint() {
-    if (!creationState.selectedTalent) return 'Select a spiritual root.';
+    if (!creationState.selectedComposition || !creationState.selectedGrade) return 'Select composition and grade.';
+    if (!isSpiritRootGradeSelectable(creationState.selectedGrade)) return 'Heavenly grade is locked — earn it through reincarnation.';
+    if (creationState.selectedDeviant && !isSpiritRootDeviantSelectable(creationState.selectedDeviant)) {
+        return 'That deviant root is not unlocked yet.';
+    }
     if (getCreationRemainingCP() < 0) return 'Not enough Creation Points.';
     return '';
 }
@@ -233,20 +300,27 @@ function updateCreationUI() {
     }
     const previewRemain = document.getElementById('previewRemainingCp');
     if (previewRemain) previewRemain.textContent = String(remaining);
-    const talentDef = TALENT_BY_ID[creationState.selectedTalent];
-    const realms = PATHS.qi?.realms || [];
-    const capIdx = talentDef?.naturalRealmCap ?? 6;
+    const preview = typeof previewSpiritRoot === 'function'
+        ? previewSpiritRoot(
+            creationState.selectedComposition,
+            creationState.selectedGrade,
+            creationState.selectedDeviant,
+            creationState.selectedOrigin,
+            getCreationPreviewElements()
+        )
+        : null;
+    const previewHeight = document.getElementById('previewInnateHeight');
+    if (previewHeight) previewHeight.textContent = preview?.innateHeightLabel || '—';
     const previewSpeed = document.getElementById('previewCultivateSpeed');
-    if (previewSpeed && talentDef) {
-        const originDef = ORIGIN_BY_ID[creationState.selectedOrigin];
-        const originPct = originDef?.startEffect?.cultivateSpeedPct || 0;
-        const speed = Math.round((talentDef.cultivateSpeedMult || 1) * (1 + originPct / 100) * 100);
-        previewSpeed.textContent = `${speed}%`;
+    if (previewSpeed && preview) previewSpeed.textContent = `${preview.speedPct}%`;
+    const previewElements = document.getElementById('previewElements');
+    if (previewElements) {
+        const els = preview?.elements || [];
+        previewElements.textContent = els.length ? formatSpiritRootElements(els) : '—';
+        previewElements.title = '';
     }
-    const previewCap = document.getElementById('previewRealmCap');
-    if (previewCap) previewCap.textContent = realms[capIdx] || `Realm ${capIdx}`;
-    const previewCore = document.getElementById('previewCoreFeasibility');
-    if (previewCore) previewCore.textContent = talentDef?.coreFeasibility || '—';
+    const previewOracle = document.getElementById('previewOracle');
+    if (previewOracle) previewOracle.textContent = preview?.oracleLine || '—';
     const hint = document.getElementById('creationValidationHint');
     if (hint) hint.textContent = getCreationValidationHint();
     const startBtn = document.getElementById('startBtn');
@@ -255,20 +329,60 @@ function updateCreationUI() {
     if (slotLabel) slotLabel.textContent = `(optional, max ${getMaxTraitSlots()})`;
 }
 
-function renderCreationTalents() {
-    const container = document.getElementById('talentOptions');
-    if (!container || typeof TALENT_GRADES === 'undefined') return;
-    container.innerHTML = TALENT_GRADES.map(t => {
-        const selected = t.id === creationState.selectedTalent ? ' selected' : '';
-        const locked = !isTalentSelectable(t.id) ? ' locked' : '';
-        const costLabel = t.cpCost < 0 ? `Refunds ${Math.abs(t.cpCost)} CP` : `${t.cpCost} CP`;
-        const tip = `${t.notes}\n${costLabel}`;
-        return `<button type="button" class="popup-item trait-card${selected}${locked}" data-talent="${t.id}" title="${tip.replace(/"/g, '&quot;')}">
-            <div class="name">${t.name}</div>
-            <div class="desc">${t.notes}</div>
+function renderCreationSpiritCompositions() {
+    const container = document.getElementById('spiritCompositionOptions');
+    if (!container || typeof SPIRIT_ROOT_COMPOSITIONS === 'undefined') return;
+    container.innerHTML = SPIRIT_ROOT_COMPOSITIONS.map(c => {
+        const selected = c.id === creationState.selectedComposition ? ' selected' : '';
+        const costLabel = c.cpCost < 0 ? `Refunds ${Math.abs(c.cpCost)} CP` : `${c.cpCost} CP`;
+        const tip = `${c.notes}\nInnate height: ${c.heightLabel}\n${costLabel}`;
+        return `<button type="button" class="popup-item trait-card${selected}" data-composition="${c.id}" title="${tip.replace(/"/g, '&quot;')}">
+            <div class="name">${c.name}</div>
+            <div class="desc">${c.heightLabel}</div>
             <div class="cp-tag">${costLabel}</div>
         </button>`;
     }).join('');
+}
+
+function renderCreationSpiritGrades() {
+    const container = document.getElementById('spiritGradeOptions');
+    if (!container || typeof SPIRIT_ROOT_GRADES === 'undefined') return;
+    container.innerHTML = SPIRIT_ROOT_GRADES.map(g => {
+        const selected = g.id === creationState.selectedGrade ? ' selected' : '';
+        const locked = !isSpiritRootGradeSelectable(g.id) ? ' locked' : '';
+        const costLabel = `${g.cpCost} CP`;
+        const tip = `${g.notes}\n${costLabel}`;
+        return `<button type="button" class="popup-item trait-card${selected}${locked}" data-grade="${g.id}" title="${tip.replace(/"/g, '&quot;')}">
+            <div class="name">${g.name}</div>
+            <div class="desc">${g.notes}</div>
+            <div class="cp-tag">${costLabel}</div>
+        </button>`;
+    }).join('');
+}
+
+function renderCreationSpiritDeviants() {
+    const section = document.getElementById('spiritDeviantSection');
+    const container = document.getElementById('spiritDeviantOptions');
+    if (!container || typeof SPIRIT_ROOT_DEVIANTS === 'undefined') return;
+    const unlocked = SPIRIT_ROOT_DEVIANTS.filter(d => isSpiritRootDeviantSelectable(d.id));
+    if (section) section.style.display = unlocked.length ? '' : 'none';
+    if (!unlocked.length) return;
+    const noneSelected = !creationState.selectedDeviant ? ' selected' : '';
+    let html = `<button type="button" class="popup-item trait-card${noneSelected}" data-deviant="">
+        <div class="name">None</div>
+        <div class="desc">Classical root only</div>
+        <div class="cp-tag">0 CP</div>
+    </button>`;
+    html += unlocked.map(d => {
+        const selected = d.id === creationState.selectedDeviant ? ' selected' : '';
+        const tip = `${d.notes}\n${d.cpCost} CP`;
+        return `<button type="button" class="popup-item trait-card${selected}" data-deviant="${d.id}" title="${tip.replace(/"/g, '&quot;')}">
+            <div class="name">${d.name}</div>
+            <div class="desc">${d.notes}</div>
+            <div class="cp-tag">${d.cpCost} CP</div>
+        </button>`;
+    }).join('');
+    container.innerHTML = html;
 }
 
 function renderCreationTraits() {
@@ -345,7 +459,9 @@ function applyDrawbackStartingEffects() {
 function setupCreation(refreshOnly) {
     if (typeof loadLegacy === 'function') loadLegacy();
     renderLegacyChroniclePanel(document.getElementById('legacyChroniclePanel'));
-    renderCreationTalents();
+    renderCreationSpiritCompositions();
+    renderCreationSpiritGrades();
+    renderCreationSpiritDeviants();
     renderCreationTraits();
     renderCreationOrigins();
     renderCreationDrawbacks();
@@ -366,18 +482,7 @@ function setupCreation(refreshOnly) {
         });
     }
 
-    const talentOptions = document.getElementById('talentOptions');
-    if (talentOptions && !talentOptions.dataset.bound) {
-        talentOptions.dataset.bound = '1';
-        talentOptions.addEventListener('click', function(e) {
-            const card = e.target.closest('.popup-item[data-talent]');
-            if (!card || card.classList.contains('locked') || !talentOptions.contains(card)) return;
-            talentOptions.querySelectorAll('.popup-item').forEach(el => el.classList.remove('selected'));
-            card.classList.add('selected');
-            creationState.selectedTalent = card.dataset.talent;
-            updateCreationUI();
-        });
-    }
+    bindSpiritRootCreationOptions();
 
     const traitOptions = document.getElementById('traitOptions');
     if (traitOptions && !traitOptions.dataset.bound) {
@@ -443,7 +548,12 @@ function setupCreation(refreshOnly) {
             if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
             if (typeof setFocusTrack === 'function') setFocusTrack(emphasis);
             else G.path = typeof TRACK_TO_LEGACY_PATH !== 'undefined' ? TRACK_TO_LEGACY_PATH[emphasis] : 'qi';
-            G.talent = buildTalentFromGrade(creationState.selectedTalent);
+            G.talent = buildSpiritRoot({
+                composition: creationState.selectedComposition,
+                grade: creationState.selectedGrade,
+                deviant: creationState.selectedDeviant || null
+            });
+            G.basinTierBonus = 0;
             G.talentCapBypassed = false;
             G.origin = { id: creationState.selectedOrigin, name: ORIGIN_BY_ID[creationState.selectedOrigin]?.name };
             G.creationDrawbacks = [...creationState.selectedDrawbacks];
@@ -611,7 +721,10 @@ function setupCreation(refreshOnly) {
         updateShield();
         addLog(`🌟 Welcome, ${G.name}. You begin as a wandering cultivator — all three roads lie open.`);
         const emphasisLabels = { dantian: 'Dantian', vessel: 'Vessel', spirit: 'Spirit' };
-        addLog(`🧘 Starting emphasis: ${emphasisLabels[emphasis] || emphasis} — 🌱 ${G.talent.name}${G.talent.element ? ' (' + G.talent.element + ')' : ''}`);
+        const elementNote = G.talent.elements?.length
+            ? ` (${formatSpiritRootElements(G.talent.elements)})`
+            : (G.talent.element ? ` (${G.talent.element})` : '');
+        addLog(`🧘 Starting emphasis: ${emphasisLabels[emphasis] || emphasis} — 🌱 ${G.talent.name}${elementNote} · ${G.talent.innateHeightLabel || '—'}`);
         if (G.traits.length) {
             addLog(`🎭 Traits: ${G.traits.map(t => `${t.emoji || ''} ${t.name}`).join(', ')}`);
         }

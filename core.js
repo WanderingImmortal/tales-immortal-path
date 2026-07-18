@@ -33,6 +33,7 @@ let G = {
     origin: null,
     creationDrawbacks: [],
     talentCapBypassed: false,
+    basinTierBonus: 0,
     log: [],
     gameOver: false,
     inCombat: false,

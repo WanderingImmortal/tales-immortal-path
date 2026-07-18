@@ -376,6 +376,16 @@ header .subtitle {
     border-bottom: none;
 }
 
+.creation-preview-panel .preview-oracle {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--ink-muted, #6a6058);
+    font-style: italic;
+    border-top: 1px solid rgba(90, 70, 48, 0.15);
+    padding-top: 10px;
+}
+
 .creation-preview-panel .preview-hint {
     margin-top: 10px;
     font-size: 12px;

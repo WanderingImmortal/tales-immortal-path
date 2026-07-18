@@ -73,8 +73,16 @@
                 </div>
             </div>
             <div class="creation-section">
-                <div class="creation-label">Spiritual Root <span class="creation-sublabel">(required — talent grade)</span></div>
-                <div id="talentOptions" class="creation-options trait-grid"></div>
+                <div class="creation-label">Root composition <span class="creation-sublabel">(sets innate height — fate)</span></div>
+                <div id="spiritCompositionOptions" class="creation-options trait-grid"></div>
+            </div>
+            <div class="creation-section">
+                <div class="creation-label">Root grade <span class="creation-sublabel">(speed &amp; breakthrough — not height)</span></div>
+                <div id="spiritGradeOptions" class="creation-options trait-grid"></div>
+            </div>
+            <div class="creation-section" id="spiritDeviantSection" style="display:none;">
+                <div class="creation-label">Deviant overlay <span class="creation-sublabel">(optional — meta unlock)</span></div>
+                <div id="spiritDeviantOptions" class="creation-options trait-grid"></div>
             </div>
             <div class="creation-section">
                 <div class="creation-label">Traits <span class="creation-sublabel" id="traitSlotLabel">(optional, max 1)</span></div>
@@ -90,9 +98,10 @@
             </div>
             <aside class="creation-preview-panel" id="creationPreviewPanel">
                 <div class="creation-preview-title">Creation Preview</div>
+                <div class="preview-line"><span>Innate height</span><strong id="previewInnateHeight">—</strong></div>
                 <div class="preview-line"><span>Cultivate speed</span><strong id="previewCultivateSpeed">100%</strong></div>
-                <div class="preview-line"><span>Natural ceiling</span><strong id="previewRealmCap">—</strong></div>
-                <div class="preview-line"><span>Core feasibility</span><strong id="previewCoreFeasibility">—</strong></div>
+                <div class="preview-line"><span>Elements</span><strong id="previewElements">—</strong></div>
+                <div class="preview-oracle" id="previewOracle">—</div>
                 <div class="preview-line"><span>Remaining CP</span><strong id="previewRemainingCp">10</strong></div>
                 <div class="preview-hint" id="creationValidationHint"></div>
             </aside>
@@ -1288,7 +1297,7 @@
 <script src="data.js?v=91"></script>
 <script src="dao-taxonomy.js?v=1"></script>
 <script src="cultivation-tracks.js?v=2"></script>
-<script src="talent.js?v=1"></script>
+<script src="talent.js?v=2"></script>
 <script src="legacy.js?v=2"></script>
 <script src="world-scheduler.js?v=3"></script>
 <script src="core.js?v=39"></script>

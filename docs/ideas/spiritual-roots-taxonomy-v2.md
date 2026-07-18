@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | Owner decisions on axes below; then watershed pacing (`watershed-realms-lifespan-pacing.md`) |
-| **Issue** | none yet |
+| **Status** | `building` |
+| **Blocked on** | — |
+| **Issue** | none yet (PR in progress) |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
 | **Updated** | 2026-07-18 (mixed-root philosophy, deviant variants, basin tiers, reincarnation creation) |
 
