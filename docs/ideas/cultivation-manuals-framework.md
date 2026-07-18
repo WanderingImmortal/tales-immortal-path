@@ -6,13 +6,15 @@
 | **Blocked on** | [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) owner sign-off; FE redesign direction |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 |
+| **Updated** | 2026-07-18 (essence infrastructure trade-off, method grades, reincarnation sect reclaim) |
 
 ## Intent
 
 **Cultivation methods** (manuals for *how you cultivate*) are a separate system from **combat techniques** (manuals for *how you fight*). The active cultivation method should drive chamber gather speed, realm gates, foundation shape, and — at higher tiers — **where** and **when** you can cultivate at all.
 
-Early methods are often **breathing arts** — inward, portable, sect-basement fare. Mid and high methods increasingly **draw on worldly essence**: sun yang on a mountain at dawn, moon yin under a full moon, thunder qi in the heart of a storm. The fantasy escalates from “cycle breath in a room” to “align your dao with a force of nature.”
+Early methods are often **breathing arts** — inward, portable, sect-basement fare. **Essence methods** draw on worldly forces (sun yang, moon yin, storm thunder): potent and high-ceiling, but **infrastructure-hungry** — formations and arrays to gather, direct, and condense essence (sometimes into liquid consumables). Without that setup they underperform a decent **graded qi-gathering** method.
+
+Essence cultivation is **not locked to midgame** — a manual can be learned early — but **affording** the formations/arrays usually lands midgame. Later lives may **reclaim a prior sect** (world-persistent choice) and start with arrays already in place, making top essence methods viable from day one.
 
 This doc is the **framework** (taxonomy, data model, hooks). Foundation **variants** and per-realm journeys are detailed in [`technique-driven-cultivation.md`](technique-driven-cultivation.md) and realm-specific idea files.
 
@@ -43,33 +45,100 @@ Methods are grouped by **how qi enters the body**, not only by realm tier.
 | **Resonance** | Core → Void+ | **Harmonise** with a macro force (sun path, moon tide, storm eye) | Rare windows; high payoff; failure risk |
 | **Forbidden / deviant** | Any (gated) | Blood, corpse, soul-siphon, thunder-body | Events, rep, tribulation skew |
 
-**Design rule:** first life / QC–FE should **not require** leaving home — breathing + basic circulation covers the tutorial arc. Absorption and resonance are **aspirational** hooks for midgame manuals and exploration.
+**Design rule:** first life / QC–FE should **not require** leaving home — breathing + basic circulation covers the tutorial arc. Essence methods are **legal early** but **starved** without formations; midgame is when arrays become affordable, not when the manuals first exist.
 
 ---
 
-## World essence (higher-tier draw)
+## Method grades (qi-gathering ladder)
 
-**Essence** = a tag on a method *and* on world state. Cultivation checks both.
+**Every** cultivation method has a **grade** independent of family. Regular qi methods compete on grade alone; essence methods add a second axis (infrastructure).
 
-| Essence tag | Example method name | World requirement (examples) |
-|-------------|---------------------|------------------------------|
-| `sun_yang` | *Vermillion Sun Scripture* (fragment) | Daytime, clear sky, high yang tile; stronger summer / noon |
-| `moon_yin` | *Pale Moon Refinement* | Night, moon phase ≥ gibbous; weaker new moon |
-| `storm_thunder` | *Nine Heavens Induction* | `weather === storm`, optional high elevation |
-| `earth_vein` | *Bedrock Breathing* | Spirit vein node, sect array, or mountain depth |
-| `water_tide` | *Returning Wave Art* | Coast / river; tide phase if region supports it |
-| `wood_spring` | *Verdant Pulse* | Ancient forest, spring season |
-| `metal_edge` | *Sharp Qi Forging* | Mine, forge, or battlefield remnant |
-| `fire_heart` | *Crimson Furnace Cycle* | Volcano, forge fire, or sun yang + fire root synergy |
+| Grade | Fiction | Typical gather mult (qi methods) | Availability |
+|-------|---------|----------------------------------|--------------|
+| **Crude** | Village pamphlet, damaged copy | 0.70–0.85 | Default mortal start |
+| **Common** | Sect outer syllabus | 0.90–1.00 | Sect, markets |
+| **Superior** | Inner court inheritance | 1.10–1.25 | Quest, rep, rare loot |
+| **Peerless** | Ancestor’s complete transmission | 1.30–1.45 | Legendary find, reincarnation unlock |
+| **Fragment / incomplete** | Essence scripture missing array chapters | N/A — see essence track | Loot with missing infra knowledge |
 
-Essence methods still use a **base family** (usually absorption or resonance). Breathing is not replaced — it becomes the **fallback** when conditions are unmet (reduced efficiency, not hard block, unless method is `strict: true`).
+**Player sentence:** *“Outer Sect Qi Cycling (common) beats Basic Meditation Breath (crude). Peerless Nine Turn Cycle is still qi-gathering — no storm required — but you’ll hunt for years to find it.”*
 
-### Condition UX (player-facing)
+Grade stacks with **root grade** (speed) and **root fit** (composition/element match). Essence methods use the same grade labels for **manual quality** (how much ceiling the art allows when infra is perfect).
 
-- Method card shows: **Ideal** / **Acceptable** / **Starved** (three bands).
-- Starved: 25–50% speed, no essence **milestone** progress, possible stability drain.
-- Ideal: full speed + essence meter fill (used for foundation variant tags and breakthrough bonuses).
-- Optional **“Wait for conditions”** chamber action: advance time until next window (with opportunity cost vs explore).
+---
+
+## World essence & infrastructure
+
+**Essence** = a tag on a method, on world tiles, and on **infrastructure** that harvests it.
+
+### Two layers of essence income
+
+| Layer | Source | Yield | Fiction |
+|-------|--------|-------|---------|
+| **Ambient** | World tile + time/weather | **Trickle** — enough to practise, not to peak | Sitting in dawn light; hair stands in a storm |
+| **Directed** | Formation or **Array** | **Bulk** — condense, store, cultivate at full method rating | Sect sun-pillar, thunder-cage array, moon pool |
+
+**Formation** — personal/sect scale (courtyard slot, meditation chamber, portable plate). Existing v1: `FORMATIONS` + residence slots in `formations.js`.
+
+**Array** — sect- or region-scale (defense array node, cultivation hall, reclaimed sect infrastructure). Multi-slot, higher material cost, may need disciples tending it. Essence **condensation** happens here.
+
+### Condensation → consumable (optional loop)
+
+Arrays (and advanced formations) **condense** ambient essence into storable form:
+
+| Product | Example | Use |
+|---------|---------|-----|
+| **Essence dew** | `sun_yang_dew` | Drink before session; bypasses weak ambient band for one cultivate |
+| **Essence bead** | `thunder_bead` | Slower release; several sessions |
+| **Essence liquid** | `moon_yin_pool` (array tank) | Cultivate at quarters while pool ≥ threshold |
+
+Fiction: raw sun yang is too wild to breathe directly at volume — the array **gathers, filters, liquefies**. High-tier breakthroughs may **require** condensed essence, not just trickle cultivation.
+
+### The trade-off (owner direction)
+
+```
+essenceMethodEffective =
+  method.ceilingMult                    // high when infra satisfied
+  × infrastructureSatisfaction          // 0.15 ambient … 1.0 full array
+  × condensedStockBonus                 // optional consumable top-up
+
+qiMethodEffective =
+  method.gradeMult                      // predictable, portable
+  × rootFit
+```
+
+| Situation | Essence method (e.g. Vermillion Sun) | Qi method (e.g. Superior Nine Turn) |
+|-----------|-------------------------------------|---------------------------------------|
+| No formation | **Slow**, low ceiling — worse than common qi art | Full grade speed — **reliable** |
+| Courtyard formation | Moderate — approaching parity | Still portable; essence pulls ahead on ceiling |
+| Full sect array + stock | **Peak** speed + highest foundation ceiling | Grade-capped; may lack yang-firm variant |
+
+**Design intent:** essence = **investment fantasy** (build the sun pillar, stock dew). Qi-gathering = **road fantasy** (find a better manual, cultivate anywhere). Neither obsoletes the other — rushing a fragment scripture without arrays is a **trap**; staying on peerless qi-gathering is a **valid** peak-FE path with lower tribulation upside.
+
+### Essence tags (world)
+
+| Essence tag | Example method | Ambient source | Typical array |
+|-------------|----------------|----------------|---------------|
+| `sun_yang` | *Vermillion Sun Scripture* | Daytime, clear sky, high yang tile | Sun-gathering pillar, yang condensation plate |
+| `moon_yin` | *Pale Moon Refinement* | Night, moon phase | Moon pool array, yin mirror formation |
+| `storm_thunder` | *Nine Heavens Induction* | Storm weather, elevation | Thunder-cage array (dangerous) |
+| `earth_vein` | *Bedrock Breathing* | Spirit vein node | Vein tap formation |
+| `water_tide` | *Returning Wave Art* | Coast, tide phase | Tide harmoniser array |
+| `wood_spring` | *Verdant Pulse* | Ancient forest | Grove resonance formation |
+| `metal_edge` | *Sharp Qi Forging* | Mine, battlefield | Edge-refinement furnace |
+| `fire_heart` | *Crimson Furnace Cycle* | Volcano, forge | Furnace heart array |
+
+### Infrastructure satisfaction (player-facing)
+
+Method card shows **Infrastructure:** **None / Formation / Array** and current satisfaction %.
+
+| Band | Mult (example) | Notes |
+|------|----------------|-------|
+| **Ambient only** | 0.15–0.35 | Can “feel” the method; mastery/practice; not viable main grind |
+| **Formation active** | 0.55–0.75 | Personal setup; good for hybrid lives |
+| **Array + condensate** | 0.90–1.00+ | Full method rating; essence milestones progress |
+
+Optional world band still applies on top (clear sky vs overcast for sun). Arrays reduce weather sensitivity — another reason to build them.
 
 ---
 
@@ -82,43 +151,63 @@ const CULTIVATION_METHOD_POOL = [
     id: 'basic_meditation_breath',
     name: 'Basic Meditation Breath',
     family: 'breathing',
-    methodTier: 'mortal',           // parallels CULTIVATION_TIERS.reqRealm
+    methodTier: 'mortal',
+    methodGrade: 'crude',            // crude | common | superior | peerless
     reqRealm: 0,
     rarity: 'common',
-    elements: ['neutral'],          // classical element alignment
-    essences: [],                   // empty = no world draw
-    rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 }, // mult or fit score
+    elements: ['neutral'],
+    essences: [],
+    rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
     profile: {
-      gatherMult: 0.85,
+      gatherMult: 0.80,                // includes grade
+      ceilingMult: 1.0,                // foundation / peak ceiling
       densityEfficiency: 1.0,
       stabilityBias: 0.1,
-      peakGateSoft: null,           // e.g. 0.7 = soft cap until better method
-      foundationVariant: 'hasty_meditation',
-      strictEssence: false
+      peakGateSoft: null,
+      foundationVariant: 'hasty_meditation'
     },
+    infrastructure: null,            // qi methods: no infra req
     comprehendMonths: 2,
     desc: '...'
+  },
+  {
+    id: 'outer_sect_qi_cycling',
+    name: 'Outer Sect Qi Cycling',
+    family: 'circulation',
+    methodTier: 'condensation',
+    methodGrade: 'common',
+    reqRealm: 0,
+    essences: [],
+    profile: { gatherMult: 1.0, ceilingMult: 1.05, /* ... */ },
+    infrastructure: null
   },
   {
     id: 'vermillion_sun_fragment',
     name: 'Vermillion Sun Scripture (Fragment)',
     family: 'resonance',
     methodTier: 'foundation',
+    methodGrade: 'superior',           // manual quality when infra met
     reqRealm: 1,
     rarity: 'rare',
     elements: ['fire'],
     essences: ['sun_yang'],
     rootFit: { fire: 1.15, single: 1.05 },
     profile: {
-      gatherMult: 1.35,
+      gatherMult: 1.0,                 // baseline at full infra; see infrastructure curve
+      ceilingMult: 1.35,               // why you bother building the array
       densityEfficiency: 1.1,
       stabilityBias: -0.05,
-      peakGateSoft: null,
       foundationVariant: 'yang_firm',
-      strictEssence: false
+      ambientMult: 0.25,               // trickle without formation
+      formationMult: 0.70,
+      arrayMult: 1.05
     },
-    worldReq: {
-      sun_yang: { minBand: 'acceptable', idealBand: 'ideal' }
+    infrastructure: {
+      essence: 'sun_yang',
+      minFormation: 'yang_gathering_plate',  // optional personal floor
+      optimalArray: 'vermillion_sun_pillar', // sect-scale
+      condensateId: 'sun_yang_dew',
+      condensatePerMonth: 1              // at full array output
     },
     comprehendMonths: 6,
     desc: '...'
@@ -133,9 +222,14 @@ G.cultivationMethods = {
   known: { 'basic_meditation_breath': { comprehended: true, mastery: 0 } },
   activeId: 'basic_meditation_breath',
   methodShelf: { /* parallel to manualShelf — scroll copies */ },
-  essenceMilestones: { sun_yang: 0 },  // optional long-term fill per essence
-  foundationLineage: 'hasty_meditation' // locked at FE seal from method + choices
+  essenceMilestones: { sun_yang: 0 },
+  essenceStock: { sun_yang_dew: 0 },   // condensed consumables
+  foundationLineage: 'hasty_meditation'
 };
+
+// Sect / residence — extends existing formations.js
+G.sect.residence.formations.slots     // personal formations
+G.sect.arrays = { sun_pillar: { level: 1, condensate: 3 } }  // sect-scale (future)
 ```
 
 ### Derived gather (chamber hook)
@@ -145,13 +239,17 @@ Replace or multiply `getChamberCultivateMult()`:
 ```
 effectiveMult =
   root.cultivateSpeedMult
+  × methodGradeMult(method.methodGrade)
   × method.profile.gatherMult
+  × getInfrastructureMult(method)       // ambient | formation | array | + condensate
   × rootFitMatch(method, root)
-  × essenceBandMult(activeEssence, worldState)
+  × worldAmbienceMult(essence, world)   // weather/time on top; arrays dampen
   × sect / trait / legacy (unchanged)
 ```
 
-`chamberGatherQi()` reads `G.cultivationMethods.activeId` and applies `densityEfficiency` to density gain; optional `stabilityBias` feeds foundation pillar skew.
+`getInfrastructureMult`: for `essences.length === 0`, use 1.0. For essence methods, interpolate `ambientMult → formationMult → arrayMult` based on active setup and optional `essenceStock` spend.
+
+`chamberGatherQi()` reads `G.cultivationMethods.activeId`; ceiling for peak checks uses `ceilingMult` (essence methods can exceed peerless qi-gathering **when** infra is built).
 
 ---
 
@@ -161,14 +259,14 @@ Reuse `CULTIVATION_TIER_ORDER` / `reqRealm` for comprehension gates — **same l
 
 | methodTier | reqRealm | Typical families | Player expectation |
 |------------|----------|------------------|------------------|
-| mortal | 0 | breathing | Start here; creation pick |
-| condensation | 0 | breathing, circulation | Sect outer manuals |
-| foundation | 1 | breathing, circulation, absorption (weak) | FE identity choice |
-| core | 2 | circulation, absorption | GC grind; first essence manuals |
-| nascent | 3 | absorption, resonance | Travel + weather matter |
-| void+ | 4+ | resonance, forbidden | Realm-specific fantasies |
+| mortal | 0 | breathing (crude–common) | Start here; creation pick |
+| condensation | 0 | breathing, circulation (common–superior) | Sect outer manuals; **graded qi ladder** |
+| foundation | 1 | circulation, essence (fragment) | FE identity; essence legal but infra-starved |
+| core | 2 | circulation, essence + first arrays | GC grind; arrays become affordable |
+| nascent | 3 | essence + multi-array | Sect infrastructure matters |
+| void+ | 4+ | resonance arrays, forbidden | Realm-specific fantasies |
 
-**Gate rule:** cannot comprehend method with `reqRealm > G.realmIdx` (same as combat). Optional **root composition** hard gates on legendary methods (e.g. single-fire only).
+**Gate rule:** cannot comprehend method with `reqRealm > G.realmIdx`. Essence manuals may require **array blueprint** comprehension before full rating (fragment without array chapter = ambient only).
 
 ---
 
@@ -176,14 +274,29 @@ Reuse `CULTIVATION_TIER_ORDER` / `reqRealm` for comprehension gates — **same l
 
 | Source | Tier | Notes |
 |--------|------|-------|
-| Creation | mortal–condensation | 1 method bundled; CP spend for better tier ([`creation-screen-redesign.md`](creation-screen-redesign.md)) |
-| Sect library / quest | condensation–foundation | Rep-gated |
-| Explore / corpse loot | foundation–core | Zone-tagged essences |
-| Markets | varies | Common breathing cheap; essence fragments expensive |
-| Reincarnation unlock | tier ceiling | Better *starting* method tier, not auto endgame scripts |
+| Creation | mortal–condensation | 1 **graded** method bundled; CP for better grade/tier |
+| Sect library / quest | condensation–foundation | Rep-gated; common → superior qi arts |
+| Explore / corpse loot | foundation–core | Essence fragments + **array blueprints** |
+| Markets | varies | Common breathing cheap; blueprints expensive |
+| Reincarnation unlock | grade ceiling, blueprints, **sect reclaim** | See below |
 | Breakthrough reward | next-realm | Sect promotion grants signature method |
 
-**Upgrades within a line:** fragment I → II → complete (same `lineageId`, bump `profile`). Prefer **materials + time** over sacrificing combat techniques.
+### Reincarnation — sect reclaim (meta hook)
+
+If a prior life’s **world state** preserved the player’s sect (founder legacy, story choice, not wiped by calamity):
+
+| Reclaim perk | Effect |
+|--------------|--------|
+| **Sect standing restored** | Start as recognised heir, not stranger |
+| **Arrays intact** | Sun pillar / moon pool already built — essence methods at **array** rating immediately |
+| **Manual archive** | Peerless qi art or essence fragment in hall vault |
+| **Trade-off** | Enemy faction remembers you; debt/event baggage |
+
+**Player sentence:** *“Run 3 I reclaim my old mountain — Vermillion Sun is viable at 16 because grandpa’s array still turns. Run 1 I found the same manual at 20 and it was useless until I spent forty years building the pillar.”*
+
+Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and `legacy.js` unlock catalog. Reclaim is **earned**, not default new-game+.
+
+**Upgrades within a line:** fragment I → II → complete (same `lineageId`, bump `profile` + unlock array chapter). Prefer **materials + time** over sacrificing combat techniques.
 
 **Switching active method:**
 
@@ -197,44 +310,42 @@ Reuse `CULTIVATION_TIER_ORDER` / `reqRealm` for comprehension gates — **same l
 
 | System | Hook |
 |--------|------|
-| **Roots v2** | `rootFit`, grade = speed stack; composition = which methods are *efficient* not *legal* |
-| **Chamber Gather** | Primary consumer of `activeId` + essence band |
-| **Foundation / seal** | `foundationVariant` + `essenceMilestones` at seal → [`technique-driven-cultivation.md`](technique-driven-cultivation.md) |
-| **FE redesign** | Gather → stabilise → seal; method defines stabilise flavour text and gates |
-| **Lifespan pacing** | Method tier + fit is a major lever for 80–90 FE peak target ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)) |
-| **World / travel** | Regions expose essence strength; storms, moon phase, time-of-day |
-| **Tribulation** | Volatile methods (thunder, yang overload) ± trib odds |
-| **NPC sense** | Advanced readers detect method lineage / essence saturation ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md)) |
-| **Body / soul paths** | Parallel **body methods** / **soul meditations** later — same framework, different chamber |
+| **Roots v2** | `rootFit`, grade = speed stack; composition = efficiency not legality |
+| **Chamber Gather** | `activeId` + `methodGrade` + `getInfrastructureMult()` |
+| **Formations v1** | `formations.js`, `FORMATIONS` — extend with `essenceGather`, `condensate` |
+| **Arrays (new)** | Sect buildings / `defense_array` / cultivation hall — multi-slot essence harvest |
+| **Foundation / seal** | `ceilingMult` + `essenceMilestones` → [`technique-driven-cultivation.md`](technique-driven-cultivation.md) |
+| **FE redesign** | Gather → stabilise → seal; method + infra at seal sets lineage |
+| **Lifespan pacing** | Qi-grade path = steady; essence path = slow early, spike after array ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)) |
+| **World / travel** | Ambient essence strength; blueprints looted by region |
+| **Alchemy / materials** | Condensate crafting, array construction costs |
+| **Tribulation** | Volatile essence overload ± trib odds |
+| **NPC sense** | Detect method grade + array backing ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md)) |
+| **Reincarnation / legacy** | Sect reclaim, blueprint unlocks, starting method grade |
+| **Body / soul paths** | Parallel method pools per chamber |
 
 ---
 
 ## Example methods (sketch catalog)
 
-### Early — breathing (no essence)
+### Qi-gathering — graded ladder (no essence)
 
-| id | Name | Notes |
-|----|------|-------|
-| `basic_meditation_breath` | Basic Meditation Breath | Default mortal; slow, stable |
-| `sect_qi_cycling` | Outer Sect Qi Cycling | Slightly faster; needs sect |
-| `impure_meridian_breath` | Impure Meridian Breath | Pentamixed-friendly; leaky but playable |
+| id | Name | Grade | gatherMult | Notes |
+|----|------|-------|------------|-------|
+| `basic_meditation_breath` | Basic Meditation Breath | crude | 0.80 | Default mortal |
+| `outer_sect_qi_cycling` | Outer Sect Qi Cycling | common | 1.00 | Sect outer |
+| `inner_court_meridian_cycle` | Inner Court Meridian Cycle | superior | 1.18 | Rep-gated |
+| `nine_turn_peerless_cycle` | Nine Turn Peerless Cycle | peerless | 1.38 | Rare; portable endgame qi path |
+| `impure_meridian_breath` | Impure Meridian Breath | common | 0.95 | Pentamixed-friendly |
 
-### Mid — circulation + weak absorption
+### Essence — same tiers, infra-gated
 
-| id | Name | Essence | Notes |
-|----|------|---------|-------|
-| `five_phase_minor_cycle` | Five Phase Minor Cycle | — | Pentamixed endgame bait; slow unless all elements represented in root |
-| `bedrock_breathing` | Bedrock Breathing | `earth_vein` | +gather on mountain tiles |
-| `returning_wave` | Returning Wave Art | `water_tide` | Coast regions |
-
-### High — resonance (owner examples)
-
-| id | Name | Essence | Notes |
-|----|------|---------|-------|
-| `vermillion_sun_fragment` | Vermillion Sun Scripture (Fragment) | `sun_yang` | Dawn grind; yang-firm foundation |
-| `pale_moon_refinement` | Pale Moon Refinement | `moon_yin` | Night-only; high Flow bias |
-| `nine_heavens_induction` | Nine Heavens Induction | `storm_thunder` | Storm chase gameplay; deviant thunder root synergy |
-| `azure_dragon_vein` | Azure Dragon Vein Art | `earth_vein` + `wood_spring` | Dual essence; forested peaks |
+| id | Name | Grade | ceilingMult | Infra | Notes |
+|----|------|-------|-------------|-------|-------|
+| `vermillion_sun_fragment` | Vermillion Sun Scripture (Fragment) | superior | 1.35 | Sun pillar array | Trap without array; best FE ceiling if built |
+| `pale_moon_refinement` | Pale Moon Refinement | common | 1.20 | Moon pool | Weaker ceiling than peerless qi; wins with array + night stock |
+| `nine_heavens_induction` | Nine Heavens Induction | superior | 1.45 | Thunder-cage array | Storm chase + array build |
+| `bedrock_breathing` | Bedrock Breathing | common | 1.15 | Vein tap formation | Gentler essence entry — formation-only, no array |
 
 ---
 
@@ -242,10 +353,11 @@ Reuse `CULTIVATION_TIER_ORDER` / `reqRealm` for comprehension gates — **same l
 
 1. **Cultivation hub / qi chamber** — active method chip + “Change method” picker (known methods only).
 2. **Inventory** — separate section: **Cultivation manuals** vs **Combat manuals** (or filter on `track`).
-3. **Method detail** — family, elements, essences, root fit %, current world band, foundation lineage preview.
-4. **World map / travel** — optional essence icons on regions (“☀ yang thin”, “⛈ storm likely”).
+3. **Method detail** — grade, family, essences, infra requirement, ambient vs array rating, condensate stock, ceiling preview.
+4. **Sect map** — array construction on cultivation hall / defense array; formation slots for personal essence plates.
+5. **World map** — ambient essence thin/rich; blueprint POIs.
 
-Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`.
+Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array blueprints may be separate manuals (`track: 'array'`).
 
 ---
 
@@ -253,32 +365,38 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`.
 
 | Phase | Scope | Unblocks |
 |-------|-------|----------|
-| **P0** | `CULTIVATION_METHOD_POOL`, save state, one active method, gather mult only | Pacing tune, creation manual pick |
-| **P1** | Method shelf + comprehension UI split from combat | Player-facing identity |
-| **P2** | `foundationVariant` lock at seal | FE redesign |
-| **P3** | World essence bands (time, weather, region) | Exploration value, high-tier manuals |
-| **P4** | Essence milestones + tribulation / NPC read hooks | Late FE–GC fantasy |
+| **P0** | Method pool, **methodGrade**, save state, active method, gather mult (qi only) | Pacing tune, creation manual pick |
+| **P1** | Method shelf + comprehension UI split from combat | Graded qi ladder visible |
+| **P2** | `foundationVariant` + `ceilingMult` at seal | FE redesign |
+| **P3** | Essence ambient trickle + **formations** that gather/condense | First essence methods |
+| **P4** | **Arrays**, condensate items, infrastructure mult curve | Full essence trade-off |
+| **P5** | Reincarnation sect reclaim + blueprint legacy | Meta power spike |
+| **P6** | Essence milestones + tribulation / NPC read hooks | Late FE–GC fantasy |
 
-**Suggested Issue order:** P0 → roots v2 on creation → P1 → FE redesign with P2.
+**Suggested Issue order:** P0 → roots v2 → P1 → P2 → P3–P4 (essence infra) → P5 with legacy pass.
 
 ---
 
 ## Prerequisites
 
-- [ ] Owner OK on family taxonomy and essence list
+- [ ] Owner OK on infra curve (ambient vs formation vs array mults)
+- [ ] Array vs formation scope — which sect buildings host arrays
+- [ ] Condensate: inventory item vs array tank only
 - [ ] [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) — `rootFit` rules
-- [ ] Chamber balance pass — method mults need target FE age ~80–90 inferior
-- [ ] World state: minimal `timeOfDay`, `moonPhase`, `weather` (some exist or stub in explore)
+- [ ] Chamber balance — peerless qi vs essence+array ceiling targets for FE age ~80–90
+- [ ] Sect reclaim: which world flags persist across lives
 - [ ] Split or rename `Focused Breath` combat vs cultivation naming
 
 ## Open questions
 
-- **Strict essence methods:** hard night-only vs always playable at penalty?
-- **Multiple essences:** one method requiring sun *and* fire tile — too fiddly early?
-- **NPC cultivation:** do rivals use visible methods for sense reads?
-- **Method decay:** does obsolete tier method auto-downgrade gather or stay for nostalgia runs?
-- **Pentamixed + Five Phase:** reward harmony grind or trap for new players?
-- **Body/soul:** same `CULTIVATION_METHOD_POOL` with `path` tag, or separate pools?
+- **Fragment without blueprint:** sell manual before array chapter exists — ambient-only until found?
+- **Portable formations:** travel kit essence plate vs must cultivate at sect?
+- **Array upkeep:** disciples, stones/month, or one-time build?
+- **Dual essence arrays:** sun + fire furnace — one array or chained formations?
+- **NPC cultivation:** rivals show method grade + visible array backing?
+- **Peerless qi vs essence ceiling:** should peerless nine-turn match inferior essence at full array, or always lose on ceiling?
+- **Pentamixed + Five Phase:** reward or trap?
+- **Body/soul:** same pool with `path` tag, or separate?
 
 ## Implementation crumbs
 
@@ -286,6 +404,7 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`.
 - `techniques.js` — shelf/comprehend patterns to clone
 - `data.js` — `CULTIVATION_TIERS`, `CHAMBER_BALANCE`, `TECHNIQUE_POOL`
 - `foundation.js` — pillar grants, variant id (future)
-- `world.js` / `travel.js` — region tags, weather
+- `formations.js` — residence formations v1; extend for essence gather + condensate
+- `data.js` — `FORMATIONS`, `SECT_RESIDENCE`, `CHAMBER_BALANCE`
 - `talent.js` — root composition + grade
 - [`technique-driven-cultivation.md`](technique-driven-cultivation.md) — foundation variants & seal lock

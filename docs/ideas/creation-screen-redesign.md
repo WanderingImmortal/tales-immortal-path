@@ -58,7 +58,7 @@ No starting **location**, **NPC**, **debt**, **sect relation**, **manual tier**,
 | **Grade** | inferior refund → heavenly 7+ | Speed only, not height |
 | **Element choice** | +1–2 | Roll free vs pick fire |
 | **Breathing technique tier** | 1–4 | Poor / sect / elder / fragment — gates gather & foundation variant |
-| **Starting manual** | 1–3 | Specific common/uncommon cultivation or combat art |
+| **Starting manual** | 1–3 | **Grade** (crude → superior) on qi-gathering method; essence fragments rare |
 | **Origin** | 0–3 | See below — **run-long**, not +40 stones |
 | **Traits** | 2 each | Keep; maybe 3 with deep legacy |
 | **Drawbacks** | refund 1–3 | Must hurt for **lifespan-scale** |
@@ -73,7 +73,7 @@ Each origin = **starting situation** + **ongoing hook** (flag checked by systems
 |-------------|-----|-------|---------|
 | **Village Orphan** | 0 | Dustbone, nothing | Neutral |
 | **Merchant Debt** | 1 | +60 stones, **debt 100** — tithe 10 stones/year or +enemy event | Market discount in Jade; creditors in Heartlands |
-| **Sect Outer Disciple** | 2 | Manual: basic breathing, **+1 sect rep** with one faction, must pay **12 mo/yr** duty or −rep | Sect quests available earlier |
+| **Sect Outer Disciple** | 2 | Manual: **common** qi cycling, **+1 sect rep** with one faction, must pay **12 mo/yr** duty or −rep | Sect quests available earlier |
 | **Fallen Noble** | 2 | +Fame, **bounty event chain**, nobles cold in Heartlands | Unlock renown purchases |
 | **Hermit’s Foundling** | 1 | Start **outer zone**, +1 rare herb, −NPC trust in cities | +explore reward, slower market access |
 | **Lightning Survivor** | 3 (unlock) | Scar, +lightning resist, **tribulation +15% likelihood** | Thunder deviant rite recipe hinted |
