@@ -1,0 +1,44 @@
+---
+description: Hybrid work tracking — docs/ideas + GitHub Issues + docs/NOW.md
+alwaysApply: true
+---
+
+# Work tracking (ideas + Issues)
+
+Keep designs and the build queue out of chat-only memory.
+
+## Two homes
+
+| Kind of knowledge | Where |
+|-------------------|--------|
+| Fleshed-out design (vision, mechanics, open questions, blocked-on) | `docs/ideas/<topic>.md` |
+| Actionable build work (bugs, implementable chunks, prerequisites) | GitHub Issue |
+| Current focus (short) | `docs/NOW.md` |
+
+Do **not** leave a solid design only in the conversation. Do **not** open an Issue for every vague musing — park it as an idea first.
+
+## When a chat designs something without shipping it
+
+Before ending (or before switching topics):
+
+1. Create or update `docs/ideas/<short-kebab>.md` from `docs/ideas/_template.md`
+2. Set **Status** (`idea` / `designed` / …) and **Blocked on** if prerequisites exist
+3. Add a row to `docs/ideas/README.md` index
+4. Link the chat title / branch / PR in the idea file when useful
+
+## When work becomes actionable
+
+1. Open a GitHub Issue for the **next implementable chunk** (often a prerequisite, not the whole vision)
+2. Link Issue ↔ idea file both ways
+3. Set idea status to `building` when a branch is actively implementing it
+4. Update `docs/NOW.md` Focus / Next / Blocked (keep it short)
+
+## When shipping
+
+1. Close the Issue via PR as usual
+2. Set idea status to `shipped` (or leave a phase-2 section if only part landed)
+3. Trim `docs/NOW.md` Focus
+
+## Retroactive mining
+
+Past agent chats are **not** reliable sources of truth. Do not pretend transcript scrapes are complete. Prefer: user memory → new idea stubs → Issues when ready.
