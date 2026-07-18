@@ -109,13 +109,14 @@ Must bite in a 80–120 year run. Suggested **+2 CP = meaningful**, **+3 CP = se
 | **Starting zone** | 1 CP to pick Dustbone vs Jade (not Heartlands) |
 | **Starting age** | 16 default; 20 = −2 CP but +1 pillar stability |
 | **Carry perk** (reincarnation) | Existing `LEGACY_CARRY_PERKS` — expand |
+| **Sect reclaim** (reincarnation) | Prior-life world choice: start as heir with **arrays intact** + archive manual — see [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) |
 | **Echo memory** | Chronicle unlocks flavour + one free recipe known |
 
 ---
 
 ## UI
 
-Wizard: **Root (composition + grade)** → **Breathing manual** → **Origin** → **Traits** → **Drawbacks** → **Preview** (Innate Height, speed, oracle, debts/flags).
+Wizard: **Root (composition + grade)** → **Cultivation method (grade)** → **Origin** → **Traits** → **Drawbacks** → **Preview** (Innate Height, speed, oracle, debts/flags).
 
 Reincarnation unlocks appear greyed with “Unlocked after …” — gives reason to run again.
 
