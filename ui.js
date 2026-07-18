@@ -2262,12 +2262,14 @@ function renderNpcPresencePanel() {
     const list = document.getElementById('npcPresenceList');
     if (!list || typeof getPresentNpcCards !== 'function') return;
 
-    const cards = getPresentNpcCards(G.currentZone || currentZone);
+    const cards = typeof getKnownNpcCards === 'function'
+        ? getKnownNpcCards(G.currentZone || currentZone)
+        : getPresentNpcCards(G.currentZone || currentZone);
     if (!cards.length) {
         const hint = getNpcPresenceHint();
         list.innerHTML = hint
-            ? `<p class="npc-presence-empty">No one here right now.</p><p class="npc-presence-hint">${hint}</p>`
-            : '<p class="npc-presence-empty">No one notable nearby.</p>';
+            ? `<p class="npc-presence-empty">You do not know anyone here yet.</p><p class="npc-presence-hint">${hint}</p>`
+            : '<p class="npc-presence-empty">You do not know anyone here yet. Look around or walk the roads.</p>';
         return;
     }
 
