@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
+| **Status** | `designed` (qi track); body/soul deferred |
 | **Blocked on** | [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) owner sign-off; FE redesign direction |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 (method commitment, qi vs essence as energy type, grade on both) |
+| **Updated** | 2026-07-18 (qi-track scope, meridian-wash v1 compromise, playtest later) |
 
 ## Intent
 
@@ -53,6 +53,25 @@ Xianxia default: you **walk one cultivation road**. The manual you follow rewrit
 - **Grade** affects speed and efficiency; it does not hard-block reaching FE peak on inferior roots pacing
 - **Power ceiling** differs more by **energy type** (qi vs essence) and **foundation variant** than by starting at common vs crude
 - Reincarnation unlocks better **starting** grade / sect reclaim — meta fairness without nullifying birth advantage fantasy
+
+### Meridian-washing — v1 compromise (owner 2026-07-18)
+
+**Thematic default:** you are **stuck with your dao** once committed — very xianxia. Players may find that harsh; meridian-wash is the **safety valve**, not the main loop.
+
+| Rule (v1 proposal) | Detail |
+|--------------------|--------|
+| **Commit** | Confirm primary at creation; **hard lock at FE seal** |
+| **Meridian-wash** | Rare rite to change `primaryId` — costly, risky, months of recovery |
+| **When available** | Pre-seal: one “walk this dao” confirm; post-seal: meridian-wash (frequency TBD — **ship one version, playtest**) |
+| **Not in v1** | Casual swap, dual-path cultivation, body/soul method tracks |
+
+**Playtest intent:** Run meridian-wash in alpha and **wait for player feedback** before tightening (e.g. once per life) or loosening (e.g. pre-GC only). Balance is iterative — fiction favours permanence; fun favours an escape hatch.
+
+### Scope — qi track only (for now)
+
+**In scope for this framework:** qi-path cultivation chamber, primary method, qi vs essence energy, formations/arrays, foundation lineage at seal.
+
+**Explicitly deferred:** body-path and soul-path cultivation methods. Do not block qi design on three-track parity. When body/soul are designed, decide then whether each track gets its own locked primary or qi dao remains the anchor — **not decided**.
 
 ---
 
@@ -385,10 +404,10 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 
 **Changing primary method (meridian-washing rite):**
 
-- Available only at specific gates (pre-FE seal recommended last easy window)
-- Cost: months, rare materials, stones; **foundation crack** or realm regression risk
-- Cannot blend — old lineage scars remain as flavour / minor debuff (optional)
-- Post-seal: extremely expensive or story-gated only
+- **v1:** ship meridian-wash as the only post-commit escape; tune cost/frequency after playtest
+- Cost: months, rare materials, stones; **foundation crack** or short regression risk
+- Cannot blend — old lineage may leave minor scar (flavour debuff optional)
+- Pre-seal: last low-friction “this is my dao” window
 
 **Wrong method for root:** legal but leaky (`rootFit` &lt; 1) — another reason not to swap lightly.
 
@@ -410,7 +429,7 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 | **Tribulation** | Volatile essence overload ± trib odds |
 | **NPC sense** | Detect method grade + array backing ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md)) |
 | **Reincarnation / legacy** | Sect reclaim, blueprint unlocks, starting method grade |
-| **Body / soul paths** | Parallel method pools per chamber |
+| **Body / soul paths** | **Deferred** — qi track first; revisit when those realms are designed |
 
 ---
 
@@ -466,7 +485,8 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 
 ## Prerequisites
 
-- [x] One primary method — commitment not equippable (owner 2026-07-18)
+- [x] Meridian-wash as v1 compromise — playtest before locking frequency (owner 2026-07-18)
+- [x] Qi track only for now; body/soul methods deferred (owner 2026-07-18)
 - [x] Qi vs essence = energy type / power, shared grade for speed (owner 2026-07-18)
 - [x] Travel: ambient minimal + carried condensate (owner 2026-07-18)
 - [x] All formations/arrays require upkeep — nothing free (owner 2026-07-18)
@@ -479,14 +499,13 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 
 ## Open questions
 
-- **Meridian-washing:** allowed once per life post-seal, or never?
+- **Meridian-washing frequency:** once per life post-seal, once ever, or GC-gate only? → **ship v1, playtest**
 - **Lineage upgrade UI:** “Complete scripture” vs new item — how shown?
 - **Fragment without blueprint:** ambient practice only until array chapter found?
 - **Upkeep tuning:** flat stones/month vs scaling with array output?
 - **Dual essence arrays:** one array or chained formations?
 - **NPC cultivation:** sense reads primary path + grade, not shelf clutter?
 - **Pentamixed + Five Phase:** reward or trap?
-- **Body/soul:** separate primary path per track, or one dao only?
 
 ## Implementation crumbs
 

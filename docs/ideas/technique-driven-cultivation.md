@@ -59,9 +59,9 @@ Today FE is mostly technique-agnostic except **Refine Foundation** (sacrifice a 
 
 ## Open questions
 
-- Meridian-washing: once per life post-seal, or never? (see framework doc)
+- Meridian-washing: v1 compromise — playtest for frequency/cost (see framework doc)
+- Body/soul primary methods: **out of scope** until qi track ships
 - Do variants affect combat, tribulation, and markets — or only cultivation gates?
-- Body/soul paths: separate primary method each, or one dao for all three tracks?
 
 ## Implementation crumbs
 
