@@ -10,7 +10,7 @@
 
 ## Intent
 
-**Cultivation methods** (manuals for *how you cultivate*) are a separate system from **combat techniques** (manuals for *how you fight*). A cultivator follows **one primary method** — it shapes meridians, foundation, and dao for that life. This is **not** an equippable slot you swap when loot drops something better.
+**Cultivation methods** (manuals for *how you cultivate*) are a separate system from **combat techniques** (manuals for *how you fight*). A cultivator follows **one primary method** — it shapes meridians, foundation, and **cultivation path** for that life. This is **not** an equippable slot you swap when loot drops something better.
 
 **Qi methods** draw ambient spiritual qi. **Essence methods** cultivate a **different energy** (sun yang, moon yin, thunder…) — usually **more potent per unit** (density, breakthrough weight, tribulation character), not inherently faster. Both use the same **method grade** ladder (crude → peerless) for manual quality and cultivate speed.
 
@@ -45,7 +45,7 @@ Xianxia default: you **walk one cultivation road**. The manual you follow rewrit
 | **Changing path** | **Meridian-washing rite** — months, materials, foundation crack risk, possible cultivation regression; not a menu click |
 | **Upgrading *your* art** | **Same lineage** — complete a fragment, receive master’s annotation, pill polish — bumps **grade** without switching identity |
 
-**Anti-equip feel:** Finding *Inner Court Meridian Cycle* while on *Basic Meditation Breath* does not auto-replace. Options: (a) stash until a future life / disciple, (b) begin expensive **path conversion** rite, or (c) if **pre-seal** and uncommitted, one-time “this is my dao” choice.
+**Anti-equip feel:** Finding *Inner Court Meridian Cycle* while on *Basic Meditation Breath* does not auto-replace. Options: (a) stash until a future life / disciple, (b) begin expensive **path conversion** rite, or (c) if **pre-seal** and uncommitted, one-time **“this is my path”** choice.
 
 **Anti-punish feel:** Crude start is **real** (rich sect heirs get superior manuals — xianxia) but not a run killer:
 
@@ -56,14 +56,16 @@ Xianxia default: you **walk one cultivation road**. The manual you follow rewrit
 
 ### Meridian-washing — v1 compromise (owner 2026-07-18)
 
-**Thematic default:** you are **stuck with your dao** once committed — very xianxia. Players may find that harsh; meridian-wash is the **safety valve**, not the main loop.
+**Thematic default:** you are **stuck with your cultivation path** once committed — very xianxia. Players may find that harsh; meridian-wash is the **safety valve**, not the main loop.
 
 | Rule (v1 proposal) | Detail |
 |--------------------|--------|
 | **Commit** | Confirm primary at creation; **hard lock at FE seal** |
 | **Meridian-wash** | Rare rite to change `primaryId` — costly, risky, months of recovery |
-| **When available** | Pre-seal: one “walk this dao” confirm; post-seal: meridian-wash (frequency TBD — **ship one version, playtest**) |
+| **When available** | Pre-seal: one **“walk this path”** confirm; post-seal: meridian-wash (frequency TBD — **ship one version, playtest**) |
 | **Not in v1** | Casual swap, dual-path cultivation, body/soul method tracks |
+
+**Terminology:** Use **path** / **cultivation path** in UI for method commitment. Reserve **Dao** for the late-game **Dao Seeking** track (`comprehendDao`, fragments) — avoid “walk this dao” on the seal screen.
 
 **Playtest intent:** Run meridian-wash in alpha and **wait for player feedback** before tightening (e.g. once per life) or loosening (e.g. pre-GC only). Balance is iterative — fiction favours permanence; fun favours an escape hatch.
 
@@ -71,7 +73,7 @@ Xianxia default: you **walk one cultivation road**. The manual you follow rewrit
 
 **In scope for this framework:** qi-path cultivation chamber, primary method, qi vs essence energy, formations/arrays, foundation lineage at seal.
 
-**Explicitly deferred:** body-path and soul-path cultivation methods. Do not block qi design on three-track parity. When body/soul are designed, decide then whether each track gets its own locked primary or qi dao remains the anchor — **not decided**.
+**Explicitly deferred:** body-path and soul-path cultivation methods. Do not block qi design on three-track parity. When body/soul are designed, decide then whether each track gets its own locked primary or the **qi cultivation path** remains the anchor — **not decided**.
 
 ---
 
@@ -134,7 +136,7 @@ Grade stacks with **root grade** (innate speed) and **root fit** (element/compos
 - Not automatically **stronger** at peak than essence — essence usually wins on **power per unit** and ceiling when infra is paid for
 - Wins on **portability** — no array, no condensate, cultivate anywhere at full grade speed
 
-**Why it matters:** “Peerless qi vs Vermillion Sun” compares *best portable qi art* vs *essence dao with maintained array* — different **energy**, similar **grade** vocabulary, different **power output** and **infra bill**.
+**Why it matters:** “Peerless qi vs Vermillion Sun” compares *best portable qi art* vs *essence path with maintained array* — different **energy**, similar **grade** vocabulary, different **power output** and **infra bill**.
 
 ---
 
@@ -214,7 +216,7 @@ powerPerSession =
 | | | Essence: **higher density jump**, yang-firm variant, different trib |
 | Crude qi start | — | Slower from **grade**, still reaches peak — weaker foundation **variant** |
 
-**Design intent:** Choose **dao** (qi road vs sun scripture), not “fast vs slow.” Rich heir with superior qi manual starts **faster** (grade); essence heir needs **array spend** but peaks **harder** if they maintain infra.
+**Design intent:** Choose **path** (qi road vs sun scripture), not “fast vs slow.” Rich heir with superior qi manual starts **faster** (grade); essence heir needs **array spend** but peaks **harder** if they maintain infra.
 
 ### Essence tags (world)
 
@@ -407,7 +409,7 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 - **v1:** ship meridian-wash as the only post-commit escape; tune cost/frequency after playtest
 - Cost: months, rare materials, stones; **foundation crack** or short regression risk
 - Cannot blend — old lineage may leave minor scar (flavour debuff optional)
-- Pre-seal: last low-friction “this is my dao” window
+- Pre-seal: last low-friction **“this is my path”** window
 
 **Wrong method for root:** legal but leaky (`rootFit` &lt; 1) — another reason not to swap lightly.
 
@@ -461,7 +463,7 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 1. **Cultivation hub / qi chamber** — **Your cultivation path** (primary method + grade + lineage); no casual swap button.
 2. **Inventory** — **Cultivation scrolls** (uncommitted) vs **Combat manuals**; committed path shown separately.
 3. **Method detail** — grade, energy type (qi/essence), fuel state, power vs speed breakdown, seal lock warning.
-4. **Pre-seal** — one-time “Walk this dao” confirm; post-seal only **meridian-washing** rite (dangerous).
+4. **Pre-seal** — one-time **“Walk this path”** confirm; post-seal only **meridian-washing** rite (dangerous).
 
 Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array blueprints may be separate manuals (`track: 'array'`).
 
