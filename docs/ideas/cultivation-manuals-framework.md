@@ -6,7 +6,7 @@
 | **Blocked on** | [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) owner sign-off; FE redesign direction |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 (essence infrastructure trade-off, method grades, reincarnation sect reclaim) |
+| **Updated** | 2026-07-18 (peerless qi glossary, travel condensate, infra upkeep) |
 
 ## Intent
 
@@ -65,6 +65,26 @@ Methods are grouped by **how qi enters the body**, not only by realm tier.
 
 Grade stacks with **root grade** (speed) and **root fit** (composition/element match). Essence methods use the same grade labels for **manual quality** (how much ceiling the art allows when infra is perfect).
 
+### What “peerless qi” means (glossary)
+
+**Peerless qi** is **not** a special energy type. It is the **top grade** of a **plain qi-gathering cultivation method** — a complete breathing or circulation art that draws **ambient spiritual qi** only (no sun yang, no thunder, no array).
+
+| Term | Meaning |
+|------|---------|
+| **Qi-gathering method** | Cultivation manual whose `essences: []` — works on generic heaven-and-earth qi |
+| **Method grade: peerless** | Best-in-class *copy* of that art (ancestor’s full transmission, not a torn fragment) |
+| **Peerless qi** (shorthand) | The cultivation style + results from running a **peerless-grade qi method** |
+
+**Example:** *Nine Turn Peerless Cycle* — peerless-grade circulation manual. You meditate, cycle qi through the dantian, raise density. No sun pillar, no storm, no condensed dew required. You can cultivate in a roadside inn, a cave, or your sect chamber with **full rating anywhere**.
+
+**What peerless qi is *not*:**
+
+- Not “peerless foundation” (that’s a foundation **quality** tier — separate axis)
+- Not essence cultivation (yang/yin/thunder) — those are a **different track** with higher ceiling but infra cost
+- Not automatically better than essence at peak — peerless qi caps lower on **foundation variant / ceilingMult** than a fully built essence path, but wins on **portability and zero upkeep**
+
+**Why it matters in design:** When we compare “peerless qi vs Vermillion Sun + array,” we mean: *best portable generic grind* vs *best infrastructure-dependent specialty grind*. Most cultivators live their whole life on common–superior qi methods; peerless manuals are **rare finds**. Essence is the bet that decades of array upkeep buys a higher heaven.
+
 ---
 
 ## World essence & infrastructure
@@ -78,21 +98,47 @@ Grade stacks with **root grade** (speed) and **root fit** (composition/element m
 | **Ambient** | World tile + time/weather | **Trickle** — enough to practise, not to peak | Sitting in dawn light; hair stands in a storm |
 | **Directed** | Formation or **Array** | **Bulk** — condense, store, cultivate at full method rating | Sect sun-pillar, thunder-cage array, moon pool |
 
-**Formation** — personal/sect scale (courtyard slot, meditation chamber, portable plate). Existing v1: `FORMATIONS` + residence slots in `formations.js`.
+**Formation** — personal/sect scale (courtyard slot, meditation chamber). Existing v1: `FORMATIONS` + residence slots in `formations.js`.
 
-**Array** — sect- or region-scale (defense array node, cultivation hall, reclaimed sect infrastructure). Multi-slot, higher material cost, may need disciples tending it. Essence **condensation** happens here.
+**Array** — sect- or region-scale (defense array node, cultivation hall, reclaimed sect infrastructure). Multi-slot, higher build cost, essence **condensation** at scale.
 
-### Condensation → consumable (optional loop)
+**Owner rule:** **All formations and arrays require upkeep** — stones, materials, disciple labour, or time. Nothing runs for free; power is earned and **paid for continuously**. A neglected array **decays** (output drops, condensate stops, eventually dormant until repaired).
+
+### Upkeep (formations & arrays)
+
+| Cost type | Formation (courtyard) | Array (sect-scale) |
+|-----------|----------------------|-------------------|
+| **Recurring** | Spirit stones / month, herb incense, occasional jade refresh | Higher stone + material burn; may need attendant disciple shifts |
+| **Neglect penalty** | Bonus fades → ambient-only equivalent → pattern scatters (must reinscribe) | Condensate production halts; satisfaction mult slides down over months |
+| **Repair** | Re-lay with materials + months (cheaper than first build) | Major event if damaged (siege, tribulation splash) |
+
+Sect reclaim on reincarnation = **structure exists** (skip initial build grind), **not** waived upkeep. You inherit the bill with the mountain.
+
+### Condensation → consumable (travel + storage)
 
 Arrays (and advanced formations) **condense** ambient essence into storable form:
 
 | Product | Example | Use |
 |---------|---------|-----|
-| **Essence dew** | `sun_yang_dew` | Drink before session; bypasses weak ambient band for one cultivate |
+| **Essence dew** | `sun_yang_dew` | Single-session boost; travel kit item |
+| **Essence liquid** | `sun_yang_essence_flask` | **Carried while traveling** — several sessions of near-formation rating for essence methods |
 | **Essence bead** | `thunder_bead` | Slower release; several sessions |
-| **Essence liquid** | `moon_yin_pool` (array tank) | Cultivate at quarters while pool ≥ threshold |
+| **Array tank** | `moon_yin_pool` (at sect) | Bulk storage at home; decays if array upkeep lapses |
 
-Fiction: raw sun yang is too wild to breathe directly at volume — the array **gathers, filters, liquefies**. High-tier breakthroughs may **require** condensed essence, not just trickle cultivation.
+Fiction: raw sun yang is too wild to breathe at volume — the array **gathers, filters, liquefies** (while you pay to keep it running). High-tier breakthroughs may **require** condensed essence, not ambient trickle alone.
+
+### Traveling with an essence method
+
+Essence cultivators are **not locked to sect** — but away from home they have two options:
+
+| Mode | How | Effective rating |
+|------|-----|------------------|
+| **Ambient only** | Cultivate on the road | Minimal benefit (~ambient mult) — maintain mastery, avoid rust |
+| **Condensed stock** | Spend **essence liquid** (or dew/bead) from travel kit | Approaches formation-tier for those sessions; stock is finite and costly to replace |
+
+Qi-gathering methods (including **peerless qi**) need **no stock** — full rating anywhere. That portability is the peerless qi value proposition on long explore arcs.
+
+**No free lunch:** Liquid in the kit was produced by a maintained array/formation at home (upkeep already paid). Buying flasks on the market = someone else’s upkeep priced in.
 
 ### The trade-off (owner direction)
 
@@ -288,11 +334,11 @@ If a prior life’s **world state** preserved the player’s sect (founder legac
 | Reclaim perk | Effect |
 |--------------|--------|
 | **Sect standing restored** | Start as recognised heir, not stranger |
-| **Arrays intact** | Sun pillar / moon pool already built — essence methods at **array** rating immediately |
+| **Arrays intact** | Sun pillar / moon pool already built — skip **construction**; still pay **upkeep** each year |
 | **Manual archive** | Peerless qi art or essence fragment in hall vault |
 | **Trade-off** | Enemy faction remembers you; debt/event baggage |
 
-**Player sentence:** *“Run 3 I reclaim my old mountain — Vermillion Sun is viable at 16 because grandpa’s array still turns. Run 1 I found the same manual at 20 and it was useless until I spent forty years building the pillar.”*
+**Player sentence:** *“Run 3 I reclaim my old mountain — the sun pillar is already there, but I still feed it stones every year. I stocked flasks before leaving to explore. Run 1 I found Vermillion Sun at 20 and couldn’t use it until I built the pillar and kept it alive.”*
 
 Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and `legacy.js` unlock catalog. Reclaim is **earned**, not default new-game+.
 
@@ -317,8 +363,8 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 | **Foundation / seal** | `ceilingMult` + `essenceMilestones` → [`technique-driven-cultivation.md`](technique-driven-cultivation.md) |
 | **FE redesign** | Gather → stabilise → seal; method + infra at seal sets lineage |
 | **Lifespan pacing** | Qi-grade path = steady; essence path = slow early, spike after array ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)) |
-| **World / travel** | Ambient essence strength; blueprints looted by region |
-| **Alchemy / materials** | Condensate crafting, array construction costs |
+| **World / travel** | Ambient trickle on road; **essence liquid** in travel kit; blueprints by region |
+| **Economy** | Formation/array **upkeep** drains stones & materials — core sink |
 | **Tribulation** | Volatile essence overload ± trib odds |
 | **NPC sense** | Detect method grade + array backing ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md)) |
 | **Reincarnation / legacy** | Sect reclaim, blueprint unlocks, starting method grade |
@@ -379,9 +425,10 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 
 ## Prerequisites
 
+- [x] Travel: ambient minimal + carried condensate (owner 2026-07-18)
+- [x] All formations/arrays require upkeep — nothing free (owner 2026-07-18)
 - [ ] Owner OK on infra curve (ambient vs formation vs array mults)
 - [ ] Array vs formation scope — which sect buildings host arrays
-- [ ] Condensate: inventory item vs array tank only
 - [ ] [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) — `rootFit` rules
 - [ ] Chamber balance — peerless qi vs essence+array ceiling targets for FE age ~80–90
 - [ ] Sect reclaim: which world flags persist across lives
@@ -390,8 +437,7 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 ## Open questions
 
 - **Fragment without blueprint:** sell manual before array chapter exists — ambient-only until found?
-- **Portable formations:** travel kit essence plate vs must cultivate at sect?
-- **Array upkeep:** disciples, stones/month, or one-time build?
+- **Upkeep tuning:** flat stones/month vs scaling with array level and condensate output?
 - **Dual essence arrays:** sun + fire furnace — one array or chained formations?
 - **NPC cultivation:** rivals show method grade + visible array backing?
 - **Peerless qi vs essence ceiling:** should peerless nine-turn match inferior essence at full array, or always lose on ceiling?
