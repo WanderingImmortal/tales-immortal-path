@@ -210,7 +210,133 @@ const CREATION_MAX_TRAITS_DEFAULT = 1;
 const CREATION_MAX_TRAITS_LEGACY = 2;
 const CREATION_MAX_DRAWDACKS = 2;
 
-const TALENT_ELEMENTS = ['fire', 'water', 'wind', 'earth', 'lightning'];
+// ===== SPIRIT ROOTS v2 — composition + grade (see docs/ideas/spiritual-roots-taxonomy-v2.md) =====
+
+/** Classical five elements for root composition (deviants like lightning are separate). */
+const SPIRIT_CLASSICAL_ELEMENTS = ['fire', 'water', 'wood', 'metal', 'earth'];
+
+/** Composition sets innate ceiling (realm index); grade does NOT raise ceiling. */
+const SPIRIT_ROOT_COMPOSITIONS = [
+    {
+        id: 'pentamixed',
+        name: 'Pentamixed',
+        cpCost: -1,
+        elementCount: 5,
+        innateCeilingRealmIdx: 1,
+        heightLabel: 'Foundation Shore',
+        compositionSpeedMult: 0.80,
+        notes: 'Four or five elements in chaos — slowest, lowest innate height.',
+        oracleLine: 'Five elements clash — your road likely ends at a sealed foundation unless heaven\'s verdict changes.'
+    },
+    {
+        id: 'mixed',
+        name: 'Mixed',
+        cpCost: 0,
+        elementCount: 3,
+        innateCeilingRealmIdx: 2,
+        heightLabel: 'Golden Core Gate',
+        compositionSpeedMult: 0.92,
+        notes: 'Three elements — most unlucky cultivators.',
+        oracleLine: 'Heaven may permit a golden core — whether you survive to fill it is another matter.'
+    },
+    {
+        id: 'dual',
+        name: 'Dual',
+        cpCost: 2,
+        elementCount: 2,
+        innateCeilingRealmIdx: 3,
+        heightLabel: 'Nascent Soul Bridge',
+        compositionSpeedMult: 1.0,
+        notes: 'Two elements — flexible middle path.',
+        oracleLine: 'A soul may yet emerge from the core — if the tribulation fire does not consume you first.'
+    },
+    {
+        id: 'single',
+        name: 'Single',
+        cpCost: 4,
+        elementCount: 1,
+        innateCeilingRealmIdx: 4,
+        heightLabel: 'Void Horizon',
+        compositionSpeedMult: 1.05,
+        notes: 'One pure element — focused, highest classical ceiling.',
+        oracleLine: 'One flame, one road — the void horizon is your allotted height; beyond it, only rites may argue with heaven.'
+    }
+];
+
+const SPIRIT_ROOT_COMPOSITION_BY_ID = Object.fromEntries(SPIRIT_ROOT_COMPOSITIONS.map(c => [c.id, c]));
+
+/** Grade affects speed / trib odds only — NOT innate ceiling. */
+const SPIRIT_ROOT_GRADES = [
+    {
+        id: 'inferior',
+        name: 'Inferior',
+        cpCost: 0,
+        cultivateSpeedMult: 0.75,
+        breakthroughBonus: -8,
+        coreCondenseMult: 0.75,
+        notes: 'Impure flow — slow and leaky.'
+    },
+    {
+        id: 'common',
+        name: 'Common',
+        cpCost: 1,
+        cultivateSpeedMult: 1.0,
+        breakthroughBonus: 0,
+        coreCondenseMult: 1.0,
+        notes: 'Sect-acceptable baseline.'
+    },
+    {
+        id: 'superior',
+        name: 'Superior',
+        cpCost: 3,
+        cultivateSpeedMult: 1.18,
+        breakthroughBonus: 5,
+        coreCondenseMult: 1.08,
+        notes: 'Inner-court quality root.'
+    },
+    {
+        id: 'heavenly',
+        name: 'Heavenly',
+        cpCost: 7,
+        cultivateSpeedMult: 1.35,
+        breakthroughBonus: 10,
+        coreCondenseMult: 1.15,
+        requiresUnlock: 'heavenlyRoot',
+        notes: 'Heaven-blessed — fast, not taller.',
+        oracleSuffix: 'Heaven smiles upon your pace — your allotted height remains unchanged.'
+    }
+];
+
+const SPIRIT_ROOT_GRADE_BY_ID = Object.fromEntries(SPIRIT_ROOT_GRADES.map(g => [g.id, g]));
+
+/** Optional deviants at creation when meta-unlocked (in-run awakening is future work). */
+const SPIRIT_ROOT_DEVIANTS = [
+    {
+        id: 'thunder',
+        name: 'Thunder',
+        cpCost: 3,
+        requiresUnlock: 'mutantRoot',
+        cultivateSpeedMult: 1.08,
+        breakthroughBonus: 3,
+        notes: 'Mutant lightning affinity — overlays classical root.'
+    }
+];
+
+const SPIRIT_ROOT_DEVIANT_BY_ID = Object.fromEntries(SPIRIT_ROOT_DEVIANTS.map(d => [d.id, d]));
+
+/** Innate height labels by ceiling realm index (for UI). */
+const SPIRIT_INNATE_HEIGHT_LABELS = {
+    0: 'Condensation Pool',
+    1: 'Foundation Shore',
+    2: 'Golden Core Gate',
+    3: 'Nascent Soul Bridge',
+    4: 'Void Horizon',
+    5: 'Dao Threshold',
+    6: 'Immortal Firmament'
+};
+
+// Legacy v1 presets — used only for save migration (see migrateSpiritRootV1 in talent.js).
+const TALENT_ELEMENTS = ['fire', 'water', 'wood', 'metal', 'earth'];
 
 const TALENT_GRADES = [
     {

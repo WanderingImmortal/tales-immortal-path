@@ -5,11 +5,11 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-18
 
 ## Focus
-- Qi-track cultivation methods framework — commitment + meridian-wash v1; body/soul **not** in scope yet
+- Spirit roots v2 — composition + grade on creation (in progress)
 
 ## Next
-- Owner pass: roots v2 + cultivation methods P0 → GitHub Issues
-- FE redesign + foundation variants once methods framework approved
+- Cultivation methods P0 after roots land
+- FE redesign doc pass
 
 ## Blocked
 - (none)

@@ -121,7 +121,9 @@ function renderStatus() {
     if (traitDisplay) {
         const talentPrefix = talentDef ? `🌱 ${talentDef.name}` : '';
         traitDisplay.textContent = talentPrefix ? `${talentPrefix} · ${traitLabel}` : traitLabel;
-        traitDisplay.title = [talentDef ? `Root: ${talentDef.name}${talentDef.element ? ' (' + talentDef.element + ')' : ''}` : '', traitTip].filter(Boolean).join('\n\n');
+        traitDisplay.title = [talentDef
+            ? `Root: ${talentDef.name}${talentDef.elements?.length ? ' (' + talentDef.elements.join(', ') + ')' : talentDef.element ? ' (' + talentDef.element + ')' : ''}\nInnate height: ${talentDef.innateHeightLabel || '—'}`
+            : '', traitTip].filter(Boolean).join('\n\n');
     }
     const traitStat = document.getElementById('traitStatDisplay');
     if (traitStat) {
