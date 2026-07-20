@@ -16,6 +16,25 @@ Chaos is the **primordial state from which the Dao was born**. The Chaos Path is
 
 It sits **beyond Immortal Ascension**: long, difficult, transformative. Entry requires perceiving the flaw in the Dao at Immortal Ascension. Play should feel distinct from Qi / Body / Spirit track grinding — not a fourth parallel bar that looks the same.
 
+## Settled so far (brainstorm)
+
+| Question | Direction (owner, 2026-07-20) |
+|----------|-------------------------------|
+| **Where does Chaos sit?** | **Beside** the three orthodox tracks — not a creation-time fourth class. |
+| **What is Chaos internally?** | A **unified** cultivation: body + **chaos power** (qi-analogue) + soul advance together (matches the Body → Chaos → Soul stage pattern per realm). |
+| **Why not always pick Chaos?** | Because it looks strictly better as “all three at once.” Answer: **hard late-game gate** (Immortal Ascension + perceiving the Dao’s flaw) — the orthodox three-track game is the long journey; Chaos is the post-climax path. |
+
+### Design tension to keep honest
+
+Chaos *will* read as the “complete” path to a min-maxer. Late gating is necessary but may not be sufficient alone. Brainstorm still needs **tradeoffs** so mid-game three-track play isn’t just “waiting for Immortal”:
+
+- **Cost of entry** — Sacrifice / Rebirth wipe power and restart the climb under chaos rules.
+- **Different fantasy** — Chaos is source-before-Dao; orthodox tracks are walking *within* heaven’s laws. Immortal Ascension is a valid ending; Chaos is optional transcendence.
+- **Risk profile** — erosion / destabilization should make Chaos feel precarious, not just stronger FE with a new skin.
+- **World reaction** — heavens, factions, and Immortals may treat Chaos walkers as wrong / myth / threat (flavor + mechanical friction).
+
+Open: whether orthodox Immortal progression remains playable forever without ever touching Chaos (recommended: **yes** — Chaos is optional).
+
 ## Design notes (DeepSeek recap — raw)
 
 Source: owner paste of DeepSeek’s recap prompt. Treat as a **vision draft**, not signed-off balance.
@@ -84,7 +103,7 @@ Useful when brainstorming so we don’t invent parallel systems blindly:
 | Existing | Tension / opportunity |
 |----------|----------------------|
 | `PATHS` qi/body/soul — Immortal Ascension is realm index 6 | Chaos starts **after** that beat is real and meaningful |
-| Three-track redesign (dantian / vessel / spirit) | Chaos must not read as “fourth identical track” |
+| Three-track redesign (dantian / vessel / spirit) | Chaos sits **beside** them as late unified path (body + chaos-power + soul together) — not a creation-time fourth class; gate + entry cost carry the “why not always” answer |
 | Dao taxonomy **Wuji** (primordial reunification) | Same mythic space as “source before Dao” — clarify: Wuji = Dao peak? Chaos = beyond/before Dao? Same gate or different? |
 | Forbidden Grounds + Sealed Ancients / `HIDDEN_SUBZONES` | Natural homes for Grotto Masters / Chaos clues — avoid a third “hidden dungeon” system unless justified |
 | Alignment / demonic / corruption | Recap says Chaos ≠ evil — keep Evil Dao (Lu Feng) as a **wrong approach**, not synonym |
@@ -96,15 +115,17 @@ Useful when brainstorming so we don’t invent parallel systems blindly:
 - [ ] Owner brainstorm pass — settle open questions below
 - [ ] Immortal Ascension is an actual climax (not just a realm name on a bar)
 - [ ] Decision: Chaos vs Wuji relationship
-- [ ] Decision: how Chaos sits next to three-track (replacement ladder vs overlay vs post-game NG+)
+- [x] Decision: Chaos sits **beside** three-track as late unified body/chaos/soul path (gate + entry cost) — still need tradeoff detail
+- [ ] Decision: optional forever Immortal ending without Chaos? (leaning yes)
 - [ ] Grotto Masters: new content vs Forbidden/Ancient reuse
 - [ ] Time model: decades/centuries of chaos cultivation must feel intentional
 - [ ] Promote to GitHub Issue(s) only after status → `designed`
 
 ## Open questions
 
-1. **Identity:** Is Chaos a **new post-immortal ladder** (leave orthodox realms behind), or a **parallel refinement** that coexists with tracks?
+1. **Identity:** ~~replacement vs parallel~~ → **Beside three-track; internally unified (body + chaos-power + soul).** Still open: after entry, do orthodox track meters freeze / convert / become irrelevant?
 2. **Wuji:** Attain Wuji first? Chaos *is* Wuji under another name? Chaos *breaks* Wuji?
+2b. **“Why not always Chaos?” beyond the gate:** Is late Immortal Ascension gate enough, or do we also need soft mid-game reasons (story, risk, world hostility) so three-track never feels like filler?
 3. **Sacrifice vs Rebirth:** Both permanent? Can you refuse forever and stay Immortal? Softlock / regret endings?
 4. **Aspect choice** (Creation / Destruction / Void…): build identity forever, or respec at cost?
 5. **Condensing Chaos 13 layers:** what is the *loop* (button? event? chamber?) and what makes layer 1–3 dangerous vs later layers safer?
@@ -120,7 +141,7 @@ Useful when brainstorming so we don’t invent parallel systems blindly:
 When ready to design (still no code):
 
 1. One-sentence pitch that a player would understand at Immortal Ascension.
-2. Pick **identity** answer (Q1) and **Wuji** answer (Q2) first — everything else hangs on those.
+2. Q1 identity direction is set — next settle **Wuji** (Q2) and **post-entry fate of orthodox meters** (Q1 leftover).
 3. Sketch **one vertical slice**: entry choice + Condensing Chaos layer 1 only + one Grotto rumor.
 4. Park any leftover Creator / Reality Forging fantasy as Phase-N epilogue so it doesn’t block earlier design.
 
