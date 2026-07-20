@@ -97,6 +97,69 @@ Higher realms introduce **qualitatively** new chaos (aspect at Foundation, core 
 
 Open: can player **delay** threshold (seclude, prep) at cost of time/fortune — xianxia seclusion fantasy?
 
+### Chaos substance — types, gathering, density (owner 2026-07-20)
+
+**Avoid:** “impure chaos,” letter **grades**, RPG rarity for chaos itself.  
+**Use:** xianxia physics — **state**, **aspect**, **heaviness**, **provenance**, **anchoring**.
+
+#### Vocabulary map
+
+| Concept | Term (draft) | Play meaning |
+|---------|--------------|--------------|
+| Raw undifferentiated chaos | **Hunyuan** (混元) | Pre-aspect soup — highest burst risk |
+| Pre-heaven vs stripped-from-cultivation | **Xiantian** / **Houtian** chaos | Source flavor, not quality |
+| Compression load | **Chaos heaviness** (混沌之重) | How much primordial mass you carry — drives step-up trials |
+| Condensing Chaos index | **Stratum** (重 / 层) | Layers 1–13; each = new heaviness tier |
+| Held together? | **Cohesion** (凝定) / **Anchoring** (锚定) | Not purity — body/soul/aspect grip |
+| Failure | **Erosion** (蚀) / **Venting** (泄) | Internal scar vs external catastrophe |
+| Flavor | **Aspect** (象) | Creation, Destruction, Void, Cycle, Stillness |
+
+**Player line:** “**Second stratum Hunyuan**, **unanchored** — **Creation-aspect** will **vent** if you open stratum three.”
+
+#### Four axes (combine — don’t grade)
+
+**1. Provenance — where you gathered**
+
+| Provenance | Gather action (draft) |
+|------------|----------------------|
+| **Reverted cultivation** (返本) | Unmake seated qi / body / spirit progress |
+| **Fracture-breath** (劫息) | Forbidden grounds, Seal cracks, grottos |
+| **Pre-heaven remnant** (先天残) | Refine legendary mats (ash cores, frost shards) |
+| **Unwritten vein** (叩脉) | Deep spirit-vein nodes not on heaven’s ledger |
+| **Split registry** (裂籍) | Sacrifice entry — tear your mandate mark |
+
+Different sources **anchor differently** (body-easy vs soul-easy), not better/worse.
+
+**2. Aspect — what it becomes if it escapes** (pick at Primordial Foundation)
+
+Creation (uncontrolled growth), Destruction (unmaking), Void (hunger/absence), Cycle (mad turning), Stillness (stagnation). Mixing without mastery = **heterogeneous Hunyuan** — harder cohesion, not “low tier.”
+
+**3. Phase — manifestation state**
+
+**Diffuse** (散) → **Condensed** (凝) → **Core-bound** (核) → **Soul-woven** (织). Step-up trials = phase shift at **new heaviness**.
+
+**4. Heaviness — density without A/B/C**
+
+| Band | Name | Tie |
+|------|------|-----|
+| Strata 1–3 | Light chaos (轻混沌) | Reversible erosion |
+| 4–7 | Heavy chaos (重混沌) | Body must anchor; venting scars map |
+| 8–11 | Deep chaos (深混沌) | Soul anchoring mandatory |
+| 12–13 | Borderline Hunyuan (边混元) | Raw soup at condensing peak |
+| Post-Foundation | Aspect-weighted heaviness | Same stratum, different trial *shape* per aspect |
+
+Trial trigger: **“Heaviness inbound”** — not “your chaos became impure.”
+
+#### Tie to stabilization model
+
+Fully **anchor** Heavy (stratum 7) → stratum 8 opens **Deep** heaviness: same aspect, **new law for your vessel**. Gather from two provenances before anchoring → ordeal checks **both** body and soul.
+
+#### Open
+
+- [ ] Chaos power resource name (**Primordial Breath? Hunyuan force?**)  
+- [ ] Final aspect count; map provenances to zones / ancients  
+- [ ] Chamber UI: stratum + phase + aspect + cohesion, never “purity %”
+
 See [`post-immortal-cosmology.md`](post-immortal-cosmology.md) — Immortal Calamities, three trial families.
 
 ### Naming (draft — owner likes Progenitor for top only)
