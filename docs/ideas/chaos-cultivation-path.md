@@ -16,7 +16,7 @@ Chaos is the **primordial state from which the Dao was born**. The Chaos Path is
 
 **Inspiration (owner):** *Primordial Throne of Divine Blood* — late game as **retroactively creating a better cultivation system**, not endless stronger Immortals. Related taste notes (novels finished vs abandoned for perpetual scaling) live in [`post-immortal-cosmology.md`](post-immortal-cosmology.md).
 
-It sits **beyond Immortal Ascension**: long, difficult, transformative. Entry requires perceiving the flaw in the Dao at Immortal Ascension. Play should feel distinct from Qi / Body / Spirit track grinding — not a fourth parallel bar that looks the same.
+It sits **beyond** the false Immortal Ascension watershed: long, difficult, transformative. Entry requires perceiving the flaw in the Dao — timing relative to upper-realm climb still open. Play should feel distinct from Qi / Body / Spirit track grinding — not a fourth parallel bar that looks the same.
 
 ## Settled so far (brainstorm)
 
@@ -136,7 +136,7 @@ Useful when brainstorming so we don’t invent parallel systems blindly:
 1. **Identity:** ~~replacement vs parallel~~ → **Beside three-track; internally unified (body + chaos-power + soul).** Still open: after entry, do orthodox track meters freeze / convert / become irrelevant?
 2. **Wuji:** Attain Wuji first? Chaos *is* Wuji under another name? Chaos *breaks* Wuji?
 2b. **“Why not always Chaos?” beyond the gate:** Is late Immortal Ascension gate enough, or do we also need soft mid-game reasons (story, risk, world hostility) so three-track never feels like filler?
-3. **Sacrifice vs Rebirth:** Both permanent? Can you refuse forever and stay Immortal? Softlock / regret endings?
+3. **Sacrifice vs Rebirth:** Both permanent? Softlock if you refuse Chaos forever (orthodox upper climb continues)?
 4. **Aspect choice** (Creation / Destruction / Void…): build identity forever, or respec at cost?
 5. **Condensing Chaos 13 layers:** what is the *loop* (button? event? chamber?) and what makes layer 1–3 dangerous vs later layers safer?
 6. **Chaos erosion:** meter? catastrophic reset? partial realm loss? ties to heart demons / tribulation?
@@ -144,7 +144,7 @@ Useful when brainstorming so we don’t invent parallel systems blindly:
 8. **Creator stages:** pocket dimension / new Dao / new reality — sim toys, ending slides, or actual persistent world edits?
 9. **Grotto Masters:** combat bosses, dialogue mentors, or exploration arcs? One per phase mandatory?
 10. **Chaotic Body trait:** creation-screen only after Rebirth clear — conflicts with roots v2 / manuals framework?
-11. **Scope honesty:** Realm 8 Creator may be epilogue fantasy for a long while — ship gate through which realm first?
+11. **Scope honesty:** Realm 8 Creator may be epilogue fantasy for a long while — ship gate through which realm first? How much orthodox post-false-immortal climb sits before Chaos entry?
 
 ## Brainstorm agenda (suggested)
 
