@@ -33,7 +33,23 @@ Chaos is **not** “immortal tier 8 on the same registry.” It is a **parallel 
 | Late Chaos | True Immortal upstairs (still inside law) | **Chaos Ascendant** — self-sustained, unclassified |
 | Creator | — | **Progenitor** — authors new law; epilogue tier |
 
-**Forbidden by heaven** does not mean heaven *hates* you. It means **no clause** — automatic counter-pressure (erosion, weird tribulations, world unease). Factions and Court may hunt you because you’re uninsurable, not because Heaven sent a memo.
+**Forbidden by heaven** does not mean heaven *hates* you. It means **no clause** — no Immortal Calamities (you’re not a budget line), but **Primordial Trials** / erosion replace heavenly audits. Factions may hunt you as uninsurable.
+
+### Chaos breakthroughs vs tribulation
+
+Orthodox: heaven ratifies realm — **Heavenly Tribulation** on climb, **Immortal Calamity** after registry.
+
+Chaos: **no ratification**. Breakthroughs are **stabilization events**:
+
+| Orthodox | Chaos analogue |
+|----------|----------------|
+| Tribulation lightning | **Cohesion Ordeal** — chaos core convulses; hold or erode |
+| Heaven accepts/rejects | **Aspect harmonizes** (Creation / Void / …) or fails scatter |
+| Limbo until audit | **Unstable state** until you compress next layer (Condensing Chaos layers) |
+
+Failure mode: **erosion** (lose layers, scars, identity) — not “heaven smote you.”
+
+See [`post-immortal-cosmology.md`](post-immortal-cosmology.md) — Immortal Calamities, three trial families.
 
 ### Naming (draft — owner likes Progenitor for top only)
 
@@ -57,7 +73,7 @@ See [`post-immortal-cosmology.md`](post-immortal-cosmology.md) — Impartial Hea
 | Question | Direction (owner, 2026-07-20) |
 |----------|-------------------------------|
 | **Is Immortal Ascension an ending?** | **No.** It is a watershed / reveal — there is more to climb. |
-| **False vs true immortal** | Mandate (registry lease + siphon) vs True (self-sustained inside law). Chaos = **Unwritten** outside law; **Progenitor** = Creator only, above “immortal.” Heaven = impartial rule-engine, not a person. |
+| **False vs true immortal** | Mandate = registry lease (long life, **not** true ∞) + siphon. **Immortal Calamities** cull costly nodes. True = upstairs self-sustenance + **Dao Trials**. Chaos = **Primordial Trials** / erosion — no heaven tribulations. Progenitor = Creator only. |
 | **Where does Chaos sit?** | **Beside** the three orthodox tracks — not a creation-time fourth class. |
 | **What is Chaos internally?** | A **unified** cultivation: body + **chaos power** (qi-analogue) + soul advance together (matches the Body → Chaos → Soul stage pattern per realm). |
 | **Why not always pick Chaos?** | Because it looks strictly better as “all three at once.” Answer: **hard late-game gate** — but gate should sit after the false-immortal reveal and some post-Ascension climb, not as the immediate next button after realm 6. |

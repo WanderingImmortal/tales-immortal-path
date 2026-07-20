@@ -171,7 +171,7 @@ Four **different kinds of end-state**, not one ladder with bigger numbers:
 
 | Tier | Name (draft) | What it is | On heaven’s books? | World drain? |
 |------|--------------|------------|-------------------|--------------|
-| 1 | **Mandate Immortal** / Registry Immortal | Orthodox Ascension — ∞ via lease | **Yes** — Rule 7 | **Yes** |
+| 1 | **Mandate Immortal** / Registry Immortal | Orthodox Ascension — **long leased life**, not true ∞ | **Yes** — Rule 7 | **Yes** |
 | 2 | **True Immortal** | Sparse upstairs watershed; self-sustained **within** Dao law | Yes, but **self-authored** entry | **No** (or net-neutral) |
 | 3 | **Chaos Ascendant** / **Unwritten** | Chaos Path completion short of Creator — self-sustained **outside** Dao taxonomy | **No** — unclassified | **No** — you draw from primordial source, not MortalFortuneIndex |
 | 4 | **Progenitor** | Creator capstone (Realm 8) — authors pocket worlds / Dao / reality | **Irrelevant** — you write ledgers | **Varies** — can forge systems that don’t eat the young (Primordial Throne fantasy) |
@@ -186,8 +186,68 @@ Four **different kinds of end-state**, not one ladder with bigger numbers:
 | Heaven (rules) | Chaos (outside rules) |
 |----------------|----------------------|
 | Executes registry, debits fortune | No registry slot |
-| “Forbidden” = undefined behavior → instability | Walkers train to stabilize internally (or erode) |
-| Counter-pressure is **automatic** | Grotto Masters show what happens when you fail the stabilization |
+| **Immortal Calamities** cull expensive nodes | No calamities — **not on the budget** |
+| Undefined Chaos state → ambient instability only | **Primordial trials** — internal cohesion / erosion |
+
+### Long life, not infinity — why Immortals aren’t everywhere (owner 2026-07-20)
+
+Registry “immortality” can be **vast but finite**:
+
+- UI may say ∞; truth is a **lease term** (millennia–epoch scale) or **renewal** that costs more fortune each cycle
+- Talent is a limiter but **not a cap** — the world would be drowning in Mandate Immortals if only genius mattered
+- **Three population brakes** (stack):
+  1. **Rarity of ascent** — still brutally hard
+  2. **Finite sustainment** — heaven’s budget can’t carry unlimited nodes forever
+  3. **Immortal Calamities** — active cost-cutting (below)
+
+So across “vast stretches of time” you get **legends**, not crowds — a handful per era, many fallen to calamity or lease expiry, survivors **hiding**.
+
+### Immortal Calamities (registry tribulations)
+
+**Not wrath. Audit.**
+
+When a Mandate Immortal **uses power**, they spike their signature on Heaven’s ledger. Rules interpret high draw as **liability**. Heaven doesn’t “want” to pay — it executes **cost-recovery clauses**:
+
+> *If `NodeDraw` exceeds threshold → deploy Immortal Calamity. Success = node persists. Failure = delist (death, fall, seal).*
+
+| Feel | Detail |
+|------|--------|
+| **Why hide** | Low signature = no audit. Hermit immortals aren’t cowards — they’re **off the calamity radar** |
+| **Why flashy sect immortals die** | Every decree, fight, and breakthrough flex invites calamity |
+| **Impartial** | Heaven isn’t offended; it’s **balancing the books** |
+| **Player** | Post-Ascension: new tribulation family — **Immortal Calamity** — triggered by power use, big fights, decrees, maybe unsealing forbidden sites |
+
+Distinct from **realm breakthrough tribulations** (mortal → Ascendant climb). Immortal Calamities are **maintenance audits** on registry nodes.
+
+**Lease expiry** (optional combine): even if you hide perfectly, lease runs out unless you convert to True or pay impossible renewal cost → natural rare count.
+
+### Three breakthrough / trial families (fixes “only Chaos is true”)
+
+True Immortals are **not** forced into Chaos. Each tier faces **different** tests:
+
+| Who | Trial type | Source | What it tests |
+|-----|------------|--------|---------------|
+| **Mortal → Mandate Immortal** | **Heavenly Tribulation** | Rule-engine | Fit for registry enrollment |
+| **Mandate Immortal (ongoing)** | **Immortal Calamity** | Rule-engine (budget) | Worth keeping on the books |
+| **True Immortal (upstairs)** | **Dao Trial** / **Self Tribulation** | **Your own dao** — not budget enforcement | Can your self-sustenance hold without the ledger scaffold? |
+| **Chaos walker** | **Primordial Trial** / **Stabilization** | **Internal chaos** — no heaven involvement | Can you cohere unclassified power without eroding? |
+
+**Why Chaos doesn’t get Heaven tribulations:** you’re **not a line item**. Heaven has nothing to audit. Lightning from above would be *categorizing* you — you refused categorization.
+
+**Chaos breakthroughs feel different:**
+
+- Not “heaven tests whether you belong in next realm”
+- Instead: **Condense → hold → harmonize** — layers of chaos compressing; failure = **erosion** / scatter / identity shear
+- Names (draft): **Primordial Trial**, **Cohesion Ordeal**, **Aspect Resonance** — body/soul/chaos must align without heavenly ratification
+- Optional ambient **world rejection** (localized weirdness) — not a sentient punishment, physics uncomfortable with you
+
+**True upstairs vs Chaos (both “off the siphon”, different job):**
+
+| | **True Immortal** | **Chaos Ascendant** |
+|---|-------------------|---------------------|
+| Relationship to Dao | **Beat the law** from inside; self-sustain under rewritten self-entry | **Leave the law’s taxonomy**; self-sustain from primordial source |
+| Tribulations | Dao Heart, void-self, integration | Erosion, cohesion, aspect storms |
+| Heaven | May still *notice* but no budget motive to cull | Immune to Immortal Calamity; unstable in other ways |
 
 ---
 
