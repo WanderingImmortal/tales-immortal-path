@@ -23,7 +23,7 @@ It sits **beyond** the false Immortal Ascension watershed: long, difficult, tran
 | Question | Direction (owner, 2026-07-20) |
 |----------|-------------------------------|
 | **Is Immortal Ascension an ending?** | **No.** It is a watershed / reveal — there is more to climb. |
-| **False vs true immortal** | Want a reveal that current Ascension Immortals are **false / incomplete** (earthbound / law-bound / not true immortality). Partial seed already in flavor: FE title **“Earthbound Immortal”**; `isImmortal()` today only means “last realm index + infinite lifespan,” not a lore distinction. |
+| **False vs true immortal** | Want a reveal that Ascension Immortals are **false / incomplete**. Strong spark: Ascension **shackles the world** and **siphons longevity** from future generations — not “you were evil,” but post-facto horror that this isn’t transcendence (see cosmology doc). Seed flavor: FE title **“Earthbound Immortal”**; code `isImmortal()` is only last-realm + infinite lifespan today. |
 | **Where does Chaos sit?** | **Beside** the three orthodox tracks — not a creation-time fourth class. |
 | **What is Chaos internally?** | A **unified** cultivation: body + **chaos power** (qi-analogue) + soul advance together (matches the Body → Chaos → Soul stage pattern per realm). |
 | **Why not always pick Chaos?** | Because it looks strictly better as “all three at once.” Answer: **hard late-game gate** — but gate should sit after the false-immortal reveal and some post-Ascension climb, not as the immediate next button after realm 6. |

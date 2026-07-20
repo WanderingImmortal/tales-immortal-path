@@ -40,11 +40,32 @@ Post-immortal content should mix **continued climbing** with **distinct fantasie
 
 Classic xianxia move: what the continent calls “Immortal Ascension” is **longevity under heaven’s law**, not true transcendence.
 
-Possible beats (pick later):
+### Owner spark (2026-07-20) — immortality as world shackles
+
+Ascending is not “you become eternal.” It is closer to **binding the world** so *you* stop dying:
+
+- The Ascension rite (or the Immortal state itself) **puts shackles on heaven-and-earth** — future generations find cultivation harder, thinner, more constrained.
+- Your “immortal” lifespan is **siphoned longevity** drawn from the world’s remaining fortune / spiritual veins / natal lifespan pool — not proof you transcended the Dao.
+- The moral beat is **not** “you were evil for ascending.” Almost every peak cultivator would take the step. The horror is **recognition after the fact**: *this isn’t immortality — I am starving the world so I can linger.*
+
+That gives the false-immortal reveal teeth:
+
+| Beat | Feel |
+|------|------|
+| Before Ascension | Glorious goal the whole continent chases |
+| At / just after Ascension | Triumph — infinite years, title, power |
+| The crack | Sense the world dimming; juniors plateau earlier; veins thin; Court calls it “order” |
+| The confession | Not villainy — tragic complicity. You joined the machine that eats tomorrow |
+
+**Ties cleanly to Chaos:** perceiving the “flaw in the Dao” can be *seeing the shackle* — the Dao (or Heavenly Court order) that sells false immortality as transcendence. Chaos then isn’t “more power”; it’s refusing the siphon / returning to source / remaking a law that doesn’t eat the young.
+
+**Ties to Heavenly Court POC:** Court Favor / decrees can be the bureaucracy that *maintains* the shackle (bless regions = redistribute stolen fortune; fall from grace = lease revoked). Fall stripping immortality already rhymes with “heaven’s lease.”
+
+### Other beat options (compat / combine)
 
 - First Court audience / upper-realm gate: “You are still ants under the Dao.”
-- Lifespan infinity breaks — or is revealed as **heaven’s lease**, revocable (Court fall already strips immortality in PR #1 POC).
-- Chaos perception: the “flaw in the Dao” *is* the proof that Ascension wasn’t the source.
+- Lifespan infinity revealed as **heaven’s lease**, revocable.
+- Chaos perception: the flaw *is* the siphon mechanism.
 
 Code today: `isImmortal()` = last realm index; reincarnation UI calls it “True Reincarnation” at Ascension — naming may need a pass so “true” isn’t spent early.
 
@@ -94,7 +115,8 @@ Upper realm + 9 majors, if done as pure power, is the pattern you drop.
 ## Prerequisites
 
 - [x] Immortal Ascension is **not** a final ending (owner)
-- [ ] Write the **false immortal** reveal (lore + when it fires)
+- [ ] Write the **false immortal** reveal (lore + when it fires) — leaning **world-shackle / longevity siphon** spark
+- [ ] Decide whether siphon is **global sim pressure** (NPC juniors weaken over eras), **player-facing only**, or both
 - [ ] Decide upper realm is **map + sparse true watersheds / ranks** — don’t auto-commit to 9 majors
 - [ ] Align Chaos vs Court vs upper climb: when can you perceive Chaos — at false Ascension, or only after tasting the upper lie?
 - [ ] Deepen-current-seven vs invent-upstairs priority (can be parallel docs, not one PR)
@@ -110,6 +132,7 @@ Upper realm + 9 majors, if done as pure power, is the pattern you drop.
 5. Does Chaos Sacrifice/Rebirth remove you from Court / upper map access?
 6. Should “Creator” content rewrite the *player’s* world, or only forge side realities (safer for sim integrity)?
 7. Rename collision: FE “Earthbound Immortal” vs Ascension “false immortal” vs Chaos “true” — vocabulary pass needed.
+8. **Siphon sim:** do Immortal NPCs (and the player) measurably thin the world’s fortune over long time skips? Hook for watershed / time-model ideas?
 
 ## Related
 
