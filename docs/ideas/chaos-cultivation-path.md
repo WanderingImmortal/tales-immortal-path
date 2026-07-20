@@ -49,6 +49,54 @@ Chaos: **no ratification**. Breakthroughs are **stabilization events**:
 
 Failure mode: **erosion** (lose layers, scars, identity) — not “heaven smote you.”
 
+### Stabilization model — when trials actually hurt (owner 2026-07-20)
+
+**Core rule:** containment is always **local to the grade you’ve trained**. Chaos isn’t one bucket that stays “stable forever” — each realm/layer introduces **higher-order** chaos. You’re stable at density *D* until you step into *D+1*.
+
+**Why trials aren’t solved at “end of realm”:** you’re stable at the **old** grade. The crisis is **onboarding** the **new** grade — immediately, before you’ve adapted.
+
+#### The ratchet (one sentence)
+
+> **Mastery at the exit ≠ safety at the entrance.**
+
+#### Where stabilization fires
+
+| Boundary | What happens | Trial? |
+|----------|--------------|--------|
+| **Within realm — Body / Chaos / Soul stage** | Small density steps; gather & compress | Mini **Cohesion** checks; failure chips erosion |
+| **Within Condensing Chaos — each of 13 layers** | New layer = higher compression | **Layer onset** ordeal (short); you’re stable for layer N until you open N+1 |
+| **Realm crossing** (e.g. Foundation → Core) | **Flood of higher-order chaos** hits on entry | **Primordial Trial** — must stabilize **immediately** or **burst outward** |
+| **End of realm (fully mastered)** | Comfortable at this realm’s peak density | **No big trial** — that’s the reward beat before the next ratchet |
+
+So the player’s instinct is right: the problem isn’t “I already stabilized so why tribulate?” — it’s **the new realm introduces power you’ve never contained before**. Orthodox heaven tribulation asks “may you enter?” Chaos stabilization asks **“can your vessel survive the influx?”**
+
+#### Internal vs external failure
+
+| Fail state | Feel |
+|------------|------|
+| **Internal (contained fail)** | Erosion — scars, lost layer progress, aspect fracture, identity shear |
+| **External (burst)** | Catastrophic — chaos vents into world: crater, famine of qi, hunted as walking disaster; Grotto Master cautionary tales (Devourer) |
+
+Player goal each breakthrough: **absorb the step-up internally** before it **externalizes**.
+
+#### Loop per realm (draft gameplay)
+
+1. **Gather** — accumulate chaotic power (realm-appropriate)  
+2. **Condense / refine** — body & soul stages thicken the vessel  
+3. **Approach threshold** — UI shows instability rising (“next grade inbound”)  
+4. **Threshold event** — Primordial Trial / Cohesion Ordeal on **step-up** (new layer or new realm)  
+5. **Stabilize** — dedicated action or choice chain; success = new baseline, fail = erosion or burst  
+6. **Consolidate** — safer grind at this grade until next threshold  
+
+**Condensing Chaos (13 layers):** mostly **layer-onset** ordeals + continuous low erosion risk.  
+**Realms 2+:** **realm-entry flood** is the big trial; **three internal stages** are smaller ratchets within the grade.
+
+#### Why this stays hard late-game
+
+Higher realms introduce **qualitatively** new chaos (aspect at Foundation, core seed at Core, soul awakening, etc.) — not just more of the same. The vessel you built is **necessary but not sufficient**; each entrance is a **new instrument lesson**.
+
+Open: can player **delay** threshold (seclude, prep) at cost of time/fortune — xianxia seclusion fantasy?
+
 See [`post-immortal-cosmology.md`](post-immortal-cosmology.md) — Immortal Calamities, three trial families.
 
 ### Naming (draft — owner likes Progenitor for top only)
