@@ -57,15 +57,15 @@ That gives the false-immortal reveal teeth:
 | The crack | Sense the world dimming; juniors plateau earlier; veins thin; Court calls it “order” |
 | The confession | Not villainy — tragic complicity. You joined the machine that eats tomorrow |
 
-**Ties cleanly to Chaos:** perceiving the “flaw in the Dao” can be *seeing the shackle* — the Dao (or Heavenly Court order) that sells false immortality as transcendence. Chaos then isn’t “more power”; it’s refusing the siphon / returning to source / remaking a law that doesn’t eat the young.
+**Ties cleanly to Chaos:** perceiving the “flaw in the Dao” can be *seeing the shackle* — the law that sells false immortality as transcendence. Chaos then isn’t “more power”; it’s refusing the siphon / returning to source / remaking a law that doesn’t eat the young.
 
-**Ties to Heavenly Court POC:** Court Favor / decrees can be the bureaucracy that *maintains* the shackle (bless regions = redistribute stolen fortune; fall from grace = lease revoked). Fall stripping immortality already rhymes with “heaven’s lease.”
+**Court (optional hook, not required cause):** if kept, Court is **downstream** — clerks and envoys who *think* they enforce Heaven’s Will, redistributing fortune and revoking leases they didn’t invent. See “Shackle vs Court” below.
 
 ### Other beat options (compat / combine)
 
-- First Court audience / upper-realm gate: “You are still ants under the Dao.”
-- Lifespan infinity revealed as **heaven’s lease**, revocable.
-- Chaos perception: the flaw *is* the siphon mechanism.
+- Upper-realm gate / forbidden site / grotto master — reveal without any Court scene
+- Lifespan infinity revealed as **heaven’s lease**, revocable (Court fall POC rhymes if we keep it)
+- Chaos perception: the flaw *is* the siphon mechanism
 
 Code today: `isImmortal()` = last realm index; reincarnation UI calls it “True Reincarnation” at Ascension — naming may need a pass so “true” isn’t spent early.
 
@@ -82,7 +82,7 @@ Three questions the concept must answer: **complicity**, **why**, and **what the
 | Who | Relationship to the shackle |
 |-----|---------------------------|
 | **You (newly ascended)** | Just became a new tap on the same pipe. Guilt lands *after* the reveal. |
-| **Court Immortals upstairs** | Mostly **administrators** of the machine — redistribute fortune, hunt “rogues,” bless regions. Some ignorant, some cynical, few horrified. |
+| **Court Immortals upstairs** | **Symptom managers**, not architects — if Court exists, they enforce decrees, bless regions, hunt rogues. They may *believe* they speak for Heaven; they don’t have the power to **end** the siphon, only shuffle it. |
 | **Ancient / sealed immortals** | May have **built** the first seal (wound in the sky, post-Chaos split) without understanding long-term cost — tragic founders, not mustache-twirlers. |
 | **Hermits / wanderer immortals** | Still nodes in the array even if they “left politics.” Their ∞ lifespan is still leased. |
 | **Grotto Masters (failed Chaos walkers)** | Cautionary: tried to step off the pipe wrong (Devourer) or saw it and broke (Lost Pilgrim). |
@@ -93,18 +93,34 @@ Three questions the concept must answer: **complicity**, **why**, and **what the
 
 ### 2. Why is it this way? (In-world cause)
 
-Pick **one** primary myth (others can be rumor layers):
+**Court does not need to be the reason.** Owner direction: a seated group *could* have started the cycle, but they also don’t read as powerful enough to own the whole cosmology — and “Court enforces Heaven’s Will” is half-forgotten design anyway. Prefer **impersonal or ancient** origins; Court is optional late-game politics on top.
+
+Pick **one** primary myth (others = rumors / sect doctrines):
 
 **A. The Seal (recommended default)**  
-After primordial Chaos was forced into order, the sky had a **wound**. The first “Immortals” didn’t transcend — they **stitched the wound shut** using the mortal realm’s spiritual fortune as thread. Each new Ascension adds another stitch. The continent’s cultivation “golden age” was **before** the array existed; every generation since pays interest.
+After primordial Chaos was forced into order, the sky had a **wound**. The first “Immortals” didn’t transcend — they **stitched the wound shut** using the mortal realm’s spiritual fortune as thread. The **founders may be dead, ascended elsewhere, or sealed** — not sitting in a courtroom. The array runs on **inertia**. Every new Ascension adds another stitch.
 
-**B. Heaven’s Ledger**  
-The Heavenly Court maintains a **ledger of permitted immortals**. Infinity is borrowed against **future breakthroughs** — every Immortal’s lease is paid by making it harder for juniors to condense qi, open meridians, or survive tribulation. Court ranks = who gets to sign the ledger.
+**B. Heaven’s Will (abstract law)**  
+“Heaven” is not the Court — it is **the hardened Dao** itself. Ascension binds you to that law. No committee required. The Court (if any) is mortals’ and lesser immortals’ *misreading* of the mechanism as a government.
 
 **C. Degraded Dao (Primordial Throne echo)**  
 True cultivation once didn’t require siphoning. The current Dao is a **patch** that hardened into law. False immortality is what happens when you reach the top of a **broken** system.
 
-All three support the same gameplay spine; A is easiest to show with a world meter.
+**D. Court as late institution (optional)**  
+A council **formed after** the Seal to manage crises — famine of qi, rogue immortals, vein collapse. They codified redistribution rituals (bless region, hunt rogue) and **mistook stewardship for authorship**. They tell themselves they enforce Heaven’s Will; they’re paper-pushers on a machine older than their titles.
+
+All four support the same gameplay spine (World Fortune, reveal, Chaos response). **A + B** keep Court optional; **D** only if you want political satire upstairs.
+
+### Shackle vs Court (design split)
+
+| Layer | Question it answers |
+|-------|---------------------|
+| **Shackle / siphon** | *Why* false immortality exists — cosmic, ancient, impersonal |
+| **Heaven’s Will** | *What* the orthodox world thinks is sacred law — may be the Dao-patch, not a person |
+| **Heavenly Court** (optional) | *Who* pretends to administer it upstairs — favors, decrees, intrigue, fall |
+| **Chaos** | *How* you leave or rewrite the mechanism |
+
+Court works best as **“the DMV of heaven”** — powerful over *you*, powerless over *the array* — not the villain who invented the cycle.
 
 ### 3. What does it look like in game?
 
@@ -137,12 +153,12 @@ Fortune should move **slowly** — decades/centuries, not every cultivate click 
 
 #### Phase 3 — The reveal (story beat)
 
-Triggered by one or combine:
+Triggered by one or combine (Court **not** required):
 
-- First Heavenly Court audience
-- Forbidden Ground that shows truth (Mirror Lake copy fights your *debt*, not your stats?)
-- Grotto Master (Watcher) dialogue
+- Forbidden Ground / sealed ancient / grotto master (Watcher)
+- Upper-realm threshold (sky gate, vein nexus)
 - Dao / Wuji-adjacent insight
+- *Optional:* first Court audience — they **explain it wrong** (“maintain order”) and the player sees through it elsewhere
 
 **Reveal UI:** short scene + unlock **World Fortune** (or **Heaven’s Debt**) on sidebar / world panel.
 
@@ -152,10 +168,10 @@ Copy tone: *“Immortality was never yours. You are a needle drawing blood from 
 
 | Path | Player fantasy | Mechanic direction |
 |------|----------------|-------------------|
-| **Court** | Manage the machine | Decrees **redistribute** Fortune (bless region = temporary bump, curse = steal from rival zone). Favor is your share of the siphon. Fall = lease revoked (already in POC). |
+| **Court** (if kept) | Navigate a broken bureaucracy | Favor / decrees redistribute Fortune; you can’t fix the array, only play the game. Fall = lease revoked. |
 | **Orthodox upper climb** | Find “true” immortality inside the law | Few sparse upstairs watersheds; maybe reduce *your* drain rate, never zero without Chaos. |
-| **Chaos** | Leave / remake the law | Sacrifice = tear out your node (world Fortune bump, you drop to mortal). Rebirth = encode a foundation that doesn’t tap the array (meta unlock). |
-| **Denial** | Stay Immortal, ignore | Valid for a while; Fortune keeps drifting; NPC world gets bleaker over fast-forward. |
+| **Chaos** | Leave / remake the law | Sacrifice = tear out your node. Rebirth = encode non-siphoning foundation. |
+| **Denial** | Stay Immortal, ignore | Valid for a while; Fortune keeps drifting. |
 
 ### Concrete numbers (placeholder — tune later)
 
@@ -191,7 +207,7 @@ These can coexist as **branches / places / choices**, but they answer different 
 
 | Kind | Fantasy | Existing / parked |
 |------|---------|-------------------|
-| **A. Walk heaven’s order** | Immortal politics, favor, decrees, court rank | Heavenly Immortal + Heavenly Court POC (PR #1) — Celestial Favor, tasks, fall from grace |
+| **A. Walk heaven’s order** | Immortal politics, favor, decrees — *if* Court exists | Stale POC (PR #1) — rewrite freely; not the shackle’s cause |
 | **B. Break / remake the system** | Return to source; forge Dao / pocket worlds / reality | [`chaos-cultivation-path.md`](chaos-cultivation-path.md) — Chaos Path (Primordial Throne DNA) |
 | **C. Upper realm as place** | New map / sky continent / immortal world to explore | **Unsettled** — tempting “+9 major realms”; risk of recreating the scaling trap |
 
@@ -236,7 +252,8 @@ Upper realm + 9 majors, if done as pure power, is the pattern you drop.
 - [ ] Decide upper realm is **map + sparse true watersheds / ranks** — don’t auto-commit to 9 majors
 - [ ] Align Chaos vs Court vs upper climb: when can you perceive Chaos — at false Ascension, or only after tasting the upper lie?
 - [ ] Deepen-current-seven vs invent-upstairs priority (can be parallel docs, not one PR)
-- [ ] Revisit stale Heavenly Court POC (PR #1) against current three-track + Chaos ideas
+- [ ] Decide whether **Heavenly Court** survives at all, or is replaced (upper sect, vein nexus, nameless Heaven’s Will trials only)
+- [ ] Revisit stale Heavenly Court POC (PR #1) — salvage mechanics (Favor, fall) without making Court the cosmology villain
 - [ ] Promote Issues only after status → `designed`
 
 ## Open questions
@@ -244,8 +261,8 @@ Upper realm + 9 majors, if done as pure power, is the pattern you drop.
 1. Is the upper realm primarily a **place**, a **power ladder**, or both?
 2. If ladder: how many *mechanical* true watersheds upstairs (2–3 / ~9 / other)?
 3. Does the false-immortal reveal happen **at** Ascension, or only when you try to enter the upper realm / Court?
-4. Does choosing Heavenly Court lock out Chaos, or can Court Immortals later perceive the flaw?
-5. Does Chaos Sacrifice/Rebirth remove you from Court / upper map access?
+4. Does choosing a Court path (if any) lock out Chaos, or can bureaucrat-Immortals later perceive the flaw?
+5. Does Chaos Sacrifice/Rebirth remove you from upper-map / Court access?
 6. Should “Creator” content rewrite the *player’s* world, or only forge side realities (safer for sim integrity)?
 7. Rename collision: FE “Earthbound Immortal” vs Ascension “false immortal” vs Chaos “true” — vocabulary pass needed.
 8. **Siphon sim:** do Immortal NPCs (and the player) measurably thin the world’s fortune over long time skips? Hook for watershed / time-model ideas?
