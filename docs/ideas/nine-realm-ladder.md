@@ -24,24 +24,26 @@ Expand the mortal qi ladder from **7 → 9 realms** (indices `0–8`). Early blo
 | 1 | Foundation Establishment | Unchanged |
 | 2 | Core Formation (Golden Core) | Unchanged — “major realm” watershed |
 | 3 | Nascent Soul | Unchanged — qi-path soul externalized; distinct from **soul refinement track** |
-| 4 | **TBD** — not “Soul Transformation” | See naming below — 化神-equivalent without stealing soul-path vocabulary |
+| 4 | **Deity Transformation** (owner lean) | 化神-equivalent; see naming note below — not soul-path vocabulary |
 | 5 | Void Refinement | Existing — shift index from `4` → `5` |
 | 6 | Dao Seeking | Existing — comprehend / pursue dao **before** manifestation |
 | 7 | Dao Manifestation | **New** — dao is worn / embodied, not merely studied |
 | 8 | Immortal Ascension | Mortal capstone; heavenly ceiling / chaos revelation |
 
-### Why not “Soul Transformation” for idx 4?
+### Idx 4 — Deity Transformation (owner lean)
 
-Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line stepping into deity-scale presence — use a name that doesn’t collide:
+Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line stepping into deity-scale presence — not “Soul Transformation.”
 
-| Candidate | Flavor |
-|-----------|--------|
-| **Spirit Transformation** (化神) | Standard xianxia; “spirit” not “soul track” |
-| **Deity Transformation** | Strong watershed feel |
-| **Divine Manifestation** | External god-presence; distinct from idx 7 “Dao Manifestation” |
-| **Transcendent Form** | Neutral |
+**Preferred name:** **Deity Transformation** (化神). Owner note: can feel *too grand* for UI — that may be fine (it’s xianxia); use shorter copy where needed.
 
-**Owner pick:** `???` (fill when decided)
+| Use | Label |
+|-----|-------|
+| Formal realm name | Deity Transformation |
+| Short / sidebar | Deity Form · Spirit Form · 化神 |
+| Oracle / breakthrough | *“The mortal shell no longer contains you. You have become something the jianghu names with fear.”* |
+| NPC rumor | *“A deity-transcended cultivator passed through Dustbone.”* |
+
+**Alternates if tone shifts:** Spirit Transformation, Transcendent Form.
 
 ### Dao order (owner confirmed)
 
@@ -117,7 +119,7 @@ Linear-ish +40y steps after FE, not doubling:
 | 1 | Anchor | Intent, probe sealed sites |
 | 2 | Domain | Light body (local), sect / forbidden |
 | 3 | Sovereignty | Sky travel (zones), soul sense |
-| 4 | **TBD** | Regional deity-presence (not soul-path) |
+| 4 | Transformation | Deity-presence in a region (not soul-path) |
 | 5 | Passage | Blink / void skip |
 | 6 | Law (seek) | Dao panel, fragment hunt |
 | 7 | Law (wear) | Embody law; local imposition |
@@ -140,7 +142,7 @@ Linear-ish +40y steps after FE, not doubling:
 
 ## Open questions
 
-- [ ] Final name for idx 4  
+- [x] Idx 4 name — **Deity Transformation** (lean; UI copy may shorten)  
 - [ ] Half-Step model A vs B  
 - [ ] Exact +40 lifespan table or different step size  
 - [ ] Does idx 7 Dao Manifestation gate immortal-layer legislation preview?  
