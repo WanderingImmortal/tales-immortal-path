@@ -113,23 +113,77 @@ Ascension is **always** false immortality in the lower world — that’s the po
 
 #### Tie to Chaos
 
+See **“Taxonomy: Mandate, True, Chaos, Progenitor”** and **“Impartial Heaven”** below — Chaos is **not** another immortal on heaven’s registry.
+
 | Path | Relationship to true/false |
 |------|---------------------------|
-| **Orthodox upstairs** | Try to convert Mandate → Self-Sustenance inside heaven’s law |
-| **Chaos** | Reject the law’s categories — Condensing Chaos **reverts** borrowed infinity back to primordial fuel, then rebuilds self-sustenance without the array |
-| **Court (optional)** | Hands out Mandate — favors, decrees, titles. Revokes leases. Cannot grant true immortality, only extend the facade |
-
-#### Player-facing vocabulary (draft)
-
-- **Mandate Immortal** / **Registry Immortal** / **Heaven-Bound** — what you are after Ascension  
-- **True Immortal** / **Self-Born** / **Unleased** — upstairs north star  
-- Reserve **“True Reincarnation”** UI string for something that actually means true (currently misused on Ascension)
+| **Orthodox upstairs** | Try to convert Mandate → Self-Sustenance **inside** heaven’s law |
+| **Chaos** | **Unregister** from heaven’s taxonomy — revert mandate, rebuild self-sustenance from primordial source; heaven applies **counter-rules**, not grudges |
+| **Court (optional)** | Hands out Mandate paperwork; cannot grant true or Chaos status |
 
 #### Open on this model
 
 - Can NPCs tell the difference? (Spirit sense idea doc — “this one smells of heaven’s stamp”)  
 - Is there **one** true immortal watershed or a sparse ladder?  
 - Does Door B (model 2) need to exist, or is upstairs-only (model 3) enough?
+
+### Impartial Heaven (owner direction 2026-07-20)
+
+**Heaven is not a person.** No throne-room villain, no scheming Emperor of reality (unless a *mortal institution* like Court mistakes itself for Heaven).
+
+Heaven = the **rule-engine** left behind when Chaos was ordered into Dao:
+
+- Predetermined **if/then** laws: tribulation thresholds, registry entries, fortune debits, tribulation severity curves
+- **Impartial:** it does not hate Chaos walkers or love righteous sects. It executes clauses.
+- “Forbidden” Chaos = **no clause exists** for what you’re doing → heaven responds with **default denial behaviors** (erosion pressure, anomalous tribulations, instability) the way a immune system reacts to unclassified input — not anger
+
+**Why immortals are fake (lore, nailed down):**
+
+When the Dao was patched to close the primordial wound, the engineers (founders, forgotten) encoded a **sustainment rule**:
+
+> *Registry Immortals shall not decay. Maintenance cost: debit from `MortalFortuneIndex` per registered node.*
+
+Nobody lied in a meeting. The law **assumed** sparse ascenders and a rich world. Ages of cultivators later, the rule still runs. Each Ascension is a new registry entry. The continent calls it transcendence; Heaven calls it **Rule 7**.
+
+False immortality isn’t punishment — it’s **accounting**.
+
+### What extraction looks and feels like
+
+**Lore image:** golden **ledger-threads** — thin filaments from ley lines, spirit veins, and unborn potential into the registry marks on each false Immortal’s dantian / soul-crown. Invisible until you learn to see.
+
+| Stage | What the player experiences |
+|-------|----------------------------|
+| **At Ascension** | Weightlessness, then **borrowed stillness** — your heartbeat feels *correct* but not quite *yours*, like wearing perfectly fitted armor |
+| **Early post-Ascension** | Cultivation near sacred sites feels **effortless**; remote backwater zones feel **thin** (you’re standing where the pipes are fattest) |
+| **Hints** | Dreams of drought; techniques that used to spark in juniors **won’t catch**; herbs pale in chronicles |
+| **Reveal** | UI or scene: **Mandate %** + threads visualized; line: *“Heaven did not crown you. It enrolled you.”* |
+| **After** | Dependency feeling — warmth with a draft from somewhere else. True / Chaos paths = learning to close the tap or burn without oxygen theft |
+
+**Not:** cartoon evil voice. **Yes:** cold bureaucratic wrongness, then grief.
+
+### Taxonomy: Mandate, True, Chaos, Progenitor
+
+Four **different kinds of end-state**, not one ladder with bigger numbers:
+
+| Tier | Name (draft) | What it is | On heaven’s books? | World drain? |
+|------|--------------|------------|-------------------|--------------|
+| 1 | **Mandate Immortal** / Registry Immortal | Orthodox Ascension — ∞ via lease | **Yes** — Rule 7 | **Yes** |
+| 2 | **True Immortal** | Sparse upstairs watershed; self-sustained **within** Dao law | Yes, but **self-authored** entry | **No** (or net-neutral) |
+| 3 | **Chaos Ascendant** / **Unwritten** | Chaos Path completion short of Creator — self-sustained **outside** Dao taxonomy | **No** — unclassified | **No** — you draw from primordial source, not MortalFortuneIndex |
+| 4 | **Progenitor** | Creator capstone (Realm 8) — authors pocket worlds / Dao / reality | **Irrelevant** — you write ledgers | **Varies** — can forge systems that don’t eat the young (Primordial Throne fantasy) |
+
+**“Do Chaos walkers become immortals?”**  
+**Not in heaven’s sense.** They don’t get ∞ from Rule 7. They get **something else** — long life from self-sustaining chaos, but the UI shouldn’t reuse the immortal chip. Call them **Unwritten**, **Chaos Ascendant**, or **Primordial Walker** until late realms.
+
+**Progenitor:** keep for **Creator-stage only** — far above “just immortal.” Feels like author of a law, not a tough fight. Don’t use as synonym for Chaos realm 7.
+
+**Heaven vs Chaos (no personality):**
+
+| Heaven (rules) | Chaos (outside rules) |
+|----------------|----------------------|
+| Executes registry, debits fortune | No registry slot |
+| “Forbidden” = undefined behavior → instability | Walkers train to stabilize internally (or erode) |
+| Counter-pressure is **automatic** | Grotto Masters show what happens when you fail the stabilization |
 
 ---
 

@@ -18,12 +18,46 @@ Chaos is the **primordial state from which the Dao was born**. The Chaos Path is
 
 It sits **beyond** the false Immortal Ascension watershed: long, difficult, transformative. Entry requires perceiving the flaw in the Dao — timing relative to upper-realm climb still open. Play should feel distinct from Qi / Body / Spirit track grinding — not a fourth parallel bar that looks the same.
 
+## How Chaos plugs into mandate / true immortality
+
+Chaos is **not** “immortal tier 8 on the same registry.” It is a **parallel endgame identity** for players who perceive Rule 7 and refuse to live on the ledger.
+
+### Relationship to the taxonomy
+
+| Stage | Orthodox | Chaos |
+|-------|----------|-------|
+| Reach realm 6 | Mandate Immortal (false ∞) | Same possible — you may already be on the registry |
+| Perceive the flaw | See ledger-threads / Rule 7 | Same reveal — Chaos entry *is* seeing the siphon |
+| Sacrifice / Rebirth | — | Tear registry mark; Condensing Chaos **reverts** borrowed states into primordial fuel |
+| Mid-Chaos climb | (optional) still converting Mandate upstairs | **Unwritten** — not immortal UI; chaos realms, erosion risk |
+| Late Chaos | True Immortal upstairs (still inside law) | **Chaos Ascendant** — self-sustained, unclassified |
+| Creator | — | **Progenitor** — authors new law; epilogue tier |
+
+**Forbidden by heaven** does not mean heaven *hates* you. It means **no clause** — automatic counter-pressure (erosion, weird tribulations, world unease). Factions and Court may hunt you because you’re uninsurable, not because Heaven sent a memo.
+
+### Naming (draft — owner likes Progenitor for top only)
+
+| Avoid | Use instead |
+|-------|-------------|
+| “Chaos Immortal” (sounds like Rule 7 with edgy paint) | **Unwritten**, **Chaos Ascendant**, **Primordial Walker** (mid/late Chaos) |
+| Progenitor at realm 7 | **Progenitor** reserved for **Creator / Realm 8** — author of systems, not “strong immortal” |
+| “True Reincarnation” at Ascension | **Registry Ascent**, **Mandate Immortal**; save “true” for True Immortal conversion |
+
+### Chaos end-state feel
+
+- **Not** infinite lifespan from heaven’s checkbox  
+- **Yes** vast longevity from **self-sustaining chaos** — you are your own furnace  
+- **Tradeoff:** erosion if you lose coherence; heaven’s ambient rules don’t buff or stabilize you  
+- **Fantasy:** Primordial Throne — eventually **write** a cultivation law that doesn’t debit `MortalFortuneIndex` (Progenitor payoff)
+
+See [`post-immortal-cosmology.md`](post-immortal-cosmology.md) — Impartial Heaven, extraction feel, full taxonomy table.
+
 ## Settled so far (brainstorm)
 
 | Question | Direction (owner, 2026-07-20) |
 |----------|-------------------------------|
 | **Is Immortal Ascension an ending?** | **No.** It is a watershed / reveal — there is more to climb. |
-| **False vs true immortal** | Want a reveal that Ascension Immortals are **false / incomplete**. Strong spark: Ascension **shackles the world** and **siphons longevity** from future generations — not “you were evil,” but post-facto horror that this isn’t transcendence (see cosmology doc). Seed flavor: FE title **“Earthbound Immortal”**; code `isImmortal()` is only last-realm + infinite lifespan today. |
+| **False vs true immortal** | Mandate (registry lease + siphon) vs True (self-sustained inside law). Chaos = **Unwritten** outside law; **Progenitor** = Creator only, above “immortal.” Heaven = impartial rule-engine, not a person. |
 | **Where does Chaos sit?** | **Beside** the three orthodox tracks — not a creation-time fourth class. |
 | **What is Chaos internally?** | A **unified** cultivation: body + **chaos power** (qi-analogue) + soul advance together (matches the Body → Chaos → Soul stage pattern per realm). |
 | **Why not always pick Chaos?** | Because it looks strictly better as “all three at once.” Answer: **hard late-game gate** — but gate should sit after the false-immortal reveal and some post-Ascension climb, not as the immediate next button after realm 6. |
