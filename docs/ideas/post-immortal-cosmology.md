@@ -5,10 +5,12 @@
 | **Status** | `idea` |
 | **Blocked on** | Immortal Ascension as a real climax; Chaos Path brainstorm; Heavenly Court POC fit |
 | **Issue** | none yet |
-| **Chat / PR** | Chaos brainstorm 2026-07-20; related POC [PR #1](https://github.com/WanderingImmortal/tales-immortal-path/pull/1) (`cursor/post-immortal-heavenly-court-a11b`); agent [Heavenly immortal court](https://cursor.com/agents/bc-de065c11-c670-4b09-bf9b-4a4082e9a11b) |
+| **Chat / PR** | Chaos brainstorm 2026-07-20; stale POC [PR #1](https://github.com/WanderingImmortal/tales-immortal-path/pull/1) — **not gospel**, rewrite freely |
 | **Updated** | 2026-07-20 |
 
 > **Not ready to implement.** Cosmology / endgame shape only. Do not stack another nine-realm ladder in code until this settles.
+
+> **Heavenly Court POC is optional flavor** (owner 2026-07-20): not locked in. Shackle origin does **not** require Court — see “Shackle vs Court” below. Stale POC = alignment-gated post-Ascension path, Celestial Favor, ranks, decrees, intrigue, fall if Favor &lt; 0; **no** cosmology for false immortality.
 
 ## Intent
 
