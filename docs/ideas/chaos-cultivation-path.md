@@ -14,6 +14,8 @@
 
 Chaos is the **primordial state from which the Dao was born**. The Chaos Path is **not** evil/corruption — it is returning to the source and transcending the limitations of the Dao.
 
+**Inspiration (owner):** *Primordial Throne of Divine Blood* — late game as **retroactively creating a better cultivation system**, not endless stronger Immortals. Related taste notes (novels finished vs abandoned for perpetual scaling) live in [`post-immortal-cosmology.md`](post-immortal-cosmology.md).
+
 It sits **beyond Immortal Ascension**: long, difficult, transformative. Entry requires perceiving the flaw in the Dao at Immortal Ascension. Play should feel distinct from Qi / Body / Spirit track grinding — not a fourth parallel bar that looks the same.
 
 ## Settled so far (brainstorm)
@@ -159,7 +161,9 @@ Likely touch points if/when built:
 
 ## Related ideas
 
+- [`post-immortal-cosmology.md`](post-immortal-cosmology.md) — upper realm vs Court vs Chaos; anti-perpetual-scaling
 - [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) — long cultivation years
 - [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) — Chaotic Body as creation trait
 - [`creation-screen-redesign.md`](creation-screen-redesign.md) — trait unlock after Rebirth
 - Three-track / soul embryo chats (local): spirit track must stay distinct from Chaos Soul stages
+- Stale POC: Heavenly Court / Immortal paths — [PR #1](https://github.com/WanderingImmortal/tales-immortal-path/pull/1)

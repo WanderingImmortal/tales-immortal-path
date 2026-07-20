@@ -11,6 +11,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Cultivation methods P0 after roots land
 - FE redesign doc pass
 - Brainstorm Chaos Path (parked — `docs/ideas/chaos-cultivation-path.md`; **do not implement yet**)
+- Post-immortal shape: upper map vs Court vs Chaos (`docs/ideas/post-immortal-cosmology.md`) — avoid +9 power realms by default
 
 ## Blocked
 - (none)
