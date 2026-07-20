@@ -35,7 +35,7 @@ Post-immortal content should mix **continued climbing** with **distinct fantasie
 | Question | Direction |
 |----------|-----------|
 | Immortal Ascension = ending? | **No** — reveal + more climb |
-| False immortal beat? | **Yes** — Ascension Immortals are incomplete; seed flavor exists (`Earthbound Immortal` FE title). Needs a real reveal moment, not only a title string. |
+| False immortal beat? | **Yes** — ISSTH-flavored: Ascension = **mandate / facade** (lease + siphon); **true Immortal** = broke through on own power upstairs (or via Chaos). Not evil — wrong finish line. |
 | Greedy for +9? | Maybe — separate **deepen current seven** from **add post-false-immortal watersheds**. Creator (Chaos) should not sit flush against today’s shallow Ascension. |
 
 ## False immortal reveal (sketch)
@@ -70,6 +70,66 @@ That gives the false-immortal reveal teeth:
 - Chaos perception: the flaw *is* the siphon mechanism
 
 Code today: `isImmortal()` = last realm index; reincarnation UI calls it “True Reincarnation” at Ascension — naming may need a pass so “true” isn’t spent early.
+
+### ISSTH-inspired true vs false (owner spark 2026-07-20)
+
+*I Shall Seal the Heavens* energy without copying it: **true Immortals broke through on their own power**; what the continent celebrates as Ascension is something lesser — a **facade** of forever, propped up by drawing life from the world.
+
+#### One sentence
+
+> **False immortality is a mandate. True immortality is self-sustenance.**
+
+#### How the siphon and “own power” fit together
+
+They are **the same mechanism, two readings**:
+
+| | **False Immortal** (orthodox Ascension) | **True Immortal** (north star upstairs) |
+|---|----------------------------------------|----------------------------------------|
+| **What happened** | Heaven / the array **recognized** you and **granted** a lease | You **overwhelmed** the law with your own cultivated totality |
+| **Lifespan** | ∞ on paper — actually **subsidized** | Sustained by **your** dao / body / soul / chaos unity |
+| **Fuel** | World fortune, veins, juniors’ potential | None required (or you feed yourself from Chaos / primordial source) |
+| **Feel** | “I passed tribulation and became eternal” | “Heaven’s label means nothing — I walked through the door myself” |
+| **Failure mode** | Lease revoked, cast down, array collapse | Heart demon, erosion, but not “heaven unplugged you” |
+
+**The facade:** your immortal body is a **shell kept inflated** by ambient extraction — like a lantern that burns the room’s oxygen. You look ageless; the realm gets thinner. You didn’t fail cultivation; you succeeded at the **wrong definition** of success.
+
+**Why it feels like achievement:** tribulation, pills, and seals are real work. The lie is what Ascension **hooks you into** at the finish line, not that you cheated the grind.
+
+#### Three model options (pick / blend)
+
+**1. Mandate vs Self-Sustenance (cleanest for UI)**  
+Post-Ascension hidden stat: `% Mandate` (borrowed) vs `% Self-Sustenance` (owned). Orthodox Ascension sets Mandate ~100%. True breakthrough upstairs **converts** Mandate → Self-Sustenance over a questline. World Fortune only drains while Mandate &gt; 0. Chaos Sacrifice zeroes Mandate and starts Self-Sustenance from a different ruleset.
+
+**2. Two doors at the same threshold (ISSTH tribulation vibe)**  
+Immortal Ascension tribulation has a **hidden fork**:  
+- **Door A (easy):** accept recognition → false immortal, lease, siphon node. What 99% take.  
+- **Door B (brutal):** reject recognition / walk through the lightning on your own → no lease, no ∞ yet, but you’re on the true path.  
+Player who “ascends” normally gets Door A. True path is discoverable via forbidden lore, grotto master, or stats (perfect seals + Wuji glimpse?). **No retroactive punishment** — you didn’t know Door B existed.
+
+**3. Upper realm as the real test**  
+Ascension is **always** false immortality in the lower world — that’s the point of the reveal. “True Immortal” is not a rename of realm 6; it’s the **first real watershed upstairs** (or first of 2–3 sparse true realms). Lower Ascension = boarding pass. Upper breakthrough = you actually leave the airport. Siphon continues until you clear true watershed 1.
+
+**Recommendation:** **3 for story** (matches “Ascension isn’t the end”) + **1 for mechanics** (Mandate meter explains siphon clearly). **2** for a killer single reveal moment if you want one legendary choice.
+
+#### Tie to Chaos
+
+| Path | Relationship to true/false |
+|------|---------------------------|
+| **Orthodox upstairs** | Try to convert Mandate → Self-Sustenance inside heaven’s law |
+| **Chaos** | Reject the law’s categories — Condensing Chaos **reverts** borrowed infinity back to primordial fuel, then rebuilds self-sustenance without the array |
+| **Court (optional)** | Hands out Mandate — favors, decrees, titles. Revokes leases. Cannot grant true immortality, only extend the facade |
+
+#### Player-facing vocabulary (draft)
+
+- **Mandate Immortal** / **Registry Immortal** / **Heaven-Bound** — what you are after Ascension  
+- **True Immortal** / **Self-Born** / **Unleased** — upstairs north star  
+- Reserve **“True Reincarnation”** UI string for something that actually means true (currently misused on Ascension)
+
+#### Open on this model
+
+- Can NPCs tell the difference? (Spirit sense idea doc — “this one smells of heaven’s stamp”)  
+- Is there **one** true immortal watershed or a sparse ladder?  
+- Does Door B (model 2) need to exist, or is upstairs-only (model 3) enough?
 
 ---
 
