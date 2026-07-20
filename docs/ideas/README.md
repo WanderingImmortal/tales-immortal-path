@@ -23,4 +23,4 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
-| _(none yet — add rows as files appear)_ | | | |
+| [Time model — lived journey + seclusion skips](time-model.md) | `designed` | Deferred priority; lived mode needs location/NPC density | none yet |
