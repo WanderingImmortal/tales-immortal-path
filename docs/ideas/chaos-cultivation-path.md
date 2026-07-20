@@ -2,13 +2,15 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | Immortal Ascension as a real endgame beat; three-track cultivation feel; reincarnation / NG+ hooks; world content for Grotto Masters (see also Forbidden Grounds / Sealed Ancients) |
+| **Status** | `idea` (brainstorm **parked** 2026-07-20) |
+| **Blocked on** | **Cultivation realm depth pass** — owner redoing current majors (power/scale/capabilities) before endgame; see [`cultivation-realm-depth-pass.md`](cultivation-realm-depth-pass.md). Also: Immortal Ascension as real beat; three-track feel; Grotto content. |
 | **Issue** | none yet — **do not open a build Issue until brainstorm settles** |
 | **Chat / PR** | Recovered from DeepSeek brainstorm (local memory hunt 2026-07-20); parked in repo so cloud agents can find it |
 | **Updated** | 2026-07-20 |
 
-> **Not ready to implement.** Owner wants brainstorming and fit-checking against the live three-track model before any code. Agents: park discussion here; do **not** ship systems from this doc yet.
+> **Parked (2026-07-20):** Brainstorm is sufficient for now. Owner prioritizing **depth on existing cultivation realms** before more Chaos/cosmology work. Do **not** expand this doc or implement until [`cultivation-realm-depth-pass.md`](cultivation-realm-depth-pass.md) informs scale.
+
+> **Not ready to implement.** Owner wants fit-checking against the live three-track model before any code. Agents: park discussion here; do **not** ship systems from this doc yet.
 
 ## Intent
 

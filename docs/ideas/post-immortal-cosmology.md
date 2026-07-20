@@ -2,11 +2,13 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | Immortal Ascension as a real climax; Chaos Path brainstorm; Heavenly Court POC fit |
+| **Status** | `idea` (brainstorm **parked** 2026-07-20) |
+| **Blocked on** | **Cultivation realm depth pass** (see [`cultivation-realm-depth-pass.md`](cultivation-realm-depth-pass.md)); Immortal Ascension as climax |
 | **Issue** | none yet |
 | **Chat / PR** | Chaos brainstorm 2026-07-20; stale POC [PR #1](https://github.com/WanderingImmortal/tales-immortal-path/pull/1) — **not gospel**, rewrite freely |
 | **Updated** | 2026-07-20 |
+
+> **Parked (2026-07-20):** Sufficient for agents to find false-immortal / mandate / calamity / taxonomy brainstorm. No further expansion until lower realm depth pass.
 
 > **Not ready to implement.** Cosmology / endgame shape only. Do not stack another nine-realm ladder in code until this settles.
 

@@ -33,5 +33,6 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `idea` | Root taxonomy v2; per-realm age anchors | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
-| [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` | Immortal Ascension beat; Wuji vs Chaos; three-track fit; brainstorm | — |
-| [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` | Immortal climax; Chaos + Court fit; don’t auto-commit to +9 realms | — |
+| [Cultivation realm depth pass](cultivation-realm-depth-pass.md) | `idea` | Owner design pass; may follow roots / manuals | — |
+| [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` (**parked**) | Realm depth pass; Immortal Ascension beat | — |
+| [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` (**parked**) | Realm depth pass; Immortal climax | — |
