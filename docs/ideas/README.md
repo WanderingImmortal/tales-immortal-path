@@ -34,3 +34,4 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
 | [Chaos cultivation path](chaos-cultivation-path.md) | `designed` (partial) | Immortal endgame fork; legacy meta; recover PC notes (realms, grotto masters) | — |
+| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Watershed pacing; idx 4 name; half-step peak | — |
