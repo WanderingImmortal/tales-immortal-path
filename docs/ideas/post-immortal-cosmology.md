@@ -145,7 +145,11 @@ When the Dao was patched to close the primordial wound, the engineers (founders,
 
 Nobody lied in a meeting. The law **assumed** sparse ascenders and a rich world. Ages of cultivators later, the rule still runs. Each Ascension is a new registry entry. The continent calls it transcendence; Heaven calls it **Rule 7**.
 
-False immortality isn’t punishment — it’s **accounting**.
+**Owner phrasing (2026-07-20) — same idea, sharper:**
+
+> The Heavens **cannot sustain** a true immortal being — or at least **not every** immortal, forever. Anyone who ascends on Heaven’s path is **permanently etched** as a **fixed cost** on the world. That cost is **paid by everyone still under Heaven’s authority** — mortals, sects, veins, juniors, *and* other registry Immortals. Not malice. **Arithmetic.**
+
+False immortality isn’t punishment — it’s **accounting** with a **finite budget** and **no off-switch** per registered node.
 
 ### What extraction looks and feels like
 
