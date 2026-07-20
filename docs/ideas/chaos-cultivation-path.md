@@ -22,20 +22,27 @@ It sits **beyond Immortal Ascension**: long, difficult, transformative. Entry re
 
 | Question | Direction (owner, 2026-07-20) |
 |----------|-------------------------------|
+| **Is Immortal Ascension an ending?** | **No.** It is a watershed / reveal — there is more to climb. |
+| **False vs true immortal** | Want a reveal that current Ascension Immortals are **false / incomplete** (earthbound / law-bound / not true immortality). Partial seed already in flavor: FE title **“Earthbound Immortal”**; `isImmortal()` today only means “last realm index + infinite lifespan,” not a lore distinction. |
 | **Where does Chaos sit?** | **Beside** the three orthodox tracks — not a creation-time fourth class. |
 | **What is Chaos internally?** | A **unified** cultivation: body + **chaos power** (qi-analogue) + soul advance together (matches the Body → Chaos → Soul stage pattern per realm). |
-| **Why not always pick Chaos?** | Because it looks strictly better as “all three at once.” Answer: **hard late-game gate** (Immortal Ascension + perceiving the Dao’s flaw) — the orthodox three-track game is the long journey; Chaos is the post-climax path. |
+| **Why not always pick Chaos?** | Because it looks strictly better as “all three at once.” Answer: **hard late-game gate** — but gate should sit after the false-immortal reveal and some post-Ascension climb, not as the immediate next button after realm 6. |
 
 ### Design tension to keep honest
 
-Chaos *will* read as the “complete” path to a min-maxer. Late gating is necessary but may not be sufficient alone. Brainstorm still needs **tradeoffs** so mid-game three-track play isn’t just “waiting for Immortal”:
+**Two different hungers (don’t confuse them):**
 
-- **Cost of entry** — Sacrifice / Rebirth wipe power and restart the climb under chaos rules.
-- **Different fantasy** — Chaos is source-before-Dao; orthodox tracks are walking *within* heaven’s laws. Immortal Ascension is a valid ending; Chaos is optional transcendence.
-- **Risk profile** — erosion / destabilization should make Chaos feel precarious, not just stronger FE with a new skin.
-- **World reaction** — heavens, factions, and Immortals may treat Chaos walkers as wrong / myth / threat (flavor + mechanical friction).
+1. **Mid-ladder thinness** — current majors (esp. FE → Ascension) feel lacking *as peaks*. That is mostly “deepen the seven,” not “add nine upstairs.”
+2. **Creator too soon** — jumping from today’s Immortal Ascension into Chaos → Reality Forging *does* feel unfair/greedy if Ascension is still a shallow bar. The fix is **intervening post-false-immortal content** (upper map / heavenly ranks / a few true watersheds) so creation is earned — not infinite reskins forever.
 
-Open: whether orthodox Immortal progression remains playable forever without ever touching Chaos (recommended: **yes** — Chaos is optional).
+Chaos *will* still read as the “complete” path to a min-maxer. Late gating remains necessary:
+
+- **Cost of entry** — Sacrifice / Rebirth wipe power and restart under chaos rules.
+- **Different fantasy** — Chaos remakes the law; orthodox post-Ascension *climbs within / past* a false heaven.
+- **Risk profile** — erosion / destabilization.
+- **World reaction** — heavens, factions, Immortals may treat Chaos walkers as wrong / myth / threat.
+
+Open: how many **true** watersheds sit between false Immortal Ascension and Chaos entry / Creator (not the same as “9 flavor names”).
 
 ## Design notes (DeepSeek recap — raw)
 
@@ -115,10 +122,11 @@ Useful when brainstorming so we don’t invent parallel systems blindly:
 ## Prerequisites (before any build)
 
 - [ ] Owner brainstorm pass — settle open questions below
-- [ ] Immortal Ascension is an actual climax (not just a realm name on a bar)
+- [x] Immortal Ascension is **not** a final ending — false-immortal reveal + more climb (see [`post-immortal-cosmology.md`](post-immortal-cosmology.md))
+- [ ] Immortal Ascension is an actual watershed beat (not just a realm name on a bar)
 - [ ] Decision: Chaos vs Wuji relationship
 - [x] Decision: Chaos sits **beside** three-track as late unified body/chaos/soul path (gate + entry cost) — still need tradeoff detail
-- [ ] Decision: optional forever Immortal ending without Chaos? (leaning yes)
+- [ ] False-immortal reveal timing vs when Chaos can be perceived
 - [ ] Grotto Masters: new content vs Forbidden/Ancient reuse
 - [ ] Time model: decades/centuries of chaos cultivation must feel intentional
 - [ ] Promote to GitHub Issue(s) only after status → `designed`

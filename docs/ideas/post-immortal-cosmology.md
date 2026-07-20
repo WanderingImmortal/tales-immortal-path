@@ -12,9 +12,11 @@
 
 ## Intent
 
-After Immortal Ascension, the game should not default to **“same cultivation loop, bigger numbers, new map.”** Owner finishes novels when the late game changes *kind* of goal (politics, rewriting the system, sealing/ending) — and bounces off perpetual power-scaling around the 90% mark.
+**Immortal Ascension is not the end.** It should feel like a watershed that *reveals* the climb was incomplete — “immortals” of the lower path are **false / earthbound / law-bound** — and that true height (upper realm, heavenly order, and/or Chaos) still waits.
 
-Post-immortal content should offer **distinct fantasies**, not one infinite realm treadmill.
+That does **not** mean defaulting to **“same cultivation loop, bigger numbers, forever.”** Owner finishes novels when late game changes *kind* of goal at times — but also wants more levels after the false-immortal reveal, because today’s seven majors feel too thin to touch literal creation.
+
+Post-immortal content should mix **continued climbing** with **distinct fantasies** (Court politics, Chaos remaking the law), not only reskinned Condensation→Ascension.
 
 ## Owner taste (why this matters)
 
@@ -25,6 +27,26 @@ Post-immortal content should offer **distinct fantasies**, not one infinite real
 | **I Shall Seal the Heavens** | Ending / sealing as climax | Finished — ending interesting |
 | **Library of Heaven’s Path** | Long journey, system-y growth | Read nearly to end |
 | **Primordial Throne of Divine Blood** | Retroactively creating a *better* cultivation system | Finished — **direct inspiration for Chaos Path** |
+
+## Settled so far (2026-07-20)
+
+| Question | Direction |
+|----------|-----------|
+| Immortal Ascension = ending? | **No** — reveal + more climb |
+| False immortal beat? | **Yes** — Ascension Immortals are incomplete; seed flavor exists (`Earthbound Immortal` FE title). Needs a real reveal moment, not only a title string. |
+| Greedy for +9? | Maybe — separate **deepen current seven** from **add post-false-immortal watersheds**. Creator (Chaos) should not sit flush against today’s shallow Ascension. |
+
+## False immortal reveal (sketch)
+
+Classic xianxia move: what the continent calls “Immortal Ascension” is **longevity under heaven’s law**, not true transcendence.
+
+Possible beats (pick later):
+
+- First Court audience / upper-realm gate: “You are still ants under the Dao.”
+- Lifespan infinity breaks — or is revealed as **heaven’s lease**, revocable (Court fall already strips immortality in PR #1 POC).
+- Chaos perception: the “flaw in the Dao” *is* the proof that Ascension wasn’t the source.
+
+Code today: `isImmortal()` = last realm index; reincarnation UI calls it “True Reincarnation” at Ascension — naming may need a pass so “true” isn’t spent early.
 
 ## Three post-immortal *kinds* (do not merge into one ladder)
 
@@ -53,11 +75,13 @@ Owner thought (2026-07-20): maybe an **upper realm map**, and maybe **another ~9
 
 ### Safer shapes (brainstorm options — pick later)
 
-1. **Upper map, same power ceiling** — Immortal Ascension is still the combat/realm peak; upstairs is politics, secrets, Court, Chaos clues, not +9 HP tiers.
-2. **Upper ranks, not realms** — Court ranks / titles / domains (already in Heavenly Court POC) instead of cultivation realms.
-3. **Few watersheds upstairs** — e.g. 2–3 true upper watersheds with heavy identity, not nine. Name count can be flavor; mechanical depth should stay sparse.
-4. **Upper realm = Chaos-hostile heaven** — the map is where orthodox Immortals live; Chaos walkers are hunted / mythic / unwelcome — place serves story, not a second FE grind.
-5. **Defer the number** — design A (Court) + B (Chaos entry) first; only invent upper realm names when a *non-scaling* job for them exists.
+1. **Upper map + a few true watersheds** — not nine empty majors; 2–4 identity-heavy steps between false Immortal and whatever “true” means (True Immortal / Heavenly / Chaos gate).
+2. **Upper ranks alongside sparse realms** — Court ranks / titles / domains (Heavenly Court POC) carry a lot of “more to climb” without nine combat ladders.
+3. **Deepen the lower seven first** — if peaks feel hollow, FE→Ascension depth fixes the “unfair jump to creation” feeling as much as adding upstairs floors.
+4. **Upper realm = Chaos-hostile heaven** — place for orthodox climb + story; Chaos walkers hunted / mythic.
+5. **Defer the count** — commit to “Ascension is false; more exists” before locking “9.”
+
+**Greedy check:** wanting more after Ascension is fair if creation is the north star. Wanting nine *identical* power floors is the novel-drop pattern. Prefer fewer upstairs watersheds with weight.
 
 ## How Chaos fits the novels you finish
 
@@ -69,19 +93,23 @@ Upper realm + 9 majors, if done as pure power, is the pattern you drop.
 
 ## Prerequisites
 
-- [ ] Decide whether Immortal Ascension is a **valid ending** without upstairs / Chaos
-- [ ] Decide upper realm is **map / politics / few watersheds** — not auto-commit to 9 majors
-- [ ] Align Chaos vs Court vs upper map: branches, exclusive, or sequential
+- [x] Immortal Ascension is **not** a final ending (owner)
+- [ ] Write the **false immortal** reveal (lore + when it fires)
+- [ ] Decide upper realm is **map + sparse true watersheds / ranks** — don’t auto-commit to 9 majors
+- [ ] Align Chaos vs Court vs upper climb: when can you perceive Chaos — at false Ascension, or only after tasting the upper lie?
+- [ ] Deepen-current-seven vs invent-upstairs priority (can be parallel docs, not one PR)
 - [ ] Revisit stale Heavenly Court POC (PR #1) against current three-track + Chaos ideas
 - [ ] Promote Issues only after status → `designed`
 
 ## Open questions
 
 1. Is the upper realm primarily a **place**, a **power ladder**, or both?
-2. If both: how many *mechanical* watersheds upstairs (0 / 2–3 / 9)?
-3. Does choosing Heavenly Court lock out Chaos, or can Court Immortals later perceive the flaw?
-4. Does Chaos Sacrifice/Rebirth remove you from Court / upper map access?
-5. Should “Creator” content rewrite the *player’s* world, or only forge side realities (safer for sim integrity)?
+2. If ladder: how many *mechanical* true watersheds upstairs (2–3 / ~9 / other)?
+3. Does the false-immortal reveal happen **at** Ascension, or only when you try to enter the upper realm / Court?
+4. Does choosing Heavenly Court lock out Chaos, or can Court Immortals later perceive the flaw?
+5. Does Chaos Sacrifice/Rebirth remove you from Court / upper map access?
+6. Should “Creator” content rewrite the *player’s* world, or only forge side realities (safer for sim integrity)?
+7. Rename collision: FE “Earthbound Immortal” vs Ascension “false immortal” vs Chaos “true” — vocabulary pass needed.
 
 ## Related
 
