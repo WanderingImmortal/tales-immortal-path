@@ -69,7 +69,123 @@ That gives the false-immortal reveal teeth:
 
 Code today: `isImmortal()` = last realm index; reincarnation UI calls it “True Reincarnation” at Ascension — naming may need a pass so “true” isn’t spent early.
 
-## Three post-immortal *kinds* (do not merge into one ladder)
+---
+
+## How it works in practice (brainstorm — owner Q 2026-07-20)
+
+Three questions the concept must answer: **complicity**, **why**, and **what the player sees**.
+
+### 1. How are current Immortals complicit? (Not “all evil”)
+
+**Complicity ≠ intent.** The Ascension rite plugs you into a **celestial sustainment array** that already exists. You don’t need to know the cost to become a drain node.
+
+| Who | Relationship to the shackle |
+|-----|---------------------------|
+| **You (newly ascended)** | Just became a new tap on the same pipe. Guilt lands *after* the reveal. |
+| **Court Immortals upstairs** | Mostly **administrators** of the machine — redistribute fortune, hunt “rogues,” bless regions. Some ignorant, some cynical, few horrified. |
+| **Ancient / sealed immortals** | May have **built** the first seal (wound in the sky, post-Chaos split) without understanding long-term cost — tragic founders, not mustache-twirlers. |
+| **Hermits / wanderer immortals** | Still nodes in the array even if they “left politics.” Their ∞ lifespan is still leased. |
+| **Grotto Masters (failed Chaos walkers)** | Cautionary: tried to step off the pipe wrong (Devourer) or saw it and broke (Lost Pilgrim). |
+
+**Player-facing line:** *“Every Immortal who ever ascended is complicit — including the ones who never wanted to hurt anyone. The rite does not ask permission from the world.”*
+
+**Design guardrail:** early-game mortals are **not** punished for the player not having ascended yet. Pre-existing immortals share blame so it’s systemic, not “you alone ruined everything on day one.”
+
+### 2. Why is it this way? (In-world cause)
+
+Pick **one** primary myth (others can be rumor layers):
+
+**A. The Seal (recommended default)**  
+After primordial Chaos was forced into order, the sky had a **wound**. The first “Immortals” didn’t transcend — they **stitched the wound shut** using the mortal realm’s spiritual fortune as thread. Each new Ascension adds another stitch. The continent’s cultivation “golden age” was **before** the array existed; every generation since pays interest.
+
+**B. Heaven’s Ledger**  
+The Heavenly Court maintains a **ledger of permitted immortals**. Infinity is borrowed against **future breakthroughs** — every Immortal’s lease is paid by making it harder for juniors to condense qi, open meridians, or survive tribulation. Court ranks = who gets to sign the ledger.
+
+**C. Degraded Dao (Primordial Throne echo)**  
+True cultivation once didn’t require siphoning. The current Dao is a **patch** that hardened into law. False immortality is what happens when you reach the top of a **broken** system.
+
+All three support the same gameplay spine; A is easiest to show with a world meter.
+
+### 3. What does it look like in game?
+
+Split effects into **hidden → hinted → revealed → actionable**.
+
+#### Phase 0 — Before Ascension (player doesn’t know)
+
+- Optional ambient lore: old texts mention a “narrower path,” golden age decline, fewer prodigies.
+- No mechanical penalty tied to the player.
+
+#### Phase 1 — At Ascension (triumph + hidden hook)
+
+- Normal ascension celebration: ∞ lifespan, title, unlock Court / upper content.
+- **Silent state attach:** `G.worldShackle` or `G.immortalLease` — you are now `immortalNode: true`.
+- Maybe one uncanny line in the log: *“The heavens accept your oath. Something elsewhere grows quieter.”*
+
+#### Phase 2 — Hints (post-Ascension play)
+
+Player can **feel** wrongness before the lecture:
+
+| Signal | Mechanic sketch |
+|--------|-----------------|
+| **World Fortune** (global 0–100, slow) | Drifts down over long time skips while any Immortal count is high; each new Ascension nudges it. Player actions while Immortal can nudge faster (greedy decrees, forbidden unseals). |
+| **Natal ceiling** | World NPCs / sect recruits: slightly lower starting `realmIdx` cap or slower `tickWorldNpcGrowth` breakthrough odds in late eras. |
+| **Explore / gather** | Soft `-X%` spirit herb quality or rare drop tier cap in zones when Fortune is low. |
+| **Dialogue** | “My grandson stalled at Qi Condensation for thirty years. My grandfather reached Foundation at eighteen.” |
+| **Sect chronicle** | “No Core Formation breakthrough in forty years.” |
+
+Fortune should move **slowly** — decades/centuries, not every cultivate click — or it feels like punishment spam.
+
+#### Phase 3 — The reveal (story beat)
+
+Triggered by one or combine:
+
+- First Heavenly Court audience
+- Forbidden Ground that shows truth (Mirror Lake copy fights your *debt*, not your stats?)
+- Grotto Master (Watcher) dialogue
+- Dao / Wuji-adjacent insight
+
+**Reveal UI:** short scene + unlock **World Fortune** (or **Heaven’s Debt**) on sidebar / world panel.
+
+Copy tone: *“Immortality was never yours. You are a needle drawing blood from the realm’s veins. The Court calls it order. The young call it a dying age.”*
+
+#### Phase 4 — After reveal (choices, not just guilt)
+
+| Path | Player fantasy | Mechanic direction |
+|------|----------------|-------------------|
+| **Court** | Manage the machine | Decrees **redistribute** Fortune (bless region = temporary bump, curse = steal from rival zone). Favor is your share of the siphon. Fall = lease revoked (already in POC). |
+| **Orthodox upper climb** | Find “true” immortality inside the law | Few sparse upstairs watersheds; maybe reduce *your* drain rate, never zero without Chaos. |
+| **Chaos** | Leave / remake the law | Sacrifice = tear out your node (world Fortune bump, you drop to mortal). Rebirth = encode a foundation that doesn’t tap the array (meta unlock). |
+| **Denial** | Stay Immortal, ignore | Valid for a while; Fortune keeps drifting; NPC world gets bleaker over fast-forward. |
+
+### Concrete numbers (placeholder — tune later)
+
+- `worldFortune` starts ~85 at campaign start (already post–golden age).
+- Each **Immortal Ascension** (player or major world event): −2 to −5.
+- Each **century** while player is Immortal and idle: −1.
+- Court **Bless Region** decree: +3 local for 24 months, −1 global (robbing Peter).
+- **Chaos Sacrifice** (if taken): +8 global, player loses Immortal status.
+
+Caps: Fortune floor ~20 before “mortal age” events fire (famine of qi, sect collapses, plot hooks).
+
+### Problems & fixes
+
+| Problem | Fix |
+|---------|-----|
+| “Why would anyone ascend if it’s bad?” | They **don’t know** until late. Same as real xianxia — the lie is the point. |
+| “All immortals evil?” | **Systemic** complicity; founders tragic; Court bureaucratic; player guilt is recognition. |
+| “Punishes new players?” | Meter barely moves pre-Ascension; pre-existing immortals already drained the world. |
+| “Feels like guilt trip only?” | Tie to **play** — Court redistribution minigame, Chaos opt-out, upstairs search for true law. |
+| “Too sim-heavy?” | Start with **Fortune + dialogue + 1–2 loot modifiers**; expand if fun. |
+
+### Minimum viable slice (when/if built)
+
+1. `worldFortune` global + sidebar after reveal  
+2. Ascension attaches immortal node + log line  
+3. One Court task that bumps local / hurts global (teaches the tradeoff)  
+4. One reveal scene (Court or Forbidden)  
+5. Chaos doc cross-link: Sacrifice/Rebirth as responses to Fortune/debt
+
+---
 
 These can coexist as **branches / places / choices**, but they answer different questions:
 
@@ -115,8 +231,8 @@ Upper realm + 9 majors, if done as pure power, is the pattern you drop.
 ## Prerequisites
 
 - [x] Immortal Ascension is **not** a final ending (owner)
-- [ ] Write the **false immortal** reveal (lore + when it fires) — leaning **world-shackle / longevity siphon** spark
-- [ ] Decide whether siphon is **global sim pressure** (NPC juniors weaken over eras), **player-facing only**, or both
+- [ ] Write the **false immortal** reveal (lore + when it fires) — **world-shackle / longevity siphon**; see “How it works in practice” section
+- [ ] Decide siphon MVP: **World Fortune meter** + post-reveal Court tradeoffs (leaning this over full NPC-genetics sim on day one)
 - [ ] Decide upper realm is **map + sparse true watersheds / ranks** — don’t auto-commit to 9 majors
 - [ ] Align Chaos vs Court vs upper climb: when can you perceive Chaos — at false Ascension, or only after tasting the upper lie?
 - [ ] Deepen-current-seven vs invent-upstairs priority (can be parallel docs, not one PR)
