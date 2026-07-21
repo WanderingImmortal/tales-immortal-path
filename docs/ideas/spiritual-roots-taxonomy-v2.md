@@ -90,6 +90,8 @@ Grade column removed from ceiling — superior single and inferior single both *
 | 5 | Dao Seeking | Dao Threshold |
 | 6 | Immortal Ascension | Immortal Firmament |
 
+> **Nine mortal realms:** Two tiers added after Nascent Soul — see [`nine-realm-ladder.md`](nine-realm-ladder.md). Height labels need +2 rows when ladder ships.
+
 Below Foundation Shore (stuck in QC): **Condensation Pool** (index 0) — rootless / worst pentamixed penalty case.
 
 ---
