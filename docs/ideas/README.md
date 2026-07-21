@@ -23,6 +23,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
+| [Formations & arrays](formations-and-arrays.md) | `designed` | Cultivation methods P0–P2; upkeep tuning | — |
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `designed` | Roots v2 sign-off; FE direction | — |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `idea` | Cultivation manuals framework; FE redesign | — |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |

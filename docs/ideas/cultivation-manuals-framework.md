@@ -153,7 +153,7 @@ Grade stacks with **root grade** (innate speed) and **root fit** (element/compos
 
 Without directed infra, essence methods are **starved of fuel** — not “slow qi,” but **wrong fuel line hooked up**. Qi methods always have fuel (ambient qi).
 
-**Formation** — personal/sect scale (courtyard slot, meditation chamber). Existing v1: `FORMATIONS` + residence slots in `formations.js`.
+**Formation** — personal/sect scale (courtyard slot, meditation chamber). Existing v1: `FORMATIONS` + residence slots in `formations.js`. **Full formations vision:** [`formations-and-arrays.md`](formations-and-arrays.md).
 
 **Array** — sect- or region-scale (defense array node, cultivation hall, reclaimed sect infrastructure). Multi-slot, higher build cost, essence **condensation** at scale.
 
@@ -515,7 +515,7 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 - `techniques.js` — shelf/comprehend patterns to clone
 - `data.js` — `CULTIVATION_TIERS`, `CHAMBER_BALANCE`, `TECHNIQUE_POOL`
 - `foundation.js` — pillar grants, variant id (future)
-- `formations.js` — residence formations v1; extend for essence gather + condensate
+- `formations.js` — residence formations v1; extend per [`formations-and-arrays.md`](formations-and-arrays.md)
 - `data.js` — `FORMATIONS`, `SECT_RESIDENCE`, `CHAMBER_BALANCE`
 - `talent.js` — root composition + grade
 - [`technique-driven-cultivation.md`](technique-driven-cultivation.md) — foundation variants & seal lock
