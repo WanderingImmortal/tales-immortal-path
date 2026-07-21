@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | Owner formations brainstorm (cloud agent, 2026-07-21); prior chat *xianxia formations arrays* (not in repo) |
-| **Updated** | 2026-07-21 (primitives, formation master, learning pipeline) |
+| **Updated** | 2026-07-21 (grades, hired inscription, primary path) |
 
 ## Intent
 
@@ -139,7 +139,41 @@ Finished formations are **recipes** of a few **primitives** — the “grammar�
 | **Trap** | Hold, delay, or cage (area or trigger) | Snare lines, closing loop |
 | **Sever** | Cut, kill, or convert (lethal or harvest) | Kill zone, blood channel to pool |
 
-**Design rule:** every blueprint lists `primitives: ['sink', 'channel', 'pool', 'seal']` in data. Player-facing UI shows the **primary tag** (Gather, Ward, …); primitives explain hybrids and rank gates.
+**Design rule:** every blueprint lists `primitives: [...]` in data. Player-facing UI shows **primary tag**, **blueprint grade**, and (for masters) primitive list.
+
+### Blueprint grades (formation quality)
+
+Formations have a **grade** ladder — same vocabulary as cultivation manuals (crude → common → superior → peerless). Grade is a property of the **diagram/manual**, not the inscriber’s cultivation realm.
+
+| Grade | Fiction | Typical ceiling |
+|-------|---------|-----------------|
+| **Crude** | Smudged copy, missing nodes | Cottage gather, weak ward |
+| **Common** | Sect syllabus pattern | Solid residence / hall formations |
+| **Superior** | Inner-court inheritance | Strong kill/ward; essence condense |
+| **Peerless** | Ancestor’s complete diagram | Region-threatening arrays; theoretical kill beyond inscriber’s realm |
+| **Heaven** *(rite-only)* | Mandate of heaven patterns | Basin ascension, grand arrays — story + rite bucket |
+
+**Upgrade within lineage:** fragment completion, master annotation, better materials at lay time — raises **grade** on the **same** blueprint id.
+
+### Three axes of power (do not collapse)
+
+| Axis | What it is | Drives |
+|------|------------|--------|
+| **Blueprint grade** | Quality of the pattern itself | **Theoretical ceiling** — peerless kill array *can* threaten an Immortal *if* fully fed and sprung |
+| **Master rank + blueprint proficiency** | Inscriber skill | **Realised output** — stability, % of ceiling, fail chance on lay |
+| **Cultivator realm** | Your cultivation | **Sustain, backlash, prep** — not automatically the damage cap of a finished trap |
+
+**Owner direction (2026-07-21):** A **Nascent Soul** formation master who spent a life on the profession **can** inscribe a **peerless** kill formation whose *pattern grade* could kill an Immortal — **extremely rare**, years of materials, and only after **thorough planning** to get the target **inside** the sprung array. David-and-Goliath via geometry, not sword qi.
+
+| Factor | Effect |
+|--------|--------|
+| Lay attempt | High fail if master rank low vs blueprint grade |
+| Activated output | Proficiency + rank → % of grade ceiling |
+| After spring | Inscriber may be helpless in direct fight — formation did the work |
+| Backlash | Weak realm = injury if pattern cracks mid-lay or misfires |
+| Luring target | **Required** for kill traps — bait, terrain, allies, arrogance |
+
+**Not:** loot peerless scroll → auto-win. **Yes:** dedicated formation-master run punches **orders of magnitude** above personal realm when the trap is the game.
 
 ### Example compositions
 
@@ -148,7 +182,8 @@ Finished formations are **recipes** of a few **primitives** — the “grammar�
 | Spirit Gathering | Gather | Sink → Channel → Pool (+ Seal) | v1 shipped |
 | Qi Stabilizer | Stabilise | Pool + Seal (+ light Channel) | Dampens meridian noise at pool |
 | Iron Wall Ward | Ward | Ward + Seal (+ Channel along perimeter) | Future perimeter anchor |
-| Blood Harvest *(hybrid)* | Gather + Kill | Sever → Channel → Pool (+ Seal) | Requires Formation Master rank |
+| Blood Harvest *(hybrid)* | Gather + Kill | Sever → Channel → Pool (+ Seal) | Superior+; Formation Master rank |
+| Immortal Slayer Array *(extreme)* | Kill | Trap + Sever + Seal + Ward | Peerless; rank 6+ to lay; target must enter |
 | Sun Condensation Plate | Condense | Sink → Condense → Pool | Essence site + array scale later |
 
 **Arrays** reuse the same primitives at larger scale: more physical **anchors** (flags/stones), longer **Channels**, shared **Pools** between sub-formations.
@@ -159,12 +194,14 @@ Finished formations are **recipes** of a few **primitives** — the “grammar�
 
 Being a formation master is **dedication**, not a side perk. Most cultivators **use** formations; fewer **inscribe** them. Profession rank gates what you may attempt; **blueprint proficiency** gates how well you lay a specific diagram.
 
-### Two axes (do not merge)
+### Four tracked axes (summary)
 
 | Axis | What it measures | How it rises |
 |------|------------------|--------------|
-| **Master rank** | Profession grade — categories you’re allowed to try | Trials, commissions, rank exams |
-| **Blueprint proficiency** | Skill on *one* diagram — speed, failure, output | Trace practice, successful lays, upkeep months |
+| **Master rank** | Profession — categories you may attempt | Trials, commissions, rank exams |
+| **Blueprint proficiency** | Skill on *one* diagram | Trace, lays, upkeep months |
+| **Blueprint grade** | Manual quality ceiling | Better manual, annotation, lay materials |
+| **Cultivator realm** | Your body’s cultivation | Normal cultivation — gates exam access, backlash tolerance |
 
 **Formation Dao** (late game, optional): unlock **hybrid design** and legendary patterns — analogous to Dao Seeking, **not** the early profession ladder. Reserve “Dao” for that track; early UI says **Formation Master rank** or **Inscriber grade**.
 
@@ -194,6 +231,40 @@ Promotion is a **trial**, not `+1 Formation Level`:
 Failed exam: materials lost, cooldown, no rank. Success: rank-up, log flavour, maybe sect rep.
 
 FI sources: trace sessions, successful first lays, months maintaining active patterns, repairing scattered patterns, array assistant duty, deciphering manuals.
+
+---
+
+## Hired inscription (always allowed)
+
+No run has time to learn every pattern. **Hiring an outside formation master** to decipher, lay, or maintain is **always valid** — markets, sect commissions, rogue masters, allied sect elders.
+
+| Who lays | Player gets | Player does not get |
+|----------|-------------|---------------------|
+| **Hired NPC** | Active pattern at NPC’s skill level; saves your months | Formation Insight, blueprint proficiency, rank progress |
+| **Self** | Proficiency + FI + full control | Time, materials, fail risk |
+
+**Early game default:** cultivator main path hires gather/ward at residence while focusing on realm grind. **Formation-master run** inverts that — you lay and maintain yourself, hire **muscle or bait** instead.
+
+**Cost model:** stones + materials + months (NPC queue) + sometimes rep/favour. Higher blueprint grade or secrecy → premium. Peerless kill-trap inscription may require finding a **rank 6+ NPC** even if *you* hold the manual.
+
+**Sect disciples (later):** in-house formation specialist disciple = recurring salary vs one-off hire.
+
+---
+
+## Formation Master as primary path
+
+Formations are a **viable main identity**, not a side job for every build.
+
+| Cultivator main | Formation Master main |
+|-----------------|----------------------|
+| Realm + combat techniques first | Master rank + blueprint catalog first |
+| Hires formations as needed | Cultivates enough realm to survive backlash; wins via traps, wards, arrays |
+| Personal fight power | **Pattern power** — talismans, gear inscriptions, sprung kills |
+| Sect = cultivate hall + income | Sect = **anchor network**, array hall, material pipeline |
+
+**Whole playthrough fantasy:** start Pattern Student, never be the strongest in a straight duel, but clear bosses via prepared ground, lured ambushes, and peerless diagrams you spent decades feeding. Reincarnation carries **blueprint unlocks** and **sect array reclaim**, not necessarily combat arts.
+
+**Balance guardrails:** kill-above-realm stays **rare** — setup months, rare manuals, luring gameplay, one-shot or high-upkeep patterns, backlash if it fails. Most formations remain utility (gather, ward, condense), not assassinate-Immortal buttons.
 
 ---
 
@@ -259,8 +330,9 @@ G.formationMaster = {
 G.formationShelf = {
   spirit_gathering: {
     source: 'residence_grant',
+    grade: 'common',          // crude | common | superior | peerless
     deciphered: true,
-    proficiency: 2,           // 0=unknown … ready … master
+    proficiency: 2,
     traceSessionsDone: 2,
     totalMaintainMonths: 8
   }
@@ -305,17 +377,19 @@ G.sect.residence.formations.slots = [];
 - [ ] Owner OK: anchors vs free placement ( **anchors** — owner 2026-07-21 )
 - [ ] Owner OK: formation vs building bonus split (avoid duplicate cultivate %)
 - [ ] Cultivation methods P0–P2 for qi track before essence formations
+- [x] Hire outside masters — always OK (owner 2026-07-21)
+- [x] Blueprint grades decoupled from inscriber realm; kill-above-realm via planning (owner 2026-07-21)
 - [ ] Owner OK: eight primitives (sink, channel, pool, seal, ward, condense, trap, sever)
 - [ ] Owner OK: master rank ladder (0–7) and exam-based promotion
 - [ ] Owner OK: learn pipeline (decipher → trace → first lay) vs v1 auto-grant migration
-- [ ] Cultivation methods P0–P2 for qi track before essence formations
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
 - **Insight curve:** FI per trace session vs per maintained month — tune in playtest
 - **Exam patterns:** one global “standard array” per rank or sect-specific variants?
-- **Hire a master:** Can low-rank player pay NPC to lay pattern without rank? (Yes for gold sink, no proficiency gain?)
+- **Hire pricing:** flat fee vs % of blueprint grade + secrecy premium
+- **Lure gameplay:** abstract event check vs dedicated “spring trap” encounter flow for kill formations
 - **Dual profession:** Full formation master run vs cultivator who dabbles — same ranks, slower FI?
 - **Equipment charges:** per-item durability vs shared inscription fatigue?
 - **Array composition UI:** explicit node graph vs abstract array level + type?
