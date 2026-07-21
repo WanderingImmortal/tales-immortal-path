@@ -136,9 +136,10 @@ Linear-ish +40y steps after FE, not doubling:
 
 ## Links
 
-- [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) — basin grind vs lifespan (needs update for 9)  
-- [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) — basin tier labels (+2 heights)  
-- [`chaos-cultivation-path.md`](chaos-cultivation-path.md) — revelation at immortal endgame  
+- [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) — basin grind vs lifespan (needs update for 9)
+- [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) — basin tier labels (+2 heights)
+- [`realm-claims.md`](realm-claims.md) — per-realm abilities & travel
+- [`chaos-cultivation-path.md`](chaos-cultivation-path.md) — revelation at immortal endgame
 
 ## Open questions
 
