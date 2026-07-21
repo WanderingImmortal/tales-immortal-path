@@ -88,6 +88,8 @@ Court:
 
 ### MVP slice (when building)
 
+Long **Works** use the project + time-playback shell — see [`chronicle-and-projects.md`](chronicle-and-projects.md).
+
 1. Linger opens Court stub panel
 2. 2–3 edicts (bless one zone qi, suppress one law, trigger one world event)
 3. Mortal zones show modifier tags + chronicle
