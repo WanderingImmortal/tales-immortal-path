@@ -98,6 +98,7 @@ Without aid, inferior root = **respect the clock**.
 
 ## Prerequisites
 
+- [ ] Long-activity UX — [`chronicle-and-projects.md`](chronicle-and-projects.md) (diary + tick playback + projects)
 - [ ] Owner sets per-realm age anchors (FE 80–90 inferior; QC and GC TBD)
 - [ ] Root taxonomy v2 (`TALENT_GRADES` overhaul)
 - [ ] `talentCapBypassed` wired to pills/formations/events
