@@ -27,6 +27,9 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `designed` | Roots v2 sign-off; FE direction | — |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `idea` | Cultivation manuals framework; FE redesign | — |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
+| [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
+| [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
+| [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | Realm naming; FE breakthrough | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
