@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | Owner formations brainstorm (cloud agent, 2026-07-21); prior chat *xianxia formations arrays* (not in repo) |
-| **Updated** | 2026-07-21 |
+| **Updated** | 2026-07-21 (primitives, formation master, learning pipeline) |
 
 ## Intent
 
@@ -36,7 +36,7 @@ Gameplay stays **simple**: choose a known pattern, lay it at a **valid anchor** 
 
 | Fiction | Gameplay (keep simple) |
 |---------|------------------------|
-| Comprehend a formation manual / diagram | `learnFormation(id)` → `G.knownFormations` |
+| Comprehend a formation manual / diagram | **Study pipeline** (below) — not one button |
 | Stake flags, place spirit stones at nodes | **Lay** action: materials + months at a valid anchor |
 | Maintain the pattern | **Upkeep** (stones, herbs, labour) — neglect → fade → scatter |
 | Ambient qi/essence flows along the lines | Passive or session bonus while pattern is active and fed |
@@ -122,6 +122,156 @@ One-shot or rare **arrays** for fate shifts: +1 basin tier, capped composition s
 
 ---
 
+## Pattern primitives (building blocks)
+
+Finished formations are **recipes** of a few **primitives** — the “grammar” every diagram shares. Hybrids are not new magic; they combine primitives (and usually two **primary tags**) in one anchor.
+
+### The eight primitives
+
+| Primitive | What it does in fiction | Typical physical expression |
+|-----------|-------------------------|----------------------------|
+| **Sink** | Draw ambient qi/essence into the pattern | Outer gathering ring, inward-facing flags |
+| **Channel** | Move power along a defined path | Lines between nodes, meridian traces |
+| **Pool** | Concentrate power at a node (阵眼 / “eye”) | Central spirit stone, courtyard heart |
+| **Seal** | Bind, stabilise, prevent leak or collapse | Corner locks, closure stroke, jade pins |
+| **Ward** | Barrier outward — block, deflect, conceal | Perimeter square, mirror facing out |
+| **Condense** | Compress gathered essence into storable form | Condensation plate, dew basin |
+| **Trap** | Hold, delay, or cage (area or trigger) | Snare lines, closing loop |
+| **Sever** | Cut, kill, or convert (lethal or harvest) | Kill zone, blood channel to pool |
+
+**Design rule:** every blueprint lists `primitives: ['sink', 'channel', 'pool', 'seal']` in data. Player-facing UI shows the **primary tag** (Gather, Ward, …); primitives explain hybrids and rank gates.
+
+### Example compositions
+
+| Blueprint | Primary | Primitives | Notes |
+|-----------|---------|------------|-------|
+| Spirit Gathering | Gather | Sink → Channel → Pool (+ Seal) | v1 shipped |
+| Qi Stabilizer | Stabilise | Pool + Seal (+ light Channel) | Dampens meridian noise at pool |
+| Iron Wall Ward | Ward | Ward + Seal (+ Channel along perimeter) | Future perimeter anchor |
+| Blood Harvest *(hybrid)* | Gather + Kill | Sever → Channel → Pool (+ Seal) | Requires Formation Master rank |
+| Sun Condensation Plate | Condense | Sink → Condense → Pool | Essence site + array scale later |
+
+**Arrays** reuse the same primitives at larger scale: more physical **anchors** (flags/stones), longer **Channels**, shared **Pools** between sub-formations.
+
+---
+
+## Formation Master (profession)
+
+Being a formation master is **dedication**, not a side perk. Most cultivators **use** formations; fewer **inscribe** them. Profession rank gates what you may attempt; **blueprint proficiency** gates how well you lay a specific diagram.
+
+### Two axes (do not merge)
+
+| Axis | What it measures | How it rises |
+|------|------------------|--------------|
+| **Master rank** | Profession grade — categories you’re allowed to try | Trials, commissions, rank exams |
+| **Blueprint proficiency** | Skill on *one* diagram — speed, failure, output | Trace practice, successful lays, upkeep months |
+
+**Formation Dao** (late game, optional): unlock **hybrid design** and legendary patterns — analogous to Dao Seeking, **not** the early profession ladder. Reserve “Dao” for that track; early UI says **Formation Master rank** or **Inscriber grade**.
+
+### Master ranks
+
+| Rank | Title | Unlocks |
+|------|-------|---------|
+| **0** | Uninitiated | Benefit from sect/residence patterns laid by others; no solo lay |
+| **1** | Pattern Student | Crude lay of **starter** blueprints (high fail, weak output); trace practice |
+| **2** | Inscriber | Reliable lay of **single-primary** formations; reinscribe scattered patterns |
+| **3** | Formation Adept | Full upkeep tuning; **simple talismans** (one primitive + Seal) |
+| **4** | Array Disciple | Assist on **multi-node arrays**; essence formations at tagged sites |
+| **5** | Formation Master | **Equipment inscription**; hybrid blueprints; teach disciples |
+| **6** | Array Master | Compose / restore sect-scale arrays |
+| **7** | Grand Formationist | Grand arrays, rite-grade patterns (story + endgame) |
+
+**Realm gates (soft):** rank exams require minimum cultivation (e.g. Inscriber ≥ Condensation, Array Master ≥ Core). Profession can lag or lead realm slightly but not skip tiers absurdly.
+
+### Rank advancement (not a comprehend button)
+
+Promotion is a **trial**, not `+1 Formation Level`:
+
+1. **Insight threshold** — enough **Formation Insight** (FI) from practice, lays, maintenance, assisted array work.
+2. **Proof lay** — inscribe a **standard exam pattern** at a sect hall or borrowed anchor (materials + months; failure delays retry).
+3. **Optional witness** — sect formation elder, or NPC master for rogue cultivators.
+
+Failed exam: materials lost, cooldown, no rank. Success: rank-up, log flavour, maybe sect rep.
+
+FI sources: trace sessions, successful first lays, months maintaining active patterns, repairing scattered patterns, array assistant duty, deciphering manuals.
+
+---
+
+## Learning a blueprint (pipeline)
+
+**Problem:** looting a manual and instantly laying feels wrong. **Also wrong:** one global “Comprehend Formation +1” button.
+
+**Solution:** manual → **diagram state** on shelf; **rank + proficiency** gate real inscription.
+
+### Pipeline stages
+
+```
+Acquire → Decipher → Trace (×N) → First Lay → Maintain → Master copy
+```
+
+| Stage | Player action | Time / cost | Outcome |
+|-------|---------------|-------------|---------|
+| **Acquire** | Loot, buy, sect grant, residence upgrade | — | Manual on **formation shelf** (separate from combat manuals) |
+| **Decipher** | Study at library / formation hall / quarters | Months + optional stones | Diagram readable; know primary + primitive list; **cannot lay yet** if rank too low |
+| **Trace** | Practice on **sand table** or scrap anchor | 1–3 sessions: cheap mats + months each | Blueprint proficiency → “ready for first lay”; lowers first-lay fail chance |
+| **First lay** | Real anchor, full `layCost` | Materials + months | On success: pattern active + proficiency tier 1; on fail: partial material loss, retry |
+| **Maintain** | Pay upkeep each period | Recurring | Proficiency slowly rises; output approaches blueprint cap |
+| **Master copy** | High proficiency on this blueprint | — | Lay faster, cheaper reinscribe, or +output band (per-diagram mastery reward) |
+
+### What rank gates vs what proficiency gates
+
+| Action | Gated by |
+|--------|----------|
+| Decipher manual | Realm (read complexity), sometimes sect access |
+| Trace practice | Rank ≥ 1 |
+| First lay of simple qi formation | Rank ≥ 2, proficiency ready |
+| Essence formation at tagged site | Rank ≥ 4 |
+| Talisman of pattern | Rank ≥ 3 + proficiency ≥ tier 2 on that blueprint |
+| Inscribe gear | Rank ≥ 5 |
+| Hybrid blueprint decipher | Rank ≥ 5; Formation Dao for design (not just lay) |
+
+### Manual types
+
+| Type | Learning feel |
+|------|----------------|
+| **Complete diagram** | Full pipeline; standard proficiency curve |
+| **Fragment** | Decipher yields partial primitives — trace more sessions; or ambient-only until missing chapter found |
+| **Copied / crude** | Higher fail until rank rises; good for Pattern Student practice |
+| **Sect inheritance** | Residence upgrade grants **elder-traced starter** — fiction: they laid it once for you; you still decipher to maintain alone |
+
+### v1 migration note
+
+Current `learnOnResidenceLevel` auto-push to `knownFormations` is **bootstrap** (elder traces starter patterns). When F1 lands, convert to: grant **manual to formation shelf** + auto-decipher for rank 1–2 tutorial, or elder NPC lays first copy without skipping profession intro.
+
+---
+
+## Player state (proposal)
+
+```js
+G.formationMaster = {
+  rank: 0,                    // 0–7
+  insight: 0,                 // FI toward next exam
+  lastExamMonth: null,
+  examCooldownMonths: 6
+};
+
+// Separate from combat manualShelf
+G.formationShelf = {
+  spirit_gathering: {
+    source: 'residence_grant',
+    deciphered: true,
+    proficiency: 2,           // 0=unknown … ready … master
+    traceSessionsDone: 2,
+    totalMaintainMonths: 8
+  }
+};
+
+G.knownFormations = [];       // IDs player may lay (deciphered + rank OK) — or derive from shelf
+G.sect.residence.formations.slots = [];
+```
+
+---
+
 ## Shipped today (v1)
 
 | Piece | Location |
@@ -132,7 +282,7 @@ One-shot or rare **arrays** for fate shifts: +1 basin tier, capped composition s
 | Lay / clear / cultivate at quarters | `formations.js`, `sect-map.js` |
 | Save keys | `G.knownFormations`, `G.sect.residence.formations.slots` |
 
-**v1 gaps vs this doc:** no upkeep, no anchors beyond residence, no equipment/talisman, no arrays, no essence tags, no hybrids.
+**v1 gaps vs this doc:** no upkeep, no anchors beyond residence, no equipment/talisman, no arrays, no essence tags, no hybrids, no formation master ranks (residence level auto-grants manuals — **bootstrap only**, replace when F1+ lands).
 
 ---
 
@@ -141,12 +291,12 @@ One-shot or rare **arrays** for fate shifts: +1 basin tier, capped composition s
 | Phase | Scope |
 |-------|-------|
 | **F0** *(shipped)* | Residence qi formations, lay cost, cultivate-at-quarters hook |
-| **F1** | Upkeep tick + neglect fade; reinscribe |
-| **F2** | Sect anchor nodes (which building hosts which pattern type) |
+| **F1** | Formation shelf + **decipher/trace** pipeline; Master rank 0–2; upkeep + neglect |
+| **F2** | Sect anchor nodes; rank 3–4; exam trials |
 | **F3** | Essence gather + site tags (with cultivation methods P3) |
-| **F4** | Arrays — multi-formation sect scale, condensate |
-| **F5** | Equipment + talisman deploy (Formation Dao progression) |
-| **F6** | Hybrids; guild/market anchors; grand arrays (story) |
+| **F4** | Arrays — multi-formation sect scale, condensate; Array Disciple duties |
+| **F5** | Equipment + talisman deploy (rank 5+) |
+| **F6** | Hybrids + Formation Dao design; guild/market anchors; grand arrays |
 
 ---
 
@@ -155,21 +305,28 @@ One-shot or rare **arrays** for fate shifts: +1 basin tier, capped composition s
 - [ ] Owner OK: anchors vs free placement ( **anchors** — owner 2026-07-21 )
 - [ ] Owner OK: formation vs building bonus split (avoid duplicate cultivate %)
 - [ ] Cultivation methods P0–P2 for qi track before essence formations
-- [ ] Formation Dao progression design (unlocks hybrids, gear inscription, talisman recipes)
+- [ ] Owner OK: eight primitives (sink, channel, pool, seal, ward, condense, trap, sever)
+- [ ] Owner OK: master rank ladder (0–7) and exam-based promotion
+- [ ] Owner OK: learn pipeline (decipher → trace → first lay) vs v1 auto-grant migration
+- [ ] Cultivation methods P0–P2 for qi track before essence formations
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
-- **Formation Dao:** separate stat/track, or gate via comprehension + sect library?
-- **Equipment charges:** per-item durability vs shared “inscription fatigue”?
-- **Array composition:** explicit “slot 3 links slot 1+2” UI, or abstract array level + type?
-- **Iron Wall Ward:** residence slot vs sect perimeter node vs event-only?
-- **Hybrid unlock:** one hybrid per life, or catalog of rare diagrams?
-- **Grand array:** story-only vs playable late-game — defer until sect/city scale matters
+- **Insight curve:** FI per trace session vs per maintained month — tune in playtest
+- **Exam patterns:** one global “standard array” per rank or sect-specific variants?
+- **Hire a master:** Can low-rank player pay NPC to lay pattern without rank? (Yes for gold sink, no proficiency gain?)
+- **Dual profession:** Full formation master run vs cultivator who dabbles — same ranks, slower FI?
+- **Equipment charges:** per-item durability vs shared inscription fatigue?
+- **Array composition UI:** explicit node graph vs abstract array level + type?
+- **Iron Wall Ward:** residence slot vs sect perimeter node?
+- **Formation Dao unlock:** separate from rank 7, or rank 7 gates entry to Dao track?
+- **Grand array:** story-only vs playable late-game
 
 ## Implementation crumbs
 
-- `formations.js` — extend for upkeep, anchors, deploy modes
+- `formations.js` — extend for shelf, decipher/trace, rank gates, upkeep
+- `techniques.js` — `comprehendManual` / shelf patterns to **clone UI**, not merge pools
 - `data.js` — `FORMATIONS`, `SECT_RESIDENCE`, `SECT_BUILDINGS`, `SECT_MAP_NODES`
 - `sect-map.js` — residence UI; future anchor picker
 - [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — essence fuel, condensate, array save shape `G.sect.arrays`
