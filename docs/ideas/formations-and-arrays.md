@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | Owner formations brainstorm (cloud agent, 2026-07-21); prior chat *xianxia formations arrays* (not in repo) |
-| **Updated** | 2026-07-21 (realm-aligned formation grades; dao/law components) |
+| **Updated** | 2026-07-21 (tier + grade split; application mastery stub) |
 
 ## Intent
 
@@ -139,74 +139,104 @@ Finished formations are **recipes** of a few **primitives** — the “grammar�
 | **Trap** | Hold, delay, or cage (area or trigger) | Snare lines, closing loop |
 | **Sever** | Cut, kill, or convert (lethal or harvest) | Kill zone, blood channel to pool |
 
-**Design rule:** every blueprint lists `primitives: [...]`, `formationGrade`, and optional `requiredComponents` (dao, law, essence tag…). Player-facing UI shows **primary tag** and **formation grade** (e.g. “3rd-grade kill formation”).
+**Design rule:** every blueprint lists `primitives`, `formationTier`, `formationGrade` (quality within tier), and optional `requiredComponents`. UI example: **“3rd-tier kill formation (peerless)”**.
 
-### Formation grade (realm-aligned)
+### Formation tier (realm band)
 
-**Owner direction (2026-07-21):** Formation **grade** is **not** a peerless/manual-quality ladder. A **1st-grade** formation is meaningfully effective against **1st-grade cultivation** (Qi Condensation band). A **3rd-grade** formation can **stymie or even slay** a Golden Core cultivator when fully laid, fed, and sprung — not because the inscriber out-cultivates them, but because the **pattern grade matches the threat**.
+**Tier** = what **cultivation band** the pattern is built to threaten. A 3rd-tier formation is aimed at **Golden Core**-band targets; it is not meant to reliably affect Nascent Soul+ without exceptions (below).
 
-| Formation grade | Aligns to realm band (qi path) | Typical effect vs equal target |
-|---------------|----------------------------------|--------------------------------|
-| **1st** | Qi Condensation | Gather, weak ward, tutorial traps |
-| **2nd** | Foundation Establishment | Solid residence/hall patterns; credible FE traps |
-| **3rd** | Core Formation (Golden Core) | Kill or hard-control vs GC if target enters pattern |
-| **4th** | Nascent Soul | Sect-scale pressure; NS kill traps (extreme prep) |
+| Formation tier | Aligns to realm band (qi path) | Role |
+|----------------|--------------------------------|------|
+| **1st** | Qi Condensation | Tutorial gather, weak ward |
+| **2nd** | Foundation Establishment | Residence/hall patterns; FE traps |
+| **3rd** | Core Formation (Golden Core) | Kill or hard-control vs GC **in pattern** |
+| **4th** | Nascent Soul | Sect-scale; NS traps (heavy prep) |
 | **5th** | Void Refinement | Regional arrays |
-| **6th** | Dao Seeking | Requires **dao / law components** in pattern (see below) |
-| **7th** | Immortal Ascension | Requires dao/law + heaven-grade materials; rite-adjacent |
+| **6th** | Dao Seeking | Requires **dao / law components** |
+| **7th** | Immortal Ascension | Dao/law + heaven materials; rite-adjacent |
 
-**Separate from grade — manual condition:** intact vs fragment vs smudged copy affects **lay success, stability, output %** within the **same** formation grade. It does **not** let a 1st-grade diagram kill a Golden Core.
+### Formation grade (effectiveness *within* tier)
 
-### Dao, law, and high-realm targets
+**Grade** = how well the diagram executes **within its tier** — same ladder as cultivation manual quality:
 
-Above Core Formation, formations stop being “just geometry + spirit stones.” To **meaningfully affect** Dao Seeking (or equivalent) opponents, the pattern must include **dao or law** as a necessary component — not optional flair.
+| Grade | Within-tier effect (example: 3rd-tier kill vs GC band) |
+|-------|----------------------------------------------------------|
+| **Crude** | Mostly **stymie** — slow, weaken, pin briefly; unlikely to kill a typical GC |
+| **Common** | Credible threat to average GC in band |
+| **Superior** | Strong kill/control vs most in band |
+| **Peerless** | Kills **all but the strongest** Golden Cores in that tier’s variance band |
+
+**Owner direction (2026-07-21):** Tier + grade split. *“Peerless 3rd-tier”* is the terrifying kill trap; *“crude 3rd-tier”* might only stop them for a while. **Stub for now** — full payoff when later realms have more **strength variance** within a band (early GC vs peak GC, foundation quality, etc.). Until then, grade can map to simple output % bands.
+
+**Manual condition** (fragment, smudged, intact) stacks with grade: a fragment peerless manual might perform like superior until completed.
+
+### Dao, law, and high-tier targets
+
+At **6th tier+**, patterns need **dao or law** as necessary components — not optional.
 
 | Component type | Fiction | Game role |
 |----------------|---------|-----------|
-| **Dao fragment** | A cultivator’s comprehended dao wired into a node | Pattern can “read” dao-aligned targets; required for 6th-grade+ offensive/control |
-| **Law shard / talisman** | Heaven law, borrowed mandate, sect guardian relic | Stabilises pattern vs transcendent targets; rite arrays |
-| **Essence anchor** | Sun vein, moon pool, etc. | Required for essence-heavy grades (parallel track) |
+| **Dao fragment** | Comprehended dao wired into a node | Pattern can affect dao-aligned targets |
+| **Law shard / talisman** | Heaven law, sect relic | Stabilise vs transcendent targets |
+| **Essence anchor** | Sun vein, moon pool, etc. | Essence-heavy tiers |
 
-**Complexity** scales with grade: more primitives, hybrid primaries, mandatory component slots, longer lay time, harsher upkeep. **Formation Master grade** caps both **max formation grade you can lay** and **max complexity** you can handle without catastrophic fail.
+**Complexity** scales with tier + grade + hybrids. **Formation Master tier** (profession) caps **max formation tier** you can lay and pattern complexity.
 
-### Power axes (revised)
+### Power axes
 
 | Axis | What it is | Drives |
 |------|------------|--------|
-| **Formation grade** | What **cultivation band** the pattern threatens at full power | 3rd-grade kill vs GC, not vs Immortal |
-| **Master grade + blueprint proficiency** | Inscriber skill | Fail chance, stability, % of grade ceiling |
-| **Manual condition** | Copy quality (fragment, smudged, intact) | Output % within grade — **not** cross-grade kills |
-| **Cultivator realm** | Your body’s cultivation | Backlash tolerance, exam access, how long you can sustain a lay |
+| **Formation tier** | Realm band the pattern targets | 3rd-tier vs GC, not vs Immortal |
+| **Formation grade** | Quality within that tier | Crude stymie vs peerless kill within band |
+| **Master tier + blueprint proficiency** | Profession + per-diagram skill | Lay success, stability, % of grade ceiling |
+| **Application mastery** *(stub)* | How well you **apply** patterns in the field | Natural/heavenly formations; above-tier tricks — see below |
+| **Cultivator realm** | Body cultivation | Backlash, exam access, sustain |
 
-**Dropped:** “peerless formation” as a quality tier that bypasses realm matching.
+### Above-tier effects (exceptions)
 
-### Above-grade effects — marrying “grade match” with formation-master fantasy
+**Default:** tier matches target band; grade sets how hard you hit **within** band.
 
-Grade alignment is the **default rule**. Occasional **above-grade** outcomes are still possible — but through **exceptions**, not a peerless scroll:
+Occasional **above-tier** outcomes use **exceptions** — not a low-tier crude pattern solo-killing an Immortal:
 
-| Exception | What happens | Limits |
-|-----------|--------------|--------|
-| **Stymie, don’t slay** | Lower-grade formation **slows, weakens, alarms, or pins briefly** a higher target | Kill denied; buys time for allies, second array, escape |
-| **Array stacking** | Multiple linked formations raise **effective grade** in one zone (+1 step typical, rare +2) | Months of prep, massive upkeep, burns out after spring |
-| **External amp** | Feed pattern with **overgrade materials** (spirit vein tap, sacrifice stone, borrowed relic) | **One activation** then formation scatters; rare mats |
-| **Target state** | Wounded, in tribulation, suppressed, arrogant inside your ground | Lowers target’s **effective defense grade** for this encounter only |
-| **Heaven rite array** | Off-ladder story patterns (basin ascension, etc.) | Not part of normal kill-trap progression; [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) |
+| Exception | Plain language | Typical bump |
+|-----------|----------------|--------------|
+| **Stymie only** | Lower **tier** pattern inconveniences higher target; kill denied | — |
+| **Array tier lift** | Several linked formations act as **one step higher tier** for one spring | **+1 tier** (e.g. two 2nd-tier nodes + link → behaves like 3rd-tier for activation) |
+| **Vein / material overcharge** | Tap spirit vein or burn over-tier materials to **force more power through** a pattern for one activation | **+1 tier** for that spring, then pattern scatters or needs repair |
+| **Target weakened** | Wounded, tribulation, suppressed | Lowers target’s **effective tier** for encounter |
+| **Heaven rite array** | Story off-ladder patterns | Roots / ascension rites |
 
-**Formation-master playthrough at parity:** Nascent Soul master lays **4th-grade** traps for Nascent Soul enemies — wins by **preparation, luring, hybrids, arrays**, not by 2nd-grade pattern one-shotting an Immortal.
+**What “+1” meant:** temporarily treat the formation as **one tier higher** than its blueprint — e.g. a **2nd-tier** kill ground with array lift **+1** hits like **3rd-tier** for that one spring. **Vein overcharge +1** is the same bump from **external fuel**, not from linking extra nodes.
 
-**Rare myth beat (optional):** 3rd-grade base + array stack + vein overcharge + Immortal already crippled = narratively “a formation killed an immortal” — **three exceptions stacked**, not one broken grade.
+**Open:** whether array lift and vein overcharge **both** apply in one spring (myth-tier only) or only one — owner TBD.
+
+**Formation-master fantasy at parity:** 3rd-tier peerless kill ground vs Golden Cores; win via **lure + prep**, not tier mismatch.
+
+### Application mastery & natural formations *(stub — needs tweaking)*
+
+Separate from **Formation Master tier** (what tier blueprint you can **lay**):
+
+**Application mastery** = how skilled you are at **using** formations in the real world — reading terrain, borrowing landscape, timing springs.
+
+| Milestone *(names TBD)* | Fiction | Game hook |
+|-------------------------|---------|-----------|
+| **Inscribed patterns** | Flags, stones, drawn lines | Default — anchors on sect/residence |
+| **Natural formation** *(name TBD)* | Mountains, rivers, forests **are** the array; you trace connections, not import materials | Unlock via high application mastery; site-specific; no portable blueprint |
+| **Heavenly formation** *(name TBD)* | Mandate-scale — sky, thunder, ley lines | Endgame / rite-adjacent; extreme mastery + world event |
+
+Owner lean: mastery unlocks **environment-as-formation**, not bypassing tier rules for free. A natural 3rd-tier still targets GC band — but you didn’t haul spirit stones; you **woke** the valley. Needs heavy design pass; stub only.
 
 ### Example compositions
 
-| Blueprint | Grade | Primary | Primitives | Notes |
-|-----------|-------|---------|------------|-------|
-| Spirit Gathering | 1st | Gather | Sink → Channel → Pool (+ Seal) | v1 shipped — treat as 1st-grade |
-| Qi Stabilizer | 2nd | Stabilise | Pool + Seal (+ Channel) | FE-band support |
-| Iron Wall Ward | 2nd | Ward | Ward + Seal (+ Channel) | Perimeter anchor |
-| Golden Core Slayer *(kill)* | 3rd | Kill | Trap + Sever + Seal | Credible vs GC **inside** pattern; master grade ≥ 3 |
-| Blood Harvest *(hybrid)* | 3rd | Gather + Kill | Sever → Channel → Pool | Hybrid complexity; master grade ≥ 4 |
-| Dao Suppression Lattice | 6th | Trap + Ward | Trap + Ward + **Dao node** | Requires dao fragment component |
-| Sun Condensation Plate | 3rd | Condense | Sink → Condense → Pool | Essence site + array scale later |
+| Blueprint | Tier | Grade *(stub)* | Primary | Notes |
+|-----------|------|----------------|---------|-------|
+| Spirit Gathering | 1st | common | Gather | v1 shipped |
+| Qi Stabilizer | 2nd | common | Stabilise | FE-band |
+| Iron Wall Ward | 2nd | common | Ward | Perimeter |
+| Golden Core Slayer | 3rd | superior+ | Kill | Peerless → kills most GC; crude → mostly stymie |
+| Blood Harvest | 3rd | superior | Gather + Kill | Hybrid |
+| Dao Suppression Lattice | 6th | — | Trap + Ward | Dao component required |
+| Sun Condensation Plate | 3rd | common | Condense | Essence site later |
 
 **Arrays** reuse the same primitives at larger scale: more physical **anchors** (flags/stones), longer **Channels**, shared **Pools** between sub-formations.
 
@@ -214,40 +244,37 @@ Grade alignment is the **default rule**. Occasional **above-grade** outcomes are
 
 ## Formation Master (profession)
 
-Being a formation master is **dedication**, not a side perk. Most cultivators **use** formations; fewer **inscribe** them. Profession **grade** gates what you may attempt; **blueprint proficiency** gates how well you lay a specific diagram.
+Being a formation master is **dedication**, not a side perk. Most cultivators **use** formations; fewer **inscribe** them. Profession **tier** gates max **formation tier** you may lay; **blueprint proficiency** gates how well you lay a specific diagram.
 
-### Four tracked axes (summary)
+### Tracked axes (summary)
 
 | Axis | What it measures | How it rises |
 |------|------------------|--------------|
-| **Master grade** | Max formation grade + complexity you can lay | Grade exams, FI |
-| **Blueprint proficiency** | Skill on *one* diagram | Trace, lays, upkeep months |
-| **Formation grade** | What realm band the **pattern** threatens | Blueprint itself (manual tier) |
-| **Manual condition** | Copy quality | Better loot, annotation, sect copy |
-| **Cultivator realm** | Your body’s cultivation | Normal cultivation — backlash, exam access |
+| **Master tier** | Max formation **tier** + complexity you can lay | Tier exams, FI |
+| **Blueprint proficiency** | Skill on *one* diagram | Trace, lays, upkeep |
+| **Formation tier** | Realm band pattern targets | Blueprint |
+| **Formation grade** | Effectiveness within tier | Better manual, materials, annotation |
+| **Application mastery** *(stub)* | Field skill — natural/heavenly use | Terrain wins, springs, rare teachings |
+| **Cultivator realm** | Body cultivation | Backlash, exams |
 
-**Formation Dao** (late game, optional): unlock **hybrid design** and legendary patterns — analogous to Dao Seeking, **not** the early profession ladder. Reserve “Dao” for that track; early UI says **Formation Master grade** or **Inscriber**.
+**Formation Dao** (late game): hybrid **design** + legendary patterns — not the early profession ladder. UI: **Formation Master tier** or **Inscriber**.
 
-### Master grade vs formation grade
+### Master tier vs formation tier
 
-**Owner direction:** Formation Master **grade** should **align with what they can lay** — primarily **max formation grade** and **max pattern complexity** (primitives, hybrids, mandatory dao/law slots).
-
-| Master grade | Title (working) | Max formation grade | Complexity |
-|--------------|-----------------|----------------------|------------|
-| **0** | Uninitiated | — (use hired only) | — |
-| **1** | Pattern Student | 1st | Single primary, ≤4 primitives |
-| **2** | Inscriber | 2nd | Single primary, standard seals |
+| Master tier | Title (working) | Max formation tier | Complexity |
+|-------------|-----------------|----------------------|------------|
+| **0** | Uninitiated | — (hire only) | — |
+| **1** | Pattern Student | 1st | ≤4 primitives |
+| **2** | Inscriber | 2nd | Single primary |
 | **3** | Formation Adept | 3rd | Talismans; simple hybrids |
-| **4** | Array Disciple | 4th | Multi-node array **assist**; essence sites |
-| **5** | Formation Master | 5th | Equipment inscription; full hybrids |
-| **6** | Array Master | 6th | Compose arrays; **dao component** integration |
-| **7** | Grand Formationist | 7th | Rite-grade arrays (with law/heaven mats) |
+| **4** | Array Disciple | 4th | Array assist; essence sites |
+| **5** | Formation Master | 5th | Gear inscription; full hybrids |
+| **6** | Array Master | 6th | Arrays + dao components |
+| **7** | Grand Formationist | 7th | Rite-grade with law/heaven mats |
 
-Promotion still via **exam + FI** (not a comprehend button). Exam = lay a **standard pattern at your current max grade**.
+Promotion via **exam + FI** — lay standard pattern at current max **tier**.
 
-**Cultivator realm** remains a **soft gate** for exams and backlash — a genius QC student might reach master grade 1, but cannot safely attempt 3rd-grade lay until realm and materials catch up.
-
-### Grade advancement (not a comprehend button)
+### Tier advancement (not a comprehend button)
 
 Promotion is a **trial**, not `+1 Formation Level`:
 
@@ -255,7 +282,7 @@ Promotion is a **trial**, not `+1 Formation Level`:
 2. **Proof lay** — inscribe a **standard exam pattern** at a sect hall or borrowed anchor (materials + months; failure delays retry).
 3. **Optional witness** — sect formation elder, or NPC master for rogue cultivators.
 
-Failed exam: materials lost, cooldown, no grade-up. Success: master grade increases, log flavour, maybe sect rep.
+Failed exam: materials lost, cooldown. Success: **master tier** increases.
 
 FI sources: trace sessions, successful first lays, months maintaining active patterns, repairing scattered patterns, array assistant duty, deciphering manuals.
 
@@ -263,18 +290,16 @@ FI sources: trace sessions, successful first lays, months maintaining active pat
 
 ## Hired inscription (always allowed)
 
-No run has time to learn every pattern. **Hiring an outside formation master** to decipher, lay, or maintain is **always valid** — markets, sect commissions, rogue masters, allied sect elders.
+No run has time to learn every pattern. **Hiring an outside formation master** to decipher, lay, or maintain is **always valid**.
 
 | Who lays | Player gets | Player does not get |
 |----------|-------------|---------------------|
-| **Hired NPC** | Active pattern at NPC’s skill level; saves your months | Formation Insight, blueprint proficiency, master grade progress |
+| **Hired NPC** | Active pattern at NPC’s skill level; saves your months | FI, blueprint proficiency, master tier progress |
 | **Self** | Proficiency + FI + full control | Time, materials, fail risk |
 
-**Early game default:** cultivator main path hires gather/ward at residence while focusing on realm grind. **Formation-master run** inverts that — you lay and maintain yourself, hire **muscle or bait** instead.
+**Cost model:** stones + materials + months. Higher **formation tier** or secrecy → premium. 6th-tier work needs NPC **master tier ≥ 6** + dao access.
 
-**Cost model:** stones + materials + months (NPC queue) + sometimes rep/favour. Higher **formation grade** or secrecy → premium. 6th-grade work requires NPC with **master grade ≥ 6** and dao-component access.
-
-**Sect disciples (later):** in-house formation specialist disciple = recurring salary vs one-off hire.
+**Sect disciples (later):** in-house formation specialist = recurring salary vs one-off hire.
 
 ---
 
@@ -284,14 +309,14 @@ Formations are a **viable main identity**, not a side job for every build.
 
 | Cultivator main | Formation Master main |
 |-----------------|----------------------|
-| Realm + combat techniques first | Master grade + blueprint catalog first |
+| Realm + combat techniques first | Master tier + blueprint catalog first |
 | Hires formations as needed | Cultivates enough realm to survive backlash; wins via traps, wards, arrays |
 | Personal fight power | **Pattern power** — talismans, gear inscriptions, sprung kills |
 | Sect = cultivate hall + income | Sect = **anchor network**, array hall, material pipeline |
 
-**Whole playthrough fantasy:** start Pattern Student, never strongest in a straight duel, but **at parity** you delete targets who step on your 3rd-grade kill ground; at high tier you weave **arrays**, **dao nodes**, and **lures**. Reincarnation carries blueprint unlocks and sect array reclaim.
+**Whole playthrough fantasy:** at parity, **peerless 3rd-tier** kill ground vs Golden Cores who walk in; later **arrays**, **dao nodes**, **natural formations** (mastery stub). Reincarnation carries blueprints + sect array reclaim.
 
-**Balance guardrails:** kill **above** formation grade requires **stacked exceptions** (stymie, array +1, overcharge mats, wounded target) — not a single scroll. Most play is grade-matched preparation fantasy.
+**Balance guardrails:** kill **above formation tier** needs **stacked exceptions** (stymie, array +1 tier, vein overcharge, wounded target). Within tier, **grade** sets crude stymie vs peerless kill.
 
 ---
 
@@ -299,7 +324,7 @@ Formations are a **viable main identity**, not a side job for every build.
 
 **Problem:** looting a manual and instantly laying feels wrong. **Also wrong:** one global “Comprehend Formation +1” button.
 
-**Solution:** manual → **diagram state** on shelf; **master grade + proficiency** gate real inscription.
+**Solution:** manual → **diagram state** on shelf; **master tier + proficiency** gate real inscription.
 
 ### Pipeline stages
 
@@ -310,37 +335,37 @@ Acquire → Decipher → Trace (×N) → First Lay → Maintain → Master copy
 | Stage | Player action | Time / cost | Outcome |
 |-------|---------------|-------------|---------|
 | **Acquire** | Loot, buy, sect grant, residence upgrade | — | Manual on **formation shelf** (separate from combat manuals) |
-| **Decipher** | Study at library / formation hall / quarters | Months + optional stones | Diagram readable; know primary + primitive list; **cannot lay yet** if master grade too low |
+| **Decipher** | Study at library / formation hall / quarters | Months + optional stones | Readable diagram; **cannot lay** if master tier too low for blueprint **tier** |
 | **Trace** | Practice on **sand table** or scrap anchor | 1–3 sessions: cheap mats + months each | Blueprint proficiency → “ready for first lay”; lowers first-lay fail chance |
 | **First lay** | Real anchor, full `layCost` | Materials + months | On success: pattern active + proficiency tier 1; on fail: partial material loss, retry |
 | **Maintain** | Pay upkeep each period | Recurring | Proficiency slowly rises; output approaches blueprint cap |
 | **Master copy** | High proficiency on this blueprint | — | Lay faster, cheaper reinscribe, or +output band (per-diagram mastery reward) |
 
-### What master grade gates vs what proficiency gates
+### What master tier gates vs what proficiency gates
 
 | Action | Gated by |
 |--------|----------|
-| Decipher manual | Realm (read complexity), sometimes sect access |
-| Trace practice | Master grade ≥ 1 |
-| First lay of 1st-grade qi formation | Master grade ≥ 2, proficiency ready |
-| Lay 3rd-grade kill pattern | Master grade ≥ 3 |
-| Essence formation at tagged site | Master grade ≥ 4 |
-| Talisman of pattern | Master grade ≥ 3 + proficiency ≥ tier 2 |
-| Inscribe gear | Master grade ≥ 5 |
-| Hybrid / 6th-grade (dao component) | Master grade ≥ 6; Formation Dao for design |
+| Decipher manual | Realm, sect access |
+| Trace practice | Master tier ≥ 1 |
+| First lay, 1st-tier formation | Master tier ≥ 2, proficiency ready |
+| Lay 3rd-tier kill pattern | Master tier ≥ 3 |
+| Essence formation at tagged site | Master tier ≥ 4 |
+| Talisman | Master tier ≥ 3 + proficiency ≥ 2 |
+| Inscribe gear | Master tier ≥ 5 |
+| Hybrid / 6th-tier + dao | Master tier ≥ 6 |
 
 ### Manual types
 
 | Type | Learning feel |
 |------|----------------|
-| **Complete diagram** | Full pipeline; standard proficiency curve |
-| **Fragment** | Decipher yields partial primitives — trace more sessions; or ambient-only until missing chapter found |
-| **Copied / smudged** | Higher fail until master grade rises; good for grade-1 practice |
-| **Sect inheritance** | Residence upgrade grants **elder-traced starter** — fiction: they laid it once for you; you still decipher to maintain alone |
+| **Complete diagram** | Full pipeline |
+| **Fragment** | More trace sessions; missing grade ceiling until completed |
+| **Copied / smudged** | Higher fail; lower effective **grade** within tier |
+| **Sect inheritance** | Elder-traced starter; player still deciphers to maintain |
 
 ### v1 migration note
 
-Current `learnOnResidenceLevel` auto-push to `knownFormations` is **bootstrap** (elder traces starter patterns). When F1 lands, convert to: grant **manual to formation shelf** + auto-decipher for master grade 1–2 tutorial, or elder NPC lays first copy without skipping profession intro.
+Current `learnOnResidenceLevel` auto-push to `knownFormations` is **bootstrap** (elder traces starter patterns). When F1 lands: manual to **formation shelf** + auto-decipher for master tier 1–2 tutorial, or elder lays first copy.
 
 ---
 
@@ -348,8 +373,9 @@ Current `learnOnResidenceLevel` auto-push to `knownFormations` is **bootstrap** 
 
 ```js
 G.formationMaster = {
-  grade: 0,                   // master grade 0–7; caps layable formation grade
+  tier: 0,                    // profession tier 0–7; caps layable formation tier
   insight: 0,
+  applicationMastery: 0,      // stub — natural/heavenly formations
   lastExamMonth: null,
   examCooldownMonths: 6
 };
@@ -357,8 +383,9 @@ G.formationMaster = {
 G.formationShelf = {
   spirit_gathering: {
     source: 'residence_grant',
-    formationGrade: 1,        // realm-aligned pattern grade
-    manualCondition: 'intact', // fragment | smudged | intact
+    formationTier: 1,
+    formationGrade: 'common',   // crude | common | superior | peerless
+    manualCondition: 'intact',
     deciphered: true,
     proficiency: 2,
     traceSessionsDone: 2,
@@ -366,7 +393,7 @@ G.formationShelf = {
   }
 };
 
-G.knownFormations = [];       // IDs player may lay (deciphered + master grade OK) — or derive from shelf
+G.knownFormations = [];       // derive from shelf + master tier
 G.sect.residence.formations.slots = [];
 ```
 
