@@ -434,13 +434,15 @@ From the profession table — **this is the rough unlock idea**; F1b only needs 
 | **1** Pattern Student | **1st**-tier | Spirit Gathering |
 | **2** Inscriber | **2nd**-tier | Qi Stabilizer (and Iron Wall when implemented) |
 
-**F1b stub lean (proposed, not coded):**
+**F1b stub lean (proposed — owner lean 2026-07-22):**
 
-- New characters start **master tier 1** (or bump to 1 on first residence grant) so Spirit Gathering is not blocked.
-- Residence grant for Qi Stabilizer also bumps master tier to **2** if below (elder teaching), **or** player must already be 2 — prefer auto-bump on grant so courtyard never soft-locks.
-- Exams / FI / promotion UI → **F2**.
+- Formations are a **profession / art**, not free residence loot. Do **not** auto-teach a full catalog on upgrade.
+- **At most one starter:** a simple **1st-tier qi gathering** diagram (Spirit Gathering or a thinner tutorial variant) — either pre-deciphered on first meaningful residence, or a free unread manual you still Decipher once so the verb is taught.
+- **Everything else** (Qi Stabilizer, wards, later patterns) arrives **unread** via market / loot / sect copy and must be **Deciphered**; master tier must allow that formation’s tier to lay.
+- Master tier starts at **0** or **1** only to enable that single starter — not auto-bumped to 2 by residence upgrades. Reaching **Inscriber (2)** is study/profession progress (even if F1b only stubs the number and F2 adds exams).
+- Soft-lock guard: if the player has courtyard slots but no gathering diagram yet, surface the starter path clearly (elder gift / market “novice diagram”) — do not dump Stabilizer for free.
 
-No need to invent new unlock fantasy for 0–2 until content outgrows “two courtyard patterns.”
+Exams / FI / promotion UI → **F2**.
 
 ### F1b acquire & content (elaboration)
 
@@ -450,17 +452,19 @@ No need to invent new unlock fantasy for 0–2 until content outgrows “two cou
 
 | Channel | Effort | Fiction | F1b fit |
 |---------|--------|---------|---------|
-| **A. Residence grant → shelf** | Low | Elder leaves a diagram when you upgrade quarters | **Must ship** — migrate existing grants onto shelf as `source: residence_grant`, `deciphered: true` (or auto-decipher on grant) |
-| **B. Market / auction formation manuals** | Medium | Buy unread manuals with stones | Strong “second path” — 1–2 SKUs (e.g. smudged Spirit Gathering duplicate, or a third 1st-tier gather/ward stub) |
-| **C. Explore / loot drop** | Medium | Rare manual in ruins / sealed sites | Flavorful; needs loot table hook |
+| **A. One starter gathering diagram** | Low | Elder / first quarters gift — **only** simple qi gather | **Must ship** — at most this one is free or nearly free; not a full catalog |
+| **A′. Residence upgrade grants (legacy)** | — | Auto-learn Stabilizer etc. on level-up | **Replace** — owner lean: no free profession unlocks beyond the starter gather |
+| **B. Market / auction formation manuals** | Medium | Buy unread manuals with stones | **Primary study path** for anything beyond starter |
+| **C. Explore / loot drop** | Medium | Rare manual in ruins / sealed sites | Secondary |
 | **D. Sect library copy** | Higher | Copy after founded | Fine later; conflicts with “decipher without sect” if it’s the *only* path |
 | **E. Hire decipher** | Parked | Pay NPC to skip Decipher months | Matches hire fantasy; skip UI in F1b |
 
 **Recommendation for F1b:**
 
-1. **Migrate A** — all current known manuals become shelf entries; residence upgrades still grant, but write shelf rows (pre-deciphered).
-2. **Add one B or C source** so Decipher is a real verb at least once — e.g. market sells **“Incomplete Spirit Diagram”** (unread, cheap, months to decipher) *or* a third blueprint stub (`mist_veil` conceal 1st-tier, residence-ok) sold unread.
-3. Without **B or C**, ship shelf UI anyway but treat Decipher as latent until the next content drop — worse for playtest.
+1. **Starter only** — one simple qi-gathering path onto the shelf (teach Decipher if unread, or hand over deciphered once).
+2. **Stop** `learnOnResidenceLevel` auto-grants for Stabilizer (and any future patterns) — those become market/loot unread manuals.
+3. **Market (B)** sells at least Qi Stabilizer unread (needs master tier 2 to lay after decipher) so study/profession has a next step.
+4. Migrate existing saves: known formations stay on shelf as already deciphered; new runs follow the stricter path.
 
 **Lay vs decipher without a sect:**
 
@@ -559,18 +563,17 @@ G.sect.residence.formations.slots = [
 - [x] Neglect = inscription integrity (fade/decay), **not** defensive hit-HP (owner 2026-07-22)
 - [x] Activation switch — laid ≠ running; arrays expensive while on (owner 2026-07-22)
 - [x] Command talisman for remote / emergency flip (owner 2026-07-22)
-- [x] Learn pipeline thin path — F1b = shelf + decipher; Trace later (owner 2026-07-22)
-- [x] Decipher at residence / personal dwelling — not gated on founding a sect (owner 2026-07-22)
-- [x] Master 0–2 unlocks = existing table (1st / 2nd formation tier); stub only in F1b, exams in F2
-- [ ] Owner OK: F1b second acquire — market unread manual vs loot vs shelf-only + latent Decipher
-- [ ] Owner OK: third blueprint stub for unread acquire, or reuse smudged Spirit Gathering
+- [x] Starter lean: at most one simple qi-gather formation free/near-free; rest is study (owner 2026-07-22)
+- [ ] Owner OK: starter = pre-deciphered gift vs unread tutorial Decipher once
+- [ ] Owner OK: F1b market sells Stabilizer unread (and/or loot); drop residence auto-learn beyond starter
 - [ ] Owner OK: use-scaled fuel drain (later) vs flat draw while active only
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
-- **F1b unread source:** market SKU, explore loot, or defer real Decipher until more content?
-- **Third courtyard pattern?** Small 1st-tier (mist/conceal) vs “smudged copy of Spirit Gathering” only
+- **Starter delivery:** free deciphered Spirit Gathering on first quarters, or unread novice diagram you Decipher once?
+- **Master tier 2 in F1b:** stub number only (cheat/debug / placeholder bump), or tiny “prove you maintained gather for N months → tier 2” without full exams?
+- **F1b unread source:** market SKU for Stabilizer, explore loot, or both?
 - **Wanderer lay:** keep lay-behind-sect for F1b, or allow a camp/personal slot later?
 - **Standby cost:** true zero fuel when off, or a tiny “keep the eye warm” sip so arrays feel alive?
 - **Command talisman:** one-shot burn vs rechargeable seal; who can craft (master grade)?
