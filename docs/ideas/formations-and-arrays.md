@@ -629,7 +629,7 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 
 ### F2 open calls for owner
 
-- [ ] F2a first (anchors) vs F2b first (exams)?
+- [x] **F2a first** (anchors), then F2b exams (owner 2026-07-22)
 - [ ] First non-residence anchor: meditation chamber vs defense array?
 - [ ] Decipher stops promoting at tier 1 or at tier 2 once exams exist?
 - [ ] Iron Wall in F2a, or a simpler “Mountain Ward” stub?
