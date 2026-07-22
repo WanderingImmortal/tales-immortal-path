@@ -3070,8 +3070,24 @@ header .subtitle {
     padding: 6px 10px !important;
 }
 
-.sect-formation-scattered-hint {
-    color: #c08060;
+.sect-formation-shelf-badge {
+    font-size: 11px;
+    margin-left: 6px;
+    font-weight: 600;
+}
+
+.sect-formation-shelf-badge.is-unread {
+    color: #c8a060;
+}
+
+.sect-formation-shelf-badge.is-ready {
+    color: #80c080;
+}
+
+.sect-formation-decipher-btn {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+    margin-top: 6px;
 }
 
 .sect-formation-manual-list {

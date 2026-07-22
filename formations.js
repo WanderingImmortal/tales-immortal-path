@@ -1,6 +1,7 @@
 // ============================================
-// FORMATIONS.JS — Residence formations (F1a)
-// Fuel + activation switch + inscription integrity
+// FORMATIONS.JS — Residence formations (F1a + F1b)
+// F1a: fuel + activation + integrity
+// F1b: shelf + decipher + master tier stub 0–2
 // ============================================
 
 function getFormationF1aConfig() {
@@ -18,8 +19,22 @@ function getFormationF1aConfig() {
     };
 }
 
+function getFormationF1bConfig() {
+    return typeof FORMATION_F1B !== 'undefined' ? FORMATION_F1B : {
+        decipherMonthsByTier: { 1: 2, 2: 3, 3: 4 },
+        decipherStonesByTier: { 1: 6, 2: 14, 3: 28 },
+        masterTitles: { 0: 'Uninitiated', 1: 'Pattern Student', 2: 'Inscriber', 3: 'Formation Adept' }
+    };
+}
+
 function ensureFormationState() {
     if (!G.knownFormations) G.knownFormations = [];
+    if (!G.formationShelf || typeof G.formationShelf !== 'object') G.formationShelf = {};
+    if (!G.formationMaster || typeof G.formationMaster !== 'object') {
+        G.formationMaster = { tier: 0, insight: 0 };
+    }
+    if (G.formationMaster.tier == null) G.formationMaster.tier = 0;
+    if (G.formationMaster.insight == null) G.formationMaster.insight = 0;
     ensureSectState();
     if (!G.sect.residence) {
         G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
@@ -28,14 +43,43 @@ function ensureFormationState() {
     if (!Array.isArray(G.sect.residence.formations.slots)) {
         G.sect.residence.formations.slots = [];
     }
+    migrateKnownFormationsToShelf();
     ensureResidenceFormationSlots();
+}
+
+function migrateKnownFormationsToShelf() {
+    if (!Array.isArray(G.knownFormations)) G.knownFormations = [];
+    G.knownFormations.forEach(id => {
+        const def = getFormationDef(id);
+        if (!def || def.implemented === false) return;
+        if (!G.formationShelf[id]) {
+            G.formationShelf[id] = {
+                formationId: id,
+                source: 'migrated',
+                deciphered: true,
+                manualCondition: 'intact'
+            };
+        } else if (!G.formationShelf[id].deciphered) {
+            G.formationShelf[id].deciphered = true;
+        }
+        const need = def.formationTier || 1;
+        if ((G.formationMaster.tier || 0) < need) G.formationMaster.tier = need;
+    });
+    syncKnownFormationsFromShelf();
+}
+
+function syncKnownFormationsFromShelf() {
+    const deciphered = Object.values(G.formationShelf || {})
+        .filter(e => e && e.deciphered && getFormationDef(e.formationId))
+        .map(e => e.formationId);
+    G.knownFormations = [...new Set(deciphered)];
 }
 
 function migrateFormationsForExistingSave() {
     ensureFormationState();
     const residenceLv = typeof getResidenceLevel === 'function' ? getResidenceLevel() : (G.sect?.residence?.level || 0);
     for (let lv = 1; lv <= residenceLv; lv++) {
-        grantFormationsForResidenceLevel(lv, { silent: true });
+        grantStarterFormationManualForResidenceLevel(lv, { silent: true });
     }
     ensureResidenceFormationSlots();
 }
@@ -44,30 +88,162 @@ function getFormationDef(formationId) {
     return typeof FORMATIONS !== 'undefined' ? FORMATIONS[formationId] : null;
 }
 
+function getFormationMasterTier() {
+    ensureFormationState();
+    return G.formationMaster.tier || 0;
+}
+
+function getFormationMasterTitle(tier) {
+    const cfg = getFormationF1bConfig();
+    const t = tier != null ? tier : getFormationMasterTier();
+    return cfg.masterTitles[t] || `Tier ${t}`;
+}
+
+function getFormationShelfEntry(formationId) {
+    ensureFormationState();
+    return G.formationShelf[formationId] || null;
+}
+
+function isFormationDeciphered(formationId) {
+    return !!getFormationShelfEntry(formationId)?.deciphered;
+}
+
+/** True if the blueprint is deciphered and master tier allows its formation tier. */
 function knowsFormation(formationId) {
-    return Array.isArray(G.knownFormations) && G.knownFormations.includes(formationId);
+    const def = getFormationDef(formationId);
+    if (!def || def.implemented === false) return false;
+    if (!isFormationDeciphered(formationId)) return false;
+    const need = def.formationTier || 1;
+    return getFormationMasterTier() >= need;
 }
 
 function learnFormation(formationId, options) {
+    // Backward-compatible: treat as granting a deciphered manual (legacy callers / tests).
+    return grantFormationManual(formationId, {
+        silent: !!options?.silent,
+        deciphered: true,
+        source: options?.source || 'learn'
+    });
+}
+
+/**
+ * Put a formation manual on the personal shelf (unread or deciphered).
+ * Not gated on founding a sect.
+ */
+function grantFormationManual(formationId, options) {
     ensureFormationState();
     const def = getFormationDef(formationId);
     if (!def || def.implemented === false) return false;
-    if (knowsFormation(formationId)) return false;
-    G.knownFormations.push(formationId);
+    const deciphered = !!options?.deciphered;
+    const existing = G.formationShelf[formationId];
+    if (existing) {
+        if (deciphered && !existing.deciphered) {
+            existing.deciphered = true;
+            syncKnownFormationsFromShelf();
+            if (!options?.silent) {
+                addLog(`📜 ${def.emoji} ${def.name} diagram clarified on your shelf.`);
+            }
+            return true;
+        }
+        if (!options?.silent) {
+            addLog(`📜 You already keep a copy of ${def.name}.`);
+        }
+        return false;
+    }
+    G.formationShelf[formationId] = {
+        formationId,
+        source: options?.source || 'unknown',
+        deciphered,
+        manualCondition: options?.manualCondition || 'intact'
+    };
+    if (deciphered) {
+        syncKnownFormationsFromShelf();
+        const need = def.formationTier || 1;
+        if (getFormationMasterTier() < need) G.formationMaster.tier = need;
+    }
     if (!options?.silent) {
-        addLog(`📜 Formation manual comprehended: ${def.emoji} ${def.name}.`);
+        if (deciphered) {
+            addLog(`📜 Formation diagram mastered: ${def.emoji} ${def.name}.`);
+        } else {
+            addLog(`📜 Unread formation manual shelved: ${def.emoji} ${def.name}. Decipher it at your residence.`);
+        }
     }
     return true;
 }
 
-function grantFormationsForResidenceLevel(level, options) {
+/** F1b: only the unread starter gather — not a free catalog. */
+function grantStarterFormationManualForResidenceLevel(level, options) {
     if (typeof FORMATIONS === 'undefined') return;
     Object.values(FORMATIONS).forEach(def => {
         if (def.implemented === false) return;
-        if (def.learnOnResidenceLevel === level) {
-            learnFormation(def.id, { silent: !!options?.silent });
+        if (def.starterUnreadOnResidenceLevel === level) {
+            grantFormationManual(def.id, {
+                silent: !!options?.silent,
+                deciphered: false,
+                source: 'residence_starter'
+            });
         }
     });
+}
+
+/** @deprecated Use grantStarterFormationManualForResidenceLevel — kept for old call sites. */
+function grantFormationsForResidenceLevel(level, options) {
+    grantStarterFormationManualForResidenceLevel(level, options);
+}
+
+function getDecipherFormationMonths(def) {
+    const cfg = getFormationF1bConfig();
+    const tier = def?.formationTier || 1;
+    return cfg.decipherMonthsByTier[tier] ?? cfg.decipherMonthsByTier[1] ?? 2;
+}
+
+function getDecipherFormationStones(def) {
+    const cfg = getFormationF1bConfig();
+    const tier = def?.formationTier || 1;
+    return cfg.decipherStonesByTier[tier] ?? cfg.decipherStonesByTier[1] ?? 6;
+}
+
+function getDecipherFormationBlockReason(formationId) {
+    ensureFormationState();
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot study formations right now.';
+    if (G.inCombat) return 'Cannot decipher during combat.';
+    const def = getFormationDef(formationId);
+    if (!def) return 'Unknown formation.';
+    if (def.implemented === false) return `${def.name} is not yet available.`;
+    const entry = getFormationShelfEntry(formationId);
+    if (!entry) return 'No manual of this pattern on your shelf.';
+    if (entry.deciphered) return 'Already deciphered.';
+    const stones = getDecipherFormationStones(def);
+    if ((G.stones || 0) < stones) return `Need ${stones} Spirit Stones to focus the diagram.`;
+    return null;
+}
+
+/**
+ * Study an unread shelf manual at residence (or anywhere personal — not sect-gated).
+ * Completing decipher sets deciphered and raises master tier to the diagram's formation tier (F1b thin promotion).
+ */
+function decipherFormation(formationId) {
+    const block = getDecipherFormationBlockReason(formationId);
+    if (block) return { success: false, message: block };
+    const def = getFormationDef(formationId);
+    const entry = getFormationShelfEntry(formationId);
+    const months = getDecipherFormationMonths(def);
+    const stones = getDecipherFormationStones(def);
+    G.stones -= stones;
+    if (!advanceTime(months, `Deciphering ${def.name}`)) {
+        G.stones += stones;
+        return { success: false, message: 'Your lifespan ends before the diagram yields.' };
+    }
+    entry.deciphered = true;
+    syncKnownFormationsFromShelf();
+    const need = def.formationTier || 1;
+    const beforeTier = getFormationMasterTier();
+    if (beforeTier < need) G.formationMaster.tier = need;
+    const promoted = getFormationMasterTier() > beforeTier;
+    const title = getFormationMasterTitle();
+    let msg = `${def.emoji} ${def.name} deciphered — the lines are readable.`;
+    if (promoted) msg += ` Formation Master: ${title} (tier ${getFormationMasterTier()}).`;
+    return { success: true, message: msg };
 }
 
 function getResidenceFormationSlotCount() {
@@ -236,7 +412,16 @@ function getLayFormationBlockReason(slotIndex, formationId) {
     if (!def) return 'Unknown formation.';
     if (def.implemented === false) return `${def.name} is not yet available.`;
     if (def.deploy !== 'residence') return 'This formation cannot be laid at your quarters.';
-    if (!knowsFormation(formationId)) return `You have not comprehended ${def.name}.`;
+    if (!knowsFormation(formationId)) {
+        if (!isFormationDeciphered(formationId)) {
+            if (getFormationShelfEntry(formationId)) {
+                return `Decipher ${def.name} on your formation shelf first.`;
+            }
+            return `You have no manual for ${def.name}.`;
+        }
+        const need = def.formationTier || 1;
+        return `Requires Formation Master tier ${need} (${getFormationMasterTitle(need)}) to lay.`;
+    }
     if ((def.minResidenceLevel || 1) > residenceLv) {
         return `Requires residence level ${def.minResidenceLevel}.`;
     }
@@ -524,15 +709,64 @@ function formatFormationSlotStatusHtml(slot) {
     </div>`;
 }
 
+function renderFormationShelfHtml() {
+    ensureFormationState();
+    const tier = getFormationMasterTier();
+    const title = getFormationMasterTitle(tier);
+    let html = `<div class="sect-section-title">📜 Formation Shelf</div>`;
+    html += `<p class="sect-hint">Master: <strong>${title}</strong> (tier ${tier}) — caps which formation tiers you may lay. Decipher unread manuals here (no Trace yet).</p>`;
+
+    const entries = Object.values(G.formationShelf || {}).sort((a, b) => {
+        const na = getFormationDef(a.formationId)?.name || a.formationId;
+        const nb = getFormationDef(b.formationId)?.name || b.formationId;
+        return na.localeCompare(nb);
+    });
+
+    if (!entries.length) {
+        html += `<p class="sect-hint">No formation manuals yet. Upgrade quarters for a novice gather diagram, or buy one at a market.</p>`;
+        return html;
+    }
+
+    html += `<ul class="sect-formation-manual-list">`;
+    entries.forEach(entry => {
+        const def = getFormationDef(entry.formationId);
+        if (!def) return;
+        const ft = def.formationTier || 1;
+        if (entry.deciphered) {
+            const canLay = knowsFormation(def.id);
+            const layNote = canLay
+                ? 'Ready to lay'
+                : `Deciphered — need Master tier ${ft} to lay`;
+            html += `<li>${def.emoji} <strong>${def.name}</strong> <span class="sect-formation-shelf-badge is-ready">${layNote}</span>
+                <div class="sect-hint">${def.desc} · ${ft}${ft === 1 ? 'st' : ft === 2 ? 'nd' : 'th'}-tier</div>
+            </li>`;
+        } else {
+            const months = getDecipherFormationMonths(def);
+            const stones = getDecipherFormationStones(def);
+            const block = getDecipherFormationBlockReason(def.id);
+            html += `<li>${def.emoji} <strong>${def.name}</strong> <span class="sect-formation-shelf-badge is-unread">Unread</span>
+                <div class="sect-hint">${def.desc}</div>
+                <button type="button" class="sect-action-btn sect-formation-decipher-btn" data-formation-decipher="${def.id}"
+                    ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
+                    Decipher (${months} mo · ${stones}💎)
+                </button>
+            </li>`;
+        }
+    });
+    html += `</ul>`;
+    return html;
+}
+
 function renderResidenceFormationsHtml() {
     ensureFormationState();
     const cfg = getFormationF1aConfig();
     const slotCount = getResidenceFormationSlotCount();
     const residenceLv = getResidenceLevel();
-    let html = `<div class="sect-section-title">☯️ Courtyard Formations</div>`;
+    let html = renderFormationShelfHtml();
+    html += `<div class="sect-section-title">☯️ Courtyard Formations</div>`;
 
     if (residenceLv < 1) {
-        html += `<p class="sect-hint">Upgrade to Inner Court Room to inscribe your first formation.</p>`;
+        html += `<p class="sect-hint">Upgrade to Inner Court Room for a courtyard slot — and an unread novice gather diagram.</p>`;
         return html;
     }
 
@@ -541,12 +775,16 @@ function renderResidenceFormationsHtml() {
         return html;
     }
 
-    const known = G.knownFormations
+    const layable = Object.keys(G.formationShelf || {})
         .map(id => getFormationDef(id))
-        .filter(def => def && def.deploy === 'residence' && def.implemented !== false);
+        .filter(def => def && def.deploy === 'residence' && def.implemented !== false && knowsFormation(def.id));
 
-    if (!known.length) {
-        html += `<p class="sect-hint">No formation manuals comprehended yet. Further residence upgrades reveal patterns.</p>`;
+    const hasUnread = Object.values(G.formationShelf || {}).some(e => e && !e.deciphered);
+
+    if (!layable.length) {
+        html += `<p class="sect-hint">${hasUnread
+            ? 'Decipher an unread manual on your shelf before inscribing.'
+            : 'No layable patterns yet. Decipher a diagram or buy one at the market.'}</p>`;
     } else {
         html += `<p class="sect-hint">Laid patterns need <strong>fuel</strong> and an <strong>on</strong> switch to run. Neglect fades the lines — maintain to refresh them.</p>`;
     }
@@ -606,12 +844,9 @@ function renderResidenceFormationsHtml() {
             html += `<button type="button" class="sect-action-btn sect-formation-clear-btn" data-formation-clear="${i}">Clear slot</button>`;
             html += `</div>`;
         }
-        if (known.length && (!slot || slot.scattered)) {
-            // Still allow replace when scattered via clear+lay; when empty show lay.
-        }
-        if (known.length) {
+        if (layable.length) {
             html += `<div class="sect-formation-lay-row">`;
-            known.forEach(def => {
+            layable.forEach(def => {
                 const block = getLayFormationBlockReason(i, def.id);
                 const cost = def.layCost;
                 const matHint = cost?.months ? `${cost.months}mo` : '';
@@ -625,17 +860,6 @@ function renderResidenceFormationsHtml() {
         html += `</div>`;
     }
     html += `</div>`;
-
-    if (G.knownFormations.length) {
-        html += `<div class="sect-section-title sect-section-muted">📜 Known Manuals</div><ul class="sect-formation-manual-list">`;
-        G.knownFormations.forEach(id => {
-            const def = getFormationDef(id);
-            if (!def) return;
-            const status = def.implemented === false ? ' <em>(coming soon)</em>' : '';
-            html += `<li>${def.emoji} <strong>${def.name}</strong> — ${def.desc}${status}</li>`;
-        });
-        html += `</ul>`;
-    }
 
     html += `<button type="button" class="sect-action-btn" id="btnResidenceCultivate">🏠 Cultivate at quarters (${ACTION_MONTHS.cultivate} months)</button>`;
     return html;

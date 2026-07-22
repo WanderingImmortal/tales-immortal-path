@@ -2408,6 +2408,34 @@ function renderMerchantPopup() {
                 <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
             </div>`;
         }).join('');
+    }
+
+    if (catalog.formations?.length) {
+        html += `<div class="tech-group-header" style="margin-top:12px;">☯️ Formation manuals</div>`;
+        html += catalog.formations.map(item => {
+            const def = typeof getFormationDef === 'function' ? getFormationDef(item.formationId) : null;
+            if (!def || def.implemented === false) return '';
+            const reqRealm = item.reqRealm ?? 0;
+            const locked = G.realmIdx < reqRealm;
+            const owned = typeof getFormationShelfEntry === 'function' && !!getFormationShelfEntry(def.id);
+            const deciphered = typeof isFormationDeciphered === 'function' && isFormationDeciphered(def.id);
+            const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+            const canBuy = !locked && !owned && G.stones >= finalPrice;
+            const realmName = PATHS[G.path].realms[reqRealm] || `Realm ${reqRealm + 1}`;
+            const ft = def.formationTier || 1;
+            let status = locked ? `Need ${realmName}` : `${finalPrice} Stones · Unread diagram · ${ft}${ft === 1 ? 'st' : 'nd'}-tier`;
+            if (owned) status = deciphered ? `On shelf (deciphered) · ${status}` : `On shelf (unread) · ${status}`;
+            if (!locked && finalPrice < item.price) status += ` (was ${item.price})`;
+            if (canBuy) status += ' · Click to buy';
+            return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-formation="${escapeAttr(def.id)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
+                <div class="name">${def.emoji} ${def.name}${owned ? ' <span style="color:#7a9a7a;font-size:11px;">(owned)</span>' : ''}</div>
+                <div class="desc">${def.desc}</div>
+                <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
+            </div>`;
+        }).join('');
+    }
+
+    if (catalog.methods?.length || catalog.formations?.length) {
         html += `<div class="tech-group-header" style="margin-top:12px;">📜 Combat manuals</div>`;
     }
 
@@ -2486,6 +2514,11 @@ function renderMerchantPopup() {
     list.querySelectorAll('[data-buy-method]').forEach(row => {
         row.addEventListener('click', function() {
             if (typeof buyCultivationMethod === 'function') buyCultivationMethod(this.dataset.buyMethod);
+        });
+    });
+    list.querySelectorAll('[data-buy-formation]').forEach(row => {
+        row.addEventListener('click', function() {
+            if (typeof buyFormationManual === 'function') buyFormationManual(this.dataset.buyFormation);
         });
     });
     list.querySelectorAll('[data-buy]').forEach(row => {

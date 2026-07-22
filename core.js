@@ -141,6 +141,8 @@ let G = {
     sect: null,
     milestones: null,
     knownFormations: [],
+    formationShelf: null,
+    formationMaster: null,
     cultivationMethod: null,
     methodShelf: null,
     foundationNatureId: null,

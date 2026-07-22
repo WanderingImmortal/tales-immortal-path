@@ -525,6 +525,17 @@ function bindSectGroundsEvents(container) {
             fullRender();
         });
     });
+    container.querySelectorAll('[data-formation-decipher]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const formationId = this.dataset.formationDecipher;
+            const result = typeof decipherFormation === 'function'
+                ? decipherFormation(formationId)
+                : { success: false, message: 'Formations unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
     container.querySelectorAll('.sect-build-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const result = typeof startSectConstruction === 'function'

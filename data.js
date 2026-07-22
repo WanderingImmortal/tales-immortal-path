@@ -1683,6 +1683,9 @@ const MERCHANT_CATALOG = {
             { methodId: 'impure_meridian_breath', price: 48 },
             { methodId: 'inner_court_meridian_cycle', price: 140 }
         ],
+        formations: [
+            { formationId: 'qi_stabilizer', price: 85 }
+        ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
             { id: "blood_recovery", price: 40, qty: 1 },
@@ -1711,6 +1714,9 @@ const MERCHANT_CATALOG = {
         methods: [
             { methodId: 'outer_sect_qi_cycling', price: 50 },
             { methodId: 'impure_meridian_breath', price: 45 }
+        ],
+        formations: [
+            { formationId: 'qi_stabilizer', price: 80 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -5200,7 +5206,7 @@ const SECT_RESIDENCE = {
     ]
 };
 
-// ----- Formations (F1a: residence + fuel / activation / integrity) -----
+// ----- Formations (F1a fuel/switch/integrity + F1b shelf/decipher) -----
 /** Shared courtyard upkeep numbers (per-formation defs may override). */
 const FORMATION_F1A = {
     stonePerFuel: 1,
@@ -5230,6 +5236,18 @@ const FORMATION_F1A = {
     fuelPresets: [3, 6, 12]
 };
 
+/** F1b learn pipeline (thin: acquire + decipher; no Trace yet). */
+const FORMATION_F1B = {
+    decipherMonthsByTier: { 1: 2, 2: 3, 3: 4 },
+    decipherStonesByTier: { 1: 6, 2: 14, 3: 28 },
+    masterTitles: {
+        0: 'Uninitiated',
+        1: 'Pattern Student',
+        2: 'Inscriber',
+        3: 'Formation Adept'
+    }
+};
+
 const FORMATIONS = {
     spirit_gathering: {
         id: 'spirit_gathering',
@@ -5237,13 +5255,15 @@ const FORMATIONS = {
         emoji: '🌀',
         desc: 'Draws ambient qi to your quarters. +8% cultivation while running.',
         deploy: 'residence',
+        formationTier: 1,
         minResidenceLevel: 1,
         effects: { cultivatePct: 8 },
         layCost: { months: 2, materials: { spirit_herb: 3, silk_thread: 1 } },
         fuelPerMonth: 1,
         fuelCapacity: 24,
         layFuel: 6,
-        learnOnResidenceLevel: 1
+        /** F1b: unread novice diagram when courtyard opens — not auto-comprehended. */
+        starterUnreadOnResidenceLevel: 1
     },
     qi_stabilizer: {
         id: 'qi_stabilizer',
@@ -5251,13 +5271,14 @@ const FORMATIONS = {
         emoji: '⚖️',
         desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation per session while running.',
         deploy: 'residence',
+        formationTier: 2,
         minResidenceLevel: 2,
         effects: { cultivatePct: 4, foundationPerCultivate: 1 },
         layCost: { months: 3, materials: { spirit_herb: 4, jade_inlay: 1 } },
         fuelPerMonth: 1,
         fuelCapacity: 24,
-        layFuel: 6,
-        learnOnResidenceLevel: 2
+        layFuel: 6
+        // Study path: market / loot unread manual — no free residence grant
     },
     iron_wall_ward: {
         id: 'iron_wall_ward',
@@ -5265,6 +5286,7 @@ const FORMATIONS = {
         emoji: '🛡️',
         desc: 'A defensive ward pattern. Combat deployment coming in a future update.',
         deploy: 'residence',
+        formationTier: 2,
         minResidenceLevel: 1,
         implemented: false,
         effects: {},
