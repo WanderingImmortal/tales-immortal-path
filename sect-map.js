@@ -491,6 +491,40 @@ function bindSectGroundsEvents(container) {
             fullRender();
         });
     });
+    container.querySelectorAll('[data-formation-toggle]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const slot = parseInt(this.dataset.formationToggle, 10);
+            const result = typeof toggleResidenceFormationActive === 'function'
+                ? toggleResidenceFormationActive(slot)
+                : { success: false, message: 'Formations unavailable.' };
+            if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-formation-fuel]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const slot = parseInt(this.dataset.formationFuel, 10);
+            const units = parseInt(this.dataset.fuelUnits, 10);
+            const result = typeof addResidenceFormationFuel === 'function'
+                ? addResidenceFormationFuel(slot, units)
+                : { success: false, message: 'Formations unavailable.' };
+            if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
+    container.querySelectorAll('[data-formation-maintain]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const slot = parseInt(this.dataset.formationMaintain, 10);
+            const result = typeof maintainResidenceFormation === 'function'
+                ? maintainResidenceFormation(slot)
+                : { success: false, message: 'Formations unavailable.' };
+            if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
     container.querySelectorAll('.sect-build-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const result = typeof startSectConstruction === 'function'

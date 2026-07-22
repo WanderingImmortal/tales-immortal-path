@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (vision); v1 residence qi buffs `shipped` |
+| **Status** | `building` (F1a on branch); v1 residence qi buffs `shipped` |
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
-| **Chat / PR** | Owner formations brainstorm (cloud agent, 2026-07-21); prior chat *xianxia formations arrays* (not in repo) |
-| **Updated** | 2026-07-22 (fuel vs neglect; activation switch + command talisman) |
+| **Chat / PR** | F1a: `cursor/formations-f1a-fuel-activation-e82d`; design park PR #60 |
+| **Updated** | 2026-07-22 (F1a implement: fuel / switch / integrity) |
 
 ## Intent
 
@@ -449,13 +449,16 @@ G.formationShelf = {
   }
 };
 
-G.knownFormations = [];       // derive from shelf + master tier
-G.sect.residence.formations.slots = [];
+G.knownFormations = [];       // derive from shelf + master tier (F1b)
+// F1a slot shape (migrates legacy string ids on load):
+G.sect.residence.formations.slots = [
+  // null | { id, active, fuel, integrity, scattered }
+];
 ```
 
 ---
 
-## Shipped today (v1)
+## Shipped today
 
 | Piece | Location |
 |-------|----------|
@@ -463,9 +466,10 @@ G.sect.residence.formations.slots = [];
 | Spirit Gathering, Qi Stabilizer | `FORMATIONS` in `data.js` |
 | Iron Wall Ward | Stub (`implemented: false`) |
 | Lay / clear / cultivate at quarters | `formations.js`, `sect-map.js` |
-| Save keys | `G.knownFormations`, `G.sect.residence.formations.slots` |
+| **F1a fuel / switch / integrity** | Slot objects; `tickResidenceFormations`; Activate / fuel / Maintain UI |
+| Save keys | `G.knownFormations`, `G.sect.residence.formations.slots` (objects) |
 
-**v1 gaps vs this doc:** no upkeep, no anchors beyond residence, no equipment/talisman, no arrays, no essence tags, no hybrids, no formation master ranks (residence level auto-grants manuals — **bootstrap only**, replace when F1+ lands).
+**Still gaps:** command talisman (designed, not coded), shelf/decipher (F1b), anchors beyond residence, equipment/talisman, arrays, essence tags, hybrids, formation master ranks (residence level auto-grants manuals — **bootstrap only**).
 
 ---
 
@@ -474,7 +478,7 @@ G.sect.residence.formations.slots = [];
 | Phase | Scope |
 |-------|-------|
 | **F0** *(shipped)* | Residence qi formations, lay cost, cultivate-at-quarters hook |
-| **F1a** | Fuel + inscription integrity (neglect fade); residence patterns first |
+| **F1a** *(building)* | Fuel + activation switch + inscription integrity; residence patterns first |
 | **F1b** | Formation shelf + decipher (trace optional); master grade 0–2 |
 | **F2** | Sect anchor nodes; master grade 3–4; grade exams |
 | **F3** | Essence gather + site tags (with cultivation methods P3) |

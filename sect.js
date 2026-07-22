@@ -1681,6 +1681,7 @@ function tickSectSystems(monthsPassed) {
     if (typeof tickManualHallStudy === 'function') tickManualHallStudy(monthsPassed);
     if (typeof tickWorldSectGrowth === 'function') tickWorldSectGrowth(monthsPassed);
     if (typeof tickSectExpansion === 'function') tickSectExpansion(monthsPassed);
+    if (typeof tickResidenceFormations === 'function') tickResidenceFormations(monthsPassed);
     if (meetsStageRequirement('established')) ensureProceduralWorldSects();
     if (meetsStageRequirement('regional') && !G.sect.influenceZone) {
         G.sect.influenceZone = typeof getActiveZoneId === 'function' ? getActiveZoneId() : G.currentZone;

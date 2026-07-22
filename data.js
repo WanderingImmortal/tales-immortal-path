@@ -5200,28 +5200,63 @@ const SECT_RESIDENCE = {
     ]
 };
 
-// ----- Formations (v1: residence deploy only) -----
+// ----- Formations (F1a: residence + fuel / activation / integrity) -----
+/** Shared courtyard upkeep numbers (per-formation defs may override). */
+const FORMATION_F1A = {
+    stonePerFuel: 1,
+    defaultFuelCapacity: 24,
+    defaultFuelPerMonth: 1,
+    defaultLayFuel: 6,
+    /** Integrity points lost per month while laid (neglect). */
+    integrityDecayPerMonth: 1,
+    integrityMax: 100,
+    bands: {
+        sharp: 70,
+        fading: 35
+    },
+    /** Effect multipliers by integrity band (only while active + fueled). */
+    effectMult: {
+        sharp: 1,
+        fading: 0.55,
+        decayed: 0.2,
+        scattered: 0
+    },
+    maintain: {
+        stones: 4,
+        materials: { spirit_herb: 1 },
+        months: 1,
+        restore: 35
+    },
+    fuelPresets: [3, 6, 12]
+};
+
 const FORMATIONS = {
     spirit_gathering: {
         id: 'spirit_gathering',
         name: 'Spirit Gathering Formation',
         emoji: '🌀',
-        desc: 'Draws ambient qi to your quarters. +8% cultivation per active slot.',
+        desc: 'Draws ambient qi to your quarters. +8% cultivation while running.',
         deploy: 'residence',
         minResidenceLevel: 1,
         effects: { cultivatePct: 8 },
         layCost: { months: 2, materials: { spirit_herb: 3, silk_thread: 1 } },
+        fuelPerMonth: 1,
+        fuelCapacity: 24,
+        layFuel: 6,
         learnOnResidenceLevel: 1
     },
     qi_stabilizer: {
         id: 'qi_stabilizer',
         name: 'Qi Stabilizer',
         emoji: '⚖️',
-        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation per session at quarters.',
+        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation per session while running.',
         deploy: 'residence',
         minResidenceLevel: 2,
         effects: { cultivatePct: 4, foundationPerCultivate: 1 },
         layCost: { months: 3, materials: { spirit_herb: 4, jade_inlay: 1 } },
+        fuelPerMonth: 1,
+        fuelCapacity: 24,
+        layFuel: 6,
         learnOnResidenceLevel: 2
     },
     iron_wall_ward: {
@@ -5233,7 +5268,10 @@ const FORMATIONS = {
         minResidenceLevel: 1,
         implemented: false,
         effects: {},
-        layCost: { months: 2, materials: { iron_ore: 4, jade_inlay: 1 } }
+        layCost: { months: 2, materials: { iron_ore: 4, jade_inlay: 1 } },
+        fuelPerMonth: 2,
+        fuelCapacity: 24,
+        layFuel: 0
     }
 };
 

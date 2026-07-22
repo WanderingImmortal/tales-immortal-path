@@ -5,12 +5,12 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Formations fuel vs neglect design parked (`docs/ideas/formations-and-arrays.md`)
+- Formations F1a — fuel + switch + integrity (`cursor/formations-f1a-fuel-activation-e82d`)
 
 ## Next
 - Chronicle P1 review ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
 - Territory grow/shrink (sect map phase 2)
-- Formations F1a when ready to build
+- Formations F1b (shelf / decipher) after F1a lands
 
 ## Blocked
 - (none)

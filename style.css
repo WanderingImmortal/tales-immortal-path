@@ -2964,6 +2964,12 @@ header .subtitle {
     border-radius: 8px;
 }
 
+.sect-formation-summary-idle {
+    color: #c8b890;
+    background: rgba(60, 50, 30, 0.25);
+    border-color: rgba(120, 100, 60, 0.35);
+}
+
 .sect-formation-slots {
     display: flex;
     flex-direction: column;
@@ -2976,6 +2982,23 @@ header .subtitle {
     border: 1px solid #3a3020;
     border-radius: 10px;
     padding: 10px;
+}
+
+.sect-formation-slot.is-fading {
+    border-color: #5a4a28;
+    opacity: 0.92;
+}
+
+.sect-formation-slot.is-decayed {
+    border-color: #4a3020;
+    opacity: 0.82;
+    background: #16100c;
+}
+
+.sect-formation-slot.is-scattered {
+    border-color: #3a2820;
+    opacity: 0.7;
+    border-style: dashed;
 }
 
 .sect-formation-slot-head {
@@ -2995,6 +3018,42 @@ header .subtitle {
     font-style: italic;
 }
 
+.sect-formation-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    font-size: 12px;
+    color: #b0a890;
+    margin: 6px 0 8px;
+}
+
+.sect-formation-status[data-integrity="fading"] {
+    color: #c8b070;
+}
+
+.sect-formation-status[data-integrity="decayed"],
+.sect-formation-status[data-integrity="scattered"] {
+    color: #c08060;
+}
+
+.sect-formation-running {
+    color: #80c080;
+    font-weight: 600;
+}
+
+.sect-formation-status[data-integrity="scattered"] .sect-formation-running,
+.sect-formation-slot.is-scattered .sect-formation-running {
+    color: #888;
+    font-weight: normal;
+}
+
+.sect-formation-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 8px;
+}
+
 .sect-formation-lay-row {
     display: flex;
     flex-direction: column;
@@ -3003,9 +3062,16 @@ header .subtitle {
 }
 
 .sect-formation-lay-btn,
-.sect-formation-clear-btn {
+.sect-formation-clear-btn,
+.sect-formation-toggle-btn,
+.sect-formation-fuel-btn,
+.sect-formation-maintain-btn {
     font-size: 12px !important;
     padding: 6px 10px !important;
+}
+
+.sect-formation-scattered-hint {
+    color: #c08060;
 }
 
 .sect-formation-manual-list {
