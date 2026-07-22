@@ -553,6 +553,10 @@ function setupCreation(refreshOnly) {
                 grade: creationState.selectedGrade,
                 deviant: creationState.selectedDeviant || null
             });
+            if (typeof ensureCultivationMethodState === 'function') {
+                G.cultivationMethod = null;
+                ensureCultivationMethodState();
+            }
             G.basinTierBonus = 0;
             G.talentCapBypassed = false;
             G.origin = { id: creationState.selectedOrigin, name: ORIGIN_BY_ID[creationState.selectedOrigin]?.name };
@@ -776,6 +780,7 @@ function initGame() {
     if (typeof tickNpcWorld === 'function') tickNpcWorld(0);
     if (typeof bindTutorialEvents === 'function') bindTutorialEvents();
     if (typeof ensureChamberState === 'function') ensureChamberState();
+    if (typeof ensureCultivationMethodState === 'function') ensureCultivationMethodState();
     if (typeof ensureBodyChamberState === 'function') ensureBodyChamberState();
     if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
     if (loaded && G.name && (G.path || G.cultivation)) {
@@ -842,6 +847,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Map events
     bindMapEvents();
+    if (typeof bindTimePlaybackEvents === 'function') bindTimePlaybackEvents();
+    if (typeof bindSeclusionProjectEvents === 'function') bindSeclusionProjectEvents();
     if (typeof initChamberEvents === 'function') initChamberEvents();
     if (typeof initBodyChamberEvents === 'function') initBodyChamberEvents();
     if (typeof initSoulChamberEvents === 'function') initSoulChamberEvents();

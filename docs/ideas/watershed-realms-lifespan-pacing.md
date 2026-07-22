@@ -8,6 +8,8 @@
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
 | **Updated** | 2026-07-18 |
 
+> **Nine realms:** Mortal ladder expanded to 9 indices — see [`nine-realm-ladder.md`](nine-realm-ladder.md). Lifespan table and anchors in this doc need a pass (+40y gentle steps, not ×2 jumps).
+
 ## Intent
 
 Cultivation is **fighting fate**: each realm's granted lifespan should be **mostly consumed** reaching that realm's peak. Advancing is rare — talent, time, pills, formations, and luck. Most cultivators **plateau at peak** and die unable to cross the watershed. The player journey is long and costly, not button-spam.
@@ -96,6 +98,7 @@ Without aid, inferior root = **respect the clock**.
 
 ## Prerequisites
 
+- [ ] Long-activity UX — [`chronicle-and-projects.md`](chronicle-and-projects.md) (diary + tick playback + projects)
 - [ ] Owner sets per-realm age anchors (FE 80–90 inferior; QC and GC TBD)
 - [ ] Root taxonomy v2 (`TALENT_GRADES` overhaul)
 - [ ] `talentCapBypassed` wired to pills/formations/events

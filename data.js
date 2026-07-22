@@ -550,6 +550,190 @@ const TECHNIQUE_POOL = [
     { name: "Blood Sever", path: "body", element: "blood", category: "attack", combatTier: "heavy", weaponType: "blade", reqAlignment: -40, baseDamage: 18, baseCost: 9, costType: "qi", rarity: "rare", desc: "Sever life force without mercy — the demonic path rewards the unrestrained." }
 ];
 
+/**
+ * Cultivation method grade ladder (manual quality).
+ * Speed midpoints from docs/ideas/cultivation-manuals-framework.md.
+ * Separate from combat TECHNIQUE_POOL — do not merge.
+ */
+const METHOD_GRADES = {
+    crude:    { id: 'crude',    name: 'Crude',    speedMult: 0.80, rarity: 'common' },
+    common:   { id: 'common',   name: 'Common',   speedMult: 1.00, rarity: 'common' },
+    superior: { id: 'superior', name: 'Superior', speedMult: 1.18, rarity: 'uncommon' },
+    peerless: { id: 'peerless', name: 'Peerless', speedMult: 1.38, rarity: 'legendary' }
+};
+
+const METHOD_GRADE_ORDER = ['crude', 'common', 'superior', 'peerless'];
+
+const DEFAULT_CULTIVATION_METHOD_ID = 'basic_meditation_breath';
+
+/**
+ * Shared foundation natures (P2). Many methods can stamp the same nature.
+ * Nature = defining trait after FE seal — NOT cultivate speed (method grade owns speed).
+ */
+const FOUNDATION_NATURES = {
+    plain_balanced: {
+        id: 'plain_balanced',
+        name: 'Balanced Foundation',
+        family: 'plain',
+        desc: 'A clean, unadorned seal — no exotic aspect, steady qi.',
+        // Modest: slightly cheaper neutral-element techniques
+        effects: { neutralTechCostMult: 0.97 }
+    },
+    fire_aspected: {
+        id: 'fire_aspected',
+        name: 'Fire-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Heat settles in the dantian — fire arts bite harder.',
+        effects: { elementDmgMult: { fire: 1.06 } }
+    },
+    thunder_tempered: {
+        id: 'thunder_tempered',
+        name: 'Thunder-Tempered Foundation',
+        family: 'deviant',
+        desc: 'Deviant lightning qi forged into the seal — strikes crack sharper.',
+        effects: { dmgMult: 1.05 }
+    },
+    sword_inclined: {
+        id: 'sword_inclined',
+        name: 'Sword-Inclined Foundation',
+        family: 'weapon_affinity',
+        desc: 'Edge-tempered seal — affinity for sword intent, better at piercing guards.',
+        effects: { armorPenPct: 0.10, intentEaseBonus: 0.1 }
+    },
+    blood_fiend: {
+        id: 'blood_fiend',
+        name: 'Blood-Fiend Foundation',
+        family: 'path_alignment',
+        desc: 'A stained seal that leaks killing aura — weaker hearts flinch.',
+        effects: { dmgMult: 1.04, intimidation: true }
+    }
+};
+
+const FOUNDATION_NATURE_BY_ID = FOUNDATION_NATURES;
+
+/** Qi-track cultivation methods. Essence manuals land in later phases. */
+const CULTIVATION_METHOD_POOL = [
+    {
+        id: 'basic_meditation_breath',
+        name: 'Basic Meditation Breath',
+        lineageId: 'meditation_breath_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'crude',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.1
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Village pamphlet breathwork — inhale, hold, cycle. Slow, safe, and portable.'
+    },
+    {
+        id: 'outer_sect_qi_cycling',
+        name: 'Outer Sect Qi Cycling',
+        lineageId: 'outer_sect_qi_line',
+        family: 'circulation',
+        methodTier: 'condensation',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.05
+        },
+        infrastructure: null,
+        comprehendMonths: 3,
+        desc: 'Outer-court syllabus — steady meridian loops for condensation grind.'
+    },
+    {
+        id: 'inner_court_meridian_cycle',
+        name: 'Inner Court Meridian Cycle',
+        lineageId: 'inner_court_meridian_line',
+        family: 'circulation',
+        methodTier: 'condensation',
+        methodGrade: 'superior',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 0.95, mixed: 1, dual: 1.05, single: 1.08 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.05,
+            densityEfficiency: 1.05,
+            stabilityBias: 0.08
+        },
+        infrastructure: null,
+        comprehendMonths: 4,
+        desc: 'Inner-court inheritance — tighter routes, cleaner gather, higher ceiling.'
+    },
+    {
+        id: 'nine_turn_peerless_cycle',
+        name: 'Nine Turn Peerless Cycle',
+        lineageId: 'nine_turn_cycle_line',
+        family: 'circulation',
+        methodTier: 'foundation',
+        methodGrade: 'peerless',
+        reqRealm: 1,
+        rarity: 'legendary',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 0.9, mixed: 0.95, dual: 1.05, single: 1.1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.1,
+            densityEfficiency: 1.1,
+            stabilityBias: 0.12
+        },
+        infrastructure: null,
+        comprehendMonths: 8,
+        desc: 'Ancestor\'s complete qi transmission — peerless portable gather with no array bill.'
+    },
+    {
+        id: 'impure_meridian_breath',
+        name: 'Impure Meridian Breath',
+        lineageId: 'impure_meridian_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 1.12, mixed: 1.05, dual: 0.95, single: 0.88 },
+        profile: {
+            gatherMult: 0.95,
+            powerMult: 1.0,
+            densityEfficiency: 0.95,
+            stabilityBias: -0.02
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Breathwork tuned for tangled roots — kinder to pentamixed, leakier for pure singles.'
+    }
+];
+
+const CULTIVATION_METHOD_BY_ID = Object.fromEntries(
+    CULTIVATION_METHOD_POOL.map(m => [m.id, m])
+);
+
 const TECHNIQUE_COMBAT_TIERS = {
     utility: { label: 'Utility', poolPct: 0.10, minCost: 6, maxCost: 12 },
     light:   { label: 'Light', poolPct: 0.14, minCost: 8, maxCost: 16 },
@@ -1439,7 +1623,8 @@ const ZONE_LOOT = {
 const EXPLORE_BALANCE = {
     ultraChance: 0.06,
     rareChance: 0.24,
-    manualFindChance: 0.12
+    manualFindChance: 0.12,
+    methodFindChance: 0.08
 };
 
 // Vitality contributes to max HP (path-specific — body cultivators benefit most)
@@ -1493,6 +1678,11 @@ const MERCHANT_CATALOG = {
             { technique: "Frostbite Palm", price: 160 },
             { technique: "Celestial Judgment", price: 220 }
         ],
+        methods: [
+            { methodId: 'outer_sect_qi_cycling', price: 55 },
+            { methodId: 'impure_meridian_breath', price: 48 },
+            { methodId: 'inner_court_meridian_cycle', price: 140 }
+        ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
             { id: "blood_recovery", price: 40, qty: 1 },
@@ -1517,6 +1707,10 @@ const MERCHANT_CATALOG = {
             { technique: "Void Step", price: 200 },
             { technique: "Spectral Shield", price: 110 },
             { technique: "Soul Search", price: 65 }
+        ],
+        methods: [
+            { methodId: 'outer_sect_qi_cycling', price: 50 },
+            { methodId: 'impure_meridian_breath', price: 45 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -3147,9 +3341,27 @@ const MANUAL_HALL_BALANCE = {
 };
 
 /** Personal travel kit — worn gear is free; bag contents count against capacity. */
+const METHOD_MANUAL_BALANCE = {
+    defaultMonths: 2,
+    monthsByGrade: {
+        crude: 2,
+        common: 3,
+        superior: 4,
+        peerless: 8
+    },
+    consignByGrade: {
+        crude: 8,
+        common: 14,
+        superior: 28,
+        peerless: 60
+    },
+    defaultConsign: 10
+};
+
 const TRAVEL_KIT_BALANCE = {
     baseCapacity: 8,
     manualUniqueWeight: 1,
+    methodUniqueWeight: 1,
     pillWeight: 0.25,
     gearBagWeight: 1,
     curioWeight: 0.5,
@@ -3329,6 +3541,74 @@ const ZONE_MAP_LAYOUT = {
     heartlands: { cx: 50, cy: 40, rx: 17, ry: 12 },
     jade: { cx: 78, cy: 42, rx: 14, ry: 10 },
     emberwild: { cx: 50, cy: 72, rx: 15, ry: 10 }
+};
+
+/** Local map node positions — presentation only; WORLD_LOCATIONS is source of truth. */
+const ZONE_LOCAL_LAYOUT = {
+    dustbone: {
+        theme: 'desert',
+        nodes: {
+            bone_crossroads: { x: 50, y: 55, layer: 2 },
+            miraj_waystation: { x: 22, y: 48, layer: 1 },
+            sunscar_camp: { x: 78, y: 35, layer: 1 },
+            ashen_shrine: { x: 62, y: 78, layer: 1 }
+        },
+        paths: [
+            { from: 'miraj_waystation', to: 'bone_crossroads' },
+            { from: 'sunscar_camp', to: 'bone_crossroads' },
+            { from: 'ashen_shrine', to: 'bone_crossroads' }
+        ]
+    },
+    frostbite: {
+        theme: 'frost',
+        nodes: {
+            frost_gate: { x: 50, y: 68, layer: 2 },
+            frostpeak_monastery: { x: 50, y: 28, layer: 1 }
+        },
+        paths: [
+            { from: 'frost_gate', to: 'frostpeak_monastery' }
+        ]
+    },
+    heartlands: {
+        theme: 'heartlands',
+        nodes: {
+            outer_heartlands: { x: 50, y: 48, layer: 2 },
+            sword_sect_hall: { x: 26, y: 22, layer: 1 },
+            jade_lotus_pavilion: { x: 74, y: 22, layer: 1 },
+            void_temple_steps: { x: 20, y: 74, layer: 1 },
+            celestial_market: { x: 50, y: 80, layer: 1 },
+            phoenix_court: { x: 80, y: 74, layer: 1 }
+        },
+        paths: [
+            { from: 'sword_sect_hall', to: 'outer_heartlands' },
+            { from: 'jade_lotus_pavilion', to: 'outer_heartlands' },
+            { from: 'void_temple_steps', to: 'outer_heartlands' },
+            { from: 'celestial_market', to: 'outer_heartlands' },
+            { from: 'phoenix_court', to: 'outer_heartlands' }
+        ]
+    },
+    jade: {
+        theme: 'coast',
+        nodes: {
+            tide_harbor: { x: 40, y: 58, layer: 2 },
+            storm_dock: { x: 74, y: 58, layer: 1 },
+            tidal_shrine: { x: 50, y: 26, layer: 1 }
+        },
+        paths: [
+            { from: 'tidal_shrine', to: 'tide_harbor' },
+            { from: 'tide_harbor', to: 'storm_dock' }
+        ]
+    },
+    emberwild: {
+        theme: 'jungle',
+        nodes: {
+            ashvein_village: { x: 35, y: 50, layer: 2 },
+            beast_circle: { x: 68, y: 48, layer: 1 }
+        },
+        paths: [
+            { from: 'ashvein_village', to: 'beast_circle' }
+        ]
+    }
 };
 
 const WORLD_LOCATIONS = {

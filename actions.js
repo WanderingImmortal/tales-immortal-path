@@ -18,6 +18,7 @@ function getActionBlockReason() {
     if (G.inCultivationHub) return 'Leave the Cultivation Hub first.';
     if (typeof isTribulationActive === 'function' && isTribulationActive()) return 'Heavenly tribulation holds your focus.';
     if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) return 'Choose your transcendence perk first.';
+    if (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive()) return 'You are in long seclusion — emerge first.';
     return null;
 }
 
@@ -30,8 +31,9 @@ function runCultivateSession(options) {
     const traitMult = getPlayerTraitMultPct('cultivateSpeedPct', 0) * getPlayerTraitMultPct('qiEfficiencyPct', 0);
     const talentMult = typeof getCombinedCultivateMult === 'function' ? getCombinedCultivateMult() : 1;
     const legacyMult = typeof getLegacyCultivateBonusMult === 'function' ? getLegacyCultivateBonusMult() : 1;
+    const methodMult = typeof getCultivationMethodGatherMult === 'function' ? getCultivationMethodGatherMult() : 1;
     const extraMult = opts.extraMult || 1;
-    const cultMult = sectMult * factionMult * traitMult * talentMult * legacyMult * extraMult;
+    const cultMult = sectMult * factionMult * traitMult * talentMult * legacyMult * methodMult * extraMult;
     const densGainRaw = b.cultivateDensityMin + Math.random() * (b.cultivateDensityMax - b.cultivateDensityMin);
     const densGain = Math.round(densGainRaw * cultMult * 100) / 100;
     G.qiDensity = (G.qiDensity || 0) + densGain;
@@ -285,6 +287,10 @@ function actionRecruit() {
 function actionSect() {
     if (actionBlocked()) return;
     if (!guardAction('sect')) return;
+    if (typeof isSectFounded === 'function' && isSectFounded() && typeof openSectMap === 'function') {
+        openSectMap();
+        return;
+    }
     renderSectPopup();
     document.getElementById('sectPopup').classList.add('active');
 }

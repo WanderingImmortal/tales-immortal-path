@@ -38,7 +38,7 @@ At GC peak, optional **condensing** lets cultivators who seek to maximise their 
 
 ## Prerequisites
 
-- [ ] FE exit renamed/reworked (`qi-foundation-establishment-redesign.md`)
+- [ ] FE exit renamed/reworked ([`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md), [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md))
 - [ ] Owner Core Formation journey design
 - [ ] Nascent Soul entry fantasy defined (soul birth vs core shatter)
 

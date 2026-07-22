@@ -242,7 +242,12 @@ function getFoundationGradeLabel(effective) {
 
 /** Player-facing label — grade only, no numeric foundation. */
 function getFoundationPlayerLabel(effective) {
-    return getFoundationGradeLabel(effective);
+    let label = getFoundationGradeLabel(effective);
+    if (typeof getSealedFoundationNatureDef === 'function') {
+        const nature = getSealedFoundationNatureDef();
+        if (nature) label += ` · ${nature.name}`;
+    }
+    return label;
 }
 
 function getFoundationPlayerTooltip() {

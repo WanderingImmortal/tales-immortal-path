@@ -17,6 +17,8 @@ function createEmptySectState() {
         alliances: [],
         influenceZone: null,
         foundedAtMonths: null,
+        foundedZone: null,
+        foundedLocationId: null,
         doctrine: null,
         reputation: { respect: 0, fear: 0, reviled: 0, actions: 0 },
         lastSectActionMonths: null,
@@ -55,6 +57,8 @@ function ensureSectState() {
     if (!G.sect.worldSects) G.sect.worldSects = [];
     migrateWorldSectsFromLegacy();
     if (!G.sect.alliances) G.sect.alliances = [];
+    if (G.sect.foundedZone === undefined) G.sect.foundedZone = null;
+    if (G.sect.foundedLocationId === undefined) G.sect.foundedLocationId = null;
     ensureSectReputation();
     if (G.sect.stage && G.sect.stage !== 'wandering' && !G.sect.doctrine) inferSectDoctrineFromAlignment();
     syncDisciplesFromLegacy();
@@ -509,6 +513,10 @@ function foundSect(customName, doctrineId) {
     G.sect.name = sectName;
     G.sect.doctrine = doctrineId;
     G.sect.foundedAtMonths = G.ageMonths;
+    G.sect.foundedZone = typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone);
+    G.sect.foundedLocationId = typeof getCurrentLocationId === 'function'
+        ? getCurrentLocationId()
+        : (G.currentLocation || null);
     addSectRenown(req.renownGain || 0);
     G.fame += req.fameGain || 0;
     shiftSectReputation('found_' + doctrineId);
@@ -1175,6 +1183,24 @@ function getSectInfluenceZone() {
     return G.sect.influenceZone || null;
 }
 
+function getWorldSectsInZone(zoneId) {
+    ensureSectState();
+    if (!zoneId) return [];
+    return (G.sect.worldSects || []).filter(s => s && !s.destroyed && s.zone === zoneId);
+}
+
+function getSectFoundedNearLabel() {
+    ensureSectState();
+    const zone = G.sect.foundedZone && ZONES[G.sect.foundedZone];
+    const loc = G.sect.foundedLocationId && typeof WORLD_LOCATIONS !== 'undefined'
+        ? WORLD_LOCATIONS[G.sect.foundedLocationId]
+        : null;
+    if (loc && zone) return `${loc.emoji} ${loc.name} · ${zone.emoji} ${zone.name}`;
+    if (loc) return `${loc.emoji} ${loc.name}`;
+    if (zone) return `${zone.emoji} ${zone.name}`;
+    return null;
+}
+
 function isInSectInfluenceZone(zoneId) {
     const inf = getSectInfluenceZone();
     return inf && inf === (zoneId || (typeof getActiveZoneId === 'function' ? getActiveZoneId() : G.currentZone));
@@ -1757,7 +1783,11 @@ function bindSectPanelEvents(container) {
         const doctrine = getSelectedDoctrineFromContainer(container);
         const result = foundSect(nameInput?.value, doctrine);
         if (result.message && !result.success) addLog(`🏯 ${result.message}`);
-        if (typeof renderSectPopup === 'function') renderSectPopup();
+        if (result.success && typeof openSectMap === 'function') {
+            openSectMap();
+        } else if (typeof renderSectPopup === 'function') {
+            renderSectPopup();
+        }
         fullRender();
     });
     container.querySelector('#btnAdvanceSect')?.addEventListener('click', () => {

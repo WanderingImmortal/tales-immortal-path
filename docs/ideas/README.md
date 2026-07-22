@@ -23,16 +23,28 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
-| [Cultivation manuals framework](cultivation-manuals-framework.md) | `designed` | Roots v2 sign-off; FE direction | — |
-| [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `idea` | Cultivation manuals framework; FE redesign | — |
+| [Formations & arrays](formations-and-arrays.md) | `designed` | Cultivation methods P0–P2; upkeep tuning | — |
+| [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
+| [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (P2) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
+| [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
+| [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
+| [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | Realm naming; FE breakthrough | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
+| [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `idea` | Root taxonomy v2; per-realm age anchors | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
 | [Cultivation realm depth pass](cultivation-realm-depth-pass.md) | `idea` | Owner design pass; may follow roots / manuals | — |
 | [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` (**parked**) | Realm depth pass; Immortal Ascension beat | — |
 | [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` (**parked**) | Realm depth pass; Immortal climax | — |
+| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Watershed pacing; half-step peak | — |
+| [Realm claims](realm-claims.md) | `designed` | Nine-realm ladder (indices) | — |
+| [World scale & travel](world-scale-and-travel.md) | `designed` | Local map; realm claims | — |
+| [Local & world map split](local-world-map-split.md) | `building` (1–3) | — | [#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56) |
+| [Sect map unification](sect-map-unification.md) | `building` | — | [#57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57) |
+| [Immortal world layer](immortal-world-layer.md) | `designed` (partial) | Mortal immortal ascension; Court stub | — |
+| [Upper celestial nine](upper-celestial-nine.md) | `idea` | Mortal nine + immortal Court MVP | — |

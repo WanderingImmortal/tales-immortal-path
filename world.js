@@ -67,11 +67,92 @@ const ZONES = {
 
 let currentZone = "dustbone";
 
+/** Map popup UI — World / Local / Sect tab state (not persisted). */
+let mapPopupUi = {
+    tab: 'world',
+    localZoneId: null,
+    previewMode: false,
+    selectedLocationId: null,
+    worldSelectedZoneId: null
+};
+
 // ===== MAP FUNCTIONS =====
 function actionMap() {
     if (G.gameOver) return;
+    mapPopupUi.tab = 'world';
+    mapPopupUi.previewMode = false;
+    mapPopupUi.localZoneId = getMainZoneId();
+    mapPopupUi.selectedLocationId = null;
+    mapPopupUi.worldSelectedZoneId = getMainZoneId();
     renderMapPopup();
     document.getElementById('mapPopup').classList.add('active');
+    document.getElementById('sectPopup')?.classList.remove('active');
+}
+
+function setMapPopupTab(tab, opts) {
+    let next = 'world';
+    if (tab === 'local') next = 'local';
+    else if (tab === 'sect') next = 'sect';
+    mapPopupUi.tab = next;
+    if (next === 'local') {
+        const zoneId = opts?.zoneId || mapPopupUi.localZoneId || getMainZoneId();
+        mapPopupUi.localZoneId = zoneId;
+        mapPopupUi.previewMode = !!opts?.preview;
+        if (opts?.resetSelection !== false) {
+            mapPopupUi.selectedLocationId = null;
+        }
+    } else if (next === 'world' && opts?.zoneId) {
+        mapPopupUi.worldSelectedZoneId = opts.zoneId;
+    }
+    renderMapPopup();
+}
+
+function openLocalMap(zoneId, preview) {
+    const mainHere = getMainZoneId();
+    const z = zoneId || mainHere;
+    const isPreview = preview != null ? !!preview : (z !== mainHere || (typeof isInHiddenSubZone === 'function' && isInHiddenSubZone()));
+    setMapPopupTab('local', { zoneId: z, preview: isPreview });
+    document.getElementById('mapPopup')?.classList.add('active');
+    document.getElementById('sectPopup')?.classList.remove('active');
+}
+
+function openSectMap() {
+    mapPopupUi.tab = 'sect';
+    renderMapPopup();
+    document.getElementById('mapPopup')?.classList.add('active');
+    document.getElementById('sectPopup')?.classList.remove('active');
+}
+
+function isMapSectTabOpen() {
+    return !!document.getElementById('mapPopup')?.classList.contains('active')
+        && typeof mapPopupUi !== 'undefined'
+        && mapPopupUi.tab === 'sect';
+}
+
+function syncMapTabChrome() {
+    const worldBtn = document.getElementById('mapTabWorld');
+    const localBtn = document.getElementById('mapTabLocal');
+    const sectBtn = document.getElementById('mapTabSect');
+    const worldPanel = document.getElementById('mapWorldPanel');
+    const localPanel = document.getElementById('mapLocalPanel');
+    const sectPanel = document.getElementById('mapSectPanel');
+    const tab = mapPopupUi.tab === 'local' || mapPopupUi.tab === 'sect' ? mapPopupUi.tab : 'world';
+    const founded = typeof isSectFounded === 'function' && isSectFounded();
+
+    worldBtn?.classList.toggle('active', tab === 'world');
+    localBtn?.classList.toggle('active', tab === 'local');
+    sectBtn?.classList.toggle('active', tab === 'sect');
+    sectBtn?.classList.toggle('map-tab-btn--locked', !founded);
+    if (sectBtn) {
+        sectBtn.title = founded ? 'Your sect grounds' : 'Found a sect first (🏯 Sect)';
+        sectBtn.setAttribute('aria-disabled', founded ? 'false' : 'true');
+    }
+    if (worldBtn) worldBtn.setAttribute('aria-selected', tab === 'world' ? 'true' : 'false');
+    if (localBtn) localBtn.setAttribute('aria-selected', tab === 'local' ? 'true' : 'false');
+    if (sectBtn) sectBtn.setAttribute('aria-selected', tab === 'sect' ? 'true' : 'false');
+    if (worldPanel) worldPanel.hidden = tab !== 'world';
+    if (localPanel) localPanel.hidden = tab !== 'local';
+    if (sectPanel) sectPanel.hidden = tab !== 'sect';
 }
 
 function getActiveZoneId() {
@@ -92,7 +173,8 @@ function getMainZoneId() {
 function renderMapPopup() {
     const here = getActiveZoneId();
     const mainId = getMainZoneId();
-    if (typeof mountContinentMap === 'function') mountContinentMap();
+    syncMapTabChrome();
+
     const display = (typeof getDisplayZoneDef === 'function' ? getDisplayZoneDef() : null)
         || ZONES[here] || ZONES[mainId];
     const parent = ZONES[mainId];
@@ -100,11 +182,26 @@ function renderMapPopup() {
     if (HIDDEN_SUBZONES[here] && parent && typeof getPlaceDisplayLabel !== 'function') {
         label += ` (within ${parent.emoji} ${parent.name})`;
     }
-    document.getElementById('currentZoneDisplay').textContent = `Current: ${label}`;
-    if (HIDDEN_SUBZONES[here]) {
+    const curDisp = document.getElementById('currentZoneDisplay');
+    if (curDisp) curDisp.textContent = `Current: ${label}`;
+
+    if (mapPopupUi.tab === 'local') {
+        if (!mapPopupUi.localZoneId) mapPopupUi.localZoneId = mainId;
+        if (typeof mountLocalMap === 'function') mountLocalMap();
+        return;
+    }
+
+    if (mapPopupUi.tab === 'sect') {
+        if (typeof renderSectPopup === 'function') renderSectPopup();
+        return;
+    }
+
+    if (typeof mountContinentMap === 'function') mountContinentMap();
+    const guideZone = mapPopupUi.worldSelectedZoneId || mainId;
+    if (HIDDEN_SUBZONES[here] && guideZone === mainId) {
         showHiddenSubZoneGuide(here);
     } else {
-        showZoneGuide(mainId);
+        showZoneGuide(guideZone);
     }
     if (typeof renderMapSubZoneBadges === 'function') renderMapSubZoneBadges();
 }
@@ -131,10 +228,14 @@ function showHiddenSubZoneGuide(subZoneId) {
     if (ancient) {
         html += `<div class="ancients-revealed-banner unsealed">✨ ${ancient.emoji} ${ancient.name} — ${escapeHtml(ancient.desc)}</div>`;
     }
+    html += `<button type="button" class="zone-local-map-btn" data-open-local="${parent}" data-local-preview="0">📍 Open local map</button>`;
     if (typeof renderAncientsZonePanelHtml === 'function') {
         html += renderAncientsZonePanelHtml(parent);
     }
     info.innerHTML = html;
+    info.querySelector('[data-open-local]')?.addEventListener('click', function() {
+        openLocalMap(this.dataset.openLocal, this.dataset.localPreview === '1');
+    });
     if (typeof bindAncientsZonePanelEvents === 'function') bindAncientsZonePanelEvents(info);
 }
 
@@ -143,6 +244,7 @@ function showZoneGuide(zoneId) {
     const info = document.getElementById('zoneInfo');
     if (!zone || !info) return;
 
+    mapPopupUi.worldSelectedZoneId = zoneId;
     const mainHere = getMainZoneId();
     document.querySelectorAll('.zone-map-region').forEach(region => {
         const z = region.dataset.zoneMap;
@@ -161,15 +263,17 @@ function showZoneGuide(zoneId) {
 
     let travelBtn = '';
     const hereMain = getMainZoneId();
-    if (zoneId === hereMain && !(typeof isInHiddenSubZone === 'function' && isInHiddenSubZone())) {
-        travelBtn = `<div class="zone-guide-here">📍 You are in this region.</div>`;
+    const inThisRegion = zoneId === hereMain && !(typeof isInHiddenSubZone === 'function' && isInHiddenSubZone());
+    if (inThisRegion) {
+        travelBtn = `<div class="zone-guide-here">📍 You are in this region.</div>
+            <button type="button" class="zone-local-map-btn" data-open-local="${zoneId}" data-local-preview="0">📍 Open local map</button>`;
     } else if (locked) {
-        travelBtn = `<div class="zone-guide-locked">🔒 Requires ${realmName} or higher.</div>`;
+        travelBtn = `<div class="zone-guide-locked">🔒 Requires ${realmName} or higher.</div>
+            <button type="button" class="zone-local-map-btn zone-local-map-btn--preview" data-open-local="${zoneId}" data-local-preview="1">👁️ Preview region</button>`;
     } else {
-        travelBtn = `<button type="button" class="zone-travel-btn" data-zone-travel="${zoneId}">🗺️ Travel here · ${ACTION_MONTHS.travel} months · costs Qi</button>`;
+        travelBtn = `<button type="button" class="zone-travel-btn" data-zone-travel="${zoneId}">🗺️ Travel here · ${ACTION_MONTHS.travel} months · costs Qi</button>
+            <button type="button" class="zone-local-map-btn zone-local-map-btn--preview" data-open-local="${zoneId}" data-local-preview="1">👁️ Preview region</button>`;
     }
-
-    const locationsHtml = typeof renderZoneLocationsHtml === 'function' ? renderZoneLocationsHtml(zoneId) : '';
 
     info.innerHTML = `
         <div class="zone-guide-header">${zone.emoji} <strong>${zone.name}</strong> · ${zone.biome}</div>
@@ -177,14 +281,31 @@ function showZoneGuide(zoneId) {
         <div class="zone-guide-lore">${escapeHtml(zone.lore || zone.description)}</div>
         <div class="zone-guide-tags">${marketLine}${highlights}</div>
         ${travelBtn}
-        ${locationsHtml}
         ${typeof renderAncientsZonePanelHtml === 'function' ? renderAncientsZonePanelHtml(zoneId) : ''}
     `;
 
     info.querySelector('[data-zone-travel]')?.addEventListener('click', function() {
         travelToZone(this.dataset.zoneTravel);
     });
-    if (typeof bindZoneLocationEvents === 'function') bindZoneLocationEvents(info);
+    const infZone = typeof getSectInfluenceZone === 'function' ? getSectInfluenceZone() : null;
+    if (infZone === zoneId) {
+        const name = G.sect?.name || 'Your sect';
+        info.insertAdjacentHTML('beforeend',
+            `<div class="zone-guide-influence">🌏 <strong>${escapeHtml(name)}</strong> holds influence here.</div>`);
+    }
+    const rivalsHere = (typeof getWorldSectsInZone === 'function' ? getWorldSectsInZone(zoneId) : [])
+        .slice(0, 4);
+    if (rivalsHere.length) {
+        const names = rivalsHere.map(s => escapeHtml(s.name || 'Rival sect')).join(', ');
+        info.insertAdjacentHTML('beforeend',
+            `<div class="zone-guide-rivals">🏯 Other sects here: ${names}</div>`);
+    }
+
+    info.querySelectorAll('[data-open-local]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            openLocalMap(this.dataset.openLocal, this.dataset.localPreview === '1');
+        });
+    });
     if (typeof bindAncientsZonePanelEvents === 'function') bindAncientsZonePanelEvents(info);
 }
 
@@ -247,6 +368,11 @@ function travelToZone(zoneId) {
     if (typeof fireSceneNoticesOnArrive === 'function') {
         fireSceneNoticesOnArrive({ locationId: G.currentLocation, zoneId });
     }
+    mapPopupUi.tab = 'local';
+    mapPopupUi.previewMode = false;
+    mapPopupUi.localZoneId = zoneId;
+    mapPopupUi.selectedLocationId = G.currentLocation || null;
+    mapPopupUi.worldSelectedZoneId = zoneId;
     renderMapPopup();
     fullRender();
 }
@@ -254,6 +380,16 @@ function travelToZone(zoneId) {
 function bindMapEvents() {
     document.getElementById('mapClose').addEventListener('click', function() {
         document.getElementById('mapPopup').classList.remove('active');
+    });
+    document.getElementById('mapTabWorld')?.addEventListener('click', () => setMapPopupTab('world'));
+    document.getElementById('mapTabLocal')?.addEventListener('click', () => openLocalMap(getMainZoneId(), false));
+    document.getElementById('mapTabSect')?.addEventListener('click', () => {
+        if (typeof isSectFounded === 'function' && isSectFounded()) {
+            openSectMap();
+            return;
+        }
+        document.getElementById('mapPopup')?.classList.remove('active');
+        if (typeof actionSect === 'function') actionSect();
     });
 }
 
@@ -292,6 +428,11 @@ function rollExploreLoot(zoneId) {
         return techPool[Math.floor(Math.random() * techPool.length)];
     }
 
+    if (typeof rollExploreMethodLoot === 'function') {
+        const methodLoot = rollExploreMethodLoot();
+        if (methodLoot) return methodLoot;
+    }
+
     const roll = Math.random();
     if (roll < EXPLORE_BALANCE.ultraChance && lootTable.ultra?.length) {
         return lootTable.ultra[Math.floor(Math.random() * lootTable.ultra.length)];
@@ -327,6 +468,17 @@ function applyExploreLoot(loot) {
             const soldFor = applyExploreRewardMult(loot.value || 5);
             G.stones += soldFor;
             addLog(`💎 You sell ${loot.name} for ${soldFor} Stones.`);
+        }
+    } else if (loot.type === "cultivation_method") {
+        const methodId = loot.methodId;
+        const method = typeof getCultivationMethodDef === 'function' ? getCultivationMethodDef(methodId) : null;
+        if (method && typeof grantMethodScroll === 'function') {
+            const got = grantMethodScroll(methodId, {
+                silent: true,
+                source: typeof getLootZoneId === 'function' ? getLootZoneId() : G.currentZone
+            });
+            if (got) addLog(`📘 Cultivation scroll found: ${method.name}! Check Inventory → Cultivation scrolls.`);
+            else addLog(`📘 Found ${method.name}, but your travel kit is full.`);
         }
     } else if (loot.type === "pill") {
         const pillId = loot.pillId || rollRandomPillId();
@@ -378,6 +530,46 @@ function actionMarket() {
     }
     renderMerchantPopup();
     document.getElementById('merchantPopup').classList.add('active');
+}
+
+function buyCultivationMethod(methodId) {
+    const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : getActiveZoneId();
+    const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;
+    if (!catalog?.methods?.length) return;
+    const item = catalog.methods.find(s => s.methodId === methodId);
+    if (!item) return;
+    const method = typeof getCultivationMethodDef === 'function' ? getCultivationMethodDef(methodId) : null;
+    if (!method) return;
+    const reqRealm = item.reqRealm ?? method.reqRealm ?? 0;
+    if (G.realmIdx < reqRealm) {
+        const realmName = PATHS[G.path]?.realms[reqRealm] || `realm ${reqRealm + 1}`;
+        addLog(`📘 ${method.name} requires ${realmName} or higher.`);
+        fullRender();
+        return;
+    }
+    const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+    if (G.stones < finalPrice) {
+        addLog(`💎 Need ${finalPrice} Stones for ${method.name}. You have ${G.stones}.`);
+        fullRender();
+        return;
+    }
+    beginActionLog();
+    if (!advanceTime(ACTION_MONTHS.market, `Buying ${method.name} at the market`)) {
+        cancelActionLog();
+        fullRender();
+        return;
+    }
+    G.stones -= finalPrice;
+    const got = typeof grantMethodScroll === 'function' && grantMethodScroll(methodId, { silent: true, source: 'market' });
+    const discountNote = finalPrice < item.price ? ` (favor discount: −${item.price - finalPrice})` : '';
+    const note = got ? ' — shelved under Cultivation scrolls' : ' — kit full, purchase failed';
+    if (!got) G.stones += finalPrice;
+    commitActionLog(got
+        ? `🏪 Purchased cultivation scroll: ${method.name} for ${finalPrice} Stones${discountNote}${note}.`
+        : `🏪 Could not stow ${method.name} — travel kit full. Stones refunded.`);
+    if (typeof renderMerchantPopup === 'function') renderMerchantPopup();
+    fullRender();
 }
 
 function buyTechnique(techName) {

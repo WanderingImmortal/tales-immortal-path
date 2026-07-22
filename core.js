@@ -140,7 +140,11 @@ let G = {
     tutorialLog: null,
     sect: null,
     milestones: null,
-    knownFormations: []
+    knownFormations: [],
+    cultivationMethod: null,
+    methodShelf: null,
+    foundationNatureId: null,
+    foundationNatureGrade: null
 };
 
 // ===== HELPERS =====
@@ -1014,6 +1018,7 @@ function loadState() {
             }
             if (!G.traits?.length && G.trait) G.traits = [G.trait];
             if (typeof ensureTalentState === 'function') ensureTalentState();
+            if (typeof ensureCultivationMethodState === 'function') ensureCultivationMethodState();
             if (!G.creationDrawbacks) G.creationDrawbacks = [];
             if (!G.techniques) G.techniques = [];
             if (!G.disciples) G.disciples = [];

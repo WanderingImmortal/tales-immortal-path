@@ -737,6 +737,7 @@ function getCultivatorRealmEffects(path, realm, style) {
 }
 
 function addLog(msg) {
+    if (G._quietTime) return;
     if (G._deferringLogs && G._actionLog) {
         if (!G._pendingActionMeta) G._pendingActionMeta = { time: '', world: '', extras: [] };
         const text = typeof msg === 'object' ? msg.html : msg;
@@ -1777,10 +1778,32 @@ function renderDaoPopup() {
 function renderSectPopup() {
     if (typeof ensureSectState === 'function') ensureSectState();
     const displayName = typeof getSectDisplayName === 'function' ? getSectDisplayName() : (G.sectName || 'Sect');
-    document.getElementById('sectTitle').textContent = typeof isSectFounded === 'function' && isSectFounded()
-        ? displayName
-        : 'Sect — Found Your Legacy';
-    const el = document.getElementById('sectInfo');
+    const founded = typeof isSectFounded === 'function' && isSectFounded();
+    const useMap = typeof isMapSectTabOpen === 'function' && isMapSectTabOpen();
+    const mapEl = document.getElementById('mapSectInfo');
+    const popupEl = document.getElementById('sectInfo');
+    const el = useMap && mapEl ? mapEl : popupEl;
+    if (!el) return;
+
+    if (!useMap) {
+        const title = document.getElementById('sectTitle');
+        if (title) title.textContent = founded ? displayName : 'Sect — Found Your Legacy';
+    }
+
+    if (useMap && !founded) {
+        el.innerHTML = `<div class="map-sect-empty">
+            <p class="sect-hint">You have not founded a sect yet.</p>
+            <button type="button" class="zone-local-map-btn" id="btnMapFoundSect">🏯 Found your sect</button>
+        </div>`;
+        el.querySelector('#btnMapFoundSect')?.addEventListener('click', () => {
+            document.getElementById('mapPopup')?.classList.remove('active');
+            if (typeof mapPopupUi !== 'undefined') mapPopupUi.tab = 'world';
+            renderSectPopup();
+            document.getElementById('sectPopup')?.classList.add('active');
+        });
+        return;
+    }
+
     let html = typeof renderSectPanelHtml === 'function' ? renderSectPanelHtml() : '';
 
     html += `<div class="sect-forge-divider"></div>`;
@@ -1837,6 +1860,7 @@ function renderSectPopup() {
     });
     el.querySelector('#sectOpenForge')?.addEventListener('click', () => {
         document.getElementById('sectPopup')?.classList.remove('active');
+        document.getElementById('mapPopup')?.classList.remove('active');
         if (typeof openForgeChamber === 'function') openForgeChamber({ atSect: true });
     });
 }
@@ -1890,13 +1914,14 @@ function renderInventoryPopup() {
     const gearCount = typeof getGearBagCount === 'function' ? getGearBagCount() : 0;
     const equippedCount = GEAR_SLOT_IDS.filter(s => G.equipment[s]).length;
     const manualCount = typeof countManualShelfTotal === 'function' ? countManualShelfTotal() : 0;
+    const methodCount = typeof countMethodShelfTotal === 'function' ? countMethodShelfTotal() : 0;
     const kitBd = typeof getTravelKitBreakdown === 'function' ? getTravelKitBreakdown() : null;
 
     if (summary) {
         const kitLine = kitBd
             ? `Kit ${formatTravelKitLoad(kitBd.total)}/${kitBd.capacity}`
             : '';
-        summary.textContent = [kitLine, `${gearCount} spare gear · ${equippedCount} worn · ${matCount} materials · ${manualCount} manuals · ${items.length} curios`]
+        summary.textContent = [kitLine, `${gearCount} spare gear · ${equippedCount} worn · ${matCount} materials · ${manualCount} combat manuals · ${methodCount} cultivation scrolls · ${items.length} curios`]
             .filter(Boolean).join(' · ');
     }
 
@@ -1953,8 +1978,13 @@ function renderInventoryPopup() {
 
     let html = '';
 
+    if (typeof renderMethodShelfHtml === 'function') {
+        html += `<div class="inventory-section-title sticky-section">📘 Cultivation scrolls <span class="section-badge">${methodCount}</span></div>`;
+        html += renderMethodShelfHtml();
+    }
+
     if (typeof renderTravelKitManualsHtml === 'function') {
-        html += `<div class="inventory-section-title sticky-section">📜 Travel Kit — Manuals <span class="section-badge">${manualCount}</span></div>`;
+        html += `<div class="inventory-section-title sticky-section">📜 Travel Kit — Combat manuals <span class="section-badge">${manualCount}</span></div>`;
         html += renderTravelKitManualsHtml();
     }
 
@@ -2023,6 +2053,7 @@ function renderInventoryPopup() {
     }
     list.innerHTML = html;
 
+    if (typeof bindMethodShelfActions === 'function') bindMethodShelfActions(list);
     if (typeof bindTravelKitManualActions === 'function') bindTravelKitManualActions(list);
     if (typeof bindSpatialRingActions === 'function') bindSpatialRingActions(kitPanel || list);
 
@@ -2141,7 +2172,9 @@ function renderTutorialLogPopup() {
 }
 
 function renderQuestJournalPopup(tabId) {
-    tabId = tabId || window._journalTab || 'active';
+    tabId = typeof normalizeJournalTab === 'function'
+        ? normalizeJournalTab(tabId || window._journalTab || 'path')
+        : (tabId || window._journalTab || 'path');
     window._journalTab = tabId;
     const list = document.getElementById('questJournalList');
     const hint = document.getElementById('questJournalHint');
@@ -2151,12 +2184,13 @@ function renderQuestJournalPopup(tabId) {
         btn.classList.toggle('active', btn.dataset.journalTab === tabId);
     });
 
+    if (typeof getDiaryTabHint === 'function' && hint) {
+        hint.textContent = getDiaryTabHint(tabId);
+    }
+
     if (tabId === 'ancient' && typeof getSealedSitesChronicleSummary === 'function') {
         const summary = getSealedSitesChronicleSummary();
         const statusLabel = { hidden: 'Undiscovered', revealed: 'Entrance found', unsealed: 'Unsealed' };
-        if (hint) {
-            hint.textContent = `${summary.clueCount} clues · ${summary.unsealedCount}/5 unsealed${summary.penalty ? ` · −${summary.penalty}% search competition` : ''}`;
-        }
         let html = '<div class="sealed-sites-grid">';
         summary.sites.forEach(site => {
             const parent = ZONES[site.parentZone]?.name || site.parentZone;
@@ -2170,11 +2204,25 @@ function renderQuestJournalPopup(tabId) {
         const chronicle = (G.ancients?.chronicle || []).slice(0, 16);
         if (chronicle.length) {
             html += '<div class="sealed-chronicle-title">Site Log</div>';
-            html += chronicle.map(e => `<div class="quest-journal-entry journal-done">
-                <div class="quest-journal-title">${e.title}</div>
-                <div class="quest-journal-meta">${e.status || 'logged'}${e.ageLabel ? ` · ${e.ageLabel}` : ''}</div>
-                ${e.text ? `<div class="quest-journal-objective">${e.text}</div>` : ''}
-            </div>`).join('');
+            if (typeof renderDiaryListWithEras === 'function') {
+                const siteEntries = chronicle.map(e => typeof toDiaryEntry === 'function' ? toDiaryEntry({
+                    months: e.months,
+                    ageLabel: e.ageLabel,
+                    emoji: '🔒',
+                    title: e.title,
+                    body: e.text,
+                    status: e.status || 'logged',
+                    resolution: e.resolution,
+                    metaExtra: 'sealed site'
+                }) : null).filter(Boolean);
+                html += renderDiaryListWithEras(siteEntries, 'No sealed-site events yet.');
+            } else {
+                html += chronicle.map(e => `<div class="quest-journal-entry journal-done">
+                    <div class="quest-journal-title">${e.title}</div>
+                    <div class="quest-journal-meta">${e.status || 'logged'}${e.ageLabel ? ` · ${e.ageLabel}` : ''}</div>
+                    ${e.text ? `<div class="quest-journal-objective">${e.text}</div>` : ''}
+                </div>`).join('');
+            }
         } else {
             html += '<p class="quest-journal-empty">No sealed-site events yet — explore, speak with NPCs, and search the wilds.</p>';
         }
@@ -2182,35 +2230,18 @@ function renderQuestJournalPopup(tabId) {
         return;
     }
 
-    const entries = typeof getQuestJournalEntries === 'function' ? getQuestJournalEntries() : [];
-    const filtered = entries.filter(e => {
-        if (tabId === 'active') return e.status === 'active';
-        return e.kind === tabId || (tabId === 'arc' && e.kind === 'legacy');
-    });
-    const legacy = G.legacyChain?.unlocked ? ' · 🌟 Legacy chain unlocked' : '';
-    const chainCount = G.legacyChain?.completedArcIds?.length || 0;
-    if (hint) {
-        hint.textContent = `${chainCount} arcs logged${legacy} · ${G.disciples?.length || 0} disciples may assign sect duties.`;
-    }
-    if (!filtered.length) {
-        list.innerHTML = '<p class="quest-journal-empty">Nothing in this chronicle tab yet.</p>';
+    if (typeof renderDiaryTabHtml === 'function') {
+        list.innerHTML = renderDiaryTabHtml(tabId);
         return;
     }
-    list.innerHTML = filtered.slice(0, 24).map(e => {
-        const age = e.ageLabel || (e.months != null && typeof formatYears === 'function' ? formatYears(e.months) : '');
-        const statusCls = e.status === 'complete' || e.status === 'unlocked' || e.status === 'logged' ? 'journal-done' : e.status === 'failed' ? 'journal-failed' : 'journal-active';
-        const stage = e.stageName ? ` · ${e.stageName}` : e.stage ? ` · Stage ${e.stage}` : '';
-        const kindLabel = e.kind === 'ancient' ? 'sealed site' : (e.kind || 'quest');
-        return `<div class="quest-journal-entry ${statusCls}">
-            <div class="quest-journal-title">${e.title}${stage}</div>
-            <div class="quest-journal-meta">${kindLabel}${age ? ` · ${age}` : ''}${e.resolution ? ` · ${e.resolution}` : ''}</div>
-            ${e.objective ? `<div class="quest-journal-objective">${e.objective}</div>` : ''}
-        </div>`;
-    }).join('');
+
+    list.innerHTML = '<p class="quest-journal-empty">Diary unavailable.</p>';
 }
 
 function openQuestJournal(tabId) {
-    tabId = tabId || window._journalTab || 'active';
+    tabId = typeof normalizeJournalTab === 'function'
+        ? normalizeJournalTab(tabId || window._journalTab || 'path')
+        : (tabId || window._journalTab || 'path');
     window._journalTab = tabId;
     if (typeof renderQuestJournalPopup === 'function') renderQuestJournalPopup(tabId);
     document.getElementById('questJournalPopup')?.classList.add('active');
@@ -2349,7 +2380,39 @@ function renderMerchantPopup() {
     }
 
     const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
-    let html = catalog.stock.map(item => {
+    let html = '';
+
+    if (catalog.methods?.length) {
+        html += `<div class="tech-group-header">📘 Cultivation scrolls</div>`;
+        html += catalog.methods.map(item => {
+            const method = typeof getCultivationMethodDef === 'function'
+                ? getCultivationMethodDef(item.methodId)
+                : null;
+            if (!method) return '';
+            const reqRealm = item.reqRealm ?? method.reqRealm ?? 0;
+            const locked = G.realmIdx < reqRealm;
+            const studied = typeof hasStudiedCultivationMethod === 'function'
+                && hasStudiedCultivationMethod(method.id);
+            const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+            const canBuy = !locked && G.stones >= finalPrice;
+            const realmName = PATHS[G.path].realms[reqRealm] || `Realm ${reqRealm + 1}`;
+            const grade = typeof getMethodGradeDef === 'function'
+                ? (getMethodGradeDef(method.methodGrade)?.name || method.methodGrade)
+                : method.methodGrade;
+            let status = locked ? `Need ${realmName}` : `${finalPrice} Stones · Cultivation scroll · ${grade}`;
+            if (studied) status = `Studied · ${status}`;
+            if (!locked && finalPrice < item.price) status += ` (was ${item.price})`;
+            if (canBuy) status += ' · Click to buy';
+            return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-method="${escapeAttr(method.id)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
+                <div class="name">📘 ${method.name}${studied ? ' <span style="color:#7a9a7a;font-size:11px;">(studied)</span>' : ''}</div>
+                <div class="desc">${method.desc} · ${grade}</div>
+                <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
+            </div>`;
+        }).join('');
+        html += `<div class="tech-group-header" style="margin-top:12px;">📜 Combat manuals</div>`;
+    }
+
+    html += catalog.stock.map(item => {
         const template = TECHNIQUE_POOL.find(t => t.name === item.technique);
         const owned = G.techniques.some(t => t.name === item.technique);
         const reqRealm = typeof getMarketTechniqueReqRealm === 'function'
@@ -2421,6 +2484,11 @@ function renderMerchantPopup() {
 
     list.innerHTML = html;
 
+    list.querySelectorAll('[data-buy-method]').forEach(row => {
+        row.addEventListener('click', function() {
+            if (typeof buyCultivationMethod === 'function') buyCultivationMethod(this.dataset.buyMethod);
+        });
+    });
     list.querySelectorAll('[data-buy]').forEach(row => {
         row.addEventListener('click', function() {
             buyTechnique(this.dataset.buy);
