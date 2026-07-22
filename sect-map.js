@@ -557,6 +557,17 @@ function bindSectGroundsEvents(container) {
             fullRender();
         });
     });
+    container.querySelectorAll('[data-formation-exam]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const toTier = parseInt(this.dataset.formationExam, 10);
+            const result = typeof attemptFormationMasterExam === 'function'
+                ? attemptFormationMasterExam(toTier)
+                : { success: false, message: 'Exams unavailable.' };
+            if (result.message) addLog(result.success ? `🎓 ${result.message}` : `🎓 ${result.message}`);
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+            fullRender();
+        });
+    });
     container.querySelectorAll('.sect-build-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const result = typeof startSectConstruction === 'function'

@@ -1685,7 +1685,8 @@ const MERCHANT_CATALOG = {
         ],
         formations: [
             { formationId: 'qi_stabilizer', price: 85 },
-            { formationId: 'iron_wall_ward', price: 95 }
+            { formationId: 'iron_wall_ward', price: 95 },
+            { formationId: 'vein_seal_ward', price: 160 }
         ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
@@ -1718,7 +1719,8 @@ const MERCHANT_CATALOG = {
         ],
         formations: [
             { formationId: 'qi_stabilizer', price: 80 },
-            { formationId: 'iron_wall_ward', price: 90 }
+            { formationId: 'iron_wall_ward', price: 90 },
+            { formationId: 'vein_seal_ward', price: 150 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -5246,7 +5248,40 @@ const FORMATION_F1B = {
         0: 'Uninitiated',
         1: 'Pattern Student',
         2: 'Inscriber',
-        3: 'Formation Adept'
+        3: 'Formation Adept',
+        4: 'Array Disciple'
+    }
+};
+
+/** F2b: Formation Insight + master exams (Adept). */
+const FORMATION_F2B = {
+    /** Decipher / auto-grant may raise master tier up to this; Adept+ needs exam. */
+    decipherMaxPromoteTier: 2,
+    fi: {
+        decipher: 5,
+        lay: 8,
+        maintain: 3,
+        /** Per calendar month a laid pattern is active and fueled. */
+        activeMonth: 0.5
+    },
+    exams: {
+        3: {
+            fromTier: 2,
+            toTier: 3,
+            fiCost: 36,
+            months: 4,
+            stones: 45,
+            materials: { spirit_herb: 6, jade_inlay: 2, silk_thread: 3 },
+            /** Soft gate — formation-mains can still attempt slightly early. */
+            minRealmIdx: 1,
+            cooldownMonths: 6,
+            baseSuccess: 0.62,
+            /** Extra success from FI above cost (capped). */
+            fiSuccessBonusPerPoint: 0.004,
+            fiSuccessBonusCap: 0.22,
+            proofLabel: 'Adept proof inscription'
+        }
+        // 4 (Array Disciple) deferred until array-assist content exists
     }
 };
 
@@ -5299,6 +5334,22 @@ const FORMATIONS = {
         fuelCapacity: 24,
         layFuel: 4,
         /** Sect fantasy: wards stay ready, not roaring. */
+        defaultActiveOnLay: false
+    },
+    vein_seal_ward: {
+        id: 'vein_seal_ward',
+        name: 'Vein Seal Ward',
+        emoji: '🔒',
+        desc: '3rd-tier perimeter seal. Stronger event protection while running — Adept work; expensive to keep lit.',
+        deploy: 'defense_array',
+        anchors: ['defense_array'],
+        formationTier: 3,
+        implemented: true,
+        effects: { defenseRating: 55 },
+        layCost: { months: 5, materials: { iron_ore: 8, jade_inlay: 3, demon_core: 1 } },
+        fuelPerMonth: 3,
+        fuelCapacity: 24,
+        layFuel: 3,
         defaultActiveOnLay: false
     }
 };

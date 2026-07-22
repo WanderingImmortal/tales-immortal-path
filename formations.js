@@ -23,29 +23,47 @@ function getFormationF1bConfig() {
     return typeof FORMATION_F1B !== 'undefined' ? FORMATION_F1B : {
         decipherMonthsByTier: { 1: 2, 2: 3, 3: 4 },
         decipherStonesByTier: { 1: 6, 2: 14, 3: 28 },
-        masterTitles: { 0: 'Uninitiated', 1: 'Pattern Student', 2: 'Inscriber', 3: 'Formation Adept' }
+        masterTitles: { 0: 'Uninitiated', 1: 'Pattern Student', 2: 'Inscriber', 3: 'Formation Adept', 4: 'Array Disciple' }
     };
 }
 
+function getFormationF2bConfig() {
+    return typeof FORMATION_F2B !== 'undefined' ? FORMATION_F2B : {
+        decipherMaxPromoteTier: 2,
+        fi: { decipher: 5, lay: 8, maintain: 3, activeMonth: 0.5 },
+        exams: {}
+    };
+}
+
+let _ensuringFormationState = false;
+
 function ensureFormationState() {
-    if (!G.knownFormations) G.knownFormations = [];
-    if (!G.formationShelf || typeof G.formationShelf !== 'object') G.formationShelf = {};
-    if (!G.formationMaster || typeof G.formationMaster !== 'object') {
-        G.formationMaster = { tier: 0, insight: 0 };
+    if (_ensuringFormationState) return;
+    _ensuringFormationState = true;
+    try {
+        if (!G.knownFormations) G.knownFormations = [];
+        if (!G.formationShelf || typeof G.formationShelf !== 'object') G.formationShelf = {};
+        if (!G.formationMaster || typeof G.formationMaster !== 'object') {
+            G.formationMaster = { tier: 0, insight: 0, lastExamAgeMonths: null };
+        }
+        if (G.formationMaster.tier == null) G.formationMaster.tier = 0;
+        if (G.formationMaster.insight == null) G.formationMaster.insight = 0;
+        if (G.formationMaster.lastExamAgeMonths === undefined) G.formationMaster.lastExamAgeMonths = null;
+        if (typeof ensureSectState === 'function') ensureSectState();
+        if (!G.sect) G.sect = {};
+        if (!G.sect.residence) {
+            G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
+        }
+        if (!G.sect.residence.formations) G.sect.residence.formations = { slots: [] };
+        if (!Array.isArray(G.sect.residence.formations.slots)) {
+            G.sect.residence.formations.slots = [];
+        }
+        migrateKnownFormationsToShelf();
+        ensureResidenceFormationSlots();
+        ensureAllSectFormationAnchors();
+    } finally {
+        _ensuringFormationState = false;
     }
-    if (G.formationMaster.tier == null) G.formationMaster.tier = 0;
-    if (G.formationMaster.insight == null) G.formationMaster.insight = 0;
-    ensureSectState();
-    if (!G.sect.residence) {
-        G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
-    }
-    if (!G.sect.residence.formations) G.sect.residence.formations = { slots: [] };
-    if (!Array.isArray(G.sect.residence.formations.slots)) {
-        G.sect.residence.formations.slots = [];
-    }
-    migrateKnownFormationsToShelf();
-    ensureResidenceFormationSlots();
-    ensureAllSectFormationAnchors();
 }
 
 function migrateKnownFormationsToShelf() {
@@ -64,7 +82,7 @@ function migrateKnownFormationsToShelf() {
             G.formationShelf[id].deciphered = true;
         }
         const need = def.formationTier || 1;
-        if ((G.formationMaster.tier || 0) < need) G.formationMaster.tier = need;
+        maybePromoteFormationMasterFromStudy(need);
     });
     syncKnownFormationsFromShelf();
 }
@@ -77,12 +95,13 @@ function syncKnownFormationsFromShelf() {
 }
 
 function migrateFormationsForExistingSave() {
-    ensureFormationState();
+    // May be invoked from ensureSectState while ensureFormationState is already running.
+    if (!_ensuringFormationState) ensureFormationState();
     const residenceLv = typeof getResidenceLevel === 'function' ? getResidenceLevel() : (G.sect?.residence?.level || 0);
     for (let lv = 1; lv <= residenceLv; lv++) {
         grantStarterFormationManualForResidenceLevel(lv, { silent: true });
     }
-    ensureResidenceFormationSlots();
+    if (!_ensuringFormationState) ensureResidenceFormationSlots();
 }
 
 function getFormationDef(formationId) {
@@ -90,8 +109,37 @@ function getFormationDef(formationId) {
 }
 
 function getFormationMasterTier() {
-    ensureFormationState();
-    return G.formationMaster.tier || 0;
+    return G?.formationMaster?.tier || 0;
+}
+
+function getFormationMasterInsight() {
+    return Math.max(0, Math.floor(G?.formationMaster?.insight || 0));
+}
+
+function grantFormationInsight(amount, options) {
+    if (!G.formationMaster) G.formationMaster = { tier: 0, insight: 0, lastExamAgeMonths: null };
+    const n = Math.max(0, Number(amount) || 0);
+    if (n <= 0) return 0;
+    G.formationMaster.insight = (G.formationMaster.insight || 0) + n;
+    if (options?.log && typeof addLog === 'function') {
+        addLog(`☯️ Formation Insight +${n}${options.reason ? ` (${options.reason})` : ''}.`);
+    }
+    return n;
+}
+
+/**
+ * F2b: study/decipher may raise master tier only up to decipherMaxPromoteTier (default 2).
+ * Adept+ requires attemptFormationMasterExam.
+ */
+function maybePromoteFormationMasterFromStudy(formationTier) {
+    if (!G.formationMaster) G.formationMaster = { tier: 0, insight: 0, lastExamAgeMonths: null };
+    const need = Math.max(0, formationTier || 0);
+    if (need <= 0) return false;
+    const cap = getFormationF2bConfig().decipherMaxPromoteTier ?? 2;
+    const target = Math.min(need, cap);
+    if ((G.formationMaster.tier || 0) >= target) return false;
+    G.formationMaster.tier = target;
+    return true;
 }
 
 function getFormationMasterTitle(tier) {
@@ -159,8 +207,7 @@ function grantFormationManual(formationId, options) {
     };
     if (deciphered) {
         syncKnownFormationsFromShelf();
-        const need = def.formationTier || 1;
-        if (getFormationMasterTier() < need) G.formationMaster.tier = need;
+        maybePromoteFormationMasterFromStudy(def.formationTier || 1);
     }
     if (!options?.silent) {
         if (deciphered) {
@@ -221,7 +268,7 @@ function getDecipherFormationBlockReason(formationId) {
 
 /**
  * Study an unread shelf manual at residence (or anywhere personal — not sect-gated).
- * Completing decipher sets deciphered and raises master tier to the diagram's formation tier (F1b thin promotion).
+ * F2b: may raise master tier only up to Inscriber (2); Adept+ needs exam. Grants FI.
  */
 function decipherFormation(formationId) {
     const block = getDecipherFormationBlockReason(formationId);
@@ -237,13 +284,17 @@ function decipherFormation(formationId) {
     }
     entry.deciphered = true;
     syncKnownFormationsFromShelf();
-    const need = def.formationTier || 1;
     const beforeTier = getFormationMasterTier();
-    if (beforeTier < need) G.formationMaster.tier = need;
-    const promoted = getFormationMasterTier() > beforeTier;
-    const title = getFormationMasterTitle();
-    let msg = `${def.emoji} ${def.name} deciphered — the lines are readable.`;
-    if (promoted) msg += ` Formation Master: ${title} (tier ${getFormationMasterTier()}).`;
+    const promoted = maybePromoteFormationMasterFromStudy(def.formationTier || 1);
+    const fiGain = getFormationF2bConfig().fi?.decipher ?? 5;
+    grantFormationInsight(fiGain);
+    let msg = `${def.emoji} ${def.name} deciphered — the lines are readable. (+${fiGain} FI)`;
+    if (promoted) {
+        msg += ` Formation Master: ${getFormationMasterTitle()} (tier ${getFormationMasterTier()}).`;
+    } else if ((def.formationTier || 1) > (getFormationF2bConfig().decipherMaxPromoteTier ?? 2)
+        && beforeTier < (def.formationTier || 1)) {
+        msg += ` Master tier ${def.formationTier} needs a proof exam — study alone is not enough.`;
+    }
     return { success: true, message: msg };
 }
 
@@ -469,9 +520,11 @@ function layResidenceFormation(slotIndex, formationId) {
     const replaceNote = prevId && prevId !== formationId
         ? ` Replaced ${getFormationDef(prevId)?.name || 'previous pattern'}.`
         : '';
+    const fiGain = getFormationF2bConfig().fi?.lay ?? 8;
+    grantFormationInsight(fiGain);
     return {
         success: true,
-        message: `${def.emoji} ${def.name} inscribed around your quarters — fueled and active.${replaceNote}`
+        message: `${def.emoji} ${def.name} inscribed around your quarters — fueled and active.${replaceNote} (+${fiGain} FI)`
     };
 }
 
@@ -597,9 +650,11 @@ function maintainResidenceFormation(slotIndex) {
     slot.integrity = Math.min(cfg.integrityMax, slot.integrity + (cost.restore || 35));
     slot.scattered = false;
     const band = getFormationIntegrityBand(slot.integrity);
+    const fiGain = getFormationF2bConfig().fi?.maintain ?? 3;
+    grantFormationInsight(fiGain);
     return {
         success: true,
-        message: `${def.emoji} ${def.name} lines refreshed (${before}→${slot.integrity}, ${getFormationIntegrityLabel(band)}).`
+        message: `${def.emoji} ${def.name} lines refreshed (${before}→${slot.integrity}, ${getFormationIntegrityLabel(band)}). (+${fiGain} FI)`
     };
 }
 
@@ -620,6 +675,7 @@ function tickAllFormationSlots(monthsPassed) {
     ensureFormationState();
     const cfg = getFormationF1aConfig();
     const decay = cfg.integrityDecayPerMonth || 1;
+    let fiAccrued = 0;
 
     function tickSlots(slots) {
         if (!slots?.length) return;
@@ -656,15 +712,20 @@ function tickAllFormationSlots(monthsPassed) {
                         addLog(`☯️ ${def.emoji} ${def.name} ran dry — still switched on, but inert until refueled.`);
                     }
                 }
+                if (slot.fuel > 0) {
+                    const per = getFormationF2bConfig().fi?.activeMonth ?? 0.5;
+                    fiAccrued += per * monthsPassed;
+                }
             }
         }
     }
 
     tickSlots(G.sect.residence?.formations?.slots);
-    Object.keys(FORMATION_ANCHORS || {}).forEach(anchorId => {
+    Object.keys(typeof FORMATION_ANCHORS !== 'undefined' ? FORMATION_ANCHORS : {}).forEach(anchorId => {
         if (anchorId === 'residence') return;
         tickSlots(G.sect.anchors?.[anchorId]?.slots);
     });
+    if (fiAccrued > 0) grantFormationInsight(Math.floor(fiAccrued * 10) / 10);
 }
 
 function actionResidenceCultivate() {
@@ -731,8 +792,10 @@ function renderFormationShelfHtml() {
     ensureFormationState();
     const tier = getFormationMasterTier();
     const title = getFormationMasterTitle(tier);
+    const fi = getFormationMasterInsight();
     let html = `<div class="sect-section-title">📜 Formation Shelf</div>`;
-    html += `<p class="sect-hint">Master: <strong>${title}</strong> (tier ${tier}) — caps which formation tiers you may lay. Decipher unread manuals here (no Trace yet).</p>`;
+    html += `<p class="sect-hint">Master: <strong>${title}</strong> (tier ${tier}) · Insight: <strong>${fi}</strong> FI — caps which formation tiers you may lay. Decipher raises rank only through Inscriber (2); Adept needs a proof exam.</p>`;
+    html += renderFormationExamHtml();
 
     const entries = Object.values(G.formationShelf || {}).sort((a, b) => {
         const na = getFormationDef(a.formationId)?.name || a.formationId;
@@ -772,6 +835,141 @@ function renderFormationShelfHtml() {
         }
     });
     html += `</ul>`;
+    return html;
+}
+
+function getNextFormationMasterExamTarget() {
+    const tier = getFormationMasterTier();
+    const exams = getFormationF2bConfig().exams || {};
+    const next = tier + 1;
+    return exams[next] ? next : null;
+}
+
+function getFormationMasterExamDef(toTier) {
+    return getFormationF2bConfig().exams?.[toTier] || null;
+}
+
+function getFormationExamBlockReason(toTier) {
+    ensureFormationState();
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot attempt an exam right now.';
+    if (G.inCombat) return 'Cannot attempt a proof lay during combat.';
+    const exam = getFormationMasterExamDef(toTier);
+    if (!exam) return 'No exam available for that rank.';
+    if (getFormationMasterTier() !== exam.fromTier) {
+        return `Requires Formation Master tier ${exam.fromTier} (${getFormationMasterTitle(exam.fromTier)}).`;
+    }
+    if (getFormationMasterInsight() < exam.fiCost) {
+        return `Need ${exam.fiCost} Formation Insight (have ${getFormationMasterInsight()}).`;
+    }
+    const realmIdx = typeof getEffectiveRealmIdx === 'function'
+        ? getEffectiveRealmIdx()
+        : (G.realmIdx || 0);
+    if (exam.minRealmIdx != null && realmIdx < exam.minRealmIdx) {
+        const realmName = typeof PATHS !== 'undefined'
+            ? (PATHS[G.path]?.realms?.[exam.minRealmIdx] || `realm ${exam.minRealmIdx + 1}`)
+            : `realm ${exam.minRealmIdx + 1}`;
+        return `Soft gate: reach ${realmName} before the heavens take your proof seriously.`;
+    }
+    const last = G.formationMaster.lastExamAgeMonths;
+    if (last != null && exam.cooldownMonths) {
+        const elapsed = (G.ageMonths || 0) - last;
+        if (elapsed < exam.cooldownMonths) {
+            return `Exam cooldown — ${exam.cooldownMonths - elapsed} months remain.`;
+        }
+    }
+    if ((G.stones || 0) < (exam.stones || 0)) {
+        return `Need ${exam.stones} Spirit Stones for the proof lay.`;
+    }
+    if (exam.materials && typeof getConstructionMaterialsBlock === 'function') {
+        const matBlock = getConstructionMaterialsBlock({ materials: exam.materials });
+        if (matBlock) return matBlock;
+    }
+    // Prefer meditation chamber for Adept proof; residence courtyard as fallback.
+    const chamberLv = typeof getBuildingLevel === 'function' ? getBuildingLevel('meditation_chamber') : 0;
+    const resLv = typeof getResidenceLevel === 'function' ? getResidenceLevel() : 0;
+    if (chamberLv < 1 && resLv < 1) {
+        return 'Need a Meditation Chamber or upgraded quarters for the proof inscription.';
+    }
+    return null;
+}
+
+function getFormationExamSuccessChance(toTier) {
+    const exam = getFormationMasterExamDef(toTier);
+    if (!exam) return 0;
+    const extraFi = Math.max(0, getFormationMasterInsight() - (exam.fiCost || 0));
+    const bonus = Math.min(
+        exam.fiSuccessBonusCap ?? 0.22,
+        extraFi * (exam.fiSuccessBonusPerPoint ?? 0.004)
+    );
+    return Math.min(0.92, (exam.baseSuccess ?? 0.62) + bonus);
+}
+
+/**
+ * Proof-lay exam to raise master tier (F2b). Currently ships Inscriber → Adept (3).
+ */
+function attemptFormationMasterExam(toTier) {
+    const target = toTier || getNextFormationMasterExamTarget();
+    const block = getFormationExamBlockReason(target);
+    if (block) return { success: false, message: block };
+    const exam = getFormationMasterExamDef(target);
+    const months = exam.months || 4;
+    const stones = exam.stones || 0;
+    const chance = getFormationExamSuccessChance(target);
+    if (exam.materials && typeof removeCraftMaterials === 'function' && !removeCraftMaterials(exam.materials)) {
+        return { success: false, message: 'Missing materials.' };
+    }
+    if (stones > 0) G.stones -= stones;
+    G.formationMaster.insight = Math.max(0, (G.formationMaster.insight || 0) - (exam.fiCost || 0));
+    G.formationMaster.lastExamAgeMonths = G.ageMonths || 0;
+
+    if (!advanceTime(months, exam.proofLabel || 'Formation master proof lay')) {
+        if (exam.materials && typeof addCraftMaterial === 'function') {
+            for (const [matId, qty] of Object.entries(exam.materials)) addCraftMaterial(matId, qty);
+        }
+        if (stones > 0) G.stones += stones;
+        G.formationMaster.insight += exam.fiCost || 0;
+        G.formationMaster.lastExamAgeMonths = null;
+        return { success: false, message: 'Your lifespan ends before the proof completes.' };
+    }
+
+    const roll = Math.random();
+    if (roll > chance) {
+        return {
+            success: false,
+            message: `Proof lay fails (had ~${Math.round(chance * 100)}% chance). Materials and FI spent. Cooldown ${exam.cooldownMonths || 6} months.`
+        };
+    }
+
+    G.formationMaster.tier = exam.toTier || target;
+    const title = getFormationMasterTitle();
+    return {
+        success: true,
+        message: `Proof accepted. You are now ${title} (tier ${G.formationMaster.tier}). 3rd-tier patterns such as Vein Seal Ward are within reach.`
+    };
+}
+
+function renderFormationExamHtml() {
+    const next = getNextFormationMasterExamTarget();
+    if (!next) {
+        if (getFormationMasterTier() >= 3) {
+            return `<p class="sect-hint">Adept proven. Array Disciple exams wait on array-assist content.</p>`;
+        }
+        return '';
+    }
+    const exam = getFormationMasterExamDef(next);
+    if (!exam) return '';
+    const block = getFormationExamBlockReason(next);
+    const chance = Math.round(getFormationExamSuccessChance(next) * 100);
+    const toTitle = getFormationMasterTitle(next);
+    let html = `<div class="sect-formation-exam">`;
+    html += `<div class="sect-section-title sect-section-muted">🎓 Master Exam → ${toTitle}</div>`;
+    html += `<p class="sect-hint">${exam.proofLabel || 'Proof lay'}: ${exam.fiCost} FI · ${exam.months} mo · ${exam.stones}💎 · ~${chance}% success. Fail keeps cooldown; materials are spent.</p>`;
+    html += `<button type="button" class="sect-action-btn sect-formation-exam-btn" data-formation-exam="${next}"
+        ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
+        Attempt ${toTitle} exam
+    </button>`;
+    if (block) html += `<p class="sect-hint">${block}</p>`;
+    html += `</div>`;
     return html;
 }
 
@@ -1002,9 +1200,11 @@ function laySectAnchorFormation(anchorId, slotIndex, formationId) {
     const runNote = activeDefault
         ? ' — fueled and active.'
         : ' — fueled and standing ready (switch off).';
+    const fiGain = getFormationF2bConfig().fi?.lay ?? 8;
+    grantFormationInsight(fiGain);
     return {
         success: true,
-        message: `${def.emoji} ${def.name} inscribed at the ${aDef.label}${runNote}${replaceNote}`
+        message: `${def.emoji} ${def.name} inscribed at the ${aDef.label}${runNote}${replaceNote} (+${fiGain} FI)`
     };
 }
 
@@ -1124,9 +1324,11 @@ function maintainSectAnchorFormation(anchorId, slotIndex) {
     slot.integrity = Math.min(cfg.integrityMax, slot.integrity + (cost.restore || 35));
     slot.scattered = false;
     const band = getFormationIntegrityBand(slot.integrity);
+    const fiGain = getFormationF2bConfig().fi?.maintain ?? 3;
+    grantFormationInsight(fiGain);
     return {
         success: true,
-        message: `${def.emoji} ${def.name} lines refreshed (${before}→${slot.integrity}, ${getFormationIntegrityLabel(band)}).`
+        message: `${def.emoji} ${def.name} lines refreshed (${before}→${slot.integrity}, ${getFormationIntegrityLabel(band)}). (+${fiGain} FI)`
     };
 }
 

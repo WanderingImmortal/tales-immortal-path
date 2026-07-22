@@ -3084,10 +3084,18 @@ header .subtitle {
     color: #80c080;
 }
 
-.sect-formation-decipher-btn {
+.sect-formation-exam {
+    margin: 8px 0 12px;
+    padding: 8px 10px;
+    background: rgba(50, 45, 30, 0.35);
+    border: 1px solid rgba(120, 100, 60, 0.4);
+    border-radius: 8px;
+}
+
+.sect-formation-exam-btn {
     font-size: 12px !important;
     padding: 6px 10px !important;
-    margin-top: 6px;
+    margin-top: 4px;
 }
 
 .sect-formation-manual-list {
