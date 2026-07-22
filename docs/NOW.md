@@ -10,6 +10,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 ## Next
 - Second project type / phased choices (chronicle step 4)
 - Territory grow/shrink (sect map phase 2)
+- Formations F1a when ready to build
 
 ## Blocked
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth (`chaos-cultivation-path.md`, `post-immortal-cosmology.md`)
