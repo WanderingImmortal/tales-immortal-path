@@ -504,7 +504,7 @@ G.sect.residence.formations.slots = [
 - [x] Activation switch — laid ≠ running; arrays expensive while on (owner 2026-07-22)
 - [x] Command talisman for remote / emergency flip (owner 2026-07-22)
 - [ ] Owner OK: learn pipeline thin path (F1a fuel/integrity → F1b shelf/decipher; trace later)
-- [ ] Owner OK: courtyard formations default-on vs always explicit switch
+- [x] Courtyard new lays default **on + fueled** (convenience); same switch model (owner lean F1a)
 - [ ] Owner OK: use-scaled fuel drain (later) vs flat draw while active only
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
