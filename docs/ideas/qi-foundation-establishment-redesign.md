@@ -6,7 +6,7 @@
 | **Blocked on** | Owner per-realm design; [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md); technique-driven cultivation |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 |
+| **Updated** | 2026-07-22 (cross-link: P2 nature stamp hooks today’s Seal; redesign integrates later) |
 
 ## Intent
 
@@ -60,7 +60,11 @@ Alternatives to explore when designing FE:
 | `chamberCondenseCore` at `realmIdx === 1` | Move/rename — FE exit is “form initial core” + tribulation, not “condense core” |
 | `chamberPerfectFoundation` technique sacrifice | Rework or remove unless lore supports it |
 | `CONSOLIDATION_BY_REALM[2].sacrificeTechnique` | Rework when GC seal is designed |
-| Seal Dantian at FE | Likely stays — “completing the foundation” |
+| Seal Dantian at FE | Likely stays — “completing the foundation”; **P2** stamps foundation **nature** + locks cultivation path here on the *current* action — when this redesign lands, call the same stamp helper at the new seal beat ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)) |
+
+### P2 note (2026-07-22)
+
+Foundation **nature** (elemental / affinity / fiend — not quality Crude→Peerless) is designed and should ship against **today’s** Seal/Consolidate. This redesign must **reuse** that stamp+lock, not invent a parallel system. Seal vs Consolidate naming cleanup remains in this doc’s scope.
 
 ## Prerequisites
 

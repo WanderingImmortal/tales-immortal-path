@@ -142,7 +142,9 @@ let G = {
     milestones: null,
     knownFormations: [],
     cultivationMethod: null,
-    methodShelf: null
+    methodShelf: null,
+    foundationNatureId: null,
+    foundationNatureGrade: null
 };
 
 // ===== HELPERS =====

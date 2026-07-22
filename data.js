@@ -566,7 +566,52 @@ const METHOD_GRADE_ORDER = ['crude', 'common', 'superior', 'peerless'];
 
 const DEFAULT_CULTIVATION_METHOD_ID = 'basic_meditation_breath';
 
-/** Qi-track cultivation methods (P0). Essence manuals land in later phases. */
+/**
+ * Shared foundation natures (P2). Many methods can stamp the same nature.
+ * Nature = defining trait after FE seal — NOT cultivate speed (method grade owns speed).
+ */
+const FOUNDATION_NATURES = {
+    plain_balanced: {
+        id: 'plain_balanced',
+        name: 'Balanced Foundation',
+        family: 'plain',
+        desc: 'A clean, unadorned seal — no exotic aspect, steady qi.',
+        // Modest: slightly cheaper neutral-element techniques
+        effects: { neutralTechCostMult: 0.97 }
+    },
+    fire_aspected: {
+        id: 'fire_aspected',
+        name: 'Fire-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Heat settles in the dantian — fire arts bite harder.',
+        effects: { elementDmgMult: { fire: 1.06 } }
+    },
+    thunder_tempered: {
+        id: 'thunder_tempered',
+        name: 'Thunder-Tempered Foundation',
+        family: 'deviant',
+        desc: 'Deviant lightning qi forged into the seal — strikes crack sharper.',
+        effects: { dmgMult: 1.05 }
+    },
+    sword_inclined: {
+        id: 'sword_inclined',
+        name: 'Sword-Inclined Foundation',
+        family: 'weapon_affinity',
+        desc: 'Edge-tempered seal — affinity for sword intent, better at piercing guards.',
+        effects: { armorPenPct: 0.10, intentEaseBonus: 0.1 }
+    },
+    blood_fiend: {
+        id: 'blood_fiend',
+        name: 'Blood-Fiend Foundation',
+        family: 'path_alignment',
+        desc: 'A stained seal that leaks killing aura — weaker hearts flinch.',
+        effects: { dmgMult: 1.04, intimidation: true }
+    }
+};
+
+const FOUNDATION_NATURE_BY_ID = FOUNDATION_NATURES;
+
+/** Qi-track cultivation methods. Essence manuals land in later phases. */
 const CULTIVATION_METHOD_POOL = [
     {
         id: 'basic_meditation_breath',
@@ -579,14 +624,13 @@ const CULTIVATION_METHOD_POOL = [
         rarity: 'common',
         elements: ['neutral'],
         essences: [],
+        stampsNature: 'plain_balanced',
         rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
         profile: {
             gatherMult: 1.0,
             powerMult: 1.0,
-            ceilingMult: 1.0,
             densityEfficiency: 1.0,
-            stabilityBias: 0.1,
-            foundationVariant: 'hasty_meditation'
+            stabilityBias: 0.1
         },
         infrastructure: null,
         comprehendMonths: 2,
@@ -603,14 +647,13 @@ const CULTIVATION_METHOD_POOL = [
         rarity: 'common',
         elements: ['neutral'],
         essences: [],
+        stampsNature: 'plain_balanced',
         rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
         profile: {
             gatherMult: 1.0,
             powerMult: 1.0,
-            ceilingMult: 1.05,
             densityEfficiency: 1.0,
-            stabilityBias: 0.05,
-            foundationVariant: 'outer_cycle'
+            stabilityBias: 0.05
         },
         infrastructure: null,
         comprehendMonths: 3,
@@ -627,14 +670,13 @@ const CULTIVATION_METHOD_POOL = [
         rarity: 'uncommon',
         elements: ['neutral'],
         essences: [],
+        stampsNature: 'plain_balanced',
         rootFit: { pentamixed: 0.95, mixed: 1, dual: 1.05, single: 1.08 },
         profile: {
             gatherMult: 1.0,
             powerMult: 1.05,
-            ceilingMult: 1.12,
             densityEfficiency: 1.05,
-            stabilityBias: 0.08,
-            foundationVariant: 'inner_meridian'
+            stabilityBias: 0.08
         },
         infrastructure: null,
         comprehendMonths: 4,
@@ -651,14 +693,13 @@ const CULTIVATION_METHOD_POOL = [
         rarity: 'legendary',
         elements: ['neutral'],
         essences: [],
+        stampsNature: 'plain_balanced',
         rootFit: { pentamixed: 0.9, mixed: 0.95, dual: 1.05, single: 1.1 },
         profile: {
             gatherMult: 1.0,
             powerMult: 1.1,
-            ceilingMult: 1.2,
             densityEfficiency: 1.1,
-            stabilityBias: 0.12,
-            foundationVariant: 'nine_turn'
+            stabilityBias: 0.12
         },
         infrastructure: null,
         comprehendMonths: 8,
@@ -675,14 +716,13 @@ const CULTIVATION_METHOD_POOL = [
         rarity: 'common',
         elements: ['neutral'],
         essences: [],
+        stampsNature: 'plain_balanced',
         rootFit: { pentamixed: 1.12, mixed: 1.05, dual: 0.95, single: 0.88 },
         profile: {
             gatherMult: 0.95,
             powerMult: 1.0,
-            ceilingMult: 1.0,
             densityEfficiency: 0.95,
-            stabilityBias: -0.02,
-            foundationVariant: 'impure_breath'
+            stabilityBias: -0.02
         },
         infrastructure: null,
         comprehendMonths: 2,
