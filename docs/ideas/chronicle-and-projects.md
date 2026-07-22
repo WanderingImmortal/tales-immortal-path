@@ -5,7 +5,7 @@
 | **Status** | `building` (diary reader v0) |
 | **Blocked on** | Realm/lifespan table parked; world tick sim optional for v1 |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/chronicle-diary-reader` |
+| **Chat / PR** | [PR #58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58) |
 | **Updated** | 2026-07-22 |
 
 ## Intent
