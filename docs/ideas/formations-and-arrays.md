@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | Owner formations brainstorm (cloud agent, 2026-07-21); prior chat *xianxia formations arrays* (not in repo) |
-| **Updated** | 2026-07-22 (fuel vs neglect integrity; learn pipeline lean) |
+| **Updated** | 2026-07-22 (fuel vs neglect; activation switch + command talisman) |
 
 ## Intent
 
@@ -38,8 +38,9 @@ Gameplay stays **simple**: choose a known pattern, lay it at a **valid anchor** 
 |---------|------------------------|
 | Comprehend a formation manual / diagram | **Study pipeline** (below) — not one button |
 | Stake flags, place spirit stones at nodes | **Lay** action: materials + months at a valid anchor |
-| Maintain the pattern | **Upkeep** (stones, herbs, labour) — neglect → fade → scatter |
-| Ambient qi/essence flows along the lines | Passive or session bonus while pattern is active and fed |
+| Maintain the pattern | **Integrity upkeep** (labour, touch-up) — neglect → fade → scatter |
+| Keep a fuel stock / flip the switch | **Fuel + activation** — laid ≠ running; see below |
+| Ambient qi/essence flows along the lines | Bonus only while **active** and **fueled** |
 | Talented master pre-inscribes gear | **Equipment formation** — limited charges, wears out |
 | One-shot burst on paper | **Talisman formation** — consumed on deploy |
 
@@ -96,18 +97,41 @@ Essence formations **require a matching location** to draw fuel (sun yang, moon 
 
 Do **not** collapse these into one “durability” bar. Players should never confuse “the ward is weak in a fight” with “the ink is fading.”
 
-### Fuel (does it work at all?)
+### Fuel (power stock)
 
-**Rule:** a laid pattern **requires fuel** to function. No fuel → **no effect** (gather does nothing, ward does not block, etc.). Fuel is the on/off + power feed, not the inscription’s health.
+**Rule:** a laid pattern **requires fuel** to run when activated. No fuel → flip the switch and nothing happens. Fuel is the power stock, not the inscription’s health and not the same as “is the switch on.”
 
 | Now (F1 lean) | Later idea (parked) |
 |---------------|---------------------|
-| Pay upkeep / keep a fuel stock → pattern **runs** | **Consumption tied to use** — idle patterns sip; busy wards/gathers draw more |
-| Empty fuel → pattern **inert** (still present on the land) | Defense: while fueled, handle attacks it **would normally block** (tier/grade ceiling) without a separate “HP of blocks” meter |
+| Keep a fuel stock; **active** patterns draw from it | **Consumption tied to use** — busy wards/gathers draw more while on |
+| Empty fuel → **cannot run** (still present on the land) | Defense: while **active + fueled**, handle attacks it **would normally block** (tier/grade ceiling) without a separate “HP of blocks” meter |
 
-**Defense formation lean (owner):** if the ward is fueled and the attack is within what that pattern’s tier/grade can handle, it can keep blocking — **not** “3 charges then shatter.” Exhaustion comes from **running out of fuel** (and later: use-scaled drain), not from a hit-counter confused with neglect.
+**Defense formation lean (owner):** if the ward is **active**, fueled, and the attack is within what that pattern’s tier/grade can handle, it can keep blocking — **not** “3 charges then shatter.” Exhaustion comes from **running out of fuel** (and later: use-scaled drain), not from a hit-counter confused with neglect.
 
 Out-of-band attacks (above what the pattern can handle) are a **tier/grade / exception** problem — same as kill-ground rules elsewhere — not “the lines wore out.”
+
+### Activation (laid ≠ running — owner 2026-07-22)
+
+**Rule:** laying a pattern stakes it on the land. It does **not** stay roaring forever. Formations and especially **arrays** need an explicit **on/off**.
+
+Fiction: a sect does not keep the mountain defense array lit every day — that would bankrupt the spirit-stone vault. They keep it **ready**, then **activate** when threatened (raid, duel on the peak, tribulation splash, war).
+
+| State | Meaning | Fuel | Integrity |
+|-------|---------|------|-----------|
+| **Laid / ready** | Pattern on the land, switch off | Little or none (standby) | Still neglects if ignored |
+| **Active** | Switch on — doing its job | Draws fuel (arrays: a lot) | Same integrity rules |
+| **Starved** | Switch on, tank empty | No effect until refueled | — |
+
+**How you flip it**
+
+| Control | Who / when | Notes |
+|---------|------------|-------|
+| **Switch** | At the anchor / array hall / residence console | Default: stand there and activate or shut down |
+| **Command talisman** | Remote / emergency | Pre-bound to that pattern or array; burn or charge to flip from afar (leader away, sudden assault) |
+
+Arrays cost **a lot** while active — that is intentional. Standby readiness is cheap; wartime light-up is the expensive moment. Small courtyard formations may default “on” for convenience once fueled, but the **same switch model** applies so players learn one rule before arrays.
+
+**Design guard:** do not auto-activate grand defense on every world tick. Player (or delegated Array Disciple / elder standing order) chooses when to spend.
 
 ### Neglect = inscription integrity (lines fade, nodes decay)
 
@@ -120,9 +144,9 @@ Out-of-band attacks (above what the pattern can handle) are a **tier/grade / exc
 | **Decayed** | Nodes crack, pattern half-gone | Near-useless even if you pour fuel; needs **repair / reinscribe** |
 | **Scattered** | Pattern gone from the land | Must lay again (cheaper than first lay if proficiency remembered) |
 
-**Maintain** (labour, touch-up materials, elder/disciple duty) restores integrity. **Fuel** keeps it running. Paying stones into an empty tank does not automatically repaint faded lines — and painting lines does not fill the tank.
+**Maintain** (labour, touch-up materials, elder/disciple duty) restores integrity. **Fuel** stocks the tank. **Activation** spends it. Paying stones into an empty tank does not repaint faded lines; painting lines does not fill the tank; a full tank does nothing until the switch is on.
 
-Reincarnation **sect reclaim**: structures and laid patterns may persist; **fuel and integrity upkeep are not waived**.
+Reincarnation **sect reclaim**: structures and laid patterns may persist; **fuel, integrity, and activation discipline are not waived**.
 
 ---
 
@@ -471,15 +495,21 @@ G.sect.residence.formations.slots = [];
 - [ ] Owner OK: above-grade exception table (stacking rules for array +1, overcharge, stymie-only)
 - [ ] Owner OK: eight primitives (sink, channel, pool, seal, ward, condense, trap, sever)
 - [ ] Owner OK: master grade ladder (0–7) aligned to max layable formation grade
-- [x] Fuel required for function; no fuel = inert (owner 2026-07-22)
+- [x] Fuel required to run when active; no fuel = starved (owner 2026-07-22)
 - [x] Neglect = inscription integrity (fade/decay), **not** defensive hit-HP (owner 2026-07-22)
+- [x] Activation switch — laid ≠ running; arrays expensive while on (owner 2026-07-22)
+- [x] Command talisman for remote / emergency flip (owner 2026-07-22)
 - [ ] Owner OK: learn pipeline thin path (F1a fuel/integrity → F1b shelf/decipher; trace later)
-- [ ] Owner OK: use-scaled fuel drain (later) vs flat upkeep only in F1
+- [ ] Owner OK: courtyard formations default-on vs always explicit switch
+- [ ] Owner OK: use-scaled fuel drain (later) vs flat draw while active only
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
-- **Use-scaled fuel:** flat periodic upkeep only for F1, or already sip more when a ward actually blocks / gather runs?
+- **Standby cost:** true zero fuel when off, or a tiny “keep the eye warm” sip so arrays feel alive?
+- **Command talisman:** one-shot burn vs rechargeable seal; who can craft (master grade)?
+- **Standing orders:** can an Array Disciple auto-activate on raid alert, or always player confirm for grand defense?
+- **Use-scaled fuel:** flat draw while active for F1, or already sip more when a ward actually blocks / gather runs?
 - **Defense ceiling:** express “what it can normally block” purely as formation tier/grade vs attacker realm, or also event tags?
 - **Integrity UI:** text state only vs map/SVG line fade (lines/nodes) — when does visual fade ship?
 - **Insight curve:** FI per trace session vs per maintained month — tune in playtest
