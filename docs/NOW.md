@@ -10,6 +10,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 ## Next
 - Tick playback + seclusion project (chronicle steps 2–3)
 - Territory grow/shrink (sect map phase 2)
+- Formations F1a design parked — fuel vs neglect integrity (`docs/ideas/formations-and-arrays.md`)
 
 ## Blocked
 - (none)

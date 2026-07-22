@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | Owner formations brainstorm (cloud agent, 2026-07-21); prior chat *xianxia formations arrays* (not in repo) |
-| **Updated** | 2026-07-21 (tier + grade split; application mastery stub) |
+| **Updated** | 2026-07-22 (fuel vs neglect integrity; learn pipeline lean) |
 
 ## Intent
 
@@ -92,17 +92,37 @@ Essence formations **require a matching location** to draw fuel (sun yang, moon 
 
 ---
 
-## Upkeep & neglect (owner rule)
+## Fuel vs neglect (two axes — owner 2026-07-22)
 
-**All formations and arrays require upkeep** — nothing runs free.
+Do **not** collapse these into one “durability” bar. Players should never confuse “the ward is weak in a fight” with “the ink is fading.”
 
-| State | Effect |
-|-------|--------|
-| **Maintained** | Full pattern bonus |
-| **Lapsed** | Output fades toward ambient-only |
-| **Scattered** | Pattern inactive — must **reinscribe** (cheaper than first lay) |
+### Fuel (does it work at all?)
 
-Reincarnation **sect reclaim**: structures and laid patterns may persist; **upkeep is not waived**.
+**Rule:** a laid pattern **requires fuel** to function. No fuel → **no effect** (gather does nothing, ward does not block, etc.). Fuel is the on/off + power feed, not the inscription’s health.
+
+| Now (F1 lean) | Later idea (parked) |
+|---------------|---------------------|
+| Pay upkeep / keep a fuel stock → pattern **runs** | **Consumption tied to use** — idle patterns sip; busy wards/gathers draw more |
+| Empty fuel → pattern **inert** (still present on the land) | Defense: while fueled, handle attacks it **would normally block** (tier/grade ceiling) without a separate “HP of blocks” meter |
+
+**Defense formation lean (owner):** if the ward is fueled and the attack is within what that pattern’s tier/grade can handle, it can keep blocking — **not** “3 charges then shatter.” Exhaustion comes from **running out of fuel** (and later: use-scaled drain), not from a hit-counter confused with neglect.
+
+Out-of-band attacks (above what the pattern can handle) are a **tier/grade / exception** problem — same as kill-ground rules elsewhere — not “the lines wore out.”
+
+### Neglect = inscription integrity (lines fade, nodes decay)
+
+**Neglect wears the diagram itself**, not the ward’s combat rating.
+
+| Integrity | Fiction | Gameplay |
+|-----------|---------|----------|
+| **Sharp** | Lines clear, nodes bright | Full output when fueled |
+| **Fading** | Lines blur, nodes dim | Same fuel rules, but output softens / fail chance on reinscribe rises; **visual** should show fade |
+| **Decayed** | Nodes crack, pattern half-gone | Near-useless even if you pour fuel; needs **repair / reinscribe** |
+| **Scattered** | Pattern gone from the land | Must lay again (cheaper than first lay if proficiency remembered) |
+
+**Maintain** (labour, touch-up materials, elder/disciple duty) restores integrity. **Fuel** keeps it running. Paying stones into an empty tank does not automatically repaint faded lines — and painting lines does not fill the tank.
+
+Reincarnation **sect reclaim**: structures and laid patterns may persist; **fuel and integrity upkeep are not waived**.
 
 ---
 
@@ -367,6 +387,18 @@ Acquire → Decipher → Trace (×N) → First Lay → Maintain → Master copy
 
 Current `learnOnResidenceLevel` auto-push to `knownFormations` is **bootstrap** (elder traces starter patterns). When F1 lands: manual to **formation shelf** + auto-decipher for master tier 1–2 tutorial, or elder lays first copy.
 
+### Learn pipeline lean (2026-07-22 — still open)
+
+Full `Acquire → Decipher → Trace → First Lay` is the right **fantasy**, but shipping it all in F1 alongside fuel + integrity is a lot of UI for little early content.
+
+**Suggested thin path:**
+
+1. **F1a — fuel + integrity** on already-known residence patterns (what players can already lay). Prove the two axes in play.
+2. **F1b — shelf** for new manuals: Acquire → Decipher only; **skip Trace** until there are enough blueprints that practice matters.
+3. Keep **elder / residence grant** as auto-deciphered starters so the courtyard loop never soft-locks behind a sandbox tutorial.
+
+Hire-an-NPC stays the escape hatch for people who do not want the profession loop.
+
 ---
 
 ## Player state (proposal)
@@ -418,7 +450,8 @@ G.sect.residence.formations.slots = [];
 | Phase | Scope |
 |-------|-------|
 | **F0** *(shipped)* | Residence qi formations, lay cost, cultivate-at-quarters hook |
-| **F1** | Formation shelf + decipher/trace; master grade 0–2; upkeep + neglect |
+| **F1a** | Fuel + inscription integrity (neglect fade); residence patterns first |
+| **F1b** | Formation shelf + decipher (trace optional); master grade 0–2 |
 | **F2** | Sect anchor nodes; master grade 3–4; grade exams |
 | **F3** | Essence gather + site tags (with cultivation methods P3) |
 | **F4** | Arrays — multi-formation sect scale, condensate; Array Disciple duties |
@@ -438,11 +471,17 @@ G.sect.residence.formations.slots = [];
 - [ ] Owner OK: above-grade exception table (stacking rules for array +1, overcharge, stymie-only)
 - [ ] Owner OK: eight primitives (sink, channel, pool, seal, ward, condense, trap, sever)
 - [ ] Owner OK: master grade ladder (0–7) aligned to max layable formation grade
-- [ ] Owner OK: learn pipeline (decipher → trace → first lay) vs v1 auto-grant migration
+- [x] Fuel required for function; no fuel = inert (owner 2026-07-22)
+- [x] Neglect = inscription integrity (fade/decay), **not** defensive hit-HP (owner 2026-07-22)
+- [ ] Owner OK: learn pipeline thin path (F1a fuel/integrity → F1b shelf/decipher; trace later)
+- [ ] Owner OK: use-scaled fuel drain (later) vs flat upkeep only in F1
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
+- **Use-scaled fuel:** flat periodic upkeep only for F1, or already sip more when a ward actually blocks / gather runs?
+- **Defense ceiling:** express “what it can normally block” purely as formation tier/grade vs attacker realm, or also event tags?
+- **Integrity UI:** text state only vs map/SVG line fade (lines/nodes) — when does visual fade ship?
 - **Insight curve:** FI per trace session vs per maintained month — tune in playtest
 - **Exam patterns:** one global “standard array” per rank or sect-specific variants?
 - **Hire pricing:** flat fee vs % of formation grade + secrecy premium
