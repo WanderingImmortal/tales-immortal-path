@@ -5,16 +5,16 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Local & world map split steps 1–3 — one map drop (`cursor/local-world-map-split`)
+- Sect map unification — World | Local | Sect + influence pins (`cursor/sect-map-unification`)
 
 ## Next
-- Hidden sub-zone pins on Local (step 4)
-- Sect tab unification ([`sect-map-unification.md`](ideas/sect-map-unification.md))
+- Territory grow/shrink (phase 2 of sect map doc)
+- Hidden sub-zone pins on Local map
 
 ## Blocked
 - (none)
 
 ## Recently shipped
+- Local & world map split ([#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56))
 - Cultivation methods P0–P2
-- Spirit roots v2 (composition + grade)
 - See merged PRs on GitHub

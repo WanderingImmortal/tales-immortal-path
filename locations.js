@@ -402,6 +402,45 @@ function renderContinentMapSvg() {
         </circle>`;
     }
 
+    const infZone = typeof getSectInfluenceZone === 'function' ? getSectInfluenceZone() : null;
+    if (infZone && ZONE_MAP_LAYOUT[infZone]) {
+        const L = ZONE_MAP_LAYOUT[infZone];
+        svg += `<ellipse class="map-influence-ring" cx="${L.cx}" cy="${L.cy}" rx="${L.rx + 2.2}" ry="${L.ry + 2.2}"
+            fill="none" stroke="#6ab0e0" stroke-width="0.75" stroke-dasharray="2.2 1.4" opacity="0.9"/>`;
+        svg += `<text x="${L.cx + L.rx - 1}" y="${L.cy - L.ry + 1}" text-anchor="middle" font-size="3.2" class="map-influence-mark">🌏</text>`;
+    }
+
+    const rivalByZone = {};
+    if (typeof getWorldSectsInZone === 'function') {
+        Object.keys(ZONE_MAP_LAYOUT).forEach(zId => {
+            const list = getWorldSectsInZone(zId);
+            if (list.length) rivalByZone[zId] = list;
+        });
+    } else if (G.sect?.worldSects?.length) {
+        G.sect.worldSects.forEach(s => {
+            if (!s?.zone || s.destroyed) return;
+            if (!rivalByZone[s.zone]) rivalByZone[s.zone] = [];
+            rivalByZone[s.zone].push(s);
+        });
+    }
+    Object.entries(rivalByZone).forEach(([zId, sects]) => {
+        const L = ZONE_MAP_LAYOUT[zId];
+        if (!L) return;
+        const shown = sects.slice(0, 3);
+        shown.forEach((s, i) => {
+            const ox = (i - (shown.length - 1) / 2) * 3.6;
+            const cx = L.cx + ox;
+            const cy = L.cy - L.ry + 1.5;
+            const tip = (s.name || 'Rival sect').replace(/"/g, '');
+            svg += `<circle class="map-rival-pin" cx="${cx}" cy="${cy}" r="1.35" fill="#c07070" stroke="#2a1010" stroke-width="0.35">
+                <title>${tip}</title>
+            </circle>`;
+        });
+        if (sects.length > 3) {
+            svg += `<text x="${L.cx + 6}" y="${L.cy - L.ry + 2.2}" font-size="2.4" fill="#d08080">+${sects.length - 3}</text>`;
+        }
+    });
+
     svg += '</svg>';
     return svg;
 }
@@ -409,7 +448,8 @@ function renderContinentMapSvg() {
 function mountContinentMap() {
     const el = document.getElementById('continentMap');
     if (!el) return;
-    el.innerHTML = renderContinentMapSvg();
+    el.innerHTML = renderContinentMapSvg()
+        + `<div class="map-legend">🟡 You · 🌏 Your influence · 🔴 Other sects</div>`;
     el.querySelectorAll('.zone-map-region').forEach(region => {
         region.addEventListener('click', function() {
             const zoneId = this.dataset.zoneMap;

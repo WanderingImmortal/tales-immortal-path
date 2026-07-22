@@ -101,6 +101,10 @@ function renderSectMapHeaderHtml() {
             <span class="label">Stores</span><span class="value">📦 ${invUsed}/${invCap}</span>
         </div>
     </div>`;
+    const foundedNear = typeof getSectFoundedNearLabel === 'function' ? getSectFoundedNearLabel() : null;
+    if (foundedNear) {
+        html += `<div class="sect-founded-banner">📍 Founded near <strong>${foundedNear}</strong></div>`;
+    }
     if (infLabel) {
         html += `<div class="sect-influence-banner">🌏 Influence: <strong>${infLabel}</strong></div>`;
     }
@@ -456,10 +460,12 @@ function bindSectGroundsEvents(container) {
     });
     container.querySelector('#btnResidenceCultivate')?.addEventListener('click', () => {
         document.getElementById('sectPopup')?.classList.remove('active');
+        document.getElementById('mapPopup')?.classList.remove('active');
         if (typeof actionResidenceCultivate === 'function') actionResidenceCultivate();
     });
     container.querySelector('#btnArmoryForge')?.addEventListener('click', () => {
         document.getElementById('sectPopup')?.classList.remove('active');
+        document.getElementById('mapPopup')?.classList.remove('active');
         if (typeof openForgeChamber === 'function') openForgeChamber({ atSect: true });
     });
     container.querySelectorAll('[data-formation-lay]').forEach(btn => {
