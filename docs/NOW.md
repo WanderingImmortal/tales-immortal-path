@@ -5,16 +5,16 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Chronicle diary reader v0 — My path / Sect / Jianghu (`cursor/chronicle-diary-reader`)
+- Chronicle P1 — tick playback + long seclusion (`cursor/chronicle-tick-playback`)
 
 ## Next
-- Tick playback + seclusion project (chronicle steps 2–3)
+- Second project type / phased choices (chronicle step 4)
 - Territory grow/shrink (sect map phase 2)
 
 ## Blocked
 - (none)
 
 ## Recently shipped
+- Diary reader ([#58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58))
 - Sect map unification ([#57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57))
-- Local & world map split ([#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56))
 - See merged PRs on GitHub

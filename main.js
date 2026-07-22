@@ -847,6 +847,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Map events
     bindMapEvents();
+    if (typeof bindTimePlaybackEvents === 'function') bindTimePlaybackEvents();
+    if (typeof bindSeclusionProjectEvents === 'function') bindSeclusionProjectEvents();
     if (typeof initChamberEvents === 'function') initChamberEvents();
     if (typeof initBodyChamberEvents === 'function') initBodyChamberEvents();
     if (typeof initSoulChamberEvents === 'function') initSoulChamberEvents();
