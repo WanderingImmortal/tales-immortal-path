@@ -5,10 +5,10 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Formations fuel vs neglect design parked (`docs/ideas/formations-and-arrays.md`)
+- Chronicle P1 — tick playback + long seclusion (`cursor/chronicle-tick-playback`)
 
 ## Next
-- Chronicle P1 review ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
+- Second project type / phased choices (chronicle step 4)
 - Territory grow/shrink (sect map phase 2)
 - Formations F1a when ready to build
 
