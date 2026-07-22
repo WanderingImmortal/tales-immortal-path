@@ -6,7 +6,7 @@
 | **Blocked on** | FE → GC limbo naming; chronicle fate-rite project for rite tribulations |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-22 |
-| **Updated** | 2026-07-22 (limbo, multi-wave scope, heaven jurisdiction lore sketch) |
+| **Updated** | 2026-07-22 (realm-specific scars, meridian Option A, owner satisfied — park) |
 
 ## Intent
 
@@ -237,6 +237,37 @@ Current build (`tribulation.js`): omen → trial → aftermath overlay; mostly t
 | Disable monthly heavenly bless/punish | UI: move corruption off alignment panel |
 
 **Related design (parked, not v1 code):** [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md), [`root-rite-formations.md`](root-rite-formations.md), [`soul-body-refining.md`](soul-body-refining.md), [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md).
+
+---
+
+### Scars — realm-specific pools (owner 2026-07-22)
+
+**Rule:** every scar belongs to a **realm gate** (or explicit transition). Rolling at QC→FE must never surface *Cracked Core* or *Fractured Dao* — those are GC+ / NS+ wounds.
+
+| Principle | Detail |
+|-----------|--------|
+| **Realm tag required** | Each `TRIBULATION_SCARS` entry gets `realmAtBreakthrough` (or `transitionId`) — no untagged scars |
+| **Pool = that gate only** | `getEligibleScarsForRoll` filters strictly; **no fallback** to the global list when the pool is empty |
+| **Concrete outcomes** | Prefer choice-forced scars (foundation crack, qi backlash) over opaque `+scar risk %` poker |
+| **Mostly downside** | Small upside optional; born from trib beats, not random loot |
+
+**QC→FE example scars (draft):** foundation crack, meridian burst (if meridians matter at FE wiring), qi backlash — not late-realm names.
+
+**Code gap today:** several scars lack `realmAtBreakthrough`; empty pool falls back to all scars — feels random. Fix when QC→FE script ships.
+
+---
+
+### Meridians — Option A for now (owner 2026-07-22)
+
+**Chosen direction:** meridians matter at **Foundation Establishment** as **foundation wiring**, not as QC homework grind or QC→FE trib fiction.
+
+| Do | Don't (for now) |
+|----|-----------------|
+| FE-era wiring / circulation fantasy | 13-node meridian grind without unique payoffs per node |
+| Tie *Shattered Meridian* scar to a trib beat at the FE gate | `minMeridians: 2` on QC perfect consolidation |
+| Revisit when FE journey redesign lands | Force meridians into QC→FE trib choices |
+
+Potential acknowledged — excavate when [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md) gets an owner pass.
 
 ---
 

@@ -8,9 +8,10 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Tribulation v1 — accountant heaven, path scripts, ledger amplify (`cursor/tribulation-rework-8eac`)
 
 ## Next
+- QC→FE trib script (choices + realm-specific scars; no scar-risk poker)
+- Meridian Option A at FE wiring (when FE redesign lands)
 - Corruption migration completion (soul-act `addCycleStain` when body path ships)
 - Chronicle second project type
-- Per-realm tribulation script table (owner sketch)
 - Formations F1–F2b review ([PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61))
 
 ## Parked (return later)
