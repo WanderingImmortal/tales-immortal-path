@@ -381,6 +381,12 @@ function renderBuildingActionsHtml(buildingId, lv) {
         html += `<button type="button" class="sect-action-btn" id="btnArmoryForge">🔨 Open Forge Chamber</button>`;
     }
 
+    if (buildingId === 'meditation_chamber' || buildingId === 'defense_array') {
+        if (typeof renderSectAnchorFormationsHtml === 'function') {
+            html += renderSectAnchorFormationsHtml(buildingId);
+        }
+    }
+
     html += `</div>`;
     return html;
 }
@@ -472,9 +478,12 @@ function bindSectGroundsEvents(container) {
         btn.addEventListener('click', function() {
             const slot = parseInt(this.dataset.formationSlot, 10);
             const formationId = this.dataset.formationLay;
-            const result = typeof layResidenceFormation === 'function'
-                ? layResidenceFormation(slot, formationId)
-                : { success: false, message: 'Formations unavailable.' };
+            const anchorId = this.dataset.anchorId;
+            const result = anchorId && typeof laySectAnchorFormation === 'function'
+                ? laySectAnchorFormation(anchorId, slot, formationId)
+                : (typeof layResidenceFormation === 'function'
+                    ? layResidenceFormation(slot, formationId)
+                    : { success: false, message: 'Formations unavailable.' });
             if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
             if (typeof renderSectPopup === 'function') renderSectPopup();
             fullRender();
@@ -483,9 +492,12 @@ function bindSectGroundsEvents(container) {
     container.querySelectorAll('[data-formation-clear]').forEach(btn => {
         btn.addEventListener('click', function() {
             const slot = parseInt(this.dataset.formationClear, 10);
-            const result = typeof clearResidenceFormationSlot === 'function'
-                ? clearResidenceFormationSlot(slot)
-                : { success: false, message: 'Formations unavailable.' };
+            const anchorId = this.dataset.anchorId;
+            const result = anchorId && typeof clearSectAnchorFormationSlot === 'function'
+                ? clearSectAnchorFormationSlot(anchorId, slot)
+                : (typeof clearResidenceFormationSlot === 'function'
+                    ? clearResidenceFormationSlot(slot)
+                    : { success: false, message: 'Formations unavailable.' });
             if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
             if (typeof renderSectPopup === 'function') renderSectPopup();
             fullRender();
@@ -494,9 +506,12 @@ function bindSectGroundsEvents(container) {
     container.querySelectorAll('[data-formation-toggle]').forEach(btn => {
         btn.addEventListener('click', function() {
             const slot = parseInt(this.dataset.formationToggle, 10);
-            const result = typeof toggleResidenceFormationActive === 'function'
-                ? toggleResidenceFormationActive(slot)
-                : { success: false, message: 'Formations unavailable.' };
+            const anchorId = this.dataset.anchorId;
+            const result = anchorId && typeof toggleSectAnchorFormationActive === 'function'
+                ? toggleSectAnchorFormationActive(anchorId, slot)
+                : (typeof toggleResidenceFormationActive === 'function'
+                    ? toggleResidenceFormationActive(slot)
+                    : { success: false, message: 'Formations unavailable.' });
             if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
             if (typeof renderSectPopup === 'function') renderSectPopup();
             fullRender();
@@ -506,9 +521,12 @@ function bindSectGroundsEvents(container) {
         btn.addEventListener('click', function() {
             const slot = parseInt(this.dataset.formationFuel, 10);
             const units = parseInt(this.dataset.fuelUnits, 10);
-            const result = typeof addResidenceFormationFuel === 'function'
-                ? addResidenceFormationFuel(slot, units)
-                : { success: false, message: 'Formations unavailable.' };
+            const anchorId = this.dataset.anchorId;
+            const result = anchorId && typeof addSectAnchorFormationFuel === 'function'
+                ? addSectAnchorFormationFuel(anchorId, slot, units)
+                : (typeof addResidenceFormationFuel === 'function'
+                    ? addResidenceFormationFuel(slot, units)
+                    : { success: false, message: 'Formations unavailable.' });
             if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
             if (typeof renderSectPopup === 'function') renderSectPopup();
             fullRender();
@@ -517,9 +535,12 @@ function bindSectGroundsEvents(container) {
     container.querySelectorAll('[data-formation-maintain]').forEach(btn => {
         btn.addEventListener('click', function() {
             const slot = parseInt(this.dataset.formationMaintain, 10);
-            const result = typeof maintainResidenceFormation === 'function'
-                ? maintainResidenceFormation(slot)
-                : { success: false, message: 'Formations unavailable.' };
+            const anchorId = this.dataset.anchorId;
+            const result = anchorId && typeof maintainSectAnchorFormation === 'function'
+                ? maintainSectAnchorFormation(anchorId, slot)
+                : (typeof maintainResidenceFormation === 'function'
+                    ? maintainResidenceFormation(slot)
+                    : { success: false, message: 'Formations unavailable.' });
             if (result.message) addLog(result.success ? `☯️ ${result.message}` : `☯️ ${result.message}`);
             if (typeof renderSectPopup === 'function') renderSectPopup();
             fullRender();

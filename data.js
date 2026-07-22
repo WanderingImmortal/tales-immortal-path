@@ -1684,7 +1684,8 @@ const MERCHANT_CATALOG = {
             { methodId: 'inner_court_meridian_cycle', price: 140 }
         ],
         formations: [
-            { formationId: 'qi_stabilizer', price: 85 }
+            { formationId: 'qi_stabilizer', price: 85 },
+            { formationId: 'iron_wall_ward', price: 95 }
         ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
@@ -1716,7 +1717,8 @@ const MERCHANT_CATALOG = {
             { methodId: 'impure_meridian_breath', price: 45 }
         ],
         formations: [
-            { formationId: 'qi_stabilizer', price: 80 }
+            { formationId: 'qi_stabilizer', price: 80 },
+            { formationId: 'iron_wall_ward', price: 90 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -5253,8 +5255,9 @@ const FORMATIONS = {
         id: 'spirit_gathering',
         name: 'Spirit Gathering Formation',
         emoji: '🌀',
-        desc: 'Draws ambient qi to your quarters. +8% cultivation while running.',
+        desc: 'Draws ambient qi. +8% cultivation while running (courtyard or meditation chamber).',
         deploy: 'residence',
+        anchors: ['residence', 'meditation_chamber'],
         formationTier: 1,
         minResidenceLevel: 1,
         effects: { cultivatePct: 8 },
@@ -5269,31 +5272,57 @@ const FORMATIONS = {
         id: 'qi_stabilizer',
         name: 'Qi Stabilizer',
         emoji: '⚖️',
-        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation per session while running.',
+        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation while running (courtyard or meditation chamber).',
         deploy: 'residence',
+        anchors: ['residence', 'meditation_chamber'],
         formationTier: 2,
         minResidenceLevel: 2,
+        minBuildingLevelByAnchor: { meditation_chamber: 1 },
         effects: { cultivatePct: 4, foundationPerCultivate: 1 },
         layCost: { months: 3, materials: { spirit_herb: 4, jade_inlay: 1 } },
         fuelPerMonth: 1,
         fuelCapacity: 24,
         layFuel: 6
-        // Study path: market / loot unread manual — no free residence grant
     },
     iron_wall_ward: {
         id: 'iron_wall_ward',
         name: 'Iron Wall Ward',
         emoji: '🛡️',
-        desc: 'A defensive ward pattern. Combat deployment coming in a future update.',
-        deploy: 'residence',
+        desc: 'Perimeter ward for the Defense Array. Softens sect event stone losses while running — keep it off until you need it.',
+        deploy: 'defense_array',
+        anchors: ['defense_array'],
         formationTier: 2,
-        minResidenceLevel: 1,
-        implemented: false,
-        effects: {},
-        layCost: { months: 2, materials: { iron_ore: 4, jade_inlay: 1 } },
+        implemented: true,
+        effects: { defenseRating: 30 },
+        layCost: { months: 3, materials: { iron_ore: 5, jade_inlay: 2 } },
         fuelPerMonth: 2,
         fuelCapacity: 24,
-        layFuel: 0
+        layFuel: 4,
+        /** Sect fantasy: wards stay ready, not roaring. */
+        defaultActiveOnLay: false
+    }
+};
+
+/** F2a: sect map nodes that host formation slots (1 slot once building exists). */
+const FORMATION_ANCHORS = {
+    residence: {
+        id: 'residence',
+        label: "Leader's Quarters",
+        kind: 'residence'
+    },
+    meditation_chamber: {
+        id: 'meditation_chamber',
+        label: 'Meditation Chamber',
+        kind: 'building',
+        buildingId: 'meditation_chamber',
+        hint: 'Gather and stabilise patterns amplify cultivation while running. Building Will/Spirit bonus still applies separately.'
+    },
+    defense_array: {
+        id: 'defense_array',
+        label: 'Defense Array',
+        kind: 'building',
+        buildingId: 'defense_array',
+        hint: 'Ward patterns burn fuel while lit. Leave the mountain dark until a threat — building defense still helps a little when the ward is off.'
     }
 };
 

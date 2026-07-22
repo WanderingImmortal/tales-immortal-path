@@ -45,6 +45,7 @@ function ensureFormationState() {
     }
     migrateKnownFormationsToShelf();
     ensureResidenceFormationSlots();
+    ensureAllSectFormationAnchors();
 }
 
 function migrateKnownFormationsToShelf() {
@@ -273,7 +274,10 @@ function createResidenceFormationSlotState(formationId, options) {
     const cfg = getFormationF1aConfig();
     const capacity = getFormationFuelCapacity(def);
     const fuel = Math.min(capacity, options?.fuel ?? getFormationLayFuel(def));
-    const active = options?.active != null ? !!options.active : fuel > 0;
+    let active;
+    if (options?.active != null) active = !!options.active;
+    else if (def?.defaultActiveOnLay === false) active = false;
+    else active = fuel > 0;
     return {
         id: formationId,
         active,
@@ -411,7 +415,7 @@ function getLayFormationBlockReason(slotIndex, formationId) {
     const def = getFormationDef(formationId);
     if (!def) return 'Unknown formation.';
     if (def.implemented === false) return `${def.name} is not yet available.`;
-    if (def.deploy !== 'residence') return 'This formation cannot be laid at your quarters.';
+    if (!formationCanLayAt(def, 'residence')) return 'This formation cannot be laid at your quarters.';
     if (!knowsFormation(formationId)) {
         if (!isFormationDeciphered(formationId)) {
             if (getFormationShelfEntry(formationId)) {
@@ -604,49 +608,63 @@ function maintainResidenceFormation(slotIndex) {
  * Hooked from tickSectSystems — no render.
  */
 function tickResidenceFormations(monthsPassed) {
+    tickAllFormationSlots(monthsPassed);
+}
+
+/**
+ * Monthly tick for residence + sect anchors: active burn fuel; all laid lose integrity.
+ */
+function tickAllFormationSlots(monthsPassed) {
     if (typeof isSectFounded === 'function' && !isSectFounded()) return;
     if (!monthsPassed || monthsPassed <= 0) return;
-    if (!G.sect?.residence?.formations?.slots?.length) return;
-    ensureResidenceFormationSlots();
+    ensureFormationState();
     const cfg = getFormationF1aConfig();
     const decay = cfg.integrityDecayPerMonth || 1;
-    const slots = G.sect.residence.formations.slots;
-    for (let i = 0; i < slots.length; i++) {
-        const slot = slots[i];
-        if (!slot) continue;
-        const def = getFormationDef(slot.id);
-        if (!def) continue;
 
-        if (slot.scattered || slot.integrity <= 0) {
-            slot.scattered = true;
-            slot.integrity = 0;
-            slot.active = false;
-            continue;
-        }
+    function tickSlots(slots) {
+        if (!slots?.length) return;
+        for (let i = 0; i < slots.length; i++) {
+            const slot = slots[i];
+            if (!slot) continue;
+            const def = getFormationDef(slot.id);
+            if (!def) continue;
 
-        // Neglect: lines fade whether the switch is on or off.
-        slot.integrity = Math.max(0, slot.integrity - decay * monthsPassed);
-        if (slot.integrity <= 0) {
-            slot.integrity = 0;
-            slot.scattered = true;
-            slot.active = false;
-            if (typeof addLog === 'function') {
-                addLog(`☯️ ${def.emoji} ${def.name} scattered from neglect — the courtyard lines are gone.`);
+            if (slot.scattered || slot.integrity <= 0) {
+                slot.scattered = true;
+                slot.integrity = 0;
+                slot.active = false;
+                continue;
             }
-            continue;
-        }
 
-        if (slot.active) {
-            const burn = getFormationFuelPerMonth(def) * monthsPassed;
-            if (burn > 0 && slot.fuel > 0) {
-                const beforeFuel = slot.fuel;
-                slot.fuel = Math.max(0, slot.fuel - burn);
-                if (beforeFuel > 0 && slot.fuel <= 0 && typeof addLog === 'function') {
-                    addLog(`☯️ ${def.emoji} ${def.name} ran dry — still switched on, but inert until refueled.`);
+            slot.integrity = Math.max(0, slot.integrity - decay * monthsPassed);
+            if (slot.integrity <= 0) {
+                slot.integrity = 0;
+                slot.scattered = true;
+                slot.active = false;
+                if (typeof addLog === 'function') {
+                    addLog(`☯️ ${def.emoji} ${def.name} scattered from neglect — the lines are gone.`);
+                }
+                continue;
+            }
+
+            if (slot.active) {
+                const burn = getFormationFuelPerMonth(def) * monthsPassed;
+                if (burn > 0 && slot.fuel > 0) {
+                    const beforeFuel = slot.fuel;
+                    slot.fuel = Math.max(0, slot.fuel - burn);
+                    if (beforeFuel > 0 && slot.fuel <= 0 && typeof addLog === 'function') {
+                        addLog(`☯️ ${def.emoji} ${def.name} ran dry — still switched on, but inert until refueled.`);
+                    }
                 }
             }
         }
     }
+
+    tickSlots(G.sect.residence?.formations?.slots);
+    Object.keys(FORMATION_ANCHORS || {}).forEach(anchorId => {
+        if (anchorId === 'residence') return;
+        tickSlots(G.sect.anchors?.[anchorId]?.slots);
+    });
 }
 
 function actionResidenceCultivate() {
@@ -777,7 +795,7 @@ function renderResidenceFormationsHtml() {
 
     const layable = Object.keys(G.formationShelf || {})
         .map(id => getFormationDef(id))
-        .filter(def => def && def.deploy === 'residence' && def.implemented !== false && knowsFormation(def.id));
+        .filter(def => def && def.implemented !== false && knowsFormation(def.id) && formationCanLayAt(def, 'residence'));
 
     const hasUnread = Object.values(G.formationShelf || {}).some(e => e && !e.deciphered);
 
@@ -862,5 +880,396 @@ function renderResidenceFormationsHtml() {
     html += `</div>`;
 
     html += `<button type="button" class="sect-action-btn" id="btnResidenceCultivate">🏠 Cultivate at quarters (${ACTION_MONTHS.cultivate} months)</button>`;
+    return html;
+}
+
+// ============================================
+// F2a — Sect formation anchors
+// ============================================
+
+function getFormationAnchorDef(anchorId) {
+    return typeof FORMATION_ANCHORS !== 'undefined' ? FORMATION_ANCHORS[anchorId] : null;
+}
+
+function formationCanLayAt(def, anchorId) {
+    if (!def || def.implemented === false) return false;
+    if (Array.isArray(def.anchors) && def.anchors.length) {
+        return def.anchors.includes(anchorId);
+    }
+    return def.deploy === anchorId;
+}
+
+function ensureAllSectFormationAnchors() {
+    if (!G.sect) return;
+    if (!G.sect.anchors || typeof G.sect.anchors !== 'object') G.sect.anchors = {};
+    Object.keys(typeof FORMATION_ANCHORS !== 'undefined' ? FORMATION_ANCHORS : {}).forEach(anchorId => {
+        if (anchorId === 'residence') return;
+        ensureSectFormationAnchor(anchorId);
+    });
+}
+
+function getSectFormationAnchorSlotCount(anchorId) {
+    const aDef = getFormationAnchorDef(anchorId);
+    if (!aDef || aDef.kind !== 'building') return 0;
+    const buildingId = aDef.buildingId || anchorId;
+    const lv = typeof getBuildingLevel === 'function' ? getBuildingLevel(buildingId) : (G.sect?.buildings?.[buildingId] || 0);
+    return lv >= 1 ? 1 : 0;
+}
+
+function ensureSectFormationAnchor(anchorId) {
+    if (!G.sect.anchors) G.sect.anchors = {};
+    if (!G.sect.anchors[anchorId]) G.sect.anchors[anchorId] = { slots: [] };
+    if (!Array.isArray(G.sect.anchors[anchorId].slots)) G.sect.anchors[anchorId].slots = [];
+    const max = getSectFormationAnchorSlotCount(anchorId);
+    const slots = G.sect.anchors[anchorId].slots;
+    while (slots.length < max) slots.push(null);
+    while (slots.length > max) slots.pop();
+    const known = G.knownFormations || [];
+    for (let i = 0; i < slots.length; i++) {
+        const normalized = normalizeResidenceFormationSlot(slots[i]);
+        if (normalized && !known.includes(normalized.id)) slots[i] = null;
+        else if (normalized && !formationCanLayAt(getFormationDef(normalized.id), anchorId)) slots[i] = null;
+        else slots[i] = normalized;
+    }
+}
+
+function getSectFormationAnchorSlot(anchorId, slotIndex) {
+    ensureSectFormationAnchor(anchorId);
+    return G.sect.anchors[anchorId]?.slots?.[slotIndex] || null;
+}
+
+function getLayAnchorFormationBlockReason(anchorId, slotIndex, formationId) {
+    ensureFormationState();
+    if (!isSectFounded()) return 'Found a sect first.';
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot inscribe a formation right now.';
+    const aDef = getFormationAnchorDef(anchorId);
+    if (!aDef || aDef.kind !== 'building') return 'Invalid anchor.';
+    const buildingId = aDef.buildingId || anchorId;
+    const bLv = typeof getBuildingLevel === 'function' ? getBuildingLevel(buildingId) : 0;
+    if (bLv < 1) return `Construct the ${aDef.label} first.`;
+    const def = getFormationDef(formationId);
+    if (!def) return 'Unknown formation.';
+    if (def.implemented === false) return `${def.name} is not yet available.`;
+    if (!formationCanLayAt(def, anchorId)) return `This formation cannot be laid at the ${aDef.label}.`;
+    if (!knowsFormation(formationId)) {
+        if (!isFormationDeciphered(formationId)) {
+            if (getFormationShelfEntry(formationId)) return `Decipher ${def.name} on your formation shelf first.`;
+            return `You have no manual for ${def.name}.`;
+        }
+        const need = def.formationTier || 1;
+        return `Requires Formation Master tier ${need} (${getFormationMasterTitle(need)}) to lay.`;
+    }
+    const minB = def.minBuildingLevelByAnchor?.[anchorId];
+    if (minB != null && bLv < minB) return `Requires ${aDef.label} level ${minB}.`;
+    const maxSlots = getSectFormationAnchorSlotCount(anchorId);
+    if (slotIndex < 0 || slotIndex >= maxSlots) return 'Invalid formation slot.';
+    const cost = def.layCost;
+    if (!cost) return 'Cannot inscribe this formation.';
+    if (typeof getConstructionMaterialsBlock === 'function') {
+        const matBlock = getConstructionMaterialsBlock(cost);
+        if (matBlock) return matBlock;
+    }
+    return null;
+}
+
+function laySectAnchorFormation(anchorId, slotIndex, formationId) {
+    const block = getLayAnchorFormationBlockReason(anchorId, slotIndex, formationId);
+    if (block) return { success: false, message: block };
+    const def = getFormationDef(formationId);
+    const aDef = getFormationAnchorDef(anchorId);
+    const cost = def.layCost;
+    const months = cost.months || 2;
+    if (cost.materials && typeof removeCraftMaterials === 'function' && !removeCraftMaterials(cost.materials)) {
+        return { success: false, message: 'Missing materials.' };
+    }
+    if (!advanceTime(months, `Inscribing ${def.name} at ${aDef.label}`)) {
+        if (cost.materials && typeof addCraftMaterial === 'function') {
+            for (const [matId, qty] of Object.entries(cost.materials)) addCraftMaterial(matId, qty);
+        }
+        return { success: false, message: 'Your lifespan ends before the inscription completes.' };
+    }
+    ensureSectFormationAnchor(anchorId);
+    const prev = G.sect.anchors[anchorId].slots[slotIndex];
+    const prevId = getResidenceFormationSlotId(prev);
+    const activeDefault = def.defaultActiveOnLay === false ? false : true;
+    G.sect.anchors[anchorId].slots[slotIndex] = createResidenceFormationSlotState(formationId, {
+        active: activeDefault,
+        fuel: getFormationLayFuel(def)
+    });
+    const replaceNote = prevId && prevId !== formationId
+        ? ` Replaced ${getFormationDef(prevId)?.name || 'previous pattern'}.`
+        : '';
+    const runNote = activeDefault
+        ? ' — fueled and active.'
+        : ' — fueled and standing ready (switch off).';
+    return {
+        success: true,
+        message: `${def.emoji} ${def.name} inscribed at the ${aDef.label}${runNote}${replaceNote}`
+    };
+}
+
+function clearSectAnchorFormationSlot(anchorId, slotIndex) {
+    ensureFormationState();
+    const maxSlots = getSectFormationAnchorSlotCount(anchorId);
+    if (slotIndex < 0 || slotIndex >= maxSlots) return { success: false, message: 'Invalid formation slot.' };
+    const prev = getSectFormationAnchorSlot(anchorId, slotIndex);
+    if (!prev) return { success: false, message: 'Slot is already empty.' };
+    const prevId = getResidenceFormationSlotId(prev);
+    G.sect.anchors[anchorId].slots[slotIndex] = null;
+    const def = getFormationDef(prevId);
+    return { success: true, message: `${def?.emoji || '☯️'} Formation cleared from ${getFormationAnchorDef(anchorId)?.label || anchorId}.` };
+}
+
+function setSectAnchorFormationActive(anchorId, slotIndex, active) {
+    ensureFormationState();
+    const slot = getSectFormationAnchorSlot(anchorId, slotIndex);
+    if (!slot) return { success: false, message: 'Empty slot.' };
+    if (slot.scattered || slot.integrity <= 0) {
+        return { success: false, message: 'Pattern is scattered — clear and reinscribe.' };
+    }
+    const def = getFormationDef(slot.id);
+    if (active) {
+        if (slot.fuel <= 0) {
+            return { success: false, message: `${def?.name || 'Formation'} has no fuel. Add spirit stones first.` };
+        }
+        slot.active = true;
+        return { success: true, message: `${def?.emoji || '☯️'} ${def?.name || 'Formation'} activated at the ${getFormationAnchorDef(anchorId)?.label || anchorId}.` };
+    }
+    slot.active = false;
+    return { success: true, message: `${def?.emoji || '☯️'} ${def?.name || 'Formation'} shut down — standing ready.` };
+}
+
+function toggleSectAnchorFormationActive(anchorId, slotIndex) {
+    const slot = getSectFormationAnchorSlot(anchorId, slotIndex);
+    if (!slot) return { success: false, message: 'Empty slot.' };
+    return setSectAnchorFormationActive(anchorId, slotIndex, !slot.active);
+}
+
+function getAddAnchorFormationFuelBlockReason(anchorId, slotIndex, fuelUnits) {
+    ensureFormationState();
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot tend formations right now.';
+    const slot = getSectFormationAnchorSlot(anchorId, slotIndex);
+    if (!slot) return 'Empty slot.';
+    if (slot.scattered || slot.integrity <= 0) return 'Pattern is scattered — clear and reinscribe.';
+    const units = Math.max(0, Math.floor(Number(fuelUnits) || 0));
+    if (units <= 0) return 'Choose how much fuel to add.';
+    const def = getFormationDef(slot.id);
+    const capacity = getFormationFuelCapacity(def);
+    if (slot.fuel >= capacity) return 'Fuel stock is already full.';
+    const cfg = getFormationF1aConfig();
+    const room = capacity - slot.fuel;
+    const add = Math.min(units, room);
+    const cost = add * (cfg.stonePerFuel || 1);
+    if ((G.stones || 0) < cost) return `Need ${cost} Spirit Stones (have ${G.stones || 0}).`;
+    return null;
+}
+
+function addSectAnchorFormationFuel(anchorId, slotIndex, fuelUnits) {
+    const block = getAddAnchorFormationFuelBlockReason(anchorId, slotIndex, fuelUnits);
+    if (block) return { success: false, message: block };
+    const slot = getSectFormationAnchorSlot(anchorId, slotIndex);
+    const def = getFormationDef(slot.id);
+    const cfg = getFormationF1aConfig();
+    const capacity = getFormationFuelCapacity(def);
+    const room = capacity - slot.fuel;
+    const add = Math.min(Math.floor(fuelUnits), room);
+    const cost = add * (cfg.stonePerFuel || 1);
+    G.stones -= cost;
+    slot.fuel += add;
+    return {
+        success: true,
+        message: `Fed ${def.emoji} ${def.name} with ${cost}💎 (+${add} mo fuel). Stock ${slot.fuel}/${capacity}.`
+    };
+}
+
+function getMaintainAnchorFormationBlockReason(anchorId, slotIndex) {
+    ensureFormationState();
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot tend formations right now.';
+    const slot = getSectFormationAnchorSlot(anchorId, slotIndex);
+    if (!slot) return 'Empty slot.';
+    if (slot.scattered || slot.integrity <= 0) return 'Pattern is scattered — clear and reinscribe.';
+    const cfg = getFormationF1aConfig();
+    if (slot.integrity >= cfg.integrityMax) return 'Lines are already sharp — no maintain needed.';
+    const cost = cfg.maintain || {};
+    if ((G.stones || 0) < (cost.stones || 0)) {
+        return `Need ${cost.stones} Spirit Stones to touch up the pattern.`;
+    }
+    if (cost.materials && typeof getConstructionMaterialsBlock === 'function') {
+        const matBlock = getConstructionMaterialsBlock({ materials: cost.materials });
+        if (matBlock) return matBlock;
+    }
+    return null;
+}
+
+function maintainSectAnchorFormation(anchorId, slotIndex) {
+    const block = getMaintainAnchorFormationBlockReason(anchorId, slotIndex);
+    if (block) return { success: false, message: block };
+    const slot = getSectFormationAnchorSlot(anchorId, slotIndex);
+    const def = getFormationDef(slot.id);
+    const cfg = getFormationF1aConfig();
+    const cost = cfg.maintain || {};
+    const months = cost.months || 1;
+    if (cost.materials && typeof removeCraftMaterials === 'function' && !removeCraftMaterials(cost.materials)) {
+        return { success: false, message: 'Missing materials.' };
+    }
+    if ((cost.stones || 0) > 0) G.stones -= cost.stones;
+    if (!advanceTime(months, `Touching up ${def.name}`)) {
+        if (cost.materials && typeof addCraftMaterial === 'function') {
+            for (const [matId, qty] of Object.entries(cost.materials)) addCraftMaterial(matId, qty);
+        }
+        if ((cost.stones || 0) > 0) G.stones += cost.stones;
+        return { success: false, message: 'Your lifespan ends before the touch-up completes.' };
+    }
+    const before = slot.integrity;
+    slot.integrity = Math.min(cfg.integrityMax, slot.integrity + (cost.restore || 35));
+    slot.scattered = false;
+    const band = getFormationIntegrityBand(slot.integrity);
+    return {
+        success: true,
+        message: `${def.emoji} ${def.name} lines refreshed (${before}→${slot.integrity}, ${getFormationIntegrityLabel(band)}).`
+    };
+}
+
+function accumulateRunningFormationEffects(slots, fx) {
+    (slots || []).forEach(slot => {
+        if (!slot) return;
+        const mult = getFormationEffectMultForSlot(slot);
+        if (mult <= 0) return;
+        const def = getFormationDef(slot.id);
+        if (!def?.effects) return;
+        if (def.effects.cultivatePct) fx.cultivatePct += def.effects.cultivatePct * mult;
+        if (def.effects.foundationPerCultivate) {
+            fx.foundationPerCultivate += def.effects.foundationPerCultivate * mult;
+        }
+        if (def.effects.defenseRating) fx.defenseRating += def.effects.defenseRating * mult;
+        if (def.effects.meditationStatPct) {
+            fx.meditationStatPct += def.effects.meditationStatPct * mult;
+        }
+        const band = getFormationIntegrityBand(slot.integrity);
+        const bandNote = band === 'sharp' ? '' : ` (${getFormationIntegrityLabel(band)})`;
+        fx.labels.push(`${def.emoji} ${def.name}${bandNote}`);
+    });
+}
+
+/** Running meditation-chamber patterns (sect-wide cultivate / foundation while on). */
+function getMeditationChamberFormationEffects() {
+    ensureFormationState();
+    const fx = { cultivatePct: 0, foundationPerCultivate: 0, defenseRating: 0, meditationStatPct: 0, labels: [] };
+    accumulateRunningFormationEffects(G.sect.anchors?.meditation_chamber?.slots, fx);
+    fx.cultivatePct = Math.round(fx.cultivatePct * 10) / 10;
+    fx.foundationPerCultivate = Math.round(fx.foundationPerCultivate * 10) / 10;
+    fx.defenseRating = Math.round(fx.defenseRating * 10) / 10;
+    return fx;
+}
+
+/** Running defense-array ward bonus (added on top of building defenseRating). */
+function getDefenseArrayFormationEffects() {
+    ensureFormationState();
+    const fx = { cultivatePct: 0, foundationPerCultivate: 0, defenseRating: 0, meditationStatPct: 0, labels: [] };
+    accumulateRunningFormationEffects(G.sect.anchors?.defense_array?.slots, fx);
+    fx.defenseRating = Math.round(fx.defenseRating * 10) / 10;
+    return fx;
+}
+
+function getSectFormationDefenseRatingBonus() {
+    return getDefenseArrayFormationEffects().defenseRating || 0;
+}
+
+function renderSectAnchorFormationsHtml(anchorId) {
+    ensureFormationState();
+    const aDef = getFormationAnchorDef(anchorId);
+    if (!aDef || aDef.kind !== 'building') return '';
+    const cfg = getFormationF1aConfig();
+    const slotCount = getSectFormationAnchorSlotCount(anchorId);
+    let html = `<div class="sect-section-title">☯️ Anchor Pattern</div>`;
+    if (aDef.hint) html += `<p class="sect-hint">${aDef.hint}</p>`;
+
+    if (slotCount <= 0) {
+        html += `<p class="sect-hint">Construct this building to host a formation.</p>`;
+        return html;
+    }
+
+    const layable = Object.keys(G.formationShelf || {})
+        .map(id => getFormationDef(id))
+        .filter(def => def && def.implemented !== false && knowsFormation(def.id) && formationCanLayAt(def, anchorId));
+
+    ensureSectFormationAnchor(anchorId);
+    const slots = G.sect.anchors[anchorId].slots;
+
+    if (anchorId === 'defense_array') {
+        const fx = getDefenseArrayFormationEffects();
+        if (fx.defenseRating > 0) {
+            html += `<div class="sect-formation-summary">Ward running: <strong>+${fx.defenseRating} defense rating</strong></div>`;
+        } else if (slots.some(Boolean)) {
+            html += `<div class="sect-formation-summary sect-formation-summary-idle">Ward laid — not running (fuel / switch / integrity).</div>`;
+        }
+    }
+    if (anchorId === 'meditation_chamber') {
+        const fx = getMeditationChamberFormationEffects();
+        if (fx.cultivatePct > 0 || fx.foundationPerCultivate > 0) {
+            const parts = [];
+            if (fx.cultivatePct > 0) parts.push(`+${fx.cultivatePct}% cultivate`);
+            if (fx.foundationPerCultivate > 0) parts.push(`+${fx.foundationPerCultivate} Foundation/session`);
+            html += `<div class="sect-formation-summary">Chamber pattern running: <strong>${parts.join(' · ')}</strong></div>`;
+        } else if (slots.some(Boolean)) {
+            html += `<div class="sect-formation-summary sect-formation-summary-idle">Pattern laid — not running.</div>`;
+        }
+    }
+
+    html += `<div class="sect-formation-slots">`;
+    for (let i = 0; i < slotCount; i++) {
+        const slot = slots[i];
+        const laidId = getResidenceFormationSlotId(slot);
+        const laidDef = laidId ? getFormationDef(laidId) : null;
+        const band = slot ? getFormationIntegrityBand(slot.integrity) : null;
+        html += `<div class="sect-formation-slot${band ? ` is-${band}` : ''}">`;
+        html += `<div class="sect-formation-slot-head"><span>Anchor slot</span>`;
+        if (laidDef) html += `<span class="sect-formation-active">${laidDef.emoji} ${laidDef.name}</span>`;
+        else html += `<span class="sect-formation-empty">Empty</span>`;
+        html += `</div>`;
+        if (laidDef && slot) {
+            html += `<p class="sect-hint">${laidDef.desc}</p>`;
+            html += formatFormationSlotStatusHtml(slot);
+            html += `<div class="sect-formation-controls">`;
+            if (!slot.scattered) {
+                html += `<button type="button" class="sect-action-btn sect-formation-toggle-btn" data-anchor-id="${anchorId}" data-formation-toggle="${i}">
+                    ${slot.active ? 'Shut down' : 'Activate'}
+                </button>`;
+                (cfg.fuelPresets || [3, 6, 12]).forEach(units => {
+                    const fuelBlock = getAddAnchorFormationFuelBlockReason(anchorId, i, units);
+                    html += `<button type="button" class="sect-formation-fuel-btn" data-anchor-id="${anchorId}" data-formation-fuel="${i}" data-fuel-units="${units}"
+                        ${fuelBlock ? `disabled title="${escapeSectAttr(fuelBlock)}"` : ''}>
+                        +${units} mo fuel (${units * (cfg.stonePerFuel || 1)}💎)
+                    </button>`;
+                });
+                const maintainBlock = getMaintainAnchorFormationBlockReason(anchorId, i);
+                html += `<button type="button" class="sect-formation-maintain-btn" data-anchor-id="${anchorId}" data-formation-maintain="${i}"
+                    ${maintainBlock ? `disabled title="${escapeSectAttr(maintainBlock)}"` : ''}>
+                    Maintain lines (${cfg.maintain?.stones || 0}💎)
+                </button>`;
+            } else {
+                html += `<p class="sect-hint sect-formation-scattered-hint">Scattered — clear and reinscribe.</p>`;
+            }
+            html += `<button type="button" class="sect-action-btn sect-formation-clear-btn" data-anchor-id="${anchorId}" data-formation-clear="${i}">Clear slot</button>`;
+            html += `</div>`;
+        }
+        if (layable.length) {
+            html += `<div class="sect-formation-lay-row">`;
+            layable.forEach(def => {
+                const block = getLayAnchorFormationBlockReason(anchorId, i, def.id);
+                const cost = def.layCost;
+                const matHint = cost?.months ? `${cost.months}mo` : '';
+                html += `<button type="button" class="sect-formation-lay-btn" data-anchor-id="${anchorId}" data-formation-lay="${def.id}" data-formation-slot="${i}"
+                    ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
+                    ${def.emoji} Inscribe ${def.name}${matHint ? ` (${matHint})` : ''}
+                </button>`;
+            });
+            html += `</div>`;
+        } else if (!laidDef) {
+            html += `<p class="sect-hint">No layable patterns for this anchor. Decipher a matching manual (ward for Defense Array; gather/stabilise for the Chamber).</p>`;
+        }
+        html += `</div>`;
+    }
+    html += `</div>`;
     return html;
 }

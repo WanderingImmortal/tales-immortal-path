@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (F1a+F1b on branch); residence qi buffs `shipped` |
+| **Status** | `building` (F1a+F1b+F2a on branch) |
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
-| **Chat / PR** | F1a+F1b: [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`) |
-| **Updated** | 2026-07-22 (F2 brief: F2a anchors / F2b exams; optional F1c) |
+| **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`) |
+| **Updated** | 2026-07-22 (F2a: meditation chamber + defense array anchors) |
 
 ## Intent
 
@@ -532,9 +532,10 @@ G.sect.residence.formations.slots = [
 | Lay / clear / cultivate at quarters | `formations.js`, `sect-map.js` |
 | **F1a fuel / switch / integrity** | Slot objects; `tickResidenceFormations`; Activate / fuel / Maintain UI |
 | **F1b shelf / decipher / master 0–2** | `G.formationShelf`, unread starter gather, market Qi Stabilizer, Decipher promotes master tier |
-| Save keys | `G.knownFormations` (derived), `G.formationShelf`, `G.formationMaster`, residence slot objects |
+| **F2a sect anchors** | `G.sect.anchors`; meditation chamber (gather/stabilise); defense array + live Iron Wall (default off) |
+| Save keys | `G.knownFormations` (derived), `G.formationShelf`, `G.formationMaster`, residence slots, `G.sect.anchors` |
 
-**Still gaps:** command talisman, Trace, exams/FI, hire UI, anchors beyond residence, equipment/talisman, arrays.
+**Still gaps:** command talisman, Trace, exams/FI (F2b), hire UI, cultivation-hall pattern, arrays.
 
 ---
 
@@ -546,7 +547,8 @@ G.sect.residence.formations.slots = [
 | **F1a** *(shipped on PR #61)* | Fuel + activation switch + inscription integrity; residence patterns first |
 | **F1b** *(shipped on PR #61)* | Formation shelf + unread Decipher; master stub 0–2; market Stabilizer; no Trace |
 | **F1c** *(optional polish — not required)* | See below — Trace / command talisman / hire stub / Iron Wall live |
-| **F2** | Sect anchor nodes + real master promotion (exams/FI) through Adept–Array Disciple; see **F2 brief** |
+| **F2a** *(shipped on PR #61)* | Meditation chamber + defense array anchors; Iron Wall live; reuse fuel/switch/integrity |
+| **F2b** | Real master promotion (exams/FI) through Adept; retcon decipher free-promotes |
 | **F3** | Essence gather + site tags (with cultivation methods P3) |
 | **F4** | Arrays — multi-formation sect scale, condensate; Array Disciple duties |
 | **F5** | Equipment + talisman deploy (master grade 5+) |
@@ -630,10 +632,10 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 ### F2 open calls for owner
 
 - [x] **F2a first** (anchors), then F2b exams (owner 2026-07-22)
-- [ ] First non-residence anchor: meditation chamber vs defense array?
+- [x] First anchors: **both** meditation chamber + defense array (build 2026-07-22)
+- [x] Iron Wall live on defense array; default **off** on lay (build 2026-07-22)
 - [ ] Decipher stops promoting at tier 1 or at tier 2 once exams exist?
-- [ ] Iron Wall in F2a, or a simpler “Mountain Ward” stub?
-- [ ] Cultivation hall: replace flat cultivate % with formation, or hybrid?
+- [ ] Cultivation hall: replace flat cultivate % with formation, or hybrid? (deferred past F2a)
 
 ---
 
