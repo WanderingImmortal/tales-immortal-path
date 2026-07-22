@@ -5,10 +5,10 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Formations F1a+F1b+F2a review ([PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61))
+- Formations F1–F2b review ([PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61))
 
 ## Next
-- Formations F2b (exams / FI) when wanted
+- Owner tweaks on F2b (Inscriber exam? FI curve?)
 - Chronicle P1 review ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
 - Territory grow/shrink (sect map phase 2)
 
