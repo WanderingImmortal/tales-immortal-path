@@ -5,16 +5,16 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Sect map unification — World | Local | Sect + influence pins (`cursor/sect-map-unification`)
+- Chronicle diary reader v0 — My path / Sect / Jianghu (`cursor/chronicle-diary-reader`)
 
 ## Next
-- Territory grow/shrink (phase 2 of sect map doc)
-- Hidden sub-zone pins on Local map
+- Tick playback + seclusion project (chronicle steps 2–3)
+- Territory grow/shrink (sect map phase 2)
 
 ## Blocked
 - (none)
 
 ## Recently shipped
+- Sect map unification ([#57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57))
 - Local & world map split ([#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56))
-- Cultivation methods P0–P2
 - See merged PRs on GitHub

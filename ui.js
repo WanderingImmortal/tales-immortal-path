@@ -2171,7 +2171,9 @@ function renderTutorialLogPopup() {
 }
 
 function renderQuestJournalPopup(tabId) {
-    tabId = tabId || window._journalTab || 'active';
+    tabId = typeof normalizeJournalTab === 'function'
+        ? normalizeJournalTab(tabId || window._journalTab || 'path')
+        : (tabId || window._journalTab || 'path');
     window._journalTab = tabId;
     const list = document.getElementById('questJournalList');
     const hint = document.getElementById('questJournalHint');
@@ -2181,12 +2183,13 @@ function renderQuestJournalPopup(tabId) {
         btn.classList.toggle('active', btn.dataset.journalTab === tabId);
     });
 
+    if (typeof getDiaryTabHint === 'function' && hint) {
+        hint.textContent = getDiaryTabHint(tabId);
+    }
+
     if (tabId === 'ancient' && typeof getSealedSitesChronicleSummary === 'function') {
         const summary = getSealedSitesChronicleSummary();
         const statusLabel = { hidden: 'Undiscovered', revealed: 'Entrance found', unsealed: 'Unsealed' };
-        if (hint) {
-            hint.textContent = `${summary.clueCount} clues · ${summary.unsealedCount}/5 unsealed${summary.penalty ? ` · −${summary.penalty}% search competition` : ''}`;
-        }
         let html = '<div class="sealed-sites-grid">';
         summary.sites.forEach(site => {
             const parent = ZONES[site.parentZone]?.name || site.parentZone;
@@ -2200,11 +2203,25 @@ function renderQuestJournalPopup(tabId) {
         const chronicle = (G.ancients?.chronicle || []).slice(0, 16);
         if (chronicle.length) {
             html += '<div class="sealed-chronicle-title">Site Log</div>';
-            html += chronicle.map(e => `<div class="quest-journal-entry journal-done">
-                <div class="quest-journal-title">${e.title}</div>
-                <div class="quest-journal-meta">${e.status || 'logged'}${e.ageLabel ? ` · ${e.ageLabel}` : ''}</div>
-                ${e.text ? `<div class="quest-journal-objective">${e.text}</div>` : ''}
-            </div>`).join('');
+            if (typeof renderDiaryListWithEras === 'function') {
+                const siteEntries = chronicle.map(e => typeof toDiaryEntry === 'function' ? toDiaryEntry({
+                    months: e.months,
+                    ageLabel: e.ageLabel,
+                    emoji: '🔒',
+                    title: e.title,
+                    body: e.text,
+                    status: e.status || 'logged',
+                    resolution: e.resolution,
+                    metaExtra: 'sealed site'
+                }) : null).filter(Boolean);
+                html += renderDiaryListWithEras(siteEntries, 'No sealed-site events yet.');
+            } else {
+                html += chronicle.map(e => `<div class="quest-journal-entry journal-done">
+                    <div class="quest-journal-title">${e.title}</div>
+                    <div class="quest-journal-meta">${e.status || 'logged'}${e.ageLabel ? ` · ${e.ageLabel}` : ''}</div>
+                    ${e.text ? `<div class="quest-journal-objective">${e.text}</div>` : ''}
+                </div>`).join('');
+            }
         } else {
             html += '<p class="quest-journal-empty">No sealed-site events yet — explore, speak with NPCs, and search the wilds.</p>';
         }
@@ -2212,35 +2229,18 @@ function renderQuestJournalPopup(tabId) {
         return;
     }
 
-    const entries = typeof getQuestJournalEntries === 'function' ? getQuestJournalEntries() : [];
-    const filtered = entries.filter(e => {
-        if (tabId === 'active') return e.status === 'active';
-        return e.kind === tabId || (tabId === 'arc' && e.kind === 'legacy');
-    });
-    const legacy = G.legacyChain?.unlocked ? ' · 🌟 Legacy chain unlocked' : '';
-    const chainCount = G.legacyChain?.completedArcIds?.length || 0;
-    if (hint) {
-        hint.textContent = `${chainCount} arcs logged${legacy} · ${G.disciples?.length || 0} disciples may assign sect duties.`;
-    }
-    if (!filtered.length) {
-        list.innerHTML = '<p class="quest-journal-empty">Nothing in this chronicle tab yet.</p>';
+    if (typeof renderDiaryTabHtml === 'function') {
+        list.innerHTML = renderDiaryTabHtml(tabId);
         return;
     }
-    list.innerHTML = filtered.slice(0, 24).map(e => {
-        const age = e.ageLabel || (e.months != null && typeof formatYears === 'function' ? formatYears(e.months) : '');
-        const statusCls = e.status === 'complete' || e.status === 'unlocked' || e.status === 'logged' ? 'journal-done' : e.status === 'failed' ? 'journal-failed' : 'journal-active';
-        const stage = e.stageName ? ` · ${e.stageName}` : e.stage ? ` · Stage ${e.stage}` : '';
-        const kindLabel = e.kind === 'ancient' ? 'sealed site' : (e.kind || 'quest');
-        return `<div class="quest-journal-entry ${statusCls}">
-            <div class="quest-journal-title">${e.title}${stage}</div>
-            <div class="quest-journal-meta">${kindLabel}${age ? ` · ${age}` : ''}${e.resolution ? ` · ${e.resolution}` : ''}</div>
-            ${e.objective ? `<div class="quest-journal-objective">${e.objective}</div>` : ''}
-        </div>`;
-    }).join('');
+
+    list.innerHTML = '<p class="quest-journal-empty">Diary unavailable.</p>';
 }
 
 function openQuestJournal(tabId) {
-    tabId = tabId || window._journalTab || 'active';
+    tabId = typeof normalizeJournalTab === 'function'
+        ? normalizeJournalTab(tabId || window._journalTab || 'path')
+        : (tabId || window._journalTab || 'path');
     window._journalTab = tabId;
     if (typeof renderQuestJournalPopup === 'function') renderQuestJournalPopup(tabId);
     document.getElementById('questJournalPopup')?.classList.add('active');

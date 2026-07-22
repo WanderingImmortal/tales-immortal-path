@@ -34,7 +34,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | Realm naming; FE breakthrough | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
-| [Chronicle, projects & time playback](chronicle-and-projects.md) | `designed` (outline) | Diary UI; one simple project type for v0 | — |
+| [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (diary v0) | — | branch `cursor/chronicle-diary-reader` |
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `idea` | Root taxonomy v2; per-realm age anchors | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |

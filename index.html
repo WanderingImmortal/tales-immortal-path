@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=90" />
+    <link rel="stylesheet" href="style.css?v=91" />
 </head>
 <body>
 
@@ -279,7 +279,7 @@
                             <div id="questLogList" class="quest-log-list">
                                 <p class="quest-log-empty">No active quests.</p>
                             </div>
-                            <button type="button" id="btnQuestJournal" class="details-toggle quest-journal-btn">📖 Open Chronicle</button>
+                            <button type="button" id="btnQuestJournal" class="details-toggle quest-journal-btn">📖 Open Diary</button>
                         </div>
                         <div class="action-group" id="npcPresenceGroup">
                             <div class="action-group-label">People you know</div>
@@ -527,13 +527,12 @@
 
 <div class="popup-overlay" id="questJournalPopup">
     <div class="popup-box quest-journal-box">
-        <h2>📖 Cultivation Chronicle</h2>
-        <p class="quest-journal-hint" id="questJournalHint">Your saga, sect duties, and world leads.</p>
+        <h2>📖 Diary</h2>
+        <p class="quest-journal-hint" id="questJournalHint">Your life as a story — not a spreadsheet.</p>
         <div class="quest-journal-tabs" id="questJournalTabs">
-            <button type="button" class="journal-tab active" data-journal-tab="active">Active</button>
+            <button type="button" class="journal-tab active" data-journal-tab="path">My path</button>
             <button type="button" class="journal-tab" data-journal-tab="sect">Sect</button>
-            <button type="button" class="journal-tab" data-journal-tab="world">World</button>
-            <button type="button" class="journal-tab" data-journal-tab="arc">Arcs</button>
+            <button type="button" class="journal-tab" data-journal-tab="jianghu">Jianghu</button>
             <button type="button" class="journal-tab" data-journal-tab="ancient">🔒 Sealed Sites</button>
         </div>
         <div id="questJournalList" class="quest-journal-list"></div>
@@ -1357,7 +1356,7 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=56"></script>
+<script src="ui.js?v=57"></script>
 <script src="action-gates.js?v=2"></script>
 <script src="actions.js?v=36"></script>
 <script src="chamber.js?v=12"></script>
@@ -1368,6 +1367,7 @@
 <script src="soul-mass.js?v=2"></script>
 <script src="cultivation-hub.js?v=4"></script>
 <script src="story-arcs.js?v=6"></script>
+<script src="chronicle-diary.js?v=1"></script>
 <script src="combat.js?v=35"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
