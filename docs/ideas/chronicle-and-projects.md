@@ -5,7 +5,7 @@
 | **Status** | `building` (P1 tick playback + seclusion) |
 | **Blocked on** | Realm/lifespan table parked; world tick sim optional for v1 |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/chronicle-tick-playback` |
+| **Chat / PR** | [PR #59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
 | **Updated** | 2026-07-22 |
 
 ## Intent
