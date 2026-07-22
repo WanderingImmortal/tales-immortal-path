@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (P1); body/soul deferred |
-| **Blocked on** | FE redesign direction (for P2+); essence infra tuning (P3+) |
+| **Status** | `building` (P1 shipped in PR; P2 designed); body/soul deferred |
+| **Blocked on** | Essence infra tuning (P3+); FE redesign integrates P2 stamp later (not a blocker) |
 | **Issue** | [#50](https://github.com/WanderingImmortal/tales-immortal-path/issues/50) (P0); [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) (P1) |
-| **Chat / PR** | P0 [PR #51](https://github.com/WanderingImmortal/tales-immortal-path/pull/51); P1 [PR #53](https://github.com/WanderingImmortal/tales-immortal-path/pull/53) |
-| **Updated** | 2026-07-22 (P1 shelf + study UI) |
+| **Chat / PR** | P0 [PR #51](https://github.com/WanderingImmortal/tales-immortal-path/pull/51); P1 [PR #53](https://github.com/WanderingImmortal/tales-immortal-path/pull/53); P2 design 2026-07-22 |
+| **Updated** | 2026-07-22 (P2 design lock-in — see technique-driven doc) |
 
 ## Intent
 
@@ -263,13 +263,12 @@ const CULTIVATION_METHOD_POOL = [
     essences: [],
     rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
     profile: {
-      gatherMult: 0.80,                // grade → speed
+      gatherMult: 0.80,                // relative; grade ladder also applies
       powerMult: 1.0,                  // qi baseline
-      ceilingMult: 1.0,
       densityEfficiency: 1.0,
-      stabilityBias: 0.1,
-      foundationVariant: 'hasty_meditation'
+      stabilityBias: 0.1
     },
+    stampsNature: 'plain_balanced',  // shared FOUNDATION_NATURES id — NOT quality/hasty
     infrastructure: null,            // qi methods: no infra req
     comprehendMonths: 2,
     desc: '...'
@@ -282,7 +281,8 @@ const CULTIVATION_METHOD_POOL = [
     methodGrade: 'common',
     reqRealm: 0,
     essences: [],
-    profile: { gatherMult: 1.0, ceilingMult: 1.05, /* ... */ },
+    profile: { gatherMult: 1.0, /* ... */ },
+    stampsNature: 'plain_balanced',
     infrastructure: null
   },
   {
@@ -299,11 +299,10 @@ const CULTIVATION_METHOD_POOL = [
     profile: {
       gatherMult: 1.0,
       powerMult: 1.30,                 // essence potency — not extra speed
-      ceilingMult: 1.35,
       densityEfficiency: 1.1,
-      stabilityBias: -0.05,
-      foundationVariant: 'yang_firm'
+      stabilityBias: -0.05
     },
+    stampsNature: 'fire_aspected',     // shared nature; essence milestones may deepen later
     infrastructure: {
       essence: 'sun_yang',
       minFormation: 'yang_gathering_plate',  // optional personal floor
@@ -423,7 +422,7 @@ Tie to [`creation-screen-redesign.md`](creation-screen-redesign.md) origins and 
 | **Chamber Gather** | `activeId` + `methodGrade` + `getInfrastructureMult()` |
 | **Formations v1** | `formations.js`, `FORMATIONS` — extend with `essenceGather`, `condensate` |
 | **Arrays (new)** | Sect buildings / `defense_array` / cultivation hall — multi-slot essence harvest |
-| **Foundation / seal** | `ceilingMult` + `essenceMilestones` → [`technique-driven-cultivation.md`](technique-driven-cultivation.md) |
+| **Foundation / seal** | Stamp shared `stampsNature` + lock path — [`technique-driven-cultivation.md`](technique-driven-cultivation.md) |
 | **FE redesign** | Gather → stabilise → seal; method + infra at seal sets lineage |
 | **Lifespan pacing** | Grade affects months-to-peak; energy type affects **how strong** at peak |
 | **World / travel** | Ambient trickle on road; **essence liquid** in travel kit; blueprints by region |
@@ -475,11 +474,15 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 |-------|-------|----------|
 | **P0** | Method pool, **methodGrade**, save state, active method, gather mult (qi only) | Pacing tune, creation manual pick |
 | **P1** | Method shelf + comprehension UI split from combat | Graded qi ladder visible |
-| **P2** | `foundationVariant` + `ceilingMult` at seal | FE redesign |
+| **P2** | Shared foundation **natures** stamped + path lock at FE Seal (today’s seal; redesign integrates later). Nature = defining trait (not speed). | Identity at FE; Intent/aura hooks later |
 | **P3** | Essence ambient trickle + **formations** that gather/condense | First essence methods |
 | **P4** | **Arrays**, condensate items, infrastructure mult curve | Full essence trade-off |
 | **P5** | Reincarnation sect reclaim + blueprint legacy | Meta power spike |
 | **P6** | Essence milestones + tribulation / NPC read hooks | Late FE–GC fantasy |
+
+**P2 design lock-in (2026-07-22):** quality/state ≠ nature; no second hard cap from methods; shared natures; affinity not Intent-gated; ship on current Seal. Full write-up: [`technique-driven-cultivation.md`](technique-driven-cultivation.md).
+
+**Sister sketch (not P2):** method **deepening** after FE (lineage grade, realm chapters, new cultivate actions) — crude forever-mult is not enough fantasy by NS/Immortal.
 
 **Suggested Issue order:** P0 → roots v2 → P1 → P2 → P3–P4 (essence infra) → P5 with legacy pass.
 

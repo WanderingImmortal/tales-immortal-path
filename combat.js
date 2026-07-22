@@ -100,8 +100,11 @@ function getTechniqueCombatCost(tech) {
         cost = Math.floor(cost * getTechniqueIntentMatch(tech).costMult);
     }
     const template = typeof getTechniqueTemplate === 'function' ? getTechniqueTemplate(tech.name) : null;
-    if (template && typeof getSoulCondensationCostMult === 'function') {
+    if (typeof getSoulCondensationCostMult === 'function') {
         cost = Math.floor(cost * getSoulCondensationCostMult(template));
+    }
+    if (typeof getFoundationNatureCombatMods === 'function') {
+        cost = Math.floor(cost * (getFoundationNatureCombatMods(tech).techCostMult || 1));
     }
     return Math.max(1, cost);
 }
@@ -847,6 +850,9 @@ function calcCombatTechniqueDamage(tech) {
     if (meta.school === 'soul_condensation' && template && typeof getSoulCondensationPowerMult === 'function') {
         dmg = Math.max(1, Math.floor(dmg * getSoulCondensationPowerMult(template)));
     }
+    if (typeof getFoundationNatureCombatMods === 'function') {
+        dmg = Math.max(1, Math.floor(dmg * (getFoundationNatureCombatMods(tech).dmgMult || 1)));
+    }
     return dmg;
 }
 
@@ -1179,12 +1185,18 @@ function combatAttack() {
         G.defending = false;
     }
     if (G.enemy.defending) {
-        const defendMult = typeof getBasicDefendDamageMult === 'function' ? getBasicDefendDamageMult() : 0.45;
+        let defendMult = typeof getBasicDefendDamageMult === 'function' ? getBasicDefendDamageMult() : 0.45;
+        const pen = typeof getFoundationNatureArmorPenPct === 'function' ? getFoundationNatureArmorPenPct() : 0;
+        if (pen > 0 && !intentFx.ignoreDefend) {
+            defendMult = Math.min(1, defendMult + (1 - defendMult) * pen);
+        }
         dmg = intentFx.ignoreDefend ? dmg : Math.floor(dmg * defendMult);
         G.enemy.defending = false;
         addCombatLog(intentFx.ignoreDefend
             ? `🗡️ Your intent pierces the guard!`
-            : `🪞 Your strike meets the reflection's guard.`);
+            : pen > 0
+                ? `🪞 Your seal-tempered strike bites through the guard.`
+                : `🪞 Your strike meets the reflection's guard.`);
     }
 
     trackMirrorAction('attack');
@@ -1369,8 +1381,13 @@ function combatUseTechnique(name) {
             });
             addCombatLog(`🪞 Condensed soul force slips past part of their guard.`);
         } else {
-            dmg = Math.floor(dmg * 0.45);
-            addCombatLog(`🪞 Your technique glances off the reflection's guard.`);
+            let defendMult = 0.45;
+            const pen = typeof getFoundationNatureArmorPenPct === 'function' ? getFoundationNatureArmorPenPct() : 0;
+            if (pen > 0) defendMult = Math.min(1, defendMult + (1 - defendMult) * pen);
+            dmg = Math.floor(dmg * defendMult);
+            addCombatLog(pen > 0
+                ? `🪞 Your sealed nature bites through the reflection's guard.`
+                : `🪞 Your technique glances off the reflection's guard.`);
         }
     } else if (G.enemy.defending && tech.name === 'Mirror Step') {
         G.enemy.defending = false;

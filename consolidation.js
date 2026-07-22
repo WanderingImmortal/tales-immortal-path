@@ -504,6 +504,10 @@ function executeConsolidation(opts) {
     addLog(`   ↳ "${perfect ? def.perfect.flavor : (sealTier === 'peak' ? capstone.peakFlavor : capstone.settledFlavor)}"`);
     if (stoneCost > 0) addLog(`   ↳ −${stoneCost} Spirit Stones.`);
 
+    if (typeof stampFoundationNatureAtFeSeal === 'function') {
+        stampFoundationNatureAtFeSeal();
+    }
+
     document.getElementById('consolidatePopup')?.classList.remove('active');
     showConsolidateFeedback('');
     fullRender();

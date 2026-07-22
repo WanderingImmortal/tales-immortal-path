@@ -4,7 +4,8 @@
 // Separate from combat TECHNIQUE_POOL / manualShelf.
 // P0: pool, methodGrade, save state, active primary, gather mult.
 // P1: method shelf + study UI + walk-this-path (pre-seal).
-// Deferred: foundation variants (P2), essence/formations (P3+).
+// P2: foundation nature stamp + path lock at FE seal.
+// Deferred: essence/formations (P3+), method deepening chapters.
 
 function getCultivationMethodDef(id) {
     if (!id) return null;
@@ -79,11 +80,12 @@ function ensureCultivationMethodState() {
             state.essenceStock = {};
         }
         if (state.foundationLineage === undefined) state.foundationLineage = null;
-        // Starter path counts as studied (owned practice, not a spare scroll).
         if (state.primaryId && !state.studiedScrolls.includes(state.primaryId)) {
             state.studiedScrolls.push(state.primaryId);
         }
     }
+    if (G.foundationNatureId === undefined) G.foundationNatureId = null;
+    if (G.foundationNatureGrade === undefined) G.foundationNatureGrade = null;
     ensureMethodShelf();
     return G.cultivationMethod;
 }
@@ -152,7 +154,128 @@ function getCultivationMethodPathLabel() {
     const gradeDef = getMethodGradeDef(getActiveMethodGradeId());
     const name = method?.name || 'Unknown Method';
     const grade = gradeDef?.name || getActiveMethodGradeId();
-    return `${name} · ${grade}`;
+    let label = `${name} · ${grade}`;
+    if (G.cultivationMethod?.primaryLocked) label += ' · sealed';
+    const nature = getSealedFoundationNatureDef();
+    if (nature) label += ` · ${nature.name}`;
+    return label;
+}
+
+function getFoundationNatureDef(id) {
+    if (!id) return null;
+    if (typeof FOUNDATION_NATURES !== 'undefined' && FOUNDATION_NATURES[id]) return FOUNDATION_NATURES[id];
+    return null;
+}
+
+function getSealedFoundationNatureId() {
+    return G.foundationNatureId || null;
+}
+
+function getSealedFoundationNatureDef() {
+    return getFoundationNatureDef(getSealedFoundationNatureId());
+}
+
+function getFoundationNatureGradeMagnitude() {
+    const gradeId = G.foundationNatureGrade || getActiveMethodGradeId();
+    const table = { crude: 0.9, common: 1.0, superior: 1.08, peerless: 1.15 };
+    return table[gradeId] ?? 1;
+}
+
+function getMethodStampsNatureId(method) {
+    if (!method) return 'plain_balanced';
+    if (method.stampsNature) return method.stampsNature;
+    const legacy = method.profile?.foundationVariant;
+    if (legacy && typeof FOUNDATION_NATURES !== 'undefined' && FOUNDATION_NATURES[legacy]) return legacy;
+    return 'plain_balanced';
+}
+
+function isQiPathFoundationSealRealm() {
+    if ((G.realmIdx || 0) !== 1) return false;
+    if (G.path === 'qi') return true;
+    if (typeof getFocusTrack === 'function' && getFocusTrack() === 'dantian') return true;
+    return false;
+}
+
+/**
+ * P2: stamp shared foundation nature + lock cultivation path at FE Seal.
+ * FE redesign should call this same helper later.
+ */
+function stampFoundationNatureAtFeSeal(options) {
+    const opts = options || {};
+    ensureCultivationMethodState();
+    if (!opts.force && !isQiPathFoundationSealRealm()) return false;
+
+    const method = getActiveCultivationMethod();
+    const natureId = getMethodStampsNatureId(method);
+    const nature = getFoundationNatureDef(natureId) || getFoundationNatureDef('plain_balanced');
+    if (!nature) return false;
+
+    G.foundationNatureId = nature.id;
+    G.foundationNatureGrade = getActiveMethodGradeId();
+    G.cultivationMethod.primaryLocked = true;
+    G.cultivationMethod.foundationLineage = method?.lineageId || G.cultivationMethod.lineageId || null;
+
+    const gradeName = getMethodGradeDef(G.foundationNatureGrade)?.name || G.foundationNatureGrade;
+    addLog(`🏛️ Foundation nature sealed: ${nature.name} (${gradeName} path — ${method?.name || 'unknown'}). Your cultivation path is locked.`);
+    addLog(`   ↳ ${nature.desc}`);
+    return true;
+}
+
+/** Scaled combat/world mods from sealed nature. Empty if not sealed. */
+function getFoundationNatureCombatMods(tech) {
+    const nature = getSealedFoundationNatureDef();
+    if (!nature?.effects) {
+        return { dmgMult: 1, techCostMult: 1, armorPenPct: 0, intimidation: false, intentEaseBonus: 0 };
+    }
+    const mag = getFoundationNatureGradeMagnitude();
+    const fx = nature.effects;
+    let dmgMult = 1;
+    if (fx.dmgMult != null) dmgMult *= 1 + (fx.dmgMult - 1) * mag;
+
+    const template = tech
+        ? (typeof getTechniqueTemplate === 'function' ? getTechniqueTemplate(tech.name || tech) : null)
+        : null;
+    const el = template?.element;
+    if (fx.elementDmgMult && el && fx.elementDmgMult[el] != null) {
+        const em = fx.elementDmgMult[el];
+        dmgMult *= 1 + (em - 1) * mag;
+    }
+
+    let techCostMult = 1;
+    if (fx.neutralTechCostMult != null && (!el || el === 'neutral')) {
+        techCostMult *= 1 - (1 - fx.neutralTechCostMult) * mag;
+    }
+    if (fx.alignedTechCostMult != null && el && methodNatureAlignsWithElement(nature, el)) {
+        techCostMult *= 1 - (1 - fx.alignedTechCostMult) * mag;
+    }
+
+    return {
+        dmgMult,
+        techCostMult,
+        armorPenPct: (fx.armorPenPct || 0) * mag,
+        intimidation: !!fx.intimidation,
+        intentEaseBonus: (fx.intentEaseBonus || 0) * mag
+    };
+}
+
+function methodNatureAlignsWithElement(nature, element) {
+    if (!nature || !element) return false;
+    if (nature.id === 'fire_aspected' && element === 'fire') return true;
+    if (nature.id === 'thunder_tempered' && (element === 'lightning' || element === 'thunder')) return true;
+    if (nature.id === 'blood_fiend' && element === 'blood') return true;
+    return false;
+}
+
+function getFoundationNatureArmorPenPct() {
+    return getFoundationNatureCombatMods(null).armorPenPct || 0;
+}
+
+function getFoundationNatureIntentEaseBonus() {
+    return getFoundationNatureCombatMods(null).intentEaseBonus || 0;
+}
+
+function hasBloodFiendIntimidation() {
+    return !!getFoundationNatureCombatMods(null).intimidation;
 }
 
 function hasStudiedCultivationMethod(methodId) {
@@ -382,9 +505,23 @@ function renderMethodShelfHtml() {
     const gather = getCultivationMethodGatherMult();
     let html = `<div class="method-shelf-path-card">
         <div class="name">🧘 Your cultivation path</div>
-        <div class="desc">${active?.name || '—'} · ${gradeDef?.name || '—'} · gather ×${gather.toFixed(2)}</div>
-        <div class="desc method-shelf-path-note">Scrolls you own are not your path until you Walk them. Combat manuals are separate.</div>
-    </div>`;
+        <div class="desc">${active?.name || '—'} · ${gradeDef?.name || '—'} · gather ×${gather.toFixed(2)}</div>`;
+    const nature = getSealedFoundationNatureDef();
+    if (nature) {
+        html += `<div class="desc">Foundation nature: <strong>${nature.name}</strong> — ${nature.desc}</div>`;
+    } else {
+        const previewId = getMethodStampsNatureId(active);
+        const preview = getFoundationNatureDef(previewId);
+        if (preview) {
+            html += `<div class="desc method-shelf-path-note">At FE seal this path stamps: ${preview.name}</div>`;
+        }
+    }
+    if (G.cultivationMethod?.primaryLocked) {
+        html += `<div class="desc method-shelf-path-note">Path locked with your foundation. Meridian-wash required to change.</div>`;
+    } else {
+        html += `<div class="desc method-shelf-path-note">Scrolls you own are not your path until you Walk them. Combat manuals are separate.</div>`;
+    }
+    html += `</div>`;
 
     const studied = (G.cultivationMethod.studiedScrolls || [])
         .map(id => getCultivationMethodDef(id))
