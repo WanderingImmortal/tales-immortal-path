@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
-| **Updated** | 2026-07-22 (Adept = art gate; exam authority → creation guilds idea) |
+| **Updated** | 2026-07-22 (guild: own city + zone branches; specialist sect later) |
 
 ## Intent
 
@@ -320,7 +320,7 @@ Promotion via **exam + FI** — lay standard pattern at current max **tier**.
 
 **Owner lean (2026-07-22):** **Inscriber = learning the moves** (decipher / study). **Adept = learning the art** — first real exam gate. No exam required for tier 2.
 
-**Exam authority (open):** F2b ships a **local proof** on the shelf. Longer term, creation paths usually have a **guild** that sets standards and runs ranks — game has none yet. Optional add: a top-tier **formation-specialist sect**. Parked in [`creation-path-guilds.md`](creation-path-guilds.md) (lean: guild first; specialist sect optional destination).
+**Exam authority:** F2b ships a **local proof** on the shelf. Longer term: **Formation Guild** (necessary) with **HQ in its own city** and **branches in each zone’s best city** — exams / hire / rare-pattern trade at the branch. Specialist formation **sect later** via backstory on an existing top-tier sect. Detail: [`creation-path-guilds.md`](creation-path-guilds.md).
 
 ### Tier advancement (not a comprehend button)
 
@@ -640,7 +640,8 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 - [x] Decipher promote caps at **Inscriber (2)**; Adept needs exam (build 2026-07-22)
 - [x] **Adept = art gate** — Inscriber stays decipher/study; no exam for tier 2 (owner 2026-07-22)
 - [ ] Adept exam FI cost / success chance / realm soft gate (playtest feel)
-- [ ] Exam fiction: formation **guild** only vs also a specialist top sect — see [`creation-path-guilds.md`](creation-path-guilds.md)
+- [x] Formation **guild** necessary; specialist sect later (existing top-tier backstory) (owner 2026-07-22)
+- [x] Guild HQ = **own city**; exams at **zone best-city branches** (owner 2026-07-22)
 - [ ] Cultivation hall: replace flat cultivate % with formation, or hybrid? (deferred)
 
 ---
@@ -668,7 +669,6 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 
 ## Open questions
 
-- **Master tier 2 in F1b:** stub number only, or tiny “maintained gather / deciphered a 2nd-tier manual → tier 2” without full exams?
 - **F1b unread source:** market SKU for Stabilizer, explore loot, or both?
 - **Wanderer lay:** keep lay-behind-sect for F1b, or allow a camp/personal slot later?
 - **Standby cost:** true zero fuel when off, or a tiny “keep the eye warm” sip so arrays feel alive?
@@ -679,7 +679,7 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 - **Integrity UI:** text state only vs map/SVG line fade (lines/nodes) — when does visual fade ship?
 - **Insight curve:** FI per trace session vs per maintained month — tune in playtest
 - **Exam patterns:** one global “standard array” per rank or guild/sect-specific variants?
-- **Exam hub:** keep local proof forever, or migrate Adept+ to a Formation Guild hall (see [`creation-path-guilds.md`](creation-path-guilds.md))?
+- **Exam hub:** migrate Adept+ to zone best-city **guild branch** when hubs exist; keep local proof as practice? (see [`creation-path-guilds.md`](creation-path-guilds.md))
 - **Hire pricing:** flat fee vs % of formation grade + secrecy premium
 - **Above-grade stacking:** max +1 effective grade from arrays, or +1 from overcharge — both stackable or pick one?
 - **Stymie duration:** how long can 2nd-grade pin inconvenience a 4th-grade target?
