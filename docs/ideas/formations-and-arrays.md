@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | F1a: [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`); design park #60 |
-| **Updated** | 2026-07-22 (F1b thin path OK; acquire/content elaboration) |
+| **Updated** | 2026-07-22 (starter = one gather; rest is study) |
 
 ## Intent
 
