@@ -9,7 +9,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 
 ## Next
 - Playtest Adept exam feel (FI / success %) on [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61)
-- Formations Guild (own city + zone hubs; branch &lt; peak exams) — [`docs/ideas/creation-path-guilds.md`](ideas/creation-path-guilds.md)
+- Formations Guild (own city + zone hubs; branch below peak) — [`docs/ideas/creation-path-guilds.md`](ideas/creation-path-guilds.md)
 - Chronicle P1 review ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
 - Territory grow/shrink (sect map phase 2)
 
