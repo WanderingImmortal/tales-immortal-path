@@ -645,6 +645,10 @@ function setupCreation(refreshOnly) {
         G.tribulationCount = 0;
         G.daoComprehensionAttempts = 0;
         G.corruptionLevel = 0;
+        G.corruptionNoticed = false;
+        G.heavenTheftCount = 0;
+        G.heavenLedger = [];
+        G.cultivationLimbo = null;
         G.pendingIntentChoice = null;
         G.qiRegenMult = 1;
         G.dmgMult = 1;
@@ -696,7 +700,7 @@ function setupCreation(refreshOnly) {
         G.demonicRedemption = null;
         G.tutorialLog = null;
         G.milestones = null;
-        G._pendingTribulationStyle = null;
+        G._pendingTribulation = null;
         G.affinities = null;
         G.fiveElementCycleIdx = 0;
         G.realmIdx = 0;

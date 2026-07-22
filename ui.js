@@ -2574,9 +2574,10 @@ function renderAlignmentPopup() {
     if (corruption > 0) {
         const corrPct = Math.min(100, Math.round((corruption / corruptionMax) * 100));
         html += `<div class="alignment-corruption-wrap">
-            <div class="alignment-corruption-label">🩸 Corruption ${corruption}/${corruptionMax}</div>
+            <div class="alignment-corruption-label">🩸 Cycle stain ${corruption}/${corruptionMax}</div>
             <div class="alignment-progress-bar corruption-bar"><div class="alignment-progress-fill corruption-fill" style="width:${corrPct}%"></div></div>
-            ${corruption >= (DAO_ALIGNMENT.corruptionDriftThreshold || 50) ? '<div class="alignment-corruption-warn">High corruption drifts alignment downward when cultivating.</div>' : ''}
+            ${G.corruptionNoticed ? '<div class="alignment-corruption-warn">Heaven will amplify your next juncture tribulation.</div>' : ''}
+            ${!G.corruptionNoticed && corruption >= (DAO_ALIGNMENT.corruptionDriftThreshold || 50) ? '<div class="alignment-corruption-warn">The cycle bears your stain — stay below the threshold or face a harsher audit.</div>' : ''}
         </div>`;
     }
 

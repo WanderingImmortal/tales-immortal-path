@@ -196,10 +196,18 @@ function applyTranscendencePerk(perkId) {
 
 function continueAfterBreakthrough(breakStyle) {
     if (shouldTriggerTribulation()) {
+        const toIdx = G.realmIdx;
+        const tribOpts = {
+            breakStyle,
+            context: 'breakthrough',
+            transitionId: typeof resolveBreakthroughTransitionId === 'function'
+                ? resolveBreakthroughTransitionId(toIdx - 1, toIdx)
+                : null
+        };
         if (typeof beginTribulationWithTutorial === 'function') {
-            beginTribulationWithTutorial(breakStyle);
+            beginTribulationWithTutorial(breakStyle, tribOpts);
         } else {
-            startTribulation(breakStyle);
+            startTribulation(tribOpts);
         }
         return;
     }

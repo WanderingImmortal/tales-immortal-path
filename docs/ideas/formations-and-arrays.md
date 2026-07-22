@@ -162,7 +162,7 @@ Reincarnation **sect reclaim**: structures and laid patterns may persist; **fuel
 
 ### Rite formations (roots — separate bucket)
 
-One-shot or rare **arrays** for fate shifts: +1 basin tier, capped composition step, breakthrough support. Consumed or burned out on success. Documented in roots taxonomy; **not** courtyard slot buffs.
+Grand **arrays** for **fate shifts**: +1 basin tier, one composition row, breakthrough support. **Repeatable** — each success escalates tribulation; formation tier and material cost rise with `heavenTheftCount`. Consumed on attempt. Full design: [`root-rite-formations.md`](root-rite-formations.md). **Not** courtyard slot buffs.
 
 ---
 

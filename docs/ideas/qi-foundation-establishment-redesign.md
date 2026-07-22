@@ -72,6 +72,10 @@ Foundation **nature** (elemental / affinity / fiend — not quality Crude→Peer
 - [ ] Align with `technique-driven-cultivation.md` (breathing method as primary grind)
 - [ ] Decide FE tribulation trigger vs generic 24-month Break Through
 
+### Meridians — Option A (owner 2026-07-22)
+
+Meridians are **FE foundation wiring**, not QC grind or QC→FE tribulation beats. When this redesign ships, wire circulation fantasy here; drop QC `minMeridians` gates. See scar + trib notes in [`tribulation-system-rework.md`](tribulation-system-rework.md).
+
 ## Open questions
 
 - Limbo UX: can you cultivate / travel / fight while heaven’s verdict is pending?

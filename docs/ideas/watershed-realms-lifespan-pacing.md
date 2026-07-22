@@ -2,11 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) (roots before realm pacing); breathing-technique system |
-| **Issue** | none yet |
-| **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 |
+| **Status** | `designed` (competent vs perfected peak — owner 2026-07-22) |
+| **Blocked on** | Roots v2 landed; chamber pacing tune pass |
+| **Updated** | 2026-07-22 |
 
 > **Nine realms:** Mortal ladder expanded to 9 indices — see [`nine-realm-ladder.md`](nine-realm-ladder.md). Lifespan table and anchors in this doc need a pass (+40y gentle steps, not ×2 jumps).
 
@@ -36,7 +34,21 @@ Enter realm (lifespan extends) → grind toward peak → seal / stabilise
 - **Lifespan extension** from breakthrough is the reward that buys time for the *next* basin — if you peaked late, you may have **no time left** to attempt the crossing (regret ending).
 - Not everyone in a realm is climbing; most are mid-realm or peak-stuck.
 
-### Pacing model (draft math)
+### Competent peak vs perfected peak (owner 2026-07-22)
+
+Two layers inside each basin — not one "peak" button:
+
+| Layer | Meaning | Who | Timing (inferior @ FE example) |
+|-------|---------|-----|--------------------------------|
+| **Arrive** | Enter realm, sealed / functional | Most who succeed | Mid-life |
+| **Competent peak** | Innate-height subrealm, **decent** foundation (not peerless) | **Common cultivator** NPC default | **Late life (~80–90)** |
+| **Perfected peak** | Max pillars, seal grade, consolidation | Those preparing to **cross** or defy heaven | Extra decades — often unaffordable for inferior roots |
+
+**Crossing the next watershed** requires competent peak + aid (pills, rites, talent) — **not** perfected peak. Perfected peak improves odds but costs calendar time.
+
+Superior/heavenly roots hit competent peak **earlier** → more runway for crossing or perfection grind.
+
+---
 
 | Milestone | Inferior root target age | Notes |
 |-----------|--------------------------|-------|

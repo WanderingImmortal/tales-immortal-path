@@ -217,18 +217,22 @@ function showTutorialPopup(id, reviewMode) {
 }
 
 function runPendingTribulationIfAny() {
-    if (G._pendingTribulationStyle == null) return;
-    const style = G._pendingTribulationStyle;
-    G._pendingTribulationStyle = null;
-    if (typeof startTribulation === 'function') startTribulation(style);
+    if (!G._pendingTribulation) return;
+    const opts = G._pendingTribulation;
+    G._pendingTribulation = null;
+    if (typeof startTribulation === 'function') startTribulation(opts);
 }
 
-function beginTribulationWithTutorial(breakStyle) {
+function beginTribulationWithTutorial(breakStyle, tribOpts) {
+    const opts = {
+        breakStyle: breakStyle || 'balanced',
+        ...(tribOpts && typeof tribOpts === 'object' ? tribOpts : {})
+    };
     if (isTutorialComplete('first_tribulation')) {
-        startTribulation(breakStyle);
+        startTribulation(opts);
         return;
     }
-    G._pendingTribulationStyle = breakStyle;
+    G._pendingTribulation = opts;
     triggerTutorial('first_tribulation');
 }
 

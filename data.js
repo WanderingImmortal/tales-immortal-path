@@ -1031,15 +1031,16 @@ const PILL_TYPES = {
     purifying_elixir: {
         name: "Purifying Elixir",
         emoji: "✨",
-        desc: "Cleanses corruption and steadies the Dao heart.",
+        desc: "Rare — mends cycle stain and steadies the spirit. Not a common shop pill.",
         months: 2,
+        reqRealm: 3,
         apply() {
             const reduced = typeof reduceCorruption === 'function'
                 ? reduceCorruption(6 + Math.floor(Math.random() * 6), 'purifying elixir')
                 : 0;
             if (typeof shiftDaoAlignment === 'function') shiftDaoAlignment(2 + Math.floor(Math.random() * 3), 'purifying elixir');
             G.will += 2;
-            return `corruption cleansed${reduced ? '' : ' (minimal)'}, +Will, Dao steadied.`;
+            return `cycle stain cleansed${reduced ? '' : ' (minimal)'}, +Will, spirit steadied.`;
         }
     },
     soul_nourishing: {
@@ -7738,7 +7739,7 @@ const ZONE_ENCOUNTERS = {
             title: "Demonic Shrine",
             text: "A blood-stained altar hums in the deep jungle. Demonic cultivators have marked this place.",
             choices: [
-                { label: "Desecrate the altar for power", months: 2, require: { alignmentMax: -30 }, stones: 12, corruptionGain: 5, alignmentShift: -5, log: "Dark qi floods your meridians — the shrine accepts your offering." },
+                { label: "Desecrate the altar for power", months: 2, require: { alignmentMax: -30 }, stones: 12, alignmentShift: -5, log: "Dark qi floods your meridians — the shrine accepts your offering." },
                 { label: "Purify the site", months: 3, require: { alignment: 40 }, fame: 3, alignmentShift: 4, log: "You cleanse the shrine. The jungle exhales." },
                 { label: "Leave it undisturbed", months: 1, log: "Some places are best forgotten." }
             ]
@@ -8391,13 +8392,12 @@ const DAO_ALIGNMENT = {
             id: 'public_atonement',
             label: 'Public Atonement',
             emoji: '🙏',
-            desc: 'Confess your misdeeds before the jianghu and seek cleansing.',
+            desc: 'Confess before the jianghu and seek mortal forgiveness (not a heavenly rite).',
             months: 6,
             fameCost: 5,
             alignMin: -69,
             alignMax: 29,
             alignDelta: [8, 15],
-            corruptionReduce: [8, 15],
             tierOnly: ['dissonant', 'rebellious'],
             maxUsesPerRealm: 2
         },
@@ -8411,20 +8411,6 @@ const DAO_ALIGNMENT = {
             alignMax: 29,
             alignDelta: [-10, -5],
             maxUsesPerRealm: 3
-        },
-        {
-            id: 'embrace_demonic',
-            label: 'Embrace Demonic Impulse',
-            emoji: '😈',
-            desc: 'Let corruption guide your hand — power at a cost.',
-            months: 3,
-            alignMin: -100,
-            alignMax: 29,
-            alignDelta: [-12, -12],
-            corruptionGain: 6,
-            requireCorruption: 20,
-            tierOnly: ['dissonant', 'rebellious'],
-            maxUsesPerRealm: 2
         }
     ],
     sectSynergy: {
@@ -8437,10 +8423,47 @@ const DAO_ALIGNMENT = {
 };
 
 // ===== HEAVENLY TRIBULATIONS =====
+/** Breakthrough transition scripts — per-gate copy; expand choice pools later. */
+const TRIBULATION_TRANSITIONS = {
+    qc_to_fe: {
+        id: 'qc_to_fe',
+        label: 'Qi Condensation → Foundation',
+        logLine: 'The first watershed — your foundation must endure the heavenly audit.'
+    },
+    fe_to_gc: {
+        id: 'fe_to_gc',
+        label: 'Foundation → Golden Core',
+        logLine: 'A nascent golden core forms — the Heavenly Order has not yet accepted you.',
+        limbo: true
+    },
+    gc_to_ns: {
+        id: 'gc_to_ns',
+        label: 'Golden Core → Nascent Soul',
+        logLine: 'The soul stirs within the core — lightning tests whether it may emerge.'
+    },
+    ns_to_void: {
+        id: 'ns_to_void',
+        label: 'Nascent Soul → Void Refinement',
+        logLine: 'Identity thins at the void\'s edge — the sky seeks what remains of you.'
+    },
+    void_to_dao: {
+        id: 'void_to_dao',
+        label: 'Void Refinement → Dao Seeking',
+        logLine: 'Law and self collide — heaven audits your claim to the next watershed.'
+    },
+    dao_to_immortal: {
+        id: 'dao_to_immortal',
+        label: 'Dao Seeking → Immortal Ascension',
+        logLine: 'The final audit — transcendence or erasure under the lightning.'
+    }
+};
+
 const TRIBULATION_BALANCE = {
     minRealm: 1,
     baseSeverity: 10,
     severityPerRealm: 5,
+    heavenTheftSeverityPerCount: 0.25,
+    corruptionNoticedMult: 1.35,
     omenMonths: 3,
     trialMonths: 6,
     aftermathMonths: 4,
