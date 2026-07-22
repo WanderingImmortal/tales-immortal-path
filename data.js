@@ -1683,6 +1683,11 @@ const MERCHANT_CATALOG = {
             { methodId: 'impure_meridian_breath', price: 48 },
             { methodId: 'inner_court_meridian_cycle', price: 140 }
         ],
+        formations: [
+            { formationId: 'qi_stabilizer', price: 85 },
+            { formationId: 'iron_wall_ward', price: 95 },
+            { formationId: 'vein_seal_ward', price: 160 }
+        ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
             { id: "blood_recovery", price: 40, qty: 1 },
@@ -1711,6 +1716,11 @@ const MERCHANT_CATALOG = {
         methods: [
             { methodId: 'outer_sect_qi_cycling', price: 50 },
             { methodId: 'impure_meridian_breath', price: 45 }
+        ],
+        formations: [
+            { formationId: 'qi_stabilizer', price: 80 },
+            { formationId: 'iron_wall_ward', price: 90 },
+            { formationId: 'vein_seal_ward', price: 150 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -5200,40 +5210,170 @@ const SECT_RESIDENCE = {
     ]
 };
 
-// ----- Formations (v1: residence deploy only) -----
+// ----- Formations (F1a fuel/switch/integrity + F1b shelf/decipher) -----
+/** Shared courtyard upkeep numbers (per-formation defs may override). */
+const FORMATION_F1A = {
+    stonePerFuel: 1,
+    defaultFuelCapacity: 24,
+    defaultFuelPerMonth: 1,
+    defaultLayFuel: 6,
+    /** Integrity points lost per month while laid (neglect). */
+    integrityDecayPerMonth: 1,
+    integrityMax: 100,
+    bands: {
+        sharp: 70,
+        fading: 35
+    },
+    /** Effect multipliers by integrity band (only while active + fueled). */
+    effectMult: {
+        sharp: 1,
+        fading: 0.55,
+        decayed: 0.2,
+        scattered: 0
+    },
+    maintain: {
+        stones: 4,
+        materials: { spirit_herb: 1 },
+        months: 1,
+        restore: 35
+    },
+    fuelPresets: [3, 6, 12]
+};
+
+/** F1b learn pipeline (thin: acquire + decipher; no Trace yet). */
+const FORMATION_F1B = {
+    decipherMonthsByTier: { 1: 2, 2: 3, 3: 4 },
+    decipherStonesByTier: { 1: 6, 2: 14, 3: 28 },
+    masterTitles: {
+        0: 'Uninitiated',
+        1: 'Pattern Student',
+        2: 'Inscriber',
+        3: 'Formation Adept',
+        4: 'Array Disciple'
+    }
+};
+
+/** F2b: Formation Insight + master exams (Adept). */
+const FORMATION_F2B = {
+    /** Decipher / auto-grant may raise master tier up to this; Adept+ needs exam. */
+    decipherMaxPromoteTier: 2,
+    fi: {
+        decipher: 5,
+        lay: 8,
+        maintain: 3,
+        /** Per calendar month a laid pattern is active and fueled. */
+        activeMonth: 0.5
+    },
+    exams: {
+        3: {
+            fromTier: 2,
+            toTier: 3,
+            fiCost: 36,
+            months: 4,
+            stones: 45,
+            materials: { spirit_herb: 6, jade_inlay: 2, silk_thread: 3 },
+            /** Soft gate — formation-mains can still attempt slightly early. */
+            minRealmIdx: 1,
+            cooldownMonths: 6,
+            baseSuccess: 0.62,
+            /** Extra success from FI above cost (capped). */
+            fiSuccessBonusPerPoint: 0.004,
+            fiSuccessBonusCap: 0.22,
+            proofLabel: 'Adept proof inscription'
+        }
+        // 4 (Array Disciple) deferred until array-assist content exists
+    }
+};
+
 const FORMATIONS = {
     spirit_gathering: {
         id: 'spirit_gathering',
         name: 'Spirit Gathering Formation',
         emoji: '🌀',
-        desc: 'Draws ambient qi to your quarters. +8% cultivation per active slot.',
+        desc: 'Draws ambient qi. +8% cultivation while running (courtyard or meditation chamber).',
         deploy: 'residence',
+        anchors: ['residence', 'meditation_chamber'],
+        formationTier: 1,
         minResidenceLevel: 1,
         effects: { cultivatePct: 8 },
         layCost: { months: 2, materials: { spirit_herb: 3, silk_thread: 1 } },
-        learnOnResidenceLevel: 1
+        fuelPerMonth: 1,
+        fuelCapacity: 24,
+        layFuel: 6,
+        /** F1b: unread novice diagram when courtyard opens — not auto-comprehended. */
+        starterUnreadOnResidenceLevel: 1
     },
     qi_stabilizer: {
         id: 'qi_stabilizer',
         name: 'Qi Stabilizer',
         emoji: '⚖️',
-        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation per session at quarters.',
+        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation while running (courtyard or meditation chamber).',
         deploy: 'residence',
+        anchors: ['residence', 'meditation_chamber'],
+        formationTier: 2,
         minResidenceLevel: 2,
+        minBuildingLevelByAnchor: { meditation_chamber: 1 },
         effects: { cultivatePct: 4, foundationPerCultivate: 1 },
         layCost: { months: 3, materials: { spirit_herb: 4, jade_inlay: 1 } },
-        learnOnResidenceLevel: 2
+        fuelPerMonth: 1,
+        fuelCapacity: 24,
+        layFuel: 6
     },
     iron_wall_ward: {
         id: 'iron_wall_ward',
         name: 'Iron Wall Ward',
         emoji: '🛡️',
-        desc: 'A defensive ward pattern. Combat deployment coming in a future update.',
-        deploy: 'residence',
-        minResidenceLevel: 1,
-        implemented: false,
-        effects: {},
-        layCost: { months: 2, materials: { iron_ore: 4, jade_inlay: 1 } }
+        desc: 'Perimeter ward for the Defense Array. Softens sect event stone losses while running — keep it off until you need it.',
+        deploy: 'defense_array',
+        anchors: ['defense_array'],
+        formationTier: 2,
+        implemented: true,
+        effects: { defenseRating: 30 },
+        layCost: { months: 3, materials: { iron_ore: 5, jade_inlay: 2 } },
+        fuelPerMonth: 2,
+        fuelCapacity: 24,
+        layFuel: 4,
+        /** Sect fantasy: wards stay ready, not roaring. */
+        defaultActiveOnLay: false
+    },
+    vein_seal_ward: {
+        id: 'vein_seal_ward',
+        name: 'Vein Seal Ward',
+        emoji: '🔒',
+        desc: '3rd-tier perimeter seal. Stronger event protection while running — Adept work; expensive to keep lit.',
+        deploy: 'defense_array',
+        anchors: ['defense_array'],
+        formationTier: 3,
+        implemented: true,
+        effects: { defenseRating: 55 },
+        layCost: { months: 5, materials: { iron_ore: 8, jade_inlay: 3, demon_core: 1 } },
+        fuelPerMonth: 3,
+        fuelCapacity: 24,
+        layFuel: 3,
+        defaultActiveOnLay: false
+    }
+};
+
+/** F2a: sect map nodes that host formation slots (1 slot once building exists). */
+const FORMATION_ANCHORS = {
+    residence: {
+        id: 'residence',
+        label: "Leader's Quarters",
+        kind: 'residence'
+    },
+    meditation_chamber: {
+        id: 'meditation_chamber',
+        label: 'Meditation Chamber',
+        kind: 'building',
+        buildingId: 'meditation_chamber',
+        hint: 'Gather and stabilise patterns amplify cultivation while running. Building Will/Spirit bonus still applies separately.'
+    },
+    defense_array: {
+        id: 'defense_array',
+        label: 'Defense Array',
+        kind: 'building',
+        buildingId: 'defense_array',
+        hint: 'Ward patterns burn fuel while lit. Leave the mountain dark until a threat — building defense still helps a little when the ward is off.'
     }
 };
 

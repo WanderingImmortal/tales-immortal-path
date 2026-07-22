@@ -373,6 +373,10 @@ function getSectBuildingBonus(effectKey) {
 function getSectCultivationMult() {
     let mult = 1 + getSectBuildingBonus('cultivationSpeedPct') / 100;
     mult += getSectBuildingBonus('daoSpeedPct') / 100;
+    if (typeof getMeditationChamberFormationEffects === 'function') {
+        const chamberFx = getMeditationChamberFormationEffects();
+        if (chamberFx.cultivatePct) mult += chamberFx.cultivatePct / 100;
+    }
     if (typeof getSectInfluenceCultivateMult === 'function') {
         mult *= getSectInfluenceCultivateMult();
     }
@@ -388,7 +392,10 @@ function getSectPassiveIncomeBonus() {
 function getSectEventStoneLossMult() {
     let mult = typeof getSectTraitEventStoneLossMult === 'function' ? getSectTraitEventStoneLossMult() : 1;
     const vaultSave = getSectBuildingBonus('vaultStoneSavePct');
-    const defense = getSectBuildingBonus('defenseRating');
+    let defense = getSectBuildingBonus('defenseRating');
+    if (typeof getSectFormationDefenseRatingBonus === 'function') {
+        defense += getSectFormationDefenseRatingBonus();
+    }
     if (vaultSave > 0) {
         const soften = Math.min(0.6, vaultSave / 100);
         if (mult > 1) mult = 1 + (mult - 1) * (1 - soften);
@@ -438,6 +445,17 @@ function applySectCultivateBuildingEffects(statGain) {
         G.will += extra;
         G.spirit += extra;
         notes.push(`Chamber +${extra} Will/Spirit`);
+    }
+
+    if (typeof getMeditationChamberFormationEffects === 'function') {
+        const chamberFx = getMeditationChamberFormationEffects();
+        if (chamberFx.foundationPerCultivate > 0 && typeof grantFoundation === 'function') {
+            grantFoundation(chamberFx.foundationPerCultivate);
+            notes.push(`Chamber formation +${chamberFx.foundationPerCultivate} Foundation`);
+        }
+        if (chamberFx.labels?.length) {
+            notes.push(`Running: ${chamberFx.labels.join(', ')}`);
+        }
     }
 
     return notes;
@@ -1681,6 +1699,7 @@ function tickSectSystems(monthsPassed) {
     if (typeof tickManualHallStudy === 'function') tickManualHallStudy(monthsPassed);
     if (typeof tickWorldSectGrowth === 'function') tickWorldSectGrowth(monthsPassed);
     if (typeof tickSectExpansion === 'function') tickSectExpansion(monthsPassed);
+    if (typeof tickResidenceFormations === 'function') tickResidenceFormations(monthsPassed);
     if (meetsStageRequirement('established')) ensureProceduralWorldSects();
     if (meetsStageRequirement('regional') && !G.sect.influenceZone) {
         G.sect.influenceZone = typeof getActiveZoneId === 'function' ? getActiveZoneId() : G.currentZone;

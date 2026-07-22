@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (vision); v1 residence qi buffs `shipped` |
+| **Status** | `building` (F1–F2b on PR #61) |
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
-| **Chat / PR** | Owner formations brainstorm (cloud agent, 2026-07-21); prior chat *xianxia formations arrays* (not in repo) |
-| **Updated** | 2026-07-22 (fuel vs neglect; activation switch + command talisman) |
+| **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
+| **Updated** | 2026-07-22 (guild fiction parked; F2b on PR #61) |
 
 ## Intent
 
@@ -318,13 +318,17 @@ Being a formation master is **dedication**, not a side perk. Most cultivators **
 
 Promotion via **exam + FI** — lay standard pattern at current max **tier**.
 
+**Owner lean (2026-07-22):** **Inscriber = learning the moves** (decipher / study). **Adept = learning the art** — first real exam gate. No exam required for tier 2.
+
+**Exam authority:** F2b ships a **local proof** on the shelf. Longer term: **Formations Guild** — HQ in its own city; **one branch per zone** at the primary hub. Branches examine above Adept but not peak; **only HQ** tests the highest grades. Hire / rare-pattern trade at branches. Specialist formation **sect later** via backstory on an existing top-tier sect. Detail: [`creation-path-guilds.md`](creation-path-guilds.md).
+
 ### Tier advancement (not a comprehend button)
 
 Promotion is a **trial**, not `+1 Formation Level`:
 
 1. **Insight threshold** — enough **Formation Insight** (FI) from practice, lays, maintenance, assisted array work.
-2. **Proof lay** — inscribe a **standard exam pattern** at a sect hall or borrowed anchor (materials + months; failure delays retry).
-3. **Optional witness** — sect formation elder, or NPC master for rogue cultivators.
+2. **Proof lay** — inscribe a **standard exam pattern** (today: home shelf; later: guild hall / examiner).
+3. **Optional witness** — formation guild examiner, sect elder, or NPC master for rogue cultivators.
 
 Failed exam: materials lost, cooldown. Success: **master tier** increases.
 
@@ -411,17 +415,81 @@ Acquire → Decipher → Trace (×N) → First Lay → Maintain → Master copy
 
 Current `learnOnResidenceLevel` auto-push to `knownFormations` is **bootstrap** (elder traces starter patterns). When F1 lands: manual to **formation shelf** + auto-decipher for master tier 1–2 tutorial, or elder lays first copy.
 
-### Learn pipeline lean (2026-07-22 — still open)
+### Learn pipeline lean (2026-07-22 — owner OK thin path)
 
-Full `Acquire → Decipher → Trace → First Lay` is the right **fantasy**, but shipping it all in F1 alongside fuel + integrity is a lot of UI for little early content.
+Full `Acquire → Decipher → Trace → First Lay` is the right **fantasy**; **F1b ships thin**.
 
-**Suggested thin path:**
+**Owner OK (2026-07-22):**
 
-1. **F1a — fuel + integrity** on already-known residence patterns (what players can already lay). Prove the two axes in play.
-2. **F1b — shelf** for new manuals: Acquire → Decipher only; **skip Trace** until there are enough blueprints that practice matters.
-3. Keep **elder / residence grant** as auto-deciphered starters so the courtyard loop never soft-locks behind a sandbox tutorial.
+1. **Thin F1b:** shelf + Decipher only; **skip Trace** until more blueprints exist.
+2. **Decipher at residence** — not locked behind founding a sect. Quarters / personal dwelling is enough (later: optional residence expansions for a study desk / sand table — not required for F1b).
+3. **Master grades 0–2:** use the existing ladder in this doc (below) as the rough unlock table; no exams in F1b — stub tier + soft gate only.
+4. **Acquire + content:** see **F1b acquire & content** — needs a real second source of manuals or the shelf is just a rename.
 
-Hire-an-NPC stays the escape hatch for people who do not want the profession loop.
+Hire-an-NPC stays parked (always-allowed fantasy; UI later).
+
+### Master grades 0–2 (what the doc already says)
+
+From the profession table — **this is the rough unlock idea**; F1b only needs the first three rows stubbed:
+
+| Master tier | Can lay (formation **tier**) | Matches current courtyard blueprints |
+|-------------|------------------------------|--------------------------------------|
+| **0** Uninitiated | Nothing self-laid (hire only later) | — |
+| **1** Pattern Student | **1st**-tier | Spirit Gathering |
+| **2** Inscriber | **2nd**-tier | Qi Stabilizer (and Iron Wall when implemented) |
+
+**F1b stub lean (proposed — owner lean 2026-07-22):**
+
+- Formations are a **profession / art**, not free residence loot. Do **not** auto-teach a full catalog on upgrade.
+- **At most one starter:** a simple **1st-tier qi gathering** diagram — arrives **unread**. Player **Deciphers** it once at residence (teaches the verb, stakes a little time/stones). Not a free “you already know formations” dump.
+- **Everything else** (Qi Stabilizer, wards, later patterns) arrives **unread** via market / loot / sect copy and must be **Deciphered**; master tier must allow that formation’s tier to lay.
+- Master tier starts at **0**; first Decipher of the starter (or completing it) bumps to **1** so you can lay gather. Reaching **Inscriber (2)** is study/profession progress (F1b may stub; F2 exams).
+- Soft-lock guard: surface the novice unread diagram clearly when courtyard slots open — do not auto-grant Stabilizer.
+
+Exams / FI / promotion UI → **F2**.
+
+### F1b acquire & content (elaboration)
+
+**Problem:** today the only acquire path is `learnOnResidenceLevel` → instant `knownFormations`. A shelf with nothing to put on it is empty chrome.
+
+**Acquire channels (pick for F1b / near-F1b):**
+
+| Channel | Effort | Fiction | F1b fit |
+|---------|--------|---------|---------|
+| **A. One starter gathering diagram** | Low | Elder / first quarters gift — **only** simple qi gather | **Must ship** — at most this one is free or nearly free; not a full catalog |
+| **A′. Residence upgrade grants (legacy)** | — | Auto-learn Stabilizer etc. on level-up | **Replace** — owner lean: no free profession unlocks beyond the starter gather |
+| **B. Market / auction formation manuals** | Medium | Buy unread manuals with stones | **Primary study path** for anything beyond starter |
+| **C. Explore / loot drop** | Medium | Rare manual in ruins / sealed sites | Secondary |
+| **D. Sect library copy** | Higher | Copy after founded | Fine later; conflicts with “decipher without sect” if it’s the *only* path |
+| **E. Hire decipher** | Parked | Pay NPC to skip Decipher months | Matches hire fantasy; skip UI in F1b |
+
+**Recommendation for F1b:**
+
+1. **Starter unread** — one simple qi-gathering manual onto the shelf (`deciphered: false`); Decipher at residence is the onboarding beat.
+2. **Stop** `learnOnResidenceLevel` auto-grants for Stabilizer (and any future patterns) — those become market/loot unread manuals.
+3. **Market (B)** sells at least Qi Stabilizer unread (needs master tier 2 to lay after decipher) so study/profession has a next step.
+4. Migrate existing saves: known formations stay on shelf as already deciphered; new runs follow the stricter path.
+
+### Design tension (owner 2026-07-22)
+
+Want the player **involved** in a growing world — studying, choosing when to light arrays, tending integrity — not only watching numbers tick. Also want the game **fun to play**: thin verbs (Decipher, Activate, Fuel, Maintain) beat a full profession sim on day one. Prefer **depth behind optional doors** (Trace, exams, hire, natural formations) over forcing every axis on every run.
+
+**Lay vs decipher without a sect:**
+
+- **Decipher / shelf:** personal — works with residence (or a future pre-sect dwelling). Do **not** require `isSectFounded()`.
+- **Lay at courtyard slots:** today requires founded sect + residence level. Keep that for F1b unless/until a wanderer “camp formation” anchor exists. So: you can **study** patterns as a wanderer; you **inscribe** them once you have quarters on sect grounds (or a later personal expansion).
+
+**Content minimum so F1b feels real:**
+
+| Item | Why |
+|------|-----|
+| Shelf panel on residence UI | See unread vs deciphered |
+| Decipher action (months + small stone cost) | The verb |
+| Master tier stub 0–2 + lay gate by formation tier | Soft profession |
+| Migrate residence grants | No soft-lock |
+| **One unread acquire** (market or loot) | Otherwise Decipher is dead UI |
+
+Trace, fragments, exams, hire UI → later.
 
 ---
 
@@ -449,13 +517,16 @@ G.formationShelf = {
   }
 };
 
-G.knownFormations = [];       // derive from shelf + master tier
-G.sect.residence.formations.slots = [];
+G.knownFormations = [];       // derive from shelf + master tier (F1b)
+// F1a slot shape (migrates legacy string ids on load):
+G.sect.residence.formations.slots = [
+  // null | { id, active, fuel, integrity, scattered }
+];
 ```
 
 ---
 
-## Shipped today (v1)
+## Shipped today
 
 | Piece | Location |
 |-------|----------|
@@ -463,9 +534,13 @@ G.sect.residence.formations.slots = [];
 | Spirit Gathering, Qi Stabilizer | `FORMATIONS` in `data.js` |
 | Iron Wall Ward | Stub (`implemented: false`) |
 | Lay / clear / cultivate at quarters | `formations.js`, `sect-map.js` |
-| Save keys | `G.knownFormations`, `G.sect.residence.formations.slots` |
+| **F1a fuel / switch / integrity** | Slot objects; `tickResidenceFormations`; Activate / fuel / Maintain UI |
+| **F1b shelf / decipher / master 0–2** | `G.formationShelf`, unread starter gather, market Qi Stabilizer, Decipher promotes master tier |
+| **F2a sect anchors** | `G.sect.anchors`; meditation chamber; defense array + Iron Wall |
+| **F2b FI + Adept exam** | Formation Insight; decipher promotes ≤ Inscriber (2); proof exam → Adept (3); Vein Seal Ward (3rd) |
+| Save keys | shelf, master `{ tier, insight, lastExamAgeMonths }`, residence slots, `G.sect.anchors` |
 
-**v1 gaps vs this doc:** no upkeep, no anchors beyond residence, no equipment/talisman, no arrays, no essence tags, no hybrids, no formation master ranks (residence level auto-grants manuals — **bootstrap only**, replace when F1+ lands).
+**Still gaps:** Array Disciple exam (4), Trace, command talisman, hire UI, cultivation-hall pattern, arrays.
 
 ---
 
@@ -474,13 +549,100 @@ G.sect.residence.formations.slots = [];
 | Phase | Scope |
 |-------|-------|
 | **F0** *(shipped)* | Residence qi formations, lay cost, cultivate-at-quarters hook |
-| **F1a** | Fuel + inscription integrity (neglect fade); residence patterns first |
-| **F1b** | Formation shelf + decipher (trace optional); master grade 0–2 |
-| **F2** | Sect anchor nodes; master grade 3–4; grade exams |
+| **F1a** *(shipped on PR #61)* | Fuel + activation switch + inscription integrity; residence patterns first |
+| **F1b** *(shipped on PR #61)* | Formation shelf + unread Decipher; master stub 0–2; market Stabilizer; no Trace |
+| **F1c** *(optional polish — not required)* | See below — Trace / command talisman / hire stub / Iron Wall live |
+| **F2a** *(shipped on PR #61)* | Meditation chamber + defense array anchors; Iron Wall live; reuse fuel/switch/integrity |
+| **F2b** *(shipped on PR #61)* | FI accrual; decipher promote capped at 2; Adept exam; Vein Seal Ward (3rd-tier) |
+| **F2c / F4 early** | Array Disciple (4) when array-assist exists |
 | **F3** | Essence gather + site tags (with cultivation methods P3) |
 | **F4** | Arrays — multi-formation sect scale, condensate; Array Disciple duties |
 | **F5** | Equipment + talisman deploy (master grade 5+) |
 | **F6** | Hybrids + Formation Dao design; guild/market anchors; grand arrays |
+
+### Optional F1c (polish before or beside F2)
+
+Not on the official ladder — only if courtyard/study still feels thin:
+
+| Slice | Why |
+|-------|-----|
+| **Trace** (1–2 sand-table sessions) | Makes “profession” feel before exams; skip if catalog still tiny |
+| **Command talisman** | Remote flip for residence (and later defense array) — already designed |
+| **Hire decipher/lay stub** | Escape hatch for non-formation mains |
+| **Iron Wall Ward live** | First ward with activate-when-threatened fantasy on residence or perimeter |
+
+Prefer **not** stuffing these into F2 if F2 already carries anchors + exams.
+
+---
+
+## F2 brief (sect anchors + real promotion)
+
+**Goal:** formations leave the courtyard and master tier stops being “decipher a harder book → free rank-up.”
+
+### Two jobs (recommend shipping as F2a / F2b)
+
+| Slice | Player fantasy | Scope |
+|-------|----------------|-------|
+| **F2a — Anchors** | “I inscribed the meditation chamber / lit the mountain ward.” | 1–2 sect map nodes host the same slot model as residence (fuel / switch / integrity). Building still exists; pattern is what you *choose* to run there. |
+| **F2b — Promotion** | “I earned Adept — I didn’t just buy a scroll.” | Formation Insight (FI) + proof-lay exam to leave Inscriber (2) → Adept (3). Array Disciple (4) can wait until one array-assist beat exists, or stub at end of F2. |
+
+Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will fight the involvement-vs-complexity rule.
+
+### F2a — Sect anchors (detail)
+
+**Today:** `meditation_chamber`, `cultivation_hall`, `defense_array` are buildings with flat bonuses.  
+**F2a:** those nodes become **anchors** — each can hold a laid pattern (reuse F1a slot shape).
+
+| Anchor | Good first patterns | Notes |
+|--------|---------------------|-------|
+| **Meditation chamber** | Gather / stabilise (hall-scale, slightly stronger or shared with disciples) | Safest first port of F1a systems |
+| **Defense array** node | Ward (Iron Wall or a thin perimeter ward) | **Must** use activation switch — expensive while on; standby cheap. This is where “sect doesn’t keep the mountain lit” pays off |
+| **Cultivation hall** | Gather (sect-wide cultivate %) | Watch bonus stacking vs existing hall % — prefer replace/transform flat % into pattern output over double-dip |
+
+**Reuse:** same fuel / active / integrity verbs. No new combat inscription.  
+**Gate:** building level ≥ 1 (or node unlocked) + deciphered blueprint + master tier ≥ pattern tier.  
+**Save shape (sketch):** `G.sect.anchors.meditation_chamber = { slots: [slotObj|null] }` (or one slot per node for F2a).
+
+### F2b — Exams & FI (detail)
+
+**Problem with F1b:** deciphering Stabilizer also bumps master to 2. Fine for onboarding; bad forever.
+
+**F2 change:**
+
+- Decipher **never** raises master tier above **2** (Inscriber). Or: decipher only grants tier 1 from starter; tier 2+ requires exam.
+- **FI** accrues from: decipher, successful lays, months maintaining **active** patterns, repairs, (later) array assist.
+- **Exam 2→3:** spend FI + materials + months on a **proof lay** at a hall/borrowed anchor (or meditation chamber). Fail → cooldown + partial mat loss. Success → Formation Adept.
+- **Exam 3→4:** harder proof (or first array-link assist) → Array Disciple — can slip to early F4 if F2 is heavy.
+
+**Realm gate (soft):** exam available only if cultivator realm is in band for that formation tier (doc: backlash / exam access) — keep soft so formation-main isn’t hard-locked forever.
+
+### What F2 is *not*
+
+- Full arrays / condensate (F4)
+- Essence site tags (F3)
+- Gear / combat talisman deploy (F5)
+- Natural / heavenly formations (application mastery stub)
+
+### Recommended adds / changes (agent lean — owner TBD)
+
+1. **Split F2 → F2a anchors, F2b exams** — don’t wait on both to ship value.
+2. **Retcon F1b promotion:** after F2b lands, decipher stops granting free tier-ups past Inscriber; existing saves keep their tier.
+3. **Defense array first or second, not last** — activation economy is the clearest F1a payoff at sect scale.
+4. **One live ward blueprint** (Iron Wall or thinner) before Adept exams, so tier 3 has somewhere to go that isn’t another courtyard gather.
+5. **Skip Trace in F2** unless you want sand-table fiction — Trace is optional F1c; exams already teach “proof.”
+6. **Command talisman:** tiny F1c/F2a add-on once defense array exists (remote light-up on raid) — high fantasy, low systems cost if it’s just “consume item → set active.”
+7. **Hire:** one button “pay stones, elder deciphers/lays” as F1c — protects cultivator-mains from F2 complexity.
+8. **Bonus stacking rule:** write it down before cultivation-hall gather: pattern **replaces** or **modulates** building % — never silent additive soup.
+9. **Content before rank 4:** don’t open master tier 4 until there’s an array-assist or essence-adjacent verb; otherwise Adept is enough for F2.
+
+### F2 open calls for owner
+
+- [x] Decipher promote caps at **Inscriber (2)**; Adept needs exam (build 2026-07-22)
+- [x] **Adept = art gate** — Inscriber stays decipher/study; no exam for tier 2 (owner 2026-07-22)
+- [ ] Adept exam FI cost / success chance / realm soft gate (playtest feel)
+- [x] **Formations Guild** named; HQ = own city; branches at zone primary hubs (owner 2026-07-22)
+- [x] Branch exams > Adept, < peak; HQ only for highest grades (owner 2026-07-22)
+- [ ] Cultivation hall: replace flat cultivate % with formation, or hybrid? (deferred)
 
 ---
 
@@ -499,13 +661,16 @@ G.sect.residence.formations.slots = [];
 - [x] Neglect = inscription integrity (fade/decay), **not** defensive hit-HP (owner 2026-07-22)
 - [x] Activation switch — laid ≠ running; arrays expensive while on (owner 2026-07-22)
 - [x] Command talisman for remote / emergency flip (owner 2026-07-22)
-- [ ] Owner OK: learn pipeline thin path (F1a fuel/integrity → F1b shelf/decipher; trace later)
-- [ ] Owner OK: courtyard formations default-on vs always explicit switch
+- [x] Starter = **unread** novice gather; Decipher once at residence (owner 2026-07-22)
+- [x] Starter lean: at most one simple qi-gather free/near-free (unread); rest is study (owner 2026-07-22)
+- [x] F1b market sells Stabilizer unread; drop residence auto-learn beyond starter (2026-07-22)
 - [ ] Owner OK: use-scaled fuel drain (later) vs flat draw while active only
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
+- **F1b unread source:** market SKU for Stabilizer, explore loot, or both?
+- **Wanderer lay:** keep lay-behind-sect for F1b, or allow a camp/personal slot later?
 - **Standby cost:** true zero fuel when off, or a tiny “keep the eye warm” sip so arrays feel alive?
 - **Command talisman:** one-shot burn vs rechargeable seal; who can craft (master grade)?
 - **Standing orders:** can an Array Disciple auto-activate on raid alert, or always player confirm for grand defense?
@@ -513,7 +678,8 @@ G.sect.residence.formations.slots = [];
 - **Defense ceiling:** express “what it can normally block” purely as formation tier/grade vs attacker realm, or also event tags?
 - **Integrity UI:** text state only vs map/SVG line fade (lines/nodes) — when does visual fade ship?
 - **Insight curve:** FI per trace session vs per maintained month — tune in playtest
-- **Exam patterns:** one global “standard array” per rank or sect-specific variants?
+- **Exam patterns:** one global “standard array” per rank or guild/sect-specific variants?
+- **Exam hub:** migrate Adept+ to zone-hub **Formations Guild** branch when hubs exist; peak ranks at HQ only (see [`creation-path-guilds.md`](creation-path-guilds.md))
 - **Hire pricing:** flat fee vs % of formation grade + secrecy premium
 - **Above-grade stacking:** max +1 effective grade from arrays, or +1 from overcharge — both stackable or pick one?
 - **Stymie duration:** how long can 2nd-grade pin inconvenience a 4th-grade target?

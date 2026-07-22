@@ -5,12 +5,14 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Chronicle P1 — tick playback + long seclusion (`cursor/chronicle-tick-playback`)
+- Formations F1–F2b review ([PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61))
 
 ## Next
 - Second project type / phased choices (chronicle step 4)
 - Territory grow/shrink (sect map phase 2)
-- Formations F1a when ready to build
+
+## Parked (return later)
+- Formations Guild hubs / branch exams — [`docs/ideas/creation-path-guilds.md`](ideas/creation-path-guilds.md)
 
 ## Blocked
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth (`chaos-cultivation-path.md`, `post-immortal-cosmology.md`)
