@@ -5,7 +5,7 @@
 | **Status** | `building` (P0); body/soul deferred |
 | **Blocked on** | FE redesign direction (for P2+); essence infra tuning (P3+) |
 | **Issue** | [#50](https://github.com/WanderingImmortal/tales-immortal-path/issues/50) (P0) |
-| **Chat / PR** | Local agent — `cursor/cultivation-methods-p0` |
+| **Chat / PR** | [PR #51](https://github.com/WanderingImmortal/tales-immortal-path/pull/51) — `cursor/cultivation-methods-p0` |
 | **Updated** | 2026-07-22 (P0 implementation started) |
 
 ## Intent
