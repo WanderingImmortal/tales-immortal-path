@@ -21,6 +21,7 @@ function shouldTriggerTribulation() {
 }
 
 function getTribulationSeverity() {
+    if (typeof ensureHeavenLedgerState === 'function') ensureHeavenLedgerState();
     let severity = TRIBULATION_BALANCE.baseSeverity + G.realmIdx * TRIBULATION_BALANCE.severityPerRealm;
     severity += getPlayerTraitBonus('tribulationSeverityPct', 0);
     severity -= Math.floor(getEffectiveFoundation() / 4);
@@ -29,9 +30,6 @@ function getTribulationSeverity() {
     severity = Math.floor(severity * (1 - getScarDown('perceptionPct', 0)));
     if (typeof getTranscendenceTribulationResistPct === 'function') {
         severity = Math.floor(severity * (1 - getTranscendenceTribulationResistPct()));
-    }
-    if (typeof getDaoAlignmentTribulationSeverityMult === 'function') {
-        severity = Math.floor(severity * getDaoAlignmentTribulationSeverityMult());
     }
     if (typeof getSectSpiritTribulationEasePct === 'function') {
         severity = Math.floor(severity * (1 - getSectSpiritTribulationEasePct() / 100));
@@ -42,15 +40,101 @@ function getTribulationSeverity() {
     if (typeof getConsolidationTierTribulationBonus === 'function') {
         severity += getConsolidationTierTribulationBonus(G.realmIdx - 1);
     }
+    const theftMult = 1 + (G.heavenTheftCount || 0) * (TRIBULATION_BALANCE.heavenTheftSeverityPerCount || 0.25);
+    severity = Math.floor(severity * theftMult);
+    if (G.corruptionNoticed) {
+        severity = Math.floor(severity * (TRIBULATION_BALANCE.corruptionNoticedMult || 1.35));
+    }
     return Math.max(8, Math.floor(severity));
 }
 
-function pickTribulationType() {
-    let heartChance = 0.42;
-    if (G.path === 'soul') heartChance = 0.55;
-    if (G.path === 'body') heartChance = 0.35;
-    if (G.realmIdx % 2 === 1) heartChance += 0.12;
-    return Math.random() < heartChance ? 'heart_demon' : 'lightning';
+function resolveBreakthroughTransitionId(fromIdx, toIdx) {
+    const key = `${fromIdx}_to_${toIdx}`;
+    const map = {
+        '0_1': 'qc_to_fe',
+        '1_2': 'fe_to_gc',
+        '2_3': 'gc_to_ns',
+        '3_4': 'ns_to_void',
+        '4_5': 'void_to_dao',
+        '5_6': 'dao_to_immortal'
+    };
+    return map[key] || `realm_${fromIdx}_to_${toIdx}`;
+}
+
+function getTribulationTransitionDef(transitionId) {
+    return TRIBULATION_TRANSITIONS?.[transitionId] || null;
+}
+
+function pickTribulationScript(path, transitionId) {
+    const p = path || G.path || 'qi';
+    if (p === 'soul') return 'heart_demon';
+    return 'lightning';
+}
+
+function getTribulationLedgerModifierLabel() {
+    const parts = [];
+    const thefts = G.heavenTheftCount || 0;
+    if (thefts > 0) {
+        const mult = 1 + thefts * (TRIBULATION_BALANCE.heavenTheftSeverityPerCount || 0.25);
+        parts.push(`Ledger ×${mult.toFixed(2)}`);
+    }
+    if (G.corruptionNoticed) parts.push('Cycle stain');
+    return parts.join(' · ');
+}
+
+function normalizeTribulationOptions(arg) {
+    if (typeof arg === 'string') return { breakStyle: arg };
+    return arg && typeof arg === 'object' ? arg : {};
+}
+
+function startTribulation(arg) {
+    const opts = normalizeTribulationOptions(arg);
+    const breakStyle = opts.breakStyle || 'balanced';
+    const context = opts.context || 'breakthrough';
+    const transitionId = opts.transitionId || null;
+    const path = G.path || 'qi';
+    const type = pickTribulationScript(path, transitionId);
+    const transition = transitionId ? getTribulationTransitionDef(transitionId) : null;
+
+    if (opts.limbo || transition?.limbo) {
+        G.cultivationLimbo = {
+            transitionId: transitionId || transition?.id || null,
+            sinceMonths: G.ageMonths || 0,
+            label: transition?.label || 'Between realms'
+        };
+    }
+
+    G.tribulationState = {
+        active: true,
+        type,
+        phase: 'omen',
+        context,
+        transitionId,
+        breakStyle,
+        severity: getTribulationSeverity(),
+        trialScore: 0,
+        trialPassed: null,
+        outcome: null,
+        scarRisk: 0,
+        choicesMade: []
+    };
+
+    const typeDef = getTribulationTypeDef(type);
+    addLog(`${typeDef.emoji} ${typeDef.name} descends upon ${G.name}!`);
+    if (transition?.logLine) addLog(`📖 ${transition.logLine}`);
+    if (G.cultivationLimbo?.label) {
+        addLog(`⏳ ${G.cultivationLimbo.label} — heaven audits before acceptance.`);
+    }
+    if (G.corruptionNoticed && context === 'breakthrough') {
+        addLog('📖 Cycle stain amplifies the audit — the Heavenly Order settles old accounts.');
+    }
+    if ((G.heavenTheftCount || 0) > 0 && context === 'breakthrough') {
+        addLog('📖 Sacrilege on the ledger — the audit is harsher than it would have been.');
+    }
+
+    renderTribulationOverlay();
+    document.getElementById('tribulationOverlay').classList.add('active');
+    fullRender();
 }
 
 function getTribulationFlavor() {
@@ -59,26 +143,6 @@ function getTribulationFlavor() {
 
 function getTribulationTypeDef(typeId) {
     return TRIBULATION_TYPES[typeId] || TRIBULATION_TYPES.lightning;
-}
-
-function startTribulation(breakStyle) {
-    const type = pickTribulationType();
-    G.tribulationState = {
-        active: true,
-        type,
-        phase: 'omen',
-        breakStyle: breakStyle || 'balanced',
-        severity: getTribulationSeverity(),
-        trialScore: 0,
-        trialPassed: null,
-        outcome: null,
-        scarRisk: 0,
-        choicesMade: []
-    };
-    addLog(`${getTribulationTypeDef(type).emoji} ${getTribulationTypeDef(type).name} descends upon ${G.name}!`);
-    renderTribulationOverlay();
-    document.getElementById('tribulationOverlay').classList.add('active');
-    fullRender();
 }
 
 function tribulationAdvanceTime(months, label) {
@@ -275,8 +339,8 @@ function renderTribulationOverlay() {
     document.getElementById('tribulationMeter').innerHTML =
         `Severity ${state.severity} · Trial score ${state.trialScore} · ` +
         `<span class="scar-risk-tip" title="${scarRiskTip}">🩸 ${scarLabel}: ${state.scarRisk || 0}</span>` +
-        (typeof getDaoAlignmentTribulationModifierLabel === 'function' && getDaoAlignmentTribulationModifierLabel()
-            ? ` · ${getDaoAlignmentTribulationModifierLabel()}`
+        (typeof getTribulationLedgerModifierLabel === 'function' && getTribulationLedgerModifierLabel()
+            ? ` · ${getTribulationLedgerModifierLabel()}`
             : '') +
         (state.trialPassed === true ? ' · Trial passed' : state.trialPassed === false ? ' · Trial failed' : '');
 
@@ -1000,6 +1064,7 @@ function finishTribulation() {
         G.chamberCondensePending.tribulationPassed = !!state.trialPassed;
     }
     if (state) maybeRollTribulationScar(state);
+    G.cultivationLimbo = null;
     document.getElementById('tribulationOverlay')?.classList.remove('active');
     G.tribulationState = null;
     G.tribulationCombat = null;

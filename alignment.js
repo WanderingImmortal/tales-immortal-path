@@ -23,12 +23,7 @@ function getDaoAlignmentTier() {
 }
 
 function getEffectiveDaoAlignmentTier() {
-    const tier = getDaoAlignmentTier();
-    const corruption = G.corruptionLevel || 0;
-    if (corruption >= (DAO_ALIGNMENT.corruptionBlockHarmony || 50) && tier.id === 'harmony') {
-        return DAO_ALIGNMENT.tiers.find(t => t.id === 'favored') || tier;
-    }
-    return tier;
+    return getDaoAlignmentTier();
 }
 
 function formatDaoAlignmentValue() {
@@ -241,10 +236,29 @@ function getHeavenlyAlignmentOmenReadout() {
 }
 
 function applyCorruptionAlignmentDrift() {
-    const corruption = G.corruptionLevel || 0;
-    if (corruption < (DAO_ALIGNMENT.corruptionDriftThreshold || 50)) return;
-    const drift = DAO_ALIGNMENT.corruptionDriftPerCultivate || -1;
-    if (drift) shiftDaoAlignment(drift, 'corruption gnawing at the Dao heart');
+    // Cycle stain no longer drifts dao alignment — see alignment-sacrilege-corruption.md
+}
+
+function ensureHeavenLedgerState() {
+    if (G.heavenTheftCount == null) G.heavenTheftCount = 0;
+    if (!Array.isArray(G.heavenLedger)) G.heavenLedger = [];
+    if (G.corruptionNoticed == null) G.corruptionNoticed = false;
+}
+
+function addCycleStain(amount, reason) {
+    if (!amount || amount <= 0) return 0;
+    ensureHeavenLedgerState();
+    const before = G.corruptionLevel || 0;
+    const threshold = G.corruptionThreshold || 100;
+    G.corruptionLevel = Math.min(threshold * 2, before + amount);
+    if (!G.corruptionNoticed && G.corruptionLevel >= threshold) {
+        G.corruptionNoticed = true;
+        addLog('📖 The cycle remembers — heaven will settle accounts at your next juncture.');
+    }
+    if (amount > 0) {
+        addLog(`🩸 Cycle stain +${amount}${reason ? ` — ${reason}` : ''}. (${G.corruptionLevel}/${threshold})`);
+    }
+    return amount;
 }
 
 function reduceCorruption(amount, reason) {
@@ -252,7 +266,9 @@ function reduceCorruption(amount, reason) {
     const before = G.corruptionLevel || 0;
     G.corruptionLevel = Math.max(0, before - amount);
     const reduced = before - G.corruptionLevel;
-    if (reduced > 0) addLog(`🩸 Corruption −${reduced}${reason ? ` — ${reason}` : ''}. (${G.corruptionLevel}/${G.corruptionThreshold || 100})`);
+    if (reduced > 0) addLog(`🩸 Cycle stain −${reduced}${reason ? ` — ${reason}` : ''}. (${G.corruptionLevel}/${G.corruptionThreshold || 100})`);
+    const threshold = G.corruptionThreshold || 100;
+    if ((G.corruptionLevel || 0) < threshold) G.corruptionNoticed = false;
     return reduced;
 }
 
@@ -412,10 +428,6 @@ function performAlignmentAction(actionId) {
         const hi = actionDef.corruptionReduce[1];
         reduceCorruption(lo + Math.floor(Math.random() * (hi - lo + 1)), 'atonement');
     }
-    if (actionDef.corruptionGain) {
-        G.corruptionLevel = (G.corruptionLevel || 0) + actionDef.corruptionGain;
-        addLog(`🩸 Corruption +${actionDef.corruptionGain} — demonic impulse festers.`);
-    }
 
     incrementAlignmentActionUse(actionId);
     commitActionLog(msg);
@@ -429,18 +441,7 @@ function actionAlignment() {
 }
 
 function maybeHeavenlyAlignmentEvent() {
-    if (typeof ensureDaoAlignment !== 'function') return;
-    ensureDaoAlignment();
-    if (G.gameOver || G.inCombat || G.tribulationState?.active || G.forbidden?.activeTrial) return;
-    const h = DAO_ALIGNMENT.heavenly;
-    const fx = getDaoAlignmentTierEffects();
-    if (G.daoAlignment >= h.threshold && Math.random() < h.blessingChance) {
-        triggerHeavenlyBlessing();
-    } else if (G.daoAlignment <= -h.threshold) {
-        let chance = h.punishmentChance;
-        if (fx.heavenlyPunishmentMult) chance *= fx.heavenlyPunishmentMult;
-        if (Math.random() < chance) triggerHeavenlyPunishment();
-    }
+    // Monthly heavenly bless/punish removed — accountant heaven acts at junctures only.
 }
 
 function triggerHeavenlyBlessing() {

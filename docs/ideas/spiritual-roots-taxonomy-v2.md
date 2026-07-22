@@ -151,8 +151,8 @@ Player confusion if every formation “removes an element” until single. Split
 | Track | What changes | Repeatable? | Example |
 |-------|----------------|-------------|---------|
 | **A. Grade ascension** (pill) | inferior → common → superior | **Yes, capped** (e.g. max 2 grade steps per life) | Marrow Cleansing Elixir |
-| **B. Basin ascension** (formation) | basin tier +1 (fate gate opens) | **Rare** (1 per life, or 1 ever) | Seven-Day Heaven-Defying Array |
-| **C. Composition ascension** (pill or formation) | pentamixed → mixed → dual → single | **No step-by-step** — see below |
+| **B. Basin ascension** (formation) | basin tier +1 (fate gate opens) | **Repeatable** — tribulation escalates each success; see [`root-rite-formations.md`](root-rite-formations.md) | Seven-Day Heaven-Defying Array |
+| **C. Composition ascension** (formation) | pentamixed → mixed → dual → single (one row per success) | **Repeatable** — same escalation; no skipping rows | Composition Purification Array |
 
 ### Composition rites — avoid “remove one element” spam
 
@@ -162,7 +162,7 @@ Player confusion if every formation “removes an element” until single. Split
 
 1. **No composition rites (simplest)** — composition fixed at birth. Rites only move **grade** and **basin tier**. A mixed inferior stays mixed; they can still **tier-up** to attempt GC if they earn the heaven-defying array. Purification fantasy = grade pills (“stabilise” = faster, not fewer elements).
 
-2. **One supreme purification per life (recommended)** — single rite jumps **one composition step** (pentamixed→mixed, or mixed→dual, or dual→single). Player chooses **which step** when they craft it; **max 1–2 composition ascensions per life**. Never pentamixed→single in one go.
+2. **One row per rite (recommended)** — each success jumps **one composition step** (pentamixed→mixed, or mixed→dual, or dual→single). **No once-per-life cap** — each attempt draws **stronger tribulation** and needs **higher-tier / costlier** formations (owner 2026-07-22; see [`root-rite-formations.md`](root-rite-formations.md)). Never pentamixed→single in one go.
 
 3. **“Sever one element” rite — once only** — eliminates weakest element, small grade bump; **once per lifetime**. Pentamixed might need dual+single rites across **multiple reincarnations**, not one life.
 
@@ -282,10 +282,10 @@ Always pair with a softer **“fate may shift”** hint when bypass exists (pill
 
 **Design rules:**
 
-- **Single use per rite** — consumed on success (pill eaten, formation burned out). Not spammable.
-- **High material cost** — ties economy, alchemy, explore, sect treasury into one goal.
-- **Player chooses when** — save for tier jump vs grade polish; wrong timing = wasted lifespan in array.
-- **Grade vs tier** — separate recipes; tier rites rarer and more expensive (crossing watershed fate vs cultivating faster).
+- **Consumed on attempt** — pill eaten or formation burned out whether you succeed or fail (materials spent).
+- **Escalating cost** — each successful **fate rite** this life raises tribulation severity and the next rite needs higher formation tier and/or more materials (see [`root-rite-formations.md`](root-rite-formations.md)).
+- **Player chooses when** — save for tier jump vs grade polish; wrong timing = wasted lifespan and goods.
+- **Grade vs tier** — separate recipes; tier/composition rites are the heaven-theft track (tribulation); grade pills are the cheap purification track.
 - Optional **failure** on tier rites (shattered dantian, broken root) keeps stakes — aligns with tribulation tone.
 - Oracle preview updates after success: *“Heaven’s gate shifts — a golden core may yet form.”*
 

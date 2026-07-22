@@ -562,10 +562,11 @@ function chamberCondenseCore() {
     triggerChamberAnim('condense');
     commitActionLog(`💎 Qi compresses into a nascent golden core (${Math.round(chance)}% chance). Heaven's tribulation descends!`);
     closeQiChamber();
+    const tribOpts = { breakStyle: 'balanced', context: 'breakthrough', transitionId: 'fe_to_gc', limbo: true };
     if (typeof beginTribulationWithTutorial === 'function') {
-        beginTribulationWithTutorial('balanced');
+        beginTribulationWithTutorial('balanced', tribOpts);
     } else if (typeof startTribulation === 'function') {
-        startTribulation('balanced');
+        startTribulation(tribOpts);
     } else {
         G.chamberCondensePending = null;
         G.chamberCoreCondensed = false;

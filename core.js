@@ -83,6 +83,10 @@ let G = {
     daoComprehensionAttempts: 0,
     corruptionLevel: 0,
     corruptionThreshold: 100,
+    corruptionNoticed: false,
+    heavenTheftCount: 0,
+    heavenLedger: [],
+    cultivationLimbo: null,
     pendingIntentChoice: null,
     qiRegenMult: 1,
     dmgMult: 1,
@@ -1020,6 +1024,7 @@ function loadState() {
             }
             if (!G.traits?.length && G.trait) G.traits = [G.trait];
             if (typeof ensureTalentState === 'function') ensureTalentState();
+            if (typeof ensureHeavenLedgerState === 'function') ensureHeavenLedgerState();
             if (typeof ensureCultivationMethodState === 'function') ensureCultivationMethodState();
             if (!G.creationDrawbacks) G.creationDrawbacks = [];
             if (!G.techniques) G.techniques = [];

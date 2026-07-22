@@ -23,6 +23,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
+| [Root rite formations](root-rite-formations.md) | `designed` | Chronicle fate-rite project; formation tiers | — |
 | [Formations & arrays](formations-and-arrays.md) | `building` (F2b on PR) | Array Disciple; Trace optional | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
 | [Creation-path guilds](creation-path-guilds.md) | `designed` (parked) | HQ city; branch exam max (4 vs 5) | — |
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
@@ -32,11 +33,14 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
-| [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | Realm naming; FE breakthrough | — |
+| [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
+| [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
+| [Tribulation system rework](tribulation-system-rework.md) | `building` (v1) | — | PR in progress |
+| [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-system-rework | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
-| [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `idea` | Root taxonomy v2; per-realm age anchors | — |
+| [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `designed` | Chamber pacing tune pass | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
 | [Cultivation realm depth pass](cultivation-realm-depth-pass.md) | `idea` | Owner design pass; may follow roots / manuals | — |

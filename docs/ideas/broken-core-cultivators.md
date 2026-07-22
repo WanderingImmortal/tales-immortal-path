@@ -16,9 +16,11 @@ For a **player** who lands in this state: little reason to keep climbing; option
 
 ## Design notes
 
-### Pseudo-realm (player) — keep thin
+### Pseudo-realm (player) — keep thin (owner 2026-07-22)
 
-Limbo between FE and Golden Core should **not** be a long playable chapter. On Initial Core Formation, tribulation hits **immediately** (see `tribulation-per-realm-limbo.md`). No extended “unconfirmed” grind unless flavour text only.
+Limbo between FE and Golden Core is **not** a playable chapter. Tribulation hits **immediately** on Initial Core Formation (see `tribulation-per-realm-limbo.md`, `tribulation-system-rework.md`). Players do not **stay** in limbo — they pass, fail, or rarely exit **broken**.
+
+**Broken Core** = the rarity: survived where they should not; door half-open; capped advancement. Primarily NPC tragedy; player edge case optional later.
 
 ### Broken Core outcome (sketch)
 
