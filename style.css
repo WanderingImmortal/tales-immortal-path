@@ -7568,6 +7568,33 @@ header .subtitle {
     letter-spacing: 0.02em;
 }
 
+.method-shelf-path-card {
+    margin: 0 0 0.65rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid rgba(180, 140, 80, 0.35);
+    background: rgba(180, 140, 80, 0.08);
+}
+
+.method-shelf-path-note {
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+
+.method-shelf-studied {
+    color: #7a9a7a;
+    font-size: 11px;
+    margin-left: 0.25rem;
+}
+
+.method-shelf-unread-label {
+    margin: 0.55rem 0 0.35rem;
+    font-size: 0.8rem;
+    color: var(--ink-text-muted);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
 .chamber-stage {
     position: relative;
     width: min(420px, 80vw);

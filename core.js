@@ -141,7 +141,8 @@ let G = {
     sect: null,
     milestones: null,
     knownFormations: [],
-    cultivationMethod: null
+    cultivationMethod: null,
+    methodShelf: null
 };
 
 // ===== HELPERS =====

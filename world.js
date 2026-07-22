@@ -292,6 +292,11 @@ function rollExploreLoot(zoneId) {
         return techPool[Math.floor(Math.random() * techPool.length)];
     }
 
+    if (typeof rollExploreMethodLoot === 'function') {
+        const methodLoot = rollExploreMethodLoot();
+        if (methodLoot) return methodLoot;
+    }
+
     const roll = Math.random();
     if (roll < EXPLORE_BALANCE.ultraChance && lootTable.ultra?.length) {
         return lootTable.ultra[Math.floor(Math.random() * lootTable.ultra.length)];
@@ -327,6 +332,17 @@ function applyExploreLoot(loot) {
             const soldFor = applyExploreRewardMult(loot.value || 5);
             G.stones += soldFor;
             addLog(`💎 You sell ${loot.name} for ${soldFor} Stones.`);
+        }
+    } else if (loot.type === "cultivation_method") {
+        const methodId = loot.methodId;
+        const method = typeof getCultivationMethodDef === 'function' ? getCultivationMethodDef(methodId) : null;
+        if (method && typeof grantMethodScroll === 'function') {
+            const got = grantMethodScroll(methodId, {
+                silent: true,
+                source: typeof getLootZoneId === 'function' ? getLootZoneId() : G.currentZone
+            });
+            if (got) addLog(`📘 Cultivation scroll found: ${method.name}! Check Inventory → Cultivation scrolls.`);
+            else addLog(`📘 Found ${method.name}, but your travel kit is full.`);
         }
     } else if (loot.type === "pill") {
         const pillId = loot.pillId || rollRandomPillId();
@@ -378,6 +394,46 @@ function actionMarket() {
     }
     renderMerchantPopup();
     document.getElementById('merchantPopup').classList.add('active');
+}
+
+function buyCultivationMethod(methodId) {
+    const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : getActiveZoneId();
+    const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;
+    if (!catalog?.methods?.length) return;
+    const item = catalog.methods.find(s => s.methodId === methodId);
+    if (!item) return;
+    const method = typeof getCultivationMethodDef === 'function' ? getCultivationMethodDef(methodId) : null;
+    if (!method) return;
+    const reqRealm = item.reqRealm ?? method.reqRealm ?? 0;
+    if (G.realmIdx < reqRealm) {
+        const realmName = PATHS[G.path]?.realms[reqRealm] || `realm ${reqRealm + 1}`;
+        addLog(`📘 ${method.name} requires ${realmName} or higher.`);
+        fullRender();
+        return;
+    }
+    const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+    if (G.stones < finalPrice) {
+        addLog(`💎 Need ${finalPrice} Stones for ${method.name}. You have ${G.stones}.`);
+        fullRender();
+        return;
+    }
+    beginActionLog();
+    if (!advanceTime(ACTION_MONTHS.market, `Buying ${method.name} at the market`)) {
+        cancelActionLog();
+        fullRender();
+        return;
+    }
+    G.stones -= finalPrice;
+    const got = typeof grantMethodScroll === 'function' && grantMethodScroll(methodId, { silent: true, source: 'market' });
+    const discountNote = finalPrice < item.price ? ` (favor discount: −${item.price - finalPrice})` : '';
+    const note = got ? ' — shelved under Cultivation scrolls' : ' — kit full, purchase failed';
+    if (!got) G.stones += finalPrice;
+    commitActionLog(got
+        ? `🏪 Purchased cultivation scroll: ${method.name} for ${finalPrice} Stones${discountNote}${note}.`
+        : `🏪 Could not stow ${method.name} — travel kit full. Stones refunded.`);
+    if (typeof renderMerchantPopup === 'function') renderMerchantPopup();
+    fullRender();
 }
 
 function buyTechnique(techName) {

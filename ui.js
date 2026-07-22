@@ -1890,13 +1890,14 @@ function renderInventoryPopup() {
     const gearCount = typeof getGearBagCount === 'function' ? getGearBagCount() : 0;
     const equippedCount = GEAR_SLOT_IDS.filter(s => G.equipment[s]).length;
     const manualCount = typeof countManualShelfTotal === 'function' ? countManualShelfTotal() : 0;
+    const methodCount = typeof countMethodShelfTotal === 'function' ? countMethodShelfTotal() : 0;
     const kitBd = typeof getTravelKitBreakdown === 'function' ? getTravelKitBreakdown() : null;
 
     if (summary) {
         const kitLine = kitBd
             ? `Kit ${formatTravelKitLoad(kitBd.total)}/${kitBd.capacity}`
             : '';
-        summary.textContent = [kitLine, `${gearCount} spare gear · ${equippedCount} worn · ${matCount} materials · ${manualCount} manuals · ${items.length} curios`]
+        summary.textContent = [kitLine, `${gearCount} spare gear · ${equippedCount} worn · ${matCount} materials · ${manualCount} combat manuals · ${methodCount} cultivation scrolls · ${items.length} curios`]
             .filter(Boolean).join(' · ');
     }
 
@@ -1953,8 +1954,13 @@ function renderInventoryPopup() {
 
     let html = '';
 
+    if (typeof renderMethodShelfHtml === 'function') {
+        html += `<div class="inventory-section-title sticky-section">📘 Cultivation scrolls <span class="section-badge">${methodCount}</span></div>`;
+        html += renderMethodShelfHtml();
+    }
+
     if (typeof renderTravelKitManualsHtml === 'function') {
-        html += `<div class="inventory-section-title sticky-section">📜 Travel Kit — Manuals <span class="section-badge">${manualCount}</span></div>`;
+        html += `<div class="inventory-section-title sticky-section">📜 Travel Kit — Combat manuals <span class="section-badge">${manualCount}</span></div>`;
         html += renderTravelKitManualsHtml();
     }
 
@@ -2023,6 +2029,7 @@ function renderInventoryPopup() {
     }
     list.innerHTML = html;
 
+    if (typeof bindMethodShelfActions === 'function') bindMethodShelfActions(list);
     if (typeof bindTravelKitManualActions === 'function') bindTravelKitManualActions(list);
     if (typeof bindSpatialRingActions === 'function') bindSpatialRingActions(kitPanel || list);
 
@@ -2349,7 +2356,39 @@ function renderMerchantPopup() {
     }
 
     const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
-    let html = catalog.stock.map(item => {
+    let html = '';
+
+    if (catalog.methods?.length) {
+        html += `<div class="tech-group-header">📘 Cultivation scrolls</div>`;
+        html += catalog.methods.map(item => {
+            const method = typeof getCultivationMethodDef === 'function'
+                ? getCultivationMethodDef(item.methodId)
+                : null;
+            if (!method) return '';
+            const reqRealm = item.reqRealm ?? method.reqRealm ?? 0;
+            const locked = G.realmIdx < reqRealm;
+            const studied = typeof hasStudiedCultivationMethod === 'function'
+                && hasStudiedCultivationMethod(method.id);
+            const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+            const canBuy = !locked && G.stones >= finalPrice;
+            const realmName = PATHS[G.path].realms[reqRealm] || `Realm ${reqRealm + 1}`;
+            const grade = typeof getMethodGradeDef === 'function'
+                ? (getMethodGradeDef(method.methodGrade)?.name || method.methodGrade)
+                : method.methodGrade;
+            let status = locked ? `Need ${realmName}` : `${finalPrice} Stones · Cultivation scroll · ${grade}`;
+            if (studied) status = `Studied · ${status}`;
+            if (!locked && finalPrice < item.price) status += ` (was ${item.price})`;
+            if (canBuy) status += ' · Click to buy';
+            return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-method="${escapeAttr(method.id)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
+                <div class="name">📘 ${method.name}${studied ? ' <span style="color:#7a9a7a;font-size:11px;">(studied)</span>' : ''}</div>
+                <div class="desc">${method.desc} · ${grade}</div>
+                <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
+            </div>`;
+        }).join('');
+        html += `<div class="tech-group-header" style="margin-top:12px;">📜 Combat manuals</div>`;
+    }
+
+    html += catalog.stock.map(item => {
         const template = TECHNIQUE_POOL.find(t => t.name === item.technique);
         const owned = G.techniques.some(t => t.name === item.technique);
         const reqRealm = typeof getMarketTechniqueReqRealm === 'function'
@@ -2421,6 +2460,11 @@ function renderMerchantPopup() {
 
     list.innerHTML = html;
 
+    list.querySelectorAll('[data-buy-method]').forEach(row => {
+        row.addEventListener('click', function() {
+            if (typeof buyCultivationMethod === 'function') buyCultivationMethod(this.dataset.buyMethod);
+        });
+    });
     list.querySelectorAll('[data-buy]').forEach(row => {
         row.addEventListener('click', function() {
             buyTechnique(this.dataset.buy);
