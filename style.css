@@ -7561,6 +7561,13 @@ header .subtitle {
     font-style: italic;
 }
 
+.chamber-path {
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
+    color: var(--ink-text);
+    letter-spacing: 0.02em;
+}
+
 .chamber-stage {
     position: relative;
     width: min(420px, 80vw);

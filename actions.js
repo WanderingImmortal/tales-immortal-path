@@ -30,8 +30,9 @@ function runCultivateSession(options) {
     const traitMult = getPlayerTraitMultPct('cultivateSpeedPct', 0) * getPlayerTraitMultPct('qiEfficiencyPct', 0);
     const talentMult = typeof getCombinedCultivateMult === 'function' ? getCombinedCultivateMult() : 1;
     const legacyMult = typeof getLegacyCultivateBonusMult === 'function' ? getLegacyCultivateBonusMult() : 1;
+    const methodMult = typeof getCultivationMethodGatherMult === 'function' ? getCultivationMethodGatherMult() : 1;
     const extraMult = opts.extraMult || 1;
-    const cultMult = sectMult * factionMult * traitMult * talentMult * legacyMult * extraMult;
+    const cultMult = sectMult * factionMult * traitMult * talentMult * legacyMult * methodMult * extraMult;
     const densGainRaw = b.cultivateDensityMin + Math.random() * (b.cultivateDensityMax - b.cultivateDensityMin);
     const densGain = Math.round(densGainRaw * cultMult * 100) / 100;
     G.qiDensity = (G.qiDensity || 0) + densGain;

@@ -550,6 +550,150 @@ const TECHNIQUE_POOL = [
     { name: "Blood Sever", path: "body", element: "blood", category: "attack", combatTier: "heavy", weaponType: "blade", reqAlignment: -40, baseDamage: 18, baseCost: 9, costType: "qi", rarity: "rare", desc: "Sever life force without mercy — the demonic path rewards the unrestrained." }
 ];
 
+/**
+ * Cultivation method grade ladder (manual quality).
+ * Speed midpoints from docs/ideas/cultivation-manuals-framework.md.
+ * Separate from combat TECHNIQUE_POOL — do not merge.
+ */
+const METHOD_GRADES = {
+    crude:    { id: 'crude',    name: 'Crude',    speedMult: 0.80, rarity: 'common' },
+    common:   { id: 'common',   name: 'Common',   speedMult: 1.00, rarity: 'common' },
+    superior: { id: 'superior', name: 'Superior', speedMult: 1.18, rarity: 'uncommon' },
+    peerless: { id: 'peerless', name: 'Peerless', speedMult: 1.38, rarity: 'legendary' }
+};
+
+const METHOD_GRADE_ORDER = ['crude', 'common', 'superior', 'peerless'];
+
+const DEFAULT_CULTIVATION_METHOD_ID = 'basic_meditation_breath';
+
+/** Qi-track cultivation methods (P0). Essence manuals land in later phases. */
+const CULTIVATION_METHOD_POOL = [
+    {
+        id: 'basic_meditation_breath',
+        name: 'Basic Meditation Breath',
+        lineageId: 'meditation_breath_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'crude',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            ceilingMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.1,
+            foundationVariant: 'hasty_meditation'
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Village pamphlet breathwork — inhale, hold, cycle. Slow, safe, and portable.'
+    },
+    {
+        id: 'outer_sect_qi_cycling',
+        name: 'Outer Sect Qi Cycling',
+        lineageId: 'outer_sect_qi_line',
+        family: 'circulation',
+        methodTier: 'condensation',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            ceilingMult: 1.05,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.05,
+            foundationVariant: 'outer_cycle'
+        },
+        infrastructure: null,
+        comprehendMonths: 3,
+        desc: 'Outer-court syllabus — steady meridian loops for condensation grind.'
+    },
+    {
+        id: 'inner_court_meridian_cycle',
+        name: 'Inner Court Meridian Cycle',
+        lineageId: 'inner_court_meridian_line',
+        family: 'circulation',
+        methodTier: 'condensation',
+        methodGrade: 'superior',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['neutral'],
+        essences: [],
+        rootFit: { pentamixed: 0.95, mixed: 1, dual: 1.05, single: 1.08 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.05,
+            ceilingMult: 1.12,
+            densityEfficiency: 1.05,
+            stabilityBias: 0.08,
+            foundationVariant: 'inner_meridian'
+        },
+        infrastructure: null,
+        comprehendMonths: 4,
+        desc: 'Inner-court inheritance — tighter routes, cleaner gather, higher ceiling.'
+    },
+    {
+        id: 'nine_turn_peerless_cycle',
+        name: 'Nine Turn Peerless Cycle',
+        lineageId: 'nine_turn_cycle_line',
+        family: 'circulation',
+        methodTier: 'foundation',
+        methodGrade: 'peerless',
+        reqRealm: 1,
+        rarity: 'legendary',
+        elements: ['neutral'],
+        essences: [],
+        rootFit: { pentamixed: 0.9, mixed: 0.95, dual: 1.05, single: 1.1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.1,
+            ceilingMult: 1.2,
+            densityEfficiency: 1.1,
+            stabilityBias: 0.12,
+            foundationVariant: 'nine_turn'
+        },
+        infrastructure: null,
+        comprehendMonths: 8,
+        desc: 'Ancestor\'s complete qi transmission — peerless portable gather with no array bill.'
+    },
+    {
+        id: 'impure_meridian_breath',
+        name: 'Impure Meridian Breath',
+        lineageId: 'impure_meridian_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        rootFit: { pentamixed: 1.12, mixed: 1.05, dual: 0.95, single: 0.88 },
+        profile: {
+            gatherMult: 0.95,
+            powerMult: 1.0,
+            ceilingMult: 1.0,
+            densityEfficiency: 0.95,
+            stabilityBias: -0.02,
+            foundationVariant: 'impure_breath'
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Breathwork tuned for tangled roots — kinder to pentamixed, leakier for pure singles.'
+    }
+];
+
+const CULTIVATION_METHOD_BY_ID = Object.fromEntries(
+    CULTIVATION_METHOD_POOL.map(m => [m.id, m])
+);
+
 const TECHNIQUE_COMBAT_TIERS = {
     utility: { label: 'Utility', poolPct: 0.10, minCost: 6, maxCost: 12 },
     light:   { label: 'Light', poolPct: 0.14, minCost: 8, maxCost: 16 },

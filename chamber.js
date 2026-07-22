@@ -48,7 +48,8 @@ function getChamberCultivateMult() {
     const talentMult = typeof getCombinedCultivateMult === 'function' ? getCombinedCultivateMult() : 1;
     const legacyMult = typeof getLegacyCultivateBonusMult === 'function' ? getLegacyCultivateBonusMult() : 1;
     const bodyQiEff = typeof getBodyChamberQiEfficiencyMult === 'function' ? getBodyChamberQiEfficiencyMult() : 1;
-    return sectMult * factionMult * traitMult * talentMult * legacyMult * bodyQiEff;
+    const methodMult = typeof getCultivationMethodGatherMult === 'function' ? getCultivationMethodGatherMult() : 1;
+    return sectMult * factionMult * traitMult * talentMult * legacyMult * bodyQiEff * methodMult;
 }
 
 function getChamberDensityCap() {
@@ -264,6 +265,7 @@ function triggerChamberAnim(kind) {
 function renderChamberUI() {
     if (!G.inQiChamber) return;
     ensureChamberState();
+    if (typeof ensureCultivationMethodState === 'function') ensureCultivationMethodState();
     const density = getQiDensity();
     const densityCap = getChamberDensityCap();
     const maxQi = getMaxQi();
@@ -278,12 +280,19 @@ function renderChamberUI() {
     const densityText = document.getElementById('chamberDensityText');
     const capacityText = document.getElementById('chamberCapacityText');
     const foundationText = document.getElementById('chamberFoundationText');
+    const pathText = document.getElementById('chamberCultivationPath');
     if (densityText) densityText.textContent = density.toFixed(2);
     if (capacityText) capacityText.textContent = `${qi} / ${maxQi}`;
     if (foundationText) {
         foundationText.textContent = typeof getFoundationPlayerLabel === 'function'
             ? getFoundationPlayerLabel()
             : (typeof getFoundationGradeLabel === 'function' ? getFoundationGradeLabel() : 'Crude');
+    }
+    if (pathText && typeof getCultivationMethodPathLabel === 'function') {
+        const methodMult = typeof getCultivationMethodGatherMult === 'function'
+            ? getCultivationMethodGatherMult()
+            : 1;
+        pathText.textContent = `Path: ${getCultivationMethodPathLabel()} (×${methodMult.toFixed(2)} gather)`;
     }
 
     const core = document.getElementById('chamberCore');
@@ -362,6 +371,7 @@ function renderChamberUI() {
 function chamberGatherQi() {
     if (chamberActionBlocked()) return;
     ensureChamberState();
+    if (typeof ensureCultivationMethodState === 'function') ensureCultivationMethodState();
     const cfg = CHAMBER_BALANCE.gatherQi;
     beginActionLog();
     if (!advanceChamberWeeks(cfg.weeks, 'Gathering Qi in the chamber')) {

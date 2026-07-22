@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (qi track); body/soul deferred |
-| **Blocked on** | [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md) owner sign-off; FE redesign direction |
-| **Issue** | none yet |
-| **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 (qi-track scope, meridian-wash v1 compromise, playtest later) |
+| **Status** | `building` (P0); body/soul deferred |
+| **Blocked on** | FE redesign direction (for P2+); essence infra tuning (P3+) |
+| **Issue** | [#50](https://github.com/WanderingImmortal/tales-immortal-path/issues/50) (P0) |
+| **Chat / PR** | [PR #51](https://github.com/WanderingImmortal/tales-immortal-path/pull/51) — `cursor/cultivation-methods-p0` |
+| **Updated** | 2026-07-22 (P0 implementation started) |
 
 ## Intent
 

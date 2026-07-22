@@ -24,7 +24,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
 | [Formations & arrays](formations-and-arrays.md) | `designed` | Cultivation methods P0–P2; upkeep tuning | — |
-| [Cultivation manuals framework](cultivation-manuals-framework.md) | `designed` | Roots v2 sign-off; FE direction | — |
+| [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P0) | FE direction (P2+); essence infra (P3+) | [#50](https://github.com/WanderingImmortal/tales-immortal-path/issues/50) |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `idea` | Cultivation manuals framework; FE redesign | — |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
