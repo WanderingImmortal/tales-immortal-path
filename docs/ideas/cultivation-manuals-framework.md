@@ -5,7 +5,7 @@
 | **Status** | `building` (P1); body/soul deferred |
 | **Blocked on** | FE redesign direction (for P2+); essence infra tuning (P3+) |
 | **Issue** | [#50](https://github.com/WanderingImmortal/tales-immortal-path/issues/50) (P0); [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) (P1) |
-| **Chat / PR** | P0 [PR #51](https://github.com/WanderingImmortal/tales-immortal-path/pull/51); P1 `cursor/cultivation-methods-p1` |
+| **Chat / PR** | P0 [PR #51](https://github.com/WanderingImmortal/tales-immortal-path/pull/51); P1 [PR #53](https://github.com/WanderingImmortal/tales-immortal-path/pull/53) |
 | **Updated** | 2026-07-22 (P1 shelf + study UI) |
 
 ## Intent
