@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
-| **Updated** | 2026-07-22 (Formations Guild named; branch vs HQ exam ceiling) |
+| **Updated** | 2026-07-22 (guild fiction parked; F2b on PR #61) |
 
 ## Intent
 

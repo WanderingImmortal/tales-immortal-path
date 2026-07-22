@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | Place the Formations Guild HQ city on the map; wire zone-hub branches |
+| **Status** | `designed` (parked — owner returns after other builds) |
+| **Blocked on** | HQ city on map; zone-hub branches; exact branch exam max (4 vs 5) |
 | **Issue** | none yet |
 | **Chat / PR** | Formations F2b lean 2026-07-22 — [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
-| **Updated** | 2026-07-22 |
+| **Updated** | 2026-07-22 (parked — enough to resume later) |
 
 ## Intent
 
