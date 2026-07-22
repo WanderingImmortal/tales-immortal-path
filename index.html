@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=89" />
+    <link rel="stylesheet" href="style.css?v=90" />
 </head>
 <body>
 
@@ -1269,6 +1269,7 @@
         <div class="map-tabs" role="tablist" aria-label="Map layers">
             <button type="button" class="map-tab-btn active" id="mapTabWorld" data-map-tab="world" role="tab" aria-selected="true">🗺️ World</button>
             <button type="button" class="map-tab-btn" id="mapTabLocal" data-map-tab="local" role="tab" aria-selected="false">📍 Local</button>
+            <button type="button" class="map-tab-btn" id="mapTabSect" data-map-tab="sect" role="tab" aria-selected="false">🏯 Sect</button>
         </div>
         <div id="mapWorldPanel" class="map-tab-panel" role="tabpanel">
             <div id="continentMap" class="continent-map-wrap"></div>
@@ -1282,6 +1283,9 @@
             <div id="localMapDetail" class="zone-info-panel local-map-detail">
                 Click a place on the local map.
             </div>
+        </div>
+        <div id="mapSectPanel" class="map-tab-panel map-sect-panel" role="tabpanel" hidden>
+            <div id="mapSectInfo" class="sect-info-scroll map-sect-scroll"></div>
         </div>
         <button class="close-btn" id="mapClose">Close Map</button>
     </div>
@@ -1335,14 +1339,14 @@
 <script src="sect-inventory.js?v=2"></script>
 <script src="sect-buildings.js?v=3"></script>
 <script src="formations.js?v=2"></script>
-<script src="sect-map.js?v=5"></script>
-<script src="sect.js?v=20"></script>
+<script src="sect-map.js?v=6"></script>
+<script src="sect.js?v=21"></script>
 <script src="sect-expand.js?v=9"></script>
 <script src="cultivation.js?v=16"></script>
 <script src="intent.js?v=7"></script>
 <script src="tribulation.js?v=15"></script>
-<script src="locations.js?v=2"></script>
-<script src="world.js?v=31"></script>
+<script src="locations.js?v=3"></script>
+<script src="world.js?v=32"></script>
 <script src="ambient-npcs.js?v=1"></script>
 <script src="npc-converse.js?v=1"></script>
 <script src="npc-betrayal.js?v=1"></script>
@@ -1353,9 +1357,9 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=55"></script>
+<script src="ui.js?v=56"></script>
 <script src="action-gates.js?v=2"></script>
-<script src="actions.js?v=35"></script>
+<script src="actions.js?v=36"></script>
 <script src="chamber.js?v=12"></script>
 <script src="body-chamber.js?v=23"></script>
 <script src="vessel-rules.js?v=3"></script>

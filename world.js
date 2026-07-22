@@ -67,7 +67,7 @@ const ZONES = {
 
 let currentZone = "dustbone";
 
-/** Map popup UI — World vs Local tab state (not persisted). */
+/** Map popup UI — World / Local / Sect tab state (not persisted). */
 let mapPopupUi = {
     tab: 'world',
     localZoneId: null,
@@ -86,10 +86,13 @@ function actionMap() {
     mapPopupUi.worldSelectedZoneId = getMainZoneId();
     renderMapPopup();
     document.getElementById('mapPopup').classList.add('active');
+    document.getElementById('sectPopup')?.classList.remove('active');
 }
 
 function setMapPopupTab(tab, opts) {
-    const next = tab === 'local' ? 'local' : 'world';
+    let next = 'world';
+    if (tab === 'local') next = 'local';
+    else if (tab === 'sect') next = 'sect';
     mapPopupUi.tab = next;
     if (next === 'local') {
         const zoneId = opts?.zoneId || mapPopupUi.localZoneId || getMainZoneId();
@@ -98,7 +101,7 @@ function setMapPopupTab(tab, opts) {
         if (opts?.resetSelection !== false) {
             mapPopupUi.selectedLocationId = null;
         }
-    } else if (opts?.zoneId) {
+    } else if (next === 'world' && opts?.zoneId) {
         mapPopupUi.worldSelectedZoneId = opts.zoneId;
     }
     renderMapPopup();
@@ -109,20 +112,47 @@ function openLocalMap(zoneId, preview) {
     const z = zoneId || mainHere;
     const isPreview = preview != null ? !!preview : (z !== mainHere || (typeof isInHiddenSubZone === 'function' && isInHiddenSubZone()));
     setMapPopupTab('local', { zoneId: z, preview: isPreview });
+    document.getElementById('mapPopup')?.classList.add('active');
+    document.getElementById('sectPopup')?.classList.remove('active');
+}
+
+function openSectMap() {
+    mapPopupUi.tab = 'sect';
+    renderMapPopup();
+    document.getElementById('mapPopup')?.classList.add('active');
+    document.getElementById('sectPopup')?.classList.remove('active');
+}
+
+function isMapSectTabOpen() {
+    return !!document.getElementById('mapPopup')?.classList.contains('active')
+        && typeof mapPopupUi !== 'undefined'
+        && mapPopupUi.tab === 'sect';
 }
 
 function syncMapTabChrome() {
     const worldBtn = document.getElementById('mapTabWorld');
     const localBtn = document.getElementById('mapTabLocal');
+    const sectBtn = document.getElementById('mapTabSect');
     const worldPanel = document.getElementById('mapWorldPanel');
     const localPanel = document.getElementById('mapLocalPanel');
-    const onLocal = mapPopupUi.tab === 'local';
-    worldBtn?.classList.toggle('active', !onLocal);
-    localBtn?.classList.toggle('active', onLocal);
-    if (worldBtn) worldBtn.setAttribute('aria-selected', onLocal ? 'false' : 'true');
-    if (localBtn) localBtn.setAttribute('aria-selected', onLocal ? 'true' : 'false');
-    if (worldPanel) worldPanel.hidden = onLocal;
-    if (localPanel) localPanel.hidden = !onLocal;
+    const sectPanel = document.getElementById('mapSectPanel');
+    const tab = mapPopupUi.tab === 'local' || mapPopupUi.tab === 'sect' ? mapPopupUi.tab : 'world';
+    const founded = typeof isSectFounded === 'function' && isSectFounded();
+
+    worldBtn?.classList.toggle('active', tab === 'world');
+    localBtn?.classList.toggle('active', tab === 'local');
+    sectBtn?.classList.toggle('active', tab === 'sect');
+    sectBtn?.classList.toggle('map-tab-btn--locked', !founded);
+    if (sectBtn) {
+        sectBtn.title = founded ? 'Your sect grounds' : 'Found a sect first (🏯 Sect)';
+        sectBtn.setAttribute('aria-disabled', founded ? 'false' : 'true');
+    }
+    if (worldBtn) worldBtn.setAttribute('aria-selected', tab === 'world' ? 'true' : 'false');
+    if (localBtn) localBtn.setAttribute('aria-selected', tab === 'local' ? 'true' : 'false');
+    if (sectBtn) sectBtn.setAttribute('aria-selected', tab === 'sect' ? 'true' : 'false');
+    if (worldPanel) worldPanel.hidden = tab !== 'world';
+    if (localPanel) localPanel.hidden = tab !== 'local';
+    if (sectPanel) sectPanel.hidden = tab !== 'sect';
 }
 
 function getActiveZoneId() {
@@ -158,6 +188,11 @@ function renderMapPopup() {
     if (mapPopupUi.tab === 'local') {
         if (!mapPopupUi.localZoneId) mapPopupUi.localZoneId = mainId;
         if (typeof mountLocalMap === 'function') mountLocalMap();
+        return;
+    }
+
+    if (mapPopupUi.tab === 'sect') {
+        if (typeof renderSectPopup === 'function') renderSectPopup();
         return;
     }
 
@@ -252,6 +287,20 @@ function showZoneGuide(zoneId) {
     info.querySelector('[data-zone-travel]')?.addEventListener('click', function() {
         travelToZone(this.dataset.zoneTravel);
     });
+    const infZone = typeof getSectInfluenceZone === 'function' ? getSectInfluenceZone() : null;
+    if (infZone === zoneId) {
+        const name = G.sect?.name || 'Your sect';
+        info.insertAdjacentHTML('beforeend',
+            `<div class="zone-guide-influence">🌏 <strong>${escapeHtml(name)}</strong> holds influence here.</div>`);
+    }
+    const rivalsHere = (typeof getWorldSectsInZone === 'function' ? getWorldSectsInZone(zoneId) : [])
+        .slice(0, 4);
+    if (rivalsHere.length) {
+        const names = rivalsHere.map(s => escapeHtml(s.name || 'Rival sect')).join(', ');
+        info.insertAdjacentHTML('beforeend',
+            `<div class="zone-guide-rivals">🏯 Other sects here: ${names}</div>`);
+    }
+
     info.querySelectorAll('[data-open-local]').forEach(btn => {
         btn.addEventListener('click', function() {
             openLocalMap(this.dataset.openLocal, this.dataset.localPreview === '1');
@@ -334,6 +383,14 @@ function bindMapEvents() {
     });
     document.getElementById('mapTabWorld')?.addEventListener('click', () => setMapPopupTab('world'));
     document.getElementById('mapTabLocal')?.addEventListener('click', () => openLocalMap(getMainZoneId(), false));
+    document.getElementById('mapTabSect')?.addEventListener('click', () => {
+        if (typeof isSectFounded === 'function' && isSectFounded()) {
+            openSectMap();
+            return;
+        }
+        document.getElementById('mapPopup')?.classList.remove('active');
+        if (typeof actionSect === 'function') actionSect();
+    });
 }
 
 // ===== EXPLORE =====

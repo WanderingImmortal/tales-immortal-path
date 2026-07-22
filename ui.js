@@ -1777,10 +1777,32 @@ function renderDaoPopup() {
 function renderSectPopup() {
     if (typeof ensureSectState === 'function') ensureSectState();
     const displayName = typeof getSectDisplayName === 'function' ? getSectDisplayName() : (G.sectName || 'Sect');
-    document.getElementById('sectTitle').textContent = typeof isSectFounded === 'function' && isSectFounded()
-        ? displayName
-        : 'Sect — Found Your Legacy';
-    const el = document.getElementById('sectInfo');
+    const founded = typeof isSectFounded === 'function' && isSectFounded();
+    const useMap = typeof isMapSectTabOpen === 'function' && isMapSectTabOpen();
+    const mapEl = document.getElementById('mapSectInfo');
+    const popupEl = document.getElementById('sectInfo');
+    const el = useMap && mapEl ? mapEl : popupEl;
+    if (!el) return;
+
+    if (!useMap) {
+        const title = document.getElementById('sectTitle');
+        if (title) title.textContent = founded ? displayName : 'Sect — Found Your Legacy';
+    }
+
+    if (useMap && !founded) {
+        el.innerHTML = `<div class="map-sect-empty">
+            <p class="sect-hint">You have not founded a sect yet.</p>
+            <button type="button" class="zone-local-map-btn" id="btnMapFoundSect">🏯 Found your sect</button>
+        </div>`;
+        el.querySelector('#btnMapFoundSect')?.addEventListener('click', () => {
+            document.getElementById('mapPopup')?.classList.remove('active');
+            if (typeof mapPopupUi !== 'undefined') mapPopupUi.tab = 'world';
+            renderSectPopup();
+            document.getElementById('sectPopup')?.classList.add('active');
+        });
+        return;
+    }
+
     let html = typeof renderSectPanelHtml === 'function' ? renderSectPanelHtml() : '';
 
     html += `<div class="sect-forge-divider"></div>`;
@@ -1837,6 +1859,7 @@ function renderSectPopup() {
     });
     el.querySelector('#sectOpenForge')?.addEventListener('click', () => {
         document.getElementById('sectPopup')?.classList.remove('active');
+        document.getElementById('mapPopup')?.classList.remove('active');
         if (typeof openForgeChamber === 'function') openForgeChamber({ atSect: true });
     });
 }

@@ -286,6 +286,10 @@ function actionRecruit() {
 function actionSect() {
     if (actionBlocked()) return;
     if (!guardAction('sect')) return;
+    if (typeof isSectFounded === 'function' && isSectFounded() && typeof openSectMap === 'function') {
+        openSectMap();
+        return;
+    }
     renderSectPopup();
     document.getElementById('sectPopup').classList.add('active');
 }
