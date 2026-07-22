@@ -5,7 +5,7 @@
 | **Status** | `building` (steps 1–3 in one PR) |
 | **Blocked on** | None for UI; pairs with [`realm-claims.md`](realm-claims.md) for travel scaling |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/local-world-map-split` |
+| **Chat / PR** | [PR #56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56) |
 | **Updated** | 2026-07-22 |
 
 ## Intent

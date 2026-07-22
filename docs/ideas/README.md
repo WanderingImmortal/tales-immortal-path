@@ -42,7 +42,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Watershed pacing; half-step peak | — |
 | [Realm claims](realm-claims.md) | `designed` | Nine-realm ladder (indices) | — |
 | [World scale & travel](world-scale-and-travel.md) | `designed` | Local map; realm claims | — |
-| [Local & world map split](local-world-map-split.md) | `building` (1–3) | — | branch `cursor/local-world-map-split` |
+| [Local & world map split](local-world-map-split.md) | `building` (1–3) | — | [#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56) |
 | [Sect map unification](sect-map-unification.md) | `designed` | Local/world map tab shell | — |
 | [Immortal world layer](immortal-world-layer.md) | `designed` (partial) | Mortal immortal ascension; Court stub | — |
 | [Upper celestial nine](upper-celestial-nine.md) | `idea` | Mortal nine + immortal Court MVP | — |
