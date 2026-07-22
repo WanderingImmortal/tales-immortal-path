@@ -5,17 +5,17 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Chronicle diary reader v0 — My path / Sect / Jianghu (`cursor/chronicle-diary-reader`)
+- Formations fuel vs neglect design parked (`docs/ideas/formations-and-arrays.md`)
 
 ## Next
-- Tick playback + seclusion project (chronicle steps 2–3)
+- Chronicle P1 review ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
 - Territory grow/shrink (sect map phase 2)
-- Formations F1a design parked — fuel vs neglect integrity (`docs/ideas/formations-and-arrays.md`)
+- Formations F1a when ready to build
 
 ## Blocked
 - (none)
 
 ## Recently shipped
+- Diary reader ([#58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58))
 - Sect map unification ([#57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57))
-- Local & world map split ([#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56))
 - See merged PRs on GitHub
