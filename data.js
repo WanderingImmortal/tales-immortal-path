@@ -1583,7 +1583,8 @@ const ZONE_LOOT = {
 const EXPLORE_BALANCE = {
     ultraChance: 0.06,
     rareChance: 0.24,
-    manualFindChance: 0.12
+    manualFindChance: 0.12,
+    methodFindChance: 0.08
 };
 
 // Vitality contributes to max HP (path-specific — body cultivators benefit most)
@@ -1637,6 +1638,11 @@ const MERCHANT_CATALOG = {
             { technique: "Frostbite Palm", price: 160 },
             { technique: "Celestial Judgment", price: 220 }
         ],
+        methods: [
+            { methodId: 'outer_sect_qi_cycling', price: 55 },
+            { methodId: 'impure_meridian_breath', price: 48 },
+            { methodId: 'inner_court_meridian_cycle', price: 140 }
+        ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
             { id: "blood_recovery", price: 40, qty: 1 },
@@ -1661,6 +1667,10 @@ const MERCHANT_CATALOG = {
             { technique: "Void Step", price: 200 },
             { technique: "Spectral Shield", price: 110 },
             { technique: "Soul Search", price: 65 }
+        ],
+        methods: [
+            { methodId: 'outer_sect_qi_cycling', price: 50 },
+            { methodId: 'impure_meridian_breath', price: 45 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -3291,9 +3301,27 @@ const MANUAL_HALL_BALANCE = {
 };
 
 /** Personal travel kit — worn gear is free; bag contents count against capacity. */
+const METHOD_MANUAL_BALANCE = {
+    defaultMonths: 2,
+    monthsByGrade: {
+        crude: 2,
+        common: 3,
+        superior: 4,
+        peerless: 8
+    },
+    consignByGrade: {
+        crude: 8,
+        common: 14,
+        superior: 28,
+        peerless: 60
+    },
+    defaultConsign: 10
+};
+
 const TRAVEL_KIT_BALANCE = {
     baseCapacity: 8,
     manualUniqueWeight: 1,
+    methodUniqueWeight: 1,
     pillWeight: 0.25,
     gearBagWeight: 1,
     curioWeight: 0.5,

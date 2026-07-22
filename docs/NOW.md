@@ -5,10 +5,11 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Cultivation methods P0 — method pool, grade, active path, gather mult ([#50](https://github.com/WanderingImmortal/tales-immortal-path/issues/50))
+- Cultivation methods P1 — shelf + study UI ([#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52))
 
 ## Next
-- Cultivation methods P1 (shelf UI) after P0 lands
+- Merge P0 [#51](https://github.com/WanderingImmortal/tales-immortal-path/pull/51) / P1 when ready
+- Cultivation methods P2 (foundation variants at seal)
 - FE redesign doc pass
 
 ## Blocked

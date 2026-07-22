@@ -4,6 +4,7 @@
 
 function ensureTravelKit() {
     if (typeof ensureManualShelf === 'function') ensureManualShelf();
+    if (typeof ensureMethodShelf === 'function') ensureMethodShelf();
     if (typeof ensureGearState === 'function') ensureGearState();
     if (typeof ensurePillStock === 'function') ensurePillStock();
 }
@@ -25,6 +26,12 @@ function getTravelKitManualLoad() {
     ensureTravelKit();
     const w = TRAVEL_KIT_BALANCE.manualUniqueWeight ?? 1;
     return Object.keys(G.manualShelf || {}).length * w;
+}
+
+function getTravelKitMethodLoad() {
+    ensureTravelKit();
+    const w = TRAVEL_KIT_BALANCE.methodUniqueWeight ?? TRAVEL_KIT_BALANCE.manualUniqueWeight ?? 1;
+    return Object.keys(G.methodShelf || {}).length * w;
 }
 
 function getTravelKitMaterialLoad() {
@@ -67,6 +74,7 @@ function getTravelKitCapacity() {
 
 function getTravelKitUsed() {
     return getTravelKitManualLoad()
+        + getTravelKitMethodLoad()
         + getTravelKitMaterialLoad()
         + getTravelKitPillLoad()
         + getTravelKitGearLoad()
@@ -86,16 +94,18 @@ function getTravelKitBreakdown() {
     const ringBonus = typeof getSpatialRingCapacityBonus === 'function' ? getSpatialRingCapacityBonus() : 0;
     const capacity = getTravelKitCapacity();
     const manuals = getTravelKitManualLoad();
+    const methods = getTravelKitMethodLoad();
     const materials = getTravelKitMaterialLoad();
     const pills = getTravelKitPillLoad();
     const gear = getTravelKitGearLoad();
     const curios = getTravelKitCurioLoad();
-    const total = manuals + materials + pills + gear + curios;
+    const total = manuals + methods + materials + pills + gear + curios;
     return {
         baseCap,
         ringBonus,
         capacity,
         manuals,
+        methods,
         materials,
         pills,
         gear,
@@ -166,7 +176,8 @@ function renderTravelKitBarHtml() {
     html += `<div class="travel-kit-bar-track"><div class="travel-kit-bar-fill" style="width:${pct}%"></div></div>`;
     html += `<div class="travel-kit-breakdown">`;
     const rows = [
-        ['📜 Manuals', bd.manuals],
+        ['📜 Combat manuals', bd.manuals],
+        ['📘 Cultivation scrolls', bd.methods || 0],
         ['⛏️ Materials', bd.materials],
         ['💊 Pills', bd.pills],
         ['🎒 Spare gear', bd.gear],
