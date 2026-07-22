@@ -3543,6 +3543,74 @@ const ZONE_MAP_LAYOUT = {
     emberwild: { cx: 50, cy: 72, rx: 15, ry: 10 }
 };
 
+/** Local map node positions — presentation only; WORLD_LOCATIONS is source of truth. */
+const ZONE_LOCAL_LAYOUT = {
+    dustbone: {
+        theme: 'desert',
+        nodes: {
+            bone_crossroads: { x: 50, y: 55, layer: 2 },
+            miraj_waystation: { x: 22, y: 48, layer: 1 },
+            sunscar_camp: { x: 78, y: 35, layer: 1 },
+            ashen_shrine: { x: 62, y: 78, layer: 1 }
+        },
+        paths: [
+            { from: 'miraj_waystation', to: 'bone_crossroads' },
+            { from: 'sunscar_camp', to: 'bone_crossroads' },
+            { from: 'ashen_shrine', to: 'bone_crossroads' }
+        ]
+    },
+    frostbite: {
+        theme: 'frost',
+        nodes: {
+            frost_gate: { x: 50, y: 68, layer: 2 },
+            frostpeak_monastery: { x: 50, y: 28, layer: 1 }
+        },
+        paths: [
+            { from: 'frost_gate', to: 'frostpeak_monastery' }
+        ]
+    },
+    heartlands: {
+        theme: 'heartlands',
+        nodes: {
+            outer_heartlands: { x: 50, y: 48, layer: 2 },
+            sword_sect_hall: { x: 26, y: 22, layer: 1 },
+            jade_lotus_pavilion: { x: 74, y: 22, layer: 1 },
+            void_temple_steps: { x: 20, y: 74, layer: 1 },
+            celestial_market: { x: 50, y: 80, layer: 1 },
+            phoenix_court: { x: 80, y: 74, layer: 1 }
+        },
+        paths: [
+            { from: 'sword_sect_hall', to: 'outer_heartlands' },
+            { from: 'jade_lotus_pavilion', to: 'outer_heartlands' },
+            { from: 'void_temple_steps', to: 'outer_heartlands' },
+            { from: 'celestial_market', to: 'outer_heartlands' },
+            { from: 'phoenix_court', to: 'outer_heartlands' }
+        ]
+    },
+    jade: {
+        theme: 'coast',
+        nodes: {
+            tide_harbor: { x: 40, y: 58, layer: 2 },
+            storm_dock: { x: 74, y: 58, layer: 1 },
+            tidal_shrine: { x: 50, y: 26, layer: 1 }
+        },
+        paths: [
+            { from: 'tidal_shrine', to: 'tide_harbor' },
+            { from: 'tide_harbor', to: 'storm_dock' }
+        ]
+    },
+    emberwild: {
+        theme: 'jungle',
+        nodes: {
+            ashvein_village: { x: 35, y: 50, layer: 2 },
+            beast_circle: { x: 68, y: 48, layer: 1 }
+        },
+        paths: [
+            { from: 'ashvein_village', to: 'beast_circle' }
+        ]
+    }
+};
+
 const WORLD_LOCATIONS = {
     frost_gate: {
         id: 'frost_gate', parentZone: 'frostbite', type: 'city', isDefault: true,

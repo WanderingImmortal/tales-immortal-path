@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=88" />
+    <link rel="stylesheet" href="style.css?v=89" />
 </head>
 <body>
 
@@ -1264,11 +1264,24 @@
     <div class="popup-box map-popup-box">
         <h2>🗺️ Azure Sky Continent</h2>
         <div class="map-popup-intro">
-            Click a region on the map, then travel or walk to a specific place. <span id="currentZoneDisplay">Current: Unknown</span>
+            Click a region to travel. Walk between places on the local map. <span id="currentZoneDisplay">Current: Unknown</span>
         </div>
-        <div id="continentMap" class="continent-map-wrap"></div>
-        <div id="zoneInfo" class="zone-info-panel">
-            Tap a region to learn more.
+        <div class="map-tabs" role="tablist" aria-label="Map layers">
+            <button type="button" class="map-tab-btn active" id="mapTabWorld" data-map-tab="world" role="tab" aria-selected="true">🗺️ World</button>
+            <button type="button" class="map-tab-btn" id="mapTabLocal" data-map-tab="local" role="tab" aria-selected="false">📍 Local</button>
+        </div>
+        <div id="mapWorldPanel" class="map-tab-panel" role="tabpanel">
+            <div id="continentMap" class="continent-map-wrap"></div>
+            <div id="zoneInfo" class="zone-info-panel">
+                Tap a region to learn more.
+            </div>
+        </div>
+        <div id="mapLocalPanel" class="map-tab-panel" role="tabpanel" hidden>
+            <div id="localMapHeader" class="local-map-header"></div>
+            <div id="localMapScene" class="local-map-scene-wrap"></div>
+            <div id="localMapDetail" class="zone-info-panel local-map-detail">
+                Click a place on the local map.
+            </div>
         </div>
         <button class="close-btn" id="mapClose">Close Map</button>
     </div>
@@ -1295,7 +1308,7 @@
     <span id="overlayLifespanText"></span>
 </div>
 
-<script src="data.js?v=94"></script>
+<script src="data.js?v=95"></script>
 <script src="dao-taxonomy.js?v=1"></script>
 <script src="cultivation-tracks.js?v=2"></script>
 <script src="talent.js?v=2"></script>
@@ -1328,8 +1341,8 @@
 <script src="cultivation.js?v=16"></script>
 <script src="intent.js?v=7"></script>
 <script src="tribulation.js?v=15"></script>
-<script src="locations.js?v=1"></script>
-<script src="world.js?v=30"></script>
+<script src="locations.js?v=2"></script>
+<script src="world.js?v=31"></script>
 <script src="ambient-npcs.js?v=1"></script>
 <script src="npc-converse.js?v=1"></script>
 <script src="npc-betrayal.js?v=1"></script>

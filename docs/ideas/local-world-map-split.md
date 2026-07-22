@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
+| **Status** | `building` (steps 1–3 in one PR) |
 | **Blocked on** | None for UI; pairs with [`realm-claims.md`](realm-claims.md) for travel scaling |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent design chats, 2026-07-18–20 |
-| **Updated** | 2026-07-21 |
+| **Chat / PR** | [PR #56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56) |
+| **Updated** | 2026-07-22 |
 
 ## Intent
 
@@ -141,16 +141,18 @@ Wire to `ancients.js` entrance status.
 
 ### Build order (suggested)
 
-1. Tabbed map popup — World tab = today minus place cards; Local = nodes for **current zone only**
-2. Dustbone + Emberwild (prove pattern)
-3. Heartlands, Jade, Frostbite
+1. ~~Tabbed map popup — World tab = today minus place cards; Local = nodes for **current zone only**~~ ✅
+2. ~~Dustbone + Emberwild (prove pattern)~~ ✅
+3. ~~Heartlands, Jade, Frostbite~~ ✅
 4. Hidden sub-zone pins
 5. Sect tab unification (separate doc)
 
+**Shipped in steps 1–3:** `#mapPopup` World | Local tabs; place cards off World; `ZONE_LOCAL_LAYOUT` for all five zones; clickable nodes + detail Walk; Preview region (no Walk); auto-switch to Local after zone travel.
+
 ## Prerequisites
 
-- [ ] Tab UI in `#mapPopup` (`index.html`, `world.js`, `locations.js`)
-- [ ] `ZONE_LOCAL_LAYOUT` in `data.js`
+- [x] Tab UI in `#mapPopup` (`index.html`, `world.js`, `locations.js`)
+- [x] `ZONE_LOCAL_LAYOUT` in `data.js` (all five zones)
 - [ ] Realm travel scaling optional — [`realm-claims.md`](realm-claims.md)
 
 ## Open questions
