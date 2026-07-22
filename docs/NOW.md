@@ -5,10 +5,10 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Tribulation v1 — accountant heaven, path scripts, ledger amplify (`cursor/tribulation-rework-8eac`)
+- Tribulation v2 — QC→FE scripted trib (`cursor/tribulation-v2-qc-fe-8eac`)
 
 ## Next
-- QC→FE trib script (choices + realm-specific scars; no scar-risk poker)
+- FE→GC trib script (limbo + nascent core)
 - Meridian Option A at FE wiring (when FE redesign lands)
 - Corruption migration completion (soul-act `addCycleStain` when body path ships)
 - Chronicle second project type
@@ -22,6 +22,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth (`chaos-cultivation-path.md`, `post-immortal-cosmology.md`)
 
 ## Recently shipped
+- Tribulation v1 — accountant heaven, path scripts, ledger amplify ([#62](https://github.com/WanderingImmortal/tales-immortal-path/pull/62))
 - Chronicle tick + seclusion ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
 - Diary reader ([#58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58))
 - Sect map unification ([#57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57))
