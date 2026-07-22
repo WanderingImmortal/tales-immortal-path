@@ -58,7 +58,7 @@ Optional: open 🏯 Sect → default to **Sect** tab if founded.
 
 ## Prerequisites
 
-- [ ] [`local-world-map-split.md`](local-world-map-split.md) tab shell
+- [x] [`local-world-map-split.md`](local-world-map-split.md) tab shell (steps 1–3 in flight)
 - [ ] `renderSectGroundsHtml`, `bindSectGroundsEvents` unchanged internally
 
 ## Open questions
