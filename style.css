@@ -4084,10 +4084,25 @@ header .subtitle {
     line-height: 1.4;
 }
 
+.diary-era-chapter {
+    font-size: 12px;
+    color: #c9a050;
+    letter-spacing: 0.04em;
+    text-align: center;
+    padding: 10px 6px 4px;
+    margin-top: 4px;
+    opacity: 0.9;
+}
+
+.diary-entry-body {
+    font-style: italic;
+}
+
 .quest-journal-empty {
     font-size: 13px;
     color: #887868;
-    padding: 8px 4px;
+    line-height: 1.45;
+    padding: 12px 4px;
 }
 
 .npc-presence-list {

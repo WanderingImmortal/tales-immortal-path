@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (outline — expand per section as realms/pacing land) |
+| **Status** | `building` (diary reader v0) |
 | **Blocked on** | Realm/lifespan table parked; world tick sim optional for v1 |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent brainstorm, 2026-07-21 |
-| **Updated** | 2026-07-21 |
+| **Chat / PR** | [PR #58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58) |
+| **Updated** | 2026-07-22 |
 
 ## Intent
 
@@ -183,7 +183,7 @@ Exponential xianxia caps (FE ~150, GC 300–500, NS 1000–1500, …) and **soft
 ## Build order (suggested)
 
 ```text
-1. Diary reader (one screen)
+1. Diary reader (one screen) ← in progress (this branch)
    Pull from existing logs; narrativized display + era chapters.
 
 2. Tick playback (minimal)
@@ -197,6 +197,7 @@ Exponential xianxia caps (FE ~150, GC 300–500, NS 1000–1500, …) and **soft
    Phases + choices between watch segments + receipt.
 
 5. Merge more writers into diary (sect, world, quests).
+   Unify storage when convenient (reader already merges views).
 
 6. World-driven events during ticks (faction/NPC sim) — replaces template pool gradually.
 
@@ -205,28 +206,23 @@ Exponential xianxia caps (FE ~150, GC 300–500, NS 1000–1500, …) and **soft
 
 **Chronicle reader before projects.** **Simple seclusion before cosmic arrays.**
 
----
+### Shipped in diary reader v0
 
-## Example flow — 80-year seclusion (sketch)
-
-1. Player: **Close grotto — ~80 years** (preview: focus, risk hint).
-2. **Watch:** Age 240→… ticks; events at years 12, 41, 67 (example).
-3. **Stop at year 55** or run full 80.
-4. **Highlight reel** — only years 12, 41, (55 if stopped early).
-5. **Diary chapter** — prose weaving those beats; span “55 years” or “80 years”.
-6. Return to play with cultivation progress + any insight bonus.
-
----
+- 📖 Open Diary popup tabs: **My path · Sect · Jianghu · Sealed Sites**
+- Pulls quest/arcs, `G.sect.chronicle`, `G.worldChronicle` + faction chronicle (no storage merge yet)
+- Era chapter headers by age band (40-year spans)
+- Time playback / seclusion projects **not** in this slice
 
 ## Prerequisites
 
-- [ ] Diary UI shell (`index.html` / journal popup pattern)
-- [ ] `appendChronicle` unified helper (can wrap existing append functions)
+- [x] Diary UI shell (`index.html` / journal popup pattern)
+- [x] Reader helper (`chronicle-diary.js`) wrapping existing append sources
 - [ ] Tick playback UI component (age display + event list + controls)
 - [ ] `processWorldTime` or equivalent for advancing months in chunks during playback
 - [ ] One project type data + event template pool
 - [ ] (Later) Lifespan / nine-realm indices finalized
 - [ ] (Later) World tick content for v1 event sources
+- [ ] `appendChronicle` unified writer (optional — reader works without it)
 
 ## Open questions
 
