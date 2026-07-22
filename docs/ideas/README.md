@@ -39,7 +39,9 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `idea` | Root taxonomy v2; per-realm age anchors | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
-| [Chaos cultivation path](chaos-cultivation-path.md) | `designed` (partial) | Immortal endgame fork; legacy meta; recover PC notes (realms, grotto masters) | — |
+| [Cultivation realm depth pass](cultivation-realm-depth-pass.md) | `idea` | Owner design pass; may follow roots / manuals | — |
+| [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` (**parked**) | Realm depth pass; Immortal Ascension beat | — |
+| [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` (**parked**) | Realm depth pass; Immortal climax | — |
 | [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Watershed pacing; half-step peak | — |
 | [Realm claims](realm-claims.md) | `designed` | Nine-realm ladder (indices) | — |
 | [World scale & travel](world-scale-and-travel.md) | `designed` | Local map; realm claims | — |

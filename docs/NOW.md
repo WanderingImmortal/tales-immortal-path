@@ -15,7 +15,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Formations Guild hubs / branch exams — [`docs/ideas/creation-path-guilds.md`](ideas/creation-path-guilds.md)
 
 ## Blocked
-- (none)
+- Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth (`chaos-cultivation-path.md`, `post-immortal-cosmology.md`)
 
 ## Recently shipped
 - Diary reader ([#58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58))
