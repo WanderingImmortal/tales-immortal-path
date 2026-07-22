@@ -5,7 +5,7 @@
 | **Status** | `building` |
 | **Blocked on** | — (World/Local shell shipped in [#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56)) |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/sect-map-unification` |
+| **Chat / PR** | [PR #57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57) |
 | **Updated** | 2026-07-22 |
 
 ## Intent
