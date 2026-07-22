@@ -5,7 +5,7 @@
 | **Status** | `designed` (P2 slice); later-realm method deepening still sketch |
 | **Blocked on** | P0/P1 merged helpful but not required to start P2 code |
 | **Issue** | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) |
-| **Chat / PR** | `cursor/cultivation-methods-p2` |
+| **Chat / PR** | [PR #55](https://github.com/WanderingImmortal/tales-immortal-path/pull/55) |
 | **Updated** | 2026-07-22 (owner lock-in: axes, seal stamp, shared natures, effects, ship on current seal) |
 
 ## Intent
