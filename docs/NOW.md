@@ -8,7 +8,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Formations F1–F2b review ([PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61))
 
 ## Next
-- Chronicle P1 review ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
+- Second project type / phased choices (chronicle step 4)
 - Territory grow/shrink (sect map phase 2)
 
 ## Parked (return later)

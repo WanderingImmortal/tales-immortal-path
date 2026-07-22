@@ -4690,6 +4690,129 @@ header .subtitle {
     color: #b8b0a0;
 }
 
+#log .entry.log-seclusion-done {
+    border-left: 3px solid #c9a050;
+    padding-left: 8px;
+    color: #f0e0c0;
+}
+
+#log .entry.log-seclusion-done u {
+    text-decoration-color: #c9a050;
+}
+
+.seclusion-picker-box {
+    max-width: min(420px, 94vw);
+}
+
+.seclusion-preset-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.seclusion-preset-btn {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--ink-border-strong, #4a4030);
+    background: var(--ink-wash, #1a1410);
+    color: var(--ink-text, #e8dcc8);
+    cursor: pointer;
+}
+
+.seclusion-preset-btn:hover {
+    border-color: #c9a050;
+    background: #221c14;
+}
+
+.time-playback-box {
+    max-width: min(480px, 94vw);
+    text-align: center;
+}
+
+.playback-age {
+    font-size: 28px;
+    font-weight: 600;
+    color: #f0d8a0;
+    margin: 8px 0 4px;
+}
+
+.playback-progress {
+    font-size: 13px;
+    color: #a09080;
+    margin-bottom: 12px;
+}
+
+.playback-event-list {
+    text-align: left;
+    max-height: 220px;
+    overflow-y: auto;
+    background: #141010;
+    border: 1px solid #2a2018;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 14px;
+    min-height: 80px;
+}
+
+.playback-quiet {
+    color: #887868;
+    font-size: 13px;
+    font-style: italic;
+    margin: 0;
+}
+
+.playback-event {
+    font-size: 13px;
+    color: #d8ccb8;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.playback-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.playback-controls button {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #4a4030;
+    background: #1a1410;
+    color: #e8dcc8;
+    cursor: pointer;
+}
+
+.playback-controls button:hover {
+    border-color: #c9a050;
+}
+
+.highlight-reel-box {
+    max-width: min(480px, 94vw);
+}
+
+.highlight-reel-list {
+    text-align: left;
+    margin: 0 0 14px;
+    padding-left: 18px;
+    color: #d8ccb8;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.highlight-reel-list .muted {
+    color: #887868;
+    font-style: italic;
+    list-style: none;
+    margin-left: -18px;
+}
+
 .npc-converse-line .name {
     font-size: 12px;
     line-height: 1.45;
