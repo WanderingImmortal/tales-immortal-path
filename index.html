@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=91" />
+    <link rel="stylesheet" href="style.css?v=92" />
 </head>
 <body>
 
@@ -220,6 +220,9 @@
                                 <div class="action-with-help">
                                     <button id="btnCultivate">🧘 Cultivate</button>
                                     <button type="button" class="action-help-btn action-help-btn-inline" id="helpCultivate" aria-label="About Cultivate">?</button>
+                                </div>
+                                <div class="action-with-help">
+                                    <button id="btnLongSeclusion" title="Close the grotto for years — watch time pass">🗻 Seclusion</button>
                                 </div>
                                 <div class="action-with-help">
                                     <button id="btnConsolidate">🏛️ Seal Dantian</button>
@@ -537,6 +540,40 @@
         </div>
         <div id="questJournalList" class="quest-journal-list"></div>
         <button type="button" class="close-btn" id="questJournalClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="seclusionPickerPopup">
+    <div class="popup-box seclusion-picker-box">
+        <h2>🗻 Long Seclusion</h2>
+        <p class="quest-journal-hint" id="seclusionPickerHint">Choose how many years to close the grotto.</p>
+        <div id="seclusionPresetList" class="seclusion-preset-list"></div>
+        <button type="button" class="close-btn" id="seclusionPickerClose">Cancel</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="timePlaybackOverlay">
+    <div class="popup-box time-playback-box">
+        <h2>🗻 Seclusion</h2>
+        <div class="playback-age" id="playbackAge">Age —</div>
+        <div class="playback-progress" id="playbackProgress">0 / 0 years</div>
+        <div class="playback-event-list" id="playbackEventList">
+            <p class="playback-quiet">Quiet years pass…</p>
+        </div>
+        <div class="playback-controls">
+            <button type="button" id="playbackPause">Pause</button>
+            <button type="button" id="playbackSpeed">1×</button>
+            <button type="button" id="playbackStop">Emerge</button>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay" id="highlightReelPopup">
+    <div class="popup-box highlight-reel-box">
+        <h2 id="highlightReelTitle">🗻 Seclusion ends</h2>
+        <p class="quest-journal-hint" id="highlightReelSub"></p>
+        <ul id="highlightReelList" class="highlight-reel-list"></ul>
+        <button type="button" class="close-btn" id="highlightReelClose">Continue</button>
     </div>
 </div>
 
@@ -1356,9 +1393,9 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=57"></script>
+<script src="ui.js?v=58"></script>
 <script src="action-gates.js?v=2"></script>
-<script src="actions.js?v=36"></script>
+<script src="actions.js?v=37"></script>
 <script src="chamber.js?v=12"></script>
 <script src="body-chamber.js?v=23"></script>
 <script src="vessel-rules.js?v=3"></script>
@@ -1367,12 +1404,14 @@
 <script src="soul-mass.js?v=2"></script>
 <script src="cultivation-hub.js?v=4"></script>
 <script src="story-arcs.js?v=6"></script>
-<script src="chronicle-diary.js?v=1"></script>
+<script src="chronicle-diary.js?v=2"></script>
+<script src="time-playback.js?v=1"></script>
+<script src="seclusion-project.js?v=1"></script>
 <script src="combat.js?v=35"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
 <script src="settings.js?v=1"></script>
 <script src="action-help.js?v=1"></script>
-<script src="main.js?v=44"></script>
+<script src="main.js?v=45"></script>
 </body>
 </html>

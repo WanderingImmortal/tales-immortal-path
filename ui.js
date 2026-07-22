@@ -737,6 +737,7 @@ function getCultivatorRealmEffects(path, realm, style) {
 }
 
 function addLog(msg) {
+    if (G._quietTime) return;
     if (G._deferringLogs && G._actionLog) {
         if (!G._pendingActionMeta) G._pendingActionMeta = { time: '', world: '', extras: [] };
         const text = typeof msg === 'object' ? msg.html : msg;
