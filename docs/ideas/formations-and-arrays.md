@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | F1a: [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`); design park #60 |
-| **Updated** | 2026-07-22 (F1a implement: fuel / switch / integrity) |
+| **Updated** | 2026-07-22 (F1b thin path OK; acquire/content elaboration) |
 
 ## Intent
 
@@ -411,17 +411,73 @@ Acquire → Decipher → Trace (×N) → First Lay → Maintain → Master copy
 
 Current `learnOnResidenceLevel` auto-push to `knownFormations` is **bootstrap** (elder traces starter patterns). When F1 lands: manual to **formation shelf** + auto-decipher for master tier 1–2 tutorial, or elder lays first copy.
 
-### Learn pipeline lean (2026-07-22 — still open)
+### Learn pipeline lean (2026-07-22 — owner OK thin path)
 
-Full `Acquire → Decipher → Trace → First Lay` is the right **fantasy**, but shipping it all in F1 alongside fuel + integrity is a lot of UI for little early content.
+Full `Acquire → Decipher → Trace → First Lay` is the right **fantasy**; **F1b ships thin**.
 
-**Suggested thin path:**
+**Owner OK (2026-07-22):**
 
-1. **F1a — fuel + integrity** on already-known residence patterns (what players can already lay). Prove the two axes in play.
-2. **F1b — shelf** for new manuals: Acquire → Decipher only; **skip Trace** until there are enough blueprints that practice matters.
-3. Keep **elder / residence grant** as auto-deciphered starters so the courtyard loop never soft-locks behind a sandbox tutorial.
+1. **Thin F1b:** shelf + Decipher only; **skip Trace** until more blueprints exist.
+2. **Decipher at residence** — not locked behind founding a sect. Quarters / personal dwelling is enough (later: optional residence expansions for a study desk / sand table — not required for F1b).
+3. **Master grades 0–2:** use the existing ladder in this doc (below) as the rough unlock table; no exams in F1b — stub tier + soft gate only.
+4. **Acquire + content:** see **F1b acquire & content** — needs a real second source of manuals or the shelf is just a rename.
 
-Hire-an-NPC stays the escape hatch for people who do not want the profession loop.
+Hire-an-NPC stays parked (always-allowed fantasy; UI later).
+
+### Master grades 0–2 (what the doc already says)
+
+From the profession table — **this is the rough unlock idea**; F1b only needs the first three rows stubbed:
+
+| Master tier | Can lay (formation **tier**) | Matches current courtyard blueprints |
+|-------------|------------------------------|--------------------------------------|
+| **0** Uninitiated | Nothing self-laid (hire only later) | — |
+| **1** Pattern Student | **1st**-tier | Spirit Gathering |
+| **2** Inscriber | **2nd**-tier | Qi Stabilizer (and Iron Wall when implemented) |
+
+**F1b stub lean (proposed, not coded):**
+
+- New characters start **master tier 1** (or bump to 1 on first residence grant) so Spirit Gathering is not blocked.
+- Residence grant for Qi Stabilizer also bumps master tier to **2** if below (elder teaching), **or** player must already be 2 — prefer auto-bump on grant so courtyard never soft-locks.
+- Exams / FI / promotion UI → **F2**.
+
+No need to invent new unlock fantasy for 0–2 until content outgrows “two courtyard patterns.”
+
+### F1b acquire & content (elaboration)
+
+**Problem:** today the only acquire path is `learnOnResidenceLevel` → instant `knownFormations`. A shelf with nothing to put on it is empty chrome.
+
+**Acquire channels (pick for F1b / near-F1b):**
+
+| Channel | Effort | Fiction | F1b fit |
+|---------|--------|---------|---------|
+| **A. Residence grant → shelf** | Low | Elder leaves a diagram when you upgrade quarters | **Must ship** — migrate existing grants onto shelf as `source: residence_grant`, `deciphered: true` (or auto-decipher on grant) |
+| **B. Market / auction formation manuals** | Medium | Buy unread manuals with stones | Strong “second path” — 1–2 SKUs (e.g. smudged Spirit Gathering duplicate, or a third 1st-tier gather/ward stub) |
+| **C. Explore / loot drop** | Medium | Rare manual in ruins / sealed sites | Flavorful; needs loot table hook |
+| **D. Sect library copy** | Higher | Copy after founded | Fine later; conflicts with “decipher without sect” if it’s the *only* path |
+| **E. Hire decipher** | Parked | Pay NPC to skip Decipher months | Matches hire fantasy; skip UI in F1b |
+
+**Recommendation for F1b:**
+
+1. **Migrate A** — all current known manuals become shelf entries; residence upgrades still grant, but write shelf rows (pre-deciphered).
+2. **Add one B or C source** so Decipher is a real verb at least once — e.g. market sells **“Incomplete Spirit Diagram”** (unread, cheap, months to decipher) *or* a third blueprint stub (`mist_veil` conceal 1st-tier, residence-ok) sold unread.
+3. Without **B or C**, ship shelf UI anyway but treat Decipher as latent until the next content drop — worse for playtest.
+
+**Lay vs decipher without a sect:**
+
+- **Decipher / shelf:** personal — works with residence (or a future pre-sect dwelling). Do **not** require `isSectFounded()`.
+- **Lay at courtyard slots:** today requires founded sect + residence level. Keep that for F1b unless/until a wanderer “camp formation” anchor exists. So: you can **study** patterns as a wanderer; you **inscribe** them once you have quarters on sect grounds (or a later personal expansion).
+
+**Content minimum so F1b feels real:**
+
+| Item | Why |
+|------|-----|
+| Shelf panel on residence UI | See unread vs deciphered |
+| Decipher action (months + small stone cost) | The verb |
+| Master tier stub 0–2 + lay gate by formation tier | Soft profession |
+| Migrate residence grants | No soft-lock |
+| **One unread acquire** (market or loot) | Otherwise Decipher is dead UI |
+
+Trace, fragments, exams, hire UI → later.
 
 ---
 
@@ -503,13 +559,19 @@ G.sect.residence.formations.slots = [
 - [x] Neglect = inscription integrity (fade/decay), **not** defensive hit-HP (owner 2026-07-22)
 - [x] Activation switch — laid ≠ running; arrays expensive while on (owner 2026-07-22)
 - [x] Command talisman for remote / emergency flip (owner 2026-07-22)
-- [ ] Owner OK: learn pipeline thin path (F1a fuel/integrity → F1b shelf/decipher; trace later)
-- [x] Courtyard new lays default **on + fueled** (convenience); same switch model (owner lean F1a)
+- [x] Learn pipeline thin path — F1b = shelf + decipher; Trace later (owner 2026-07-22)
+- [x] Decipher at residence / personal dwelling — not gated on founding a sect (owner 2026-07-22)
+- [x] Master 0–2 unlocks = existing table (1st / 2nd formation tier); stub only in F1b, exams in F2
+- [ ] Owner OK: F1b second acquire — market unread manual vs loot vs shelf-only + latent Decipher
+- [ ] Owner OK: third blueprint stub for unread acquire, or reuse smudged Spirit Gathering
 - [ ] Owner OK: use-scaled fuel drain (later) vs flat draw while active only
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
+- **F1b unread source:** market SKU, explore loot, or defer real Decipher until more content?
+- **Third courtyard pattern?** Small 1st-tier (mist/conceal) vs “smudged copy of Spirit Gathering” only
+- **Wanderer lay:** keep lay-behind-sect for F1b, or allow a camp/personal slot later?
 - **Standby cost:** true zero fuel when off, or a tiny “keep the eye warm” sip so arrays feel alive?
 - **Command talisman:** one-shot burn vs rechargeable seal; who can craft (master grade)?
 - **Standing orders:** can an Array Disciple auto-activate on raid alert, or always player confirm for grand defense?
