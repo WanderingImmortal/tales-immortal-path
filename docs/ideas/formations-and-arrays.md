@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | F1a+F1b: [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`) |
-| **Updated** | 2026-07-22 (F1b shelf + unread decipher shipped on branch) |
+| **Updated** | 2026-07-22 (F2 brief: F2a anchors / F2b exams; optional F1c) |
 
 ## Intent
 
@@ -545,11 +545,95 @@ G.sect.residence.formations.slots = [
 | **F0** *(shipped)* | Residence qi formations, lay cost, cultivate-at-quarters hook |
 | **F1a** *(shipped on PR #61)* | Fuel + activation switch + inscription integrity; residence patterns first |
 | **F1b** *(shipped on PR #61)* | Formation shelf + unread Decipher; master stub 0–2; market Stabilizer; no Trace |
-| **F2** | Sect anchor nodes; master grade 3–4; grade exams |
+| **F1c** *(optional polish — not required)* | See below — Trace / command talisman / hire stub / Iron Wall live |
+| **F2** | Sect anchor nodes + real master promotion (exams/FI) through Adept–Array Disciple; see **F2 brief** |
 | **F3** | Essence gather + site tags (with cultivation methods P3) |
 | **F4** | Arrays — multi-formation sect scale, condensate; Array Disciple duties |
 | **F5** | Equipment + talisman deploy (master grade 5+) |
 | **F6** | Hybrids + Formation Dao design; guild/market anchors; grand arrays |
+
+### Optional F1c (polish before or beside F2)
+
+Not on the official ladder — only if courtyard/study still feels thin:
+
+| Slice | Why |
+|-------|-----|
+| **Trace** (1–2 sand-table sessions) | Makes “profession” feel before exams; skip if catalog still tiny |
+| **Command talisman** | Remote flip for residence (and later defense array) — already designed |
+| **Hire decipher/lay stub** | Escape hatch for non-formation mains |
+| **Iron Wall Ward live** | First ward with activate-when-threatened fantasy on residence or perimeter |
+
+Prefer **not** stuffing these into F2 if F2 already carries anchors + exams.
+
+---
+
+## F2 brief (sect anchors + real promotion)
+
+**Goal:** formations leave the courtyard and master tier stops being “decipher a harder book → free rank-up.”
+
+### Two jobs (recommend shipping as F2a / F2b)
+
+| Slice | Player fantasy | Scope |
+|-------|----------------|-------|
+| **F2a — Anchors** | “I inscribed the meditation chamber / lit the mountain ward.” | 1–2 sect map nodes host the same slot model as residence (fuel / switch / integrity). Building still exists; pattern is what you *choose* to run there. |
+| **F2b — Promotion** | “I earned Adept — I didn’t just buy a scroll.” | Formation Insight (FI) + proof-lay exam to leave Inscriber (2) → Adept (3). Array Disciple (4) can wait until one array-assist beat exists, or stub at end of F2. |
+
+Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will fight the involvement-vs-complexity rule.
+
+### F2a — Sect anchors (detail)
+
+**Today:** `meditation_chamber`, `cultivation_hall`, `defense_array` are buildings with flat bonuses.  
+**F2a:** those nodes become **anchors** — each can hold a laid pattern (reuse F1a slot shape).
+
+| Anchor | Good first patterns | Notes |
+|--------|---------------------|-------|
+| **Meditation chamber** | Gather / stabilise (hall-scale, slightly stronger or shared with disciples) | Safest first port of F1a systems |
+| **Defense array** node | Ward (Iron Wall or a thin perimeter ward) | **Must** use activation switch — expensive while on; standby cheap. This is where “sect doesn’t keep the mountain lit” pays off |
+| **Cultivation hall** | Gather (sect-wide cultivate %) | Watch bonus stacking vs existing hall % — prefer replace/transform flat % into pattern output over double-dip |
+
+**Reuse:** same fuel / active / integrity verbs. No new combat inscription.  
+**Gate:** building level ≥ 1 (or node unlocked) + deciphered blueprint + master tier ≥ pattern tier.  
+**Save shape (sketch):** `G.sect.anchors.meditation_chamber = { slots: [slotObj|null] }` (or one slot per node for F2a).
+
+### F2b — Exams & FI (detail)
+
+**Problem with F1b:** deciphering Stabilizer also bumps master to 2. Fine for onboarding; bad forever.
+
+**F2 change:**
+
+- Decipher **never** raises master tier above **2** (Inscriber). Or: decipher only grants tier 1 from starter; tier 2+ requires exam.
+- **FI** accrues from: decipher, successful lays, months maintaining **active** patterns, repairs, (later) array assist.
+- **Exam 2→3:** spend FI + materials + months on a **proof lay** at a hall/borrowed anchor (or meditation chamber). Fail → cooldown + partial mat loss. Success → Formation Adept.
+- **Exam 3→4:** harder proof (or first array-link assist) → Array Disciple — can slip to early F4 if F2 is heavy.
+
+**Realm gate (soft):** exam available only if cultivator realm is in band for that formation tier (doc: backlash / exam access) — keep soft so formation-main isn’t hard-locked forever.
+
+### What F2 is *not*
+
+- Full arrays / condensate (F4)
+- Essence site tags (F3)
+- Gear / combat talisman deploy (F5)
+- Natural / heavenly formations (application mastery stub)
+
+### Recommended adds / changes (agent lean — owner TBD)
+
+1. **Split F2 → F2a anchors, F2b exams** — don’t wait on both to ship value.
+2. **Retcon F1b promotion:** after F2b lands, decipher stops granting free tier-ups past Inscriber; existing saves keep their tier.
+3. **Defense array first or second, not last** — activation economy is the clearest F1a payoff at sect scale.
+4. **One live ward blueprint** (Iron Wall or thinner) before Adept exams, so tier 3 has somewhere to go that isn’t another courtyard gather.
+5. **Skip Trace in F2** unless you want sand-table fiction — Trace is optional F1c; exams already teach “proof.”
+6. **Command talisman:** tiny F1c/F2a add-on once defense array exists (remote light-up on raid) — high fantasy, low systems cost if it’s just “consume item → set active.”
+7. **Hire:** one button “pay stones, elder deciphers/lays” as F1c — protects cultivator-mains from F2 complexity.
+8. **Bonus stacking rule:** write it down before cultivation-hall gather: pattern **replaces** or **modulates** building % — never silent additive soup.
+9. **Content before rank 4:** don’t open master tier 4 until there’s an array-assist or essence-adjacent verb; otherwise Adept is enough for F2.
+
+### F2 open calls for owner
+
+- [ ] F2a first (anchors) vs F2b first (exams)?
+- [ ] First non-residence anchor: meditation chamber vs defense array?
+- [ ] Decipher stops promoting at tier 1 or at tier 2 once exams exist?
+- [ ] Iron Wall in F2a, or a simpler “Mountain Ward” stub?
+- [ ] Cultivation hall: replace flat cultivate % with formation, or hybrid?
 
 ---
 
