@@ -67,11 +67,62 @@ const ZONES = {
 
 let currentZone = "dustbone";
 
+/** Map popup UI — World vs Local tab state (not persisted). */
+let mapPopupUi = {
+    tab: 'world',
+    localZoneId: null,
+    previewMode: false,
+    selectedLocationId: null,
+    worldSelectedZoneId: null
+};
+
 // ===== MAP FUNCTIONS =====
 function actionMap() {
     if (G.gameOver) return;
+    mapPopupUi.tab = 'world';
+    mapPopupUi.previewMode = false;
+    mapPopupUi.localZoneId = getMainZoneId();
+    mapPopupUi.selectedLocationId = null;
+    mapPopupUi.worldSelectedZoneId = getMainZoneId();
     renderMapPopup();
     document.getElementById('mapPopup').classList.add('active');
+}
+
+function setMapPopupTab(tab, opts) {
+    const next = tab === 'local' ? 'local' : 'world';
+    mapPopupUi.tab = next;
+    if (next === 'local') {
+        const zoneId = opts?.zoneId || mapPopupUi.localZoneId || getMainZoneId();
+        mapPopupUi.localZoneId = zoneId;
+        mapPopupUi.previewMode = !!opts?.preview;
+        if (opts?.resetSelection !== false) {
+            mapPopupUi.selectedLocationId = null;
+        }
+    } else if (opts?.zoneId) {
+        mapPopupUi.worldSelectedZoneId = opts.zoneId;
+    }
+    renderMapPopup();
+}
+
+function openLocalMap(zoneId, preview) {
+    const mainHere = getMainZoneId();
+    const z = zoneId || mainHere;
+    const isPreview = preview != null ? !!preview : (z !== mainHere || (typeof isInHiddenSubZone === 'function' && isInHiddenSubZone()));
+    setMapPopupTab('local', { zoneId: z, preview: isPreview });
+}
+
+function syncMapTabChrome() {
+    const worldBtn = document.getElementById('mapTabWorld');
+    const localBtn = document.getElementById('mapTabLocal');
+    const worldPanel = document.getElementById('mapWorldPanel');
+    const localPanel = document.getElementById('mapLocalPanel');
+    const onLocal = mapPopupUi.tab === 'local';
+    worldBtn?.classList.toggle('active', !onLocal);
+    localBtn?.classList.toggle('active', onLocal);
+    if (worldBtn) worldBtn.setAttribute('aria-selected', onLocal ? 'false' : 'true');
+    if (localBtn) localBtn.setAttribute('aria-selected', onLocal ? 'true' : 'false');
+    if (worldPanel) worldPanel.hidden = onLocal;
+    if (localPanel) localPanel.hidden = !onLocal;
 }
 
 function getActiveZoneId() {
@@ -92,7 +143,8 @@ function getMainZoneId() {
 function renderMapPopup() {
     const here = getActiveZoneId();
     const mainId = getMainZoneId();
-    if (typeof mountContinentMap === 'function') mountContinentMap();
+    syncMapTabChrome();
+
     const display = (typeof getDisplayZoneDef === 'function' ? getDisplayZoneDef() : null)
         || ZONES[here] || ZONES[mainId];
     const parent = ZONES[mainId];
@@ -100,11 +152,21 @@ function renderMapPopup() {
     if (HIDDEN_SUBZONES[here] && parent && typeof getPlaceDisplayLabel !== 'function') {
         label += ` (within ${parent.emoji} ${parent.name})`;
     }
-    document.getElementById('currentZoneDisplay').textContent = `Current: ${label}`;
-    if (HIDDEN_SUBZONES[here]) {
+    const curDisp = document.getElementById('currentZoneDisplay');
+    if (curDisp) curDisp.textContent = `Current: ${label}`;
+
+    if (mapPopupUi.tab === 'local') {
+        if (!mapPopupUi.localZoneId) mapPopupUi.localZoneId = mainId;
+        if (typeof mountLocalMap === 'function') mountLocalMap();
+        return;
+    }
+
+    if (typeof mountContinentMap === 'function') mountContinentMap();
+    const guideZone = mapPopupUi.worldSelectedZoneId || mainId;
+    if (HIDDEN_SUBZONES[here] && guideZone === mainId) {
         showHiddenSubZoneGuide(here);
     } else {
-        showZoneGuide(mainId);
+        showZoneGuide(guideZone);
     }
     if (typeof renderMapSubZoneBadges === 'function') renderMapSubZoneBadges();
 }
@@ -131,10 +193,14 @@ function showHiddenSubZoneGuide(subZoneId) {
     if (ancient) {
         html += `<div class="ancients-revealed-banner unsealed">✨ ${ancient.emoji} ${ancient.name} — ${escapeHtml(ancient.desc)}</div>`;
     }
+    html += `<button type="button" class="zone-local-map-btn" data-open-local="${parent}" data-local-preview="0">📍 Open local map</button>`;
     if (typeof renderAncientsZonePanelHtml === 'function') {
         html += renderAncientsZonePanelHtml(parent);
     }
     info.innerHTML = html;
+    info.querySelector('[data-open-local]')?.addEventListener('click', function() {
+        openLocalMap(this.dataset.openLocal, this.dataset.localPreview === '1');
+    });
     if (typeof bindAncientsZonePanelEvents === 'function') bindAncientsZonePanelEvents(info);
 }
 
@@ -143,6 +209,7 @@ function showZoneGuide(zoneId) {
     const info = document.getElementById('zoneInfo');
     if (!zone || !info) return;
 
+    mapPopupUi.worldSelectedZoneId = zoneId;
     const mainHere = getMainZoneId();
     document.querySelectorAll('.zone-map-region').forEach(region => {
         const z = region.dataset.zoneMap;
@@ -161,15 +228,17 @@ function showZoneGuide(zoneId) {
 
     let travelBtn = '';
     const hereMain = getMainZoneId();
-    if (zoneId === hereMain && !(typeof isInHiddenSubZone === 'function' && isInHiddenSubZone())) {
-        travelBtn = `<div class="zone-guide-here">📍 You are in this region.</div>`;
+    const inThisRegion = zoneId === hereMain && !(typeof isInHiddenSubZone === 'function' && isInHiddenSubZone());
+    if (inThisRegion) {
+        travelBtn = `<div class="zone-guide-here">📍 You are in this region.</div>
+            <button type="button" class="zone-local-map-btn" data-open-local="${zoneId}" data-local-preview="0">📍 Open local map</button>`;
     } else if (locked) {
-        travelBtn = `<div class="zone-guide-locked">🔒 Requires ${realmName} or higher.</div>`;
+        travelBtn = `<div class="zone-guide-locked">🔒 Requires ${realmName} or higher.</div>
+            <button type="button" class="zone-local-map-btn zone-local-map-btn--preview" data-open-local="${zoneId}" data-local-preview="1">👁️ Preview region</button>`;
     } else {
-        travelBtn = `<button type="button" class="zone-travel-btn" data-zone-travel="${zoneId}">🗺️ Travel here · ${ACTION_MONTHS.travel} months · costs Qi</button>`;
+        travelBtn = `<button type="button" class="zone-travel-btn" data-zone-travel="${zoneId}">🗺️ Travel here · ${ACTION_MONTHS.travel} months · costs Qi</button>
+            <button type="button" class="zone-local-map-btn zone-local-map-btn--preview" data-open-local="${zoneId}" data-local-preview="1">👁️ Preview region</button>`;
     }
-
-    const locationsHtml = typeof renderZoneLocationsHtml === 'function' ? renderZoneLocationsHtml(zoneId) : '';
 
     info.innerHTML = `
         <div class="zone-guide-header">${zone.emoji} <strong>${zone.name}</strong> · ${zone.biome}</div>
@@ -177,14 +246,17 @@ function showZoneGuide(zoneId) {
         <div class="zone-guide-lore">${escapeHtml(zone.lore || zone.description)}</div>
         <div class="zone-guide-tags">${marketLine}${highlights}</div>
         ${travelBtn}
-        ${locationsHtml}
         ${typeof renderAncientsZonePanelHtml === 'function' ? renderAncientsZonePanelHtml(zoneId) : ''}
     `;
 
     info.querySelector('[data-zone-travel]')?.addEventListener('click', function() {
         travelToZone(this.dataset.zoneTravel);
     });
-    if (typeof bindZoneLocationEvents === 'function') bindZoneLocationEvents(info);
+    info.querySelectorAll('[data-open-local]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            openLocalMap(this.dataset.openLocal, this.dataset.localPreview === '1');
+        });
+    });
     if (typeof bindAncientsZonePanelEvents === 'function') bindAncientsZonePanelEvents(info);
 }
 
@@ -247,6 +319,11 @@ function travelToZone(zoneId) {
     if (typeof fireSceneNoticesOnArrive === 'function') {
         fireSceneNoticesOnArrive({ locationId: G.currentLocation, zoneId });
     }
+    mapPopupUi.tab = 'local';
+    mapPopupUi.previewMode = false;
+    mapPopupUi.localZoneId = zoneId;
+    mapPopupUi.selectedLocationId = G.currentLocation || null;
+    mapPopupUi.worldSelectedZoneId = zoneId;
     renderMapPopup();
     fullRender();
 }
@@ -255,6 +332,8 @@ function bindMapEvents() {
     document.getElementById('mapClose').addEventListener('click', function() {
         document.getElementById('mapPopup').classList.remove('active');
     });
+    document.getElementById('mapTabWorld')?.addEventListener('click', () => setMapPopupTab('world'));
+    document.getElementById('mapTabLocal')?.addEventListener('click', () => openLocalMap(getMainZoneId(), false));
 }
 
 // ===== EXPLORE =====

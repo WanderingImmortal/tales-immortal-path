@@ -107,6 +107,7 @@ function travelToLocation(locationId) {
     return { success: true, message: `Arrived at ${loc.name}.` };
 }
 
+/** @deprecated Prefer Local map nodes; kept for zones without ZONE_LOCAL_LAYOUT. */
 function renderZoneLocationsHtml(zoneId) {
     const locs = getLocationsInZone(zoneId);
     if (!locs.length) return '';
@@ -149,9 +150,215 @@ function bindZoneLocationEvents(container) {
     });
 }
 
+function getLocalMapLayout(zoneId) {
+    return (typeof ZONE_LOCAL_LAYOUT !== 'undefined' && ZONE_LOCAL_LAYOUT[zoneId]) || null;
+}
+
+function getLocalMapNodeTypeClass(loc) {
+    if (!loc) return '';
+    if (loc.type === 'city') return 'local-map-node--city';
+    if (loc.type === 'market') return 'local-map-node--market';
+    if (loc.type === 'sect_hq') return 'local-map-node--sect';
+    if (loc.type === 'outpost') return 'local-map-node--outpost';
+    if (loc.type === 'wilderness') return 'local-map-node--wilderness';
+    return '';
+}
+
+function getLocalMapNodeBadge(loc) {
+    if (!loc) return '';
+    if (loc.type === 'market' || loc.marketKey) return '<span class="local-map-node-badge">🏪</span>';
+    if (loc.type === 'sect_hq') return `<span class="local-map-node-badge">${loc.emoji || '🏯'}</span>`;
+    return '';
+}
+
+function renderLocalMapPathsSvg(layout) {
+    if (!layout?.paths?.length || !layout.nodes) return '';
+    let lines = '';
+    layout.paths.forEach(p => {
+        const a = layout.nodes[p.from];
+        const b = layout.nodes[p.to];
+        if (!a || !b) return;
+        lines += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" class="local-map-path-line"/>`;
+    });
+    if (!lines) return '';
+    return `<svg class="local-map-paths-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>`;
+}
+
+function renderLocalMapHeaderHtml(zoneId, preview) {
+    const zone = ZONES[zoneId];
+    if (!zone) return '';
+    const curLoc = !preview ? getCurrentLocationDef() : null;
+    const hereLine = curLoc
+        ? `Current: ${curLoc.emoji} ${escapeHtml(curLoc.name)}`
+        : (preview ? 'Preview — not in this region' : 'Current: —');
+    return `<div class="local-map-header-row">
+        <div class="local-map-title">📍 ${zone.emoji} ${escapeHtml(zone.name)} — Local Map</div>
+        <button type="button" class="local-map-world-btn" data-map-tab="world">← World</button>
+    </div>
+    <div class="local-map-current">${hereLine}</div>`;
+}
+
+function renderLocalMapSceneHtml(zoneId, preview) {
+    const layout = getLocalMapLayout(zoneId);
+    const zone = ZONES[zoneId];
+    if (!layout) {
+        const cards = renderZoneLocationsHtml(zoneId);
+        return `<div class="local-map-fallback">
+            <p class="local-map-fallback-hint">Illustrated local map for this region is coming soon. Places below still work.</p>
+            ${cards}
+        </div>`;
+    }
+
+    const mainZone = typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone);
+    const inZone = !preview && mainZone === zoneId && !(typeof isInHiddenSubZone === 'function' && isInHiddenSubZone());
+    const curLoc = getCurrentLocationId();
+    const selected = (typeof mapPopupUi !== 'undefined' && mapPopupUi.selectedLocationId) || null;
+    const theme = layout.theme || 'default';
+
+    let html = `<div class="local-map-scene local-map-theme-${theme}" role="img" aria-label="${escapeHtml(zone?.name || zoneId)} local map">`;
+    html += `<div class="local-map-sky"></div>`;
+    html += `<div class="local-map-ground"></div>`;
+    html += `<div class="local-map-paths">${renderLocalMapPathsSvg(layout)}</div>`;
+    html += `<div class="local-map-nodes">`;
+
+    Object.entries(layout.nodes).forEach(([locId, pos]) => {
+        const loc = getLocationDef(locId);
+        if (!loc) return;
+        const locked = G.realmIdx < (loc.minRealm || 0);
+        const isHere = inZone && curLoc === locId;
+        const isSelected = selected === locId;
+        const typeClass = getLocalMapNodeTypeClass(loc);
+        const realmName = locked
+            ? (PATHS[G.path]?.realms[loc.minRealm] || `Realm ${(loc.minRealm || 0) + 1}`)
+            : '';
+        const title = locked
+            ? `${loc.name} — Requires ${realmName}`
+            : `${loc.name} · ${LOCATION_TYPE_LABELS[loc.type] || loc.type}`;
+        html += `<button type="button" class="local-map-node ${typeClass}${isHere ? ' is-here' : ''}${isSelected ? ' is-selected' : ''}${locked ? ' is-locked' : ''}"
+            data-local-location="${locId}"
+            style="left:${pos.x}%;top:${pos.y}%;z-index:${pos.layer || 1}"
+            title="${escapeHtml(title)}">
+            <span class="local-map-node-icon">${loc.emoji}</span>
+            <span class="local-map-node-label">${escapeHtml(loc.name)}</span>
+            ${getLocalMapNodeBadge(loc)}
+            ${isHere ? '<span class="local-map-here-pulse" aria-hidden="true"></span>' : ''}
+        </button>`;
+    });
+
+    html += `</div></div>`;
+    html += `<p class="local-map-hint">Click a place for details.${preview ? '' : ' Walk between places from the panel below.'}</p>`;
+    return html;
+}
+
+function renderLocalLocationDetailHtml(zoneId, locationId, preview) {
+    const zone = ZONES[zoneId];
+    if (preview) {
+        const banner = `<div class="local-map-preview-banner">Travel to ${zone?.emoji || ''} ${escapeHtml(zone?.name || 'this region')} first to walk here.</div>`;
+        if (!locationId) {
+            return `${banner}<div class="local-map-detail-empty">Click a place to read its lore.</div>`;
+        }
+    }
+
+    const loc = getLocationDef(locationId);
+    if (!loc) {
+        return `<div class="local-map-detail-empty">Click a place on the local map.</div>`;
+    }
+
+    const typeLabel = LOCATION_TYPE_LABELS[loc.type] || loc.type;
+    const tags = (loc.tags || []).map(t => `<span class="zone-guide-tag">${escapeHtml(t)}</span>`).join('');
+    const mainZone = typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone);
+    const inZone = !preview && mainZone === zoneId && !(typeof isInHiddenSubZone === 'function' && isInHiddenSubZone());
+    const isHere = inZone && getCurrentLocationId() === loc.id;
+    const locked = G.realmIdx < (loc.minRealm || 0);
+    const realmName = PATHS[G.path]?.realms[loc.minRealm] || `Realm ${(loc.minRealm || 0) + 1}`;
+
+    let action = '';
+    if (preview) {
+        action = `<div class="zone-location-preview">Preview only — travel to the region to walk.</div>`;
+    } else if (locked) {
+        action = `<div class="zone-guide-locked">🔒 Requires ${realmName} or higher.</div>`;
+    } else if (isHere) {
+        const shortcuts = [];
+        if (loc.marketKey) {
+            shortcuts.push(`<button type="button" class="local-map-shortcut-btn" data-local-shortcut="market">🏪 Market</button>`);
+        }
+        if (loc.factionNpcId || loc.type === 'sect_hq') {
+            shortcuts.push(`<button type="button" class="local-map-shortcut-btn" data-local-shortcut="factions">🏛️ Factions</button>`);
+        }
+        shortcuts.push(`<button type="button" class="local-map-shortcut-btn" data-local-shortcut="look">👁️ Look around</button>`);
+        action = `<div class="zone-location-here">📍 You are here</div>
+            <div class="local-map-shortcuts">${shortcuts.join('')}</div>
+            <p class="local-map-detail-hint">Close the map to explore — or use a shortcut above.</p>`;
+    } else if (inZone) {
+        action = `<button type="button" class="zone-location-travel-btn" data-location-travel="${loc.id}">Walk here · ${ACTION_MONTHS.localTravel || 2}mo · Qi</button>`;
+    } else {
+        action = `<div class="zone-location-preview">Travel to the region first</div>`;
+    }
+
+    const previewBanner = preview
+        ? `<div class="local-map-preview-banner">Travel to ${zone?.emoji || ''} ${escapeHtml(zone?.name || 'this region')} first to walk here.</div>`
+        : '';
+
+    return `${previewBanner}
+        <div class="zone-location-head">${loc.emoji} <strong>${escapeHtml(loc.name)}</strong> <span class="zone-location-type">${typeLabel}</span></div>
+        <div class="zone-location-desc">${escapeHtml(loc.description)}</div>
+        ${loc.lore ? `<div class="zone-guide-lore">${escapeHtml(loc.lore)}</div>` : ''}
+        ${tags ? `<div class="zone-guide-tags">${tags}</div>` : ''}
+        ${action}`;
+}
+
+function mountLocalMap() {
+    const headerEl = document.getElementById('localMapHeader');
+    const sceneEl = document.getElementById('localMapScene');
+    const detailEl = document.getElementById('localMapDetail');
+    if (!headerEl || !sceneEl || !detailEl || typeof mapPopupUi === 'undefined') return;
+
+    const zoneId = mapPopupUi.localZoneId || (typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone));
+    mapPopupUi.localZoneId = zoneId;
+    const preview = !!mapPopupUi.previewMode;
+
+    if (!mapPopupUi.selectedLocationId) {
+        if (!preview) {
+            mapPopupUi.selectedLocationId = getCurrentLocationId() || getDefaultLocationForZone(zoneId);
+        } else {
+            mapPopupUi.selectedLocationId = getDefaultLocationForZone(zoneId);
+        }
+    }
+
+    headerEl.innerHTML = renderLocalMapHeaderHtml(zoneId, preview);
+    sceneEl.innerHTML = renderLocalMapSceneHtml(zoneId, preview);
+    detailEl.innerHTML = renderLocalLocationDetailHtml(zoneId, mapPopupUi.selectedLocationId, preview);
+
+    headerEl.querySelector('[data-map-tab="world"]')?.addEventListener('click', () => {
+        if (typeof setMapPopupTab === 'function') setMapPopupTab('world');
+    });
+
+    sceneEl.querySelectorAll('[data-local-location]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            mapPopupUi.selectedLocationId = this.dataset.localLocation;
+            mountLocalMap();
+        });
+    });
+
+    bindZoneLocationEvents(detailEl);
+
+    detailEl.querySelectorAll('[data-local-shortcut]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const kind = this.dataset.localShortcut;
+            document.getElementById('mapPopup')?.classList.remove('active');
+            if (kind === 'market' && typeof actionMarket === 'function') actionMarket();
+            else if (kind === 'factions' && typeof actionFactions === 'function') actionFactions();
+            else if (kind === 'look' && typeof actionLookAround === 'function') actionLookAround();
+            else fullRender();
+        });
+    });
+}
+
 function renderContinentMapSvg() {
     const mainZone = typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone);
-    const selected = document.querySelector('.zone-map-region--selected')?.dataset?.zoneMap || mainZone;
+    const selected = document.querySelector('.zone-map-region--selected')?.dataset?.zoneMap
+        || (typeof mapPopupUi !== 'undefined' && mapPopupUi.worldSelectedZoneId)
+        || mainZone;
     let svg = `<svg class="continent-map-svg" viewBox="0 0 100 86" role="img" aria-label="Azure Sky Continent map">
         <defs>
             <linearGradient id="mapSea" x1="0" y1="0" x2="0" y2="1">
@@ -202,6 +409,7 @@ function mountContinentMap() {
     el.querySelectorAll('.zone-map-region').forEach(region => {
         region.addEventListener('click', function() {
             const zoneId = this.dataset.zoneMap;
+            if (typeof mapPopupUi !== 'undefined') mapPopupUi.worldSelectedZoneId = zoneId;
             el.querySelectorAll('.zone-map-region').forEach(r => r.classList.remove('zone-map-region--selected'));
             this.classList.add('zone-map-region--selected');
             if (typeof showZoneGuide === 'function') showZoneGuide(zoneId);

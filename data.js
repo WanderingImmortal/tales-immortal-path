@@ -3543,6 +3543,34 @@ const ZONE_MAP_LAYOUT = {
     emberwild: { cx: 50, cy: 72, rx: 15, ry: 10 }
 };
 
+/** Local map node positions — presentation only; WORLD_LOCATIONS is source of truth. */
+const ZONE_LOCAL_LAYOUT = {
+    dustbone: {
+        theme: 'desert',
+        nodes: {
+            bone_crossroads: { x: 50, y: 55, layer: 2 },
+            miraj_waystation: { x: 22, y: 48, layer: 1 },
+            sunscar_camp: { x: 78, y: 35, layer: 1 },
+            ashen_shrine: { x: 62, y: 78, layer: 1 }
+        },
+        paths: [
+            { from: 'miraj_waystation', to: 'bone_crossroads' },
+            { from: 'sunscar_camp', to: 'bone_crossroads' },
+            { from: 'ashen_shrine', to: 'bone_crossroads' }
+        ]
+    },
+    emberwild: {
+        theme: 'jungle',
+        nodes: {
+            ashvein_village: { x: 35, y: 50, layer: 2 },
+            beast_circle: { x: 68, y: 48, layer: 1 }
+        },
+        paths: [
+            { from: 'ashvein_village', to: 'beast_circle' }
+        ]
+    }
+};
+
 const WORLD_LOCATIONS = {
     frost_gate: {
         id: 'frost_gate', parentZone: 'frostbite', type: 'city', isDefault: true,

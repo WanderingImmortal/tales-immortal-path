@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
+| **Status** | `building` (steps 1–2) |
 | **Blocked on** | None for UI; pairs with [`realm-claims.md`](realm-claims.md) for travel scaling |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent design chats, 2026-07-18–20 |
-| **Updated** | 2026-07-21 |
+| **Chat / PR** | `cursor/local-world-map-split` |
+| **Updated** | 2026-07-22 |
 
 ## Intent
 
@@ -141,16 +141,19 @@ Wire to `ancients.js` entrance status.
 
 ### Build order (suggested)
 
-1. Tabbed map popup — World tab = today minus place cards; Local = nodes for **current zone only**
-2. Dustbone + Emberwild (prove pattern)
+1. ~~Tabbed map popup — World tab = today minus place cards; Local = nodes for **current zone only**~~ ✅
+2. ~~Dustbone + Emberwild (prove pattern)~~ ✅
 3. Heartlands, Jade, Frostbite
 4. Hidden sub-zone pins
 5. Sect tab unification (separate doc)
 
+**Shipped in steps 1–2:** `#mapPopup` World | Local tabs; place cards removed from World; `ZONE_LOCAL_LAYOUT` for Dustbone + Emberwild; clickable nodes + detail Walk; Preview region (no Walk); auto-switch to Local after zone travel. Other zones fall back to place cards on Local until step 3.
+
 ## Prerequisites
 
-- [ ] Tab UI in `#mapPopup` (`index.html`, `world.js`, `locations.js`)
-- [ ] `ZONE_LOCAL_LAYOUT` in `data.js`
+- [x] Tab UI in `#mapPopup` (`index.html`, `world.js`, `locations.js`)
+- [x] `ZONE_LOCAL_LAYOUT` in `data.js` (Dustbone + Emberwild)
+- [ ] Remaining zone layouts (Heartlands, Jade, Frostbite)
 - [ ] Realm travel scaling optional — [`realm-claims.md`](realm-claims.md)
 
 ## Open questions
