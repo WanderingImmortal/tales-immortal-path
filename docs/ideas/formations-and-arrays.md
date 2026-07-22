@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | F1a: [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`); design park #60 |
-| **Updated** | 2026-07-22 (starter = one gather; rest is study) |
+| **Updated** | 2026-07-22 (unread starter; involvement vs complexity note) |
 
 ## Intent
 
@@ -437,10 +437,10 @@ From the profession table — **this is the rough unlock idea**; F1b only needs 
 **F1b stub lean (proposed — owner lean 2026-07-22):**
 
 - Formations are a **profession / art**, not free residence loot. Do **not** auto-teach a full catalog on upgrade.
-- **At most one starter:** a simple **1st-tier qi gathering** diagram (Spirit Gathering or a thinner tutorial variant) — either pre-deciphered on first meaningful residence, or a free unread manual you still Decipher once so the verb is taught.
+- **At most one starter:** a simple **1st-tier qi gathering** diagram — arrives **unread**. Player **Deciphers** it once at residence (teaches the verb, stakes a little time/stones). Not a free “you already know formations” dump.
 - **Everything else** (Qi Stabilizer, wards, later patterns) arrives **unread** via market / loot / sect copy and must be **Deciphered**; master tier must allow that formation’s tier to lay.
-- Master tier starts at **0** or **1** only to enable that single starter — not auto-bumped to 2 by residence upgrades. Reaching **Inscriber (2)** is study/profession progress (even if F1b only stubs the number and F2 adds exams).
-- Soft-lock guard: if the player has courtyard slots but no gathering diagram yet, surface the starter path clearly (elder gift / market “novice diagram”) — do not dump Stabilizer for free.
+- Master tier starts at **0**; first Decipher of the starter (or completing it) bumps to **1** so you can lay gather. Reaching **Inscriber (2)** is study/profession progress (F1b may stub; F2 exams).
+- Soft-lock guard: surface the novice unread diagram clearly when courtyard slots open — do not auto-grant Stabilizer.
 
 Exams / FI / promotion UI → **F2**.
 
@@ -461,10 +461,14 @@ Exams / FI / promotion UI → **F2**.
 
 **Recommendation for F1b:**
 
-1. **Starter only** — one simple qi-gathering path onto the shelf (teach Decipher if unread, or hand over deciphered once).
+1. **Starter unread** — one simple qi-gathering manual onto the shelf (`deciphered: false`); Decipher at residence is the onboarding beat.
 2. **Stop** `learnOnResidenceLevel` auto-grants for Stabilizer (and any future patterns) — those become market/loot unread manuals.
 3. **Market (B)** sells at least Qi Stabilizer unread (needs master tier 2 to lay after decipher) so study/profession has a next step.
 4. Migrate existing saves: known formations stay on shelf as already deciphered; new runs follow the stricter path.
+
+### Design tension (owner 2026-07-22)
+
+Want the player **involved** in a growing world — studying, choosing when to light arrays, tending integrity — not only watching numbers tick. Also want the game **fun to play**: thin verbs (Decipher, Activate, Fuel, Maintain) beat a full profession sim on day one. Prefer **depth behind optional doors** (Trace, exams, hire, natural formations) over forcing every axis on every run.
 
 **Lay vs decipher without a sect:**
 
@@ -563,16 +567,15 @@ G.sect.residence.formations.slots = [
 - [x] Neglect = inscription integrity (fade/decay), **not** defensive hit-HP (owner 2026-07-22)
 - [x] Activation switch — laid ≠ running; arrays expensive while on (owner 2026-07-22)
 - [x] Command talisman for remote / emergency flip (owner 2026-07-22)
-- [x] Starter lean: at most one simple qi-gather formation free/near-free; rest is study (owner 2026-07-22)
-- [ ] Owner OK: starter = pre-deciphered gift vs unread tutorial Decipher once
+- [x] Starter = **unread** novice gather; Decipher once at residence (owner 2026-07-22)
+- [x] Starter lean: at most one simple qi-gather free/near-free (unread); rest is study (owner 2026-07-22)
 - [ ] Owner OK: F1b market sells Stabilizer unread (and/or loot); drop residence auto-learn beyond starter
 - [ ] Owner OK: use-scaled fuel drain (later) vs flat draw while active only
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 
 ## Open questions
 
-- **Starter delivery:** free deciphered Spirit Gathering on first quarters, or unread novice diagram you Decipher once?
-- **Master tier 2 in F1b:** stub number only (cheat/debug / placeholder bump), or tiny “prove you maintained gather for N months → tier 2” without full exams?
+- **Master tier 2 in F1b:** stub number only, or tiny “maintained gather / deciphered a 2nd-tier manual → tier 2” without full exams?
 - **F1b unread source:** market SKU for Stabilizer, explore loot, or both?
 - **Wanderer lay:** keep lay-behind-sect for F1b, or allow a camp/personal slot later?
 - **Standby cost:** true zero fuel when off, or a tiny “keep the eye warm” sip so arrays feel alive?
