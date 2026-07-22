@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (F1a on branch); v1 residence qi buffs `shipped` |
+| **Status** | `building` (F1a+F1b on branch); residence qi buffs `shipped` |
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
-| **Chat / PR** | F1a: [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`); design park #60 |
-| **Updated** | 2026-07-22 (unread starter; involvement vs complexity note) |
+| **Chat / PR** | F1a+F1b: [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (`cursor/formations-f1a-fuel-activation-e82d`) |
+| **Updated** | 2026-07-22 (F1b shelf + unread decipher shipped on branch) |
 
 ## Intent
 
@@ -531,9 +531,10 @@ G.sect.residence.formations.slots = [
 | Iron Wall Ward | Stub (`implemented: false`) |
 | Lay / clear / cultivate at quarters | `formations.js`, `sect-map.js` |
 | **F1a fuel / switch / integrity** | Slot objects; `tickResidenceFormations`; Activate / fuel / Maintain UI |
-| Save keys | `G.knownFormations`, `G.sect.residence.formations.slots` (objects) |
+| **F1b shelf / decipher / master 0–2** | `G.formationShelf`, unread starter gather, market Qi Stabilizer, Decipher promotes master tier |
+| Save keys | `G.knownFormations` (derived), `G.formationShelf`, `G.formationMaster`, residence slot objects |
 
-**Still gaps:** command talisman (designed, not coded), shelf/decipher (F1b), anchors beyond residence, equipment/talisman, arrays, essence tags, hybrids, formation master ranks (residence level auto-grants manuals — **bootstrap only**).
+**Still gaps:** command talisman, Trace, exams/FI, hire UI, anchors beyond residence, equipment/talisman, arrays.
 
 ---
 
@@ -542,8 +543,8 @@ G.sect.residence.formations.slots = [
 | Phase | Scope |
 |-------|-------|
 | **F0** *(shipped)* | Residence qi formations, lay cost, cultivate-at-quarters hook |
-| **F1a** *(building)* | Fuel + activation switch + inscription integrity; residence patterns first |
-| **F1b** | Formation shelf + decipher (trace optional); master grade 0–2 |
+| **F1a** *(shipped on PR #61)* | Fuel + activation switch + inscription integrity; residence patterns first |
+| **F1b** *(shipped on PR #61)* | Formation shelf + unread Decipher; master stub 0–2; market Stabilizer; no Trace |
 | **F2** | Sect anchor nodes; master grade 3–4; grade exams |
 | **F3** | Essence gather + site tags (with cultivation methods P3) |
 | **F4** | Arrays — multi-formation sect scale, condensate; Array Disciple duties |
@@ -569,7 +570,7 @@ G.sect.residence.formations.slots = [
 - [x] Command talisman for remote / emergency flip (owner 2026-07-22)
 - [x] Starter = **unread** novice gather; Decipher once at residence (owner 2026-07-22)
 - [x] Starter lean: at most one simple qi-gather free/near-free (unread); rest is study (owner 2026-07-22)
-- [ ] Owner OK: F1b market sells Stabilizer unread (and/or loot); drop residence auto-learn beyond starter
+- [x] F1b market sells Stabilizer unread; drop residence auto-learn beyond starter (2026-07-22)
 - [ ] Owner OK: use-scaled fuel drain (later) vs flat draw while active only
 - [ ] Upkeep economy tuning with [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)
 

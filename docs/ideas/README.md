@@ -23,7 +23,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
-| [Formations & arrays](formations-and-arrays.md) | `building` (F1a) | Cultivation methods P0–P2; F1b shelf | — |
+| [Formations & arrays](formations-and-arrays.md) | `building` (F1a+F1b PR) | Trace/exams F2; essence later | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (P2) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
