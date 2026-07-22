@@ -6,7 +6,7 @@
 | **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
-| **Updated** | 2026-07-22 (F2b: FI + Adept exam; decipher caps at Inscriber) |
+| **Updated** | 2026-07-22 (Adept = art gate; exam authority → creation guilds idea) |
 
 ## Intent
 
@@ -318,13 +318,17 @@ Being a formation master is **dedication**, not a side perk. Most cultivators **
 
 Promotion via **exam + FI** — lay standard pattern at current max **tier**.
 
+**Owner lean (2026-07-22):** **Inscriber = learning the moves** (decipher / study). **Adept = learning the art** — first real exam gate. No exam required for tier 2.
+
+**Exam authority (open):** F2b ships a **local proof** on the shelf. Longer term, creation paths usually have a **guild** that sets standards and runs ranks — game has none yet. Optional add: a top-tier **formation-specialist sect**. Parked in [`creation-path-guilds.md`](creation-path-guilds.md) (lean: guild first; specialist sect optional destination).
+
 ### Tier advancement (not a comprehend button)
 
 Promotion is a **trial**, not `+1 Formation Level`:
 
 1. **Insight threshold** — enough **Formation Insight** (FI) from practice, lays, maintenance, assisted array work.
-2. **Proof lay** — inscribe a **standard exam pattern** at a sect hall or borrowed anchor (materials + months; failure delays retry).
-3. **Optional witness** — sect formation elder, or NPC master for rogue cultivators.
+2. **Proof lay** — inscribe a **standard exam pattern** (today: home shelf; later: guild hall / examiner).
+3. **Optional witness** — formation guild examiner, sect elder, or NPC master for rogue cultivators.
 
 Failed exam: materials lost, cooldown. Success: **master tier** increases.
 
@@ -634,8 +638,9 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 ### F2 open calls for owner
 
 - [x] Decipher promote caps at **Inscriber (2)**; Adept needs exam (build 2026-07-22)
-- [ ] Owner tweak: should Inscriber (2) also require an exam (decipher only → tier 1)?
-- [ ] Owner tweak: Adept exam FI cost / success chance / realm soft gate
+- [x] **Adept = art gate** — Inscriber stays decipher/study; no exam for tier 2 (owner 2026-07-22)
+- [ ] Adept exam FI cost / success chance / realm soft gate (playtest feel)
+- [ ] Exam fiction: formation **guild** only vs also a specialist top sect — see [`creation-path-guilds.md`](creation-path-guilds.md)
 - [ ] Cultivation hall: replace flat cultivate % with formation, or hybrid? (deferred)
 
 ---
@@ -673,7 +678,8 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 - **Defense ceiling:** express “what it can normally block” purely as formation tier/grade vs attacker realm, or also event tags?
 - **Integrity UI:** text state only vs map/SVG line fade (lines/nodes) — when does visual fade ship?
 - **Insight curve:** FI per trace session vs per maintained month — tune in playtest
-- **Exam patterns:** one global “standard array” per rank or sect-specific variants?
+- **Exam patterns:** one global “standard array” per rank or guild/sect-specific variants?
+- **Exam hub:** keep local proof forever, or migrate Adept+ to a Formation Guild hall (see [`creation-path-guilds.md`](creation-path-guilds.md))?
 - **Hire pricing:** flat fee vs % of formation grade + secrecy premium
 - **Above-grade stacking:** max +1 effective grade from arrays, or +1 from overcharge — both stackable or pick one?
 - **Stymie duration:** how long can 2nd-grade pin inconvenience a 4th-grade target?

@@ -8,7 +8,8 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Formations F1–F2b review ([PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61))
 
 ## Next
-- Owner tweaks on F2b (Inscriber exam? FI curve?)
+- Playtest Adept exam feel (FI / success %) on [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61)
+- Creation-path guilds fiction (exam hub) — [`docs/ideas/creation-path-guilds.md`](ideas/creation-path-guilds.md)
 - Chronicle P1 review ([#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59))
 - Territory grow/shrink (sect map phase 2)
 
