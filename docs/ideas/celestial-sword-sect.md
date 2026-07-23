@@ -106,7 +106,7 @@ The Tian founder’s Half-Step breakthrough ended the war because the ceiling ch
 
 Instead of a suicide stroke that would have left the mountain headless:
 
-1. **Ten Thousand Swords Seal Array** *(name pending)* activated — swords from the Sepulcher rise; the peak becomes a sealed killing geometry.
+1. **Ten Thousand Swords Seal Array** (万剑封山阵) activated — the Sepulcher’s blades rise; the peak becomes a sealed killing geometry.
 2. The Sword Immortal **held the core** while patriarch and envoys treated with the Tian.
 3. Early capitulation preserved the array, the lineage, and the Sword Immortal’s life.
 
@@ -120,20 +120,49 @@ Centuries of charter peace gave the Sword Immortal what the war denied: time to 
 
 ### Attitude (apex)
 
-More aloof than the sect below them. The Sword Immortal has not left the array core in living memory. When they speak — rarely, to patriarch only — it is about **Sword Dao**, not Lotus trade or Phoenix pamphlets.
+**Fine with the peace.** Charter boredom is everyone else’s problem. The Sword Immortal is not plotting revival wars — they are walking toward the **Apex** of Sword Dao and care about **nothing else**.
 
-**Refuses:** wasting a sword stroke on politics. **Will act:** if the Seal Array is breached, if the Sepulcher is desecrated, if charter war threatens to **erase** the mountain (not merely humiliate it).
+| Trait | How it shows |
+|-------|----------------|
+| **Single-minded** | Sword, array meditation, polish the dao — politics ignored unless the mountain is threatened |
+| **Peace** | Capitulation bought time; time bought ascension; no hunger to test the Tian again |
+| **Aloof** | Has not left the array core in living memory; speaks to patriarch only, and rarely |
+| **Will act** | Sepulcher desecration, array breach, existential threat to the mountain |
 
-### Array — **Ten Thousand Swords Seal Array** (万剑封山阵) *(name pending)*
+**Refuses:** wasting strokes on jianghu. **Not** restless — **patient**.
+
+### Power (continental)
+
+| Measure | Placement |
+|---------|-----------|
+| **Combat** | **Top three** on the Azure Sky Continent *(excluding rumored Chaos-realm hidden masters)* |
+| **Sword Intent** | **Peak** — intent realm at the ceiling for sword |
+| **Sword Dao** | Polished to an **extreme**; centuries in the array core refining one line |
+| **Agency** | Still bound by immortal restrictions — power ≠ free movement on the mortal board |
+
+Even at **Dao Manifestation** during the Dao Wars, the **First Sword** law was the one force the rising Tian founder **feared could hurt him** — not defeat, but wound. That memory lives in Tian inner court.
+
+**Parked flavor** — if the player ever speaks to **Emperor Tian Xu** as an equal (late game, high imperial favor):
+
+> *“The Sword Immortal was the only one my ancestor feared — the only one who could have truly hurt him.”*
+
+*Implementation: dialogue stub only; not a priority.*
+
+### Meeting the Sword Immortal *(parked)*
+
+Possible **super late** run beat — **Half-Step Immortal** minimum before they **notice** you exist. No interaction design yet; patriarch/Yun Jian is the ceiling for most play.
+
+### Ten Thousand Swords Seal Array (万剑封山阵) — **locked**
+
+A **literal sword array** — not abstract qi lines painted in stone.
 
 | Piece | Fiction |
 |-------|---------|
-| **Anchor** | Ten Thousand Swords Sepulcher — each buried sword a node |
+| **Anchor** | **Ten Thousand Swords Sepulcher** — each interred sword a **formation node** |
+| **History** | Over centuries the sect gathered the **finest swords ever forged** — masters’ life weapons, trophy blades, donated masterpieces — and bound each into the array |
 | **Trigger** | Patriarch seal + Sword Immortal will at core |
-| **Effect** | Peak sealed; sword-qi storm; even Half-Step pays to force entry |
-| **Cost** | Burns sepulcher swords over time — why the sect adds blades of the dead |
-
-*Owner: confirm array name or replace.*
+| **Effect** | Ten thousand swords rise; peak seals; sword-qi storm — even Half-Step pays to force entry |
+| **Cost** | Nodes can **burn** in full activation — why the Sepulcher never stops growing |
 
 ---
 
@@ -190,14 +219,30 @@ Northwest Heartlands — **`sword_sect_hall`** on the local map is the **outer g
 
 ### Ancestral grounds
 
+#### Ten Thousand Swords Sepulcher (万剑冢) — what it is
+
+The Sepulcher is **not** a generic graveyard. It is three things at once:
+
+| Layer | What it is |
+|-------|------------|
+| **Memorial** | Where dead sword masters are honored — name, story, last weapon |
+| **Arsenal** | Where the sect stores the **best swords ever forged** — life blades of patriarchs, duel trophies, masterpieces donated when a smith’s hands fail |
+| **Array engine** | Each sword planted in the stone is a **node** in the Ten Thousand Swords Seal Array — a literal sword formation |
+
+Over centuries the sect **chose** to grow the Sepulcher instead of building a second array. Every great sword that enters the ground **strengthens the mountain**. Broken or spent blades from activation are replaced — the count toward ten thousand is aspirational; the **quality** is mandatory.
+
+**Rite:** when a master dies, their sword is carried in procession from Heaven-Cut Cliff to the Sepulcher and **planted** hilt-down in the ridge. Disciples meditate among the humming steel. Inner court learns here; outer court is turned away.
+
+**Below the Sepulcher:** the **Seal Array core** — where the Sword Immortal sleeps among the deepest nodes.
+
 | Site | Fiction |
 |------|---------|
 | **Heaven-Cut Cliff** (斩天崖) | Founder’s first sword stroke; disciples face falling sword-qi to advance rank |
-| **Ten Thousand Swords Sepulcher** (万剑冢) | Broken **swords** of dead masters — each weapon a name, a node in the Seal Array |
+| **Ten Thousand Swords Sepulcher** (万剑冢) | Memorial + arsenal + array nodes — see above |
 | **Intent Pool** (剑意潭) | Still water that reflects your sword intent; inner court meditation |
-| **Seal Array core** | Sword Immortal’s sleep-chamber — under the Sepulcher; the sect’s true spine |
+| **Seal Array core** | Sword Immortal’s chamber — beneath the Sepulcher |
 
-**Forbidden (rumor):** to stand in the Sepulcher at midnight and hear **one** sword hum — the First Sword’s law still breathes through the Sword Immortal.
+**Forbidden (rumor):** stand in the Sepulcher at midnight when ten thousand edges hum in unison — the First Sword’s law still breathes.
 
 ---
 
@@ -277,19 +322,19 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 | **Honor path** | Refuse Phoenix Gambit dirty work; gain Sword + Lotus |
 | **Pragmatic path** | Take charter sword jobs; imperial favor vs sect purity |
 | **Enemy** | Insult Sepulcher, teach blade arts on the mountain, back Phoenix absorption |
-| **Late game** | Patriarch audience; Sword Immortal stirs if Sepulcher threatened |
+| **Late game** | Half-Step+ — Sword Immortal *might* notice you *(parked)*; Sepulcher / array crisis |
 
 ---
 
 ## Open questions (owner)
 
-- [ ] **Ten Thousand Swords Seal Array** (万剑封山阵) — lock name?
+- [x] **Ten Thousand Swords Seal Array** (万剑封山阵) — locked
 - [ ] Sword Immortal’s **true name** — ever revealed, or permanently lost?
 - [ ] Patriarch **Yun Jian** — keep name / temperament?
 - [ ] Rename in code: `Elder Blade Feng` → **Elder Sword Feng**
 - [ ] **Celestial Sword Canon** — layer count when lineage ships
 - [ ] Phoenix Gambit: does Sword **split** (purist vs pragmatist faction)?
-- [ ] Does the Sword Immortal **speak** to the player once, or stay myth until endgame?
+- [x] Sword Immortal meeting — **Half-Step minimum**; interaction design **parked**
 
 ## Implementation crumbs (later)
 

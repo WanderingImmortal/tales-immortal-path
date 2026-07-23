@@ -146,6 +146,7 @@ See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer c
 - **Examination** at capital — root test, charter oaths.
 - Found sect → register with Tian charter?
 - Late-game: does the sleeping founder **wake**? (calamity / player choice — Chekhov's gun)
+- **Parked dialogue** — Emperor Tian Xu to equal-tier player: *“The Sword Immortal was the only one my ancestor feared — the only one who could have truly hurt him.”* See [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
 ---
 
