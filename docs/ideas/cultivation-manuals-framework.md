@@ -514,7 +514,7 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 
 **Presentation options (pick later):** single scroll with hidden layers vs separate shelf items per layer chapter (`Burning Breath · Layer II`) that all share one `lineageId`.
 
-**Not in code yet.** Park until elemental mortal breath set is playtested. Save shape sketch: `G.cultivationMethod.layer` (number) + `layerProgress` by `lineageId`. **Layer 2 detail:** [`burning-breath-layers.md`](burning-breath-layers.md) (enlightenment unlock, Kindle Dantian verb).
+**Layer policy (owner 2026-07-23):** flashy layer payoffs (new chamber verbs, named insights) probably **not** on mortal-tier market pamphlets like Burning Breath — those manuals *are* layer 1, full stop. Cool layers live on higher-tier compatible manuals. See [`burning-breath-layers.md`](burning-breath-layers.md).
 
 ## Open questions
 

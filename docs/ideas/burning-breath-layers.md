@@ -2,140 +2,113 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (layer 2 sketch only) |
-| **Blocked on** | Elemental breath set playtest ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64)); layer save shape |
+| **Status** | `idea` (revising — owner pushback on flashy L2 for market syllabi) |
+| **Blocked on** | Tier/layer policy decision; elemental breath playtest ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64)) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-23 |
 | **Updated** | 2026-07-23 |
 
 ## Intent
 
-**Layers** are depth inside one manual — not a better scroll, not a grade bump, not a new nature stamp. Burning Breath layer 1 is what ships today: comprehend, walk, gather, seal **fire-aspected**.
+**Layers** are depth inside one manual — not a grade bump, not a new nature stamp. The open question for **Burning Breath** specifically: should a **mortal-tier market pamphlet** have cool layer unlocks at all?
 
-Layer 2 should feel like **the art opened a little** — worth months of practice, not a second job. Unlock leans **enlightenment / insight**, not finding a teacher (teachers reserved for higher tiers or other systems later).
+Owner direction (2026-07-23): *Kindle the Dantian* sounds too impressive for something anyone buys at the local market. Flashy layer payoffs may belong on **higher-tier** manuals, not standard outer-court syllabi.
 
-Related: [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) (layers stub), [`technique-driven-cultivation.md`](technique-driven-cultivation.md) (nature vs grade).
-
----
-
-## What layer 2 is *not*
-
-| Not this | Why |
-|----------|-----|
-| New `methodGrade` | Grade = copy quality; capped by mortal tier (common max) |
-| New `stampsNature` | Nature fixed at FE seal from layer-1 path |
-| Big cultivate speed mult | Grade + roots own pacing; layers add **tools**, not another speed lever |
-| Teacher quest gate | Owner direction: enlightenment for early layers |
+Related: [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md), [`technique-driven-cultivation.md`](technique-driven-cultivation.md).
 
 ---
 
-## Layer 2 name & fiction
+## Policy fork (pick one)
 
-**Ember Insight** (internal id: `ember_insight`) — the cultivator stops fighting the heat and learns to *listen* to it. Not a new scripture; the same Burning Breath, understood one level deeper.
+### A — **Market syllabi have no layers** *(owner lean)*
 
-Log line on unlock: *"The flame in your dantian steadies — not hotter, but truer. You have touched the second layer of the Burning Breath."*
+Burning Breath **is** layer 1. The whole pamphlet. No Ember Insight, no new chamber verbs.
 
----
+| What “progress” means | How |
+|-----------------------|-----|
+| Better fire cultivation | Find a **higher-tier compatible** manual (condensation fire cycle) |
+| Deeper mechanics | That manual's layers / chapters |
+| Market breath job | Pick element + stamp nature at seal — done |
 
-## Unlock — enlightenment, not instructor
+**Kindle Dantian** (or similar) moves to a future **condensation-tier fire method** — where a named surge-gather fits the fantasy.
 
-**Primary path (grind + insight):**
+### B — **Mastery fluff only** on market syllabi
 
-1. Active primary = `burning_breath_technique` (or same `lineageId` after compatible tier swap later).
-2. **≥ 35 chamber Gather** actions on this path (count per-life on lineage, not global).
-3. During gather or short seclusion, roll **Ember Insight** (base **8%** per eligible action after step 2 met; pity +2% per fail, cap one insight per 6 months).
+Optional “you finished the pamphlet” beat — **no new mechanics**:
 
-**Alternate path (enlightenment beat):**
+- Diary line after N gathers: *"You have nothing left to learn from the Burning Breath pamphlet."*
+- Tiny polish: `rootFit.fire` +0.02 (you finally breathe it correctly)
+- NPC flavor: elder notes you’ve mastered the syllabus
 
-- Complete any **seclusion project ≥ 10 years** while on Burning Breath → guaranteed insight if step 2 already met; otherwise counts as +15 gathers toward threshold.
+No chamber buttons, no magnitude bumps worth caring about in combat.
 
-No NPC teacher. Optional future hook: meditating at a **fire anchor** (volcano tile, ashen shrine) doubles insight chance — location bonus, not a quest giver.
+### C — **Layers on everything** *(rejected for mortal tier for now)*
 
----
-
-## Layer 2 benefits (modest, worth the grind)
-
-Three small effects — identity + one new verb. Tuned so total power is **noticeable, not build-defining**.
-
-### 1. Chamber verb — **Kindle Dantian** (main payoff)
-
-New qi-chamber action, unlocked only at layer 2.
-
-| | Gather (layer 1) | Kindle Dantian (layer 2) |
-|--|------------------|---------------------------|
-| Time | 1 week | **4 months** |
-| Density | random min–max roll | same roll but **floor +25%** of min |
-| Qi fill | normal | normal |
-| Cooldown | none | **once per 12 in-game months** |
-| Fiction | steady breath cycles | force a breath "surge" — condense heat deliberately |
-
-Feels different from plain gather: slower, spikier, player-chosen timing. Good for players who want to push density before seal without another speed mult.
-
-### 2. Passive — **steady flame** (+stability)
-
-`profile.stabilityBias` **+0.02** while layer 2 active on this lineage (helps FE seal quality slightly; stacks with method's base 0.04 → 0.06 total). No gather speed change.
-
-### 3. Signature nudge — **truer fire** (+nature magnitude)
-
-`+0.04` to foundation-nature magnitude multiplier for **fire-aspected** effects only (if sealed before unlock, apply retroactively). Roughly **+1–2% effective** fire technique damage on top of the base 6% — not a second damage stat.
-
-**Deliberately omitted from layer 2:** tribulation skew, new combat techniques, realm cap changes, auto-upgrade to condensation-tier manual.
+Previous sketch — Ember Insight + Kindle Dantian. Shelved for market manuals; may revisit for superior+ tier only.
 
 ---
 
-## Save shape (implementation sketch)
+## If policy A: what Burning Breath layer 1 includes
 
-```js
-G.cultivationMethod.layer = 1;              // max unlocked layer on active lineage
-G.cultivationMethod.layerProgress = {
-  burning_breath_line: {
-    gatherCount: 0,
-    insightFails: 0,
-    lastInsightMonth: null,
-    unlocked: ['ember_insight']  // layer 2 id
-  }
-};
-```
+Everything shipped in [#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64):
 
-Layer progress keyed by **`lineageId`**, not `primaryId`, so a future condensation-tier fire manual in the same line inherits layer depth.
+- Walk path → gather with normal chamber verb → seal **fire-aspected**
+- `rootFit` fire bonus / water penalty
+- +6% fire technique dmg from nature
+
+**That's the complete outer-court product.** Grind worth = choosing fire identity early, not unlocking secret techniques from a 50-stone scroll.
 
 ---
 
-## UI
+## Where cool layers *do* live (draft)
 
-- Path card: `Burning Breath · Common · Layer II / Ember Insight`
-- Chamber: Kindle Dantian button with cooldown tooltip
-- Pre-seal preview unchanged (still stamps fire-aspected); post-unlock note: *"Deeper practice will sharpen the seal's fire."*
+| Manual tier | Example | Layer fantasy |
+|-------------|---------|---------------|
+| **Mortal / market** | Burning Breath | None (or mastery fluff only) |
+| **Condensation** | Blazing Meridian Cycle *(future)* | Layer 2: Kindle-style surge gather; enlightenment unlock |
+| **Foundation+** | Vermillion Sun fragment *(P3)* | Realm chapters, array fuel, essence milestones |
+| **Superior / sect inheritance** | Inner Court–grade fire line | Named layers, maybe teacher *or* enlightenment for layer 3+ |
+
+**Unlock style by tier:**
+
+| Tier | Layer unlock |
+|------|----------------|
+| Market mortal | N/A or passive mastery |
+| Condensation+ | Enlightenment / insight rolls, seclusion, location anchors |
+| Rare / forbidden | Enlightenment + rare materials; teachers optional for highest layers |
 
 ---
 
-## Higher layers (parked)
+## Shelved sketch — Ember Insight + Kindle Dantian
 
-| Layer | Working name | Unlock sketch | Benefit sketch |
-|-------|--------------|---------------|----------------|
-| 3 | **Blazing Circulation** | GC-era; rare pill or calamity survival | Second cooldown ability or fire-zone ambient bonus |
-| 4+ | TBD | Strong enlightenment / dao beat | Tie to absorption family (fire anchors) — not mortal tier |
+Kept for reference if we ever attach layers to **non-market** fire manuals. Not recommended for Burning Breath.
 
-Teachers, sect promotion, and **array** hooks belong here or on **tier upgrades**, not layer 2.
+<details>
+<summary>Previous layer 2 proposal (collapsed)</summary>
+
+- Unlock: ~35 gathers + insight roll / long seclusion
+- **Kindle Dantian**: 4-month surge gather, density floor +25%, 12-month cooldown
+- +0.02 stability, +~1–2% fire nature magnitude
+
+**Why shelved:** wrong fantasy tier for a market pamphlet.
+
+</details>
 
 ---
 
 ## Open questions
 
-- [ ] Insight roll on gather only, or also on Kindle Dantian?
-- [ ] Should layer 2 be **losable** on meridian-wash (fire → water resets lineage progress)?
-- [ ] Pity timer — is 6-month cap right for lifespan pacing?
-- [ ] Kindle cooldown: 12 months vs 1 year project cadence?
+- [ ] Confirm policy **A** (no layers on mortal market breaths) vs **B** (mastery fluff only)?
+- [ ] Name/sketch condensation-tier fire successor (Blazing Meridian Cycle?) — home for Kindle Dantian?
+- [ ] Does “pamphlet mastered” show in UI at all, or invisible?
 
 ## Prerequisites
 
-- [ ] Elemental breath PR merged ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))
-- [ ] `G.cultivationMethod.layerProgress` save migration
-- [ ] Chamber second action hook (`chamber.js`)
+- [ ] Owner tier/layer policy locked
+- [ ] Elemental breath PR merged
 
 ## Implementation crumbs
 
-- `cultivation-methods.js` — layer helpers, lineage progress
-- `chamber.js` — `kindleDantian()` action, cooldown month tracking
-- `seclusion-project.js` — optional insight grant on long seclusion complete
-- `data.js` — `BURNING_BREATH_LAYERS` config block (thresholds, cooldowns)
+- If **A**: no code for Burning Breath layers
+- If **B**: gather counter + one diary line in `cultivation-methods.js` / `chronicle-diary.js`
+- Kindle Dantian (if ever): `chamber.js` on condensation-tier fire method
