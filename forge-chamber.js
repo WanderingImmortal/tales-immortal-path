@@ -195,12 +195,13 @@ function renderForgeRecipeList() {
         const check = canCraftGear(id, { legendary });
         const months = getEffectiveForgeMonths(recipe.months, { atSect: G.forge.atSect && G.sect });
         const tierLabel = legendary ? 'Legendary' : `T${recipe.tier}`;
+        const realmLabel = getForgeRealmGateLabel(getForgeRecipeMinRealm(recipe));
         return `<button type="button" class="forge-recipe-btn${selected ? ' selected' : ''}"
             data-recipe="${id}" data-legendary="${legendary ? '1' : '0'}" title="${def.desc || ''}">
             <span class="forge-recipe-emoji">${def.emoji || '⚔️'}</span>
             <span class="forge-recipe-info">
                 <span class="forge-recipe-name">${def.name}</span>
-                <span class="forge-recipe-meta">${tierLabel} · ${months} mo · ${recipe.stones}💎</span>
+                <span class="forge-recipe-meta">${tierLabel} · ${realmLabel} · ${months} mo · ${recipe.stones}💎</span>
             </span>
             <span class="forge-recipe-can ${check.ok ? 'ready' : 'blocked'}">${check.ok ? '✓' : '✗'}</span>
         </button>`;
@@ -253,6 +254,9 @@ function renderForgeRecipeDetail() {
     const months = getEffectiveForgeMonths(recipe.months, { atSect: G.forge.atSect && G.sect });
     const res = formatGearResonanceLine(def);
     const affixRange = getExpectedAffixRange(recipe.tier || def.tier || 1);
+    const minSkill = getForgeSkillDef(recipe.minSkill || 'apprentice');
+    const minRealm = getForgeRecipeMinRealm(recipe);
+    const realmLabel = getForgeRealmGateLabel(minRealm);
 
     const bonusLines = [];
     const skill = getForgeSkillLevel();
@@ -272,10 +276,11 @@ function renderForgeRecipeDetail() {
             <span class="forge-detail-emoji">${def.emoji || '⚔️'}</span>
             <div>
                 <h3 class="forge-detail-name">${def.name}</h3>
-                <p class="forge-detail-tier">${legendary ? '🏆 Legendary' : `Tier ${recipe.tier}`} · ${def.slot || 'gear'}</p>
+                <p class="forge-detail-tier">${legendary ? '🏆 Legendary' : `Tier ${recipe.tier}`} · ${realmLabel} · ${def.slot || 'gear'}</p>
             </div>
         </div>
         <p class="forge-detail-desc">${def.desc || ''}</p>
+        <p class="forge-detail-gate"><strong>Requires:</strong> ${minSkill.name} forge skill · ${realmLabel}</p>
         ${res ? `<p class="forge-detail-resonance"><strong>${getPathResonanceLabel()} resonance:</strong> ${res}</p>` : ''}
         <p class="forge-detail-affix"><strong>Expected affixes:</strong> ${affixRange}</p>
         <div class="forge-detail-stats">

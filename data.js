@@ -8297,15 +8297,15 @@ const GEAR_ITEMS = {
 };
 
 const GEAR_CRAFT_RECIPES = {
-    rusty_qi_blade: { tier: 1, months: 2, stones: 8, materials: { iron_ore: 2, leather_scrap: 1 } },
-    leather_vest: { tier: 1, months: 2, stones: 6, materials: { leather_scrap: 3, silk_thread: 1 } },
-    cloth_headwrap: { tier: 1, months: 1, stones: 4, materials: { silk_thread: 2, spirit_herb: 1 } },
-    jade_pendant: { tier: 1, months: 2, stones: 10, materials: { spirit_herb: 2, jade_inlay: 1 } },
-    copper_band: { tier: 1, months: 1, stones: 6, materials: { iron_ore: 1, spirit_herb: 1 } },
-    travel_sandals: { tier: 1, months: 1, stones: 5, materials: { leather_scrap: 2, silk_thread: 1 } },
-    frostbite_saber: { tier: 2, months: 4, stones: 25, materials: { iron_ore: 2, frost_essence: 2, demon_core: 1, glacial_shard: 1 } },
-    spirit_weave_armor: { tier: 2, months: 4, stones: 30, materials: { silk_thread: 3, frost_essence: 2, demon_core: 1, leather_scrap: 2 } },
-    dao_insight_amulet: { tier: 3, months: 6, stones: 60, materials: { jade_inlay: 2, glacial_shard: 2, demon_core: 2, phoenix_ash: 1 } }
+    rusty_qi_blade: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 8, materials: { iron_ore: 2, leather_scrap: 1 } },
+    leather_vest: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 6, materials: { leather_scrap: 3, silk_thread: 1 } },
+    cloth_headwrap: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 4, materials: { silk_thread: 2, spirit_herb: 1 } },
+    jade_pendant: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 10, materials: { spirit_herb: 2, jade_inlay: 1 } },
+    copper_band: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 6, materials: { iron_ore: 1, spirit_herb: 1 } },
+    travel_sandals: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 5, materials: { leather_scrap: 2, silk_thread: 1 } },
+    frostbite_saber: { tier: 2, minSkill: 'journeyman', unlockByDefault: false, months: 4, stones: 25, materials: { iron_ore: 2, frost_essence: 2, demon_core: 1, glacial_shard: 1 } },
+    spirit_weave_armor: { tier: 2, minSkill: 'journeyman', unlockByDefault: false, months: 4, stones: 30, materials: { silk_thread: 3, frost_essence: 2, demon_core: 1, leather_scrap: 2 } },
+    dao_insight_amulet: { tier: 3, minSkill: 'artisan', unlockByDefault: false, months: 6, stones: 60, materials: { jade_inlay: 2, glacial_shard: 2, demon_core: 2, phoenix_ash: 1 } }
 };
 
 const GEAR_DURABILITY = { base: 80, perTier: 20, combatWear: 3, brokenMult: 0.55 };
@@ -8353,6 +8353,8 @@ const LEGENDARY_GEAR_RECIPES = {
     phoenix_plume_cloak: {
         output: 'phoenix_plume_cloak',
         tier: 4,
+        minSkill: 'master',
+        unlockByDefault: false,
         months: 8,
         stones: 80,
         materials: { phoenix_ash: 2, celestial_silk: 1, silk_thread: 3 },
@@ -8361,6 +8363,8 @@ const LEGENDARY_GEAR_RECIPES = {
     glacial_crown: {
         output: 'glacial_crown',
         tier: 4,
+        minSkill: 'master',
+        unlockByDefault: false,
         months: 8,
         stones: 75,
         materials: { glacial_shard: 2, frost_essence: 2, jade_inlay: 1 },
@@ -8369,6 +8373,8 @@ const LEGENDARY_GEAR_RECIPES = {
     celestial_insight_ring: {
         output: 'celestial_insight_ring',
         tier: 4,
+        minSkill: 'master',
+        unlockByDefault: false,
         months: 10,
         stones: 90,
         materials: { celestial_silk: 1, jade_inlay: 2, demon_core: 2 },

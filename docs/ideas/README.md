@@ -25,6 +25,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 |------|--------|------------|-------|
 | [Root rite formations](root-rite-formations.md) | `designed` | Chronicle fate-rite project; formation tiers | — |
 | [Formations & arrays](formations-and-arrays.md) | `building` (F2b on PR) | Array Disciple; Trace optional | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
+| [Forging — equipment tiers & grades](forging-equipment-tiers.md) | `designed` (brainstorm) | Nine-realm ladder; grade stat formula | — |
 | [Creation-path guilds](creation-path-guilds.md) | `designed` (parked) | HQ city; branch exam max (4 vs 5) | — |
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
 | [Burning Breath — layers](burning-breath-layers.md) | `shipped` (policy A — no layers) | — | [#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64) |
