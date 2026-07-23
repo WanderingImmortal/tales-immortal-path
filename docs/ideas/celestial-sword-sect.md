@@ -497,6 +497,7 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 | **Pragmatic path** | Take charter sword jobs; imperial favor vs sect purity |
 | **Enemy** | Insult Sepulcher, teach blade arts on the mountain, back Phoenix absorption |
 | **Patriarch audience** | High rep + elder — Yun Jian at Patriarch Court *(parked)* |
+| **Late game** | Yun Jian + Phoenix Gambit; Half-Step+ Sword Immortal *(parked)* |
 
 ---
 
