@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-23
 
 ## Focus
-- **Heartlands sect docs** — merge Lotus ([#65](https://github.com/WanderingImmortal/tales-immortal-path/pull/65)), Void ([#66](https://github.com/WanderingImmortal/tales-immortal-path/pull/66)), Phoenix ([#67](https://github.com/WanderingImmortal/tales-immortal-path/pull/67)) — Sword ([#68](https://github.com/WanderingImmortal/tales-immortal-path/pull/68)) merged
+- **Heartlands sect docs** — merge Void ([#66](https://github.com/WanderingImmortal/tales-immortal-path/pull/66)), Phoenix ([#67](https://github.com/WanderingImmortal/tales-immortal-path/pull/67)) — Sword ([#68](https://github.com/WanderingImmortal/tales-immortal-path/pull/68)) and Lotus ([#65](https://github.com/WanderingImmortal/tales-immortal-path/pull/65)) merged
 - **Imperial clan + Longcheng** — [#69](https://github.com/WanderingImmortal/tales-immortal-path/pull/69)
 
 ## Next
@@ -22,6 +22,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
+- Jade Lotus sect docs ([#65](https://github.com/WanderingImmortal/tales-immortal-path/pull/65))
 - Celestial Sword sect docs ([#68](https://github.com/WanderingImmortal/tales-immortal-path/pull/68))
 - Elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))
 - Tribulation v2 QC→FE ([#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63))
