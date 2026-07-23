@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v1 — owner workshop) |
+| **Status** | `designed` (v2 — spine + visit sketch) |
 | **Blocked on** | Lineage manual implementation; Longcheng branch dialogue |
 | **Issue** | none yet |
 | **Chat / PR** | Heartlands sect pass, 2026-07-23 |
@@ -34,7 +34,9 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperi
 
 ### Before the mandate
 
-The Celestial Sword Sect predates the Tian mandate. They rose on **Solitary Sword Mountain** when the continent still had a dozen sword schools — most swallowed or forgotten. Their founder is said to have **cut the first sword intent** into the ridge now called **Heaven-Cut Cliff**, teaching that the sword is not iron but **will made a single perfect line**.
+The Celestial Sword Sect predates the Tian mandate. They rose on **Solitary Sword Mountain** when the continent still had a dozen sword schools — most swallowed or forgotten.
+
+**Founder myth = Sword Immortal’s first life.** Heaven-Cut Cliff is where the one who would become the **Sword Immortal** cut the first sword intent into the ridge — before the epithet, before immortality. The sect teaches that the sword is not iron but **will made a single perfect line**. The true name from that era is gone; only the cliff and the epithet remain.
 
 Through the pre-imperial chaos they survived by three rules passed down as **The Three Edges**:
 
@@ -48,7 +50,7 @@ The Sword Sect fought in the Dao Wars as a **major power** — not the largest, 
 
 Their apex asset at the time was not the patriarch. It was **the one they now call only the Sword Immortal** (剑仙) — a Dao Manifestation cultivator who **wore the law of the First Sword**, old enough to remember the continent before anyone spoke of “Tian.” **Not** a true immortal yet. Not enough to stop the Tian founder’s Half-Step breakthrough.
 
-When the board broke, Sword leadership read it faster than Phoenix or Lotus. The Sword Immortal **did not duel the sleeping dragon’s herald to the death**. They raised the mountain’s great defensive array — **name pending** *(lean: **Ten Thousand Swords Seal Array** / 万剑封山阵 — sepulcher blades answer the call and seal the peak)* — and **waited inside** while envoys negotiated.
+When the board broke, Sword leadership read it faster than Phoenix or Lotus. The Sword Immortal **did not duel the sleeping dragon’s herald to the death**. They raised the **Ten Thousand Swords Seal Array** (万剑封山阵) and **waited inside** while envoys negotiated.
 
 The array held. That is why Solitary Sword Mountain still stands.
 
@@ -166,6 +168,102 @@ A **literal sword array** — not abstract qi lines painted in stone.
 
 ---
 
+## Sect sketch — what the mountain needs *(v2)*
+
+**Have:** apex spine (Sword Immortal), public leader (Yun Jian), homeland, array, history, rep hooks in code.
+
+**Missing most:** the **visit layer** — what a player or disciple actually *sees, does, and hears* between the gate and the Sepulcher. Priority order for future passes:
+
+| Priority | Gap | Why it matters |
+|----------|-----|----------------|
+| **1** | **Mountain layout + gates** | Hall node is only the foot; name what’s above/below and what’s locked |
+| **2** | **Cast below patriarch** | Feng alone can’t carry the sect — need 2–3 faces for tone |
+| **3** | **Visitor / disciple loop** | Entry trial, rep gates, what friendly vs allied unlocks *in fiction* |
+| **4** | **Vs other three sects** | One beat each — how Sword talks about Lotus, Void, Phoenix |
+| **5** | **Daily texture** | Meals, drills, taboos — cheap flavor, big feel |
+| **6** | **Lineage manual detail** | Can wait until cultivation framework ships |
+
+Below: **minimum sketch** for 1–5. Expand when implementing `sword_sect_hall` lore or sect sub-map.
+
+### Mountain layout (foot → peak → deep)
+
+```text
+[ Celestial Sword Hall ]     ← map node · outer gate · Elder Feng · bureaucracy
+        |
+[ Drill Terrace ]            ← ten thousand forms at dawn; visitors hear steel
+        |
+[ Guest Court ]              ← allied outsiders wait; no further without escort
+        |
+[ Inner Gate ]               ← inner disciples+; Sword Intent curriculum
+        |    \
+        |     └→ [ Patriarch Court ] — Yun Jian; Sword Heir; peak elders
+        |
+[ Ancestral descent ]
+        ├─ Heaven-Cut Cliff   ← rank trials; falling sword-qi
+        ├─ Intent Pool        ← inner meditation
+        ├─ Ten Thousand Swords Sepulcher ← array nodes; Keeper Tong
+        └─ Seal Array core    ← Sword Immortal; no entry
+```
+
+**Player today:** only the **Hall**. Everything else is lore on the location panel and rep-gated fiction until sub-map or forbidden stubs.
+
+### Cast sketch (below patriarch)
+
+| NPC | Role | Tone |
+|-----|------|------|
+| **Elder Sword Feng** (锋) | Discipline elder at outer gate | Cold, fair — *“Draw your intent, not your sword.”* |
+| **Sword Heir Gu Qing** (顾清) | Core disciple, heir candidate | Proud, young GC — sect’s future ego; spars everyone |
+| **Keeper Tong** (童翁) | Sepulcher / array nodes | Silent old man; knows every planted sword’s name |
+| **Captain Wen Ning** (温宁) | Longcheng charter office | Professional; embarrassed by mountain politics |
+| **Instructor Han** (韩教习) | Outer drill master | Barks orders; respects only results |
+
+*Patriarch Yun Jian* — mentioned, rarely seen. Player audiences stop at Feng unless rep/endgame.
+
+### Visitor loop (fiction ↔ code today)
+
+| Stage | Fiction | Code hook today |
+|-------|---------|-----------------|
+| **Arrive** | Wind, drill noise, disciples ignore you | `sword_sect_hall` description |
+| **Prove worth** | Spar or win fight in Heartlands | `celestial_sword_trial` (combat) |
+| **Friendly** | Outer court tolerance; **Heavenly Palm** trade | `marketUnlock` Heavenly Palm |
+| **Elder attention** | Blade Audience — fight before Feng | `elder_sword_audience` |
+| **Allied + sect** | Blade Covenant — answer calls to arms | `celestial_sword_covenant` |
+| **Inner gate** | *Not implemented* — cliff trial fiction | future rep + realm gate |
+| **Sepulcher** | *Not implemented* — Keeper Tong, array rumble | future forbidden / high rep |
+
+**Join fantasy (parked):** no full “join Sword Sect” faction swap yet — **rep + trial** stands in for outer-court standing.
+
+### Vs the other Heartlands powers
+
+| Sect | Sword sect’s read |
+|------|-------------------|
+| **Jade Lotus** | Worth marrying into; exhausting to drink with. Lotus gold funds escorts; Sword steel honors contracts. **Alliance holds.** |
+| **Void Temple** | Respect the archives; pity the scholars who never draw. Ally when Phoenix pushes too hard. |
+| **Golden Phoenix** | Flame and pamphlets — expansion without a line. **Enemy of the charter Sword swore to.** Phoenix Gambit forces an ugly choice. |
+
+### Daily life & taboos
+
+| Texture | Detail |
+|---------|--------|
+| **Dawn** | Drill Terrace — forms until qi bleeds into muscle memory |
+| **Dusk** | Spar ring — rank challenges; Feng watches |
+| **Meals** | Silent; talking is weakness |
+| **Dress** | Plain grey/steel; no sect finery — the sword is the ornament |
+| **Taboo** | **Blade weapons** on the mountain (刀) — insult to Sword Dao |
+| **Taboo** | Speaking names aloud in the Sepulcher |
+| **Taboo** | Asking to see the Sword Immortal — laughed off or expelled |
+
+### Signature trials (named beats)
+
+| Trial | Where | What |
+|-------|-------|------|
+| **Drill Season** | Drill Terrace | Outer entry — survive one season without quitting |
+| **Heaven-Cut Cliff** | Cliff | Sword-qi weather; inner promotion |
+| **Ancestral Sword Trial** | Sepulcher edge | Core court; heir selection |
+| **One Line** | Intent Pool | Inner court meditation — show a single perfect intent |
+
+---
+
 ## Cultivation — techniques & lineage
 
 ### Sacred art (lineage manual — future)
@@ -206,13 +304,11 @@ A **literal sword array** — not abstract qi lines painted in stone.
 Northwest Heartlands — **`sword_sect_hall`** on the local map is the **outer gate hall** at the mountain’s foot, not the peak.
 
 ```text
-[Celestial Sword Hall]  ← player node — drills, Elder Feng, outer bureaucracy
+[Celestial Sword Hall]  ← player node — see **Sect sketch** above
         |
-   Ascending sword-roads (few visitors welcome)
+   Ascending sword-roads (Guest Court → Inner Gate → Patriarch Court)
         |
-   Inner peaks — arrays, inner court, patriarch court
-        |
-   Ancestral grounds (below)
+   Ancestral descent (Cliff, Pool, Sepulcher, Array core)
 ```
 
 **Terrain:** a single dominant massif — lonely, wind-scoured, qi sharp enough to cut unprepared skin. The sect **likes** that it feels apart from the Heartlands sprawl. Stone terraces for ten thousand simultaneous sword forms.
