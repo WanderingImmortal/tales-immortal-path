@@ -27,7 +27,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Formations & arrays](formations-and-arrays.md) | `building` (F2b on PR) | Array Disciple; Trace optional | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
 | [Creation-path guilds](creation-path-guilds.md) | `designed` (parked) | HQ city; branch exam max (4 vs 5) | — |
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
-| [Burning Breath — method layers](burning-breath-layers.md) | `designed` (layer 2 sketch) | Elemental breath PR; layer save shape | [#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64) |
+| [Burning Breath — method layers](burning-breath-layers.md) | `idea` (revising — no layers on market syllabi?) | Tier/layer policy | [#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64) |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (P2) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
