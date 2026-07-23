@@ -117,10 +117,10 @@ Charter meetings, Lotus marriage contracts, Longcheng rotations, Sepulcher inven
 | **Dry** | Short sentences; no speeches; silence is a tool |
 | **Pragmatic** | Inherited “first to kneel” — chooses survival over gesture **every time** |
 | **Weary** | Not defeated — **tired** of carrying politics the Sword Immortal refuses to touch |
-| **Fair** | Harsh but consistent; Feng’s outer court reflects his standards |
+| **Fair** | Not cruel for sport — **sharp enough to keep peace** on the mountain; discipline serves order, not ego |
 | **Private devotion** | Still meditates at Intent Pool monthly; Sword Dao matters to him — he just serves it by governing |
 
-**Not:** a warm grandfather patriarch, a young hero, or a puppet. **Is:** the adult in the room when Phoenix and Lotus scream at each other.
+**Not:** a warm grandfather patriarch, a young hero, a petty tyrant, or a puppet. **Is:** the no-nonsense adult when Phoenix and Lotus scream at each other.
 
 ### Relationship to the Sword Immortal
 
@@ -136,7 +136,7 @@ Yun Jian does **not** claim to speak for the immortal’s will. When he acts in 
 | Figure | Dynamic |
 |--------|---------|
 | **Sword Immortal** | Liege-in-all-but-name; Yun Jian serves the mountain’s sleep |
-| **Elder Sword Feng** | Trusted outer gate; enforces standards without patriarch presence |
+| **Elder Sword Feng** | Outer gate — **player’s first contact**; enforces Yun Jian’s standards day-to-day |
 | **Elder Iron Xu** | War peak; Yun Jian’s blade when enforcement leaves the mountain |
 | **Sword Heir Gu Qing** | Groomed successor — talented, proud; Yun Jian curbs his ego |
 | **Captain Wen Ning** | Longcheng arm; Yun Jian reads every charter filing Wen sends up |
@@ -154,11 +154,14 @@ When Phoenix moves on Lotus, **Yun Jian** must choose:
 
 He has no good option. That’s why he’s patriarch.
 
-### Player interaction *(sketch)*
+### Gate vs peak — who players meet
 
-| Gate | Access |
-|------|--------|
-| **Default** | Elder Feng at outer hall — Yun Jian invisible |
+| Layer | Who | Why |
+|-------|-----|-----|
+| **Outer gate** | **Elder Sword Feng** | Day-to-day trials, spars, rep — the face at `sword_sect_hall` |
+| **Patriarch Court** | **Yun Jian** | High rep / major beats only — the sect leader, not the greeter |
+
+Feng at the gate is intentional: Yun Jian does not stand at the door. The patriarch governs; the discipline elder **filters** visitors.
 | **High rep + elder quest** | Brief audience at Patriarch Court — tests your **intent**, not just strength |
 | **Allied + major beat** | Yun Jian asks a favor (escort, charter witness, refuse Phoenix) |
 | **Late game** | VR-tier dialogue — still below Half-Step / Sword Immortal notice threshold |
