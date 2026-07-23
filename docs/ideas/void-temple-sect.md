@@ -8,7 +8,7 @@
 | **Chat / PR** | Heartlands sect pass, 2026-07-23 |
 | **Updated** | 2026-07-23 (Void Seeker locked) |
 
-Parent index: [`sect-faction-identities.md`](sect-faction-identities.md) *(when merged)*. Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`jade-lotus-sect.md`](jade-lotus-sect.md) *(PR)*, [`celestial-sword-sect.md`](celestial-sword-sect.md) *(PR)*.
+Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`jade-lotus-sect.md`](jade-lotus-sect.md), [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
 **Terminology:** **Void Temple** / **Void Gate** arts ≠ **Void Refinement** (realm 5). **Outer void** = beyond the firmament (sky shell), not the ocean horizon.
 
