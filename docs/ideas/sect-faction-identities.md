@@ -14,7 +14,17 @@ Sect **lineage cultivation manuals** need sects that feel like more than rep gri
 
 **Prerequisite for:** [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) sect lineage layers, [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
----
+### Design principle — great powers are not job titles (owner 2026-07-23)
+
+Sects and noble clans are **institutions** — mountains, bloodlines, cultivation lines, immortals in the vault. Economic and political **leans** are where they’re hardest to beat, not a one-line class archetype.
+
+| Layer | Identity first | Lean second |
+|-------|----------------|-------------|
+| **Great sect** | Dao, founder wound, sacred art, homeland array | What they’re also good at (trade, archives, charter law) |
+| **Noble clan** | Blood, marriage, centuries, cadet branches | Strongest revenue / influence lane |
+| **Longcheng presence** | Satellite office or compound | One visible slice — not the whole org chart |
+
+Fill identities using the template below; **do not** reduce a sect to “the trade faction” or a clan to “the bureaucracy clan.”
 
 ## What exists in code today (audit)
 
@@ -58,13 +68,13 @@ Use one block per sect/clan/tribe. Lineage manuals hang off this.
 ```markdown
 ### [Name]
 
-- **Vibe:** (one sentence players remember)
-- **Cultivation identity:** element / dao / body / forbidden? market breath or unique lineage?
-- **Sacred art:** working name for their lineage manual (e.g. Celestial Sword Cycle)
-- **What they teach:** outer disciples get ___; inner court gets ___
-- **What they refuse:** (e.g. Lotus won't teach blood; Void won't teach without oath)
-- **Founder / wound:** one myth beat
-- **Sacred site:** HQ or forbidden tie-in
+- **Vibe:** (one sentence — the *sect/clan*, not their day job)
+- **Cultivation identity:** element / dao / body / forbidden? lineage manual name?
+- **What makes them a great power:** mountain, array, immortals, founder myth
+- **Primary lean:** where they’re hardest to compete with economically or politically *(not exclusive)*
+- **Also has hands in:** (2–4 other pies — marriage, trade, archives, mercenaries…)
+- **Longcheng footprint:** one office/compound slice if applicable
+- **What they teach / refuse:** outer vs inner court
 - **Relationship:** allies, blood feud, imperial court
 - **Player hook:** why join / why hate
 ```

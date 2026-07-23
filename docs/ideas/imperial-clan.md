@@ -41,10 +41,10 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 | Power (draft) | Homeland | Dao Wars outcome (sketch) |
 |---------------|----------|---------------------------|
 | **Tian Clan** | Heartlands core (capital TBD) | Victor; became imperial mandate |
-| **Celestial Sword** | Heartlands — sword peaks | Early capitulation; kept blade honor → **imperial sword** when law must look clean |
-| **Jade Lotus** | Heartlands — trade cities | **Early alliance**; best charter terms → court ledgers, market rights |
-| **Void Temple** | Heartlands — observatory slopes | Neutral late; preserved archives in exchange for oaths |
-| **Golden Phoenix** | Heartlands — flame courts | **Broken late**; humiliating truce → fuels modern charter revanchism |
+| **Celestial Sword** | Heartlands — sword peaks | Early capitulation — kept mountain honor; *also* takes charter blade work when law must look clean |
+| **Jade Lotus** | Heartlands — silk courts & trade cities | Early alliance — best charter terms; *also* richest great sect commercially, not “a trade guild” |
+| **Void Temple** | Heartlands — observatory slopes | Neutral late — archives preserved by oath; *also* sealed-site monopoly, not “the library faction” |
+| **Golden Phoenix** | Heartlands — flame courts | Broken late — humiliating truce; *also* fuels modern revanchism; still a full martial flame sect |
 | **Frostpeak Monastery** | Frostbite | Isolation bargain — left alone if they ward the north |
 | **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal is local law |
 | **Storm Dragon / Tidal Lotus** | Jade archipelago | Sea charter — throne mediates, does not sail |

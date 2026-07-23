@@ -120,14 +120,30 @@ Aligns with [`creation-path-guilds.md`](creation-path-guilds.md).
 
 **Branch vs HQ — Forgers:** keep Longcheng as **branch**. HQ should sit where the work is — veins, forges, military contracts — while the capital branch handles **charter stamps, commissions, and exams**. Same pattern as Formations (autonomy outside, footprint inside).
 
+#### Design note — breadth over pigeonholes (owner 2026-07-23)
+
+**Noble clans** and **great sects** are **institutions with thousands of people**, not guild tags.
+
+| Wrong read | Right read |
+|------------|------------|
+| “The Wei clan is the bureaucracy clan.” | The Wei are a **great house** — strongest in charter law and veins; also marry into trade, fund swords, own granaries. |
+| “Lotus is the trade sect.” | Lotus is a **great sect** — flame-water dao, mountain arrays, inner court — *also* rich and present in every market. |
+| “Sword is the law sect.” | Sword is a **blade sect** — honor and cultivation first — *also* takes imperial charter work when war must look clean. |
+
+**Primary lean** = where they’re **hardest to compete with**, not their only business. **Longcheng footprint** = one visible office, not their identity.
+
 #### Envoy Row (sect branches)
 
-| Sect | Office | Hook |
-|------|--------|------|
-| **Celestial Sword** | Blade Bureau | Edict enforcement; duel ground |
-| **Jade Lotus** | Ledger House | Charter accounts; market audit |
-| **Void Temple** | Reading Room | Sealed pre-Dao Wars fragments |
-| **Golden Phoenix** | Embassy | Pamphlets; four-claw “errors” |
+Each great sect’s **mountain is home**. Envoy Row is a **satellite compound** — staff rotation, charter business, city investments. Players meet *an office*, not the sect.
+
+| Sect | Great sect (identity) | Longcheng footprint *(one slice)* |
+|------|----------------------|-----------------------------------|
+| **Celestial Sword** | Blade dao, duel culture, sword peaks — martial honor is the sect | **Charter office + duel ground** — honor killings filed here when edicts need a clean blade; most disciples never leave the mountain |
+| **Jade Lotus** | Silk courts, inner politics, lotus dao — a full great sect with its own arrays and immortals | **City compound** — investments, marriage houses, charter lawyers; trade wealth is *part* of power, not the whole sect |
+| **Void Temple** | Observatory slopes, sealed sites, pre-heaven study — mystics and oaths | **Archive access desk** — one reading room; the real vaults stay on the mountain |
+| **Golden Phoenix** | Flame courts, expansionist history, phoenix dao — humiliated at Dao Wars, still dangerous | **Embassy** — loud, watched; pamphlets and provocation are *politics*, not their cultivation identity |
+
+**Phoenix Gambit** plays out in charter courts and on the mountain — not “the trade sect vs the law sect.”
 
 #### Other fixtures (not optional for fiction)
 
@@ -143,29 +159,23 @@ Aligns with [`creation-path-guilds.md`](creation-path-guilds.md).
 
 #### Noble clans — **7 recommended** (owner pick 6–8)
 
-Enough to feel like a ward, not a phone book. Each clan owns a **niche sects won’t give you**.
+Massive houses — cadet branches, marriage lines, mortal retainers by the thousand. **Primary lean** = economic gravity center, not a job title.
 
-| # | Clan | Hanzi | Niche | Sect / court tie | Player hook |
-|---|------|-------|-------|------------------|-------------|
-| 1 | **House of Wei** | 魏氏 | Bureaucracy, vein permits | Chancellor **Wei An** | Charter paperwork; imperial favor |
-| 2 | **House of Shen** | 沈氏 | Examination, root census | Proctor **Shen Kui** | Examination rewards; root rumors |
-| 3 | **House of Pei** | 裴氏 | Inner Service, palace access | **Pei Yin** (eunuch order) | Tianjing gate favors; intrigue |
-| 4 | **House of Qin** | 秦氏 | Martial honor, mercenary contracts | Sword Bureau clients | Duels; hire muscle |
-| 5 | **House of Su** | 苏氏 | Commerce, auction, warehousing | Lotus **rival** (not enemy) | Stones, consignment, smuggling gray |
-| 6 | **House of Ye** | 叶氏 | Alchemy patronage, herb monopolies | Alchemists Guild HQ neighbors | Pills, ingredients, guild standing |
-| 7 | **House of Luo** | 罗氏 | Spirit-metal, forging leases | Forgers Guild branch | Gear commissions; ore politics |
+| # | Clan | Hanzi | Who they are | Strongest in *(not only)* | Also has hands in |
+|---|------|-------|--------------|---------------------------|-------------------|
+| 1 | **House of Wei** | 魏氏 | Old charter blood; Chancellor **Wei An** is one branch | Vein permits, ministry appointments | Granaries, marriage to Sword cadets, private guard |
+| 2 | **House of Shen** | 沈氏 | Census gentry; **Shen Kui** runs examinations | Root records, academy patronage | Tea trade, spirit-beast breeding, Void archive donations |
+| 3 | **House of Pei** | 裴氏 | Palace-adjacent for generations; **Pei Yin**’s order, not all Pei | Inner Service influence, gate access | Silk, assassination insurance (denied publicly), land in outer Heartlands |
+| 4 | **House of Qin** | 秦氏 | Martial house — duels are culture, not a mercenary sign | Mercenary contracts, arena stakes | Ore leases with Luo, political marriages, pill imports from Ye |
+| 5 | **House of Su** | 苏氏 | Merchant princes; compete with Lotus **commercially**, not as a sect war | Warehousing, auction, caravan bonds | Owns banks, funds Phoenix pamphlets sometimes, cultivates in-house |
+| 6 | **House of Ye** | 叶氏 | Herb valleys outside Longcheng; alchemy is **legacy**, not guild membership | Pill ingredients, garden estates | Marriage to Wei, sect disciple sponsorship, smuggling rivalries with Su |
+| 7 | **House of Luo** | 罗氏 | Forge-town nobles with Longcheng townhouses | Spirit-metal leases, ore politics | Sells to Sword and Phoenix alike, formation plate investments, Qin guard hires |
 
-**Optional 8th** (if you want eight):
+**Optional 8th — Ying** 应氏: scandal sheets and rumor — **also** owns print shops, bribes clerks, cultivates gossip dao; not “the information clan.”
 
-| Clan | Hanzi | Niche | Why add |
-|------|-------|-------|---------|
-| **House of Ying** | 应氏 | Rumor sheets, information brokerage | Competes with Void archives — **street** truth vs **sealed** truth |
+**Power band:** patriarch **Nascent Soul** public face; one hidden **VR** ancestor max; no sect homeland charter.
 
-**Cut from v1:** a “pre-Dao Wars bloodline” clan — save for late game (too much lore weight early).
-
-**Power band:** patriarch **Nascent Soul** public face; one hidden **VR** ancestor max per major clan; no sect arrays.
-
-**Rep model (later):** one `nobleStanding` overlay or per-clan mini-rep — don’t ship eight tracks in phase 1; start with Wei + one rival (Su or Qin).
+**Rep model (later):** don’t ship eight tracks in phase 1 — start with one clan questline that shows *internal* faction (cadet branch vs main line), not a single perk.
 
 ### 2. Inner Tianjing (天京) — Tian Clan home grounds
 
@@ -250,14 +260,9 @@ Sect power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-s
 
 ## Relationship to four sects (outer city = branches)
 
-| Sect | In the imperial city they… |
-|------|----------------------------|
-| **Celestial Sword** | **Blade Bureau** on Envoy Row — honor enforcement |
-| **Jade Lotus** | **Ledger House** — charter accounts, market rights |
-| **Void Temple** | **Reading Room** — sealed pre-Dao Wars fragments |
-| **Golden Phoenix** | **Embassy** — pamphlets, four-claw "mistakes" |
+See **Envoy Row** above — great sects first; Longcheng offices are **one footprint**.
 
-Homeland mountains stay on the map. The city gets **offices**, not second HQs.
+Homeland mountains stay on the map. Envoy Row compounds are **staffed rotations**, not second HQs. A Lotus envoy negotiates charter law; Lotus disciples still train on the mountain.
 
 ---
 
