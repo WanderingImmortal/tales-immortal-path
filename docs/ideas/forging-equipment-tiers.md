@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm ladder in code (7 → 9); forging profession loop (guild, economy) |
 | **Issue** | none yet |
 | **Chat / PR** | Forge profession chat 2026-07-23; gating shipped [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **Updated** | 2026-07-23 (Phases B–D designed; A shipped) |
+| **Updated** | 2026-07-23 (Phases B–E designed; English-first UI lock; A shipped) |
 
 ## Intent
 
@@ -15,6 +15,28 @@ Forged gear should read like **cultivation gear**: one **tier** per mortal realm
 **Hard rule:** tier always wins over grade. Tier 2 low grade is still stronger than tier 1 peak grade. Grade is polish inside a realm band, not a shortcut past the next realm.
 
 This doc is the north star for forging content and stats. [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) is a small interim step (4 tiers, skill + realm gates on today’s 7-realm ladder).
+
+## Player-facing language (owner lock 2026-07-23)
+
+**English is always primary.** Hanzi stays for xianxia flavor but is **secondary** — you and friends who play don’t read Chinese, and the UI should not require it.
+
+| Surface | Rule | Example |
+|---------|------|---------|
+| Chips, buttons, list rows, status line | **English only** | chip: `Superior` · rank: `Dao Smith` |
+| Tooltips, inspect, recipe detail | English + hanzi in **brackets** | `Superior (上品)` · `Dao Smith (求道匠)` |
+| Game log | English + hanzi in **brackets** | `Forged Superior (上品) frostbite saber!` |
+| Data / code | Keep `hanzi` on defs | `GEAR_GRADES.superior.hanzi` — format via helpers, never show hanzi alone in UI |
+
+**Formatting helpers** (ship with Phase B / E):
+
+| Helper | Returns |
+|--------|---------|
+| `formatGearGradeLabel(inst, 'chip')` | `"Superior"` |
+| `formatGearGradeLabel(inst, 'full')` | `"Superior (上品)"` |
+| `formatForgeSkillLabel(skill)` | `"Dao Smith (求道匠)"` |
+| `formatInscriptionLabel(insc)` | `"Crimson Furnace (赤炉纹)"` |
+
+**Avoid:** leading with hanzi (`上品 Superior`), chips that are hanzi-only (`上品`), compact odds without English (`下 22%`).
 
 ## Two axes (plain language)
 
@@ -82,7 +104,7 @@ Low–mid tier gear is mostly **martial only**. High tier adds a **dao layer** (
 
 ### Grade names — **locked** (owner 2026-07-23)
 
-Classic **pin** (品) ladder — four grades per tier. UI shows English + optional hanzi in tooltips.
+Classic **pin** (品) ladder — four grades per tier. Player UI: **English primary**; hanzi in brackets on tooltips and logs (see [Player-facing language](#player-facing-language-owner-lock-2026-07-23)).
 
 | Idx | English UI | Hanzi | Pin reading | Fantasy |
 |-----|------------|-------|-------------|---------|
@@ -260,7 +282,7 @@ Found loot should use the **same tier + grade system** as crafted gear so player
 
 | Drop type | Tier | Grade | When |
 |-----------|------|-------|------|
-| **Trash / mob** | Rolled from zone + enemy tier | **Fixed Common (中品)** | 95% of drops — simple tables |
+| **Trash / mob** | Rolled from zone + enemy tier | **Fixed Common** *(中品 in data)* | 95% of drops — simple tables |
 | **Elite / chest / boss** | Rolled | **Full grade roll** (weighted toward Inferior–Superior) | Exciting without every goblin dropping Supreme |
 | **Ancient / legendary find** | Fixed by hand | Often **degraded** (high tier + Inferior grade) *or* Supreme + unique affix | *“Nascent Soul blade, but the channels are cracked.”* |
 
@@ -291,7 +313,7 @@ Found loot should use the **same tier + grade system** as crafted gear so player
 | Term | What it is | Example |
 |------|------------|---------|
 | **Gear tier** | Which cultivation realm the item is for | Tier 7 dao-seeking blade |
-| **Gear grade** | Quality within that tier | 上品 Superior |
+| **Gear grade** | Quality within that tier | Superior (上品) |
 | **Smith rank** | Your craft level **and** your public title | Apprentice → Forge Saint |
 
 **Owner lean (2026-07-23):** **No separate reputation track.** Alchemy uses skill + rep because pills are consumable and the market is abstract. Forging — your **rank is on the work**. A 神匠’s signature on steel speaks for itself; grinding a second “fame” bar is redundant.
@@ -322,7 +344,7 @@ Skill XP thresholds (draft — tune in playtest):
 
 Today’s code has 4 ranks — migrate IDs: keep `apprentice` / `journeyman` / `artisan` / `master`, add `spirit_smith` … `forge_saint` when tiers 5–9 land.
 
-Log on rank-up: *“🔨 Rank ascends — you are now a 求道匠 (Dao Smith), smith of the seventh tier.”*
+Log on rank-up: *“🔨 Rank ascends — you are now a Dao Smith (求道匠), smith of the seventh tier.”*
 
 ### Skill XP sources
 
@@ -334,7 +356,7 @@ Log on rank-up: *“🔨 Rank ascends — you are now a 求道匠 (Dao Smith), s
 | **Commission complete** | hand-tuned lump | Later |
 | **Guild exam pass** | lump | Later — formal promotion |
 
-**No `forge.reputationXp`.** Buyers read your **rank title** on the sale UI: *“Sold to market as work of a 匠师 (Artisan).”*
+**No `forge.reputationXp`.** Buyers read your **rank title** on the sale UI: *“Sold to market as work of an Artisan (匠师).”*
 
 ### Sell UI (profession loop — no rep)
 
@@ -410,7 +432,7 @@ Helpers in `gear.js`:
 | `getGearGradeDef(gradeId)` | Lookup; default `common` |
 | `getGearGradeMult(inst)` | `statMult` for `sumInstanceStats` |
 | `getGearGradeDurMult(inst)` | Applied when computing / creating `maxDurability` |
-| `formatGearGradeLabel(inst)` | `"上品 Superior"` or short `"上品"` for chips |
+| `formatGearGradeLabel(inst, style)` | `'chip'` → `"Superior"` · `'full'` → `"Superior (上品)"` (logs, tooltips) |
 | `getDefaultGearGrade(source)` | `common` for merchant/starter/migrate; hook for loot later |
 
 **Tier boundary audit (ship with B):** after multipliers land, spot-check that `GEAR_ITEMS` base stats satisfy `minStats(T, supreme) < minStats(T+1, inferior)` on primary combat stats per slot. Adjust tier bases if a tier-1 极品 edges tier-2 下品.
@@ -468,16 +490,16 @@ Widen `GEAR_ITEMS` stats on **tier 2+** so grade spread (0.72–1.55×) never le
 
 | Location | Change |
 |----------|--------|
-| **Inventory / travel kit** | Grade chip next to name — e.g. `<span class="gear-grade-chip grade-superior">上品</span>` |
-| **`formatInstanceName`** | Include grade when not Common: `"Superior Rusty Qi Blade (Sharp)"` or `"Rusty Qi Blade · 上品"` |
-| **Gear slot panel** | Grade on equipped row |
-| **Compare tooltip** | Grade-aware stat lines (already uses `sumInstanceStats`) |
-| **Forge Chamber — recipe detail** | Show expected grade at craft: *"Grade: 中品 (Common) — grade rolls in smith mastery (later)"* |
+| **Inventory / travel kit** | Grade chip next to name — e.g. `<span class="gear-grade-chip grade-superior" title="Superior (上品)">Superior</span>` |
+| **`formatInstanceName`** | Include grade when not Common: `"Superior Rusty Qi Blade (Sharp)"` |
+| **Gear slot panel** | Grade on equipped row (English chip; full label in tooltip) |
+| **Compare tooltip** | Grade-aware stat lines (already uses `sumInstanceStats`); header uses `formatGearGradeLabel(..., 'full')` |
+| **Forge Chamber — recipe detail** | Show expected grade at craft: *"Grade: Common (中品) — grade rolls in smith mastery (later)"* |
 | **Forge Chamber — recipe list** | Optional tier+grade hint on meta line |
-| **Forge success log** | `"Forged 上品 Superior frostbite saber!"` when not common |
-| **Merchant rows** | `"中品"` label on stock gear |
+| **Forge success log** | `"Forged Superior (上品) frostbite saber!"` when not common |
+| **Merchant rows** | `"Common"` label on stock gear; tooltip `Common (中品)` |
 
-CSS: `.gear-grade-chip` per grade color from `GEAR_GRADES.color`; hanzi in chip, full name in tooltip.
+CSS: `.gear-grade-chip` per grade color from `GEAR_GRADES.color`; **English in chip**, `title` or tooltip with hanzi in brackets.
 
 ### Files to touch
 
@@ -495,8 +517,8 @@ CSS: `.gear-grade-chip` per grade color from `GEAR_GRADES.color`; hanzi in chip,
 
 ### Test plan (manual)
 
-- [ ] New game: starter gear shows 中品; stats unchanged vs today (common = 1.0×).
-- [ ] Dev/console: spawn instance with `grade: 'supreme'` — stats ~1.25×, UI shows 极品.
+- [ ] New game: starter gear shows Common chip; tooltip `Common (中品)`; stats unchanged vs today (common = 1.0×).
+- [ ] Dev/console: spawn instance with `grade: 'supreme'` — stats ~1.55×, UI shows Supreme chip + Supreme (极品) in tooltip.
 - [ ] Equip / compare / forge / merchant buy — no errors; grade visible.
 - [ ] Old save loads; missing grade → common; no stat cliff.
 - [ ] Tier boundary spot-check: T1 supreme &lt; T2 inferior on weapon `dmgPct` (adjust bases if fail).
@@ -551,9 +573,9 @@ Replace Phase B’s “always Common” with a weighted roll at `createGearInsta
 
 **UX:**
 
-- Forge Chamber detail: *“Grade odds: 下 22% · 中 50% · 上 24% · 极 4%”* (live from current bonuses)
-- Success log: always show grade — *“Forged 上品 Superior frostbite saber!”*
-- **极品:** extra log line + `grantForgeSkillXp(+5)` bonus (one-time per craft)
+- Forge Chamber detail: *“Grade odds: Inferior 22% · Common 50% · Superior 24% · Supreme 4%”* (live from current bonuses; tooltip may show hanzi per grade)
+- Success log: always show grade — *“Forged Superior (上品) frostbite saber!”*
+- **Supreme:** extra log line + `grantForgeSkillXp(+5)` bonus (one-time per craft)
 
 **Out of scope for C:** forge **failure** / forced 下品 on fail (legendary fail stays as today). Optional **masterwork crit** (+1 grade, cap 极品) = tune pass later.
 
@@ -581,7 +603,7 @@ effectiveMartial = baseStats × gradeMult × attunementMult × durabilityMult
 
 **UX:**
 
-- Equipped / inspect tooltip: *“上品 Superior · Tier 4 — **78% attuned** (Nascent Soul for full power)”*
+- Equipped / inspect tooltip: *“Superior (上品) · Tier 4 — **78% attuned** (Nascent Soul for full power)”*
 - First equip over-tier (once per item): log *“Your qi cannot fill its channels yet.”*
 - Optional later: combat strain when `gap >= 2` — **not required for C acceptance**
 
@@ -597,8 +619,8 @@ effectiveMartial = baseStats × gradeMult × attunementMult × durabilityMult
 
 ### Test plan
 
-- [ ] Apprentice forge: mostly 下/中; Master: visible 极品 streaks over many crafts
-- [ ] 极品 craft grants bonus XP + distinct log
+- [ ] Apprentice forge: mostly Inferior/Common; Master: visible Supreme streaks over many crafts
+- [ ] Supreme craft grants bonus XP + distinct log
 - [ ] Core Formation + T4 gear: 100% attunement; QC + T4: ~15% martial
 - [ ] Compare/equip updates when `realmIdx` changes (breakthrough)
 - [ ] Audits pass
@@ -720,7 +742,7 @@ getGearBonuses() = martial + active inscription stats
 // dao techniques / procs: separate combat hook when layer active
 ```
 
-**Rule:** inscription stats **never** apply when power unmet — not partial. UI shows them greyed: *“赤炉纹 — sealed (need Phase of Fire dao)”*.
+**Rule:** inscription stats **never** apply when power unmet — not partial. UI shows them greyed: *“Crimson Furnace (赤炉纹) — sealed (need Phase of Fire dao)”*.
 
 ### Crafting gate
 
@@ -782,6 +804,168 @@ Extend `canCraftGear`:
 - Tier 5–9 gear content (G)
 - `claim: 'law_wear'` until realm-claims ship
 
+## Phase E — sell panel + 9 smith ranks (`designed` — not built)
+
+**Status:** Planned. **Depends on:** Phase B (`grade` + `GEAR_GRADES.sellMult`). Works without C/D but richer with grades on gear.
+
+**Goal:** Forging pays — **sell surplus gear** from the Forge Chamber. **One ladder:** expand smith skill to **9 ranks** (1 per realm/tier); rank sets sell prices and public title. **No** separate reputation XP.
+
+### Part 1 — Nine smith ranks (`forge-data.js`)
+
+Replace 4-rank `FORGE_SKILL_LEVELS` with full ladder. Each row: craft bonuses (existing), `recipeUnlocks: [tier]`, `sellMult`, `hanzi`, `marketAccess`.
+
+| id | Hanzi | EN | xpRequired | sellMult | market |
+|----|-------|-----|------------|----------|--------|
+| `apprentice` | 学徒 | Apprentice Smith | 0 | 0.78× | pawn only |
+| `journeyman` | 行匠 | Journeyman | 10 | 0.86× | pawn only |
+| `artisan` | 匠师 | Artisan | 28 | 0.94× | **market** |
+| `master` | 炉火大师 | Master Smith | 55 | 1.04× | market |
+| `spirit_smith` | 化神匠 | Spirit Smith | 95 | 1.14× | market |
+| `void_smith` | 虚空匠 | Void Smith | 150 | 1.24× | market |
+| `dao_smith` | 求道匠 | Dao Smith | 225 | 1.36× | market |
+| `law_smith` | 显道匠 | Law Smith | 320 | 1.48× | market |
+| `forge_saint` | 铸圣 | Forge Saint | 450 | 1.62× | market + consign *(later)* |
+
+- **Ranks 5–9** exist in data immediately; recipes for tiers 5–9 unlock when Phase G adds content (no empty UI rows).
+- Rank-up log: *“🔨 Rank ascends — Dao Smith (求道匠), smith of the seventh tier.”*
+- Status panel shows: rank **English title** + sell mult + progress bar to next rank (tooltip: full `formatForgeSkillLabel` with hanzi).
+- `unlockForgeRecipesForSkill` unchanged — only unlocks recipes that exist in `GEAR_CRAFT_RECIPES`.
+
+**Skill XP** (unchanged from design): forge success + tier bonus; +5 on Supreme (极品) craft (Phase C); optional `+1 per tier` on sell (tune low).
+
+### Part 2 — Sell price formula
+
+```javascript
+// forge-data.js
+const GEAR_MARKET_BASE = {
+    // per slot × tier — draft; tune from merchant buy prices
+    weapon:     { 1: 14, 2: 42, 3: 85, 4: 160 },
+    chestplate: { 1: 12, 2: 38, 3: 78, 4: 145 },
+    helm:       { 1: 8,  2: 28, 3: 55, 4: 100 },
+    amulet:     { 1: 16, 2: 48, 3: 95, 4: 175 },
+    ring:       { 1: 10, 2: 32, 3: 65, 4: 120 },
+    boots:      { 1: 9,  2: 26, 3: 50, 4: 90  }
+};
+
+const FORGE_BALANCE = {
+    // …existing…
+    pawnMult: 0.55,           // apprentice/journeyman outlet
+    supplyPriceFactor: 0.08,  // mirror alchemy softness
+    supplyDecayPerMonth: 0.15,
+    skillXpPerSell: 1         // optional per tier handled in sell fn
+};
+```
+
+```text
+base     = GEAR_MARKET_BASE[slot][tier]
+gradeMult = GEAR_GRADES[inst.grade].sellMult
+affixMult = 1 + (inst.affixes.length * 0.08)   // tune
+rankMult  = getForgeSkillLevel().sellMult
+supplyMult = 1 / (1 + forge.gearSupply[defId] * supplyPriceFactor)
+durMult   = inst.durability / inst.maxDurability  // worn gear worth less
+
+price = floor(base × gradeMult × affixMult × rankMult × supplyMult × durMult)
+```
+
+**Pawn vs market:**
+
+| Rank | Channel | Mult |
+|------|---------|------|
+| Apprentice, Journeyman | Pawn / scrap | `price × pawnMult` (0.55×) |
+| Artisan+ | Market | full `price` |
+
+UI label: *“Pawn offer”* vs *“Market price”* so players see why ranking up matters.
+
+### Part 3 — Supply tracking (soft anti-flood)
+
+```javascript
+G.forge.gearSupply = { rusty_qi_blade: 2.5, … }  // defId → float
+```
+
+- On sell: `gearSupply[defId] += qty` (weight by tier).
+- Monthly tick (hook `tickForgeSupplyDecay` from time advance, mirror alchemy): decay toward 0.
+- Flooding one item type soft-lowers price — encourages variety.
+
+### Part 4 — Sell flow (`crafting.js`)
+
+```javascript
+function getGearSellPrice(uid) { … }
+function canSellGear(uid) { … }  // in bag, not equipped, not quest-locked
+function sellGearInstance(uid, qty) { … }  // qty always 1 per instance
+```
+
+**Rules:**
+
+- Sell **instances** from `gearBag` only — one UID = one sale.
+- Cannot sell **equipped** gear (must unequip first).
+- Cannot sell **starter path gear** if flagged `noSell` on def *(optional)*.
+- Stones credited; instance removed from bag + `gearInstances`.
+- Log: *“🔨 Sold Superior (上品) frostbite saber — work of a Journeyman (行匠) — for 52 Spirit Stones.”*
+- Grant `grantForgeSkillXp(tier)` optional drip.
+
+### Part 5 — Forge Chamber UI
+
+Mirror alchemy sell panel (`index.html` + `forge-chamber.js`):
+
+```html
+<div class="forge-sell-section">
+  <h3 class="forge-section-title">Sell Gear</h3>
+  <div id="forgeSellPanel"></div>
+</div>
+```
+
+**`renderForgeSellPanel()`:**
+
+- List bag instances grouped or flat: emoji, name, grade chip, price, Sell button.
+- Show current rank + channel (pawn/market).
+- Empty state: *“No gear to sell. Forge surplus equipment for stones.”*
+- Sort: tier desc, grade desc, price desc.
+
+**Status panel** update: smith rank (English line), sell mult, XP bar (already partially there — extend for 9 ranks; hanzi in tooltip via `formatForgeSkillLabel`).
+
+### Part 6 — Migration
+
+- Existing saves: `migrateForgeSkillLevel()` picks correct rank from `skillXp` against new 9-row table.
+- Add `G.forge.gearSupply = {}` in `ensureForgeState`.
+- No rep fields — do **not** add `reputationXp`.
+
+### Files to touch
+
+| File | Work |
+|------|------|
+| `forge-data.js` | 9 ranks, `GEAR_MARKET_BASE`, balance constants |
+| `crafting.js` | price, sell, supply tick |
+| `gear.js` | `canSellGear`, tier/slot helpers for pricing |
+| `forge-chamber.js` | sell panel, status rank display |
+| `index.html` | `#forgeSellPanel` + section |
+| `style.css` | `.forge-sell-row`, pawn vs market styling |
+| `time-playback.js` or month tick | `tickForgeSupplyDecay` |
+
+### Test plan
+
+- [ ] Apprentice: pawn price ≈ 55% of artisan market on same item
+- [ ] Artisan+: market price uses grade + rank mult
+- [ ] Selling removes instance; equipped item blocked
+- [ ] Rank-up at xp thresholds 10/28/55…; log shows English title with hanzi in brackets
+- [ ] Supply: sell 5 of same def → 6th sale lower; decay after months
+- [ ] Rank 5+ achievable via tier-4 grind (sell mult improves even without tier-5 recipes)
+- [ ] Audits pass
+
+### Acceptance criteria
+
+1. `FORGE_SKILL_LEVELS` has 9 ranks with sell mult + hanzi.
+2. Forge Chamber sell panel functional (alchemy parity).
+3. Price reflects grade, tier, rank, durability, supply.
+4. Pawn-only until Artisan; market from Artisan up.
+5. No `forge.reputationXp`.
+
+### Out of scope for E
+
+- Commissions / guild consign (rank 8+ perk — stub text OK)
+- Appraisal (F)
+- Buying gear from market (sell only)
+- NPC buyer haggling
+
 ## Phased build (suggested)
 
 | Phase | What | Notes |
@@ -790,14 +974,15 @@ Extend `canCraftGear`:
 | **B** 📋 **designed** | Grades on instances + stat scaling + UI + tier base pass | [Phase B](#phase-b--grades-on-gear-designed--not-built) |
 | **C** 📋 **designed** | Grade roll on forge + attunement | [Phase C](#phase-c--grade-rolls--attunement-designed--not-built) |
 | **D** 📋 **designed** | Power gates + dormant inscriptions | [Phase D](#phase-d--power-gates--dormant-inscriptions-designed--not-built) |
-| **E** | Sell panel + 9 smith ranks | |
+| **E** 📋 **designed** | Sell panel + 9 smith ranks | [Phase E](#phase-e--sell-panel--9-smith-ranks-designed--not-built) |
 | **F** | Appraisal + hybrid loot tables | |
 | **G** | Tiers 5–9 gear + guild + path specials | Nine-realm migration |
 
 ## Prerequisites
 
 - [x] Owner direction: 9 tiers, 4 grades, tier beats grade
-- [x] Grade labels locked — **下品 / 中品 / 上品 / 极品**
+- [x] Player-facing copy — **English primary**; hanzi in brackets (logs, tooltips)
+- [x] Grade labels locked — Inferior / Common / Superior / Supreme *(下品 / 中品 / 上品 / 极品 in data)*
 - [x] Under-tier — **attunement** on base stats
 - [x] Dao-bound gear — **martial layer always material-tier**; dao layer power-gated (“just swinging”)
 - [x] Crafting — tier ceiling (+1 early, stricter late) + power requirements
@@ -807,6 +992,7 @@ Extend `canCraftGear`:
 - [x] Phase B designed — grades, mults, tier base pass, UI map
 - [x] Phase C designed — grade roll table, attunement on equip
 - [x] Phase D designed — inscriptions, powerRequirements, martial vs dao layer
+- [x] Phase E designed — sell panel, 9 smith ranks, pawn vs market
 - [ ] Attunement constants tune pass (in playtest when C ships)
 - [ ] Nine-realm migration plan
 
