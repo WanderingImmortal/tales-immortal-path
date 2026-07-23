@@ -375,12 +375,137 @@ Don’t hand-author 36 variants per slot. **Data-driven:**
 
 Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward this schema incrementally.
 
+## Phase B — grades on gear (implementation map)
+
+**Goal:** Every gear **instance** has a **grade** (下品 → 极品). Grade changes **martial stats** and **durability**; shows in UI. **No grade roll on forge yet** (Phase C) — forged gear defaults to **中品 Common** until then.
+
+**Out of scope for B:** attunement, dao layer, sell panel, loot grade rolls, smith rank expansion, inscription appraisal.
+
+### Data (`forge-data.js` or `data.js`)
+
+```javascript
+const GEAR_GRADES = {
+    inferior: { id: 'inferior', index: 1, name: 'Inferior', hanzi: '下品', statMult: 0.85, durMult: 0.90, sellMult: 0.70, color: '#8a8478' },
+    common:   { id: 'common',   index: 2, name: 'Common',   hanzi: '中品', statMult: 1.00, durMult: 1.00, sellMult: 1.00, color: '#9a9a8a' },
+    superior: { id: 'superior', index: 3, name: 'Superior', hanzi: '上品', statMult: 1.12, durMult: 1.05, sellMult: 1.25, color: '#6a9aba' },
+    supreme:  { id: 'supreme',  index: 4, name: 'Supreme',  hanzi: '极品', statMult: 1.25, durMult: 1.10, sellMult: 1.60, color: '#c4a040' }
+};
+```
+
+Helpers in `gear.js`:
+
+| Function | Purpose |
+|----------|---------|
+| `getGearGradeDef(gradeId)` | Lookup; default `common` |
+| `getGearGradeMult(inst)` | `statMult` for `sumInstanceStats` |
+| `getGearGradeDurMult(inst)` | Applied when computing / creating `maxDurability` |
+| `formatGearGradeLabel(inst)` | `"上品 Superior"` or short `"上品"` for chips |
+| `getDefaultGearGrade(source)` | `common` for merchant/starter/migrate; hook for loot later |
+
+**Tier boundary audit (ship with B):** after multipliers land, spot-check that `GEAR_ITEMS` base stats satisfy `minStats(T, supreme) < minStats(T+1, inferior)` on primary combat stats per slot. Adjust tier bases if a tier-1 极品 edges tier-2 下品.
+
+### Instance shape
+
+```javascript
+// gear instance (add field)
+{
+  uid, defId, grade: 'common',  // NEW — id from GEAR_GRADES
+  affixes: [], durability, maxDurability
+}
+```
+
+- `createGearInstance(defId, { grade, … })` — default `grade: 'common'` if omitted.
+- `maxDurability` = `floor(getGearMaxDurability(def) * gradeDurMult)` at creation (smith durability bonus in `applyForgeInstanceBonuses` stacks **after** grade base).
+
+### Stat pipeline (single choke point)
+
+In `sumInstanceStats(inst)`:
+
+```text
+effectiveStats = baseStats(def) × gradeMult × durabilityMult × (attunementMult later)
+```
+
+- Apply **grade mult** to `def.stats` and **affix stats** (affixes are part of the forged piece).
+- **Resonance** (`def.resonance[path]`): **no grade mult** in B — resonance is path fit, not metal quality. Revisit if it feels wrong.
+
+Sets (`getActiveGearSetBonuses`) unchanged — set bonuses are worn-piece count, not instance grade.
+
+### Defaults by source (Phase B)
+
+| Source | Grade assigned |
+|--------|----------------|
+| **Forge** (until Phase C) | `common` always |
+| **Merchant buy** | `common` |
+| **Starter gear** | `common` |
+| **Legacy save migrate** | `common` on any instance missing `grade` |
+| **Loot / explore** | `common` for now (hybrid table = Phase F) |
+
+### Migration
+
+On load (`ensureGearState` or `migrateGearGradesForExistingSave` called from `core.js`):
+
+1. Every instance in `G.gearInstances` without `grade` → `'common'`.
+2. Recompute `maxDurability` only if we stored max at creation without grade — **safer:** store grade at creation; for migrate, set grade + optionally scale current `durability`/`maxDurability` proportionally if max was pre-grade (or leave as-is for grandfathered items).
+
+**Lean:** migrate sets `grade: 'common'` only; do **not** rescale existing durability numbers (avoids save surprises).
+
+### UI surfaces
+
+| Location | Change |
+|----------|--------|
+| **Inventory / travel kit** | Grade chip next to name — e.g. `<span class="gear-grade-chip grade-superior">上品</span>` |
+| **`formatInstanceName`** | Include grade when not Common: `"Superior Rusty Qi Blade (Sharp)"` or `"Rusty Qi Blade · 上品"` |
+| **Gear slot panel** | Grade on equipped row |
+| **Compare tooltip** | Grade-aware stat lines (already uses `sumInstanceStats`) |
+| **Forge Chamber — recipe detail** | Show expected grade at craft: *"Grade: 中品 (Common) — grade rolls in smith mastery (later)"* |
+| **Forge Chamber — recipe list** | Optional tier+grade hint on meta line |
+| **Forge success log** | `"Forged 上品 Superior frostbite saber!"` when not common |
+| **Merchant rows** | `"中品"` label on stock gear |
+
+CSS: `.gear-grade-chip` per grade color from `GEAR_GRADES.color`; hanzi in chip, full name in tooltip.
+
+### Files to touch
+
+| File | Work |
+|------|------|
+| `forge-data.js` | `GEAR_GRADES` constants |
+| `gear.js` | grade helpers, `createGearInstance`, `sumInstanceStats`, `formatInstanceName`, migrate |
+| `crafting.js` | pass `grade: 'common'` on forge; log uses `formatGearGradeLabel` |
+| `forge-chamber.js` | detail panel grade line |
+| `ui.js` | inventory / equipment grade chips |
+| `style.css` | grade chip styles |
+| `core.js` | call `migrateGearGradesForExistingSave` on load |
+
+**No changes** to combat formulas beyond `getGearBonuses()` picking up graded `sumInstanceStats`.
+
+### Test plan (manual)
+
+- [ ] New game: starter gear shows 中品; stats unchanged vs today (common = 1.0×).
+- [ ] Dev/console: spawn instance with `grade: 'supreme'` — stats ~1.25×, UI shows 极品.
+- [ ] Equip / compare / forge / merchant buy — no errors; grade visible.
+- [ ] Old save loads; missing grade → common; no stat cliff.
+- [ ] Tier boundary spot-check: T1 supreme &lt; T2 inferior on weapon `dmgPct` (adjust bases if fail).
+
+### Acceptance criteria
+
+1. `grade` persisted on every gear instance.
+2. Grade affects martial stats (and durability at creation) via one mult table.
+3. Player can see grade in inventory, equipment, and forge detail.
+4. Forged gear = Common until Phase C.
+5. Recursion audits pass (`bash scripts/pre-pr-check.sh`).
+
+### What Phase C adds next (don’t build in B)
+
+- Roll grade on forge success from smith rank + anvil.
+- Supreme craft bonus XP / log fanfare.
+- Preview "expected grade range" in forge UI.
+
 ## Phased build (suggested)
 
 | Phase | What | Notes |
 |-------|------|-------|
 | **A** ✅ shipped | Skill + realm recipe gates on 4 tiers | [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **B** | Add `grade` (下中上极品) to instances + stat scaling + UI | |
+| **B** | Add `grade` (下中上极品) to instances + stat scaling + UI | See **Phase B** section above |
 | **C** | Attunement mult on equip; grade roll on forge | |
 | **D** | `powerRequirements` + dormant inscriptions | Dao Seeker blade pattern |
 | **E** | **Sell panel** + expand smith ranks to **9** | 1:1 with gear tiers / realms |
