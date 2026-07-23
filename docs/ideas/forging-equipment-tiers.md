@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm ladder in code (7 → 9); forging profession loop (guild, economy) |
 | **Issue** | none yet |
 | **Chat / PR** | Forge profession chat 2026-07-23; gating shipped [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **Updated** | 2026-07-23 (owner pass — grades, attunement, loot) |
+| **Updated** | 2026-07-23 (owner lock — grades, attunement + power gates, inscriptions) |
 
 ## Intent
 
@@ -48,11 +48,18 @@ Gear tier **N** is keyed to cultivation **realm index N − 1** (0-based). Same 
 
 Until the nine-realm migration lands ([`nine-realm-ladder.md`](nine-realm-ladder.md)), **ship content against the live ladder** and extend when indices shift.
 
-**Wearing / crafting gate (owner lean 2026-07-23):** **soft attunement**, not hard block. You can equip over-tier gear, but you cannot channel its full might until your cultivation catches up. Crafting still requires appropriate realm (you cannot forge what you cannot stabilize at the crucible).
+**Wearing gear uses two different gates** (owner lock 2026-07-23):
+
+| Gate type | What it does | Example |
+|-----------|--------------|---------|
+| **Attunement** (soft) | Base stats scale with realm gap | Nascent Soul sword on a Core Formation cultivator — works, but weak |
+| **Power requirement** (hard) | Special functions **do not activate** without the right cultivation power | Dao Seeker’s blade — equips, but is inert (or crude metal only) until you have dao-seeking-level comprehension |
+
+Low–mid tier gear is mostly **attunement-only**. High tier increasingly adds **inscriptions, formations, dao channels** that need matching realm powers.
 
 ## Grades within a tier
 
-### Grade names — xianxia lean (owner 2026-07-23)
+### Grade names — **locked** (owner 2026-07-23)
 
 Classic **pin** (品) ladder — four grades per tier. UI shows English + optional hanzi in tooltips.
 
@@ -67,16 +74,16 @@ Classic **pin** (品) ladder — four grades per tier. UI shows English + option
 
 **Not using for mortal gear (reserved):** 灵品 / 仙品 / 神品 — save for immortal-layer or named frameworks later.
 
-### Owner lean (2026-07-23) — superseded labels
-
-Four grades per tier — easy to read in UI, enough spread for forge skill to matter:
-
 | Grade | Label | Fantasy |
 |-------|-------|---------|
 | 1 | **Inferior** *(下品)* | Barely qualifies; slag inclusions, thin qi channel |
 | 2 | **Common** *(中品)* | Guild-acceptable work; what most NPC smiths sell |
 | 3 | **Superior** *(上品)* | Skilled smith; clean channels, stable affixes |
 | 4 | **Supreme** *(极品)* | Masterwork for that realm; rare commissions, exam proofs |
+
+### Owner lean (2026-07-23) — superseded labels
+
+~~Four grades table duplicated here — see locked names above.~~
 
 **Tier boundary rule (non-negotiable):**
 
@@ -108,9 +115,9 @@ On successful craft:
 
 Failure modes (later PRs): **flawed** outcome one grade down; **masterwork** crit one grade up (capped at Peak).
 
-## Under-tier gear — attunement (owner lean 2026-07-23)
+## Under-tier gear — attunement (soft gate)
 
-**Equip freely; power scales with cultivation.** No hard block on wearing a higher-tier piece, but **effective stats** are capped by how far you are from the item’s tier.
+**Equip freely; base stats scale with cultivation.** No hard block on wearing a higher-tier **stat stick**, but **effective base stats** drop when you’re below the item’s tier.
 
 ### How you’d even have over-tier gear at QC
 
@@ -146,12 +153,74 @@ Example at **QC (realm 0)** with **tier 8** gear (`gap = 7`):
 
 At **Foundation (realm 1)** with **tier 3** gear (`gap = 1`): ~**78%** — feels like “almost there,” rewarding early find.
 
-**Crafting gate stays stricter:** need `realmIdx >= tier - 1` to **forge** (stabilize materials at the anvil). Wearing grandpa’s sword ≠ forging one.
+At **Foundation (realm 1)** with **tier 3** gear (`gap = 1`): ~**78%** — feels like “almost there,” rewarding early find.
 
-### UI copy
+### UI copy (attunement)
 
-- Tooltip: *“Supreme-grade · Tier 8 — **12% attuned** (Dao Manifestation to unlock full power)”*
+- Tooltip: *“Superior-grade · Tier 4 — **78% attuned** (Nascent Soul for full base stats)”*
 - Log on equip: *“The blade hums in your grip. Your qi cannot fill its channels yet.”*
+
+## Power gates — when gear “doesn’t function” (hard gate)
+
+Separate from attunement. Some pieces carry **inscriptions, embedded formations, or dao channels** that only wake up when you have the matching **realm power**.
+
+| Item profile | Below power | At / above power |
+|--------------|-------------|------------------|
+| **Plain forged** (early tiers) | Attunement only | Full base stats |
+| **Inscribed** (mid tiers) | Base stats (attuned); **inscription dormant** | Inscription active (+element, proc, etc.) |
+| **Dao-bound** (high tiers, e.g. tier 7+) | Equips; behaves like **dull metal** or minimal stat stick | Full weapon identity — techniques, law resonance, formation deploy |
+
+**Owner example:** A **Nascent Soul** weapon — equipable earlier with attunement penalty; still “a sword.” A **Dao Seeker’s blade** — without dao-seeking-level power it **does not function** as that weapon (no dao techniques, inscription dead). Not OP at QC because the scary part is gated, not just scaled down.
+
+### Data shape (draft)
+
+```javascript
+// On gear def or instance
+powerRequirements: {
+  minRealmIdx: 6,           // Dao Seeking (tier 7 gear)
+  // optional extras — any unmet = dormant special effects
+  daoBranch: 'phase_fire',  // needs fire-phase dao comprehension
+  formationInsight: 40,     // needs FI to activate inscribed formation
+  claim: 'law_wear'         // needs realm claim from realm-claims doc
+}
+```
+
+**Combat/UI:** dormant inscriptions show as *“Sealed inscription (Dao Seeking required)”* — appraisal reveals what they *would* do.
+
+## Crafting gates (owner lock 2026-07-23)
+
+**Cannot craft far above your realm.** Two checks:
+
+### 1. Tier ceiling (soft overreach)
+
+| Your realm band | Max craft tier above your tier |
+|-----------------|--------------------------------|
+| Early (QC–FE, idx 0–1) | **+1** tier (maybe **+2** at QC only — tune) |
+| Mid (Core–NS, idx 2–3) | **+1** tier |
+| Late (Void+, idx 4+) | **+0** — craft at or below your tier only |
+
+Smith skill raises **quality** (grade roll) and **recipe access**, not “skip three realms.”
+
+### 2. Power requirement (hard)
+
+Same `powerRequirements` as wear. You might **know** the recipe but cannot complete the forge until you have the power (dao fragment, formation rank, tribulation pass, etc.). UI: *“You lack the dao resonance to stabilize this inscription.”*
+
+**Lean:** crafting gate ≥ wearing gate — if you can’t activate it, you probably can’t forge it. Exception: **commission** — NPC master forges for you; you still can’t wield the result until ready.
+
+## Inscriptions & appraisal (later phase)
+
+**Affixes** = rolled stat bonuses (sharp, flowing, etc.) — visible on inspect once identified.
+
+**Inscriptions / embedded formations** = designed effects (fire damage channel, ward proc, spirit step charge) — the cool high-tier identity. Often **hidden until appraised**.
+
+### Appraisal (owner lean)
+
+- **Not** primarily “reveal affixes” — base affixes can stay visible or semi-visible.
+- **Is** “discover what this sword *does*” — read inscriptions, formation nodes, dao coupling.
+- Services: forge, Forgers Guild, senior appraiser NPC; smith skill perk later.
+- Pre-appraisal copy: *“Spirit steel longsword (unread)”* → post: *“Superior-grade · Tier 6 · **Inscription: Crimson Furnace** (+fire damage, ignite on crit)”*
+
+Ties to [`formations-and-arrays.md`](formations-and-arrays.md) equipment-formation mode (charges, wear) without combat-time inscription.
 
 ## Item families (path flavor — owner lean 2026-07-23)
 
@@ -186,19 +255,21 @@ Found loot should use the **same tier + grade system** as crafted gear so player
 - **Cons:** forge profession feels pointless on loot — “why smith when dungeons drop the same thing?”
 - **Hybrid fix:** mobs drop **predictable Common**; **grade variance** is the smith’s value (reliably hit Superior/Supreme) and boss chase drops.
 
-### Unidentified loot (optional spice)
+### Unidentified loot & appraisal (later)
 
-- Pick up: *“Heavy iron blade (?)”*
-- **Appraise** at forge / guild / merchant → reveals tier + grade + affixes
-- Fits xianxia; gates flipper knowledge; smith profession can appraise cheaper
+- Pick up: *“Heavy iron blade (unread)”*
+- **Appraise** → tier, grade, and **inscriptions / formation effects** (not just affix list)
+- Affixes may stay visible or partial; **inscriptions** are the appraisal payoff
 
 ### Merchant stock
 
 **Lean:** NPC gear is always **Common grade** at listed tier — Superior costs more from named smiths later (commission system).
 
-### Attunement on found loot
+### Attunement + power gates on found loot
 
-Same rules as crafted: over-tier find is exciting but **muted until you grow**. A QC who loots a tier-8 Supreme sword gets a fancy icon and ~15% stats — bragging rights, not autopilot.
+- **Attunement** applies to base stats on any drop.
+- **Power-gated inscriptions** stay dormant until you qualify — finding a dao blade early is a long-term quest, not a power spike.
+- Hybrid loot pool **confirmed** (mobs Common; elites/bosses roll grade).
 
 ## Smith progression (how it maps)
 
@@ -231,27 +302,31 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 | Phase | What | Notes |
 |-------|------|-------|
 | **A** ✅ shipped | Skill + realm recipe gates on 4 tiers | [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **B** | Add `grade` to gear instances + stat scaling + UI label | No new tiers yet |
-| **C** | Grade roll on forge success; smith skill shifts roll table | Makes profession feel tangible |
-| **D** | Expand to tiers 5–9 as realms land | Blocked on nine-realm migration |
-| **E** | Path lines (qi / body / soul), blueprints, guild exams | [`creation-path-guilds.md`](creation-path-guilds.md) |
+| **B** | Add `grade` (下中上极品) to instances + stat scaling + UI | |
+| **C** | Attunement mult on equip; grade roll on forge | |
+| **D** | `powerRequirements` + dormant inscriptions | Dao Seeker blade pattern |
+| **E** | Appraisal for inscriptions; hybrid loot tables | |
+| **F** | Expand tiers 5–9; path specials; guild exams | Nine-realm migration |
 
 ## Prerequisites
 
 - [x] Owner direction: 9 tiers, 4 grades, tier beats grade
-- [x] Grade labels — **下品 / 中品 / 上品 / 极品** (Inferior / Common / Superior / Supreme)
-- [x] Under-tier — **soft attunement** (% stats + optional strain), hard gate on **crafting** only
-- [x] Found loot — **hybrid** (mobs Common; elites/bosses roll grade; ancients degraded or unique)
+- [x] Grade labels locked — **下品 / 中品 / 上品 / 极品**
+- [x] Under-tier — **attunement** on base stats
+- [x] High-tier — **power gates** (dao / realm / formation); item can equip but not **function**
+- [x] Crafting — tier ceiling (+1 early, stricter late) + power requirements
+- [x] Found loot — hybrid pool confirmed
+- [x] Appraisal — later; reveals **inscriptions/formations**, not affix discovery
 - [ ] Body/soul special creation path (not mirrored qi gear)
 - [ ] Attunement constants tune pass
 - [ ] Nine-realm migration plan
 
 ## Open questions
 
-- [ ] Attunement strain: qi/stamina tax when `gap >= 2`, or only stat mult?
-- [ ] Appraisal as forge skill perk vs guild service?
+- [ ] Early-realm +2 craft overreach — QC only, or never?
+- [ ] Dormant dao blade: zero special effects, or crude stat stick from attunement?
+- [ ] Inscription pool per tier — hand-authored vs procedural?
 - [ ] Body/soul: shared tier index with different item types, or separate refinement ladder?
-- [ ] Legendary / named gear: degraded ancient vs Supreme + unique affix set?
 - [ ] Body/soul parallel realm names at idx 4 and 7 when nine-realm ships
 
 ## Implementation crumbs
