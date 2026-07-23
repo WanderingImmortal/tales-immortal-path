@@ -2,14 +2,16 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-07-22
+**Updated:** 2026-07-23
 
 ## Focus
-- *(open — owner pivoting away from tribs for now)*
+- **Heartlands sect docs** — merge Sword ([#68](https://github.com/WanderingImmortal/tales-immortal-path/pull/68) TBD), Lotus ([#65](https://github.com/WanderingImmortal/tales-immortal-path/pull/65)), Void ([#66](https://github.com/WanderingImmortal/tales-immortal-path/pull/66)), Phoenix ([#67](https://github.com/WanderingImmortal/tales-immortal-path/pull/67))
+- **Imperial city (Longcheng)** — still on `cursor/burning-breath-fire-method-4e4c`; separate PR when ready
 
 ## Next
-- Playtest / merge tribulation v2 QC→FE when ready ([#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63))
-- Pick a fresh build direction (FE journey, formations, chronicle, etc.)
+- Merge sect identity PRs (order flexible; no code conflicts)
+- Imperial clan + Longcheng workshop PR off old branch
+- Phoenix Gambit lore pass in code (later)
 
 ## Parked (return later)
 - **Higher-realm trib scripts** — [`docs/ideas/tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md) (QC→FE only; rest need journey design)
