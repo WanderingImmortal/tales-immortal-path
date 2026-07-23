@@ -2405,7 +2405,7 @@ function renderMerchantPopup() {
             if (canBuy) status += ' · Click to buy';
             return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-method="${escapeAttr(method.id)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
                 <div class="name">📘 ${method.name}${studied ? ' <span style="color:#7a9a7a;font-size:11px;">(studied)</span>' : ''}</div>
-                <div class="desc">${method.desc} · ${grade}</div>
+                <div class="desc">${method.shopBlurb || method.desc} · ${grade}</div>
                 <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
             </div>`;
         }).join('');

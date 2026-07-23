@@ -586,6 +586,34 @@ const FOUNDATION_NATURES = {
         desc: 'Heat settles in the dantian — fire arts bite harder.',
         effects: { elementDmgMult: { fire: 1.06 } }
     },
+    water_aspected: {
+        id: 'water_aspected',
+        name: 'Water-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Flow settles in the dantian — water arts run smoother and bite deeper.',
+        effects: { elementDmgMult: { water: 1.06 } }
+    },
+    wood_aspected: {
+        id: 'wood_aspected',
+        name: 'Wood-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Growth-qi roots in the dantian — wood arts flourish from the seal.',
+        effects: { elementDmgMult: { wood: 1.06 } }
+    },
+    metal_aspected: {
+        id: 'metal_aspected',
+        name: 'Metal-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Edge-qi condenses in the dantian — metal arts cut cleaner.',
+        effects: { elementDmgMult: { metal: 1.06 } }
+    },
+    earth_aspected: {
+        id: 'earth_aspected',
+        name: 'Earth-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Weight-qi settles in the dantian — earth arts land heavier.',
+        effects: { elementDmgMult: { earth: 1.06 } }
+    },
     thunder_tempered: {
         id: 'thunder_tempered',
         name: 'Thunder-Tempered Foundation',
@@ -727,6 +755,150 @@ const CULTIVATION_METHOD_POOL = [
         infrastructure: null,
         comprehendMonths: 2,
         desc: 'Breathwork tuned for tangled roots — kinder to pentamixed, leakier for pure singles.'
+    },
+    {
+        id: 'burning_breath_technique',
+        name: 'Burning Breath Technique',
+        lineageId: 'burning_breath_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['fire'],
+        essences: [],
+        stampsNature: 'fire_aspected',
+        rootFit: { fire: 1.08, water: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.04
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Inhale the world\'s scattered flame-qi; exhale the mundane. Cycle after cycle, heat gathers in the dantian until your qi carries fire\'s nature.',
+        shopBlurb: 'Outer-court fire breathwork — cheap, common, and enough to forge a fire-aspected foundation if you commit.'
+    },
+    {
+        id: 'flowing_tide_breath',
+        name: 'Flowing Tide Breath',
+        lineageId: 'flowing_tide_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['water'],
+        essences: [],
+        stampsNature: 'water_aspected',
+        rootFit: { water: 1.08, fire: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.05
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Draw cool qi on the inhale and let it pool like tidewater in the dantian. Breath after breath, your cultivation carries the nature of flow.',
+        shopBlurb: 'Coastal syllabus breathwork — common water-attributed qi for a water-aspected foundation seal.'
+    },
+    {
+        id: 'verdant_breath_technique',
+        name: 'Verdant Breath Technique',
+        lineageId: 'verdant_breath_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['wood'],
+        essences: [],
+        stampsNature: 'wood_aspected',
+        rootFit: { wood: 1.08, metal: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.06
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Breathe with the rhythm of sprouting things — qi enters soft, roots in the dantian, and leaves with the green nature of wood.',
+        shopBlurb: 'Herbalist-court breathwork — nurture wood-attributed qi without a formation bill.'
+    },
+    {
+        id: 'iron_meridian_breath',
+        name: 'Iron Meridian Breath',
+        lineageId: 'iron_meridian_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['metal'],
+        essences: [],
+        stampsNature: 'metal_aspected',
+        rootFit: { metal: 1.08, wood: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.03
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Each breath hones qi to a finer edge until the dantian holds metal\'s sharp, disciplined nature.',
+        shopBlurb: 'Smith-court syllabus — common metal-attributed breath for a cutting foundation seal.'
+    },
+    {
+        id: 'stone_root_breath',
+        name: 'Stone Root Breath',
+        lineageId: 'stone_root_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['earth'],
+        essences: [],
+        stampsNature: 'earth_aspected',
+        rootFit: { earth: 1.08, wood: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.08
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Inhale the weight of mountain-qi; anchor it in the dantian until your cultivation settles with earth\'s patient nature.',
+        shopBlurb: 'Earth-court breathwork — steady, common, and enough to seal an earth-aspected foundation.'
+    },
+    {
+        id: 'storm_heart_breath',
+        name: 'Storm Heart Breath',
+        lineageId: 'storm_heart_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['lightning'],
+        essences: [],
+        stampsNature: 'thunder_tempered',
+        rootFit: { lightning: 1.08, earth: 0.95, pentamixed: 0.98, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 0.98,
+            powerMult: 1.02,
+            densityEfficiency: 1.0,
+            stabilityBias: -0.02
+        },
+        infrastructure: null,
+        comprehendMonths: 3,
+        desc: 'Breathe between heartbeats of distant thunder until deviant lightning-qi sparks in the dantian — volatile, but it forges a thunder-tempered seal.',
+        shopBlurb: 'Uncommon deviant syllabus — risky lightning breath for those who want thunder in their foundation.'
     }
 ];
 
@@ -1682,6 +1854,10 @@ const MERCHANT_CATALOG = {
         methods: [
             { methodId: 'outer_sect_qi_cycling', price: 55 },
             { methodId: 'impure_meridian_breath', price: 48 },
+            { methodId: 'burning_breath_technique', price: 50 },
+            { methodId: 'iron_meridian_breath', price: 52 },
+            { methodId: 'stone_root_breath', price: 52 },
+            { methodId: 'storm_heart_breath', price: 68 },
             { methodId: 'inner_court_meridian_cycle', price: 140 }
         ],
         formations: [
@@ -1716,7 +1892,9 @@ const MERCHANT_CATALOG = {
         ],
         methods: [
             { methodId: 'outer_sect_qi_cycling', price: 50 },
-            { methodId: 'impure_meridian_breath', price: 45 }
+            { methodId: 'impure_meridian_breath', price: 45 },
+            { methodId: 'flowing_tide_breath', price: 48 },
+            { methodId: 'verdant_breath_technique', price: 50 }
         ],
         formations: [
             { formationId: 'qi_stabilizer', price: 80 },
