@@ -21,7 +21,9 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperi
 | **Vibe** | Aloof sword masters on a lonely mountain — obsessed with **Sword Dao**, contemptuous of everything that distracts from the sword. |
 | **Path** | **Qi-primary**; **Sword Dao** / sword intent only. Palm conditioning in outer court (Heavenly Palm) before the sword. |
 | **Element / dao** | **Metal-wind** lean — sharpness, line, intent. `sword_inclined` foundation fits. |
-| **Homeland** | **Solitary Sword Mountain** (孤剑山) — northwest Heartlands |
+| **Homeland** | **Solitary Sword Mountain** (孤剑山) — named for the forbidden **Solitary Sword Path**, not the Canon |
+| **Lineage** | **Celestial Sword Canon** (天体剑典) — what disciples learn |
+| **Forbidden apex** | **Solitary Sword Path** (孤剑道) — Sword Immortal; Patriarch only if permitted |
 | **Public leader** | **Patriarch Yun Jian** (云鉴) — Void Refinement peak |
 | **Sect spine** | **The Sword Immortal** (剑仙) — true name forgotten; Immortal today, was Dao Manifestation in the Dao Wars |
 | **Player-facing elder** | **Elder Sword Feng** (锋长老) — Nascent Soul, discipline / trials *(code: `Elder Blade Feng` — rename later)* |
@@ -363,19 +365,21 @@ Enough to feed the mountain. **Not** the business model.
 
 | Stream | What | Notes |
 |--------|------|-------|
-| **Solitary Edge swords** (孤锋剑) | **Specialty product** — masterwork swords from mountain forges | Best blades → disciples or Sepulcher nodes. **Sell second-grade** works to nobles, mercenaries, allied houses. Famous continental brand. |
+| **Mountain masterworks** (孤锋剑类) | Rare **auction** swords — not market stock | Best blades → disciples or Sepulcher. **Truly peerless** pieces surface at Longcheng / Lotus consignment **auctions** occasionally — years apart, bidding war, sect keeps the myth scarce |
+| **Forge commissions** | Custom steel for nobles who can wait | Income without flooding stalls with branded swords |
 | **Intent tempering** | Service — seat a customer’s sword in cliff wind or Intent Pool mist | Expensive; subtle edge; repeat clients (Qin, Lotus guards) |
 | **Charter sword work** | Licensed duels, edict enforcement, tribunal blades | Longcheng + Heartlands; Wen Ning files paperwork |
 | **Escort contracts** | Caravan guard on Lotus trade routes | Alliance income — steel protects gold |
 | **Drill commissions** | Noble heirs sent to survive one season | Harsh training tourism; many quit |
 | **Whetstone shards** | By-product — Heaven-Cut Cliff shaveings, qi-soaked | Cheap consumable; sold at Celestial Market stalls |
 
-**Rough split (fiction):** ~35% forge & tempering · ~30% charter & escort · ~20% Lotus-linked fees · ~15% gardens/ores/commissions surplus.
+**Rough split (fiction):** ~25% forge (commissions + rare auction) · ~30% charter & escort · ~25% Lotus-linked fees · ~20% services & surplus.
 
 ### What they do **not** sell
 
 - Sepulcher nodes or array-linked swords  
-- Lineage manual **layers** (core court only)  
+- Lineage manual **layers** or **Solitary Sword Path**  
+- Named swords **at every market stall** — scarcity is deliberate  
 - Bulk pills/herbs at Lotus scale  
 - Blade-type weapons (刀) — insult to brand  
 
@@ -385,10 +389,10 @@ Lotus moves volume; Sword moves **risk**. Marriage lines, joint caravans, charte
 
 ### Player-facing hooks *(later)*
 
-- Buy **Solitary Edge** (expensive weapon) at friendly rep  
+- **Auction event** — rare Solitary-forged sword lot at Consignment Row *(not shop SKU)*  
 - Commission intent temper (stones + wait)  
 - Charter side quest — escort Lotus caravan  
-- Black market **cannot** get real lineage layers — only palm handouts or forged manuals
+- Black market **cannot** get real lineage layers or the Solitary Sword Path
 
 ---
 
@@ -396,7 +400,32 @@ Lotus moves volume; Sword moves **risk**. Marriage lines, joint caravans, charte
 
 Per [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — one `lineageId`, realm-tier manual swaps, **shared layer progress** on GC+.
 
-### Celestial Sword Canon (天体剑典)
+### Three names — Canon, Mountain, Path
+
+Players (and disciples) sometimes ask: *if the art is the **Celestial Sword Canon**, why is the peak **Solitary Sword Mountain**?*
+
+| Name | Hanzi | Who gets it |
+|------|-------|-------------|
+| **Celestial Sword Canon** | 天体剑典 | **Lineage** — outer court through patriarch tier; `lineageId: celestial_sword_qi_line` |
+| **Solitary Sword Mountain** | 孤剑山 | **Place** — named for the Path below, not the Canon everyone studies |
+| **Solitary Sword Path** | 孤剑道 | **Forbidden apex** — not in the Canon; not taught in drill hall |
+
+**The answer inner court gives:** *“The Canon builds a cultivator. The Path is what the Sword Immortal walks alone. The mountain is named for solitude — one line, one walker — not for your syllabus.”*
+
+#### Solitary Sword Path (孤剑道) — forbidden apex
+
+| Field | Value |
+|-------|-------|
+| **What** | Technique / dao walk **beyond** the Canon’s last layer — toward the Apex the Sword Immortal still pursues |
+| **Who may learn** | **Sword Immortal** (walks it now). **Patriarch** — only if the immortal **explicitly permits** *(Yun Jian has not; he administers the Canon, not the Path)* |
+| **Who knows it exists** | Inner court rumors; envoys guess; public does not |
+| **Teaching it** | Expulsion + array judgment; worse than blade curriculum |
+
+The Path is why the mountain bears **Solitary** in its name — not marketing, not the lineage title. The Canon is the sect’s **gift to disciples**. The Path is the immortal’s **private obsession**.
+
+*Parked:* Path mechanics = endgame / Sword Immortal beat; not a player manual in v1.
+
+### Celestial Sword Canon (天体剑典) — lineage
 
 **`lineageId:`** `celestial_sword_qi_line`  
 **Foundation stamp:** `sword_inclined` at FE seal  
@@ -610,7 +639,8 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 - [x] Patriarch **Yun Jian** — sketched (administrator patriarch; Cloud Mirror)
 - [ ] Rename in code: `Elder Blade Feng` → **Elder Sword Feng**
 - [ ] **Celestial Sword Canon** — layer 6+ names; pool ids when implementing
-- [ ] **Solitary Edge** — weapon item in market at friendly rep?
+- [ ] **Solitary Sword Path** — ever teachable to player, or myth only?
+- [x] Masterwork swords — **auction events**, not market shelf *(owner 2026-07-23)*
 - [ ] Phoenix Gambit: does Sword **split** (purist vs pragmatist faction)?
 - [x] Sword Immortal meeting — **Half-Step minimum**; interaction design **parked**
 
@@ -619,5 +649,5 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 - `data.js` — enrich `sword_sect_hall` lore; optional `solitary_sword_mountain` forbidden stub
 - `FACTION_NPCS` — Feng rename; **patriarch_yun_jian** stub when audiences ship; Wen Ning for Longcheng
 - `CULTIVATION_METHOD_POOL` — `celestial_sword_qi_line` tier entries + layers
-- `data.js` — `celestial_sword_intent` technique set (sword-only); Solitary Edge weapon stub
+- `data.js` — `celestial_sword_intent` technique set (sword-only); rare auction sword event stub
 - `factions-expand.js` — Phoenix Gambit Sword choice branches
