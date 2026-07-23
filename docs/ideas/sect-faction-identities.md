@@ -73,10 +73,10 @@ Use one block per sect/clan/tribe. Lineage manuals hang off this.
 
 ## Suggested fill order
 
-1. **Heartlands four** — most players see them; cold-war web already in data
-2. **Dustbone Tribunal** — capture owner backstory in writing; deepen three tribes
-3. **Jade pair** — sea identity distinct from Heartlands Lotus
-4. Frostbite / Emberwild when those zones get content passes
+1. **Imperial clan** — [`imperial-clan.md`](imperial-clan.md) *(continental anchor)*
+2. **Heartlands four** — each sect defined **against** the throne
+3. **Dustbone Tribunal** — capture owner backstory; deepen three tribes
+4. Jade / Frostbite / Emberwild when those zones get content passes
 
 ---
 

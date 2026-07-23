@@ -5,11 +5,12 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- Sect/faction identity pass — [`docs/ideas/sect-faction-identities.md`](ideas/sect-faction-identities.md) before lineage manuals
+- **Imperial clan** design workshop — [`docs/ideas/imperial-clan.md`](ideas/imperial-clan.md) (before sect identities / lineages)
 
 ## Next
 - Merge elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))
-- Heartlands four sects — one-page identity each (owner)
+- Imperial mandate + four-sect relationship sketch (owner)
+- Then Heartlands sect identities in relation to throne
 
 ## Parked (return later)
 - **Higher-realm trib scripts** — [`docs/ideas/tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md) (QC→FE only; rest need journey design)
