@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm ladder in code (7 → 9); forging profession loop (guild, economy) |
 | **Issue** | none yet |
 | **Chat / PR** | Forge profession chat 2026-07-23; gating shipped [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **Updated** | 2026-07-23 (Phases B–E designed; English-first UI lock; A shipped) |
+| **Updated** | 2026-07-23 (Phases B–F designed; English-first UI lock; A shipped) |
 
 ## Intent
 
@@ -966,6 +966,269 @@ Mirror alchemy sell panel (`index.html` + `forge-chamber.js`):
 - Buying gear from market (sell only)
 - NPC buyer haggling
 
+## Phase F — appraisal + hybrid loot (`designed` — not built)
+
+**Status:** Planned. **Depends on:** Phase B (`grade` on instances), Phase D (`inscriptions` + power gates). **Benefits from:** Phase C (grade rolls on forge for contrast), Phase E (sell panel — unread gear sell rules). Can ship **loot tables without full unread UI** as a thin slice, but appraisal payoff needs D.
+
+**Goal:** Found gear uses the **same tier + grade language** as forging. **Hybrid loot** — mobs drop predictable Common junk; elites and bosses roll grade. **Appraisal** reveals what a piece *is* (tier, grade, inscriptions) on **found** gear; crafted gear from your forge is identified immediately (Phase D).
+
+**Out of scope for F:** combat loot from every enemy type on day one (start with explore + 1–2 zones); appraisal minigame / skill check; body/soul loot; tier 5–9 drop tables (Phase G content).
+
+### Part 1 — Instance identification (`gear.js`)
+
+Add `appraised` to gear instances. Controls **display** and **sell quoting** — not whether martial stats apply (equipping unread gear still works; you just don’t see grade/inscriptions until appraised).
+
+```javascript
+// gear instance (extends B)
+{
+  uid, defId, grade: 'common',
+  affixes: [], durability, maxDurability,
+  appraised: true,           // NEW — false = unread found loot
+  lootProfile: null          // optional — 'mob' | 'elite' | 'boss' | 'ancient' (analytics / log flavor)
+}
+```
+
+| Source | `appraised` default | Notes |
+|--------|---------------------|-------|
+| **Forge** | `true` | You made it — full detail in Forge Chamber |
+| **Merchant / starter** | `true` | NPC stock is labeled |
+| **Mob trash drop** | `true` | Always Common — no mystery grind on goblin swords |
+| **Elite / chest** | `false` if tier ≥ 3 **or** has inscriptions; else `true` | Mid-tier finds worth a trip to the forge |
+| **Boss / ancient** | `false` always | Appraisal is the reward beat |
+
+**Helpers:**
+
+| Function | Purpose |
+|----------|---------|
+| `isGearAppraised(inst)` | Default `true` if field missing (migrate) |
+| `needsAppraisal(inst)` | `!appraised` and not plain T1–2 without inscriptions |
+| `getUnreadGearLabel(inst)` | Generic English + `(unread)` — e.g. `"Heavy iron blade (unread)"` |
+| `formatInstanceName(inst)` | If unread → `getUnreadGearLabel`; else existing name + grade |
+| `getAppraisalCost(inst)` | Stones + months from tier + inscription count |
+| `appraiseGearInstance(uid)` | Set `appraised: true`; log reveal lines |
+
+**Unread display rules** (English-first):
+
+| Surface | Unread behavior |
+|---------|-----------------|
+| Inventory row | Generic label + `(unread)` badge; **no** grade chip |
+| Tooltip | Slot + rough tier band if known (*"Feels like Foundation-era metal"*) — **no** exact stats line for inscriptions |
+| Equip | Allowed — martial stats apply; player may not know grade until appraised |
+| Compare / bonus panel | Grade line: `Unknown grade (appraise)` · inscriptions: `Sealed (unread)` |
+| Sell panel (E) | Pawn/market **blocked** or **lowball quote** until appraised — lean **block** with *"Appraise before selling."* |
+
+**Post-appraisal log:**
+
+```text
+Appraised Superior (上品) frostbite saber — Tier 2 weapon.
+Inscription: Crimson Furnace (赤炉纹) — sealed (need Phase of Fire dao).
+```
+
+Plain gear with no inscriptions: one line only.
+
+### Part 2 — Hybrid loot profiles (`forge-data.js`)
+
+Three drop **profiles** — same grade ids as `GEAR_GRADES`:
+
+| Profile | Grade | `appraised` | When |
+|---------|-------|-------------|------|
+| **`mob`** | Fixed **Common** | `true` | 95% of combat/explore gear drops |
+| **`elite`** | Weighted roll | `false` if tier ≥ 3 or inscribed | Chests, elite kills, rare explore |
+| **`boss`** | Weighted roll (better top end) | `false` | Zone bosses, dungeon clears |
+| **`ancient`** | Hand-tuned per drop | `false` | Scripted finds — degraded **or** chase |
+
+**Draft grade weights** (elite / boss — tune in playtest):
+
+| Profile | Inferior | Common | Superior | Supreme |
+|---------|----------|--------|----------|---------|
+| `elite` | 22% | 48% | 26% | 4% |
+| `boss` | 8% | 32% | 44% | 16% |
+
+**Ancient pattern** (pick one per hand-authored drop):
+
+| Pattern | Example |
+|---------|---------|
+| **Degraded** | Tier 4 weapon, **Inferior** grade — *"Nascent Soul blade, but the channels are cracked."* |
+| **Chase** | Tier 3, **Supreme** + fixed affix — boss trophy |
+| **Unread legendary** | Tier 4 dao-bound, inscriptions hidden until appraise |
+
+```javascript
+const LOOT_GEAR_PROFILES = {
+    mob:    { gradeRoll: null, gradeFixed: 'common', appraised: true },
+    elite:  { gradeRoll: 'elite', appraised: 'auto' },   // auto = false if inscribed or tier>=3
+    boss:   { gradeRoll: 'boss', appraised: false },
+    ancient: { gradeRoll: null, appraised: false }       // grade set per table row
+};
+
+const LOOT_GRADE_WEIGHTS = {
+    elite: { inferior: 22, common: 48, superior: 26, supreme: 4 },
+    boss:  { inferior: 8,  common: 32, superior: 44, supreme: 16 }
+};
+```
+
+**Tier selection:** `rollLootGearTier(zone, profile)` — clamp to `zone.maxGearTier` and `floor(playerRealmIdx) + overreach` (same +1 early-realm lean as craft). No tier 4 from bamboo forest mobs.
+
+**Affixes on loot:** use existing `rollGearAffixes(tier)` — affixes may show as **partial** on unread (*"Something sharp about the edge (unread)"*) or stay hidden until appraise. **Lean for MVP:** affixes hidden when `appraised: false`; appraisal reveals affix line + grade + inscriptions together.
+
+### Part 3 — Loot tables & grant path
+
+**New data** (`forge-data.js` or `loot-gear-data.js`):
+
+```javascript
+const ZONE_GEAR_LOOT = {
+    starter_village: {
+        mob:    [{ defId: 'rusty_qi_blade', weight: 3 }, { defId: 'cloth_robe', weight: 2 }],
+        elite:  [{ defId: 'qi_focus_amulet', weight: 1 }],
+        boss:   []
+    },
+    frostbite_wastes: {
+        mob:    [{ defId: 'frostbite_saber', weight: 2, tierOverride: 2 }],
+        elite:  [{ defId: 'glacial_crown', weight: 1 }],
+        boss:   [{ defId: 'phoenix_plume_cloak', weight: 1, profile: 'ancient', grade: 'inferior' }]
+    }
+    // extend per zone as content lands
+};
+```
+
+**Grant function** (`gear.js` or `world.js`):
+
+```javascript
+function grantLootGear(zoneId, profile, options) {
+    const entry = pickWeighted(ZONE_GEAR_LOOT[zoneId]?.[profile]);
+    if (!entry) return null;
+    const grade = entry.grade || rollLootGrade(profile);
+    const appraised = resolveAppraised(profile, entry, def);
+    const uid = createGearInstance(entry.defId, {
+        grade,
+        appraised,
+        lootProfile: profile,
+        affixes: options?.affixes,
+        skipBag: false
+    });
+    const label = appraised ? formatInstanceName(G.gearInstances[uid])
+                            : getUnreadGearLabel(G.gearInstances[uid]);
+    addLog(`🎁 Found ${label}.`);
+    return uid;
+}
+```
+
+**Hook points (MVP — pick at least two):**
+
+| Hook | Profile |
+|------|---------|
+| Explore ultra/rare roll (`world.js` `applyExploreLoot`) | `elite` |
+| Zone boss / scripted event reward | `boss` or `ancient` |
+| Combat victory loot *(when combat drops gear)* | `mob` default |
+| Merchant | unchanged — always Common, appraised |
+
+**No gear in explore loot today** — F adds `type: 'gear'` branch next to techniques/materials in `applyExploreLoot`.
+
+### Part 4 — Appraisal services
+
+| Location | Cost (draft) | Unlocks |
+|----------|--------------|---------|
+| **Forge Chamber — Appraise panel** | `2 + tier` Spirit Stones · 0 months | Tier, grade, affixes, inscription **names** (effects still power-gated per D) |
+| **Forge Chamber** (inscription read) | `+3 stones` per inscription | Full inscription stat text when power met; sealed text when not |
+| **Law Smith rank (8)** | Free inscription read at forge | Perk from Phase E ladder |
+| **Forgers Guild / Longcheng NPC** *(later)* | Higher tier read | Stub OK in F |
+
+```javascript
+const APPRAISAL_BALANCE = {
+    baseStones: 2,
+    stonesPerTier: 1,
+    stonesPerInscription: 3,
+    lawSmithFreeInscriptionRead: true
+};
+```
+
+**`appraiseGearInstance(uid)` flow:**
+
+1. Validate: in bag, not equipped, `needsAppraisal`
+2. Deduct stones (waive inscription fee if Law Smith+)
+3. `inst.appraised = true`
+4. Log reveal (English + hanzi in brackets)
+5. Optional: `grantForgeSkillXp(1)` on first appraise of tier ≥ 3 *(tune low)*
+
+**Forge Chamber UI** — mirror sell panel layout (Phase E):
+
+```html
+<div class="forge-appraise-section">
+  <h3 class="forge-section-title">Appraise Gear</h3>
+  <div id="forgeAppraisePanel"></div>
+</div>
+```
+
+- List unread bag instances: generic label, cost, Appraise button
+- Empty: *"No unidentified gear. Elite drops and boss trophies often need a smith's eye."*
+- Identified gear: hidden from list
+
+### Part 5 — UI surfaces
+
+| Location | Change |
+|----------|--------|
+| **Inventory / travel kit** | `(unread)` badge; Appraise shortcut if stones OK |
+| **`formatInstanceName`** | Branch on `isGearAppraised` |
+| **Gear tooltip** | Unread: muted stat block + *"Appraise at the forge to learn grade and inscriptions"* |
+| **Forge Chamber** | `#forgeAppraisePanel` + status line: *"Law Smith — inscription reads are free"* when rank ≥ 8 |
+| **Explore / combat log** | `Found Heavy iron blade (unread).` vs `Found Superior (上品) frostbite saber.` |
+| **Sell panel (E)** | Block sell until appraised |
+
+CSS: `.gear-unread-badge`, `.gear-appraise-row` (reuse sell row spacing).
+
+### Part 6 — Migration
+
+On load (`migrateGearAppraisalForExistingSave`):
+
+1. Missing `appraised` → `true` (all legacy / crafted gear treated as known).
+2. Do **not** retroactively unread old saves.
+
+### Files to touch
+
+| File | Work |
+|------|------|
+| `forge-data.js` | `LOOT_GEAR_PROFILES`, `LOOT_GRADE_WEIGHTS`, `ZONE_GEAR_LOOT`, `APPRAISAL_BALANCE` |
+| `gear.js` | `appraised` field, unread labels, `rollLootGrade`, `grantLootGear`, `appraiseGearInstance` |
+| `world.js` | `applyExploreLoot` gear branch; zone hooks |
+| `forge-chamber.js` | appraise panel, cost display |
+| `crafting.js` | ensure forge creates `appraised: true` |
+| `ui.js` | unread badge, tooltip gating, appraise button in bag |
+| `index.html` | `#forgeAppraisePanel` section |
+| `style.css` | unread + appraise styles |
+| `core.js` | migration on load |
+| `data.js` | optional `unreadLabel` per `GEAR_ITEMS` def for flavor |
+
+**Combat module** *(when it drops gear)*: call `grantLootGear(zone, 'mob')` on victory — optional same PR or immediate follow-up.
+
+### Test plan
+
+- [ ] Mob drop: Common, appraised, correct stats, no unread badge
+- [ ] Elite T3+ drop: unread, generic name, equip works, grade hidden until appraise
+- [ ] Appraise deducts stones; log shows `Superior (上品)` + inscription lines
+- [ ] Law Smith: inscription read cost waived
+- [ ] Cannot sell unread gear (or lowball — match implementation choice)
+- [ ] Boss table can force `ancient` degraded Inferior on high-tier def
+- [ ] Explore loot `type: 'gear'` grants instance into bag
+- [ ] Legacy save: all existing instances `appraised: true`
+- [ ] Audits pass
+
+### Acceptance criteria
+
+1. `appraised` persisted; migrate defaults to `true`.
+2. Hybrid profiles: mob = Common only; elite/boss roll grades per table.
+3. At least **one zone** has mob + elite entries in `ZONE_GEAR_LOOT`.
+4. Forge Chamber appraise panel functional for unread bag gear.
+5. Appraisal reveals grade + affixes + inscription **names**; power gates unchanged from D.
+6. English-primary copy; hanzi only in brackets on reveal logs.
+7. No separate reputation / appraisal XP track.
+
+### Out of scope for F
+
+- Appraisal minigame (spirit sense skill check — later)
+- Bulk appraise all / auto-appraise on pickup
+- Tier 5–9 zone tables (ship with G)
+- Buying unidentified gear from NPCs
+- Appraisal forgery / counterfeit gear
+
 ## Phased build (suggested)
 
 | Phase | What | Notes |
@@ -975,7 +1238,7 @@ Mirror alchemy sell panel (`index.html` + `forge-chamber.js`):
 | **C** 📋 **designed** | Grade roll on forge + attunement | [Phase C](#phase-c--grade-rolls--attunement-designed--not-built) |
 | **D** 📋 **designed** | Power gates + dormant inscriptions | [Phase D](#phase-d--power-gates--dormant-inscriptions-designed--not-built) |
 | **E** 📋 **designed** | Sell panel + 9 smith ranks | [Phase E](#phase-e--sell-panel--9-smith-ranks-designed--not-built) |
-| **F** | Appraisal + hybrid loot tables | |
+| **F** 📋 **designed** | Appraisal + hybrid loot tables | [Phase F](#phase-f--appraisal--hybrid-loot-designed--not-built) |
 | **G** | Tiers 5–9 gear + guild + path specials | Nine-realm migration |
 
 ## Prerequisites
@@ -993,6 +1256,7 @@ Mirror alchemy sell panel (`index.html` + `forge-chamber.js`):
 - [x] Phase C designed — grade roll table, attunement on equip
 - [x] Phase D designed — inscriptions, powerRequirements, martial vs dao layer
 - [x] Phase E designed — sell panel, 9 smith ranks, pawn vs market
+- [x] Phase F designed — hybrid loot profiles, unread/appraised, appraise panel
 - [ ] Attunement constants tune pass (in playtest when C ships)
 - [ ] Nine-realm migration plan
 
@@ -1001,12 +1265,15 @@ Mirror alchemy sell panel (`index.html` + `forge-chamber.js`):
 - [ ] Early-realm +2 craft overreach — QC only, or never?
 - [ ] Martial attunement curve vs material-tier floor — tune so T7 martial > T3 supreme when gap is small, still punishing at QC+T7
 - [ ] Inscription pool per tier — hand-authored vs procedural?
-- [ ] Body/soul: shared tier index with different item types, or separate refinement ladder?
+- [ ] Unread affixes — hide until appraise (F lean) vs show partial hints
+- [ ] Sell unread gear — hard block vs lowball pawn (F leans **block**)
 - [ ] Body/soul parallel realm names at idx 4 and 7 when nine-realm ships
 
 ## Implementation crumbs
 
-- Gear instances: `gear.js` — add `grade`; scale stats in `getGearInstanceStats` (or equivalent)
+- Gear instances: `gear.js` — add `grade`, `appraised`; scale stats in `sumInstanceStats`
+- Loot: `ZONE_GEAR_LOOT`, `grantLootGear`, explore `type: 'gear'` in `world.js`
+- Appraisal: `appraiseGearInstance`, `#forgeAppraisePanel` in `forge-chamber.js`
 - Recipes: `GEAR_CRAFT_RECIPES`, `GEAR_ITEMS` in `data.js`
 - Forge gates: `crafting.js`, `forge-data.js` (`FORGE_TIER_REALM_INDEX` → extend to 9)
 - UI: `forge-chamber.js` — show tier, grade roll preview, realm name
