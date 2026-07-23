@@ -727,6 +727,30 @@ const CULTIVATION_METHOD_POOL = [
         infrastructure: null,
         comprehendMonths: 2,
         desc: 'Breathwork tuned for tangled roots — kinder to pentamixed, leakier for pure singles.'
+    },
+    {
+        id: 'burning_breath_technique',
+        name: 'Burning Breath Technique',
+        lineageId: 'burning_breath_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['fire'],
+        essences: [],
+        stampsNature: 'fire_aspected',
+        rootFit: { fire: 1.08, water: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.04
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Inhale the world\'s scattered flame-qi; exhale the mundane. Cycle after cycle, heat gathers in the dantian until your qi carries fire\'s nature.',
+        shopBlurb: 'Outer-court fire breathwork — cheap, common, and enough to forge a fire-aspected foundation if you commit.'
     }
 ];
 
@@ -1682,6 +1706,7 @@ const MERCHANT_CATALOG = {
         methods: [
             { methodId: 'outer_sect_qi_cycling', price: 55 },
             { methodId: 'impure_meridian_breath', price: 48 },
+            { methodId: 'burning_breath_technique', price: 50 },
             { methodId: 'inner_court_meridian_cycle', price: 140 }
         ],
         formations: [

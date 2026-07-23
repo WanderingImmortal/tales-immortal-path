@@ -452,7 +452,7 @@ function getWalkCultivationPathBlockReason(methodId) {
     const method = getCultivationMethodDef(methodId);
     if (!method) return 'Unknown cultivation path.';
     if (G.cultivationMethod.primaryLocked) {
-        return 'Your path is sealed with your foundation. Only a meridian-washing rite can change it later.';
+        return 'Your path is sealed with your foundation. Meridian-washing can only change element (e.g. fire → water), not upgrade to a better manual of the same kind.';
     }
     if (getActiveCultivationMethodId() === methodId) return 'This is already your cultivation path.';
     if (!hasStudiedCultivationMethod(methodId)) return 'Study the scroll first before walking this path.';
@@ -474,8 +474,8 @@ function walkCultivationPath(methodId) {
     const grade = getMethodGradeDef(method.methodGrade)?.name || method.methodGrade;
     const ok = confirm(
         `Walk the path of ${method.name} (${grade})?\n\n`
-        + 'This becomes your cultivation path until Foundation seal (or a rare meridian-washing rite later).\n'
-        + 'Finding better scrolls will not auto-replace it.'
+        + 'This becomes your cultivation path until Foundation seal locks it.\n'
+        + 'You can walk another studied path before seal. After seal, only meridian-washing can cross elements (e.g. fire → water).'
     );
     if (!ok) return false;
     const prev = getActiveCultivationMethod();
@@ -517,7 +517,7 @@ function renderMethodShelfHtml() {
         }
     }
     if (G.cultivationMethod?.primaryLocked) {
-        html += `<div class="desc method-shelf-path-note">Path locked with your foundation. Meridian-wash required to change.</div>`;
+        html += `<div class="desc method-shelf-path-note">Path locked with your foundation. Meridian-washing can cross elements only (e.g. fire → water) — not upgrade within the same nature.</div>`;
     } else {
         html += `<div class="desc method-shelf-path-note">Scrolls you own are not your path until you Walk them. Combat manuals are separate.</div>`;
     }
