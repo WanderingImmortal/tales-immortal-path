@@ -38,6 +38,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Void Temple](void-temple-sect.md) | `designed` (v1) | Lineage stub; gate travel; Little Heaven beats | — |
 | [Golden Phoenix Sect](golden-phoenix-sect.md) | `designed` (v1) | Lineage stub; Gambit immortal veto | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
+| [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
+| [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |

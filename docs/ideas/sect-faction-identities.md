@@ -84,7 +84,7 @@ Use one block per sect/clan/tribe. Lineage manuals hang off this.
 ## Suggested fill order
 
 1. **Imperial clan** — [`imperial-clan.md`](imperial-clan.md) *(continental anchor)*
-2. **Heartlands four** — [`celestial-sword-sect.md`](celestial-sword-sect.md) ✓ · [`jade-lotus-sect.md`](jade-lotus-sect.md) ✓ · [`void-temple-sect.md`](void-temple-sect.md) ✓ · [`golden-phoenix-sect.md`](golden-phoenix-sect.md) ✓ *(merge PRs)*
+2. **Heartlands four** — [`celestial-sword-sect.md`](celestial-sword-sect.md) ✓ · [`jade-lotus-sect.md`](jade-lotus-sect.md) ✓ · [`void-temple-sect.md`](void-temple-sect.md) ✓ · [`golden-phoenix-sect.md`](golden-phoenix-sect.md) ✓
 3. **Dustbone Tribunal** — capture owner backstory; deepen three tribes
 4. Jade / Frostbite / Emberwild when those zones get content passes
 

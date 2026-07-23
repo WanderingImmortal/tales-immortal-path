@@ -5,11 +5,10 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-23
 
 ## Focus
-- **Heartlands sect docs** — merge Phoenix ([#67](https://github.com/WanderingImmortal/tales-immortal-path/pull/67)) — Sword ([#68](https://github.com/WanderingImmortal/tales-immortal-path/pull/68)), Lotus ([#65](https://github.com/WanderingImmortal/tales-immortal-path/pull/65)), and Void ([#66](https://github.com/WanderingImmortal/tales-immortal-path/pull/66)) merged
-- **Imperial clan + Longcheng** — [#69](https://github.com/WanderingImmortal/tales-immortal-path/pull/69)
+- **Imperial clan + Longcheng** — [#69](https://github.com/WanderingImmortal/tales-immortal-path/pull/69) (Heartlands four sect docs shipped)
 
 ## Next
-- Merge remaining sect + imperial doc PRs
+- Merge imperial doc PR
 - Longcheng phase-1 map nodes in `data.js` (after docs land)
 - Phoenix Gambit lore pass in code (later)
 
@@ -22,6 +21,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
+- Golden Phoenix sect docs ([#67](https://github.com/WanderingImmortal/tales-immortal-path/pull/67))
 - Void Temple sect docs ([#66](https://github.com/WanderingImmortal/tales-immortal-path/pull/66))
 - Jade Lotus sect docs ([#65](https://github.com/WanderingImmortal/tales-immortal-path/pull/65))
 - Celestial Sword sect docs ([#68](https://github.com/WanderingImmortal/tales-immortal-path/pull/68))
