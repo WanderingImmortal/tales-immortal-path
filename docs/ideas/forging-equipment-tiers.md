@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm ladder in code (7 → 9); forging profession loop (guild, economy) |
 | **Issue** | none yet |
 | **Chat / PR** | Forge profession chat 2026-07-23; gating shipped [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **Updated** | 2026-07-23 (Phase B + C designed; A shipped) |
+| **Updated** | 2026-07-23 (Phases B–D designed; A shipped) |
 
 ## Intent
 
@@ -610,6 +610,178 @@ effectiveMartial = baseStats × gradeMult × attunementMult × durabilityMult
 3. Grade odds shown in Forge Chamber before craft.
 4. No dao/inscription power gates yet.
 
+## Phase D — power gates + dormant inscriptions (`designed` — not built)
+
+**Status:** Planned. **Depends on:** Phase B (grades + stat pipeline), Phase C (attunement in `sumInstanceStats`).
+
+**Goal:** High-tier gear can carry **inscriptions** and **dao channels** that stay **dormant** until the player meets `powerRequirements`. **Martial stats always apply** (grade + attunement) — you’re “just swinging” until the dao layer wakes. **Not** full appraisal UI (Phase F) or sell panel (E).
+
+### Gear profiles (by content tier)
+
+| Profile | Typical gear tier | Martial layer | Dao / inscription layer |
+|---------|-------------------|---------------|------------------------|
+| **Plain** | T1–2 | `def.stats` + affixes | — |
+| **Inscribed** | T3+ | Same | Fixed inscription bonuses / procs when power met |
+| **Dao-bound** | T5+ *(T4 legendaries as MVP stand-in today)* | Tier material always | Requires realm + dao comprehension; techniques greyed until met |
+
+Most early recipes stay **plain**. Phase D ships the **system** + **1–2 example items** on existing tier 3–4 content — not a full tier 5–9 catalog (that’s Phase G).
+
+### Data — inscriptions catalog (`data.js` or `forge-data.js`)
+
+```javascript
+const GEAR_INSCRIPTIONS = {
+    qi_stabilizer: {
+        id: 'qi_stabilizer',
+        name: 'Qi Stabilizer',
+        hanzi: '稳气纹',
+        desc: 'Smooths qi flow through the blade.',
+        powerRequirements: { minRealmIdx: 2 },  // Core Formation+
+        stats: { qiDensityBonus: 0.06, maxQiBonus: 4 }
+    },
+    crimson_furnace: {
+        id: 'crimson_furnace',
+        name: 'Crimson Furnace',
+        hanzi: '赤炉纹',
+        desc: 'Fire dao channel — bonus damage; ignite pressure.',
+        powerRequirements: { minRealmIdx: 2, daoId: 'phase_fire' },
+        stats: { dmgPct: 5 }
+        // combat proc (ignite) = later hook when technique system lands
+    },
+    nascent_channel: {
+        id: 'nascent_channel',
+        name: 'Nascent Channel',
+        hanzi: '婴纹',
+        desc: 'Externalized soul resonance in the steel.',
+        powerRequirements: { minRealmIdx: 3 },  // Nascent Soul+
+        stats: { spirit: 2, will: 1 }
+    }
+};
+```
+
+**On `GEAR_ITEMS` def (static) or instance (rolled):**
+
+```javascript
+// def-level (fixed recipe output)
+inscriptions: ['crimson_furnace'],
+powerRequirements: { minRealmIdx: 3, daoId: 'phase_fire' },  // dao-bound whole item
+
+// instance-level (optional — random inscription roll later)
+inscriptions: ['qi_stabilizer'],
+```
+
+**MVP item targets (today’s 4-tier build):**
+
+| Item | Profile | Change |
+|------|---------|--------|
+| `dao_insight_amulet` | Inscribed | Add `inscriptions: ['qi_stabilizer']` |
+| `phoenix_plume_cloak` (legendary) | Dao-bound lite | `powerRequirements: { minRealmIdx: 3 }` + optional inscription |
+| `glacial_crown` | Inscribed | `inscriptions: ['nascent_channel']` — dormant until NS |
+
+### Power check (`gear.js`)
+
+```javascript
+function meetsGearPowerRequirements(requirements) {
+    if (!requirements) return true;
+    if (requirements.minRealmIdx != null && (G.realmIdx || 0) < requirements.minRealmIdx)
+        return false;
+    if (requirements.daoId && !G.daoState?.comprehended?.includes(requirements.daoId))
+        return false;
+    if (requirements.formationInsight != null &&
+        getFormationMasterInsight() < requirements.formationInsight)
+        return false;
+    // claim: 'law_wear' etc. — hook when realm-claims ship
+    return true;
+}
+
+function getInscriptionDef(id) { return GEAR_INSCRIPTIONS[id]; }
+
+function getActiveInscriptions(inst) {
+    const def = getInstanceDef(inst);
+    const ids = inst.inscriptions || def.inscriptions || [];
+    return ids.filter(id => meetsGearPowerRequirements(getInscriptionDef(id)?.powerRequirements));
+}
+
+function isDaoLayerActive(inst) {
+    const def = getInstanceDef(inst);
+    return meetsGearPowerRequirements(def.powerRequirements);
+}
+```
+
+### Stat pipeline (extends B/C)
+
+```text
+martialStats = def.stats × gradeMult × attunementMult × durabilityMult
+               + affixes (same mults)
+
+inscriptionStats = Σ inscription.stats (active inscriptions only)
+daoLayerActive = meetsGearPowerRequirements(def.powerRequirements)
+
+getGearBonuses() = martial + active inscription stats
+// dao techniques / procs: separate combat hook when layer active
+```
+
+**Rule:** inscription stats **never** apply when power unmet — not partial. UI shows them greyed: *“赤炉纹 — sealed (need Phase of Fire dao)”*.
+
+### Crafting gate
+
+Extend `canCraftGear`:
+
+- After realm check, if recipe/`GEAR_ITEMS` has `powerRequirements`, block craft with plain reason: *“You lack the dao resonance to stabilize this inscription.”*
+- Same helper as wear — **cannot forge what you cannot activate** (owner lock). Commission NPC bypass = later.
+
+### Combat / techniques (minimal in D)
+
+- **No new combat buttons required for acceptance** if dao techniques don’t exist yet.
+- Ship `isDaoLayerActive(weaponInst)` helper for future technique system.
+- Weapon tooltip when dao-bound + inactive: *“Dao channels sealed — swing as a mundane blade.”*
+- When active: *“Dao channels open.”* + inscription stats in bonus panel.
+
+### UI (no full appraisal — that’s F)
+
+| Surface | D behavior |
+|---------|----------------|
+| Inventory / equip | List inscriptions; **active** = normal color, **dormant** = muted + requirement text |
+| Gear bonus panel | Split: “Martial” vs “Inscriptions (active)” vs “Inscriptions (sealed)” |
+| Forge Chamber | Block craft if `powerRequirements` unmet; show requirement line on recipe |
+| Equip log | If dao-bound + inactive: *“The blade is heavy with promise. Your dao does not answer yet.”* |
+
+**Phase F adds:** unread items, appraise to reveal inscription **names/effects** on drops. Phase D can show inscription names on **crafted** gear immediately; **found** gear with hidden inscriptions waits for F.
+
+### Files to touch
+
+| File | Work |
+|------|------|
+| `forge-data.js` / `data.js` | `GEAR_INSCRIPTIONS`, example items |
+| `gear.js` | power helpers, `getActiveInscriptions`, extend `sumInstanceStats` / bonus panel |
+| `crafting.js` | craft power gate |
+| `forge-chamber.js` | requirement display, craft block reason |
+| `ui.js` | sealed vs active inscription display |
+| `style.css` | `.inscription-sealed`, `.inscription-active` |
+
+### Test plan
+
+- [ ] Plain T1 gear unchanged — no inscriptions, no regressions
+- [ ] `dao_insight_amulet` at Core: stabilizer inscription **active**; at QC: martial only
+- [ ] Fire dao not comprehended: `crimson_furnace` sealed; after comprehend: active
+- [ ] Cannot craft dao-bound recipe without meeting `powerRequirements`
+- [ ] Equipped bonus panel shows sealed vs active sections
+- [ ] Audits pass
+
+### Acceptance criteria
+
+1. `powerRequirements` + `inscriptions` data model exists.
+2. Martial stats ignore power gates; inscription stats require power.
+3. Craft blocked when player lacks power to stabilize inscription.
+4. At least one inscribed + one dao-bound-lite example on live tier 3–4 items.
+5. No appraisal minigame yet (F).
+
+### Out of scope for D
+
+- Appraisal / unread loot (F)
+- Dao **technique** buttons in combat (hook only)
+- Tier 5–9 gear content (G)
+- `claim: 'law_wear'` until realm-claims ship
+
 ## Phased build (suggested)
 
 | Phase | What | Notes |
@@ -617,7 +789,7 @@ effectiveMartial = baseStats × gradeMult × attunementMult × durabilityMult
 | **A** ✅ **shipped** | Skill + realm recipe gates | [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) — **in game** |
 | **B** 📋 **designed** | Grades on instances + stat scaling + UI + tier base pass | [Phase B](#phase-b--grades-on-gear-designed--not-built) |
 | **C** 📋 **designed** | Grade roll on forge + attunement | [Phase C](#phase-c--grade-rolls--attunement-designed--not-built) |
-| **D** | `powerRequirements` + dormant inscriptions | Dao Seeker blade pattern |
+| **D** 📋 **designed** | Power gates + dormant inscriptions | [Phase D](#phase-d--power-gates--dormant-inscriptions-designed--not-built) |
 | **E** | Sell panel + 9 smith ranks | |
 | **F** | Appraisal + hybrid loot tables | |
 | **G** | Tiers 5–9 gear + guild + path specials | Nine-realm migration |
@@ -634,6 +806,7 @@ effectiveMartial = baseStats × gradeMult × attunementMult × durabilityMult
 - [ ] Body/soul special creation path (not mirrored qi gear)
 - [x] Phase B designed — grades, mults, tier base pass, UI map
 - [x] Phase C designed — grade roll table, attunement on equip
+- [x] Phase D designed — inscriptions, powerRequirements, martial vs dao layer
 - [ ] Attunement constants tune pass (in playtest when C ships)
 - [ ] Nine-realm migration plan
 
