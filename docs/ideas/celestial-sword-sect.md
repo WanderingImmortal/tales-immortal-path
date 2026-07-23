@@ -91,7 +91,85 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) —
 
 ---
 
-## The Sword Immortal (sect spine)
+## Patriarch Yun Jian (云鉴) — public sect leader
+
+**Yes — Yun Jian is the sect leader** players and the continent know. Void Refinement peak, patriarch of the Celestial Sword Sect, voice of the mountain in charter politics. The Sword Immortal does not hold audiences; **Yun Jian does** (when he must).
+
+| Field | Value |
+|-------|-------|
+| **Title** | Patriarch (宗主) · called **Cloud Mirror** (云鉴) off the mountain |
+| **Realm** | **Void Refinement peak** — legitimate great-sect patriarch tier |
+| **Age** | ~400 mortal years; looks **fifty** — old for a duelist, young for a patriarch |
+| **Role** | Administrator, diplomat, array-key holder — **not** the continent’s #1 sword (that’s the Sword Immortal) |
+
+### Who he is
+
+Yun Jian won the **Ancestral Sword Trial** three centuries ago and has held the peak since the previous patriarch ascended to peak elder then passed into the Sepulcher. He is **good enough** with a sword that no elder openly challenges him — but everyone knows he stopped chasing the Apex the day he accepted the seal.
+
+He is the man who **keeps the mountain boring**.
+
+Charter meetings, Lotus marriage contracts, Longcheng rotations, Sepulcher inventories, array maintenance schedules — someone must do it so the Sword Immortal can sleep. Yun Jian does it without flair. Disciples joke that his sword rusts from disuse; inner court knows his **intent** is still sharp when he draws.
+
+### Personality
+
+| Trait | How it shows |
+|-------|----------------|
+| **Dry** | Short sentences; no speeches; silence is a tool |
+| **Pragmatic** | Inherited “first to kneel” — chooses survival over gesture **every time** |
+| **Weary** | Not defeated — **tired** of carrying politics the Sword Immortal refuses to touch |
+| **Fair** | Harsh but consistent; Feng’s outer court reflects his standards |
+| **Private devotion** | Still meditates at Intent Pool monthly; Sword Dao matters to him — he just serves it by governing |
+
+**Not:** a warm grandfather patriarch, a young hero, or a puppet. **Is:** the adult in the room when Phoenix and Lotus scream at each other.
+
+### Relationship to the Sword Immortal
+
+Reports **once per season** at the array core — minutes long. Typical exchange:
+
+- Yun Jian: charter news, Sepulcher count, heir status.
+- Sword Immortal: one line, or silence (= continue).
+
+Yun Jian does **not** claim to speak for the immortal’s will. When he acts in the Sword Immortal’s name, it is only for **array defense** or **Sepulcher desecration** — and the continent knows the difference.
+
+### Key relationships
+
+| Figure | Dynamic |
+|--------|---------|
+| **Sword Immortal** | Liege-in-all-but-name; Yun Jian serves the mountain’s sleep |
+| **Elder Sword Feng** | Trusted outer gate; enforces standards without patriarch presence |
+| **Elder Iron Xu** | War peak; Yun Jian’s blade when enforcement leaves the mountain |
+| **Sword Heir Gu Qing** | Groomed successor — talented, proud; Yun Jian curbs his ego |
+| **Captain Wen Ning** | Longcheng arm; Yun Jian reads every charter filing Wen sends up |
+| **Jade Lotus** | Pragmatic ally — Yun Jian signs what honor allows |
+| **Golden Phoenix** | Cold contempt — Phoenix Gambit is **his** crisis to manage |
+| **Emperor Tian Xu** | Mutual professional respect; rare audiences when charter strains |
+
+### Phoenix Gambit (his crisis)
+
+When Phoenix moves on Lotus, **Yun Jian** must choose:
+
+- Honor the Lotus alliance (sect vote, charter filing),
+- Stay neutral (mountain isolation — Sword Immortal approves),
+- Or sell Lotus out (pragmatic — inner court fracture).
+
+He has no good option. That’s why he’s patriarch.
+
+### Player interaction *(sketch)*
+
+| Gate | Access |
+|------|--------|
+| **Default** | Elder Feng at outer hall — Yun Jian invisible |
+| **High rep + elder quest** | Brief audience at Patriarch Court — tests your **intent**, not just strength |
+| **Allied + major beat** | Yun Jian asks a favor (escort, charter witness, refuse Phoenix) |
+| **Late game** | VR-tier dialogue — still below Half-Step / Sword Immortal notice threshold |
+
+**Parked greet:** *“You climbed. Most turn back at the wind. State your business — the mountain has little patience for visitors.”*
+
+### Look & presence *(fiction)*
+
+Grey temples, plain steel-grey robes, **one** unadorned sword. No jewelry. Eyes like still water — the “cloud mirror” name fits. When he enters a room, drill noise stops; disciples bow without being told.
+
+---
 
 | Field | Value |
 |-------|-------|
@@ -217,7 +295,7 @@ Below: **minimum sketch** for 1–5. Expand when implementing `sword_sect_hall` 
 | **Captain Wen Ning** (温宁) | Longcheng charter office | Professional; embarrassed by mountain politics |
 | **Instructor Han** (韩教习) | Outer drill master | Barks orders; respects only results |
 
-*Patriarch Yun Jian* — mentioned, rarely seen. Player audiences stop at Feng unless rep/endgame.
+*Patriarch Yun Jian* — Patriarch Court; see **Patriarch Yun Jian** section. Player audiences at high rep; Feng is default gate.
 
 ### Visitor loop (fiction ↔ code today)
 
@@ -418,7 +496,7 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 | **Honor path** | Refuse Phoenix Gambit dirty work; gain Sword + Lotus |
 | **Pragmatic path** | Take charter sword jobs; imperial favor vs sect purity |
 | **Enemy** | Insult Sepulcher, teach blade arts on the mountain, back Phoenix absorption |
-| **Late game** | Half-Step+ — Sword Immortal *might* notice you *(parked)*; Sepulcher / array crisis |
+| **Patriarch audience** | High rep + elder — Yun Jian at Patriarch Court *(parked)* |
 
 ---
 
@@ -426,7 +504,7 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 
 - [x] **Ten Thousand Swords Seal Array** (万剑封山阵) — locked
 - [ ] Sword Immortal’s **true name** — ever revealed, or permanently lost?
-- [ ] Patriarch **Yun Jian** — keep name / temperament?
+- [x] Patriarch **Yun Jian** — sketched (administrator patriarch; Cloud Mirror)
 - [ ] Rename in code: `Elder Blade Feng` → **Elder Sword Feng**
 - [ ] **Celestial Sword Canon** — layer count when lineage ships
 - [ ] Phoenix Gambit: does Sword **split** (purist vs pragmatist faction)?
@@ -435,6 +513,6 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 ## Implementation crumbs (later)
 
 - `data.js` — enrich `sword_sect_hall` lore; optional `solitary_sword_mountain` forbidden stub
-- `FACTION_NPCS` — Feng rename; add Wen Ning when Longcheng ships
+- `FACTION_NPCS` — Feng rename; **patriarch_yun_jian** stub when audiences ship; Wen Ning for Longcheng
 - `CULTIVATION_METHOD_POOL` — `celestial_sword_qi_line` layered entries (sword techniques only)
 - `factions-expand.js` — Phoenix Gambit Sword choice branches
