@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v2 — spine + visit sketch) |
+| **Status** | `designed` (v2 — economy + lineage sketch) |
 | **Blocked on** | Lineage manual implementation; Longcheng branch dialogue |
 | **Issue** | none yet |
 | **Chat / PR** | Heartlands sect pass, 2026-07-23 |
@@ -345,17 +345,115 @@ Below: **minimum sketch** for 1–5. Expand when implementing `sword_sect_hall` 
 
 ---
 
-## Cultivation — techniques & lineage
+## Economy — how the mountain stays afloat
 
-### Sacred art (lineage manual — future)
+Every great sect has **gardens, veins, and disciples** — baseline self-sufficiency. The Sword Sect is **not** Lotus; they do not live on trade ledgers. They stay rich enough to **ignore** politics by selling what only they can make: **steel, service, and sword intent**.
 
-**Working name:** **Celestial Sword Canon** (天体剑典) · `lineageId: celestial_sword_qi_line`
+### Baseline (like any sect)
 
-| Layer | Who gets it | Content (sketch) |
-|-------|-------------|------------------|
-| **Outer breath** | Initiates | Generic qi circulation — market breaths OK until inner court |
-| **Sword Intent chapters** | Inner disciples | Sword Dao stages; sword-type techniques only |
-| **Canon layers** | Core court+ | Layered manual per [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — sect-only |
+| Asset | On Solitary Sword Mountain | Use |
+|-------|---------------------------|-----|
+| **Spirit gardens** | Wind-scoured terraces — hardy metal-qi herbs | Pills for disciples; small surplus |
+| **Ore veins** | **Solitary iron** (孤铁矿) — spirit iron in the ridge | Forge steel; **not** exported raw in bulk |
+| **Disciple labor** | Drill, escort, charter jobs | Cheap internal cost; outer court rotation |
+
+Enough to feed the mountain. **Not** the business model.
+
+### Signature products & services
+
+| Stream | What | Notes |
+|--------|------|-------|
+| **Solitary Edge swords** (孤锋剑) | **Specialty product** — masterwork swords from mountain forges | Best blades → disciples or Sepulcher nodes. **Sell second-grade** works to nobles, mercenaries, allied houses. Famous continental brand. |
+| **Intent tempering** | Service — seat a customer’s sword in cliff wind or Intent Pool mist | Expensive; subtle edge; repeat clients (Qin, Lotus guards) |
+| **Charter sword work** | Licensed duels, edict enforcement, tribunal blades | Longcheng + Heartlands; Wen Ning files paperwork |
+| **Escort contracts** | Caravan guard on Lotus trade routes | Alliance income — steel protects gold |
+| **Drill commissions** | Noble heirs sent to survive one season | Harsh training tourism; many quit |
+| **Whetstone shards** | By-product — Heaven-Cut Cliff shaveings, qi-soaked | Cheap consumable; sold at Celestial Market stalls |
+
+**Rough split (fiction):** ~35% forge & tempering · ~30% charter & escort · ~20% Lotus-linked fees · ~15% gardens/ores/commissions surplus.
+
+### What they do **not** sell
+
+- Sepulcher nodes or array-linked swords  
+- Lineage manual **layers** (core court only)  
+- Bulk pills/herbs at Lotus scale  
+- Blade-type weapons (刀) — insult to brand  
+
+### Alliance economics (Lotus)
+
+Lotus moves volume; Sword moves **risk**. Marriage lines, joint caravans, charter votes — Sword gets **paid in stones, favors, and market access**, not ownership of Lotus ledgers. Yun Jian signs what keeps escorts funded; he does not run a merchant house.
+
+### Player-facing hooks *(later)*
+
+- Buy **Solitary Edge** (expensive weapon) at friendly rep  
+- Commission intent temper (stones + wait)  
+- Charter side quest — escort Lotus caravan  
+- Black market **cannot** get real lineage layers — only palm handouts or forged manuals
+
+---
+
+## Cultivation — lineage & techniques
+
+Per [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — one `lineageId`, realm-tier manual swaps, **shared layer progress** on GC+.
+
+### Celestial Sword Canon (天体剑典)
+
+**`lineageId:`** `celestial_sword_qi_line`  
+**Foundation stamp:** `sword_inclined` at FE seal  
+**Path:** qi · Sword Dao only
+
+#### Manual tiers (realm swaps)
+
+| Pool id *(working)* | Display name | `methodTier` | `reqRealm` | Notes |
+|---------------------|--------------|--------------|------------|-------|
+| `css_outer_breath` | **Sword-Gathering Breath** | condensation | 0 | Outer court breath — replaces market breaths for disciples |
+| `css_meridian_canon` | **Sword Meridian Canon** | foundation | 1 | FE syllabus; opens intent curriculum |
+| `css_heavenly_cycle` | **Heavenly Sword Cycle** | core | 2 | GC main art — name matches framework example |
+| `css_nascent_return` | **Myriad Sword Return** | nascent | 3 | NS — echoes Ten Thousand Swords array philosophy |
+| `css_void_one_line` | **One-Line Sword Scripture** | void | 4/5 | VR band — apex obsession made technique |
+
+*Layered chapters on GC+ entries per sect policy — not market pamphlets.*
+
+#### Intent technique set — **Celestial Sword Intent** *(sword types only)*
+
+Replace generic `sword_dominion` for sect lore — **no blade-weapon techniques** in lineage.
+
+| Technique | Tier | Weapon | Role |
+|-----------|------|--------|------|
+| **Heavenly Palm** | outer | fist | Conditioning — **not** lineage core; taught before sword |
+| **Celestial Sword Qi** | condensation | sword | First qi-to-sword shape |
+| **Heavenly Sword Qi** | foundation | sword | Intent strike without physical sword *(in game today)* |
+| **Returning Sword Art** | core | sword | Recall thrown sword-qi; duel staple |
+| **Sword-Rain Fragment** | core | sword | Multi-line pressure — drill hall advanced |
+| **Myriad Sword Return** | nascent | sword | Nascent soul projects sword-form volley |
+| **One-Line Severance** | void | sword | Single perfect cut — heir / elder art |
+
+**Not taught on the mountain:** Wind Blade Strike, Phantom Blade, Soul Severing Sword, any **blade** (刀) curriculum.
+
+#### Canon layers (GC+ sketch — owner expand)
+
+Shared progress on `celestial_sword_qi_line`. Working layer names:
+
+| Layer | Name | Gate fiction |
+|-------|------|--------------|
+| 1 | **Awakening Line** | Intent visible in qi |
+| 2 | **Condensed Edge** | FE seal synergy |
+| 3 | **Returning Breath** | Sword qi returns to dantian clean |
+| 4 | **Cliff Weather** | Survived Heaven-Cut exposure |
+| 5 | **Sepulcher Echo** | Meditated among planted swords |
+| 6+ | *owner pass* | Heir / patriarch bands |
+
+**Evil variant:** none — Sword Sect refuses blood-sword and parasitic manuals.
+
+### Sacred art (lineage manual — summary)
+
+**Working name:** **Celestial Sword Canon** (天体剑典) · see tables above.
+
+| Layer | Who gets it | Content |
+|-------|-------------|---------|
+| **Breath + canon tiers** | Outer → VR swaps | Realm-appropriate manual entry; same `lineageId` |
+| **Sword Intent techniques** | Inner court+ | Celestial Sword Intent set |
+| **Canon layers** | Core court+ | GC+ grind per framework |
 
 **Dao:** **Sword Dao** — one intent, one line; wind and metal as metaphor; qi shaped as sword, never as blade or saber.
 
@@ -363,18 +461,19 @@ Below: **minimum sketch** for 1–5. Expand when implementing `sword_sect_hall` 
 
 ### Techniques in culture today (code hooks)
 
-| Technique | Role |
-|-----------|------|
-| **Heavenly Palm** | Outer-court conditioning — palm before sword for many initiates |
-| **Heavenly Sword Qi** | Condensed sword intent without a physical sword |
+| In game now | Sect role |
+|-------------|-----------|
+| **Heavenly Palm** | Outer conditioning; friendly rep market unlock |
+| **Heavenly Sword Qi** | Foundation intent — keep; core lineage technique |
 
-**Not sect arts:** blade-type techniques (e.g. Wind Blade Strike), saber paths, or soul-weapon hybrids — found elsewhere in the world; teaching them on the mountain is grounds for expulsion.
+| Not sect canon (code cleanup later) | Why |
+|-------------------------------------|-----|
+| `sword_dominion` blade/soul mix | Blade + soul paths violate Sword-only policy |
 
-**What they teach:** outer disciples get palm basics + sword drilling; inner court gets Sword Intent; core court gets canon layers.
+**What they teach:** breath → meridian canon → heavenly cycle → intent techniques → layers.  
+**What they refuse:** poison, blood sword, blade curriculum, selling layers, assassination-as-duel.
 
-**What they refuse:** **Poison**, **blood sword** forbidden paths, **blade** weapon curricula, **charter assassination** disguised as dueling. Selling lineage layers to non-disciples is expulsion.
-
-**Mixed paths:** qi-primary sect; body cultivators who respect the drill hall tolerated in outer court if they commit to the sword. No secondary weapon obsession.
+**Mixed paths:** qi-primary; body cultivators tolerated in outer court if they commit to the sword.
 
 ---
 
@@ -510,7 +609,8 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 - [ ] Sword Immortal’s **true name** — ever revealed, or permanently lost?
 - [x] Patriarch **Yun Jian** — sketched (administrator patriarch; Cloud Mirror)
 - [ ] Rename in code: `Elder Blade Feng` → **Elder Sword Feng**
-- [ ] **Celestial Sword Canon** — layer count when lineage ships
+- [ ] **Celestial Sword Canon** — layer 6+ names; pool ids when implementing
+- [ ] **Solitary Edge** — weapon item in market at friendly rep?
 - [ ] Phoenix Gambit: does Sword **split** (purist vs pragmatist faction)?
 - [x] Sword Immortal meeting — **Half-Step minimum**; interaction design **parked**
 
@@ -518,5 +618,6 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 
 - `data.js` — enrich `sword_sect_hall` lore; optional `solitary_sword_mountain` forbidden stub
 - `FACTION_NPCS` — Feng rename; **patriarch_yun_jian** stub when audiences ship; Wen Ning for Longcheng
-- `CULTIVATION_METHOD_POOL` — `celestial_sword_qi_line` layered entries (sword techniques only)
+- `CULTIVATION_METHOD_POOL` — `celestial_sword_qi_line` tier entries + layers
+- `data.js` — `celestial_sword_intent` technique set (sword-only); Solitary Edge weapon stub
 - `factions-expand.js` — Phoenix Gambit Sword choice branches
