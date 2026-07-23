@@ -5,7 +5,8 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-23
 
 ## Focus
-- **Imperial city** — outer hub + inner Tianjing — [`docs/ideas/imperial-city-tianjing.md`](ideas/imperial-city-tianjing.md)
+- **Heartlands sects** — Celestial Sword done → Lotus / Void / Phoenix
+- **Imperial city (Longcheng)** — [`docs/ideas/imperial-city-tianjing.md`](ideas/imperial-city-tianjing.md) — after sect one-pagers or parallel map shell
 
 ## Next
 - Merge elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))

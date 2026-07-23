@@ -44,7 +44,7 @@ Fill identities using the template below; **do not** reduce a sect to “the tra
 
 | Sect | One-line in data | Relationship sketch |
 |------|------------------|---------------------|
-| **Celestial Sword** | Blade-first, duels | Allies Lotus; rivals Phoenix |
+| **Celestial Sword** | Blade-first, duels | Allies Lotus; rivals Phoenix | → [`celestial-sword-sect.md`](celestial-sword-sect.md) |
 | **Jade Lotus** | Trade, politics, silk | Allies Sword + Void; rivals Phoenix |
 | **Void Temple** | Pre-heaven knowledge, sealed sites | Allies Lotus; rivals Phoenix |
 | **Golden Phoenix** | Expansionist, absorb Lotus | Rivals all three; alignment cost |
@@ -84,7 +84,7 @@ Use one block per sect/clan/tribe. Lineage manuals hang off this.
 ## Suggested fill order
 
 1. **Imperial clan** — [`imperial-clan.md`](imperial-clan.md) *(continental anchor)*
-2. **Heartlands four** — each sect defined **against** the throne
+2. **Heartlands four** — Celestial Sword [`celestial-sword-sect.md`](celestial-sword-sect.md) ✓ v1 — Lotus, Void, Phoenix remain
 3. **Dustbone Tribunal** — capture owner backstory; deepen three tribes
 4. Jade / Frostbite / Emberwild when those zones get content passes
 

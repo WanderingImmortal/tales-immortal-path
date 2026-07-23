@@ -33,7 +33,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
-| [Sect & faction identities](sect-faction-identities.md) | `idea` | **Imperial clan first** → then Heartlands four | — |
+| [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v1) | Lineage manual; Longcheng NPC | — |
+| [Sect & faction identities](sect-faction-identities.md) | `idea` | Heartlands three remaining | — |
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
 | [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 nodes | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
