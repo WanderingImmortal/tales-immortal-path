@@ -288,19 +288,80 @@ Found loot should use the **same tier + grade system** as crafted gear so player
 - **Power-gated inscriptions** stay dormant until you qualify — finding a dao blade early is a long-term quest, not a power spike.
 - Hybrid loot pool **confirmed** (mobs Common; elites/bosses roll grade).
 
-## Smith progression (how it maps)
+## Terminology (don’t mix these up)
 
-Separate from gear tier — **forge skill** is the profession rank:
+| Term | What it is | Example |
+|------|------------|---------|
+| **Gear tier** | Which cultivation realm the item is for | Tier 7 dao-seeking blade |
+| **Gear grade** | Quality within that tier | 上品 Superior |
+| **Smith skill** | Your craft ability (private) | Apprentice → Master Smith |
+| **Smith reputation** | Your market standing (public) | Unknown → Forge Saint |
 
-| Smith rank | Unlocks |
-|------------|---------|
-| Apprentice | Tier 1 recipes; mostly Low–Standard rolls |
-| Journeyman | Tier 2 recipes; Fine possible |
-| Artisan | Tier 3 recipes; reliable Fine |
-| Master | Tier 4+ recipes in current build; at full 9-tier design, masters work **up to tier 6–7** with guild exam |
-| Grand Smith *(future)* | High tiers, peak rolls, legendary frameworks |
+**Skill** = what you *can* make and how well. **Reputation** = who *trusts your work* and what they’ll pay.
 
-Guild exams ([`creation-path-guilds.md`](creation-path-guilds.md)) later raise the **ceiling** of what you can *attempt*, not your cultivation tier gate.
+## Smith skill (craft rank)
+
+Current code: 4 ranks (expand toward **6–7** as gear tiers grow). Unlocks recipes + grade rolls.
+
+| Smith skill | Unlocks (today) |
+|-------------|-----------------|
+| Apprentice | Tier 1 recipes |
+| Journeyman | Tier 2 |
+| Artisan | Tier 3 |
+| Master | Tier 4 / legendary |
+| *(future)* Adept Smith, Grand Smith, Divine Smith | Tiers 5–9 + peak frameworks |
+
+**Skill rank-ups grant a large reputation burst** — hitting Master should feel like the jianghu notices.
+
+## Smith reputation — 7 ranks (owner lean 2026-07-23)
+
+Separate XP track (`forge.reputationXp`). Earned mainly by **selling** forged gear; bonus from skill promotions, supreme crafts, commissions (later). Alchemy has 5 ranks; forging gets **7** because the climb to peak skill + high-tier sales should be a long public arc.
+
+| # | English | Hanzi (flavor) | Rep XP | Sell mult | What it means |
+|---|---------|----------------|--------|-----------|----------------|
+| 1 | **Unknown** | 无名 | 0 | 0.75× | Nobody’s heard of you; pawn shops lowball |
+| 2 | **Registered** | 登籍 | 30 | 0.85× | Guild ledger knows your name |
+| 3 | **Chartered** | 持符 | 80 | 0.95× | Licensed to sell in markets |
+| 4 | **Esteemed** | 名匠 | 180 | 1.05× | Regional buyers seek you out |
+| 5 | **Renowned** | 大师 | 350 | 1.20× | Great sects consider commissions |
+| 6 | **Eminent** | 神匠 | 550 | 1.35× | Imperial / guild elite contracts |
+| 7 | **Forge Saint** | 铸圣 | 850 | 1.50× | Peak mortal standing — name on the ledger |
+
+`priceMult` for buying materials/recipes from guild (inverse of sell — better rep = slight discount) can mirror alchemy’s `priceMult` pattern.
+
+### Reputation XP sources (draft)
+
+| Source | Rep XP | Notes |
+|--------|--------|-------|
+| **Sell forged gear** | `base × tier × gradeMult` | Main loop — higher tier + 极品 = more |
+| **Skill rank-up** | **Large burst** | Apprentice→Journeyman +15 · Journeyman→Artisan +30 · Artisan→Master +50 · future ranks +75 / +100 |
+| **Successful forge** | +1 (tier 1–2) · +2 (3–4) · +3 (5+) | Small drip; selling matters more |
+| **Supreme-grade craft** | +5 bonus | One-time per item when you roll 极品 |
+| **Commission complete** | Hand-tuned | Later — guild work |
+| **First sale in zone** | +3 | Optional discovery spice |
+
+**Owner beat:** climbing from Apprentice to peak smith skill should generate **meaningful rep even before you’re selling tier-9 gear** — promotions announce you; supreme crafts get whispered about. Selling high-tier 上品/极品 gear is still the long-term fuel for ranks 6–7.
+
+### Sell UI (mirror alchemy)
+
+- Forge Chamber **Sell** panel — list bag gear with prices
+- Price = `baseMarket(tier, slot) × gradeMult × affixMult × rep.sellMult × supplyFactor`
+- `forge.gearSupply` decay over time (optional) — flooding one recipe lowers price
+
+### Reputation perks (unlock by rank)
+
+| Rank | Perk |
+|------|------|
+| Registered | Can sell in markets (below: only pawn / scrap) |
+| Chartered | Guild buy list — better material prices |
+| Esteemed | Commission board (tier 1–3 requests) |
+| Renowned | Higher-tier commissions; appraise discount |
+| Eminent | Consign supreme gear at Longcheng branch |
+| Forge Saint | Peak commissions; name in chronicle flavor |
+
+Guild exams ([`creation-path-guilds.md`](creation-path-guilds.md)) can require **minimum reputation + skill** for charter upgrades.
+
+## Smith progression (summary)
 
 ## Content scope (9 tiers × 4 grades)
 
@@ -322,8 +383,9 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 | **B** | Add `grade` (下中上极品) to instances + stat scaling + UI | |
 | **C** | Attunement mult on equip; grade roll on forge | |
 | **D** | `powerRequirements` + dormant inscriptions | Dao Seeker blade pattern |
-| **E** | Appraisal for inscriptions; hybrid loot tables | |
-| **F** | Expand tiers 5–9; path specials; guild exams | Nine-realm migration |
+| **E** | **Reputation (7 ranks) + sell panel** | Profession economy loop |
+| **F** | Appraisal for inscriptions; hybrid loot tables | |
+| **G** | Expand tiers 5–9; path specials; guild exams | Nine-realm migration |
 
 ## Prerequisites
 
@@ -332,7 +394,7 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 - [x] Under-tier — **attunement** on base stats
 - [x] Dao-bound gear — **martial layer always material-tier**; dao layer power-gated (“just swinging”)
 - [x] Crafting — tier ceiling (+1 early, stricter late) + power requirements
-- [x] Found loot — hybrid pool confirmed
+- [x] Reputation — **7 ranks**; skill rank-ups grant large rep bursts; sell is main fuel
 - [x] Appraisal — later; reveals **inscriptions/formations**, not affix discovery
 - [ ] Body/soul special creation path (not mirrored qi gear)
 - [ ] Attunement constants tune pass
