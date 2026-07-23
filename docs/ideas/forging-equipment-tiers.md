@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm ladder in code (7 → 9); forging profession loop (guild, economy) |
 | **Issue** | none yet |
 | **Chat / PR** | Forge profession chat 2026-07-23; gating shipped [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **Updated** | 2026-07-23 (Phases B–F designed; English-first UI lock; A shipped) |
+| **Updated** | 2026-07-23 (Phases B–H designed; quench + furnace lock; A shipped) |
 
 ## Intent
 
@@ -1229,6 +1229,248 @@ On load (`migrateGearAppraisalForExistingSave`):
 - Buying unidentified gear from NPCs
 - Appraisal forgery / counterfeit gear
 
+## Phase H — furnace + quench (`designed` — not built)
+
+**Status:** Planned. **Depends on:** Phase B (`grade` on instances). **Best with:** Phase C (grade roll at craft — quench chosen same moment). **Independent of:** D/E/F (inscriptions and appraisal unchanged).
+
+**Goal:** Workshop upgrades and **quench** give the forge its identity choice without a third tier gate or a separate flame system. **Furnace includes the flame** (one object). **Anvil** stays a minor comfort upgrade.
+
+### Design locks (owner 2026-07-23)
+
+| Topic | Decision |
+|-------|----------|
+| **Furnace + flame** | **One system** — furnace tier *is* the heat source (charcoal hearth → spirit-fired forge → …) |
+| **Furnace job** | **Max recipe tier** you can heat/work + optional material-efficiency / high-tier months reduction |
+| **Anvil job** | **Minor only** — −% forge months, +% output durability; **no** second tier cap if furnace gates tier |
+| **Quench job** | **Element alignment** at final forge step — synergizes with matching **techniques**, not elemental damage on basic swings |
+| **Inscriptions** | **Aggression layer** — fire/ice procs, dao channels, ignite on crit; **not** the poison lane |
+| **Poison on weapons** | **Battle coats** (consumable, any weapon, wears off) = default; **poison quench** = optional niche later (permanent, gives up other alignment) — **not** required for poison play |
+| **Affix / temperament reframe** | Parked idea — see [`forge-temperaments-idea.md`](forge-temperaments-idea.md) stub; not required for H |
+
+**One-line rules:**
+
+- *Quench harmonizes; inscriptions aggress (elemental procs, dao arts).*
+- *Poison tonight = coat the blade; poison forever = specialist poison quench (optional, later).*
+
+### Part 1 — Furnace (includes flame)
+
+Replace separate flame picker. `G.forge.furnace` id; migrate from today’s anvil-forges-required pattern or parallel track.
+
+```javascript
+const FORGE_FURNACES = [
+    { id: 'charcoal',   name: 'Charcoal Hearth',   emoji: '🪵', maxRecipeTier: 2, materialEfficiencyPct: 0,  highTierMonthsReductionPct: 0,  forgesRequired: 0 },
+    { id: 'spirit',     name: 'Spirit-Fired Forge', emoji: '🔥', maxRecipeTier: 3, materialEfficiencyPct: 5,  highTierMonthsReductionPct: 3,  forgesRequired: 12 },
+    { id: 'moonwell',   name: 'Moonwell Crucible', emoji: '🌙', maxRecipeTier: 4, materialEfficiencyPct: 10, highTierMonthsReductionPct: 6,  forgesRequired: 35, discoverId: 'moonwell_blueprint' },
+    // tiers 5–9 stubs when Phase G lands
+];
+```
+
+| Furnace | Flame fantasy (flavor only) | Gates |
+|---------|----------------------------|-------|
+| Charcoal hearth | Mortal fire | Tier 1–2 recipes |
+| Spirit-fired forge | Spirit flame | Tier 3 |
+| Moonwell crucible | Yin/cold flame | Tier 4 + refined yin quench media |
+| … | Sect / caldera flames | Tier 5+ (G) |
+
+`canCraftGear`: `recipe.tier <= getForgeFurnaceDef().maxRecipeTier` (replaces or precedes anvil tier checks).
+
+**Not in scope:** separate smelt minigame (ore→ingot) unless a later PR adds optional “refine materials” action on the furnace.
+
+### Part 2 — Anvil (simple upgrade)
+
+Keep `FORGE_ANVILS` but **strip tier gating** if furnace owns it. Anvil only:
+
+- `monthsReductionPct` (existing)
+- `durabilityBonusPct` on new instances (rename from vague `affixBonus` over time)
+- Unlock via `successfulForges` (existing)
+
+Forge Chamber status: **Furnace** (tier cap) + **Anvil** (comfort) as two lines.
+
+### Part 3 — Quench (alignment at craft)
+
+**When:** final step on successful `craftGear` — player picks quench medium from inventory or **None (neutral)**.
+
+```javascript
+// instance (extends B)
+{
+  uid, defId, grade, affixes, durability, maxDurability,
+  quench: null | { mediumId: 'yin_essence', alignment: 'moon' }
+}
+```
+
+**Alignment quenches (ship first)** — martial swings stay martial; bonus applies when using **matching techniques**:
+
+| Medium | Alignment | Synergy (draft) |
+|--------|-----------|-----------------|
+| *(none)* | neutral | — |
+| Yin essence / moon dew | `moon` | Moon & shadow techniques: +dmg or −qi cost |
+| Phoenix ash | `fire` | Fire-path techniques |
+| Frost condensate | `ice` | Ice/water techniques |
+| Void mote | `void` | Void/dao techniques |
+| Spirit herb wash | `wood` / `life` | Wood/heal techniques |
+
+Higher-tier media (refined moon essence, celestial yin bead) = stronger synergy band — same alignment, not a new element.
+
+**Helpers (`gear.js` / `forge-data.js`):**
+
+| Function | Purpose |
+|----------|---------|
+| `GEAR_QUENCH_MEDIA` | medium defs: `alignment`, `synergyPct`, `tier`, `consumes` |
+| `getQuenchAlignment(inst)` | for combat technique matcher |
+| `getQuenchTechniqueSynergyMult(technique, weaponInst)` | called from technique damage / cost |
+| `formatQuenchLabel(inst)` | `Moon-aligned (yin essence)` — English + hanzi in tooltip |
+
+**Craft UX:** recipe detail → quench dropdown (grey out missing media) → forge → log: `Forged Superior frostbite saber — moon-quenched (yin essence).`
+
+**Loot:** mob drops usually `quench: null`. Hand-authored boss drops may include quench.
+
+### Part 4 — Poison (two lanes — owner lock)
+
+| Lane | System | Duration | Weapon |
+|------|--------|----------|--------|
+| **Battle coat** | Consumable (`venom_vial`, `serpent_bile`) applied pre-combat | One fight or N hits | **Any** equipped weapon — no reforge |
+| **Poison quench** *(optional, later)* | Forge step | Permanent | **That instance only** — gives up moon/fire/void alignment |
+
+**Ship battle coats with combat/consumables**, not Phase H core — but document here so forge design stays coherent.
+
+```javascript
+// G.gearBattleCoat = { alignment: 'poison', hitsRemaining: 8, potency: 1 } — on G, not instance
+function applyBladeCoat(itemId) { … }
+function getWeaponPoisonOnHit(inst) { … } // coat only unless poison-quenched (later)
+```
+
+Poison quench **deferred** — if added later: light permanent on-hit poison + poison technique synergy; opportunity cost vs other alignments.
+
+### Part 5 — Files to touch
+
+| File | Work |
+|------|------|
+| `forge-data.js` | `FORGE_FURNACES`, `GEAR_QUENCH_MEDIA`; trim anvil to comfort stats |
+| `crafting.js` | furnace tier gate; pass `quenchMediumId` into `createGearInstance` |
+| `gear.js` | `quench` on instance; synergy helper for techniques |
+| `forge-chamber.js` | furnace status; quench picker on detail panel |
+| `combat.js` | technique ↔ quench synergy hook; battle coat poison on hit |
+| `data.js` | quench media as materials or consumables |
+| `core.js` | migrate `G.forge.furnace`; legacy anvil → furnace mapping |
+
+### Test plan
+
+- [ ] Tier 3 recipe blocked on charcoal hearth; works on spirit forge
+- [ ] Quench consumes medium; neutral craft unchanged
+- [ ] Moon quench + moon technique &gt; neutral; basic attack unchanged either way
+- [ ] Battle coat on found legendary applies poison for one fight; quench not required
+- [ ] Anvil upgrade still reduces months without gating tier
+
+### Acceptance criteria
+
+1. One furnace track gates recipe tier; flame is not a separate UI picker.
+2. Anvil is comfort-only (no duplicate tier cap).
+3. Quench alignment stored on instance; technique synergy works.
+4. Basic attacks do not deal elemental damage from quench alone.
+5. Battle coat consumable documented and implementable without reforge.
+
+### Out of scope for H
+
+- Poison quench (optional follow-up)
+- Smelt/refine ore sub-loop
+- Reforge / change quench on existing item
+- Temperament / affix reframe
+
+## Functioning forger path — what’s left
+
+Checklist for a **complete qi-path smith loop** (playable profession, not guild endgame). ✅ = in game today · 📋 = designed · ⬜ = not designed / missing.
+
+### Core loop (must ship)
+
+| Piece | Status | Phase / notes |
+|-------|--------|----------------|
+| Forge Chamber hub (craft, repair, legendary tab) | ✅ | Sect, inventory, header button |
+| Materials from explore / drops | ✅ | `G.materials`; zone loot |
+| Recipes + skill unlocks | ✅ | 4 ranks · 9 recipes · realm gate [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
+| Craft → instance → equip → combat | ✅ | `gear.js`, durability |
+| Repair worn gear | ✅ | Forge repair tab |
+| **Grades (品)** on gear | 📋 | **B** — quality axis |
+| **Grade roll on forge** | 📋 | **C** — why smith &gt; mob loot |
+| **Attunement** (wear over-tier) | 📋 | **C** |
+| **Sell surplus gear** | 📋 | **E** — economic payoff |
+| **Smith rank → sell price** | 📋 | **E** — no separate rep |
+| **Furnace tier gate** | 📋 | **H** |
+| **Quench (alignment choice)** | 📋 | **H** — forge identity |
+
+### Depth (should ship for “real” profession)
+
+| Piece | Status | Phase / notes |
+|-------|--------|----------------|
+| **Inscriptions** (dao procs, fire/ice on techniques) | 📋 | **D** |
+| **9 smith ranks** | 📋 | **E** |
+| **Hybrid loot + appraisal** | 📋 | **F** — found gear speaks same language |
+| **Battle poison coats** | 📋 | Consumables — any weapon; see Phase H §4 |
+| Anvil comfort upgrades | ✅ | Demote when H ships; keep time/durability |
+| Legendary forge line | ✅ | Success rate · materials |
+| Sect armory bonus | ✅ | Time + affix nudge |
+
+### Progression & discovery
+
+| Piece | Status | Notes |
+|-------|--------|-------|
+| Skill XP from forging | ✅ | Tier bonus in design |
+| Recipe learn on rank-up | ✅ | |
+| Recipe from quests / manuals | ⬜ | Only skill unlocks today — add event `learnForgeRecipe` beats |
+| Furnace blueprint discovery | 📋 | H — moonwell etc. |
+| Quench media sources | 📋 | Explore, merchants, zone bosses |
+| Tier 5–9 recipes & materials | ⬜ | **G** + nine-realm migration |
+
+### Economy & sinks
+
+| Piece | Status | Notes |
+|-------|--------|-------|
+| Material sink (craft) | ✅ | |
+| Stone sink (craft + repair) | ✅ | |
+| Gear sink (durability) | ✅ | |
+| **Sell income** | 📋 | E |
+| **Supply-softened sell prices** | 📋 | E — anti-flood |
+| Buy materials from merchants | ⬜ | Optional — explore may be enough early |
+
+### Guild & social (endgame — not required for v1)
+
+| Piece | Status | Notes |
+|-------|--------|-------|
+| Forgers Guild charter | ⬜ | [`creation-path-guilds.md`](creation-path-guilds.md) |
+| Commissions | ⬜ | Rank 7+ perk stub in E |
+| NPC master forge for you | ⬜ | Story / commission |
+| Market buy gear | ⬜ | Explicitly out of E scope |
+
+### UX & onboarding
+
+| Piece | Status | Notes |
+|-------|--------|-------|
+| English-first labels | 📋 | Locked in doc; implement with B |
+| Grade / quench visible on gear | 📋 | B + H |
+| “Why can’t I craft this?” reasons | ✅ | Realm, skill, materials |
+| First-visit forge hint | ⬜ | Short tutorial line or NOW quest |
+| Compare quench before commit | 📋 | H recipe detail |
+
+### Parked / not required for functioning path
+
+| Piece | Notes |
+|-------|-------|
+| Affix → temperament reframe | Optional flavor later |
+| Poison quench | Niche; coats first |
+| Body/soul forge verbs | Different creation path |
+| Appraisal minigame | F is reveal UI only |
+| Commissions / consign | Post–rank 8 |
+
+### Suggested implementation order (minimum viable smith)
+
+```text
+A ✅ → B (grades) → H (furnace + quench) → C (grade roll + attunement) → E (sell + ranks)
+→ D (inscriptions) → F (loot + appraisal) → G (content + tiers 5–9)
+```
+
+**Battle poison coats** can slot alongside **H** or **D** (combat hook) — small consumable PR.
+
+**“Functioning” bar:** after **B + H + C + E**, a player can gather ore, rank up smith, pick quench, chase grades, sell surplus, and feel why forging beats buying. **D + F** make high-tier and found gear interesting; **G** scales to nine realms.
+
 ## Phased build (suggested)
 
 | Phase | What | Notes |
@@ -1240,6 +1482,7 @@ On load (`migrateGearAppraisalForExistingSave`):
 | **E** 📋 **designed** | Sell panel + 9 smith ranks | [Phase E](#phase-e--sell-panel--9-smith-ranks-designed--not-built) |
 | **F** 📋 **designed** | Appraisal + hybrid loot tables | [Phase F](#phase-f--appraisal--hybrid-loot-designed--not-built) |
 | **G** | Tiers 5–9 gear + guild + path specials | Nine-realm migration |
+| **H** 📋 **designed** | Furnace (incl. flame) + quench alignment | [Phase H](#phase-h--furnace--quench-designed--not-built) |
 
 ## Prerequisites
 
@@ -1257,6 +1500,10 @@ On load (`migrateGearAppraisalForExistingSave`):
 - [x] Phase D designed — inscriptions, powerRequirements, martial vs dao layer
 - [x] Phase E designed — sell panel, 9 smith ranks, pawn vs market
 - [x] Phase F designed — hybrid loot profiles, unread/appraised, appraise panel
+- [x] Phase H designed — furnace+flame merged, quench alignment, anvil comfort-only
+- [x] Quench vs inscription split — harmonize vs aggress; poison via battle coats
+- [ ] Poison quench (optional niche) — deferred
+- [ ] Battle coat consumables — spec in H; implement with combat
 - [ ] Attunement constants tune pass (in playtest when C ships)
 - [ ] Nine-realm migration plan
 
@@ -1267,6 +1514,7 @@ On load (`migrateGearAppraisalForExistingSave`):
 - [ ] Inscription pool per tier — hand-authored vs procedural?
 - [ ] Unread affixes — hide until appraise (F lean) vs show partial hints
 - [ ] Sell unread gear — hard block vs lowball pawn (F leans **block**)
+- [ ] Body/soul: shared tier index with different item types, or separate refinement ladder?
 - [ ] Body/soul parallel realm names at idx 4 and 7 when nine-realm ships
 
 ## Implementation crumbs
@@ -1274,6 +1522,8 @@ On load (`migrateGearAppraisalForExistingSave`):
 - Gear instances: `gear.js` — add `grade`, `appraised`; scale stats in `sumInstanceStats`
 - Loot: `ZONE_GEAR_LOOT`, `grantLootGear`, explore `type: 'gear'` in `world.js`
 - Appraisal: `appraiseGearInstance`, `#forgeAppraisePanel` in `forge-chamber.js`
+- Furnace + quench: `FORGE_FURNACES`, `GEAR_QUENCH_MEDIA`, craft picker in `forge-chamber.js`
+- Battle coats: `applyBladeCoat`, poison on hit in `combat.js` (consumables in `data.js`)
 - Recipes: `GEAR_CRAFT_RECIPES`, `GEAR_ITEMS` in `data.js`
 - Forge gates: `crafting.js`, `forge-data.js` (`FORGE_TIER_REALM_INDEX` → extend to 9)
 - UI: `forge-chamber.js` — show tier, grade roll preview, realm name
