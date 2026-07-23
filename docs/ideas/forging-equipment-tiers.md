@@ -294,76 +294,61 @@ Found loot should use the **same tier + grade system** as crafted gear so player
 |------|------------|---------|
 | **Gear tier** | Which cultivation realm the item is for | Tier 7 dao-seeking blade |
 | **Gear grade** | Quality within that tier | 上品 Superior |
-| **Smith skill** | Your craft ability (private) | Apprentice → Master Smith |
-| **Smith reputation** | Your market standing (public) | Unknown → Forge Saint |
+| **Smith rank** | Your craft level **and** your public title | Apprentice → Forge Saint |
 
-**Skill** = what you *can* make and how well. **Reputation** = who *trusts your work* and what they’ll pay.
+**Owner lean (2026-07-23):** **No separate reputation track.** Alchemy uses skill + rep because pills are consumable and the market is abstract. Forging — your **rank is on the work**. A 神匠’s signature on steel speaks for itself; grinding a second “fame” bar is redundant.
 
-## Smith skill (craft rank)
+## Smith ranks — 7 levels (skill = standing)
 
-Current code: 4 ranks (expand toward **6–7** as gear tiers grow). Unlocks recipes + grade rolls.
+One XP track (`forge.skillXp`). Rank is both **what you can make** and **what buyers pay**. Expand from today’s 4 ranks toward **7** as gear tiers grow.
 
-| Smith skill | Unlocks (today) |
-|-------------|-----------------|
-| Apprentice | Tier 1 recipes |
-| Journeyman | Tier 2 |
-| Artisan | Tier 3 |
-| Master | Tier 4 / legendary |
-| *(future)* Adept Smith, Grand Smith, Divine Smith | Tiers 5–9 + peak frameworks |
+| # | English | Hanzi | Skill XP (draft) | Sell mult | Unlocks |
+|---|---------|-------|------------------|-----------|---------|
+| 1 | **Apprentice** | 学徒 | 0 | 0.80× | Tier 1 recipes; pawn / scrap sales |
+| 2 | **Journeyman** | 行匠 | 12 | 0.90× | Tier 2 |
+| 3 | **Artisan** | 匠师 | 35 | 1.00× | Tier 3; market sales |
+| 4 | **Master Smith** | 炉火大师 | 80 | 1.15× | Tier 4 / legendary |
+| 5 | **Renowned Smith** | 名匠 | 160 | 1.30× | Tier 5–6 recipes |
+| 6 | **Divine Smith** | 神匠 | 300 | 1.45× | Tier 7–8; high commissions |
+| 7 | **Forge Saint** | 铸圣 | 500 | 1.60× | Tier 9 frameworks; peak guild charter |
 
-**Skill rank-ups grant a large reputation burst** — hitting Master should feel like the jianghu notices.
+Log on rank-up: *“🔨 The trade whispers your name — you are now a 名匠 (Renowned Smith).”*
 
-## Smith reputation — 7 ranks (owner lean 2026-07-23)
+### Skill XP sources
 
-Separate XP track (`forge.reputationXp`). Earned mainly by **selling** forged gear; bonus from skill promotions, supreme crafts, commissions (later). Alchemy has 5 ranks; forging gets **7** because the climb to peak skill + high-tier sales should be a long public arc.
+| Source | Skill XP | Notes |
+|--------|----------|-------|
+| **Successful forge** | +2 base · +tier bonus | Main grind |
+| **Supreme-grade (极品) craft** | +5 bonus | Rewards peak rolls |
+| **Sell forged gear** | small drip `+1 per tier` | Work circulating teaches market sense — optional, tune low |
+| **Commission complete** | hand-tuned lump | Later |
+| **Guild exam pass** | lump | Later — formal promotion |
 
-| # | English | Hanzi (flavor) | Rep XP | Sell mult | What it means |
-|---|---------|----------------|--------|-----------|----------------|
-| 1 | **Unknown** | 无名 | 0 | 0.75× | Nobody’s heard of you; pawn shops lowball |
-| 2 | **Registered** | 登籍 | 30 | 0.85× | Guild ledger knows your name |
-| 3 | **Chartered** | 持符 | 80 | 0.95× | Licensed to sell in markets |
-| 4 | **Esteemed** | 名匠 | 180 | 1.05× | Regional buyers seek you out |
-| 5 | **Renowned** | 大师 | 350 | 1.20× | Great sects consider commissions |
-| 6 | **Eminent** | 神匠 | 550 | 1.35× | Imperial / guild elite contracts |
-| 7 | **Forge Saint** | 铸圣 | 850 | 1.50× | Peak mortal standing — name on the ledger |
+**No `forge.reputationXp`.** Buyers read your **rank title** on the sale UI: *“Sold to market as work of a 匠师 (Artisan).”*
 
-`priceMult` for buying materials/recipes from guild (inverse of sell — better rep = slight discount) can mirror alchemy’s `priceMult` pattern.
+### Sell UI (profession loop — no rep)
 
-### Reputation XP sources (draft)
+- Forge Chamber **Sell** panel (mirror alchemy layout)
+- Price = `baseMarket(tier, slot) × gradeMult × affixMult × **skillRank.sellMult** × supplyFactor`
+- Optional `forge.gearSupply` decay — flooding one item type soft-lowers price
+- Low ranks: pawn/scrap only until **Artisan (匠师)** unlocks proper market — gates early spam without a rep grind
 
-| Source | Rep XP | Notes |
-|--------|--------|-------|
-| **Sell forged gear** | `base × tier × gradeMult` | Main loop — higher tier + 极品 = more |
-| **Skill rank-up** | **Large burst** | Apprentice→Journeyman +15 · Journeyman→Artisan +30 · Artisan→Master +50 · future ranks +75 / +100 |
-| **Successful forge** | +1 (tier 1–2) · +2 (3–4) · +3 (5+) | Small drip; selling matters more |
-| **Supreme-grade craft** | +5 bonus | One-time per item when you roll 极品 |
-| **Commission complete** | Hand-tuned | Later — guild work |
-| **First sale in zone** | +3 | Optional discovery spice |
-
-**Owner beat:** climbing from Apprentice to peak smith skill should generate **meaningful rep even before you’re selling tier-9 gear** — promotions announce you; supreme crafts get whispered about. Selling high-tier 上品/极品 gear is still the long-term fuel for ranks 6–7.
-
-### Sell UI (mirror alchemy)
-
-- Forge Chamber **Sell** panel — list bag gear with prices
-- Price = `baseMarket(tier, slot) × gradeMult × affixMult × rep.sellMult × supplyFactor`
-- `forge.gearSupply` decay over time (optional) — flooding one recipe lowers price
-
-### Reputation perks (unlock by rank)
+### Perks by rank (same track)
 
 | Rank | Perk |
 |------|------|
-| Registered | Can sell in markets (below: only pawn / scrap) |
-| Chartered | Guild buy list — better material prices |
-| Esteemed | Commission board (tier 1–3 requests) |
-| Renowned | Higher-tier commissions; appraise discount |
-| Eminent | Consign supreme gear at Longcheng branch |
-| Forge Saint | Peak commissions; name in chronicle flavor |
+| Apprentice | Craft + pawn sales |
+| Artisan | Full market access |
+| Master Smith | Legendary recipes; tier-4 commissions |
+| Renowned Smith | Commission board (mid tier) |
+| Divine Smith | Longcheng consign; appraise inscriptions |
+| Forge Saint | Peak commissions; chronicle callouts |
 
-Guild exams ([`creation-path-guilds.md`](creation-path-guilds.md)) can require **minimum reputation + skill** for charter upgrades.
+Guild exams ([`creation-path-guilds.md`](creation-path-guilds.md)) gate **charter upgrades** by **smith rank + cultivation**, not a second XP bar.
 
 ## Smith progression (summary)
 
-## Content scope (9 tiers × 4 grades)
+**One ladder:** forge more → rank up → better recipes, grade rolls, and sell prices. Your level *is* your name.
 
 Don’t hand-author 36 variants per slot. **Data-driven:**
 
@@ -383,7 +368,7 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 | **B** | Add `grade` (下中上极品) to instances + stat scaling + UI | |
 | **C** | Attunement mult on equip; grade roll on forge | |
 | **D** | `powerRequirements` + dormant inscriptions | Dao Seeker blade pattern |
-| **E** | **Reputation (7 ranks) + sell panel** | Profession economy loop |
+| **E** | **Sell panel** + expand smith ranks to 7 | Prices scale with rank — no rep track |
 | **F** | Appraisal for inscriptions; hybrid loot tables | |
 | **G** | Expand tiers 5–9; path specials; guild exams | Nine-realm migration |
 
@@ -394,7 +379,7 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 - [x] Under-tier — **attunement** on base stats
 - [x] Dao-bound gear — **martial layer always material-tier**; dao layer power-gated (“just swinging”)
 - [x] Crafting — tier ceiling (+1 early, stricter late) + power requirements
-- [x] Reputation — **7 ranks**; skill rank-ups grant large rep bursts; sell is main fuel
+- [x] **No separate reputation** — smith rank = public standing; sell mult on rank
 - [x] Appraisal — later; reveals **inscriptions/formations**, not affix discovery
 - [ ] Body/soul special creation path (not mirrored qi gear)
 - [ ] Attunement constants tune pass
