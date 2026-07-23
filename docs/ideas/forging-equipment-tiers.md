@@ -298,21 +298,33 @@ Found loot should use the **same tier + grade system** as crafted gear so player
 
 **Owner lean (2026-07-23):** **No separate reputation track.** Alchemy uses skill + rep because pills are consumable and the market is abstract. Forging — your **rank is on the work**. A 神匠’s signature on steel speaks for itself; grinding a second “fame” bar is redundant.
 
-## Smith ranks — 7 levels (skill = standing)
+## Smith ranks — **9 levels** (1 per gear tier / realm)
 
-One XP track (`forge.skillXp`). Rank is both **what you can make** and **what buyers pay**. Expand from today’s 4 ranks toward **7** as gear tiers grow.
+**Owner lock (2026-07-23):** **9 smith ranks for 9 realms** — same index as gear tier and cultivation realm. Rank N unlocks tier N recipes (plus grade/sell scaling). No separate reputation track.
 
-| # | English | Hanzi | Skill XP (draft) | Sell mult | Unlocks |
-|---|---------|-------|------------------|-----------|---------|
-| 1 | **Apprentice** | 学徒 | 0 | 0.80× | Tier 1 recipes; pawn / scrap sales |
-| 2 | **Journeyman** | 行匠 | 12 | 0.90× | Tier 2 |
-| 3 | **Artisan** | 匠师 | 35 | 1.00× | Tier 3; market sales |
-| 4 | **Master Smith** | 炉火大师 | 80 | 1.15× | Tier 4 / legendary |
-| 5 | **Renowned Smith** | 名匠 | 160 | 1.30× | Tier 5–6 recipes |
-| 6 | **Divine Smith** | 神匠 | 300 | 1.45× | Tier 7–8; high commissions |
-| 7 | **Forge Saint** | 铸圣 | 500 | 1.60× | Tier 9 frameworks; peak guild charter |
+One XP track (`forge.skillXp`). Your rank **is** your public title.
 
-Log on rank-up: *“🔨 The trade whispers your name — you are now a 名匠 (Renowned Smith).”*
+| Rank | Gear tier | Qi realm (idx) | Smith title (EN) | Hanzi | Sell mult (draft) |
+|------|-----------|----------------|------------------|-------|-------------------|
+| 1 | 1 | Qi Condensation (0) | **Apprentice Smith** | 学徒 | 0.78× |
+| 2 | 2 | Foundation Establishment (1) | **Journeyman** | 行匠 | 0.86× |
+| 3 | 3 | Core Formation (2) | **Artisan** | 匠师 | 0.94× |
+| 4 | 4 | Nascent Soul (3) | **Master Smith** | 炉火大师 | 1.04× |
+| 5 | 5 | Deity Transformation (4) | **Spirit Smith** | 化神匠 | 1.14× |
+| 6 | 6 | Void Refinement (5) | **Void Smith** | 虚空匠 | 1.24× |
+| 7 | 7 | Dao Seeking (6) | **Dao Smith** | 求道匠 | 1.36× |
+| 8 | 8 | Dao Manifestation (7) | **Law Smith** | 显道匠 | 1.48× |
+| 9 | 9 | Immortal Ascension (8) | **Forge Saint** | 铸圣 | 1.62× |
+
+**Rule:** `smithRank === gearTier` for recipe unlock (same as today’s skill→tier gating, expanded to 9). Cultivation realm still gates **craft/wear** per attunement + power rules.
+
+Skill XP thresholds (draft — tune in playtest):
+
+`0 · 10 · 28 · 55 · 95 · 150 · 225 · 320 · 450`
+
+Today’s code has 4 ranks — migrate IDs: keep `apprentice` / `journeyman` / `artisan` / `master`, add `spirit_smith` … `forge_saint` when tiers 5–9 land.
+
+Log on rank-up: *“🔨 Rank ascends — you are now a 求道匠 (Dao Smith), smith of the seventh tier.”*
 
 ### Skill XP sources
 
@@ -333,22 +345,25 @@ Log on rank-up: *“🔨 The trade whispers your name — you are now a 名匠 (
 - Optional `forge.gearSupply` decay — flooding one item type soft-lowers price
 - Low ranks: pawn/scrap only until **Artisan (匠师)** unlocks proper market — gates early spam without a rep grind
 
-### Perks by rank (same track)
+### Perks by rank (milestones)
 
 | Rank | Perk |
 |------|------|
-| Apprentice | Craft + pawn sales |
-| Artisan | Full market access |
-| Master Smith | Legendary recipes; tier-4 commissions |
-| Renowned Smith | Commission board (mid tier) |
-| Divine Smith | Longcheng consign; appraise inscriptions |
-| Forge Saint | Peak commissions; chronicle callouts |
+| 1 Apprentice | Craft tier 1; pawn / scrap sales |
+| 3 Artisan | Full market sales |
+| 4 Master Smith | Legendary / tier-4 line |
+| 5 Spirit Smith | Inscription recipes |
+| 7 Dao Smith | Dao-bound weapon commissions |
+| 8 Law Smith | Longcheng consign; inscription appraisal |
+| 9 Forge Saint | Peak guild charter; chronicle callouts |
 
 Guild exams ([`creation-path-guilds.md`](creation-path-guilds.md)) gate **charter upgrades** by **smith rank + cultivation**, not a second XP bar.
 
 ## Smith progression (summary)
 
-**One ladder:** forge more → rank up → better recipes, grade rolls, and sell prices. Your level *is* your name.
+**One ladder, nine rungs:** forge tier N gear → climb to rank N → unlock tier N+1 recipes, better sell prices, guild trust. Mirrors the cultivation ladder without duplicating realm names on the player sheet.
+
+## Content scope (9 tiers × 4 grades)
 
 Don’t hand-author 36 variants per slot. **Data-driven:**
 
@@ -368,7 +383,7 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 | **B** | Add `grade` (下中上极品) to instances + stat scaling + UI | |
 | **C** | Attunement mult on equip; grade roll on forge | |
 | **D** | `powerRequirements` + dormant inscriptions | Dao Seeker blade pattern |
-| **E** | **Sell panel** + expand smith ranks to 7 | Prices scale with rank — no rep track |
+| **E** | **Sell panel** + expand smith ranks to **9** | 1:1 with gear tiers / realms |
 | **F** | Appraisal for inscriptions; hybrid loot tables | |
 | **G** | Expand tiers 5–9; path specials; guild exams | Nine-realm migration |
 
@@ -379,7 +394,7 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 - [x] Under-tier — **attunement** on base stats
 - [x] Dao-bound gear — **martial layer always material-tier**; dao layer power-gated (“just swinging”)
 - [x] Crafting — tier ceiling (+1 early, stricter late) + power requirements
-- [x] **No separate reputation** — smith rank = public standing; sell mult on rank
+- [x] Smith ranks — **9 ranks for 9 realms**; no separate reputation
 - [x] Appraisal — later; reveals **inscriptions/formations**, not affix discovery
 - [ ] Body/soul special creation path (not mirrored qi gear)
 - [ ] Attunement constants tune pass
