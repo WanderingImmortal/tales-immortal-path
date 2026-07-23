@@ -2,15 +2,15 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-07-22
+**Updated:** 2026-07-23
 
 ## Focus
-- **Imperial clan** design workshop — [`docs/ideas/imperial-clan.md`](ideas/imperial-clan.md) (before sect identities / lineages)
+- **Imperial city (Tianjing)** — [`docs/ideas/imperial-city-tianjing.md`](ideas/imperial-city-tianjing.md)
 
 ## Next
 - Merge elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))
-- Imperial mandate + four-sect relationship sketch (owner)
-- Then Heartlands sect identities in relation to throne
+- Lock Tianjing name + phase-1 map nodes (owner)
+- Phoenix arc lore pass (later — big arc)
 
 ## Parked (return later)
 - **Higher-realm trib scripts** — [`docs/ideas/tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md) (QC→FE only; rest need journey design)

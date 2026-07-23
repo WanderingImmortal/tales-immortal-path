@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (core lore — owner lock-in 2026-07-23) |
-| **Blocked on** | Capital name/map node; four-sect charter detail; cultivation lineage |
+| **Status** | `designed` (core lore) — city: [`imperial-city-tianjing.md`](imperial-city-tianjing.md) |
+| **Blocked on** | City name lock; phase-1 map nodes | four-sect charter detail |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
 | **Updated** | 2026-07-23 |
@@ -130,11 +130,12 @@ Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **char
 
 ---
 
-## Geography (open)
+## Geography
 
-- **Capital** — inner Heartlands node (not in code yet). Near `heartlands_root` / `celestial_observatory` fiction.
-- **Celestial Market** — likely imperial neutral ground (all sects trade under charter).
-- **Outer heartlands** — buffer between sect peaks and sleeping capital.
+See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — Tianjing workshop (districts, map placement, phase 1 nodes).
+
+- **Celestial Market** — charter trade ground, south of outer Heartlands (separate from palace city).
+- **Outer heartlands** — wilderness/disciple buffer between sect peaks and capital north.
 
 ---
 
