@@ -69,7 +69,7 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 | **Imperial court** | Regents, blood branches, chancellors — **surface scheming** |
 | **Charter law** | Sect homelands + licensed rivalry; open conquest forbidden without imperial verdict |
 | **Sect arrays + immortals** | Each great sect **cannot be erased** by force alone — capitulated, never surrendered |
-| **Today's emperor** | Face of mandate — public NS/Deity tier possible; not the founder |
+| **Today's emperor** | Face of mandate — **Void Refinement peak** (sect-patriarch public tier); ancient ancestors + buried founder above — see [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) |
 
 **Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks waking the dragon *and* spending sect immortals against each other while the court watches.
 
@@ -134,7 +134,7 @@ Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **char
 
 See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer capital workshop.
 
-- **Outer imperial city** (name TBD — lean **Longcheng** 龙城) — continental hub: Celestial Market quarter, sect branch offices, associations, noble clans, Charter District.
+- **Outer imperial city** — **Longcheng** (龙城) — continental hub: Celestial Market quarter, sect branch offices, associations, noble clans, Charter District.
 - **Inner Tianjing** (天京) — Tian Clan home grounds; 京 = royal capital; palace + sleeping founder seal.
 - **Outer heartlands** — wilderness buffer between sect peaks and the metropolis north.
 

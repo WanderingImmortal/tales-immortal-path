@@ -30,16 +30,17 @@ So **Tianjing (天京)** is not the whole metropolis. It is the **inner city** �
 
 **Player-facing English:** *the Imperial City* (outer) · *Tianjing* (inner, when you earn the name).
 
-### Outer city name — options for owner
+### Outer city name — **locked**
 
-| Name | Hanzi | Vibe |
-|------|-------|------|
-| **Longcheng** | 龙城 | Dragon City — sleeping dragon epithet, martial-imperial |
-| **Zhongdu** | 中都 | Central Capital — plain, historical |
-| **Tianyuan** | 天元 | Heaven's Origin — cultivator-flavored |
-| **Xuanjing** | 玄京 | Mysterious Capital — echoes inner Tianjing without duplicating |
+**Longcheng (龙城)** — Dragon City. The continental hub; sleeping dragon epithet lives here in the sprawl, not in the inner 京.
 
-**Lean:** **Longcheng (龙城)** for outer + **Tianjing (天京)** for inner — dragon metaphor on the map, 京 reserved for the clan's actual seat.
+| Layer | Name | Who lives there |
+|-------|------|-----------------|
+| **Outer imperial city** | **Longcheng** (龙城) | Everyone: merchants, sect branches, associations, noble clans, petitioners |
+| **Inner city** | **Tianjing** (天京) | Tian blood, court, regents, emperor's household — charter forbids sect ownership |
+| **Underpalace** | (unnamed on maps) | Sleeping founder seal |
+
+**Player-facing English:** *Longcheng* · *the Imperial City* · inner ring = *Tianjing* when you earn the name.
 
 ---
 
@@ -124,7 +125,7 @@ Four sect HQs still ring **outer_heartlands**. The imperial metropolis sits **no
 | **House of Pei** (裴氏) | Inner Service ties | Eunuch cultivator connections |
 | **House of Shen** (沈氏) | Examination / roots | Proctor Shen Kui's clan — census monopoly |
 
-Clans are **heavyweights**: patriarch at sect-elder tier, private arrays, but no sect homeland charter. They win by **imperial favor + marriage + commerce**, not absorbing mountains.
+Clans are **heavyweights**: patriarch at **Nascent Soul** (public elder band), maybe one hidden VR ancestor — private arrays, but no sect homeland charter. They win by **imperial favor + marriage + commerce**, not absorbing mountains.
 
 ### 2. Inner Tianjing (天京) — Tian Clan home grounds
 
@@ -150,9 +151,11 @@ Clans are **heavyweights**: patriarch at sect-elder tier, private arrays, but no
 
 ## Court structure — **owner lock (v2)**
 
+Sect power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) — **public elders** ≈ Nascent Soul; **patriarch / public apex** ≈ Void Refinement; **ancestor vault** above that (Dao Seeking+, hidden).
+
 | Role | Fiction |
 |------|---------|
-| **Emperor** | **Tian Xu** (天煦) — *middle-aged in appearance*, young by immortal standards (~200 mortal years, looks 40). **Nascent Soul peak** — matches what the continent expects of a great sect leader. Composes edicts, holds audiences; not a child puppet, not the founder. |
+| **Emperor** | **Tian Xu** (天煦) — *middle-aged in appearance*, young by immortal standards (~200 mortal years, looks 40). **Void Refinement peak** — same public tier as a great sect patriarch (idx `4` today; idx `5` after nine-realm ladder ships). Composes edicts, holds audiences; not a child puppet, not the founder. Ancient Tian ancestors and the buried founder sit above him — same pyramid as the sects. |
 | **Regent Council** | Still schemes — emperor is capable, so regents compete for **influence**, not regency. Hardliners want him to break sects; pragmatists want balance. |
 | **Founder** | Sealed under Tianjing — ultimate deterrence |
 
@@ -166,7 +169,7 @@ Clans are **heavyweights**: patriarch at sect-elder tier, private arrays, but no
 
 | Role | Name | Job |
 |------|------|-----|
-| **Emperor** | Tian Xu (天煦) | NS peak; visible at high favor |
+| **Emperor** | Tian Xu (天煦) | VR peak; visible at high favor — patriarch-tier |
 | **Chancellor of Charter** | Wei An (魏安) | Bureaucracy; Wei clan; first contact |
 | **Regent (hardline)** | Tian Lian (天濂) | Blood branch — break sect autonomy |
 | **Regent (pragmatist)** | Tian Mo (天默) | Blood branch — Lotus-adjacent trade |
@@ -250,11 +253,11 @@ Combat stays outside the city charter zone (wilderness, sect mountains).
 
 ## Open questions (owner)
 
-- [ ] **Outer city name:** Longcheng (龙城) vs other options?
-- [ ] **Inner = Tianjing** — locked?
+- [x] **Outer city name:** Longcheng (龙城) — locked
+- [x] **Inner = Tianjing** — locked
 - [ ] **Noble clans:** Wei / Qin / Pei / Shen — keep, cut, or replace?
-- [ ] **Emperor Tian Xu** — NS peak, middle-aged — locked?
-- [ ] **Celestial Market** — district inside city, same node id — locked?
+- [x] **Emperor Tian Xu** — VR peak, middle-aged — locked (matches sect patriarch tier per pyramid doc)
+- [x] **Celestial Market** — district inside Longcheng, same node id — locked
 - [ ] **Phase 1 nodes:** gate + market + charter + tianjing gate — enough?
 
 ## Prerequisites
