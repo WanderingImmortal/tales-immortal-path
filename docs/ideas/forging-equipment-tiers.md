@@ -52,10 +52,31 @@ Until the nine-realm migration lands ([`nine-realm-ladder.md`](nine-realm-ladder
 
 | Gate type | What it does | Example |
 |-----------|--------------|---------|
-| **Attunement** (soft) | Base stats scale with realm gap | Nascent Soul sword on a Core Formation cultivator — works, but weak |
-| **Power requirement** (hard) | Special functions **do not activate** without the right cultivation power | Dao Seeker’s blade — equips, but is inert (or crude metal only) until you have dao-seeking-level comprehension |
+| **Attunement** (soft) | **Martial stats** scale with realm gap | Core Formation wielding a Nascent Soul blade — still a real sword, somewhat muted |
+| **Power requirement** (hard) | **Dao interface** off — no channeling, no inscribed techniques | Dao Seeker’s blade without dao — you’re **just swinging** priceless metal |
 
-Low–mid tier gear is mostly **attunement-only**. High tier increasingly adds **inscriptions, formations, dao channels** that need matching realm powers.
+Low–mid tier gear is mostly **martial only**. High tier adds a **dao layer** (techniques, inscriptions, elemental channels) on top of the metal.
+
+### Three layers on a weapon (owner lock 2026-07-23)
+
+```text
+┌─────────────────────────────────────────┐
+│  Dao layer — techniques, inscriptions   │  ← power-gated (dao, FI, realm claim)
+├─────────────────────────────────────────┤
+│  Martial layer — damage, pen, durability │  ← tier + grade + attunement
+├─────────────────────────────────────────┤
+│  Material tier — T7 steel is T7 steel    │  ← why a dao blade beats a GC blade bare
+└─────────────────────────────────────────┘
+```
+
+**Key owner beat:** A tier-7 dao blade is forged from **priceless tier-7 materials**. Without dao power you do **not** get dao attacks — you cannot run your dao through the channels — but you are **not** holding a tier-3 sword. You are swinging **tier-7 metal** with basic attacks only. It should still **outperform a Golden Core-era blade** on martial stats; you simply lack the scary part.
+
+| Mode | What you get | What you don’t |
+|------|----------------|----------------|
+| **Martial only** (under dao power) | Tier-7 physical weapon quality; normal swings / weapon skills | Dao techniques, inscription procs, “run dao through the blade” attacks |
+| **Full interface** (power met) | Martial + dao layer | — |
+
+**Not OP at QC:** extreme attunement on martial layer + zero dao layer means you’re still a kid waving something you can barely lift — bragging rights, not a raid weapon. The balance is **material tier vs attunement** for martial, **power gate** for dao — not “dao blade becomes trash metal.”
 
 ## Grades within a tier
 
@@ -153,28 +174,35 @@ At **Foundation (realm 1)** with **tier 3** gear (`gap = 1`): ~**78%** — feels
 
 Separate from attunement. Some pieces carry **inscriptions, embedded formations, or dao channels** that only wake up when you have the matching **realm power**.
 
-| Item profile | Below power | At / above power |
-|--------------|-------------|------------------|
-| **Plain forged** (early tiers) | Attunement only | Full base stats |
-| **Inscribed** (mid tiers) | Base stats (attuned); **inscription dormant** | Inscription active (+element, proc, etc.) |
-| **Dao-bound** (high tiers, e.g. tier 7+) | Equips; behaves like **dull metal** or minimal stat stick | Full weapon identity — techniques, law resonance, formation deploy |
+| Item profile | Martial layer (always if equipped) | Dao layer (power required) |
+|--------------|-------------------------------------|----------------------------|
+| **Plain forged** (early tiers) | Full martial (attunement if under-tier) | — |
+| **Inscribed** (mid tiers) | Full martial (attunement if under-tier) | Inscription procs, elemental channels |
+| **Dao-bound** (high tiers, e.g. tier 7+) | **Tier material stats** — still beats lower-tier weapons | Dao techniques, law resonance, “run dao through blade” attacks |
 
-**Owner example:** A **Nascent Soul** weapon — equipable earlier with attunement penalty; still “a sword.” A **Dao Seeker’s blade** — without dao-seeking-level power it **does not function** as that weapon (no dao techniques, inscription dead). Not OP at QC because the scary part is gated, not just scaled down.
+**Owner example:** **Nascent Soul** blade on Core Formation — martial works, attunement applies. **Dao Seeker’s blade** without dao comprehension — **still a tier-7 weapon** when you swing it; you just cannot invoke its dao attacks. Compare to your old Golden Core blade: the dao blade wins the arm-wrestle, loses the fireworks until you grow.
 
 ### Data shape (draft)
 
 ```javascript
 // On gear def or instance
-powerRequirements: {
-  minRealmIdx: 6,           // Dao Seeking (tier 7 gear)
-  // optional extras — any unmet = dormant special effects
-  daoBranch: 'phase_fire',  // needs fire-phase dao comprehension
-  formationInsight: 40,     // needs FI to activate inscribed formation
-  claim: 'law_wear'         // needs realm claim from realm-claims doc
-}
+martialStats: { dmgPct, … },           // tier + grade + attunement
+
+powerRequirements: {                   // dao LAYER only — martial unaffected
+  minRealmIdx: 6,                      // optional; some inscriptions need realm
+  daoBranch: 'phase_fire',             // run fire dao through the blade
+  formationInsight: 40,
+  claim: 'law_wear'
+},
+daoTechniques: ['flaming_sever', …],   // unavailable when power unmet
+inscriptions: [{ id: 'crimson_furnace', … }]
 ```
 
-**Combat/UI:** dormant inscriptions show as *“Sealed inscription (Dao Seeking required)”* — appraisal reveals what they *would* do.
+**Combat/UI:**
+
+- Martial: normal attack button uses weapon martial stats.
+- Dao: technique slots / inscribed attacks greyed — *“Dao channels sealed — swing as a mundane blade.”*
+- Appraisal reveals what dao layer **would** add.
 
 ## Crafting gates (owner lock 2026-07-23)
 
@@ -302,7 +330,7 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 - [x] Owner direction: 9 tiers, 4 grades, tier beats grade
 - [x] Grade labels locked — **下品 / 中品 / 上品 / 极品**
 - [x] Under-tier — **attunement** on base stats
-- [x] High-tier — **power gates** (dao / realm / formation); item can equip but not **function**
+- [x] Dao-bound gear — **martial layer always material-tier**; dao layer power-gated (“just swinging”)
 - [x] Crafting — tier ceiling (+1 early, stricter late) + power requirements
 - [x] Found loot — hybrid pool confirmed
 - [x] Appraisal — later; reveals **inscriptions/formations**, not affix discovery
@@ -313,7 +341,7 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 ## Open questions
 
 - [ ] Early-realm +2 craft overreach — QC only, or never?
-- [ ] Dormant dao blade: zero special effects, or crude stat stick from attunement?
+- [ ] Martial attunement curve vs material-tier floor — tune so T7 martial > T3 supreme when gap is small, still punishing at QC+T7
 - [ ] Inscription pool per tier — hand-authored vs procedural?
 - [ ] Body/soul: shared tier index with different item types, or separate refinement ladder?
 - [ ] Body/soul parallel realm names at idx 4 and 7 when nine-realm ships
