@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` — owner workshop (v3) |
-| **Blocked on** | Noble clan count (7 vs 8); phase-1 map nodes |
+| **Blocked on** | Noble clan count (7 vs 8); gray-layer design pass; phase-1 map nodes |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
 | **Updated** | 2026-07-23 |
@@ -157,6 +157,56 @@ Each great sect’s **mountain is home**. Envoy Row is a **satellite compound** 
 
 **Defer phase 2:** Talisman/scripture guild, mercenary charter hall, full Beast Tamers branch, guild sub-map interiors.
 
+#### Gray Longcheng — rumor-gated undercity *(rough draft, owner)*
+
+Not a separate city — **layers inside Longcheng** the Dragon Guard pretends not to see. Nothing is permanently hidden; you need **rumors** (tea houses, Ying scandal sheets, faction rep, imperial favor low-path) to learn *where* to knock.
+
+**Discovery pattern (future):**
+
+```text
+Rumor hook (explore, NPC, chronicle) → contact / back-alley entrance → service unlocks on sub-map or dialogue
+```
+
+Once found, stays found (same spirit as forbidden entrances in [`local-world-map-split.md`](local-world-map-split.md)). Charter law still applies — getting caught has consequences.
+
+| Fixture | Status | Fiction | Game hook (sketch) |
+|---------|--------|---------|-------------------|
+| **Assassins Guild — Longcheng branch** | `idea` | Continental syndicate; nobles and sects hire **deniable** blades | NPCs hire assassins against player; player can take contracts later; **shady bounty board** lives here |
+| **Poison Hall — branch** | `parked` | Sister org or rival to Assassins; toxins, antidotes, “accidents” | Blocked until **poison path / Poison Hall** exists in game — stub entrance only |
+| **Information brokers** | `idea` | Not one guild — listeners, archivists, bribed clerks | Buy rumors, sect secrets, charter draft leaks; overlaps **Ying** scandal sheets vs professional brokers |
+| **Shady bounty board** | `idea` | No charter filing — names, faces, grudges | Assassins branch OR separate fence; contrast with **legal** bounty posts at Charter District |
+| **Black market annex** | `idea` | Stolen manuals, counterfeit sect tokens, embargoed pills | Off Market Quarter back lanes; heat / imperial favor risk |
+| **Debt houses** | `idea` | Qi-binding loans, gambling markers | Su clan denies ownership; broken cultivators sell service |
+| **Unlicensed duel pit** | `idea` | No Sword Bureau filing — to the death | Qin clan cadets sometimes referee; honor vs profit |
+| **Forgery lane** | `idea` | Charter seals, travel papers, **four-claw “mistakes”** | Phoenix connection optional; Dragon Guard crackdown event |
+| **Stolen goods fence** | `idea` | Consignment Row’s shadow | High risk, high discount manuals / materials |
+| **Examination fixers** | `idea` | Shen clan **cadet** gray market (not the main line) | Root reading falsification — imperial favor hit if exposed |
+| **Smuggler’s crawl** | `idea` | Tunnels from Market Quarter to outer wall | Zone contraband, beast parts, embargoed ore |
+
+**Legal vs gray — bounty boards:**
+
+| Board | Where | Posts |
+|-------|-------|-------|
+| **Charter bounty** | Charter District | Licensed warrants, demon beasts, sect-approved targets — paper trail |
+| **Gray bounty** | Assassins branch / back room | Grudges, no questions, “missing person” contracts — **NPCs hire here against the player** |
+
+**Who feeds the undercity (not exclusive):**
+
+- **House of Ying** — street rumors, scandal sheets (finds brokers; isn’t the only broker)
+- **House of Pei** — deniable assets (publicly denies assassination insurance)
+- **House of Su** — smuggling routes, fence economics
+- **Golden Phoenix embassy** — pamphlets and provocateurs (political, not the whole syndicate)
+- **Guild Row back doors** — alchemists sell “off-book” pills, forgers take no-questions commissions
+
+**Not in scope yet:** player-owned assassin franchise, full poison crafting loop, sub-map art for every back alley — park until Longcheng phase-2 sub-map.
+
+**Open (owner):**
+
+- [ ] Assassins Guild — one global org with zone branches, or Longcheng-only for now?
+- [ ] Poison Hall — same syndicate family as Assassins or separate tradition?
+- [ ] Shady bounty: separate NPC or Assassins branch desk?
+- [ ] Discovery: rumor-only vs rep-gated vs alignment-gated?
+
 #### Noble clans — **7 recommended** (owner pick 6–8)
 
 Massive houses — cadet branches, marriage lines, mortal retainers by the thousand. **Primary lean** = economic gravity center, not a job title.
@@ -281,6 +331,7 @@ Homeland mountains stay on the map. Envoy Row compounds are **staffed rotations*
    ├─ Charter District + Petition Plaza + Examination Grounds
    ├─ Noble Ward (7–8 compounds)
    ├─ Pilgrim Streets / Consignment Row
+   ├─ Gray layer *(rumor-gated)* — Assassins branch · brokers · black annex · etc.
    └─ [Tianjing Inner Wall — formation gate]
         └─ Tianjing (palace mount, ministries)
              └─ Underpalace (sealed)
