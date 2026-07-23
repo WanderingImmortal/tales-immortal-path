@@ -2,11 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v1 — spine + valley + dual leadership) |
-| **Blocked on** | Lineage manual implementation; Longcheng compound dialogue; hidden Matriarch reveal beats |
-| **Issue** | none yet |
-| **Chat / PR** | Heartlands sect pass, 2026-07-23 |
-| **Updated** | 2026-07-23 (Matriarch Leng Shuyu spine) |
+| **Status** | `designed` (v2 — lineage + techniques sketch) |
+| **Blocked on** | Lineage manual implementation in `CULTIVATION_METHOD_POOL`; Matriarch reveal beats |
+| **Updated** | 2026-07-23 (Jade Lotus Canon lineage) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md) *(when merged)*. Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Sword alliance mirror: [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
@@ -19,8 +17,10 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md) *(when 
 | | |
 |--|--|
 | **Vibe** | Silk courts over lotus ponds — **growth, obligation, and favor** weaponized by a sect that outlived conquest by **rooting** into the mandate. |
-| **Path** | **Qi-primary**; **Lotus Dao** — cycle, purity, network. *(Lineage canon name TBD.)* |
-| **Element / dao** | **Water–wood** lean — flow, verdant growth, pond purification. Market hints: Flowing Tide, Verdant Breath. |
+| **Path** | **Qi-primary**; **Lotus Dao** — cycle, purity, network |
+| **Lineage** | **Jade Lotus Canon** (玉莲典) — `lineageId: jade_lotus_qi_line` |
+| **Forbidden apex** | **Register Lotus Path** (契莲道) — Matriarch only; bond-register dao *(player parked)* |
+| **Element / dao** | **Water–wood** dual lean — flow, growth, purification; market cousins: Flowing Tide, Verdant Breath |
 | **Homeland** | **Jade Lotus Valley** (玉莲谷) — terraced spirit farms, lotus ponds, silk pavilions; **not** a lone peak |
 | **Defense** | **Pure Lotus Array** (纯莲阵) — siege denial, purification, oath amplification |
 | **Hidden spine** | **Matriarch Leng Shuyu** (冷漱玉) — Immortal; weaker in open combat; obsessed with machination |
@@ -300,7 +300,8 @@ Lotus stays rich through **scale**, not mythic scarcity.
 ### What they do **not** sell
 
 - Bond-register originals or array core access  
-- Lineage manual **layers** *(canon TBD)*  
+- Lineage manual **layers** (sold)  
+- **Register Lotus Path** teaching  
 - Immortal audience with Leng Shuyu  
 - Disciples (officially) — assignments are **oaths**, not slave deeds *(charter language)*
 
@@ -333,14 +334,128 @@ Matriarch **Leng Shuyu** plays the long game; Patriarch **Lin Qingyi** holds the
 
 ---
 
-## Cultivation — lineage sketch *(TBD)*
+## Cultivation — lineage & techniques
 
-| Piece | Draft |
+Per [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — one `lineageId`, realm-tier manual swaps, **shared layer progress** on GC+.
+
+### Three names — Canon, Valley, Path
+
+Disciples sometimes ask: *if we study the **Jade Lotus Canon**, why is the forbidden art the **Register Lotus Path**?*
+
+| Name | Hanzi | Who gets it |
+|------|-------|-------------|
+| **Jade Lotus Canon** | 玉莲典 | **Lineage** — outer court through patriarch tier; `lineageId: jade_lotus_qi_line` |
+| **Jade Lotus Valley** | 玉莲谷 | **Place** — ponds, farms, array; named for what the Canon **nourishes**, not the Path |
+| **Register Lotus Path** | 契莲道 | **Forbidden apex** — not in the Canon; Matriarch Leng Shuyu only |
+
+**The answer inner court gives:** *“The Canon teaches you to grow and purify. The Path binds what grows to the register. The valley feeds both — you drink from the pond, not from the contract.”*
+
+#### Register Lotus Path (契莲道) — forbidden apex
+
+| Field | Value |
 |-------|-------|
-| **Canon name** | *TBD* — e.g. **Jade Lotus Canon** (玉莲典) or **Lotus Heart Scripture** (莲心经) |
-| **Element** | Water–wood; purification and cycle |
-| **Mortal hints** | `flowing_tide_line`, `verdant_breath_line` on Heartlands market — not yet sect-locked in code |
-| **Forbidden apex** | *Parked* — Matriarch’s private dao or register-bound technique |
+| **What** | Dao walk **beyond** the Canon’s last layer — oath-qi, bond-lines, array amplification; machination made cultivation |
+| **Who may learn** | **Matriarch Leng Shuyu** only. **Patriarch Lin Qingyi** — may hold register keys, **not** the Path |
+| **Who knows it exists** | Inner register faction; Sword envoys guess; public does not |
+| **Teaching it** | Expulsion; array strips corrupt qi; worse than selling register pages |
+
+The Path is why the **Pure Lotus Array** amplifies **treaties** — not marketing. The Canon is the sect’s **gift to disciples**. The Path is the Matriarch’s **private obsession**.
+
+*Parked:* player access = late intrigue / Matriarch beat; prohibitively hard; not v1.
+
+### Jade Lotus Canon (玉莲典) — lineage
+
+**`lineageId:`** `jade_lotus_qi_line`  
+**Foundation stamp:** `lotus_cycle` at FE seal — water–wood dual-aspect; purification and sustain lean  
+**Path:** qi · Lotus Dao (cycle, network, cleanse — **not** raw burst damage)
+
+#### Market breaths vs sect syllabus
+
+Heartlands market sells **Flowing Tide Breath** and **Verdant Breath Technique** — common water- and wood-aspected pamphlets (`flowing_tide_line`, `verdant_breath_line`). Civilians and pre-induction hires use them.
+
+Formal disciples receive **Lotus-Pond Breath** — one condensation art that **unifies** flow and growth in-lineage. You do not seal FE on a market pamphlet if you wear Lotus robes.
+
+| Manual | Role |
+|--------|------|
+| Flowing Tide / Verdant Breath | Market cousins — outer hires, city cultivators, pre-induction |
+| **Lotus-Pond Breath** | Sect condensation entry — replaces both for sworn disciples |
+
+#### Manual tiers (realm swaps)
+
+| Pool id *(working)* | Display name | `methodTier` | `reqRealm` | Notes |
+|---------------------|--------------|--------------|------------|-------|
+| `jlc_pond_breath` | **Lotus-Pond Breath** (莲池息) | condensation | 0 | Outer court — sect breath; pond meditation |
+| `jlc_meridian_canon` | **Lotus Meridian Canon** (莲脉经) | foundation | 1 | FE syllabus; opens silk-body conditioning |
+| `jlc_flowing_cycle` | **Flowing Lotus Cycle** (流转莲诀) | core | 2 | GC main art — tide + root in one cycle |
+| `jlc_thousand_petal` | **Thousand-Petal Return** (千瓣归莲) | nascent | 3 | NS — qi returns like petals to pond; sustain + cleanse |
+| `jlc_jade_heart` | **Jade Heart Lotus Scripture** (玉心莲经) | void | 4/5 | VR band — inner court; array-adjacent meditation |
+
+*Layered chapters on GC+ entries per sect policy — not market pamphlets.*
+
+#### Technique set — **Jade Lotus Arts** (玉莲法)
+
+Lotus combat is **sustain, cleanse, bind, and outlast** — not Sword-style line-kills. Silk and water-wood; spears and palms common; swords tolerated, not glorified.
+
+| Technique | Tier | Weapon / type | Role |
+|-----------|------|---------------|------|
+| **Silk Palm** | outer | fist | Body conditioning — **not** lineage core; flexibility before lotus qi |
+| **Lotus Dew** | condensation | support | Minor cleanse; poison resist seed |
+| **Purifying Palm** | foundation | fist | Purge corruption / debuff — righteous qi variant taught in valley |
+| **Tide Spiral** | foundation | fist | Redirect force — cousin to generic water art; Lotus syllabus version |
+| **Lotus Guard** | core | barrier | Water-wood shield; siege and duel defense |
+| **Root Bind** | core | control | Entangling root-qi; capture, not kill |
+| **Silk Veil** | core | illusion | Misdirection; charter duel escape staple |
+| **Thousand-Petal Rain** | nascent | area | Soft volley — damage + slow; NS signature |
+| **Register Needle** | void | binding | Oath-qi strike — inner court; heir / elder only |
+
+**Not taught in valley:** flame fusion, blood lotus, parasitic dual cultivation, oath-breaking arts, Phoenix fire syllabus.
+
+#### Canon layers (GC+ sketch)
+
+Shared progress on `jade_lotus_qi_line`. Working layer names:
+
+| Layer | Name | Gate fiction |
+|-------|------|--------------|
+| 1 | **Opening Petal** | Qi visible like dawn on pond |
+| 2 | **Purified Pool** | FE seal synergy; corrupt qi rejected |
+| 3 | **Rooted Breath** | Qi cycles through dantian like root and tide |
+| 4 | **Silk Meridian** | Body flexible; silk court trial |
+| 5 | **Register Echo** | Meditated near bond-register copy — inner court |
+| 6+ | *owner pass* | Heir / patriarch bands; Array Bloom |
+
+**Evil variant:** **Withered Lotus** (枯莲) — parasitic, oath-breaking art. **Expelled** traitors only; not sect canon. Lotus hunts those who teach it.
+
+### Sacred art (lineage manual — summary)
+
+| Layer | Who gets it | Content |
+|-------|-------------|---------|
+| **Breath + canon tiers** | Outer → VR swaps | Realm-appropriate manual entry; same `lineageId` |
+| **Jade Lotus Arts** | Inner court+ | Technique set above |
+| **Canon layers** | Core court+ | GC+ grind per framework |
+
+**Dao:** **Lotus Dao** — nourish, cycle, purify, bind; qi flows like tide and root; victory by **endurance and obligation**, not one perfect cut.
+
+**Foundation nature:** `lotus_cycle` — dual water–wood seal; sustain and cleanse bias; weaker vs raw fire burst unless layered deep.
+
+### Techniques in culture today (code hooks)
+
+| In game now | Sect role |
+|-------------|-----------|
+| **Flowing Tide Breath** | Market cousin — Heartlands stall; pre-induction |
+| **Verdant Breath Technique** | Market cousin — Heartlands stall; pre-induction |
+| **Purifying Palm** | Foundation cleanse — keep; fits Lotus syllabus |
+| **Tide Spiral** | Foundation redirect — keep or fork `jlc_` variant later |
+
+| Future sect canon | Notes |
+|-------------------|-------|
+| `jlc_*` manual pool | Realm swaps on `jade_lotus_qi_line` |
+| **Silk Palm**, **Lotus Guard**, etc. | New techniques or rep unlocks |
+| Friendly rep market unlock | *Parked* — e.g. Lotus Dew or Silk Palm trade |
+
+**What they teach:** pond breath → meridian canon → flowing cycle → lotus arts → layers.  
+**What they refuse:** blood arts, flame dao, parasitic paths, Register Path, selling layers.
+
+**Mixed paths:** qi-primary; body cultivators in outer court if they accept silk conditioning and farm rotation.
 
 ---
 
@@ -370,12 +485,13 @@ Matriarch **Leng Shuyu** plays the long game; Patriarch **Lin Qingyi** holds the
 
 ## Open questions
 
-- [ ] Lineage canon name + `lineageId` when cultivation framework ships  
 - [ ] Founding compact names (Valley Supply Oath, Jade Bed Compact)  
 - [ ] **Tidal Lotus** (Jade archipelago) — cousin sect, splinter, or unrelated name collision?  
 - [ ] Array backlash on broken bonds — revisit after playtesting  
 - [ ] Lin Mei — blood family or raised asset?  
 - [ ] Matriarch reveal — single chronicle beat vs gradual rumor chain  
+- [ ] Register Lotus Path — any player route beyond parked intrigue endgame?  
+- [ ] `lotus_cycle` foundation stamp — implement in `FOUNDATION_NATURES` when FE ships  
 
 ## Prerequisites
 
@@ -386,4 +502,5 @@ Matriarch **Leng Shuyu** plays the long game; Patriarch **Lin Qingyi** holds the
 
 - `data.js` — `jade_lotus`, `jade_lotus_pavilion`, `faction_lotus_envoy`, perks, quests, pacts  
 - `factions.js` / `factions-expand.js` — Phoenix Gambit arc  
+- Future: `jlc_*` methods on `jade_lotus_qi_line`; `lotus_cycle` foundation; friendly rep technique unlock  
 - Future: valley sub-map, register mechanics, hidden Matriarch beat
