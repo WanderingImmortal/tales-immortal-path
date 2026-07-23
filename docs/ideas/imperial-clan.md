@@ -34,7 +34,9 @@ The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** 
 
 ### The settlement
 
-An **uneasy peace**: great powers **pushed into chartered homelands** — borders the throne still recognizes. Some suffered worse; some bargained early and kept more:
+An **uneasy peace**: great powers **capitulated** — not **surrendered**. Each great sect holds a **homeland bastion** defended by apex **sect arrays** even a Half-Step at the gate could not breach without unacceptable cost. The Tian ended the Dao Wars by forcing **charter borders** and mutual recognition, not by owning sect mountains.
+
+Over the peace centuries, sects gained **immortals of their own**. They **respect** throne authority and charter law; they do **not** bend the knee daily. The continent runs on **mutual deterrence**: Tian buried founder + imperial seal, sect arrays + hidden patriarchs.
 
 | Power (draft) | Homeland | Dao Wars outcome (sketch) |
 |---------------|----------|---------------------------|
@@ -42,7 +44,7 @@ An **uneasy peace**: great powers **pushed into chartered homelands** — border
 | **Celestial Sword** | Heartlands — sword peaks | Early capitulation; kept blade honor → **imperial sword** when law must look clean |
 | **Jade Lotus** | Heartlands — trade cities | **Early alliance**; best charter terms → court ledgers, market rights |
 | **Void Temple** | Heartlands — observatory slopes | Neutral late; preserved archives in exchange for oaths |
-| **Golden Phoenix** | Heartlands — flame courts | **Broken late**; humiliating truce → fuels modern "reunification" ambition |
+| **Golden Phoenix** | Heartlands — flame courts | **Broken late**; humiliating truce → fuels modern charter revanchism |
 | **Frostpeak Monastery** | Frostbite | Isolation bargain — left alone if they ward the north |
 | **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal is local law |
 | **Storm Dragon / Tidal Lotus** | Jade archipelago | Sea charter — throne mediates, does not sail |
@@ -63,12 +65,52 @@ An **uneasy peace**: great powers **pushed into chartered homelands** — border
 
 | Layer | Role |
 |-------|------|
-| **Buried founder** | Half-Step at heaven's gate — ultimate deterrence; may not be "alive" in daily politics |
+| **Buried founder** | Half-Step at heaven's gate — ultimate Tian deterrence; waking = continental crisis |
 | **Imperial court** | Regents, blood branches, chancellors — **surface scheming** |
-| **Charter law** | Sects licensed in homelands; open conquest forbidden without imperial verdict |
-| **Today's emperor** | Face of mandate — may be NS/Deity tier publicly; not the founder |
+| **Charter law** | Sect homelands + licensed rivalry; open conquest forbidden without imperial verdict |
+| **Sect arrays + immortals** | Each great sect **cannot be erased** by force alone — capitulated, never surrendered |
+| **Today's emperor** | Face of mandate — public NS/Deity tier possible; not the founder |
 
-**Balancer + sacred shell:** not iron-fist daily rule; **historical force** + mutual terror + procedure.
+**Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks waking the dragon *and* spending sect immortals against each other while the court watches.
+
+---
+
+## Modern politics — Phoenix vs Lotus (in-game arc)
+
+**Not the Dao Wars.** The **Phoenix Gambit** is a present-day Heartlands crisis — Golden Phoenix tests the charter by trying to **absorb Jade Lotus** (trade routes, charter rights, political subjugation — **not** necessarily destroying their mountain).
+
+### How it triggers (code today)
+
+- Player in Heartlands politics with **Golden Phoenix rep ≥ 22** and **Jade Lotus rep ≥ 10**
+- Popup: *"Phoenix elders offer a place in their scheme to absorb the Jade Lotus"*
+
+### Act 1 — The Phoenix Gambit (player choice)
+
+| Choice | Effect |
+|--------|--------|
+| **Aid Phoenix** | +Phoenix rep, −Lotus, −alignment; war chain favors Phoenix |
+| **Warn Lotus** | +Lotus rep, −Phoenix, +alignment; war chain favors Lotus |
+| **Exploit both** | +stones, both wary; shorter "hunt/blackmail" arc |
+
+### Act 2 — Escalation (~24 in-game months per stage)
+
+**If you aided Phoenix:** Rumors → Lotus halls surrounded → open conflict  
+**If you warned Lotus:** Lotus fortifies → Phoenix frustrated → the Stand  
+**If you exploited:** Mutual suspicion → both hunt you → blackmail window  
+
+### Act 3 — Endings (player decides narrative outcome)
+
+**Phoenix path:** Crown Phoenix / Save Lotus / Exhaust both  
+**Lotus path:** Lotus endures strong / costly ceasefire / sell secrets  
+**Exploit path:** Blackmail both / flee Heartlands / final deal with Phoenix  
+
+Rep and alignment swing hard; chronicle logs the arc. `phoenix_win` gives Phoenix a market discount in Heartlands.
+
+### Lore fit with Tian + sect parity
+
+Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **charter coup** (Lotus trade mantle seized, halls humiliated, maybe a puppet envoy) — **not** wiping a sect whose arrays and immortals still exist. Lotus "endures" = charter survives. Tian may **allow** contained sect wars if they don't threaten the sleeping founder's seal — or quietly sabotage Phoenix if they get too close to five claws.
+
+*Future pass:* tie extreme outcomes to **imperial edict** or founder-stir rumor.
 
 ---
 
