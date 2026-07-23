@@ -6,7 +6,7 @@
 | **Blocked on** | Lineage manual implementation in `CULTIVATION_METHOD_POOL`; Matriarch reveal beats |
 | **Updated** | 2026-07-23 (Jade Lotus Canon lineage) |
 
-Parent index: [`sect-faction-identities.md`](sect-faction-identities.md) *(when merged)*. Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Sword alliance mirror: [`celestial-sword-sect.md`](celestial-sword-sect.md).
+Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md) *(PR #69 — pending)*. Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Sword alliance mirror: [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
 **Design principle:** Lotus is a **full great sect** — valley, array, immortals, Lotus Dao — *also* the Heartlands’ strongest commercial and marriage power. Longcheng is a satellite footprint, not the identity.
 
