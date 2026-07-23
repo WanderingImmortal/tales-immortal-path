@@ -12,22 +12,97 @@ function ensureForgeState() {
             totalForges: 0,
             failedLegendary: 0,
             knownRecipes: [],
+            knownLegendaryRecipes: [],
             selectedRecipe: null,
             selectedLegendary: null,
             activeTab: 'standard',
             atSect: false
         };
     }
-    if (!G.forge.knownRecipes?.length) {
-        G.forge.knownRecipes = Object.keys(GEAR_CRAFT_RECIPES);
+    if (!G.forge.knownRecipes) G.forge.knownRecipes = [];
+    if (!G.forge.knownLegendaryRecipes) G.forge.knownLegendaryRecipes = [];
+    if (!G.forge.knownRecipes.length && !G.forge.knownLegendaryRecipes.length) {
+        seedDefaultForgeRecipes();
     }
     if (!G.forge.anvil) G.forge.anvil = 'iron';
     migrateForgeSkillLevel();
     migrateForgeAnvil();
 }
 
+function seedDefaultForgeRecipes() {
+    Object.entries(GEAR_CRAFT_RECIPES).forEach(([id, recipe]) => {
+        if (recipe.unlockByDefault) G.forge.knownRecipes.push(id);
+    });
+    Object.entries(LEGENDARY_GEAR_RECIPES).forEach(([id, recipe]) => {
+        if (recipe.unlockByDefault) G.forge.knownLegendaryRecipes.push(id);
+    });
+}
+
 function migrateForgeForExistingSave() {
     ensureForgeState();
+    const skill = getForgeSkillLevel();
+    unlockForgeRecipesForSkill(skill);
+}
+
+function getForgeSkillDef(skillId) {
+    return FORGE_SKILL_LEVELS.find(s => s.id === skillId) || FORGE_SKILL_LEVELS[0];
+}
+
+function getForgeTierMinRealm(tier) {
+    return FORGE_TIER_REALM_INDEX[tier] != null ? FORGE_TIER_REALM_INDEX[tier] : Math.max(0, (tier || 1) - 1);
+}
+
+function getForgeRecipeMinRealm(recipe) {
+    if (!recipe) return 0;
+    if (recipe.minRealm != null) return recipe.minRealm;
+    return getForgeTierMinRealm(recipe.tier);
+}
+
+function getForgeRealmGateLabel(minRealm) {
+    const pathRealms = PATHS[G.path]?.realms || PATHS.qi.realms;
+    return pathRealms[minRealm] || `realm ${minRealm + 1}`;
+}
+
+function isForgeRecipeKnown(recipeId, options) {
+    options = options || {};
+    ensureForgeState();
+    if (options.legendary) return G.forge.knownLegendaryRecipes.includes(recipeId);
+    return G.forge.knownRecipes.includes(recipeId);
+}
+
+function learnForgeRecipe(recipeId, options) {
+    options = options || {};
+    ensureForgeState();
+    const legendary = !!options.legendary;
+    const recipe = legendary ? LEGENDARY_GEAR_RECIPES[recipeId] : GEAR_CRAFT_RECIPES[recipeId];
+    if (!recipe) return false;
+    const listKey = legendary ? 'knownLegendaryRecipes' : 'knownRecipes';
+    if (G.forge[listKey].includes(recipeId)) return false;
+    G.forge[listKey].push(recipeId);
+    const defId = legendary ? recipe.output : recipeId;
+    const def = GEAR_ITEMS[defId];
+    addLog(`📜 Learned forge recipe: ${def?.emoji || '⚔️'} ${def?.name || recipeId}.`);
+    return true;
+}
+
+function unlockForgeRecipesForSkill(skillLevel) {
+    const tiers = skillLevel.recipeUnlocks || [];
+    Object.entries(GEAR_CRAFT_RECIPES).forEach(([id, recipe]) => {
+        if (!tiers.includes(recipe.tier)) return;
+        if (recipe.unlockByDefault) return;
+        if (isForgeRecipeKnown(id)) return;
+        if (getForgeSkillDef(recipe.minSkill).xpRequired <= skillLevel.xpRequired) {
+            learnForgeRecipe(id);
+        }
+    });
+    Object.entries(LEGENDARY_GEAR_RECIPES).forEach(([id, recipe]) => {
+        if (!tiers.includes(recipe.tier)) return;
+        if (recipe.unlockByDefault) return;
+        if (isForgeRecipeKnown(id, { legendary: true })) return;
+        if (getForgeSkillDef(recipe.minSkill).xpRequired <= skillLevel.xpRequired) {
+            learnForgeRecipe(id, { legendary: true });
+        }
+    });
 }
 
 function migrateForgeSkillLevel() {
@@ -71,6 +146,7 @@ function grantForgeSkillXp(amount) {
     const after = getForgeSkillLevel();
     if (after.id !== before.id) {
         addLog(`🔨 Forge skill advanced: ${before.name} → ${after.name}!`);
+        unlockForgeRecipesForSkill(after);
     }
 }
 
@@ -148,10 +224,26 @@ function applyForgeInstanceBonuses(inst) {
 function canCraftGear(recipeId, options) {
     options = options || {};
     ensureGearState();
-    const recipe = options.legendary ? LEGENDARY_GEAR_RECIPES[recipeId] : GEAR_CRAFT_RECIPES[recipeId];
-    const defId = options.legendary ? recipe?.output : recipeId;
+    const legendary = !!options.legendary;
+    const recipe = legendary ? LEGENDARY_GEAR_RECIPES[recipeId] : GEAR_CRAFT_RECIPES[recipeId];
+    const defId = legendary ? recipe?.output : recipeId;
     const def = GEAR_ITEMS[defId];
     if (!recipe || !def) return { ok: false, reason: 'Unknown recipe.' };
+    if (!isForgeRecipeKnown(recipeId, { legendary })) {
+        return { ok: false, reason: 'Recipe not yet learned.' };
+    }
+
+    const skill = getForgeSkillLevel();
+    const minSkill = getForgeSkillDef(recipe.minSkill || 'apprentice');
+    if (skill.xpRequired < minSkill.xpRequired) {
+        return { ok: false, reason: `Requires ${minSkill.name} forge skill.` };
+    }
+
+    const minRealm = getForgeRecipeMinRealm(recipe);
+    if ((G.realmIdx || 0) < minRealm) {
+        return { ok: false, reason: `Requires ${getForgeRealmGateLabel(minRealm)} cultivation.` };
+    }
+
     if (G.stones < (recipe.stones || 0)) {
         return { ok: false, reason: `Need ${recipe.stones} Stones.` };
     }
@@ -286,19 +378,25 @@ function forgeRepairGear(uid) {
 }
 
 function getCraftableRecipes() {
-    return Object.keys(GEAR_CRAFT_RECIPES)
+    ensureForgeState();
+    const skill = getForgeSkillLevel();
+    return G.forge.knownRecipes
         .map(id => ({ id, def: GEAR_ITEMS[id], recipe: GEAR_CRAFT_RECIPES[id], legendary: false }))
         .filter(entry => entry.def && entry.recipe)
+        .filter(entry => getForgeSkillDef(entry.recipe.minSkill || 'apprentice').xpRequired <= skill.xpRequired)
         .sort((a, b) => (a.recipe.tier || 0) - (b.recipe.tier || 0));
 }
 
 function getLegendaryGearRecipes() {
-    return Object.keys(LEGENDARY_GEAR_RECIPES)
+    ensureForgeState();
+    const skill = getForgeSkillLevel();
+    return G.forge.knownLegendaryRecipes
         .map(id => {
             const recipe = LEGENDARY_GEAR_RECIPES[id];
             return { id, def: GEAR_ITEMS[recipe.output], recipe, legendary: true };
         })
-        .filter(entry => entry.def && entry.recipe);
+        .filter(entry => entry.def && entry.recipe)
+        .filter(entry => getForgeSkillDef(entry.recipe.minSkill || 'master').xpRequired <= skill.xpRequired);
 }
 
 function getForgeRepairCandidates() {
