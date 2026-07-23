@@ -401,7 +401,7 @@ const GEAR_GRADES = {
 | 上品 | 1.28× (+28%) | Skilled smith — clearly better |
 | 极品 | 1.55× (+55%) | Chase craft / boss drop hype |
 
-**Tier boundary check (example):** Rusty Qi Blade (T1, 6% dmg) at 极品 → 9.3% · Frostbite Saber (T2, 10% dmg) at 下品 → 7.2% · **T1 peak &lt; T2 floor** ✓
+**Tier boundary check (example):** Rusty Qi Blade (T1, 6% dmg) at 极品 → 9.3% · Frostbite Saber (T2, 10% dmg) at 下品 → 7.2% — **fails** with current bases. **Phase B includes a tier base-stat pass:** bump T2+ `GEAR_ITEMS` stats so `minStats(T, supreme) < minStats(T+1, inferior)` on primary combat stats per slot. Owner OK to widen tier gaps (2026-07-23).
 
 Helpers in `gear.js`:
 
@@ -459,6 +459,10 @@ On load (`ensureGearState` or `migrateGearGradesForExistingSave` called from `co
 2. Recompute `maxDurability` only if we stored max at creation without grade — **safer:** store grade at creation; for migrate, set grade + optionally scale current `durability`/`maxDurability` proportionally if max was pre-grade (or leave as-is for grandfathered items).
 
 **Lean:** migrate sets `grade: 'common'` only; do **not** rescale existing durability numbers (avoids save surprises).
+
+### Tier base-stat pass (ship with B)
+
+Widen `GEAR_ITEMS` stats on **tier 2+** so grade spread (0.72–1.55×) never lets tier *N* 极品 beat tier *N+1* 下品 on primary stats (weapon `dmgPct`, armor `defenseBonus` / `maxHpBonus`, etc.). Tune per slot — weapons often need the biggest jump between T1→T2.
 
 ### UI surfaces
 
