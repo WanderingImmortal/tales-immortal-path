@@ -502,6 +502,20 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 - [ ] Sect reclaim: which world flags persist across lives
 - [ ] Split or rename `Focused Breath` combat vs cultivation naming
 
+## Method layers (stub — owner 2026-07-23)
+
+**Layers ≠ grades.** Layers are depth *inside one manual* — how far you've unlocked the art. Grades are copy quality (capped by tier). Upgrading to a higher-tier compatible manual (e.g. mortal fire breath → condensation fire cycle) is a **separate** progression track.
+
+| Layer | Typical unlock | What it gives (draft) |
+|-------|----------------|------------------------|
+| **1** | Comprehend + walk path | Base gather; FE seal stamps nature |
+| **2** | Teacher, rep, or materials | Small profile bump or one new cultivate verb |
+| **3+** | Rarer gates (alignment, quest, pill) | Deeper fiction; still capped by method **tier** |
+
+**Presentation options (pick later):** single scroll with hidden layers vs separate shelf items per layer chapter (`Burning Breath · Layer II`) that all share one `lineageId`.
+
+**Not in code yet.** Park until elemental mortal breath set is playtested. Save shape sketch: `G.cultivationMethod.layer` (number) + `layerUnlocks: []`.
+
 ## Open questions
 
 - **Meridian-washing frequency:** once per life post-seal, once ever, or GC-gate only? → **ship v1, playtest**

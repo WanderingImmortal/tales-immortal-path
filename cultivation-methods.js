@@ -260,7 +260,14 @@ function getFoundationNatureCombatMods(tech) {
 
 function methodNatureAlignsWithElement(nature, element) {
     if (!nature || !element) return false;
-    if (nature.id === 'fire_aspected' && element === 'fire') return true;
+    const phasePairs = {
+        fire_aspected: 'fire',
+        water_aspected: 'water',
+        wood_aspected: 'wood',
+        metal_aspected: 'metal',
+        earth_aspected: 'earth'
+    };
+    if (phasePairs[nature.id] === element) return true;
     if (nature.id === 'thunder_tempered' && (element === 'lightning' || element === 'thunder')) return true;
     if (nature.id === 'blood_fiend' && element === 'blood') return true;
     return false;
