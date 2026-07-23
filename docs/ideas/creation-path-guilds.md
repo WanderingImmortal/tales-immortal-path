@@ -39,7 +39,7 @@ Each **creation path** (alchemists, forgers, formation masters, …) has a **gui
 | Frostbite | Frost Gate Outpost (`city`) |
 | Jade | Tide Harbor (`market`) |
 | Emberwild | Ashvein Village (`city`) |
-| Heartlands | Celestial Market (`market`) — no classic “tier-1 city”; Outer Heartlands is wilderness default |
+| Heartlands | **Longcheng** — Celestial Market Quarter + Guild Row (`imperial-city-tianjing.md`) |
 
 So “branch in each zone’s best city” ≈ **pin to that one hub** until/unless more cities are added. Heartlands may need a clearer civic pin later (market vs a true city).
 
@@ -49,7 +49,7 @@ So “branch in each zone’s best city” ≈ **pin to that one hub** until/unl
 |------|---------|-----|
 | **Formations Guild** | Own city | Arrays / guild-scale patterns need space and autonomy |
 | **Alchemy** | **Imperial city** | Wealth and power accumulate there — alchemists are fish in water |
-| **Forging** | **Deferred** — don’t lock HQ yet | Defense / military liberties still undecided |
+| **Forging** | **Branch in Longcheng**; HQ deferred (ore-adjacent city TBD) | Imperial licensing + commissions at capital; forges stay near veins |
 
 Separate guilds per path (not one mega Artisan Guild) unless that changes later.
 
@@ -99,7 +99,7 @@ Day-to-day Adept (and mid ranks) should not require a continent trek to HQ.
 - [x] Forging HQ deferred (owner 2026-07-22)
 - [ ] Name / place the Formations Guild **HQ city** (new place vs elevate existing)
 - [ ] Exact branch exam max tier (4 vs 5)
-- [ ] Heartlands branch pin: Celestial Market vs a future civic city
+- [ ] Heartlands branch pin: **Longcheng / Celestial Market Quarter** (was standalone market node)
 - [ ] Whether F2b local proof becomes practice-only or disappears when branches ship
 
 ## Open questions

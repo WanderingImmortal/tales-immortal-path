@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` — owner workshop (v2) |
-| **Blocked on** | Outer city name lock; noble clan roster |
+| **Status** | `idea` — owner workshop (v3) |
+| **Blocked on** | Noble clan count (7 vs 8); phase-1 map nodes |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
 | **Updated** | 2026-07-23 |
@@ -21,18 +21,6 @@ Parent lore: [`imperial-clan.md`](imperial-clan.md). Map pattern: [`local-world-
 **京 (jīng)** = capital / royal city / the walled seat of mandate. Not a random syllable — it specifically means *the place where heaven's authority sits*.
 
 So **Tianjing (天京)** is not the whole metropolis. It is the **inner city** — the Tian Clan grounds, palace ring, and underpalace seal. Exactly where 京 belongs.
-
-| Layer | Name (working) | Who lives there |
-|-------|----------------|-----------------|
-| **Outer imperial city** | **[TBD]** — see options below | Everyone: merchants, sect branches, associations, noble clans, petitioners |
-| **Inner city** | **Tianjing** (天京) | Tian blood, court, regents, emperor's household — charter forbids sect ownership |
-| **Underpalace** | (unnamed on maps) | Sleeping founder seal |
-
-**Player-facing English:** *the Imperial City* (outer) · *Tianjing* (inner, when you earn the name).
-
-### Outer city name — **locked**
-
-**Longcheng (龙城)** — Dragon City. The continental hub; sleeping dragon epithet lives here in the sprawl, not in the inner 京.
 
 | Layer | Name | Who lives there |
 |-------|------|-----------------|
@@ -100,32 +88,84 @@ Four sect HQs still ring **outer_heartlands**. The imperial metropolis sits **no
 
 ## City layers (fiction + player access)
 
-### 1. Outer imperial city — Longcheng *(name TBD)*
+### 1. Outer imperial city — Longcheng
 
 **Who:** Everyone. This is the continent's throat.
 
-| District | Fiction | Game hook |
-|----------|---------|-----------|
-| **Longcheng Gate** | Entry checkpoints; Dragon Guard inspects five-claw insignia on *imports*, not pilgrims | Imperial favor intro |
-| **Celestial Market Quarter** | Greatest open market — manuals, pills, rumors; sect stalls side by side | `marketKey: 'heartlands'` |
-| **Envoy Row** | Sect **branch offices** — Sword legal bureau, Lotus ledgers, Void reading room, Phoenix embassy | Charter truce — no combat |
-| **Association Hill** | Continental guild HQs (formations, alchemy, beast — stubs) | Future creation-path tie-ins |
-| **Noble Ward** | Great clans — not sects, not Tian blood, still dangerous | New rep hooks (see below) |
-| **Charter District** | Charter Hall, Examination Grounds, petition courts | Edicts, Phoenix-Lotus petitions |
-| **Pilgrim Streets** | Inns, tea houses, rumor | Lighter imperial flavor gear |
+#### District roster (owner workshop v3)
 
-**Vibe:** **Loud.** Unlike sect peaks (vertical, martial, insular), the outer city is **horizontal chaos contained by law** — the one place you can buy a Phoenix pamphlet across from a Lotus accountant and a noble's bodyguard.
+| District | What’s here | Game role |
+|----------|-------------|-----------|
+| **Longcheng Gate** | Checkpoints, Dragon Guard, arrival log | Imperial favor intro; Han Ce |
+| **Celestial Market Quarter** | Open bazaar, sect stalls, caravan terminus | `marketKey: 'heartlands'` — **required** |
+| **Guild Row** (Association Hill) | Creation-path guilds (see below) | Exams, hire, consign, craft services |
+| **Envoy Row** | Great-sect **branch offices** (not HQs) | Charter truce; faction rep; Phoenix-Lotus rumor |
+| **Charter District** | Charter Hall, Examination Grounds, Petition Plaza | Edicts, imperial favor, charter petitions |
+| **Noble Ward** | Great-clan compounds | Clan rep; marriage; vein permits; side quests |
+| **Pilgrim Streets** | Inns, tea houses, cheap gear, rumor | Flavor hub between districts |
+| **Licensed Duel Ground** | Sword Bureau–supervised arena | Honor duels; no deaths without charter filing |
 
-**Noble clans (starter sketch — owner fills):**
+**Vibe:** **Loud.** Horizontal chaos contained by law — Phoenix pamphlets across from Lotus ledgers, noble bodyguards in the tea house.
 
-| Clan | Lean | Notes |
-|------|------|-------|
-| **House of Wei** (魏氏) | Bureaucratic | Chancellor Wei An's blood — veins, not swords |
-| **House of Qin** (秦氏) | Martial | Duels for honor; hires Sword rejects |
-| **House of Pei** (裴氏) | Inner Service ties | Eunuch cultivator connections |
-| **House of Shen** (沈氏) | Examination / roots | Proctor Shen Kui's clan — census monopoly |
+#### Creation-path guilds in Longcheng
 
-Clans are **heavyweights**: patriarch at **Nascent Soul** (public elder band), maybe one hidden VR ancestor — private arrays, but no sect homeland charter. They win by **imperial favor + marriage + commerce**, not absorbing mountains.
+Aligns with [`creation-path-guilds.md`](creation-path-guilds.md).
+
+| Guild | Longcheng presence | Rationale |
+|-------|-------------------|-----------|
+| **Alchemists Guild** | **HQ** | Owner lean — wealth, pills, and patronage pool in the imperial hub |
+| **Formations Guild** | **Branch** | HQ = **own city** elsewhere; Heartlands branch is the prestige branch (richest SKUs, exams through mid tier) |
+| **Forgers Guild** | **Branch** *(recommend)* | Imperial **weapon & spirit-iron licensing** lives here; HQ deferred — lean **ore-adjacent city later** (Frostbite or dedicated forge town), not Longcheng |
+| **Beast Tamers Guild** | **Registry office** only *(phase 2)* | Full branch stays **Emberwild**-adjacent; capital gets papers, not pens |
+
+**Branch vs HQ — Forgers:** keep Longcheng as **branch**. HQ should sit where the work is — veins, forges, military contracts — while the capital branch handles **charter stamps, commissions, and exams**. Same pattern as Formations (autonomy outside, footprint inside).
+
+#### Envoy Row (sect branches)
+
+| Sect | Office | Hook |
+|------|--------|------|
+| **Celestial Sword** | Blade Bureau | Edict enforcement; duel ground |
+| **Jade Lotus** | Ledger House | Charter accounts; market audit |
+| **Void Temple** | Reading Room | Sealed pre-Dao Wars fragments |
+| **Golden Phoenix** | Embassy | Pamphlets; four-claw “errors” |
+
+#### Other fixtures (not optional for fiction)
+
+| Fixture | Why |
+|---------|-----|
+| **Petition Plaza** | Charter law as *theater* — Phoenix vs Lotus visible |
+| **Caravan Terminus** | Continental travel hub (fold into Market Quarter or Gate) |
+| **Examination Grounds** | Census / root reading — Shen clan, imperial favor |
+| **Consignment Row** | High-end auction / escrow *(market-adjacent)* — noble + Lotus overlap |
+| **Imperial Granary** | Famine relief politics *(background)* |
+
+**Defer phase 2:** Talisman/scripture guild, mercenary charter hall, full Beast Tamers branch, guild sub-map interiors.
+
+#### Noble clans — **7 recommended** (owner pick 6–8)
+
+Enough to feel like a ward, not a phone book. Each clan owns a **niche sects won’t give you**.
+
+| # | Clan | Hanzi | Niche | Sect / court tie | Player hook |
+|---|------|-------|-------|------------------|-------------|
+| 1 | **House of Wei** | 魏氏 | Bureaucracy, vein permits | Chancellor **Wei An** | Charter paperwork; imperial favor |
+| 2 | **House of Shen** | 沈氏 | Examination, root census | Proctor **Shen Kui** | Examination rewards; root rumors |
+| 3 | **House of Pei** | 裴氏 | Inner Service, palace access | **Pei Yin** (eunuch order) | Tianjing gate favors; intrigue |
+| 4 | **House of Qin** | 秦氏 | Martial honor, mercenary contracts | Sword Bureau clients | Duels; hire muscle |
+| 5 | **House of Su** | 苏氏 | Commerce, auction, warehousing | Lotus **rival** (not enemy) | Stones, consignment, smuggling gray |
+| 6 | **House of Ye** | 叶氏 | Alchemy patronage, herb monopolies | Alchemists Guild HQ neighbors | Pills, ingredients, guild standing |
+| 7 | **House of Luo** | 罗氏 | Spirit-metal, forging leases | Forgers Guild branch | Gear commissions; ore politics |
+
+**Optional 8th** (if you want eight):
+
+| Clan | Hanzi | Niche | Why add |
+|------|-------|-------|---------|
+| **House of Ying** | 应氏 | Rumor sheets, information brokerage | Competes with Void archives — **street** truth vs **sealed** truth |
+
+**Cut from v1:** a “pre-Dao Wars bloodline” clan — save for late game (too much lore weight early).
+
+**Power band:** patriarch **Nascent Soul** public face; one hidden **VR** ancestor max per major clan; no sect arrays.
+
+**Rep model (later):** one `nobleStanding` overlay or per-clan mini-rep — don’t ship eight tracks in phase 1; start with Wei + one rival (Su or Qin).
 
 ### 2. Inner Tianjing (天京) — Tian Clan home grounds
 
@@ -229,10 +269,13 @@ Homeland mountains stay on the map. The city gets **offices**, not second HQs.
 
 ```text
 [Longcheng Outer Wall]
+   ├─ Longcheng Gate + Caravan Terminus
    ├─ Celestial Market Quarter (south — busiest)
-   ├─ Envoy Row + Association Hill
-   ├─ Noble Ward
-   ├─ Charter District
+   ├─ Guild Row — Alchemists HQ · Formations Branch · Forgers Branch
+   ├─ Envoy Row (four sect branches) + Licensed Duel Ground
+   ├─ Charter District + Petition Plaza + Examination Grounds
+   ├─ Noble Ward (7–8 compounds)
+   ├─ Pilgrim Streets / Consignment Row
    └─ [Tianjing Inner Wall — formation gate]
         └─ Tianjing (palace mount, ministries)
              └─ Underpalace (sealed)
@@ -255,9 +298,12 @@ Combat stays outside the city charter zone (wilderness, sect mountains).
 
 - [x] **Outer city name:** Longcheng (龙城) — locked
 - [x] **Inner = Tianjing** — locked
-- [ ] **Noble clans:** Wei / Qin / Pei / Shen — keep, cut, or replace?
-- [x] **Emperor Tian Xu** — VR peak, middle-aged — locked (matches sect patriarch tier per pyramid doc)
-- [x] **Celestial Market** — district inside Longcheng, same node id — locked
+- [x] **Market quarter** — required, inside Longcheng — locked
+- [x] **Alchemists Guild** — HQ in Longcheng — locked
+- [x] **Formations Guild** — Branch in Longcheng (HQ elsewhere) — locked
+- [x] **Forgers Guild** — Branch in Longcheng; HQ deferred elsewhere — **recommend locked**
+- [ ] **Noble clans:** 7 core (Wei, Shen, Pei, Qin, Su, Ye, Luo) + optional Ying?
+- [x] **Emperor Tian Xu** — VR peak — locked
 - [ ] **Phase 1 nodes:** gate + market + charter + tianjing gate — enough?
 
 ## Prerequisites
