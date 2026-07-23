@@ -74,17 +74,6 @@ Classic **pin** (品) ladder — four grades per tier. UI shows English + option
 
 **Not using for mortal gear (reserved):** 灵品 / 仙品 / 神品 — save for immortal-layer or named frameworks later.
 
-| Grade | Label | Fantasy |
-|-------|-------|---------|
-| 1 | **Inferior** *(下品)* | Barely qualifies; slag inclusions, thin qi channel |
-| 2 | **Common** *(中品)* | Guild-acceptable work; what most NPC smiths sell |
-| 3 | **Superior** *(上品)* | Skilled smith; clean channels, stable affixes |
-| 4 | **Supreme** *(极品)* | Masterwork for that realm; rare commissions, exam proofs |
-
-### Owner lean (2026-07-23) — superseded labels
-
-~~Four grades table duplicated here — see locked names above.~~
-
 **Tier boundary rule (non-negotiable):**
 
 ```text
