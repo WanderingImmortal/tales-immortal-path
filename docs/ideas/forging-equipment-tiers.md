@@ -385,12 +385,23 @@ Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward th
 
 ```javascript
 const GEAR_GRADES = {
-    inferior: { id: 'inferior', index: 1, name: 'Inferior', hanzi: '下品', statMult: 0.85, durMult: 0.90, sellMult: 0.70, color: '#8a8478' },
+    inferior: { id: 'inferior', index: 1, name: 'Inferior', hanzi: '下品', statMult: 0.72, durMult: 0.88, sellMult: 0.60, color: '#8a8478' },
     common:   { id: 'common',   index: 2, name: 'Common',   hanzi: '中品', statMult: 1.00, durMult: 1.00, sellMult: 1.00, color: '#9a9a8a' },
-    superior: { id: 'superior', index: 3, name: 'Superior', hanzi: '上品', statMult: 1.12, durMult: 1.05, sellMult: 1.25, color: '#6a9aba' },
-    supreme:  { id: 'supreme',  index: 4, name: 'Supreme',  hanzi: '极品', statMult: 1.25, durMult: 1.10, sellMult: 1.60, color: '#c4a040' }
+    superior: { id: 'superior', index: 3, name: 'Superior', hanzi: '上品', statMult: 1.28, durMult: 1.10, sellMult: 1.40, color: '#6a9aba' },
+    supreme:  { id: 'supreme',  index: 4, name: 'Supreme',  hanzi: '极品', statMult: 1.55, durMult: 1.18, sellMult: 1.85, color: '#c4a040' }
 };
 ```
+
+**Owner tune (2026-07-23):** wider spread so **上品 / 极品** are worth chasing — Common is the baseline; Inferior is noticeably weak; Supreme is a real prize.
+
+| Grade | Stat vs Common | Feel |
+|-------|----------------|------|
+| 下品 | 0.72× (−28%) | Slag work — sell or reforge |
+| 中品 | 1.00× | Guild standard |
+| 上品 | 1.28× (+28%) | Skilled smith — clearly better |
+| 极品 | 1.55× (+55%) | Chase craft / boss drop hype |
+
+**Tier boundary check (example):** Rusty Qi Blade (T1, 6% dmg) at 极品 → 9.3% · Frostbite Saber (T2, 10% dmg) at 下品 → 7.2% · **T1 peak &lt; T2 floor** ✓
 
 Helpers in `gear.js`:
 
