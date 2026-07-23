@@ -1,122 +1,125 @@
-# Imperial clan — continental heart (design workshop)
+# Imperial clan — the Tian Clan (sleeping dragon)
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` — **design first** (before Heartlands sect identities) |
-| **Blocked on** | Owner pass on throne fiction, capital, relationship to four sects |
+| **Status** | `designed` (core lore — owner lock-in 2026-07-23) |
+| **Blocked on** | Capital name/map node; four-sect charter detail; cultivation lineage |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
 | **Updated** | 2026-07-23 |
 
 ## Intent
 
-The **Imperial Clan** is the gravity well of the Azure Sky Continent — the Heartlands four sects, markets, and player ambition all orbit it. Design this **before** sect lineage manuals or detailed sect identities, so every great sect answers: *what is our relationship to the throne?*
+The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder sleeps at the gate of immortality.
 
-**Not the same as:** post-mortal **Heavenly Court** ([`post-immortal-cosmology.md`](post-immortal-cosmology.md)) — that's cosmic bookkeeping, not a villain emperor on a throne.
+**Imperial public face:** five-clawed true dragon (五爪真龙) — *only* the Tian may bear it; usurpation is existential treason.
 
-Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`sect-faction-identities.md`](sect-faction-identities.md).
+**Not the same as:** post-mortal **Heavenly Court** ([`post-immortal-cosmology.md`](post-immortal-cosmology.md)) — cosmic accounting, not the mortal throne.
 
----
-
-## What exists in code today
-
-| Piece | Status |
-|-------|--------|
-| `FACTION_DEFINITIONS` imperial entry | **Missing** — no imperial faction |
-| Heartlands capital / palace on local map | **Missing** — only `outer_heartlands`, four sect HQs, Celestial Market |
-| Imperial NPCs, rep, quests | **Missing** |
-| Design mentions | Sect pyramid doc: imperial has wider apex, stricter heaven accounting; guild doc: alchemy HQ leans imperial city |
-
-The four sects exist as **peers in a cold war** with no throne in the middle — that's the gap.
+Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`sect-faction-identities.md`](sect-faction-identities.md), [`nine-realm-ladder.md`](nine-realm-ladder.md) (Half-Step Immortal).
 
 ---
 
-## Why design imperial first
+## History — Dao Wars & the uneasy peace
 
-1. **Sets the food chain** — GC in Heartlands is "talented junior" because *someone* sits above the sects.
-2. **Explains the cold war** — Sword/Lotus/Void vs Phoenix only makes sense relative to imperial mandate, succession, or fear of absorption.
-3. **Anchors sect identity** — each great sect is partly defined by how it bows, bargains, or rebels.
-4. **Unlocks map** — imperial capital as a Heartlands node (inner vs outer heartlands).
-5. **Lineage manuals later** — throne may license, forbid, or monopolize certain cultivation lines.
+### Before
 
----
+The **Dao Wars** (道战 — working name) — sects and rising powers tore the continent apart competing for dao fragments, veins, and breakthrough paths. Havoc at a scale the mortal board could not sustain.
 
-## Core questions (owner workshop)
+### The turn
 
-### 1. What is the Imperial Clan *now*?
+The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first to touch the gates of true immortality. The wars ended **swiftly** under that might. Not a century of siege; a demonstration that the board had a new ceiling.
 
-- **Dynasty name?** (working title: Azure Mandate / Vermillion Throne / etc.)
-- **Mandate fiction** — heaven-appointed? Won by war? Inherited from a buried age?
-- **Public face** — who does the player meet first? (Chancellor, young emperor, regent, empress dowager?)
-- **Hidden face** — immortal ancestor in seclusion? Half-Step at the gate? Puppet court?
+*(Older immortals among the top sects may remember the clan's **original name** and older sins. They do not dwell on it in public.)*
 
-### 2. Power vs the four sects
+### The settlement
 
-| Model | Fiction | Game feel |
-|-------|---------|-----------|
-| **Balancer** | Throne plays sects against each other | Player navigates rep + imperial favor |
-| **Declining** | Clan fading; sects encroach | Phoenix plot makes sense |
-| **Iron fist** | Imperial law is real; sects are licensed | Permits, tribunals, banned manuals |
-| **Sacred shell** | Clan is ritual head; sects hold real power | Imperial rep is prestige, not strength |
+An **uneasy peace**: great powers **pushed into chartered homelands** — borders the throne still recognizes. Some suffered worse; some bargained early and kept more:
 
-Pick a lean or blend — drives everything else.
+| Power (draft) | Homeland | Dao Wars outcome (sketch) |
+|---------------|----------|---------------------------|
+| **Tian Clan** | Heartlands core (capital TBD) | Victor; became imperial mandate |
+| **Celestial Sword** | Heartlands — sword peaks | Early capitulation; kept blade honor → **imperial sword** when law must look clean |
+| **Jade Lotus** | Heartlands — trade cities | **Early alliance**; best charter terms → court ledgers, market rights |
+| **Void Temple** | Heartlands — observatory slopes | Neutral late; preserved archives in exchange for oaths |
+| **Golden Phoenix** | Heartlands — flame courts | **Broken late**; humiliating truce → fuels modern "reunification" ambition |
+| **Frostpeak Monastery** | Frostbite | Isolation bargain — left alone if they ward the north |
+| **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal is local law |
+| **Storm Dragon / Tidal Lotus** | Jade archipelago | Sea charter — throne mediates, does not sail |
+| **Emberwild Collective** | Emberwild | Contained, not conquered — jungle not worth the debt |
 
-### 3. Cultivation identity
+*Sect rows are draft for [`sect-faction-identities.md`](sect-faction-identities.md) — refine in owner pass.*
 
-- **Imperial lineage manual?** (e.g. *Mandate of Heaven Breathing* — dragon/earth/metal lean?)
-- **Policy:** does the throne **teach** cultivators, or only **license** sect arts?
-- **Layers:** imperial line is probably **unique + layered** (policy from manuals framework) — but what element/nature?
-- **Heaven's accounting tie-in** — imperial cultivators accrue scrutiny faster? ([`tribulation-system-rework.md`](tribulation-system-rework.md))
+### Now
 
-### 4. Geography
-
-- **Capital name + node** on Heartlands local map (inner heartlands — not yet built)
-- **Celestial Market** — imperial-owned neutral ground, or sect concession?
-- **Forbidden sites** — `celestial_observatory`, `heartlands_root` clue — imperial-linked?
-
-### 5. Player relationship
-
-- Can player earn **imperial favor** (separate from sect rep)?
-- Imperial **examination** / root test at capital?
-- Founding a sect — register with the throne?
-- Reincarnation — imperial bloodline origin?
+- **Sleeping giant:** no open continental wars; scheming, charters, succession plots, buried deterrence.
+- **Founder** (first Half-Step) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
+- **Public myth:** the founder chose sleep so the realm could heal.
+- **Sect whisper:** the founder sleeps because acting openly accrues heaven's debt — wake them only if the mandate cracks.
 
 ---
 
-## Working sketch (placeholder — replace in workshop)
+## Power model (locked)
 
-> The **Vermillion Throne** (name TBD) claims the **Mandate of Azure Sky** — not because the Emperor is the strongest cultivator, but because the clan holds the **continental seal array** that stabilizes spiritual veins under the Heartlands. The four great sects are **chartered powers**: licensed to teach, forbidden to conquer each other openly without imperial verdict.
->
-> **Golden Phoenix** tests that charter — expansion is framed as "reunification." **Jade Lotus** owns the ledgers the court trusts. **Celestial Sword** is the court's blade when law must look honorable. **Void Temple** guards what the throne cannot burn.
->
-> The player meets the court through **outer heartlands** first; the **inner palace** is a later realm-gated reveal.
+| Layer | Role |
+|-------|------|
+| **Buried founder** | Half-Step at heaven's gate — ultimate deterrence; may not be "alive" in daily politics |
+| **Imperial court** | Regents, blood branches, chancellors — **surface scheming** |
+| **Charter law** | Sects licensed in homelands; open conquest forbidden without imperial verdict |
+| **Today's emperor** | Face of mandate — may be NS/Deity tier publicly; not the founder |
 
-*Delete or rewrite — this is scaffolding for discussion.*
+**Balancer + sacred shell:** not iron-fist daily rule; **historical force** + mutual terror + procedure.
 
 ---
 
-## Suggested design order
+## Symbol & identity
 
-1. **This doc** — mandate, power model, cultivation lean, capital name
-2. Update [`sect-faction-identities.md`](sect-faction-identities.md) — four sects **in relation to** imperial sketch
-3. Map node + faction stub in `data.js` (implementation later)
-4. Sect lineage manuals
+- **Five-clawed true dragon** — imperial Tian only. Four claws = insult or foreign claim.
+- **"Sleeping dragon"** — continent metaphor; court motto; forbidden to mock in Heartlands.
+- **Name:** **Tian Clan** (cliché on purpose — 天, heaven). Imperial style: *Tian [era name] Court* / *Mandate of Tian*.
+
+---
+
+## Cultivation (open)
+
+- Imperial lineage manual TBD — likely **dragon / mandate / earth-metal** lean; **layered + unique** per manuals policy.
+- Court may **license** sect lines rather than teach widely.
+- Tian cultivators: stricter heaven accounting? ([`tribulation-system-rework.md`](tribulation-system-rework.md))
+
+---
+
+## Geography (open)
+
+- **Capital** — inner Heartlands node (not in code yet). Near `heartlands_root` / `celestial_observatory` fiction.
+- **Celestial Market** — likely imperial neutral ground (all sects trade under charter).
+- **Outer heartlands** — buffer between sect peaks and sleeping capital.
+
+---
+
+## Player hooks (open)
+
+- Imperial **favor** track separate from sect rep?
+- **Examination** at capital — root test, charter oaths.
+- Found sect → register with Tian charter?
+- Late-game: does the sleeping founder **wake**? (calamity / player choice — Chekhov's gun)
 
 ---
 
 ## Open questions
 
-- [ ] One immortal on the throne vs ancestor vault vs neither?
-- [ ] Imperial faction in rep system — fifth Heartlands rep track, or overlay on all?
-- [ ] Does imperial city host **alchemy guild** HQ ([`creation-path-guilds.md`](creation-path-guilds.md))?
-- [ ] Tribal Dustbone — does imperial reach extend to Sandveil Tribunal?
+- [ ] Founder's true name (pre-Tian) — ever revealed?
+- [ ] Dao Wars start date / how many generations of regents since burial?
+- [ ] Does Phoenix reunification seek to **replace** Tian or **become** Tian (five claws)?
+- [ ] Imperial rep: fifth faction vs overlay?
+- [ ] Dustbone: tribute fiction without direct rule?
 
 ## Prerequisites
 
-- [ ] Owner workshop on sections above
+- [ ] Lock four Heartlands sect identities **against** this charter table
+- [ ] Capital name + map node
 
 ## Implementation crumbs (later)
 
-- `data.js` — `FACTION_DEFINITIONS.imperial_*`, `WORLD_LOCATIONS` capital node
-- `factions.js` / `factions-expand.js` — imperial rep, edicts
-- `docs/ideas/sect-faction-identities.md` — sect rows reference imperial relationship
+- `data.js` — `tian_clan` or `imperial_tian` faction, capital location, dragon symbol in UI
+- `factions-expand.js` — imperial favor, charter violations
+- Chronicle / diary — Dao Wars era entries at high rep or void archive
