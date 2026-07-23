@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm ladder in code (7 → 9); forging profession loop (guild, economy) |
 | **Issue** | none yet |
 | **Chat / PR** | Forge profession chat 2026-07-23; gating shipped [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **Updated** | 2026-07-23 (owner lock — grades, attunement + power gates, inscriptions) |
+| **Updated** | 2026-07-23 (Phase B + C designed; A shipped) |
 
 ## Intent
 
@@ -160,8 +160,6 @@ Example at **QC (realm 0)** with **tier 8** gear (`gap = 7`):
 - `effectiveMult ≈ max(0.15, 1 - 1.54) → 0.15` → **15% of listed stats**
 - Affixes scale the same (or only first affix applies — TBD)
 - Optional **strain**: +qi/stamina cost per combat turn while `gap >= 2` (flavor: meridians burn)
-
-At **Foundation (realm 1)** with **tier 3** gear (`gap = 1`): ~**78%** — feels like “almost there,” rewarding early find.
 
 At **Foundation (realm 1)** with **tier 3** gear (`gap = 1`): ~**78%** — feels like “almost there,” rewarding early find.
 
@@ -375,7 +373,9 @@ Don’t hand-author 36 variants per slot. **Data-driven:**
 
 Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward this schema incrementally.
 
-## Phase B — grades on gear (implementation map)
+## Phase B — grades on gear (`designed` — not built)
+
+**Status:** Ready to implement after planning pass. **Depends on:** nothing (first craft-quality slice after A).
 
 **Goal:** Every gear **instance** has a **grade** (下品 → 极品). Grade changes **martial stats** and **durability**; shows in UI. **No grade roll on forge yet** (Phase C) — forged gear defaults to **中品 Common** until then.
 
@@ -509,23 +509,118 @@ CSS: `.gear-grade-chip` per grade color from `GEAR_GRADES.color`; hanzi in chip,
 4. Forged gear = Common until Phase C.
 5. Recursion audits pass (`bash scripts/pre-pr-check.sh`).
 
-### What Phase C adds next (don’t build in B)
+### What Phase C adds (build in C, not B)
 
-- Roll grade on forge success from smith rank + anvil.
-- Supreme craft bonus XP / log fanfare.
-- Preview "expected grade range" in forge UI.
+See **Phase C** below.
+
+## Phase C — grade rolls + attunement (`designed` — not built)
+
+**Status:** Planned. **Depends on:** Phase B (`grade` on instances + `sumInstanceStats` pipeline).
+
+**Goal:** Forging **rolls 下品–极品** on success; wearing over-tier gear **scales martial stats** via attunement. Still **no** dao-layer power gates (Phase D), sell panel (E), or loot grade tables (F).
+
+### Part 1 — Grade roll on forge
+
+Replace Phase B’s “always Common” with a weighted roll at `createGearInstance` time.
+
+**Inputs to roll:**
+
+| Factor | Effect |
+|--------|--------|
+| **Smith rank** | Main weight shift — higher rank = fewer 下品, more 上品/极品 |
+| **Anvil tier** | Small nudge toward higher grades |
+| **Sect armory** | Optional +affix-style nudge (reuse `armoryForgeAffixPct` or dedicated `gradeBonus`) |
+| **Recipe tier** | No change to weights — tier 4 is harder to *attempt*, not harsher grade table |
+
+**Draft weights by smith rank** (4 ranks today; extend rows when ranks 5–9 land):
+
+| Smith rank | 下品 | 中品 | 上品 | 极品 |
+|------------|------|------|------|------|
+| Apprentice | 38% | 48% | 13% | 1% |
+| Journeyman | 22% | 50% | 24% | 4% |
+| Artisan | 10% | 42% | 38% | 10% |
+| Master | 4% | 32% | 46% | 18% |
+
++2% shift toward 上品 per anvil tier above iron (cap +6%). Roll once; map to `GEAR_GRADES` id.
+
+**Functions (`crafting.js` / `forge-data.js`):**
+
+- `getForgeGradeRollWeights()` — merge rank + anvil + sect
+- `rollForgeGrade()` — returns grade id
+- `craftGear` → `createGearInstance(defId, { grade: rollForgeGrade() })`
+
+**UX:**
+
+- Forge Chamber detail: *“Grade odds: 下 22% · 中 50% · 上 24% · 极 4%”* (live from current bonuses)
+- Success log: always show grade — *“Forged 上品 Superior frostbite saber!”*
+- **极品:** extra log line + `grantForgeSkillXp(+5)` bonus (one-time per craft)
+
+**Out of scope for C:** forge **failure** / forced 下品 on fail (legendary fail stays as today). Optional **masterwork crit** (+1 grade, cap 极品) = tune pass later.
+
+### Part 2 — Attunement (martial layer only)
+
+Apply when **equipped** stats are computed — not when item is created.
+
+```text
+gap = gearTier - 1 - G.realmIdx
+
+attunementMult = gap <= 0 ? 1.0 : max(0.15, 1 - gap * 0.22)
+effectiveMartial = baseStats × gradeMult × attunementMult × durabilityMult
+```
+
+- **Material-tier floor (owner lean):** attunement applies to the **grade-adjusted** stat bundle, but tier-7 metal still reads as tier-7 in tooltips; extreme gaps (QC + T8) land near the 15% floor. Tune `0.22` / `0.15` in playtest.
+- **Affixes:** scale with attunement (same as base martial).
+- **Resonance:** no attunement mult (unchanged from B).
+- **Dao layer:** not in C — Phase D.
+
+**Functions (`gear.js`):**
+
+- `getGearTier(inst)` — from `GEAR_ITEMS[defId].tier`
+- `getGearAttunementMult(inst)` — uses `G.realmIdx`
+- Wire into `sumInstanceStats` after grade mult
+
+**UX:**
+
+- Equipped / inspect tooltip: *“上品 Superior · Tier 4 — **78% attuned** (Nascent Soul for full power)”*
+- First equip over-tier (once per item): log *“Your qi cannot fill its channels yet.”*
+- Optional later: combat strain when `gap >= 2` — **not required for C acceptance**
+
+### Files to touch
+
+| File | Work |
+|------|------|
+| `forge-data.js` | `FORGE_GRADE_ROLL_BY_SKILL`, anvil nudge constants |
+| `crafting.js` | `rollForgeGrade`, wire into `craftGear`, supreme XP bonus |
+| `gear.js` | `getGearAttunementMult`, apply in `sumInstanceStats` |
+| `forge-chamber.js` | grade odds display, attunement hint on detail if under-tier |
+| `ui.js` | attunement % on equipped gear when `gap > 0` |
+
+### Test plan
+
+- [ ] Apprentice forge: mostly 下/中; Master: visible 极品 streaks over many crafts
+- [ ] 极品 craft grants bonus XP + distinct log
+- [ ] Core Formation + T4 gear: 100% attunement; QC + T4: ~15% martial
+- [ ] Compare/equip updates when `realmIdx` changes (breakthrough)
+- [ ] Audits pass
+
+### Acceptance criteria
+
+1. Forged gear rolls grade from table; not hardcoded Common.
+2. Attunement mult visible and applied to equipped martial stats.
+3. Grade odds shown in Forge Chamber before craft.
+4. No dao/inscription power gates yet.
 
 ## Phased build (suggested)
 
 | Phase | What | Notes |
 |-------|------|-------|
-| **A** ✅ shipped | Skill + realm recipe gates on 4 tiers | [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **B** | Add `grade` (下中上极品) to instances + stat scaling + UI | See **Phase B** section above |
-| **C** | Attunement mult on equip; grade roll on forge | |
+| **A** ✅ **shipped** | Skill + realm recipe gates | [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) — **in game** |
+| **B** 📋 **designed** | Grades on instances + stat scaling + UI + tier base pass | [Phase B](#phase-b--grades-on-gear-designed--not-built) |
+| **C** 📋 **designed** | Grade roll on forge + attunement | [Phase C](#phase-c--grade-rolls--attunement-designed--not-built) |
 | **D** | `powerRequirements` + dormant inscriptions | Dao Seeker blade pattern |
-| **E** | **Sell panel** + expand smith ranks to **9** | 1:1 with gear tiers / realms |
-| **F** | Appraisal for inscriptions; hybrid loot tables | |
-| **G** | Expand tiers 5–9; path specials; guild exams | Nine-realm migration |
+| **E** | Sell panel + 9 smith ranks | |
+| **F** | Appraisal + hybrid loot tables | |
+| **G** | Tiers 5–9 gear + guild + path specials | Nine-realm migration |
 
 ## Prerequisites
 
@@ -537,7 +632,9 @@ CSS: `.gear-grade-chip` per grade color from `GEAR_GRADES.color`; hanzi in chip,
 - [x] Smith ranks — **9 ranks for 9 realms**; no separate reputation
 - [x] Appraisal — later; reveals **inscriptions/formations**, not affix discovery
 - [ ] Body/soul special creation path (not mirrored qi gear)
-- [ ] Attunement constants tune pass
+- [x] Phase B designed — grades, mults, tier base pass, UI map
+- [x] Phase C designed — grade roll table, attunement on equip
+- [ ] Attunement constants tune pass (in playtest when C ships)
 - [ ] Nine-realm migration plan
 
 ## Open questions
