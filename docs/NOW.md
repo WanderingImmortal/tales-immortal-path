@@ -5,11 +5,11 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-22
 
 ## Focus
-- *(open — owner pivoting away from tribs for now)*
+- Sect/faction identity pass — [`docs/ideas/sect-faction-identities.md`](ideas/sect-faction-identities.md) before lineage manuals
 
 ## Next
-- Playtest / merge tribulation v2 QC→FE when ready ([#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63))
-- Pick a fresh build direction (FE journey, formations, chronicle, etc.)
+- Merge elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))
+- Heartlands four sects — one-page identity each (owner)
 
 ## Parked (return later)
 - **Higher-realm trib scripts** — [`docs/ideas/tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md) (QC→FE only; rest need journey design)
