@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (v1 engine — 2026-07-22) |
-| **Blocked on** | FE → GC limbo naming; chronicle fate-rite project for rite tribulations |
+| **Status** | `shipped` (v1 engine) · v2 QC→FE in [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
+| **Blocked on** | Higher gates — see [`tribulation-per-gate-backlog.md`](tribulation-per-gate-backlog.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-22 |
 | **Updated** | 2026-07-22 (realm-specific scars, meridian Option A, owner satisfied — park) |

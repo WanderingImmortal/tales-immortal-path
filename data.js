@@ -8428,7 +8428,8 @@ const TRIBULATION_TRANSITIONS = {
     qc_to_fe: {
         id: 'qc_to_fe',
         label: 'Qi Condensation → Foundation',
-        logLine: 'The first watershed — your foundation must endure the heavenly audit.'
+        logLine: 'The first watershed — your foundation must endure the heavenly audit.',
+        heavenQuestion: 'Can gathered qi settle into bedrock the ledger recognizes as Foundation?'
     },
     fe_to_gc: {
         id: 'fe_to_gc',
@@ -8455,6 +8456,141 @@ const TRIBULATION_TRANSITIONS = {
         id: 'dao_to_immortal',
         label: 'Dao Seeking → Immortal Ascension',
         logLine: 'The final audit — transcendence or erasure under the lightning.'
+    }
+};
+
+/** Per-transition tribulation scripts — v2 choice pools (expand gate by gate). */
+const TRIBULATION_SCRIPTS = {
+    qc_to_fe: {
+        id: 'qc_to_fe',
+        scriptedScars: true,
+        flavor: {
+            lightningOmen: 'Clouds churn without thunder. The gathered qi stirs — heaven asks whether it can settle into Foundation the ledger will recognize.',
+            lightningTrial: 'The bolt does not test your meridians. It tests whether your qi has bedrock to stand on.',
+            heartOmen: 'A figure wearing your unfinished self stands in the silence. It asks what you are willing to become.',
+            heartTrial: 'The Heart Demon is not a monster yet — only the doubt that you deserve to leave mortality behind.',
+            aftermath: 'The first storm passes. What foundation remains is yours to seal — or patch.'
+        },
+        choices: {
+            omen: [
+                {
+                    id: 'draw_inward',
+                    label: '☯️ Draw qi inward',
+                    flavor: 'Still the breath. Let the gathered qi show its true weight.',
+                    months: 2,
+                    score: 2,
+                    outcomeHint: 'Trial prep',
+                    log: 'Qi settles. You face the audit with clearer breath.'
+                },
+                {
+                    id: 'read_storm',
+                    label: '👁️ Read the storm\'s pattern',
+                    flavor: 'Study how heaven gathers force — forewarned is not forearmed, but less blind.',
+                    months: 3,
+                    score: 3,
+                    outcomeHint: 'Trial prep · +Will helps',
+                    require: { stat: 'will', min: 6 },
+                    failLog: 'The pattern eludes you. The omen presses closer.',
+                    fail: { score: 1, months: 2 },
+                    log: 'You glimpse the audit\'s rhythm. The trial will not catch you entirely unaware.'
+                }
+            ],
+            trial: [
+                {
+                    id: 'bedrock',
+                    label: '🏛️ Stand on bedrock',
+                    flavor: 'Root your qi as if the earth already accepted you. Stronger if you consolidated before breaking through.',
+                    tribulationTypes: ['lightning'],
+                    months: 5,
+                    score: 2,
+                    script: 'qc_bedrock',
+                    outcomeHint: 'Strong if consolidated · Foundation crack if rushed',
+                    log: 'You plant your will beneath the gathered qi. The ledger weighs your foundation.'
+                },
+                {
+                    id: 'compress',
+                    label: '🔮 Compress the dantian',
+                    flavor: 'Force density until heaven must acknowledge the pressure — or the vessel splits.',
+                    tribulationTypes: ['lightning'],
+                    months: 5,
+                    resistBonus: 4,
+                    script: 'qc_compress',
+                    outcomeHint: 'Qi density test · Qi Backlash scar on failure',
+                    failScar: 'qi_backlash',
+                    log: 'You compress qi until the sky answers with thunder.'
+                },
+                {
+                    id: 'thunder',
+                    label: '⚡ Meet the thunder openly',
+                    flavor: 'Bold cultivators are rewarded — or erased. Always available.',
+                    tribulationTypes: ['lightning'],
+                    months: 3,
+                    score: 1,
+                    resistBonus: -2,
+                    risk: 6,
+                    script: 'qc_thunder',
+                    outcomeHint: 'Risky · Scorched Flesh scar on failure',
+                    failScar: 'scorched_flesh',
+                    log: 'You refuse to hide. The first bolt is an answer, not a warning.'
+                },
+                {
+                    id: 'name_fear',
+                    label: '👤 Name the fear',
+                    flavor: 'The shadow is young — speak to it before it learns your shape.',
+                    tribulationTypes: ['heart_demon'],
+                    months: 4,
+                    score: 3,
+                    outcomeHint: 'Soul trial · Weakened Soul scar on defeat',
+                    combat: true,
+                    failScar: 'weakened_soul',
+                    log: 'You step toward the doubt wearing your face.'
+                },
+                {
+                    id: 'reject_fear',
+                    label: '🛡️ Reject the illusion',
+                    flavor: 'Deny the shadow — a soul test for those with iron will.',
+                    tribulationTypes: ['heart_demon'],
+                    months: 4,
+                    score: 1,
+                    outcomeHint: 'Requires Will 7+ · Haunted Vision scar if wrong',
+                    require: { stat: 'will', min: 7 },
+                    failLog: 'The doubt is not an illusion. It strikes true.',
+                    fail: { combat: true, months: 2, failScar: 'haunted_vision' },
+                    log: 'You deny the shadow — it does not vanish, but wavers.'
+                },
+                {
+                    id: 'embrace_shadow',
+                    label: '🌑 Embrace the shadow',
+                    flavor: 'Accept what you fear becoming — dangerous, but not cowardly.',
+                    tribulationTypes: ['heart_demon'],
+                    months: 3,
+                    combat: true,
+                    outcomeHint: 'Risky soul combat · Warped Will scar on defeat',
+                    failScar: 'warped_will',
+                    log: 'You open your arms. The Heart Demon rushes in.'
+                }
+            ],
+            aftermath: [
+                {
+                    id: 'seal_breath',
+                    label: '📜 Seal your breath',
+                    flavor: 'Patience. Let the new realm settle before you walk the world as Foundation.',
+                    months: 4,
+                    outcomeHint: 'Safe recovery',
+                    outcome: 'success',
+                    log: 'You seal what the heavens allowed. Foundation is fragile — you treat it gently.'
+                },
+                {
+                    id: 'seclude_heal',
+                    label: '❤️ Seclude and heal',
+                    flavor: 'The body remembers the audit even when the ledger moves on.',
+                    months: 5,
+                    outcomeHint: 'Heal HP · slower',
+                    outcome: 'success',
+                    log: 'You mend what the trial broke before facing the sect again.'
+                }
+            ]
+        }
     }
 };
 
@@ -8523,6 +8659,29 @@ const TRIBULATION_PATH_FLAVOR = {
 };
 
 const TRIBULATION_SCARS = {
+    unstable_foundation: {
+        name: "Unstable Foundation",
+        desc: "The ledger accepted you — but the bedrock shifted. Your foundation wobbles under stress.",
+        log: "🩸 Unstable Foundation — the first watershed left hairline cracks in your root.",
+        realmAtBreakthrough: 1,
+        transitionIds: ['qc_to_fe'],
+        down: { maxQiPct: -0.08 },
+        up: { breakthroughPct: 0.05 },
+        downLabel: "−8% max Qi",
+        upLabel: "+5% breakthrough chance"
+    },
+    qi_backlash: {
+        name: "Qi Backlash",
+        desc: "Compressed too hard, too fast. Qi surges unpredictably — painful, but not without edge.",
+        log: "🩸 Qi Backlash — the dantian remembers the pressure that nearly split it.",
+        realmAtBreakthrough: 1,
+        transitionIds: ['qc_to_fe'],
+        tribulationTypes: ['lightning'],
+        down: { maxQiPct: -0.12 },
+        up: { qiRegenPct: 0.25 },
+        downLabel: "−12% max Qi",
+        upLabel: "+25% Qi recovery from cultivation"
+    },
     cracked_core: {
         name: "Cracked Core",
         desc: "Your golden core fractured under heaven's weight. Qi leaks — but desperation sharpens your strikes.",
@@ -8537,6 +8696,7 @@ const TRIBULATION_SCARS = {
         name: "Shattered Meridian",
         desc: "A meridian burst during the trial. Circulation is crippled — yet what remains flows faster.",
         log: "🩸 Shattered Meridian — broken channels, surging recovery.",
+        realmAtBreakthrough: 2,
         tribulationTypes: ["lightning"],
         down: { maxQiPct: -0.20 },
         up: { qiRegenPct: 0.50 },
@@ -8547,6 +8707,7 @@ const TRIBULATION_SCARS = {
         name: "Scorched Flesh",
         desc: "Lightning charred your meridians into living armor. You are fragile — and harder to break.",
         log: "🩸 Scorched Flesh — burned skin, iron tolerance.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["lightning"],
         down: { maxHpPct: -0.10 },
         up: { defenseBonusPct: 0.10 },
@@ -8557,6 +8718,7 @@ const TRIBULATION_SCARS = {
         name: "Weakened Soul",
         desc: "The Heart Demon took a piece of your spirit. What remains is guarded, wary, resilient.",
         log: "🩸 Weakened Soul — thinner spirit, thicker mental walls.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["heart_demon"],
         down: { spiritPct: -0.15 },
         up: { mentalResistPct: 0.15 },
@@ -8567,6 +8729,7 @@ const TRIBULATION_SCARS = {
         name: "Haunted Vision",
         desc: "You see echoes of what was and what might have been. Your hands tremble — your feet do not.",
         log: "🩸 Haunted Vision — unreliable sight, uncanny reflexes.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["heart_demon"],
         down: { accuracyPct: -0.05 },
         up: { evasionBonusPct: 0.10 },
@@ -8588,6 +8751,7 @@ const TRIBULATION_SCARS = {
         name: "Warped Will",
         desc: "Fear carved grooves in your resolve. You bend — but you no longer break.",
         log: "🩸 Warped Will — fractured resolve, iron nerve.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["heart_demon"],
         down: { willPct: -0.10 },
         up: { fearResistPct: 0.10 },
@@ -8598,6 +8762,7 @@ const TRIBULATION_SCARS = {
         name: "Cursed Blood",
         desc: "Tribulation blood turned sour. You heal slowly — yet demons taste your wrath.",
         log: "🩸 Cursed Blood — sluggish flesh, hungry blade.",
+        realmAtBreakthrough: 2,
         down: { hpRegenPct: -0.10 },
         up: { demonDmgPct: 0.10 },
         downLabel: "−10% HP regeneration",
@@ -8617,6 +8782,7 @@ const TRIBULATION_SCARS = {
         name: "Lingering Grief",
         desc: "You survived what others did not. Fame fades — but the lonely still hear your name.",
         log: "🩸 Lingering Grief — quiet legend, open hearts.",
+        realmAtBreakthrough: 3,
         down: { fameGainPct: -0.10 },
         up: { recruitChancePct: 0.10 },
         downLabel: "−10% Fame gained",
