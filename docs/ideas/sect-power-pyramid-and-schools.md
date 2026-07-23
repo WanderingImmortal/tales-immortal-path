@@ -38,10 +38,14 @@ Mortal ladder idx `0–8`. GC = idx **2** — third realm, five major realms sti
 
 ### Two “elder” layers
 
-| Layer | Examples | Player-facing |
-|-------|----------|---------------|
-| **Administration** | Discipline elders, law elders, mission elders | Daily jianghu |
-| **Ancestor vault** | Past patriarchs, breakthrough legends | Names, crises, rumor |
+| Layer | Realm band (9-realm ladder) | Examples | Player-facing |
+|-------|------------------------------|----------|---------------|
+| **Public elders** | **Nascent Soul** (idx 3) | Discipline elders, law elders, mission elders, envoy NPCs | Daily jianghu — what players meet |
+| **Peak inner elders** | **Deity Transformation** (idx 4) | War elders, enforcement, inheritance gatekeepers | Serious sect business |
+| **Patriarch / public apex** | **Void Refinement** (idx 5) | Sect leader who runs the mountain day-to-day | Rumored, rare audiences |
+| **Ancestor vault** | Dao Seeking+ (idx 6–8) | Past patriarchs, breakthrough legends, hidden immortals | Names, crises, rumor — not on the street |
+
+*Current 7-realm build:* NS (3) = public elder · VR (4) = patriarch · Dao Seeking (5)+ = ancestor vault. Deity Transformation slots between NS and VR when nine-realm ladder ships.
 
 Discipline elder at NS ≠ hidden Void ancestor.
 
@@ -58,7 +62,9 @@ GC (2)                    Outer elders · true disciples
 FE and below              Outer disciples · city schools (separate track)
 ```
 
-**Void above Deity** for public leadership (realm idx 5 > 4). Deity = highest elders who still take meetings/wars.
+**Void above Deity** for public leadership (realm idx 5 > 4 on nine-realm ladder). **Public-facing elders** players interact with are mostly **Nascent Soul**; the **patriarch** is **Void Refinement**; ancient assets hide above.
+
+Sects: public **NS** face for daily elders; **VR** patriarch; hidden ancestor/immortal cards comparable to imperial (deterrence, not identical).
 
 ### Immortal true leaders
 
@@ -86,7 +92,7 @@ Peak before idx 8 — rumor/chronicle tier for hidden apex. See [`nine-realm-lad
 
 ### Imperial vs great sects
 
-Imperial: wider top — more Manifestation/Immortal assets, stricter heaven accounting. Sects: public NS/Deity face; hidden patriarch/ancestor cards comparable to imperial (deterrence, not identical).
+Imperial: wider top — more Manifestation/Immortal assets, stricter heaven accounting. Sects: public NS elder face; VR patriarch; hidden ancestor cards comparable to imperial (deterrence, not identical).
 
 ## Prerequisites
 

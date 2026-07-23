@@ -8,7 +8,7 @@
 | **Chat / PR** | Heartlands sect pass, 2026-07-23 |
 | **Updated** | 2026-07-23 (Yan Jiao, Realm Reforge) |
 
-Parent index: [`sect-faction-identities.md`](sect-faction-identities.md) *(when merged)*. Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md) *(parallel PRs)*.
+Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md).
 
 **Design principle:** Full **flame great sect** — caldera homeland, immortals, Phoenix Dao — *also* revanchist and **fanatical** (not stupid). Charter-tested expansion serves **metaphysical renewal**, not cartoon evil.
 
