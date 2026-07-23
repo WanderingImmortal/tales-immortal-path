@@ -132,10 +132,11 @@ Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **char
 
 ## Geography
 
-See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — Tianjing workshop (districts, map placement, phase 1 nodes).
+See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer capital workshop.
 
-- **Celestial Market** — charter trade ground, south of outer Heartlands (separate from palace city).
-- **Outer heartlands** — wilderness/disciple buffer between sect peaks and capital north.
+- **Outer imperial city** (name TBD — lean **Longcheng** 龙城) — continental hub: Celestial Market quarter, sect branch offices, associations, noble clans, Charter District.
+- **Inner Tianjing** (天京) — Tian Clan home grounds; 京 = royal capital; palace + sleeping founder seal.
+- **Outer heartlands** — wilderness buffer between sect peaks and the metropolis north.
 
 ---
 

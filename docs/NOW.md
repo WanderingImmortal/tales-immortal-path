@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-23
 
 ## Focus
-- **Imperial city (Tianjing)** — [`docs/ideas/imperial-city-tianjing.md`](ideas/imperial-city-tianjing.md)
+- **Imperial city** — outer hub + inner Tianjing — [`docs/ideas/imperial-city-tianjing.md`](ideas/imperial-city-tianjing.md)
 
 ## Next
 - Merge elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))

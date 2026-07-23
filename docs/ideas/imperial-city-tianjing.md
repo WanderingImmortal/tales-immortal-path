@@ -1,193 +1,193 @@
-# Imperial city — Tianjing (design workshop)
+# Imperial city — outer hub + inner Tianjing (design workshop)
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` — owner workshop |
-| **Blocked on** | Name lock; emperor/regent lock; phase-1 nodes |
+| **Status** | `idea` — owner workshop (v2) |
+| **Blocked on** | Outer city name lock; noble clan roster |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
 | **Updated** | 2026-07-23 |
 
 ## Intent
 
-Design the **Tian Clan capital** — the sleeping dragon's body on the map. Not a tyrant's open fortress; a city everyone **must** pass through for charter law, examinations, and rumor — while the true weight sleeps below.
+Design the **continental capital** — not a single palace on a hill, but a **layered metropolis**: an open imperial hub where every power keeps a footprint, wrapped around **Tianjing** (天京), the Tian Clan's inner home grounds where the sleeping founder lies sealed.
 
 Parent lore: [`imperial-clan.md`](imperial-clan.md). Map pattern: [`local-world-map-split.md`](local-world-map-split.md).
 
 ---
 
-## Working name: **Tianjing** (天京)
+## Naming — what 京 means
 
-*"Heaven Capital"* — on-the-nose on purpose (matches Tian Clan). Older names buried with the pre-Tian dynasty. Sect immortals may use an archaic name in private.
+**京 (jīng)** = capital / royal city / the walled seat of mandate. Not a random syllable — it specifically means *the place where heaven's authority sits*.
 
-**Player-facing short name:** Tianjing · **Imperial City** · *the Sleeping Dragon* (epithet).
+So **Tianjing (天京)** is not the whole metropolis. It is the **inner city** — the Tian Clan grounds, palace ring, and underpalace seal. Exactly where 京 belongs.
 
-**Recommendation:** keep **Tianjing**. The bluntness is the point — everyone knows who built it. Archaic names belong in Void archives and late-game reveals, not on the signpost.
+| Layer | Name (working) | Who lives there |
+|-------|----------------|-----------------|
+| **Outer imperial city** | **[TBD]** — see options below | Everyone: merchants, sect branches, associations, noble clans, petitioners |
+| **Inner city** | **Tianjing** (天京) | Tian blood, court, regents, emperor's household — charter forbids sect ownership |
+| **Underpalace** | (unnamed on maps) | Sleeping founder seal |
+
+**Player-facing English:** *the Imperial City* (outer) · *Tianjing* (inner, when you earn the name).
+
+### Outer city name — options for owner
+
+| Name | Hanzi | Vibe |
+|------|-------|------|
+| **Longcheng** | 龙城 | Dragon City — sleeping dragon epithet, martial-imperial |
+| **Zhongdu** | 中都 | Central Capital — plain, historical |
+| **Tianyuan** | 天元 | Heaven's Origin — cultivator-flavored |
+| **Xuanjing** | 玄京 | Mysterious Capital — echoes inner Tianjing without duplicating |
+
+**Lean:** **Longcheng (龙城)** for outer + **Tianjing (天京)** for inner — dragon metaphor on the map, 京 reserved for the clan's actual seat.
 
 ---
 
 ## Role on the continent
 
-| Function | Fiction |
-|----------|---------|
-| **Charter seat** | Sect homelands are **licensed here** — capitulation, not surrender |
-| **Neutral gravity** | Sect envoys, trials, examinations; no sect owns the capital |
-| **Sleeping deterrence** | Founder sealed beneath the palace — the dragon sleeps |
-| **Surface scheming** | Regent court, blood branches, eunuch cultivators, ministries |
-| **Not daily tyranny** | Open city; law is real but enforced through procedure and rumor |
+| Function | Where |
+|----------|-------|
+| **Greatest hub** | Outer city — trade, gossip, hiring, manuals, pills |
+| **Charter seat** | Charter Hall (outer) — sect homelands licensed; edicts read |
+| **Sect presence** | **Branches**, not mountains — envoys, ledger offices, blade courts |
+| **Associations** | Continental guild HQs (alchemy, formations, beast tamers — future) |
+| **Noble clans** | Heavyweights who aren't sects — marriage, veins, imperial favor |
+| **Sleeping deterrence** | Tianjing inner + underpalace — founder sealed below |
+| **Not daily tyranny** | Open streets; law through procedure; Dragon Guard at inner wall only |
 
-**Celestial Market** (existing node, south of outer Heartlands) = **charter trade ground** — greatest open market, technically under imperial charter but physically outside the palace walls. Tianjing = **law and mandate**; Celestial Market = **commerce**.
-
-**Why both exist:** merchants hate palace gates. Sects want neutral ground to trade without bowing in the throne room. The Tian **allowed** the market south of the walls as a pressure valve — and taxes it.
+**Celestial Market** — **rolled into the outer city** as its largest market district (south quarter). Same `marketKey: 'heartlands'`, no separate map node. Continent's greatest open bazaar is *inside* Longcheng, not down the road.
 
 ---
 
 ## Map placement (Heartlands local map)
 
-Current layout: four sect HQs ring **outer_heartlands** (center); Celestial Market to the south.
-
-**Proposal:** Tianjing sits **north** of outer_heartlands — inner Heartlands, elevated, between Sword and Lotus peaks visually.
+Four sect HQs still ring **outer_heartlands**. The imperial metropolis sits **north** — elevated between Sword and Lotus peaks.
 
 ```text
-        [Sword Hall]     [Tianjing Gate]     [Lotus Pavilion]
+        [Sword Hall]     [Imperial City Gate]     [Lotus Pavilion]
                               |
-                        [Charter Hall]
+                    [Celestial Market Quarter]
                               |
-                    [Palace Approach]  (realm-gated)
+                      [Charter District]
                               |
-                    [Outer Heartlands] — default wilderness hub
+                    [Tianjing Inner Gate]  (gated)
+                              |
+                    [Outer Heartlands] — wilderness hub
            [Void Steps]                    [Phoenix Court]
-                              |
-                    [Celestial Market]
 ```
 
 ### Phase 1 nodes (implementable)
 
 | Node id | Name | type | Access |
 |---------|------|------|--------|
-| `tianjing_outer_gate` | Tianjing Outer Gate | `city` | Open — first imperial contact |
-| `tianjing_charter_hall` | Charter Hall of the Mandate | `outpost` | Open — examinations, edicts, imperial rep |
-| `tianjing_palace_approach` | Palace Approach | `landmark` | `reqRealm` 1+ or imperial favor — audience fiction |
+| `imperial_city_gate` | Longcheng Gate *(or TBD)* | `city` | Open — hub entry, associations, noble quarter |
+| `celestial_market` | Celestial Market Quarter | `market` | Open — **same id** for save compat; now inside city lore |
+| `imperial_charter_hall` | Charter Hall of the Mandate | `outpost` | Open — edicts, examinations, imperial rep |
+| `tianjing_inner_gate` | Tianjing Inner Gate | `landmark` | High favor or `reqRealm` 2+ — inner city fiction |
 
-**Travel:** walking from sect HQs → Tianjing costs **+1 month** vs outer heartlands (distance + formal checkpoints). Outer heartlands remains the cheap hub.
+**Map change:** `celestial_market` node moves **north** (into city cluster) instead of south of outer heartlands. Path: sect HQs → outer heartlands OR imperial gate; imperial gate ↔ market quarter ↔ charter ↔ tianjing gate.
+
+**Travel:** imperial city costs **+1 month** from sect HQs vs outer heartlands.
 
 ### Phase 2 (later)
 
-| Node | Access |
-|------|--------|
-| Inner Palace / Regent Audience | High imperial favor |
-| Sleeping Seal / Founder Shrine | Late game, dao/void tie-in (`heartlands_root`) |
-| **Imperial sub-map** (sect-map style) — ministries, courtyards, forbidden inner ring |
-
-**Recommendation:** phase 1 = **three nodes** on the local map. Enough to feel like a capital without building the sub-map yet. Sub-map deferred until sect-map pattern is reused.
+- **Imperial sub-map** — outer districts (Envoy Row, Association Hill, Noble Ward, Market Quarter)
+- **Tianjing sub-map** — inner ministries, regent courts, palace approach
+- Underpalace / Sleeping Seal — endgame
 
 ---
 
 ## City layers (fiction + player access)
 
-### 1. Outer Tianjing (mortal board)
+### 1. Outer imperial city — Longcheng *(name TBD)*
 
-**Who:** Disciples, merchants, sect envoys, petitioners.
+**Who:** Everyone. This is the continent's throat.
 
-| District (fiction) | Game hook (draft) |
-|--------------------|-------------------|
-| **Outer Gate** | Entry log line; imperial rep starts here; Dragon Guard inspects five-claw insignia |
-| **Examination Grounds** | Charter examination — imperial favor, not FE gate |
-| **Charter Hall** | Register sect founding; read edicts; Phoenix-Lotus crisis rumors |
-| **Envoy Quarter** | Sect NPCs **never fight here** — charter truce ground |
-| **Pilgrim Streets** | Shops lighter than Celestial Market; imperial flavor items |
-| **Sleeping Dragon Shrine (street)** | Public shrine — incense, petitions; *not* the real seal |
+| District | Fiction | Game hook |
+|----------|---------|-----------|
+| **Longcheng Gate** | Entry checkpoints; Dragon Guard inspects five-claw insignia on *imports*, not pilgrims | Imperial favor intro |
+| **Celestial Market Quarter** | Greatest open market — manuals, pills, rumors; sect stalls side by side | `marketKey: 'heartlands'` |
+| **Envoy Row** | Sect **branch offices** — Sword legal bureau, Lotus ledgers, Void reading room, Phoenix embassy | Charter truce — no combat |
+| **Association Hill** | Continental guild HQs (formations, alchemy, beast — stubs) | Future creation-path tie-ins |
+| **Noble Ward** | Great clans — not sects, not Tian blood, still dangerous | New rep hooks (see below) |
+| **Charter District** | Charter Hall, Examination Grounds, petition courts | Edicts, Phoenix-Lotus petitions |
+| **Pilgrim Streets** | Inns, tea houses, rumor | Lighter imperial flavor gear |
 
-**Vibe:** Busy, polite, watched. Guards are cultivators but don't swagger. Dragon banners everywhere; five claws on every lintel. You feel small. Nobody shouts. Rumors travel faster than qi.
+**Vibe:** **Loud.** Unlike sect peaks (vertical, martial, insular), the outer city is **horizontal chaos contained by law** — the one place you can buy a Phoenix pamphlet across from a Lotus accountant and a noble's bodyguard.
 
-**Daily life (texture):**
-- Petitioners queue with sealed grievances against sect overreach — Charter Hall decides if the case is *heard*.
-- Envoy Quarter servants wear sect colors but **no weapons** past the gate line.
-- Street vendors sell "dragon-scale" snacks that are just painted pastry — mocking it is a fine.
-- Night curfew is soft: cultivators walk freely; mortals are "encouraged" indoors after the third bell.
+**Noble clans (starter sketch — owner fills):**
 
-### 2. Middle Court (Foundation+ / favor)
+| Clan | Lean | Notes |
+|------|------|-------|
+| **House of Wei** (魏氏) | Bureaucratic | Chancellor Wei An's blood — veins, not swords |
+| **House of Qin** (秦氏) | Martial | Duels for honor; hires Sword rejects |
+| **House of Pei** (裴氏) | Inner Service ties | Eunuch cultivator connections |
+| **House of Shen** (沈氏) | Examination / roots | Proctor Shen Kui's clan — census monopoly |
 
-**Who:** Peak FE+, sworn officers, sect elders on business.
+Clans are **heavyweights**: patriarch at sect-elder tier, private arrays, but no sect homeland charter. They win by **imperial favor + marriage + commerce**, not absorbing mountains.
+
+### 2. Inner Tianjing (天京) — Tian Clan home grounds
+
+**Who:** Tian blood, emperor's household, regents, Inner Service. Sect envoys **summoned**, never resident.
 
 | District | Hook |
 |----------|------|
-| **Ministry of Veins** | Continental qi vein policy; formation permits |
-| **Ministry of Rites** | Tribulation witnesses; heaven-accounting paperwork fiction |
-| **Ministry of War (ceremonial)** | Blade offices — Celestial Sword posts here when edicts need honor |
-| **Regent's Antechamber** | Audience quests; blood-branch plot hooks |
-| **Lotus Ledger Annex** | Jade Lotus charter accountants under imperial audit |
+| **Inner Gate** | Pei Yin (Inner Service) — favor / realm check |
+| **Ministry ring** | Veins, Rites, War (ceremonial) |
+| **Regent courts** | Blood-branch plotting |
+| **Palace mount** | Emperor audiences (rare, high favor) |
+| **Street shrine** | Public sleeping-dragon cult — *not* the real seal |
 
-**Vibe:** Quiet power. Marble, seal-script, echo. You need a reason to be here. Guards know your face after the second visit.
+**Vibe:** Quiet after Longcheng's noise. Gold, jade, formation shimmer. You need a reason. The city **outside** the inner wall is for the world; **Tianjing** is for the mandate.
 
-### 3. Inner Palace (high rep / GC+)
-
-**Who:** Regent council, emperor's household, Tian blood cultivators.
-
-- Succession plots, edicts that move sect rep
-- Imperial lineage manual fragments (layered manual policy)
-- No open combat — violation = continental crime
-- Blood branches compete for regency seals
-
-**Vibe:** Gold and jade. Silence enforced by formations. You are always being measured.
-
-### 4. Underpalace — Sleeping Seal (endgame)
-
-**Who:** Almost nobody.
+### 3. Underpalace — Sleeping Seal (endgame)
 
 - Founder Half-Step burial / seal array
-- Tie to `heartlands_root` ancient clue, `celestial_observatory`
-- Stirring the seal = calamity arc Chekhov's gun
-
-**Public myth:** shrine to the sleeping dragon.  
-**Truth:** the founder is *there*, not metaphorically.
+- Tie to `heartlands_root`, `celestial_observatory`
+- Stirring the seal = continental calamity Chekhov's gun
 
 ---
 
-## Court structure (recommendation)
-
-### Emperor vs Regent — **proposed lock**
+## Court structure — **owner lock (v2)**
 
 | Role | Fiction |
 |------|---------|
-| **Emperor** | Young figurehead — **Emperor Tianxu** (天煦), age ~14 in mortal years, QC cultivator. Rarely seen. Public told he "meditates with the dragon below." |
-| **Regent Council** | Three seats — **actual rule**. Blood branches, chancellors, eunuch cultivators scheme for seats. |
-| **Founder** | Sealed underpalace — not a role, a **threat**. |
+| **Emperor** | **Tian Xu** (天煦) — *middle-aged in appearance*, young by immortal standards (~200 mortal years, looks 40). **Nascent Soul peak** — matches what the continent expects of a great sect leader. Composes edicts, holds audiences; not a child puppet, not the founder. |
+| **Regent Council** | Still schemes — emperor is capable, so regents compete for **influence**, not regency. Hardliners want him to break sects; pragmatists want balance. |
+| **Founder** | Sealed under Tianjing — ultimate deterrence |
 
 **Why this works:**
-- Succession is live — emperor ages, regents don't want to yield.
-- Phoenix revanchism can target **five claws** without needing to kill a god-tier NPC on-screen.
-- Player audiences are with **chancellors and regents**, not a child — avoids silly power fantasy early.
-- Late game: emperor's coming-of-age ceremony = continental event hook.
+- Emperor can be a **real NPC** at sect-leader power without breaking the board
+- "Young" for immortals = still has centuries ahead — succession not urgent, but blood branches still plot
+- Player late-game audiences matter — you're talking to someone who could flatten a Core Formation fool
+- Regent council shifts from "rule in his name" to "counselors who want their branch on the throne when he ascends further"
 
-**Open:** owner confirms or swaps emperor for "empty throne + regent only."
+### Court cast (updated)
 
-### Regent Council (starter cast)
-
-| Seat | Working name | Lean |
-|------|--------------|------|
-| **Chancellor of Charter** | **Wei An** (魏安) | Bureaucratic gatekeeper — player's first imperial contact |
-| **Regent of the Eastern Seal** | **Tian Lian** (天濂) | Blood branch — hardliner, hates sect autonomy |
-| **Regent of the Western Seal** | **Tian Mo** (天默) | Blood branch — pragmatist, trades favors with Lotus |
-
-Eunuch cultivator order (**Inner Service**) holds the palace keys — not on the council but can veto audiences.
+| Role | Name | Job |
+|------|------|-----|
+| **Emperor** | Tian Xu (天煦) | NS peak; visible at high favor |
+| **Chancellor of Charter** | Wei An (魏安) | Bureaucracy; Wei clan; first contact |
+| **Regent (hardline)** | Tian Lian (天濂) | Blood branch — break sect autonomy |
+| **Regent (pragmatist)** | Tian Mo (天默) | Blood branch — Lotus-adjacent trade |
+| **Examination Proctor** | Shen Kui (沈魁) | Shen clan; census / examination |
+| **Dragon Guard captain** | Han Ce (韩策) | Inner gate; five-claw law |
+| **Inner Service** | Pei Yin (裴音) | Tianjing gatekeeper |
+| **Founder shrine keeper** | Old Gu (顾翁) | Street shrine; riddles |
 
 ---
 
-## Charter law (how the city *works*)
+## Charter law (unchanged core)
 
-Not morality — **procedure**. The Tian won by making chaos expensive.
+| Rule | Fiction |
+|------|---------|
+| **No sect war in the capital** | Envoy Row truce |
+| **Licensed homelands** | Sect arrays registered at Charter Hall |
+| **Edict precedence** | Imperial edict > sect custom in neutral ground |
+| **Five claws** | Tian only — inner Tianjing and imperial regalia |
+| **Contained rivalry** | Feud outside charter seats |
 
-| Rule | Fiction | Game hook |
-|------|---------|-----------|
-| **No sect war in the capital** | Envoy Quarter truce | No combat nodes in Tianjing phase 1 |
-| **Licensed homelands** | Sect arrays legal because registered | Founding a player sect → charter registration quest (later) |
-| **Edict precedence** | Imperial edict > sect custom in neutral ground | Phoenix Gambit needs charter ruling to "absorb" Lotus |
-| **Five claws** | Only Tian may display | Usurpation = existential crime; Phoenix flirtation with four→five claw banners |
-| **Contained rivalry** | Sects may feud **outside** charter seats | Heartlands wilderness still dangerous |
-| **Examination** | Periodic census of cultivators | Imperial favor + rumor unlock |
-
-**Phoenix Gambit in Tianjing:** Act 2 should surface **charter petitions** at the Hall — Phoenix lawyers vs Lotus accountants. Player choices affect which edict draft circulates. Absorption = **charter coup**, not mountain deletion.
+**Phoenix Gambit:** petitions filed in **Charter District** — outer city, visible to everyone. Absorption = charter coup.
 
 ---
 
@@ -200,120 +200,73 @@ Not morality — **procedure**. The Tian won by making chaos expensive.
 | name | Tian Clan (Imperial Mandate) |
 | emoji | 🐉 |
 | type | `imperial` |
-| desc | The sleeping dragon — charter law, buried founder, scheming regents |
 
-**Rep:** **separate fifth track** — `imperialFavor` (lean locked). Sect rep = standing with Sword/Lotus/etc.; imperial favor = charter compliance, examinations, audiences.
-
-| imperialFavor | Unlocks (draft) |
-|---------------|-----------------|
-| 0–5 | Outer Gate flavor; warnings about five claws |
-| 6–12 | Charter Hall petitions; read edicts |
-| 13–20 | Middle Court access fiction; examination rewards |
-| 21+ | Palace Approach audiences; edict side quests |
-
-High imperial favor ≠ automatic sect hate. Selling out a sect is a **choice**, not a rep coupling.
+**Rep:** separate **`imperialFavor`** track. Noble clans may get their own mini-rep later (`wei_clan`, etc.) — defer until roster locked.
 
 ---
 
-## NPCs (starter cast)
+## Relationship to four sects (outer city = branches)
 
-| Role | Name | Job |
-|------|------|-----|
-| **Emperor** (figurehead) | Tianxu | Off-screen; mentioned in edicts |
-| **Chancellor of Charter** | Wei An | Bureaucratic gatekeeper; examination |
-| **Regent (hardline)** | Tian Lian | Wants sects broken to regency |
-| **Regent (pragmatist)** | Tian Mo | Lotus-adjacent favors |
-| **Examination Proctor** | **Shen Kui** (沈魁) | Root reading fiction; favor rewards |
-| **Dragon Guard captain** | **Han Ce** (韩策) | Outer gate; confiscates illegal dragon banners |
-| **Founder shrine keeper** | **Old Gu** (顾翁) | Street shrine; riddles; late-game |
-| **Inner Service eunuch** | **Pei Yin** (裴音) | Palace Approach gatekeeper |
+| Sect | In the imperial city they… |
+|------|----------------------------|
+| **Celestial Sword** | **Blade Bureau** on Envoy Row — honor enforcement |
+| **Jade Lotus** | **Ledger House** — charter accounts, market rights |
+| **Void Temple** | **Reading Room** — sealed pre-Dao Wars fragments |
+| **Golden Phoenix** | **Embassy** — pamphlets, four-claw "mistakes" |
 
-Sect envoys **visit** Envoy Quarter — don't duplicate faction NPCs permanently in the capital. Rotating cameos: Sword legal officer, Lotus ledger clerk, Void archivist, Phoenix pamphleteer.
-
----
-
-## Relationship to four sects
-
-| Sect | In Tianjing they… |
-|------|-------------------|
-| **Celestial Sword** | **Ministry of War (ceremonial)** — enforce edicts when war must look honorable |
-| **Jade Lotus** | **Ledger Annex** — charter accounts under imperial audit; richest concession |
-| **Void Temple** | **Archive reading rights** — pre-Dao Wars records sealed in Middle Court |
-| **Golden Phoenix** | **Embassy under suspicion** — revanchist pamphlets; four-claw "errors" in banners |
-
-None **own** districts. All **need** the capital. Tianjing is where they pretend to be civil.
+Homeland mountains stay on the map. The city gets **offices**, not second HQs.
 
 ---
 
 ## Visual / map theme
 
-- **Theme key:** `heartlands_imperial` or extend `heartlands` with gold/jade palette north
-- **Motifs:** dragon banners (five claws), seal-script gates, qi veins visible as garden channels
-- **Contrast:** sect peaks wild and martial; Tianjing ordered and deep
-- **Scale:** Outer Gate feels **wider** than any sect hall — horizontal power, not vertical mountain
-- **Sound:** bells, not drums. Water features everywhere — dragon sleeps near water/vein confluence
-
-### Architecture sketch
+- **Outer Longcheng:** wide avenues, mixed architecture (sect styles clash), market sprawl, noise
+- **Inner Tianjing:** uniform imperial dragon aesthetic, five claws, qi-vein gardens, silence
+- **Contrast:** sect peaks = wild vertical; outer city = horizontal hub; inner Tianjing = depth
 
 ```text
-[Outer Wall — spirit stone, five-claw reliefs]
-   └─ Gate Towers (Dragon Guard)
-        └─ Avenue of the Mandate (straight, no curves — "heaven's line")
-             ├─ Envoy Quarter (left)
-             ├─ Charter Hall (center, largest roof)
-             ├─ Examination Grounds (right)
-             └─ Pilgrim Streets (ring)
-                  └─ Inner Wall (Middle Court — formation shimmer)
-                       └─ Palace Mount (Inner Palace — cloud-wreathed)
-                            └─ Underpalace (not on any map)
+[Longcheng Outer Wall]
+   ├─ Celestial Market Quarter (south — busiest)
+   ├─ Envoy Row + Association Hill
+   ├─ Noble Ward
+   ├─ Charter District
+   └─ [Tianjing Inner Wall — formation gate]
+        └─ Tianjing (palace mount, ministries)
+             └─ Underpalace (sealed)
 ```
 
 ---
 
-## Ceremonies & calendar (flavor)
+## Player journey (phase 1)
 
-| Event | When | Hook |
-|-------|------|------|
-| **Mandate Bell** | Seasonal | Edicts read aloud; rep shifts if you attend |
-| **Dragon Sleep Vigil** | Annual | Street shrine festival; founder myth retold |
-| **Charter Renewal** | Multi-decade | Sect envoys renew licenses — background tension |
-| **Emperor's Name Day** | Yearly | Figurehead parade; regents visible |
+1. **Longcheng Gate** — hub intro; imperial favor; Han Ce warns on five claws.
+2. **Celestial Market Quarter** — existing heartlands market, new lore framing.
+3. **Charter Hall** — edicts, Phoenix-Lotus rumor board, examination.
+4. **Tianjing Inner Gate** — gated; Pei Yin; tease inner content.
 
----
-
-## Player journey (phase 1 fiction)
-
-1. **First visit** — Outer Gate: Han Ce explains five claws; imperial favor track introduced.
-2. **Charter Hall** — read Phoenix-Lotus rumor board; optional petition observer (no war yet).
-3. **Examination Grounds** — Shen Kui offers charter census; small favor reward.
-4. **Palace Approach** (gated) — Pei Yin turns you away until FE or favor 10+; tease inner content.
-
-No combat. No market (send players to Celestial Market for gear). Tianjing is **politics, law, dread**.
+Combat stays outside the city charter zone (wilderness, sect mountains).
 
 ---
 
 ## Open questions (owner)
 
-- [ ] **Lock name:** Tianjing — **recommend yes**
-- [ ] **Emperor vs Regent:** young Tianxu + Regent Council — **recommend yes**
-- [ ] **Phase 1 scope:** three nodes — **recommend yes**
-- [ ] **Celestial Market** — keep separate — **recommend yes**
-- [ ] **Imperial sub-map** — defer to phase 2 — **recommend yes**
-- [ ] **Examination** — imperial favor + flavor; not FE gate — **recommend yes**
-- [ ] **Travel cost** — +1 month from sect HQs vs outer heartlands — **recommend yes**
-- [ ] **Regent names** — Wei An / Tian Lian / Tian Mo — keep or replace?
-- [ ] **Phoenix Gambit** — add charter petition beat at Hall in lore pass?
+- [ ] **Outer city name:** Longcheng (龙城) vs other options?
+- [ ] **Inner = Tianjing** — locked?
+- [ ] **Noble clans:** Wei / Qin / Pei / Shen — keep, cut, or replace?
+- [ ] **Emperor Tian Xu** — NS peak, middle-aged — locked?
+- [ ] **Celestial Market** — district inside city, same node id — locked?
+- [ ] **Phase 1 nodes:** gate + market + charter + tianjing gate — enough?
 
 ## Prerequisites
 
-- [x] [`imperial-clan.md`](imperial-clan.md) lore locked (core)
-- [ ] Owner confirms recommendations above
-- [ ] Then: phase-1 `data.js` nodes + `tian_clan` faction stub
+- [x] [`imperial-clan.md`](imperial-clan.md) core lore
+- [ ] Outer city name
+- [ ] Noble clan pass (light)
+- [ ] Then: `data.js` map relayout + faction stub
 
 ## Implementation crumbs (later)
 
-- `data.js` — `WORLD_LOCATIONS`, `ZONE_LOCAL_LAYOUT.heartlands` nodes + paths north of outer_heartlands
-- `FACTION_DEFINITIONS.tian_clan`, `FACTION_NPCS` (Wei An, Han Ce minimum)
-- `factions.js` — `imperialFavor` track
-- Phoenix arc — charter petition stage at `tianjing_charter_hall` (separate PR)
-- Optional: `imperial-city.js` sub-map (phase 2)
+- `data.js` — relocate `celestial_market` north; add `imperial_city_gate`, `imperial_charter_hall`, `tianjing_inner_gate`
+- `FACTION_DEFINITIONS.tian_clan`, noble clan stubs
+- `factions.js` — `imperialFavor`
+- Phase 2: outer + inner sub-maps
