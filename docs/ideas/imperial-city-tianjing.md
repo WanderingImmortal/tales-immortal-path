@@ -182,7 +182,7 @@ Once found, stays found (same spirit as forbidden entrances in [`local-world-map
 | **Shady bounty board** | **In** — at Assassins branch desk |
 | **Forgery lane** | **Cut for now** — revisit if charter-doc gameplay needs it |
 | **Stolen goods fence** | **Cut** — folded into black market |
-| **Examination fixers** | **In** — see elaboration below |
+| **Examination fixers** | **Parked** — design kept below; needs census/registry gameplay first |
 | **Smuggler’s crawl** | `idea` — tunnels; not locked either way |
 
 ##### Global syndicates
@@ -223,11 +223,15 @@ Once found, stays found (same spirit as forbidden entrances in [`local-world-map
 | **Charter bounty** | Charter District | Licensed warrants, demon beasts, sect-approved targets — paper trail |
 | **Gray bounty** | Assassins branch | Faces, grudges, missing persons — hires blades |
 
-##### Examination fixers — elaboration
+##### Examination fixers — parked *(design retained)*
+
+**Owner (2026-07-23):** Good fiction, but **too much prerequisite work** — imperial census, examination loop, registry consequences — before fixers earn their place. Keep the idea; **do not ship** in Longcheng gray layer v1.
+
+**Blocked on:** examination / imperial favor system with meaningful records; maybe player identity on census; gray-bounty scrub use case.
 
 The **official** Examination Grounds (Proctor **Shen Kui**, House of Shen) maintain the **imperial census** — who cultivates, declared roots, charter standing, sect affiliations on record. That registry is power: marriage eligibility, academy entry, travel papers, imperial favor audits.
 
-**Fixers** are the **gray market around the registry** — not a guild, a loose network of corrupt clerks, disowned Shen **cadet cousins**, and forgers of *records* (not charter seals — that was forgery lane).
+**Fixers** (when implemented) = gray market around the registry — corrupt clerks, disowned Shen **cadet cousins**, not a guild.
 
 | Service | What it does | Who wants it |
 |---------|--------------|--------------|
@@ -238,9 +242,9 @@ The **official** Examination Grounds (Proctor **Shen Kui**, House of Shen) maint
 | **Duplicate identity** | Second file under alias | Smugglers, assassins, double agents |
 | **Seal of silence** | Bribe to lose a pending audit | Debt house clients, black market regulars |
 
-**Shen clan politics:** Main line (**Shen Kui**) runs legitimate examinations and would **disown** cadet branches caught fixing — but cadet branches still have registry access from inside jobs. Player might meet a fixer who claims cousinhood; Shen Kui’s quests could involve cleaning house.
+**Shen clan politics (future):** Main line (**Shen Kui**) runs legitimate examinations and would **disown** cadet branches caught fixing.
 
-**Player hooks:**
+**Player hooks (future):**
 
 - Hire a fixer to **drop off the gray bounty board** (scrub) — expensive, imperial favor risk if caught
 - Use a fixer to **inflate root record** for a sect recruitment event — alignment / favor consequences
@@ -254,7 +258,7 @@ The **official** Examination Grounds (Proctor **Shen Kui**, House of Shen) maint
 - **House of Ying** — cheap rumors → broker introductions
 - **House of Pei** — deniable assets (publicly denies)
 - **House of Su** — debt houses, smuggling (denies ownership)
-- **House of Shen cadets** — examination fixers (main line denies)
+- **House of Shen cadets** — examination fixers *(parked — main line denies when this ships)*
 - **Golden Phoenix embassy** — provocateurs, not the whole syndicate
 - **Guild Row back doors** — off-book pills and commissions
 
@@ -265,8 +269,10 @@ The **official** Examination Grounds (Proctor **Shen Kui**, House of Shen) maint
 - [x] Shady bounty — **Assassins branch desk**
 - [x] Forgery lane — **cut for now**
 - [x] Fence — **folded into black market**
+- [x] Examination fixers — **parked** until census/examination gameplay exists
 - [ ] Discovery: rumor-only vs rep-gated vs alignment-gated?
-- [ ] Poison Guild formal name (Poison Hall vs Poison Guild)
+
+**Gray layer v1 (ship when Longcheng sub-map):** Assassins branch · black market · debt houses · duel pit · information brokers · Poison Guild stub door. *Not* fixers.
 
 #### Noble clans — **7 recommended** (owner pick 6–8)
 
@@ -392,7 +398,7 @@ Homeland mountains stay on the map. Envoy Row compounds are **staffed rotations*
    ├─ Charter District + Petition Plaza + Examination Grounds
    ├─ Noble Ward (7–8 compounds)
    ├─ Pilgrim Streets / Consignment Row
-   ├─ Gray layer *(rumor-gated)* — Assassins · Poison Guild · black market · debt · duel pit · fixers
+   ├─ Gray layer *(rumor-gated)* — Assassins · Poison Guild stub · black market · debt · duel pit
    └─ [Tianjing Inner Wall — formation gate]
         └─ Tianjing (palace mount, ministries)
              └─ Underpalace (sealed)
