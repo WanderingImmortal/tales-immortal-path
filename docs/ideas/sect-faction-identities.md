@@ -44,7 +44,7 @@ Fill identities using the template below; **do not** reduce a sect to “the tra
 
 | Sect | One-line in data | Relationship sketch |
 |------|------------------|---------------------|
-| **Celestial Sword** | Blade-first, duels | Allies Lotus; rivals Phoenix | → [`celestial-sword-sect.md`](celestial-sword-sect.md) |
+| **Celestial Sword** | Sword Dao, aloof masters | Allies Lotus; rivals Phoenix | → [`celestial-sword-sect.md`](celestial-sword-sect.md) |
 | **Jade Lotus** | Trade, politics, silk | Allies Sword + Void; rivals Phoenix |
 | **Void Temple** | Pre-heaven knowledge, sealed sites | Allies Lotus; rivals Phoenix |
 | **Golden Phoenix** | Expansionist, absorb Lotus | Rivals all three; alignment cost |

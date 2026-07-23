@@ -128,7 +128,7 @@ Aligns with [`creation-path-guilds.md`](creation-path-guilds.md).
 |------------|------------|
 | “The Wei clan is the bureaucracy clan.” | The Wei are a **great house** — strongest in charter law and veins; also marry into trade, fund swords, own granaries. |
 | “Lotus is the trade sect.” | Lotus is a **great sect** — flame-water dao, mountain arrays, inner court — *also* rich and present in every market. |
-| “Sword is the law sect.” | Sword is a **blade sect** — honor and cultivation first — *also* takes imperial charter work when war must look clean. |
+| “Sword is the law sect.” | Sword is a **Sword Dao sect** — aloof, cultivation-first — *also* takes imperial charter work when war must look honorable |
 
 **Primary lean** = where they’re **hardest to compete with**, not their only business. **Longcheng footprint** = one visible office, not their identity.
 
@@ -138,7 +138,7 @@ Each great sect’s **mountain is home**. Envoy Row is a **satellite compound** 
 
 | Sect | Great sect (identity) | Longcheng footprint *(one slice)* |
 |------|----------------------|-----------------------------------|
-| **Celestial Sword** | Blade dao, duel culture, sword peaks — martial honor is the sect | **Charter office + duel ground** — honor killings filed here when edicts need a clean blade; most disciples never leave the mountain |
+| **Celestial Sword** | Sword Dao, aloof masters on Solitary Sword Mountain | **Charter office + duel ground** — licensed sword work; most disciples never leave the mountain |
 | **Jade Lotus** | Silk courts, inner politics, lotus dao — a full great sect with its own arrays and immortals | **City compound** — investments, marriage houses, charter lawyers; trade wealth is *part* of power, not the whole sect |
 | **Void Temple** | Observatory slopes, sealed sites, pre-heaven study — mystics and oaths | **Archive access desk** — one reading room; the real vaults stay on the mountain |
 | **Golden Phoenix** | Flame courts, expansionist history, phoenix dao — humiliated at Dao Wars, still dangerous | **Embassy** — loud, watched; pamphlets and provocation are *politics*, not their cultivation identity |
