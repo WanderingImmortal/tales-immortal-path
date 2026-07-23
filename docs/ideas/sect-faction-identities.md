@@ -47,7 +47,7 @@ Fill identities using the template below; **do not** reduce a sect to “the tra
 | **Celestial Sword** | Sword Dao, aloof masters | Allies Lotus; rivals Phoenix | → [`celestial-sword-sect.md`](celestial-sword-sect.md) |
 | **Jade Lotus** | Trade, politics, silk | Allies Sword + Void; rivals Phoenix | → [`jade-lotus-sect.md`](jade-lotus-sect.md) |
 | **Void Temple** | Pre-heaven knowledge, sealed sites | Allies Lotus; rivals Phoenix | → [`void-temple-sect.md`](void-temple-sect.md) |
-| **Golden Phoenix** | Expansionist, absorb Lotus | Rivals all three; alignment cost | → [`golden-phoenix-sect.md`](golden-phoenix-sect.md) *(PR #67)* |
+| **Golden Phoenix** | Expansionist, absorb Lotus | Rivals all three; alignment cost | → [`golden-phoenix-sect.md`](golden-phoenix-sect.md) |
 
 Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **Identity docs** add cultivation spine, leadership, and lineage sketches.
 
