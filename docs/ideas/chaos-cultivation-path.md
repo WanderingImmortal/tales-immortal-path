@@ -20,6 +20,10 @@ Chaos is the **primordial state from which the Dao was born**. The Chaos Path is
 
 It sits **beyond** the false Immortal Ascension watershed: long, difficult, transformative. Entry requires perceiving the flaw in the Dao — timing relative to upper-realm climb still open. Play should feel distinct from Qi / Body / Spirit track grinding — not a fourth parallel bar that looks the same.
 
+### Mortal-world link (Dustbone)
+
+First-era **Pinwright** — pre-peak chaos walker who **legislated Return-to-Dust** and **pinned** Bone Crossroads oasis — is **local history**, not this path’s full curriculum. Lore: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md). Life-sim hub: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md).
+
 ## How Chaos plugs into mandate / true immortality
 
 Chaos is **not** “immortal tier 8 on the same registry.” It is a **parallel endgame identity** for players who perceive Rule 7 and refuse to live on the ledger.
