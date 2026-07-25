@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (P2 slice); later-realm method deepening still sketch |
-| **Blocked on** | P0/P1 merged helpful but not required to start P2 code |
+| **Status** | `building` (P2 plumbing shipped; nature manuals + sword aura slice) |
+| **Blocked on** | — |
 | **Issue** | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) |
-| **Chat / PR** | [PR #55](https://github.com/WanderingImmortal/tales-immortal-path/pull/55) |
-| **Updated** | 2026-07-22 (owner lock-in: axes, seal stamp, shared natures, effects, ship on current seal) |
+| **Chat / PR** | [PR #55](https://github.com/WanderingImmortal/tales-immortal-path/pull/55); follow-up `cursor/technique-nature-manuals` |
+| **Updated** | 2026-07-25 (owner: test manuals for non-plain natures; sword sharper aura in NPC talk; skip meridian-wash; combat % playtest later) |
 
 ## Intent
 
@@ -33,29 +33,18 @@ Old sketch ids like `hasty_meditation` as a “variant” were wrong — hasty b
 - Two lightning scriptures from different authors can both stamp e.g. `thunder_tempered`; the peerless one is a better road (speed, stability, **stronger signature magnitude**), not a different element.
 - Methods need not share family to share a nature stamp.
 
-**Data sketch:**
+**v1 catalog (owner OK 2026-07-25):** `plain_balanced`, `fire_aspected`, `thunder_tempered`, `sword_inclined`, `blood_fiend`. More natures later; more methods to suit.
 
-```js
-// Shared set (grows over time)
-FOUNDATION_NATURES = {
-  plain_balanced: { /* signature… */ },
-  fire_aspected: { … },
-  thunder_tempered: { … },
-  sword_inclined: { … },  // affinity — not full Intent
-  blood_fiend: { … }
-};
+**Test manuals (non-plain):**
 
-// On each cultivation method
-method.stampsNature = 'thunder_tempered';  // was wrongly called foundationVariant: 'hasty_*'
-```
+| Method | Stamps |
+|--------|--------|
+| Cinder Meridian Cycle | `fire_aspected` |
+| Storm Vein Breath | `thunder_tempered` |
+| Edge Tempering Scripture | `sword_inclined` |
+| Crimson Harvest Breath | `blood_fiend` |
 
-Player save (extends `G.cultivationMethod` / foundation state):
-
-```js
-G.foundationNatureId = 'thunder_tempered'; // set at seal
-G.cultivationMethod.primaryLocked = true;  // at seal
-G.cultivationMethod.foundationLineage = '…'; // optional flavor id
-```
+Findable via explore/method loot (same pool as other qi methods).
 
 ---
 
@@ -63,7 +52,7 @@ G.cultivationMethod.foundationLineage = '…'; // optional flavor id
 
 - **When:** FE Seal / Consolidate (UI may say Seal today; consolidate-vs-seal naming is a parked cleanup).
 - **What:** Stamp nature from active primary method’s `stampsNature`; set `primaryLocked`.
-- **After:** path change only via rare **meridian-wash** (framework v1 compromise).
+- **After:** path change only via rare **meridian-wash** — **skipped for now** (owner 2026-07-25); lock is real, escape hatch later.
 - **Ship:** Hook **current** seal action now. FE redesign later calls the same stamp helper — one system, not two.
 
 ---
@@ -84,8 +73,11 @@ G.cultivationMethod.foundationLineage = '…'; // optional flavor id
 
 - Stamp **affinity** (sword-*inclined*), not “Intent already awakened.”
 - Do **not** hard-gate FE methods behind the Intent system.
-- Later (optional): matching affinity makes corresponding Intent **easier to comprehend**.
-- Blood kill-harvest loops: **park** for evil-playthrough slice; v1 can use alignment-flavored method + nature tag.
+- Blood kill-harvest loops: **park** for evil-playthrough slice.
+
+### Sword — sharper aura (owner 2026-07-25)
+
+**One real social effect for this slice:** sealed `sword_inclined` gives a **sharper aura** — not overpowering; sometimes reflected in NPC greet/talk (world + story). Combat armor pen stays as the modest combat signature. Intent-ease wiring still later.
 
 ---
 
@@ -95,61 +87,42 @@ G.cultivationMethod.foundationLineage = '…'; // optional flavor id
 
 **Nature is not cultivate speed.** Method **grade** owns speed.
 
-**Effect palette** (each nature picks **one signature**, optional tiny secondary):
-
-| Family | Examples |
-|--------|----------|
-| Combat offense | Attack power; defense penetration (sword-ish) |
-| Combat support | Aligned techniques cost a bit less / easier to practice |
-| Social / aura | Fiend nature → intimidation vs weaker NPCs (may stub tag first) |
-| World / risk | Tribulation tint, how the world reads you |
-
-**Grade** scales signature magnitude. **Nature** picks which fantasy.
+**Combat numbers (~3–6%):** leave as coded; **tune after playtest** (owner).
 
 **v1 code lean:** small shared list (plain + a few); one signature each; modest numbers; expand catalog later.
 
 ---
 
-## Later realms — method deepening (sister sketch, not P2 code)
+## Later realms — method deepening (sister sketch, not this slice)
 
-A forever gather-mult + one FE stamp is **not enough** fantasy by Nascent Soul / Immortal. This game will **not** hard-block ascent on realm-tiered manuals.
-
-Parked direction — *one path; the path deepens*:
-
-- Same lineage, rising **grade** (fragment → complete → annotation)
-- Same scripture, **realm chapters** (soft expectation, not hard wall)
-- Method unlocks **new cultivate actions** per realm (best long-term fix)
-
-Stamped **nature** carries forward as identity + soft bonuses. Method **progression** supplies the climb. See also manuals framework P2+ notes.
-
----
-
-## Technique sacrifice
-
-Prefer stones / time / materials / pills / breathing-method upgrades over burning random combat techniques unless lore requires it. (Unchanged owner preference.)
+Parked — same lineage grade ups, realm chapters, new cultivate actions. Not blocking.
 
 ---
 
 ## Prerequisites
 
-- [x] Owner P2 lock-in (axes, soft ceiling, seal lock, shared natures, effect intent, ship on current seal) — 2026-07-22
-- [x] [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) P0–P1 in flight
-- [ ] Implement stamp + lock on current FE seal
-- [ ] Small `FOUNDATION_NATURES` catalog + method `stampsNature` remap
+- [x] Owner P2 lock-in — 2026-07-22
+- [x] Stamp + lock on current FE seal
+- [x] `FOUNDATION_NATURES` catalog (five natures)
+- [x] Test manuals for non-plain natures + shelf “Seals:” line
+- [x] Sword sharper aura in NPC chat (light)
+- [ ] Meridian-wash — later, after playtest
+- [ ] More natures + methods (next pass)
+- [ ] Combat % balance pass after playtest
 - [ ] FE redesign integrates same stamp helper when journey rewrite lands
 
-## Open questions (post-P2)
+## Open questions (parked)
 
-- Meridian-wash frequency/cost — ship v1, playtest
-- Exact v1 nature list + signature numbers (balance pass)
-- When Intent-ease and intimidation aura get full wiring
+- Meridian-wash frequency/cost — ship later, playtest
+- Exact combat signature numbers — playtest
+- When Intent-ease and blood intimidation get full wiring
 - Method realm-chapter / deepening design pass
 
 ## Implementation crumbs
 
-- `consolidation.js` / FE Seal Dantian — call stamp + `primaryLocked`
-- `cultivation-methods.js` — nature helpers; lock already sketched
-- `data.js` — `FOUNDATION_NATURES`; remap method `stampsNature`
-- `foundation.js` — expose nature label beside quality grade
-- `chamber.js` / inventory path UI — show sealed nature after stamp
-- Combat / NPC — consume nature tags modestly (v1)
+- `consolidation.js` / FE Seal Dantian — `stampFoundationNatureAtFeSeal`
+- `cultivation-methods.js` — nature helpers, shelf stamp preview, `hasSwordSharperAura`
+- `data.js` — `FOUNDATION_NATURES`, `CULTIVATION_METHOD_POOL`
+- `npc.js` — sword aura greet/talk notes
+- `foundation.js` / chamber — nature label beside quality
+}

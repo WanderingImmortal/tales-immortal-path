@@ -597,8 +597,9 @@ const FOUNDATION_NATURES = {
         id: 'sword_inclined',
         name: 'Sword-Inclined Foundation',
         family: 'weapon_affinity',
-        desc: 'Edge-tempered seal — affinity for sword intent, better at piercing guards.',
-        effects: { armorPenPct: 0.10, intentEaseBonus: 0.1 }
+        desc: 'Edge-tempered seal — a sharper aura that strangers sometimes notice; cuts that slip past soft guard.',
+        // Social: sharperAura → occasional NPC talk/greet notes. Combat: modest armor pen.
+        effects: { armorPenPct: 0.10, sharperAura: true }
     },
     blood_fiend: {
         id: 'blood_fiend',
@@ -727,6 +728,98 @@ const CULTIVATION_METHOD_POOL = [
         infrastructure: null,
         comprehendMonths: 2,
         desc: 'Breathwork tuned for tangled roots — kinder to pentamixed, leakier for pure singles.'
+    },
+    {
+        id: 'cinder_meridian_cycle',
+        name: 'Cinder Meridian Cycle',
+        lineageId: 'cinder_meridian_line',
+        family: 'circulation',
+        methodTier: 'condensation',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['fire'],
+        essences: [],
+        stampsNature: 'fire_aspected',
+        rootFit: { pentamixed: 0.9, mixed: 0.95, dual: 1.05, single: 1.1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.05,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.0
+        },
+        infrastructure: null,
+        comprehendMonths: 3,
+        desc: 'Outer-court fire cycling — heat settles along the meridians. Seals a fire-aspected foundation.'
+    },
+    {
+        id: 'storm_vein_breath',
+        name: 'Storm Vein Breath',
+        lineageId: 'storm_vein_line',
+        family: 'breathing',
+        methodTier: 'condensation',
+        methodGrade: 'superior',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['lightning'],
+        essences: [],
+        stampsNature: 'thunder_tempered',
+        rootFit: { pentamixed: 0.85, mixed: 0.9, dual: 1.0, single: 1.08 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.08,
+            densityEfficiency: 1.0,
+            stabilityBias: -0.04
+        },
+        infrastructure: null,
+        comprehendMonths: 4,
+        desc: 'Deviant lightning breath that scars the veins clean. Seals a thunder-tempered foundation.'
+    },
+    {
+        id: 'edge_tempering_scripture',
+        name: 'Edge Tempering Scripture',
+        lineageId: 'edge_tempering_line',
+        family: 'circulation',
+        methodTier: 'foundation',
+        methodGrade: 'superior',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'sword_inclined',
+        rootFit: { pentamixed: 0.9, mixed: 0.95, dual: 1.05, single: 1.08 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.05,
+            densityEfficiency: 1.05,
+            stabilityBias: 0.04
+        },
+        infrastructure: null,
+        comprehendMonths: 4,
+        desc: 'Edge-tempered meridian cycles — cultivators leave a sharper aura. Seals a sword-inclined foundation.'
+    },
+    {
+        id: 'crimson_harvest_breath',
+        name: 'Crimson Harvest Breath',
+        lineageId: 'crimson_harvest_line',
+        family: 'forbidden',
+        methodTier: 'condensation',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['blood'],
+        essences: [],
+        stampsNature: 'blood_fiend',
+        rootFit: { pentamixed: 1.05, mixed: 1.0, dual: 0.95, single: 0.9 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.06,
+            densityEfficiency: 0.95,
+            stabilityBias: -0.06
+        },
+        infrastructure: null,
+        comprehendMonths: 3,
+        desc: 'Forbidden breath that drinks killing intent into the dantian. Seals a blood-fiend foundation.'
     }
 ];
 
