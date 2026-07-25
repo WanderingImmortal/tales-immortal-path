@@ -45,6 +45,15 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
+| **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
+| [Dustbone dynasties & entropy lore](dustbone-dynasties-entropy-lore.md) | `idea` (parked) | — | — |
+| [Settlement lore](settlement-lore.md) | `idea` (parked) | Dustbone lore | — |
+| [Economy framework](economy-framework.md) | `idea` (parked) | Stone tiers | — |
+| [Commerce & markets](commerce-and-markets.md) | `idea` (parked) | Economy framework | — |
+| [Work & professions](work-and-professions.md) | `idea` (parked) | Economy framework | — |
+| [Personal residence](personal-residence.md) | `idea` (parked) | Monthly tick | — |
+| [World standing & property](world-standing-and-property.md) | `idea` (parked) | Residence buy | — |
+| [Sect vs personal anchor](sect-vs-personal-anchor.md) | `idea` (parked) | Residence | — |
 | [Tribulation system rework](tribulation-system-rework.md) | `shipped` (v1) + v2 QC→FE building | Higher gates — see per-gate backlog | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-gate backlog](tribulation-per-gate-backlog.md) | `idea` (QC→FE `building`) | Owner design per watershed | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-per-gate-backlog | — |

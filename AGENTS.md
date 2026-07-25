@@ -14,7 +14,7 @@ Project rules live in [`.cursor/rules/`](.cursor/rules/) and **apply to local an
 | Layer | Location |
 |-------|----------|
 | Current focus | [`docs/NOW.md`](docs/NOW.md) |
-| Parked designs | [`docs/ideas/`](docs/ideas/) |
+| Parked designs | [`docs/ideas/`](docs/ideas/) — **mortal life sim cluster:** [`mortal-life-sim-cluster.md`](docs/ideas/mortal-life-sim-cluster.md) |
 | Build queue | GitHub Issues |
 | Shipped | Merged PRs |
 
