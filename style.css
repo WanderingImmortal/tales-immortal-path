@@ -6258,6 +6258,25 @@ header .subtitle {
     margin: 2px 0 6px;
 }
 
+.gear-grade-chip {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 1px 6px;
+    margin-right: 4px;
+    border-radius: 3px;
+    vertical-align: middle;
+    color: var(--gear-grade-color, #9a9a8a);
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid color-mix(in srgb, var(--gear-grade-color, #9a9a8a) 45%, #2a2018);
+}
+
+.gear-grade-chip.grade-inferior { --gear-grade-color: #8a8478; }
+.gear-grade-chip.grade-common { --gear-grade-color: #9a9a8a; }
+.gear-grade-chip.grade-superior { --gear-grade-color: #6a9aba; }
+.gear-grade-chip.grade-supreme { --gear-grade-color: #c4a040; }
+
 .gear-dur.gear-dur-mid {
     color: #b89860;
 }

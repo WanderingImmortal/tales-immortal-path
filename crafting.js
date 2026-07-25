@@ -335,7 +335,12 @@ function craftGear(recipeId, options) {
         if (idx >= 0) G.legendaryMaterials.splice(idx, 1);
     }
 
-    const uid = createGearInstance(defId, { noAffix: options.noAffix });
+    // Phase B: forged gear is always Common until Phase C grade rolls.
+    const uid = createGearInstance(defId, {
+        noAffix: options.noAffix,
+        grade: getDefaultGearGrade('forge'),
+        source: 'forge'
+    });
     const inst = getGearInstance(uid);
     applyForgeInstanceBonuses(inst);
 
@@ -349,7 +354,13 @@ function craftGear(recipeId, options) {
     }
 
     const affLine = inst?.affixes?.length ? ` Affixes: ${formatAffixLine(inst)}.` : '';
-    addLog(`🔨 Forged ${def.emoji} ${formatInstanceName(inst)}!${affLine}`);
+    const gradeLabel = typeof formatGearGradeLabel === 'function'
+        ? formatGearGradeLabel(inst, 'full')
+        : 'Common (中品)';
+    const forgedName = typeof formatInstanceBaseName === 'function'
+        ? formatInstanceBaseName(inst)
+        : (def.name || 'gear');
+    addLog(`🔨 Forged ${def.emoji} ${gradeLabel} ${forgedName}!${affLine}`);
     if (atSect && G.disciples?.length) {
         const saved = recipe.months - months;
         if (saved > 0) addLog(`🏯 Disciples assisted — saved ${saved} months.`);

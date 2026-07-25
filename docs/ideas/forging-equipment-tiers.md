@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (brainstorm — owner direction 2026-07-23) |
-| **Blocked on** | Nine-realm ladder in code (7 → 9); forging profession loop (guild, economy) |
+| **Status** | `building` (Phase B on PR; C–H designed) |
+| **Blocked on** | Nine-realm ladder in code (7 → 9) for later phases; Phase C for grade rolls |
 | **Issue** | none yet |
-| **Chat / PR** | Forge profession chat 2026-07-23; gating shipped [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) |
-| **Updated** | 2026-07-23 (Phases B–H designed; quench + furnace lock; A shipped) |
+| **Chat / PR** | Forge profession chat 2026-07-23; gating [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70); Phase B `cursor/forge-phase-b-grades` |
+| **Updated** | 2026-07-25 (Phase B implementing — grades on instances) |
 
 ## Intent
 
@@ -395,9 +395,9 @@ Don’t hand-author 36 variants per slot. **Data-driven:**
 
 Today’s game has **4 tiers, ~9 recipes, no grade field** — migrate toward this schema incrementally.
 
-## Phase B — grades on gear (`designed` — not built)
+## Phase B — grades on gear (`building` — this PR)
 
-**Status:** Ready to implement after planning pass. **Depends on:** nothing (first craft-quality slice after A).
+**Status:** Implementing on `cursor/forge-phase-b-grades`. **Depends on:** nothing (first craft-quality slice after A).
 
 **Goal:** Every gear **instance** has a **grade** (下品 → 极品). Grade changes **martial stats** and **durability**; shows in UI. **No grade roll on forge yet** (Phase C) — forged gear defaults to **中品 Common** until then.
 
@@ -1476,7 +1476,7 @@ A ✅ → B (grades) → H (furnace + quench) → C (grade roll + attunement) �
 | Phase | What | Notes |
 |-------|------|-------|
 | **A** ✅ **shipped** | Skill + realm recipe gates | [PR #70](https://github.com/WanderingImmortal/tales-immortal-path/pull/70) — **in game** |
-| **B** 📋 **designed** | Grades on instances + stat scaling + UI + tier base pass | [Phase B](#phase-b--grades-on-gear-designed--not-built) |
+| **B** 🔨 **building** | Grades on instances + stat scaling + UI + tier base pass | [Phase B](#phase-b--grades-on-gear-building--this-pr) |
 | **C** 📋 **designed** | Grade roll on forge + attunement | [Phase C](#phase-c--grade-rolls--attunement-designed--not-built) |
 | **D** 📋 **designed** | Power gates + dormant inscriptions | [Phase D](#phase-d--power-gates--dormant-inscriptions-designed--not-built) |
 | **E** 📋 **designed** | Sell panel + 9 smith ranks | [Phase E](#phase-e--sell-panel--9-smith-ranks-designed--not-built) |

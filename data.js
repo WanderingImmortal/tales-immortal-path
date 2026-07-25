@@ -8286,7 +8286,8 @@ const GEAR_ITEMS = {
     frostbite_saber: {
         id: 'frostbite_saber', name: 'Frostbite Saber', slot: 'weapon', tier: 2, treasureType: 'weapon', weaponType: 'saber', gearSet: 'frost_walker', emoji: '⚔️',
         desc: 'Cold qi lingers along the edge.',
-        stats: { dmgPct: 10 },
+        // Phase B tier gap: T1 supreme (6×1.55≈9.3) < T2 inferior (14×0.72≈10.1)
+        stats: { dmgPct: 14 },
         resonance: {
             qi: { maxQiBonus: 5, qiDensityBonus: 0.08 },
             body: { maxHpBonus: 6, defenseBonus: 2 },
@@ -8296,7 +8297,8 @@ const GEAR_ITEMS = {
     spirit_weave_armor: {
         id: 'spirit_weave_armor', name: 'Spirit-Weave Armor', slot: 'chestplate', tier: 2, treasureType: 'armor', gearSet: 'frost_walker', emoji: '🥋',
         desc: 'Armor threaded with spiritual silk.',
-        stats: { defenseBonus: 7, maxHpBonus: 14 },
+        // Beats T1 Iron Body Girdle supreme (def 5×1.55 / hp 12×1.55)
+        stats: { defenseBonus: 11, maxHpBonus: 26 },
         resonance: {
             qi: { maxQiBonus: 4, qiDensityBonus: 0.06 },
             body: { maxHpBonus: 18, defenseBonus: 4, staminaRegenBonus: 2 },
@@ -8306,7 +8308,8 @@ const GEAR_ITEMS = {
     dao_insight_amulet: {
         id: 'dao_insight_amulet', name: 'Dao Insight Amulet', slot: 'amulet', tier: 3, treasureType: 'artifact', gearSet: 'dao_seeker', emoji: '🔮',
         desc: 'A rare artifact that quickens comprehension.',
-        stats: { maxQiBonus: 10, qiDensityBonus: 0.1, daoSpeedPct: 8 },
+        // Beats T1 Jade Pendant supreme (maxQi 6×1.55≈9.3)
+        stats: { maxQiBonus: 14, qiDensityBonus: 0.12, daoSpeedPct: 8 },
         resonance: {
             qi: { maxQiBonus: 12, qiDensityBonus: 0.14, daoSpeedPct: 5 },
             body: { maxHpBonus: 8, staminaRegenBonus: 1 },
@@ -8316,7 +8319,8 @@ const GEAR_ITEMS = {
     phoenix_plume_cloak: {
         id: 'phoenix_plume_cloak', name: 'Phoenix Plume Cloak', slot: 'chestplate', tier: 4, treasureType: 'armor', gearSet: 'dao_seeker', emoji: '🪶',
         desc: 'Woven from phoenix ash and celestial silk — warmth that never fades.',
-        stats: { defenseBonus: 10, maxHpBonus: 22, hpRegenBonus: 4 },
+        // Beats T2 Spirit-Weave supreme (def 11×1.55≈17.1 / hp 26×1.55≈40.3)
+        stats: { defenseBonus: 24, maxHpBonus: 56, hpRegenBonus: 4 },
         resonance: {
             qi: { maxQiBonus: 8, qiDensityBonus: 0.08 },
             body: { maxHpBonus: 20, defenseBonus: 5, staminaRegenBonus: 2 },
@@ -8326,7 +8330,7 @@ const GEAR_ITEMS = {
     glacial_crown: {
         id: 'glacial_crown', name: 'Glacial Crown', slot: 'helm', tier: 4, treasureType: 'armor', gearSet: 'frost_walker', emoji: '👑',
         desc: 'A crown of eternal frost that sharpens the mind and blade alike.',
-        stats: { defenseBonus: 6, will: 3, dmgPct: 4 },
+        stats: { defenseBonus: 8, will: 3, dmgPct: 4 },
         resonance: {
             qi: { maxQiBonus: 6, qiDensityBonus: 0.1 },
             body: { defenseBonus: 4, maxHpBonus: 12 },
@@ -8336,7 +8340,7 @@ const GEAR_ITEMS = {
     celestial_insight_ring: {
         id: 'celestial_insight_ring', name: 'Celestial Insight Ring', slot: 'ring', tier: 4, treasureType: 'ring', emoji: '💫',
         desc: 'A ring that catches starlight and turns it into comprehension.',
-        stats: { maxQiBonus: 12, qiDensityBonus: 0.12, daoSpeedPct: 10, spirit: 2 },
+        stats: { maxQiBonus: 14, qiDensityBonus: 0.14, daoSpeedPct: 10, spirit: 2 },
         resonance: {
             qi: { maxQiBonus: 14, qiDensityBonus: 0.16, daoSpeedPct: 6 },
             body: { maxHpBonus: 10, staminaRegenBonus: 2 },
