@@ -586,6 +586,34 @@ const FOUNDATION_NATURES = {
         desc: 'Heat settles in the dantian — fire arts bite harder.',
         effects: { elementDmgMult: { fire: 1.06 } }
     },
+    water_aspected: {
+        id: 'water_aspected',
+        name: 'Water-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Flow settles in the dantian — water arts run smoother and bite deeper.',
+        effects: { elementDmgMult: { water: 1.06 } }
+    },
+    wood_aspected: {
+        id: 'wood_aspected',
+        name: 'Wood-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Growth-qi roots in the dantian — wood arts flourish from the seal.',
+        effects: { elementDmgMult: { wood: 1.06 } }
+    },
+    metal_aspected: {
+        id: 'metal_aspected',
+        name: 'Metal-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Edge-qi condenses in the dantian — metal arts cut cleaner.',
+        effects: { elementDmgMult: { metal: 1.06 } }
+    },
+    earth_aspected: {
+        id: 'earth_aspected',
+        name: 'Earth-Aspected Foundation',
+        family: 'five_phase',
+        desc: 'Weight-qi settles in the dantian — earth arts land heavier.',
+        effects: { elementDmgMult: { earth: 1.06 } }
+    },
     thunder_tempered: {
         id: 'thunder_tempered',
         name: 'Thunder-Tempered Foundation',
@@ -730,50 +758,148 @@ const CULTIVATION_METHOD_POOL = [
         desc: 'Breathwork tuned for tangled roots — kinder to pentamixed, leakier for pure singles.'
     },
     {
-        id: 'cinder_meridian_cycle',
-        name: 'Cinder Meridian Cycle',
-        lineageId: 'cinder_meridian_line',
-        family: 'circulation',
-        methodTier: 'condensation',
+        id: 'burning_breath_technique',
+        name: 'Burning Breath Technique',
+        lineageId: 'burning_breath_line',
+        family: 'breathing',
+        methodTier: 'mortal',
         methodGrade: 'common',
         reqRealm: 0,
-        rarity: 'uncommon',
+        rarity: 'common',
         elements: ['fire'],
         essences: [],
         stampsNature: 'fire_aspected',
-        rootFit: { pentamixed: 0.9, mixed: 0.95, dual: 1.05, single: 1.1 },
+        rootFit: { fire: 1.08, water: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
         profile: {
             gatherMult: 1.0,
-            powerMult: 1.05,
+            powerMult: 1.0,
             densityEfficiency: 1.0,
-            stabilityBias: 0.0
+            stabilityBias: 0.04
         },
         infrastructure: null,
-        comprehendMonths: 3,
-        desc: 'Outer-court fire cycling — heat settles along the meridians. Seals a fire-aspected foundation.'
+        comprehendMonths: 2,
+        desc: 'Inhale the world\'s scattered flame-qi; exhale the mundane. Cycle after cycle, heat gathers in the dantian until your qi carries fire\'s nature.',
+        shopBlurb: 'Outer-court fire breathwork — cheap, common, and enough to forge a fire-aspected foundation if you commit.'
     },
     {
-        id: 'storm_vein_breath',
-        name: 'Storm Vein Breath',
-        lineageId: 'storm_vein_line',
+        id: 'flowing_tide_breath',
+        name: 'Flowing Tide Breath',
+        lineageId: 'flowing_tide_line',
         family: 'breathing',
-        methodTier: 'condensation',
-        methodGrade: 'superior',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['water'],
+        essences: [],
+        stampsNature: 'water_aspected',
+        rootFit: { water: 1.08, fire: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.05
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Draw cool qi on the inhale and let it pool like tidewater in the dantian. Breath after breath, your cultivation carries the nature of flow.',
+        shopBlurb: 'Coastal syllabus breathwork — common water-attributed qi for a water-aspected foundation seal.'
+    },
+    {
+        id: 'verdant_breath_technique',
+        name: 'Verdant Breath Technique',
+        lineageId: 'verdant_breath_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['wood'],
+        essences: [],
+        stampsNature: 'wood_aspected',
+        rootFit: { wood: 1.08, metal: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.06
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Breathe with the rhythm of sprouting things — qi enters soft, roots in the dantian, and leaves with the green nature of wood.',
+        shopBlurb: 'Herbalist-court breathwork — nurture wood-attributed qi without a formation bill.'
+    },
+    {
+        id: 'iron_meridian_breath',
+        name: 'Iron Meridian Breath',
+        lineageId: 'iron_meridian_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['metal'],
+        essences: [],
+        stampsNature: 'metal_aspected',
+        rootFit: { metal: 1.08, wood: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.03
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Each breath hones qi to a finer edge until the dantian holds metal\'s sharp, disciplined nature.',
+        shopBlurb: 'Smith-court syllabus — common metal-attributed breath for a cutting foundation seal.'
+    },
+    {
+        id: 'stone_root_breath',
+        name: 'Stone Root Breath',
+        lineageId: 'stone_root_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['earth'],
+        essences: [],
+        stampsNature: 'earth_aspected',
+        rootFit: { earth: 1.08, wood: 0.92, pentamixed: 1.0, mixed: 1.0, dual: 1.02, single: 1.05 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.08
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Inhale the weight of mountain-qi; anchor it in the dantian until your cultivation settles with earth\'s patient nature.',
+        shopBlurb: 'Earth-court breathwork — steady, common, and enough to seal an earth-aspected foundation.'
+    },
+    {
+        id: 'storm_heart_breath',
+        name: 'Storm Heart Breath',
+        lineageId: 'storm_heart_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
         reqRealm: 0,
         rarity: 'uncommon',
         elements: ['lightning'],
         essences: [],
         stampsNature: 'thunder_tempered',
-        rootFit: { pentamixed: 0.85, mixed: 0.9, dual: 1.0, single: 1.08 },
+        rootFit: { lightning: 1.08, earth: 0.95, pentamixed: 0.98, mixed: 1.0, dual: 1.02, single: 1.05 },
         profile: {
-            gatherMult: 1.0,
-            powerMult: 1.08,
+            gatherMult: 0.98,
+            powerMult: 1.02,
             densityEfficiency: 1.0,
-            stabilityBias: -0.04
+            stabilityBias: -0.02
         },
         infrastructure: null,
-        comprehendMonths: 4,
-        desc: 'Deviant lightning breath that scars the veins clean. Seals a thunder-tempered foundation.'
+        comprehendMonths: 3,
+        desc: 'Breathe between heartbeats of distant thunder until deviant lightning-qi sparks in the dantian — volatile, but it forges a thunder-tempered seal.',
+        shopBlurb: 'Uncommon deviant syllabus — risky lightning breath for those who want thunder in their foundation.'
     },
     {
         id: 'edge_tempering_scripture',
@@ -796,7 +922,8 @@ const CULTIVATION_METHOD_POOL = [
         },
         infrastructure: null,
         comprehendMonths: 4,
-        desc: 'Edge-tempered meridian cycles — cultivators leave a sharper aura. Seals a sword-inclined foundation.'
+        desc: 'Edge-tempered meridian cycles — cultivators leave a sharper aura. Seals a sword-inclined foundation.',
+        shopBlurb: 'Uncommon edge-tempered cycles — seals a sword-inclined foundation with a keen aura strangers sometimes notice.'
     },
     {
         id: 'crimson_harvest_breath',
@@ -819,7 +946,8 @@ const CULTIVATION_METHOD_POOL = [
         },
         infrastructure: null,
         comprehendMonths: 3,
-        desc: 'Forbidden breath that drinks killing intent into the dantian. Seals a blood-fiend foundation.'
+        desc: 'Forbidden breath that drinks killing intent into the dantian. Seals a blood-fiend foundation.',
+        shopBlurb: 'Forbidden syllabus — stains the seal with killing aura. Handle with care.'
     }
 ];
 
@@ -1124,15 +1252,16 @@ const PILL_TYPES = {
     purifying_elixir: {
         name: "Purifying Elixir",
         emoji: "✨",
-        desc: "Cleanses corruption and steadies the Dao heart.",
+        desc: "Rare — mends cycle stain and steadies the spirit. Not a common shop pill.",
         months: 2,
+        reqRealm: 3,
         apply() {
             const reduced = typeof reduceCorruption === 'function'
                 ? reduceCorruption(6 + Math.floor(Math.random() * 6), 'purifying elixir')
                 : 0;
             if (typeof shiftDaoAlignment === 'function') shiftDaoAlignment(2 + Math.floor(Math.random() * 3), 'purifying elixir');
             G.will += 2;
-            return `corruption cleansed${reduced ? '' : ' (minimal)'}, +Will, Dao steadied.`;
+            return `cycle stain cleansed${reduced ? '' : ' (minimal)'}, +Will, spirit steadied.`;
         }
     },
     soul_nourishing: {
@@ -1774,7 +1903,16 @@ const MERCHANT_CATALOG = {
         methods: [
             { methodId: 'outer_sect_qi_cycling', price: 55 },
             { methodId: 'impure_meridian_breath', price: 48 },
+            { methodId: 'burning_breath_technique', price: 50 },
+            { methodId: 'iron_meridian_breath', price: 52 },
+            { methodId: 'stone_root_breath', price: 52 },
+            { methodId: 'storm_heart_breath', price: 68 },
             { methodId: 'inner_court_meridian_cycle', price: 140 }
+        ],
+        formations: [
+            { formationId: 'qi_stabilizer', price: 85 },
+            { formationId: 'iron_wall_ward', price: 95 },
+            { formationId: 'vein_seal_ward', price: 160 }
         ],
         pills: [
             { id: "spirit_gathering", price: 25, qty: 2 },
@@ -1803,7 +1941,14 @@ const MERCHANT_CATALOG = {
         ],
         methods: [
             { methodId: 'outer_sect_qi_cycling', price: 50 },
-            { methodId: 'impure_meridian_breath', price: 45 }
+            { methodId: 'impure_meridian_breath', price: 45 },
+            { methodId: 'flowing_tide_breath', price: 48 },
+            { methodId: 'verdant_breath_technique', price: 50 }
+        ],
+        formations: [
+            { formationId: 'qi_stabilizer', price: 80 },
+            { formationId: 'iron_wall_ward', price: 90 },
+            { formationId: 'vein_seal_ward', price: 150 }
         ],
         pills: [
             { id: "spirit_gathering", price: 22, qty: 2 },
@@ -5293,40 +5438,170 @@ const SECT_RESIDENCE = {
     ]
 };
 
-// ----- Formations (v1: residence deploy only) -----
+// ----- Formations (F1a fuel/switch/integrity + F1b shelf/decipher) -----
+/** Shared courtyard upkeep numbers (per-formation defs may override). */
+const FORMATION_F1A = {
+    stonePerFuel: 1,
+    defaultFuelCapacity: 24,
+    defaultFuelPerMonth: 1,
+    defaultLayFuel: 6,
+    /** Integrity points lost per month while laid (neglect). */
+    integrityDecayPerMonth: 1,
+    integrityMax: 100,
+    bands: {
+        sharp: 70,
+        fading: 35
+    },
+    /** Effect multipliers by integrity band (only while active + fueled). */
+    effectMult: {
+        sharp: 1,
+        fading: 0.55,
+        decayed: 0.2,
+        scattered: 0
+    },
+    maintain: {
+        stones: 4,
+        materials: { spirit_herb: 1 },
+        months: 1,
+        restore: 35
+    },
+    fuelPresets: [3, 6, 12]
+};
+
+/** F1b learn pipeline (thin: acquire + decipher; no Trace yet). */
+const FORMATION_F1B = {
+    decipherMonthsByTier: { 1: 2, 2: 3, 3: 4 },
+    decipherStonesByTier: { 1: 6, 2: 14, 3: 28 },
+    masterTitles: {
+        0: 'Uninitiated',
+        1: 'Pattern Student',
+        2: 'Inscriber',
+        3: 'Formation Adept',
+        4: 'Array Disciple'
+    }
+};
+
+/** F2b: Formation Insight + master exams (Adept). */
+const FORMATION_F2B = {
+    /** Decipher / auto-grant may raise master tier up to this; Adept+ needs exam. */
+    decipherMaxPromoteTier: 2,
+    fi: {
+        decipher: 5,
+        lay: 8,
+        maintain: 3,
+        /** Per calendar month a laid pattern is active and fueled. */
+        activeMonth: 0.5
+    },
+    exams: {
+        3: {
+            fromTier: 2,
+            toTier: 3,
+            fiCost: 36,
+            months: 4,
+            stones: 45,
+            materials: { spirit_herb: 6, jade_inlay: 2, silk_thread: 3 },
+            /** Soft gate — formation-mains can still attempt slightly early. */
+            minRealmIdx: 1,
+            cooldownMonths: 6,
+            baseSuccess: 0.62,
+            /** Extra success from FI above cost (capped). */
+            fiSuccessBonusPerPoint: 0.004,
+            fiSuccessBonusCap: 0.22,
+            proofLabel: 'Adept proof inscription'
+        }
+        // 4 (Array Disciple) deferred until array-assist content exists
+    }
+};
+
 const FORMATIONS = {
     spirit_gathering: {
         id: 'spirit_gathering',
         name: 'Spirit Gathering Formation',
         emoji: '🌀',
-        desc: 'Draws ambient qi to your quarters. +8% cultivation per active slot.',
+        desc: 'Draws ambient qi. +8% cultivation while running (courtyard or meditation chamber).',
         deploy: 'residence',
+        anchors: ['residence', 'meditation_chamber'],
+        formationTier: 1,
         minResidenceLevel: 1,
         effects: { cultivatePct: 8 },
         layCost: { months: 2, materials: { spirit_herb: 3, silk_thread: 1 } },
-        learnOnResidenceLevel: 1
+        fuelPerMonth: 1,
+        fuelCapacity: 24,
+        layFuel: 6,
+        /** F1b: unread novice diagram when courtyard opens — not auto-comprehended. */
+        starterUnreadOnResidenceLevel: 1
     },
     qi_stabilizer: {
         id: 'qi_stabilizer',
         name: 'Qi Stabilizer',
         emoji: '⚖️',
-        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation per session at quarters.',
+        desc: 'Steadies meridian flow. +4% cultivation and +1 Foundation while running (courtyard or meditation chamber).',
         deploy: 'residence',
+        anchors: ['residence', 'meditation_chamber'],
+        formationTier: 2,
         minResidenceLevel: 2,
+        minBuildingLevelByAnchor: { meditation_chamber: 1 },
         effects: { cultivatePct: 4, foundationPerCultivate: 1 },
         layCost: { months: 3, materials: { spirit_herb: 4, jade_inlay: 1 } },
-        learnOnResidenceLevel: 2
+        fuelPerMonth: 1,
+        fuelCapacity: 24,
+        layFuel: 6
     },
     iron_wall_ward: {
         id: 'iron_wall_ward',
         name: 'Iron Wall Ward',
         emoji: '🛡️',
-        desc: 'A defensive ward pattern. Combat deployment coming in a future update.',
-        deploy: 'residence',
-        minResidenceLevel: 1,
-        implemented: false,
-        effects: {},
-        layCost: { months: 2, materials: { iron_ore: 4, jade_inlay: 1 } }
+        desc: 'Perimeter ward for the Defense Array. Softens sect event stone losses while running — keep it off until you need it.',
+        deploy: 'defense_array',
+        anchors: ['defense_array'],
+        formationTier: 2,
+        implemented: true,
+        effects: { defenseRating: 30 },
+        layCost: { months: 3, materials: { iron_ore: 5, jade_inlay: 2 } },
+        fuelPerMonth: 2,
+        fuelCapacity: 24,
+        layFuel: 4,
+        /** Sect fantasy: wards stay ready, not roaring. */
+        defaultActiveOnLay: false
+    },
+    vein_seal_ward: {
+        id: 'vein_seal_ward',
+        name: 'Vein Seal Ward',
+        emoji: '🔒',
+        desc: '3rd-tier perimeter seal. Stronger event protection while running — Adept work; expensive to keep lit.',
+        deploy: 'defense_array',
+        anchors: ['defense_array'],
+        formationTier: 3,
+        implemented: true,
+        effects: { defenseRating: 55 },
+        layCost: { months: 5, materials: { iron_ore: 8, jade_inlay: 3, demon_core: 1 } },
+        fuelPerMonth: 3,
+        fuelCapacity: 24,
+        layFuel: 3,
+        defaultActiveOnLay: false
+    }
+};
+
+/** F2a: sect map nodes that host formation slots (1 slot once building exists). */
+const FORMATION_ANCHORS = {
+    residence: {
+        id: 'residence',
+        label: "Leader's Quarters",
+        kind: 'residence'
+    },
+    meditation_chamber: {
+        id: 'meditation_chamber',
+        label: 'Meditation Chamber',
+        kind: 'building',
+        buildingId: 'meditation_chamber',
+        hint: 'Gather and stabilise patterns amplify cultivation while running. Building Will/Spirit bonus still applies separately.'
+    },
+    defense_array: {
+        id: 'defense_array',
+        label: 'Defense Array',
+        kind: 'building',
+        buildingId: 'defense_array',
+        hint: 'Ward patterns burn fuel while lit. Leave the mountain dark until a threat — building defense still helps a little when the ward is off.'
     }
 };
 
@@ -7691,7 +7966,7 @@ const ZONE_ENCOUNTERS = {
             title: "Demonic Shrine",
             text: "A blood-stained altar hums in the deep jungle. Demonic cultivators have marked this place.",
             choices: [
-                { label: "Desecrate the altar for power", months: 2, require: { alignmentMax: -30 }, stones: 12, corruptionGain: 5, alignmentShift: -5, log: "Dark qi floods your meridians — the shrine accepts your offering." },
+                { label: "Desecrate the altar for power", months: 2, require: { alignmentMax: -30 }, stones: 12, alignmentShift: -5, log: "Dark qi floods your meridians — the shrine accepts your offering." },
                 { label: "Purify the site", months: 3, require: { alignment: 40 }, fame: 3, alignmentShift: 4, log: "You cleanse the shrine. The jungle exhales." },
                 { label: "Leave it undisturbed", months: 1, log: "Some places are best forgotten." }
             ]
@@ -8071,15 +8346,15 @@ const GEAR_ITEMS = {
 };
 
 const GEAR_CRAFT_RECIPES = {
-    rusty_qi_blade: { tier: 1, months: 2, stones: 8, materials: { iron_ore: 2, leather_scrap: 1 } },
-    leather_vest: { tier: 1, months: 2, stones: 6, materials: { leather_scrap: 3, silk_thread: 1 } },
-    cloth_headwrap: { tier: 1, months: 1, stones: 4, materials: { silk_thread: 2, spirit_herb: 1 } },
-    jade_pendant: { tier: 1, months: 2, stones: 10, materials: { spirit_herb: 2, jade_inlay: 1 } },
-    copper_band: { tier: 1, months: 1, stones: 6, materials: { iron_ore: 1, spirit_herb: 1 } },
-    travel_sandals: { tier: 1, months: 1, stones: 5, materials: { leather_scrap: 2, silk_thread: 1 } },
-    frostbite_saber: { tier: 2, months: 4, stones: 25, materials: { iron_ore: 2, frost_essence: 2, demon_core: 1, glacial_shard: 1 } },
-    spirit_weave_armor: { tier: 2, months: 4, stones: 30, materials: { silk_thread: 3, frost_essence: 2, demon_core: 1, leather_scrap: 2 } },
-    dao_insight_amulet: { tier: 3, months: 6, stones: 60, materials: { jade_inlay: 2, glacial_shard: 2, demon_core: 2, phoenix_ash: 1 } }
+    rusty_qi_blade: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 8, materials: { iron_ore: 2, leather_scrap: 1 } },
+    leather_vest: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 6, materials: { leather_scrap: 3, silk_thread: 1 } },
+    cloth_headwrap: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 4, materials: { silk_thread: 2, spirit_herb: 1 } },
+    jade_pendant: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 10, materials: { spirit_herb: 2, jade_inlay: 1 } },
+    copper_band: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 6, materials: { iron_ore: 1, spirit_herb: 1 } },
+    travel_sandals: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 5, materials: { leather_scrap: 2, silk_thread: 1 } },
+    frostbite_saber: { tier: 2, minSkill: 'journeyman', unlockByDefault: false, months: 4, stones: 25, materials: { iron_ore: 2, frost_essence: 2, demon_core: 1, glacial_shard: 1 } },
+    spirit_weave_armor: { tier: 2, minSkill: 'journeyman', unlockByDefault: false, months: 4, stones: 30, materials: { silk_thread: 3, frost_essence: 2, demon_core: 1, leather_scrap: 2 } },
+    dao_insight_amulet: { tier: 3, minSkill: 'artisan', unlockByDefault: false, months: 6, stones: 60, materials: { jade_inlay: 2, glacial_shard: 2, demon_core: 2, phoenix_ash: 1 } }
 };
 
 const GEAR_DURABILITY = { base: 80, perTier: 20, combatWear: 3, brokenMult: 0.55 };
@@ -8127,6 +8402,8 @@ const LEGENDARY_GEAR_RECIPES = {
     phoenix_plume_cloak: {
         output: 'phoenix_plume_cloak',
         tier: 4,
+        minSkill: 'master',
+        unlockByDefault: false,
         months: 8,
         stones: 80,
         materials: { phoenix_ash: 2, celestial_silk: 1, silk_thread: 3 },
@@ -8135,6 +8412,8 @@ const LEGENDARY_GEAR_RECIPES = {
     glacial_crown: {
         output: 'glacial_crown',
         tier: 4,
+        minSkill: 'master',
+        unlockByDefault: false,
         months: 8,
         stones: 75,
         materials: { glacial_shard: 2, frost_essence: 2, jade_inlay: 1 },
@@ -8143,6 +8422,8 @@ const LEGENDARY_GEAR_RECIPES = {
     celestial_insight_ring: {
         output: 'celestial_insight_ring',
         tier: 4,
+        minSkill: 'master',
+        unlockByDefault: false,
         months: 10,
         stones: 90,
         materials: { celestial_silk: 1, jade_inlay: 2, demon_core: 2 },
@@ -8344,13 +8625,12 @@ const DAO_ALIGNMENT = {
             id: 'public_atonement',
             label: 'Public Atonement',
             emoji: '🙏',
-            desc: 'Confess your misdeeds before the jianghu and seek cleansing.',
+            desc: 'Confess before the jianghu and seek mortal forgiveness (not a heavenly rite).',
             months: 6,
             fameCost: 5,
             alignMin: -69,
             alignMax: 29,
             alignDelta: [8, 15],
-            corruptionReduce: [8, 15],
             tierOnly: ['dissonant', 'rebellious'],
             maxUsesPerRealm: 2
         },
@@ -8364,20 +8644,6 @@ const DAO_ALIGNMENT = {
             alignMax: 29,
             alignDelta: [-10, -5],
             maxUsesPerRealm: 3
-        },
-        {
-            id: 'embrace_demonic',
-            label: 'Embrace Demonic Impulse',
-            emoji: '😈',
-            desc: 'Let corruption guide your hand — power at a cost.',
-            months: 3,
-            alignMin: -100,
-            alignMax: 29,
-            alignDelta: [-12, -12],
-            corruptionGain: 6,
-            requireCorruption: 20,
-            tierOnly: ['dissonant', 'rebellious'],
-            maxUsesPerRealm: 2
         }
     ],
     sectSynergy: {
@@ -8390,10 +8656,183 @@ const DAO_ALIGNMENT = {
 };
 
 // ===== HEAVENLY TRIBULATIONS =====
+/** Breakthrough transition scripts — per-gate copy; expand choice pools later. */
+const TRIBULATION_TRANSITIONS = {
+    qc_to_fe: {
+        id: 'qc_to_fe',
+        label: 'Qi Condensation → Foundation',
+        logLine: 'The first watershed — your foundation must endure the heavenly audit.',
+        heavenQuestion: 'Can gathered qi settle into bedrock the ledger recognizes as Foundation?'
+    },
+    fe_to_gc: {
+        id: 'fe_to_gc',
+        label: 'Foundation → Golden Core',
+        logLine: 'A nascent golden core forms — the Heavenly Order has not yet accepted you.',
+        limbo: true
+    },
+    gc_to_ns: {
+        id: 'gc_to_ns',
+        label: 'Golden Core → Nascent Soul',
+        logLine: 'The soul stirs within the core — lightning tests whether it may emerge.'
+    },
+    ns_to_void: {
+        id: 'ns_to_void',
+        label: 'Nascent Soul → Void Refinement',
+        logLine: 'Identity thins at the void\'s edge — the sky seeks what remains of you.'
+    },
+    void_to_dao: {
+        id: 'void_to_dao',
+        label: 'Void Refinement → Dao Seeking',
+        logLine: 'Law and self collide — heaven audits your claim to the next watershed.'
+    },
+    dao_to_immortal: {
+        id: 'dao_to_immortal',
+        label: 'Dao Seeking → Immortal Ascension',
+        logLine: 'The final audit — transcendence or erasure under the lightning.'
+    }
+};
+
+/** Per-transition tribulation scripts — v2 choice pools (expand gate by gate). */
+const TRIBULATION_SCRIPTS = {
+    qc_to_fe: {
+        id: 'qc_to_fe',
+        scriptedScars: true,
+        flavor: {
+            lightningOmen: 'Clouds churn without thunder. The gathered qi stirs — heaven asks whether it can settle into Foundation the ledger will recognize.',
+            lightningTrial: 'The bolt does not test your meridians. It tests whether your qi has bedrock to stand on.',
+            heartOmen: 'A figure wearing your unfinished self stands in the silence. It asks what you are willing to become.',
+            heartTrial: 'The Heart Demon is not a monster yet — only the doubt that you deserve to leave mortality behind.',
+            aftermath: 'The first storm passes. What foundation remains is yours to seal — or patch.'
+        },
+        choices: {
+            omen: [
+                {
+                    id: 'draw_inward',
+                    label: '☯️ Draw qi inward',
+                    flavor: 'Still the breath. Let the gathered qi show its true weight.',
+                    months: 2,
+                    score: 2,
+                    outcomeHint: 'Trial prep',
+                    log: 'Qi settles. You face the audit with clearer breath.'
+                },
+                {
+                    id: 'read_storm',
+                    label: '👁️ Read the storm\'s pattern',
+                    flavor: 'Study how heaven gathers force — forewarned is not forearmed, but less blind.',
+                    months: 3,
+                    score: 3,
+                    outcomeHint: 'Trial prep · +Will helps',
+                    require: { stat: 'will', min: 6 },
+                    failLog: 'The pattern eludes you. The omen presses closer.',
+                    fail: { score: 1, months: 2 },
+                    log: 'You glimpse the audit\'s rhythm. The trial will not catch you entirely unaware.'
+                }
+            ],
+            trial: [
+                {
+                    id: 'bedrock',
+                    label: '🏛️ Stand on bedrock',
+                    flavor: 'Root your qi as if the earth already accepted you. Stronger if you consolidated before breaking through.',
+                    tribulationTypes: ['lightning'],
+                    months: 5,
+                    score: 2,
+                    script: 'qc_bedrock',
+                    outcomeHint: 'Strong if consolidated · Foundation crack if rushed',
+                    log: 'You plant your will beneath the gathered qi. The ledger weighs your foundation.'
+                },
+                {
+                    id: 'compress',
+                    label: '🔮 Compress the dantian',
+                    flavor: 'Force density until heaven must acknowledge the pressure — or the vessel splits.',
+                    tribulationTypes: ['lightning'],
+                    months: 5,
+                    resistBonus: 4,
+                    script: 'qc_compress',
+                    outcomeHint: 'Qi density test · Qi Backlash scar on failure',
+                    failScar: 'qi_backlash',
+                    log: 'You compress qi until the sky answers with thunder.'
+                },
+                {
+                    id: 'thunder',
+                    label: '⚡ Meet the thunder openly',
+                    flavor: 'Bold cultivators are rewarded — or erased. Always available.',
+                    tribulationTypes: ['lightning'],
+                    months: 3,
+                    score: 1,
+                    resistBonus: -2,
+                    risk: 6,
+                    script: 'qc_thunder',
+                    outcomeHint: 'Risky · Scorched Flesh scar on failure',
+                    failScar: 'scorched_flesh',
+                    log: 'You refuse to hide. The first bolt is an answer, not a warning.'
+                },
+                {
+                    id: 'name_fear',
+                    label: '👤 Name the fear',
+                    flavor: 'The shadow is young — speak to it before it learns your shape.',
+                    tribulationTypes: ['heart_demon'],
+                    months: 4,
+                    score: 3,
+                    outcomeHint: 'Soul trial · Weakened Soul scar on defeat',
+                    combat: true,
+                    failScar: 'weakened_soul',
+                    log: 'You step toward the doubt wearing your face.'
+                },
+                {
+                    id: 'reject_fear',
+                    label: '🛡️ Reject the illusion',
+                    flavor: 'Deny the shadow — a soul test for those with iron will.',
+                    tribulationTypes: ['heart_demon'],
+                    months: 4,
+                    score: 1,
+                    outcomeHint: 'Requires Will 7+ · Haunted Vision scar if wrong',
+                    require: { stat: 'will', min: 7 },
+                    failLog: 'The doubt is not an illusion. It strikes true.',
+                    fail: { combat: true, months: 2, failScar: 'haunted_vision' },
+                    log: 'You deny the shadow — it does not vanish, but wavers.'
+                },
+                {
+                    id: 'embrace_shadow',
+                    label: '🌑 Embrace the shadow',
+                    flavor: 'Accept what you fear becoming — dangerous, but not cowardly.',
+                    tribulationTypes: ['heart_demon'],
+                    months: 3,
+                    combat: true,
+                    outcomeHint: 'Risky soul combat · Warped Will scar on defeat',
+                    failScar: 'warped_will',
+                    log: 'You open your arms. The Heart Demon rushes in.'
+                }
+            ],
+            aftermath: [
+                {
+                    id: 'seal_breath',
+                    label: '📜 Seal your breath',
+                    flavor: 'Patience. Let the new realm settle before you walk the world as Foundation.',
+                    months: 4,
+                    outcomeHint: 'Safe recovery',
+                    outcome: 'success',
+                    log: 'You seal what the heavens allowed. Foundation is fragile — you treat it gently.'
+                },
+                {
+                    id: 'seclude_heal',
+                    label: '❤️ Seclude and heal',
+                    flavor: 'The body remembers the audit even when the ledger moves on.',
+                    months: 5,
+                    outcomeHint: 'Heal HP · slower',
+                    outcome: 'success',
+                    log: 'You mend what the trial broke before facing the sect again.'
+                }
+            ]
+        }
+    }
+};
+
 const TRIBULATION_BALANCE = {
     minRealm: 1,
     baseSeverity: 10,
     severityPerRealm: 5,
+    heavenTheftSeverityPerCount: 0.25,
+    corruptionNoticedMult: 1.35,
     omenMonths: 3,
     trialMonths: 6,
     aftermathMonths: 4,
@@ -8453,6 +8892,29 @@ const TRIBULATION_PATH_FLAVOR = {
 };
 
 const TRIBULATION_SCARS = {
+    unstable_foundation: {
+        name: "Unstable Foundation",
+        desc: "The ledger accepted you — but the bedrock shifted. Your foundation wobbles under stress.",
+        log: "🩸 Unstable Foundation — the first watershed left hairline cracks in your root.",
+        realmAtBreakthrough: 1,
+        transitionIds: ['qc_to_fe'],
+        down: { maxQiPct: -0.08 },
+        up: { breakthroughPct: 0.05 },
+        downLabel: "−8% max Qi",
+        upLabel: "+5% breakthrough chance"
+    },
+    qi_backlash: {
+        name: "Qi Backlash",
+        desc: "Compressed too hard, too fast. Qi surges unpredictably — painful, but not without edge.",
+        log: "🩸 Qi Backlash — the dantian remembers the pressure that nearly split it.",
+        realmAtBreakthrough: 1,
+        transitionIds: ['qc_to_fe'],
+        tribulationTypes: ['lightning'],
+        down: { maxQiPct: -0.12 },
+        up: { qiRegenPct: 0.25 },
+        downLabel: "−12% max Qi",
+        upLabel: "+25% Qi recovery from cultivation"
+    },
     cracked_core: {
         name: "Cracked Core",
         desc: "Your golden core fractured under heaven's weight. Qi leaks — but desperation sharpens your strikes.",
@@ -8467,6 +8929,7 @@ const TRIBULATION_SCARS = {
         name: "Shattered Meridian",
         desc: "A meridian burst during the trial. Circulation is crippled — yet what remains flows faster.",
         log: "🩸 Shattered Meridian — broken channels, surging recovery.",
+        realmAtBreakthrough: 2,
         tribulationTypes: ["lightning"],
         down: { maxQiPct: -0.20 },
         up: { qiRegenPct: 0.50 },
@@ -8477,6 +8940,7 @@ const TRIBULATION_SCARS = {
         name: "Scorched Flesh",
         desc: "Lightning charred your meridians into living armor. You are fragile — and harder to break.",
         log: "🩸 Scorched Flesh — burned skin, iron tolerance.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["lightning"],
         down: { maxHpPct: -0.10 },
         up: { defenseBonusPct: 0.10 },
@@ -8487,6 +8951,7 @@ const TRIBULATION_SCARS = {
         name: "Weakened Soul",
         desc: "The Heart Demon took a piece of your spirit. What remains is guarded, wary, resilient.",
         log: "🩸 Weakened Soul — thinner spirit, thicker mental walls.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["heart_demon"],
         down: { spiritPct: -0.15 },
         up: { mentalResistPct: 0.15 },
@@ -8497,6 +8962,7 @@ const TRIBULATION_SCARS = {
         name: "Haunted Vision",
         desc: "You see echoes of what was and what might have been. Your hands tremble — your feet do not.",
         log: "🩸 Haunted Vision — unreliable sight, uncanny reflexes.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["heart_demon"],
         down: { accuracyPct: -0.05 },
         up: { evasionBonusPct: 0.10 },
@@ -8518,6 +8984,7 @@ const TRIBULATION_SCARS = {
         name: "Warped Will",
         desc: "Fear carved grooves in your resolve. You bend — but you no longer break.",
         log: "🩸 Warped Will — fractured resolve, iron nerve.",
+        realmAtBreakthrough: 1,
         tribulationTypes: ["heart_demon"],
         down: { willPct: -0.10 },
         up: { fearResistPct: 0.10 },
@@ -8528,6 +8995,7 @@ const TRIBULATION_SCARS = {
         name: "Cursed Blood",
         desc: "Tribulation blood turned sour. You heal slowly — yet demons taste your wrath.",
         log: "🩸 Cursed Blood — sluggish flesh, hungry blade.",
+        realmAtBreakthrough: 2,
         down: { hpRegenPct: -0.10 },
         up: { demonDmgPct: 0.10 },
         downLabel: "−10% HP regeneration",
@@ -8547,6 +9015,7 @@ const TRIBULATION_SCARS = {
         name: "Lingering Grief",
         desc: "You survived what others did not. Fame fades — but the lonely still hear your name.",
         log: "🩸 Lingering Grief — quiet legend, open hearts.",
+        realmAtBreakthrough: 3,
         down: { fameGainPct: -0.10 },
         up: { recruitChancePct: 0.10 },
         downLabel: "−10% Fame gained",

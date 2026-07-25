@@ -21,6 +21,7 @@ function shouldTriggerTribulation() {
 }
 
 function getTribulationSeverity() {
+    if (typeof ensureHeavenLedgerState === 'function') ensureHeavenLedgerState();
     let severity = TRIBULATION_BALANCE.baseSeverity + G.realmIdx * TRIBULATION_BALANCE.severityPerRealm;
     severity += getPlayerTraitBonus('tribulationSeverityPct', 0);
     severity -= Math.floor(getEffectiveFoundation() / 4);
@@ -29,9 +30,6 @@ function getTribulationSeverity() {
     severity = Math.floor(severity * (1 - getScarDown('perceptionPct', 0)));
     if (typeof getTranscendenceTribulationResistPct === 'function') {
         severity = Math.floor(severity * (1 - getTranscendenceTribulationResistPct()));
-    }
-    if (typeof getDaoAlignmentTribulationSeverityMult === 'function') {
-        severity = Math.floor(severity * getDaoAlignmentTribulationSeverityMult());
     }
     if (typeof getSectSpiritTribulationEasePct === 'function') {
         severity = Math.floor(severity * (1 - getSectSpiritTribulationEasePct() / 100));
@@ -42,32 +40,103 @@ function getTribulationSeverity() {
     if (typeof getConsolidationTierTribulationBonus === 'function') {
         severity += getConsolidationTierTribulationBonus(G.realmIdx - 1);
     }
+    const theftMult = 1 + (G.heavenTheftCount || 0) * (TRIBULATION_BALANCE.heavenTheftSeverityPerCount || 0.25);
+    severity = Math.floor(severity * theftMult);
+    if (G.corruptionNoticed) {
+        severity = Math.floor(severity * (TRIBULATION_BALANCE.corruptionNoticedMult || 1.35));
+    }
     return Math.max(8, Math.floor(severity));
 }
 
-function pickTribulationType() {
-    let heartChance = 0.42;
-    if (G.path === 'soul') heartChance = 0.55;
-    if (G.path === 'body') heartChance = 0.35;
-    if (G.realmIdx % 2 === 1) heartChance += 0.12;
-    return Math.random() < heartChance ? 'heart_demon' : 'lightning';
+function resolveBreakthroughTransitionId(fromIdx, toIdx) {
+    const key = `${fromIdx}_to_${toIdx}`;
+    const map = {
+        '0_1': 'qc_to_fe',
+        '1_2': 'fe_to_gc',
+        '2_3': 'gc_to_ns',
+        '3_4': 'ns_to_void',
+        '4_5': 'void_to_dao',
+        '5_6': 'dao_to_immortal'
+    };
+    return map[key] || `realm_${fromIdx}_to_${toIdx}`;
 }
 
-function getTribulationFlavor() {
-    return TRIBULATION_PATH_FLAVOR[G.path] || TRIBULATION_PATH_FLAVOR.qi;
+function getTribulationTransitionDef(transitionId) {
+    return TRIBULATION_TRANSITIONS?.[transitionId] || null;
 }
 
-function getTribulationTypeDef(typeId) {
-    return TRIBULATION_TYPES[typeId] || TRIBULATION_TYPES.lightning;
+function getTribulationScript(transitionId) {
+    return TRIBULATION_SCRIPTS?.[transitionId] || null;
 }
 
-function startTribulation(breakStyle) {
-    const type = pickTribulationType();
+function usesScriptedTribulation(state) {
+    if (!state?.transitionId) return false;
+    return !!getTribulationScript(state.transitionId)?.scriptedScars;
+}
+
+function getScriptPhaseChoices(phase) {
+    const state = G.tribulationState;
+    if (!state?.transitionId) return null;
+    const script = getTribulationScript(state.transitionId);
+    const pool = script?.choices?.[phase];
+    if (!pool?.length) return null;
+    return pool.filter(c => !c.tribulationTypes || c.tribulationTypes.includes(state.type));
+}
+
+function getTribulationPhaseChoices(phase) {
+    const scripted = getScriptPhaseChoices(phase);
+    if (scripted?.length) return scripted;
+    if (phase === 'omen') return getOmenChoices();
+    if (phase === 'trial') return getTrialChoices();
+    return getAftermathChoices();
+}
+
+function pickTribulationScript(path, transitionId) {
+    const p = path || G.path || 'qi';
+    if (p === 'soul') return 'heart_demon';
+    return 'lightning';
+}
+
+function getTribulationLedgerModifierLabel() {
+    const parts = [];
+    const thefts = G.heavenTheftCount || 0;
+    if (thefts > 0) {
+        const mult = 1 + thefts * (TRIBULATION_BALANCE.heavenTheftSeverityPerCount || 0.25);
+        parts.push(`Ledger ×${mult.toFixed(2)}`);
+    }
+    if (G.corruptionNoticed) parts.push('Cycle stain');
+    return parts.join(' · ');
+}
+
+function normalizeTribulationOptions(arg) {
+    if (typeof arg === 'string') return { breakStyle: arg };
+    return arg && typeof arg === 'object' ? arg : {};
+}
+
+function startTribulation(arg) {
+    const opts = normalizeTribulationOptions(arg);
+    const breakStyle = opts.breakStyle || 'balanced';
+    const context = opts.context || 'breakthrough';
+    const transitionId = opts.transitionId || null;
+    const path = G.path || 'qi';
+    const type = pickTribulationScript(path, transitionId);
+    const transition = transitionId ? getTribulationTransitionDef(transitionId) : null;
+
+    if (opts.limbo || transition?.limbo) {
+        G.cultivationLimbo = {
+            transitionId: transitionId || transition?.id || null,
+            sinceMonths: G.ageMonths || 0,
+            label: transition?.label || 'Between realms'
+        };
+    }
+
     G.tribulationState = {
         active: true,
         type,
         phase: 'omen',
-        breakStyle: breakStyle || 'balanced',
+        context,
+        transitionId,
+        breakStyle,
         severity: getTribulationSeverity(),
         trialScore: 0,
         trialPassed: null,
@@ -75,10 +144,36 @@ function startTribulation(breakStyle) {
         scarRisk: 0,
         choicesMade: []
     };
-    addLog(`${getTribulationTypeDef(type).emoji} ${getTribulationTypeDef(type).name} descends upon ${G.name}!`);
+
+    const typeDef = getTribulationTypeDef(type);
+    addLog(`${typeDef.emoji} ${typeDef.name} descends upon ${G.name}!`);
+    if (transition?.logLine) addLog(`📖 ${transition.logLine}`);
+    if (G.cultivationLimbo?.label) {
+        addLog(`⏳ ${G.cultivationLimbo.label} — heaven audits before acceptance.`);
+    }
+    if (G.corruptionNoticed && context === 'breakthrough') {
+        addLog('📖 Cycle stain amplifies the audit — the Heavenly Order settles old accounts.');
+    }
+    if ((G.heavenTheftCount || 0) > 0 && context === 'breakthrough') {
+        addLog('📖 Sacrilege on the ledger — the audit is harsher than it would have been.');
+    }
+
     renderTribulationOverlay();
     document.getElementById('tribulationOverlay').classList.add('active');
     fullRender();
+}
+
+function getTribulationFlavor() {
+    const state = G.tribulationState;
+    const scriptFlavor = state?.transitionId && getTribulationScript(state.transitionId)?.flavor;
+    if (scriptFlavor) {
+        return { ...TRIBULATION_PATH_FLAVOR[G.path] || TRIBULATION_PATH_FLAVOR.qi, ...scriptFlavor };
+    }
+    return TRIBULATION_PATH_FLAVOR[G.path] || TRIBULATION_PATH_FLAVOR.qi;
+}
+
+function getTribulationTypeDef(typeId) {
+    return TRIBULATION_TYPES[typeId] || TRIBULATION_TYPES.lightning;
 }
 
 function tribulationAdvanceTime(months, label) {
@@ -239,7 +334,9 @@ function getAftermathChoices() {
 
 function formatTribulationChoiceMeta(c) {
     const parts = [];
-    const scarTip = STAT_GUIDE?.scarRisk?.desc || '';
+    if (c.outcomeHint) {
+        parts.push(c.outcomeHint);
+    }
     if (c.months) parts.push(`⏳ ${c.months} mo`);
     if (c.combat) parts.push('⚔️ Combat');
     if (c.require) {
@@ -248,8 +345,11 @@ function formatTribulationChoiceMeta(c) {
     }
     if (c.requirePill) parts.push('💊 Uses 1 pill');
     if (c.outcome === 'transcend') parts.push('✨ Transcend chance');
-    if (c.scarRisk > 0) parts.push(`<span class="scar-risk-tip" title="${scarTip}">🩸 +${c.scarRisk} scar risk</span>`);
-    if (c.scarRisk < 0) parts.push(`<span class="scar-risk-tip" title="${scarTip}">🩸 ${c.scarRisk} scar risk</span>`);
+    if (!usesScriptedTribulation(G.tribulationState)) {
+        const scarTip = STAT_GUIDE?.scarRisk?.desc || '';
+        if (c.scarRisk > 0) parts.push(`<span class="scar-risk-tip" title="${scarTip}">🩸 +${c.scarRisk} scar risk</span>`);
+        if (c.scarRisk < 0) parts.push(`<span class="scar-risk-tip" title="${scarTip}">🩸 ${c.scarRisk} scar risk</span>`);
+    }
     return parts.join(' · ') || 'Choose wisely';
 }
 
@@ -264,27 +364,32 @@ function renderTribulationOverlay() {
     if (!state) return;
 
     const typeDef = getTribulationTypeDef(state.type);
-    const choices = state.phase === 'omen' ? getOmenChoices()
-        : state.phase === 'trial' ? getTrialChoices()
-            : getAftermathChoices();
+    const choices = getTribulationPhaseChoices(state.phase);
 
     document.getElementById('tribulationTitle').textContent = `${typeDef.emoji} ${typeDef.name}`;
     document.getElementById('tribulationPhase').textContent = getTribulationPhaseLabel(state.phase);
+    const scripted = usesScriptedTribulation(state);
     const scarRiskTip = STAT_GUIDE?.scarRisk?.desc || '';
     const scarLabel = STAT_GUIDE?.scarRisk?.label || 'Scar risk';
-    document.getElementById('tribulationMeter').innerHTML =
-        `Severity ${state.severity} · Trial score ${state.trialScore} · ` +
-        `<span class="scar-risk-tip" title="${scarRiskTip}">🩸 ${scarLabel}: ${state.scarRisk || 0}</span>` +
-        (typeof getDaoAlignmentTribulationModifierLabel === 'function' && getDaoAlignmentTribulationModifierLabel()
-            ? ` · ${getDaoAlignmentTribulationModifierLabel()}`
-            : '') +
-        (state.trialPassed === true ? ' · Trial passed' : state.trialPassed === false ? ' · Trial failed' : '');
+    let meterHtml = `Severity ${state.severity} · Trial score ${state.trialScore}`;
+    if (!scripted) {
+        meterHtml += ` · <span class="scar-risk-tip" title="${scarRiskTip}">🩸 ${scarLabel}: ${state.scarRisk || 0}</span>`;
+    }
+    meterHtml += typeof getTribulationLedgerModifierLabel === 'function' && getTribulationLedgerModifierLabel()
+        ? ` · ${getTribulationLedgerModifierLabel()}`
+        : '';
+    meterHtml += state.trialPassed === true ? ' · Trial passed' : state.trialPassed === false ? ' · Trial failed' : '';
+    document.getElementById('tribulationMeter').innerHTML = meterHtml;
 
     const flavor = getTribulationFlavor();
+    const transition = state.transitionId ? getTribulationTransitionDef(state.transitionId) : null;
     let text = typeDef.desc;
     if (state.phase === 'omen') text = state.type === 'heart_demon' ? flavor.heartOmen : flavor.lightningOmen;
     else if (state.phase === 'trial') text = state.type === 'heart_demon' ? flavor.heartTrial : flavor.lightningTrial;
     else text = flavor.aftermath;
+    if (transition?.heavenQuestion && state.phase === 'omen') {
+        text = `${transition.heavenQuestion} ${text}`;
+    }
     document.getElementById('tribulationText').textContent = text;
 
     const container = document.getElementById('tribulationChoices');
@@ -316,9 +421,7 @@ function tribulationChoose(idx) {
     const state = G.tribulationState;
     if (!state) return;
 
-    const choices = state.phase === 'omen' ? getOmenChoices()
-        : state.phase === 'trial' ? getTrialChoices()
-            : getAftermathChoices();
+    const choices = getTribulationPhaseChoices(state.phase);
     const choice = choices[idx];
     if (!choice) return;
 
@@ -330,7 +433,8 @@ function tribulationChoose(idx) {
     if (!tribulationMeetsRequire(choice.require)) {
         addLog(`⚡ ${choice.failLog || 'You are not ready.'}`);
         if (choice.fail) {
-            tribulationApplyChoiceEffects(choice.fail, choice);
+            tribulationApplyChoiceEffects(choice.fail, choice.fail);
+            tribulationApplyScriptedFailScar(choice.fail);
             if (state.phase === 'trial' && choice.fail.combat) {
                 document.getElementById('tribulationOverlay').classList.remove('active');
                 startHeartDemonCombat();
@@ -392,6 +496,52 @@ function tribulationApplyChoiceEffects(effects, sourceChoice) {
     if (effects.scarRisk != null) state.scarRisk = (state.scarRisk || 0) + effects.scarRisk;
     else if (sourceChoice?.scarRisk) state.scarRisk = (state.scarRisk || 0) + sourceChoice.scarRisk;
     if (sourceChoice?.id) state.choicesMade.push(sourceChoice.id);
+    if (sourceChoice) state.lastChoice = sourceChoice;
+}
+
+function tribulationApplyScriptedFailScar(effects) {
+    if (!usesScriptedTribulation(G.tribulationState)) return;
+    const scarId = effects?.failScar;
+    if (!scarId) return;
+    applyTribulationScar(scarId);
+    G.tribulationState.scarRolled = true;
+}
+
+function getQcBedrockResistBonus() {
+    const prevRealm = Math.max(0, G.realmIdx - 1);
+    const tier = typeof getConsolidationTier === 'function' ? getConsolidationTier(prevRealm) : null;
+    if (tier === 'perfect') return 12;
+    if (tier === 'peak' || tier === 'settled') return 8;
+    return 1;
+}
+
+function isQcBedrockRushed() {
+    const prevRealm = Math.max(0, G.realmIdx - 1);
+    const tier = typeof getConsolidationTier === 'function' ? getConsolidationTier(prevRealm) : null;
+    return !tier || tier === 'hasty';
+}
+
+function applyScriptedLightningFail(choice) {
+    const state = G.tribulationState;
+    if (!usesScriptedTribulation(state)) return;
+
+    if (choice.script === 'qc_bedrock' && isQcBedrockRushed()) {
+        if (typeof grantFoundationCrack === 'function') {
+            const cracks = grantFoundationCrack(1);
+            addLog(`🩸 The bedrock shifts — ${cracks} foundation crack${cracks === 1 ? '' : 's'} under the audit.`);
+        }
+        if (!state.scarRolled) {
+            applyTribulationScar('unstable_foundation');
+            state.scarRolled = true;
+        }
+        return;
+    }
+
+    const scarId = choice.failScar;
+    if (scarId && !state.scarRolled) {
+        applyTribulationScar(scarId);
+        state.scarRolled = true;
+    }
 }
 
 function resolveLightningTrial(choice) {
@@ -404,7 +554,13 @@ function resolveLightningTrial(choice) {
         return;
     }
     let resist = getLightningResistPower();
-    resist += (choice.resistBonus || 0);
+    if (choice.script === 'qc_bedrock') {
+        resist += getQcBedrockResistBonus();
+    } else if (choice.script === 'qc_compress') {
+        resist += Math.floor(G.qi / 4);
+    } else {
+        resist += (choice.resistBonus || 0);
+    }
     resist += state.trialScore * 2;
     resist += G.lightningResist || 0;
     resist += getScarLightningResistBonus();
@@ -427,7 +583,10 @@ function resolveLightningTrial(choice) {
     } else {
         const gap = state.severity - resist;
         applyLightningDamage(gap);
-        state.scarRisk = (state.scarRisk || 0) + 15;
+        if (!usesScriptedTribulation(state)) {
+            state.scarRisk = (state.scarRisk || 0) + 15;
+        }
+        applyScriptedLightningFail(choice);
         addLog(`💀 The bolt finds a gap in your defense! (${Math.round(resist)} vs ${state.severity})`);
     }
 }
@@ -523,7 +682,12 @@ function tribulationCombatDefeat() {
     G.enemy = null;
 
     state.trialPassed = false;
-    state.scarRisk = (state.scarRisk || 0) + 20;
+    if (!usesScriptedTribulation(state)) {
+        state.scarRisk = (state.scarRisk || 0) + 20;
+    } else if (state.lastChoice?.failScar && !state.scarRolled) {
+        applyTribulationScar(state.lastChoice.failScar);
+        state.scarRolled = true;
+    }
     G.hp = Math.max(1, Math.floor(G.maxHp * 0.25));
     G.qi = Math.max(1, G.qi - 5 - G.realmIdx);
     G.will = Math.max(1, G.will - 2);
@@ -539,15 +703,20 @@ function tribulationCombatDefeat() {
 function tribulationResolveAftermath(choice) {
     const state = G.tribulationState;
     let outcome = choice.outcome;
+    const passed = state.trialPassed;
 
     if (typeof isPlaytestAutoPassTribulation === 'function' && isPlaytestAutoPassTribulation()) {
         state.trialPassed = true;
         outcome = 'success';
     } else if (!tribulationMeetsRequire(choice.require)) {
         addLog(`⚡ ${choice.failLog || 'Transcendence eludes you.'}`);
-        outcome = choice.fail?.outcome || (state.trialPassed ? 'success' : 'failure_soft');
+        outcome = choice.fail?.outcome || (passed ? 'success' : 'failure_soft');
     } else {
         addLog(`${getTribulationTypeDef(state.type).emoji} ${choice.log}`);
+    }
+
+    if (usesScriptedTribulation(state)) {
+        outcome = passed ? 'success' : 'failure_soft';
     }
 
     if (!tribulationAdvanceTime(choice.months || TRIBULATION_BALANCE.aftermathMonths, `${getTribulationTypeDef(state.type).name} — Aftermath`)) {
@@ -555,8 +724,8 @@ function tribulationResolveAftermath(choice) {
         return;
     }
 
-    if (choice.id === 'heal') {
-        const heal = Math.floor(G.maxHp * (state.trialPassed ? 0.45 : 0.2));
+    if (choice.id === 'heal' || choice.id === 'seclude_heal') {
+        const heal = Math.floor(G.maxHp * (passed ? 0.45 : 0.2));
         G.hp = Math.min(G.maxHp, G.hp + heal);
         addLog(`❤️ You recover ${heal} HP in seclusion.`);
     }
@@ -715,13 +884,18 @@ function getScarRollChance(state) {
 function getEligibleScarsForRoll(state) {
     const realm = G.realmIdx;
     const type = state.type;
+    const transitionId = state.transitionId || null;
     const owned = new Set(getActiveScars().map(s => s.id));
     const pool = [];
 
     Object.entries(TRIBULATION_SCARS).forEach(([id, def]) => {
         if (owned.has(id)) return;
         if (id === 'cracked_core' && typeof hasTranscendencePerk === 'function' && hasTranscendencePerk('unbreakable_core')) return;
-        if (def.realmAtBreakthrough != null && def.realmAtBreakthrough !== realm) return;
+        if (def.realmAtBreakthrough == null) return;
+        if (def.realmAtBreakthrough !== realm) return;
+        if (def.transitionIds?.length) {
+            if (!transitionId || !def.transitionIds.includes(transitionId)) return;
+        }
         if (def.tribulationTypes && !def.tribulationTypes.includes(type)) return;
         let weight = 1;
         if (def.realmAtBreakthrough === realm) weight = 4;
@@ -729,11 +903,6 @@ function getEligibleScarsForRoll(state) {
         pool.push({ id, weight });
     });
 
-    if (!pool.length) {
-        Object.keys(TRIBULATION_SCARS).forEach(id => {
-            if (!owned.has(id)) pool.push({ id, weight: 1 });
-        });
-    }
     return pool;
 }
 
@@ -749,6 +918,7 @@ function pickWeightedScar(pool) {
 
 function maybeRollTribulationScar(state) {
     if (!state || state.scarRolled) return;
+    if (usesScriptedTribulation(state)) return;
     state.scarRolled = true;
     const chance = getScarRollChance(state);
     if (Math.random() >= chance) {
@@ -1000,6 +1170,7 @@ function finishTribulation() {
         G.chamberCondensePending.tribulationPassed = !!state.trialPassed;
     }
     if (state) maybeRollTribulationScar(state);
+    G.cultivationLimbo = null;
     document.getElementById('tribulationOverlay')?.classList.remove('active');
     G.tribulationState = null;
     G.tribulationCombat = null;

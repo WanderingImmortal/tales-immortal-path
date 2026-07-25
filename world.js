@@ -572,6 +572,51 @@ function buyCultivationMethod(methodId) {
     fullRender();
 }
 
+function buyFormationManual(formationId) {
+    const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : getActiveZoneId();
+    const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;
+    if (!catalog?.formations?.length) return;
+    const item = catalog.formations.find(s => s.formationId === formationId);
+    if (!item) return;
+    const def = typeof getFormationDef === 'function' ? getFormationDef(formationId) : null;
+    if (!def || def.implemented === false) return;
+    const reqRealm = item.reqRealm ?? 0;
+    if (G.realmIdx < reqRealm) {
+        const realmName = PATHS[G.path]?.realms[reqRealm] || `realm ${reqRealm + 1}`;
+        addLog(`☯️ ${def.name} requires ${realmName} or higher.`);
+        fullRender();
+        return;
+    }
+    if (typeof getFormationShelfEntry === 'function' && getFormationShelfEntry(formationId)) {
+        addLog(`☯️ You already keep a copy of ${def.name} on your formation shelf.`);
+        fullRender();
+        return;
+    }
+    const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+    if (G.stones < finalPrice) {
+        addLog(`💎 Need ${finalPrice} Stones for ${def.name}. You have ${G.stones}.`);
+        fullRender();
+        return;
+    }
+    beginActionLog();
+    if (!advanceTime(ACTION_MONTHS.market, `Buying ${def.name} diagram at the market`)) {
+        cancelActionLog();
+        fullRender();
+        return;
+    }
+    G.stones -= finalPrice;
+    const got = typeof grantFormationManual === 'function'
+        && grantFormationManual(formationId, { silent: true, deciphered: false, source: 'market' });
+    const discountNote = finalPrice < item.price ? ` (favor discount: −${item.price - finalPrice})` : '';
+    if (!got) G.stones += finalPrice;
+    commitActionLog(got
+        ? `🏪 Purchased unread formation manual: ${def.emoji} ${def.name} for ${finalPrice} Stones${discountNote} — Decipher at your residence.`
+        : `🏪 Could not shelve ${def.name}. Stones refunded.`);
+    if (typeof renderMerchantPopup === 'function') renderMerchantPopup();
+    fullRender();
+}
+
 function buyTechnique(techName) {
     const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : getActiveZoneId();
     const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;

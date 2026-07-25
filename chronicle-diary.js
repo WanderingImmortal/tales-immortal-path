@@ -79,11 +79,12 @@ function collectDiaryPathEntries() {
             const row = toDiaryEntry({
                 ...e,
                 scope: 'self',
-                category: e.kind === 'sect' ? 'sect-duty' : (e.kind || 'quest'),
-                emoji: e.status === 'active' ? '◆' : (e.kind === 'sect' ? '🏯' : '📖'),
+                category: e.kind === 'seclusion' ? 'seclusion' : (e.kind || 'quest'),
+                emoji: e.status === 'active' ? '◆' : (e.kind === 'seclusion' ? '🗻' : '📖'),
                 title: e.title,
                 body: e.objective,
-                metaExtra: e.kind === 'sect' ? 'sect duty' : (e.kind === 'active' || e.arcId ? 'story arc' : (e.kind || 'quest'))
+                metaExtra: e.kind === 'seclusion' ? 'seclusion'
+                    : (e.kind === 'active' || e.arcId ? 'story arc' : (e.kind || 'quest'))
             });
             if (row) out.push(row);
         });

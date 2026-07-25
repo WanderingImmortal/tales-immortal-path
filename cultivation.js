@@ -228,10 +228,17 @@ function executeTrackBreakthrough(style, track) {
             return;
         }
         if (track === 'dantian' && shouldTriggerTribulation()) {
+            const tribOpts = {
+                breakStyle: style,
+                context: 'breakthrough',
+                transitionId: typeof resolveBreakthroughTransitionId === 'function'
+                    ? resolveBreakthroughTransitionId(newIdx - 1, newIdx)
+                    : null
+            };
             if (typeof beginTribulationWithTutorial === 'function') {
-                beginTribulationWithTutorial(style);
+                beginTribulationWithTutorial(style, tribOpts);
             } else {
-                startTribulation(style);
+                startTribulation(tribOpts);
             }
             return;
         }
@@ -446,19 +453,11 @@ function attemptEvilPhysique(name) {
     G.physique = { ...physique };
     applyPhysiqueBonus(G.physique);
     G._appliedPhysiqueRecord = { ...G.physique, bonus: { ...(G.physique.bonus || {}) } };
-    G.corruptionLevel += 20;
     grantFoundation(5);
     const msg = `😈 You embrace the ${name} physique! ${physique.pro} ${physique.con}`;
     commitActionLog(msg);
     if (typeof shiftDaoAlignment === 'function') {
         shiftDaoAlignment(DAO_ALIGNMENT.shifts.evilPhysique, 'embracing an Evil Physique');
-    }
-    if (G.corruptionLevel >= G.corruptionThreshold) {
-        addLog(`💀 CORRUPTION OVERWHELMS YOU! You lose control...`);
-        G.gameOver = true;
-        if (typeof triggerBitterReincarnation === 'function') {
-            setTimeout(() => triggerBitterReincarnation('💀 Corruption overwhelms you. Bitter reincarnation is your only path forward.'), 600);
-        }
     }
     return { success: true, message: msg, logged: true };
 }

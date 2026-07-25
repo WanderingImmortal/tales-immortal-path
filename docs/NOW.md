@@ -5,18 +5,22 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-25
 
 ## Focus
-- Technique-driven cultivation — nature test manuals + sword sharper aura (`cursor/technique-nature-manuals`)
+- Technique-driven cultivation — sword/blood test manuals + sharper aura ([#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74))
 
 ## Next
-- Playtest combat % on sealed natures
-- More natures / methods when ready
-- Chronicle tick playback + seclusion project (after diary v0)
+- Playtest combat % on sealed natures (esp. sword aura NPC lines)
+- Merge imperial doc PR / Longcheng phase-1 map nodes
+- Chronicle tick playback + seclusion project
+
+## Parked (return later)
+- **Higher-realm trib scripts** — [`docs/ideas/tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md)
+- Formations Guild hubs / branch exams — [`docs/ideas/creation-path-guilds.md`](ideas/creation-path-guilds.md)
 
 ## Blocked
-- (none)
+- Fate-rite tribulation waves (needs chronicle fate-rite project)
+- Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
-- Chronicle diary reader v0
-- Sect map unification ([#57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57))
-- Local & world map split ([#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56))
-- See merged PRs on GitHub
+- Elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))
+- Golden Phoenix / Void Temple / Jade Lotus / Celestial Sword sect docs
+- Tribulation v2 QC→FE ([#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63))

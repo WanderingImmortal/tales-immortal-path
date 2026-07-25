@@ -737,6 +737,7 @@ function getCultivatorRealmEffects(path, realm, style) {
 }
 
 function addLog(msg) {
+    if (G._quietTime) return;
     if (G._deferringLogs && G._actionLog) {
         if (!G._pendingActionMeta) G._pendingActionMeta = { time: '', world: '', extras: [] };
         const text = typeof msg === 'object' ? msg.html : msg;
@@ -2404,10 +2405,38 @@ function renderMerchantPopup() {
             if (canBuy) status += ' · Click to buy';
             return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-method="${escapeAttr(method.id)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
                 <div class="name">📘 ${method.name}${studied ? ' <span style="color:#7a9a7a;font-size:11px;">(studied)</span>' : ''}</div>
-                <div class="desc">${method.desc} · ${grade}</div>
+                <div class="desc">${method.shopBlurb || method.desc} · ${grade}</div>
                 <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
             </div>`;
         }).join('');
+    }
+
+    if (catalog.formations?.length) {
+        html += `<div class="tech-group-header" style="margin-top:12px;">☯️ Formation manuals</div>`;
+        html += catalog.formations.map(item => {
+            const def = typeof getFormationDef === 'function' ? getFormationDef(item.formationId) : null;
+            if (!def || def.implemented === false) return '';
+            const reqRealm = item.reqRealm ?? 0;
+            const locked = G.realmIdx < reqRealm;
+            const owned = typeof getFormationShelfEntry === 'function' && !!getFormationShelfEntry(def.id);
+            const deciphered = typeof isFormationDeciphered === 'function' && isFormationDeciphered(def.id);
+            const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+            const canBuy = !locked && !owned && G.stones >= finalPrice;
+            const realmName = PATHS[G.path].realms[reqRealm] || `Realm ${reqRealm + 1}`;
+            const ft = def.formationTier || 1;
+            let status = locked ? `Need ${realmName}` : `${finalPrice} Stones · Unread diagram · ${ft}${ft === 1 ? 'st' : 'nd'}-tier`;
+            if (owned) status = deciphered ? `On shelf (deciphered) · ${status}` : `On shelf (unread) · ${status}`;
+            if (!locked && finalPrice < item.price) status += ` (was ${item.price})`;
+            if (canBuy) status += ' · Click to buy';
+            return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-formation="${escapeAttr(def.id)}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
+                <div class="name">${def.emoji} ${def.name}${owned ? ' <span style="color:#7a9a7a;font-size:11px;">(owned)</span>' : ''}</div>
+                <div class="desc">${def.desc}</div>
+                <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
+            </div>`;
+        }).join('');
+    }
+
+    if (catalog.methods?.length || catalog.formations?.length) {
         html += `<div class="tech-group-header" style="margin-top:12px;">📜 Combat manuals</div>`;
     }
 
@@ -2488,6 +2517,11 @@ function renderMerchantPopup() {
             if (typeof buyCultivationMethod === 'function') buyCultivationMethod(this.dataset.buyMethod);
         });
     });
+    list.querySelectorAll('[data-buy-formation]').forEach(row => {
+        row.addEventListener('click', function() {
+            if (typeof buyFormationManual === 'function') buyFormationManual(this.dataset.buyFormation);
+        });
+    });
     list.querySelectorAll('[data-buy]').forEach(row => {
         row.addEventListener('click', function() {
             buyTechnique(this.dataset.buy);
@@ -2540,9 +2574,10 @@ function renderAlignmentPopup() {
     if (corruption > 0) {
         const corrPct = Math.min(100, Math.round((corruption / corruptionMax) * 100));
         html += `<div class="alignment-corruption-wrap">
-            <div class="alignment-corruption-label">🩸 Corruption ${corruption}/${corruptionMax}</div>
+            <div class="alignment-corruption-label">🩸 Cycle stain ${corruption}/${corruptionMax}</div>
             <div class="alignment-progress-bar corruption-bar"><div class="alignment-progress-fill corruption-fill" style="width:${corrPct}%"></div></div>
-            ${corruption >= (DAO_ALIGNMENT.corruptionDriftThreshold || 50) ? '<div class="alignment-corruption-warn">High corruption drifts alignment downward when cultivating.</div>' : ''}
+            ${G.corruptionNoticed ? '<div class="alignment-corruption-warn">Heaven will amplify your next juncture tribulation.</div>' : ''}
+            ${!G.corruptionNoticed && corruption >= (DAO_ALIGNMENT.corruptionDriftThreshold || 50) ? '<div class="alignment-corruption-warn">The cycle bears your stain — stay below the threshold or face a harsher audit.</div>' : ''}
         </div>`;
     }
 

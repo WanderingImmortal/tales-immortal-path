@@ -33,14 +33,14 @@ Old sketch ids like `hasty_meditation` as a “variant” were wrong — hasty b
 - Two lightning scriptures from different authors can both stamp e.g. `thunder_tempered`; the peerless one is a better road (speed, stability, **stronger signature magnitude**), not a different element.
 - Methods need not share family to share a nature stamp.
 
-**v1 catalog (owner OK 2026-07-25):** `plain_balanced`, `fire_aspected`, `thunder_tempered`, `sword_inclined`, `blood_fiend`. More natures later; more methods to suit.
+**Catalog (as of 2026-07-25):** five-phase aspects + `thunder_tempered` + `sword_inclined` + `blood_fiend` (+ plain). More natures later.
 
-**Test manuals (non-plain):**
+**Methods already on main ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64)):** Burning Breath (fire), Flowing Tide (water), Verdant (wood), Iron Meridian (metal), Stone Root (earth), Storm Heart (thunder).
+
+**This slice ([#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74)) — gap fillers:**
 
 | Method | Stamps |
 |--------|--------|
-| Cinder Meridian Cycle | `fire_aspected` |
-| Storm Vein Breath | `thunder_tempered` |
 | Edge Tempering Scripture | `sword_inclined` |
 | Crimson Harvest Breath | `blood_fiend` |
 

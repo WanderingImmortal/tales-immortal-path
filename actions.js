@@ -18,6 +18,7 @@ function getActionBlockReason() {
     if (G.inCultivationHub) return 'Leave the Cultivation Hub first.';
     if (typeof isTribulationActive === 'function' && isTribulationActive()) return 'Heavenly tribulation holds your focus.';
     if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) return 'Choose your transcendence perk first.';
+    if (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive()) return 'You are in long seclusion — emerge first.';
     return null;
 }
 

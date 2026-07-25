@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
+| **Status** | `designed` (partial — see [`tribulation-system-rework.md`](tribulation-system-rework.md)) |
 | **Blocked on** | Realm naming pass; FE → Golden Core breakthrough design |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |

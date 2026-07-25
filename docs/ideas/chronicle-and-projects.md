@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (diary reader v0) |
+| **Status** | `building` (P1 tick playback + seclusion) |
 | **Blocked on** | Realm/lifespan table parked; world tick sim optional for v1 |
 | **Issue** | none yet |
-| **Chat / PR** | [PR #58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58) |
+| **Chat / PR** | [PR #59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
 | **Updated** | 2026-07-22 |
 
 ## Intent
@@ -183,50 +183,57 @@ Exponential xianxia caps (FE ~150, GC 300–500, NS 1000–1500, …) and **soft
 ## Build order (suggested)
 
 ```text
-1. Diary reader (one screen) ← in progress (this branch)
-   Pull from existing logs; narrativized display + era chapters.
-
-2. Tick playback (minimal)
-   Age ticks; 0–2 event lines from templates; pause / speed / stop;
-   on stop → highlight reel (quiet years filtered out).
-
-3. One simple project — seclusion (~10–80 years)
-   Start → watch → stop or finish → diary chapter.
-
+1. ~~Diary reader (one screen)~~ ✅ [#58](https://github.com/WanderingImmortal/tales-immortal-path/pull/58)
+2. ~~Tick playback (minimal)~~ ✅ this branch
+3. ~~One simple project — seclusion (player picks years)~~ ✅ this branch
 4. Project shell + second type (e.g. array or consolidation)
-   Phases + choices between watch segments + receipt.
-
-5. Merge more writers into diary (sect, world, quests).
-   Unify storage when convenient (reader already merges views).
-
-6. World-driven events during ticks (faction/NPC sim) — replaces template pool gradually.
-
-7. Lifespan table + soft/hard subrealm caps — after realm redesign.
+5. Merge more writers into diary storage (reader already merges views)
+6. World-driven events during ticks
+7. Lifespan table + soft/hard subrealm caps — after realm redesign
 ```
 
-**Chronicle reader before projects.** **Simple seclusion before cosmic arrays.**
+### Shipped in P1 (tick + seclusion)
 
-### Shipped in diary reader v0
-
-- 📖 Open Diary popup tabs: **My path · Sect · Jianghu · Sealed Sites**
-- Pulls quest/arcs, `G.sect.chronicle`, `G.worldChronicle` + faction chronicle (no storage merge yet)
-- Era chapter headers by age band (40-year spans)
-- Time playback / seclusion projects **not** in this slice
+- 🗻 **Seclusion** button → year presets (realm-scaled) → watch overlay (age tick, pause / 1×·3×·10× / emerge)
+- Quiet years: no log spam; 0–2 template events during the span
+- On stop/finish: highlight reel → diary chapter (My path) + **bold/underline** event-log line
+- Partial cultivate gains each year (quiet)
 
 ## Prerequisites
 
-- [x] Diary UI shell (`index.html` / journal popup pattern)
-- [x] Reader helper (`chronicle-diary.js`) wrapping existing append sources
-- [ ] Tick playback UI component (age display + event list + controls)
-- [ ] `processWorldTime` or equivalent for advancing months in chunks during playback
-- [ ] One project type data + event template pool
-- [ ] (Later) Lifespan / nine-realm indices finalized
-- [ ] (Later) World tick content for v1 event sources
-- [ ] `appendChronicle` unified writer (optional — reader works without it)
+- [x] Diary UI shell
+- [x] Reader helper (`chronicle-diary.js`)
+- [x] Tick playback UI (`time-playback.js`)
+- [x] Quiet year advance + lifespan clamp
+- [x] Seclusion presets + event templates (`seclusion-project.js`)
+- [ ] Second project type / phased choices
+- [ ] (Later) World-driven tick events
+- [ ] `appendChronicle` unified writer (optional)
+
+## Decisions (owner, 2026-07-22)
+
+### Project finished — log emphasis, not a big popup
+No massive “chapter complete” modal. Write a normal log line that is **easy to spot** (bold / underline class in the event log). Diary already puts newest entries at the top, so fancy chrome isn’t needed.
+
+### Seclusion length — player picks a span
+Player chooses how long to go under (years), not a fixed 80 every time.
+
+**Picker (v0 proposal — avoid a wall of buttons at high realms):**
+
+| Band | Typical buttons |
+|------|-----------------|
+| Early | 10 · 20 · 30 years |
+| Mid | 20 · 50 · 100 |
+| Late | 50 · 100 · 200 · 500 |
+
+Same UI pattern always: **3–4 presets** that scale with realm (or lifespan remaining), plus optional “Until next breakthrough-ish” later if needed. Not a 10/20/30/…/500 click-farm.
+
+Quiet years still: felt in watch mode, not spam-written to the diary.
 
 ## Open questions
 
-- [ ] Diary: always openable, or also push a “new chapter” notice after long projects?
+- [x] Diary: always openable, or also push a “new chapter” notice after long projects? → **log line emphasis only** (bold/underline); no big modal
+- [x] Seclusion length fixed or player-chosen? → **player picks** via scaled presets (see above)
 - [ ] Max highlight reel length before auto-summarize into one paragraph?
 - [ ] Can player re-watch a completed project’s highlight reel from diary?
 - [ ] Interrupt events during playback (crisis pulls you out) — v1 or v2?

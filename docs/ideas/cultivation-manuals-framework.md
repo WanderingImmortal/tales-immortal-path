@@ -502,6 +502,84 @@ Reuse `comprehendManual` flow → `comprehendCultivationMethod(id)`. Array bluep
 - [ ] Sect reclaim: which world flags persist across lives
 - [ ] Split or rename `Focused Breath` combat vs cultivation naming
 
+## Method layers — policy (owner 2026-07-23, locked)
+
+**Layers ≠ grades ≠ tier upgrades.**
+
+| Concept | Meaning |
+|---------|---------|
+| **Grade** | Copy quality (crude → peerless), capped by method **tier** |
+| **Tier** | How high the art is *written for* (mortal syllabus vs GC scripture) |
+| **Layer** | Depth *inside* one manual — unlocks over a long life; new verbs, milestones, fiction |
+
+### Policy A — market syllabi have **no layers**
+
+Mortal-tier market breaths (Burning Breath, Flowing Tide, etc.) **are complete as sold**. One page. Job = pick element, gather, seal nature. Progress = find a **higher-tier compatible** manual later (same element, better road) — not layers on the pamphlet.
+
+See [`burning-breath-layers.md`](burning-breath-layers.md) for the negative example (why Kindle Dantian was shelved).
+
+### Who **does** get layers
+
+Layers are reserved for manuals worth a **lifespan** of work — primarily **GC and above**, plus special cases:
+
+| Manual class | Layer fantasy | Notes |
+|--------------|---------------|-------|
+| **Sect / clan lineage** | One identity across **realm-tier variants** of the same art (QC chapter, FE chapter, GC chapter…) — layers deepen *within* each volume; switching variant = same `lineageId`, new `methodTier` | Part of sect identity; heir inherits incomplete layers |
+| **Unique / ancestral** | Peerless transmissions, founder scriptures, reincarnation unlocks | Named layers, enlightenment beats, long projects |
+| **Forbidden / depraved** | **Uncapped method tier** in fiction — but power comes from **layer grind**, not grade shopping | Deeper layers demand alignment, sacrilege, materials, or depravity; each layer costs more of you |
+
+**Purpose:** give high-realm cultivators **something to do across centuries** besides raw gather — without putting that overhead on every 50-stone market scroll.
+
+### Unlock style (by manual class)
+
+| Class | Typical unlock |
+|-------|----------------|
+| Sect lineage (mid layers) | Sect rank, elder transmission, contribution |
+| Sect lineage (deep layers) | Enlightenment, calamity survival, dao insight |
+| Forbidden / evil | Depravity gates — alignment, sacrilege, stain; deeper = worse bargains |
+| Generic high-tier | Enlightenment, seclusion, rare materials — **not** teachers for cheap market fare |
+
+Teachers optional for **sect identity** manuals at high layers; not for outer-court pamphlets.
+
+### Progression ladder (player-facing)
+
+```text
+Market breath (mortal)     → seal nature, no layers — DONE
+        ↓ compatible tier swap (same element, not meridian-wash)
+Condensation / FE manual   → still mostly flat; maybe 1–2 layers if sect-issued
+        ↓
+GC+ lineage manual         → layers become the main long-term grind
+        ↓
+Sect founder scripture     → realm variants + deep layer tree across millennia
+```
+
+**Meridian-wash** = cross **element** only (fire → water). Same-element upgrades = new tier manual in compatible line, not wash.
+
+### Evil / depraved variant (sketch)
+
+- Manual may **ignore normal tier cap** — you can keep practicing it as realms rise.
+- **Power scales through layers**, each layer:
+  - Harder enlightenment / rite gate
+  - Alignment or corruption cost
+  - Possibly sacrilege ledger entry at deep layers
+- Fiction: the art has no ceiling because it's parasitic — you feed it to grow.
+
+Park implementation until [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) hooks exist.
+
+### Sect lineage across realms (sketch)
+
+One `lineageId` (e.g. `celestial_sword_qi_line`), multiple pool entries by `methodTier`:
+
+| Pool entry | methodTier | reqRealm | Same lineage layers? |
+|------------|------------|----------|----------------------|
+| Outer Sword Breath | condensation | 0 | Layer progress carries |
+| Sword Meridian Canon | foundation | 1 | … |
+| Heavenly Sword Cycle | core | 2 | … |
+
+Player swaps to the realm-appropriate **variant** when promoted — not meridian-wash; sect grants the next chapter. Layer depth is shared on `lineageId`.
+
+**Not in code yet.** Ship elemental market breaths first ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64)); layers land with GC journey + sect lineage content.
+
 ## Open questions
 
 - **Meridian-washing frequency:** once per life post-seal, once ever, or GC-gate only? → **ship v1, playtest**
