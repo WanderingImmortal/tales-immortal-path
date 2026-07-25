@@ -30,6 +30,44 @@ function ensureGearState() {
         migrateLegacyGearInventory();
     }
     if (!G.gearBag) G.gearBag = [];
+    migrateGearGradesForExistingSave();
+}
+
+function getGearGradeDef(gradeId) {
+    const table = typeof GEAR_GRADES !== 'undefined' ? GEAR_GRADES : null;
+    if (table && gradeId && table[gradeId]) return table[gradeId];
+    return table?.common || { id: 'common', name: 'Common', hanzi: '中品', statMult: 1, durMult: 1, sellMult: 1, color: '#9a9a8a' };
+}
+
+/** Phase B: merchant / forge / starter / migrate → common. Loot tables arrive later. */
+function getDefaultGearGrade(source) {
+    return 'common';
+}
+
+function getGearGradeMult(inst) {
+    return getGearGradeDef(inst?.grade).statMult ?? 1;
+}
+
+function getGearGradeDurMult(inst) {
+    return getGearGradeDef(inst?.grade).durMult ?? 1;
+}
+
+function formatGearGradeLabel(instOrGradeId, style) {
+    const gradeId = typeof instOrGradeId === 'string'
+        ? instOrGradeId
+        : (instOrGradeId?.grade || 'common');
+    const def = getGearGradeDef(gradeId);
+    if (style === 'full') return `${def.name} (${def.hanzi})`;
+    return def.name;
+}
+
+function formatGearGradeChipHtml(instOrGradeId) {
+    const gradeId = typeof instOrGradeId === 'string'
+        ? instOrGradeId
+        : (instOrGradeId?.grade || 'common');
+    const def = getGearGradeDef(gradeId);
+    const full = formatGearGradeLabel(gradeId, 'full');
+    return `<span class="gear-grade-chip grade-${def.id}" title="${full}" style="--gear-grade-color:${def.color}">${def.name}</span>`;
 }
 
 function nextGearUid() {
@@ -71,11 +109,15 @@ function createGearInstance(defId, options) {
             return null;
         }
     }
-    const maxDur = getGearMaxDurability(def);
+    const gradeId = options.grade || getDefaultGearGrade(options.source);
+    const gradeDef = getGearGradeDef(gradeId);
+    const baseMax = getGearMaxDurability(def);
+    const maxDur = Math.max(1, Math.floor(baseMax * (gradeDef.durMult ?? 1)));
     const uid = nextGearUid();
     const inst = {
         uid,
         defId,
+        grade: gradeDef.id,
         affixes: options.affixes || rollGearAffixes(def.tier || 1, options.noAffix),
         durability: options.durability != null ? options.durability : maxDur,
         maxDurability: maxDur
@@ -229,13 +271,16 @@ function sumInstanceStats(inst, includeResonance) {
     const stats = {};
     const def = getInstanceDef(inst);
     if (!def) return stats;
-    const mult = getDurabilityMult(inst);
-    mergeStatBlock(stats, def.stats, mult);
+    const durMult = getDurabilityMult(inst);
+    const gradeMult = getGearGradeMult(inst);
+    const martialMult = durMult * gradeMult;
+    // Grade scales metal quality (base + affixes). Resonance is path fit — no grade mult in Phase B.
+    mergeStatBlock(stats, def.stats, martialMult);
     (inst.affixes || []).forEach(affId => {
-        mergeStatBlock(stats, GEAR_AFFIXES[affId]?.stats, mult);
+        mergeStatBlock(stats, GEAR_AFFIXES[affId]?.stats, martialMult);
     });
     if (includeResonance !== false) {
-        mergeStatBlock(stats, def.resonance?.[G.path], mult);
+        mergeStatBlock(stats, def.resonance?.[G.path], durMult);
     }
     return stats;
 }
@@ -393,11 +438,20 @@ function formatDurabilityLine(inst) {
     return `<span class="gear-dur ${cls}">Durability ${inst.durability}/${inst.maxDurability}</span>`;
 }
 
-function formatInstanceName(inst) {
+function formatInstanceBaseName(inst) {
     const def = getInstanceDef(inst);
     if (!def) return 'Unknown';
     const aff = formatAffixLine(inst);
     return aff ? `${def.name} (${aff})` : def.name;
+}
+
+/** Include grade when not Common (logs / equip messages). UI chips use formatInstanceBaseName. */
+function formatInstanceName(inst) {
+    const base = formatInstanceBaseName(inst);
+    if (base === 'Unknown') return base;
+    const gradeId = inst?.grade || 'common';
+    if (gradeId === 'common') return base;
+    return `${formatGearGradeLabel(gradeId, 'chip')} ${base}`;
 }
 
 function formatStatDelta(val, key) {
@@ -541,8 +595,8 @@ function repairGear(uid, options) {
 function grantStarterGear() {
     ensureGearState();
     const starterId = PATH_STARTER_GEAR[G.path] || 'leather_vest';
-    addGearToInventory(starterId, 1, { noAffix: true });
-    addGearToInventory('travel_sandals', 1, { noAffix: true });
+    addGearToInventory(starterId, 1, { noAffix: true, grade: getDefaultGearGrade('starter'), source: 'starter' });
+    addGearToInventory('travel_sandals', 1, { noAffix: true, grade: getDefaultGearGrade('starter'), source: 'starter' });
     addCraftMaterial('iron_ore', 3);
     addCraftMaterial('leather_scrap', 2);
     addCraftMaterial('spirit_herb', 2);
@@ -569,8 +623,9 @@ function buyMerchantGear(gearId) {
         return { success: false, message: 'Your lifespan ends...' };
     }
     G.stones -= item.price;
-    addGearToInventory(gearId, 1, { noAffix: true });
-    const msg = `🏪 Purchased ${def.emoji} ${def.name} for ${item.price} Stones.`;
+    addGearToInventory(gearId, 1, { noAffix: true, grade: getDefaultGearGrade('merchant'), source: 'merchant' });
+    const gradeLabel = formatGearGradeLabel('common', 'full');
+    const msg = `🏪 Purchased ${def.emoji} ${gradeLabel} ${def.name} for ${item.price} Stones.`;
     commitActionLog(msg);
     return { success: true, message: msg, logged: true };
 }
@@ -596,4 +651,15 @@ function migrateGearForExistingSave() {
         addCraftMaterial('spirit_herb', 1);
     }
     G.gearMigrated = true;
+}
+
+/** Phase B: stamp missing grade as Common. Do not rescale grandfathered durability. */
+function migrateGearGradesForExistingSave() {
+    if (!G.gearInstances) return;
+    Object.values(G.gearInstances).forEach(inst => {
+        if (!inst || typeof inst !== 'object') return;
+        if (!inst.grade || !getGearGradeDef(inst.grade)?.id) {
+            inst.grade = getDefaultGearGrade('migrate');
+        }
+    });
 }

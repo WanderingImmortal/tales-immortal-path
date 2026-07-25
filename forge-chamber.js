@@ -281,6 +281,7 @@ function renderForgeRecipeDetail() {
         </div>
         <p class="forge-detail-desc">${def.desc || ''}</p>
         <p class="forge-detail-gate"><strong>Requires:</strong> ${minSkill.name} forge skill · ${realmLabel}</p>
+        <p class="forge-detail-grade"><strong>Grade:</strong> Common (中品) — grade rolls in smith mastery (later)</p>
         ${res ? `<p class="forge-detail-resonance"><strong>${getPathResonanceLabel()} resonance:</strong> ${res}</p>` : ''}
         <p class="forge-detail-affix"><strong>Expected affixes:</strong> ${affixRange}</p>
         <div class="forge-detail-stats">

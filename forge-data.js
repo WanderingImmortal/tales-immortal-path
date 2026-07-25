@@ -27,3 +27,11 @@ const FORGE_BALANCE = {
     legendaryBaseSuccess: 70,
     legendarySkillBonus: 5
 };
+
+/** Phase B — gear quality within a tier (下品 → 极品). Forge rolls arrive in Phase C. */
+const GEAR_GRADES = {
+    inferior: { id: 'inferior', index: 1, name: 'Inferior', hanzi: '下品', statMult: 0.72, durMult: 0.88, sellMult: 0.60, color: '#8a8478' },
+    common:   { id: 'common',   index: 2, name: 'Common',   hanzi: '中品', statMult: 1.00, durMult: 1.00, sellMult: 1.00, color: '#9a9a8a' },
+    superior: { id: 'superior', index: 3, name: 'Superior', hanzi: '上品', statMult: 1.28, durMult: 1.10, sellMult: 1.40, color: '#6a9aba' },
+    supreme:  { id: 'supreme',  index: 4, name: 'Supreme',  hanzi: '极品', statMult: 1.55, durMult: 1.18, sellMult: 1.85, color: '#c4a040' }
+};

@@ -345,7 +345,10 @@ function renderSidebarGearStrip() {
         if (!def) {
             return `<span class="gear-chip empty" title="${GEAR_SLOT_LABELS[slot] || slot}: empty">${label}</span>`;
         }
-        return `<span class="gear-chip${durCls}" title="${GEAR_SLOT_LABELS[slot]}: ${formatInstanceName(inst)} (${durPct}%)">${def.emoji || label}</span>`;
+        const gradeTip = typeof formatGearGradeLabel === 'function'
+            ? formatGearGradeLabel(inst, 'full')
+            : 'Common';
+        return `<span class="gear-chip${durCls}" title="${GEAR_SLOT_LABELS[slot]}: ${gradeTip} ${formatInstanceBaseName ? formatInstanceBaseName(inst) : formatInstanceName(inst)} (${durPct}%)">${def.emoji || label}</span>`;
     }).join('');
     const setLine = sets.length
         ? `<span class="gear-set-mini">${sets.map(s => `${s.setDef.emoji}${s.count}`).join(' ')}</span>`
@@ -1946,9 +1949,15 @@ function renderInventoryPopup() {
             const aff = inst ? formatAffixLine(inst) : '';
             const dur = inst ? formatDurabilityLine(inst) : '';
             const repairCost = inst ? getRepairCost(inst) : null;
+            const gradeChip = def && typeof formatGearGradeChipHtml === 'function'
+                ? formatGearGradeChipHtml(inst)
+                : '';
+            const itemName = def && typeof formatInstanceBaseName === 'function'
+                ? formatInstanceBaseName(inst)
+                : (def ? formatInstanceName(inst) : '');
             return `<div class="gear-slot-card${def ? ' equipped' : ''}">
                 <div class="gear-slot-label">${label}</div>
-                <div class="gear-slot-item">${def ? `${def.emoji} ${formatInstanceName(inst)}` : '— Empty —'}</div>
+                <div class="gear-slot-item">${def ? `${def.emoji} ${gradeChip} ${itemName}` : '— Empty —'}</div>
                 ${aff ? `<div class="gear-slot-aff">${aff}</div>` : ''}
                 ${resonance ? `<div class="gear-slot-res">${getPathResonanceLabel()} resonance: ${resonance}</div>` : ''}
                 ${dur}
@@ -2020,8 +2029,14 @@ function renderInventoryPopup() {
             const compare = compareGearStats(uid, def.slot);
             const compareHtml = formatCompareHtml(compare);
             const repairCost = getRepairCost(inst);
+            const gradeChip = typeof formatGearGradeChipHtml === 'function'
+                ? formatGearGradeChipHtml(inst)
+                : '';
+            const itemName = typeof formatInstanceBaseName === 'function'
+                ? formatInstanceBaseName(inst)
+                : formatInstanceName(inst);
             return `<div class="popup-item inventory-row gear-row">
-                <div class="name">${def.emoji} ${formatInstanceName(inst)}</div>
+                <div class="name">${def.emoji} ${gradeChip} ${itemName}</div>
                 <div class="desc">${def.desc}${inst.affixes?.length ? `<br><span class="gear-aff-line">Affixes: ${formatAffixLine(inst)}</span>` : ''}${res ? `<br><span class="gear-res-line">${getPathResonanceLabel()} resonance: ${res}</span>` : ''}<br>${formatDurabilityLine(inst)}</div>
                 <div class="gear-compare-line">${compareHtml}</div>
                 <div class="gear-row-actions">
@@ -2502,9 +2517,12 @@ function renderMerchantPopup() {
             const realmName = PATHS[G.path].realms[item.reqRealm] || `Realm ${item.reqRealm + 1}`;
             const status = (locked ? `Need ${realmName}` : `${item.price} Stones`)
                 + (canBuy ? ' · Click to buy' : '');
+            const gradeChip = typeof formatGearGradeChipHtml === 'function'
+                ? formatGearGradeChipHtml('common')
+                : 'Common';
             return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-gear="${item.gearId}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
-                <div class="name">${def.emoji} ${def.name}</div>
-                <div class="desc">${def.desc} · T${def.tier || 1}</div>
+                <div class="name">${def.emoji} ${gradeChip} ${def.name}</div>
+                <div class="desc" title="Common (中品)">${def.desc} · T${def.tier || 1} · Common (中品)</div>
                 <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
             </div>`;
         }).join('');
