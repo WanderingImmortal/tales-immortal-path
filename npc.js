@@ -335,6 +335,27 @@ function buildWorldNpcTalkPool(npc) {
         }
     }
 
+    if (typeof hasSwordSharperAura === 'function' && hasSwordSharperAura()) {
+        const swordLines = [
+            { line: 'Your presence cuts the air — like a blade left half-drawn.', weight: 1.7 },
+            { line: 'Careful. Even standing still, you feel… sharp.', weight: 1.5 },
+            { line: 'That edge in your aura — sword cultivator, or something close?', weight: 1.6 }
+        ];
+        if (idsIncludeAny(getNpcPersonalityIds(npc), ['cowardly', 'careful'])) {
+            swordLines.push({
+                line: 'I… I will keep my distance. Your qi has teeth.',
+                weight: 2.0
+            });
+        }
+        if (idsIncludeAny(getNpcPersonalityIds(npc), ['bold', 'proud', 'ambitious'])) {
+            swordLines.push({
+                line: 'A keen aura. Good — soft cultivators bore me.',
+                weight: 1.8
+            });
+        }
+        swordLines.forEach(entry => pool.push(entry));
+    }
+
     return pool.length ? pool : [{ line: '...', weight: 1 }];
 }
 
@@ -363,25 +384,38 @@ function getWorldNpcBehaviorWeight(npc, kind) {
     return sum / ids.length;
 }
 
+function getSwordSharperAuraGreetNote() {
+    if (typeof hasSwordSharperAura !== 'function' || !hasSwordSharperAura()) return '';
+    // Occasional — not every greeting (owner: sharper aura, not overpowering).
+    if (Math.random() >= 0.4) return '';
+    const notes = [
+        'Your aura feels edged. ',
+        'There is a keen edge to your presence. ',
+        'You carry a sharper qi than most. '
+    ];
+    return notes[Math.floor(Math.random() * notes.length)];
+}
+
 function getWorldNpcGreeting(npc) {
     const remeet = typeof getWorldNpcRemeetLine === 'function' ? getWorldNpcRemeetLine(npc) : '';
     const famePrefix = G.fame >= 60
         ? `Word of ${G.name} travels far. `
         : G.fame >= 10 ? `I've heard of you. ` : '';
+    const auraNote = getSwordSharperAuraGreetNote();
     const personalityGreet = getWorldNpcPersonalityGreeting(npc);
     if (personalityGreet) {
-        const greet = remeet ? `${remeet} ${personalityGreet}` : `${famePrefix}${personalityGreet}`;
+        const greet = remeet ? `${remeet} ${personalityGreet}` : `${famePrefix}${auraNote}${personalityGreet}`;
         return greet;
     }
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
     if (npc.isDemonicTalent) {
-        return `${famePrefix}I am ${npc.name}. Heaven wrote limits — I rewrite them.`;
+        return `${famePrefix}${auraNote}I am ${npc.name}. Heaven wrote limits — I rewrite them.`;
     }
     if (npc.role === 'villager') {
-        const intro = remeet || famePrefix;
+        const intro = remeet || `${famePrefix}${auraNote}`;
         return `${intro}Just a mortal, ${npc.name}. Pay no mind unless you need directions.`;
     }
-    const prefix = remeet || famePrefix;
+    const prefix = remeet || `${famePrefix}${auraNote}`;
     return `${prefix}${role.label} ${npc.name}, ${getNpcRealmName(npc.realmIdx)} cultivation.`;
 }
 
@@ -612,7 +646,8 @@ function getNpcGreeting(npcId) {
         else if (mood === 'dissonant' || mood === 'rebellious') alignmentNote = ' The tower groans faintly at your disharmony.';
     }
 
-    const parts = [memoryLine, fameLine, core, alignmentNote].filter(Boolean);
+    const auraNote = getSwordSharperAuraGreetNote();
+    const parts = [memoryLine, fameLine, auraNote, core, alignmentNote].filter(Boolean);
     const greet = parts.join(' ');
     const personalityIds = getStoryNpcPersonalityIds(npcId);
     if (personalityIds.length) {
@@ -646,6 +681,11 @@ function getNpcTalkLine(npcId) {
         const alignLine = pDef.alignmentTalk?.[mood];
         if (alignLine) pool.push({ line: alignLine, weight: 1.5 });
     });
+
+    if (typeof hasSwordSharperAura === 'function' && hasSwordSharperAura()) {
+        pool.push({ line: 'Your presence cuts cleaner than most who pass this way.', weight: 1.4 });
+        pool.push({ line: 'That edged aura of yours — I notice it before your words.', weight: 1.3 });
+    }
 
     if (!pool.length) return def.greet;
     return pickWeightedTalkLine(pool);

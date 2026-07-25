@@ -2,15 +2,15 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-07-23
+**Updated:** 2026-07-25
 
 ## Focus
-- **Imperial clan + Longcheng** — [#69](https://github.com/WanderingImmortal/tales-immortal-path/pull/69) (Heartlands four sect docs shipped)
+- Technique-driven cultivation — sword/blood test manuals + sharper aura ([#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74))
 
 ## Next
-- Merge imperial doc PR
-- Longcheng phase-1 map nodes in `data.js` (after docs land)
-- Phoenix Gambit lore pass in code (later)
+- Playtest combat % on sealed natures (esp. sword aura NPC lines)
+- Merge imperial doc PR / Longcheng phase-1 map nodes
+- Chronicle tick playback + seclusion project
 
 ## Parked (return later)
 - **Higher-realm trib scripts** — [`docs/ideas/tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md)
@@ -21,9 +21,6 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
-- Golden Phoenix sect docs ([#67](https://github.com/WanderingImmortal/tales-immortal-path/pull/67))
-- Void Temple sect docs ([#66](https://github.com/WanderingImmortal/tales-immortal-path/pull/66))
-- Jade Lotus sect docs ([#65](https://github.com/WanderingImmortal/tales-immortal-path/pull/65))
-- Celestial Sword sect docs ([#68](https://github.com/WanderingImmortal/tales-immortal-path/pull/68))
 - Elemental cultivation breaths ([#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64))
+- Golden Phoenix / Void Temple / Jade Lotus / Celestial Sword sect docs
 - Tribulation v2 QC→FE ([#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63))

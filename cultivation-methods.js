@@ -225,7 +225,14 @@ function stampFoundationNatureAtFeSeal(options) {
 function getFoundationNatureCombatMods(tech) {
     const nature = getSealedFoundationNatureDef();
     if (!nature?.effects) {
-        return { dmgMult: 1, techCostMult: 1, armorPenPct: 0, intimidation: false, intentEaseBonus: 0 };
+        return {
+            dmgMult: 1,
+            techCostMult: 1,
+            armorPenPct: 0,
+            intimidation: false,
+            sharperAura: false,
+            intentEaseBonus: 0
+        };
     }
     const mag = getFoundationNatureGradeMagnitude();
     const fx = nature.effects;
@@ -254,6 +261,7 @@ function getFoundationNatureCombatMods(tech) {
         techCostMult,
         armorPenPct: (fx.armorPenPct || 0) * mag,
         intimidation: !!fx.intimidation,
+        sharperAura: !!fx.sharperAura,
         intentEaseBonus: (fx.intentEaseBonus || 0) * mag
     };
 }
@@ -279,6 +287,11 @@ function getFoundationNatureArmorPenPct() {
 
 function getFoundationNatureIntentEaseBonus() {
     return getFoundationNatureCombatMods(null).intentEaseBonus || 0;
+}
+
+/** Sword-inclined seal: sharper aura strangers sometimes notice in talk/greet. */
+function hasSwordSharperAura() {
+    return !!getFoundationNatureCombatMods(null).sharperAura;
 }
 
 function hasBloodFiendIntimidation() {
@@ -549,12 +562,17 @@ function renderMethodShelfHtml() {
                 : `<span class="method-shelf-studied">Studied</span>`;
             const lockLine = walkBlock && !isActive
                 ? `<div class="manual-shelf-lock">🔒 ${walkBlock}</div>` : '';
+            const stamp = getFoundationNatureDef(getMethodStampsNatureId(method));
+            const stampLine = stamp
+                ? `<div class="desc method-shelf-path-note">Seals: ${stamp.name}</div>`
+                : '';
             return `<div class="popup-item manual-shelf-row method-shelf-row">
                 <div class="name">📘 ${method.name} ${status}
                     <span class="tech-cultivation-tier">${gName}</span>
                     <span style="color:#a09080;font-size:12px;">[${getMethodFamilyLabel(method.family)}]</span>
                 </div>
                 <div class="desc">${method.desc}</div>
+                ${stampLine}
                 ${lockLine}
                 <div class="manual-shelf-actions">${actions}</div>
             </div>`;
@@ -594,12 +612,17 @@ function renderMethodShelfHtml() {
             }
             const lockLine = block && !studiedAlready
                 ? `<div class="manual-shelf-lock">🔒 ${block}</div>` : '';
+            const stamp = getFoundationNatureDef(getMethodStampsNatureId(method));
+            const stampLine = stamp
+                ? `<div class="desc method-shelf-path-note">Seals: ${stamp.name}</div>`
+                : '';
             return `<div class="popup-item manual-shelf-row method-shelf-row">
                 <div class="name">📜 ${method.name}${countBadge} ${statusBadge}
                     <span class="tech-cultivation-tier">${gName}</span>
                     <span style="color:#a09080;font-size:12px;">[${getMethodFamilyLabel(method.family)}]</span>
                 </div>
                 <div class="desc">${method.desc}</div>
+                ${stampLine}
                 ${lockLine}
                 <div class="manual-shelf-actions">${actions}</div>
             </div>`;
