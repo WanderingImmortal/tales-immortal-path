@@ -6699,6 +6699,47 @@ header .subtitle {
     font-style: italic;
 }
 
+.tech-loadout-hint {
+    font-size: 12px;
+    color: #a09080;
+    margin: 0 18px 8px;
+    line-height: 1.35;
+}
+
+.tech-pin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    padding: 2px 6px;
+    border: 1px solid #3a3020;
+    border-radius: 6px;
+    background: #1a1410;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.2;
+    vertical-align: middle;
+}
+
+.tech-pin-btn:hover {
+    border-color: #6a5030;
+    background: #241c14;
+}
+
+.tech-pin-btn.pinned {
+    border-color: #8a6840;
+    background: rgba(180, 140, 60, 0.15);
+}
+
+.popup-item.tech-pinned {
+    border-color: rgba(180, 140, 60, 0.35);
+}
+
+.combat-btn.btn-rest {
+    border-color: rgba(78, 205, 196, 0.45);
+    background: rgba(40, 90, 85, 0.45);
+}
+
 .tech-sort-bar {
     display: flex;
     gap: 6px;
