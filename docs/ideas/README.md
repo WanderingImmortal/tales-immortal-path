@@ -31,6 +31,10 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
 | [Burning Breath — layers](burning-breath-layers.md) | `shipped` (policy A — no layers) | — | [#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64) |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (sword/blood manuals + aura) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) · [#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74) |
+| [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing playtest | `cursor/qc-condensation-depth` |
+| [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
+| [Explore — field gathering](explore-field-gathering.md) | `designed` | Material tables | — |
+| [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Hub starter slice | — |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
@@ -46,7 +50,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
-| [Dustbone dynasties & entropy lore](dustbone-dynasties-entropy-lore.md) | `idea` (parked) | — | — |
+| [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `idea` (parked) | — | — |
 | [Settlement lore](settlement-lore.md) | `idea` (parked) | Dustbone lore | — |
 | [Economy framework](economy-framework.md) | `idea` (parked) | Stone tiers | — |
 | [Commerce & markets](commerce-and-markets.md) | `idea` (parked) | Economy framework | — |
@@ -63,7 +67,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `designed` | Chamber pacing tune pass | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
-| [Cultivation realm depth pass](cultivation-realm-depth-pass.md) | `idea` | Owner design pass; may follow roots / manuals | — |
+| [Cultivation realm depth pass](cultivation-realm-depth-pass.md) | `idea` | QC designed — see qi-condensation-depth | — |
 | [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` (**parked**) | Realm depth pass; Immortal Ascension beat | — |
 | [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` (**parked**) | Realm depth pass; Immortal climax | — |
 | [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Watershed pacing; half-step peak | — |

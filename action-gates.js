@@ -263,6 +263,18 @@ function renderActionUnlocks() {
         const btn = document.getElementById(btnId);
         if (!btn) return;
 
+        if (typeof getActionShowPolicy === 'function') {
+            const policy = getActionShowPolicy(actionId);
+            const wrap = btn.closest('.action-with-help');
+            if (policy === 'hidden') {
+                btn.style.display = 'none';
+                if (wrap) wrap.style.display = 'none';
+                return;
+            }
+            btn.style.display = '';
+            if (wrap) wrap.style.display = '';
+        }
+
         if (actionId === 'intent' && typeof shouldShowIntentButton === 'function') {
             const showIntent = shouldShowIntentButton();
             btn.style.display = showIntent ? '' : 'none';
@@ -290,5 +302,6 @@ function renderActionUnlocks() {
         btn.title = btn.dataset.defaultTitle || '';
     });
 
+    if (typeof applyQcProgressiveActionUi === 'function') applyQcProgressiveActionUi();
     renderActionGroupLocks();
 }

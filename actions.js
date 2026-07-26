@@ -160,6 +160,7 @@ function actionRecuperate() {
     let hpGain = Math.floor((Math.floor(hpCap * 0.22) + Math.floor(vit * 0.6) + G.realmIdx * 2) * regenMult * transcRegen);
     if (typeof getGearBonuses === 'function') hpGain += getGearBonuses().hpRegenBonus || 0;
     if (typeof getBodyChamberHpRegenMult === 'function') hpGain = Math.floor(hpGain * getBodyChamberHpRegenMult());
+    if (typeof getDwellingRestMult === 'function') hpGain = Math.floor(hpGain * getDwellingRestMult());
     const before = G.hp;
     G.hp = Math.min(hpCap, G.hp + hpGain);
     let msg = `🛌 You recuperate. +${G.hp - before} HP`;

@@ -1,19 +1,20 @@
-# Dustbone — three dynasties, entropy, and the Pinwright
+# Dustbone — three dynasties, Law of Dust, and the Pinwright
 
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` — lore stub |
 | **Blocked on** | none for lore |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent brainstorm; parked 2026-07-25 |
-| **Updated** | 2026-07-25 |
+| **Chat / PR** | Cloud agent brainstorm; parked 2026-07-25; naming lock 2026-07-26 |
+| **Updated** | 2026-07-26 |
 
 ## Intent
 
-Authoritative record: **why Dustbone is a desert**, three **successive** dynasties, **Return-to-Dust** as regional law, **Bone Crossroads** oasis, **Sandveil Tribunal**. For agents; players get hints only.
+Authoritative record: **why Dustbone is a desert**, three **successive** dynasties, the **Law of Dust**, **Threshold City** oasis, **Sandveil Tribunal**. For agents; players get hints only.
 
 **Hub:** [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **City detail:** [`settlement-lore.md`](settlement-lore.md)  
+**QC / civic:** [`qi-condensation-depth.md`](qi-condensation-depth.md), [`city-tiers.md`](city-tiers.md)  
 **Chaos endgame path:** [`chaos-cultivation-path.md`](chaos-cultivation-path.md) (Pinwright = local origin only)
 
 ## Design sentence
@@ -22,9 +23,15 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 
 ---
 
-## The thing — Return-to-Dust (author answer)
+## The thing — Law of Dust (formal) / Return-to-Dust (speech)
 
-- **Completed local dao** — law of accelerated return-to-formlessness in this basin. **Not** a god; **revered**, not worshipped.
+| Term | Use |
+|------|-----|
+| **Law of Dust** | Formal name of the completed local dao — accelerated return-to-formlessness in this basin |
+| **Return-to-Dust** | Rites, common speech, cascade flavor (“may you return to dust”) |
+| **Entropy** | Scholar / Pinwright / chaos-path root metaphor |
+
+- **Not** a god; **revered**, not worshipped.
 - **Cannot** be “fixed” by default; living with / walking with the law is the mortal game.
 - **Pre-First:** optional weak scar; region not always sand sea.
 
@@ -38,7 +45,7 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 | **Second** | **Monument order** — walls, registry, forced spring; thought they matched First | **Second Cascade** |
 | **Third** | **Administrative order** at empire scale (not “foreign qi” — **concentration**) | **Third Cascade** — fast singularity |
 
-**Now:** law still true; **cascade frequency low** — post-Third equilibrium, smaller city, mobile tribes, pin maintained. **Fourth Cascade** risk if order density spikes again (player manor, sect industrial scale).
+**Now:** law still true; **cascade frequency low** — post-Third equilibrium, smaller city inside vast walls, mobile tribes, pin maintained. **Organised chaos** (no single iron throne) helps stay under threshold. **Fourth Cascade** risk if order density spikes again (player manor, sect industrial scale).
 
 ### Sand
 
@@ -56,7 +63,7 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 
 ### Second — remnants, wrong lesson
 
-- Salvaged **architecture** of First; built **towering sandstone** Bone Crossroads shell; registry law.
+- Salvaged **architecture** of First; built **towering sandstone** shell of what is now **Threshold City**; registry law.
 - **Arrogance of density** — mistook exception for mastery.
 
 ### Third — outsiders
@@ -66,10 +73,12 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 
 ---
 
-## Bone Crossroads & tribes
+## Threshold City & tribes
 
 - Oasis + oversized walls on **pin**; Registry inside; tribes **outside** (truce, fear, economics).
-- **Sandveil Tribunal:** Ashen (rites/decay), Dune Riders (move trade), Sunscar (strength in sand) — **coping strategies**, not dynasty crowns.
+- Player-facing name: **Threshold City** (lives under cascade threshold on purpose). Data id may remain `bone_crossroads` until rename pass.
+- **1st-tier** civic scale ([`city-tiers.md`](city-tiers.md)) with thin stationed apex — joint **Sandveil Tribunal**, not one City Lord.
+- **Sandveil Tribunal:** Ashen (rites/decay), Dune Riders (move trade), Sunscar (strength in sand) — **coping strategies**, not dynasty crowns. Tribes do not fight to rule the city hard — concentration risks the Fourth Cascade.
 
 ---
 
@@ -84,7 +93,7 @@ Pre-First → First + Pin + First Cascade → Second + Second Cascade
 
 ## Gameplay hooks (later)
 
-- Order-density events; Registry caps; explore relics as comminuted empire; survey vs delve.
+- Order-density events; Registry caps; explore relics as comminuted empire; field materials ([`explore-field-gathering.md`](explore-field-gathering.md)).
 
 ---
 
@@ -93,9 +102,10 @@ Pre-First → First + Pin + First Cascade → Second + Second Cascade
 - [ ] Pinwright name, motive (save vs hubris)
 - [ ] Spring maintenance rites (calibration without blood tithe)
 - [ ] Player-visible order meter vs hidden
+- [ ] Whistling Dunes / Dune Sovereign vs Pinwright — same scar or echo?
 
 ---
 
 ## Implementation crumbs
 
-- `data.js` — `ZONES.dustbone`, `WORLD_LOCATIONS.bone_crossroads`, `ZONE_FACTION_MECHANICS.dustbone`
+- `data.js` — `ZONES.dustbone`, `WORLD_LOCATIONS.bone_crossroads` (display **Threshold City**), `ZONE_FACTION_MECHANICS.dustbone`

@@ -67,6 +67,9 @@ function isChamberOnCooldown(key) {
 }
 
 function getChamberExpandDantianBlockReason() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        return 'At Qi Condensation, capacity grows when your qi store settles into a deeper band — Gather only.';
+    }
     const b = CHAMBER_BALANCE.expandDantian;
     if (isChamberOnCooldown('expandDantian')) return 'Your dantian is still stabilizing from the last expansion.';
     if ((G.stones || 0) < b.stones) return `Need ${b.stones} Spirit Stones (have ${G.stones || 0}).`;
@@ -74,6 +77,9 @@ function getChamberExpandDantianBlockReason() {
 }
 
 function getChamberPerfectFoundationBlockReason() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        return 'Refine Foundation begins at Foundation Establishment — gather and store first.';
+    }
     const cfg = CHAMBER_BALANCE.perfectFoundation;
     if (isChamberOnCooldown('perfectFoundation')) return 'Your foundation is still settling from the last perfection.';
     if ((G.stones || 0) < cfg.stones) return `Need ${cfg.stones} Spirit Stones (have ${G.stones || 0}).`;
@@ -366,6 +372,7 @@ function renderChamberUI() {
         if (typeof setHoverTooltip === 'function') setHoverTooltip(coreBtn, block || guide?.desc || '');
         if (condenseFlavor) condenseFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
+    if (typeof applyQcChamberVerbVisibility === 'function') applyQcChamberVerbVisibility();
 }
 
 function chamberGatherQi() {
@@ -389,6 +396,9 @@ function chamberGatherQi() {
     clampCurrentQi();
     if (G.qiExhausted && G.qi > 0) G.qiExhausted = false;
     G.chamberGatherCount = (G.chamberGatherCount || 0) + 1;
+    if (typeof applyQcGatherBandProgress === 'function') {
+        applyQcGatherBandProgress(typeof getQcGatherProgressUnits === 'function' ? getQcGatherProgressUnits() : 1);
+    }
     const rootGain = typeof applyChamberGatherRootGrant === 'function' ? applyChamberGatherRootGrant() : 0;
     const milestoneGain = typeof checkCultivationDensityMilestones === 'function'
         ? checkCultivationDensityMilestones() : 0;

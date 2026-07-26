@@ -35,7 +35,7 @@ Each **creation path** (alchemists, forgers, formation masters, …) has a **gui
 
 | Zone | Primary hub today |
 |------|-------------------|
-| Dustbone | Bone Crossroads (`city`) |
+| Dustbone | **Threshold City** (`bone_crossroads`, `city`, 1st-tier) |
 | Frostbite | Frost Gate Outpost (`city`) |
 | Jade | Tide Harbor (`market`) |
 | Emberwild | Ashvein Village (`city`) |

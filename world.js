@@ -8,9 +8,10 @@ const ZONES = {
         emoji: "❄️",
         biome: "Eternal Winter",
         difficulty: "hard",
-        minRealm: 1,
+        minRealm: 0,
+        dangerRealm: 1,
         description: "A frozen tundra where only the strong survive.",
-        purpose: "Late-game frost loot, ice manuals, and high-risk forbidden grounds.",
+        purpose: "Frost reagents, ice manuals, and high-risk forbidden grounds — deadly above your station.",
         highlights: ["Ice & frost materials", "Hard explore encounters", "Frozen forbidden sites"],
         lore: "They say the Wastes were scoured bare when an immortal's tribulation froze the land for ten thousand years. Only frost-path cultivators and the desperate still walk here.",
         events: ["Blizzard", "Frozen Ruins", "White Wolf Pack"]
@@ -21,9 +22,10 @@ const ZONES = {
         biome: "Scorched Sands",
         difficulty: "medium",
         minRealm: 0,
+        dangerRealm: 0,
         description: "Endless dunes and the bones of fallen civilizations.",
-        purpose: "Safe starting zone — explore for stones, basic materials, and story NPCs.",
-        highlights: ["Starter explore loot", "Caravan & story quests", "No realm lock"],
+        purpose: "Starter life — Threshold City market & jobs, field reagents, story NPCs.",
+        highlights: ["🏪 Threshold Bazaar", "Hub jobs & lodging", "Field herbs & ores"],
         lore: "The bones of three dynasties lie under these sands. Merchants cross Dustbone because every dune hides something — relic, beast, or corpse with a manual in its ribs.",
         events: ["Sandstorm", "Ancient Relics", "Sand Serpent"]
     },
@@ -32,9 +34,10 @@ const ZONES = {
         emoji: "🏯",
         biome: "Rich Spiritual Energy",
         difficulty: "extreme",
-        minRealm: 3,
+        minRealm: 0,
+        dangerRealm: 3,
         description: "The center of cultivation on the Azure Sky Continent.",
-        purpose: "Endgame hub — Celestial Market, elite techniques, and sect prestige events.",
+        purpose: "Endgame hub — Celestial Market, elite techniques, and sect prestige. Open roads; lethal for the weak.",
         highlights: ["🏪 Celestial Market", "Rare manuals & pills", "Highest-tier loot tables"],
         lore: "Nine great sects ring the Heartlands like petals around a lotus. Spiritual veins run so deep that Nascent Soul cultivators still feel the continent's heartbeat beneath their feet.",
         events: ["Sect Tournament", "Dao Lecture", "Celestial Market"]
@@ -45,6 +48,7 @@ const ZONES = {
         biome: "Misty Isles",
         difficulty: "medium",
         minRealm: 0,
+        dangerRealm: 0,
         description: "A chain of tropical islands where merchants and pirates thrive.",
         purpose: "Early market access — Tide Merchant Guild sells techniques, pills, and starter gear.",
         highlights: ["🏪 Tide Merchant Guild", "Sea beast loot", "Pirate & merchant events"],
@@ -56,7 +60,8 @@ const ZONES = {
         emoji: "🌋",
         biome: "Volcanic Rainforest",
         difficulty: "hard",
-        minRealm: 1,
+        minRealm: 0,
+        dangerRealm: 1,
         description: "A dense jungle teeming with life — and death.",
         purpose: "Mid-game materials, beast cores, and story clues (Lost Disciple arc).",
         highlights: ["Volcanic craft mats", "Story NPCs & quests", "Obsidian forbidden ground"],
@@ -252,14 +257,18 @@ function showZoneGuide(zoneId) {
         region.classList.toggle('zone-map-region--here', z === mainHere);
     });
 
-    const locked = G.realmIdx < zone.minRealm;
-    const realmName = PATHS[G.path].realms[zone.minRealm] || `Realm ${zone.minRealm + 1}`;
+    const dangerRealm = typeof getZoneDangerRealm === 'function' ? getZoneDangerRealm(zone) : (zone.dangerRealm != null ? zone.dangerRealm : (zone.minRealm || 0));
+    const aboveStation = (G.realmIdx || 0) < dangerRealm;
+    const dangerName = PATHS[G.path].realms[dangerRealm] || `Realm ${dangerRealm + 1}`;
     const marketLine = (typeof getLocationsInZone === 'function' ? getLocationsInZone(zoneId).some(l => l.marketKey) : isMerchantZone(zoneId))
         ? `<div class="zone-guide-tag market">🏪 Market in this region</div>`
         : '';
     const highlights = (zone.highlights || []).map(h =>
         `<span class="zone-guide-tag">${escapeHtml(h)}</span>`
     ).join('');
+    const cautionLine = aboveStation
+        ? `<div class="zone-guide-locked">⚠️ Above your station (typical strength ~${escapeHtml(dangerName)}). Reaching such places is a good way to die — be careful.</div>`
+        : '';
 
     let travelBtn = '';
     const hereMain = getMainZoneId();
@@ -267,9 +276,6 @@ function showZoneGuide(zoneId) {
     if (inThisRegion) {
         travelBtn = `<div class="zone-guide-here">📍 You are in this region.</div>
             <button type="button" class="zone-local-map-btn" data-open-local="${zoneId}" data-local-preview="0">📍 Open local map</button>`;
-    } else if (locked) {
-        travelBtn = `<div class="zone-guide-locked">🔒 Requires ${realmName} or higher.</div>
-            <button type="button" class="zone-local-map-btn zone-local-map-btn--preview" data-open-local="${zoneId}" data-local-preview="1">👁️ Preview region</button>`;
     } else {
         travelBtn = `<button type="button" class="zone-travel-btn" data-zone-travel="${zoneId}">🗺️ Travel here · ${ACTION_MONTHS.travel} months · costs Qi</button>
             <button type="button" class="zone-local-map-btn zone-local-map-btn--preview" data-open-local="${zoneId}" data-local-preview="1">👁️ Preview region</button>`;
@@ -280,6 +286,7 @@ function showZoneGuide(zoneId) {
         <div class="zone-guide-purpose"><strong>Why go:</strong> ${escapeHtml(zone.purpose || zone.description)}</div>
         <div class="zone-guide-lore">${escapeHtml(zone.lore || zone.description)}</div>
         <div class="zone-guide-tags">${marketLine}${highlights}</div>
+        ${cautionLine}
         ${travelBtn}
         ${typeof renderAncientsZonePanelHtml === 'function' ? renderAncientsZonePanelHtml(zoneId) : ''}
     `;
@@ -326,7 +333,7 @@ function travelToZone(zoneId) {
         showZoneGuide(zoneId);
         return;
     }
-    if (G.realmIdx < zone.minRealm) {
+    if (typeof confirmTravelAboveStation === 'function' && !confirmTravelAboveStation(zoneId)) {
         showZoneGuide(zoneId);
         return;
     }
@@ -346,6 +353,9 @@ function travelToZone(zoneId) {
     }
     currentZone = zoneId;
     G.currentZone = zoneId;
+    if (typeof zoneIsAboveStation === 'function' && zoneIsAboveStation(zoneId)) {
+        addLog('⚠️ You walk roads above your station. Be careful — death is easy here.');
+    }
     if (typeof resetSoulSearchExploreBonus === 'function') resetSoulSearchExploreBonus();
     let msg = `🗺️ You travel to the ${zone.emoji} ${zone.name}`;
     if (typeof getDefaultLocationForZone === 'function') {
@@ -489,26 +499,28 @@ function applyExploreLoot(loot) {
         addPill(rollRandomPillId(), 1);
         addLog(`💊 You found a cultivation pill!`);
     } else if (loot.type === "currency") {
-        const stones = applyExploreRewardMult(loot.value);
-        G.stones += stones;
-        addLog(`💎 +${stones} Stones`);
+        // Explore is not a stone lottery — convert coin finds into reagents.
+        if (typeof rollExploreFieldMaterial === 'function') rollExploreFieldMaterial();
+        else {
+            const stones = applyExploreRewardMult(loot.value);
+            G.stones += stones;
+            addLog(`💎 +${stones} Stones`);
+        }
     } else if (loot.type === "legendary_material") {
         if (!G.legendaryMaterials) G.legendaryMaterials = [];
         G.legendaryMaterials.push(loot.name);
         addLog(`🏆 Legendary Material acquired: ${loot.name}!`);
-    } else if (loot.type === "material") {
+    } else if (loot.type === "material" || loot.type === "herb") {
         if (typeof applyExploreCraftMaterial === 'function' && applyExploreCraftMaterial(loot.name)) {
-            G.stones += Math.floor((loot.value || 2) / 2);
+            // Keep reagents; sell later for stones — no pity stone drip on find.
         } else {
             if (!G.inventory) G.inventory = [];
             G.inventory.push(loot.name);
-            G.stones += Math.floor((loot.value || 2) / 2);
             addLog(`📦 ${loot.name} added to inventory.`);
         }
     } else {
         if (!G.inventory) G.inventory = [];
         G.inventory.push(loot.name);
-        G.stones += Math.floor((loot.value || 2) / 2);
         addLog(`📦 ${loot.name} added to inventory.`);
     }
 }
@@ -706,17 +718,14 @@ function actionExplore() {
         applyExploreLoot(finalLoot);
         if (subLoot) addLog(`🔒 Hidden realm treasure from the sealed site.`);
     } else {
-        const reward = applyExploreRewardMult(2 + Math.floor(Math.random() * 5) + G.realmIdx);
-        let soulSearchMult = typeof getSoulSearchExploreRollMult === 'function' ? getSoulSearchExploreRollMult() : 1;
-        let bonusStones = 0;
-        if (typeof getSectExploreBonus === 'function') {
-            const inf = getSectExploreBonus(zoneId);
-            if (inf) bonusStones = inf.exploreStoneBonus || 0;
+        // Field gathering — herbs/ores/reagents. Stones come from jobs + selling, not pity RNG.
+        if (typeof rollExploreFieldMaterial === 'function') {
+            rollExploreFieldMaterial(zoneId);
+        } else if (typeof tryRollAlchemyMaterialFromExplore === 'function') {
+            tryRollAlchemyMaterialFromExplore();
+        } else {
+            addLog('🌿 You search the wilds but pocket nothing useful.');
         }
-        G.stones += Math.max(0, Math.floor((reward + bonusStones) * soulSearchMult));
-        let msg = `💎 +${Math.max(0, Math.floor(reward * soulSearchMult))} Stones`;
-        if (bonusStones) msg += ` (+${bonusStones} sect influence)`;
-        addLog(msg + '.');
         if (typeof getSectExploreBonus === 'function') {
             const inf = getSectExploreBonus(zoneId);
             if (inf && Math.random() < (inf.exploreFameChance || 0)) {

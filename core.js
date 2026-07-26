@@ -246,6 +246,12 @@ function getMaxCultivationRealmIdx(path) {
 }
 
 function getRealm(track) {
+    const t = track || (typeof getFocusTrack === 'function' ? getFocusTrack() : null);
+    if ((!t || t === 'dantian') && typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()
+        && typeof getQcBandLabel === 'function') {
+        const band = getQcBandLabel();
+        if (band) return band;
+    }
     if (typeof getTrackRealmName === 'function' && track) return getTrackRealmName(track);
     if (typeof getFocusTrack === 'function') return getTrackRealmName(getFocusTrack());
     return PATHS[G.path].realms[G.realmIdx] || "MAX";
@@ -342,7 +348,9 @@ function getQiFillRatio() {
 }
 
 function getCultivationPowerStat() {
-    return getMaxQi() + getQiDensity() * 6;
+    let power = getMaxQi() + getQiDensity() * 6;
+    if (typeof getQcBandPowerBonus === 'function') power += getQcBandPowerBonus();
+    return power;
 }
 
 function migrateTechniqueRenames() {
@@ -949,6 +957,7 @@ function advanceTime(months, activity) {
         G.ageMonths = toMonths;
     }
     if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
+    if (typeof tickDwellingRent === 'function') tickDwellingRent();
     if (deferLogs) G._deferringLogs = false;
     const remaining = getYearsRemaining();
     const remainStr = isImmortal() ? 'immortal' : `${remaining}y left`;

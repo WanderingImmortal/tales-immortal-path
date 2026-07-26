@@ -825,6 +825,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnFactions').addEventListener('click', actionFactionsWrapper);
     document.getElementById('btnMap').addEventListener('click', actionMap);
     document.getElementById('btnMarket').addEventListener('click', actionMarket);
+    document.getElementById('btnThresholdJobs')?.addEventListener('click', () => {
+        if (typeof openThresholdJobsPopup === 'function') openThresholdJobsPopup();
+    });
+    document.getElementById('btnDwelling')?.addEventListener('click', () => {
+        if (typeof openDwellingPopup === 'function') openDwellingPopup();
+    });
     document.getElementById('btnCombat').addEventListener('click', actionCombat);
     document.getElementById('btnTech').addEventListener('click', actionTech);
     document.getElementById('btnReset').addEventListener('click', resetGame);
@@ -893,6 +899,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('mapClose').addEventListener('click', function() {
         document.getElementById('mapPopup').classList.remove('active');
+    });
+    document.getElementById('thresholdJobsClose')?.addEventListener('click', function() {
+        document.getElementById('thresholdJobsPopup')?.classList.remove('active');
+    });
+    document.getElementById('dwellingClose')?.addEventListener('click', function() {
+        document.getElementById('dwellingPopup')?.classList.remove('active');
     });
     document.getElementById('merchantClose')?.addEventListener('click', function() {
         document.getElementById('merchantPopup').classList.remove('active');

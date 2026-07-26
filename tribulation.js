@@ -45,6 +45,12 @@ function getTribulationSeverity() {
     if (G.corruptionNoticed) {
         severity = Math.floor(severity * (TRIBULATION_BALANCE.corruptionNoticedMult || 1.35));
     }
+    // Peak QC → slightly harder trib (more realm power, not better break odds).
+    if (typeof isQcAtPeakBand === 'function' && isQcAtPeakBand()) {
+        severity = Math.floor(severity * 1.12) + 2;
+    } else if (G.qcBand?.stage === 'peak') {
+        severity = Math.floor(severity * 1.12) + 2;
+    }
     return Math.max(8, Math.floor(severity));
 }
 

@@ -543,6 +543,20 @@ header .subtitle {
     flex-shrink: 0;
 }
 
+.qc-band-chip {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: #c4a46a;
+}
+
+.dwelling-status-chip {
+    font-size: 11px;
+    color: #a09080;
+    margin-top: 2px;
+}
+
 .realm-title {
     font-size: 22px;
     border-bottom: 1px solid #2a1f18;

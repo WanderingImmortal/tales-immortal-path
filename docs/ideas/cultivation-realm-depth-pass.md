@@ -28,6 +28,7 @@ For each major realm (qi / body / spirit tracks as applicable):
 
 | Realm area | Parked design |
 |------------|---------------|
+| Qi Condensation | [`qi-condensation-depth.md`](qi-condensation-depth.md) — **designed** 2026-07-26 |
 | Foundation Establishment | [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md) |
 | Golden Core | [`golden-core-condense-peak.md`](golden-core-condense-peak.md) |
 | Tribulation / limbo | [`tribulation-per-realm-limbo.md`](tribulation-per-realm-limbo.md) |

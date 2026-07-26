@@ -165,10 +165,14 @@ function isRealmConsolidated(realmIdx) {
 }
 
 function canBreakthroughToNextRealm() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        return typeof hasQcBandBreakthroughReady === 'function' && hasQcBandBreakthroughReady();
+    }
     return isRealmConsolidated(G.realmIdx);
 }
 
 function canSealAtCurrentProgress() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) return false;
     if (isRealmConsolidated(G.realmIdx)) return false;
     const tier = getRealmProgressTierFromPct();
     return tier === 'settled' || tier === 'peak';
@@ -176,6 +180,13 @@ function canSealAtCurrentProgress() {
 
 function getConsolidationBlockReason() {
     if (canBreakthroughToNextRealm()) return null;
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        const stage = typeof getQcBandStage === 'function' ? getQcBandStage() : 'early';
+        if (stage === 'early' || stage === 'mid') {
+            return 'Gather qi until Late Qi Condensation, then Break Through — there is no Seal at this realm.';
+        }
+        return 'Reach Late Qi Condensation by gathering qi, then Break Through.';
+    }
     const def = getConsolidationDef(G.realmIdx);
     if (!def) return 'Consolidation not available at this realm.';
     const pct = getRealmProgressPct();
@@ -516,6 +527,11 @@ function executeConsolidation(opts) {
 }
 
 function actionConsolidate() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        addLog('🏛️ There is no Seal at Qi Condensation — gather to Late, then Break Through.');
+        fullRender();
+        return;
+    }
     if (actionBlocked()) return;
     const def = getConsolidationDef(G.realmIdx);
     if (!def) {
@@ -640,6 +656,10 @@ function renderConsolidatePopup() {
 
 function getConsolidationProgressSummary() {
     ensureConsolidationState();
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()
+        && typeof getQcBandMeterSummary === 'function') {
+        return getQcBandMeterSummary();
+    }
     if (isRealmConsolidated(G.realmIdx)) {
         const entry = G.realmConsolidation?.[G.realmIdx];
         const tierLabel = entry?.perfect ? 'Perfect' : getBreakthroughTierScale(entry?.tier || 'peak').label;
@@ -678,6 +698,16 @@ function getConsolidationProgressSummary() {
 }
 
 function getConsolidationStatusLabel() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        if (typeof hasQcBandBreakthroughReady === 'function' && hasQcBandBreakthroughReady()) {
+            return typeof isQcAtPeakBand === 'function' && isQcAtPeakBand()
+                ? '✦ Peak — Break Through ready'
+                : '✦ Late — Break Through ready';
+        }
+        return typeof getQcBandLabel === 'function'
+            ? `✦ ${getQcBandLabel()} — gather`
+            : '✦ Gathering qi';
+    }
     if (isRealmConsolidated(G.realmIdx)) {
         const entry = G.realmConsolidation?.[G.realmIdx];
         if (entry?.perfect) return '✅ Sealed (Perfect)';

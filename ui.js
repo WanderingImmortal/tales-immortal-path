@@ -177,11 +177,14 @@ function renderStatus() {
         const label = document.getElementById('consolidationMeterLabel');
         const hint = document.getElementById('consolidationMeterHint');
         const meterTitle = document.getElementById('consolidationMeterTitle');
-        if (meterTitle && typeof getPathCapstone === 'function') {
-            meterTitle.textContent = getPathCapstone().meterLabel || 'Realm Progress';
+        const qcMeter = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm();
+        if (meterTitle) {
+            meterTitle.textContent = qcMeter
+                ? 'Qi Store'
+                : (typeof getPathCapstone === 'function' ? (getPathCapstone().meterLabel || 'Realm Progress') : 'Realm Progress');
         }
         if (meter) {
-            meter.classList.toggle('hidden', !getConsolidationDef(G.realmIdx) && !prog.consolidated);
+            meter.classList.toggle('hidden', !qcMeter && !getConsolidationDef(G.realmIdx) && !prog.consolidated);
             meter.classList.toggle('ready', !!prog.ready && !prog.consolidated);
             meter.classList.toggle('consolidated', !!prog.consolidated);
             meter.classList.toggle('at-settled', !prog.consolidated && prog.pct >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.settledPct : 80));
@@ -190,6 +193,12 @@ function renderStatus() {
         if (fill) fill.style.width = `${prog.pct}%`;
         if (label) label.textContent = prog.label;
         if (hint) hint.textContent = prog.hint || '';
+    }
+    if (typeof renderQcBandChip === 'function') renderQcBandChip();
+    const dwellingChip = document.getElementById('dwellingStatusChip');
+    if (dwellingChip && typeof getDwellingStatusLine === 'function') {
+        dwellingChip.textContent = getDwellingStatusLine();
+        dwellingChip.style.display = '';
     }
     if (typeof STAT_GUIDE !== 'undefined') {
         const chipTips = {
@@ -1117,6 +1126,7 @@ function setBarWidth(id, current, max) {
 }
 
 function fullRender() {
+    if (typeof ensureQcDepthState === 'function') ensureQcDepthState();
     if (typeof clampCurrentQi === 'function') clampCurrentQi();
     updateShield();
     renderStatus();
@@ -2371,9 +2381,25 @@ function updateMarketButton() {
     const loc = typeof getCurrentLocationDef === 'function' ? getCurrentLocationDef() : null;
     btn.disabled = !open;
     btn.title = open
-        ? `${ACTION_MONTHS.market || 2} months · buy techniques at ${loc?.name || 'the market'}`
-        : 'Walk to Celestial Market (Heartlands) or Tide Harbor (Jade)';
+        ? `${ACTION_MONTHS.market || 2} months · buy at ${loc?.name || 'the market'}`
+        : 'Walk to Threshold Bazaar, Celestial Market, or Tide Harbor';
     btn.style.opacity = open ? '' : '0.45';
+    const workBtn = document.getElementById('btnThresholdJobs');
+    if (workBtn) {
+        const atHub = typeof isAtThresholdCity === 'function' && isAtThresholdCity();
+        workBtn.disabled = !atHub;
+        workBtn.style.opacity = atHub ? '' : '0.45';
+        workBtn.title = atHub
+            ? 'Paid work on the Threshold boards — fat jobs dry up'
+            : 'Job boards are in Threshold City';
+    }
+    const lodgeBtn = document.getElementById('btnDwelling');
+    if (lodgeBtn) {
+        lodgeBtn.disabled = false;
+        lodgeBtn.title = typeof getDwellingStatusLine === 'function'
+            ? getDwellingStatusLine()
+            : 'Rent or buy lodging in Threshold City';
+    }
 }
 
 function renderMerchantPopup() {

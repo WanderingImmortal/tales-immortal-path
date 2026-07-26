@@ -1,0 +1,99 @@
+# Qi Condensation depth
+
+| Field | Value |
+|-------|-------|
+| **Status** | `building` |
+| **Blocked on** | Band pacing playtest (inferior Late ~40–44); Dustbone surroundings later |
+| **Issue** | none yet |
+| **Chat / PR** | Local design lock 2026-07-26; branch `cursor/qc-condensation-depth` |
+| **Updated** | 2026-07-26 |
+
+## Intent
+
+Qi Condensation is **awaken to qi, then gather and store** through hard Early → Mid → Late bands (optional Peak). It is **not** mist→liquid condensation — that fantasy belongs at Foundation Establishment. QC should feel like becoming a cultivator in **Threshold City** (Dustbone), funded by jobs and selling, not explore stone lotteries.
+
+Sister docs: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md), [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md), [`city-tiers.md`](city-tiers.md), [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md), [`realm-claims.md`](realm-claims.md), [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md).
+
+## Design notes
+
+### Fantasy
+
+| Beat | Feel |
+|------|------|
+| **Awaken** | Qi-feel claim — dantian notices qi; left the mortal world |
+| **Early** | First draws; thin store |
+| **Mid** | Reliable reserve |
+| **Late** | Full basin — may attempt Foundation |
+| **Peak** (optional) | More realm stats/power; slightly stronger trib when crossing |
+
+Handoff: **QC** “I can sense and hold qi.” → **FE** “I condense and seal a foundation.”
+
+### Bands & exit
+
+- One fill axis: **Gather Qi only**. No Expand, no Refine at QC.
+- **Capacity** rises on **automatic band mini-breakthroughs** (no trib, no button) — bigger skills / more uses.
+- **No Seal** at QC. From **Late+** → player **Break Through** → `qc_to_fe` trib.
+- Peak ≠ better break odds — more power + slightly harder trib. Keep gathering after Late to enter Peak.
+- Meridians stay **FE wiring**. Nature stamp stays **FE seal**.
+- 9 layers later optional (3× Early/Mid/Late); not required for v1.
+
+### Qi-feel (Perception / Qi Sense)
+
+Feelings, not labels. Mortal vs has-qi; *heavier than yours* / even / lighter; optional vague element. Compare **effective qi power** (realm + band/peak + foundation quality), not realm name alone. Not soul-track spiritual sense ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md)).
+
+### Pacing (inferior root, start 16)
+
+| Beat | Target age |
+|------|------------|
+| Late (BT unlocks) | ~40–44 |
+| Peak QC | ~45–50 |
+| Peak FE | 80–90 (watershed doc) |
+
+Faster root grades → earlier Peak/BT ([`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md)).
+
+### Progressive action UI
+
+Hide locks **2+ realms ahead**. Soft-show **next horizon**. Never hide QC loop. Soft-show Break near Late. Unlock fanfare when something appears.
+
+### Travel
+
+No hard `minRealm` zone locks. Warn: above your station is a good way to die. Soft danger + first-entry confirm.
+
+### Explore
+
+**Scrap** pity-stone lottery. Explore = hunt **herbs/ores/reagents** for alchemy/forging/formations. Stones from **jobs + sell**.
+
+### Threshold City starter life (QC v1 slice)
+
+| Piece | v1 |
+|-------|-----|
+| Market | Basics-heavy Registry bazaar |
+| Jobs | Few at hub (loader, copyist, well, sweeper, short escort); fat jobs dry up; Su prestige separate |
+| Rent | One room |
+| Buy | One expensive courtyard/house |
+| Later | Full housing ladder, Miraj/tribe polish |
+
+Hub = **Threshold City** (id may remain `bone_crossroads`). **Law of Dust** = formal basin law; Return-to-Dust = rites/speech.
+
+## Prerequisites
+
+- [x] Owner design lock (bands, no Seal, gather-only, qi-feel, explore, pacing, Threshold naming)
+- [ ] Ship starter-life + band code
+- [ ] Tune gather thresholds to pacing ages
+- [ ] Cross-link watershed Peak QC row from TBD → 45–50
+
+## Open questions
+
+- Exact Gather thresholds per band (numbers)
+- Peak as fourth stage vs perfected Late sub-state
+- Body/spirit band skins
+- Effective presence score formula for qi-feel v2
+
+## Implementation crumbs
+
+- `chamber.js` — Gather only at `realmIdx === 0`; hide Expand/Refine
+- `consolidation.js` / `cultivation.js` — no QC Seal; Late+ breakthrough; band state on `G`
+- `action-gates.js` — show policy hidden/locked/unlocked
+- `world.js` — open travel + warnings; Threshold rename display
+- `data.js` — marketKey dustbone, jobs table, dwelling
+- Explore loot → material tables
