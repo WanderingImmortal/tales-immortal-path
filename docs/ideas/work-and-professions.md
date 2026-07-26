@@ -6,13 +6,14 @@
 | **Blocked on** | monthly tick; [`settlement-lore.md`](settlement-lore.md) |
 | **Issue** | none yet |
 | **Chat / PR** | parked 2026-07-25 |
-| **Updated** | 2026-07-25 |
+| **Updated** | 2026-07-26 |
 
-**Hub:** [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)
+**Hub:** [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
+**QC cut:** [`qi-condensation-depth.md`](qi-condensation-depth.md)
 
 ## Intent
 
-**Menial → skilled work** funds cultivation for QC–FE life sim. Merchant/alchemist = capital + craft margin, not infinite porter wages.
+**Menial → skilled work** funds cultivation for QC–FE life sim. Merchant/alchemist = capital + craft margin, not infinite porter wages. Fat jobs **run out of work** for a while — no fake earnings caps; calendar time is the cost.
 
 ## Job tiers
 
@@ -26,17 +27,17 @@
 
 `actionWork(jobId)` → months → stones ± rep/event.
 
-## Bone Crossroads jobs (starter)
+## Threshold City jobs (QC v1 starter)
 
-Loader (Dune), Registry copyist, well attendant, bone-marker sweeper, short escort — see [`settlement-lore.md`](settlement-lore.md).
+At hub (id `bone_crossroads`): Loader (Dune), Registry copyist, well attendant, bone-marker sweeper, short escort. Steady vs risk; Su Heartlands caravan = prestige outlier. Miraj is **not** the wage board. See [`settlement-lore.md`](settlement-lore.md).
 
 ## Fair employer
 
-Pay on time → `cityStanding.contribution++`.
+Pay on time → `cityStanding.contribution++` (later).
 
 ## QC loop without explore RNG
 
-Work → rent → pills/materials → cultivate; craft → market sell.
+Work → rent → pills/materials → cultivate; craft → market sell. Explore feeds materials only.
 
 ## Data sketch
 

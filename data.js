@@ -1881,10 +1881,32 @@ const STAT_GUIDE = {
     }
 };
 
-// Merchant hubs (zone id → catalog key)
-const MERCHANT_ZONES = ["heartlands", "jade"];
+// Merchant hubs (catalog key — usually zone id; locations set marketKey)
+const MERCHANT_ZONES = ["dustbone", "heartlands", "jade"];
 
 const MERCHANT_CATALOG = {
+    dustbone: {
+        name: "Threshold Bazaar",
+        stock: [
+            { technique: "Sandburrow Palm", price: 28 },
+            { technique: "Bronze Skin Palm", price: 32 },
+            { technique: "Earth Pulse Palm", price: 38 },
+            { technique: "Quickfoot Art", price: 30 }
+        ],
+        methods: [
+            { methodId: 'outer_sect_qi_cycling', price: 40 },
+            { methodId: 'impure_meridian_breath', price: 36 },
+            { methodId: 'burning_breath_technique', price: 42 },
+            { methodId: 'stone_root_breath', price: 42 }
+        ],
+        formations: [
+            { formationId: 'qi_stabilizer', price: 70 }
+        ],
+        pills: [
+            { id: "spirit_gathering", price: 18, qty: 3 },
+            { id: "blood_recovery", price: 32, qty: 2 }
+        ]
+    },
     heartlands: {
         name: "Celestial Market",
         stock: [
@@ -3867,10 +3889,11 @@ const WORLD_LOCATIONS = {
     },
     bone_crossroads: {
         id: 'bone_crossroads', parentZone: 'dustbone', type: 'city', isDefault: true,
-        name: 'Bone Crossroads', emoji: '🏜️',
-        description: 'Caravans meet where three dune-roads cross — the safest place in Dustbone for a lone cultivator.',
-        lore: 'Bone totems mark graves of merchants who thought the desert was merely sand.',
-        tags: ['Explore hub', 'Story NPCs', 'Caravans']
+        name: 'Threshold City', emoji: '🏜️',
+        description: 'Dustbone\'s hub under the Law of Dust — caravans, Registry pins, and a basics bazaar kept just under cascade density.',
+        lore: 'Built where three dune-roads meet. The Tribunal watches the gates; tribes keep their thrones elsewhere. Organised chaos — rich streets, thin tyranny.',
+        marketKey: 'dustbone',
+        tags: ['City', 'Market', 'Jobs', 'Story NPCs', 'Caravans']
     },
     sunscar_camp: {
         id: 'sunscar_camp', parentZone: 'dustbone', type: 'sect_hq',

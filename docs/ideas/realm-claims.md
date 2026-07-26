@@ -25,7 +25,7 @@ Uses indices from [`nine-realm-ladder.md`](nine-realm-ladder.md) (`0–8`).
 
 | Idx | Realm | Claim | Verb / mechanic | Travel / world |
 |-----|-------|-------|-----------------|----------------|
-| 0 | Qi Condensation | **Perception** | Sense qi; mortals vs cultivators | Explore / NPC flavor |
+| 0 | Qi Condensation | **Perception** / **Qi Sense** | Qi-feel: mortal vs has-qi; comparative *heavier than yours* (effective power, not realm labels); vague element hints — see [`qi-condensation-depth.md`](qi-condensation-depth.md) | Explore / NPC flavor |
 | 1 | Foundation Establishment | **Anchor** | Intent, physique, sealed-site probe (existing) | Rooted — resist zone chip |
 | 2 | Core Formation | **Domain** | Aura pressure; sect/forbidden (existing) | **Light Body** — local 2mo → 0–1mo |
 | 3 | Nascent Soul | **Sovereignty** | Soul sense; projection (light) | **Sky Travel** — zone 8mo → 2–3mo |
@@ -108,7 +108,7 @@ function getLocalTravelMonths(locationId) {
 
 - [ ] Store claims explicitly vs derive from table?
 - [ ] Body/soul paths get all 9 claims or subset?
-- [ ] Link QC Perception to [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md)?
+- [x] QC Perception = light qi-feel (not full spiritual sense) — [`qi-condensation-depth.md`](qi-condensation-depth.md); full reads stay [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) / NS
 
 ## Implementation crumbs
 

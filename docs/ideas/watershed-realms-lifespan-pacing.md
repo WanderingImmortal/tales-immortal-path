@@ -53,7 +53,8 @@ Superior/heavenly roots hit competent peak **earlier** → more runway for cross
 | Milestone | Inferior root target age | Notes |
 |-----------|--------------------------|-------|
 | Start | 16 | `STARTING_AGE_YEARS` |
-| Peak Qi Condensation + BT | TBD (e.g. 35–50) | Uses most of **80y** mortal cap window |
+| Peak Qi Condensation | **~45–50** (inferior) | Owner lock 2026-07-26 — serious chunk of mortal years, not nearly all ([`qi-condensation-depth.md`](qi-condensation-depth.md)) |
+| Late QC (BT unlocks) | **~40–44** (inferior) | Peak optional (more power, harder trib) |
 | Peak Foundation Establishment | **80–90** | Owner anchor |
 | Lifespan at FE tier | **120y** cap | Only **30–40 years left** if peak FE at 80–90 |
 | Golden Core crossing | Rare without aid | May require pills/formations/talent; many die stuck at FE peak |

@@ -4,6 +4,7 @@
 |-------|-------|
 | **Status** | `designed` |
 | **Blocked on** | [`nine-realm-ladder.md`](nine-realm-ladder.md) for full travel table; [`realm-claims.md`](realm-claims.md) for implementation |
+| **Note** | Owner 2026-07-26: drop hard zone `minRealm` travel locks — soft danger + “above your station” warnings ([`qi-condensation-depth.md`](qi-condensation-depth.md)) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chats, 2026-07-18–20 |
 | **Updated** | 2026-07-21 |

@@ -6,22 +6,29 @@
 | **Blocked on** | [`economy-framework.md`](economy-framework.md), [`work-and-professions.md`](work-and-professions.md) |
 | **Issue** | none yet |
 | **Chat / PR** | parked 2026-07-25 |
-| **Updated** | 2026-07-25 |
+| **Updated** | 2026-07-26 |
 
 **Hub:** [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
-**Vision split:** [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md)
+**Vision split:** [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md)  
+**QC cut:** [`qi-condensation-depth.md`](qi-condensation-depth.md)
 
 ## Intent
 
 **Personal anchor** without founding sect: **rent → buy → hire** guards/staff. `G.dwelling` separate from `G.sect`. Nomads stay travel-kit only.
 
-## Rent tiers (QC)
+## QC v1 (ship first)
 
-Cot → room → suite → townhouse lease (zone multipliers). Monthly pay; eviction if broke.
+| Mode | What |
+|------|------|
+| **Rent** | One **room** at Threshold City — monthly drain, small rest/cultivate fiction |
+| **Buy** | One **expensive** courtyard/house — long grind |
+| **Homeless** | Allowed; no bonus (or slight rest penalty) |
 
-## Buy tiers
+## Full ladder (later)
 
-Plot (build) → house → manor. Formation slots, hire slots, defences at owner tiers.
+**Rent:** Cot → room → suite → townhouse lease (zone multipliers). Monthly pay; eviction if broke.
+
+**Buy:** Plot (build) → house → manor. Formation slots, hire slots, defences at owner tiers.
 
 ## Hire (not disciples)
 

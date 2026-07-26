@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=92" />
+    <link rel="stylesheet" href="style.css?v=93" />
 </head>
 <body>
 
@@ -136,6 +136,8 @@
                         <span class="realm" id="realmDisplay">Qi Condensation</span>
                         <span class="title" id="titleDisplay">— Mortal Aspirant</span>
                     </div>
+                    <div class="qc-band-chip" id="qcBandChip" style="display:none;" aria-live="polite"></div>
+                    <div class="dwelling-status-chip" id="dwellingStatusChip" style="font-size:11px;color:#a09080;margin-top:4px;"></div>
                     <div class="track-strip" id="trackStrip" title="Three refinements — no class lock"></div>
 
                     <div class="lifespan-banner" id="lifespanBanner">
@@ -256,14 +258,16 @@
                         <div class="action-group">
                             <div class="action-group-label">World</div>
                             <div class="actions-row">
-                                <button id="btnExplore" title="4 months · loot & manuals">🌿 Explore</button>
+                                <button id="btnExplore" title="4 months · field herbs, ores & reagents">🌿 Explore</button>
                                 <button id="btnSearch" title="Probe rumored sealed-site entrances in this region — not forbidden grounds or Dao fragments">🗝️ Probe Sealed Sites</button>
                                 <button id="btnMap" title="8 months to travel">🗺️ Map</button>
-                                <button id="btnMarket" title="Markets in Heartlands & Jade">🏪 Market</button>
+                                <button id="btnMarket" title="Threshold, Heartlands & Jade markets">🏪 Market</button>
                                 <button id="btnCombat" title="2 months + battle time">⚔️ Fight</button>
                             </div>
                             <div class="actions-row" style="margin-top:6px;">
                                 <button id="btnLookAround" title="1 month · scan for strangers">👁️ Look around</button>
+                                <button id="btnThresholdJobs" title="Paid work in Threshold City">👷 Work</button>
+                                <button id="btnDwelling" title="Rent or buy lodging">🏠 Lodge</button>
                                 <button id="btnForbidden" title="Forbidden grounds">🌑 Forbidden</button>
                             </div>
                         </div>
@@ -1296,11 +1300,28 @@
     </div>
 </div>
 
+<div class="popup-overlay" id="thresholdJobsPopup">
+    <div class="popup-box">
+        <h2>👷 Threshold Work Boards</h2>
+        <p style="font-size:12px;color:#a09080;margin-bottom:8px;">Paid work under the Law of Dust. Fat jobs dry up — calendar time is the real cost.</p>
+        <div id="thresholdJobsList"></div>
+        <button class="close-btn" id="thresholdJobsClose">Close</button>
+    </div>
+</div>
+
+<div class="popup-overlay" id="dwellingPopup">
+    <div class="popup-box">
+        <h2>🏠 Lodging</h2>
+        <div id="dwellingBody"></div>
+        <button class="close-btn" id="dwellingClose">Close</button>
+    </div>
+</div>
+
 <div class="popup-overlay" id="mapPopup">
     <div class="popup-box map-popup-box">
         <h2>🗺️ Azure Sky Continent</h2>
         <div class="map-popup-intro">
-            Click a region to travel. Walk between places on the local map. <span id="currentZoneDisplay">Current: Unknown</span>
+            Click a region to travel — roads are open; places above your station can kill you. Walk places on the local map. <span id="currentZoneDisplay">Current: Unknown</span>
         </div>
         <div class="map-tabs" role="tablist" aria-label="Map layers">
             <button type="button" class="map-tab-btn active" id="mapTabWorld" data-map-tab="world" role="tab" aria-selected="true">🗺️ World</button>
@@ -1348,13 +1369,13 @@
     <span id="overlayLifespanText"></span>
 </div>
 
-<script src="data.js?v=95"></script>
+<script src="data.js?v=96"></script>
 <script src="dao-taxonomy.js?v=1"></script>
 <script src="cultivation-tracks.js?v=2"></script>
 <script src="talent.js?v=2"></script>
 <script src="legacy.js?v=2"></script>
 <script src="world-scheduler.js?v=3"></script>
-<script src="core.js?v=42"></script>
+<script src="core.js?v=43"></script>
 <script src="techniques.js?v=5"></script>
 <script src="cultivation-methods.js?v=3"></script>
 <script src="travel-kit.js?v=4"></script>
@@ -1371,7 +1392,8 @@
 <script src="alchemy-chamber.js?v=1"></script>
 <script src="alignment.js?v=5"></script>
 <script src="transcendence.js?v=4"></script>
-<script src="consolidation.js?v=8"></script>
+<script src="consolidation.js?v=9"></script>
+<script src="qc-depth.js?v=1"></script>
 <script src="sect-inventory.js?v=2"></script>
 <script src="sect-buildings.js?v=3"></script>
 <script src="formations.js?v=6"></script>
@@ -1380,23 +1402,23 @@
 <script src="sect-expand.js?v=9"></script>
 <script src="cultivation.js?v=16"></script>
 <script src="intent.js?v=7"></script>
-<script src="tribulation.js?v=15"></script>
+<script src="tribulation.js?v=16"></script>
 <script src="locations.js?v=3"></script>
-<script src="world.js?v=32"></script>
+<script src="world.js?v=33"></script>
 <script src="ambient-npcs.js?v=1"></script>
 <script src="npc-converse.js?v=1"></script>
 <script src="npc-betrayal.js?v=1"></script>
-<script src="npc-presence.js?v=1"></script>
+<script src="npc-presence.js?v=2"></script>
 <script src="ancients.js?v=5"></script>
 <script src="factions.js?v=9"></script>
 <script src="factions-expand.js?v=6"></script>
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=58"></script>
-<script src="action-gates.js?v=2"></script>
-<script src="actions.js?v=37"></script>
-<script src="chamber.js?v=12"></script>
+<script src="ui.js?v=59"></script>
+<script src="action-gates.js?v=3"></script>
+<script src="actions.js?v=38"></script>
+<script src="chamber.js?v=13"></script>
 <script src="body-chamber.js?v=23"></script>
 <script src="vessel-rules.js?v=3"></script>
 <script src="physique-cultivation.js?v=3"></script>
@@ -1412,6 +1434,6 @@
 <script src="playtest-mode.js?v=2"></script>
 <script src="settings.js?v=1"></script>
 <script src="action-help.js?v=1"></script>
-<script src="main.js?v=45"></script>
+<script src="main.js?v=46"></script>
 </body>
 </html>

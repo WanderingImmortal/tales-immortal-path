@@ -201,6 +201,9 @@ function actionLookAround() {
     }
 
     commitActionLog(`👁️ You scan ${placeLabel} — ${crowd.length} figure${crowd.length === 1 ? '' : 's'} stand out from the noise.`);
+    if (typeof logQiFeelForNpc === 'function' && crowd[0]) {
+        logQiFeelForNpc(crowd[0]);
+    }
     openCrowdPopup();
     fullRender();
 }
