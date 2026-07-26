@@ -3920,6 +3920,12 @@ header .subtitle {
     gap: 6px;
 }
 
+/* Progressive realm UI — hide actions 2+ realms ahead (beats row button styles) */
+button.action-realm-hidden,
+.action-with-help.action-realm-hidden {
+    display: none !important;
+}
+
 .actions-row-wrap {
     grid-template-columns: repeat(3, 1fr);
 }

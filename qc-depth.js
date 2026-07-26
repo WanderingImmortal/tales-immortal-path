@@ -540,44 +540,20 @@ function confirmTravelAboveStation(zoneId) {
 
 // ----- Progressive action UI -----
 
-function getActionShowPolicy(actionId) {
-    const def = (typeof ACTION_UNLOCKS !== 'undefined' && ACTION_UNLOCKS[actionId]) || null;
-    if (!def) return 'show';
-    const state = typeof evaluateActionUnlock === 'function' ? evaluateActionUnlock(actionId) : { unlocked: true };
-    if (state.unlocked) return 'unlocked';
-    const minRealm = def.minRealm;
-    if (minRealm == null) return 'locked';
-    const tier = typeof getActionUnlockRealmTier === 'function'
-        ? getActionUnlockRealmTier(actionId)
-        : (G.realmIdx || 0);
-    if (minRealm - tier >= 2) return 'hidden';
-    return 'locked';
-}
-
 function applyQcProgressiveActionUi() {
-    if (typeof ACTION_UNLOCK_BUTTONS === 'undefined') return;
-    Object.entries(ACTION_UNLOCK_BUTTONS).forEach(([actionId, btnId]) => {
-        const btn = document.getElementById(btnId);
-        if (!btn) return;
-        const policy = getActionShowPolicy(actionId);
-        if (policy === 'hidden') {
-            btn.style.display = 'none';
-            const wrap = btn.closest('.action-with-help');
-            if (wrap) wrap.style.display = 'none';
-            return;
-        }
-        btn.style.display = '';
-        const wrap = btn.closest('.action-with-help');
-        if (wrap) wrap.style.display = '';
-    });
-
-    // QC: hide Seal; soft-show Break from Mid+
+    // Realm-distance hide for Dao/Forbidden/etc. lives in action-gates getActionShowPolicy.
+    // QC-only: Seal off; Break soft-shows Mid+; Meridians stay FE wiring.
     const sealBtn = document.getElementById('btnConsolidate');
     const sealHelp = document.getElementById('helpConsolidate');
     if (isQiCondensationRealm()) {
         if (sealBtn) {
             sealBtn.style.display = 'none';
-            sealBtn.closest('.action-with-help') && (sealBtn.closest('.action-with-help').style.display = 'none');
+            sealBtn.classList.add('action-realm-hidden');
+            const wrap = sealBtn.closest('.action-with-help');
+            if (wrap) {
+                wrap.style.display = 'none';
+                wrap.classList.add('action-realm-hidden');
+            }
         }
         if (sealHelp) sealHelp.style.display = 'none';
         const breakBtn = document.getElementById('btnBreakthrough');
@@ -593,8 +569,12 @@ function applyQcProgressiveActionUi() {
     } else {
         if (sealBtn) {
             sealBtn.style.display = '';
+            sealBtn.classList.remove('action-realm-hidden');
             const wrap = sealBtn.closest('.action-with-help');
-            if (wrap) wrap.style.display = '';
+            if (wrap) {
+                wrap.style.display = '';
+                wrap.classList.remove('action-realm-hidden');
+            }
         }
         if (sealHelp) sealHelp.style.display = '';
         const breakBtn = document.getElementById('btnBreakthrough');
@@ -602,10 +582,11 @@ function applyQcProgressiveActionUi() {
         if (breakWrap) breakWrap.style.display = '';
     }
 
-    // Meridians stay FE wiring — hide at QC
     const merBtn = document.getElementById('btnMeridian');
     if (merBtn) {
-        merBtn.style.display = isQiCondensationRealm() ? 'none' : '';
+        const hideMer = isQiCondensationRealm();
+        merBtn.style.display = hideMer ? 'none' : '';
+        merBtn.classList.toggle('action-realm-hidden', hideMer);
     }
 }
 

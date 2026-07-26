@@ -55,6 +55,43 @@ function getActionUnlockRealmTier(actionId) {
     return getGateRealmTier();
 }
 
+/**
+ * Progressive action UI: hide locks 2+ realms ahead; soft-show the next horizon.
+ * Realm distance is checked before unlock state so playtest free-gates cannot un-hide Dao/Forbidden at QC.
+ */
+function getActionShowPolicy(actionId) {
+    const def = getActionUnlockDef(actionId);
+    if (!def) return 'show';
+
+    const minRealm = def.minRealm;
+    if (minRealm != null) {
+        const tier = getActionUnlockRealmTier(actionId);
+        if (minRealm - tier >= 2) return 'hidden';
+    }
+
+    const state = evaluateActionUnlock(actionId);
+    if (state.unlocked) return 'unlocked';
+    if (minRealm == null && !def.milestones?.length && !def.customCheck) return 'unlocked';
+    return 'locked';
+}
+
+function applyActionShowPolicy(btn, actionId) {
+    if (!btn) return 'show';
+    const policy = getActionShowPolicy(actionId);
+    const wrap = btn.closest('.action-with-help');
+    const hide = policy === 'hidden';
+    btn.classList.toggle('action-realm-hidden', hide);
+    if (wrap) wrap.classList.toggle('action-realm-hidden', hide);
+    if (hide) {
+        btn.style.display = 'none';
+        if (wrap) wrap.style.display = 'none';
+    } else {
+        btn.style.display = '';
+        if (wrap) wrap.style.display = '';
+    }
+    return policy;
+}
+
 function ensureMilestones() {
     if (!G.milestones) G.milestones = {};
 }
@@ -263,17 +300,8 @@ function renderActionUnlocks() {
         const btn = document.getElementById(btnId);
         if (!btn) return;
 
-        if (typeof getActionShowPolicy === 'function') {
-            const policy = getActionShowPolicy(actionId);
-            const wrap = btn.closest('.action-with-help');
-            if (policy === 'hidden') {
-                btn.style.display = 'none';
-                if (wrap) wrap.style.display = 'none';
-                return;
-            }
-            btn.style.display = '';
-            if (wrap) wrap.style.display = '';
-        }
+        const policy = applyActionShowPolicy(btn, actionId);
+        if (policy === 'hidden') return;
 
         if (actionId === 'intent' && typeof shouldShowIntentButton === 'function') {
             const showIntent = shouldShowIntentButton();
