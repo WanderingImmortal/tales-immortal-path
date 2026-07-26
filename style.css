@@ -8531,6 +8531,113 @@ header .subtitle {
     border-color: rgba(220, 190, 110, 0.35);
 }
 
+.chamber-band-meter {
+    width: 100%;
+    max-width: 560px;
+    margin: 0 0 8px;
+    padding: 10px 12px;
+    background: rgba(20, 16, 8, 0.85);
+    border: 1px solid #3a3020;
+    border-radius: 8px;
+}
+
+.chamber-band-meter[hidden] {
+    display: none !important;
+}
+
+.chamber-band-meter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.78rem;
+    color: #8a7860;
+    margin-bottom: 6px;
+}
+
+.chamber-band-meter-header span:last-child {
+    color: #d4a860;
+    font-weight: bold;
+}
+
+.chamber-band-meter-track {
+    position: relative;
+    height: 10px;
+    background: #0a0806;
+    border-radius: 5px;
+    overflow: visible;
+    border: 1px solid var(--ink-border);
+}
+
+.chamber-band-meter-mark {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    width: 2px;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: 1px;
+    background: #a08050;
+    box-shadow: 0 0 4px rgba(160, 128, 80, 0.45);
+}
+
+.chamber-band-meter-mark.mid {
+    left: 28%;
+}
+
+.chamber-band-meter-mark.late {
+    left: 69%;
+    background: #c4a860;
+}
+
+.chamber-band-meter-mark.peak {
+    left: calc(100% - 2px);
+    background: #80d060;
+    box-shadow: 0 0 4px rgba(128, 208, 96, 0.5);
+}
+
+.chamber-band-meter-fill {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6a5030, #d4a860);
+    border-radius: 4px;
+    transition: width 0.35s ease;
+}
+
+.chamber-band-meter.at-late .chamber-band-meter-fill {
+    background: linear-gradient(90deg, #6a6040, #c8a860);
+}
+
+.chamber-band-meter.at-peak .chamber-band-meter-fill,
+.chamber-band-meter.ready .chamber-band-meter-fill {
+    background: linear-gradient(90deg, #508060, #a0d070);
+}
+
+.chamber-band-meter-hint {
+    margin-top: 6px;
+    font-size: 0.76rem;
+    color: var(--ink-text-muted);
+    line-height: 1.35;
+    text-align: center;
+}
+
+.chamber-shell.chamber-qc-mode .chamber-actions {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    justify-items: stretch;
+}
+
+.chamber-shell.chamber-qc-mode .chamber-action-wrap-gather-solo {
+    width: 100%;
+}
+
+.chamber-shell.chamber-qc-mode .chamber-btn-return {
+    grid-column: span 1;
+    max-width: 360px;
+    justify-self: stretch;
+}
+
 .chamber-stats {
     width: 100%;
     max-width: 560px;

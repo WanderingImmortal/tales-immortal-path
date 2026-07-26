@@ -626,18 +626,77 @@ function renderQcBandChip() {
         : `✦ ${label} · ${pct}% ${nextHint}`;
 }
 
+function getQcOverallBandFillPct() {
+    if (!isQiCondensationRealm()) return 0;
+    ensureQcDepthState();
+    const prog = G.qcBand.gatherProgress || 0;
+    const peak = QC_BAND_THRESHOLDS.peak || 1;
+    return Math.min(100, Math.floor((prog / peak) * 100));
+}
+
+function renderChamberQcBandMeter() {
+    const meter = document.getElementById('chamberBandMeter');
+    if (!meter) return;
+    const qc = isQiCondensationRealm();
+    meter.hidden = !qc;
+    if (!qc) return;
+
+    const summary = typeof getQcBandMeterSummary === 'function' ? getQcBandMeterSummary() : null;
+    const labelEl = document.getElementById('chamberBandMeterLabel');
+    const hintEl = document.getElementById('chamberBandMeterHint');
+    const fillEl = document.getElementById('chamberBandMeterFill');
+    const stage = getQcBandStage();
+    const overall = getQcOverallBandFillPct();
+    const within = getQcBandProgressPct();
+
+    if (labelEl) {
+        labelEl.textContent = stage === 'peak'
+            ? (summary?.label || 'Peak Qi Condensation')
+            : `${summary?.label || getQcBandLabel()} · ${within}%`;
+    }
+    if (hintEl) hintEl.textContent = summary?.hint || 'Gather Qi to deepen your store.';
+    if (fillEl) fillEl.style.width = `${overall}%`;
+
+    meter.classList.toggle('ready', !!summary?.ready);
+    meter.classList.toggle('at-late', stage === 'late' || stage === 'peak');
+    meter.classList.toggle('at-peak', stage === 'peak');
+}
+
 function applyQcChamberVerbVisibility() {
     const hide = isQiCondensationRealm();
+    const shell = document.querySelector('#qiChamberOverlay .chamber-shell');
+    if (shell) shell.classList.toggle('chamber-qc-mode', hide);
+
     ['chamberExpandDantian', 'chamberPerfectFoundation', 'chamberCondenseCore'].forEach(id => {
         const btn = document.getElementById(id);
         const wrap = btn?.closest('.chamber-action-wrap');
         if (wrap) wrap.style.display = hide ? 'none' : '';
         else if (btn) btn.style.display = hide ? 'none' : '';
     });
-    const subtitle = document.querySelector('#qiChamberOverlay .chamber-subtitle');
-    if (subtitle && hide) {
-        subtitle.textContent = 'Gather and store qi. Capacity grows when your store settles into a deeper band.';
+
+    const gatherWrap = document.getElementById('chamberGatherQi')?.closest('.chamber-action-wrap');
+    if (gatherWrap) {
+        gatherWrap.classList.toggle('chamber-action-wrap-gather-solo', hide);
     }
+
+    const foundationStat = document.querySelector('#qiChamberOverlay .chamber-stat-foundation');
+    if (foundationStat) foundationStat.style.display = hide ? 'none' : '';
+
+    const subtitle = document.querySelector('#qiChamberOverlay .chamber-subtitle');
+    if (subtitle) {
+        subtitle.textContent = hide
+            ? 'Gather and store qi. Capacity grows when your store settles into a deeper band.'
+            : 'The void hums. Your dantian awaits.';
+    }
+
+    const hint = document.getElementById('chamberStatsHint');
+    if (hint) {
+        hint.textContent = hide
+            ? 'Gather fills your Qi Store bar · Capacity rises on band mini-breakthroughs · Break Through from Late+'
+            : 'Density = refinement · Capacity = max Qi · Foundation = cultivation base quality (Crude → Peerless)';
+    }
+
+    renderChamberQcBandMeter();
 }
 
 /** Explore miss → field reagents (not pity stones). */

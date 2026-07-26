@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=93" />
+    <link rel="stylesheet" href="style.css?v=94" />
 </head>
 <body>
 
@@ -900,6 +900,20 @@
             <p class="chamber-path" id="chamberCultivationPath">Path: —</p>
         </header>
 
+        <div class="chamber-band-meter" id="chamberBandMeter" hidden>
+            <div class="chamber-band-meter-header">
+                <span id="chamberBandMeterTitle">Qi Store</span>
+                <span id="chamberBandMeterLabel">—</span>
+            </div>
+            <div class="chamber-band-meter-track">
+                <div class="chamber-band-meter-mark mid" title="Mid"></div>
+                <div class="chamber-band-meter-mark late" title="Late — Break Through"></div>
+                <div class="chamber-band-meter-mark peak" title="Peak"></div>
+                <div class="chamber-band-meter-fill" id="chamberBandMeterFill"></div>
+            </div>
+            <div class="chamber-band-meter-hint" id="chamberBandMeterHint"></div>
+        </div>
+
         <div class="chamber-stage" aria-hidden="true">
             <div class="chamber-dantian-wrap" id="chamberDantianWrap">
                 <div class="chamber-orbit chamber-orbit-3">
@@ -1393,7 +1407,7 @@
 <script src="alignment.js?v=5"></script>
 <script src="transcendence.js?v=4"></script>
 <script src="consolidation.js?v=9"></script>
-<script src="qc-depth.js?v=1"></script>
+<script src="qc-depth.js?v=2"></script>
 <script src="sect-inventory.js?v=2"></script>
 <script src="sect-buildings.js?v=3"></script>
 <script src="formations.js?v=6"></script>
