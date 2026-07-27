@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Phase 2 on PR #85) |
+| **Status** | `building` (Phase 2 on PR #86) |
 | **Blocked on** | none |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) · `cursor/world-clock-phase-2` |
@@ -79,7 +79,7 @@ Top-of-screen world date — later.
 - [x] Owner Phase 1 locks
 - [x] Phase 1 ship (ticker + UI + advanceTime gate) — PR #85
 - [x] Phase 2 monthly digests + rent warn + stance/project/instant/transit (this pass)
-- [ ] Phase 3 QC cultivate stance polish / Practice Session
+- [ ] Phase 3 QC cultivate polish — see [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) (no postures; pill buffs; reasoned interrupts)
 
 ## Open questions
 
@@ -88,8 +88,6 @@ Top-of-screen world date — later.
 - World date format (era name vs plain year/month)?
 - Explore deeper redesign — parked
 - Fight system redesign — parked (interim: 1 week seek)
-- Road bandits / travel random events — parked
+- Road bandits / travel random events — parked (may share DNA with cultivate interrupts)
 
-## Implementation crumbs
-
-`world-clock.js` (stances/projects/digests/rent warn), `actions.js`, `world.js`, `qc-depth.js`, `npc-presence.js`, `npc-converse.js`, `gear.js`, `data.js` (`combatStart: 0.25`)
+Sister Phase 3: [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)
