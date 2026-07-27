@@ -65,9 +65,14 @@ function isWorldClockHardFrozen() {
 
     if (_worldClockBlurred) return true;
 
+    // Practice chambers are not "menus" — gather-qi stance should keep ticking inside the Qi Chamber.
+    const clockOkOverlays = new Set([
+        'timePlaybackOverlay',
+        'qiChamberOverlay'
+    ]);
     const overlays = document.querySelectorAll('.popup-overlay.active');
     for (const el of overlays) {
-        if (el.id === 'timePlaybackOverlay') continue;
+        if (clockOkOverlays.has(el.id)) continue;
         return true;
     }
     return false;
