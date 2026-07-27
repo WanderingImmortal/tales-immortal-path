@@ -71,6 +71,7 @@ function renderStatus() {
     }
     const ageEl = document.getElementById('ageDisplay');
     ageEl.textContent = formatYears(G.ageMonths);
+    if (typeof renderWorldClockBar === 'function') renderWorldClockBar();
     const lifeEl = document.getElementById('lifespanDisplay');
     const lifeBanner = document.getElementById('lifespanBanner');
     const lifeBannerText = document.getElementById('lifespanBannerText');
@@ -1144,6 +1145,7 @@ function fullRender() {
     // Re-assert QC hides last — tutorials / other UI must not leave Dao/Forbidden visible.
     if (typeof applyQcProgressiveActionUi === 'function') applyQcProgressiveActionUi();
     renderOverlayLifespanChip();
+    if (typeof renderWorldClockBar === 'function') renderWorldClockBar();
     const reincBtn = document.getElementById('btnTrueReincarnation');
     if (reincBtn) reincBtn.style.display = (typeof isImmortal === 'function' && isImmortal()) ? '' : 'none';
     saveState();

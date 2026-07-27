@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=99" />
+    <link rel="stylesheet" href="style.css?v=100" />
 </head>
 <body>
 
@@ -128,6 +128,15 @@
     </div>
 
     <div id="game-screen" class="game-screen" style="display:none;">
+        <div id="worldClockBar" class="world-clock-bar" hidden aria-label="Living calendar">
+            <button type="button" id="worldClockPlayPause" class="world-clock-play" aria-pressed="false" title="Resume the living calendar (Space)">▶ Play</button>
+            <div class="world-clock-speeds" role="group" aria-label="Calendar speed">
+                <button type="button" data-clock-speed="slow" class="world-clock-speed" title="1 week / 8s">Slow</button>
+                <button type="button" data-clock-speed="normal" class="world-clock-speed active" title="1 week / 5s">Normal</button>
+                <button type="button" data-clock-speed="fast" class="world-clock-speed" title="1 week / 2.5s">Fast</button>
+            </div>
+            <span id="worldClockAge" class="world-clock-age" title="Age">16y</span>
+        </div>
         <div class="main-layout">
             <!-- LEFT: compact controls -->
             <aside class="sidebar">
@@ -1390,7 +1399,7 @@
 <script src="talent.js?v=2"></script>
 <script src="legacy.js?v=2"></script>
 <script src="world-scheduler.js?v=3"></script>
-<script src="core.js?v=43"></script>
+<script src="core.js?v=44"></script>
 <script src="techniques.js?v=5"></script>
 <script src="cultivation-methods.js?v=3"></script>
 <script src="travel-kit.js?v=4"></script>
@@ -1430,7 +1439,7 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=61"></script>
+<script src="ui.js?v=62"></script>
 <script src="action-gates.js?v=6"></script>
 <script src="actions.js?v=39"></script>
 <script src="chamber.js?v=13"></script>
@@ -1443,12 +1452,13 @@
 <script src="story-arcs.js?v=6"></script>
 <script src="chronicle-diary.js?v=2"></script>
 <script src="time-playback.js?v=1"></script>
+<script src="world-clock.js?v=1"></script>
 <script src="seclusion-project.js?v=1"></script>
 <script src="combat.js?v=37"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
 <script src="settings.js?v=1"></script>
 <script src="action-help.js?v=1"></script>
-<script src="main.js?v=46"></script>
+<script src="main.js?v=47"></script>
 </body>
 </html>

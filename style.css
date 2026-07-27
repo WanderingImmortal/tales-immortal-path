@@ -494,6 +494,91 @@ header .subtitle {
     overflow: hidden;
 }
 
+/* ----- LIVING WORLD CLOCK (top-right) ----- */
+.world-clock-bar {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border: 1px solid rgba(120, 96, 64, 0.45);
+    border-radius: 8px;
+    background: linear-gradient(165deg, rgba(28, 22, 16, 0.92), rgba(18, 14, 10, 0.88));
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    font-size: 12px;
+    color: #d8c8b0;
+    pointer-events: auto;
+}
+
+.world-clock-bar[hidden] {
+    display: none !important;
+}
+
+.world-clock-play {
+    border: 1px solid rgba(140, 112, 72, 0.55);
+    border-radius: 6px;
+    background: rgba(48, 36, 22, 0.9);
+    color: #efdfc4;
+    padding: 4px 10px;
+    cursor: pointer;
+    font: inherit;
+    min-width: 72px;
+}
+
+.world-clock-play:hover {
+    border-color: rgba(180, 148, 96, 0.8);
+    background: rgba(64, 48, 28, 0.95);
+}
+
+.world-clock-speeds {
+    display: flex;
+    gap: 2px;
+}
+
+.world-clock-speed {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: #a89078;
+    padding: 3px 7px;
+    cursor: pointer;
+    font: inherit;
+}
+
+.world-clock-speed:hover {
+    color: #e8d8c0;
+}
+
+.world-clock-speed.active {
+    border-color: rgba(160, 128, 80, 0.55);
+    background: rgba(70, 52, 28, 0.75);
+    color: #f0e0c4;
+}
+
+.world-clock-age {
+    min-width: 4.5em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: #f2e6d0;
+    letter-spacing: 0.02em;
+}
+
+.world-clock-bar.world-clock-live .world-clock-age {
+    color: #c8e8b0;
+}
+
+.world-clock-bar.world-clock-held .world-clock-play {
+    color: #e0c878;
+}
+
+.world-clock-bar.world-clock-paused .world-clock-age {
+    color: #b8a898;
+}
+
 /* ----- MAIN LAYOUT ----- */
 .main-layout {
     flex: 1;
