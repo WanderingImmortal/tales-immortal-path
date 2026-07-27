@@ -528,8 +528,8 @@ function renderScenePanel() {
 
     renderCultivatorVisual();
 
-    document.getElementById('sceneEmoji').textContent = locDef ? locDef.emoji : (zone ? zone.emoji : '🏔️');
     const locDef = typeof getCurrentLocationDef === 'function' ? getCurrentLocationDef() : null;
+    document.getElementById('sceneEmoji').textContent = locDef ? locDef.emoji : (zone ? zone.emoji : '🏔️');
     document.getElementById('sceneZoneName').textContent = locDef ? locDef.name : (zone ? zone.name : 'Unknown');
     document.getElementById('sceneZoneBiome').textContent = locDef
         ? `${LOCATION_TYPE_LABELS[locDef.type] || locDef.type} · ${zone ? zone.biome : ''}`
