@@ -1034,6 +1034,7 @@ function updateCombatUI() {
 
     setCombatInputEnabled(G.combatPhase === 'player');
     if (typeof updateFleeButton === 'function') updateFleeButton();
+    if (typeof updateSecondaryCombatButton === 'function') updateSecondaryCombatButton();
     renderCombatBonusBar();
     renderCombatLog();
     if (typeof updateVoidStepButton === 'function') updateVoidStepButton();
@@ -1042,7 +1043,7 @@ function updateCombatUI() {
     if (skillBtn && typeof isRuleOfUnnamedActive === 'function' && isRuleOfUnnamedActive() && G.inCombat) {
         skillBtn.title = 'Forms dissipate under your Rule — living motion only.';
     } else if (skillBtn) {
-        skillBtn.title = '';
+        skillBtn.title = 'Combat arts from your loadout (pin in Techs outside combat)';
     }
 }
 
@@ -1198,8 +1199,12 @@ function renderTechItemHtml(tech) {
         : `⚔️ ${dmg} dmg (${scaleHint}) | 💰 ${cost} ${tech.costType} | Uses: ${tech.uses || 0}${multStr}`;
     const affordClass = canAfford ? '' : ' tech-unaffordable';
     const viabilityBadge = typeof getTechniqueViabilityBadge === 'function' ? getTechniqueViabilityBadge(tech) : '';
-    return `<div class="popup-item${affordClass}" data-tech="${tech.name}"${canAfford ? '' : ' data-unaffordable="1"'}>
-        <div class="name">${pathIcon} ${tech.name} ${viabilityBadge} ${cultBadge} ${condensationBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
+    const pinned = !G.inCombat && typeof isTechInCombatLoadout === 'function' && isTechInCombatLoadout(tech.name);
+    const pinBtn = !G.inCombat
+        ? `<button type="button" class="tech-pin-btn${pinned ? ' pinned' : ''}" data-tech-pin="${escapeAttr(tech.name)}" title="${pinned ? 'Unpin from combat loadout' : 'Pin to combat loadout'}">${pinned ? '📌' : '📍'}</button>`
+        : '';
+    return `<div class="popup-item${affordClass}${pinned ? ' tech-pinned' : ''}" data-tech="${escapeAttr(tech.name)}"${canAfford ? '' : ' data-unaffordable="1"'}>
+        <div class="name">${pinBtn}${pathIcon} ${tech.name} ${viabilityBadge} ${cultBadge} ${condensationBadge} ${tierBadge} ${setBadge} <span style="color:#b8863a;font-size:12px;">[${tier.name}]</span></div>
         <div class="desc">${tech.desc} · ${elemLabel} · ${tech.rarity}${intentLine}${gateLine}${affLine ? ' · ' + affLine : ''}</div>
         <div class="meta">${costLine}</div>
     </div>`;
@@ -1287,11 +1292,72 @@ function groupTechniquesForDisplay(techniques) {
     return sorted;
 }
 
+function bindTechPinButtons(root) {
+    if (!root || G.inCombat) return;
+    root.querySelectorAll('[data-tech-pin]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof toggleCombatTechLoadout !== 'function') return;
+            const result = toggleCombatTechLoadout(this.dataset.techPin);
+            if (!result.ok && result.message) {
+                if (typeof addLog === 'function') addLog(`📌 ${result.message}`);
+            } else if (result.pinned) {
+                if (typeof addLog === 'function') addLog(`📌 Pinned ${this.dataset.techPin} for combat.`);
+            } else {
+                if (typeof addLog === 'function') addLog(`📌 Unpinned ${this.dataset.techPin} from combat.`);
+            }
+            renderTechPopup();
+        });
+    });
+}
+
 function renderTechPopup() {
-    renderAffinityPanel();
-    renderSetResonancePanel();
     const el = document.getElementById('techList');
     const sortBar = document.getElementById('techSortBar');
+    const title = document.querySelector('#techPopup h2');
+    const affPanel = document.getElementById('techAffinityPanel');
+    const setPanel = document.getElementById('techSetPanel');
+    const loadoutHint = document.getElementById('techLoadoutHint');
+
+    if (G.inCombat) {
+        if (title) title.textContent = '⚔️ Combat Arts';
+        if (sortBar) sortBar.style.display = 'none';
+        if (affPanel) affPanel.style.display = 'none';
+        if (setPanel) setPanel.style.display = 'none';
+        if (loadoutHint) loadoutHint.style.display = 'none';
+        if (typeof ensureCombatTechLoadout === 'function') ensureCombatTechLoadout();
+        const loadout = typeof getCombatLoadoutTechniques === 'function' ? getCombatLoadoutTechniques() : [];
+        if (!loadout.length) {
+            el.innerHTML = `<div class="popup-empty">No combat arts pinned. Close this fight (or flee), open <strong>Techs</strong>, and pin up to ${typeof COMBAT_TECH_LOADOUT_MAX !== 'undefined' ? COMBAT_TECH_LOADOUT_MAX : 6} arts.</div>`;
+            return;
+        }
+        el.innerHTML = `<div class="tech-group">
+            <div class="tech-group-header">Loadout <span class="tech-group-count">${loadout.length}</span></div>
+            ${loadout.map(t => renderTechItemHtml(t)).join('')}
+        </div>`;
+        el.querySelectorAll('.popup-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (this.dataset.unaffordable === '1') return;
+                combatUseTechnique(this.dataset.tech);
+            });
+        });
+        return;
+    }
+
+    if (title) title.textContent = '📜 Techniques';
+    if (sortBar) sortBar.style.display = '';
+    if (affPanel) affPanel.style.display = '';
+    if (setPanel) setPanel.style.display = '';
+    renderAffinityPanel();
+    renderSetResonancePanel();
+    if (typeof ensureCombatTechLoadout === 'function') ensureCombatTechLoadout();
+    const pinnedCount = Array.isArray(G.combatTechLoadout) ? G.combatTechLoadout.length : 0;
+    const maxSlots = typeof COMBAT_TECH_LOADOUT_MAX !== 'undefined' ? COMBAT_TECH_LOADOUT_MAX : 6;
+    if (loadoutHint) {
+        loadoutHint.style.display = '';
+        loadoutHint.textContent = `Combat loadout ${pinnedCount}/${maxSlots} — pin arts (📍) for the Tech button in fights.`;
+    }
     if (sortBar) {
         sortBar.querySelectorAll('[data-tech-sort]').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.techSort === techSortMode);
@@ -1311,14 +1377,7 @@ function renderTechPopup() {
             ${group.items.map(t => renderTechItemHtml(t)).join('')}
         </div>
     `).join('');
-    if (G.inCombat) {
-        el.querySelectorAll('.popup-item').forEach(item => {
-            item.addEventListener('click', function() {
-                if (this.dataset.unaffordable === '1') return;
-                combatUseTechnique(this.dataset.tech);
-            });
-        });
-    }
+    bindTechPinButtons(el);
 }
 
 function renderPillPopup() {

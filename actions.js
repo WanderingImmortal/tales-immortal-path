@@ -167,7 +167,7 @@ function actionRecuperate() {
     if (G.path === 'qi' || G.path === 'soul') {
         updateShield();
         const sb = G.shield;
-        G.shield = Math.min(G.maxShield, G.shield + Math.floor(G.maxShield * 0.25));
+        G.shield = Math.min(G.maxShield, G.shield + Math.floor(G.maxShield * 0.50));
         if (G.shield > sb) msg += ` · Barrier +${G.shield - sb}`;
     }
     if (G.path === 'body') {

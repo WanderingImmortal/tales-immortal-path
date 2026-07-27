@@ -1098,12 +1098,81 @@ function resolveEnemyStrike(enemyName, dmgAfterMods, opts) {
     return breakdown;
 }
 
-function setupCombatActions() {
+function getBasicAttackCost() {
+    let cost = getCombatConfig().costs.attack;
+    if (typeof getIntentBasicAttackCostDiscount === 'function') {
+        cost = Math.max(1, cost - getIntentBasicAttackCostDiscount());
+    }
+    if (typeof getUnnamedBasicAttackStaminaDiscount === 'function') {
+        cost = Math.max(1, cost - getUnnamedBasicAttackStaminaDiscount());
+    }
+    if (typeof getUnnamedStagnationStaminaPenalty === 'function') {
+        cost += getUnnamedStagnationStaminaPenalty();
+    }
+    return Math.max(1, cost);
+}
+
+function canAffordBasicAttack() {
+    return (G.combatResource || 0) >= getBasicAttackCost();
+}
+
+/** Escape hatch only — secondary swaps to Rest when too broke to Attack. */
+function shouldOfferCombatRest() {
+    return !!(G.inCombat && !canAffordBasicAttack());
+}
+
+function getCombatRestGain() {
+    const floor = getBasicAttackCost();
+    const regen = typeof getCombatResourceRegenGain === 'function' ? getCombatResourceRegenGain() : floor;
+    return Math.max(floor, regen || 0);
+}
+
+function getCombatRestLabel() {
+    if (G.path === 'body') return '💢 Catch Breath';
+    if (G.path === 'soul') return '👁️ Center';
+    return '🌬️ Rest';
+}
+
+function updateSecondaryCombatButton() {
     const secondaryBtn = document.getElementById('cbSecondary');
     if (!secondaryBtn) return;
     const cfg = getCombatConfig();
-    secondaryBtn.textContent = cfg.secondaryLabel;
-    secondaryBtn.className = 'combat-btn btn-secondary path-' + G.path;
+    const rest = shouldOfferCombatRest();
+    secondaryBtn.className = 'combat-btn btn-secondary path-' + G.path + (rest ? ' btn-rest' : '');
+    if (rest) {
+        secondaryBtn.textContent = getCombatRestLabel();
+        secondaryBtn.title = `Too low on ${cfg.resource} — Rest (free) to recover enough to act. Light guard this turn.`;
+    } else {
+        secondaryBtn.textContent = cfg.secondaryLabel;
+        secondaryBtn.title = '';
+    }
+}
+
+function combatRest() {
+    if (!canPlayerAct()) return;
+    if (!shouldOfferCombatRest()) return;
+    const cfg = getCombatConfig();
+    const gain = getCombatRestGain();
+    const before = G.combatResource || 0;
+    if (typeof isCombatQiLinked === 'function' && isCombatQiLinked()) {
+        G.combatResource = Math.min(getQiLinkedBreathCap(), before + gain);
+    } else {
+        G.combatResource = Math.min(G.maxCombatResource || 0, before + gain);
+    }
+    const got = G.combatResource - before;
+    // Light guard — not as strong as paid Defend/Fortify
+    G.defending = true;
+    G.fortifyActive = false;
+    const verb = G.path === 'body' ? 'catch your breath' : G.path === 'soul' ? 'center your focus' : 'rest and cycle qi';
+    addCombatLog(`${cfg.icon} You ${verb} — +${got} ${cfg.resource}.`);
+    if (typeof trackMirrorAction === 'function') trackMirrorAction('secondary');
+    if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('secondary')) return;
+    updateCombatUI();
+    scheduleOpponentTurn();
+}
+
+function setupCombatActions() {
+    updateSecondaryCombatButton();
     updateVoidStepButton();
     updateSealBloodButton();
 }
@@ -1147,16 +1216,7 @@ function combatSpendRound() {
 
 function combatAttack() {
     if (!canPlayerAct()) return;
-    let cost = getCombatConfig().costs.attack;
-    if (typeof getIntentBasicAttackCostDiscount === 'function') {
-        cost = Math.max(1, cost - getIntentBasicAttackCostDiscount());
-    }
-    if (typeof getUnnamedBasicAttackStaminaDiscount === 'function') {
-        cost = Math.max(1, cost - getUnnamedBasicAttackStaminaDiscount());
-    }
-    if (typeof getUnnamedStagnationStaminaPenalty === 'function') {
-        cost += getUnnamedStagnationStaminaPenalty();
-    }
+    const cost = getBasicAttackCost();
     if (!spendCombatResource(cost, 'Attack')) return;
     if (!combatSpendRound()) return;
     if (!rollPlayerCombatHit()) {
@@ -1265,10 +1325,69 @@ function combatIntimidate() {
 }
 
 function combatSecondary() {
+    if (shouldOfferCombatRest()) {
+        combatRest();
+        return;
+    }
     const cfg = getCombatConfig();
     if (cfg.secondaryAction === 'defend') combatDefend();
     else if (cfg.secondaryAction === 'fortify') combatFortify();
     else if (cfg.secondaryAction === 'intimidate') combatIntimidate();
+}
+
+// ----- Combat tech loadout (assign outside combat) -----
+const COMBAT_TECH_LOADOUT_MAX = 6;
+
+function isCombatUsableTechnique(tech) {
+    if (!tech) return false;
+    const meta = typeof getTechniqueMeta === 'function' ? getTechniqueMeta(tech) : null;
+    const cat = meta?.category || tech.category || 'attack';
+    return cat === 'attack' || cat === 'buff' || cat === 'utility' || cat === 'defense';
+}
+
+function ensureCombatTechLoadout() {
+    if (G.combatTechLoadout == null) {
+        G.combatTechLoadout = [];
+        const seed = (G.techniques || []).filter(isCombatUsableTechnique).slice(0, COMBAT_TECH_LOADOUT_MAX);
+        G.combatTechLoadout = seed.map(t => t.name);
+    }
+    if (!Array.isArray(G.combatTechLoadout)) G.combatTechLoadout = [];
+    G.combatTechLoadout = G.combatTechLoadout.filter(name =>
+        (G.techniques || []).some(t => t.name === name)
+    );
+}
+
+function isTechInCombatLoadout(name) {
+    ensureCombatTechLoadout();
+    return G.combatTechLoadout.includes(name);
+}
+
+function getCombatLoadoutTechniques() {
+    ensureCombatTechLoadout();
+    return G.combatTechLoadout
+        .map(name => (typeof getTechniqueByName === 'function' ? getTechniqueByName(name) : null)
+            || (G.techniques || []).find(t => t.name === name))
+        .filter(Boolean);
+}
+
+function toggleCombatTechLoadout(name) {
+    ensureCombatTechLoadout();
+    const idx = G.combatTechLoadout.indexOf(name);
+    if (idx >= 0) {
+        G.combatTechLoadout.splice(idx, 1);
+        return { ok: true, pinned: false };
+    }
+    if (G.combatTechLoadout.length >= COMBAT_TECH_LOADOUT_MAX) {
+        return {
+            ok: false,
+            pinned: false,
+            message: `Combat loadout full (${COMBAT_TECH_LOADOUT_MAX}/${COMBAT_TECH_LOADOUT_MAX}). Unpin one first.`
+        };
+    }
+    const tech = (G.techniques || []).find(t => t.name === name);
+    if (!tech) return { ok: false, pinned: false, message: 'Technique not known.' };
+    G.combatTechLoadout.push(name);
+    return { ok: true, pinned: true };
 }
 
 function combatSkill() {
