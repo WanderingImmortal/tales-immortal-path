@@ -66,6 +66,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
 | [Living world clock (continuous)](world-clock-continuous.md) | `building` (Phase 2) | — | [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) |
+| [QC cultivate on the living clock](qc-cultivate-excitement.md) | `designed` | Clock Phase 2 playtest | — |
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `designed` | Chamber pacing tune pass | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |

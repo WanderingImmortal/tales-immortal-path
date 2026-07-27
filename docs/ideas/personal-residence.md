@@ -14,7 +14,7 @@
 
 ## Intent
 
-**Personal anchor** without founding sect: **rent → buy → hire** guards/staff. `G.dwelling` separate from `G.sect`. Nomads stay travel-kit only.
+**Personal anchor** without founding sect: **rent → buy → hire** guards/staff. `G.dwelling` separate from `G.sect`. Nomads stay travel-kit only. **Homes are local hubs** — not a worldwide “I own a house somewhere” shield.
 
 ## QC minimal home (shipping)
 
@@ -31,6 +31,14 @@ Do **not** reuse sect Leader’s Quarters / `canAccessResidenceStash` for this.
 **Rent:** Cot → room → suite → townhouse lease (zone multipliers). Monthly pay; eviction if broke.
 
 **Buy:** Plot (build) → house → manor. Formation slots, hire slots, defences at owner tiers.
+
+### Local home hubs (owner note 2026-07-27)
+
+Owning / renting in **one** settlement must **not** count as housed everywhere. A home is a **hub**: protection, stash, and “safe cultivate” only apply **while you are there**. Building it up = dedication to that area for a while.
+
+Today’s QC `G.dwelling` is a single global flag (Threshold stand-in) — **expand later** to per-settlement (or per-city) residences. Cultivate bandit interrupts already assume “not at a residence here ⇒ exposed.”
+
+See also: bandit interrupt in [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md).
 
 ## Hire (not disciples)
 

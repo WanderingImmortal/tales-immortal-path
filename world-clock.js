@@ -65,9 +65,19 @@ function isWorldClockHardFrozen() {
 
     if (_worldClockBlurred) return true;
 
+    // Practice / workshop chambers are not blocking menus — stances & calendar keep ticking.
+    const clockOkOverlays = new Set([
+        'timePlaybackOverlay',
+        'qiChamberOverlay',
+        'bodyChamberOverlay',
+        'soulChamberOverlay',
+        'cultivationHubOverlay',
+        'alchemyChamberOverlay',
+        'forgeChamberOverlay'
+    ]);
     const overlays = document.querySelectorAll('.popup-overlay.active');
     for (const el of overlays) {
-        if (el.id === 'timePlaybackOverlay') continue;
+        if (clockOkOverlays.has(el.id)) continue;
         return true;
     }
     return false;
