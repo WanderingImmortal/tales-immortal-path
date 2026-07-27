@@ -5,7 +5,7 @@
 | **Status** | `building` (Phase 2 on PR #85) |
 | **Blocked on** | none |
 | **Issue** | none yet |
-| **Chat / PR** | [PR #85](https://github.com/WanderingImmortal/tales-immortal-path/pull/85) · `cursor/living-world-clock` |
+| **Chat / PR** | [PR #86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) · `cursor/world-clock-phase-2` |
 | **Updated** | 2026-07-27 |
 
 Sister: [`chronicle-and-projects.md`](chronicle-and-projects.md) (bounded seclusion playback). QC cultivate polish / Practice Session = Phase 3.
