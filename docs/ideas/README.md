@@ -31,7 +31,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
 | [Burning Breath — layers](burning-breath-layers.md) | `shipped` (policy A — no layers) | — | [#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64) |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (sword/blood manuals + aura) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) · [#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74) |
-| [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing playtest | `cursor/qc-condensation-depth` |
+| [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing / Dustbone | `cursor/qc-playtest-fixes` |
 | [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
 | [Explore — field gathering](explore-field-gathering.md) | `designed` | Material tables | — |
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Hub starter slice | — |
@@ -56,7 +56,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Economy framework](economy-framework.md) | `idea` (parked) | Stone tiers | — |
 | [Commerce & markets](commerce-and-markets.md) | `idea` (parked) | Economy framework | — |
 | [Work & professions](work-and-professions.md) | `idea` (parked) | Economy framework | — |
-| [Personal residence](personal-residence.md) | `idea` (parked) | Monthly tick | — |
+| [Personal residence](personal-residence.md) | `building` (QC minimal home) | Full ladder later | `cursor/qc-playtest-fixes` |
 | [World standing & property](world-standing-and-property.md) | `idea` (parked) | Residence buy | — |
 | [Sect vs personal anchor](sect-vs-personal-anchor.md) | `idea` (parked) | Residence | — |
 | [Tribulation system rework](tribulation-system-rework.md) | `shipped` (v1) + v2 QC→FE building | Higher gates — see per-gate backlog | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |

@@ -362,7 +362,7 @@ function renderActionUnlocks() {
 
     // Pass 2: re-hide after lock styling — nothing may un-hide far-realm actions
     syncRealmActionVisibility();
+    // QC hard-hides must run last (a following sync can un-hide empty-def actions like Break).
     if (typeof applyQcProgressiveActionUi === 'function') applyQcProgressiveActionUi();
-    syncRealmActionVisibility();
     renderActionGroupLocks();
 }

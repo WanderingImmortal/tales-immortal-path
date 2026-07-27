@@ -70,7 +70,16 @@ function openTrackBreakthrough(track) {
     const vision = visions[realmIdx % visions.length] || visions[0];
     document.getElementById('visionText').textContent = '"' + vision + '"';
     const trackLabel = track === 'dantian' ? 'Dantian' : track === 'vessel' ? 'Vessel' : 'Spirit';
+    const qcCrossing = track === 'dantian'
+        && typeof isQiCondensationRealm === 'function'
+        && isQiCondensationRealm();
     document.getElementById('foundationInfo').textContent = (() => {
+        const realmName = typeof getTrackRealmName === 'function' ? getTrackRealmName(track) : getRealm();
+        const chance = Math.round(getBreakChance());
+        const band = typeof getQcBandLabel === 'function' ? getQcBandLabel() : null;
+        if (qcCrossing) {
+            return `${band || 'Qi Condensation'} → ${next} · Chance ~${chance}% · Attempts: ${G.breakAttempts || 0} · Pick a posture — success starts the heavenly audit into Foundation. Fail and you remain here to try again.`;
+        }
         const preview = typeof getPerfectBreakthroughPreview === 'function'
             ? getPerfectBreakthroughPreview(3)
             : null;
@@ -103,14 +112,69 @@ function openTrackBreakthrough(track) {
                 return parts.join(' · ');
             })()
             : '';
-        const realmName = typeof getTrackRealmName === 'function' ? getTrackRealmName(track) : getRealm();
         const statusLabel = track === 'spirit' && typeof getSpiritTrackBreakthroughStatus === 'function'
             ? getSpiritTrackBreakthroughStatus()
             : (typeof getConsolidationStatusLabel === 'function' ? getConsolidationStatusLabel() : '');
-        return `${trackLabel} · ${realmName} → ${next} | Foundation: ${typeof getFoundationPlayerLabel === 'function' ? getFoundationPlayerLabel() : (typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation())} | Chance: ${Math.round(getBreakChance())}%${alignText ? ' (' + alignText + ')' : ''} | ${statusLabel} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
+        return `${trackLabel} · ${realmName} → ${next} | Foundation: ${typeof getFoundationPlayerLabel === 'function' ? getFoundationPlayerLabel() : (typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation())} | Chance: ${chance}%${alignText ? ' (' + alignText + ')' : ''} | ${statusLabel} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
     })();
+    applyBreakthroughStyleButtonLabels(qcCrossing);
     document.getElementById('breakthroughPopup').classList.add('active');
     if (typeof triggerTutorial === 'function') triggerTutorial('first_breakthrough');
+}
+
+/** QC→FE posture copy; later realms keep classic Balanced / Power / Wisdom labels. */
+function applyBreakthroughStyleButtonLabels(qcCrossing) {
+    const setBtn = (id, name, desc) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        const nameEl = btn.querySelector('.name');
+        const descEl = btn.querySelector('.desc');
+        if (nameEl) nameEl.textContent = name;
+        if (descEl) descEl.textContent = desc;
+    };
+    if (qcCrossing) {
+        setBtn('btBalanced', '🌊 Steady Settle', 'Safer odds · milder trib · smaller Foundation entry power');
+        setBtn('btPower', '⚡ Force the Basin', 'Stronger FE Max Qi / vitality · harsher trib · uglier fail');
+        setBtn('btWisdom', '🧠 Read the Audit', 'Enter trib with footing · spirit/will · less raw basin power');
+    } else {
+        setBtn('btBalanced', '🌊 Balanced', 'Moderate gains, safest');
+        setBtn('btPower', '⚡ Power', 'High Qi/Vitality, risky');
+        setBtn('btWisdom', '🧠 Wisdom', 'High Spirit/Will, risky');
+    }
+}
+
+function getBreakthroughStyleChanceBonus(style, qcCrossing) {
+    if (qcCrossing) {
+        if (style === 'balanced') return 6;
+        if (style === 'power') return 2;
+        if (style === 'wisdom') return 3;
+        return 0;
+    }
+    if (style === 'balanced') return 3;
+    if (style === 'power' || style === 'wisdom') return 8;
+    return 0;
+}
+
+function applyQcBreakthroughEntryBonuses(style) {
+    if (style === 'power') {
+        G.maxQiBonus = (G.maxQiBonus || 0) + 6;
+        G.vitality += 3;
+        addLog('⚡ Forced basin — Foundation opens with heavier Max Qi and vitality.');
+    } else if (style === 'wisdom') {
+        G.spirit += 3;
+        G.will += 3;
+        G.maxQiBonus = (G.maxQiBonus || 0) + 1;
+        addLog('🧠 You read the audit — spirit and will settle first; the basin stays lean.');
+    } else {
+        G.maxQiBonus = (G.maxQiBonus || 0) + 2;
+        G.vitality += 1;
+        G.spirit += 1;
+        addLog('🌊 Steady settle — a careful Foundation entry.');
+    }
+    if (typeof clampCurrentQi === 'function') {
+        G.qi = getMaxQi();
+        clampCurrentQi();
+    }
 }
 
 function closeBreakthrough() {
@@ -124,6 +188,13 @@ function executeBreakthrough(style) {
 function executeTrackBreakthrough(style, track) {
     track = track || 'dantian';
     const realmIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : G.realmIdx;
+    const qcCrossing = track === 'dantian'
+        && typeof isQiCondensationRealm === 'function'
+        && isQiCondensationRealm();
+    const styleLabel = qcCrossing
+        ? ({ balanced: 'Steady Settle', power: 'Force the Basin', wisdom: 'Read the Audit' }[style] || style)
+        : style;
+    addLog(`🌀 Breakthrough attempt — ${styleLabel}…`);
     if (track === 'spirit') {
         if (typeof canSpiritTrackBreakthrough === 'function' && !canSpiritTrackBreakthrough()) {
             addLog(`🚫 ${getSpiritTrackBreakthroughBlockReason()}`);
@@ -145,12 +216,15 @@ function executeTrackBreakthrough(style, track) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.breakthrough, `${getTrackRealmName(track)} breakthrough seclusion`)) { cancelActionLog(); closeBreakthrough(); fullRender(); return; }
+    if (!advanceTime(ACTION_MONTHS.breakthrough, `${getTrackRealmName(track)} breakthrough seclusion`)) {
+        cancelActionLog();
+        addLog('🚫 Breakthrough seclusion could not begin (time / lifespan blocked).');
+        closeBreakthrough();
+        fullRender();
+        return;
+    }
     const chance = getBreakChance();
-    let bonus = 0;
-    if (style === 'balanced') bonus = 3;
-    else if (style === 'power') bonus = 8;
-    else if (style === 'wisdom') bonus = 8;
+    const bonus = getBreakthroughStyleChanceBonus(style, qcCrossing);
     const sealTier = typeof getConsolidationTier === 'function' ? getConsolidationTier(realmIdx) : 'peak';
     const tierPenalty = typeof getBreakthroughTierScale === 'function'
         ? getBreakthroughTierScale(sealTier).breakChancePenalty
@@ -181,6 +255,9 @@ function executeTrackBreakthrough(style, track) {
             G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(newIdx / 2);
             G.qi = getMaxQi();
             clampCurrentQi();
+        }
+        if (qcCrossing && typeof applyQcBreakthroughEntryBonuses === 'function') {
+            applyQcBreakthroughEntryBonuses(style);
         }
         const boost = 3 + Math.floor(Math.random() * 6) + (style === 'power' ? 3 : 0) + (style === 'wisdom' ? 2 : 0);
         if (track === 'dantian' || track === 'vessel') {
@@ -245,7 +322,9 @@ function executeTrackBreakthrough(style, track) {
         if (track === 'dantian') checkPerfectCultivation();
     } else {
         G.breakAttempts++;
-        const rawDmg = 5 + Math.floor(Math.random() * 15) + (style === 'power' ? 5 : 0) + (style === 'wisdom' ? 5 : 0);
+        let rawDmg = 5 + Math.floor(Math.random() * 15) + (style === 'power' ? 5 : 0) + (style === 'wisdom' ? 5 : 0);
+        if (qcCrossing && style === 'power') rawDmg += 4;
+        if (qcCrossing && style === 'balanced') rawDmg = Math.max(3, rawDmg - 3);
         const dmg = typeof scaleStatDebuff === 'function' ? scaleStatDebuff(rawDmg) : rawDmg;
         G.qi = Math.max(1, G.qi - Math.floor(dmg / 3));
         G.vitality = Math.max(1, G.vitality - Math.floor(dmg / 3));
@@ -253,10 +332,16 @@ function executeTrackBreakthrough(style, track) {
         G.will = Math.max(1, G.will - Math.floor(dmg / 3));
         G.hp = Math.max(1, G.hp - Math.floor(dmg / 2));
         commitActionLog(`💥 FAILED! The heavens reject you. -${dmg} damage.`);
-        const loss = typeof scaleStatDebuff === 'function' ? Math.max(1, scaleStatDebuff(2)) : 2;
+        let loss = typeof scaleStatDebuff === 'function' ? Math.max(1, scaleStatDebuff(2)) : 2;
+        if (qcCrossing && style === 'power') loss += 1;
+        if (qcCrossing && style === 'balanced') loss = Math.max(1, loss - 1);
         const cracks = typeof applyFoundationLossAsCracks === 'function'
             ? applyFoundationLossAsCracks(loss) : 1;
         addLog(`🩸 Your foundation cracks under the backlash (${cracks} crack${cracks === 1 ? '' : 's'}).`);
+        if (qcCrossing) {
+            const band = typeof getQcBandLabel === 'function' ? getQcBandLabel() : 'Qi Condensation';
+            addLog(`🏠 You remain at ${band}. Gather, recover, and Break Through again when ready.`);
+        }
     }
     closeBreakthrough();
     setBreakthroughTrack(typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');

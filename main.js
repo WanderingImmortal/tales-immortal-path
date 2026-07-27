@@ -874,7 +874,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Popup close buttons
     document.getElementById('techClose').addEventListener('click', function() {
-        document.getElementById('techPopup').classList.remove('active');
+        document.getElementById('techPopup')?.classList.remove('active', 'tech-popup-combat');
     });
     document.getElementById('techSortBar')?.querySelectorAll('[data-tech-sort]').forEach(btn => {
         btn.addEventListener('click', function() {
