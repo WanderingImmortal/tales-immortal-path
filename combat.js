@@ -1154,8 +1154,21 @@ function combatRest() {
     const cfg = getCombatConfig();
     const gain = getCombatRestGain();
     const before = G.combatResource || 0;
+    let qiGained = 0;
     if (typeof isCombatQiLinked === 'function' && isCombatQiLinked()) {
-        G.combatResource = Math.min(getQiLinkedBreathCap(), before + gain);
+        // Breath is hard-capped by current dantian Qi — restore Qi first or Rest is a no-op at 0.
+        const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : (G.qi || 0);
+        const qiBefore = Math.max(0, G.qi != null ? G.qi : 0);
+        G.qi = Math.min(maxQi, qiBefore + gain);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
+        qiGained = Math.max(0, (G.qi || 0) - qiBefore);
+        const cap = getQiLinkedBreathCap();
+        G.combatResource = Math.min(cap, before + gain);
+        // Guarantee enough to Attack when the dantian has room
+        const need = getBasicAttackCost();
+        if (G.combatResource < need && cap >= need) {
+            G.combatResource = need;
+        }
     } else {
         G.combatResource = Math.min(G.maxCombatResource || 0, before + gain);
     }
@@ -1164,7 +1177,12 @@ function combatRest() {
     G.defending = true;
     G.fortifyActive = false;
     const verb = G.path === 'body' ? 'catch your breath' : G.path === 'soul' ? 'center your focus' : 'rest and cycle qi';
-    addCombatLog(`${cfg.icon} You ${verb} — +${got} ${cfg.resource}.`);
+    let msg = `${cfg.icon} You ${verb} — +${got} ${cfg.resource}`;
+    if (qiGained > 0) msg += ` · dantian +${qiGained} Qi`;
+    if (got <= 0 && qiGained <= 0) {
+        msg += ' (store full or dantian sealed — no room to recover)';
+    }
+    addCombatLog(`${msg}.`);
     if (typeof trackMirrorAction === 'function') trackMirrorAction('secondary');
     if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('secondary')) return;
     updateCombatUI();
@@ -1880,6 +1898,10 @@ function combatEndOfTurnRegen() {
     }
     const before = G.combatResource;
     if (isCombatQiLinked()) {
+        // Same link as spend/Rest — breath cannot rise above current dantian Qi.
+        const maxQi = typeof getMaxQi === 'function' ? getMaxQi() : (G.qi || 0);
+        G.qi = Math.min(maxQi, Math.max(0, G.qi || 0) + resGain);
+        if (typeof clampCurrentQi === 'function') clampCurrentQi();
         G.combatResource = Math.min(getQiLinkedBreathCap(), G.combatResource + resGain);
     } else {
         G.combatResource = Math.min(G.maxCombatResource, G.combatResource + resGain);

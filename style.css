@@ -3922,8 +3922,12 @@ header .subtitle {
 
 /* Progressive realm UI — hide actions 2+ realms ahead (beats row button styles) */
 button.action-realm-hidden,
-.action-with-help.action-realm-hidden {
+.action-with-help.action-realm-hidden,
+button[hidden].action-realm-hidden,
+.actions-row > button.action-realm-hidden {
     display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 .actions-row-wrap {
