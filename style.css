@@ -498,7 +498,8 @@ header .subtitle {
 .world-clock-bar {
     position: absolute;
     top: 10px;
-    right: 12px;
+    /* Clear scene cultivator silhouette (~140px) in the top-right */
+    right: 168px;
     z-index: 40;
     display: flex;
     align-items: center;
@@ -565,6 +566,24 @@ header .subtitle {
     font-variant-numeric: tabular-nums;
     color: #f2e6d0;
     letter-spacing: 0.02em;
+}
+
+.world-clock-activity {
+    max-width: 11em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #c8b898;
+    font-size: 11px;
+}
+
+.world-clock-bar.world-clock-busy .world-clock-activity {
+    color: #e0c878;
+}
+
+button.action-stance-on {
+    border-color: rgba(160, 180, 100, 0.65) !important;
+    box-shadow: inset 0 0 0 1px rgba(140, 160, 80, 0.35);
 }
 
 .world-clock-bar.world-clock-live .world-clock-age {
@@ -8314,6 +8333,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
         width: 100px;
         margin: 0 auto 12px;
         opacity: 0.7;
+    }
+
+    .world-clock-bar {
+        right: 12px;
     }
 
     .scene-header {

@@ -330,9 +330,9 @@ function getWorldNpcRemeetLine(npc) {
 function chargeConverseTimeIfNeeded(npc) {
     const session = getNpcConverseSession(npc);
     if (session.timeCharged) return true;
-    const months = ACTION_MONTHS.npcConverse || NPC_CONVERSE_BALANCE.monthsCost;
+    // Converse is free — no calendar cost
     beginActionLog();
-    if (!advanceTime(months, `Speaking with ${npc.name}`)) {
+    if (!advanceTime(0, `Speaking with ${npc.name}`)) {
         cancelActionLog();
         return false;
     }

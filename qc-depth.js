@@ -251,6 +251,14 @@ function actionThresholdWork(jobId) {
         fullRender();
         return;
     }
+    if (typeof getWorldClockBusyReason === 'function') {
+        const busy = getWorldClockBusyReason();
+        if (busy) {
+            addLog(`🔒 ${busy}`);
+            fullRender();
+            return;
+        }
+    }
     const job = getThresholdJobDef(jobId);
     if (!job) return;
     if (isThresholdJobDry(jobId)) {
@@ -258,10 +266,39 @@ function actionThresholdWork(jobId) {
         fullRender();
         return;
     }
+    // Live calendar: timed job project
+    if (typeof isWorldClockLive === 'function' && isWorldClockLive() && typeof startWorldClockProject === 'function') {
+        startWorldClockProject({
+            id: 'threshold_job',
+            kind: 'job',
+            label: job.name,
+            durationMonths: job.months,
+            payload: { jobId },
+            startLog: `👷 You take ${job.name} — about ${job.months} month${job.months === 1 ? '' : 's'} of work.`
+        });
+        document.getElementById('thresholdJobsPopup')?.classList.remove('active');
+        fullRender();
+        return;
+    }
     beginActionLog();
     if (!advanceTime(job.months, job.name)) {
         cancelActionLog();
         fullRender();
+        return;
+    }
+    applyThresholdJobResult(jobId, { commit: true });
+}
+
+function finishThresholdJobProject(jobId) {
+    applyThresholdJobResult(jobId, { commit: false });
+}
+
+function applyThresholdJobResult(jobId, opts) {
+    opts = opts || {};
+    ensureQcDepthState();
+    const job = getThresholdJobDef(jobId);
+    if (!job) {
+        addLog('👷 That job is gone.');
         return;
     }
     let pay = job.payMin + Math.floor(Math.random() * (job.payMax - job.payMin + 1));
@@ -291,7 +328,10 @@ function actionThresholdWork(jobId) {
         G.thresholdJobs.dryUntil[jobId] = (G.ageMonths || 0) + 8 + Math.floor(Math.random() * 8);
         eventLine += ' That work has run dry for a while.';
     }
-    commitActionLog(`👷 ${job.name}: +${pay} Stones.${eventLine}`);
+    const line = `👷 ${job.name}: +${pay} Stones.${eventLine}`;
+    if (opts.commit && typeof commitActionLog === 'function') commitActionLog(line);
+    else addLog(line);
+    if (typeof maybeWarnDwellingRentRunway === 'function') maybeWarnDwellingRentRunway();
     fullRender();
 }
 
@@ -414,6 +454,7 @@ function tickDwellingRent() {
     G.dwelling.rentPaidThroughMonth = paidThrough;
     if (charged === 1) addLog(`🏠 Rent due — ${THRESHOLD_RENT.cost} Stones for your Threshold room.`);
     else if (charged > 1) addLog(`🏠 Rent for ${charged} months — ${charged * THRESHOLD_RENT.cost} Stones.`);
+    if (typeof maybeWarnDwellingRentRunway === 'function') maybeWarnDwellingRentRunway();
 }
 
 function getDwellingRestMult() {
