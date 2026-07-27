@@ -9,6 +9,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 
 ## Next
 - Playtest gather pacing vs Peak QC ~45–50 inferior; open PR for QC depth branch
+- Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
 - Dustbone surroundings later ([`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md))
 
 ## Parked (return later)
