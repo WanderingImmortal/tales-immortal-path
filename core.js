@@ -150,7 +150,8 @@ let G = {
     cultivationMethod: null,
     methodShelf: null,
     foundationNatureId: null,
-    foundationNatureGrade: null
+    foundationNatureGrade: null,
+    worldClock: null
 };
 
 // ===== HELPERS =====
@@ -907,8 +908,9 @@ function isImmortal() {
 }
 
 function formatYears(months) {
-    const years = Math.floor(months / 12);
-    const rem = months % 12;
+    const m = Math.max(0, Number(months) || 0);
+    const years = Math.floor(m / 12);
+    const rem = Math.floor(m % 12);
     if (rem === 0) return `${years}y`;
     return `${years}y ${rem}m`;
 }
@@ -935,6 +937,10 @@ function formatActionTimeMeta(months, remainStr) {
 }
 
 function advanceTime(months, activity) {
+    // Living calendar owns age while Play is live — actions keep effects, not month cost.
+    if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
+        months = 0;
+    }
     if (months <= 0) return true;
     if (G.gameOver) return false;
     if (typeof applyPlaytestTimeMonths === 'function') {
@@ -1103,6 +1109,7 @@ function loadState() {
             }
             if (!G.worldSchedule) G.worldSchedule = [];
             if (!G.worldChronicle) G.worldChronicle = [];
+            if (typeof ensureWorldClockState === 'function') ensureWorldClockState();
             if (typeof migrateWorldScheduleFromLegacy === 'function') migrateWorldScheduleFromLegacy();
             if (typeof ensureNpcQuestState === 'function') ensureNpcQuestState();
             if (typeof ensureStoryQuestState === 'function') ensureStoryQuestState();

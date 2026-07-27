@@ -18,7 +18,7 @@
 
 > **Long cultivation isn’t skipping time — it’s running a project that writes your story as it goes.**
 
-Related: [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) (calendar scale), [`nine-realm-ladder.md`](nine-realm-ladder.md) (realm bands), [`formations-and-arrays.md`](formations-and-arrays.md) (array projects), [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) (seclusion / method identity), [`immortal-world-layer.md`](immortal-world-layer.md) (Works at cosmic scale).
+Related: [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) (calendar scale), [`world-clock-continuous.md`](world-clock-continuous.md) (living soft-real-time calendar), [`nine-realm-ladder.md`](nine-realm-ladder.md) (realm bands), [`formations-and-arrays.md`](formations-and-arrays.md) (array projects), [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) (seclusion / method identity), [`immortal-world-layer.md`](immortal-world-layer.md) (Works at cosmic scale).
 
 ---
 

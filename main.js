@@ -746,6 +746,7 @@ function setupCreation(refreshOnly) {
         if (typeof grantStarterAlchemyMaterials === 'function') grantStarterAlchemyMaterials();
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
+        if (typeof resetWorldClockForGameStart === 'function') resetWorldClockForGameStart();
         fullRender();
         if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
         saveState();
@@ -790,6 +791,7 @@ function initGame() {
     if (loaded && G.name && (G.path || G.cultivation)) {
         document.getElementById('creation-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'flex';
+        if (typeof resetWorldClockForGameStart === 'function') resetWorldClockForGameStart();
         if (typeof sanitizeOrphanedUiLocks === 'function') {
             sanitizeOrphanedUiLocks({ log: true });
         }
@@ -1004,6 +1006,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Start the game
+    if (typeof initWorldClockUi === 'function') initWorldClockUi();
     initGame();
 });
 

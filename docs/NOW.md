@@ -5,12 +5,13 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-27
 
 ## Focus
-- QC playtest fixes — `cursor/qc-playtest-fixes` ([`docs/ideas/qi-condensation-depth.md`](ideas/qi-condensation-depth.md))
+- Living world clock Phase 1 — `cursor/living-world-clock` ([`docs/ideas/world-clock-continuous.md`](ideas/world-clock-continuous.md))
 
 ## Next
 - Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Playtest gather pacing vs Peak QC ~45–50 inferior
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
+- QC cultivate-on-clock (after Phase 1–2 clock)
 
 ## Parked (return later)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
