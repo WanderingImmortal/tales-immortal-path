@@ -8,6 +8,7 @@ Project rules live in [`.cursor/rules/`](.cursor/rules/) and **apply to local an
 | `github-branch-workflow.mdc` | `cursor/*` branches, push, **open PRs** (mandatory for cloud) |
 | `pre-pr-safety-checks.mdc` | Run recursion audits before PRs; fix in-scope loops |
 | `work-tracking.mdc` | Park designs in `docs/ideas/`; queue builds as GitHub Issues; keep `docs/NOW.md` short |
+| `progressive-action-hide.mdc` | Late-realm buttons: **hide-by-default** (Dao/Forbidden lesson, PR #83) |
 
 ## Work tracking
 

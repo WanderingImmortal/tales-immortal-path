@@ -5,10 +5,9 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-27
 
 ## Focus
-- QC playtest fixes — `cursor/qc-playtest-fixes` ([`docs/ideas/qi-condensation-depth.md`](ideas/qi-condensation-depth.md))
+- Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 
 ## Next
-- Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Playtest gather pacing vs Peak QC ~45–50 inferior
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
 
@@ -23,5 +22,6 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
+- Dao/Forbidden hide-by-default ([#83](https://github.com/WanderingImmortal/tales-immortal-path/pull/83))
+- QC playtest fixes: breakthrough, lodge home, combat tech ([#82](https://github.com/WanderingImmortal/tales-immortal-path/pull/82))
 - Qi Condensation depth slice ([#78](https://github.com/WanderingImmortal/tales-immortal-path/pull/78))
-- Mortal life sim doc cluster ([#76](https://github.com/WanderingImmortal/tales-immortal-path/pull/76))
