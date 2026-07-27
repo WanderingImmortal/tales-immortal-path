@@ -9306,7 +9306,7 @@ button[hidden].action-realm-hidden,
     opacity: calc(0.38 + var(--body-layer-fill) * 0.45);
 }
 
-.body-sil-overlay path:not(.body-sil-muscle):not(.body-sil-tendon):not(.body-sil-nerve-line),
+.body-sil-overlay path:not(.body-sil-muscle):not(.body-sil-tendon):not(.body-sil-nerve-line):not(.body-sil-bone),
 .body-sil-overlay ellipse,
 .body-sil-overlay circle {
     stroke: var(--body-layer-color);
@@ -9542,9 +9542,20 @@ button[hidden].action-realm-hidden,
 .body-sil-overlay-bones .body-sil-bone {
     fill: none;
     stroke: color-mix(in srgb, var(--body-layer-color) 50%, #a8a4a0);
-    stroke-width: calc(0.8 + var(--part-fill, 0) * 1.2);
+    stroke-width: calc((0.8 + var(--part-fill, 0) * 1.2) * var(--bone-weight, 1));
     stroke-opacity: calc(0.2 + var(--part-fill, 0) * 0.75);
     transition: stroke 0.4s ease, stroke-width 0.35s ease, filter 0.35s ease;
+}
+
+/* Ribs, fingers and joint detail need a finer line than the long bones. */
+.body-sil-overlay-bones .body-sil-bone-fine { --bone-weight: 0.4; }
+.body-sil-overlay-bones .body-sil-bone-tick { --bone-weight: 0.55; }
+.body-sil-overlay-bones .body-sil-bone-plate { --bone-weight: 0.5; }
+.body-sil-overlay-bones .body-sil-bone-bone { --bone-weight: 0.8; }
+.body-sil-overlay-bones .body-sil-bone-heavy { --bone-weight: 1.05; }
+
+.body-sil-overlay-bones .body-sil-bone-plate.lit {
+    fill: color-mix(in srgb, var(--body-layer-color) calc(var(--part-fill, 0) * 16%), transparent);
 }
 
 .body-sil-overlay-bones.body-sil-overlay-active .body-sil-bone.lit {
@@ -9554,7 +9565,7 @@ button[hidden].action-realm-hidden,
 
 .body-sil-overlay-bones.body-sil-overlay-active .body-sil-bone.complete {
     stroke: var(--body-layer-color);
-    stroke-width: calc(1.4 + var(--part-fill, 0) * 0.8);
+    stroke-width: calc((1.4 + var(--part-fill, 0) * 0.8) * var(--bone-weight, 1));
     filter: drop-shadow(0 0 calc(4px + var(--part-fill, 0) * 7px) var(--body-layer-color));
 }
 
