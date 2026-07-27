@@ -65,10 +65,15 @@ function isWorldClockHardFrozen() {
 
     if (_worldClockBlurred) return true;
 
-    // Practice chambers are not "menus" — gather-qi stance should keep ticking inside the Qi Chamber.
+    // Practice / workshop chambers are not blocking menus — stances & calendar keep ticking.
     const clockOkOverlays = new Set([
         'timePlaybackOverlay',
-        'qiChamberOverlay'
+        'qiChamberOverlay',
+        'bodyChamberOverlay',
+        'soulChamberOverlay',
+        'cultivationHubOverlay',
+        'alchemyChamberOverlay',
+        'forgeChamberOverlay'
     ]);
     const overlays = document.querySelectorAll('.popup-overlay.active');
     for (const el of overlays) {
