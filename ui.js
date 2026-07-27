@@ -1141,6 +1141,8 @@ function fullRender() {
     renderNpcPresencePanel();
     if (typeof processTutorialQueue === 'function') processTutorialQueue();
     if (typeof refreshTutorialHighlight === 'function') refreshTutorialHighlight();
+    // Re-assert QC hides last — tutorials / other UI must not leave Dao/Forbidden visible.
+    if (typeof applyQcProgressiveActionUi === 'function') applyQcProgressiveActionUi();
     renderOverlayLifespanChip();
     const reincBtn = document.getElementById('btnTrueReincarnation');
     if (reincBtn) reincBtn.style.display = (typeof isImmortal === 'function' && isImmortal()) ? '' : 'none';

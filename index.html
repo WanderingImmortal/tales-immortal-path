@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=98" />
+    <link rel="stylesheet" href="style.css?v=99" />
 </head>
 <body>
 
@@ -226,9 +226,9 @@
                                 <div class="action-with-help">
                                     <button id="btnLongSeclusion" title="Close the grotto for years — watch time pass">🗻 Seclusion</button>
                                 </div>
-                                <div class="action-with-help">
-                                    <button id="btnConsolidate">🏛️ Seal Dantian</button>
-                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpConsolidate" aria-label="About Seal Dantian">?</button>
+                                <div class="action-with-help action-realm-hidden" hidden>
+                                    <button id="btnConsolidate" hidden class="action-realm-hidden">🏛️ Seal Dantian</button>
+                                    <button type="button" class="action-help-btn action-help-btn-inline" id="helpConsolidate" aria-label="About Seal Dantian" hidden>?</button>
                                 </div>
                                 <div class="action-with-help">
                                     <button id="btnBreakthrough">🌀 Break</button>
@@ -240,8 +240,8 @@
                                 </div>
                             </div>
                             <div class="actions-row actions-row-sub" style="margin-top:6px;">
-                                <button id="btnMeridian">☯️ Meridians</button>
-                                <button id="btnDao">📜 Dao</button>
+                                <button id="btnMeridian" hidden class="action-realm-hidden">☯️ Meridians</button>
+                                <button id="btnDao" hidden class="action-realm-hidden">📜 Dao</button>
                                 <button id="btnIntent">🗡️ Intent</button>
                             </div>
                         </div>
@@ -268,7 +268,7 @@
                                 <button id="btnLookAround" title="1 month · scan for strangers">👁️ Look around</button>
                                 <button id="btnThresholdJobs" title="Paid work in Threshold City">👷 Work</button>
                                 <button id="btnDwelling" title="Rent or buy lodging">🏠 Lodge</button>
-                                <button id="btnForbidden" title="Forbidden grounds">🌑 Forbidden</button>
+                                <button id="btnForbidden" title="Forbidden grounds" hidden class="action-realm-hidden">🌑 Forbidden</button>
                             </div>
                         </div>
                         <div class="action-group action-group-sect">
@@ -1408,7 +1408,7 @@
 <script src="alignment.js?v=5"></script>
 <script src="transcendence.js?v=4"></script>
 <script src="consolidation.js?v=9"></script>
-<script src="qc-depth.js?v=4"></script>
+<script src="qc-depth.js?v=5"></script>
 <script src="sect-inventory.js?v=2"></script>
 <script src="sect-buildings.js?v=3"></script>
 <script src="formations.js?v=6"></script>
@@ -1430,8 +1430,8 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=25"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=60"></script>
-<script src="action-gates.js?v=5"></script>
+<script src="ui.js?v=61"></script>
+<script src="action-gates.js?v=6"></script>
 <script src="actions.js?v=39"></script>
 <script src="chamber.js?v=13"></script>
 <script src="body-chamber.js?v=23"></script>
