@@ -5,8 +5,8 @@
 | **Status** | `building` |
 | **Blocked on** | Band pacing playtest (inferior Late ~40–44); Dustbone surroundings later |
 | **Issue** | none yet |
-| **Chat / PR** | Local design lock 2026-07-26; branch `cursor/qc-condensation-depth` |
-| **Updated** | 2026-07-26 |
+| **Chat / PR** | Playtest fixes `cursor/qc-playtest-fixes` (2026-07-27) |
+| **Updated** | 2026-07-27 |
 
 ## Intent
 
@@ -69,11 +69,22 @@ No hard `minRealm` zone locks. Warn: above your station is a good way to die. So
 |-------|-----|
 | Market | Basics-heavy Registry bazaar |
 | Jobs | Few at hub (loader, copyist, well, sweeper, short escort); fat jobs dry up; Su prestige separate |
-| Rent | One room |
-| Buy | One expensive courtyard/house |
+| Rent | One room — Lodge opens home screen (rest bonus) |
+| Buy | One expensive courtyard — Lodge home + small reagent chest |
 | Later | Full housing ladder, Miraj/tribe polish |
 
 Hub = **Threshold City** (id may remain `bone_crossroads`). **Law of Dust** = formal basin law; Return-to-Dust = rites/speech.
+
+### Playtest findings (2026-07-27)
+
+1. **Dao / Forbidden still showing at QC** — distance hide was not enough; hard-hide in `applyQcProgressiveActionUi` (runs last after sync).
+2. **Breakthrough at Late/Peak** — `resolveBreakthroughTransitionId` key mismatch broke `qc_to_fe`; popup Seal/Meridian copy; thin styles → QC postures Steady Settle / Force the Basin / Read the Audit.
+3. **Combat Tech** — side drawer → panel under combat when in fight.
+4. **Lodge after buy** — was economy flag only; minimal home screen + owned chest (not sect residence).
+
+### Break styles (QC→FE)
+
+Keep ids `balanced` / `power` / `wisdom`. QC labels: Steady Settle · Force the Basin · Read the Audit. Tradeoffs: odds/trib severity/fail cracks/FE entry. Full style redesign for later gates parked.
 
 ## Prerequisites
 

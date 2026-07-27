@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | [`economy-framework.md`](economy-framework.md), [`work-and-professions.md`](work-and-professions.md) |
+| **Status** | `building` (QC minimal home) |
+| **Blocked on** | Full ladder: [`economy-framework.md`](economy-framework.md), [`work-and-professions.md`](work-and-professions.md) |
 | **Issue** | none yet |
-| **Chat / PR** | parked 2026-07-25 |
-| **Updated** | 2026-07-26 |
+| **Chat / PR** | QC playtest `cursor/qc-playtest-fixes` |
+| **Updated** | 2026-07-27 |
 
 **Hub:** [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Vision split:** [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md)  
@@ -16,13 +16,15 @@
 
 **Personal anchor** without founding sect: **rent → buy → hire** guards/staff. `G.dwelling` separate from `G.sect`. Nomads stay travel-kit only.
 
-## QC v1 (ship first)
+## QC minimal home (shipping)
 
 | Mode | What |
 |------|------|
-| **Rent** | One **room** at Threshold City — monthly drain, small rest/cultivate fiction |
-| **Buy** | One **expensive** courtyard/house — long grind |
-| **Homeless** | Allowed; no bonus (or slight rest penalty) |
+| **Rent** | Lodge → home screen (fiction + rest bonus + Rest here). Monthly rent tick. |
+| **Buy** | Same + small **courtyard chest** (`G.dwelling.stash.materials`, cap 12) for reagents |
+| **Homeless** | Lodge opens rent/buy shop; rest penalty |
+
+Do **not** reuse sect Leader’s Quarters / `canAccessResidenceStash` for this.
 
 ## Full ladder (later)
 
@@ -50,4 +52,4 @@ G.dwelling = { mode, zoneId, settlementId, tier, deed, stash, formations, hires,
 
 ## Implementation crumbs
 
-`residence-stash.js`, `formations.js`, `travel-kit.js`, `sect-map.js` residence node
+`qc-depth.js` (Lodge popup / stash), later `residence-stash.js` patterns, `formations.js`, `travel-kit.js`

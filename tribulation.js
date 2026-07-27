@@ -55,14 +55,15 @@ function getTribulationSeverity() {
 }
 
 function resolveBreakthroughTransitionId(fromIdx, toIdx) {
+    // Keys use "_to_" to match `${from}_to_${to}` (was mismatched as "0_1" and never hit qc_to_fe).
     const key = `${fromIdx}_to_${toIdx}`;
     const map = {
-        '0_1': 'qc_to_fe',
-        '1_2': 'fe_to_gc',
-        '2_3': 'gc_to_ns',
-        '3_4': 'ns_to_void',
-        '4_5': 'void_to_dao',
-        '5_6': 'dao_to_immortal'
+        '0_to_1': 'qc_to_fe',
+        '1_to_2': 'fe_to_gc',
+        '2_to_3': 'gc_to_ns',
+        '3_to_4': 'ns_to_void',
+        '4_to_5': 'void_to_dao',
+        '5_to_6': 'dao_to_immortal'
     };
     return map[key] || `realm_${fromIdx}_to_${toIdx}`;
 }
@@ -136,6 +137,17 @@ function startTribulation(arg) {
         };
     }
 
+    let severity = getTribulationSeverity();
+    let trialScore = 0;
+    // QC→FE style postures (and later gates sharing the same breakStyle ids)
+    if (breakStyle === 'power') {
+        severity = Math.floor(severity * 1.14) + 1;
+    } else if (breakStyle === 'balanced') {
+        severity = Math.max(8, Math.floor(severity * 0.92));
+    } else if (breakStyle === 'wisdom') {
+        trialScore = 3; // Read the Audit — enter with footing
+    }
+
     G.tribulationState = {
         active: true,
         type,
@@ -143,8 +155,8 @@ function startTribulation(arg) {
         context,
         transitionId,
         breakStyle,
-        severity: getTribulationSeverity(),
-        trialScore: 0,
+        severity,
+        trialScore,
         trialPassed: null,
         outcome: null,
         scarRisk: 0,

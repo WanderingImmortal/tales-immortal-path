@@ -377,8 +377,10 @@ function actionCombat() {
 // ----- TECHNIQUES -----
 function actionTech() {
     if (G.gameOver) return;
+    const popup = document.getElementById('techPopup');
+    popup?.classList.remove('tech-popup-combat');
     renderTechPopup();
-    document.getElementById('techPopup').classList.add('active');
+    popup?.classList.add('active');
 }
 
 // ----- MERIDIANS -----

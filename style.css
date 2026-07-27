@@ -3924,7 +3924,8 @@ header .subtitle {
 button.action-realm-hidden,
 .action-with-help.action-realm-hidden,
 button[hidden].action-realm-hidden,
-.actions-row > button.action-realm-hidden {
+.actions-row > button.action-realm-hidden,
+.actions-row-sub > button.action-realm-hidden {
     display: none !important;
     visibility: hidden !important;
     pointer-events: none !important;
@@ -7878,6 +7879,26 @@ button[hidden].action-realm-hidden,
     max-height: 94vh;
     border-radius: 10px;
     border: 1px solid var(--ink-border-strong);
+}
+
+/* Combat arts — panel under the fight, not a side drawer */
+#techPopup.tech-popup-combat {
+    z-index: 1005;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 12px 10px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(2px);
+}
+
+#techPopup.tech-popup-combat .popup-box {
+    width: min(560px, 96vw) !important;
+    height: auto;
+    max-height: min(48vh, 420px);
+    border-left: none;
+    border: 1px solid var(--ink-border-strong);
+    border-radius: 10px;
+    box-shadow: 0 -8px 32px var(--ink-shadow);
 }
 
 .continent-map-wrap {

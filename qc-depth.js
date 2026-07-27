@@ -383,7 +383,8 @@ function actionBuyThresholdCourtyard() {
     G.dwelling.mode = 'owned';
     G.dwelling.settlementId = 'bone_crossroads';
     G.dwelling.rentPaidThroughMonth = 0;
-    addLog(`🏠 You buy a courtyard house in Threshold City (−${THRESHOLD_BUY.cost} Stones). A personal anchor under the Law of Dust.`);
+    ensureDwellingStash();
+    addLog(`🏠 You buy a courtyard house in Threshold City (−${THRESHOLD_BUY.cost} Stones). Open Lodge to enter your home.`);
     fullRender();
 }
 
@@ -424,6 +425,125 @@ function getDwellingStatusLine() {
     return '🏠 Homeless';
 }
 
+const DWELLING_STASH_CAP = 12;
+
+function ensureDwellingStash() {
+    ensureQcDepthState();
+    if (!G.dwelling.stash) G.dwelling.stash = { materials: {} };
+    if (!G.dwelling.stash.materials) G.dwelling.stash.materials = {};
+    return G.dwelling.stash;
+}
+
+function getDwellingStashLoad() {
+    const mats = ensureDwellingStash().materials;
+    return Object.values(mats).reduce((s, n) => s + (Number(n) || 0), 0);
+}
+
+function dwellingStashDepositMaterial(matId, qty) {
+    qty = Math.max(1, Math.floor(qty || 1));
+    if (G.dwelling?.mode !== 'owned') return { ok: false, message: 'Only an owned courtyard has a chest.' };
+    if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
+    const have = G.alchemy?.materials?.[matId] || 0;
+    if (have < qty) return { ok: false, message: 'Not enough of that reagent on you.' };
+    if (getDwellingStashLoad() + qty > DWELLING_STASH_CAP) {
+        return { ok: false, message: `Courtyard chest full (${getDwellingStashLoad()}/${DWELLING_STASH_CAP}).` };
+    }
+    G.alchemy.materials[matId] = have - qty;
+    if (G.alchemy.materials[matId] <= 0) delete G.alchemy.materials[matId];
+    const stash = ensureDwellingStash();
+    stash.materials[matId] = (stash.materials[matId] || 0) + qty;
+    const label = (typeof ALCHEMY_MATERIALS !== 'undefined' && ALCHEMY_MATERIALS[matId]?.name) || matId;
+    return { ok: true, message: `Stashed ${qty}× ${label} in the courtyard chest.` };
+}
+
+function dwellingStashWithdrawMaterial(matId, qty) {
+    qty = Math.max(1, Math.floor(qty || 1));
+    const stash = ensureDwellingStash();
+    const have = stash.materials[matId] || 0;
+    if (have < qty) return { ok: false, message: 'Not in the chest.' };
+    if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
+    stash.materials[matId] = have - qty;
+    if (stash.materials[matId] <= 0) delete stash.materials[matId];
+    G.alchemy.materials[matId] = (G.alchemy.materials[matId] || 0) + qty;
+    const label = (typeof ALCHEMY_MATERIALS !== 'undefined' && ALCHEMY_MATERIALS[matId]?.name) || matId;
+    return { ok: true, message: `Took ${qty}× ${label} from the chest.` };
+}
+
+function renderDwellingHomeBody(body, popup) {
+    ensureQcDepthState();
+    const owned = G.dwelling.mode === 'owned';
+    const rent = G.dwelling.mode === 'rent';
+    const restPct = owned ? '+12%' : '+6%';
+    const title = owned ? THRESHOLD_BUY.label : THRESHOLD_RENT.label;
+    const fiction = owned
+        ? 'Your courtyard under the Law of Dust — a personal anchor. Rest here heals better than street sleep.'
+        : 'A rented room in Threshold City. Rent comes due with the months. Rest is steadier than the street.';
+
+    let stashHtml = '';
+    if (owned) {
+        ensureDwellingStash();
+        const load = getDwellingStashLoad();
+        const matEntries = Object.entries(G.dwelling.stash.materials || {});
+        const pouch = (typeof ensureAlchemyState === 'function' ? (ensureAlchemyState(), G.alchemy?.materials) : G.alchemy?.materials) || {};
+        const pouchEntries = Object.entries(pouch).filter(([, n]) => n > 0).slice(0, 8);
+        stashHtml = `
+            <div class="desc" style="margin:12px 0 6px;"><strong>Courtyard chest</strong> · ${load}/${DWELLING_STASH_CAP}</div>
+            <div id="dwellingStashList" style="font-size:12px;color:#b0a090;margin-bottom:8px;">
+                ${matEntries.length
+                    ? matEntries.map(([id, n]) => {
+                        const label = (typeof ALCHEMY_MATERIALS !== 'undefined' && ALCHEMY_MATERIALS[id]?.name) || id;
+                        return `<div style="display:flex;justify-content:space-between;gap:8px;margin:4px 0;">
+                            <span>${label} ×${n}</span>
+                            <button type="button" class="zone-travel-btn dwelling-stash-out" data-mat="${id}" style="padding:2px 8px;font-size:11px;">Take 1</button>
+                        </div>`;
+                    }).join('')
+                    : '<em>Empty — stash reagents from your pouch.</em>'}
+            </div>
+            ${pouchEntries.length ? `<div class="desc" style="margin-bottom:4px;">From pouch:</div>
+                ${pouchEntries.map(([id, n]) => {
+                    const label = (typeof ALCHEMY_MATERIALS !== 'undefined' && ALCHEMY_MATERIALS[id]?.name) || id;
+                    return `<button type="button" class="zone-travel-btn dwelling-stash-in" data-mat="${id}" style="margin:2px 4px 2px 0;padding:4px 8px;font-size:11px;">Stash 1× ${label} (${n})</button>`;
+                }).join('')}` : '<div class="desc">No reagents on you to stash.</div>'}
+        `;
+    }
+
+    body.innerHTML = `
+        <div class="desc" style="margin-bottom:8px;"><strong>${title}</strong> · Threshold City</div>
+        <div class="desc" style="margin-bottom:10px;">${fiction}</div>
+        <div class="desc" style="margin-bottom:12px;">Rest bonus: <strong>${restPct}</strong> HP from Recuperate / Rest here${rent ? ` · Rent ${THRESHOLD_RENT.cost} Stones/mo` : ''}.</div>
+        <button type="button" class="zone-travel-btn" id="dwellingRestBtn">🛌 Rest here</button>
+        ${rent ? `<button type="button" class="zone-travel-btn" id="dwellingBuyBtn" style="margin-top:8px;">Buy courtyard · ${THRESHOLD_BUY.cost} Stones</button>` : ''}
+        ${stashHtml}
+    `;
+
+    document.getElementById('dwellingRestBtn')?.addEventListener('click', () => {
+        if (!isAtThresholdCity()) {
+            addLog('🏠 Your lodging is in Threshold City — travel back to rest there.');
+            return;
+        }
+        popup.classList.remove('active');
+        if (typeof actionRecuperate === 'function') actionRecuperate();
+    });
+    document.getElementById('dwellingBuyBtn')?.addEventListener('click', () => {
+        popup.classList.remove('active');
+        actionBuyThresholdCourtyard();
+    });
+    body.querySelectorAll('.dwelling-stash-in').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const res = dwellingStashDepositMaterial(btn.dataset.mat, 1);
+            addLog(res.ok ? `🏠 ${res.message}` : `🏠 ${res.message}`);
+            openDwellingPopup();
+        });
+    });
+    body.querySelectorAll('.dwelling-stash-out').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const res = dwellingStashWithdrawMaterial(btn.dataset.mat, 1);
+            addLog(res.ok ? `🏠 ${res.message}` : `🏠 ${res.message}`);
+            openDwellingPopup();
+        });
+    });
+}
+
 function openDwellingPopup() {
     const popup = document.getElementById('dwellingPopup');
     const body = document.getElementById('dwellingBody');
@@ -432,12 +552,22 @@ function openDwellingPopup() {
         return;
     }
     ensureQcDepthState();
+    const housed = G.dwelling.mode === 'rent' || G.dwelling.mode === 'owned';
+    if (housed) {
+        const title = popup.querySelector('h2');
+        if (title) title.textContent = G.dwelling.mode === 'owned' ? '🏠 Your Courtyard' : '🏠 Your Room';
+        renderDwellingHomeBody(body, popup);
+        popup.classList.add('active');
+        return;
+    }
+    const title = popup.querySelector('h2');
+    if (title) title.textContent = '🏠 Lodging';
     const status = getDwellingStatusLine();
     body.innerHTML = `
         <div class="desc" style="margin-bottom:10px;">${status}</div>
         <div class="desc" style="margin-bottom:12px;">Threshold City — rent a room, or grind toward a courtyard. Homeless is allowed; rest suffers a little.</div>
-        <button type="button" class="zone-travel-btn" id="dwellingRentBtn" ${G.dwelling.mode !== 'homeless' ? 'disabled' : ''}>Rent room · ${THRESHOLD_RENT.cost} Stones</button>
-        <button type="button" class="zone-travel-btn" id="dwellingBuyBtn" style="margin-top:8px;" ${G.dwelling.mode === 'owned' ? 'disabled' : ''}>Buy courtyard · ${THRESHOLD_BUY.cost} Stones</button>
+        <button type="button" class="zone-travel-btn" id="dwellingRentBtn">Rent room · ${THRESHOLD_RENT.cost} Stones</button>
+        <button type="button" class="zone-travel-btn" id="dwellingBuyBtn" style="margin-top:8px;">Buy courtyard · ${THRESHOLD_BUY.cost} Stones</button>
     `;
     document.getElementById('dwellingRentBtn')?.addEventListener('click', () => {
         popup.classList.remove('active');
@@ -540,65 +670,57 @@ function confirmTravelAboveStation(zoneId) {
 
 // ----- Progressive action UI -----
 
+function setActionButtonHidden(btn, hide) {
+    if (!btn) return;
+    btn.hidden = !!hide;
+    btn.classList.toggle('action-realm-hidden', !!hide);
+    if (hide) btn.style.setProperty('display', 'none', 'important');
+    else btn.style.removeProperty('display');
+    const wrap = btn.closest('.action-with-help');
+    if (wrap) {
+        wrap.hidden = !!hide;
+        wrap.classList.toggle('action-realm-hidden', !!hide);
+        if (hide) wrap.style.setProperty('display', 'none', 'important');
+        else wrap.style.removeProperty('display');
+    }
+}
+
 function applyQcProgressiveActionUi() {
-    // Realm-distance hide for Dao/Forbidden/etc. lives in action-gates syncRealmActionVisibility.
-    // QC-only: Seal off; Break soft-shows Mid+; Meridians stay FE wiring.
+    // Belt-and-suspenders: hard-hide QC-irrelevant actions even if distance policy fails.
+    // Also: Seal off; Break soft-shows Mid+; Meridians stay FE wiring.
+    const qc = isQiCondensationRealm();
     const sealBtn = document.getElementById('btnConsolidate');
     const sealHelp = document.getElementById('helpConsolidate');
-    if (isQiCondensationRealm()) {
-        if (sealBtn) {
-            sealBtn.hidden = true;
-            sealBtn.classList.add('action-realm-hidden');
-            sealBtn.style.setProperty('display', 'none', 'important');
-            const wrap = sealBtn.closest('.action-with-help');
-            if (wrap) {
-                wrap.hidden = true;
-                wrap.classList.add('action-realm-hidden');
-                wrap.style.setProperty('display', 'none', 'important');
-            }
-        }
-        if (sealHelp) sealHelp.style.display = 'none';
-        const breakBtn = document.getElementById('btnBreakthrough');
-        const breakWrap = breakBtn?.closest('.action-with-help');
+    setActionButtonHidden(sealBtn, qc);
+    if (sealHelp) sealHelp.style.display = qc ? 'none' : '';
+
+    // Prior playtests: Dao + Forbidden still visible despite distance hide — force off at QC.
+    setActionButtonHidden(document.getElementById('btnDao'), qc);
+    setActionButtonHidden(document.getElementById('btnForbidden'), qc);
+    setActionButtonHidden(document.getElementById('btnMeridian'), qc);
+
+    const breakBtn = document.getElementById('btnBreakthrough');
+    const breakWrap = breakBtn?.closest('.action-with-help');
+    if (qc) {
         const stage = getQcBandStage();
         const showBreak = stage === 'mid' || stage === 'late' || stage === 'peak';
         if (breakWrap) {
             breakWrap.hidden = !showBreak;
-            breakWrap.style.display = showBreak ? '' : 'none';
+            breakWrap.classList.toggle('action-realm-hidden', !showBreak);
+            if (showBreak) breakWrap.style.removeProperty('display');
+            else breakWrap.style.setProperty('display', 'none', 'important');
         }
-        if (breakBtn && showBreak && !hasQcBandBreakthroughReady()) {
-            breakBtn.classList.add('action-locked');
-            breakBtn.disabled = true;
-            breakBtn.title = '🔒 Reach Late Qi Condensation by gathering qi, then Break Through.';
-        }
-    } else {
-        if (sealBtn) {
-            sealBtn.hidden = false;
-            sealBtn.classList.remove('action-realm-hidden');
-            sealBtn.style.removeProperty('display');
-            const wrap = sealBtn.closest('.action-with-help');
-            if (wrap) {
-                wrap.hidden = false;
-                wrap.classList.remove('action-realm-hidden');
-                wrap.style.removeProperty('display');
+        if (breakBtn) {
+            if (showBreak && !hasQcBandBreakthroughReady()) {
+                breakBtn.classList.add('action-locked');
+                breakBtn.disabled = true;
+                breakBtn.title = '🔒 Reach Late Qi Condensation by gathering qi, then Break Through.';
             }
         }
-        if (sealHelp) sealHelp.style.display = '';
-        const breakBtn = document.getElementById('btnBreakthrough');
-        const breakWrap = breakBtn?.closest('.action-with-help');
-        if (breakWrap) {
-            breakWrap.hidden = false;
-            breakWrap.style.display = '';
-        }
-    }
-
-    const merBtn = document.getElementById('btnMeridian');
-    if (merBtn) {
-        const hideMer = isQiCondensationRealm();
-        merBtn.hidden = hideMer;
-        merBtn.classList.toggle('action-realm-hidden', hideMer);
-        if (hideMer) merBtn.style.setProperty('display', 'none', 'important');
-        else merBtn.style.removeProperty('display');
+    } else if (breakWrap) {
+        breakWrap.hidden = false;
+        breakWrap.classList.remove('action-realm-hidden');
+        breakWrap.style.removeProperty('display');
     }
 }
 

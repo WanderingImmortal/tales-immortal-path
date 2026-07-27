@@ -1410,8 +1410,10 @@ function toggleCombatTechLoadout(name) {
 
 function combatSkill() {
     if (!canPlayerAct()) return;
+    const popup = document.getElementById('techPopup');
+    if (popup) popup.classList.add('tech-popup-combat');
     renderTechPopup();
-    document.getElementById('techPopup').classList.add('active');
+    popup?.classList.add('active');
 }
 
 function applyTrueDaoEffectsToEnemy(fx) {
@@ -1438,7 +1440,8 @@ function executeCombatTechnique(tech) {
 }
 
 function combatUseTechnique(name) {
-    document.getElementById('techPopup').classList.remove('active');
+    const techPopup = document.getElementById('techPopup');
+    techPopup?.classList.remove('active', 'tech-popup-combat');
     if (!canPlayerAct()) return;
     const tech = getTechniqueByName(name);
     if (!tech) return;
