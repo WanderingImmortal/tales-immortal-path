@@ -81,15 +81,36 @@ function applyActionShowPolicy(btn, actionId) {
     const wrap = btn.closest('.action-with-help');
     const hide = policy === 'hidden';
     btn.classList.toggle('action-realm-hidden', hide);
-    if (wrap) wrap.classList.toggle('action-realm-hidden', hide);
+    btn.hidden = hide;
     if (hide) {
-        btn.style.display = 'none';
-        if (wrap) wrap.style.display = 'none';
+        btn.setAttribute('aria-hidden', 'true');
+        btn.style.setProperty('display', 'none', 'important');
     } else {
-        btn.style.display = '';
-        if (wrap) wrap.style.display = '';
+        btn.removeAttribute('aria-hidden');
+        btn.hidden = false;
+        btn.style.removeProperty('display');
+    }
+    if (wrap) {
+        wrap.classList.toggle('action-realm-hidden', hide);
+        wrap.hidden = hide;
+        if (hide) wrap.style.setProperty('display', 'none', 'important');
+        else wrap.style.removeProperty('display');
     }
     return policy;
+}
+
+/** Re-apply progressive hide for every gated action (safe to call often). */
+function syncRealmActionVisibility() {
+    if (typeof ACTION_UNLOCK_BUTTONS === 'undefined') return;
+    Object.entries(ACTION_UNLOCK_BUTTONS).forEach(([actionId, btnId]) => {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        try {
+            applyActionShowPolicy(btn, actionId);
+        } catch (err) {
+            console.warn('syncRealmActionVisibility', actionId, err);
+        }
+    });
 }
 
 function ensureMilestones() {
@@ -296,22 +317,31 @@ function renderActionUnlocks() {
     if (typeof ACTION_UNLOCK_BUTTONS === 'undefined') return;
     cacheActionButtonDefaultTitles();
 
+    // Pass 1: progressive realm hide (must not abort if a later unlock check throws)
+    syncRealmActionVisibility();
+
     Object.entries(ACTION_UNLOCK_BUTTONS).forEach(([actionId, btnId]) => {
         const btn = document.getElementById(btnId);
         if (!btn) return;
 
-        const policy = applyActionShowPolicy(btn, actionId);
+        const policy = typeof getActionShowPolicy === 'function' ? getActionShowPolicy(actionId) : 'show';
         if (policy === 'hidden') return;
 
         if (actionId === 'intent' && typeof shouldShowIntentButton === 'function') {
             const showIntent = shouldShowIntentButton();
+            btn.hidden = !showIntent;
             btn.style.display = showIntent ? '' : 'none';
             if (!showIntent) return;
         }
 
         if (ACTION_UNLOCK_SKIP_RENDER.has(actionId)) return;
 
-        const state = evaluateActionUnlock(actionId);
+        let state = { unlocked: true, reason: null };
+        try {
+            state = evaluateActionUnlock(actionId);
+        } catch (err) {
+            console.warn('evaluateActionUnlock', actionId, err);
+        }
 
         if (actionId === 'recruit') {
             applyRecruitUnlockButton(btn, state);
@@ -330,6 +360,9 @@ function renderActionUnlocks() {
         btn.title = btn.dataset.defaultTitle || '';
     });
 
+    // Pass 2: re-hide after lock styling — nothing may un-hide far-realm actions
+    syncRealmActionVisibility();
     if (typeof applyQcProgressiveActionUi === 'function') applyQcProgressiveActionUi();
+    syncRealmActionVisibility();
     renderActionGroupLocks();
 }

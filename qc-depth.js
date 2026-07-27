@@ -541,18 +541,20 @@ function confirmTravelAboveStation(zoneId) {
 // ----- Progressive action UI -----
 
 function applyQcProgressiveActionUi() {
-    // Realm-distance hide for Dao/Forbidden/etc. lives in action-gates getActionShowPolicy.
+    // Realm-distance hide for Dao/Forbidden/etc. lives in action-gates syncRealmActionVisibility.
     // QC-only: Seal off; Break soft-shows Mid+; Meridians stay FE wiring.
     const sealBtn = document.getElementById('btnConsolidate');
     const sealHelp = document.getElementById('helpConsolidate');
     if (isQiCondensationRealm()) {
         if (sealBtn) {
-            sealBtn.style.display = 'none';
+            sealBtn.hidden = true;
             sealBtn.classList.add('action-realm-hidden');
+            sealBtn.style.setProperty('display', 'none', 'important');
             const wrap = sealBtn.closest('.action-with-help');
             if (wrap) {
-                wrap.style.display = 'none';
+                wrap.hidden = true;
                 wrap.classList.add('action-realm-hidden');
+                wrap.style.setProperty('display', 'none', 'important');
             }
         }
         if (sealHelp) sealHelp.style.display = 'none';
@@ -560,7 +562,10 @@ function applyQcProgressiveActionUi() {
         const breakWrap = breakBtn?.closest('.action-with-help');
         const stage = getQcBandStage();
         const showBreak = stage === 'mid' || stage === 'late' || stage === 'peak';
-        if (breakWrap) breakWrap.style.display = showBreak ? '' : 'none';
+        if (breakWrap) {
+            breakWrap.hidden = !showBreak;
+            breakWrap.style.display = showBreak ? '' : 'none';
+        }
         if (breakBtn && showBreak && !hasQcBandBreakthroughReady()) {
             breakBtn.classList.add('action-locked');
             breakBtn.disabled = true;
@@ -568,25 +573,32 @@ function applyQcProgressiveActionUi() {
         }
     } else {
         if (sealBtn) {
-            sealBtn.style.display = '';
+            sealBtn.hidden = false;
             sealBtn.classList.remove('action-realm-hidden');
+            sealBtn.style.removeProperty('display');
             const wrap = sealBtn.closest('.action-with-help');
             if (wrap) {
-                wrap.style.display = '';
+                wrap.hidden = false;
                 wrap.classList.remove('action-realm-hidden');
+                wrap.style.removeProperty('display');
             }
         }
         if (sealHelp) sealHelp.style.display = '';
         const breakBtn = document.getElementById('btnBreakthrough');
         const breakWrap = breakBtn?.closest('.action-with-help');
-        if (breakWrap) breakWrap.style.display = '';
+        if (breakWrap) {
+            breakWrap.hidden = false;
+            breakWrap.style.display = '';
+        }
     }
 
     const merBtn = document.getElementById('btnMeridian');
     if (merBtn) {
         const hideMer = isQiCondensationRealm();
-        merBtn.style.display = hideMer ? 'none' : '';
+        merBtn.hidden = hideMer;
         merBtn.classList.toggle('action-realm-hidden', hideMer);
+        if (hideMer) merBtn.style.setProperty('display', 'none', 'important');
+        else merBtn.style.removeProperty('display');
     }
 }
 
