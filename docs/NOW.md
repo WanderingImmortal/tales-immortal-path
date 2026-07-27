@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-27
 
 ## Focus
-- Living world clock Phase 1 — `cursor/living-world-clock` ([`docs/ideas/world-clock-continuous.md`](ideas/world-clock-continuous.md))
+- Living world clock Phase 2 (digests, rent warn, stance/project actions) — after PR #85 — [`docs/ideas/world-clock-continuous.md`](ideas/world-clock-continuous.md)
 
 ## Next
 - Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)

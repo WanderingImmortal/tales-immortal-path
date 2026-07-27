@@ -498,7 +498,8 @@ header .subtitle {
 .world-clock-bar {
     position: absolute;
     top: 10px;
-    right: 12px;
+    /* Clear scene cultivator silhouette (~140px) in the top-right */
+    right: 168px;
     z-index: 40;
     display: flex;
     align-items: center;
@@ -8314,6 +8315,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
         width: 100px;
         margin: 0 auto 12px;
         opacity: 0.7;
+    }
+
+    .world-clock-bar {
+        right: 12px;
     }
 
     .scene-header {
