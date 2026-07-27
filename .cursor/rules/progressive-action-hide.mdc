@@ -1,0 +1,26 @@
+---
+description: Late-realm action buttons must hide-by-default (Dao/Forbidden lesson)
+globs: index.html,action-gates.js,qc-depth.js,data.js,style.css,ui.js
+alwaysApply: false
+---
+
+# Progressive action buttons (hide-by-default)
+
+Playtest lesson (PR #83): **show-then-hide fails**. Dao/Forbidden kept appearing at Qi Condensation because they started visible in HTML and every render tried to hide them afterward.
+
+## When adding a late-stage / high-realm action button
+
+1. **HTML default hidden** — ship with `hidden` + `action-realm-hidden` (and wrap if `.action-with-help`):
+   ```html
+   <button id="btnNewThing" hidden class="action-realm-hidden">…</button>
+   ```
+2. **Register gate** — `ACTION_UNLOCK_BUTTONS` + `ACTION_UNLOCKS` with `minRealm` (or milestones) in `data.js`.
+3. **Distance policy** — `getActionShowPolicy` hides when `minRealm - tier >= 2`; soft-shows the next horizon as locked.
+4. **Do not force-show** on leave-QC / unlock paths if distance policy still says hidden.
+5. **QC nuclear lock** — far-horizon buttons that must never appear in QC also belong under `html.at-qi-condensation #btn…` in `style.css`, and hard-hide in `applyQcProgressiveActionUi` (runs last in `fullRender`).
+6. **Bump cache** — `?v=` on touched `index.html` script/link tags after JS/CSS changes.
+
+## Anti-pattern
+
+- Visible-by-default button + “we’ll hide it in `renderActionUnlocks`” — one missed frame or cache miss and players see it.
+- Relying only on soft-show distance math without HTML default hidden for 2+ realm-ahead actions.

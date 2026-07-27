@@ -55,6 +55,8 @@ Faster root grades → earlier Peak/BT ([`spiritual-roots-taxonomy-v2.md`](spiri
 
 Hide locks **2+ realms ahead**. Soft-show **next horizon**. Never hide QC loop. Soft-show Break near Late. Unlock fanfare when something appears.
 
+**Hide-by-default (shipped PR #83):** late-stage buttons (Dao, Forbidden, …) must start `hidden` + `action-realm-hidden` in HTML. Do not ship visible-then-hide — playtests proved it flakes. Also: `html.at-qi-condensation` CSS lock + `applyQcProgressiveActionUi` last in `fullRender`. Agent rule: `.cursor/rules/progressive-action-hide.mdc`.
+
 ### Travel
 
 No hard `minRealm` zone locks. Warn: above your station is a good way to die. Soft danger + first-entry confirm.
@@ -77,7 +79,7 @@ Hub = **Threshold City** (id may remain `bone_crossroads`). **Law of Dust** = fo
 
 ### Playtest findings (2026-07-27)
 
-1. **Dao / Forbidden still showing at QC** — distance hide was not enough; hard-hide in `applyQcProgressiveActionUi` (runs last after sync).
+1. **Dao / Forbidden still showing at QC** — distance hide alone failed; **hide-by-default in HTML** + `html.at-qi-condensation` CSS + hard-hide in `applyQcProgressiveActionUi` (PR #83). Reuse this for any future late-realm button.
 2. **Breakthrough at Late/Peak** — `resolveBreakthroughTransitionId` key mismatch broke `qc_to_fe`; popup Seal/Meridian copy; thin styles → QC postures Steady Settle / Force the Basin / Read the Audit.
 3. **Combat Tech** — side drawer → panel under combat when in fight.
 4. **Lodge after buy** — was economy flag only; minimal home screen + owned chest (not sect residence).

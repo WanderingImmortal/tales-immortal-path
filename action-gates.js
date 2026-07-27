@@ -58,6 +58,9 @@ function getActionUnlockRealmTier(actionId) {
 /**
  * Progressive action UI: hide locks 2+ realms ahead; soft-show the next horizon.
  * Realm distance is checked before unlock state so playtest free-gates cannot un-hide Dao/Forbidden at QC.
+ *
+ * IMPORTANT (PR #83): late-realm buttons must also start hidden in HTML + action-realm-hidden.
+ * Show-then-hide on render is not enough — see .cursor/rules/progressive-action-hide.mdc.
  */
 function getActionShowPolicy(actionId) {
     const def = getActionUnlockDef(actionId);
