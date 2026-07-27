@@ -19,12 +19,17 @@ function getActionBlockReason() {
     if (typeof isTribulationActive === 'function' && isTribulationActive()) return 'Heavenly tribulation holds your focus.';
     if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) return 'Choose your transcendence perk first.';
     if (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive()) return 'You are in long seclusion — emerge first.';
+    if (typeof getWorldClockBusyReason === 'function') {
+        const busy = getWorldClockBusyReason();
+        if (busy) return busy;
+    }
     return null;
 }
 
 // ----- CULTIVATE -----
 function runCultivateSession(options) {
     const opts = options || {};
+    const scale = opts.yieldScale != null ? Number(opts.yieldScale) : 1;
     const b = QI_BALANCE;
     const sectMult = typeof getSectCultivationMult === 'function' ? getSectCultivationMult() : 1;
     const factionMult = typeof getFactionCultivateMult === 'function' ? getFactionCultivateMult() : 1;
@@ -35,71 +40,86 @@ function runCultivateSession(options) {
     const extraMult = opts.extraMult || 1;
     const cultMult = sectMult * factionMult * traitMult * talentMult * legacyMult * methodMult * extraMult;
     const densGainRaw = b.cultivateDensityMin + Math.random() * (b.cultivateDensityMax - b.cultivateDensityMin);
-    const densGain = Math.round(densGainRaw * cultMult * 100) / 100;
+    const densGain = Math.round(densGainRaw * cultMult * scale * 100) / 100;
     G.qiDensity = (G.qiDensity || 0) + densGain;
-    const fillGain = Math.max(1, Math.floor(getMaxQi() * b.cultivateFillRatio * cultMult));
+    const fillGainRaw = getMaxQi() * b.cultivateFillRatio * cultMult * scale;
+    const fillGain = scale < 1
+        ? Math.max(0, Math.round(fillGainRaw))
+        : Math.max(1, Math.floor(fillGainRaw));
     G.qi = Math.min(getMaxQi(), G.qi + fillGain);
     clampCurrentQi();
-    const statGain = 1 + Math.floor((typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx) / 2);
+    const statGainBase = 1 + Math.floor((typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx) / 2);
+    const statGain = scale < 1
+        ? (Math.random() < scale * statGainBase ? 1 : 0)
+        : statGainBase;
     const focusPath = typeof getLegacyPathForTrack === 'function'
         ? getLegacyPathForTrack(typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian')
         : G.path;
-    if (focusPath === 'body') {
-        G.vitality += statGain + 1;
-        G.spirit += Math.floor(statGain / 2);
-        G.will += Math.floor(statGain / 2);
-    } else if (focusPath === 'soul') {
-        G.vitality += Math.floor(statGain / 2);
-        G.spirit += statGain;
-        G.will += statGain;
-    } else {
-        G.vitality += Math.floor(statGain / 2);
-        G.spirit += Math.floor(statGain / 2);
-        G.will += Math.floor(statGain / 2);
+    let buildingNotes = [];
+    let titheAmount = 0;
+    if (statGain > 0) {
+        if (focusPath === 'body') {
+            G.vitality += statGain + (scale < 1 ? 0 : 1);
+            G.spirit += Math.floor(statGain / 2);
+            G.will += Math.floor(statGain / 2);
+        } else if (focusPath === 'soul') {
+            G.vitality += Math.floor(statGain / 2);
+            G.spirit += statGain;
+            G.will += statGain;
+        } else {
+            G.vitality += Math.floor(statGain / 2);
+            G.spirit += Math.floor(statGain / 2);
+            G.will += Math.floor(statGain / 2);
+        }
+        applyVitalityToMaxHp();
+        const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp()
+            : (typeof getEffectiveMaxHpFromScars === 'function' ? getEffectiveMaxHpFromScars() : G.maxHp);
+        G.hp = Math.min(hpCap, G.hp + Math.floor(statGain / 2));
+        buildingNotes = typeof applySectCultivateBuildingEffects === 'function'
+            ? applySectCultivateBuildingEffects(statGain)
+            : [];
     }
-    applyVitalityToMaxHp();
-    const hpCap = typeof getEffectiveMaxHp === 'function' ? getEffectiveMaxHp()
-        : (typeof getEffectiveMaxHpFromScars === 'function' ? getEffectiveMaxHpFromScars() : G.maxHp);
-    G.hp = Math.min(hpCap, G.hp + Math.floor(statGain / 2));
-    const buildingNotes = typeof applySectCultivateBuildingEffects === 'function'
-        ? applySectCultivateBuildingEffects(statGain)
-        : [];
     if (G.qiExhausted && G.qi > 0) {
         G.qiExhausted = false;
         addLog(`⚡ Your Qi recovers!`);
     }
-    let titheAmount = 0;
-    if (G.disciples.length > 0) {
-        const income = typeof getTreasuryTithePerCultivate === 'function'
-            ? getTreasuryTithePerCultivate()
-            : (typeof getSectDiscipleIncome === 'function'
-                ? getSectDiscipleIncome() + getFameLevel().bonus
-                : G.disciples.length + getFameLevel().bonus);
-        if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0
-            && typeof addTreasuryPendingTithe === 'function') {
-            addTreasuryPendingTithe(income);
-            G.sectPassiveIncome = income;
-            titheAmount = income;
-        } else {
-            G.stones += income;
-            G.sectPassiveIncome = income;
+    let tradeIncome = 0;
+    let factionTrade = 0;
+    let factionPassive = null;
+    // Full-session side incomes — skip on fractional weekly stance ticks
+    if (scale >= 1) {
+        if (G.disciples.length > 0) {
+            const income = typeof getTreasuryTithePerCultivate === 'function'
+                ? getTreasuryTithePerCultivate()
+                : (typeof getSectDiscipleIncome === 'function'
+                    ? getSectDiscipleIncome() + getFameLevel().bonus
+                    : G.disciples.length + getFameLevel().bonus);
+            if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0
+                && typeof addTreasuryPendingTithe === 'function') {
+                addTreasuryPendingTithe(income);
+                G.sectPassiveIncome = income;
+                titheAmount = income;
+            } else {
+                G.stones += income;
+                G.sectPassiveIncome = income;
+            }
         }
-    }
-    const tradeIncome = typeof getSectTradeRouteIncome === 'function' ? getSectTradeRouteIncome() : 0;
-    const factionTrade = typeof getFactionTradeIncomeBonus === 'function' ? getFactionTradeIncomeBonus() : 0;
-    if (factionTrade > 0) {
-        G.stones += factionTrade;
-        G.sectPassiveIncome = (G.sectPassiveIncome || 0) + factionTrade;
-    }
-    const factionPassive = typeof getFactionPassiveCultivateBonus === 'function' ? getFactionPassiveCultivateBonus() : null;
-    if (factionPassive?.foundation) grantFoundation(factionPassive.foundation);
-    if (factionPassive?.spirit) G.spirit += factionPassive.spirit;
-    const mergedFx = typeof getMergedDaoEffects === 'function' ? getMergedDaoEffects() : null;
-    if (mergedFx?.foundationPerCultivate) grantFoundation(mergedFx.foundationPerCultivate);
-    if (opts.extraFoundation) grantFoundation(opts.extraFoundation);
-    if (tradeIncome > 0) {
-        G.stones += tradeIncome;
-        G.sectPassiveIncome = (G.sectPassiveIncome || 0) + tradeIncome;
+        tradeIncome = typeof getSectTradeRouteIncome === 'function' ? getSectTradeRouteIncome() : 0;
+        factionTrade = typeof getFactionTradeIncomeBonus === 'function' ? getFactionTradeIncomeBonus() : 0;
+        if (factionTrade > 0) {
+            G.stones += factionTrade;
+            G.sectPassiveIncome = (G.sectPassiveIncome || 0) + factionTrade;
+        }
+        factionPassive = typeof getFactionPassiveCultivateBonus === 'function' ? getFactionPassiveCultivateBonus() : null;
+        if (factionPassive?.foundation) grantFoundation(factionPassive.foundation);
+        if (factionPassive?.spirit) G.spirit += factionPassive.spirit;
+        const mergedFx = typeof getMergedDaoEffects === 'function' ? getMergedDaoEffects() : null;
+        if (mergedFx?.foundationPerCultivate) grantFoundation(mergedFx.foundationPerCultivate);
+        if (opts.extraFoundation) grantFoundation(opts.extraFoundation);
+        if (tradeIncome > 0) {
+            G.stones += tradeIncome;
+            G.sectPassiveIncome = (G.sectPassiveIncome || 0) + tradeIncome;
+        }
     }
     let cultMsg = `${opts.logPrefix || '🧘 You refine your Qi'}. +${densGain.toFixed(2)} Density, dantian +${fillGain}/${getMaxQi()}, +${statGain} secondary stats.`;
     const cultParts = [...(opts.bonusNoteParts || [])];
@@ -119,15 +139,22 @@ function runCultivateSession(options) {
     if (typeof getBuildingLevel === 'function' && getBuildingLevel('treasury') > 0 && titheAmount > 0) {
         cultMsg += ` · Treasury tithe +${titheAmount}💎`;
     }
-    if (getMeridianOpenCount() < 11 && Math.random() < 0.05) {
+    if (scale >= 1 && getMeridianOpenCount() < 11 && Math.random() < 0.05) {
         addLog(`☯️ You sense a new meridian... (check Meridians)`);
     }
-    if (typeof applyCorruptionAlignmentDrift === 'function') applyCorruptionAlignmentDrift();
+    if (scale >= 1 && typeof applyCorruptionAlignmentDrift === 'function') applyCorruptionAlignmentDrift();
     return cultMsg;
 }
 
 function actionCultivate() {
     if (actionBlocked()) return;
+    // Living calendar: Cultivate toggles a weekly gather-qi stance
+    if (typeof setWorldClockStance === 'function') {
+        setWorldClockStance('cultivate');
+        if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
+        fullRender();
+        return;
+    }
     beginActionLog();
     if (!advanceTime(ACTION_MONTHS.cultivate, "Secluded meditation")) { cancelActionLog(); fullRender(); return; }
     commitActionLog(runCultivateSession());
@@ -206,7 +233,7 @@ function usePill(pillId) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(pill.months, `Consuming ${pill.name}`)) { cancelActionLog(); fullRender(); return; }
+    if (!advanceTime(0, `Consuming ${pill.name}`)) { cancelActionLog(); fullRender(); return; }
     G.pillStock[pillId]--;
     const result = pill.apply();
     commitActionLog(`${pill.emoji} ${pill.name}: ${result}`);
@@ -233,7 +260,7 @@ function buyPill(pillId) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.market, `Purchasing ${pill.name}`)) { cancelActionLog(); fullRender(); return; }
+    if (!advanceTime(0, `Purchasing ${pill.name}`)) { cancelActionLog(); fullRender(); return; }
     G.stones -= item.price;
     addPill(pillId, item.qty || 1);
     commitActionLog(`🏪 Purchased ${item.qty || 1}× ${pill.name} for ${item.price} Stones.`);
@@ -348,6 +375,21 @@ function actionCombat() {
         fullRender();
         return;
     }
+    // Live calendar: 1-week seek project, then combat opens
+    const seekMonths = (typeof WORLD_CLOCK_WEEK_MONTHS === 'number')
+        ? WORLD_CLOCK_WEEK_MONTHS
+        : (ACTION_MONTHS.combatStart || 0.25);
+    if (typeof isWorldClockLive === 'function' && isWorldClockLive() && typeof startWorldClockProject === 'function') {
+        const ok = startWorldClockProject({
+            id: 'fight_seek',
+            kind: 'seek',
+            label: 'Seeking a fight',
+            durationMonths: seekMonths,
+            startLog: '⚔️ You begin seeking a worthy opponent (about 1 week)…'
+        });
+        fullRender();
+        return;
+    }
     if (typeof timeCombatStart === 'function') {
         if (!timeCombatStart('⚔️ You seek a worthy opponent.', 'Seeking a worthy opponent')) {
             if (!G.gameOver) addLog(`⏳ Could not seek a fight right now.`);
@@ -356,7 +398,7 @@ function actionCombat() {
         }
     } else {
         beginActionLog();
-        if (!advanceTime(ACTION_MONTHS.combatStart, "Seeking a worthy opponent")) { cancelActionLog(); fullRender(); return; }
+        if (!advanceTime(seekMonths, "Seeking a worthy opponent")) { cancelActionLog(); fullRender(); return; }
         commitActionLog('⚔️ You seek a worthy opponent.');
     }
     try {

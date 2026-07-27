@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=101" />
+    <link rel="stylesheet" href="style.css?v=102" />
 </head>
 <body>
 
@@ -135,6 +135,7 @@
                 <button type="button" data-clock-speed="normal" class="world-clock-speed active" title="1 week / 5s">Normal</button>
                 <button type="button" data-clock-speed="fast" class="world-clock-speed" title="1 week / 2.5s">Fast</button>
             </div>
+            <span id="worldClockActivity" class="world-clock-activity" hidden title=""></span>
             <span id="worldClockAge" class="world-clock-age" title="Age">16y</span>
         </div>
         <div class="main-layout">
@@ -229,7 +230,7 @@
                             <div class="action-group-label">Cultivation</div>
                             <div class="actions-row">
                                 <div class="action-with-help">
-                                    <button id="btnCultivate">🧘 Cultivate</button>
+                                    <button id="btnCultivate" title="Toggle gather-qi stance — weekly yield while calendar runs">🧘 Cultivate</button>
                                     <button type="button" class="action-help-btn action-help-btn-inline" id="helpCultivate" aria-label="About Cultivate">?</button>
                                 </div>
                                 <div class="action-with-help">
@@ -267,14 +268,14 @@
                         <div class="action-group">
                             <div class="action-group-label">World</div>
                             <div class="actions-row">
-                                <button id="btnExplore" title="4 months · field herbs, ores & reagents">🌿 Explore</button>
+                                <button id="btnExplore" title="Toggle forage stance — weekly finds while calendar runs">🌿 Explore</button>
                                 <button id="btnSearch" title="Probe rumored sealed-site entrances in this region — not forbidden grounds or Dao fragments">🗝️ Probe Sealed Sites</button>
                                 <button id="btnMap" title="8 months to travel">🗺️ Map</button>
                                 <button id="btnMarket" title="Threshold, Heartlands & Jade markets">🏪 Market</button>
-                                <button id="btnCombat" title="2 months + battle time">⚔️ Fight</button>
+                                <button id="btnCombat" title="1 week seek · then battle">⚔️ Fight</button>
                             </div>
                             <div class="actions-row" style="margin-top:6px;">
-                                <button id="btnLookAround" title="1 month · scan for strangers">👁️ Look around</button>
+                                <button id="btnLookAround" title="Free · scan for strangers">👁️ Look around</button>
                                 <button id="btnThresholdJobs" title="Paid work in Threshold City">👷 Work</button>
                                 <button id="btnDwelling" title="Rent or buy lodging">🏠 Lodge</button>
                                 <button id="btnForbidden" title="Forbidden grounds" hidden class="action-realm-hidden">🌑 Forbidden</button>
@@ -1393,7 +1394,7 @@
     <span id="overlayLifespanText"></span>
 </div>
 
-<script src="data.js?v=96"></script>
+<script src="data.js?v=97"></script>
 <script src="dao-taxonomy.js?v=1"></script>
 <script src="cultivation-tracks.js?v=2"></script>
 <script src="talent.js?v=2"></script>
@@ -1407,7 +1408,7 @@
 <script src="spatial-ring.js?v=1"></script>
 <script src="foundation.js?v=6"></script>
 <script src="tutorial.js?v=3"></script>
-<script src="gear.js?v=7"></script>
+<script src="gear.js?v=8"></script>
 <script src="crafting.js?v=4"></script>
 <script src="forge-data.js?v=1"></script>
 <script src="forge-chamber.js?v=1"></script>
@@ -1417,7 +1418,7 @@
 <script src="alignment.js?v=5"></script>
 <script src="transcendence.js?v=4"></script>
 <script src="consolidation.js?v=9"></script>
-<script src="qc-depth.js?v=5"></script>
+<script src="qc-depth.js?v=6"></script>
 <script src="sect-inventory.js?v=2"></script>
 <script src="sect-buildings.js?v=3"></script>
 <script src="formations.js?v=6"></script>
@@ -1428,20 +1429,20 @@
 <script src="intent.js?v=7"></script>
 <script src="tribulation.js?v=16"></script>
 <script src="locations.js?v=3"></script>
-<script src="world.js?v=33"></script>
+<script src="world.js?v=34"></script>
 <script src="ambient-npcs.js?v=1"></script>
-<script src="npc-converse.js?v=1"></script>
+<script src="npc-converse.js?v=2"></script>
 <script src="npc-betrayal.js?v=1"></script>
-<script src="npc-presence.js?v=2"></script>
+<script src="npc-presence.js?v=3"></script>
 <script src="ancients.js?v=5"></script>
 <script src="factions.js?v=9"></script>
 <script src="factions-expand.js?v=6"></script>
 <script src="forbidden.js?v=3"></script>
-<script src="npc.js?v=25"></script>
+<script src="npc.js?v=26"></script>
 <script src="quests.js?v=11"></script>
-<script src="ui.js?v=62"></script>
+<script src="ui.js?v=63"></script>
 <script src="action-gates.js?v=6"></script>
-<script src="actions.js?v=39"></script>
+<script src="actions.js?v=40"></script>
 <script src="chamber.js?v=13"></script>
 <script src="body-chamber.js?v=23"></script>
 <script src="vessel-rules.js?v=3"></script>
@@ -1452,7 +1453,7 @@
 <script src="story-arcs.js?v=6"></script>
 <script src="chronicle-diary.js?v=2"></script>
 <script src="time-playback.js?v=1"></script>
-<script src="world-clock.js?v=1"></script>
+<script src="world-clock.js?v=2"></script>
 <script src="seclusion-project.js?v=1"></script>
 <script src="combat.js?v=37"></script>
 <script src="playtest-feedback.js?v=1"></script>

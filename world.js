@@ -337,6 +337,14 @@ function travelToZone(zoneId) {
         showZoneGuide(zoneId);
         return;
     }
+    if (typeof getWorldClockBusyReason === 'function') {
+        const busy = getWorldClockBusyReason();
+        if (busy) {
+            addLog(`🔒 ${busy}`);
+            fullRender();
+            return;
+        }
+    }
     const cost = 5 + Math.floor(Math.random() * 10);
     if (G.qi < cost) {
         addLog(`😅 Not enough Qi to travel — need ${cost}.`);
@@ -344,10 +352,46 @@ function travelToZone(zoneId) {
         fullRender();
         return;
     }
+
+    // Live calendar: lock onto the road as a transit project
+    if (typeof isWorldClockLive === 'function' && isWorldClockLive() && typeof startWorldClockProject === 'function') {
+        G.qi -= cost;
+        const months = ACTION_MONTHS.travel || 8;
+        startWorldClockProject({
+            id: 'travel',
+            kind: 'transit',
+            label: `Traveling to ${zone.name}`,
+            durationMonths: months,
+            payload: { zoneId, prevZone: currentZone || G.currentZone },
+            startLog: `🗺️ You set out for ${zone.emoji} ${zone.name} (${months} months on the road)…`
+        });
+        document.getElementById('mapPopup')?.classList.remove('active');
+        fullRender();
+        return;
+    }
+
     beginActionLog();
     if (!advanceTime(ACTION_MONTHS.travel, `Journey to ${zone.name}`)) { cancelActionLog(); fullRender(); return; }
     G.qi -= cost;
-    const prevZone = currentZone;
+    applyTravelArrival(zoneId, { prevZone: currentZone, commit: true });
+}
+
+/** Finish a live-clock travel project (or shared arrival logic). */
+function finishWorldClockTravel(payload) {
+    const zoneId = payload?.zoneId;
+    if (!zoneId || !ZONES[zoneId]) {
+        addLog('🗺️ Your journey loses the road — travel failed.');
+        return;
+    }
+    applyTravelArrival(zoneId, { prevZone: payload.prevZone, commit: false });
+}
+
+function applyTravelArrival(zoneId, opts) {
+    opts = opts || {};
+    const zone = ZONES[zoneId];
+    if (!zone) return;
+    const inSub = typeof isInHiddenSubZone === 'function' && isInHiddenSubZone();
+    const prevZone = opts.prevZone != null ? opts.prevZone : currentZone;
     if (typeof exitHiddenSubZone === 'function' && inSub) {
         G.ancients.activeSubZone = null;
     }
@@ -365,7 +409,8 @@ function travelToZone(zoneId) {
     }
     const event = zone.events[Math.floor(Math.random() * zone.events.length)];
     msg += `. You encounter: ${event}`;
-    commitActionLog(msg + '.');
+    if (opts.commit && typeof commitActionLog === 'function') commitActionLog(msg + '.');
+    else addLog(msg + '.');
     if (typeof onTravelForStoryQuests === 'function') onTravelForStoryQuests(prevZone, zoneId);
     if (typeof tryAdvanceDemonicRedemptionOnTravel === 'function') tryAdvanceDemonicRedemptionOnTravel();
     if (!tryStartZoneEncounter('travel')) {
@@ -383,7 +428,7 @@ function travelToZone(zoneId) {
     mapPopupUi.localZoneId = zoneId;
     mapPopupUi.selectedLocationId = G.currentLocation || null;
     mapPopupUi.worldSelectedZoneId = zoneId;
-    renderMapPopup();
+    if (typeof renderMapPopup === 'function') renderMapPopup();
     fullRender();
 }
 
@@ -567,7 +612,7 @@ function buyCultivationMethod(methodId) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.market, `Buying ${method.name} at the market`)) {
+    if (!advanceTime(0, `Buying ${method.name} at the market`)) {
         cancelActionLog();
         fullRender();
         return;
@@ -612,7 +657,7 @@ function buyFormationManual(formationId) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.market, `Buying ${def.name} diagram at the market`)) {
+    if (!advanceTime(0, `Buying ${def.name} diagram at the market`)) {
         cancelActionLog();
         fullRender();
         return;
@@ -659,7 +704,7 @@ function buyTechnique(techName) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.market, `Studying ${techName} at the market`)) {
+    if (!advanceTime(0, `Studying ${techName} at the market`)) {
         cancelActionLog();
         fullRender();
         return;
@@ -675,6 +720,23 @@ function buyTechnique(techName) {
 
 function actionExplore() {
     if (G.gameOver || G.inCombat) return;
+    if (typeof actionBlocked === 'function' && actionBlocked()) {
+        const reason = typeof getActionBlockReason === 'function' ? getActionBlockReason() : null;
+        if (reason) addLog(`🔒 ${reason}`);
+        fullRender();
+        return;
+    }
+    // Living calendar: Explore toggles weekly forage stance
+    if (typeof setWorldClockStance === 'function') {
+        setWorldClockStance('explore');
+        fullRender();
+        return;
+    }
+    runExploreOuting();
+}
+
+/** One-shot explore (paused legacy / fallback). */
+function runExploreOuting() {
     const zoneId = typeof getLootZoneId === 'function' ? getLootZoneId() : (G.currentZone || currentZone);
     const zone = ZONES[zoneId];
     if (!zone) return;
@@ -698,53 +760,85 @@ function actionExplore() {
         return;
     }
 
-    const loot = typeof rollExploreLootWithPerception === 'function'
-        ? rollExploreLootWithPerception(zoneId)
-        : rollExploreLoot(zoneId);
-    const subLoot = inSub && typeof rollSubZoneExploreLoot === 'function'
-        ? rollSubZoneExploreLoot(getActiveZoneId())
-        : null;
-    const finalLoot = subLoot || loot;
-    if (finalLoot) {
-        if (finalLoot.type === 'technique') {
-            addLog(`📜 Manual discovery: ${finalLoot.technique || finalLoot.name}!`);
-        } else if (finalLoot.type === 'legendary_material') {
-            addLog(`🌟 ULTRA-RARE FIND: ${finalLoot.name}!`);
-        } else if (finalLoot.value >= 12 || finalLoot.type === 'consumable') {
-            addLog(`✨ Rare find: ${finalLoot.name}!`);
+    applyExploreYield({ zoneId, fullOuting: true });
+    fullRender();
+}
+
+/** Weekly forage drip while Explore stance is on — no encounter spam. */
+function runExploreStanceWeek() {
+    const zoneId = typeof getLootZoneId === 'function' ? getLootZoneId() : (G.currentZone || currentZone);
+    if (!ZONES[zoneId]) return;
+    applyExploreYield({ zoneId, fullOuting: false });
+}
+
+function applyExploreYield(opts) {
+    opts = opts || {};
+    const zoneId = opts.zoneId;
+    const zone = ZONES[zoneId];
+    if (!zone) return;
+    const inSub = typeof isInHiddenSubZone === 'function' && isInHiddenSubZone();
+    const fullOuting = !!opts.fullOuting;
+
+    if (fullOuting) {
+        const loot = typeof rollExploreLootWithPerception === 'function'
+            ? rollExploreLootWithPerception(zoneId)
+            : rollExploreLoot(zoneId);
+        const subLoot = inSub && typeof rollSubZoneExploreLoot === 'function'
+            ? rollSubZoneExploreLoot(getActiveZoneId())
+            : null;
+        const finalLoot = subLoot || loot;
+        if (finalLoot) {
+            if (finalLoot.type === 'technique') {
+                addLog(`📜 Manual discovery: ${finalLoot.technique || finalLoot.name}!`);
+            } else if (finalLoot.type === 'legendary_material') {
+                addLog(`🌟 ULTRA-RARE FIND: ${finalLoot.name}!`);
+            } else if (finalLoot.value >= 12 || finalLoot.type === 'consumable') {
+                addLog(`✨ Rare find: ${finalLoot.name}!`);
+            } else {
+                addLog(`📦 You find: ${finalLoot.name}`);
+            }
+            applyExploreLoot(finalLoot);
+            if (subLoot) addLog(`🔒 Hidden realm treasure from the sealed site.`);
         } else {
-            addLog(`📦 You find: ${finalLoot.name}`);
+            if (typeof rollExploreFieldMaterial === 'function') {
+                rollExploreFieldMaterial(zoneId);
+            } else if (typeof tryRollAlchemyMaterialFromExplore === 'function') {
+                tryRollAlchemyMaterialFromExplore();
+            } else {
+                addLog('🌿 You search the wilds but pocket nothing useful.');
+            }
         }
-        applyExploreLoot(finalLoot);
-        if (subLoot) addLog(`🔒 Hidden realm treasure from the sealed site.`);
     } else {
-        // Field gathering — herbs/ores/reagents. Stones come from jobs + selling, not pity RNG.
-        if (typeof rollExploreFieldMaterial === 'function') {
+        // Weekly stance: field materials most weeks; rare loot at reduced rate
+        if (Math.random() < 0.18) {
+            const loot = typeof rollExploreLootWithPerception === 'function'
+                ? rollExploreLootWithPerception(zoneId)
+                : rollExploreLoot(zoneId);
+            if (loot) {
+                addLog(`📦 While foraging: ${loot.name}`);
+                applyExploreLoot(loot);
+            } else if (typeof rollExploreFieldMaterial === 'function') {
+                rollExploreFieldMaterial(zoneId);
+            }
+        } else if (typeof rollExploreFieldMaterial === 'function') {
             rollExploreFieldMaterial(zoneId);
         } else if (typeof tryRollAlchemyMaterialFromExplore === 'function') {
             tryRollAlchemyMaterialFromExplore();
-        } else {
-            addLog('🌿 You search the wilds but pocket nothing useful.');
         }
+    }
+
+    if (fullOuting || Math.random() < 0.25) {
         if (typeof getSectExploreBonus === 'function') {
             const inf = getSectExploreBonus(zoneId);
-            if (inf && Math.random() < (inf.exploreFameChance || 0)) {
+            if (inf && Math.random() < (inf.exploreFameChance || 0) * (fullOuting ? 1 : 0.25)) {
                 let fameBonus = inf.exploreFameBonus || 2;
                 if (typeof getSectPerkExploreFameBonus === 'function') fameBonus += getSectPerkExploreFameBonus();
                 G.fame += fameBonus;
                 addLog(`🌏 Your sect's influence spreads — +${fameBonus} Fame.`);
             }
         }
-        if (typeof getSectPerkExploreFameBonus === 'function' && getSectPerkExploreFameBonus() > 0 && Math.random() < 0.12) {
-            const perkFame = getSectPerkExploreFameBonus();
-            G.fame += perkFame;
-            addLog(`🌿 Respected in the villages — +${perkFame} Fame.`);
-            if (typeof applyWorldSectRelationshipDrift === 'function') {
-                applyWorldSectRelationshipDrift('village_help', { zone: zoneId });
-            }
-        }
     }
-    if (zone.difficulty === "hard" || zone.difficulty === "extreme") {
+    if (fullOuting && (zone.difficulty === "hard" || zone.difficulty === "extreme")) {
         if (Math.random() < 0.25) {
             let dmg = 3 + Math.floor(Math.random() * 6);
             if (zoneId === 'frostbite' && typeof getFactionColdResistPct === 'function') {
@@ -755,18 +849,21 @@ function actionExplore() {
             addLog(`💢 The harsh environment wounds you. -${dmg} HP.`);
         }
     }
-    if (zone.difficulty === "extreme" && G.realmIdx < 4) {
+    if (fullOuting && zone.difficulty === "extreme" && G.realmIdx < 4) {
         addLog(`⚠️ The Heavenly Heartlands are dangerous for your level. Stay vigilant.`);
     }
-    rollForbiddenClueFromExplore();
-    if (typeof rollAncientClueFromExplore === 'function') rollAncientClueFromExplore(zoneId);
-    if (typeof onExploreForFactions === 'function') onExploreForFactions(zoneId);
-    if (typeof onExploreForStoryQuests === 'function') onExploreForStoryQuests(zoneId);
-    if (typeof recordMilestone === 'function') recordMilestone('explored');
-    if (typeof tryRollAlchemyMaterialFromExplore === 'function') tryRollAlchemyMaterialFromExplore();
-    if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('explore');
-    if (typeof tryNpcBetrayalAmbush === 'function') tryNpcBetrayalAmbush('explore');
-    fullRender();
+    if (fullOuting) {
+        rollForbiddenClueFromExplore();
+        if (typeof rollAncientClueFromExplore === 'function') rollAncientClueFromExplore(zoneId);
+        if (typeof onExploreForFactions === 'function') onExploreForFactions(zoneId);
+        if (typeof onExploreForStoryQuests === 'function') onExploreForStoryQuests(zoneId);
+        if (typeof recordMilestone === 'function') recordMilestone('explored');
+        if (typeof tryRollAlchemyMaterialFromExplore === 'function') tryRollAlchemyMaterialFromExplore();
+        if (typeof tryRoadAmbientEncounter === 'function') tryRoadAmbientEncounter('explore');
+        if (typeof tryNpcBetrayalAmbush === 'function') tryNpcBetrayalAmbush('explore');
+    } else if (typeof recordMilestone === 'function') {
+        recordMilestone('explored');
+    }
 }
 
 // ===== ZONE ENCOUNTERS =====
