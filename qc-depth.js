@@ -105,6 +105,11 @@ function ensureQcDepthState() {
         G.dwelling = { mode: 'homeless', settlementId: null, rentPaidThroughMonth: 0 };
     }
     if (!G.travelCautions) G.travelCautions = {};
+    // Early CSS lock before full action render (dao/forbidden default-hidden in HTML too).
+    if (typeof document !== 'undefined' && document.documentElement) {
+        const qc = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm();
+        document.documentElement.classList.toggle('at-qi-condensation', !!qc);
+    }
 }
 
 function isQiCondensationRealm() {
@@ -674,8 +679,13 @@ function setActionButtonHidden(btn, hide) {
     if (!btn) return;
     btn.hidden = !!hide;
     btn.classList.toggle('action-realm-hidden', !!hide);
-    if (hide) btn.style.setProperty('display', 'none', 'important');
-    else btn.style.removeProperty('display');
+    if (hide) {
+        btn.setAttribute('aria-hidden', 'true');
+        btn.style.setProperty('display', 'none', 'important');
+    } else {
+        btn.removeAttribute('aria-hidden');
+        btn.style.removeProperty('display');
+    }
     const wrap = btn.closest('.action-with-help');
     if (wrap) {
         wrap.hidden = !!hide;
@@ -686,18 +696,30 @@ function setActionButtonHidden(btn, hide) {
 }
 
 function applyQcProgressiveActionUi() {
-    // Belt-and-suspenders: hard-hide QC-irrelevant actions even if distance policy fails.
-    // Also: Seal off; Break soft-shows Mid+; Meridians stay FE wiring.
-    const qc = isQiCondensationRealm();
+    // Belt-and-suspenders: html class + hard hide. Never force-show Dao/Forbidden when leaving QC
+    // (distance policy may still require them hidden at early FE).
+    const qc = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm();
+    document.documentElement.classList.toggle('at-qi-condensation', !!qc);
+
     const sealBtn = document.getElementById('btnConsolidate');
     const sealHelp = document.getElementById('helpConsolidate');
     setActionButtonHidden(sealBtn, qc);
-    if (sealHelp) sealHelp.style.display = qc ? 'none' : '';
+    if (sealHelp) {
+        sealHelp.hidden = !!qc;
+        if (qc) sealHelp.style.setProperty('display', 'none', 'important');
+        else sealHelp.style.removeProperty('display');
+    }
 
-    // Prior playtests: Dao + Forbidden still visible despite distance hide — force off at QC.
-    setActionButtonHidden(document.getElementById('btnDao'), qc);
-    setActionButtonHidden(document.getElementById('btnForbidden'), qc);
-    setActionButtonHidden(document.getElementById('btnMeridian'), qc);
+    if (qc) {
+        setActionButtonHidden(document.getElementById('btnDao'), true);
+        setActionButtonHidden(document.getElementById('btnForbidden'), true);
+        setActionButtonHidden(document.getElementById('btnMeridian'), true);
+    } else if (typeof applyActionShowPolicy === 'function' && typeof ACTION_UNLOCK_BUTTONS !== 'undefined') {
+        ['dao', 'forbidden', 'meridian'].forEach(actionId => {
+            const btn = document.getElementById(ACTION_UNLOCK_BUTTONS[actionId]);
+            if (btn) applyActionShowPolicy(btn, actionId);
+        });
+    }
 
     const breakBtn = document.getElementById('btnBreakthrough');
     const breakWrap = breakBtn?.closest('.action-with-help');
@@ -710,12 +732,10 @@ function applyQcProgressiveActionUi() {
             if (showBreak) breakWrap.style.removeProperty('display');
             else breakWrap.style.setProperty('display', 'none', 'important');
         }
-        if (breakBtn) {
-            if (showBreak && !hasQcBandBreakthroughReady()) {
-                breakBtn.classList.add('action-locked');
-                breakBtn.disabled = true;
-                breakBtn.title = '🔒 Reach Late Qi Condensation by gathering qi, then Break Through.';
-            }
+        if (breakBtn && showBreak && !hasQcBandBreakthroughReady()) {
+            breakBtn.classList.add('action-locked');
+            breakBtn.disabled = true;
+            breakBtn.title = '🔒 Reach Late Qi Condensation by gathering qi, then Break Through.';
         }
     } else if (breakWrap) {
         breakWrap.hidden = false;

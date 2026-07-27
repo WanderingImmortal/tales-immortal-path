@@ -3925,7 +3925,14 @@ button.action-realm-hidden,
 .action-with-help.action-realm-hidden,
 button[hidden].action-realm-hidden,
 .actions-row > button.action-realm-hidden,
-.actions-row-sub > button.action-realm-hidden {
+.actions-row-sub > button.action-realm-hidden,
+/* Nuclear QC lock — wins even if a later render clears inline styles */
+html.at-qi-condensation #btnDao,
+html.at-qi-condensation #btnForbidden,
+html.at-qi-condensation #btnMeridian,
+html.at-qi-condensation #btnConsolidate,
+html.at-qi-condensation #helpConsolidate,
+html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     display: none !important;
     visibility: hidden !important;
     pointer-events: none !important;
