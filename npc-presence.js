@@ -168,8 +168,8 @@ function actionLookAround() {
     const placeLabel = loc ? `${loc.emoji} ${loc.name}` : (ZONES[zoneId]?.name || zoneId);
 
     beginActionLog();
-    const months = ACTION_MONTHS.lookAround || ACTION_MONTHS.interact || 1;
-    if (!advanceTime(months, `Looking around ${placeLabel}`)) {
+    // Look around is free — scan the crowd without spending calendar
+    if (!advanceTime(0, `Looking around ${placeLabel}`)) {
         cancelActionLog();
         fullRender();
         return;

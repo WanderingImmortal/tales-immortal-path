@@ -791,7 +791,7 @@ function queueActionLogSupplement(msg) {
 }
 
 function timeCombatStart(outcomeMsg, activityLabel) {
-    const months = ACTION_MONTHS.combatStart || 2;
+    const months = ACTION_MONTHS.combatStart || 0.25;
     const activity = activityLabel || 'Seeking a worthy opponent';
     beginActionLog();
     if (!advanceTime(months, activity)) {

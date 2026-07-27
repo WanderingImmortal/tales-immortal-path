@@ -618,7 +618,7 @@ function buyMerchantGear(gearId) {
     }
     if (G.stones < item.price) return { success: false, message: `Need ${item.price} Stones.` };
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.market, `Purchasing ${def.name}`)) {
+    if (!advanceTime(0, `Purchasing ${def.name}`)) {
         cancelActionLog();
         return { success: false, message: 'Your lifespan ends...' };
     }

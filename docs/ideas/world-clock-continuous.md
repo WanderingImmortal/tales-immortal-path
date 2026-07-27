@@ -2,13 +2,13 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Phase 1 shipped on PR; Phase 2 designed) |
-| **Blocked on** | none for Phase 2 spine |
+| **Status** | `building` (Phase 2 on PR #85) |
+| **Blocked on** | none |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #85](https://github.com/WanderingImmortal/tales-immortal-path/pull/85) · `cursor/living-world-clock` |
 | **Updated** | 2026-07-27 |
 
-Sister: [`chronicle-and-projects.md`](chronicle-and-projects.md) (bounded seclusion playback). QC cultivate-on-clock parks until Phase 1–2.
+Sister: [`chronicle-and-projects.md`](chronicle-and-projects.md) (bounded seclusion playback). QC cultivate polish / Practice Session = Phase 3.
 
 ## Intent
 
@@ -39,7 +39,7 @@ Week chunk ≈ `1/4` month (`ageMonths`).
 
 ### UI
 
-Top-right clock bar: Play/Pause · Slow/Normal/Fast · age `Yy Mm` (sits left of cultivator silhouette)
+Top-right clock bar: Play/Pause · Slow/Normal/Fast · activity · age `Yy Mm` (left of cultivator silhouette)
 
 ### Perf
 
@@ -47,31 +47,30 @@ One `advanceTimeQuiet` per week flush (batched delta) — not per-day × NPC loo
 
 ---
 
-## Phase 2 locks (owner 2026-07-27)
+## Phase 2 locks (owner 2026-07-27) — shipping
 
 ### Monthly digests
 
-**A — one quiet diary line per month** while live (e.g. “A month passes…”), not only-on-events and not a toast panel.
+One quiet diary line per month while live (`⏳ A month passes…`).
 
-### Action model (migration direction)
-
-Two families replace “every click spends months”:
+### Action taxonomy
 
 | Kind | Feel | Examples |
 |------|------|----------|
-| **Stance / toggle** | Turn on; keeps going while clock runs; turn off when done | Gathering qi / cultivate stance |
-| **Timed project** | Start once; you are “doing X” for N months; ends when duration completes | A job that takes 5 months |
-
-Phase 2 starts the migration (hot paths + clear UI for “currently doing”). Full QC Practice Session polish is still Phase 3.
+| **Stance / toggle** | On while clock runs; fractional yield each week | Cultivate (gather qi); Explore (forage) |
+| **Timed project** | Start → busy N months → done; locks you | Threshold jobs; travel |
+| **Instant / moment** | No calendar cost | Market buy, pill, converse, trade, Look around |
+| **Transit** | Locked on the road until arrival | Map travel |
+| **Seek → event** | Short wait → encounter → clock pauses | Fight — **1 week** seek |
 
 ### Rent / upkeep
 
-- **Auto-pay** each month while renting
-- **Warning** when stones only cover a few more months of upkeep (soft heads-up, not a hard pause)
+- Auto-pay each month while renting
+- Warning when stones cover **≤3 months** of upkeep
 
-### World calendar (parked idea — not Phase 2 must)
+### World calendar (parked)
 
-Owner note: a **world date / calendar line** at the top of the screen could feel good later (era + year/month). May merge with or sit beside the clock bar / lifespan chip. Spec before build.
+Top-of-screen world date — later.
 
 ---
 
@@ -79,16 +78,18 @@ Owner note: a **world date / calendar line** at the top of the screen could feel
 
 - [x] Owner Phase 1 locks
 - [x] Phase 1 ship (ticker + UI + advanceTime gate) — PR #85
-- [ ] Phase 2 monthly digests + rent warn + action stance/project start
-- [ ] Phase 3 QC cultivate stance on clock
+- [x] Phase 2 monthly digests + rent warn + stance/project/instant/transit (this pass)
+- [ ] Phase 3 QC cultivate stance polish / Practice Session
 
 ## Open questions
 
 - Merge lifespan chip with clock bar later?
 - When to open Fast year-scale for immortals only?
 - World date format (era name vs plain year/month)?
-- How many months of rent runway triggers the warning (recommend: ≤3)?
+- Explore deeper redesign — parked
+- Fight system redesign — parked (interim: 1 week seek)
+- Road bandits / travel random events — parked
 
 ## Implementation crumbs
 
-`world-clock.js`, `time-playback.js` (`advanceTimeQuiet`), `core.js` (`advanceTime`), `index.html` clock bar, `main.js` / `ui.js`
+`world-clock.js` (stances/projects/digests/rent warn), `actions.js`, `world.js`, `qc-depth.js`, `npc-presence.js`, `npc-converse.js`, `gear.js`, `data.js` (`combatStart: 0.25`)

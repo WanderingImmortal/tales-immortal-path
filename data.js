@@ -3527,7 +3527,7 @@ const ACTION_MONTHS = {
     recuperate: 3,
     recruit: 12,
     breakthrough: 24,
-    combatStart: 2,
+    combatStart: 0.25, // 1 week seek (living clock Phase 2)
     combatRound: 1,
     travel: 8,
     localTravel: 2,

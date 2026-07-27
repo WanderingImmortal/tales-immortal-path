@@ -778,7 +778,7 @@ function npcBuyItem(npcId, itemId) {
     const price = getNpcStockPrice(item, npcId);
     if (G.stones < price) return { success: false, message: `Need ${price} Stones.` };
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.npcTrade, `Trading with ${def.name}`)) {
+    if (!advanceTime(0, `Trading with ${def.name}`)) {
         cancelActionLog();
         return { success: false, message: 'Your lifespan ends...' };
     }
