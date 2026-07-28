@@ -56,7 +56,7 @@ Planet-scale cosmology **parked** — continent + firmament is enough for v1.
 
 The Void Temple predates every other Heartlands great sect in its **current duty**. They were not founded to teach the jianghu — they were founded to **hold something**.
 
-A **pre-heaven cultivator** — unbound by heaven’s rules, possibly a **different cultivation track** *(parked)* — could not be destroyed. Killing failed. Banishment failed. The one who would become the **Void Seeker** bound him in a **void pocket**: **Void Prison**.
+A **pre-heaven** entity — **unclassified**; outside current heaven’s taxonomy *(see [`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md) — **not** an “epoch survivor” or last era’s cultivator)* — could not be destroyed. Killing failed. Banishment failed. The one who would become the **Void Seeker** bound it in a **void pocket**: **Void Prison**.
 
 The prisoner, with black humor, named it **Little Heaven** (小天堂). The name stuck in inner court.
 
@@ -75,7 +75,7 @@ The prisoner, with black humor, named it **Little Heaven** (小天堂). The name
 
 **How the prisoner got there (v1):**
 
-1. **Anomaly appears** — pre-heaven entity breaches or wakes at the **firmament** edge (not “cultivator reaches immortal in secret”).
+1. **Anomaly appears** — **unclassified** entity at the **firmament** edge (firmament leak / chaos remnant — **not** “previous cycle’s powerhouse”). See [`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md).
 2. **Kill / banish fail** — current heaven’s rules **do not dispose** of it cleanly.
 3. **Binder** — the one who becomes **Void Seeker** is **Dao Manifestation** (void-gate / firmament lineage), **not** Half-Step and **not** stronger than the prisoner in a fair fight. Victory is **void pocket + prison architecture** — a **lock**, not a duel tier list.
 4. **Ascension later** — he **later** completes **Immortal Ascension** (restricted, void-aligned) **in obscurity** while **tending** the lock — **after** the binding, possibly **before or after** the Dao Wars, but **never** as a public Half-Step spectacle. Tian still owns **first Half-Step** because that is a **named watershed** on the **mandate ladder**, which the Seeker **did not claim** and the prisoner **never belonged to**.
@@ -85,6 +85,8 @@ The prisoner, with black humor, named it **Little Heaven** (小天堂). The name
 **What the Temple is “old” from:** the **Watch** and **prison duty** — generations of **non-immortal** wardens, VR-heavy pipeline, scripts that **outlive** any one binder. The Seeker is **famous** to insiders; the institution’s age is **the lock**, not “we always had an immortal on staff.”
 
 ---
+
+### Dao Wars — silent for the seal
 
 For **most** of the Dao Wars the Temple **said almost nothing** — no march on **Tianjing**, no charter crusade. Lesser skirmishes and archivist copies happened at the margins; the **priority** was **Void Prison** and pre-heaven seals.
 
@@ -118,7 +120,7 @@ He has **not** retired. He **returns through gates** when the seal strains. Some
 | Field | Value |
 |-------|-------|
 | **Name** | **None** — nameless by policy and practicality |
-| **Nature** | Pre-heaven; **outside** current heaven’s rules |
+| **Nature** | **Pre-heaven** — **outside** current heaven’s rules; **not** a secret Half-Step cultivator (see timeline section in history) |
 | **Lifespan** | At least **immortal-tier**; may be longer |
 | **Durability** | Extreme — **sealing** because destruction is not feasible |
 | **Cultivation** | Separate track *(parked — not player-facing in v1)* |
