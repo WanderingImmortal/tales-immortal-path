@@ -28,7 +28,7 @@ The **Dao Wars** (道战 — working name) — sects and rising powers tore the 
 
 ### The turn
 
-The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first to touch the gates of true immortality. The wars ended **swiftly** under that might: not a century of siege, but a **single grand stage** where the board learned a new ceiling.
+The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first on the **public mortal ladder** to touch the gates of true immortality in **recorded history** (Capital Turn). That does **not** mean no **pre-heaven** anomalies or **silent** ascensions existed off the board — see Void Temple prisoner ([`void-temple-sect.md`](void-temple-sect.md)).
 
 **Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — Tianjing siege and garden walk; **Seven Days of Weight** (contemplative founder); **Dragon’s Edict** (龙敕) at **Ember Crown**; Flame Emperor executed; Sword recede; Lotus neutral; Void silent.
 

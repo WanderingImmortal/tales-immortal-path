@@ -6,7 +6,7 @@
 | **Blocked on** | Lineage manual implementation; gate travel mechanics; prisoner track design |
 | **Issue** | none yet |
 | **Chat / PR** | Heartlands sect pass, 2026-07-23 |
-| **Updated** | 2026-07-23 (Void Seeker locked) |
+| **Updated** | 2026-07-28 (timeline vs Tian Half-Step) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`jade-lotus-sect.md`](jade-lotus-sect.md), [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
@@ -60,7 +60,31 @@ A **pre-heaven cultivator** — unbound by heaven’s rules, possibly a **differ
 
 The prisoner, with black humor, named it **Little Heaven** (小天堂). The name stuck in inner court.
 
-### Dao Wars — silent for the seal
+### Timeline vs “first Half-Step” (Tian founder)
+
+**Problem:** [`imperial-clan.md`](imperial-clan.md) says the Tian founder was the **first** to reach **Half-Step Immortal** on the continent. Void Temple has a **pre-heaven prisoner**, an **Immortal-tier** Void Seeker, and claims to predate other Heartlands sects. That only feels tacky if **“first Half-Step”** is read as **“nothing stronger ever existed”** or **“the Temple hid a second dragon.”**
+
+**Locked precision (owner 2026-07-28):**
+
+| Statement | What it actually means |
+|-----------|-------------------------|
+| **Tian = first Half-Step** | First soul on the **current mortal qi ladder** to **stand at heaven’s gate** in **recorded, board-shaking history** — the Capital Turn, mandate, public ceiling. |
+| **Prisoner ≠ ladder cultivator** | **Pre-heaven** — **outside** today’s heaven rulebook; not a secret Half-Step, not “another immortal nobody mentioned.” May **predate** current heaven’s accounting or use a **different track** *(parked)*. “Immortal-tier” in archives means **cannot be killed**, not **idx 8 on the nine-realm chart**. |
+| **Temple ≠ hidden war sect** | Ancient **duty** — **Watch**, scripts, void pockets, firmament gates. Power is **seal engineering**, not a second continental hegemon. Jianghu barely knew they existed until **Archive Oath**. |
+| **Void Seeker ≠ sleeping Tian rival** | **Absent** warden (outer void), not a closeted emperor. When he was on the board, he **finished** what killing could not — **bind** — then **left** maintenance to the Watch. |
+
+**How the prisoner got there (v1):**
+
+1. **Anomaly appears** — pre-heaven entity breaches or wakes at the **firmament** edge (not “cultivator reaches immortal in secret”).
+2. **Kill / banish fail** — current heaven’s rules **do not dispose** of it cleanly.
+3. **Binder** — the one who becomes **Void Seeker** is **Dao Manifestation** (void-gate / firmament lineage), **not** Half-Step and **not** stronger than the prisoner in a fair fight. Victory is **void pocket + prison architecture** — a **lock**, not a duel tier list.
+4. **Ascension later** — he **later** completes **Immortal Ascension** (restricted, void-aligned) **in obscurity** while **tending** the lock — **after** the binding, possibly **before or after** the Dao Wars, but **never** as a public Half-Step spectacle. Tian still owns **first Half-Step** because that is a **named watershed** on the **mandate ladder**, which the Seeker **did not claim** and the prisoner **never belonged to**.
+
+**If chronology nitpicks:** Void copyists argue whether the Seeker **ascended** a century **before** or **after** Tianjing. **Mandate textbooks:** Tian first at the gate. **Temple tablets:** the Seeker **ascended without teaching the world to count**. Both can be true if **Half-Step** is the **public** measure and void ascension was **silent**.
+
+**What the Temple is “old” from:** the **Watch** and **prison duty** — generations of **non-immortal** wardens, VR-heavy pipeline, scripts that **outlive** any one binder. The Seeker is **famous** to insiders; the institution’s age is **the lock**, not “we always had an immortal on staff.”
+
+---
 
 For **most** of the Dao Wars the Temple **said almost nothing** — no march on **Tianjing**, no charter crusade. Lesser skirmishes and archivist copies happened at the margins; the **priority** was **Void Prison** and pre-heaven seals.
 
