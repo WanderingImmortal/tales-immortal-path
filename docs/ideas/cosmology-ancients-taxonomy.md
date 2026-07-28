@@ -3,11 +3,10 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `designed` (v2) |
-| **Updated** | 2026-07-28 (firmament leak, grotto severance) |
-
 | **Blocked on** | Grotto content pass; sealed ancient (B) rework; Void prisoner myth lock |
 | **Issue** | none yet |
 | **Chat / PR** | Owner + cloud agent, 2026-07-28 |
+| **Updated** | 2026-07-28 (firmament leak, grotto severance) |
 
 **Intent:** Keep **cool** ideas — pre-heaven anomaly, hidden mentors, sealed sites — without **numbered destruction cycles** and “last epoch’s powerhouse hid in a fragment” (**inspiration ≠ copy** from novels like *Emperor’s Domination*). One **continuous** mortal board under **this** heaven’s rulebook; ancients differ by **how they relate to the rulebook**, not **which apocalypse they survived**.
 

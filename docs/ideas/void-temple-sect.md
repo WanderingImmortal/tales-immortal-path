@@ -119,8 +119,10 @@ He has **not** retired. He **returns through gates** when the seal strains. Some
 
 | Field | Value |
 |-------|-------|
-| **Name** | **None** — nameless by policy and practicality |
-| **Nature** | **Pre-heaven** — **outside** current heaven’s rules; **not** a secret Half-Step cultivator (see timeline section in history) |
+| **Name** | **None** on record — epithets only (e.g. **Guest of Little Heaven** 小天堂客) |
+| **Nature** | **Hybrid unclassified** — **firmament leak** wearing a **chaos-remnant** “person mold”; **not** a cultivator ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md) § One face, two origins) |
+| **Appearance** | **Humanoid** — reads as elder at distance; **wrong** up close (light, breath, wounds) |
+| **Personality** | **One** mind — dry, articulate, bitter humor; remnant **tone** + leak **calm**; bargains inner court only |
 | **Lifespan** | At least **immortal-tier**; may be longer |
 | **Durability** | Extreme — **sealing** because destruction is not feasible |
 | **Cultivation** | Separate track *(parked — not player-facing in v1)* |
