@@ -2,16 +2,16 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-07-27
+**Updated:** 2026-07-28
 
 ## Focus
-- Living world clock Phase 2 playtest — PR #86 — [`docs/ideas/world-clock-continuous.md`](ideas/world-clock-continuous.md)
+- Dustbone starter gameplay hub (QC area depth before other zones) — [`dustbone-starter-gameplay.md`](ideas/dustbone-starter-gameplay.md)
 
 ## Next
-- Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
-- Playtest gather pacing vs Peak QC ~45–50 inferior
+- Child slices: alchemy ([`dustbone-qc-alchemy.md`](ideas/dustbone-qc-alchemy.md)) · field sites ([`explore-field-gathering.md`](ideas/explore-field-gathering.md)) · cultivate Phase 3 · pacing playtest
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
-- QC cultivate-on-clock (after Phase 1–2 clock)
+- Other zones’ full books — **after** Dustbone feels decent
+- Dustbone surroundings polish — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 
 ## Parked (return later)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)

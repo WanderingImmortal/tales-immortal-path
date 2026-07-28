@@ -14,7 +14,7 @@
 
 **Owner direction:** xianxia **lifespan sim**, not only road-to-power. QC years funded by **jobs + selling goods**, not RNG explore stones. **Sect** = institutional path; **personal estate** = individual anchor. **Dustbone** = Law of Dust + three fallen dynasties + **Threshold City** starter.
 
-**QC depth + thin starter slice:** [`qi-condensation-depth.md`](qi-condensation-depth.md). **Surroundings later:** [`dustbone-surroundings-later.md`](dustbone-surroundings-later.md).
+**QC depth + thin starter slice:** [`qi-condensation-depth.md`](qi-condensation-depth.md). **Dustbone starter totality (hub):** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md). **Surroundings later:** [`dustbone-surroundings-later.md`](dustbone-surroundings-later.md).
 
 **Not in this cluster:** chaos endgame path detail → [`chaos-cultivation-path.md`](chaos-cultivation-path.md); realm ladder → [`cultivation-realm-depth-pass.md`](cultivation-realm-depth-pass.md).
 
