@@ -51,6 +51,14 @@ Fill identities using the template below; **do not** reduce a sect to “the tra
 
 Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **Identity docs** add cultivation spine, leadership, and lineage sketches.
 
+### Heartlands — **shadow fifth** *(demonic, unchartered)*
+
+| Power | One-line | Notes |
+|-------|----------|-------|
+| **Heavenly Demon Cult** | Blood, harvest, hidden branches | HQ **Blood Sealing Gorge**; not a charter great sect | → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
+
+Orthodox four hunt it; imperial warrant on paper. Zone cells launder resources and recruits.
+
 ### Other zones *(stubs)*
 
 | Zone | Powers | Depth |
@@ -85,6 +93,7 @@ Use one block per sect/clan/tribe. Lineage manuals hang off this.
 
 1. **Imperial clan** — [`imperial-clan.md`](imperial-clan.md) *(continental anchor)*
 2. **Heartlands four** — [`celestial-sword-sect.md`](celestial-sword-sect.md) ✓ · [`jade-lotus-sect.md`](jade-lotus-sect.md) ✓ · [`void-temple-sect.md`](void-temple-sect.md) ✓ · [`golden-phoenix-sect.md`](golden-phoenix-sect.md) ✓
+2b. **Heavenly Demon Cult** — [`heavenly-demon-cult.md`](heavenly-demon-cult.md) ✓ (shadow fifth; branches per zone)
 3. **Dustbone Tribunal** — capture owner backstory; deepen three tribes
 4. Jade / Frostbite / Emberwild when those zones get content passes
 
