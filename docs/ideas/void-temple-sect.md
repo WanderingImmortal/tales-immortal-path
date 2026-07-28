@@ -60,9 +60,11 @@ A **pre-heaven cultivator** — unbound by heaven’s rules, possibly a **differ
 
 The prisoner, with black humor, named it **Little Heaven** (小天堂). The name stuck in inner court.
 
-### Dao Wars — neutral because the seal mattered more
+### Dao Wars — silent for the seal
 
-While Sword **receded**, Lotus **bloomed**, and Phoenix **broke**, the Temple **refused the board** at the coalition muster — charter wars were noise; **rupturing pre-heaven seals** was the real catastrophe. See [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md).
+For **most** of the Dao Wars the Temple **said almost nothing** — no march on **Tianjing**, no charter crusade. Lesser skirmishes and archivist copies happened at the margins; the **priority** was **Void Prison** and pre-heaven seals.
+
+While Sword **receded** from Tianjing, Lotus **bloomed** into the mandate, and Phoenix **broke**, the Temple **refused the board** at the coalition muster — rupturing seals was the real catastrophe. See [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md).
 
 They signed the **Archive Oath** with the rising mandate:
 

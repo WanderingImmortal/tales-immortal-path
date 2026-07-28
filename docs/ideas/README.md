@@ -48,7 +48,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Void Temple](void-temple-sect.md) | `designed` (v1) | Lineage stub; gate travel; Little Heaven beats | — |
 | [Golden Phoenix Sect](golden-phoenix-sect.md) | `designed` (v1) | Lineage stub; Gambit immortal veto | — |
 | [Heavenly Demon Cult](heavenly-demon-cult.md) | `designed` (v1) | Blood lineage; illegal sect join UX | — |
-| [Dao Wars — Capital Turn](dao-wars-capital-turn.md) | `designed` (v1) | Azure Gate set-piece; chronicle | — |
+| [Dao Wars — Capital Turn](dao-wars-capital-turn.md) | `designed` (v2) | Tianjing siege; chronicle | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
 | [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes | — |

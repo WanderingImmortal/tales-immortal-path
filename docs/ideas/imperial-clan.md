@@ -30,7 +30,7 @@ The **Dao Wars** (道战 — working name) — sects and rising powers tore the 
 
 The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first to touch the gates of true immortality. The wars ended **swiftly** under that might: not a century of siege, but a **single grand stage** where the board learned a new ceiling.
 
-**Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — coalition assault on the proto-capital (**Azure Gate**), breakthrough **during** the siege, the Half-Step’s **garden walk** through armies and formations, **particular ferocity** against the demon host, then **slow** political digestion (Phoenix pride, Sword recede, Lotus bloom, lesser-clan ruin).
+**Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — **Sword and Phoenix** assault **Tianjing** (Tian clan city; inner core today); breakthrough **during** siege; Half-Step **garden walk**; demon host broken; Flame Emperor **injured** at gates; Sword **peak DM** recedes; Lotus **never** fought Tian; Void **silent** most of the war.
 
 *(Older immortals among the top sects may remember the clan's **original name** and older sins. They do not dwell on it in public.)*
 
@@ -51,7 +51,7 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 | **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal is local law |
 | **Storm Dragon / Tidal Lotus** | Jade archipelago | Sea charter — throne mediates, does not sail |
 | **Emberwild Collective** | Emberwild | Contained, not conquered — jungle not worth the debt |
-| **Heavenly Demon Cult** | Heartlands — **Blood Sealing Gorge** | **Broken at Azure Gate**; Great Withdrawal; public **extirpation** fiction → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
+| **Heavenly Demon Cult** | Heartlands — **Blood Sealing Gorge** | **Broken at Tianjing**; Great Withdrawal; public **extirpation** fiction → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 
 *Sect rows are draft for [`sect-faction-identities.md`](sect-faction-identities.md) — refine in owner pass.*
 

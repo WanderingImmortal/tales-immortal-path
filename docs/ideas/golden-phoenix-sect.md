@@ -60,7 +60,7 @@ During the war the sect lived **Sect Rebirth** (Ascent **7**) — constant death
 
 ### The kneel — paragon died, brother stopped the war
 
-At the **Capital Turn**, Phoenix **would not surrender** while pride still burned — the Flame Emperor **withdrew** from the garden walk rather than kneel on the field. Horror of that day was **denied** in Phoenix courts for a season; pamphlets called it trick arrays and borrowed power.
+At **Tianjing’s gates**, the **Flame Emperor** **saw** the garden walk and **tested** the Half-Step — one **brief, terrible** clash — then **withdrew injured**, refusing to kneel on the field ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)). Phoenix **does not deny** what happened; pride **forbids** pretending it was a trick array. Shame is **owned** in inner court — outer pamphlets aim at **future** renewal, not rewritten history.
 
 Losses that **finished** Phoenix’s open war:
 
@@ -68,7 +68,7 @@ Losses that **finished** Phoenix’s open war:
 |------|--------|
 | **Territory** | Flame realm **truncated** to caldera + stripped border courts |
 | **Expansion rights** | Charter **caps** flame jurisdiction and absorption |
-| **Flame Emperor** | **Killed** — paragon whose death **swayed hearts** to stop |
+| **Flame Emperor** | **Killed** — **injured** at Tianjing, withdrew, later died in **Realm Reforge** (#8) push or final refusal — symbol for revanchists |
 
 When he fell, his **younger brother** took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
 

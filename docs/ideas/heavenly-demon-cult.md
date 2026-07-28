@@ -105,7 +105,7 @@ The cult was **not** trying to win the mandate. It was **farming** the war — d
 
 ### The Half-Step — why they receded
 
-The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) broke the cult on the field before the peace fiction began.
+The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) broke the cult at **Tianjing’s gates** before the peace fiction began.
 
 **Two beats (continent-wide):**
 
@@ -296,8 +296,7 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
 ## Open questions
 
-- [ ] **Victory of Azure Sky** — official name for fake annihilation battle? Which sect gets credit on textbooks?
-- [ ] **Half-Step demonstration** — one army unmade (public myth) vs **private** gorge-scar (cult knows)
+- [ ] **Azure Gate** official hanzi / tie to Tianjing founding — see [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)
 - [ ] **Sleeper activation** — what **in-world** event wakes cells (Phoenix Gambit? charter war? player)?
 - [ ] **Player patriarch** — ever, or forever NPC throne while immortal sleeps?
 - [ ] **Phoenix overlap** — stolen rebirth/blood rites from war era only, or ongoing theft?
