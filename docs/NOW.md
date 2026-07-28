@@ -14,6 +14,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Threshold visit · mid city — **after** Redwell feels decent
 
 ## Parked (return later)
+- Combat damage depth (systems) — [`combat-damage-depth.md`](ideas/combat-damage-depth.md)
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
