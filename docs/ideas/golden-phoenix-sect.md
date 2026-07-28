@@ -58,19 +58,23 @@ During the war the sect lived **Sect Rebirth** (Ascent **7**) — constant death
 
 **Flame Emperor** (焰帝) — paragon saint-king — pushed **Realm Reforge** (Ascent **8**): not “get our courts back” (they already had courts) but **burn the stale board** so the Heartlands order could renew under flame.
 
-### The kneel — paragon died, brother stopped the war
+### The kneel — paragon executed, brother stopped the war
 
-At **Tianjing’s gates**, the **Flame Emperor** **saw** the garden walk and **tested** the Half-Step — one **brief, terrible** clash — then **withdrew injured**, refusing to kneel on the field ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)). Phoenix **does not deny** what happened; pride **forbids** pretending it was a trick array. Shame is **owned** in inner court — outer pamphlets aim at **future** renewal, not rewritten history.
+At **Tianjing’s gates**, the **Flame Emperor** **saw** the garden walk and **tested** the Half-Step — one **brief, terrible** clash — then **withdrew injured**, refusing to kneel ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)).
 
-Losses that **finished** Phoenix’s open war:
+What followed is **not** denied in Phoenix records:
+
+1. **Seven Days of Weight** — the Half-Step **held Tianjing**; the continent **felt** the new ceiling; Phoenix **regrouped** for **Realm Reforge** (#8).
+2. **Ember Crown Plain** (烬冠原) — second great muster; last flame gamble.
+3. **Execution** — the founder **did not** honor-duel the paragon. The **Flame Emperor** was **killed before both armies** — demoralization and **mandate** in one act. Pride **forbids** calling it assassination; inner court calls it **judgment**.
+
+When he fell, his **younger brother** took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
 
 | Loss | Effect |
 |------|--------|
 | **Territory** | Flame realm **truncated** to caldera + stripped border courts |
 | **Expansion rights** | Charter **caps** flame jurisdiction and absorption |
-| **Flame Emperor** | **Killed** — **injured** at Tianjing, withdrew, later died in **Realm Reforge** (#8) push or final refusal — symbol for revanchists |
-
-When he fell, his **younger brother** took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
+| **Flame Emperor** | **Executed** at Ember Crown Plain — symbol for revanchists; eighth ring shrine **unfinished** |
 
 That brother later ascended as the **Phoenix Immortal**. Inner court still argues whether Half-Step would have ended it anyway.
 
@@ -103,7 +107,7 @@ Renewal doctrine: each ascent is **death → ash → rise** at larger scope. Pol
 | Era | Ascent in play |
 |-----|----------------|
 | **Dao Wars** | Living **#7**; Flame Emperor pushing **#8** |
-| **Flame Emperor’s death** | **#8 interrupted** mid-cycle |
+| **Flame Emperor’s death** | **#8 interrupted** at Ember Crown Plain — **executed**, not duel ash |
 | **Now** | Patriarch seeks to **finish #8** via Gambit; Immortal fears immortal-tier war = destruction, not rebirth |
 | **#9** | *Parked* — only if #8 leaves a world worth rising in |
 

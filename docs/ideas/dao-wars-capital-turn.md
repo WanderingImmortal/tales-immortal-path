@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v1 — owner set-piece, 2026-07-28) |
+| **Status** | `designed` (v3 — post-Tianjing Phoenix arc) |
 | **Blocked on** | Capital name lock ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)); chronicle entries |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent + owner, 2026-07-28 |
-| **Updated** | 2026-07-28 (v2 — Tianjing siege, DM peers, coalition roster) |
+| **Updated** | 2026-07-28 (v3 — Seven Days, Flame Emperor execution) |
 
 **Intent:** One **grand stage** where the Dao Wars **turned** — Half-Step breakthrough, coalition assault on the Tian heartland, and the **aftershocks** each great sect still lies about. Parent: [`imperial-clan.md`](imperial-clan.md). Demon fallout: [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
@@ -66,11 +66,65 @@ Cult inner court: the walk **shredded** the field army; survivors ordered **Grea
 
 ---
 
+## After Tianjing — Phoenix arc (owner merge v1)
+
+The garden walk **did not** end open war the same afternoon. **Sword** was already receding; **Phoenix** still had an **injured** Flame Emperor and a realm that **refused** to kneel. What happened **next** depends on how you read the founder’s personality — three sketches, then the **merged** line we park in lore.
+
+### Fork A — **The Seven Days of Weight** (七天垂压)
+
+The Half-Step **stays in Tianjing** ~**seven days** without pursuing.
+
+| In-world read | Fiction |
+|---------------|---------|
+| **Mandate myth** | The dragon **breathed** — letting the continent **feel** the new ceiling before passing judgment |
+| **Phoenix read** | Cruel suspense — every hour Phoenix thought the march would start **now** |
+| **Founder personality (contemplative)** | First soul to stand at the gate — **learning** a realm no one (they believe) has ever held; not partying, **measuring** heaven’s debt and qi pressure |
+| **Founder personality (predatory)** | **Reveling** in tension — the week **is** the weapon; fear does half the work |
+
+Then he **marches on Phoenix** — caldera approach or regrouped flame host.
+
+### Fork B — **Immediate business** (趁热斩凰)
+
+No pause — Half-Step **pursues** while coalition lines are **broken**. At the **next great battle site** (working name: **Ember Crown Plain** / 烬冠原 — where Phoenix masses for **Realm Reforge** (#8)), he **executes** the **Flame Emperor** in front of both armies.
+
+| Purpose | Fiction |
+|---------|---------|
+| **Demoralize** | Phoenix **Sect Rebirth** (#7) breaks when the paragon dies **like a mortal criminal**, not in honorable duel ash |
+| **Crown the self** | Mandate is born: *the board has one hand that can **kill** kings* |
+| **Personality** | No theatre — **accounting** |
+
+### Fork C — **Merged (parked canon)** — weight, then execution
+
+Combines the **psychological week** with the **public execution** at the **second great site**:
+
+```text
+Tianjing garden walk
+    → Sword recedes; demons Withdraw; Phoenix retreats injured
+    → Seven Days of Weight (founder holds Tianjing; continent feels Half-Step)
+    → Phoenix regroups at Ember Crown Plain — last Realm Reforge gamble
+    → Tian march (deliberate, not rushed — business after the week)
+    → Flame Emperor refuses final terms / loses last stand
+    → Half-Step EXECUTES (not duel) — demoralization; younger brother inherits ash
+    → Open war ends when brother kneels; charter seasons follow
+```
+
+| Beat | Detail |
+|------|--------|
+| **Why wait a week?** | Founder **consolidates** Half-Step *and* lets Phoenix **concentrate** — one strike breaks **hope**, not only soldiers |
+| **Why execution?** | Flame Emperor already **tested** the gate at Tianjing; second chance is **political**, not martial — refusal → **example** |
+| **Sword distance** | Sword Ancestor **already** on the mountain — execution is **Phoenix–Tian** finale; Sword chronicles note it without glory |
+
+**Founder personality (locked sketch):** not a cackling tyrant — **cold inevitability**. The week is **quiet** (Tianjing’s bells stopped, qi like before rain). Execution is **short** (one gesture, no speech marathon). Later **sleeping dragon** myth reframes the week as mercy that never came.
+
+Phoenix inner court: **records all of it** — injury at Tianjing, seven days, execution — pride **forbids** denial ([`golden-phoenix-sect.md`](golden-phoenix-sect.md)).
+
+---
+
 ## Aftershocks — pride, bloom, recede, ruin
 
 | Power | Memory culture | Settled truth |
 |-------|----------------|---------------|
-| **Golden Phoenix** | **Pride forbids denial** — the walk and the Flame Emperor’s **injury** are **recorded**, not mythologized away. Shame is carried **openly** in inner court; outer pamphlets are about **future** renewal, not “it was a trick.” | **Late** open war after retreat until paragon **dies**; younger brother kneels to save caldera ([`golden-phoenix-sect.md`](golden-phoenix-sect.md)). |
+| **Golden Phoenix** | **Pride forbids denial** — Tianjing injury, **Seven Days**, and **execution** are **recorded**. Shame in inner court; pamphlets aim at **future** renewal. | Open war ends when **younger brother** kneels after paragon **executed** at Ember Crown Plain ([`golden-phoenix-sect.md`](golden-phoenix-sect.md)). |
 | **Celestial Sword** | **No shame in honesty** — they **lost**, they **marched on Tianjing**, they **survived** with the mountain. Politics bore them; they **seek the sword**. | First charter capitulation **after** the walk; Sword Ancestor ascends **Immortal** only **after** mandate settles. |
 | **Jade Lotus** | **Never** assaulted Tianjing; **bloomed** into best charter terms once outcome was clear. | Hedged supply and bonds; **not** a belligerent — Sword still calls it opportunism. |
 | **Void Temple** | **Silence** — most of the war unremarked; oath **after** the fact. | Prison held; gates stayed closed. |
@@ -88,7 +142,7 @@ Cult inner court: the walk **shredded** the field army; survivors ordered **Grea
 | Imperial: wars ended **“swiftly”** | vs messy peace | **Swift** = military break at **Tianjing gates**; **slow** = Phoenix follow-up war, lesser-clan ruin |
 | Sword: **“early capitulation”** | vs recede **at** the turn | **Early** = first among **charter great sects** **after** the garden walk — **not** early in the multi-decade war |
 | Lotus: **“early alliance”** / valley retreat | vs **“backed the winner”** at capital | **Two timelines:** mid-war **squeeze + valley consolidation**; **late-war** covert Tian ties; **post-walk** public **bloom** — “early ally” means **early to the mandate**, not early to the siege |
-| Phoenix: Flame Emperor’s death **“ended the war”** | vs Half-Step **already** broke the board | Garden walk **ends the coalition**; **Phoenix war** continues until paragon dies **refusing** kneel — **brother’s kneel** ends **open** war |
+| Phoenix: Flame Emperor’s death **“ended the war”** | vs Half-Step **already** broke the board | Tianjing **breaks coalition**; **Seven Days + Ember Crown execution** ends **Phoenix** open war; brother’s kneel ends **charter** fighting |
 | Void: “while Sword capitulated, Lotus allied, Phoenix broke” | order of events | All **after** Capital Turn; Void **never** marched |
 | Demon: withdrawal from **fear** of Half-Step | vs **targeted** on field | **Both** — broken in the walk **then** strategic dormancy; scripture still says **wise**, not coward |
 | Sword Immortal **not ascended** in war | peer threat | War-era **Sword Ancestor** (剑祖) = **peak DM**; **剑仙** only **after** peace |
@@ -98,9 +152,10 @@ Cult inner court: the walk **shredded** the field army; survivors ordered **Grea
 
 ## Open questions
 
-- [ ] Flame Emperor injury — permanent scar, realm drop, or recovered for later **Realm Reforge** push?
+- [ ] **Founder tone:** more Fork A (contemplative week) or predatory week — same events, different chronicle voice?
+- [ ] **Ember Crown Plain** — map node near caldera vs one-off chronicle only?
 - [ ] Named **minor clans** still extant post-war (owner: later)
-- [ ] Chronicle: flashback at Tianjing inner gate vs elder dialogue only?
+- [ ] Chronicle: playable beat at Tianjing vs Ember Crown vs elder dialogue only?
 
 ## Implementation crumbs
 

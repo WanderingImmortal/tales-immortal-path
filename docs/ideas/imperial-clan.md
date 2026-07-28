@@ -30,7 +30,7 @@ The **Dao Wars** (道战 — working name) — sects and rising powers tore the 
 
 The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first to touch the gates of true immortality. The wars ended **swiftly** under that might: not a century of siege, but a **single grand stage** where the board learned a new ceiling.
 
-**Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — **Sword and Phoenix** assault **Tianjing** (Tian clan city; inner core today); breakthrough **during** siege; Half-Step **garden walk**; demon host broken; Flame Emperor **injured** at gates; Sword **peak DM** recedes; Lotus **never** fought Tian; Void **silent** most of the war.
+**Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — Tianjing siege and garden walk; **Seven Days of Weight**; **Flame Emperor executed** at Ember Crown Plain; Sword recede; Lotus neutral; Void silent.
 
 *(Older immortals among the top sects may remember the clan's **original name** and older sins. They do not dwell on it in public.)*
 
