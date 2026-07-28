@@ -52,17 +52,17 @@ The Sword Sect fought in the Dao Wars as a **major power** — not the largest, 
 
 Their apex asset at the time was not the patriarch. It was **the one they now call only the Sword Immortal** (剑仙) — a Dao Manifestation cultivator who **wore the law of the First Sword**, old enough to remember the continent before anyone spoke of “Tian.” **Not** a true immortal yet. Not enough to stop the Tian founder’s Half-Step breakthrough.
 
-When the board broke, Sword leadership read it faster than Phoenix or Lotus. The Sword Immortal **did not duel the sleeping dragon’s herald to the death**. They raised the **Ten Thousand Swords Seal Array** (万剑封山阵) and **waited inside** while envoys negotiated.
+When the board broke, Sword leadership read it faster than Phoenix or Lotus — at the **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) the Sword Immortal **did not duel the Half-Step to the death**. They raised the **Ten Thousand Swords Seal Array** (万剑封山阵) and **receded** while envoys negotiated.
 
 The array held. That is why Solitary Sword Mountain still stands.
 
-They **capitulated early** — on terms:
+They **capitulated first among the great sects after the garden walk** — on terms:
 
 - **Solitary Sword Mountain**, the **Seal Array**, and ancestral grounds remain Sword sovereign soil.
 - The sect keeps its **lineage**, **trials**, and **internal ranks** — no imperial appointment of patriarch.
 - In exchange: charter oaths, no open war against the mandate, and **licensed sword work** when imperial law must look clean.
 
-The humiliation is whispered in inner court: they were the first great sect to kneel. The pragmatism is taught in outer court: they knelt **with their mountain intact** because the Sword Immortal chose survival over a gesture that would have broken the Sepulcher.
+The humiliation is whispered in inner court: they were the **first great sect to kneel after the Capital Turn**. The pragmatism is taught in outer court: they knelt **with their mountain intact** because the Sword Immortal chose survival over a gesture that would have broken the Sepulcher.
 
 Phoenix broke late and was **forced** to kneel. Sword chose. That difference fuels a quiet contempt — Phoenix fights the charter with pamphlets; Sword would rather return to the mountain and cultivate.
 

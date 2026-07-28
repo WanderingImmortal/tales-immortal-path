@@ -64,7 +64,7 @@ The **Tian** offer was alliance, not siege:
 - Marriage reaffirmation and supply contracts in crisis.
 - Best charter terms among early allies.
 
-Lotus accepted **early** — grain, herbs, and marriage legitimacy for protected soil and trade routes. Phoenix broke **late** and was humiliated. Lotus bought **time** with disciples and treaties — and won.
+Lotus accepted the mandate **early in the peace** — grain, herbs, and marriage legitimacy for protected soil and trade routes — and **bloomed publicly** right after the Azure Gate walk while others still denied what they had seen ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)). Phoenix broke **late** and was humiliated. Lotus had **hedged** (bonds, supply, spies) long before the walk; Sword calls it opportunism. Lotus bought **time** with disciples and treaties — and won.
 
 **Matriarch Leng Shuyu** was already apex-adjacent during the retreat; she ascended to **true Immortal** after the mandate settled. Heaven’s restrictions stalled further cultivation — her obsession turned **inward**, then **outward** through proxies.
 

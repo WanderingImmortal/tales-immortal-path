@@ -62,7 +62,7 @@ The prisoner, with black humor, named it **Little Heaven** (小天堂). The name
 
 ### Dao Wars — neutral because the seal mattered more
 
-While Sword capitulated, Lotus allied, and Phoenix broke, the Temple **refused the board**. Charter wars were noise; **rupturing pre-heaven seals** was the real catastrophe.
+While Sword **receded**, Lotus **bloomed**, and Phoenix **broke**, the Temple **refused the board** at the coalition muster — charter wars were noise; **rupturing pre-heaven seals** was the real catastrophe. See [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md).
 
 They signed the **Archive Oath** with the rising mandate:
 

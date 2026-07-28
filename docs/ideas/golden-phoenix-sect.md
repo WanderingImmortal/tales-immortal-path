@@ -60,7 +60,9 @@ During the war the sect lived **Sect Rebirth** (Ascent **7**) — constant death
 
 ### The kneel — paragon died, brother stopped the war
 
-Losses that broke Phoenix will:
+At the **Capital Turn**, Phoenix **would not surrender** while pride still burned — the Flame Emperor **withdrew** from the garden walk rather than kneel on the field. Horror of that day was **denied** in Phoenix courts for a season; pamphlets called it trick arrays and borrowed power.
+
+Losses that **finished** Phoenix’s open war:
 
 | Loss | Effect |
 |------|--------|

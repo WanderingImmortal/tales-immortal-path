@@ -105,17 +105,22 @@ The cult was **not** trying to win the mandate. It was **farming** the war — d
 
 ### The Half-Step — why they receded
 
-The wars did **not** end because the cult was defeated. They ended because the **Tian founder** broke through to **Half-Step Immortal** — first cultivator to touch the gate of true immortality ([`imperial-clan.md`](imperial-clan.md)).
+The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) broke the cult on the field before the peace fiction began.
 
-**What the cult felt (inner court doctrine):**
+**Two beats (continent-wide):**
 
-1. **Ceiling shift** — harvest at continental scale would **concentrate** qi in ways that **draw the Half-Step’s gaze**. Predators do not become the main course before they can **devour heaven**.
-2. **Demonstration, not siege** — imperial myth says the founder “ended the wars swiftly.” Cult records say the founder **unmade** a demon **field army** and **one** cauldron-legion in a single week — enough to prove the gorge’s old arrays are **not** proof against the gate.
-3. **Strategic dormancy** — Patriarch of that era ordered the **Great Withdrawal** (魔教蛰息): seal the gorge deeper, **dissolve public temples**, execute outward-facing ranks who knew too much, leave only **sleeper cells** and coded succession.
+1. **Tide** — when the Tian founder finished **Half-Step** *inside* the siege cordon, every major camp **felt** the realm shift; outcome still uncertain.
+2. **Garden** — the Half-Step **stepped onto the coalition muster** at the Azure Gate and walked through armies and grand formations; **cauldron legions and demon harvest arrays were targeted first** with particular ferocity.
 
-**Afraid?** Cult scripture says **no** — *“wise.”* Fear is for cattle. The Withdrawal is **hunger postponed** until the Sleeping Dragon sleeps deeper or the world bleeds again without a Half-Step on watch.
+**What the cult did after:**
 
-**Did they capitulate?** **No charter, no kneel.** They **vanished** from the board on purpose. The mandate’s “demon sect annihilated at **Victory of Azure Sky**” (or similar) is **coalition propaganda** — useful for the four sects’ honor and the Tian coronation myth. Everyone senior **signs off** on the lie.
+1. **Field broken** — not a week-long campaign elsewhere; **one walk** shredded the demon host that had been **feeding on the siege**.
+2. **Strategic dormancy** — Patriarch ordered **Great Withdrawal** (魔教蛰息): seal gorge, dissolve public face, sleeper cells only.
+3. **Propaganda gift** — mandate and sects claim **annihilation here**; juniors forget; elders sign the lie.
+
+**Afraid?** Scripture says **wise** — *hunger postponed* until the Sleeping Dragon sleeps deeper or the board bleeds without a Half-Step on watch.
+
+**Did they capitulate?** **No charter, no kneel.** They **vanished** on purpose.
 
 ### Now — lingering threat, faded memory
 
