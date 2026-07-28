@@ -118,7 +118,7 @@ let G = {
     affinities: null,
     fiveElementCycleIdx: 0,
     currentZone: "dustbone",
-    currentLocation: "bone_crossroads",
+    currentLocation: "redwell",
     ageMonths: STARTING_AGE_YEARS * 12,
     lifespanMonths: LIFESPAN_BY_REALM[0] * 12,
     daoAlignment: 0,

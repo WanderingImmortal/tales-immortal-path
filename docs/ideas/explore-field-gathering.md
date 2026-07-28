@@ -5,14 +5,15 @@
 | **Status** | `designed` (place + enemy locks 2026-07-27; re-parked 2026-07-28) |
 | **Blocked on** | Place-scoped loot + enemy pools; named mats ([`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md)) |
 | **Issue** | none yet |
-| **Chat / PR** | Owner lock with QC depth 2026-07-26 · remake + field triangle 2026-07-27 |
+| **Chat / PR** | Owner lock with QC depth 2026-07-26 · remake + field triangle 2026-07-27 · Redwell day-trips [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | **Updated** | 2026-07-28 |
 
-**Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) — field triangle is one starter loop, not the whole Dustbone pass.
+**Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) — field triangle is one starter loop, not the whole Dustbone pass.  
+**Owner note:** Dustbone field sites are day trips from **Redwell** ([`redwell-starter-city.md`](redwell-starter-city.md)), not Threshold. Threshold City is capital weight, not a combat forage zone.
 
 ## Intent
 
-Explore’s job is hunting **different places** for **different loot** and fighting what lives there. Loot tables stay. Scrap pity-stone lottery. QC stones = jobs + sell. Threshold City is a **hub**, not a combat forage zone.
+Explore’s job is hunting **different places** for **different loot** and fighting what lives there. Loot tables stay. Scrap pity-stone lottery. QC stones = jobs + sell.
 
 ## Dustbone field sites v1
 
@@ -38,7 +39,7 @@ Named reagent ids and Qi Restore Pill / store-fills: [`dustbone-qc-alchemy.md`](
 
 ## Prerequisites
 
-- [ ] `WORLD_LOCATIONS` for three field sites
+- [x] `WORLD_LOCATIONS` for Ironscar + Dewcatch (Redwell PR #90); Bonehollow still TBD
 - [ ] Place loot tables + enemy pools + elite roll
 - [ ] Strip explore stone/currency lottery leftovers
 

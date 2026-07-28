@@ -24,8 +24,8 @@ const ZONES = {
         minRealm: 0,
         dangerRealm: 0,
         description: "Endless dunes and the bones of fallen civilizations.",
-        purpose: "Starter life — Threshold City market & jobs, field reagents, story NPCs.",
-        highlights: ["🏪 Threshold Bazaar", "Hub jobs & lodging", "Field herbs & ores"],
+        purpose: "Starter life — Redwell market & jobs, field reagents; Threshold capital for weight.",
+        highlights: ["🏜️ Redwell (starter)", "🏪 Basics bazaar & Inn", "Field herbs & ores"],
         lore: "The bones of three dynasties lie under these sands. Merchants cross Dustbone because every dune hides something — relic, beast, or corpse with a manual in its ribs.",
         events: ["Sandstorm", "Ancient Relics", "Sand Serpent"]
     },
@@ -591,7 +591,9 @@ function actionMarket() {
 
 function buyCultivationMethod(methodId) {
     const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : getActiveZoneId();
-    const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;
+    const catalog = typeof getResolvedMerchantCatalog === 'function'
+        ? getResolvedMerchantCatalog(zoneId)
+        : (zoneId ? MERCHANT_CATALOG[zoneId] : null);
     if (!catalog?.methods?.length) return;
     const item = catalog.methods.find(s => s.methodId === methodId);
     if (!item) return;
@@ -622,6 +624,9 @@ function buyCultivationMethod(methodId) {
     const discountNote = finalPrice < item.price ? ` (favor discount: −${item.price - finalPrice})` : '';
     const note = got ? ' — shelved under Cultivation scrolls' : ' — kit full, purchase failed';
     if (!got) G.stones += finalPrice;
+    else if (zoneId === 'redwell' && typeof consumeRedwellMarketBuy === 'function') {
+        consumeRedwellMarketBuy('method', methodId);
+    }
     commitActionLog(got
         ? `🏪 Purchased cultivation scroll: ${method.name} for ${finalPrice} Stones${discountNote}${note}.`
         : `🏪 Could not stow ${method.name} — travel kit full. Stones refunded.`);
@@ -676,9 +681,11 @@ function buyFormationManual(formationId) {
 
 function buyTechnique(techName) {
     const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : getActiveZoneId();
-    const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;
+    const catalog = typeof getResolvedMerchantCatalog === 'function'
+        ? getResolvedMerchantCatalog(zoneId)
+        : (zoneId ? MERCHANT_CATALOG[zoneId] : null);
     if (!catalog) return;
-    const item = catalog.stock.find(s => s.technique === techName);
+    const item = (catalog.stock || []).find(s => s.technique === techName);
     if (!item) return;
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     const reqRealm = typeof getMarketTechniqueReqRealm === 'function'
@@ -713,6 +720,9 @@ function buyTechnique(techName) {
     const gotManual = typeof grantManual === 'function' && grantManual(techName, { silent: true });
     const discountNote = finalPrice < item.price ? ` (Jade Lotus favor: −${item.price - finalPrice})` : '';
     const learnNote = gotManual ? ' — manual shelved' : '';
+    if (gotManual && zoneId === 'redwell' && typeof consumeRedwellMarketBuy === 'function') {
+        consumeRedwellMarketBuy('tech', techName);
+    }
     commitActionLog(`🏪 Purchased ${techName} manual for ${finalPrice} Stones${discountNote}${learnNote}.`);
     renderMerchantPopup();
     fullRender();

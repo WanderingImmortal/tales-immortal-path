@@ -29,7 +29,7 @@ Each numbered tier ≈ **one realm of civic apex** below the one above. Stop aro
 | **4th** | Lord ~**FE** / strong QC peak | Frontier towns |
 | **Outpost / camp** | n/a | Waystation, War-Camp, Shrine |
 
-**Threshold City** (Dustbone hub, id `bone_crossroads`): **1st-tier scale** + organised chaos under **Law of Dust**. Joint Sandveil Tribunal; tribe HQs elsewhere → stationed civic apex a notch below a classic 1st-tier City Lord. Zone strategic power (survivors / tribe spines) stays high enough that Heartlands cannot casually annex.
+**Dustbone civic ladder (2026-07-28):** **Redwell** = **4th-tier** spawn hub ([`redwell-starter-city.md`](redwell-starter-city.md)); unnamed **mid city** = **3rd**; **Threshold City** (id `bone_crossroads`) = **1st-tier capital** + organised chaos under **Law of Dust**. Joint Sandveil Tribunal; tribe HQs elsewhere → stationed civic apex a notch below a classic 1st-tier City Lord. Zone strategic power (survivors / tribe spines) stays high enough that Heartlands cannot casually annex. See [`dustbone-living-board.md`](dustbone-living-board.md).
 
 ### Cities vs sects
 

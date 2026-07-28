@@ -1882,9 +1882,41 @@ const STAT_GUIDE = {
 };
 
 // Merchant hubs (catalog key — usually zone id; locations set marketKey)
-const MERCHANT_ZONES = ["dustbone", "heartlands", "jade"];
+const MERCHANT_ZONES = ["redwell", "dustbone", "heartlands", "jade"];
+
+/** QC pamphlet / technique pools for Redwell bazaar redraws (docs/ideas/redwell-starter-city.md). */
+const REDWELL_METHOD_POOL = [
+    { methodId: 'outer_sect_qi_cycling', price: 36 },
+    { methodId: 'impure_meridian_breath', price: 32 },
+    { methodId: 'burning_breath_technique', price: 38 },
+    { methodId: 'stone_root_breath', price: 38 },
+    { methodId: 'flowing_tide_breath', price: 38 },
+    { methodId: 'verdant_breath_technique', price: 38 }
+];
+const REDWELL_TECH_POOL = [
+    { technique: 'Sandburrow Palm', price: 26 },
+    { technique: 'Bronze Skin Palm', price: 30 },
+    { technique: 'Quickfoot Art', price: 28 },
+    { technique: 'Crushing Fist', price: 34 },
+    { technique: 'Earth Pulse Palm', price: 36 }
+];
 
 const MERCHANT_CATALOG = {
+    /** Starter town — basics only; live stock/slots live on G.redwellMarket */
+    redwell: {
+        name: 'Redwell Bazaar',
+        stock: [],
+        methods: [],
+        formations: [],
+        pills: [
+            { id: 'spirit_gathering', price: 14, qty: 2 },
+            { id: 'blood_recovery', price: 22, qty: 2 }
+        ],
+        staples: [
+            { id: 'travel_ration', name: 'Travel Rations', emoji: '🥖', price: 4, desc: 'Dry bread and well-water — a week on the road.' },
+            { id: 'grit_kit', name: 'Grit Tool Kit', emoji: '🔧', price: 8, desc: 'Crude chisels and wraps for quarry day-trips.' }
+        ]
+    },
     dustbone: {
         name: "Threshold Bazaar",
         stock: [
@@ -3808,12 +3840,18 @@ const ZONE_LOCAL_LAYOUT = {
     dustbone: {
         theme: 'desert',
         nodes: {
-            bone_crossroads: { x: 50, y: 55, layer: 2 },
-            miraj_waystation: { x: 22, y: 48, layer: 1 },
-            sunscar_camp: { x: 78, y: 35, layer: 1 },
-            ashen_shrine: { x: 62, y: 78, layer: 1 }
+            redwell: { x: 32, y: 62, layer: 2 },
+            ironscar_quarry: { x: 48, y: 78, layer: 1 },
+            dewcatch_scrub: { x: 18, y: 74, layer: 1 },
+            bone_crossroads: { x: 58, y: 38, layer: 2 },
+            miraj_waystation: { x: 28, y: 36, layer: 1 },
+            sunscar_camp: { x: 82, y: 28, layer: 1 },
+            ashen_shrine: { x: 72, y: 72, layer: 1 }
         },
         paths: [
+            { from: 'dewcatch_scrub', to: 'redwell' },
+            { from: 'ironscar_quarry', to: 'redwell' },
+            { from: 'redwell', to: 'bone_crossroads' },
             { from: 'miraj_waystation', to: 'bone_crossroads' },
             { from: 'sunscar_camp', to: 'bone_crossroads' },
             { from: 'ashen_shrine', to: 'bone_crossroads' }
@@ -3887,13 +3925,37 @@ const WORLD_LOCATIONS = {
         factionNpcId: 'faction_frost_warden',
         tags: ['Frostpeak faction', 'Elder quests']
     },
+    redwell: {
+        id: 'redwell', parentZone: 'dustbone', type: 'city', isDefault: true,
+        name: 'Redwell', emoji: '🏜️',
+        description: 'A grit-and-well town on the Second red sand — Redwell Inn, a basics bazaar, and day-trips to Ironscar. No dense Registry core.',
+        lore: 'After the Third Cascade, people who still wanted walls (but not life on the pin) clustered at a Dune Rider water-stop. Third-dynasty dig scars feed Ironscar nearby. Sandveil calls it a 4th-tier city; Threshold barely notices.',
+        marketKey: 'redwell',
+        cityTier: 4,
+        tags: ['City', 'Market', 'Jobs', 'Inn', 'Starter']
+    },
+    ironscar_quarry: {
+        id: 'ironscar_quarry', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Ironscar Quarry', emoji: '⛏️',
+        description: 'Third-dynasty dig scars and iron-grit — metals and grit for the road back to Redwell.',
+        lore: 'Not a tribe. Sunscar is the tribe; Ironscar is the place and the grit it sheds.',
+        tags: ['Explore', 'Metals', 'Field']
+    },
+    dewcatch_scrub: {
+        id: 'dewcatch_scrub', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Dewcatch Scrub', emoji: '🌿',
+        description: 'Saltbrush and dawn dew on the scrub edge — safer herb day-trips from Redwell.',
+        lore: 'Herders and herb thieves share the same dunes. Stay near the well-road if you want to see tomorrow.',
+        tags: ['Explore', 'Herbs', 'Field']
+    },
     bone_crossroads: {
-        id: 'bone_crossroads', parentZone: 'dustbone', type: 'city', isDefault: true,
-        name: 'Threshold City', emoji: '🏜️',
-        description: 'Dustbone\'s hub under the Law of Dust — caravans, Registry pins, and a basics bazaar kept just under cascade density.',
-        lore: 'Built where three dune-roads meet. The Tribunal watches the gates; tribes keep their thrones elsewhere. Organised chaos — rich streets, thin tyranny.',
+        id: 'bone_crossroads', parentZone: 'dustbone', type: 'city', isDefault: false,
+        name: 'Threshold City', emoji: '🏛️',
+        description: 'Dustbone\'s capital under the Law of Dust — caravans, Registry pins, and streets built for empires. Not your starter home.',
+        lore: 'Built where three dune-roads meet on the pin. The Tribunal watches the gates; tribes keep their thrones elsewhere. Organised chaos — rich streets, thin tyranny. QC nobodies feel small here.',
         marketKey: 'dustbone',
-        tags: ['City', 'Market', 'Jobs', 'Story NPCs', 'Caravans']
+        cityTier: 1,
+        tags: ['City', 'Market', 'Capital', 'Caravans']
     },
     sunscar_camp: {
         id: 'sunscar_camp', parentZone: 'dustbone', type: 'sect_hq',

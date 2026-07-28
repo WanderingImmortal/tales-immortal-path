@@ -243,7 +243,9 @@ function usePill(pillId) {
 
 function buyPill(pillId) {
     const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : (typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || currentZone));
-    const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;
+    const catalog = typeof getResolvedMerchantCatalog === 'function'
+        ? getResolvedMerchantCatalog(zoneId)
+        : (zoneId ? MERCHANT_CATALOG[zoneId] : null);
     if (!catalog?.pills) return;
     const item = catalog.pills.find(p => p.id === pillId);
     if (!item) return;
@@ -251,6 +253,11 @@ function buyPill(pillId) {
     if (!pill) return;
     if (item.reqRealm != null && G.realmIdx < item.reqRealm) {
         addLog(`💊 ${pill.name} requires a higher realm.`);
+        fullRender();
+        return;
+    }
+    if (item.stockLeft != null && item.stockLeft <= 0) {
+        addLog(`💊 ${pill.name} is sold out until restock.`);
         fullRender();
         return;
     }
@@ -262,10 +269,41 @@ function buyPill(pillId) {
     beginActionLog();
     if (!advanceTime(0, `Purchasing ${pill.name}`)) { cancelActionLog(); fullRender(); return; }
     G.stones -= item.price;
-    addPill(pillId, item.qty || 1);
-    commitActionLog(`🏪 Purchased ${item.qty || 1}× ${pill.name} for ${item.price} Stones.`);
+    addPill(pillId, 1);
+    if (zoneId === 'redwell' && typeof consumeRedwellMarketBuy === 'function') {
+        consumeRedwellMarketBuy('pill', pillId);
+    }
+    commitActionLog(`🏪 Purchased 1× ${pill.name} for ${item.price} Stones.`);
     renderMerchantPopup();
     renderPillPopup();
+    fullRender();
+}
+
+function buyRedwellStaple(stapleId) {
+    if (typeof getMerchantCatalogKey === 'function' && getMerchantCatalogKey() !== 'redwell') return;
+    const catalog = typeof getResolvedMerchantCatalog === 'function' ? getResolvedMerchantCatalog('redwell') : null;
+    const item = catalog?.staples?.find(s => s.id === stapleId);
+    if (!item) return;
+    if (item.stockLeft != null && item.stockLeft <= 0) {
+        addLog(`🥖 Sold out until the monthly restock.`);
+        fullRender();
+        return;
+    }
+    if ((G.stones || 0) < item.price) {
+        addLog(`💎 Need ${item.price} Stones for ${item.name}.`);
+        fullRender();
+        return;
+    }
+    G.stones -= item.price;
+    if (typeof consumeRedwellMarketBuy === 'function') consumeRedwellMarketBuy('staple', stapleId);
+    // Flavor buy — slight HP or travel fluff
+    if (stapleId === 'travel_ration') {
+        G.hp = Math.min(typeof getMaxHp === 'function' ? getMaxHp() : (G.maxHp || 100), (G.hp || 0) + 2);
+        addLog(`🥖 Bought ${item.name} (−${item.price} Stones). A little less hungry.`);
+    } else {
+        addLog(`🔧 Bought ${item.name} (−${item.price} Stones). Useful on the quarry road.`);
+    }
+    if (typeof renderMerchantPopup === 'function') renderMerchantPopup();
     fullRender();
 }
 

@@ -12,10 +12,9 @@
 
 **Local agents:** start here for the **mortal-layer life sim** brainstorm (work, housing, commerce, Dustbone lore, economy) — not scattered chat history.
 
-**Owner direction:** xianxia **lifespan sim**, not only road-to-power. QC years funded by **jobs + selling goods**, not RNG explore stones. **Sect** = institutional path; **personal estate** = individual anchor. **Dustbone** = Law of Dust + three fallen dynasties + **Threshold City** starter.
+**Owner direction:** xianxia **lifespan sim**, not only road-to-power. QC years funded by **jobs + selling goods**, not RNG explore stones. **Sect** = institutional path; **personal estate** = individual anchor. **Dustbone** = Law of Dust + three fallen dynasties + **Redwell** spawn + **Threshold** capital ([`dustbone-living-board.md`](dustbone-living-board.md)).
 
-**QC depth + thin starter slice:** [`qi-condensation-depth.md`](qi-condensation-depth.md). **Dustbone starter totality (hub):** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md). **Surroundings later:** [`dustbone-surroundings-later.md`](dustbone-surroundings-later.md).
-
+**QC depth:** [`qi-condensation-depth.md`](qi-condensation-depth.md). **Starter town:** [`redwell-starter-city.md`](redwell-starter-city.md). **Dustbone hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md). **Alchemy:** [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md). **Surroundings later:** [`dustbone-surroundings-later.md`](dustbone-surroundings-later.md).
 **Not in this cluster:** chaos endgame path detail → [`chaos-cultivation-path.md`](chaos-cultivation-path.md); realm ladder → [`cultivation-realm-depth-pass.md`](cultivation-realm-depth-pass.md).
 
 ---
@@ -25,7 +24,9 @@
 | Doc | What it holds |
 |-----|----------------|
 | [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md) | **Cosmology:** Law of Dust, Pinwright, cascades, Threshold City, tribes, Registry |
-| [`settlement-lore.md`](settlement-lore.md) | **Threshold City P0** — power, gates, jobs flavor, market |
+| [`dustbone-living-board.md`](dustbone-living-board.md) | **Zone vision:** three cities, board weight, geopolitics, seats |
+| [`redwell-starter-city.md`](redwell-starter-city.md) | **P0 spawn town** — bazaar, Inn, courtyard, jobs, seats |
+| [`settlement-lore.md`](settlement-lore.md) | Threshold + Redwell stubs; other cities |
 | [`qi-condensation-depth.md`](qi-condensation-depth.md) | QC bands + starter-life cut line |
 | [`city-tiers.md`](city-tiers.md) | Imperial / 1st–4th civic ladder |
 | [`explore-field-gathering.md`](explore-field-gathering.md) | Explore = materials, not stone lottery |
@@ -50,7 +51,7 @@
 
 ## Suggested build order (economy + Dustbone)
 
-**QC v1 cut (ship first):** Threshold market + hub jobs + rent room + one buy — see [`qi-condensation-depth.md`](qi-condensation-depth.md).
+**QC v1 cut (ship first):** **Redwell** market + hub jobs + Inn rent + FE courtyard — see [`redwell-starter-city.md`](redwell-starter-city.md), [`qi-condensation-depth.md`](qi-condensation-depth.md).
 
 Full cluster later:
 

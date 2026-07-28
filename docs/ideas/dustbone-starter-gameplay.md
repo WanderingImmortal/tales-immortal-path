@@ -5,16 +5,18 @@
 | **Status** | `designed` (index — children hold detail) |
 | **Blocked on** | varies per child |
 | **Issue** | none yet |
-| **Chat / PR** | Owner direction 2026-07-28 · [PR #89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
+| **Chat / PR** | Owner direction 2026-07-28 · [PR #89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) · Redwell build [PR #90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | **Updated** | 2026-07-28 |
 
 ## Intent
 
-Make **Dustbone / Threshold** a **real starting game** — enough loops that QC years feel like a place you *live*, not a tutorial hallway before the “real” zones. Expand features **here first**; Frostbite / Emberwild / Heartlands / etc. get the same treatment later, one basin at a time.
+Make **Dustbone** a **real starting game** — enough loops that QC years feel like a place you *live*, not a tutorial hallway. Expand features **here first**; other zones later, one basin at a time.
 
-This doc is an **index + cut line**, not the recipe book. Alchemy, explore sites, jobs, and cultivate polish stay in child docs.
+**Home is Redwell (4th-tier), not Threshold.** Threshold is the capital — visit weight, not default spawn. Zone vision: [`dustbone-living-board.md`](dustbone-living-board.md). Town inventory: [`redwell-starter-city.md`](redwell-starter-city.md).
 
-**Not this hub:** full mortal life-sim ladder continent-wide ([`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)), FE redesign, other-zone flora books.
+This doc is an **index + cut line**. Detail stays in children.
+
+**Not this hub:** full mortal life-sim continent-wide ([`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)), FE redesign, other-zone flora books, Taiwu-grade NPC social.
 
 ## Cut line — “decent QC gameplay”
 
@@ -22,50 +24,54 @@ A player who stays in Dustbone through Late/Peak QC should be able to:
 
 | Loop | What “enough” means | Child doc |
 |------|---------------------|-----------|
-| **Live in Threshold** | Market basics, hub jobs, rent/buy room, rest | [`qi-condensation-depth.md`](qi-condensation-depth.md), [`settlement-lore.md`](settlement-lore.md), [`personal-residence.md`](personal-residence.md) |
-| **Gather qi** | Stance cultivate (slow baseline) + interrupts lean | [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md), clock (shipped) |
-| **Hunt mats / fight** | Three field sites, unique enemies, 1 elite each | [`explore-field-gathering.md`](explore-field-gathering.md) |
+| **Live in Redwell** | Bazaar basics, jobs, Redwell Inn rent, FE courtyard, rumors/bounties | [`redwell-starter-city.md`](redwell-starter-city.md), [`personal-residence.md`](personal-residence.md) |
+| **Gather qi** | Stance cultivate (slow baseline) + interrupts lean — **manuals + formations** for speed, not house % | [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md), clock |
+| **Hunt mats / fight** | Field sites from Redwell (Ironscar, Dewcatch; Bonehollow soon) | [`explore-field-gathering.md`](explore-field-gathering.md) |
 | **Brew / use pills** | Qi Pill + Driftburst / Sunscar Burst / Marrowfall; 10 reagents; tribe fame | [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md) |
-| **Fund the life** | Jobs + sell goods (not explore stones) | QC depth + commerce stubs |
+| **Fund the life** | Jobs + sell goods (not explore stones) | Redwell + commerce stubs |
 | **Pace** | Inferior Late ~40–44, Peak ~45–50 (playtest) | [`qi-condensation-depth.md`](qi-condensation-depth.md) |
-| **Leave when ready** | Soft danger to other zones; no hard lock | QC depth travel |
+| **Leave when ready** | Soft danger; visit Threshold and feel small | [`dustbone-living-board.md`](dustbone-living-board.md) |
 
-**Later inside Dustbone (not required for “decent”):** full Miraj/tribe life-sim polish, field bosses (“go deeper”), hire guards, economy stone tiers, Formations Guild depth.
+**Later (not required for decent):** mid city, full Miraj/tribe polish, field bosses, Threshold life-sim depth, hire guards, economy stone tiers, Formations Guild depth.
 
 ## Child map
 
-| Doc | Scope inside this hub |
-|-----|------------------------|
+| Doc | Scope |
+|-----|--------|
+| [`dustbone-living-board.md`](dustbone-living-board.md) | Zone vision — three cities, geopolitics, seats, board weight |
+| [`redwell-starter-city.md`](redwell-starter-city.md) | **Build first** — Redwell v1 inventory |
+| [`qc-technique-pamphlet-pool.md`](qc-technique-pamphlet-pool.md) | QC pamphlet variety for bazaar pool draws |
 | [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md) | **Only** reagents, recipes, guild/tribe alchemy society for QC Dustbone |
-| [`explore-field-gathering.md`](explore-field-gathering.md) | Field triangle + enemies + material explore remake (Dustbone first) |
-| [`qi-condensation-depth.md`](qi-condensation-depth.md) | QC bands, Threshold starter life cut, pacing |
-| [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) | Cultivate-on-clock Phase 3 (pills + interrupts) |
-| [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md) | Why the desert / Law of Dust |
-| [`dustbone-surroundings-later.md`](dustbone-surroundings-later.md) | Miraj / camps polish **after** hub loops feel good |
-| [`creation-path-guilds.md`](creation-path-guilds.md) | Alchemy guild HQ elsewhere; Threshold = branch |
+| [`explore-field-gathering.md`](explore-field-gathering.md) | Field triangle + enemies + material explore remake |
+| [`qi-condensation-depth.md`](qi-condensation-depth.md) | QC bands, pacing (hub life retargeted to Redwell) |
+| [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) | Cultivate-on-clock Phase 3 |
+| [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md) | Law of Dust / dynasties |
+| [`dustbone-surroundings-later.md`](dustbone-surroundings-later.md) | Miraj / camps **after** Redwell |
+| [`creation-path-guilds.md`](creation-path-guilds.md) | Alchemy guild; Threshold = branch |
 
-## Suggested build order (Dustbone only)
+## Suggested build order (Dustbone)
 
-1. Field sites live on map (travel + danger labels)
-2. Named mat drops + enemy pools / elites
-3. Alchemy: 10 mats + Qi Pill + three store-fills (effects on QC store)
-4. Stance weekly store drip (slow) + cultivate interrupts thin
-5. Pacing playtest (pill vs stance balance)
-6. Tribe vendor flavor (who sells Driftburst / Burst / Marrowfall) — thin NPCs ok
-7. Then: go deeper / field bosses, surroundings life-sim, next zone book
+1. **Redwell** location + spawn + Inn/courtyard/bazaar/jobs/seats ([`redwell-starter-city.md`](redwell-starter-city.md)) — shipping in PR #90  
+2. Nearby fields (Ironscar + Dewcatch) live on map + enemy/loot tables  
+3. Alchemy close-loop ([`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md))  
+4. **Parallel:** QC pamphlet pool content ([`qc-technique-pamphlet-pool.md`](qc-technique-pamphlet-pool.md))  
+5. Clock pulse / job dry-up / market restock feel (partially in Redwell)  
+6. Threshold thin visit  
+7. Mid city → camps → bosses  
 
 ## Prerequisites
 
-- [x] Owner: expand Dustbone starter totality before other zones’ full books
-- [x] Alchemy names + society lean parked
-- [ ] Implement chunks via Issues (don’t boil the ocean in one PR)
-- [ ] Other zones: copy this hub pattern when Dustbone feels decent
+- [x] Owner: Redwell + living board designed
+- [x] Alchemy names + society lean parked ([#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89))
+- [ ] Implement remaining chunks via Issues (don’t boil ocean in one PR)
+- [ ] Other zones: copy hub pattern when Dustbone feels decent
 
 ## Open questions
 
 - Thin forge use of quarry mats in QC Dustbone, or alchemy-only until forge pass?
+- Mid city name
 - How much tribe camp gameplay before “decent” (talk only vs buy specialty pills)?
 
 ## Implementation crumbs
 
-Many files — follow children. Hub itself is docs-only index.
+Follow children. Hub is docs-only index.

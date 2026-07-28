@@ -2445,23 +2445,23 @@ function updateMarketButton() {
     btn.disabled = !open;
     btn.title = open
         ? `${ACTION_MONTHS.market || 2} months · buy at ${loc?.name || 'the market'}`
-        : 'Walk to Threshold Bazaar, Celestial Market, or Tide Harbor';
+        : 'Walk to Redwell Bazaar, Threshold Bazaar, Celestial Market, or Tide Harbor';
     btn.style.opacity = open ? '' : '0.45';
     const workBtn = document.getElementById('btnThresholdJobs');
     if (workBtn) {
-        const atHub = typeof isAtThresholdCity === 'function' && isAtThresholdCity();
+        const atHub = typeof isAtRedwell === 'function' ? isAtRedwell() : (typeof isAtThresholdCity === 'function' && isAtThresholdCity());
         workBtn.disabled = !atHub;
         workBtn.style.opacity = atHub ? '' : '0.45';
         workBtn.title = atHub
-            ? 'Paid work on the Threshold boards — fat jobs dry up'
-            : 'Job boards are in Threshold City';
+            ? 'Paid work on Redwell boards — fat jobs dry up'
+            : 'Job boards are in Redwell';
     }
     const lodgeBtn = document.getElementById('btnDwelling');
     if (lodgeBtn) {
         lodgeBtn.disabled = false;
         lodgeBtn.title = typeof getDwellingStatusLine === 'function'
             ? getDwellingStatusLine()
-            : 'Rent or buy lodging in Threshold City';
+            : 'Rent or buy lodging in Redwell';
     }
 }
 
@@ -2471,7 +2471,9 @@ function renderMerchantPopup() {
     const hint = document.getElementById('merchantHint');
     if (!list) return;
     const zoneId = typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : (typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || currentZone));
-    const catalog = zoneId ? MERCHANT_CATALOG[zoneId] : null;
+    const catalog = typeof getResolvedMerchantCatalog === 'function'
+        ? getResolvedMerchantCatalog(zoneId)
+        : (zoneId ? MERCHANT_CATALOG[zoneId] : null);
     if (!catalog) {
         list.innerHTML = `<div class="popup-empty">No market here.</div>`;
         return;
@@ -2480,11 +2482,26 @@ function renderMerchantPopup() {
     if (hint) {
         const discount = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
         const discountNote = discount < 1 ? ` · 🪷 ${Math.round((1 - discount) * 100)}% faction discount` : '';
-        hint.textContent = `${G.stones} Stones · ${catalog.name}${discountNote} · Click an item to buy`;
+        const stockNote = zoneId === 'redwell' ? ' · finite stock · QC manuals redraw seasonally' : '';
+        hint.textContent = `${G.stones} Stones · ${catalog.name}${discountNote}${stockNote} · Click an item to buy`;
     }
 
     const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
     let html = '';
+
+    if (catalog.staples?.length) {
+        html += `<div class="tech-group-header">🥖 Staples</div>`;
+        html += catalog.staples.map(item => {
+            const left = item.stockLeft != null ? item.stockLeft : 1;
+            const canBuy = G.stones >= item.price && left > 0;
+            const status = `${item.price} Stones · ${left} left` + (canBuy ? ' · Click to buy' : '');
+            return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-staple="${item.id}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
+                <div class="name">${item.emoji || '🥖'} ${item.name}</div>
+                <div class="desc">${item.desc || ''}</div>
+                <div class="desc" style="margin-top:4px;color:${canBuy ? '#d4a860' : '#a09080'};">${status}</div>
+            </div>`;
+        }).join('');
+    }
 
     if (catalog.methods?.length) {
         html += `<div class="tech-group-header">📘 Cultivation scrolls</div>`;
@@ -2540,11 +2557,11 @@ function renderMerchantPopup() {
         }).join('');
     }
 
-    if (catalog.methods?.length || catalog.formations?.length) {
+    if (catalog.methods?.length || catalog.formations?.length || (catalog.stock?.length)) {
         html += `<div class="tech-group-header" style="margin-top:12px;">📜 Combat manuals</div>`;
     }
 
-    html += catalog.stock.map(item => {
+    html += (catalog.stock || []).map(item => {
         const template = TECHNIQUE_POOL.find(t => t.name === item.technique);
         const owned = G.techniques.some(t => t.name === item.technique);
         const reqRealm = typeof getMarketTechniqueReqRealm === 'function'
@@ -2579,13 +2596,14 @@ function renderMerchantPopup() {
     }).join('');
 
     if (catalog.pills?.length) {
-        html += `<div class="tech-group-header" style="margin-top:12px;">💊 Pills</div>`;
+        html += `<div class="tech-group-header" style="margin-top:12px;">💊 Pills & balms</div>`;
         html += catalog.pills.map(item => {
             const pill = PILL_TYPES[item.id];
             if (!pill) return '';
             const locked = item.reqRealm != null && G.realmIdx < item.reqRealm;
-            const canBuy = !locked && G.stones >= item.price;
-            const status = (locked ? `Need ${PATHS[G.path].realms[item.reqRealm]}` : `${item.price} Stones · ×${item.qty || 1}`)
+            const left = item.stockLeft != null ? item.stockLeft : (item.qty || 1);
+            const canBuy = !locked && G.stones >= item.price && left > 0;
+            const status = (locked ? `Need ${PATHS[G.path].realms[item.reqRealm]}` : `${item.price} Stones · ${left} left`)
                 + (canBuy ? ' · Click to buy' : '');
             return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-pill="${item.id}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
                 <div class="name">${pill.emoji} ${pill.name}</div>
@@ -2637,6 +2655,11 @@ function renderMerchantPopup() {
     list.querySelectorAll('[data-buy-pill]').forEach(row => {
         row.addEventListener('click', function() {
             buyPill(this.dataset.buyPill);
+        });
+    });
+    list.querySelectorAll('[data-buy-staple]').forEach(row => {
+        row.addEventListener('click', function() {
+            if (typeof buyRedwellStaple === 'function') buyRedwellStaple(this.dataset.buyStaple);
         });
     });
     list.querySelectorAll('[data-buy-gear]').forEach(row => {

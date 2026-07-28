@@ -714,7 +714,7 @@ function setupCreation(refreshOnly) {
         }
         currentZone = 'dustbone';
         G.currentZone = 'dustbone';
-        G.currentLocation = typeof getDefaultLocationForZone === 'function' ? getDefaultLocationForZone('dustbone') : 'bone_crossroads';
+        G.currentLocation = typeof getDefaultLocationForZone === 'function' ? getDefaultLocationForZone('dustbone') : 'redwell';
         initLifespan();
         ensureAffinities();
         if (typeof applyTalentStartingAffinity === 'function') applyTalentStartingAffinity();
