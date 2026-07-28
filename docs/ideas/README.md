@@ -33,7 +33,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (sword/blood manuals + aura) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) · [#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74) |
 | [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing / Dustbone | `cursor/qc-playtest-fixes` |
 | [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
-| [Explore — field gathering](explore-field-gathering.md) | `designed` | Material tables | — |
+| [Explore — field gathering](explore-field-gathering.md) | `designed` (field triangle) | Site tables; enemy pools | — |
+| [Dustbone QC alchemy](dustbone-qc-alchemy.md) | `designed` (store-fill names TBD) | Field drops; cultivate buffs | — |
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Hub starter slice | — |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |

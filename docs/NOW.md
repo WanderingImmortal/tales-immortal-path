@@ -2,16 +2,17 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-07-27
+**Updated:** 2026-07-28
 
 ## Focus
-- Living world clock Phase 2 playtest — PR #86 — [`docs/ideas/world-clock-continuous.md`](ideas/world-clock-continuous.md)
+- Dustbone QC alchemy + explore field triangle (docs re-parked) — [`dustbone-qc-alchemy.md`](ideas/dustbone-qc-alchemy.md) · owner naming 3 store-fills
 
 ## Next
-- Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
-- Playtest gather pacing vs Peak QC ~45–50 inferior
+- Playtest QC gather pacing vs Peak ~45–50 inferior — [`qi-condensation-depth.md`](ideas/qi-condensation-depth.md)
+- QC cultivate-on-clock (Phase 3) — [`qc-cultivate-excitement.md`](ideas/qc-cultivate-excitement.md) · clock P2 **merged** [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86)
+- Explore field sites implement chunk (when Issue opened)
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
-- QC cultivate-on-clock (after Phase 1–2 clock)
+- Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 
 ## Parked (return later)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
