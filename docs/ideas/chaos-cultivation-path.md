@@ -255,6 +255,8 @@ Rough **feel** mapping — not 1:1 combat parity:
 
 ### Grotto Masters (hidden mentors / cautionary tales)
 
+**Taxonomy:** These are **category A — grotto masters** of **this heaven** ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)), not epoch survivors and **not** the Void **unclassified** prisoner.
+
 Hidden, hard to find; offer insight into the Chaos Path. Tied narratively to failed or incomplete walks:
 
 | Master | Phase | Hook |
