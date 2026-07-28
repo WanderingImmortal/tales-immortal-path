@@ -32,7 +32,8 @@ Staple pills, herbs, common ore — per-`marketKey` **supply/demand** (copy `alc
 |----------|-----------|------|
 | Celestial Market | heartlands | Full supply |
 | Tide Harbor | jade | Full supply |
-| Bone Crossroads bazaar | dustbone | v1 fixed → supply |
+| Redwell bazaar | dustbone (starter) | Finite stock; monthly consumables; QC manual **pool draw** — [`redwell-starter-city.md`](redwell-starter-city.md) |
+| Threshold / Bone Crossroads bazaar | dustbone (capital) | Later denser shelf; not QC spawn market |
 
 ## Robbery
 

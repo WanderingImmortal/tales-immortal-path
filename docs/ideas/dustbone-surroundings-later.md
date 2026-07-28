@@ -10,7 +10,7 @@
 
 ## Intent
 
-After **Threshold City** market, jobs, rent/buy, and QC gather bands feel good, return to polish **Miraj Waystation**, Sunscar / Ashen camps, road content, and wider Dustbone life. Do **not** expand empty nodes before the hub works.
+After **Redwell** starter life and Threshold visit weight feel good, return to polish **Miraj Waystation**, Sunscar / Ashen camps, road content, and wider Dustbone life. Do **not** expand empty nodes before the hub works. See [`dustbone-living-board.md`](dustbone-living-board.md), [`redwell-starter-city.md`](redwell-starter-city.md).
 
 ## Design notes
 
@@ -20,7 +20,7 @@ After **Threshold City** market, jobs, rent/buy, and QC gather bands feel good, 
 
 ## Prerequisites
 
-- [ ] Hub starter slice playable
+- [ ] Redwell starter slice playable
 - [ ] Owner returns to this doc for content pass
 
 ## Open questions

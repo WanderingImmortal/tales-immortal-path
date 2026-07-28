@@ -27,9 +27,9 @@
 
 `actionWork(jobId)` → months → stones ± rep/event.
 
-## Threshold City jobs (QC v1 starter)
+## Redwell jobs (QC v1 starter)
 
-At hub (id `bone_crossroads`): Loader (Dune), Registry copyist, well attendant, bone-marker sweeper, short escort. Steady vs risk; Su Heartlands caravan = prestige outlier. Miraj is **not** the wage board. See [`settlement-lore.md`](settlement-lore.md).
+At **Redwell** (`redwell`): well attendant, grit/loader, short escort, sweeper/marker, maybe letter copyist. Steady vs risk; fat jobs dry up. Su Heartlands caravan = prestige outlier (capital/caravan — **not** Redwell daily). Miraj is **not** the wage board. See [`redwell-starter-city.md`](redwell-starter-city.md), [`settlement-lore.md`](settlement-lore.md).
 
 ## Fair employer
 

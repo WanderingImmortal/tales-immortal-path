@@ -34,7 +34,11 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing / Dustbone | `cursor/qc-playtest-fixes` |
 | [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
 | [Explore — field gathering](explore-field-gathering.md) | `designed` | Material tables | — |
-| [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Hub starter slice | — |
+| [Dustbone starter gameplay (hub)](dustbone-starter-gameplay.md) | `designed` (index) | Child slices | — |
+| [Dustbone living board](dustbone-living-board.md) | `designed` | Redwell v1 first | — |
+| [Redwell starter city](redwell-starter-city.md) | `building` | Pamphlet pool; field loot polish | `cursor/redwell-living-board-docs` |
+| [QC technique pamphlet pool](qc-technique-pamphlet-pool.md) | `idea` (content needed) | Manuals framework | — |
+| [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Redwell starter slice | — |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |

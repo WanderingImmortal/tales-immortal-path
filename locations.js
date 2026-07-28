@@ -15,6 +15,16 @@ function ensureLocationState() {
         const zone = G.currentZone || currentZone;
         G.currentLocation = getDefaultLocationForZone(zone);
     }
+    // Existing saves that still start at Threshold capital → Redwell spawn hub
+    if (G.currentLocation === 'bone_crossroads'
+        && (G.currentZone === 'dustbone' || (!G.currentZone && typeof currentZone !== 'undefined' && currentZone === 'dustbone'))
+        && G.dwelling?.settlementId !== 'bone_crossroads'
+        && (G.ageMonths == null || G.ageMonths <= (typeof STARTING_AGE_YEARS !== 'undefined' ? STARTING_AGE_YEARS * 12 : 16 * 12) + 1)) {
+        // Only nudge brand-new / barely-started runs; don't yank mid-game players out of Threshold
+        if ((G.ageMonths || 0) <= ((typeof STARTING_AGE_YEARS !== 'undefined' ? STARTING_AGE_YEARS : 16) * 12) + 2) {
+            G.currentLocation = 'redwell';
+        }
+    }
 }
 
 function getLocationDef(locationId) {

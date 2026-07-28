@@ -63,17 +63,19 @@ No hard `minRealm` zone locks. Warn: above your station is a good way to die. So
 
 **Scrap** pity-stone lottery. Explore = hunt **herbs/ores/reagents** for alchemy/forging/formations. Stones from **jobs + sell**.
 
-### Threshold City starter life (QC v1 slice)
+### Starter life (QC v1 slice) — **Redwell**, not Threshold
+
+**Retarget 2026-07-28:** hub life = **Redwell** (4th-tier). Threshold = capital visit. Full inventory: [`redwell-starter-city.md`](redwell-starter-city.md) · zone vision: [`dustbone-living-board.md`](dustbone-living-board.md).
 
 | Piece | v1 |
 |-------|-----|
-| Market | Basics-heavy Registry bazaar |
-| Jobs | Few at hub (loader, copyist, well, sweeper, short escort); fat jobs dry up; Su prestige separate |
-| Rent | One room — Lodge opens home screen (rest bonus) |
-| Buy | One expensive courtyard — Lodge home + small reagent chest |
-| Later | Full housing ladder, Miraj/tribe polish |
+| Market | Redwell basics bazaar (QC pamphlets from pool; monthly consumable restock) |
+| Jobs | Well, grit/loader, escort, sweeper, letter copyist; fat jobs dry up; Su ≠ Redwell daily |
+| Rent | **Redwell Inn** — room + rest / home screen |
+| Buy | FE-only sand-brick courtyard + reagent chest (**no** cultivate speed — manuals + formations only) |
+| Later | Mid city, Threshold weight, Miraj/tribe polish |
 
-Hub = **Threshold City** (id may remain `bone_crossroads`). **Law of Dust** = formal basin law; Return-to-Dust = rites/speech.
+**Law of Dust** = formal basin law; Return-to-Dust = rites/speech.
 
 ### Playtest findings (2026-07-27)
 

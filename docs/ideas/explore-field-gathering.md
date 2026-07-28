@@ -6,7 +6,9 @@
 | **Blocked on** | Zone material tables; alchemy/forge/formation sinks |
 | **Issue** | none yet |
 | **Chat / PR** | Owner lock with [`qi-condensation-depth.md`](qi-condensation-depth.md) 2026-07-26 |
-| **Updated** | 2026-07-26 |
+| **Updated** | 2026-07-28 |
+
+**Owner note:** Dustbone field sites are day trips from **Redwell** ([`redwell-starter-city.md`](redwell-starter-city.md)), not Threshold.
 
 ## Intent
 

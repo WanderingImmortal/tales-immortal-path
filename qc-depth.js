@@ -34,29 +34,7 @@ const QC_BAND_POWER_BONUS = {
     peak: 10
 };
 
-const THRESHOLD_JOBS = [
-    {
-        id: 'loader',
-        name: 'Caravan Loader',
-        emoji: '📦',
-        months: 2,
-        payMin: 18,
-        payMax: 32,
-        risk: false,
-        dryOutAfter: 4,
-        flavor: 'Haul crates for the Dune Riders under Threshold\'s walls.'
-    },
-    {
-        id: 'copyist',
-        name: 'Registry Copyist',
-        emoji: '📜',
-        months: 2,
-        payMin: 22,
-        payMax: 36,
-        risk: false,
-        dryOutAfter: 3,
-        flavor: 'Copy census slips so the pin stays quiet.'
-    },
+const REDWELL_JOBS = [
     {
         id: 'well_attendant',
         name: 'Well Attendant',
@@ -66,7 +44,29 @@ const THRESHOLD_JOBS = [
         payMax: 22,
         risk: false,
         dryOutAfter: 5,
-        flavor: 'Keep the Order Anchor spring clear — quiet, necessary work.'
+        flavor: 'Keep Redwell\'s deep well clear — quiet, necessary work.'
+    },
+    {
+        id: 'loader',
+        name: 'Grit Loader',
+        emoji: '📦',
+        months: 2,
+        payMin: 18,
+        payMax: 32,
+        risk: false,
+        dryOutAfter: 4,
+        flavor: 'Haul Ironscar grit crates for the road stalls.'
+    },
+    {
+        id: 'copyist',
+        name: 'Letter Copyist',
+        emoji: '📜',
+        months: 2,
+        payMin: 20,
+        payMax: 34,
+        risk: false,
+        dryOutAfter: 3,
+        flavor: 'Copy caravan letters and debt slips — no Registry pin work here.'
     },
     {
         id: 'sweeper',
@@ -77,23 +77,53 @@ const THRESHOLD_JOBS = [
         payMax: 18,
         risk: false,
         dryOutAfter: 6,
-        flavor: 'Sweep oath-road totems before the next caravan arrives.'
+        flavor: 'Sweep oath-road markers before the next grit run.'
     },
     {
         id: 'short_escort',
-        name: 'Dune Escort',
+        name: 'Scrub Escort',
         emoji: '🗡️',
         months: 3,
         payMin: 40,
         payMax: 70,
         risk: true,
         dryOutAfter: 2,
-        flavor: 'Guard a short run to Miraj. Bandits and beasts notice.'
+        flavor: 'Guard a short run toward Dewcatch. Bandits and beasts notice.'
     }
 ];
+/** @deprecated alias — saves still use thresholdJobs key */
+const THRESHOLD_JOBS = REDWELL_JOBS;
 
-const THRESHOLD_RENT = { months: 1, cost: 8, label: 'Rented room' };
-const THRESHOLD_BUY = { cost: 420, label: 'Courtyard house' };
+const REDWELL_RENT = { months: 1, cost: 8, label: 'Redwell Inn room' };
+const REDWELL_BUY = { cost: 320, label: 'Sand-brick courtyard', reqRealm: 1 };
+const THRESHOLD_RENT = REDWELL_RENT;
+const THRESHOLD_BUY = REDWELL_BUY;
+
+const REDWELL_RUMORS = [
+    'Someone says the scrub edge is flush with dawn dew this season.',
+    'A grit loader skipped town owing the Inn three months.',
+    'Road dust toward Threshold — a caravan left without full escort.',
+    'Ironscar claimed another claim-jumper; the Pit Brute rumor is back.',
+    'The well boss wants quiet hands — fat loading work has dried up.',
+    'A letter from the capital: Registry is counting pins again. Redwell shrugs.'
+];
+
+const REDWELL_BOUNTIES = [
+    { id: 'grit_thief', name: 'Grit Thief', pay: 28, months: 2, risk: 0.35, flavor: 'Stole a crate off the quarry road.' },
+    { id: 'road_cutter', name: 'Road Cutter', pay: 36, months: 3, risk: 0.45, flavor: 'Cuts purses between Redwell and the scrub.' },
+    { id: 'debt_skip', name: 'Debt-Skipper', pay: 22, months: 2, risk: 0.25, flavor: 'Owes the Innkeep and fled to the dunes.' }
+];
+
+const REDWELL_SEAT_IDS = ['redwell_innkeep', 'redwell_bazaar', 'redwell_well_boss', 'redwell_warden'];
+const REDWELL_SEAT_LABELS = {
+    redwell_innkeep: 'Innkeep',
+    redwell_bazaar: 'Bazaar face',
+    redwell_well_boss: 'Well boss',
+    redwell_warden: 'Road warden'
+};
+const REDWELL_NAME_POOL = [
+    'Mei', 'Jun', 'Sable', 'Orrin', 'Lian', 'Kest', 'Nara', 'Tobin', 'Yue', 'Hark', 'Sela', 'Rook'
+];
 
 function ensureQcDepthState() {
     if (!G.qcBand) {
@@ -104,7 +134,13 @@ function ensureQcDepthState() {
     if (!G.dwelling) {
         G.dwelling = { mode: 'homeless', settlementId: null, rentPaidThroughMonth: 0 };
     }
+    // Migrate old Threshold lodging settlement id → Redwell
+    if (G.dwelling.settlementId === 'bone_crossroads') {
+        G.dwelling.settlementId = 'redwell';
+    }
     if (!G.travelCautions) G.travelCautions = {};
+    ensureRedwellMarketState();
+    ensureRedwellSeats();
     // Early CSS lock before full action render (dao/forbidden default-hidden in HTML too).
     if (typeof document !== 'undefined' && document.documentElement) {
         const qc = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm();
@@ -225,15 +261,249 @@ function grantQcBandCapacity(stage) {
     }
 }
 
-// ----- Threshold jobs -----
+// ----- Redwell seats / market / hub -----
 
-function isAtThresholdCity() {
+function isAtRedwell() {
     const loc = typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation;
-    return loc === 'bone_crossroads' || (!loc && (G.currentZone || currentZone) === 'dustbone');
+    return loc === 'redwell';
 }
 
+/** @deprecated use isAtRedwell — kept for button wiring */
+function isAtThresholdCity() {
+    return isAtRedwell();
+}
+
+function isAtDwellingSettlement() {
+    ensureQcDepthState();
+    if (!G.dwelling?.settlementId) return isAtRedwell();
+    const loc = typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation;
+    return loc === G.dwelling.settlementId;
+}
+
+function rollRedwellPersonName() {
+    const pool = REDWELL_NAME_POOL;
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function ensureRedwellSeats() {
+    if (!G.civicSeats) G.civicSeats = {};
+    const now = G.ageMonths || 0;
+    REDWELL_SEAT_IDS.forEach(seatId => {
+        let holder = G.civicSeats[seatId];
+        if (!holder) {
+            const ageYears = 28 + Math.floor(Math.random() * 30);
+            G.civicSeats[seatId] = {
+                name: rollRedwellPersonName(),
+                ageYears,
+                bornMonth: now - ageYears * 12,
+                deathAgeYears: 72 + Math.floor(Math.random() * 12)
+            };
+            return;
+        }
+        const ageYears = Math.floor((now - (holder.bornMonth || 0)) / 12);
+        holder.ageYears = ageYears;
+        if (holder.deathAgeYears == null) holder.deathAgeYears = 72 + Math.floor(Math.random() * 12);
+        if (ageYears >= holder.deathAgeYears) {
+            const old = holder.name;
+            const ageNew = 24 + Math.floor(Math.random() * 20);
+            G.civicSeats[seatId] = {
+                name: rollRedwellPersonName(),
+                ageYears: ageNew,
+                bornMonth: now - ageNew * 12,
+                deathAgeYears: 72 + Math.floor(Math.random() * 12)
+            };
+            if (typeof addLog === 'function') {
+                addLog(`🏜️ ${REDWELL_SEAT_LABELS[seatId] || seatId}: ${old} is gone. ${G.civicSeats[seatId].name} holds the seat now.`);
+            }
+        }
+    });
+}
+
+function getRedwellSeatName(seatId) {
+    ensureRedwellSeats();
+    return G.civicSeats?.[seatId]?.name || 'someone';
+}
+
+function playerOwnsMethod(methodId) {
+    if (typeof getCultivationMethodShelf === 'function') {
+        const shelf = getCultivationMethodShelf();
+        if (shelf?.some?.(e => e.methodId === methodId || e.id === methodId)) return true;
+    }
+    if (G.cultivationMethod?.id === methodId || G.cultivationMethod?.methodId === methodId) return true;
+    if (G.methodShelf?.some?.(e => e.methodId === methodId || e.id === methodId)) return true;
+    return false;
+}
+
+function playerOwnsTechniqueName(name) {
+    if (!name) return false;
+    if (G.techniques?.some?.(t => t === name || t.name === name)) return true;
+    if (G.knownTechniques?.some?.(t => t === name || t.name === name)) return true;
+    return false;
+}
+
+function pickRedwellPoolSlots(pool, count, ownedFn, keyFn) {
+    const unused = pool.filter(item => !ownedFn(keyFn(item)));
+    const src = unused.length ? unused : pool.slice();
+    const shuffled = src.slice().sort(() => Math.random() - 0.5);
+    const out = [];
+    const seen = new Set();
+    for (const item of shuffled) {
+        const k = keyFn(item);
+        if (seen.has(k)) continue;
+        seen.add(k);
+        out.push({ ...item });
+        if (out.length >= count) break;
+    }
+    return out;
+}
+
+function ensureRedwellMarketState(forceSeason) {
+    if (!G.redwellMarket) {
+        G.redwellMarket = {
+            methodSlots: [],
+            techSlots: [],
+            pillLeft: {},
+            stapleLeft: {},
+            lastMonthRestock: -1,
+            lastSeasonRestock: -1
+        };
+    }
+    const m = G.redwellMarket;
+    const now = G.ageMonths || 0;
+    const season = Math.floor(now / 3);
+    if (!m.methodSlots?.length || forceSeason || m.lastSeasonRestock !== season) {
+        const methods = (typeof REDWELL_METHOD_POOL !== 'undefined' ? REDWELL_METHOD_POOL : []);
+        const techs = (typeof REDWELL_TECH_POOL !== 'undefined' ? REDWELL_TECH_POOL : []);
+        m.methodSlots = pickRedwellPoolSlots(methods, 3, playerOwnsMethod, i => i.methodId);
+        m.techSlots = pickRedwellPoolSlots(techs, 2, playerOwnsTechniqueName, i => i.technique);
+        m.lastSeasonRestock = season;
+    }
+    if (m.lastMonthRestock !== now) {
+        m.pillLeft = { spirit_gathering: 3, blood_recovery: 2 };
+        m.stapleLeft = { travel_ration: 5, grit_kit: 3 };
+        m.lastMonthRestock = now;
+    }
+    return m;
+}
+
+function getResolvedMerchantCatalog(catalogKey) {
+    const key = catalogKey || (typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : null);
+    if (!key || typeof MERCHANT_CATALOG === 'undefined') return null;
+    const base = MERCHANT_CATALOG[key];
+    if (!base) return null;
+    if (key !== 'redwell') return base;
+    const m = ensureRedwellMarketState();
+    const pills = (base.pills || []).map(p => ({
+        ...p,
+        qty: 1,
+        stockLeft: m.pillLeft[p.id] != null ? m.pillLeft[p.id] : (p.qty || 1)
+    })).filter(p => p.stockLeft > 0);
+    const staples = (base.staples || []).map(s => ({
+        ...s,
+        stockLeft: m.stapleLeft[s.id] != null ? m.stapleLeft[s.id] : 3
+    })).filter(s => s.stockLeft > 0);
+    return {
+        ...base,
+        methods: m.methodSlots || [],
+        stock: m.techSlots || [],
+        formations: [],
+        pills,
+        staples
+    };
+}
+
+function consumeRedwellMarketBuy(kind, id) {
+    const m = ensureRedwellMarketState();
+    if (kind === 'pill') {
+        m.pillLeft[id] = Math.max(0, (m.pillLeft[id] || 0) - 1);
+    } else if (kind === 'staple') {
+        m.stapleLeft[id] = Math.max(0, (m.stapleLeft[id] || 0) - 1);
+    } else if (kind === 'method') {
+        m.methodSlots = (m.methodSlots || []).filter(x => x.methodId !== id);
+    } else if (kind === 'tech') {
+        m.techSlots = (m.techSlots || []).filter(x => x.technique !== id);
+    }
+}
+
+function actionRedwellRumor() {
+    if (G.gameOver || G.inCombat) return;
+    if (!isAtRedwell()) {
+        addLog('🍺 Rumors pool in Redwell Inn\'s common room.');
+        fullRender();
+        return;
+    }
+    const cost = 2;
+    if ((G.stones || 0) < cost) {
+        addLog(`🍺 Need ${cost} Stones for a drink and an ear.`);
+        fullRender();
+        return;
+    }
+    G.stones -= cost;
+    const line = REDWELL_RUMORS[Math.floor(Math.random() * REDWELL_RUMORS.length)];
+    addLog(`🍺 ${getRedwellSeatName('redwell_innkeep')} pours. Rumor: ${line}`);
+    fullRender();
+}
+
+function openRedwellBountyBoard() {
+    if (G.gameOver || G.inCombat) return;
+    if (!isAtRedwell()) {
+        addLog('🗡️ Low bounties are posted in Redwell Inn.');
+        fullRender();
+        return;
+    }
+    const list = document.getElementById('thresholdJobsList');
+    const popup = document.getElementById('thresholdJobsPopup');
+    const title = popup?.querySelector('h2');
+    if (title) title.textContent = '🗡️ Redwell Bounty Board';
+    if (!list || !popup) {
+        actionRedwellBounty(REDWELL_BOUNTIES[0].id);
+        return;
+    }
+    list.innerHTML = REDWELL_BOUNTIES.map(b => `
+        <div class="popup-item can-buy" data-redwell-bounty="${b.id}" style="cursor:pointer;">
+            <div class="name">🗡️ ${b.name}</div>
+            <div class="desc">${b.flavor}</div>
+            <div class="desc" style="margin-top:4px;color:#d4a860;">${b.months} mo · ~${b.pay} Stones · Risk · Click to hunt</div>
+        </div>`).join('');
+    list.querySelectorAll('[data-redwell-bounty]').forEach(row => {
+        row.addEventListener('click', () => {
+            popup.classList.remove('active');
+            actionRedwellBounty(row.getAttribute('data-redwell-bounty'));
+        });
+    });
+    popup.classList.add('active');
+}
+
+function actionRedwellBounty(bountyId) {
+    if (G.gameOver || G.inCombat) return;
+    if (!isAtRedwell()) return;
+    const b = REDWELL_BOUNTIES.find(x => x.id === bountyId);
+    if (!b) return;
+    beginActionLog();
+    if (!advanceTime(b.months, `Hunting bounty: ${b.name}`)) {
+        cancelActionLog();
+        fullRender();
+        return;
+    }
+    let pay = b.pay;
+    let note = '';
+    if (Math.random() < b.risk) {
+        const dmg = 3 + Math.floor(Math.random() * 5);
+        G.hp = Math.max(1, (G.hp || 1) - dmg);
+        pay = Math.floor(pay * 0.7);
+        note = ` A scuffle costs you ${dmg} HP.`;
+    } else {
+        note = ' Clean catch.';
+    }
+    G.stones = (G.stones || 0) + pay;
+    commitActionLog(`🗡️ Bounty — ${b.name}: +${pay} Stones.${note} ${getRedwellSeatName('redwell_warden')} nods.`);
+    fullRender();
+}
+
+// ----- Redwell jobs -----
+
 function getThresholdJobDef(jobId) {
-    return THRESHOLD_JOBS.find(j => j.id === jobId) || null;
+    return REDWELL_JOBS.find(j => j.id === jobId) || null;
 }
 
 function isThresholdJobDry(jobId) {
@@ -246,8 +516,8 @@ function isThresholdJobDry(jobId) {
 function actionThresholdWork(jobId) {
     if (G.gameOver || G.inCombat) return;
     ensureQcDepthState();
-    if (!isAtThresholdCity()) {
-        addLog('👷 Work boards are at Threshold City. Walk there first.');
+    if (!isAtRedwell()) {
+        addLog('👷 Work boards are in Redwell. Walk there first.');
         fullRender();
         return;
     }
@@ -338,20 +608,22 @@ function applyThresholdJobResult(jobId, opts) {
 function openThresholdJobsPopup() {
     if (G.gameOver || G.inCombat) return;
     ensureQcDepthState();
-    if (!isAtThresholdCity()) {
-        addLog('👷 Job boards are posted in Threshold City.');
+    if (!isAtRedwell()) {
+        addLog('👷 Job boards are posted in Redwell.');
         fullRender();
         return;
     }
     const list = document.getElementById('thresholdJobsList');
     const popup = document.getElementById('thresholdJobsPopup');
+    const title = popup?.querySelector('h2');
+    if (title) title.textContent = '👷 Redwell Work Boards';
     if (!list || !popup) {
-        // Fallback: run first available steady job
-        const job = THRESHOLD_JOBS.find(j => !isThresholdJobDry(j.id)) || THRESHOLD_JOBS[0];
+        const job = REDWELL_JOBS.find(j => !isThresholdJobDry(j.id)) || REDWELL_JOBS[0];
         actionThresholdWork(job.id);
         return;
     }
-    list.innerHTML = THRESHOLD_JOBS.map(job => {
+    const boss = getRedwellSeatName('redwell_well_boss');
+    list.innerHTML = `<div class="desc" style="margin-bottom:8px;">${boss} posts what work still pays.</div>` + REDWELL_JOBS.map(job => {
         const dry = isThresholdJobDry(job.id);
         const pay = `${job.payMin}–${job.payMax}`;
         const risk = job.risk ? ' · Risk' : '';
@@ -373,18 +645,18 @@ function openThresholdJobsPopup() {
     popup.classList.add('active');
 }
 
-// ----- Dwelling -----
+// ----- Dwelling (Redwell Inn / courtyard) -----
 
 function actionRentThresholdRoom() {
     if (G.gameOver || G.inCombat) return;
     ensureQcDepthState();
-    if (!isAtThresholdCity()) {
-        addLog('🏠 Rooms to rent are in Threshold City.');
+    if (!isAtRedwell()) {
+        addLog('🏠 Rooms to rent are at Redwell Inn.');
         fullRender();
         return;
     }
     if (G.dwelling.mode === 'owned') {
-        addLog('🏠 You already own a courtyard here.');
+        addLog('🏠 You already own a courtyard in Redwell.');
         fullRender();
         return;
     }
@@ -393,24 +665,30 @@ function actionRentThresholdRoom() {
         fullRender();
         return;
     }
-    if ((G.stones || 0) < THRESHOLD_RENT.cost) {
-        addLog(`🏠 Need ${THRESHOLD_RENT.cost} Stones for the first month's rent.`);
+    if ((G.stones || 0) < REDWELL_RENT.cost) {
+        addLog(`🏠 Need ${REDWELL_RENT.cost} Stones for the first month's rent.`);
         fullRender();
         return;
     }
-    G.stones -= THRESHOLD_RENT.cost;
+    G.stones -= REDWELL_RENT.cost;
     G.dwelling.mode = 'rent';
-    G.dwelling.settlementId = 'bone_crossroads';
+    G.dwelling.settlementId = 'redwell';
     G.dwelling.rentPaidThroughMonth = (G.ageMonths || 0) + 1;
-    addLog(`🏠 You rent a room in Threshold City (−${THRESHOLD_RENT.cost} Stones). A place to rest and cultivate.`);
+    addLog(`🏠 ${getRedwellSeatName('redwell_innkeep')} takes your coin. You rent a room at Redwell Inn (−${REDWELL_RENT.cost} Stones).`);
     fullRender();
 }
 
 function actionBuyThresholdCourtyard() {
     if (G.gameOver || G.inCombat) return;
     ensureQcDepthState();
-    if (!isAtThresholdCity()) {
-        addLog('🏠 Courtyards for sale are in Threshold City.');
+    if (!isAtRedwell()) {
+        addLog('🏠 The sand-brick courtyard for sale is in Redwell.');
+        fullRender();
+        return;
+    }
+    const req = REDWELL_BUY.reqRealm || 1;
+    if ((G.realmIdx || 0) < req) {
+        addLog('🏠 The courtyard seller only deals with Foundation cultivators — come back when you\'ve broken through.');
         fullRender();
         return;
     }
@@ -419,17 +697,17 @@ function actionBuyThresholdCourtyard() {
         fullRender();
         return;
     }
-    if ((G.stones || 0) < THRESHOLD_BUY.cost) {
-        addLog(`🏠 The courtyard costs ${THRESHOLD_BUY.cost} Stones (have ${G.stones || 0}). A long grind — or keep renting.`);
+    if ((G.stones || 0) < REDWELL_BUY.cost) {
+        addLog(`🏠 The courtyard costs ${REDWELL_BUY.cost} Stones (have ${G.stones || 0}). A long grind — or keep renting.`);
         fullRender();
         return;
     }
-    G.stones -= THRESHOLD_BUY.cost;
+    G.stones -= REDWELL_BUY.cost;
     G.dwelling.mode = 'owned';
-    G.dwelling.settlementId = 'bone_crossroads';
+    G.dwelling.settlementId = 'redwell';
     G.dwelling.rentPaidThroughMonth = 0;
     ensureDwellingStash();
-    addLog(`🏠 You buy a courtyard house in Threshold City (−${THRESHOLD_BUY.cost} Stones). Open Lodge to enter your home.`);
+    addLog(`🏠 You buy a sand-brick courtyard on Redwell\'s quiet edge (−${REDWELL_BUY.cost} Stones). Roof, chest, no rent — no cultivate boost. Open Lodge for your home.`);
     fullRender();
 }
 
@@ -440,20 +718,20 @@ function tickDwellingRent() {
     let paidThrough = G.dwelling.rentPaidThroughMonth || now;
     let charged = 0;
     while (paidThrough <= now) {
-        if ((G.stones || 0) < THRESHOLD_RENT.cost) {
+        if ((G.stones || 0) < REDWELL_RENT.cost) {
             G.dwelling.mode = 'homeless';
             G.dwelling.settlementId = null;
             G.dwelling.rentPaidThroughMonth = paidThrough;
-            addLog('🏠 You cannot pay rent — turned out onto the Threshold streets.');
+            addLog('🏠 You cannot pay rent — turned out onto Redwell\'s streets.');
             return;
         }
-        G.stones -= THRESHOLD_RENT.cost;
+        G.stones -= REDWELL_RENT.cost;
         charged += 1;
         paidThrough += 1;
     }
     G.dwelling.rentPaidThroughMonth = paidThrough;
-    if (charged === 1) addLog(`🏠 Rent due — ${THRESHOLD_RENT.cost} Stones for your Threshold room.`);
-    else if (charged > 1) addLog(`🏠 Rent for ${charged} months — ${charged * THRESHOLD_RENT.cost} Stones.`);
+    if (charged === 1) addLog(`🏠 Rent due — ${REDWELL_RENT.cost} Stones for your Redwell Inn room.`);
+    else if (charged > 1) addLog(`🏠 Rent for ${charged} months — ${charged * REDWELL_RENT.cost} Stones.`);
     if (typeof maybeWarnDwellingRentRunway === 'function') maybeWarnDwellingRentRunway();
 }
 
@@ -466,8 +744,8 @@ function getDwellingRestMult() {
 
 function getDwellingStatusLine() {
     ensureQcDepthState();
-    if (G.dwelling.mode === 'owned') return `🏠 ${THRESHOLD_BUY.label} (owned)`;
-    if (G.dwelling.mode === 'rent') return `🏠 ${THRESHOLD_RENT.label} (rent ${THRESHOLD_RENT.cost}/mo)`;
+    if (G.dwelling.mode === 'owned') return `🏠 ${REDWELL_BUY.label} (owned)`;
+    if (G.dwelling.mode === 'rent') return `🏠 ${REDWELL_RENT.label} (rent ${REDWELL_RENT.cost}/mo)`;
     return '🏠 Homeless';
 }
 
@@ -520,10 +798,11 @@ function renderDwellingHomeBody(body, popup) {
     const owned = G.dwelling.mode === 'owned';
     const rent = G.dwelling.mode === 'rent';
     const restPct = owned ? '+12%' : '+6%';
-    const title = owned ? THRESHOLD_BUY.label : THRESHOLD_RENT.label;
+    const title = owned ? REDWELL_BUY.label : REDWELL_RENT.label;
+    const innkeep = getRedwellSeatName('redwell_innkeep');
     const fiction = owned
-        ? 'Your courtyard under the Law of Dust — a personal anchor. Rest here heals better than street sleep.'
-        : 'A rented room in Threshold City. Rent comes due with the months. Rest is steadier than the street.';
+        ? 'Your sand-brick yard on Redwell\'s quiet edge — half-dead shade tree, reagent lean-to, cistern on the town well. Rest is steadier here. Cultivation speed still comes from manuals and formations, not the house.'
+        : `A rented room at Redwell Inn. ${innkeep} keeps the common room downstairs. Rent comes due with the months.`;
 
     let stashHtml = '';
     if (owned) {
@@ -553,18 +832,27 @@ function renderDwellingHomeBody(body, popup) {
         `;
     }
 
+    const feBuy = (G.realmIdx || 0) >= (REDWELL_BUY.reqRealm || 1);
+    const buyLabel = feBuy
+        ? `Buy courtyard · ${REDWELL_BUY.cost} Stones`
+        : `Buy courtyard · FE required (${REDWELL_BUY.cost} Stones)`;
+
     body.innerHTML = `
-        <div class="desc" style="margin-bottom:8px;"><strong>${title}</strong> · Threshold City</div>
+        <div class="desc" style="margin-bottom:8px;"><strong>${title}</strong> · Redwell</div>
         <div class="desc" style="margin-bottom:10px;">${fiction}</div>
-        <div class="desc" style="margin-bottom:12px;">Rest bonus: <strong>${restPct}</strong> HP from Recuperate / Rest here${rent ? ` · Rent ${THRESHOLD_RENT.cost} Stones/mo` : ''}.</div>
+        <div class="desc" style="margin-bottom:12px;">Rest bonus: <strong>${restPct}</strong> HP from Recuperate / Rest here${rent ? ` · Rent ${REDWELL_RENT.cost} Stones/mo` : ''}.</div>
         <button type="button" class="zone-travel-btn" id="dwellingRestBtn">🛌 Rest here</button>
-        ${rent ? `<button type="button" class="zone-travel-btn" id="dwellingBuyBtn" style="margin-top:8px;">Buy courtyard · ${THRESHOLD_BUY.cost} Stones</button>` : ''}
+        ${rent ? `<button type="button" class="zone-travel-btn" id="dwellingBuyBtn" style="margin-top:8px;" ${feBuy ? '' : 'disabled'}>${buyLabel}</button>` : ''}
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
+            <button type="button" class="zone-travel-btn" id="dwellingRumorBtn" style="padding:6px 10px;font-size:12px;">🍺 Drink / rumor · 2 Stones</button>
+            <button type="button" class="zone-travel-btn" id="dwellingBountyBtn" style="padding:6px 10px;font-size:12px;">🗡️ Bounty board</button>
+        </div>
         ${stashHtml}
     `;
 
     document.getElementById('dwellingRestBtn')?.addEventListener('click', () => {
-        if (!isAtThresholdCity()) {
-            addLog('🏠 Your lodging is in Threshold City — travel back to rest there.');
+        if (!isAtDwellingSettlement()) {
+            addLog('🏠 Your lodging is in Redwell — travel back to rest there.');
             return;
         }
         popup.classList.remove('active');
@@ -573,6 +861,13 @@ function renderDwellingHomeBody(body, popup) {
     document.getElementById('dwellingBuyBtn')?.addEventListener('click', () => {
         popup.classList.remove('active');
         actionBuyThresholdCourtyard();
+    });
+    document.getElementById('dwellingRumorBtn')?.addEventListener('click', () => {
+        actionRedwellRumor();
+    });
+    document.getElementById('dwellingBountyBtn')?.addEventListener('click', () => {
+        popup.classList.remove('active');
+        openRedwellBountyBoard();
     });
     body.querySelectorAll('.dwelling-stash-in').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -594,26 +889,34 @@ function openDwellingPopup() {
     const popup = document.getElementById('dwellingPopup');
     const body = document.getElementById('dwellingBody');
     if (!popup || !body) {
-        if (isAtThresholdCity()) actionRentThresholdRoom();
+        if (isAtRedwell()) actionRentThresholdRoom();
         return;
     }
     ensureQcDepthState();
     const housed = G.dwelling.mode === 'rent' || G.dwelling.mode === 'owned';
     if (housed) {
         const title = popup.querySelector('h2');
-        if (title) title.textContent = G.dwelling.mode === 'owned' ? '🏠 Your Courtyard' : '🏠 Your Room';
+        if (title) title.textContent = G.dwelling.mode === 'owned' ? '🏠 Your Courtyard' : '🏠 Redwell Inn';
         renderDwellingHomeBody(body, popup);
         popup.classList.add('active');
         return;
     }
     const title = popup.querySelector('h2');
-    if (title) title.textContent = '🏠 Lodging';
+    if (title) title.textContent = '🏠 Redwell Inn';
     const status = getDwellingStatusLine();
+    const feBuy = (G.realmIdx || 0) >= (REDWELL_BUY.reqRealm || 1);
+    const buyLabel = feBuy
+        ? `Buy courtyard · ${REDWELL_BUY.cost} Stones`
+        : `Buy courtyard · FE required (${REDWELL_BUY.cost} Stones)`;
     body.innerHTML = `
         <div class="desc" style="margin-bottom:10px;">${status}</div>
-        <div class="desc" style="margin-bottom:12px;">Threshold City — rent a room, or grind toward a courtyard. Homeless is allowed; rest suffers a little.</div>
-        <button type="button" class="zone-travel-btn" id="dwellingRentBtn">Rent room · ${THRESHOLD_RENT.cost} Stones</button>
-        <button type="button" class="zone-travel-btn" id="dwellingBuyBtn" style="margin-top:8px;">Buy courtyard · ${THRESHOLD_BUY.cost} Stones</button>
+        <div class="desc" style="margin-bottom:12px;">Redwell — rent a room at the Inn, or (at Foundation) buy the sand-brick courtyard. Homeless is allowed; rest suffers a little.</div>
+        <button type="button" class="zone-travel-btn" id="dwellingRentBtn">Rent room · ${REDWELL_RENT.cost} Stones</button>
+        <button type="button" class="zone-travel-btn" id="dwellingBuyBtn" style="margin-top:8px;" ${feBuy ? '' : 'disabled'}>${buyLabel}</button>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
+            <button type="button" class="zone-travel-btn" id="dwellingRumorBtn" style="padding:6px 10px;font-size:12px;">🍺 Drink / rumor · 2 Stones</button>
+            <button type="button" class="zone-travel-btn" id="dwellingBountyBtn" style="padding:6px 10px;font-size:12px;">🗡️ Bounty board</button>
+        </div>
     `;
     document.getElementById('dwellingRentBtn')?.addEventListener('click', () => {
         popup.classList.remove('active');
@@ -622,6 +925,13 @@ function openDwellingPopup() {
     document.getElementById('dwellingBuyBtn')?.addEventListener('click', () => {
         popup.classList.remove('active');
         actionBuyThresholdCourtyard();
+    });
+    document.getElementById('dwellingRumorBtn')?.addEventListener('click', () => {
+        actionRedwellRumor();
+    });
+    document.getElementById('dwellingBountyBtn')?.addEventListener('click', () => {
+        popup.classList.remove('active');
+        openRedwellBountyBoard();
     });
     popup.classList.add('active');
 }
