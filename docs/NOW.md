@@ -5,12 +5,11 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-28
 
 ## Focus
-- **Redwell starter city** (build next) — [`redwell-starter-city.md`](ideas/redwell-starter-city.md) · zone [`dustbone-living-board.md`](ideas/dustbone-living-board.md)
+- **Redwell starter city** (PR #90) — [`redwell-starter-city.md`](ideas/redwell-starter-city.md) · zone [`dustbone-living-board.md`](ideas/dustbone-living-board.md)
 
 ## Next
-- Redwell chunks: spawn + Inn/bazaar/jobs/courtyard/seats · nearby fields
-- **QC pamphlet pool** (parallel content) — [`qc-technique-pamphlet-pool.md`](ideas/qc-technique-pamphlet-pool.md)
-- Alchemy · field sites · cultivate Phase 3 · pacing — see [`dustbone-starter-gameplay.md`](ideas/dustbone-starter-gameplay.md)
+- Playtest Redwell · field loot tables · QC pamphlet pool — [`qc-technique-pamphlet-pool.md`](ideas/qc-technique-pamphlet-pool.md)
+- Alchemy close-loop ([`dustbone-qc-alchemy.md`](ideas/dustbone-qc-alchemy.md)) · field enemies ([`explore-field-gathering.md`](ideas/explore-field-gathering.md)) · cultivate Phase 3 · pacing
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
 - Threshold visit · mid city — **after** Redwell feels decent
 
@@ -27,5 +26,6 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
+- Dustbone starter gameplay hub + QC alchemy designs ([#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89))
 - Qi Condensation depth slice ([#78](https://github.com/WanderingImmortal/tales-immortal-path/pull/78))
 - Mortal life sim doc cluster ([#76](https://github.com/WanderingImmortal/tales-immortal-path/pull/76))

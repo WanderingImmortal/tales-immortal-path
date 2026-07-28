@@ -2,34 +2,53 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
-| **Blocked on** | Zone material tables; alchemy/forge/formation sinks |
+| **Status** | `designed` (place + enemy locks 2026-07-27; re-parked 2026-07-28) |
+| **Blocked on** | Place-scoped loot + enemy pools; named mats ([`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md)) |
 | **Issue** | none yet |
-| **Chat / PR** | Owner lock with [`qi-condensation-depth.md`](qi-condensation-depth.md) 2026-07-26 |
+| **Chat / PR** | Owner lock with QC depth 2026-07-26 · remake + field triangle 2026-07-27 · Redwell day-trips [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | **Updated** | 2026-07-28 |
 
-**Owner note:** Dustbone field sites are day trips from **Redwell** ([`redwell-starter-city.md`](redwell-starter-city.md)), not Threshold.
+**Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) — field triangle is one starter loop, not the whole Dustbone pass.  
+**Owner note:** Dustbone field sites are day trips from **Redwell** ([`redwell-starter-city.md`](redwell-starter-city.md)), not Threshold. Threshold City is capital weight, not a combat forage zone.
 
 ## Intent
 
-**Scrap** pity-stone / loot-lottery explore. Explore’s job is hunting **environmental materials** (herbs, ores, reagents) for alchemy, forging, and formations. QC **stones** come from jobs and market sell ([`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)).
+Explore’s job is hunting **different places** for **different loot** and fighting what lives there. Loot tables stay. Scrap pity-stone lottery. QC stones = jobs + sell.
 
-## Design notes
+## Dustbone field sites v1
 
-- Zone-flavored tables (Dustbone: Dust Root, Sun Stone, Sand Silk, …).
-- Combat can still happen on the road; combat is not the stone faucet.
-- Commerce cluster survey/delve can deepen this later ([`commerce-and-markets.md`](commerce-and-markets.md)).
+| Site | Job | Danger | Loot | Elite |
+|------|-----|--------|------|-------|
+| **Ironscar Quarry** | Metals | Safe → Wild (deeper) | Sun Stone, grit, redvein | **Pit Brute** |
+| **Bonehollow Caverns** | Training + cave mats | Wild → Deadly (deeper) | Seep dew, glowcap, marrow resin | **Hollow Ambusher** |
+| **Dewcatch Scrub** | Herbs | Safe (edge) → Wild | Dust Root, dawn dew, thistle | **Dew-Catch Wight** |
+
+Tribe camps (Miraj / Sunscar / Ashen) stay social for now. **Go deeper → field boss** = later (separate from elites).
+
+### Enemy pools (1 elite each)
+
+**Scrub commons:** Dust Viper, Saltbrush Stalker, Herb Thief · **elite:** Dew-Catch Wight  
+**Quarry commons:** Claim-Jumper, Rock Lizard, Slag Mite, Redvein Shade · **elite:** Pit Brute  
+**Cave commons:** Bone-Gnaw Rat, Glowcap Skitter, Marrow Leech, Pin-Haunt Remnant · **elite:** Hollow Ambusher  
+
+No shared templates across sites. Threat bands predictable on map/travel confirm.
+
+### Alchemy link
+
+Named reagent ids and Qi Restore Pill / store-fills: [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md).
 
 ## Prerequisites
 
-- [ ] Replace empty-explore pity stones in `world.js` / explore handlers
-- [ ] Material loot tables per zone
+- [x] `WORLD_LOCATIONS` for Ironscar + Dewcatch (Redwell PR #90); Bonehollow still TBD
+- [ ] Place loot tables + enemy pools + elite roll
+- [ ] Strip explore stone/currency lottery leftovers
 
 ## Open questions
 
-- Survey vs delve split timing
-- Manual/technique drops — keep rare on delve, or move elsewhere?
+- Final display names for quarry / caverns / scrub
+- Field boss “go deeper” design (owner return)
+- Survey vs Delve UI timing
 
 ## Implementation crumbs
 
-`world.js` `actionExplore`, `ZONE_LOOT`, inventory material types
+`world.js`, `locations.js`, `data.js` `ZONE_LOOT` / encounters / `ENEMIES`, `qc-depth.js` field materials
