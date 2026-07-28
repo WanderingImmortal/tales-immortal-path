@@ -49,6 +49,7 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 | **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal is local law |
 | **Storm Dragon / Tidal Lotus** | Jade archipelago | Sea charter — throne mediates, does not sail |
 | **Emberwild Collective** | Emberwild | Contained, not conquered — jungle not worth the debt |
+| **Heavenly Demon Cult** | Heartlands — **Blood Sealing Gorge** | **No capitulation** — **Great Withdrawal** after Half-Step; mandate **fiction** of annihilation → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 
 *Sect rows are draft for [`sect-faction-identities.md`](sect-faction-identities.md) — refine in owner pass.*
 

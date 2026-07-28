@@ -6,11 +6,11 @@
 | **Blocked on** | Lineage manual (`blood_fiend` spine); alignment/sacrilege hooks; owner pass on charter “fifth power” politics |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-28 |
-| **Updated** | 2026-07-28 |
+| **Updated** | 2026-07-28 (v2 — Dao Wars slaughters, dormancy, faded memory) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral rulebook: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). Blood cultivation: [`technique-driven-cultivation.md`](technique-driven-cultivation.md). Peers (orthodox): [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md), [`golden-phoenix-sect.md`](golden-phoenix-sect.md).
 
-**Design principle:** The cult is a **great demonic institution** — not a random bandit gang. It has doctrine, ranks, a homeland, and immortals in the vault. **Blood and extraction** are sacred economics: other cultivators, mortals, beasts, and sects are **inputs**. It is **not** a charter great power; the mandate and the Heartlands four hunt it on paper while failing to uproot it.
+**Design principle:** The cult is a **great demonic institution** — doctrine, ranks, gorge arrays, and an immortal title in the vault — but **not** an open rival to the charter four today. It is a **lingering continental threat**: mostly **dormant or shadow-active**, deliberately **faded from young jianghu memory**. **Blood and extraction** remain sacred economics when cells wake. The mandate says they were **destroyed**; elders and immortals know that is **useful fiction**.
 
 ---
 
@@ -18,7 +18,7 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 
 | | |
 |--|--|
-| **Vibe** | Classic **Heavenly Demon Cult** — arrogant, seductive, cruel; “heaven’s rules are for cattle.” |
+| **Vibe** | Classic **Heavenly Demon Cult** — but **today** a half-remembered nightmare: nursery tales, wrong details, “didn’t the Tian exterminate them?” Shadow cells only; no demon banners on the road. |
 | **Path** | **Qi-primary** with **blood-fiend** foundation stamp; body and soul arts as **support lanes** (harvest, bind, refine). |
 | **Element / dao** | **Blood–yin** lean; predatory cycle (devour → condense → ascend). `blood_fiend` nature fits. |
 | **Homeland** | **Blood Sealing Gorge** (封血峡) — cursed ravine *inside* the Heartlands sphere, warded and politically “unowned” |
@@ -26,10 +26,10 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 | **Lineage** | **Heavenly Demon Canon** (天魔典) — working `lineageId`: `heavenly_demon_blood_line` |
 | **Forbidden apex** | **Heavenly Demon Scripture** (天魔经) — patriarch / demon lord only; wears the cult’s **law of devouring** |
 | **Sect spine** | **The Heavenly Demon** (天魔) — epithet, not a single historical person; the **first** who finished the Scripture and **became the title** |
-| **Charter status** | **Suppressed** — imperial warrant, sect coalition bounties; tolerated only where graft or deterrence blocks a purge |
+| **Charter status** | **Declared annihilated** (mandate + sect textbooks) — bounty law **technically** still on the books, rarely enforced against ghosts |
 | **Allies / rivals** | **Rivals:** all four Heartlands sects (hunted); **uneasy tools:** Phoenix pamphleteers, Lotus register leakers, corrupt Tian cadets — never trusted allies |
 | **Combat lean** | **Attrition + burst** — blood shields, life-drain, formation harvest; weak in open charter duels (no license) |
-| **Player hook** | Join forbidden path · infiltrate branches · bounty hunter · expose a cover cell in Longcheng |
+| **Player hook** | Uncover that the boogeyman **survived** · trace a sleeper cell · old elder’s war story · optional forbidden join path |
 
 ---
 
@@ -57,11 +57,12 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 
 | Layer | Cult role |
 |-------|-----------|
-| **Lore** | Continent’s archetypal demonic apex — older than the mandate’s propaganda admits |
-| **Heartlands** | **True HQ** — gorge, blood arrays, patriarch court; raids hit caravan roads (see `dustbone_caravan` demonic ambush) |
-| **Other zones** | **Cells** — logistics, recruitment, material laundering; not second HQs until late content |
-| **Alignment** | **Rebellious** default; acts that **mass-harvest** living qi → **corruption** per [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) |
-| **Orthodox sects** | Sword refuses blood; Lotus purges parasitic arts; Void seals demonic sites; Phoenix **secretly** studies renewal via stolen blood rites |
+| **Lore** | **Dao Wars butcher** — the continent’s worst slaughters ran under the demon banner; peace treaties **do not** mention them by name |
+| **Memory** | **Faded below ~GC:** “blood cult” folklore, conflated with rogue **corrupted cultivators**; **NS+ / sect elders:** know the Withdrawal was real |
+| **Heartlands** | **Sealed gorge** — dormant heart; occasional deniable strikes (e.g. caravan ambush) |
+| **Other zones** | **Sleeper cells** — mostly inactive; wake for harvest windows, then go quiet |
+| **Alignment** | **Rebellious** default; mass living harvest → **corruption** per [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) |
+| **Orthodox sects** | Public line: **extirpated**. Private line: **never enter the gorge alone** |
 
 ---
 
@@ -79,27 +80,62 @@ Pre-imperial doctrine — **The Three Draughts**:
 
 They held **Blood Sealing Gorge** before the Tian clan named the Heartlands. The gorge’s arrays **seal spilled blood** into cultivation fuel — why the land still smells of iron after rain.
 
-### Dao Wars — useful monster
+### Dao Wars — the continent’s worst butcher
 
-The cult **did not capitulate** like the four. It **fed** on the war — battlefields as farms, deserters as recruits, fallen schools as libraries.
+The four Heartlands sects were **major powers** in the Dao Wars — but the **largest body counts** did not come from honorable sect battle lines. They came from **Heavenly Demon harvest campaigns**: battlefields, refugee columns, and “neutral” towns **processed** into blood essence and soul fuel.
 
-The Heartlands four remember:
+| What others remember (if they lived) | Cult method |
+|----------------------------------------|-------------|
+| Entire march routes **silent** after a “plague” | Mobile **blood cauldrons** behind armies — feed arrays, not graves |
+| Sect allies **missing** after joint operations | Demon envoys **tagged** formations to harvest **both** sides’ dead and dying |
+| Cities that **switched banners** overnight | Coerced outer disciples as **Blood Servants** — mortal populations as inventory |
+| Named atrocities in old chronicles | **Crimson Basin Massacre** (赤渊屠) · **Ten Cauldron Night** (十鼎夜) — working names; exact sites TBD |
 
-| Sect | War memory |
-|------|------------|
-| **Sword** | Demon elders duel-poisoned Sword heirs; blood arrays on retreat routes |
-| **Lotus** | Register forgeries; “healing” tents that drained convoy guards |
-| **Void** | Sealed sites cracked open; demonic copies of void-walking manuals |
-| **Phoenix** | Stole rebirth rites; tried to **phoenix-burn** blood pools (failed; ash fed the cult) |
+The Heartlands four **hate** the cult for different war wounds — but share one shame: they sometimes **fought beside** demon auxiliaries when a rival’s vein was at stake, then **deny it** in charter histories.
 
-**Tian** issued the first **continent-wide demon warrant**. Purges shrank the gorge but never took the **Scripture vault**.
+| Sect | War memory (private) |
+|------|----------------------|
+| **Sword** | Heirs lost on “purge” missions that were **bait** for demon harvest arrays |
+| **Lotus** | Register pages **laundered** convoy deaths as plague; Matriarch line knows |
+| **Void** | Sealed sites **opened from inside** — demon copies of void-walk; archivists sealed the records |
+| **Phoenix** | Flame legions burned demon pools — **ash fed** the cult; Phoenix still won’t publish the count |
+| **Tian** (rising) | Clan armies **bled** holding corridors while sects exhausted each other — Tian remembers who **fed** on those corridors |
 
-### Now — heart in Heartlands, face in the shadows
+The cult was **not** trying to win the mandate. It was **farming** the war — doctrine calls this the **Great Draught** (大采): let powers break each other; **drink the spill**.
 
-- **HQ** remains in the gorge — warded, raid-only for orthodox sects without coalition.
-- **Branches** hide as mundane fronts; each zone has a **specialty** (below).
-- **Imperial fiction:** “mostly exterminated.” **Jianghu truth:** caravans still vanish; young masters still disappear on “secret realms.”
-- **Code seed:** Heartlands route ambush on `dustbone_caravan` — demonic strike on the road; name the cult explicitly when that quest gets a lore pass.
+### The Half-Step — why they receded
+
+The wars did **not** end because the cult was defeated. They ended because the **Tian founder** broke through to **Half-Step Immortal** — first cultivator to touch the gate of true immortality ([`imperial-clan.md`](imperial-clan.md)).
+
+**What the cult felt (inner court doctrine):**
+
+1. **Ceiling shift** — harvest at continental scale would **concentrate** qi in ways that **draw the Half-Step’s gaze**. Predators do not become the main course before they can **devour heaven**.
+2. **Demonstration, not siege** — imperial myth says the founder “ended the wars swiftly.” Cult records say the founder **unmade** a demon **field army** and **one** cauldron-legion in a single week — enough to prove the gorge’s old arrays are **not** proof against the gate.
+3. **Strategic dormancy** — Patriarch of that era ordered the **Great Withdrawal** (魔教蛰息): seal the gorge deeper, **dissolve public temples**, execute outward-facing ranks who knew too much, leave only **sleeper cells** and coded succession.
+
+**Afraid?** Cult scripture says **no** — *“wise.”* Fear is for cattle. The Withdrawal is **hunger postponed** until the Sleeping Dragon sleeps deeper or the world bleeds again without a Half-Step on watch.
+
+**Did they capitulate?** **No charter, no kneel.** They **vanished** from the board on purpose. The mandate’s “demon sect annihilated at **Victory of Azure Sky**” (or similar) is **coalition propaganda** — useful for the four sects’ honor and the Tian coronation myth. Everyone senior **signs off** on the lie.
+
+### Now — lingering threat, faded memory
+
+| Who | What they believe |
+|-----|-------------------|
+| **QC / outer disciples / mortals** | Boogeyman stories; “Heavenly Demon Cult” sounds **archaic**; demonic ambushes are “**corrupted cultivators**” or bandits |
+| **GC / charter juniors** | Textbook **extermination**; occasional bounty poster **nobody takes seriously** |
+| **NS+ / elders / envoys** | Withdrawal was real; gorge **still there**; cells still **wake** for harvest |
+| **Immortals** | Mutual **don’t poke** — cult immortal(s) dormant; waking gorge risks dragon **and** sect coalition |
+
+**Operational today:**
+
+- **HQ** — gorge **sealed**, patriarch court in **long meditation / caretaker mode** (not crusading).
+- **Branches** — **mostly sleeping**; zone table below = *potential*, not active war fronts.
+- **Activity** — **shadow only**: false-flag raids, lone corrupted cultivators, clinic fronts — never mass banners.
+- **Code seed:** `dustbone_caravan` demonic ambush reads as **random demon** to low-rep NPCs; elder dialogue can **name** the cult for players who earn war lore.
+
+### Memory fade (design intent)
+
+**Why lower ranks forget:** (1) **propaganda** — “we won”; (2) **time** — centuries since Great Draught; (3) **shame** — sects don’t teach joint-operation stains; (4) **cult policy** — silence is survival. **Horror beat:** realizing the nursery rhyme **names real array sites** on the Heartlands map.
 
 ---
 
@@ -207,10 +243,10 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
 | Role | Name *(working)* | Realm (public) | Notes |
 |------|------------------|----------------|-------|
-| **Sect spine** | **The Heavenly Demon** (天魔) | **Immortal** | Current vessel **unknown**; speaks through blood mirrors |
-| **Patriarch** | **Mo Xuan** (魔玄) | VR peak | “Demon Profound”; runs Cauldron Hall |
+| **Patriarch** | **Mo Xuan** (魔玄) | VR peak *(publicly “dead” in textbooks)* | **Caretaker of dormancy** — speaks only to inner court; not building an empire |
+| **Sect spine** | **The Heavenly Demon** (天魔) | **Immortal** — **dormant** | Withdrawal-era vessel; sleeps in Demon Lord Pit; wake = continental crisis |
 | **Cauldron Elder** | **Elder Hong Lian** (红莲) | NS peak | Harvest formations; player quest giver |
-| **Heartlands envoy** | **Envoy Chi** (赤使) | Core+ | Road raids; `caravan_demon` voice |
+| **Heartlands envoy** | **Envoy Chi** (赤使) | Core+ | **Sleeper** on the road; `caravan_demon` may be cult-tagged or a copycat — ambiguity for low ranks |
 | **Longcheng** | **“Dr. Wen”** clinic | Mortal cover | Recruits desperate patients |
 
 **Succession:** patriarch who fails a **Century Cauldron** audit may be **devoured** by inner court — strengthens the next Demon vessel.
@@ -234,14 +270,14 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
 | Phase | Fiction | Systems |
 |-------|---------|---------|
-| **P0** | Ambush on caravan road; bounty posters in Celestial Market | Quest text; `caravan_demon` |
-| **P1** | Expose a branch cover; earn sect rep or demon rep | Zone events; alignment shifts |
-| **P2** | Sworn Outer Demon — `blood_fiend` lineage, illegal market | Sect join alternate; `reqAlignment` rebellious |
-| **P3** | Raid Blood Sealing Gorge instance | Coalition or solo; high corruption risk |
-| **P4** | Heavenly Demon Scripture beat | Immortal-layer story; tribulation amplification if stained |
+| **P0** | Ambush feels like “random demon”; merchant Su has **no** cult vocabulary | `caravan_demon`; generic copy |
+| **P1** | Chronicle / elder clue — **Victory of Azure Sky** doesn’t add up | Lore items; `reqRealm` or fame gate |
+| **P2** | Name **Heavenly Demon Cult**; trace one **sleeping** branch | Zone investigation; alignment |
+| **P3** | Gorge **not** empty — Withdrawal was a seal, not a grave | Raid or approach stealth |
+| **P4** | Half-Step / Sleeping Dragon beat — why they’re still afraid to wake fully | Immortal-layer story |
 
-**Join fantasy:** power fast, world hates you, mentors treat you as **inventory** until you’re dangerous.  
-**Hate fantasy:** cleanse the gorge; rescue thralls; break arrays.
+**Join fantasy:** you found the thing **grandfather lied about**.  
+**Hate fantasy:** prevent the **second Great Draught** when charter wars heat up.
 
 ---
 
@@ -255,12 +291,14 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
 ## Open questions
 
-- [ ] **Fifth great power?** — cult as strong as four but **unchartered**, or tier below until immortal beat?
-- [ ] **Player patriarch** — ever, or forever NPC throne?
-- [ ] **Phoenix overlap** — does Phoenix **deep** manual share blood-rebirth with cult, or stay flame-only?
-- [ ] **Name in UI** — full **Heavenly Demon Cult** vs regional “blood sect” before reveal?
+- [ ] **Victory of Azure Sky** — official name for fake annihilation battle? Which sect gets credit on textbooks?
+- [ ] **Half-Step demonstration** — one army unmade (public myth) vs **private** gorge-scar (cult knows)
+- [ ] **Sleeper activation** — what **in-world** event wakes cells (Phoenix Gambit? charter war? player)?
+- [ ] **Player patriarch** — ever, or forever NPC throne while immortal sleeps?
+- [ ] **Phoenix overlap** — stolen rebirth/blood rites from war era only, or ongoing theft?
+- [ ] **Name in UI** — keep **天魔教** hidden until P2; show as “corrupted cultivator” / “blood bandit” first?
 - [ ] **Blood Servant** mortals — playable horror, or NPC-only?
-- [ ] **Imperial double game** — does Tian **Secret Service** run a demon cell for deniable work?
+- [ ] **Imperial double game** — does Tian court **know** gorge survives and prefer dormant devil to waking dragon **and** demon?
 
 ## Implementation crumbs
 

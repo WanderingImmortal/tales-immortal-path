@@ -55,9 +55,9 @@ Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **I
 
 | Power | One-line | Notes |
 |-------|----------|-------|
-| **Heavenly Demon Cult** | Blood, harvest, hidden branches | HQ **Blood Sealing Gorge**; not a charter great sect | → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
+| **Heavenly Demon Cult** | Blood harvest; **Dao Wars butcher**; dormant since Half-Step | HQ **Blood Sealing Gorge**; public **“extirpated”** fiction | → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 
-Orthodox four hunt it; imperial warrant on paper. Zone cells launder resources and recruits.
+Orthodox four **do not** list them among charter peers. Elders remember the **Great Withdrawal**; juniors think boogeyman.
 
 ### Other zones *(stubs)*
 
