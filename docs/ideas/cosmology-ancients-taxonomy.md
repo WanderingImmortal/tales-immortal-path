@@ -6,7 +6,8 @@
 | **Blocked on** | Grotto content pass; sealed ancient (B) rework; Void prisoner myth lock |
 | **Issue** | none yet |
 | **Chat / PR** | Owner + cloud agent, 2026-07-28 |
-| **Updated** | 2026-07-28 (firmament leak, grotto severance) |
+| **Updated** | 2026-07-28 (pre-heaven cultivator prisoner) |
+| **Status** | `designed` (v3) |
 
 **Intent:** Keep **cool** ideas — pre-heaven anomaly, hidden mentors, sealed sites — without **numbered destruction cycles** and “last epoch’s powerhouse hid in a fragment” (**inspiration ≠ copy** from novels like *Emperor’s Domination*). One **continuous** mortal board under **this** heaven’s rulebook; ancients differ by **how they relate to the rulebook**, not **which apocalypse they survived**.
 
@@ -47,16 +48,16 @@ Same **continuity** from Chaos seal → Dao Wars → mandate. No official settin
 |----------|------------|--------------------|--------------------|--------------|
 | **A — Grotto master** | **This** heaven, **this** ladder | Peak cultivator (often DM/VR+) who **entered a grotto-heaven** — self-sealed, wounded, or **refuses** the post–Dao Wars board | Hidden mentor, wrong manual, time-skewed hermit | Forbidden-ground “Watcher”; future grotto NPCs — **not** Void prisoner |
 | **B — Sealed ancient** | **This** heaven | Immortal or near-immortal **bound by oath, site, or tribulation failure**; **can** be killed in fiction with effort | Dungeon boss, lore drop, seal quest | Sealed ancients in explore; observatory shards |
-| **C — Unclassified** | **Outside or before** taxonomy applies | **Not** “epoch 7 cultivator” — entity **never registered** on the ladder: firmament leak, chaos **remnant**, pre-rulebook **thing** | Cosmic horror, redacted archives | **Void Prisoner** — **one** flagship; no roster of ten |
+| **C — Pre-ledger apex** | **Before ledger** applies to **method** | **One** pre-heaven **cultivator** — person, not epoch roster | Mandate dread, Void prison | **Void Prisoner** only at apex |
 | **D — Mortal-scale legend** | **This** era, **local** law | Chaos-touched **mortal** history, not continent ceiling | Dustbone entropy, oasis pin | Pinwright / Return-to-Dust |
 
 **Grotto masters vs Void prisoner (owner confusion resolved):**
 
 | | **Grotto master** | **Void prisoner** |
 |--|-------------------|-------------------|
-| Cultivation | **Current** qi ladder, current tribulation scars | **Different track** / **no** ladder idx |
+| Cultivation | **This** ladder (severed) | **Pre-Ledger Way** — pre-heaven **person** |
 | Why hidden | **Chose** grotto, array, or exile | **Imprisoned** — cannot be released casually |
-| Relation to Tian Half-Step | Peers **could** have been DM-era contemporaries | **Irrelevant** — not competing on Half-Step |
+| Relation to Tian Half-Step | Peers **could** have been DM-era contemporaries | **Different path** — not Half-Step competition |
 | Count | Many **possible**, most undiscovered | **One** (policy) — don’t spawn a second |
 
 So: grotto masters **do** belong to **this time of heaven** — that **makes sense**. The prisoner is **not** a grotto master who stayed too long; it’s **category C**.
@@ -72,65 +73,17 @@ So: grotto masters **do** belong to **this time of heaven** — that **makes sen
 | **Pre-heaven** | Off-ledger, unclassified, or from **outside the firmament shell** | “Survivor of Desolate Eight” |
 | **Pre-heaven cultivator** (Void doc shorthand) | *Parked wording* — prefer **unclassified entity** in new writing | A cultivator who maxed the old ladder |
 
-**Void Prisoner (refined v1):**
+**Void Prisoner (locked v2 — owner 2026-07-28):** **Human pre-heaven cultivator** — walked **Pre-Ledger Way** after the Seal; **cannot** be killed on ledger terms; **one** full peer. Detail: [`void-temple-sect.md`](void-temple-sect.md).
 
-- **Not** an epoch emperor in storage.
-- **Possible natures** (pick one later; don’t stack all):
-  - **Firmament leak** — intelligence from **outer void** that **entered** when the shell was **stitched** ([`post-immortal-cosmology.md`](post-immortal-cosmology.md) Seal myth).
-  - **Chaos remnant** — not a **walker**, a **splinter** that **couldn’t** be sorted into current Dao when order hardened.
-  - **Failed classification** — heaven tried to **register** it once; entry **rejected**; thing kept existing.
-
-Binding story stays: **DM void-gate engineer** builds **lock**, not **wins duel** ([`void-temple-sect.md`](void-temple-sect.md)).
+> **Superseded:** firmament-leak / chaos-remnant hybrid and § *One face, two origins* — archived below for git history; **do not** use in new writing.
 
 ---
 
-## Void prisoner — **firmament leak** vs **chaos remnant** (elaboration)
+## ~~Void prisoner — leak / remnant~~ *(superseded — do not use)*
 
-Pick **one primary** myth for the flagship prisoner; the other can be **sect rumor** or **inner truth**. Do **not** make the prisoner a grotto master or a failed ascension — category **C** only.
+Owner **redrew** the prisoner as a **human pre-heaven cultivator** (2026-07-28). Canonical detail: [`void-temple-sect.md`](void-temple-sect.md). Old firmament-leak / hybrid material removed from this file to avoid drift; recover from git history if needed.
 
-### Shared cosmology (both options use this)
-
-[`post-immortal-cosmology.md`](post-immortal-cosmology.md) **Seal** myth (default): primordial Chaos was forced into **order**; the sky had a **wound**; early “immortals” **stitched** the firmament shut using mortal fortune as thread. The **firmament** is the **shell** between **mortal play** and **outer void** ([`void-temple-sect.md`](void-temple-sect.md) diagram). Stitching was **successful but imperfect** — the continent runs on **inertia**, not a perfect machine.
-
-The prisoner is **not** “someone who cultivated wrong.” It is **debris of the stitching** or **something that slipped through the needle hole**.
-
-### Option 1 — **Firmament leak** (外虚渗)
-
-| Lens | Detail |
-|------|--------|
-| **What it is** | Intelligence (or **pseudo-life**) from **outside the shell** — native to **outer-void** conditions, not born on the mortal ladder. |
-| **How it arrived** | During or after the Seal, a **pinhole** opened at the firmament edge — pressure, botched stitch, or Seeker-era gate experiment *(parked)*. The leak **entered**; heaven’s categories **have no drawer** for it. |
-| **Why it can’t die** | Killing assumes **in-board** soul / qi / cycle bookkeeping. The leak **isn’t on the books** — attacks **disperse** it, banishment **pushes** it along the shell; it **re-coheres**. |
-| **Why Void Temple** | Their lineage is **firmament / void-gate** — the only institution that treats the **shell** as engineering. Prison = **void pocket** **inside** the board that **references** outer geometry — a **drain trap**, not a duel win. |
-| **Personality / voice** | **Alien** — geometry, hunger without human grudge; Little Heaven as **joke** because it understands “heaven” as **cage label**. |
-| **Tie to Tian / Half-Step** | Tian broke the **ladder** ceiling **inside** the shell. The leak **doesn’t care** about Half-Step — different axis. Half-Step demonstration **hurt** demon armies on the board, not **unmade** the leak. |
-| **Chaos path** | **Not** a Chaos mentor. Chaos walkers **unregister** from heaven; the leak **was never registered**. Parallel “off-ledger” — don’t merge arcs. |
-| **If this is primary** | Endgame cosmic horror leans **void / Court / firmament**; Seeker’s hunt in outer void is **related work** (plug siblings of the leak). |
-
-### Option 2 — **Chaos remnant** (混沌残缕)
-
-| Lens | Detail |
-|------|--------|
-| **What it is** | Not a **Chaos cultivator** and not a **walker** — a **splinter** of **pre-order** stuff left over when Dao **hardened** into law. Smaller than “primordial Chaos”; bigger than a curse. |
-| **How it arrived** | Order **almost** sorted everything; this piece **refused categorization** — like a **syntax error** in the new rulebook that **kept executing**. |
-| **Why it can’t die** | Destroying it would **tear** the local rulebook — heaven **implicitly** tolerates **containment** over **deletion** (same family as Seal tradeoffs). |
-| **Why Void Temple** | Watchers are **script lawyers** — they **quarantine** what the mandate **cannot prose**. Archive Oath: mandate won’t **force unseal** without witness. |
-| **Personality / voice** | **Seductive** — offers “truth **before** Dao,” whispers that **order is a patch** (rhymes with player Chaos reveal **without** teaching Chaos). |
-| **Tie to Tian / Half-Step** | Tian **embodies** the new ceiling **inside** order. Remnant **remembers** before the patch — ideological enemy of mandate, not martial peer. |
-| **Chaos path** | **Thematic rhyme** — player Chaos is **chosen** unregistration; remnant is **accidental** survival of the old medium. Grotto masters who **stepped** toward Chaos are **cousins in story**, not allies. |
-| **If this is primary** | Endgame leans **Chaos / siphon reveal**; prisoner foreshadows “the Dao was **stitched**” without being the **Architect** of the siphon. |
-
-### Comparison at a glance
-
-| | **Firmament leak** | **Chaos remnant** |
-|--|-------------------|-------------------|
-| **Metaphor** | Fish from **outside the aquarium** | **Glitch** left when the aquarium rules were compiled |
-| **Void Seeker** | Central — same **jurisdiction** | Adjacent — **legal** containment |
-| **Player emotion** | Dread, alien | Dread, **temptation** |
-| **Copy-paste risk** | Low (not epoch human) | Low if **not** a named “Desolate” |
-| **Hybrid** | Leak **infested** by a remnant — one prisoner, two layers | Use sparingly; one voice in UI |
-
-**Owner decision (open):** leak = **cosmic engineering** game; remnant = **philosophical** Chaos foreshadow. **Recommendation:** **leak primary**, remnant as **what leaked in** (hybrid light) — keeps Void Temple special without making prisoner a Chaos tutorial NPC.
+---
 
 ---
 
@@ -224,7 +177,7 @@ Forgotten = **institutional + karmic fade**, not mass mind wipe.
 
 ## Open questions
 
-- [ ] Void prisoner: **leak primary** vs **remnant primary** vs **leak + remnant** hybrid?
+- [x] Void prisoner: **pre-heaven cultivator** — void-temple v2
 - [ ] **Heaven-path severance** — formal rite name in UI or lore-only until Chaos ships?
 - [ ] Can severed grotto master **re-register** (story cost) or permanent NPC class?
 - [ ] **Sealed ancients (B)** — full rework: seal vs severance vs site-bound *(next pass)*

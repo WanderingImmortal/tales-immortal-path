@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v1 — prison spine + Void Seeker) |
+| **Status** | `designed` (v2 — prisoner redraw) |
 | **Blocked on** | Lineage manual implementation; gate travel mechanics; prisoner track design |
 | **Issue** | none yet |
-| **Chat / PR** | Heartlands sect pass, 2026-07-23 |
-| **Updated** | 2026-07-28 (timeline vs Tian Half-Step) |
+| **Chat / PR** | Heartlands sect pass, 2026-07-23; prisoner redraw 2026-07-28 |
+| **Updated** | 2026-07-28 (pre-heaven cultivator) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`jade-lotus-sect.md`](jade-lotus-sect.md), [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
@@ -21,12 +21,12 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperi
 | | |
 |--|--|
 | **Vibe** | Ancient seal-keepers — silence, star charts, and a lock nobody wants tested. |
-| **Purpose** | Maintain **Void Prison** — contain a **nameless pre-heaven prisoner** who cannot be killed |
+| **Purpose** | Maintain **Void Prison** — contain a **pre-heaven cultivator** the great sects **dare not** release |
 | **Path** | **Qi-primary**; **firmament / void-gate lineage** — approaches the sky-edge without falling off the board |
 | **Lineage** | *Stub* — ancient arts categories below; `lineageId` TBD |
 | **Outer heart** | **Hanging Star Observatory** (悬空星观) — real disciples, archives, gates; **not** the true core |
 | **True core** | **Void Prison** (虚空狱) — pocket realm; prisoner calls it **Little Heaven** (小天堂) |
-| **Sect immortal** | **The Void Seeker** (寻虚仙) — epithet only; built the prison; **in the outer void** hunting an end |
+| **Sect immortal** | **The Void Seeker** (寻虚仙) — bound the prisoner; **Immortal warden**; hunts a **final seal** beyond the firmament |
 | **Public admin** | **Duty Patriarch** (执宗) — rotating senior VR; **job**, not throne |
 | **Player-facing adept** | **Adept Silent Moon** — branch scholar *(code: `faction_void_adept`)* |
 | **Network** | **Void Gates** — formation portals; confirmed major cities + rumored extras |
@@ -52,39 +52,66 @@ Planet-scale cosmology **parked** — continent + firmament is enough for v1.
 
 ## History
 
-### Before the mandate
+### Before the mandate — why the Temple exists
 
-The Void Temple predates every other Heartlands great sect in its **current duty**. They were not founded to teach the jianghu — they were founded to **hold something**.
+The Void Temple predates the other Heartlands great sects in its **current duty**. It did not rise as a jianghu school first — it **became** a great power by doing one job nobody else could finish: **hold him**.
 
-A **pre-heaven** entity — **unclassified**; outside current heaven’s taxonomy *(see [`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md) — **not** an “epoch survivor” or last era’s cultivator)* — could not be destroyed. Killing failed. Banishment failed. The one who would become the **Void Seeker** bound it in a **void pocket**: **Void Prison**.
+#### What “pre-heaven cultivator” means (not cosmic horror)
 
-The prisoner, with black humor, named it **Little Heaven** (小天堂). The name stuck in inner court.
+**Pre-heaven** here means **before this heaven’s cultivation ledger** — not “before the universe,” not an alien species, not a numbered **previous epoch**.
+
+| When | What changed |
+|------|----------------|
+| **Primordial Chaos** | No stable Dao rulebook — power is raw. |
+| **The Seal** | Chaos forced into **order**; the **firmament** stitched; **heaven’s accountant** begins — tribulation, registration, cycles as the continent learns them today ([`post-immortal-cosmology.md`](post-immortal-cosmology.md)). |
+| **After** | Most cultivators walk paths that **answer** to the ledger. |
+
+The **prisoner** is a **person** — human lineage, memory, grudges, speech — who **kept cultivating** the **Pre-Ledger Way** (先天路) (or **Ante-Dao Canon**, 先典) after order hardened: methods that **do not bind** to today’s tribulation categories and **do not die** on the ledger’s terms. He is **not** Lovecraftian horror; he is **what the jianghu would become** if enough people learned to **ignore heaven’s receipt printer**.
+
+**He is not** Tian’s peer on the **Half-Step** ladder. He **never stood at that gate** on those terms. He is **older in doctrine**, not necessarily older in birth year than every living elder.
+
+#### What created the crisis
+
+At **peak** (Dao Manifestation or equivalent on the **pre-ledger** scale — **not** Immortal Ascension as mandate counts it), he **threatened the board**:
+
+| Threat | Who cared |
+|--------|-----------|
+| **Teaching** the Pre-Ledger Way at scale | Every sect with a **lineage** to protect |
+| **Unstitching** local order — veins, oaths, small arrays **reverting** to pre-Seal behavior | **Jade Lotus** (register / marriage oaths); charter precursors |
+| **Refusing** any **register** of his kills or bargains | Mandate precursors; later **Tian** mythographers |
+| **Beating** orthodox peak cultivators **without** ledger backlash | **Celestial Sword** — heirs lost in suppression wars *(recorded honestly on the mountain)* |
+| **Mocking** “renewal under law” | **Golden Phoenix** — ideological enemy before flame was politics |
+
+He could **not** be **executed** in a way that **stuck** — decapitation, soul scatter, banishment to the wastes: the Pre-Ledger body **reasserts** because heaven’s **death entry** does not apply. Killing him is like **deleting a file heaven never saved**.
+
+#### The coalition of the lock (v1)
+
+**Void Temple** (then the **Watch** — proto-sect) was the **engineer**: void pockets, firmament gates, **Little Heaven** prison. They spent **vast** resources — not a side quest — and **never stopped**.
+
+**At least one great sect feared release enough to fund the lock permanently:**
+
+| Sect | Fear *(locked: Lotus primary sponsor)* |
+|------|----------------------------------------|
+| **Jade Lotus** | Release **invalidates** oath-register logic at scale — their **sovereignty** is paperwork plus array; he is **walking loophole** |
+| **Celestial Sword** | **Secondary** — supports lock; remembers dead heirs; does not sermonize |
+| **Golden Phoenix** | **Secondary** — hates what he represents; would burn him but **cannot** finish |
+| **Void Temple** | **Host** — entire identity is **warden duty** |
+
+Dao Wars later: Temple **silent** because **rupturing** Little Heaven was worse than choosing Tian or Phoenix ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)).
+
+#### The Void Seeker’s role
+
+The one who became **Void Seeker** was **Dao Manifestation**, void-gate lineage — **not** stronger than the prisoner in open battle. He **bound** him in **Void Prison**, then **ascended** to **Immortal** (restricted) to **guard** the lock — **dedicated immortal**, not a hidden second emperor.
+
+Today he ranges the **outer void** seeking a **true end**: a seal that does not need eternal Watch, or a way to **finish** what execution could not. He **returns** when the prisoner **tests** the walls or when firmament stress spikes. **Guarding existence** = **keep him inside** + **keep fools outside**.
+
+The prisoner named the pocket **Little Heaven** (小天堂) — black humor. Inner court uses epithets; **true name redacted** *(working hanzi parked)*.
 
 ### Timeline vs “first Half-Step” (Tian founder)
 
-**Problem:** [`imperial-clan.md`](imperial-clan.md) says the Tian founder was the **first** to reach **Half-Step Immortal** on the continent. Void Temple has a **pre-heaven prisoner**, an **Immortal-tier** Void Seeker, and claims to predate other Heartlands sects. That only feels tacky if **“first Half-Step”** is read as **“nothing stronger ever existed”** or **“the Temple hid a second dragon.”**
+Unchanged precision: Tian = first **public Half-Step** on the **mandate ladder**. Prisoner = **pre-ledger cultivator** — different **paperwork**, not a secret Half-Step. Void Seeker ascended **without** claiming that watershed. See table in prior revision — still valid.
 
-**Locked precision (owner 2026-07-28):**
-
-| Statement | What it actually means |
-|-----------|-------------------------|
-| **Tian = first Half-Step** | First soul on the **current mortal qi ladder** to **stand at heaven’s gate** in **recorded, board-shaking history** — the Capital Turn, mandate, public ceiling. |
-| **Prisoner ≠ ladder cultivator** | **Pre-heaven** — **outside** today’s heaven rulebook; not a secret Half-Step, not “another immortal nobody mentioned.” May **predate** current heaven’s accounting or use a **different track** *(parked)*. “Immortal-tier” in archives means **cannot be killed**, not **idx 8 on the nine-realm chart**. |
-| **Temple ≠ hidden war sect** | Ancient **duty** — **Watch**, scripts, void pockets, firmament gates. Power is **seal engineering**, not a second continental hegemon. Jianghu barely knew they existed until **Archive Oath**. |
-| **Void Seeker ≠ sleeping Tian rival** | **Absent** warden (outer void), not a closeted emperor. When he was on the board, he **finished** what killing could not — **bind** — then **left** maintenance to the Watch. |
-
-**How the prisoner got there (v1):**
-
-1. **Anomaly appears** — **unclassified** entity at the **firmament** edge (firmament leak / chaos remnant — **not** “previous cycle’s powerhouse”). See [`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md).
-2. **Kill / banish fail** — current heaven’s rules **do not dispose** of it cleanly.
-3. **Binder** — the one who becomes **Void Seeker** is **Dao Manifestation** (void-gate / firmament lineage), **not** Half-Step and **not** stronger than the prisoner in a fair fight. Victory is **void pocket + prison architecture** — a **lock**, not a duel tier list.
-4. **Ascension later** — he **later** completes **Immortal Ascension** (restricted, void-aligned) **in obscurity** while **tending** the lock — **after** the binding, possibly **before or after** the Dao Wars, but **never** as a public Half-Step spectacle. Tian still owns **first Half-Step** because that is a **named watershed** on the **mandate ladder**, which the Seeker **did not claim** and the prisoner **never belonged to**.
-
-**If chronology nitpicks:** Void copyists argue whether the Seeker **ascended** a century **before** or **after** Tianjing. **Mandate textbooks:** Tian first at the gate. **Temple tablets:** the Seeker **ascended without teaching the world to count**. Both can be true if **Half-Step** is the **public** measure and void ascension was **silent**.
-
-**What the Temple is “old” from:** the **Watch** and **prison duty** — generations of **non-immortal** wardens, VR-heavy pipeline, scripts that **outlive** any one binder. The Seeker is **famous** to insiders; the institution’s age is **the lock**, not “we always had an immortal on staff.”
-
----
+**Superseded:** firmament-leak / chaos-remnant **hybrid** prisoner — owner redraw 2026-07-28 ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)).
 
 ### Dao Wars — silent for the seal
 
@@ -115,21 +142,33 @@ He has **not** retired. He **returns through gates** when the seal strains. Some
 
 ---
 
-## The seal — nameless prisoner
+## The seal — the prisoner (pre-heaven cultivator)
 
 | Field | Value |
 |-------|-------|
-| **Name** | **None** on record — epithets only (e.g. **Guest of Little Heaven** 小天堂客) |
-| **Nature** | **Hybrid unclassified** — **firmament leak** wearing a **chaos-remnant** “person mold”; **not** a cultivator ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md) § One face, two origins) |
-| **Appearance** | **Humanoid** — reads as elder at distance; **wrong** up close (light, breath, wounds) |
-| **Personality** | **One** mind — dry, articulate, bitter humor; remnant **tone** + leak **calm**; bargains inner court only |
-| **Lifespan** | At least **immortal-tier**; may be longer |
-| **Durability** | Extreme — **sealing** because destruction is not feasible |
-| **Cultivation** | Separate track *(parked — not player-facing in v1)* |
+| **Name** | **Redacted** in all sect archives — epithet **Guest of Little Heaven** (小天堂客); true name **parked** for owner |
+| **Nature** | **Human cultivator** — **Pre-Ledger Way** / Ante-Dao; **person** with identity; **not** on mandate ladder; **not** killable on ledger terms |
+| **Appearance** | **Human** elder — cultivator’s bearing; no alien uncanny valley *(unless seal strain — parked)* |
+| **Personality** | **Real** — memory, pride, bargains; dry humor about “heaven”; **dangerous teacher** if he speaks |
+| **Why sealed** | Great sects (esp. **Lotus**) fear **release** more than his death — he breaks **oath-register** logic at scale |
+| **Lifespan** | Functionally **unending** under pre-ledger rules |
+| **Durability** | Orthodox **finish** does not **stick** — only **void prison** + eternal Watch |
+| **Cultivation** | **Pre-Ledger** manual family *(parked — not player v1)* |
 | **Prison** | **Void Prison** / **Little Heaven** (小天堂) |
-| **Voice** | Rare; inner court only; bargains **not** like tourist sealed ancients |
+| **Voice** | Rare; inner court only; **not** tourist sealed-ancient loot |
 
-**Jianghu confusion:** rumors of “the Void Temple’s immortal” often **conflate** prisoner and Void Seeker. Insiders know there are **two** immortal-tier problems.
+### Do any more exist?
+
+| Tier | Policy |
+|------|--------|
+| **Full peer** | **One** — the prisoner. **Do not** add a second Little Heaven without owner pass. |
+| **Fragments** | **Failed disciples** or **partial** pre-ledger texts — **sealed ancients (B)** at sites; killable with effort; not the same threat |
+| **Rumors** | Jianghu claims “another pre-heaven immortal” — **Void + Lotus** deny; may be **grotto master** or **sealed ancient** mislabeled |
+| **Grotto masters** | **Different** — severed **this-era** ledger ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)); not Pre-Ledger apex |
+
+**Why not a roster of ten:** pre-ledger apex **teaches**; one nearly broke the board; the sects **paid** to ensure there is **not** a graduating class.
+
+**Jianghu confusion:** rumors conflate prisoner and **Void Seeker**. Insiders know **warden** vs **prisoner**.
 
 ---
 
