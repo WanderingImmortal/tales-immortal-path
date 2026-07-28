@@ -66,7 +66,7 @@ What followed is **not** denied in Phoenix records:
 
 1. **Seven Days of Weight** — the Half-Step **held Tianjing**; the continent **felt** the new ceiling; Phoenix **regrouped** for **Realm Reforge** (#8).
 2. **Ember Crown Plain** (烬冠原) — second great muster; last flame gamble.
-3. **Execution** — the founder **did not** honor-duel the paragon. The **Flame Emperor** was **killed before both armies** — demoralization and **mandate** in one act. Pride **forbids** calling it assassination; inner court calls it **judgment**.
+3. **Execution** — the founder **did not** honor-duel the paragon. He **arrived** wielding an **Immortal-path** art — or so close the continent had no taxonomy — and **killed the Flame Emperor before both armies** in **one gesture** of that technique. Demoralization and **mandate** in one act. Pride **forbids** calling it assassination; inner court calls it **judgment**.
 
 When he fell, his **younger brother** took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
 

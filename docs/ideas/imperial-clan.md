@@ -30,7 +30,11 @@ The **Dao Wars** (道战 — working name) — sects and rising powers tore the 
 
 The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first to touch the gates of true immortality. The wars ended **swiftly** under that might: not a century of siege, but a **single grand stage** where the board learned a new ceiling.
 
-**Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — Tianjing siege and garden walk; **Seven Days of Weight**; **Flame Emperor executed** at Ember Crown Plain; Sword recede; Lotus neutral; Void silent.
+**Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — Tianjing siege and garden walk; **Seven Days of Weight** (contemplative founder); **Dragon’s Edict** (龙敕) at **Ember Crown**; Flame Emperor executed; Sword recede; Lotus neutral; Void silent.
+
+### The founder at war (locked sketch)
+
+**Contemplative dragon:** after Tianjing, **seven days** of stillness inside the clan city — measuring Half-Step, not gloating. At **Ember Crown Plain**, he **arrived** with **Dragon’s Edict** — first named glimpse of **Immortal-path** power on the mortal board; **Flame Emperor** fell to **one gesture**, not a duel. That memory is why regents later prefer the founder **sleeping**: every open walk accrues **heaven’s debt**.
 
 *(Older immortals among the top sects may remember the clan's **original name** and older sins. They do not dwell on it in public.)*
 

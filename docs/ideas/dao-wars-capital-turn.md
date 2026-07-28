@@ -6,7 +6,7 @@
 | **Blocked on** | Capital name lock ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)); chronicle entries |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent + owner, 2026-07-28 |
-| **Updated** | 2026-07-28 (v3 — Seven Days, Flame Emperor execution) |
+| **Updated** | 2026-07-28 (v4 — contemplative dragon, Immortal-path technique) |
 
 **Intent:** One **grand stage** where the Dao Wars **turned** — Half-Step breakthrough, coalition assault on the Tian heartland, and the **aftershocks** each great sect still lies about. Parent: [`imperial-clan.md`](imperial-clan.md). Demon fallout: [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
@@ -93,7 +93,7 @@ No pause — Half-Step **pursues** while coalition lines are **broken**. At the 
 | **Crown the self** | Mandate is born: *the board has one hand that can **kill** kings* |
 | **Personality** | No theatre — **accounting** |
 
-### Fork C — **Merged (parked canon)** — weight, then execution
+### Fork C — **Merged (canon)** — weight, then execution
 
 Combines the **psychological week** with the **public execution** at the **second great site**:
 
@@ -114,9 +114,18 @@ Tianjing garden walk
 | **Why execution?** | Flame Emperor already **tested** the gate at Tianjing; second chance is **political**, not martial — refusal → **example** |
 | **Sword distance** | Sword Ancestor **already** on the mountain — execution is **Phoenix–Tian** finale; Sword chronicles note it without glory |
 
-**Founder personality (locked sketch):** not a cackling tyrant — **cold inevitability**. The week is **quiet** (Tianjing’s bells stopped, qi like before rain). Execution is **short** (one gesture, no speech marathon). Later **sleeping dragon** myth reframes the week as mercy that never came.
+**Founder personality (locked):** **contemplative dragon** — the **Seven Days of Weight** are not theatre or cruelty for sport. Tianjing goes **quiet** (bells stopped, qi like pressure before rain). The founder **learns** what Half-Step **is**: heaven’s weight, debt on the senses, a realm they believe **no one** has stood in before. Chroniclers call it **stillness more terrifying than rage**. Later **sleeping dragon** myth reads the week as the last time he **fully measured** the gate before he chose to **sleep** rather than **rule by walking the world**.
 
-Phoenix inner court: **records all of it** — injury at Tianjing, seven days, execution — pride **forbids** denial ([`golden-phoenix-sect.md`](golden-phoenix-sect.md)).
+**Ember Crown — Immortal-path technique (locked):** When the founder **arrived** at the plain, he did not fight like a peak Dao Manifestation with bigger numbers. He **wielded one art** — **Immortal Path** proper, or so close the continent had **no name** for it — the first public glimpse of **what lies past the gate**. Formation lines **did not break** so much as **fail to apply**; flame law **could not seat** on the board. The **Flame Emperor’s execution** is remembered as **one gesture of that art** — not a duel sequence, not a weapon showcase — **judgment** expressed in a technique mortals would later call *pre-immortal* or *half-heaven*. Phoenix records **do not** name the form cleanly; Void archives **redact** the syllables.
+
+| Who remembers what | Detail |
+|--------------------|--------|
+| **Phoenix** | “He **arrived** with **heaven’s technique**”; execution indistinguishable from **end of Realm Reforge** hope |
+| **Sword** | One line in the mountain annals: *the sword is a line; that day was a **plane*** |
+| **Tian myth** | **Dragon’s Edict** (working name: 龙敕) — not taught; not in player manuals v1 |
+| **Void** | Copyists argue whether it was **true** Immortal Path or **Half-Step** wearing one **borrowed** heaven stroke |
+
+Phoenix inner court: **records all of it** — injury at Tianjing, seven days, arrival technique, execution — pride **forbids** denial ([`golden-phoenix-sect.md`](golden-phoenix-sect.md)).
 
 ---
 
@@ -152,7 +161,8 @@ Phoenix inner court: **records all of it** — injury at Tianjing, seven days, e
 
 ## Open questions
 
-- [ ] **Founder tone:** more Fork A (contemplative week) or predatory week — same events, different chronicle voice?
+| **Founder tone:** **contemplative dragon** (locked) — see Fork C |
+| **Immortal-path technique at Ember Crown** (locked) — working Tian name **Dragon’s Edict** (龙敕); redacted in Void copies |
 - [ ] **Ember Crown Plain** — map node near caldera vs one-off chronicle only?
 - [ ] Named **minor clans** still extant post-war (owner: later)
 - [ ] Chronicle: playable beat at Tianjing vs Ember Crown vs elder dialogue only?
