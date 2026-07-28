@@ -5,14 +5,13 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-07-28
 
 ## Focus
-- Dustbone QC alchemy + explore field triangle (docs re-parked) — [`dustbone-qc-alchemy.md`](ideas/dustbone-qc-alchemy.md) · owner naming 3 store-fills
+- Dustbone starter gameplay hub (QC area depth before other zones) — [`dustbone-starter-gameplay.md`](ideas/dustbone-starter-gameplay.md)
 
 ## Next
-- Playtest QC gather pacing vs Peak ~45–50 inferior — [`qi-condensation-depth.md`](ideas/qi-condensation-depth.md)
-- QC cultivate-on-clock (Phase 3) — [`qc-cultivate-excitement.md`](ideas/qc-cultivate-excitement.md) · clock P2 **merged** [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86)
-- Explore field sites implement chunk (when Issue opened)
+- Child slices: alchemy ([`dustbone-qc-alchemy.md`](ideas/dustbone-qc-alchemy.md)) · field sites ([`explore-field-gathering.md`](ideas/explore-field-gathering.md)) · cultivate Phase 3 · pacing playtest
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
-- Dustbone surroundings (owner) — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
+- Other zones’ full books — **after** Dustbone feels decent
+- Dustbone surroundings polish — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 
 ## Parked (return later)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)

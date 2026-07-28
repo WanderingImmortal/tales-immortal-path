@@ -2,17 +2,19 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (names + society lean locked) |
+| **Status** | `designed` (alchemy child of Dustbone starter hub) |
 | **Blocked on** | Field sites dropping these mats; cultivate timed-buff plumbing; store-fill pill hook |
 | **Issue** | none yet |
-| **Chat / PR** | Design chat 2026-07-27 · re-parked 2026-07-28 · names lock · [PR #89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
+| **Chat / PR** | Design chat 2026-07-27 · names lock · [PR #89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
 | **Updated** | 2026-07-28 |
+
+**Hub (totality):** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) — this file is **only** the QC alchemy book (reagents, recipes, guild/tribe society). Not the whole Dustbone feature list.
 
 Sisters: [`explore-field-gathering.md`](explore-field-gathering.md) · [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) · [`qi-condensation-depth.md`](qi-condensation-depth.md)
 
 ## Intent
 
-Dustbone mortal alchemy is a **local book**: named herbs and ores from Dewcatch Scrub, Ironscar Quarry, and Bonehollow Caverns. Strong expensive **store-fill** pills are an active alternate to AFK Cultivate stance. One universal easy **Qi Restore Pill** tops up spendable qi only. Timed gather buffs stay mild. Tribe specialties keep the three big jumps from all living only in Threshold’s bazaar.
+Dustbone **QC alchemy book** only: named herbs/ores, Qi Restore Pill, Driftburst / Sunscar Burst / Marrowfall store-fills, mild timed buffs, tribe specialty fiction. Broader starter-area gameplay (sites, jobs, cultivate, pacing) lives on the [hub](dustbone-starter-gameplay.md).
 
 ## Growth doctrine (dao of alchemy is limitless)
 

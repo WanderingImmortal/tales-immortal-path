@@ -34,6 +34,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing / Dustbone | `cursor/qc-playtest-fixes` |
 | [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
 | [Explore — field gathering](explore-field-gathering.md) | `designed` (field triangle) | Site tables; enemy pools | — |
+| [Dustbone starter gameplay (hub)](dustbone-starter-gameplay.md) | `designed` (index) | Child slices | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
 | [Dustbone QC alchemy](dustbone-qc-alchemy.md) | `designed` (names locked) | Field drops; cultivate buffs | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Hub starter slice | — |
 | [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |

@@ -8,6 +8,8 @@
 | **Chat / PR** | Owner lock with QC depth 2026-07-26 · remake + field triangle 2026-07-27 |
 | **Updated** | 2026-07-28 |
 
+**Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) — field triangle is one starter loop, not the whole Dustbone pass.
+
 ## Intent
 
 Explore’s job is hunting **different places** for **different loot** and fighting what lives there. Loot tables stay. Scrap pity-stone lottery. QC stones = jobs + sell. Threshold City is a **hub**, not a combat forage zone.
