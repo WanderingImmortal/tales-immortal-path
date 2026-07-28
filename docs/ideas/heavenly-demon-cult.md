@@ -223,7 +223,7 @@ Taught to Outer Demons; inner court adds **Fourth Draught** (parked): *“The De
 
 ## Hidden branches (by zone)
 
-Cells share **doctrine and signals**; differ by **local resource**.
+**Default state: dormant.** Cells share doctrine and signals; wake on **patriarch signal** or local opportunity, then go quiet. Table = specialty when active, not “always on.”
 
 | Zone | Cover identity | Branch name *(working)* | Specialty | Sample hook |
 |------|----------------|---------------------------|-----------|-------------|
