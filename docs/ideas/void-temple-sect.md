@@ -58,9 +58,9 @@ The **Heartlands four** on today’s maps are **not** four siblings born togethe
 
 | Era *(rough)* | Void / Watch | Sword · Lotus · Phoenix |
 |---------------|--------------|-------------------------|
-| **Post-Seal, early ledger age** | **Firmament Watch** (守界) — engineers at the **sky shell**; void pockets; **no** jianghu brand | Mortal kingdoms; **minor** sword schools, trade houses, flame shrines — not yet “great sects” |
+| **Post-Seal, early law** | **Firmament Watch** (守界) — engineers at the **sky shell**; void pockets; **no** jianghu brand | Mortal kingdoms; **minor** sword schools, trade houses, flame shrines — not yet “great sects” |
 | **The binding** | Watch + future **Void Seeker** seal the prisoner — **alone** | **Not involved** — ancestors may not exist as cultivators yet |
-| **Centuries of maintenance** | **Little Heaven** + gate scripts; Watch **shrinks** into secrecy | Schools **rise**, fight, merge; pre-ledger texts **lost** or outlawed |
+| **Centuries of maintenance** | **Little Heaven** + gate scripts; Watch **shrinks** into secrecy | Schools **rise**, fight, merge; **ante-law** manuals **lost** or outlawed |
 | **Dao Wars** | **Silent** — prison first ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) | **Mature** great sects; assault Tianjing; mandate |
 | **Mandate now** | **Archive Oath** — throne **recognizes** prison sovereignty; **does not** claim they built it | Fear **release** in folklore; **no** prison keys |
 
@@ -70,31 +70,33 @@ The **Heartlands four** on today’s maps are **not** four siblings born togethe
 
 #### What “pre-heaven cultivator” means (not cosmic horror)
 
-**Pre-heaven** here means **before this heaven’s cultivation ledger** — not “before the universe,” not an alien species, not a numbered **previous epoch**.
+**Pre-heaven** here means **before heaven’s law bound cultivation this way** — not “before the universe,” not an alien species, not a numbered **previous epoch**.
 
 | When | What changed |
 |------|----------------|
 | **Primordial Chaos** | No stable Dao rulebook — power is raw. |
-| **The Seal** | Chaos forced into **order**; the **firmament** stitched; **heaven’s accountant** begins — tribulation, registration, cycles as the continent learns them today ([`post-immortal-cosmology.md`](post-immortal-cosmology.md)). |
-| **After** | Most cultivators walk paths that **answer** to the ledger. |
+| **The Seal** | Chaos forced into **order**; the **firmament** stitched; **heaven’s law** begins to fix how cultivators **break through**, **die**, and **answer for oaths** ([`post-immortal-cosmology.md`](post-immortal-cosmology.md)). |
+| **After** | Most paths **accept** tribulation and the cycle — the world “knows” you. |
 
-The **prisoner** is a **person** — human lineage, memory, grudges, speech — who **kept cultivating** the **Pre-Ledger Way** (先天路) (or **Ante-Dao Canon**, 先典) after order hardened: methods that **do not bind** to today’s tribulation categories and **do not die** on the ledger’s terms.
+The **prisoner** is a **person** — human lineage, memory, grudges, speech — who **kept cultivating** the **Pre-Ledger Way** (先天路) (or **Ante-Dao Canon**, 先典) after order hardened: an old line that **does not answer** to today’s tribulations and **does not stay dead** when killed the normal way.
+
+**Player-facing language:** say **heaven’s law** / **the cycle** / **oaths under heaven** — not “accountant” or “ledger” metaphors in UI or dialogue.
 
 **He is not** Tian’s peer on the **Half-Step** ladder. He **never stood at that gate** on those terms. His doctrine is **older** than the charter sects’ founding myths.
 
-#### The crime — **Pale Ledger Blank** (苍白册劫) *(working name)*
+#### The crime — **Pale Name-stripping** (苍白册劫) *(hanzi kept; EN: Nameless Basin)*
 
-Orthodox histories **redact** details; Watch tablets are **blunt**. Before the great sects existed, at his peak, he committed an **administrative apocalypse** — not a demonic blood harvest, not a conqueror’s throne.
+Orthodox histories **redact** details; Watch tablets are **blunt**. Before the great sects existed, at his peak, he **unmade a region’s place in heaven’s order** — not a bloodbath for sport, not a conqueror’s throne.
 
 | What he did | Why it mattered |
 |-------------|-----------------|
-| Performed the **Pale Ledger Blank** over a **whole river basin** — tens of millions of mortals and thousands of early cultivators | Heaven’s **register** could **not** record births, deaths, oaths, or tribulation targets in that region |
-| **Taught** Pre-Ledger breathing to elders who **spread** it before Watch could stop them | Victims **did not die on ledger terms** when killed — souls **clogged** local cycle like unflushed ink |
-| Left a **scar** on the firmament stitch near the basin | If he walked free, the **same rite** could be **scaled** — mandate centuries later would be **unenforceable** |
+| Cast **Pale Name-stripping** over a **whole river basin** — tens of millions of mortals and thousands of early cultivators | Heaven **no longer “saw”** births, deaths, broken oaths, or tribulation targets there — as if the basin **had no names** |
+| **Taught** Pre-Ledger breathing; elders **spread** it before Watch could stop them | The dead **did not pass cleanly into the cycle** — souls **backed up** like a blocked river |
+| Left a **scar** on the firmament stitch near the basin | If he walked free, the **same rite** could spread — mandate centuries later would be **unenforceable** |
 
-**Void’s stake:** the scar was at a **shell weak point**. Only **firmament / void-gate** craft could **quarantine** the basin fallout and **bind** the man who could repeat it. The Watch did **not** do this for Sword, Lotus, or Phoenix — those powers **were not yet** the board.
+**Void’s stake:** the scar was at a **shell weak point**. Only **firmament / void-gate** craft could **quarantine** the fallout and **bind** the man who could repeat it. The Watch did **not** do this for Sword, Lotus, or Phoenix — those powers **were not yet** the board.
 
-**His view (inner court only):** heaven **stole** mortality’s freedom when it started **bookkeeping**; he **returned** one basin to **silence**. Prisoner humor: calls Little Heaven **heaven’s receipt drawer** — he’s the **invoice** they can’t void.
+**His view (inner court only):** when heaven’s law **named** every life and death, freedom ended; he **returned one basin to silence**. Prisoner humor: Little Heaven is where heaven **keeps what it cannot unwrite** — he is the mistake that **would not vanish**.
 
 #### Why **only** the Void line guards him
 
@@ -106,7 +108,7 @@ Orthodox histories **redact** details; Watch tablets are **blunt**. Before the g
 | **Seeker** | Binder ascended to **Immortal** as **personal** warden; hunts outer void for **final** seal — still **their** problem |
 | **Others** | Later sects **lack standing** — mandate **recognizes** Void sovereignty via **Archive Oath**; does **not** deputize Sword/Lotus/Phoenix |
 
-**Today’s fear:** Sword, Lotus, Phoenix **inherit horror stories** — Pale Blank, unkillable teacher — and **oppose** release in charter politics. That is **not** the same as **guarding**. Only Void **stands watch**.
+**Today’s fear:** Sword, Lotus, Phoenix **inherit horror stories** — the Nameless Basin, the teacher who **won’t stay dead** — and **oppose** release in charter politics. That is **not** the same as **guarding**. Only Void **stands watch**.
 
 #### The Void Seeker’s role
 
@@ -118,7 +120,7 @@ The prisoner named the pocket **Little Heaven** (小天堂) — black humor. Inn
 
 ### Timeline vs “first Half-Step” (Tian founder)
 
-Unchanged precision: Tian = first **public Half-Step** on the **mandate ladder**. Prisoner = **pre-ledger cultivator** — different **paperwork**, not a secret Half-Step. Void Seeker ascended **without** claiming that watershed. See table in prior revision — still valid.
+Unchanged precision: Tian = first **public Half-Step** on the **mandate ladder**. Prisoner = **pre-heaven cultivator** — different **path under heaven’s law**, not a secret Half-Step. Void Seeker ascended **without** claiming that watershed. See table in prior revision — still valid.
 
 **Superseded:** firmament-leak / chaos-remnant **hybrid** prisoner — owner redraw 2026-07-28 ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)).
 
@@ -158,12 +160,12 @@ He has **not** retired. He **returns through gates** when the seal strains. Some
 | Field | Value |
 |-------|-------|
 | **Name** | **Redacted** in all sect archives — epithet **Guest of Little Heaven** (小天堂客); true name **parked** for owner |
-| **Nature** | **Human cultivator** — **Pre-Ledger Way** / Ante-Dao; **person** with identity; **not** on mandate ladder; **not** killable on ledger terms |
+| **Nature** | **Human cultivator** — **Pre-Ledger Way** / Ante-Dao; **person** with identity; **not** on mandate ladder; **tribulation and normal execution do not finish him** |
 | **Appearance** | **Human** elder — cultivator’s bearing; no alien uncanny valley *(unless seal strain — parked)* |
 | **Personality** | **Real** — memory, pride, bargains; dry humor about “heaven”; **dangerous teacher** if he speaks |
-| **Why sealed** | **Pale Ledger Blank** — ancient basin unregistered; only Void could **contain**; **sole** warden duty since |
-| **Lifespan** | Functionally **unending** under pre-ledger rules |
-| **Durability** | Orthodox **finish** does not **stick** — only **void prison** + eternal Watch |
+| **Why sealed** | **Pale Name-stripping** — whole basin **struck from heaven’s sight**; only Void could **contain**; **sole** warden duty since |
+| **Lifespan** | Functionally **unending** under the **Pre-Ledger Way** |
+| **Durability** | Orthodox **killing blows** do not **stick** — only **void prison** + eternal Watch |
 | **Cultivation** | **Pre-Ledger** manual family *(parked — not player v1)* |
 | **Prison** | **Void Prison** / **Little Heaven** (小天堂) |
 | **Voice** | Rare; inner court only; **not** tourist sealed-ancient loot |
@@ -173,11 +175,11 @@ He has **not** retired. He **returns through gates** when the seal strains. Some
 | Tier | Policy |
 |------|--------|
 | **Full peer** | **One** — the prisoner. **Do not** add a second Little Heaven without owner pass. |
-| **Fragments** | **Failed disciples** or **partial** pre-ledger texts — **sealed ancients (B)** at sites; killable with effort; not the same threat |
+| **Fragments** | **Failed disciples** or **partial** ante-law texts — **sealed ancients (B)** at sites; killable with effort; not the same threat |
 | **Rumors** | Jianghu claims “another pre-heaven immortal” — **Void** denies; may be **grotto master** or **sealed ancient** mislabeled |
-| **Grotto masters** | **Different** — severed **this-era** ledger ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)); not Pre-Ledger apex |
+| **Grotto masters** | **Different** — **heaven-path severance** ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)); not Pre-Ledger apex |
 
-**Why not a roster of ten:** one man **blanked** a basin; Watch paid **everything** so it never happened twice. Later sects **inherit fear**, not **custody**.
+**Why not a roster of ten:** one man **made a basin nameless**; Watch paid **everything** so it never happened twice. Later sects **inherit fear**, not **custody**.
 
 **Jianghu confusion:** rumors conflate prisoner and **Void Seeker**. Insiders know **warden** vs **prisoner**.
 

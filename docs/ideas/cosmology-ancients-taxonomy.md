@@ -2,12 +2,13 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v2) |
-| **Blocked on** | Grotto content pass; sealed ancient (B) rework; Void prisoner myth lock |
-| **Issue** | none yet |
-| **Chat / PR** | Owner + cloud agent, 2026-07-28 |
-| **Updated** | 2026-07-28 (pre-heaven cultivator prisoner) |
 | **Status** | `designed` (v3) |
+| **Blocked on** | Grotto content pass; sealed ancient (B) rework |
+| **Issue** | none yet |
+| **Chat / PR** | Owner + cloud agent, 2026-07-28; plain-language pass PR #92 |
+| **Updated** | 2026-07-28 (pre-heaven cultivator; grotto severance wording) |
+
+**Player-facing copy:** Prefer **heaven’s law**, **the cycle**, **tribulation**, **oaths** — not “accountant,” “ledger,” or “line item” metaphors. Internal design docs may still say *pre-heaven* / *Pre-Ledger Way* as **doctrine names**; translate to plain language in UI and dialogue.
 
 **Intent:** Keep **cool** ideas — pre-heaven anomaly, hidden mentors, sealed sites — without **numbered destruction cycles** and “last epoch’s powerhouse hid in a fragment” (**inspiration ≠ copy** from novels like *Emperor’s Domination*). One **continuous** mortal board under **this** heaven’s rulebook; ancients differ by **how they relate to the rulebook**, not **which apocalypse they survived**.
 
@@ -48,7 +49,7 @@ Same **continuity** from Chaos seal → Dao Wars → mandate. No official settin
 |----------|------------|--------------------|--------------------|--------------|
 | **A — Grotto master** | **This** heaven, **this** ladder | Peak cultivator (often DM/VR+) who **entered a grotto-heaven** — self-sealed, wounded, or **refuses** the post–Dao Wars board | Hidden mentor, wrong manual, time-skewed hermit | Forbidden-ground “Watcher”; future grotto NPCs — **not** Void prisoner |
 | **B — Sealed ancient** | **This** heaven | Immortal or near-immortal **bound by oath, site, or tribulation failure**; **can** be killed in fiction with effort | Dungeon boss, lore drop, seal quest | Sealed ancients in explore; observatory shards |
-| **C — Pre-ledger apex** | **Before ledger** applies to **method** | **One** pre-heaven **cultivator** — person, not epoch roster | Mandate dread, Void prison | **Void Prisoner** only at apex |
+| **C — Ante-law apex** | **Before heaven’s law** binds **their method** | **One** pre-heaven **cultivator** — person, not epoch roster | Mandate dread, Void prison | **Void Prisoner** only at apex |
 | **D — Mortal-scale legend** | **This** era, **local** law | Chaos-touched **mortal** history, not continent ceiling | Dustbone entropy, oasis pin | Pinwright / Return-to-Dust |
 
 **Grotto masters vs Void prisoner (owner confusion resolved):**
@@ -70,10 +71,10 @@ So: grotto masters **do** belong to **this time of heaven** — that **makes sen
 
 | Phrase | Means | Does **not** mean |
 |--------|--------|-------------------|
-| **Pre-heaven** | Off-ledger, unclassified, or from **outside the firmament shell** | “Survivor of Desolate Eight” |
-| **Pre-heaven cultivator** (Void doc shorthand) | *Parked wording* — prefer **unclassified entity** in new writing | A cultivator who maxed the old ladder |
+| **Pre-heaven** | **Outside heaven’s categories** — unclassified, or from **beyond the firmament shell** | “Survivor of Desolate Eight” |
+| **Pre-heaven cultivator** (Void doc shorthand) | Walks **Pre-Ledger Way** — heaven’s law **does not close the book** on them the normal way | A cultivator who maxed the old ladder |
 
-**Void Prisoner (locked v2 — owner 2026-07-28):** **Human pre-heaven cultivator** — walked **Pre-Ledger Way** after the Seal; **cannot** be killed on ledger terms; **one** full peer. Detail: [`void-temple-sect.md`](void-temple-sect.md).
+**Void Prisoner (locked v2 — owner 2026-07-28):** **Human pre-heaven cultivator** — walked **Pre-Ledger Way** after the Seal; **tribulation and orthodox execution do not finish him**; **one** full peer. Detail: [`void-temple-sect.md`](void-temple-sect.md).
 
 > **Superseded:** firmament-leak / chaos-remnant hybrid and § *One face, two origins* — archived below for git history; **do not** use in new writing.
 
@@ -89,19 +90,19 @@ Owner **redrew** the prisoner as a **human pre-heaven cultivator** (2026-07-28).
 
 ## Grotto masters — how they exist but get **forgotten**
 
-Grotto masters are **category A** — **this heaven**, **this ladder** — who are **no longer indexed** by the world’s ordinary memory systems. They are **not** epoch survivors; they are **excised from the ledger**.
+Grotto masters are **category A** — **this heaven**, **this ladder** — who are **no longer indexed** by the world’s ordinary memory systems. They are **not** epoch survivors; heaven’s law **stopped counting them** on the public board.
 
 ### **Heaven-path severance** (天路断) — owner direction (v1)
 
-**Plain language:** They **walked off** heaven’s path (toward **Chaos**, **Wuji**, or **grotto self-rule**). Heaven’s rulebook is **impersonal** — not a petty god. If you **stop being a line item**, the **accountant stops reconciling you**. The world **does not** get a push notification; ties **atrophy**; chronicle **loses the thread**. *They abandoned the path; the path abandoned them* — **symmetric excision**, not a curse spell.
+**Plain language:** They **walked off** heaven’s path (toward **Chaos**, **Wuji**, or **grotto self-rule**). Heaven’s law is **impersonal** — not a petty god. If you **fall outside what tribulation and the cycle track**, the world **stops updating** around you: no omen pings, no breakthrough anchor, ties **atrophy**; chronicle **loses the thread**. *They abandoned the path; the path abandoned them* — **symmetric excision**, not a curse spell.
 
 This is **not** the same as **corruption** ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)):
 
 | Track | Severance |
 |-------|-----------|
 | **Corruption** | You **damaged** the cycle — stain, juncture wrath |
-| **Sacrilege** | You **broke** ledger **rules** — discrete entries |
-| **Severance** | You **left** the ledger’s **jurisdiction** — heaven has **nothing to audit** |
+| **Sacrilege** | You **broke** heaven’s **rules** — recorded violations, settled at junctures |
+| **Severance** | You **left** what heaven **tracks** — no tribulation hook; the board **forgets your thread** |
 
 **Chaos ≠ required:** full **Chaos Path** is endgame parked ([`chaos-cultivation-path.md`](chaos-cultivation-path.md)). Many grotto masters only took **half steps** — glimpse, failed walk, hermit oath — enough to **sever**, not enough to **stabilize**.
 
@@ -109,7 +110,7 @@ This is **not** the same as **corruption** ([`alignment-sacrilege-corruption.md`
 
 | Path into grotto obscurity | Sketch |
 |----------------------------|--------|
-| **Chaos-adjacent** *(common in grotto master roster)* | DM/VR peak **perceives flaw** or **refuses** immortal lease; begins **unregistering**; retreats into **self-made grotto-heaven** before cohesion or erosion finishes them — **Watcher / Pilgrim** types |
+| **Chaos-adjacent** *(common in grotto master roster)* | DM/VR peak **perceives flaw** or **refuses** immortal lease; begins **slipping off** heaven’s thread; retreats into **self-made grotto-heaven** before cohesion or erosion finishes them — **Watcher / Pilgrim** types |
 | **Eremitic oath** | Voluntary **“I leave the board”** rite — rare; Lotus archives know **some** existed; charter doesn’t chase them |
 | **Array hideout** | Dao Wars or tribulation wound — **grotto array** + **time dilation**; severance as **side effect** of long isolation **off** fate threads |
 | **Wrong approach** | Evil Dao / forced Chaos (**Devourer**) — severed **messily**; heaven doesn’t hunt; **nothing** protects them either |
@@ -120,7 +121,7 @@ Forgotten = **institutional + karmic fade**, not mass mind wipe.
 
 | Layer | What stops updating |
 |-------|---------------------|
-| **Heaven ledger** | No tribulation anchor; no immortal node; **omens skip** the grotto pocket |
+| **Heaven’s attention** | No tribulation anchor; no immortal node; **omens skip** the grotto pocket |
 | **Sect / clan registers** | Name ages out — no rep signal, no marriage renewal, no disciple pings |
 | **Chronicle** | Living-world clock **doesn’t write** what it can’t **resolve** on the board |
 | **Mortal gossip** | Becomes **myth** unless a **forbidden ground** sits on top (site remembers) |
@@ -138,9 +139,9 @@ Forgotten = **institutional + karmic fade**, not mass mind wipe.
 
 | | **Grotto master** | **Void prisoner** |
 |--|-------------------|-------------------|
-| Severance | **Chose** (or fell into) **off-ledger** cultivation | **Never was** on-ledger |
+| Severance | **Chose** (or fell into) cultivation **outside heaven’s tracking** | **Never fit** the mandate ladder — **ante-law** path |
 | Forgotten | Society **lost the thread** | Society **never had** a thread (or only redacted) |
-| Chaos | **Rhyme** — also off-ledger | **Different** origin (leak / remnant) |
+| Chaos | **Rhyme** — also **untracked** | **Different** origin — **human** Pre-Ledger apex, not grotto hermit |
 
 ---
 
@@ -188,5 +189,5 @@ Forgotten = **institutional + karmic fade**, not mass mind wipe.
 
 - `HIDDEN_SUBZONES` / forbidden grounds → mostly **B**, occasional **A**
 - Grotto master dialogue: references **Tianjing**, **charter**, **this** heaven — anchors era
-- Grotto master: `severedFromLedger` fiction flag; chronicle skip; spirit sense **static**
+- Grotto master: `severedFromHeavenPath` *(or legacy `severedFromLedger` in code)* — chronicle skip; spirit sense **static**
 - Severance ≠ `corruptionLevel` — separate future hook if needed

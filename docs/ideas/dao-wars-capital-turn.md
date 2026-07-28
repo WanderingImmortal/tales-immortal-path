@@ -159,10 +159,13 @@ Phoenix inner court: **records all of it** — injury at Tianjing, seven days, a
 | Lotus at capital | assault column | **Never** fought Tian; hedged **elsewhere** |
 | **Tianjing** vs Longcheng | single capital name | **Tianjing** = Dao Wars Tian city + today’s **inner** ring; **Longcheng** = post-mandate **outer** expansion |
 
+## Locked (owner 2026-07-28)
+
+- **Founder tone:** **contemplative dragon** — Seven Days = consolidation and learning Half-Step, not predatory theatre.
+- **Ember Crown arrival:** **Immortal-path** technique (or indistinguishable from it) — working name **Dragon’s Edict** (龙敕); execution = **one gesture** of that art. Not player-teachable v1; Void copies **redact**.
+
 ## Open questions
 
-| **Founder tone:** **contemplative dragon** (locked) — see Fork C |
-| **Immortal-path technique at Ember Crown** (locked) — working Tian name **Dragon’s Edict** (龙敕); redacted in Void copies |
 - [ ] **Ember Crown Plain** — map node near caldera vs one-off chronicle only?
 - [ ] Named **minor clans** still extant post-war (owner: later)
 - [ ] Chronicle: playable beat at Tianjing vs Ember Crown vs elder dialogue only?

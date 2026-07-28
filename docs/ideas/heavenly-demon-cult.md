@@ -110,7 +110,7 @@ The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) br
 **Two beats (continent-wide):**
 
 1. **Tide** — when the Tian founder finished **Half-Step** *inside* the siege cordon, every major camp **felt** the realm shift; outcome still uncertain.
-2. **Garden** — the Half-Step **stepped onto the coalition muster** at the Azure Gate and walked through armies and grand formations; **cauldron legions and demon harvest arrays were targeted first** with particular ferocity.
+2. **Garden** — the Half-Step **stepped out from Tianjing’s inner keep** and walked through armies and grand formations; **cauldron legions and demon harvest arrays were targeted first** with particular ferocity.
 
 **What the cult did after:**
 
@@ -296,7 +296,7 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
 ## Open questions
 
-- [ ] **Azure Gate** official hanzi / tie to Tianjing founding — see [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)
+- [ ] Flame Emperor injury detail — see [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)
 - [ ] **Sleeper activation** — what **in-world** event wakes cells (Phoenix Gambit? charter war? player)?
 - [ ] **Player patriarch** — ever, or forever NPC throne while immortal sleeps?
 - [ ] **Phoenix overlap** — stolen rebirth/blood rites from war era only, or ongoing theft?
