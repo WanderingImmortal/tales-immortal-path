@@ -29,6 +29,8 @@ The gorge is the cult’s **true homeland** — not a dungeon sticker on the Hea
 | **Mist Veil** | An array that makes the gorge **hard to scout from far away** (haze, confused senses). |
 | **DT guard** | **Deity Transformation** cultivator — a very high realm ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)); only the most trusted rotate to the mouth. |
 | **Blood tax** | What the town pays the cult to be left alone — coin, blood essence, names of strangers, or **one body** when the collectors ask. |
+| **Great Cauldron** | The sect’s **one huge** ritual vessel (镇教鼎) for **mass** blood conversion into gorge power — not every disciple’s lunchbox. |
+| **Cauldron Lanes** | The **industrial district** below town — channels, pill foundry, drill yards, Great Cauldron **approach**; name is legacy, not “a lane of personal pots.” |
 
 ---
 
@@ -424,13 +426,20 @@ The town is **not** a fortress wall — it’s **camouflage** and **eyes**.
 
 ---
 
-### Cauldron Lanes (鼎巷)
+### Cauldron Lanes (鼎巷) — *district 4; design next*
 
-| | |
-|--|--|
-| **Vibe** | Heat, slag, **sweet** rot; channels cut in rock for spill |
-| **Function** | Mobile cauldron repair, essence **bottling**, Blood Servant **processing** *(NPC horror — owner call on player exposure)* |
-| **Rank** | **Core Demon** work gangs; **Elder of the Cauldron** oversight |
+**Intent (owner 2026-07-29):** **Sect industrial belt** — where uniforms return, drills happen, and **blood becomes pills + array fuel**. **Not** every hut with a personal cauldron. See **What “cauldron” means** in [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
+
+| Piece | Role |
+|-------|------|
+| **Channel cuts** | Rock trenches where blood-qi **runs** to the array — main “processing” |
+| **Pill foundry** | **Some** small furnaces; **most** disciples get **issued** pills |
+| **Great Cauldron approach** | Road/chamber toward **镇教鼎** — mass rites; pit offerings tie in here |
+| **Field-rig yard** | Dao Wars **mobile** harvest cauldrons **stored** / repaired |
+| **Drill yards** | Uniformed **Core Demon+** formations |
+| **Hong Lian** | Oversees **arrays + Great Cauldron**, not hobbyist pots |
+
+*Full district pass (look, sound, player beats) — pending owner session.*
 
 ### Inner Cauldron Hall (内鼎殿)
 
