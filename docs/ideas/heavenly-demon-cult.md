@@ -288,7 +288,7 @@ Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
 - **Tianjing:** When the Half-Step **stepped from the inner keep**, Mo Xuan was **already** pulling cauldrons back and burning ledgers. He **saw** the walk shred demon arrays first — and gave the order for **Great Withdrawal** (魔教蛰息) **before** the coalition could agree on pursuit.
 - **Now:** Rare audiences; most orders through **Hong Lian** and **Heavenly Demon Envoys**. He **mediates** inner court cannibal politics so the sleeping immortal is not woken by accident. His fear is not “righteous sects” — it is **waking the vessel** and **drawing the Half-Step’s attention** at the same time.
 
-**Player read:** the “demon lord” nursery tales imagine a **laughing monster**. Mo Xuan is the **quiet accountant of atrocity** *(design voice only — in-game: the man who counts cauldrons and refuses to die on schedule)*.
+**Player read:** nursery tales imagine a **laughing battlefield god**. Mo Xuan is the **clerk of the cauldron** — counts spill, seals the gorge, refuses to die when textbooks say he should.
 
 ### **The Heavenly Demon** (天魔) — title, law, sleeping immortal
 
