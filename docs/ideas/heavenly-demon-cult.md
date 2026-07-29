@@ -6,7 +6,7 @@
 | **Blocked on** | Lineage manual (`blood_fiend` spine); alignment/sacrilege hooks; owner pass on charter “fifth power” politics |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-28 |
-| **Updated** | 2026-07-29 (leadership + origins pass) |
+| **Updated** | 2026-07-29 (founder arc + scripture origin draft) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral rulebook: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). Blood cultivation: [`technique-driven-cultivation.md`](technique-driven-cultivation.md). Peers (orthodox): [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md), [`golden-phoenix-sect.md`](golden-phoenix-sect.md).
 
@@ -25,7 +25,7 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 | **Public face in Heartlands** | None — bounty sect. **Cover:** merchant houses, bankrupt dojos, “healing” clinics, charter-adjacent contractors |
 | **Lineage** | **Heavenly Demon Canon** (天魔典) — working `lineageId`: `heavenly_demon_blood_line` |
 | **Forbidden apex** | **Heavenly Demon Scripture** (天魔经) — patriarch / demon lord only; wears the cult’s **law of devouring** |
-| **Sect spine** | **The Heavenly Demon** (天魔) — epithet, not a single historical person; the **first** who finished the Scripture and **became the title** |
+| **Sect spine** | **The Heavenly Demon** (天魔) — **founder still holds the title** in the pit; cult myth speaks of “vessels” to hide that the **first** never left |
 | **Charter status** | **Declared annihilated** (mandate + sect textbooks) — bounty law **technically** still on the books, rarely enforced against ghosts |
 | **Allies / rivals** | **Rivals:** all four Heartlands sects (hunted); **uneasy tools:** Phoenix pamphleteers, Lotus register leakers, corrupt Tian cadets — never trusted allies |
 | **Combat lean** | **Attrition + burst** — blood shields, life-drain, formation harvest; weak in open charter duels (no license) |
@@ -68,11 +68,50 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 
 ## History (sketch)
 
-### Before the mandate — the first Heavenly Demon
+### Founder arc *(owner direction — draft 2026-07-29)*
 
-Legends disagree whether the **Heavenly Demon** was one cultivator or a **line of inheritors** who take the same epithet after the predecessor is devoured or ascends. The cult teaches: *“The Demon does not die — the vessel is empty calories.”*
+**Gorge town:** Refugees and rogues in equal measure; the settlement **swelled in the Dao Wars** (older scab camp at the seal is optional legend). The cult is **institutionalized** in that window — not “found only when the war started,” but **born loud** when the continent poured blood into the Heartlands.
 
-Pre-imperial doctrine — **The Three Draughts**:
+**War peak:** The founder rode **Dao Manifestation** in a meteoric climb — scripture + gorge + slaughter gates. He preached open conquest: **he would be the Heavenly Demon and rule the Heartlands**. On the board he was a **butcher powerhouse**, not a mandate king: cauldrons on the siege, coalitions sometimes tolerated him, then **denied** him.
+
+**Tianjing:** Field armies and harvest arrays **broken** in the Half-Step walk. The founder **did not** die there — he was **not** the fool on the front row when the dragon-weight moved. **Mo Xuan** (then rising inner court) executed **Great Withdrawal** while the walk shredded cauldrons.
+
+**After the war — silent Immortal:** With the continent exhausted and eyes on Tian, the founder **broke through to Immortal in secret** — no announcement, no charter, no coalition response. The final push used **war spoils including his own soldiers’ blood-qi** (betrayal as fuel). Mandate textbooks later claim **extirpation**; in truth the **first Demon** simply **vanished from the board** while sects wrote victory.
+
+**Now — still in the cult, still hungry:**
+
+| Beat | Fiction |
+|------|---------|
+| **Where** | **Demon Lord Pit** — “sleep” is **seclusion**, not death; meditating on **what lies past Immortal** |
+| **Fuel** | Slow **devouring** of unworthy inner-court cultivators + **offerings** (blood essence, captives, voluntary “merit”) piped into the pit |
+| **Goal** | **Beyond false Immortal** — not Half-Step (Tian’s watershed). He treats mandate Immortality as a **ceiling** and believes the Scripture can **devour** past it ([`post-immortal-cosmology.md`](post-immortal-cosmology.md) — false lease vs self-sustenance) |
+| **Mo Xuan** | **Caretaker** of dormancy and branches; **mediates** so the founder is fed **without** waking the Half-Step or charter immortals |
+| **Public myth** | *“The Demon does not die — the vessel is empty calories”* — **useful lie** so the world does not know the **original** still breathes |
+
+**Power today:** Founder = **Immortal (restricted)** — same deterrent band as sect immortals; **not** above the historical Half-Step walk. His **research** in the pit is the long bet; armies stay sealed.
+
+#### Scripture origin — **blend** *(recommended)*
+
+Two owner options; **both** answer “where is it from?” without a random cave scroll.
+
+| Option | Hook | Tribulation / corruption |
+|--------|------|---------------------------|
+| **A — Chaos trace in the gorge** | Before heaven’s law, **pure chaos** left **blood that would not disperse**. The gorge is a **scar**, not a library. No complete book fell from the sky. | Scripture **routes** breakthrough cost **outward** — victims, arrays, soldiers — so heaven’s junctures feel **muted or mis-aimed** until the debt is **external**. Not immunity: **wrong kind of audit** ([`chaos-cultivation-path.md`](chaos-cultivation-path.md) — *not* player Chaos; **parasitic** misread of primordial residue). |
+| **B — Innate blood genius** | Founder had **unnatural** talent for blood-qi manipulation; he **formulated and refined** the **Heavenly Demon Scripture** over years at the seal. | Slaughter **feeds** gates faster than orthodox paths; corruption stacks because **he pays in other lives**, not because heaven **forgives**. Gorge **amplifies** his art. |
+
+**Locked blend for writing:** **He is the author** — but the **first pages** came from **reading the gorge** (chaos-era blood-memory, not a named “treasure item”). He **completed** the Scripture; disciples train the distilled **Canon** (天魔典). Origin sentence: *“The pit taught him; he taught the cult.”*
+
+**Not this:** Void-style **pre-heaven person** ([`void-temple-sect.md`](void-temple-sect.md)) — different axis. **Not** full **Chaos Path** — founder is a **predator** on heaven’s ladder, not a primordial stabilizer.
+
+#### What to adjust if you change your mind
+
+- If founder **never** reached Immortal: pit figure becomes a **later** host; Mo Xuan’s Tianjing beat stays.
+- If scripture is **only** chaos artifact with **no** genius author: cult feels less **personal**; tie still needs gorge as **anchor**, not loot from nowhere.
+
+---
+
+### Before the mandate — cult legend (outer sermon)
+Outer court still teaches: *“The Demon does not die — the vessel is empty calories.”* Inner court knows the **founder** may be the **only** vessel that ever mattered.
 
 1. **All qi returns to the pot** — the world is a cauldron; refuse none of it.
 2. **The strong draw the vein** — mercy is storage loss.
