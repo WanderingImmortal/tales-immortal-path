@@ -494,8 +494,9 @@ Hong Lian, envoys, lanes…
 
 ## Open questions
 
+- [ ] **Pulpit split** — Mo Xuan ever stand in for clone? VR envoys know pit truth or believe succession?
 - [ ] **Pit-Sleeper true name** — ever revealed, or epithet-only like Void Seeker?
-- [ ] **Vessel count** — how many Heavenly Demons before Pit-Sleeper (lore number or deliberately vague)?
+- [ ] **Vessel count** — how many **pulpit** “successions” since Tianjing (lore number or vague)?
 - [ ] **Sleeper activation** — what **in-world** event wakes cells (Phoenix Gambit? charter war? player)?
 - [ ] **Player patriarch** — ever, or forever NPC throne while immortal sleeps?
 - [ ] **Phoenix overlap** — stolen rebirth/blood rites from war era only, or ongoing theft?
