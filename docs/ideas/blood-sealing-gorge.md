@@ -132,7 +132,7 @@ Mo Xuan’s mouth doctrine: **discourage, misdirect, identify, kill — in that 
 | **3 — Mist** | **Mist Veil** (雾障) | Dulls **spirit sense** and charter **survey formations** at distance; gorge reads as **fever haze** | **Low** — enough to fool GC scouts, not NS elders on purpose |
 | **4 — Ward line** | **Blood Vow Stakes** (血誓桩) | Ribcage Arch + stake field 30 paces inside; reacts to **unmarked** cultivators and **orthodox seal** signatures | **Armed** |
 | **5 — Knock** | **Blood knock** (血叩) | Envoys tap **third stake** in pattern; opens **safe corridor** through stake field for one hour | Active |
-| **6 — Eyes** | **Slaughter Terrace** sight lines | Archers / blood-artists on **watch shelves** — terrace above town, not at lip; **crossfire** on the bed | **One** rotating outer squad |
+| **6 — Eyes** | **Slaughter Terrace** sight lines | Rim **watch shelves** overlook the bed; terrace signals gate wardens — **crossfire** only if intrusion **persists** | **Unmanned shelves** most days; arrays **watch** |
 | **7 — Array** | **Guest Welcome** (迎客阵) *(ironic)* | Pressure drop in bed — knees buckle, **meridian cramp**; calibrated to **slow**, not kill, so trespassers can be **harvested** | **Half power** — kills only if you **run** |
 | **8 — Kill** | **Rain recall tags** | **Blood Rain** residue in cracks; trespasser bleeds → tags call **Slaughter Recall** inward | **Armed**, rare trips |
 | **9 — Void pins** | **Hairline seals** | Side caves along the rim — Void Temple script **prevents** pocket-cutting **into** the gorge from outside ([`void-temple-sect.md`](void-temple-sect.md)); cult **cannot** remove; uses other entries | Permanent |
