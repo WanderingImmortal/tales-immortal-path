@@ -6,7 +6,7 @@
 | **Blocked on** | Lineage manual (`blood_fiend` spine); alignment/sacrilege hooks; owner pass on charter “fifth power” politics |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-28 |
-| **Updated** | 2026-07-28 (v2 — Dao Wars slaughters, dormancy, faded memory) |
+| **Updated** | 2026-07-29 (leadership + origins pass) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral rulebook: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). Blood cultivation: [`technique-driven-cultivation.md`](technique-driven-cultivation.md). Peers (orthodox): [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md), [`golden-phoenix-sect.md`](golden-phoenix-sect.md).
 
@@ -76,7 +76,7 @@ Pre-imperial doctrine — **The Three Draughts**:
 
 1. **All qi returns to the pot** — the world is a cauldron; refuse none of it.
 2. **The strong draw the vein** — mercy is storage loss.
-3. **Heaven’s ledger is written in other people’s blood** — break it or be ink.
+3. **Heaven’s law is paid in other people’s blood** — break the price or become the payment.
 
 They held **Blood Sealing Gorge** before the Tian clan named the Heartlands. The gorge’s arrays **seal spilled blood** into cultivation fuel — why the land still smells of iron after rain.
 
@@ -242,19 +242,85 @@ Taught to Outer Demons; inner court adds **Fourth Draught** (parked): *“The De
 
 ---
 
-## Leadership (sketch)
+### Where the cult came from (locked direction)
+
+Not a charter offshoot and **not** a fifth great sect that lost a vote. The cult is **older than the mandate story** in the Heartlands — a **predatory institution** that grew around a **place**, then around a **scripture**.
+
+| Layer | Origin |
+|-------|--------|
+| **The gorge** | **Blood Sealing Gorge** predates the Tian name on the map. Red stone, copper mist, and a natural **blood-seal** phenomenon: spilled life-qi **pools and condenses** instead of dissipating. Early cultivators treated it as a **holy pit** or **curse**; both were right. |
+| **First doctrine** | Post-**Seal** chaos — bandit kings, failed disciples, plague refugees. Survivors learned that **harvesting** the gorge (and each other) beat starving. The **Three Draughts** were sermonized later; at first they were **camp law**. |
+| **First Heavenly Demon** | One peak cultivator **finished** the forbidden **Heavenly Demon Scripture** (天魔经) and **wore the cult’s law of devouring** — not “became evil,” but **bound** their dao to **eat and ascend**. Cult myth: *the title is the person who finishes the book*; the **first** holder’s true name is lost. Every later holder is a **vessel** for the same hunger. |
+| **Institution** | Gorge arrays (**Blood Seal Grand Array**) turned battlefield spill into **sect vein**. Ranks, envoys, and branch cells followed — **merit = delivered qi**. They were a **power** before Sword, Lotus, Phoenix, or Void were **continental** brands. |
+
+**What they are not:** Tian exiles, Phoenix blood-theft with a flag, or a Lotus bankruptcy guild. Orthodox sects **borrowed** demon auxiliaries in the Dao Wars; they did **not** found the cult.
+
+---
+
+## Leadership — who runs the cult today
+
+Two heads on one snake: the **patriarch** the jianghu could name (if anyone still looked), and **the Heavenly Demon** the scripture cares about.
+
+```text
+IMMORTAL — The Heavenly Demon (天魔)     ← sleeps in Demon Lord Pit; title + law
+    ↑ wake only if pit seal fails / Mo Xuan breaks dormancy oath
+VOID PEAK — Patriarch Mo Xuan (魔玄)     ← runs Withdrawal; public “dead”
+    ↑
+NS peak — Elder Hong Lian (红莲)         ← cauldrons, harvest arrays, inner court
+    ↑
+Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
+```
+
+### Patriarch **Mo Xuan** (魔玄) — the man in charge *now*
+
+| Field | Value |
+|-------|-------|
+| **Title** | **Demon Lord** (魔主) / Patriarch |
+| **Realm** | **Void Refinement peak** — same **public band** as a great-sect patriarch ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)) |
+| **Fighting** | Strong with **gorge arrays** and **cauldron legions**; in an open duel vs a charter VR patriarch he is **even or slightly down** — he **does not** seek those duels |
+| **Textbook status** | **Officially killed** at Tianjing (mandate fiction). In reality he **was not** in the front rank when the Half-Step **walked the garden** |
+
+**Personality:** Cold **strategist**, not a pulpit tyrant. Dao Wars era: the mind behind **Great Draught** logistics — *let sects break each other; drink the spill*. He spoke to coalition envoys in **polite** tones while cauldrons tagged formations. Today: **caretaker of dormancy** — patient, risk-averse, almost bureaucratic. Inner court jokes he runs the cult like a **sealed warehouse**: inventory of sleepers, minimum harvest to keep the gorge fed, **no banners**.
+
+**Story beats:**
+
+- **Before the walk:** Rose through **cauldron merit**, not bloodline. Trusted by the then-vessel to hold the host **together** while harvest armies fed on the siege.
+- **Tianjing:** When the Half-Step **stepped from the inner keep**, Mo Xuan was **already** pulling cauldrons back and burning ledgers. He **saw** the walk shred demon arrays first — and gave the order for **Great Withdrawal** (魔教蛰息) **before** the coalition could agree on pursuit.
+- **Now:** Rare audiences; most orders through **Hong Lian** and **Heavenly Demon Envoys**. He **mediates** inner court cannibal politics so the sleeping immortal is not woken by accident. His fear is not “righteous sects” — it is **waking the vessel** and **drawing the Half-Step’s attention** at the same time.
+
+**Player read:** the “demon lord” nursery tales imagine a **laughing monster**. Mo Xuan is the **quiet accountant of atrocity** *(design voice only — in-game: the man who counts cauldrons and refuses to die on schedule)*.
+
+### **The Heavenly Demon** (天魔) — title, law, sleeping immortal
+
+| Field | Value |
+|-------|-------|
+| **What it is** | **Epithet + office** — whoever **completes** the Scripture and **hosts** the devouring law. Cult teaching: *“The Demon does not die — the vessel is empty calories.”* |
+| **Current vessel** | **Withdrawal-era** immortal — true name **redacted** in archives; inner court calls them **Pit-Sleeper** (窟眠) |
+| **Realm** | **Immortal** (restricted) — comparable **weight class** to sect immortals and the Void Seeker: **continent-scale deterrence**, not “stronger than Half-Step” |
+| **State** | **Dormant** in **Demon Lord Pit** — wound, scripture backlash, and **deliberate** seal after Tianjing; waking is **policy**, not nap |
+
+**Personality *(when awake)*:** Ancient **predator charisma** — sermons that feel like **hunger** in the chest. The vessel at Tianjing was the **face** of cauldron legions; soldiers died for the **idea** of endless ascent. Scripture **eats** weak hosts; this one survived long enough to **ascend**, then **crashed** into sleep when heaven’s law **noticed** the harvest at siege scale.
+
+**Power level (plain):**
+
+| Opponent | Cult read |
+|----------|-----------|
+| **Mortals / GC–NS armies** | Irrelevant without arrays |
+| **VR patriarchs, DM ancestors** | Vessel at full wake **outclasses** any single mortal-board peak; needs **gorge** or **cauldron** support to **sustain** |
+| **Half-Step Tian founder (historical walk)** | **Not a duel** — the walk was **mandate law + dragon weight** moving through formations. Cult admits: **hunger postponed**, not defeated in fair fight |
+| **Charter coalition today** | Waking Pit-Sleeper + Mo Xuan unsealing gorge = **every** sect immortal and the **Sleeping Dragon** problem — why **mutual don’t-poke** holds |
+
+**Succession:** A patriarch who fails **Century Cauldron** audit may be **devoured** to feed the vessel or the next host candidate — strengthens the **next** Demon, not Mo Xuan personally unless he weakens.
+
+### Supporting cast *(unchanged roles)*
 
 Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
 | Role | Name *(working)* | Realm (public) | Notes |
 |------|------------------|----------------|-------|
-| **Patriarch** | **Mo Xuan** (魔玄) | VR peak *(publicly “dead” in textbooks)* | **Caretaker of dormancy** — speaks only to inner court; not building an empire |
-| **Sect spine** | **The Heavenly Demon** (天魔) | **Immortal** — **dormant** | Withdrawal-era vessel; sleeps in Demon Lord Pit; wake = continental crisis |
-| **Cauldron Elder** | **Elder Hong Lian** (红莲) | NS peak | Harvest formations; player quest giver |
-| **Heartlands envoy** | **Envoy Chi** (赤使) | Core+ | **Sleeper** on the road; `caravan_demon` may be cult-tagged or a copycat — ambiguity for low ranks |
+| **Cauldron Elder** | **Elder Hong Lian** (红莲) | NS peak | Harvest formations; **face** of inner court; player quest giver |
+| **Heartlands envoy** | **Envoy Chi** (赤使) | Core+ | **Sleeper** on the road; `caravan_demon` may be cult-tagged or copycat |
 | **Longcheng** | **“Dr. Wen”** clinic | Mortal cover | Recruits desperate patients |
-
-**Succession:** patriarch who fails a **Century Cauldron** audit may be **devoured** by inner court — strengthens the next Demon vessel.
 
 ---
 
@@ -296,7 +362,8 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
 ## Open questions
 
-- [ ] Flame Emperor injury detail — see [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)
+- [ ] **Pit-Sleeper true name** — ever revealed, or epithet-only like Void Seeker?
+- [ ] **Vessel count** — how many Heavenly Demons before Pit-Sleeper (lore number or deliberately vague)?
 - [ ] **Sleeper activation** — what **in-world** event wakes cells (Phoenix Gambit? charter war? player)?
 - [ ] **Player patriarch** — ever, or forever NPC throne while immortal sleeps?
 - [ ] **Phoenix overlap** — stolen rebirth/blood rites from war era only, or ongoing theft?
