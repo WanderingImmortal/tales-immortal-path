@@ -290,8 +290,25 @@ Taught to Outer Demons; inner court adds **Fourth Draught** (parked): *“The De
 | **Demon Blood Clone** (魔血分身) | void *(inner court)* | Peak **decoy body** at DM/DS believability — Tianjing gambit; not taught to branches |
 | **Heavenly Demon Form** | void | Burst transformation; juncture omen magnet |
 
-**What they teach:** breath → furnace → devour cycle → demon arts → cauldron layers.  
+**What they teach:** breath → **blood furnace** (foundation) → devour cycle → demon arts → inner canon.  
 **What they refuse:** “righteous” purification, free teaching, disciples who **won’t** harvest.
+
+### What “cauldron” means (not every disciple gets a pot)
+
+Docs used **cauldron** for three different things — easy to blur. **Owner direction (2026-07-29):**
+
+| Level | What it is | Who uses it |
+|-------|------------|-------------|
+| **Sermon metaphor** | *“The world is a cauldron”* (Three Draughts) | Everyone — **idea**, not a tool |
+| **The gorge itself** | Blood **channels in rock** + **Blood Seal Grand Array** — spill **condenses** and flows inward | **Place** — most “processing” is **geography + array**, not vats in every room |
+| **Great Cauldron** (镇教鼎) | **One** (or very few) **monument** vessels at the **array heart** / pit interface — **mass** conversion: battle spill, tribute blood, war-scale slaughter **fed into the vein** | **Founder**, pit offerings, **Elder of the Cauldron** rites — **Ten Cauldron Night**-scale history |
+| **Field cauldrons** | **Mobile** harvest rigs on **Dao Wars** campaigns — tagged formations, army trailing **vats** behind columns | **Legions** — mostly **stored/disassembled** in dormancy; repair in **Cauldron Lanes** |
+| **Personal furnace** | Small **pill / essence** furnace — refine blood into **pills** or stabilizers | **Some** alchemists; **issued pills** for most ranks — not every Outer Demon owns one |
+| **Body in blood** | **Rite**, not daily training — foundation seal horror, punishment, Great Cauldron adjacency | **Rare beats** — normal climb is **breath + drain + pills + gorge qi** |
+
+**How most disciples cultivate:** demon breath in the gorge → **Blood Furnace Canon** (internal furnace at foundation) → **Devouring Demon Cycle** (drain in combat) → **sect pills** from the foundry. **Full-body dunking** = **story horror**, not daily practice.
+
+**Rank names** (Elder of the Cauldron, cauldron **pin**) = **harvest arrays + Great Cauldron**, not a personal ding.
 
 **Mixed paths:** qi-primary; body cultivators prized as **meat shields**; soul artists as **battery tenders**.
 
