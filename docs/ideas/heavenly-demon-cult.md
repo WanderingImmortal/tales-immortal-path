@@ -301,7 +301,7 @@ Docs used **cauldron** for three different things — easy to blur. **Owner dire
 |-------|------------|-------------|
 | **Sermon metaphor** | *“The world is a cauldron”* (Three Draughts) | Everyone — **idea**, not a tool |
 | **The gorge itself** | Blood **channels in rock** + **Blood Seal Grand Array** — spill **condenses** and flows inward | **Place** — most “processing” is **geography + array**, not vats in every room |
-| **Great Cauldron** (镇教鼎) | **One** (or very few) **monument** vessels in **Great Cauldron Vault** beside **Demon Lord Pit** — mass conversion; **statue** in Cauldron Lanes faces it |
+| **Great Cauldron** (镇教鼎) | **Real** vessel in **Great Cauldron Vault** beside pit; **statue** in lanes faces it | Founder, vault rites, Hong Lian — **Ten Cauldron Night** scale |
 | **Field cauldrons** | **Mobile** harvest rigs on **Dao Wars** campaigns — tagged formations, army trailing **vats** behind columns | **Legions** — mostly **stored/disassembled** in dormancy; repair in **Cauldron Lanes** |
 | **Personal furnace** | Small **pill / essence** furnace — refine blood into **pills** or stabilizers | **Some** alchemists; **issued pills** for most ranks — not every Outer Demon owns one |
 | **Body in blood** | **Rite**, not daily training — foundation seal horror, punishment, Great Cauldron adjacency | **Rare beats** — normal climb is **breath + drain + pills + gorge qi** |
@@ -355,19 +355,49 @@ Not a charter offshoot and **not** a fifth great sect that lost a vote. The cult
 
 ## Leadership — who runs the cult today
 
-Two heads on one snake: the **patriarch** the jianghu could name (if anyone still looked), and **the Heavenly Demon** the scripture cares about.
+**Three jobs** (owner draft — split still being refined):
+
+| Job | Who (truth) | Who (lower ranks think) |
+|-----|-------------|-------------------------|
+| **God** | Founder in **pit** — Immortal, beyond-Immortal research | Dead at Tianjing — or **“ascended into the cauldron”** |
+| **Church** | **Pulpit Demon** — usually a **Demon Blood Clone** (or masked stand-in) at statue / vault rites | The **current Heavenly Demon** — **successive** vessels |
+| **State** | **Mo Xuan** — patriarch, Withdrawal, arrays, branches | **Demon Lord** / **admin** — **not** the god; **runs** the sect so the pulpit can stay holy |
 
 ```text
-IMMORTAL — The Heavenly Demon (天魔)     ← founder in Demon Lord Pit; “sleep” = seclusion / beyond-immortal work
-    ↑ offerings + slow devour; Mo Xuan manages noise
-VOID PEAK — Patriarch Mo Xuan (魔玄)     ← runs Withdrawal; public “dead”
+PIT — Founder (true 天魔)           ← never leaves; feeds; makes clone-stock
+    ↑ blood / scripture
+PULPIT — Pulpit Demon (血影身)      ← typically Blood Clone; sermons at Monument Plaza / vault
+    ↑ fiction of “successive” Demons
+STATE — Patriarch Mo Xuan (魔玄)    ← admin, drill, tax, pit schedule; VR peak
     ↑
-NS peak — Elder Hong Lian (红莲)         ← cauldrons, harvest arrays, inner court
-    ↑
-Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
+Hong Lian, envoys, lanes…
 ```
 
-### Patriarch **Mo Xuan** (魔玄) — the man in charge *now*
+**Statue (owner lock):** **Cauldron alone** (镇教鼎神像) — **no** demon figure on the pedestal. The **clone** or high priest **stands before** it, not **as** it.
+
+### Succession fiction — what lower rungs believe
+
+| Belief (Outer / most Core) | Truth (inner pit circle) |
+|----------------------------|---------------------------|
+| The Heavenly Demon **dies** or **ascends**; a **new vessel** inherits | **One** founder; **clones** and **sermons** sell succession |
+| The **statue cauldron** “drinks” the oath | Symbol; **real** cauldron is **vault** by pit |
+| **Mo Xuan** serves the **current** Demon | Mo Xuan serves the **founder**; manages the **pulpit** lie |
+| Tianjing = **last** Demon **killed** | Tianjing = **war clone** killed; pulpit **restarted** later in secret |
+
+**Why a Blood Clone for pulpit:** Same technique family as **Demon Blood Clone** (Tianjing) — scaled down for **ritual**: looks, sounds, **pressure** of the Demon **without** dragging the founder to the plaza. **Typically** not full Immortal power — **enough** to kneel a hall. Replaced when it **frays** (sells another “succession”).
+
+**Mo Xuan vs pulpit (your split — draft):**
+
+| | **Mo Xuan** | **Pulpit Demon** |
+|--|-------------|------------------|
+| **Role** | **Admin** — ledgers, dormancy, envoys, Hong Lian, pit **schedule** | **Religious face** — oaths, festivals, **“the Demon speaks”** |
+| **Realm** | VR peak **himself** | Clone **face**; founder’s **blood**; not a second Immortal |
+| **Seen by juniors** | Feared **manager**; “clerk of the harvest” | **Worship**; “the Heavenly Demon” |
+| **Seen by founder** | Right hand | **Tool** — disposable mask |
+
+**Still open (owner):** Does Mo Xuan **ever** stand in for the pulpit? Do **Heavenly Demon Envoys** (VR) believe they serve clone or pit? Is pulpit **always** clone, or **sometimes** a masked elder?
+
+### Patriarch **Mo Xuan** (魔玄) — admin, not pulpit
 
 | Field | Value |
 |-------|-------|
@@ -375,7 +405,7 @@ Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
 | **Relation** | Founder’s **bloody right hand** and **first / best disciple** — taught early **Canon**, ran cauldrons, **knew the clone plan** |
 | **Realm** | **Void Refinement peak** — same **public band** as a great-sect patriarch ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)) |
 | **Fighting** | Strong with **gorge arrays** and **cauldron legions**; in an open duel vs a charter VR patriarch he is **even or slightly down** — he **does not** seek those duels |
-| **Why he leads** | The founder **trusts** him with the **living** cult; everyone else thinks the Demon **died** at Tianjing. Patriarch is the **visible apex** so the pit stays **unquestioned** |
+| **Why he leads** | Founder’s **state** arm — **admin**, not **pulpit**. Lower ranks may **fear** him more than they **revere** him |
 | **Textbook status** | **Heavenly Demon** listed dead; **Mo Xuan** obscure outside inner court — mandate may not even have his name |
 
 **Personality:** Cold **strategist** who **worships survival**, not sermons. War era: **executed** the founder’s harvest math and **stood beside** the true body while the **clone** played god on the field. Today: **caretaker of dormancy** — feeds the pit, runs the **“next Heavenly Demon”** ruse so ambitious elders **devour each other** instead of auditing the gorge.
@@ -402,11 +432,21 @@ Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
 
 **Power level (plain):** Same table as before — **not** above Half-Step historically; today a **dormant** immortal asset. Full wake = coalition problem.
 
-**Succession ruse:** Outer court preaches the **next Heavenly Demon** — promotions, devour audits, **vessel** mythology. **Truth:** failed merit and **Century Cauldron** failures **feed the founder**; there is no **successor**, only **fuel** and **deniability**.
+**Succession ruse:** Outer court preaches the **next Heavenly Demon** — often a **new pulpit clone** presented after the old one **frays**. **Truth:** one founder; failed merit **feeds** the pit.
 
-### Supporting cast *(unchanged roles)*
+### **Pulpit Demon** (讲台魔) — religious face *(draft)*
 
-Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
+| Field | Value |
+|-------|-------|
+| **What** | **Public** Heavenly Demon for most of the sect — **usually** a **Demon Blood Clone** from founder stock |
+| **Where** | **Monument Plaza** (before cauldron **statue**), **Great Cauldron Vault** rites — **not** the pit |
+| **Power** | **Below** Tianjing war-clone; **above** normal VR **presence** — faith and **fear**, not mandate-tier |
+| **Lifespan** | **Limited** — replaced → lower ranks told **“new vessel ascended”** |
+| **Admin** | **Mo Xuan** schedules appearances; **does not** replace the founder in the pit |
+
+*Dormancy today:* pulpit **rare** — statue **tended**, clone **mostly** idle; strengthens “Demon **dead**” outside, “Demon **returns** at oath” inside.
+
+### Supporting cast
 
 | Role | Name *(working)* | Realm (public) | Notes |
 |------|------------------|----------------|-------|

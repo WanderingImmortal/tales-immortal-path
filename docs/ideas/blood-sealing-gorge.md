@@ -515,8 +515,8 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 #### Monument Plaza — Great Cauldron **statue** (鼎神像广场)
 
 - **Centerpiece of the lanes** — **not** the working vessel.
-- **Statue:** bronze-black **cauldron** on a demonic **pedestal** (or **Heavenly Demon** cradling an **empty bowl** — owner pick); bowl **stained** dark; **faces down-gorge** toward vault + pit.
-- **Use:** oaths for **Outer → Core** promotion; sermons; **fear** — “the real one drinks below.”
+- **Statue:** **Cauldron alone** (owner lock) — bronze-black **bowl on pedestal**; **Pulpit Demon** (usually Blood Clone) leads rites **in front of** it, not as part of it.
+- **Use:** oaths for **Outer → Core** promotion; **Pulpit Demon** (讲台魔) sermons before the bowl — usually a **Blood Clone**; lower ranks read it as **successive** Heavenly Demons; **Mo Xuan** is **admin**, not the sermon face.
 - **Offerings** here are **symbolic** (incense, small blood cups); **mass** offerings go to the **vault**.
 
 #### Drill Yard (东校场)
@@ -581,7 +581,7 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 
 ### Open (lanes only)
 
-- [ ] Statue: **cauldron alone** vs **Demon cradling bowl**?
+- [x] Statue: **cauldron alone** — no demon figure on pedestal
 - [ ] Named drill instructor or foundry master NPC?
 - [ ] Can player **see** vault cauldron without pit arc?
 
