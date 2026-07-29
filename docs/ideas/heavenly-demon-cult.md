@@ -197,13 +197,15 @@ The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) br
 
 ## Homeland — Blood Sealing Gorge (封血峡)
 
+**Full layout:** [`blood-sealing-gorge.md`](blood-sealing-gorge.md) — districts, dormant population, vertical map, player approach beats.
+
 | Feature | Fiction |
 |---------|---------|
-| **Geography** | Narrow ravine, red stone, mist that tastes of copper; upstream “spring” is array runoff |
-| **Arrays** | **Blood Seal Grand Array** — converts battlefield and ritual spill into sect vein qi; ties to formation **Sever + Gather** hybrids ([`formations-and-arrays.md`](formations-and-arrays.md)) |
-| **Courts** | **Outer Slaughter Terrace** (disciples) · **Inner Cauldron Hall** (core) · **Demon Lord Pit** (apex, sealed) |
-| **Why Heartlands** | Proximity to **charter traffic**, noble bloodlines, and sect disciple pipelines — highest-value “resources” |
-| **Why not on sect map v1** | Hidden realm entrance / raid instance until sect-map content supports hostile HQ |
+| **Geography** | Narrow ravine, red stone, copper mist; **Bloodrift Town** (血峡镇) — rogue/refugee settlement **inside** the gorge (Dao Wars swell) |
+| **Arrays** | **Blood Seal Grand Array** — spill → sect vein; **Mist Veil** dormancy |
+| **Courts** | **Slaughter Terrace** → **Cauldron Lanes** → **Inner Cauldron Hall** → **Patriarch Seal Court** → **Demon Lord Pit** → array heart |
+| **Why Heartlands** | Charter traffic, noble bloodlines, disciple pipelines — highest-value harvest radius |
+| **Why not on sect map v1** | Hidden approach / hostile HQ until hidden-realm or illegal-faction UX |
 
 ---
 
@@ -260,6 +262,7 @@ Taught to Outer Demons; inner court adds **Fourth Draught** (parked): *“The De
 | **Crimson Barrier** | core | Shield fueled by stored blood essence |
 | **Blood Rain** | core | AoE; tags corpses for array harvest |
 | **Soul Hook** | nascent | Pull fleeing souls — high corruption |
+| **Demon Blood Clone** (魔血分身) | void *(inner court)* | Peak **decoy body** at DM/DS believability — Tianjing gambit; not taught to branches |
 | **Heavenly Demon Form** | void | Burst transformation; juncture omen magnet |
 
 **What they teach:** breath → furnace → devour cycle → demon arts → cauldron layers.  

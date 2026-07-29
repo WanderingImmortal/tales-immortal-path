@@ -48,6 +48,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Void Temple](void-temple-sect.md) | `designed` (v1) | Lineage stub; gate travel; Little Heaven beats | — |
 | [Golden Phoenix Sect](golden-phoenix-sect.md) | `designed` (v1) | Lineage stub; Gambit immortal veto | — |
 | [Heavenly Demon Cult](heavenly-demon-cult.md) | `designed` (v1) | Blood lineage; illegal sect join UX | — |
+| [Blood Sealing Gorge](blood-sealing-gorge.md) | `designed` (v1) | Cult HQ layout; hidden map | — |
 | [Dao Wars — Capital Turn](dao-wars-capital-turn.md) | `designed` (v2) | Tianjing siege; chronicle | — |
 | [Cosmology — ancients taxonomy](cosmology-ancients-taxonomy.md) | `designed` (v1) | Grotto vs prisoner vs sealed | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
