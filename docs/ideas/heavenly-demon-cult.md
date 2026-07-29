@@ -12,6 +12,18 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 
 **Design principle:** The cult is a **great demonic institution** — doctrine, ranks, gorge arrays, and an immortal title in the vault — but **not** an open rival to the charter four today. It is a **lingering continental threat**: mostly **dormant or shadow-active**, deliberately **faded from young jianghu memory**. **Blood and extraction** remain sacred economics when cells wake. The mandate says they were **destroyed**; elders and immortals know that is **useful fiction**.
 
+**Two faces (owner lock):** **Bloodrift** and the market strip are **camouflage** — refugees, rogues, plain-clothes collectors. **Inner disciples and below the town** are a **uniformed, drilled, meritocratic army-in-a-sect** — the force that **fed on the Dao Wars** and could still **break** charter columns if it marched openly. Dormancy hides the fist; it does not remove the fist.
+
+### What the outside world knows (clarity)
+
+| Question | Answer |
+|----------|--------|
+| **Does the world know Bloodrift exists?** | **Some do** — smugglers, refugees, Heartlands underworld, nearby villages. Not a charter **registered** city; the name **血峡** travels as **oral** lore (“the camp in the red gorge”). |
+| **Do they know it is the Heavenly Demon Cult’s HQ?** | **No** — not as public fact. Official story: cult **extirpated at Tianjing**. The gorge is a **cursed pass** with a **miserable settlement** (bandits, plague refugees, rogue qi). |
+| **What do people *think* Bloodrift is?** | A **lawless slum** inside a bad canyon — **near** where demons *used* to haunt, not the **beating heart** of a great sect. |
+| **Who suspects more?** | **NS+ / sect elders / Tian inner court:** gorge **not empty**; Withdrawal real; **don’t march in alone**. They may **link** Bloodrift to **remnants** — still not the full picture of pit + founder + arrays. |
+| **Why the mask works** | Mo Xuan **wants** Bloodrift to look **ragtag**. Real cult **discipline** starts **below** the market and **deeper** than Cauldron Lanes’ civilian smoke. |
+
 ---
 
 ## At a glance
@@ -28,7 +40,7 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 | **Sect spine** | **The Heavenly Demon** (天魔) — **founder still holds the title** in the pit; cult myth speaks of “vessels” to hide that the **first** never left |
 | **Charter status** | **Declared annihilated** (mandate + sect textbooks) — bounty law **technically** still on the books, rarely enforced against ghosts |
 | **Allies / rivals** | **Rivals:** all four Heartlands sects (hunted); **uneasy tools:** Phoenix pamphleteers, Lotus register leakers, corrupt Tian cadets — never trusted allies |
-| **Combat lean** | **Attrition + burst** — blood shields, life-drain, formation harvest; weak in open charter duels (no license) |
+| **Combat lean** | **Attrition + burst** — blood shields, life-drain, formation harvest; **inner cohorts** drilled and uniformed (Dao Wars scale); **no charter license** for open war today |
 | **Player hook** | Uncover that the boogeyman **survived** · trace a sleeper cell · old elder’s war story · optional forbidden join path |
 
 ---
