@@ -5,12 +5,14 @@
 | **Status** | `idea` — **timeline not built**; events below need **dates / ordering** |
 | **Blocked on** | Owner + timeline agent pass |
 | **Issue** | none yet |
-| **Chat / PR** | Cult/gorge lore agent → timeline agent, 2026-07-29 |
+| **Chat / PR** | Cult/gorge lore agent → timeline agent, 2026-07-29; author spine brainstorm same day |
 | **Updated** | 2026-07-29 |
 
 ## Intent
 
 Establish **when** major setting beats happened relative to each other (Seal → Dao Wars → mandate → **now**). Lore docs were written **story-first**; many lack **year, duration, or “how long ago.”**
+
+**Author spine (eras, Warring States, sites, taboo break):** [`world-timeline-author-spine.md`](world-timeline-author-spine.md).
 
 **Do not** contradict locked beats without owner pass — use this as an **anchor list**, not gospel dates.
 
@@ -64,16 +66,18 @@ Establish **when** major setting beats happened relative to each other (Seal →
 
 ## Suggested timeline **layers** (structure only)
 
+See full era names and brainstorm in [`world-timeline-author-spine.md`](world-timeline-author-spine.md).
+
 ```text
-[ Chaos / Seal ] — no mortal calendar?
+[ Myth ] Seal → heaven’s law (not “Chaos Era” for all deep time)
        ↓
-[ Post-Seal kingdoms · gorge camp · Void prison ]
+[ Early heaven ] Void prison · ancient danger pins · pre–Warring States
        ↓
-[ Dao Wars ] — Tianjing · cult peak · Sword/Phoenix/Sword Ancestor era
+[ Warring States Era ] long controlled wars · DM homeland deterrence
        ↓
-[ Capital Turn / mandate born ] — extirpation fiction · Longcheng growth
+[ Dao War Era ] short · field-DM taboo break · Tianjing / Half-Step
        ↓
-[ Present game era ] — dormancy · faded memory
+[ Imperial Sky Era ] mandate · present · cult dormancy fiction
 ```
 
 ---
