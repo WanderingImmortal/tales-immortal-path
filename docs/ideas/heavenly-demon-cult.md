@@ -238,6 +238,19 @@ The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) br
 
 **Promotion:** merit = **delivered qi** (quests, PvE harvest, betrayals). Cruel but **meritocratic** — bloodline helps only if it bleeds well.
 
+### Inner court — uniform, drill, real sect *(not ragtag)*
+
+The cult **failed to rule** the Heartlands; it did **not** fail to **build an army**. Dao Wars proved cauldron legions and harvest arrays could **stand beside** charter sects until Tianjing.
+
+| Layer | How it presents |
+|-------|------------------|
+| **Bloodrift (town)** | Civilians, rogues, **plain clothes** — collectors and Outer Demons **blend in** |
+| **Core Demon+ (gorge proper)** | **Uniforms** — black base, **crimson trim**, rank marks on **collar or cauldron pin**; same cut across cohorts so a column **reads** as one sect |
+| **Drill** | Formation steps, **silent** orders, merit duels **on schedule** — terrace whispers in dormancy; **full** drill in Cauldron Lanes yards |
+| **Why it matters** | Sword has the mountain; Demon has the **gorge machine**. A sloppy band could not have **farmed** the Dao Wars or survived Withdrawal with arrays intact |
+
+**Player join fantasy:** past the town mask, you find a **real** demonic great sect — ranks, robes, fear, discipline — not a refugee camp with knives.
+
 ### The Three Draughts (public sermon)
 
 Taught to Outer Demons; inner court adds **Fourth Draught** (parked): *“The Demon eats the Demon”* — cannibal succession.

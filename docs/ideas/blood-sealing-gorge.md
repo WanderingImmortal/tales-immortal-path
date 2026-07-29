@@ -285,7 +285,18 @@ Full pass — **district 3 of 7**; the **living town** in the gorge, **below** t
 
 **Bloodrift** is a **refugee-and-rogue town** that grew inside the cult’s canyon during the Dao Wars — part market, part hideout, part **camouflage** so the gorge looks like “just a cursed slum,” not an active demon headquarters.
 
-### First steps down from the terrace
+### What the **outside world** thinks vs truth
+
+| Outside belief | Truth |
+|----------------|--------|
+| “There’s a **camp** in **Blood Sealing Gorge** — refugees and bandits.” | **Partly true** — that’s **Bloodrift**. |
+| “The **Heavenly Demon Cult** was **wiped out** at Tianjing.” | **Public lie** — founder lives; sect **dormant**, not dead. |
+| “Bloodrift **might** have cult **remnants** or copycats.” | **Understatement** — town is **attached** to the HQ, not a random village **near** it. |
+| “It’s **ragtag** — no match for a great sect.” | **Deliberate look.** **Uniformed Core Demons+** and array infantry live **below** the market; town is the **hood** over the fist. |
+
+**Name on maps:** Charter atlases mark **封血峡** (cursed gorge) at most. **血峡镇** is **smuggler/refugee** word-of-mouth — not Longcheng registry. Knowing the name **Bloodrift** does **not** mean knowing “demon capital.”
+
+---
 
 The terrace lip overlooks **roofs** — flat stone, plank, patched cloth. Smoke rises from **cook fires**, not forges (those are deeper, in Cauldron Lanes). The gorge **narrows again** below the town; the main strip runs along the **dry riverbed** where the floor is still dark and slick.
 
@@ -328,8 +339,8 @@ Charter law **does not run here**. Nobody wears Sword or Lotus colors openly unl
 | **Refugees** | Dao Wars families, famine runs, people with **no register** anywhere | Many **believe** the cult was **wiped out at Tianjing**; they stay because nowhere else will have them |
 | **Rogues** | Deserters, smugglers, failed disciples, petty cultivators | Here for **no questions**; pay **blood tax** and don’t preach righteousness |
 | **Town civilians** | Merchants, cooks, bone-setters, **not** sworn to the cult | Still pay tax; still **look away** when a wagon goes to the lower lanes |
-| **Cult — visible** | A few **Outer Demons** in plain clothes, **collectors**, clinic “doctors” | **No demon banners**; authority is a **nod** and a **list** |
-| **Cult — hidden** | Core disciples mostly **deeper** in the gorge; envoys **leave** for the outside world | Town is **not** where inner court sleeps |
+| **Cult — visible** | A few **Outer Demons** in plain clothes, **collectors**, clinic “doctors” | **No demon banners** on the strip; **no uniforms** here by rule |
+| **Cult — hidden** | **Core Demon+** in **black-and-crimson** dress **deeper** in the gorge; envoys **plain-clothes** outside | Town is **not** where inner court **drills** — see **Cauldron Lanes** |
 
 **Your locked fiction:** **Rogues and refugees in equal measure** — the town should feel like **both** a sanctuary and a trap.
 
