@@ -62,7 +62,7 @@ The Half-Step emerged from Tianjing’s **inner keep / underpalace core** and **
 | **Heavenly Demon army** (cauldron legions, harvest arrays) | Worst cycle-tamperers; **fed on the siege**; Half-Step **hunted them first** in the walk — public proof the mandate was not “another sect” |
 | **Demon-linked formations** | Blood pools that tried to **tag** the Half-Step’s wake — unmade on sight |
 
-Cult inner court: the walk **shredded** the field army; survivors ordered **Great Withdrawal** ([`heavenly-demon-cult.md`](heavenly-demon-cult.md)). Mandate later claims **annihilation** at this battle; juniors think it’s folklore.
+Cult inner court: the walk **shredded** the field army and the **Blood Clone** (血影) that wore the Demon’s face; the **true** founder was **not** in the line. Survivors ordered **Great Withdrawal** ([`heavenly-demon-cult.md`](heavenly-demon-cult.md)). Mandate claims **Heavenly Demon slain** here; juniors think it’s folklore. **Owner lock:** perhaps **only** the Half-Step **knew** it was a clone in the moment.
 
 ---
 

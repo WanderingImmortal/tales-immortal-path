@@ -6,7 +6,7 @@
 | **Blocked on** | Lineage manual (`blood_fiend` spine); alignment/sacrilege hooks; owner pass on charter “fifth power” politics |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-28 |
-| **Updated** | 2026-07-29 (founder arc + scripture origin draft) |
+| **Updated** | 2026-07-29 (blood clone at Tianjing; Mo Xuan disciple) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral rulebook: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). Blood cultivation: [`technique-driven-cultivation.md`](technique-driven-cultivation.md). Peers (orthodox): [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md), [`golden-phoenix-sect.md`](golden-phoenix-sect.md).
 
@@ -72,11 +72,20 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 
 **Gorge town:** Refugees and rogues in equal measure; the settlement **swelled in the Dao Wars** (older scab camp at the seal is optional legend). The cult is **institutionalized** in that window — not “found only when the war started,” but **born loud** when the continent poured blood into the Heartlands.
 
-**War peak:** The founder rode **Dao Manifestation** in a meteoric climb — scripture + gorge + slaughter gates. He preached open conquest: **he would be the Heavenly Demon and rule the Heartlands**. On the board he was a **butcher powerhouse**, not a mandate king: cauldrons on the siege, coalitions sometimes tolerated him, then **denied** him.
+**War peak:** The founder rode **Dao Manifestation** in a meteoric climb — scripture + gorge + slaughter gates. He **wanted** the Heartlands; he **never** held the mandate or sat on Tianjing. Ambition was **open**; rule was **not**. On the board he was a **butcher powerhouse**: cauldrons on the siege, coalitions sometimes tolerated him, then **denied** him.
 
-**Tianjing:** Field armies and harvest arrays **broken** in the Half-Step walk. The founder **did not** die there — he was **not** the fool on the front row when the dragon-weight moved. **Mo Xuan** (then rising inner court) executed **Great Withdrawal** while the walk shredded cauldrons.
+**Tianjing — the blood clone gambit:** The founder **believed** he might **measure** the new Half-Step — or at least **learn** what that weight felt like before risking himself. He sent a **Blood Clone** (血影) at **peak Dao Manifestation** or **Dao Seeking** — strong enough to **be him** in aura, speech, and battle; **not** the true body.
 
-**After the war — silent Immortal:** With the continent exhausted and eyes on Tian, the founder **broke through to Immortal in secret** — no announcement, no charter, no coalition response. The final push used **war spoils including his own soldiers’ blood-qi** (betrayal as fuel). Mandate textbooks later claim **extirpation**; in truth the **first Demon** simply **vanished from the board** while sects wrote victory.
+| Witness | What they think |
+|---------|-----------------|
+| **Demon soldiers** | Their **Heavenly Demon** **died** in the walk — scripture “proof,” trauma, desertion or silence |
+| **Coalition peak elders** | **Inklings** — body wrong, blood too thin, victory **too** clean; charter histories still print **death** |
+| **Tian Half-Step** | **Understood** *(owner lock: perhaps the only one who knew in the moment)* — the walk **shredded** the clone and the harvest host; the **real** hunger **was not on the field** |
+| **Mandate textbooks** | **Heavenly Demon slain at Tianjing** — foundation of **extirpation** fiction |
+
+While the walk broke cauldrons and the clone, the **true founder** was **already** pulling back with **Mo Xuan** — not in the garden line.
+
+**After the war — silent Immortal:** Continental eyes on Tian; the founder **ascended in secret** — no announcement. Final fuel included **war spoils and his own soldiers’ blood-qi**. The world celebrated a **dead demon**; the **first Demon** entered **Immortal (restricted)** and the **pit**.
 
 **Now — still in the cult, still hungry:**
 
@@ -86,7 +95,7 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 | **Fuel** | Slow **devouring** of unworthy inner-court cultivators + **offerings** (blood essence, captives, voluntary “merit”) piped into the pit |
 | **Goal** | **Beyond false Immortal** — not Half-Step (Tian’s watershed). He treats mandate Immortality as a **ceiling** and believes the Scripture can **devour** past it ([`post-immortal-cosmology.md`](post-immortal-cosmology.md) — false lease vs self-sustenance) |
 | **Mo Xuan** | **Caretaker** of dormancy and branches; **mediates** so the founder is fed **without** waking the Half-Step or charter immortals |
-| **Public myth** | *“The Demon does not die — the vessel is empty calories”* — **useful lie** so the world does not know the **original** still breathes |
+| **Public myth** | *“The Demon does not die — the vessel is empty calories”* + **“the next Heavenly Demon rises”** — **ruse** so the sect **keeps running** without asking why the pit still eats |
 
 **Power today:** Founder = **Immortal (restricted)** — same deterrent band as sect immortals; **not** above the historical Half-Step walk. His **research** in the pit is the long bet; armies stay sealed.
 
@@ -111,7 +120,10 @@ Two owner options; **both** answer “where is it from?” without a random cave
 ---
 
 ### Before the mandate — cult legend (outer sermon)
+
 Outer court still teaches: *“The Demon does not die — the vessel is empty calories.”* Inner court knows the **founder** may be the **only** vessel that ever mattered.
+
+**The Three Draughts:**
 
 1. **All qi returns to the pot** — the world is a cauldron; refuse none of it.
 2. **The strong draw the vein** — mercy is storage loss.
@@ -144,22 +156,22 @@ The cult was **not** trying to win the mandate. It was **farming** the war — d
 
 ### The Half-Step — why they receded
 
-The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) broke the cult at **Tianjing’s gates** before the peace fiction began.
+The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) broke the cult **armies** at **Tianjing’s gates** and **killed the demon the world saw** — not necessarily the man in the pit today.
 
 **Two beats (continent-wide):**
 
 1. **Tide** — when the Tian founder finished **Half-Step** *inside* the siege cordon, every major camp **felt** the realm shift; outcome still uncertain.
-2. **Garden** — the Half-Step **stepped out from Tianjing’s inner keep** and walked through armies and grand formations; **cauldron legions and demon harvest arrays were targeted first** with particular ferocity.
+2. **Garden** — the Half-Step **stepped out from Tianjing’s inner keep** and walked through armies and grand formations; **cauldron legions and demon harvest arrays were targeted first** — including the founder’s **Blood Clone** in the demon line.
 
 **What the cult did after:**
 
-1. **Field broken** — not a week-long campaign elsewhere; **one walk** shredded the demon host that had been **feeding on the siege**.
-2. **Strategic dormancy** — Patriarch ordered **Great Withdrawal** (魔教蛰息): seal gorge, dissolve public face, sleeper cells only.
-3. **Propaganda gift** — mandate and sects claim **annihilation here**; juniors forget; elders sign the lie.
+1. **Field broken** — one walk shredded the host; **clone destroyed**; soldiers swear the **Demon died**.
+2. **Great Withdrawal** — **Mo Xuan** (founder’s **right hand** / **first and best disciple**) sealed the gorge, dissolved the public face, sleeper cells only — on orders from the **living** founder.
+3. **Propaganda gift** — mandate and sects claim **extirpation**; the **clone’s death** becomes **his** death in every textbook.
 
-**Afraid?** Scripture says **wise** — *hunger postponed* until the Sleeping Dragon sleeps deeper or the board bleeds without a Half-Step on watch.
+**Afraid?** The founder **tested** Half-Step with a clone and **learned** not to meet it on the field. Scripture says *wise* — *hunger postponed*.
 
-**Did they capitulate?** **No charter, no kneel.** They **vanished** on purpose.
+**Did they capitulate?** **No charter, no kneel.** They **vanished** on purpose — while the pit **filled**.
 
 ### Now — lingering threat, faded memory
 
@@ -167,7 +179,7 @@ The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) br
 |-----|-------------------|
 | **QC / outer disciples / mortals** | Boogeyman stories; “Heavenly Demon Cult” sounds **archaic**; demonic ambushes are “**corrupted cultivators**” or bandits |
 | **GC / charter juniors** | Textbook **extermination**; occasional bounty poster **nobody takes seriously** |
-| **NS+ / elders / envoys** | Withdrawal was real; gorge **still there**; cells still **wake** for harvest |
+| **NS+ / elders / envoys** | Withdrawal was real; some suspect **Tianjing “death”** was **incomplete**; gorge **still there** |
 | **Immortals** | Mutual **don’t poke** — cult immortal(s) dormant; waking gorge risks dragon **and** sect coalition |
 
 **Operational today:**
@@ -289,7 +301,7 @@ Not a charter offshoot and **not** a fifth great sect that lost a vote. The cult
 |-------|--------|
 | **The gorge** | **Blood Sealing Gorge** predates the Tian name on the map. Red stone, copper mist, and a natural **blood-seal** phenomenon: spilled life-qi **pools and condenses** instead of dissipating. Early cultivators treated it as a **holy pit** or **curse**; both were right. |
 | **First doctrine** | Post-**Seal** chaos — bandit kings, failed disciples, plague refugees. Survivors learned that **harvesting** the gorge (and each other) beat starving. The **Three Draughts** were sermonized later; at first they were **camp law**. |
-| **First Heavenly Demon** | One peak cultivator **finished** the forbidden **Heavenly Demon Scripture** (天魔经) and **wore the cult’s law of devouring** — not “became evil,” but **bound** their dao to **eat and ascend**. Cult myth: *the title is the person who finishes the book*; the **first** holder’s true name is lost. Every later holder is a **vessel** for the same hunger. |
+| **First Heavenly Demon** | See **Founder arc** above — gorge town, war rise, silent Immortal, pit seclusion |
 | **Institution** | Gorge arrays (**Blood Seal Grand Array**) turned battlefield spill into **sect vein**. Ranks, envoys, and branch cells followed — **merit = delivered qi**. They were a **power** before Sword, Lotus, Phoenix, or Void were **continental** brands. |
 
 **What they are not:** Tian exiles, Phoenix blood-theft with a flag, or a Lotus bankruptcy guild. Orthodox sects **borrowed** demon auxiliaries in the Dao Wars; they did **not** found the cult.
@@ -301,8 +313,8 @@ Not a charter offshoot and **not** a fifth great sect that lost a vote. The cult
 Two heads on one snake: the **patriarch** the jianghu could name (if anyone still looked), and **the Heavenly Demon** the scripture cares about.
 
 ```text
-IMMORTAL — The Heavenly Demon (天魔)     ← sleeps in Demon Lord Pit; title + law
-    ↑ wake only if pit seal fails / Mo Xuan breaks dormancy oath
+IMMORTAL — The Heavenly Demon (天魔)     ← founder in Demon Lord Pit; “sleep” = seclusion / beyond-immortal work
+    ↑ offerings + slow devour; Mo Xuan manages noise
 VOID PEAK — Patriarch Mo Xuan (魔玄)     ← runs Withdrawal; public “dead”
     ↑
 NS peak — Elder Hong Lian (红莲)         ← cauldrons, harvest arrays, inner court
@@ -315,41 +327,37 @@ Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
 | Field | Value |
 |-------|-------|
 | **Title** | **Demon Lord** (魔主) / Patriarch |
+| **Relation** | Founder’s **bloody right hand** and **first / best disciple** — taught early **Canon**, ran cauldrons, **knew the clone plan** |
 | **Realm** | **Void Refinement peak** — same **public band** as a great-sect patriarch ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)) |
 | **Fighting** | Strong with **gorge arrays** and **cauldron legions**; in an open duel vs a charter VR patriarch he is **even or slightly down** — he **does not** seek those duels |
-| **Textbook status** | **Officially killed** at Tianjing (mandate fiction). In reality he **was not** in the front rank when the Half-Step **walked the garden** |
+| **Why he leads** | The founder **trusts** him with the **living** cult; everyone else thinks the Demon **died** at Tianjing. Patriarch is the **visible apex** so the pit stays **unquestioned** |
+| **Textbook status** | **Heavenly Demon** listed dead; **Mo Xuan** obscure outside inner court — mandate may not even have his name |
 
-**Personality:** Cold **strategist**, not a pulpit tyrant. Dao Wars era: the mind behind **Great Draught** logistics — *let sects break each other; drink the spill*. He spoke to coalition envoys in **polite** tones while cauldrons tagged formations. Today: **caretaker of dormancy** — patient, risk-averse, almost bureaucratic. Inner court jokes he runs the cult like a **sealed warehouse**: inventory of sleepers, minimum harvest to keep the gorge fed, **no banners**.
+**Personality:** Cold **strategist** who **worships survival**, not sermons. War era: **executed** the founder’s harvest math and **stood beside** the true body while the **clone** played god on the field. Today: **caretaker of dormancy** — feeds the pit, runs the **“next Heavenly Demon”** ruse so ambitious elders **devour each other** instead of auditing the gorge.
 
 **Story beats:**
 
-- **Before the walk:** Rose through **cauldron merit**, not bloodline. Trusted by the then-vessel to hold the host **together** while harvest armies fed on the siege.
-- **Tianjing:** When the Half-Step **stepped from the inner keep**, Mo Xuan was **already** pulling cauldrons back and burning ledgers. He **saw** the walk shred demon arrays first — and gave the order for **Great Withdrawal** (魔教蛰息) **before** the coalition could agree on pursuit.
-- **Now:** Rare audiences; most orders through **Hong Lian** and **Heavenly Demon Envoys**. He **mediates** inner court cannibal politics so the sleeping immortal is not woken by accident. His fear is not “righteous sects” — it is **waking the vessel** and **drawing the Half-Step’s attention** at the same time.
+- **Discipleship:** First to survive **full** Crimson-to-furnace induction; **only** one allowed to see the founder **without** the clone mask. **Survived Tianjing** because he was **with the true body**, coordinating Withdrawal — not in the clone’s death line.
+- **Tianjing:** When the Half-Step **stepped from the inner keep**, Mo Xuan **already** pulled cauldrons back; watched the **clone** end; gave **Great Withdrawal** (魔教蛰息) before pursuit organized.
+- **Now:** Rare pit audiences; daily work through **Hong Lian** and envoys. **Loyal** to the founder’s **project** (past Immortal), not to reconquering the Heartlands. Fear: **founder’s next breakthrough** lights the sky **and** the Half-Step **remembers** the real body.
 
-**Player read:** nursery tales imagine a **laughing battlefield god**. Mo Xuan is the **clerk of the cauldron** — counts spill, seals the gorge, refuses to die when textbooks say he should.
+**Player read:** nursery tales imagine a **laughing battlefield god** who **died** at Tianjing. Mo Xuan is the **disciple who didn’t** — clerk of the cauldron, keeper of the lie.
 
-### **The Heavenly Demon** (天魔) — title, law, sleeping immortal
+### **The Heavenly Demon** (天魔) — founder in the pit
 
 | Field | Value |
 |-------|-------|
-| **What it is** | **Epithet + office** — whoever **completes** the Scripture and **hosts** the devouring law. Cult teaching: *“The Demon does not die — the vessel is empty calories.”* |
-| **Current vessel** | **Withdrawal-era** immortal — true name **redacted** in archives; inner court calls them **Pit-Sleeper** (窟眠) |
-| **Realm** | **Immortal** (restricted) — comparable **weight class** to sect immortals and the Void Seeker: **continent-scale deterrence**, not “stronger than Half-Step” |
-| **State** | **Dormant** in **Demon Lord Pit** — wound, scripture backlash, and **deliberate** seal after Tianjing; waking is **policy**, not nap |
+| **Who** | **The founder** — first to complete the Scripture; still holds the title. Outer myth invents **successor vessels**; inner court serves **one** hunger |
+| **True name** | **Redacted** / lost to juniors — epithet **Pit-Sleeper** (窟眠) among Watch |
+| **Realm** | **Immortal (restricted)** since **post–Dao Wars silent breakthrough** — **not** announced; world thinks him dead |
+| **State** | **Seclusion** in **Demon Lord Pit** — devours offerings and failed merit; researching **past false Immortal** |
+| **Tianjing** | **Blood Clone** destroyed in the walk; true body **with Mo Xuan**; then **secret Immortal** ascent |
 
-**Personality *(when awake)*:** Ancient **predator charisma** — sermons that feel like **hunger** in the chest. The vessel at Tianjing was the **face** of cauldron legions; soldiers died for the **idea** of endless ascent. Scripture **eats** weak hosts; this one survived long enough to **ascend**, then **crashed** into sleep when heaven’s law **noticed** the harvest at siege scale.
+**Personality *(when he stirs)*:** Still the **devil’s ego** of the founding sermons — older, patient, **more terrifying** because he no longer needs banners. He does not beg Mo Xuan for empire; he asks for **fuel** and **silence**.
 
-**Power level (plain):**
+**Power level (plain):** Same table as before — **not** above Half-Step historically; today a **dormant** immortal asset. Full wake = coalition problem.
 
-| Opponent | Cult read |
-|----------|-----------|
-| **Mortals / GC–NS armies** | Irrelevant without arrays |
-| **VR patriarchs, DM ancestors** | Vessel at full wake **outclasses** any single mortal-board peak; needs **gorge** or **cauldron** support to **sustain** |
-| **Half-Step Tian founder (historical walk)** | **Not a duel** — the walk was **mandate law + dragon weight** moving through formations. Cult admits: **hunger postponed**, not defeated in fair fight |
-| **Charter coalition today** | Waking Pit-Sleeper + Mo Xuan unsealing gorge = **every** sect immortal and the **Sleeping Dragon** problem — why **mutual don’t-poke** holds |
-
-**Succession:** A patriarch who fails **Century Cauldron** audit may be **devoured** to feed the vessel or the next host candidate — strengthens the **next** Demon, not Mo Xuan personally unless he weakens.
+**Succession ruse:** Outer court preaches the **next Heavenly Demon** — promotions, devour audits, **vessel** mythology. **Truth:** failed merit and **Century Cauldron** failures **feed the founder**; there is no **successor**, only **fuel** and **deniability**.
 
 ### Supporting cast *(unchanged roles)*
 
