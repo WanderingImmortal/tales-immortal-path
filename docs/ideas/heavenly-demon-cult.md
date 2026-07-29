@@ -232,7 +232,7 @@ The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) br
 | 2 | **Core Demon** | 内魔 | Gorge residency; blood missions |
 | 3 | **Demon Envoy** | 魔使 | Runs a **branch cell** in a zone |
 | 4 | **Elder of the Cauldron** | 鼎长老 | NS band; maintains harvest formations |
-| 5 | **Heavenly Demon Envoy** | 天魔使 | VR-facing; speaks for patriarch |
+| 5 | **Heavenly Demon Envoy** | 天魔使 | **VR** — knows **pit truth**; branch oversight; **won’t** challenge for throne; comfortable inner life |
 | 6 | **Patriarch** | 魔主 | Public apex — **Demon Lord** (魔主) title in jianghu |
 | ∞ | **The Heavenly Demon** | 天魔 | Immortal spine; may devour patriarch who weakens |
 
@@ -355,13 +355,13 @@ Not a charter offshoot and **not** a fifth great sect that lost a vote. The cult
 
 ## Leadership — who runs the cult today
 
-**Three jobs** (owner draft — split still being refined):
+**Three jobs** (owner lock):
 
 | Job | Who (truth) | Who (lower ranks think) |
 |-----|-------------|-------------------------|
 | **God** | Founder in **pit** — Immortal, beyond-Immortal research | Dead at Tianjing — or **“ascended into the cauldron”** |
-| **Church** | **Pulpit Demon** — usually a **Demon Blood Clone** (or masked stand-in) at statue / vault rites | The **current Heavenly Demon** — **successive** vessels |
-| **State** | **Mo Xuan** — patriarch, Withdrawal, arrays, branches | **Demon Lord** / **admin** — **not** the god; **runs** the sect so the pulpit can stay holy |
+| **Church** | **Pulpit Demon** — usually a **Demon Blood Clone** at statue / vault rites | The **current Heavenly Demon** — **successive** vessels |
+| **State** | **Mo Xuan** — patriarch; **quiet** course-keeping; founder’s **ear** | **Demon Lord** title exists — but many juniors **forget** him; he is **not** the sermon face |
 
 ```text
 PIT — Founder (true 天魔)           ← never leaves; feeds; makes clone-stock
@@ -381,7 +381,7 @@ Hong Lian, envoys, lanes…
 |----------------------------|---------------------------|
 | The Heavenly Demon **dies** or **ascends**; a **new vessel** inherits | **One** founder; **clones** and **sermons** sell succession |
 | The **statue cauldron** “drinks” the oath | Symbol; **real** cauldron is **vault** by pit |
-| **Mo Xuan** serves the **current** Demon | Mo Xuan serves the **founder**; manages the **pulpit** lie |
+| **Mo Xuan** serves the **current** Demon | Mo Xuan serves the **founder**; **maintains** dormancy; rarely **seen** in public |
 | Tianjing = **last** Demon **killed** | Tianjing = **war clone** killed; pulpit **restarted** later in secret |
 
 **Why a Blood Clone for pulpit:** Same technique family as **Demon Blood Clone** (Tianjing) — scaled down for **ritual**: looks, sounds, **pressure** of the Demon **without** dragging the founder to the plaza. **Typically** not full Immortal power — **enough** to kneel a hall. Replaced when it **frays** (sells another “succession”).
@@ -392,10 +392,24 @@ Hong Lian, envoys, lanes…
 |--|-------------|------------------|
 | **Role** | **Admin** — ledgers, dormancy, envoys, Hong Lian, pit **schedule** | **Religious face** — oaths, festivals, **“the Demon speaks”** |
 | **Realm** | VR peak **himself** | Clone **face**; founder’s **blood**; not a second Immortal |
-| **Seen by juniors** | Feared **manager**; “clerk of the harvest” | **Worship**; “the Heavenly Demon” |
+| **Seen by juniors** | Often **forgotten** — paperwork patriarch, not the **voice** at the statue | **Worship**; “the Heavenly Demon” |
 | **Seen by founder** | Right hand | **Tool** — disposable mask |
 
-**Still open (owner):** Does Mo Xuan **ever** stand in for the pulpit? Do **Heavenly Demon Envoys** (VR) believe they serve clone or pit? Is pulpit **always** clone, or **sometimes** a masked elder?
+**Owner lock (2026-07-29):** **Heavenly Demon Envoys** (VR) **know** pit + pulpit + founder — see below. **Mo Xuan** does **not** lead sermons; he **steers** the sect on the founder’s **advice**. Pulpit **usually** Blood Clone.
+
+### Heavenly Demon Envoys (天魔使) — VR inner ring
+
+| Field | Value |
+|-------|-------|
+| **Realm** | **Void Refinement** — same band as charter patriarchs |
+| **Who** | **Dao Wars survivors** or **post-war** promotions who proved **discretion** over ambition |
+| **What they know** | **Full situation** — founder in pit, pulpit clone fiction, Tianjing war-clone, Mo Xuan as **state** arm |
+| **What they accept** | They will **not** lead the sect; **no** path to pit or Immortal **advertised** |
+| **What they get** | **Comfortable** inner-court life — resources, branch **oversight**, merit share, **distance** from Bloodrift squalor |
+| **Job** | **Regional** great-sect equivalent: wake sleepers, settle branch disputes, **carry** founder/Mo Xuan orders — **not** public religion |
+| **vs Demon Envoy** (魔使) | **Branch** envoys (Core+) usually **do not** know gorge truth — coordinates only |
+
+**Attitude:** Pragmatic loyalty. They saw the **walk** or grew up on **Withdrawal** lore. Challenge Mo Xuan → **devour** or pit. Challenge founder → **unthinkable**.
 
 ### Patriarch **Mo Xuan** (魔玄) — admin, not pulpit
 
@@ -405,10 +419,13 @@ Hong Lian, envoys, lanes…
 | **Relation** | Founder’s **bloody right hand** and **first / best disciple** — taught early **Canon**, ran cauldrons, **knew the clone plan** |
 | **Realm** | **Void Refinement peak** — same **public band** as a great-sect patriarch ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)) |
 | **Fighting** | Strong with **gorge arrays** and **cauldron legions**; in an open duel vs a charter VR patriarch he is **even or slightly down** — he **does not** seek those duels |
-| **Why he leads** | Founder’s **state** arm — **admin**, not **pulpit**. Lower ranks may **fear** him more than they **revere** him |
+| **Public face** | **Low** — rarely at **large** rites; no habit of **grand** speeches. Many disciples **forget** the patriarch exists until a **seal** or **merit** issue reaches his desk |
+| **How he leads** | **Maintains course** — Hong Lian, Heavenly Demon Envoys, arrays, pit **schedule**; **frequent** founder audiences (advice + orders) |
+| **Why he leads** | Founder’s **state** arm — trusted to **not** need glory |
+
 | **Textbook status** | **Heavenly Demon** listed dead; **Mo Xuan** obscure outside inner court — mandate may not even have his name |
 
-**Personality:** Cold **strategist** who **worships survival**, not sermons. War era: **executed** the founder’s harvest math and **stood beside** the true body while the **clone** played god on the field. Today: **caretaker of dormancy** — feeds the pit, runs the **“next Heavenly Demon”** ruse so ambitious elders **devour each other** instead of auditing the gorge.
+**Personality:** Cold **strategist** who **worships survival**, not sermons. **Prefers** the gorge **works** over being **remembered**. War era: stood beside the true body while the **clone** played god. Today: **caretaker of dormancy** — feeds the pit, schedules **pulpit**, lets envoys enjoy **their** tier so they **don’t** reach for his.
 
 **Story beats:**
 
@@ -416,7 +433,7 @@ Hong Lian, envoys, lanes…
 - **Tianjing:** When the Half-Step **stepped from the inner keep**, Mo Xuan **already** pulled cauldrons back; watched the **clone** end; gave **Great Withdrawal** (魔教蛰息) before pursuit organized.
 - **Now:** Rare pit audiences; daily work through **Hong Lian** and envoys. **Loyal** to the founder’s **project** (past Immortal), not to reconquering the Heartlands. He **suspects** the Half-Step **was not fooled** by the Demon Blood Clone — the walk felt too **purposeful**, the silence afterward too **comfortable** — but **centuries** of **immortal standoff** (sect immortals, Sleeping Dragon, mutual don’t-poke) mean it **does not matter** for day-to-day dormancy: nobody is marching on the gorge to “finish” a demon who is **already dead on paper**.
 
-**Player read:** nursery tales imagine a **laughing battlefield god** who **died** at Tianjing. Mo Xuan is the **disciple who didn’t** — clerk of the cauldron, keeper of the lie.
+**Player read:** nursery tales imagine a **laughing battlefield god** who **died** at Tianjing. Mo Xuan is the **patriarch you forget** until inner court — keeper of the lie, **not** the cult’s face.
 
 ### **The Heavenly Demon** (天魔) — founder in the pit
 
@@ -494,7 +511,7 @@ Hong Lian, envoys, lanes…
 
 ## Open questions
 
-- [ ] **Pulpit split** — Mo Xuan ever stand in for clone? VR envoys know pit truth or believe succession?
+- [ ] **Pulpit** — Mo Xuan ever stand in for clone, or **always** separate?
 - [ ] **Pit-Sleeper true name** — ever revealed, or epithet-only like Void Seeker?
 - [ ] **Vessel count** — how many **pulpit** “successions” since Tianjing (lore number or vague)?
 - [ ] **Sleeper activation** — what **in-world** event wakes cells (Phoenix Gambit? charter war? player)?
