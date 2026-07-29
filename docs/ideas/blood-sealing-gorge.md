@@ -6,7 +6,7 @@
 | **Blocked on** | Hidden map / hostile sect join UX; owner lock: gorge on `outer_heartlands` graph vs pocket instance |
 | **Issue** | none yet |
 | **Chat / PR** | Cult lore pass, 2026-07-29 |
-| **Updated** | 2026-07-29 (plain-language glossary; DT = Deity Transformation guards) |
+| **Updated** | 2026-07-29 (Bloodrift Town detail pass) |
 
 Parent: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Formations: [`formations-and-arrays.md`](formations-and-arrays.md). Peers: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Solitary Sword Mountain), [`void-temple-sect.md`](void-temple-sect.md) (Little Heaven).
 
@@ -28,6 +28,7 @@ The gorge is the cult’s **true homeland** — not a dungeon sticker on the Hea
 | **Press-gang** | **Grab people by force** for the cult (as opposed to willing recruits). |
 | **Mist Veil** | An array that makes the gorge **hard to scout from far away** (haze, confused senses). |
 | **DT guard** | **Deity Transformation** cultivator — a very high realm ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)); only the most trusted rotate to the mouth. |
+| **Blood tax** | What the town pays the cult to be left alone — coin, blood essence, names of strangers, or **one body** when the collectors ask. |
 
 ---
 
@@ -270,15 +271,147 @@ Caravan survivors who **never** entered describe a **figure on the cliff** and *
 
 ---
 
+---
+
 ### Bloodrift Town (血峡镇)
 
-| | |
-|--|--|
-| **Origin** | Pre-war **scab camp** at the seal; **Dao Wars** poured refugees, deserters, and **rogue cultivators** until it became a **town** |
-| **Vibe** | **Rogues and refugees in equal measure** — taverns, bone dice, “clinics,” no charter law; everyone **pretends** the cult is dead while paying **tribute** in blood-tax or service |
-| **Cult relation** | **Not** every resident is sworn — cult **taxes** and sometimes **drags people off by force**; town is **camouflage**. New disciples mostly come from **outside** kidnapping pipelines — see **Gate watch** above |
-| **Dormant today** | ~**two-thirds** shutters; night still has **lights** in the lower lanes. Mo Xuan **allows** the town to breathe — empty streets would draw surveys |
-| **Named stub** | **Bloodrift Market** (血峡市) — working sign for the main strip |
+Full pass — **district 3 of 7**; the **living town** in the gorge, **below** the Slaughter Terrace on the canyon floor.
+
+---
+
+## Bloodrift Town (血峡镇) — look & daily life
+
+### What it is (one sentence)
+
+**Bloodrift** is a **refugee-and-rogue town** that grew inside the cult’s canyon during the Dao Wars — part market, part hideout, part **camouflage** so the gorge looks like “just a cursed slum,” not an active demon headquarters.
+
+### First steps down from the terrace
+
+The terrace lip overlooks **roofs** — flat stone, plank, patched cloth. Smoke rises from **cook fires**, not forges (those are deeper, in Cauldron Lanes). The gorge **narrows again** below the town; the main strip runs along the **dry riverbed** where the floor is still dark and slick.
+
+| First impression | Detail |
+|------------------|--------|
+| **Light** | Dim even at noon — cliffs cut off the sun; **lanterns** at all hours in the lower lanes |
+| **Sound** | Haggling, dice, a **two-string** somewhere; babies cry behind shutters; no temple bells |
+| **Smell** | Fried oil, **cheap incense** to hide copper, unwashed wool, sometimes **iron** from the channels underfoot |
+| **Mood** | **Busy enough to feel normal**, quiet enough to feel **watched** — because it is |
+
+Charter law **does not run here**. Nobody wears Sword or Lotus colors openly unless they’re **hiding**.
+
+### Layout (simple map in words)
+
+```text
+[ Slaughter Terrace — above on cliff ]
+              |
+    ┌─────────┴─────────┐
+    |  UPPER SHEDS       |  ← newer refugee hovels, goat pens
+    └─────────┬─────────┘
+              |
+    ═══ BLOODRIFT MARKET (血峡市) ═══  ← main strip along the riverbed
+         |    |    |
+    tavern  dice  clinic row
+              |
+    ┌─────────┴─────────┐
+    |  LOWER LANES       |  ← ladders, back doors, delivery paths to Cauldron Lanes
+    └─────────┬─────────┘
+              |
+         (deeper gorge → Cauldron Lanes)
+```
+
+- **Bloodrift Market** — the name people use for the **main street** (not a separate city).
+- **Ladder alleys** — steep side paths; locals use them to **avoid the terrace**; shadow deliveries often **come in here at night**, not through the market.
+
+### Who lives here
+
+| Group | Who they are | What outsiders should know |
+|-------|----------------|------------------------------|
+| **Refugees** | Dao Wars families, famine runs, people with **no register** anywhere | Many **believe** the cult was **wiped out at Tianjing**; they stay because nowhere else will have them |
+| **Rogues** | Deserters, smugglers, failed disciples, petty cultivators | Here for **no questions**; pay **blood tax** and don’t preach righteousness |
+| **Town civilians** | Merchants, cooks, bone-setters, **not** sworn to the cult | Still pay tax; still **look away** when a wagon goes to the lower lanes |
+| **Cult — visible** | A few **Outer Demons** in plain clothes, **collectors**, clinic “doctors” | **No demon banners**; authority is a **nod** and a **list** |
+| **Cult — hidden** | Core disciples mostly **deeper** in the gorge; envoys **leave** for the outside world | Town is **not** where inner court sleeps |
+
+**Your locked fiction:** **Rogues and refugees in equal measure** — the town should feel like **both** a sanctuary and a trap.
+
+### Blood tax (what it actually means)
+
+Not a formal charter tariff — a **protection racket** dressed as tradition.
+
+| Payment | When |
+|---------|------|
+| **Coin or goods** | Monthly **collector** round on the market strip |
+| **Blood essence** | Small vials from **willing** sellers (desperate cultivators) or **fines** |
+| **Information** | Names of **strangers**, caravan timings, orphan beds empty |
+| **People** | Rare but feared — “the list” — someone **taken** to the lower lanes; town calls it **taken by fever** |
+
+Mo Xuan keeps tax **low in dormancy** — enough to feed arrays and the pit, not enough to **empty** the town. A **dead market** draws Heartlands curiosity.
+
+### Clinic row (shadow pipeline **inside** the gorge)
+
+Storefronts say **healing**, **herbs**, **mercy for widows**. Some are real; some are **intake**:
+
+| Fiction | Plain meaning |
+|---------|----------------|
+| **Cold beds** | Room for “patients” who **never leave** the chart |
+| **Night wagons** | Bundles rolled to **lower lanes** — linked to branch **kidnapping** on the outside ([`heavenly-demon-cult.md`](heavenly-demon-cult.md) — Longcheng **“Dr. Wen”** is the **outside** face of the same machine) |
+| **No questions** | Refugee children **accepted** without papers — cult’s **favorite** stock for the tally stone |
+
+New disciples are **not** mostly recruited by shouting in the market. They arrive **bound**, **sick**, or **promised** — then the terrace **roll call** happens **above** before most townsfolk admit what they saw.
+
+### Day vs night (dormant era)
+
+| | **Day** | **Night** |
+|--|---------|-----------|
+| **Market** | ~**one-third** stalls open; hagglers, water sellers, dice under awnings | **Lower lanes** brighter than the strip — **back-door** trade |
+| **Shuttered** | ~**two-thirds** closed — war surplus, abandoned upper sheds | Some **reopen** for **private** business |
+| **Cult** | Collectors in **twos**; clinics **quiet** | Deliveries; occasional **scream** swallowed by rock — locals **don’t** investigate |
+| **Feel** | “Poor town in a bad canyon” | “Something still **eats** here” |
+
+### Stories the town tells itself
+
+- The **Heavenly Demon died** at Tianjing — **toast** to that at the tavern.
+- The **copper mist** is a **curse**, not an array.
+- The terrace **screams** are **wind** — except on intake nights, when everyone **locks** doors.
+
+### Defenses (town layer)
+
+The town is **not** a fortress wall — it’s **camouflage** and **eyes**.
+
+| Piece | Role |
+|-------|------|
+| **Looks harmless** | Refugee slum **explains** smoke and population to distant scouts |
+| **Lantern codes** | Roof patterns tell collectors **all clear** vs **stranger** vs **orthodox** |
+| **Ladder alleys** | Hard to chase; locals **vanish** |
+| **No banners** | Charter flyover **sees** poverty, not a sect HQ |
+| **Mist Veil** (above) | Still dulls **long-range** sight — town sits in the **shadow** of it |
+
+### Player / chronicle beats
+
+| Beat | What happens |
+|------|----------------|
+| **Walk the market** | Joke about dead cult; **nervous** glance when you mention Tianjing |
+| **Blood tax** | Witness collection — pay, hide, or intervene |
+| **Clinic** | Mercy offer that’s **too** easy — moral fork |
+| **Night lower lane** | See wagon or **bound** figures — terrace lights **flicker** above |
+| **Local ally** | Rogue who **hates** the cult but **hates** the charter more |
+| **Infiltrate deeper** | Earn trust, steal a **knock** code, or get **sold** on the list |
+
+### Working names (stubs — rename anytime)
+
+| Stub | Role |
+|------|------|
+| **Half-Copper Tavern** (半铜馆) | Rumors, cheap wine, “Demon’s dead” toasts |
+| **Bone Dice Hall** (骨骰坊) | Rogues, debt, collector meets |
+| **Mercy Alley clinics** (慈巷) | Clinic row — intake fiction |
+| **Lower Lane stairs** | Bypass terrace; sneak or chase scene |
+
+### Open (town only)
+
+- [ ] **Blood tax** — ever **refused** successfully (one story arc)?
+- [ ] Named **collector** NPC — feared face of the cult in town?
+- [ ] Playable **hub** here vs **one-shot** investigate scene?
+
+---
 
 ### Cauldron Lanes (鼎巷)
 
@@ -354,7 +487,8 @@ Caravan survivors who **never** entered describe a **figure on the cliff** and *
 |-------|------|
 | **Rumor** | Nursery rhyme **place names** match gorge districts |
 | **Scout** | Mouth wards; Void seal scratch; **dead** charter map |
-| **Town** | Blood-tax, clinic front, **“cult is dead”** joke |
+| **Town** | Bloodrift Market — blood tax, clinic row, **“cult is dead”** joke |
+| **Night lane** | Lower ladders — delivery, **list**, terrace light above |
 | **Infiltrate** | Cauldron Lanes horror; earn or fake **merit** |
 | **Court** | Mo Xuan — bargain, join, or **marked** |
 | **Pit** | *(Crisis only)* founder voice; continent **omen** |
