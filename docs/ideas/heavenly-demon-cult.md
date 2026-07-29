@@ -6,7 +6,7 @@
 | **Blocked on** | Lineage manual (`blood_fiend` spine); alignment/sacrilege hooks; owner pass on charter “fifth power” politics |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-28 |
-| **Updated** | 2026-07-29 (blood clone at Tianjing; Mo Xuan disciple) |
+| **Updated** | 2026-07-29 (Demon Blood Clone; Mo Xuan on Half-Step) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral rulebook: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). Blood cultivation: [`technique-driven-cultivation.md`](technique-driven-cultivation.md). Peers (orthodox): [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md), [`golden-phoenix-sect.md`](golden-phoenix-sect.md).
 
@@ -74,13 +74,13 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Moral 
 
 **War peak:** The founder rode **Dao Manifestation** in a meteoric climb — scripture + gorge + slaughter gates. He **wanted** the Heartlands; he **never** held the mandate or sat on Tianjing. Ambition was **open**; rule was **not**. On the board he was a **butcher powerhouse**: cauldrons on the siege, coalitions sometimes tolerated him, then **denied** him.
 
-**Tianjing — the blood clone gambit:** The founder **believed** he might **measure** the new Half-Step — or at least **learn** what that weight felt like before risking himself. He sent a **Blood Clone** (血影) at **peak Dao Manifestation** or **Dao Seeking** — strong enough to **be him** in aura, speech, and battle; **not** the true body.
+**Tianjing — the Demon Blood Clone gambit:** The founder **believed** he might **measure** the new Half-Step — or at least **learn** what that weight felt like before risking himself. He sent a **Demon Blood Clone** (魔血分身) at **peak Dao Manifestation** or **Dao Seeking** — strong enough to **be him** in aura, speech, and battle; **not** the true body. *(Inner-court technique name; not in player manual pool v1.)*
 
 | Witness | What they think |
 |---------|-----------------|
 | **Demon soldiers** | Their **Heavenly Demon** **died** in the walk — scripture “proof,” trauma, desertion or silence |
 | **Coalition peak elders** | **Inklings** — body wrong, blood too thin, victory **too** clean; charter histories still print **death** |
-| **Tian Half-Step** | **Understood** *(owner lock: perhaps the only one who knew in the moment)* — the walk **shredded** the clone and the harvest host; the **real** hunger **was not on the field** |
+| **Tian Half-Step** | **Likely saw through it** — walked through the clone and the harvest host anyway; the **real** hunger **was not on the field**. He **never** needed to announce that in public; the clone’s death was **useful** for the mandate too |
 | **Mandate textbooks** | **Heavenly Demon slain at Tianjing** — foundation of **extirpation** fiction |
 
 While the walk broke cauldrons and the clone, the **true founder** was **already** pulling back with **Mo Xuan** — not in the garden line.
@@ -161,7 +161,7 @@ The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) br
 **Two beats (continent-wide):**
 
 1. **Tide** — when the Tian founder finished **Half-Step** *inside* the siege cordon, every major camp **felt** the realm shift; outcome still uncertain.
-2. **Garden** — the Half-Step **stepped out from Tianjing’s inner keep** and walked through armies and grand formations; **cauldron legions and demon harvest arrays were targeted first** — including the founder’s **Blood Clone** in the demon line.
+2. **Garden** — the Half-Step **stepped out from Tianjing’s inner keep** and walked through armies and grand formations; **cauldron legions and demon harvest arrays were targeted first** — including the founder’s **Demon Blood Clone** in the demon line.
 
 **What the cult did after:**
 
@@ -339,7 +339,7 @@ Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
 
 - **Discipleship:** First to survive **full** Crimson-to-furnace induction; **only** one allowed to see the founder **without** the clone mask. **Survived Tianjing** because he was **with the true body**, coordinating Withdrawal — not in the clone’s death line.
 - **Tianjing:** When the Half-Step **stepped from the inner keep**, Mo Xuan **already** pulled cauldrons back; watched the **clone** end; gave **Great Withdrawal** (魔教蛰息) before pursuit organized.
-- **Now:** Rare pit audiences; daily work through **Hong Lian** and envoys. **Loyal** to the founder’s **project** (past Immortal), not to reconquering the Heartlands. Fear: **founder’s next breakthrough** lights the sky **and** the Half-Step **remembers** the real body.
+- **Now:** Rare pit audiences; daily work through **Hong Lian** and envoys. **Loyal** to the founder’s **project** (past Immortal), not to reconquering the Heartlands. He **suspects** the Half-Step **was not fooled** by the Demon Blood Clone — the walk felt too **purposeful**, the silence afterward too **comfortable** — but **centuries** of **immortal standoff** (sect immortals, Sleeping Dragon, mutual don’t-poke) mean it **does not matter** for day-to-day dormancy: nobody is marching on the gorge to “finish” a demon who is **already dead on paper**.
 
 **Player read:** nursery tales imagine a **laughing battlefield god** who **died** at Tianjing. Mo Xuan is the **disciple who didn’t** — clerk of the cauldron, keeper of the lie.
 
@@ -351,7 +351,7 @@ Branch envoys (sleeping)                 ← Chi, “Dr. Wen,” zone cells
 | **True name** | **Redacted** / lost to juniors — epithet **Pit-Sleeper** (窟眠) among Watch |
 | **Realm** | **Immortal (restricted)** since **post–Dao Wars silent breakthrough** — **not** announced; world thinks him dead |
 | **State** | **Seclusion** in **Demon Lord Pit** — devours offerings and failed merit; researching **past false Immortal** |
-| **Tianjing** | **Blood Clone** destroyed in the walk; true body **with Mo Xuan**; then **secret Immortal** ascent |
+| **Tianjing** | **Demon Blood Clone** destroyed in the walk; true body **with Mo Xuan**; then **secret Immortal** ascent |
 
 **Personality *(when he stirs)*:** Still the **devil’s ego** of the founding sermons — older, patient, **more terrifying** because he no longer needs banners. He does not beg Mo Xuan for empire; he asks for **fuel** and **silence**.
 
