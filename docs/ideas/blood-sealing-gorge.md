@@ -165,7 +165,7 @@ The gorge **does not** replenish by welcoming walk-ins at the mouth. **Secrecy**
 
 New arrivals with talent are **tallied on the Slaughter Terrace** before they see the town strip. Most mortals never pass that tally.
 
----
+### Orthodox contact
 
 | Faction | Behavior at the mouth |
 |---------|------------------------|
