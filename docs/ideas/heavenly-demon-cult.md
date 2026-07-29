@@ -184,7 +184,7 @@ The **Capital Turn** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) br
 
 **Operational today:**
 
-- **HQ** — gorge **sealed**, patriarch court in **long meditation / caretaker mode** (not crusading).
+- **HQ** — gorge **sealed**; **disciples kept inside**; mouth watch **1–2** wardens; replenishment via **shadow** pipelines (orphans, refugees, bandits, stolen children) — not open recruitment
 - **Branches** — **mostly sleeping**; zone table below = *potential*, not active war fronts.
 - **Activity** — **shadow only**: false-flag raids, lone corrupted cultivators, clinic fronts — never mass banners.
 - **Code seed:** `dustbone_caravan` demonic ambush reads as **random demon** to low-rep NPCs; elder dialogue can **name** the cult for players who earn war lore.

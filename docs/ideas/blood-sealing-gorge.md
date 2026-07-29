@@ -6,7 +6,7 @@
 | **Blocked on** | Hidden map / hostile sect join UX; owner lock: gorge on `outer_heartlands` graph vs pocket instance |
 | **Issue** | none yet |
 | **Chat / PR** | Cult lore pass, 2026-07-29 |
-| **Updated** | 2026-07-29 (Gorge Mouth detail pass) |
+| **Updated** | 2026-07-29 (gate watch, shadow intake, Slaughter Terrace) |
 
 Parent: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Formations: [`formations-and-arrays.md`](formations-and-arrays.md). Peers: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Solitary Sword Mountain), [`void-temple-sect.md`](void-temple-sect.md) (Little Heaven).
 
@@ -138,9 +138,34 @@ Mo Xuan’s mouth doctrine: **discourage, misdirect, identify, kill — in that 
 | **9 — Void pins** | **Hairline seals** | Side caves along the rim — Void Temple script **prevents** pocket-cutting **into** the gorge from outside ([`void-temple-sect.md`](void-temple-sect.md)); cult **cannot** remove; uses other entries | Permanent |
 | **10 — Political** | **Nobody’s land** | Tian / charter **do not garrison** — admitting the gorge matters **reopens** Tianjing lies | Always on |
 
-**What the mouth does *not* do (on purpose):** no **massive** lightning array at the lip — that **advertises** immortal attention. Withdrawal tuned the mouth to **swallow scouts**, not **challenge** sect coalitions.
+**What the mouth does *not* do (on purpose):** no **massive** lightning array at the lip — that **advertises** immortal attention. Withdrawal tuned the mouth to **swallow scouts**, not **challenge** sect coalitions. **No crowd at the gate** — disciples **stay inside**; the gorge is not a recruiting fair.
 
-### Orthodox contact
+### Gate watch — secrecy first (值守)
+
+| | |
+|--|--|
+| **Headcount** | **One** warden on duty; **never more than two** on rotation (**DT rotation** — inner shorthand for **mouth watch tour**, 咒口值守) |
+| **Rank** | **Core Demon** — trusted, literate in knock codes; **not** envoys (those live outside) |
+| **Job** | Maintain **Blood knock**, **Mist Veil** low band, stake field; **log** array drip; **relay** to terrace if something crosses the bed |
+| **Visibility** | From outside the Mist Veil, the mouth looks **empty** — wardens stand **in shadow** of the ribcage, **no** armor flash, **no** challenge shouts |
+| **Doctrine** | Mo Xuan: *“A guard who is seen is a guard who failed.”* |
+
+Arrays do most of the killing; humans **confirm** and **silence**.
+
+### Disciples in, blood from outside
+
+The gorge **does not** replenish by welcoming walk-ins at the mouth. **Secrecy** means:
+
+| Pipeline | Source | How |
+|----------|--------|-----|
+| **Shadow harvest** | **Children** — kidnapping in the dark; **orphans** with no register; **war refugees** separated from caravans; **bandits** taken alive | Branch cells + Bloodrift **clinic fronts** (`Dr. Wen` tier) — deliver inward, **not** through the public mouth |
+| **Inside the gorge** | Sworn disciples **live downstream** — terrace, town, lanes — **rarely** leave; envoys are the **only** regular exit |
+| **Bloodrift Town** | Civilians and rogues — **tax**, **cover**, occasional **press-gang**; **not** the main disciple pool |
+| **Blood Servants** | Failed recruits, mortals — **fuel**; same shadow pipelines |
+
+New arrivals with talent are **tallied on the Slaughter Terrace** before they see the town strip. Most mortals never pass that tally.
+
+---
 
 | Faction | Behavior at the mouth |
 |---------|------------------------|
@@ -167,12 +192,70 @@ Mo Xuan’s mouth doctrine: **discourage, misdirect, identify, kill — in that 
 
 ---
 
-| | |
-|--|--|
-| **Vibe** | Open rock shelf — wind carries **screams from memory** |
-| **Function** | Outer Demon **oaths**, merit duels, **Crimson Harvest** instruction |
-| **Rank** | **Outer Demon** default residency before town or missions |
-| **Hook** | Caravan survivors’ “demon on the cliff” stories often **this** terrace, not the pit |
+### Outer Slaughter Terrace (戮台)
+
+Full pass — **district 2 of 7**; first major cult platform **inside** the mouth, **above** Bloodrift Town on the gorge wall.
+
+---
+
+## Outer Slaughter Terrace (戮台) — look & role
+
+### What you see walking in
+
+Past the stake field, the gorge **widens** into a **half-bowl** carved from the living rock — a natural shelf **widened** in the Dao Wars into an amphitheater that **faces inward**, not toward the charter world.
+
+| Element | Detail |
+|---------|--------|
+| **Shape** | **Crescent terrace** — ~three hundred paces across; back wall is **cliff**; front lip drops to the **town roofs** below |
+| **Floor** | Pale **scar** stone, cut with **vein channels** — dried rust in the grooves; after rain they **run** toward town arrays |
+| **Seating** | Not benches — **ledge tiers** for spectators; most are **empty** in dormancy |
+| **Center** | **Tally stone** (点册石) — flat altar for **first count** of shadow-caught recruits; oath blood **pooled** here in the war |
+| **Rim** | **Watch shelves** — narrow ledges on the cliff **above** the terrace; linked to mouth **sight lines**; usually **unmanned** |
+| **Sound** | Wind still **hums**; drills are **whisper-scale** now — no thousand-voice oaths |
+| **Smell** | Old iron; on drill days, **sweat and copper** |
+
+From the Heartlands road, **silhouettes** on the rim at dusk fed the legend **“demon on the cliff”** — usually **one** warden on shelf drill, not the founder.
+
+### What happens here (dormant era)
+
+| Function | Then (Great Draught) | Now |
+|----------|----------------------|-----|
+| **Oaths** | Mass **Outer Demon** swearing | **Small** cohorts only; words **muted** |
+| **Instruction** | **Crimson Harvest** breath, formation tags | Core curriculum moved **deeper**; terrace = **intro + discipline** |
+| **Merit** | Duels **spilled** openly | Duels **rare**; losers become **Blood Servant** stock or **pit offering** |
+| **Intake** | War prisoners **processed** | **Shadow pipeline** deliveries — orphans, bandits, stolen children — **first tally** before town |
+| **Signal** | Horn and banner | **Lamp codes** to mouth wardens; **no** horns |
+
+**Secrecy rule:** nothing on the terrace **advertises** the cult to the sky — no banners facing the rim, no daylight **mass** formations visible from outside the Mist Veil.
+
+### Defenses tied to the terrace
+
+| Piece | Role |
+|-------|------|
+| **Watch shelves** | Cover the **mouth bed** and terrace lip; one archer slot **covers** false-trail return paths |
+| **Vein channels** | Terrace spill feeds **town** meters — sabotage here **starves** arrays |
+| **Guest Welcome** anchor | Array **node** under tally stone — half-power **pressure** field extends up from mouth |
+| **Slaughter Recall** | Old **Blood Rain** tags in channels — armed |
+
+### Stories outsiders tell
+
+Caravan survivors who **never** entered describe a **figure on the cliff** and **screaming** — often **memory + mist**, sometimes a **real** intake night when a refugee batch **resisted** tally.
+
+### Player / chronicle beats
+
+| Beat | Detail |
+|------|--------|
+| **See terrace first** | Wider gorge; **emptiness** feels watched |
+| **Intake horror** | Bound prisoners at tally stone — moral choice beat |
+| **Knock escort** | Envoy brings player here for **oath** or **execution** |
+| **Sneak path** | Town **ladder alleys** bypass terrace — harder, not impossible |
+
+### Open (terrace only)
+
+- [ ] **Tally stone** — public hanzi on stone or unmarked?
+- [ ] Named **terrace warden** NPC for intake scenes?
+
+---
 
 ### Bloodrift Town (血峡镇)
 
@@ -180,7 +263,7 @@ Mo Xuan’s mouth doctrine: **discourage, misdirect, identify, kill — in that 
 |--|--|
 | **Origin** | Pre-war **scab camp** at the seal; **Dao Wars** poured refugees, deserters, and **rogue cultivators** until it became a **town** |
 | **Vibe** | **Rogues and refugees in equal measure** — taverns, bone dice, “clinics,” no charter law; everyone **pretends** the cult is dead while paying **tribute** in blood-tax or service |
-| **Cult relation** | **Not** every resident is sworn — cult **taxes** and **recruits**; town is **camouflage** (commerce masks array intake) |
+| **Cult relation** | **Not** every resident is sworn — cult **taxes** and **press-gangs**; town is **camouflage**. **Disciple replenishment** is **shadow** (kidnapping, orphans, refugees, bandits) — see **Gate watch** above |
 | **Dormant today** | ~**two-thirds** shutters; night still has **lights** in the lower lanes. Mo Xuan **allows** the town to breathe — empty streets would draw surveys |
 | **Named stub** | **Bloodrift Market** (血峡市) — working sign for the main strip |
 
