@@ -301,7 +301,7 @@ Docs used **cauldron** for three different things — easy to blur. **Owner dire
 |-------|------------|-------------|
 | **Sermon metaphor** | *“The world is a cauldron”* (Three Draughts) | Everyone — **idea**, not a tool |
 | **The gorge itself** | Blood **channels in rock** + **Blood Seal Grand Array** — spill **condenses** and flows inward | **Place** — most “processing” is **geography + array**, not vats in every room |
-| **Great Cauldron** (镇教鼎) | **One** (or very few) **monument** vessels at the **array heart** / pit interface — **mass** conversion: battle spill, tribute blood, war-scale slaughter **fed into the vein** | **Founder**, pit offerings, **Elder of the Cauldron** rites — **Ten Cauldron Night**-scale history |
+| **Great Cauldron** (镇教鼎) | **One** (or very few) **monument** vessels in **Great Cauldron Vault** beside **Demon Lord Pit** — mass conversion; **statue** in Cauldron Lanes faces it |
 | **Field cauldrons** | **Mobile** harvest rigs on **Dao Wars** campaigns — tagged formations, army trailing **vats** behind columns | **Legions** — mostly **stored/disassembled** in dormancy; repair in **Cauldron Lanes** |
 | **Personal furnace** | Small **pill / essence** furnace — refine blood into **pills** or stabilizers | **Some** alchemists; **issued pills** for most ranks — not every Outer Demon owns one |
 | **Body in blood** | **Rite**, not daily training — foundation seal horror, punishment, Great Cauldron adjacency | **Rare beats** — normal climb is **breath + drain + pills + gorge qi** |

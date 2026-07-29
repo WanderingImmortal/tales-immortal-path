@@ -6,7 +6,7 @@
 | **Blocked on** | Hidden map / hostile sect join UX; owner lock: gorge on `outer_heartlands` graph vs pocket instance |
 | **Issue** | none yet |
 | **Chat / PR** | Cult lore pass, 2026-07-29 |
-| **Updated** | 2026-07-29 (Bloodrift Town detail pass) |
+| **Updated** | 2026-07-29 (Cauldron Lanes map; Great Cauldron at pit) |
 
 Parent: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Formations: [`formations-and-arrays.md`](formations-and-arrays.md). Peers: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Solitary Sword Mountain), [`void-temple-sect.md`](void-temple-sect.md) (Little Heaven).
 
@@ -29,7 +29,7 @@ The gorge is the cult’s **true homeland** — not a dungeon sticker on the Hea
 | **Mist Veil** | An array that makes the gorge **hard to scout from far away** (haze, confused senses). |
 | **DT guard** | **Deity Transformation** cultivator — a very high realm ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)); only the most trusted rotate to the mouth. |
 | **Blood tax** | What the town pays the cult to be left alone — coin, blood essence, names of strangers, or **one body** when the collectors ask. |
-| **Great Cauldron** | The sect’s **one huge** ritual vessel (镇教鼎) for **mass** blood conversion into gorge power — not every disciple’s lunchbox. |
+| **Great Cauldron** | The **real** vessel (镇教鼎) in a vault **beside the Demon Lord Pit**; a **large statue** in Cauldron Lanes faces it — oath and rumor, not the mass rites themselves. |
 | **Cauldron Lanes** | The **industrial district** below town — channels, pill foundry, drill yards, Great Cauldron **approach**; name is legacy, not “a lane of personal pots.” |
 
 ---
@@ -68,15 +68,17 @@ The gorge is the cult’s **true homeland** — not a dungeon sticker on the Hea
         |
 [ Bloodrift Town — 血峡镇 ]       ← rogue/refugee town (Dao Wars swell); gray market; sealed but lived-in
         |
-[ Cauldron Lanes — 鼎巷 ]         ← blood processing, furnaces, Blood Servant pens (horror)
+[ Cauldron Lanes — 鼎巷 ]         ← sect industrial belt; **Great Cauldron statue**; uniforms
         |
-[ Inner Cauldron Hall — 内鼎殿 ]  ← Elder Hong Lian; harvest arrays; inner court
+[ Inner Cauldron Hall — 内鼎殿 ]  ← array controls; Hong Lian’s seat
         |
-[ Patriarch Seal Court — 魔印庭 ] ← Mo Xuan; Withdrawal ledgers; audience with the living admin
+[ Great Cauldron Vault — 镇教鼎窟 ] ← **real** 镇教鼎; offerings; opens toward pit
         |
-[ Demon Lord Pit — 魔主窟 ]       ← founder; offerings chute; “sleep” = seclusion
+[ Patriarch Seal Court — 魔印庭 ] ← Mo Xuan
         |
-[ Array heart — 封血大阵核 ]      ← under-pit; gorge vein; cult’s silent engine
+[ Demon Lord Pit — 魔主窟 ]       ← founder (cauldron **beside** pit lip)
+        |
+[ Array heart — 封血大阵核 ]      ← under-pit; gorge vein
 ```
 
 **Player-facing node (future):** `blood_sealing_gorge_mouth` or hidden approach from a Heartlands **forbidden** stub — not a friendly hall like `sword_sect_hall`.
@@ -426,28 +428,173 @@ The town is **not** a fortress wall — it’s **camouflage** and **eyes**.
 
 ---
 
-### Cauldron Lanes (鼎巷) — *district 4; design next*
+---
 
-**Intent (owner 2026-07-29):** **Sect industrial belt** — where uniforms return, drills happen, and **blood becomes pills + array fuel**. **Not** every hut with a personal cauldron. See **What “cauldron” means** in [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
+### Cauldron Lanes (鼎巷)
 
-| Piece | Role |
-|-------|------|
-| **Channel cuts** | Rock trenches where blood-qi **runs** to the array — main “processing” |
-| **Pill foundry** | **Some** small furnaces; **most** disciples get **issued** pills |
-| **Great Cauldron approach** | Road/chamber toward **镇教鼎** — mass rites; pit offerings tie in here |
-| **Field-rig yard** | Dao Wars **mobile** harvest cauldrons **stored** / repaired |
-| **Drill yards** | Uniformed **Core Demon+** formations |
-| **Hong Lian** | Oversees **arrays + Great Cauldron**, not hobbyist pots |
+Full pass — **district 4 of 7**; first place the cult looks like a **real sect** after Bloodrift’s mask.
 
-*Full district pass (look, sound, player beats) — pending owner session.*
+---
+
+## Cauldron Lanes (鼎巷) — map & daily life
+
+### What it is (one sentence)
+
+The **industrial and military floor** of the gorge — channels, pill foundry, drill grounds, and a **monument to the Great Cauldron** — sitting **above** the **real** cauldron chamber that feeds the **pit** and array heart.
+
+### Where the **real** Great Cauldron is (owner lock)
+
+| | |
+|--|--|
+| **Location** | **Great Cauldron Vault** (镇教鼎窟) — **one level below** the inner end of the lanes, **against the pit wall**, **beside** the Demon Lord Pit offering chutes |
+| **Not** | The statue in the lanes — that is **public face**; mass conversion happens at the **vault** |
+| **Flow** | Tribute blood, war spill, failed merit → **vault cauldron** → **vein** + **pit** (founder’s feed) |
+| **Who attends** | Hong Lian’s priests, pit attendants, Mo Xuan on rare rites — **not** market crowds |
+
+### Entering from Bloodrift (first impression)
+
+You leave the **lower ladders** — town noise **cuts off**. The gorge **opens** into a **work floor**: wider than the market, ceiling still cliff. **Black-and-crimson** uniforms. **Steam** from the foundry. **Boots** in step on the drill yard. No one jokes that the Demon is dead.
+
+| Sense | Detail |
+|-------|--------|
+| **Sight** | **Channels** cut in stone, knee-deep runnels with dark flow; **banners** here (first in gorge) — crimson on black, **cauldron** emblem |
+| **Sound** | Foundry hammers, **called numbers** on the drill field, low **hum** from deeper — array + real cauldron |
+| **Smell** | Hot metal, **copper**, rendered fat — stronger than town |
+| **Rule** | Town **plain clothes** end at the **Lane Gate** — beyond is **sect territory** |
+
+### District map (working)
+
+```text
+        [ from Bloodrift lower ladders ]
+                    |
+            ┌───────┴───────┐
+            |  LANE GATE    |  ← checkpoint; register; turn in blood tax crates
+            └───────┬───────┘
+                    |
+    ┌───────────────┼───────────────┐
+    |               |               |
+ CHANNEL      MONUMENT          DRILL YARD
+ PROMENADE    PLAZA             (东校场)
+ (血渠廊)      (鼎神像广场)        |
+    |          Great Cauldron     |
+    |          STATUE only         |
+    |               |               |
+    └───────┬───────┴───────┬───────┘
+            |               |
+      PILL FOUNDRY     FIELD-RIG YARD
+      ROW (丹坊街)      (旧鼎场) — war vats under tarps
+            |               |
+      BARRACKS ROW     SERVANT LIFT
+      (内魔舍)          (血役井) — down only; horror beat
+            |               |
+            └───────┬───────┘
+                    |
+            DESCENT ROAD (行道)
+                    |
+         [ Inner Cauldron Hall ]
+                    |
+         [ Great Cauldron Vault ]  ← REAL 镇教鼎 · pit-adjacent
+                    |
+         [ Patriarch Court → Pit ]
+```
+
+### Sub-areas (what each is for)
+
+#### Lane Gate (巷门)
+
+- **Checkpoint** from town — **Core Demon** guards in uniform; **ledger** of who enters (envoys exempt with seal).
+- **Deliveries** from shadow pipelines **logged** here before tally or foundry.
+- Townsfolk **without** business **turn back** — or get **listed**.
+
+#### Channel Promenade (血渠廊)
+
+- Main **walk** along the **big** rock trenches — blood-qi and rendered runoff flow **toward** the vault / array.
+- **Maintenance** crews in robes — scrape, patch, **test** flow (dormant: slow trickle, still never dry).
+- **No personal cauldrons** — the **gorge channels** do the bulk work.
+
+#### Monument Plaza — Great Cauldron **statue** (鼎神像广场)
+
+- **Centerpiece of the lanes** — **not** the working vessel.
+- **Statue:** bronze-black **cauldron** on a demonic **pedestal** (or **Heavenly Demon** cradling an **empty bowl** — owner pick); bowl **stained** dark; **faces down-gorge** toward vault + pit.
+- **Use:** oaths for **Outer → Core** promotion; sermons; **fear** — “the real one drinks below.”
+- **Offerings** here are **symbolic** (incense, small blood cups); **mass** offerings go to the **vault**.
+
+#### Drill Yard (东校场)
+
+- **Formation drill** — spears, palm arrays, **harvest** tag practice on dummies.
+- **Dormant:** one cohort **most days**; war scale was **thousands**.
+- Where players **believe** the cult could **face a charter column**.
+
+#### Pill Foundry Row (丹坊街)
+
+- **Small furnaces** — alchemists make **blood pills** for **issue**.
+- **Issue window** — disciples collect **ration** by merit rank; **not** everyone owns a furnace.
+- **Heat, smoke**, glass vials; **no** mass slaughter here — **refinement**.
+
+#### Field-Rig Yard (旧鼎场)
+
+- **Dao Wars** mobile harvest **vats** — **disassembled**, tarped, **rusted** pride.
+- **Repair** when a branch wakes; otherwise **museum of the Great Draught**.
+
+#### Barracks Row (内魔舍)
+
+- **Core Demon** quarters — **uniforms** on hooks; **discipline** returns.
+- **Outer Demons** **below** this rank usually **billet** nearer terrace/town unless promoted.
+
+#### Servant Lift (血役井) *(optional horror)*
+
+- **Freight lift / inclined chute** for **Blood Servant** labor and **waste** — **not** tourist.
+- Connects to **lower** processing; most **player** stories **hear** it, don’t need a minigame.
+
+#### Descent Road (行道)
+
+- **Guarded** ramp to **Inner Cauldron Hall** → **Great Cauldron Vault** → patriarch → pit.
+- **Hong Lian** or envoys **escort** only for the worthy / the doomed.
+
+### Who you meet here
+
+| Who | Role |
+|-----|------|
+| **Hong Lian** (红莲) | **Elder of the Cauldron** — splits time: **foundry + channels** in lanes, **array desk** in Inner Hall, **vault rites** at pit |
+| **Foundry alchemists** | Pills, stabilizers |
+| **Drill instructors** | Core Demon+ veterans |
+| **Lane scribes** | Merit, issue ledgers |
+| **Pit attendants** | Pass between vault and **chute** — **never** chat with juniors |
+
+### Dormant today
+
+| | |
+|--|--|
+| **Activity** | **Low** but **orderly** — one drill cohort, **trickle** in channels, foundry **half** fires |
+| **Statue** | **Always** tended — oil on bronze, **fresh** stain in bowl (cult **wants** symbol alive) |
+| **Vault** | **Closed** except tribute cycle + pit feed — **hum** felt on Descent Road |
+
+### Player / chronicle beats
+
+| Beat | Detail |
+|------|--------|
+| **Mask drops** | First **uniforms** and banners after Bloodrift |
+| **Oath** | Hands on statue bowl — join or **fake** join |
+| **Issue window** | Blood pill ration — merit check |
+| **Descent** | Escorted toward **real** cauldron — hear **pit** before see it |
+| **Wrong turn** | Servant lift — **rescue** or **moral** beat |
+
+### Open (lanes only)
+
+- [ ] Statue: **cauldron alone** vs **Demon cradling bowl**?
+- [ ] Named drill instructor or foundry master NPC?
+- [ ] Can player **see** vault cauldron without pit arc?
+
+---
 
 ### Inner Cauldron Hall (内鼎殿)
 
 | | |
 |--|--|
-| **Vibe** | Cathedral of **industry** — arrays hum like distant breathing |
-| **Function** | **Blood Seal Grand Array** control; gorge **vein** metering; Great Draught-era scripts **archived** |
-| **NPC** | **Hong Lian** (红莲) — player quest giver at friendly rep / infiltrate beat |
+| **Vibe** | Quiet **control room** after the lanes’ noise — stone desks, array **charts**, bronze **needles** in maps of the gorge |
+| **Function** | **Blood Seal Grand Array** metering; **Descent Road** lock; scripts from Great Draught **archived** |
+| **NPC** | **Hong Lian** (红莲) — primary desk; player quest giver at rep / infiltrate |
+| **Not here** | The **physical** Great Cauldron — that is **vault** beside pit ([`blood-sealing-gorge.md`](blood-sealing-gorge.md) district map) |
 
 ### Patriarch Seal Court (魔印庭)
 
@@ -461,7 +608,8 @@ The town is **not** a fortress wall — it’s **camouflage** and **eyes**.
 
 | | |
 |--|--|
-| **Vibe** | Vertical shaft — **offerings** lowered; air **thick**; juniors **never** descend |
+| **Vibe** | Vertical shaft beside the **Great Cauldron Vault** — air **thick**; bronze **glow** from cauldron bleed |
+| **Layout** | **Vault lip** and **pit chute** share a chamber — offerings **hit cauldron first**, then **what the founder needs** descends |
 | **Function** | **Founder** in seclusion; slow **devour** of failed merit + tribute; **beyond-Immortal** research |
 | **Myth** | Outer court told **“next Heavenly Demon”** will **rise from the pit** — **ruse** |
 | **Hook** | P4: omen spike if he **stirs**; Half-Step suspicion **not** relevant until someone **wakes** him |
