@@ -46,6 +46,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
 | [Jade Lotus Sect](jade-lotus-sect.md) | `designed` (v2 — lineage sketch) | `jlc_*` manual pool; Matriarch reveal | — |
 | [Void Temple](void-temple-sect.md) | `designed` (v1) | Lineage stub; gate travel; Little Heaven beats | — |
+| [Void Prisoner](void-prisoner.md) | `designed` (origin) | Disciples / forbidden-site pass | — |
 | [Golden Phoenix Sect](golden-phoenix-sect.md) | `designed` (v1) | Lineage stub; Gambit immortal veto | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |

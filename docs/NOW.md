@@ -2,7 +2,7 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-07-28
+**Updated:** 2026-07-30
 
 ## Focus
 - **Redwell starter city** (PR #90) — [`redwell-starter-city.md`](ideas/redwell-starter-city.md) · zone [`dustbone-living-board.md`](ideas/dustbone-living-board.md)
@@ -14,6 +14,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Threshold visit · mid city — **after** Redwell feels decent
 
 ## Parked (return later)
+- Void Prisoner origin (designed) — disciples next — [`void-prisoner.md`](ideas/void-prisoner.md)
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
