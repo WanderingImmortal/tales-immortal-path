@@ -22,7 +22,9 @@ It sits **beyond** the false Immortal Ascension watershed: long, difficult, tran
 
 ### Mortal-world link (Dustbone)
 
-First-era **Pinwright** — pre-peak chaos walker who **legislated Return-to-Dust** and **pinned** Bone Crossroads oasis — is **local history**, not this path’s full curriculum. Lore: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md). Life-sim hub: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md).
+First-era **Pinwright** — pre-peak chaos walker who **legislated Return-to-Dust** and **pinned** Threshold oasis — is **local history**, not this path’s full curriculum. Lore: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md). Life-sim hub: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md).
+
+**Pinwright vs “forgotten” Chaos walkers (owner 2026-07-31):** Pinwright **wrote partial law into the basin** — hyper-visible, cannot be karma-severed into obscurity. Late Chaos / **grotto masters** who complete **unregister** (`Split registry` / sacrifice entry) aim for **unwritten** personal fate — myth, not geography. Pinwright = failed legislator on the ledger; grotto master = left the ledger. Same chaos-adjacent vocabulary; opposite relationship to memory.
 
 ## How Chaos plugs into mandate / true immortality
 

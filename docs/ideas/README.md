@@ -45,7 +45,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Jianghu organization types](jianghu-organization-types.md) | `designed` (taxonomy) | Dustbone sect + tribe identities | — |
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` | Org taxonomy; lesser sect slots | — |
 | [Dustbone lesser sects](dustbone-lesser-sects.md) | `idea` (slots TBD) | Org taxonomy | — |
-| [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `idea` (myth gap) | Owner lore pass | — |
+| [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `designed` (origins lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [World events — layered battlefield](world-events-layered-battlefield.md) | `idea` | Mid city; org tiers | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
@@ -60,7 +60,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `designed` | Phase 1 gates 2–3 | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
-| [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `idea` (parked) | — | — |
+| [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `designed` (Pinwright + strata lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [Settlement lore](settlement-lore.md) | `idea` (parked) | Dustbone lore | — |
 | [Economy framework](economy-framework.md) | `idea` (parked) | Stone tiers | — |
 | [Commerce & markets](commerce-and-markets.md) | `idea` (parked) | Economy framework | — |
