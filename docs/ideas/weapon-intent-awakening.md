@@ -42,6 +42,10 @@ Swinging a sword many times alone is **not** enough. Meditating *with* the sword
 - Technique intent gates (`intentReq` on manuals)
 - Intent Domain arts ≠ GC realm Domain ([`domain-system.md`](domain-system.md))
 
+### FE intent band (owner lock 2026-07-31 — cross-ref [`devouring-intent.md`](devouring-intent.md))
+
+**Full intent ceiling TBD.** For FE slice: treat **awakening (tier 0)** as **rare**; **second tier** during FE as **prodigy**. Higher tiers parked until Core+ design pass. Weapon tracks and devouring track may share this band rule; devouring uses Vacuity / Taking names; weapon intents keep Sprout / Minor Success labels until rename pass.
+
 ---
 
 ### Spark type A — Natural treasures (strict)
