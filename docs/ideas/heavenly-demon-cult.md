@@ -62,15 +62,22 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 | Corruption / sacrilege | **Feeding on villages** stains; studying devouring breath in a cell does not |
 | Four Heartlands sects | Hunted in public; bounties at friendly rep; Lotus might broker silence for a price |
 
-### Where they live (v1 — light)
+### Where they live
 
-**No dedicated zone v1.** Cells and rumor hooks:
+| Site | Role | Player (v1) |
+|------|------|-------------|
+| **Gullet Gorge** (咽谷) | **Main cult** — hidden HQ, outer barracks, inner halls, canon archive | Later zone; QC life **better** but still outer |
+| **Branch cells** | Redwell, Heartlands safehouses, forged merchants | **v1 contact** — envoy, pamphlet, cell tasks |
+| **Field** | Maw-Womb Shard ultra-rare | Spark treasure |
 
-- Redwell bounty board: "demon envoy spotted near Ironscar" (fiction)
-- Heartlands: hidden safehouse node later
-- Field ultra-rare: **Maw-womb shard** natural treasure (devouring spark)
+Branches **feed** the gorge (tithes, recruits, eyes). Gorge **does not** protect every branch disciple by name.
 
-Full demon mountain = later slice; intent design does not wait on it.
+### Branch vs main (summary)
+
+- **Same ranks, same Layer 1 canon** — different posting and treatment.
+- **Main QC:** drills, barracks, real copy, visible promotion path.
+- **Branch QC:** alone in town, expendable, deny-by-default if exposed.
+- Both: **no intent**, no inner business, firmly outer until FE.
 
 ### NPC sketch (one)
 

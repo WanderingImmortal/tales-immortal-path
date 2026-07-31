@@ -7,10 +7,7 @@
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 |
 | **Updated** | 2026-07-31 |
-
-## Intent
-
-**One great sect, end to end** — if Demon Cult life feels good from QC whisper to Dao Seeking feast, copy the pattern for Celestial Sword, Lotus, etc.
+ — if Demon Cult life feels good from QC whisper to Dao Seeking feast, copy the pattern for Celestial Sword, Lotus, etc.
 
 This doc is the **player journey**: ranks, realms, what you do each decade, where Devouring Intent and Devouring Law land.
 
@@ -26,7 +23,7 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 |--|--|
 | **Vibe** | Hidden hunger church — polite envoys, ugly inner rites, hunted in daylight |
 | **Path** | Qi-primary; **blood-fiend** common; any weapon allowed, none required |
-| **Homeland** | No public mountain (v1) — **cells**, safehouses, later **Gullet Gorge** (parked) |
+| **Homeland** | **Main:** hidden **Gullet Gorge** (HQ). **Branches:** city cells (Redwell, Heartlands, …) — see [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 | **Lineage** | **Heavenly Demon Canon** (天魔典) |
 | **Crown intent** | **Devouring Intent** |
 | **Crown law** | **Devouring Law** |
@@ -48,7 +45,26 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 
 Promotion = **merit + feeding the cell** (resources, kills, fragments handed up), not meditation alone.
 
-**Player terms:** **Listener** = probation. **Outer disciple** = Cell Brother/Sister (QC, Layer 1 canon). **Initiate** = FE+.
+**Player terms:** **Listener** = probation. **Outer disciple** = QC + Layer 1 canon. **Initiate** = FE+.
+
+**Branch vs main (owner lock 2026-07-31):** same **rank names**, different **posting**. Both are firmly **outer / QC treatment** — no intent, no inner halls, no trust with secrets.
+
+---
+
+## Main cult vs branch cells
+
+| | **Main cult** (Gullet Gorge) | **Branch cell** (Redwell, etc.) |
+|--|------------------------------|--------------------------------|
+| **What it is** | Hidden HQ — doctrine, elders, canon archive | Smuggled contact point in the mortal world |
+| **QC rank name** | **Outer disciple** | **Cell Brother/Sister** (same layer, worse posting) |
+| **Layer 1** | Proper **Hunger Scripture** copy from the archive | Often a **trimmed pamphlet** or envoy handoff |
+| **Shelter** | Outer barracks / gorge rim quarters | None — you live in town |
+| **Instruction** | Group drills, assigned elder rotation | Envoy checks in monthly; you're on your own |
+| **Tithe** | To the gorge — fixed, predictable | To the cell — harsher if harvests were thin |
+| **If caught** | Gorge may send lawyers / silence / revenge | **Deny you** is default |
+| **Promotion path** | Visible — trials toward Initiate | Must earn **transfer to gorge** or breakthrough + vouch |
+
+**Shared QC rule:** still outer. Still Layer 1. Still no Devouring Intent. Main is **better**, not **good**.
 
 ---
 
@@ -58,7 +74,7 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 
 | Layer | Canon name (working) | Realm / rank | What’s in the box |
 |-------|----------------------|--------------|-------------------|
-| **1** | **Hunger Scripture** (饥经) | QC · outer disciple (Cell) | Breathing method + 2–3 basic combat arts |
+| **1** | **Hunger Scripture** (饥经) | QC · outer disciple / cell | Breathing method + 2–3 basic combat arts |
 | **2** | **Stained Foundation** (染基篇) | FE · Initiate | FE circulation; blood-fiend seal syllabus; intent groundwork |
 | **3** | **Feeding Rites** (饲魔篇) | Core · Feeder | Devouring Intent techniques; mission arts |
 | **4** | **Inner Maw** (内噬篇) | NS · Inner Demon | Expand arts as techniques; relic rites |
@@ -75,20 +91,51 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 
 Outer disciples get **Layer 1 only**. No intent curriculum. No law. Black market sells **counterfeit page 1** sometimes — incomplete, no seal.
 
+Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No law. Branch pamphlets may be **incomplete**; main copies are **sealed**.
+
 ---
 
 ## Life by realm (what you're actually doing)
 
-### Qi Condensation — *outer disciple (Cell Brother/Sister)*
+### Qi Condensation — *outer disciple at the main cult*
 
-**Status:** You're in, but **expendable**. Not family. Not yet Initiate. The cell owns your usefulness.
+**Status:** Lowest rank **at the gorge**, but you're on **sacred soil**. Expendable still — initiates die in drills — yet you're not a throwaway asset like a branch cell.
+
+**How you're treated:**
+
+| Who | Treatment |
+|-----|-----------|
+| **Elders / drill masters** | Cold, exacting — *"The maw has many teeth; prove you are not food."* |
+| **Senior outer disciples** | Pecking order, spars, shared quarters |
+| **Inner ranks** | You bow; they don't learn your name until you break through |
+| **The doctrine** | *"Starve with discipline. Feed the gorge. Earn Layer 2."* |
+
+**Simple monthly loop:**
+
+```
+1. Cultivate  — Layer 1 in assigned hall (not hiding in an inn)
+2. Drill      — group breath + basic combat under elder eye
+3. Gorge task — quarry, hunt, kitchen, wall patrol — rotation
+4. Tithe      — fixed quota to the main storehouse
+5. Report     — attendance; absence without leave = demotion or expulsion
+```
+
+**What you have:** real canon copy, barracks, peers, a **path** if you survive FE.
+
+**What you don't have:** intent, inner halls, law, elder trust, freedom to leave easily.
+
+---
+
+### Qi Condensation — *branch cell (Cell Brother/Sister)*
+
+**Status:** **Expendable.** The cell owns your usefulness. Not family. Not gorge stock.
 
 **How you're treated:**
 
 | Who | Treatment |
 |-----|-----------|
 | **Envoy / cell lead** | Polite, vague, always watching if you talk |
-| **Other cells** | You don't exist until proven |
+| **Main cult** | You don't exist until you transfer or break through loud enough |
 | **Mortals** | Normal — you hide the pamphlet |
 | **Orthodox cultivators** | Dangerous if they smell blood on your breath |
 | **The doctrine** | *"Starve quietly. Feed us. Become useful."* |
@@ -96,22 +143,22 @@ Outer disciples get **Layer 1 only**. No intent curriculum. No law. Black market
 **Simple monthly loop:**
 
 ```
-1. Cultivate  — Layer 1 breath (Hunger Scripture) when safe
+1. Cultivate  — Layer 1 breath when safe (often alone)
 2. Cell task  — deliver, collect, look away, one small hunt
 3. Tithe      — stones or reagents to the cell (not optional)
-4. Live       — rent, jobs, field — you're still a Redwell person with a secret
-5. Report     — monthly check-in; miss twice → you're cut loose (or worse)
+4. Live       — rent, jobs, field — you're still a townsperson with a secret
+5. Report     — monthly check-in; miss twice → cut loose (or worse)
 ```
 
-**What you have:** Layer 1 canon — breath + basic combat. **No Devouring Intent.** Maybe hunger dreams.
+**What you have:** Layer 1 (maybe pamphlet, not full copy). **No Devouring Intent.** Hunger dreams.
 
-**What you don't have:** Safehouse, inner rites, relics, trust, protection if caught.
+**What you don't have:** safehouse, drills, gorge protection, inner rites.
 
-**Promotion to Initiate (FE):** Break through + cell approves + ready for stained seal path — **then** Layer 2.
+**Rising out:** FE breakthrough + cell vouch → **transfer candidate** to gorge, or stay branch Initiate (rarer, less respect).
 
 ---
 
-### Qi Condensation — *Listener (before outer)*
+### Qi Condensation — *Listener (before outer / cell)*
 
 | Loop | Feel |
 |------|------|
@@ -120,7 +167,9 @@ Outer disciples get **Layer 1 only**. No intent curriculum. No law. Black market
 | **Combat** | Whatever you had before; cult teaches **survive**, not dominate |
 | **Risk** | Lowest; envoy vanishes if you blab |
 
-Listener → outer disciple = pass a **silence test** (task + no loose talk). Then receive **Layer 1**.
+Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Branch: receive **Layer 1 pamphlet**.
+
+**Promotion to Initiate (FE):** Break through + sponsor approves → Layer 2. Branch initiates often **must** visit gorge for seal rites.
 
 ---
 
