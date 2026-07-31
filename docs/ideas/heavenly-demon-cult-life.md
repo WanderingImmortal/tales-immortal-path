@@ -48,21 +48,79 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 
 Promotion = **merit + feeding the cell** (resources, kills, fragments handed up), not meditation alone.
 
+**Player terms:** **Listener** = probation. **Outer disciple** = Cell Brother/Sister (QC, Layer 1 canon). **Initiate** = FE+.
+
+---
+
+## Heavenly Demon Canon — layers (realm-tied)
+
+One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword Canon — **realm-tier manual swap**, **shared layer progress** on GC+ ([`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)).
+
+| Layer | Canon name (working) | Realm / rank | What’s in the box |
+|-------|----------------------|--------------|-------------------|
+| **1** | **Hunger Scripture** (饥经) | QC · outer disciple (Cell) | Breathing method + 2–3 basic combat arts |
+| **2** | **Stained Foundation** (染基篇) | FE · Initiate | FE circulation; blood-fiend seal syllabus; intent groundwork |
+| **3** | **Feeding Rites** (饲魔篇) | Core · Feeder | Devouring Intent techniques; mission arts |
+| **4** | **Inner Maw** (内噬篇) | NS · Inner Demon | Expand arts as techniques; relic rites |
+| **5+** | **Heaven’s Receipt** (天账篇) | Dao Seeking+ | Law fragments + union arts; elder-only beats |
+
+**Layer 1 detail (owner lock 2026-07-31):**
+
+| Slot | Art (working) | Role |
+|------|---------------|------|
+| **Breath** | **Crimson Harvest Breath** (or canon rename: *Cell Hunger Breath*) | QC cultivate method; *can* stamp `blood_fiend` at FE if still primary |
+| **Combat 1** | **Gnawing Palm** | Light qi nip — teaches *take a little* |
+| **Combat 2** | **Blood Refining Art** | Exists today — outer steal |
+| **Combat 3** (optional) | **Flee and Feed** | Utility — escape + small heal on kill; survival over pride |
+
+Outer disciples get **Layer 1 only**. No intent curriculum. No law. Black market sells **counterfeit page 1** sometimes — incomplete, no seal.
+
 ---
 
 ## Life by realm (what you're actually doing)
 
-### Qi Condensation — *before the cell trusts you*
+### Qi Condensation — *outer disciple (Cell Brother/Sister)*
+
+**Status:** You're in, but **expendable**. Not family. Not yet Initiate. The cell owns your usefulness.
+
+**How you're treated:**
+
+| Who | Treatment |
+|-----|-----------|
+| **Envoy / cell lead** | Polite, vague, always watching if you talk |
+| **Other cells** | You don't exist until proven |
+| **Mortals** | Normal — you hide the pamphlet |
+| **Orthodox cultivators** | Dangerous if they smell blood on your breath |
+| **The doctrine** | *"Starve quietly. Feed us. Become useful."* |
+
+**Simple monthly loop:**
+
+```
+1. Cultivate  — Layer 1 breath (Hunger Scripture) when safe
+2. Cell task  — deliver, collect, look away, one small hunt
+3. Tithe      — stones or reagents to the cell (not optional)
+4. Live       — rent, jobs, field — you're still a Redwell person with a secret
+5. Report     — monthly check-in; miss twice → you're cut loose (or worse)
+```
+
+**What you have:** Layer 1 canon — breath + basic combat. **No Devouring Intent.** Maybe hunger dreams.
+
+**What you don't have:** Safehouse, inner rites, relics, trust, protection if caught.
+
+**Promotion to Initiate (FE):** Break through + cell approves + ready for stained seal path — **then** Layer 2.
+
+---
+
+### Qi Condensation — *Listener (before outer)*
 
 | Loop | Feel |
 |------|------|
 | **Contact** | Envoy pamphlet, tavern rumor, forbidden shelf in wrong city |
-| **Listener tasks** | Deliver reagents, don't ask questions, one "look away" job |
-| **Groundwork** | Optional Crimson Harvest Breath — stains seal early if you commit |
-| **Combat** | Normal QC; cult teaches **survive**, not dominate |
-| **Risk** | Low exposure; envoy vanishes if you blab |
+| **Listener tasks** | One-off errands; no canon yet — *"see if you can keep a secret"* |
+| **Combat** | Whatever you had before; cult teaches **survive**, not dominate |
+| **Risk** | Lowest; envoy vanishes if you blab |
 
-**No Devouring Intent yet** — only hunger hints.
+Listener → outer disciple = pass a **silence test** (task + no loose talk). Then receive **Layer 1**.
 
 ---
 

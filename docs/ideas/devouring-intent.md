@@ -8,6 +8,8 @@
 | **Chat / PR** | Planning chat 2026-07-31 · [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 | **Updated** | 2026-07-31 |
 
+Sister docs: [`devouring-law.md`](devouring-law.md), [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md), [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
+
 ## Intent
 
 **Devouring Intent** is the Heavenly Demon Cult's crown art — not a sixth weapon type, but a **deviant intent track**: your will shaped as **hunger**. You do not "swing a devourer." You **take** — qi, momentum, fear, the last breath of a dying technique — and make it yours.
