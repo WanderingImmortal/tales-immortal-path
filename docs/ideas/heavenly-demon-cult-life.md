@@ -52,7 +52,9 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 
 **Rank vs realm (owner lock 2026-07-31):** **Initiate** = FE sect rank. **Feeder** = **Golden Core** sect rank — above Initiate, not an FE promotion. Awakening **Stirring** (1st intent realm) as an Initiate is **candidacy** for the Feeder track; **Feeder** scroll normally requires **GC + Taking** (2nd intent realm) + merit.
 
-**Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Feeder** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates.** same **rank names**, different **posting**. Both are firmly **outer / QC treatment** — no intent, no inner halls, no trust with secrets.
+**Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Feeder** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates.
+
+**Branch vs main (owner lock 2026-07-31):** same **rank names**, different **posting**. Both are firmly **outer / QC treatment** — no intent, no inner halls, no trust with secrets.
 
 ---
 
