@@ -6,7 +6,7 @@
 | **Blocked on** | FE chamber redesign; intent awakening plumbing; damage system rework (combat arts) |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 · PR #95 |
-| **Updated** | 2026-07-31 |
+| **Updated** | 2026-07-31 (initiate jobs, blood-fiend taking, evil pace) |
 
 ## Intent
 
@@ -114,6 +114,106 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 Seal happens at **generic FE seal beat** (today's Seal Dantian; redesign may move — nature stamp reuses P2 helper).
 
 **Branch:** seal at gorge = **rite of passage**; seal in town = secret, **no gorge witness** — counts for gameplay, not for respect.
+
+---
+
+## Initiate assignments — jobs & scale
+
+Initiate work sits **between outer errands and Feeder predator missions**: you are sent to **take** (resources, proof, fear) on a **local** board — Redwell, Dustbone field triangle, Heartlands road — not continental politics.
+
+### Scale lock (owner 2026-07-31)
+
+| Band | Geography | Opponents | Loot / yield | Who assigns |
+|------|-----------|-----------|--------------|-------------|
+| **Routine** | Gorge interior, Redwell streets | None / mortals | Reagents, stones, merit tick | Rotation board |
+| **Field** | Ironscar, Bonehollow, Dewcatch ([`explore-field-gathering.md`](explore-field-gathering.md)) | Beasts, bandits, QC thugs | Mats, hunt proof, Residual Taking credit | Hunt team lead / envoy |
+| **Marked** | Same + road outside Redwell | **Early FE** rogue, rival outer, cell target | Bounty-grade proof, strong Taking credit | Elder / envoy order |
+| **Off-limits (Initiate)** | Sect compounds, Core+ prey, villages (unsanctioned) | — | Corruption / disown — see evil pace below | **Feeder+** missions |
+
+**Player sentence:** *Outer disciples run errands. Initiates run **teeth** — but only as far as the cell's leash reaches.*
+
+### Assignment table (working)
+
+| Job | Posting | Cadence | Scale | Merit | Taking credit |
+|-----|---------|---------|-------|-------|---------------|
+| **Hunt team** | Main | Monthly rotation | Field sites — beast packs, claim-jumpers | High | Yes — primary grind |
+| **Quarry escort** | Main | Rotation | Ironscar convoy vs bandits | Medium | If blood drawn |
+| **Relic salvage** | Main | Quarterly | Failed outer trial sites — broken weapons, bone scraps | Medium | Low |
+| **Pantry tithe run** | Main | Rotation | Gorge ↔ storehouse — mundane | Low | No |
+| **Drill spar** | Main | Weekly | Initiate hall | Medium (winner) | Spar win only |
+| **Marked delivery** | Branch | Per task | Redwell ↔ dead drop — forged papers, blood mats | Medium | No |
+| **Debt shake** | Branch | Envoy assigns | Merchant / debtor in city | Medium–High | If intimidation works |
+| **Bounty proxy** | Branch | Player picks board | Redwell bounty tier — grit thieves, road cutters | Medium | Yes |
+| **Field solo hunt** | Branch | Self-driven | Dustbone triangle | High if logged | Yes — must report |
+| **Scout** | Both | Rare | Tail rival outer / guard patrol pattern | Low | No |
+| **Prey tracking** | Both | Pre-Feeder trial | Track QC–FE rogue for senior | High | Yes — trial prep |
+
+**Reporting:** main assignments are **logged by elder**; branch hunts must be **declared at envoy check-in** or they do not count as sanctioned — only as rumor risk.
+
+**Feeder contrast:** marked **cultivator** hunts, tempered relic retrieval, cross-cell jobs — regional scale, names on bounty tier 2.
+
+---
+
+## Blood-fiend seal — what it does
+
+The seal is **not** a leaky foundation. It is a **license to convert violence into cultivation** — the mechanical key to "taking to grow" at FE.
+
+**Design split (owner lock):** foundation **nature** does **not** replace method **grade** for base cultivate speed ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)). Blood-fiend owns the **taking → growth** bridge; evil play compresses calendar time by stacking that bridge, not by breaking the speed axis.
+
+### Signature effects (v1 target)
+
+| Effect | Plain seal | **Blood-fiend seal** |
+|--------|------------|----------------------|
+| **Combat** | — | +4% dmg, intimidation (coded today) |
+| **Social** | — | Killing aura — healers, orthodox, observe text |
+| **Residual Taking** | Weak or none | **Core loop** — see below |
+| **Blood techniques** | Works | **Synergy** — Blood Refining Art converts portion of heal to cultivate credit |
+| **Intent groundwork** | Standard | **Strong** tick from sanctioned kills |
+| **Cult standing** | Doubted | Expected — full fasting credit, Feeder sponsor path |
+
+### Residual Taking (blood-fiend unlock)
+
+After a **sanctioned taking** (logged hunt, spar win, marked task with blood), blood-fiend initiates gain a **cultivate momentum buff**:
+
+| Parameter | Draft |
+|-----------|-------|
+| **Trigger** | Sanctioned kill, spar win, or envoy-marked task completed with combat |
+| **Duration** | **1–3 months** game time (stacks refresh, cap 1 stack) |
+| **Effect** | +**8–15%** effective gather/refine on chamber cultivate (not flat realm skip) |
+| **Blood-fiend bonus** | +**50%** duration or magnitude vs plain seal on same kill |
+| **Decay** | Fades if you only meditate without taking — cult doctrine: *use it or the stain starves* |
+
+**Refine Taking** (optional chamber action, Initiate+): spend active Residual Taking stack for a **one-shot density tick** — bigger punch, burns the buff. Evil-fast players spam this; disciplined players hoard for seal pushes.
+
+### When can you "properly" take to grow?
+
+| Taking type | Counts for growth? | Speed | Cost |
+|-------------|-------------------|-------|------|
+| **Sanctioned hunt / cell task** | Yes — Residual Taking + merit | Modest boost | Time + tithe |
+| **Sanctioned spar win** | Yes — smaller Taking credit | Small boost | Rival politics |
+| **Gray prey** (bandit, lone traveler, unmarked outer) | **Partial** — Taking works, **no merit**; may need hide body | **Faster** | Bounty heat, rebellious rep |
+| **Massacre / village bleed** | **Yes — strongest conversion** | **Fastest** | **Corruption**, sacrilege risk, cell may disown if exposed ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) |
+
+**Lock:** at FE Initiate you **can** take from others to grow — but the **sect wants it on the ledger**. Off-book predation is the evil speed lane; on-book hunting is the respectable cult path. Both feed blood-fiend faster than plain seal; massacre feeds fastest and burns the world.
+
+**Before seal:** outer kills on sanctioned hunts **bank** groundwork but Residual Taking is **muted** until blood-fiend is stamped.
+
+---
+
+## Evil pace — how fast can FE go?
+
+Inferior anchor remains **peak FE ~80–90** on the **disciplined** path ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)). Blood-fiend + taking stacks **compress** that window — player chooses how much world-cost to pay.
+
+| Playstyle | What you do | Rough pace (inferior root → peak FE) | World cost |
+|-----------|-------------|--------------------------------------|------------|
+| **Disciplined initiate** | Hall cultivate, sanctioned hunts, fasts, tithe on time | **~80–90** (anchor) | Low bounty; cult likes you |
+| **Hungry initiate** | Max sanctioned hunts, spar grind, Refine Taking on cooldown | **~65–75** | Rival hate; still "legal" cult |
+| **Gray predator** | Off-book prey + field farming; hide arts in town | **~50–65** | Bounty tier 1–2; healers refuse |
+| **Open fiend** | Mass feeding, forbidden harvest, fear cultivation | **~40–55** | Corruption accrues; disown or "useful monster" arc |
+
+**Not a skip button:** evil pace saves **years**, not **realms**. You still chamber, seal, and tribulation — you just arrive with more stain and less runway before lifespan cap bites.
+
+**Blood-fiend without evil:** possible — disciplined + stain seal still gets modest Residual Taking from legal hunts; plain seal player is slower and cult-sidelined but not hard-blocked.
 
 ---
 
@@ -274,7 +374,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 
 ## Open questions
 
-- Residual Taking — exact % and decay timer
+- Residual Taking — exact % and decay timer (**drafted above — tune in playtest**)
 - Can branch Initiate **refuse** gorge pilgrimage and stay "street demon" through Core?
 - Feeder trial — always PvE hunt or sometimes spar vs senior initiate?
 - Blood pill pool: separate initiate-only pool vs shared with outers?
