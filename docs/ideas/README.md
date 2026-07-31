@@ -44,6 +44,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Weapon Intent — awakening redesign](weapon-intent-awakening.md) | `designed` (stub) | First catalyst items; FE slice | — |
+| [Combat — anatomy & damage types](combat-anatomy-damage.md) | `idea` (parked) | Owner damage pass | — |
 | [Devouring Intent](devouring-intent.md) | `designed` (v1) | Awakening redesign; cult content | — |
 | [Devouring Law](devouring-law.md) | `designed` (v1) | Dao redo; cult fragments | — |
 | [Heavenly Demon Cult — life ladder](heavenly-demon-cult-life.md) | `designed` (v1) | Template sect slice | — |

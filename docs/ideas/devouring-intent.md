@@ -22,17 +22,24 @@ Player fantasy: *"Every fight feeds me. Every kill makes the next one easier. He
 
 ## Mental model — why intent exists (owner chat 2026-07-31)
 
-Xianxia **意** (intent) is nebulous in source material — often "will made manifest" without a clean ruleset. In *this* game we treat it as **combat expression**, not a second cultivation manual.
+Xianxia **意** (intent) is nebulous in source material — often "will made manifest" without a clean ruleset. In *this* game:
+
+| Thing | Relationship to the player |
+|-------|---------------------------|
+| **Canon / techniques** | **Taught** — studied, comprehended from syllabus |
+| **Intent** | **Awakened** — a realization you reach, then **wield** in combat |
+
+Intent is not a teacher. It is a **comprehension** — groundwork + spark, then expression. The manual teaches *Refinement of Taking*; when Devouring Intent stirs, you are not learning a new lesson, you are **projecting a will you finally hold**.
 
 | Layer | Job | Devouring example | When it matters |
 |-------|-----|-------------------|-----------------|
 | **Canon / path** | **How you cultivate** — breath, circulation, seal | Layer 2 *Refinement of Taking* → person-yield → chamber | Months, kills **refined after** the fight |
-| **Intent** | **How you fight as that cultivator** — will projected in combat | Stirring prey sense; Taking qi siphon | **Inside** the duel |
-| **Law** (later) | **How the world agrees** — rules, not just personal will | Devouring Law peels buffs, bites formations | Dao Seeking+ |
+| **Intent** | **Will you wield** — comprehension expressed in violence | Stirring prey sense; Taking qi siphon | **Inside** the duel |
+| **Law** (later) | **Rule you comprehend** — world agrees, not just personal will | Devouring Law peels buffs, bites formations | Dao Seeking+ |
 
-**One sentence:** the manual teaches you to **eat**; intent teaches you to **fight like an eater**.
+**One sentence:** the manual **teaches** the path; intent is the **will you awaken** and **wield** when you fight on it.
 
-That is why Devouring Intent is not a separate "devouring path" — it **supplements** the Heavenly Demon Canon the way Sword Intent supplements a sword sect's breathing method. Apex cult still needs both: a **refined manual** (good method, no stat malus) and a **crown will** (how violence expresses doctrine).
+That is why Devouring Intent supplements the Heavenly Demon Canon the way Sword Intent supplements a sword sect's breathing method — not a second manual, a **crown comprehension**. Apex cult still needs both: refined **curriculum** (good method) and awakened **will** (how that path feels when you strike).
 
 ### What might feel "off" (acknowledged)
 
