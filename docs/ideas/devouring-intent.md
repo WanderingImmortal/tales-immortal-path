@@ -305,6 +305,7 @@ Full law doc: [`devouring-law.md`](devouring-law.md). Sect life: [`heavenly-demo
 - Cult join vs found-manual-only path for first playthrough
 - Blood-only NPCs refuse to teach if nature is `sword_inclined`?
 - Tier 0 name — **Stirring** locked for now; alts: First Bite, Emergent Maw
+- **Intent Realm II+** (Feast+) breakpoints — owner pass when Core ceiling known
 - Shared FE band cap for **weapon** intent tracks vs devouring-only
 
 ## Implementation crumbs
