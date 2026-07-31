@@ -28,6 +28,8 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 | **Public face** | Rumors, cells, forged merchants; no mountain on the map (v1) |
 | **Sacred art** | **Heavenly Demon Canon** (天魔典) — breathing + intent curriculum |
 | **Crown intent** | **Devouring Intent** — see [`devouring-intent.md`](devouring-intent.md) |
+| **Crown law** | **Devouring Law** — see [`devouring-law.md`](devouring-law.md) |
+| **Life ladder** | [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) — template for other sects |
 
 ### Doctrine (three sentences players might hear)
 

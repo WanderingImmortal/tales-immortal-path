@@ -162,6 +162,17 @@ Lineage id suggestion: `heavenly_demon_devour_line`.
 Blade intent: wounded **enemy** takes more damage.  
 Devouring: **you** grow from the wound — sustain + snowball. Same family, different mouth.
 
+### vs Devouring Law (intent ≠ law)
+
+| | **Devouring Intent** | **Devouring Law** |
+|--|----------------------|-------------------|
+| Job | **Form** — your hunger, siphon, snowball | **Law** — peel buffs, bite formations, world agrees to intake |
+| Era | FE+ | Dao Seeking+ |
+| Example art | Gullet Palm | Shell Crack |
+| Union | Heaven-Defying Swallow needs **both** | — |
+
+Full law doc: [`devouring-law.md`](devouring-law.md). Sect life: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md).
+
 ## Prerequisites
 
 - [ ] Owner sign-off on name (**Devouring Intent** vs blood subtitle)

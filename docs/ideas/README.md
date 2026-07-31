@@ -45,6 +45,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Weapon Intent — awakening redesign](weapon-intent-awakening.md) | `designed` (stub) | First catalyst items; FE slice | — |
 | [Devouring Intent](devouring-intent.md) | `designed` (v1) | Awakening redesign; cult content | — |
+| [Devouring Law](devouring-law.md) | `designed` (v1) | Dao redo; cult fragments | — |
+| [Heavenly Demon Cult — life ladder](heavenly-demon-cult-life.md) | `designed` (v1) | Template sect slice | — |
 | [Heavenly Demon Cult](heavenly-demon-cult.md) | `designed` (v1) | Devouring Intent; lineage manual | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
 | [Jade Lotus Sect](jade-lotus-sect.md) | `designed` (v2 — lineage sketch) | `jlc_*` manual pool; Matriarch reveal | — |
