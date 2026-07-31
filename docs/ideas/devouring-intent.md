@@ -6,7 +6,7 @@
 | **Blocked on** | [`weapon-intent-awakening.md`](weapon-intent-awakening.md) (no picker); cult content |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 · [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
-| **Updated** | 2026-07-31 (Intent Realm II / Feast gate sketch) |
+| **Updated** | 2026-07-31 (realm idx vs human numbering; Taking @ GC) |
 
 Sister docs: [`devouring-law.md`](devouring-law.md), [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md), [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
@@ -46,7 +46,7 @@ That is why Devouring Intent supplements the Heavenly Demon Canon the way Sword 
 | Tension | Why it nags | Current answer |
 |---------|-------------|----------------|
 | **Two takings** | Layer 2 and intent both care about kills | Manual = **refine corpse into cultivation**; intent = **combat siphon + conversion bonus** — different beats |
-| **Crown art feels small at FE** | Intent band is only Stirring/Taking for now | FE scope intentional; Feast+ parked — intent grows across realms like sword intent does |
+| **Crown art feels small at FE** | Only 1st realm (Stirring) at FE | 2nd realm (Taking) at GC; prodigy if early |
 | **Same groundwork** | Awakening wants kills; Layer 2 wants kills | Same **life** feeds both; **spark** still required for intent — not automatic |
 | **Genre fuzz** | 意 is never fully explained in novels | We pick **expression in combat** and leave cosmic law to Devouring Law later |
 
@@ -106,11 +106,23 @@ Wrong groundwork + strict spark → item **waits**. Open-read relic → player d
 
 ---
 
-## What Devouring Intent does (FE band)
+## What Devouring Intent does — **Intent Realm I** (Stirring)
 
-At FE we only design **two tiers**. Higher tiers parked until Core+ (see FE intent band below).
+**FE scope:** only **tier idx 0** — the **1st intent realm**. Tier idx 1 (**Taking**, 2nd realm) is **normally Golden Core**; reaching it at FE is what **makes** a prodigy (see Intent Realm II below).
 
-### Tier 0 — **Stirring** (初噬) · awakened · 0 uses
+### Numbering (owner lock 2026-07-31 — avoid agent/human confusion)
+
+| Tier **idx** | Tier name | **Intent realm** (human) | Typical cultivation |
+|--------------|-----------|--------------------------|---------------------|
+| **0** | Stirring | **1st** | FE |
+| **1** | Taking | **2nd** | **GC** (prodigy if FE) |
+| **2** | Feast | **3rd** | Late GC / NS (TBD) |
+| **3** | Surfeit | 4th | TBD |
+| **4** | Maw Domain | 5th | TBD |
+
+Code uses **idx 0**. Design chat uses **1st / 2nd realm** = idx + 1.
+
+### Tier idx 0 — **Stirring** (初噬) · 1st intent realm · awakened
 
 *The maw wakes. You do not yet drink — you **notice what can be taken**.*
 
@@ -124,31 +136,19 @@ At FE we only design **two tiers**. Higher tiers parked until Core+ (see FE inte
 
 **Player sentence:** *You awakened the maw. It is not fed yet — but every kill **registers**.*
 
-### Tier 1 — **Taking** (十噬) · 10 uses · FE prodigy
+**At FE you usually stop here** — polish uses toward the **2nd realm** gate, but breakthrough to Taking before GC is exceptional.
 
-*Combat siphon begins — you **pull** during the fight, not only after the corpse cools.*
+### What Stirring does **not** do yet
 
-| Effect | In combat | Out of combat |
-|--------|-----------|---------------|
-| **Qi Siphon** | Basics return a **sliver** of combat qi on hit (cap per turn) | — |
-| **Deeper conversion** | Kill conversion bonus rises to **+25%** person-yield | Refine Taking chamber ticks slightly stronger |
-| **Predator's Mark** (expand pick) | First hit tags prey — bonus vs wounded | — |
-| **Intent uses** | Same sources; reaching **10 uses** = tier break | Prodigy flag — elder attention |
+| Not yet | Which realm |
+|---------|-------------|
+| Qi siphon on basics | **2nd** — Taking |
+| Feast window / chains | **3rd** — Feast |
+| Maw Domain | **5th** — far later |
 
-**Deepen vs Expand** at Taking breakpoint: **Deepen** = more conversion per siphon stack; **Expand** = unlock **Predator's Mark**.
+### vs weapon intent
 
-### What it does **not** do at FE
-
-| Not yet | When |
-|---------|------|
-| Feast snowball / kill momentum | Core+ (parked) |
-| Maw Domain opener | Far later |
-| Replace person-yield formula | Layer 2 owns cultivate credit; intent **modifies** it |
-| Auto-corrupt | Taking ≠ corruption — **how** you take still matters ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) |
-
-### vs weapon intent (same FE band rule)
-
-Weapon intents use Sprout / Minor Success labels today; devouring uses **Stirring / Taking**. Same rarity: awakened at FE = rare; second tier at FE = prodigy.
+Weapon intents: Sprout ≈ Stirring (1st realm, FE rare). **2nd realm** at GC is the normal pace; devouring **Taking** at FE = prodigy.
 
 ---
 
@@ -184,38 +184,78 @@ Shares tier **structure** with weapon intent (uses, deepen, expand, domain) but 
 Deepen: **+ conversion** (more from siphon stacks, stronger finish-on-wounded).  
 Expand: **new taking expression** (see table below).
 
-### FE intent band — scope & rarity (owner lock 2026-07-31)
+### FE scope — Stirring only (owner lock 2026-07-31)
 
-**Full intent ceiling across all realms is not designed yet.** For now, scope **one intent band ≈ the whole of Foundation Establishment** — tiers **0–1** only matter at FE; higher tiers are **parked** until Core+ pass.
+**Intent Realm I ≈ whole of FE** — one tier inside it: **Stirring** (idx 0). You do **not** "finish" Realm I by hitting Taking; you **leave** Realm I at awakening and **enter** Realm II later.
 
-| Tier | Name | At FE | World read |
-|------|------|-------|------------|
-| **0** | **Stirring** (awakened) | **Rare** — even in cult; Feeder promotion wants this | *"They have a maw-shaped will."* |
-| **1** | **Taking** | **Prodigy** — possible but exceptional before leaving FE | *"The gorge is already grooming them."* |
-| **2+** | Feast, Surfeit, Maw Domain | **Not FE scope** — Intent Realm II+ (Core+) TBD | — |
+| Tier idx | Name | At FE | World read |
+|----------|------|-------|------------|
+| **0** | **Stirring** | **Rare** awakened — Feeder wants this | *"They have a maw-shaped will."* |
+| **1** | **Taking** | **Prodigy only** — 2nd realm before GC | *"The gorge is grooming them early."* |
+| **2+** | Feast+ | Not FE | — |
 
-**Design intent:**
+- Most FE cultivators **never** awaken (idx 0).
+- **Stirring** at FE = cult takes you seriously; Feeder promotion wants **awakened**, not Taking.
+- **Taking** (idx 1) **before GC** = stepping past cultivation bounds — **that is prodigy**, not the normal FE ceiling.
+- Uses accrue at Stirring toward the **2nd realm** gate; breakthrough to Taking normally waits for **GC**.
 
-- Most FE cultivators **never** awaken intent (orthodox or branch).
-- Cult path makes awakening **plausible** — groundwork + sparks + taking loop — but still **not guaranteed**.
-- **Stirring** during FE = you made it; cult takes you seriously.
-- **Taking** during FE = prodigy flag — elder attention, rival fear, bounty heat rises faster.
-- Player can **step into tier 1** before peak seal if they grind sanctioned lethal spars + hunts; most initiates leave FE still at **Stirring** or without intent at all.
-
-**Uses pacing (FE band, draft):** intent uses accrue from **meaningful combat** (lethal sanctioned spars, hunts, Feeder-prep trials) — not cultivate months. Hitting **10 uses** (Taking) in one FE lifetime = hungry, skilled, or very lucky.
-
-**Parked:** Intent Realm II+ detail below — Feast gate and polish loop sketched; tune at Core pass.
+**Parked:** Intent Realm II (Taking) and III (Feast) below.
 
 ---
 
-## Intent Realm II — **Feast** (初筵 / working)
+## Intent Realm II — **Taking** (十噬) · tier idx 1 · 2nd realm
 
-**Intent Realm I** (FE band) ends at **Taking**. **Feast** is not "Taking but bigger" — it is the next **comprehension**, gated like a small breakthrough.
+**Normally Golden Core.** Not the FE finish line — the **second comprehension**. Pull qi **during** the duel; dyadic siphon.
+
+### Why it is a realm above Stirring, not "Stirring++"
+
+| | **Stirring** (1st) | **Taking** (2nd) |
+|--|-------------------|------------------|
+| **Shape** | Sense + post-kill refine | **Pull** during contact |
+| **Combat** | Prey sense, conversion bump | **Qi Siphon** on basics |
+| **Comprehension** | *I notice what can be taken* | *I can **draw** while we fight* |
+
+Bigger prey-sense numbers would be Stirring pushed extreme. **Taking** is new behavior.
+
+### Gate to Taking (all required — draft)
+
+| Gate | Detail |
+|------|--------|
+| **1. Cultivation** | **Golden Core** (accepted heavens). **Prodigy bypass:** break through at **FE** with full gates met — same comprehension, wrong realm = legend. |
+| **2. Uses** | **10 intent uses** at **Stirring** (cultivator kills / lethal spars) |
+| **3. Comprehension beat** | **First Taking** — win a duel where you **siphon mid-fight** and finish a GC-bracket foe (or FE prodigy: equal/higher bracket story prey). Log: *"You did not wait for the corpse to cool."* |
+| **4. Cult syllabus** | **Layer 3 — Feeding Rites** comprehended (cult track) |
+
+Uses alone do not break through. At 10 uses, GC, no First Taking: *"Your will circles the prey. **Take** before the fall."*
+
+### What Taking does (2nd realm entry — draft)
+
+| Effect | Detail |
+|--------|--------|
+| **Qi Siphon** | Basics restore sliver of combat qi (cap/turn) |
+| **Kill conversion** | **+25%** person-yield on cultivator finish |
+| **Predator's Mark** (expand) | First hit tags prey — bonus vs wounded |
+| **Deepen** | More per siphon stack |
+
+### Polish Stirring → Taking (pre-gate)
+
+| Source | Role |
+|--------|------|
+| Intent uses from hunts / lethal spars | Toward 10-use floor |
+| Feeder missions | Full credit |
+| Layer 3 study | Unlocks First Taking rite |
+| GC breakthrough | Cultivation gate for non-prodigies |
+
+---
+
+## Intent Realm III — **Feast** (初筵) · tier idx 2 · 3rd realm
+
+**After Taking** — chain kills, feast window. Not "Taking but bigger."
 
 ### Why it is a realm above, not an extreme
 
-| | **Taking** (Realm I) | **Feast** (Realm II) |
-|--|----------------------|----------------------|
+| | **Taking** (2nd) | **Feast** (3rd) |
+|--|------------------|-----------------|
 | **Shape of will** | **Dyadic** — you ↔ one prey | **Serial** — each death feeds the **next** |
 | **When power moves** | **During** contact (siphon on hit) | **After** a kill — **feast window** empowers follow-up |
 | **Fight fantasy** | Duelist who drains | Predator of **chains** — horde, escort ambush, hall slaughter |
@@ -224,18 +264,18 @@ Expand: **new taking expression** (see table below).
 
 **Taking pushed extreme** would mean +50% siphon — same duel, bigger number. **Feast** means a **second mechanic**: **Carnage** (working) — after you **finish** a cultivator in bracket, gain **Feast Window** (N turns): siphon amplified, conversion on subsequent kills in same fight, optional fear on witnesses. Multi-kill encounters **change category**.
 
-Surfeit (Realm III, later) shifts again — techniques feel **hollow until you've taken** (withdrawal), not chain snowball. Each realm = new **relationship** to consumption, not a scalar buff.
+Surfeit (4th realm, later) shifts again — techniques feel **hollow until you've taken** (withdrawal).
 
 ### Gate to Feast (all required — draft)
 
 | Gate | Detail |
 |------|--------|
-| **1. Cultivation** | **Core realm** (or owner-defined limbo after Initial Core Formation — TBD). **Cannot** enter Feast while still FE, even with 30 uses. Hard ceiling on Realm I. |
-| **2. Uses** | **30 intent uses** accrued at **Taking** tier (meaningful cultivator kills / Feeder missions). FE-tier prey counts at **reduced rate** once already at Taking — polish wants Core-bracket blood. |
-| **3. Comprehension beat** | **First Feast** — one encounter, **2+ cultivator finishes** in the same fight **or** one finish + gorge **Feast Rite** meditation on the residue. Log: *"You did not only take — you **fed**."* |
-| **4. Cult syllabus** (devouring track) | **Layer 3 — Feeding Rites** comprehended — parallel to Layer 2 unlocking Stirring's practice. Orthodox weapon intents: equivalent **lineage layer** or elder trial TBD. |
+| **1. Cultivation** | **Taking** attained; **late GC / early NS** band (TBD). Cannot skip from Stirring. |
+| **2. Uses** | **30 intent uses** at **Taking** |
+| **3. Comprehension beat** | **First Feast** — **2+ cultivator finishes** one fight **or** finish + gorge Feast Rite |
+| **4. Syllabus** | Feeding Rites mastered (cult) |
 
-Uses alone **do not** break through — same pattern as awakening (groundwork + gate). At 30 uses with no First Feast, UI: *"Your will strains at Taking's edge. Something must **fall** for the next hunger to open."*
+At 30 uses with no First Feast: *"Your will strains past Taking's edge. Something must **fall** for the next hunger to open."*
 
 ### How you polish Taking toward Feast (pre-gate)
 
@@ -252,7 +292,7 @@ Between Taking and Feast, player is **refining comprehension**, not grinding one
 
 **Not polish:** meditate months alone; beast hunts; mortal kills.
 
-### What Feast does (Realm II entry — draft)
+### What Feast does (3rd realm entry — draft)
 
 | Effect | Detail |
 |--------|--------|
@@ -264,11 +304,12 @@ Between Taking and Feast, player is **refining comprehension**, not grinding one
 
 ### Intent realms map (working)
 
-| Intent realm | Cultivation band | Tiers | Breakthrough |
-|--------------|------------------|-------|--------------|
-| **I** | FE | Stirring → Taking | Awakening spark |
-| **II** | Core | Feast → (Surfeit entry TBD) | First Feast gate |
-| **III+** | GC / NS / DS | Surfeit → Maw Domain | Owner pass |
+| Intent realm | Tier idx | Name | Cultivation (typical) | Breakthrough |
+|--------------|----------|------|----------------------|--------------|
+| **1st** | 0 | Stirring | FE | Awakening spark |
+| **2nd** | 1 | Taking | **GC** (prodigy: FE) | First Taking |
+| **3rd** | 2 | Feast | Late GC / NS (TBD) | First Feast |
+| **4th+** | 3–4 | Surfeit → Maw Domain | TBD | Owner pass |
 
 Weapon intent tracks may mirror realm bands with different tier names; devouring uses cult vocabulary.
 

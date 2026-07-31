@@ -330,7 +330,7 @@ Initiates **do not** have Devouring Intent yet. They **prepare** the maw.
 
 **Spark timing:** can fire **any time** during Initiate years once groundwork + catalyst met — not gated to Feeder promotion. **Feeder rank** = awakened intent + merit, not the only awakening window.
 
-**FE intent band:** most who awaken hit **Stirring** only; **Taking** (tier 1) before leaving FE = prodigy ([`devouring-intent.md`](devouring-intent.md)). Lethal spars are a primary **intent use** source alongside hunts.
+**FE intent band:** awakened **Stirring** (1st realm, tier idx 0) is the normal FE ceiling. **Taking** (2nd realm, idx 1) at FE = **prodigy** ([`devouring-intent.md`](devouring-intent.md)). Lethal spars bank uses toward future gates.
 
 See sparks: Maw-Womb Shard, tempered relic read, envoy initiation trance, witness apex feed ([`devouring-intent.md`](devouring-intent.md)).
 
@@ -438,7 +438,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Stained seal** | Seal beat | Foundation **marked** — orthodox NPCs flinch |
 | **First fast completed** | Year 1 FE | Doctrine lands — empty stomach, full intent |
 | **Spark** | Groundwork + catalyst | **Devouring Intent born** (Stirring) — crown art wakes |
-| **Taking tier** | Before peak FE (rare) | **Prodigy** — gorge takes notice |
+| **Taking tier** (2nd realm, idx 1) | Before GC (exceptional) | **Prodigy** — stepping past cultivation bounds |
 | **Feeder promotion** | Post-awakening | *"The maw has use for your hunger."* |
 | **Gorge transfer** (branch) | Optional mid-FE | Leave cell posting for main hall — politics |
 
