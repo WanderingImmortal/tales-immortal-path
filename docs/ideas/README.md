@@ -42,6 +42,11 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Redwell starter slice | — || [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
+| [Jianghu organization types](jianghu-organization-types.md) | `designed` (taxonomy) | Dustbone sect + tribe identities | — |
+| [QC sect join ladder](qc-sect-join-ladder.md) | `idea` | Org taxonomy; lesser sect slots | — |
+| [Dustbone lesser sects](dustbone-lesser-sects.md) | `idea` (slots TBD) | Org taxonomy | — |
+| [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `idea` (myth gap) | Owner lore pass | — |
+| [World events — layered battlefield](world-events-layered-battlefield.md) | `idea` | Mid city; org tiers | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
 | [Jade Lotus Sect](jade-lotus-sect.md) | `designed` (v2 — lineage sketch) | `jlc_*` manual pool; Matriarch reveal | — |

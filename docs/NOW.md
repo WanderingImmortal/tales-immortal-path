@@ -2,7 +2,7 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-07-28
+**Updated:** 2026-07-31
 
 ## Focus
 - **Redwell starter city** (PR #90) — [`redwell-starter-city.md`](ideas/redwell-starter-city.md) · zone [`dustbone-living-board.md`](ideas/dustbone-living-board.md)
@@ -12,6 +12,9 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Alchemy close-loop ([`dustbone-qc-alchemy.md`](ideas/dustbone-qc-alchemy.md)) · field enemies ([`explore-field-gathering.md`](ideas/explore-field-gathering.md)) · cultivate Phase 3 · pacing
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
 - Threshold visit · mid city — **after** Redwell feels decent
+
+## Parked (design — not building yet)
+- QC density: org taxonomy · lesser sect slots · layered world events — [`jianghu-organization-types.md`](ideas/jianghu-organization-types.md) · [`dustbone-lesser-sects.md`](ideas/dustbone-lesser-sects.md) · [`world-events-layered-battlefield.md`](ideas/world-events-layered-battlefield.md)
 
 ## Parked (return later)
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
