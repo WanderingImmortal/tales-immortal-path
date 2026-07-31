@@ -412,7 +412,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Seal** | FE complete (blood-fiend preferred) |
 | **Sponsor** | Elder / envoy signs Feeder scroll |
 
-**Feeder unlocks:** Layer 3 **Feeding Rites**, predator missions, **ranked pill stipend** + persistent rival loop, inner-store (main), bounty tier 2.
+**Feeder unlocks:** Layer 3 **Feeding Rites**, predator missions, **ranked pill stipend** + persistent rival loop, inner-store (main), bounty tier 2. Full GC slice: [`heavenly-demon-cult-gc-feeder.md`](heavenly-demon-cult-gc-feeder.md).
 
 **Cult posture:** sponsor signs scroll if you **survived** and the ledger says asset — not because the gorge raised you. See [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) hands-off lock.
 

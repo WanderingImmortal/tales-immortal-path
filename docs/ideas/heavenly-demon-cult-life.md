@@ -6,7 +6,7 @@
 | **Blocked on** | Intent/dao redo; hidden faction node |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 |
-| **Updated** | 2026-07-31 (FE initiate slice linked) |
+| **Updated** | 2026-07-31 (GC Feeder slice linked) |
 
 ## Intent
 
@@ -397,15 +397,18 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 
 ### Golden Core — *the maw gets teeth* (Feeder rank)
 
+**Full slice:** [`heavenly-demon-cult-gc-feeder.md`](heavenly-demon-cult-gc-feeder.md) — main vs branch, Layer 3, Taking intent, persistent rivals, missions, ranked pill stipend.
+
 | Loop | Feel |
 |------|------|
-| **Feeder missions** | Hunt cultivators who "waste" qi; retrieve tempered relics |
-| **Pill stipend** | **Ranked** quarterly — 1st gets 2, 2nd–3rd get 1 ([`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md)) |
-| **Rival loop** | **Persistent** cohort rivals; spars to yield; comeback arcs — not initiate slaughter |
-| **Investment** | Cult won't let you **die for nothing** in a bunk spat; **will** sacrifice you when worth it |
-| **Intent** | **Taking** (2nd realm) normal here; Feast later |
-| **Life** | Safehouse, predator missions, bounty tier 2 |
-| **Risk** | Sect hunters; you're visible now |
+| **Rank** | **Feeder** — Layer 3 **Feeding Rites**; **Taking** (2nd intent realm) normal bar |
+| **Chamber** | GC substages (nascent → expanding → purifying); cult adds **Feast Rite** |
+| **Intent** | **Taking** — Qi Siphon, First Taking beat; Feast groundwork late GC |
+| **Techniques** | Predator arts **parked** (damage rework) |
+| **Life** | Main: predator board + cohort spars; Branch: bounty tier 2, gorge transfer eligible |
+| **Rivals** | **Persistent** 2–3 names; spars to **yield**; death match sanctioned |
+| **Pills** | **Ranked stipend** — 1st: 2/quarter, 2nd–3rd: 1, 4th+: 0 |
+| **Risk** | Sect hunters; sacrifice missions; you're **inventory** now |
 
 ---
 
