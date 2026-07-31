@@ -321,11 +321,11 @@ Weapon intent tracks may mirror realm bands with different tier names; devouring
 
 Pick **Deepen** or **Expand** at each breakpoint (same fork as weapon intent).
 
-| # | Id | Name | Tier | FE? | Effect (fiction-first) |
-|---|-----|------|------|-----|------------------------|
-| 1 | `qi_siphon` | **Qi Siphon** | Taking | **Yes** | Basics restore a sliver of combat qi / breath on hit |
-| 2 | `predator_mark` | **Predator's Mark** | Taking | **Yes** | First damaging hit each fight tags prey — bonus damage while they're wounded |
-| 3 | `technique_taste` | **Technique Taste** | Feast | Parked | Once per fight, copying a **category** of enemy tech you survived (light buff) |
+| # | Id | Name | Tier idx | Typical realm | Effect (fiction-first) |
+|---|-----|------|----------|---------------|------------------------|
+| 1 | `qi_siphon` | **Qi Siphon** | 1 Taking | GC | Basics restore a sliver of combat qi / breath on hit |
+| 2 | `predator_mark` | **Predator's Mark** | 1 Taking | GC | First damaging hit each fight tags prey — bonus damage while wounded |
+| 3 | `technique_taste` | **Technique Taste** | 2 Feast | Parked | Once per fight, copying a **category** of enemy tech you survived (light buff) |
 | 4 | `fear_feed` | **Fear Feed** | Feast | Parked | Intimidate/flee checks against you fail more; killing a fleeing foe heals |
 | 5 | `momentum_feast` | **Momentum Feast** | Surfeit | Parked | Each kill or execute in a window adds a stack until fight ends |
 | 6 | `maw_domain` | **Maw Domain** | Maw Domain | Parked | Opening turn: enemies below X% max HP feel **swallowed** |

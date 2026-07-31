@@ -42,7 +42,7 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 | **0** | **Listener** | QC | Heard the doctrine; not trusted |
 | **1** | **Cell Brother/Sister** | QC–FE | Runs errands; Crimson breath pamphlet |
 | **2** | **Initiate** | FE | Blood-fiend seal encouraged; outer techniques |
-| **3** | **Feeder** | FE–Core | Devouring Intent awakened; missions with teeth |
+| **3** | **Feeder** | **GC** | **Taking** (2nd intent realm) + Layer 3; predator missions |
 | **4** | **Inner Demon** | Core–NS | Relic rites; expand arts; hunted harder |
 | **5** | **Maw Elder** (NPC) | NS+ | Teaches law fragments; political liability |
 
@@ -50,9 +50,9 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 
 **Player terms:** **Listener** = probation. **Outer disciple** = QC + Layer 1 canon. **Initiate** = FE+.
 
-**Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Feeder** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates. High bar = strong sect foundation; FE promotion should not feel like you've "made it."
+**Rank vs realm (owner lock 2026-07-31):** **Initiate** = FE sect rank. **Feeder** = **Golden Core** sect rank — above Initiate, not an FE promotion. Awakening **Stirring** (1st intent realm) as an Initiate is **candidacy** for the Feeder track; **Feeder** scroll normally requires **GC + Taking** (2nd intent realm) + merit.
 
-**Branch vs main (owner lock 2026-07-31):** same **rank names**, different **posting**. Both are firmly **outer / QC treatment** — no intent, no inner halls, no trust with secrets.
+**Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Feeder** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates.** same **rank names**, different **posting**. Both are firmly **outer / QC treatment** — no intent, no inner halls, no trust with secrets.
 
 ---
 
@@ -332,7 +332,7 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 | **Pacing** | Inferior root **peak FE ~80–90** — decades as Initiate is normal |
 | **Risk** | Exposure, orthodox shunning, cult disown if tithe breaks |
 
-**First crown moment:** Devouring Intent born — not chosen from a menu. **Feeder** rank = awakened + merit.
+**First crown moment (Initiate):** Devouring Intent **Stirring** born — not chosen from a menu. **Feeder** rank comes at **GC** with **Taking** (see intent doc).
 
 ---
 

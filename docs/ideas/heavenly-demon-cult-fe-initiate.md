@@ -24,7 +24,7 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Awa
 |--|--|
 | **Realm** | Foundation Establishment (full FE journey — early subrealm through peak) |
 | **Sect rank** | **Initiate** (promoted when you break through QC → FE + sponsor approves) |
-| **Next rank** | **Feeder** — requires **Devouring Intent awakened** + merit; still FE realm, more dangerous work |
+| **Next rank** | **Feeder** — **GC** + **Taking** (2nd intent realm) + merit; not an FE promotion |
 | **Canon** | **Layer 2 — Stained Foundation** (染基篇) |
 
 **Player sentence:** *You are no longer chaff. You are not trusted. You are being **shaped**.*
@@ -328,9 +328,9 @@ Initiates **do not** have Devouring Intent yet. They **prepare** the maw.
 
 **Hint line (UI / log):** *"Your dantian aches like an empty stomach."*
 
-**Spark timing:** can fire **any time** during Initiate years once groundwork + catalyst met — not gated to Feeder promotion. **Feeder rank** = awakened intent + merit, not the only awakening window.
+**Spark timing:** during Initiate years (FE) → **Stirring** (1st realm) only. **Feeder** rank at **GC**; normal bar = **Taking** (2nd realm). Prodigy Taking at FE still counts when you break through.
 
-**FE intent band:** awakened **Stirring** (1st realm, tier idx 0) is the normal FE ceiling. **Taking** (2nd realm, idx 1) at FE = **prodigy** ([`devouring-intent.md`](devouring-intent.md)). Lethal spars bank uses toward future gates.
+**FE intent band:** **Stirring** is the normal intent ceiling at FE. **Taking** at FE = prodigy ([`devouring-intent.md`](devouring-intent.md)).
 
 See sparks: Maw-Womb Shard, tempered relic read, envoy initiation trance, witness apex feed ([`devouring-intent.md`](devouring-intent.md)).
 
@@ -394,7 +394,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Exposure** | Low (branch) / contained (main) | **Bounty 1** (branch); inner gorge eyes (main) |
 | **Housing** | Barracks / bunk | Initiate hall / still rent (branch) |
 | **Pills** | Compete with outers | Same pool — **more mouths**, fiercer politics |
-| **Endgame of rank** | Promote to Initiate | Promote to **Feeder** or die trying |
+| **Endgame of rank** | Promote to Initiate | **GC** + Feeder trial — or decades stuck as Initiate |
 
 ---
 
