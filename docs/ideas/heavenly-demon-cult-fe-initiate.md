@@ -72,7 +72,7 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 |------|-------------------|------|
 | **Circulation** | **Stained Circulation** (ch.1) — upgrade from Outer Devouring Breath | FE gather/refine/stabilize fantasy; apex cult quality, **no stability malus** |
 | **Seal syllabus** | Blood-fiend seal **encouraged** at **peak**; plain seal allowed | Cult **prefers** the stain at seal time — **identity**, not the unlock for taking ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)) |
-| **Taking doctrine** | **Refinement of Taking** (ch.2) + associated arts | **Unlocks conversion** — how to draw power from the fallen |
+| **Remnant Refine** (ch.2) + associated arts | **Unlocks conversion** — draw power from the fallen (renamed from *Refinement of Taking* — avoids intent **Taking** clash) |
 | **Groundwork** | Fasting meditations + taking ledger | Builds toward Devouring Intent spark ([`devouring-intent.md`](devouring-intent.md)) |
 | **Combat** | **Parked** — Blood Refining Art exists in data today; new Layer 2 arts wait on damage rework | **Blood Refining** is the v1 practical art for conversion practice |
 
@@ -93,7 +93,7 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 ```
 封面  Cover — stained seal sigil (blood thread through foundation glyph)
 第一章  Ch.1 — Stained Circulation
-第二章  Ch.2 — Refinement of Taking (吞化篇) — conversion doctrine
+第二章  Ch.2 — Remnant Refine (残炼篇) — conversion doctrine
 第三章  Ch.3 — Blood Refining Art — practical taking (more arts when shipped)
 第四章  Ch.4 — Fasting Meditations
 附录  Appendix — The Hungry Seal (blood-fiend syllabus; read before peak seal)
@@ -167,7 +167,7 @@ Initiate work sits **between outer errands and Feeder predator missions**: you a
 | Requirement | Why |
 |-------------|-----|
 | **Stained Circulation** comprehended (ch.1) | FE breath — you can hold what you steal |
-| **Refinement of Taking** comprehended (ch.2) | Theory — *how* borrowed qi becomes yours |
+| **Remnant Refine** comprehended (ch.2) | Theory — *how* fallen qi becomes yours |
 | **One taking art** practiced | **Blood Refining Art** today; more when damage rework ships |
 
 **When:** early–mid FE — soon after Initiate promotion, **long before** peak seal / blood-fiend stamp.
@@ -319,7 +319,7 @@ Initiates **do not** have Devouring Intent yet. They **prepare** the maw.
 
 | Source | Counts toward awakening? |
 |--------|-------------------------|
-| **Stained Circulation** + **Refinement of Taking** comprehended | Yes (unlock) |
+| **Stained Circulation** + **Remnant Refine** comprehended | Yes (unlock) |
 | **Person-consumption** (Layer 2+) | Yes — scales with victim bracket |
 | **`blood_fiend` seal** (peak) | Yes (strong) — amplifier, not gate |
 | **Sanctioned hunt kills** (logged) | Yes — outer kills carry over |

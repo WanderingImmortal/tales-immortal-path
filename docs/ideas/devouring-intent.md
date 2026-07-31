@@ -29,11 +29,11 @@ Xianxia **意** (intent) is nebulous in source material — often "will made man
 | **Canon / techniques** | **Taught** — studied, comprehended from syllabus |
 | **Intent** | **Awakened** — a realization you reach, then **wield** in combat |
 
-Intent is not a teacher. It is a **comprehension** — groundwork + spark, then expression. The manual teaches *Refinement of Taking*; when Devouring Intent stirs, you are not learning a new lesson, you are **projecting a will you finally hold**.
+Intent is not a teacher. It is a **comprehension** — groundwork + spark, then expression. The manual teaches *Remnant Refine*; when Devouring Intent stirs, you are not learning a new lesson, you are **projecting a will you finally hold**.
 
 | Layer | Job | Devouring example | When it matters |
 |-------|-----|-------------------|-----------------|
-| **Canon / path** | **How you cultivate** — breath, circulation, seal | Layer 2 *Refinement of Taking* → person-yield → chamber | Months, kills **refined after** the fight |
+| **Canon / path** | **How you cultivate** — breath, circulation, seal | Layer 2 **Remnant Refine** → person-yield → chamber | Months, kills **refined after** the fight |
 | **Intent** | **Will you wield** — comprehension expressed in violence | Stirring prey sense; Taking qi siphon | **Inside** the duel |
 | **Law** (later) | **Rule you comprehend** — world agrees, not just personal will | Devouring Law peels buffs, bites formations | Dao Seeking+ |
 
@@ -68,14 +68,14 @@ If a future pass still feels wrong, alternatives to revisit: (a) merge post-kill
 | Gate | Why |
 |------|-----|
 | **Foundation Establishment** | Intent lives on the dantian path — QC cannot hold it |
-| **Layer 2 comprehended** | *Refinement of Taking* + one taking art — you must **know how to convert** before will can birth ([`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md)) |
+| **Layer 2 comprehended** | **Remnant Refine** + one taking art — you must **know how to convert** before will can birth ([`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md)) |
 | **Not** a free orthodox pick | Deviant track — cult syllabus, forbidden sparks, or equivalent story |
 
 ### Groundwork (need **2+** of)
 
 | Signal | Detail |
 |--------|--------|
-| **Stained Circulation** + **Refinement of Taking** comprehended | Doctrine walked — not optional for cult awakenings |
+| **Stained Circulation** + **Remnant Refine** comprehended | Doctrine walked — not optional for cult awakenings |
 | **Person-kills logged** | Sanctioned hunts **or** lethal hall spars — N cultivators in appropriate bracket (draft: **3+**) |
 | **Blood path** | `blood_fiend` seal **or** primary on `heavenly_demon_devour_line` through Layer 2 |
 | **Fasting beat** completed | At least one hall/gorge fast |

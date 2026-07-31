@@ -49,6 +49,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Devouring Law](devouring-law.md) | `designed` (v1) | Dao redo; cult fragments | — |
 | [Heavenly Demon Cult — life ladder](heavenly-demon-cult-life.md) | `designed` (v1) | Template sect slice | — |
 | [Heavenly Demon Cult — FE Initiate life](heavenly-demon-cult-fe-initiate.md) | `designed` (v1) | FE chamber; damage rework (combat) | — |
+| [Heavenly Demon Cult — branch cells](heavenly-demon-cult-branch-cells.md) | `idea` (parked) | Merit ledger; multi-cell math | — |
 | [Heavenly Demon Cult](heavenly-demon-cult.md) | `designed` (v1) | Devouring Intent; lineage manual | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
 | [Jade Lotus Sect](jade-lotus-sect.md) | `designed` (v2 — lineage sketch) | `jlc_*` manual pool; Matriarch reveal | — |

@@ -86,7 +86,7 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 | Layer | Canon name (working) | Realm / rank | What’s in the box |
 |-------|----------------------|--------------|-------------------|
 | **1** | **Devouring Scripture** (吞经) | QC · outer disciple / cell | Breathing method + combat syllabus (**parked** — damage rework) |
-| **2** | **Stained Foundation** (染基篇) | FE · Initiate | Circulation + **Refinement of Taking** (unlock); seal syllabus at peak |
+| **2** | **Stained Foundation** (染基篇) | FE · Initiate | Circulation + **Remnant Refine** (conversion); seal syllabus at peak |
 | **3** | **Feeding Rites** (饲魔篇) | Core · Feeder | Devouring Intent techniques; mission arts |
 | **4** | **Inner Maw** (内噬篇) | NS · Inner Demon | Expand arts as techniques; relic rites |
 | **5+** | **Heaven’s Receipt** (天账篇) | Dao Seeking+ | Law fragments + union arts; elder-only beats |
@@ -239,6 +239,24 @@ Initiate = different **pool**, same **cutthroat** economy. Death is cheap; the c
 **Spar culture summary:** outer/initiate = strong eat weak. Feeder = strong **test** weak, but stock is **inventory** until spent usefully.
 
 Competition is **merit**, not free PvP in town.
+
+### Merit ledger (owner sketch 2026-07-31)
+
+**Two jobs:** (1) **track disciple ranking** within cohort/cell/branch; (2) **gate access** to sect resources (blood pills, hall time, trials, Layer pages).
+
+| Source | Weight |
+|--------|--------|
+| Tithe on time | Baseline |
+| Sanctioned hunts / kills logged | High |
+| Spar outcomes | High |
+| Drill / task completion | Medium |
+| Envoy / elder praise | Low — rare |
+
+**Cult disposition:** rank is **not** merit alone. **Sheer strength** (realm, fight record, last spar) can bump ledger standing — *"The gorge respects teeth."* Tie-breaks and demotions use strength when merit is close. Hands-off, but the ledger is real.
+
+**Player-facing:** quarterly placement (*"2nd of 11 initiates"*) — progression feedback without mentorship fiction.
+
+**Initiate v1:** merit drives **initiate-only pill pool**; full ledger UI TBD.
 
 ---
 

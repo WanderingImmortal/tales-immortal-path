@@ -79,7 +79,7 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 | **Branch cells** | Redwell, Heartlands safehouses, forged merchants | **v1 contact** — envoy, pamphlet, cell tasks |
 | **Field** | Maw-Womb Shard ultra-rare | Spark treasure |
 
-Branches **feed** the gorge (tithes, recruits, eyes). Gorge **does not** protect every branch disciple by name. **Talent:** hands-off — lower elders **might** notice; centuries of prodigies taught them not to coddle ([`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md)).
+Branches **feed** the gorge (tithes, recruits, eyes). Gorge **does not** protect every branch disciple by name. **Talent:** hands-off — lower elders **might** notice; centuries of prodigies taught them not to coddle ([`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md)). **Branch anatomy (parked):** ~8 cells per regional branch, underground spread — [`heavenly-demon-cult-branch-cells.md`](heavenly-demon-cult-branch-cells.md).
 
 ### Branch vs main (summary)
 
