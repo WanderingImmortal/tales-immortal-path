@@ -6,7 +6,7 @@
 | **Blocked on** | [`weapon-intent-awakening.md`](weapon-intent-awakening.md) (no picker); cult content |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 · [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
-| **Updated** | 2026-07-31 (FE intent band, spar culture) |
+| **Updated** | 2026-07-31 (how to get / what it does; Stirring tier 0) |
 
 Sister docs: [`devouring-law.md`](devouring-law.md), [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md), [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
@@ -17,6 +17,106 @@ Sister docs: [`devouring-law.md`](devouring-law.md), [`heavenly-demon-cult-life.
 **Name lock (owner lean):** **Devouring Intent** (吞意 / 吞天魔意 in sect speech). **Blood** is the most common *entry path* (`blood_fiend` foundation, blood techniques), not a separate "Blood Devouring Intent" track — blood is one flavor of the same maw.
 
 Player fantasy: *"Every fight feeds me. Every kill makes the next one easier. Heaven wanted a tax — I ate the collector."*
+
+---
+
+## How you get Devouring Intent
+
+**No menu. No weapon picker.** Two layers, both required ([`weapon-intent-awakening.md`](weapon-intent-awakening.md)):
+
+| Layer | Player feel | Cult path (typical) |
+|-------|-------------|---------------------|
+| **Groundwork** | *"I've been walking the taking road."* | Layer 2 comprehended, kills logged, fasts, stained path |
+| **Spark** | *"Something clicked."* | Shard, envoy rite, witness feed, relic trance |
+
+### Prerequisites (hard gates)
+
+| Gate | Why |
+|------|-----|
+| **Foundation Establishment** | Intent lives on the dantian path — QC cannot hold it |
+| **Layer 2 comprehended** | *Refinement of Taking* + one taking art — you must **know how to convert** before will can birth ([`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md)) |
+| **Not** a free orthodox pick | Deviant track — cult syllabus, forbidden sparks, or equivalent story |
+
+### Groundwork (need **2+** of)
+
+| Signal | Detail |
+|--------|--------|
+| **Stained Circulation** + **Refinement of Taking** comprehended | Doctrine walked — not optional for cult awakenings |
+| **Person-kills logged** | Sanctioned hunts **or** lethal hall spars — N cultivators in appropriate bracket (draft: **3+**) |
+| **Blood path** | `blood_fiend` seal **or** primary on `heavenly_demon_devour_line` through Layer 2 |
+| **Fasting beat** completed | At least one hall/gorge fast |
+| **Cult standing** | Rep above threshold **or** Wicked Path lean |
+
+**Hint line (UI):** *"Your dantian aches like an empty stomach."*
+
+### Spark (need **1**)
+
+| Spark | When it fires | Fiction |
+|-------|---------------|---------|
+| **A — Maw-Womb Shard** | Use treasure with right groundwork | Tooth of something that ate a god — **strict** resonance ([`weapon-intent-awakening.md`](weapon-intent-awakening.md) type A) |
+| **B — Envoy taste-spar** | Story rite — opponent **does not** kill you | Rare exception to lethal spar culture; they sample your qi |
+| **C — Witness apex feed** | Zone / story event | Watch a senior **consume** a fallen foe's foundation — trance |
+| **D — Lethal spar imprint** | Win sanctioned spar vs **worthy** rival at groundwork threshold | You **take** them; their qi leaves an imprint as it passes through you — enlightenment spark |
+| **E — Tempered relic** | Months meditating with demon-tagged weapon | Open read — may aid if blood + rebellious groundwork |
+
+Wrong groundwork + strict spark → item **waits**. Open-read relic → player decides to pivot or stash.
+
+### Awakening beat (what the player sees)
+
+1. Groundwork threshold met → hint line appears.
+2. Spark fires (or shard activates).
+3. Log: *"Something **stirs** in your dantian — not hunger, but **claim**."*
+4. **Devouring Intent** track opens at tier **0 — Stirring** (初噬). **0 uses.** Not Feeder rank yet — that's merit + sponsor.
+
+**Rarity:** most FE cultivators never reach step 3. Cult makes it **plausible**; Feeder promotion still wants it.
+
+---
+
+## What Devouring Intent does (FE band)
+
+At FE we only design **two tiers**. Higher tiers parked until Core+ (see FE intent band below).
+
+### Tier 0 — **Stirring** (初噬) · awakened · 0 uses
+
+*The maw wakes. You do not yet drink — you **notice what can be taken**.*
+
+| Effect | In combat | Out of combat |
+|--------|-----------|---------------|
+| **Prey sense** | +small damage vs **wounded** foes (~3–5%); observe text on weak enemies | NPCs: *"They look at you like you're measuring weight."* |
+| **Kill conversion** | Finishing blow on **cultivator** in bracket → **+15%** person-yield vs same kill without intent | Stacks with Layer 2 taking loop |
+| **Unfed techniques** | Orthodox / non-devouring cult arts: **−5%** efficacy — wrong shape for your will | — |
+| **Intent uses** | +**1 use** per sanctioned **kill** of cultivator in bracket; spar kill counts | Does **not** accrue from meditate / beasts alone |
+| **No active siphon yet** | Basics do **not** restore qi — that is **Taking** tier | — |
+
+**Player sentence:** *You awakened the maw. It is not fed yet — but every kill **registers**.*
+
+### Tier 1 — **Taking** (十噬) · 10 uses · FE prodigy
+
+*Combat siphon begins — you **pull** during the fight, not only after the corpse cools.*
+
+| Effect | In combat | Out of combat |
+|--------|-----------|---------------|
+| **Qi Siphon** | Basics return a **sliver** of combat qi on hit (cap per turn) | — |
+| **Deeper conversion** | Kill conversion bonus rises to **+25%** person-yield | Refine Taking chamber ticks slightly stronger |
+| **Predator's Mark** (expand pick) | First hit tags prey — bonus vs wounded | — |
+| **Intent uses** | Same sources; reaching **10 uses** = tier break | Prodigy flag — elder attention |
+
+**Deepen vs Expand** at Taking breakpoint: **Deepen** = more conversion per siphon stack; **Expand** = unlock **Predator's Mark**.
+
+### What it does **not** do at FE
+
+| Not yet | When |
+|---------|------|
+| Feast snowball / kill momentum | Core+ (parked) |
+| Maw Domain opener | Far later |
+| Replace person-yield formula | Layer 2 owns cultivate credit; intent **modifies** it |
+| Auto-corrupt | Taking ≠ corruption — **how** you take still matters ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) |
+
+### vs weapon intent (same FE band rule)
+
+Weapon intents use Sprout / Minor Success labels today; devouring uses **Stirring / Taking**. Same rarity: awakened at FE = rare; second tier at FE = prodigy.
+
+---
 
 ## Design notes
 
@@ -37,13 +137,15 @@ Shares tier **structure** with weapon intent (uses, deepen, expand, domain) but 
 
 ### Tier names (xianxia flavor)
 
-| Tier idx | Name | Uses (draft) | Feel |
-|----------|------|--------------|------|
-| 0 | **Vacuity** | 0 | You notice what others hold and waste |
-| 1 | **Taking** | 10 | Combat siphon begins; weak foes yield a little |
-| 2 | **Feast** | 30 | Kills within window empower the next taking |
-| 3 | **Surfeit** | 60 | Techniques feel hollow until you've taken enough |
-| 4 | **Maw Domain** | 100 | Intent Domain — *the air feels like a closing throat* |
+**Tier 0 rename (owner 2026-07-31):** **Stirring** (初噬) replaces *Vacuity* — active, cult-flavored (*something wakes*), not void/emptiness. Alts if owner wants: **First Bite**, **Emergent Maw**.
+
+| Tier idx | Name | Hanzi (working) | Uses (draft) | Feel |
+|----------|------|-----------------|--------------|------|
+| 0 | **Stirring** | 初噬 | 0 | The maw wakes — you sense what can be taken |
+| 1 | **Taking** | 十噬 | 10 | Combat siphon; pull qi during the fight |
+| 2 | **Feast** | — | 30 | Kills within window empower the next taking |
+| 3 | **Surfeit** | — | 60 | Techniques feel hollow until you've taken enough |
+| 4 | **Maw Domain** | — | 100 | Intent Domain — *the air feels like a closing throat* |
 
 Deepen: **+ conversion** (more from siphon stacks, stronger finish-on-wounded).  
 Expand: **new taking expression** (see table below).
@@ -54,7 +156,7 @@ Expand: **new taking expression** (see table below).
 
 | Tier | Name | At FE | World read |
 |------|------|-------|------------|
-| **0** | **Vacuity** (awakened) | **Rare** — even in cult; Feeder promotion wants this | *"They have a maw-shaped will."* |
+| **0** | **Stirring** (awakened) | **Rare** — even in cult; Feeder promotion wants this | *"They have a maw-shaped will."* |
 | **1** | **Taking** | **Prodigy** — possible but exceptional before leaving FE | *"The gorge is already grooming them."* |
 | **2+** | Feast, Surfeit, Maw Domain | **Not FE scope** — Intent Realm II+ (Core+) TBD | — |
 
@@ -62,9 +164,9 @@ Expand: **new taking expression** (see table below).
 
 - Most FE cultivators **never** awaken intent (orthodox or branch).
 - Cult path makes awakening **plausible** — groundwork + sparks + taking loop — but still **not guaranteed**.
-- **Vacuity** during FE = you made it; cult takes you seriously.
+- **Stirring** during FE = you made it; cult takes you seriously.
 - **Taking** during FE = prodigy flag — elder attention, rival fear, bounty heat rises faster.
-- Player can **step into tier 1** before peak seal if they grind sanctioned lethal spars + hunts; most initiates leave FE still at Vacuity or without intent at all.
+- Player can **step into tier 1** before peak seal if they grind sanctioned lethal spars + hunts; most initiates leave FE still at **Stirring** or without intent at all.
 
 **Uses pacing (FE band, draft):** intent uses accrue from **meaningful combat** (lethal sanctioned spars, hunts, Feeder-prep trials) — not cultivate months. Hitting **10 uses** (Taking) in one FE lifetime = hungry, skilled, or very lucky.
 
@@ -109,20 +211,9 @@ Massacre feeding → **corruption** per alignment doc; intent does not auto-corr
 
 ---
 
-### Awakening (no picker)
+### Awakening detail (sparks & resonance)
 
-Devouring Intent **never** appears on a weapon menu. Sparks only.
-
-#### Groundwork (walked the hungry road)
-
-Any **two** of (draft):
-
-- Sealed `blood_fiend` foundation **or** mastered **Outer Devouring Breath** (Devouring Scripture)
-- Killed N sentient foes (not beasts-only) — **or** one story `fate: blood_debt` foe
-- Meditated with cult pamphlet / carried forbidden syllabus item
-- Walked Wicked Path or cult rep above threshold
-
-Hint line: *"Your dantian aches like an empty stomach."*
+Devouring Intent **never** appears on a weapon menu. See **[How you get Devouring Intent](#how-you-get-devouring-intent)** above for the full pipeline. Supplementary spark copy:
 
 #### Spark A — Natural treasure (strict, owner lock C)
 
@@ -150,9 +241,10 @@ Does not force sword → devouring. May **aid** awakening if groundwork is blood
 |-------|---------|
 | **Witness apex feed** | Watch a high cultivator **consume** a defeated foe's foundation (story or rare zone event). Trance: *"You understood the meal before the prayer."* |
 | **Survived being devoured** | Boss or envoy attempt to refine you; you break out with hunger mirrored |
+| **Lethal spar imprint** | Sanctioned spar kill vs worthy rival at groundwork threshold — qi imprint as they fall |
 | **Cult initiation** | Envoy rite — **rare** spar where they fight to **taste** your qi, not kill you (exception to lethal lower-rung culture) |
 
-Spar awakening: **rare**, opponent must carry devouring tags.
+Spar sparks: opponent must be **worthy** (similar bracket or story-tagged); not training-dummy procs.
 
 ---
 
@@ -212,7 +304,7 @@ Full law doc: [`devouring-law.md`](devouring-law.md). Sect life: [`heavenly-demo
 - `technique_taste` — copy buff too RPG? Simpler: +5% vs last element hit by
 - Cult join vs found-manual-only path for first playthrough
 - Blood-only NPCs refuse to teach if nature is `sword_inclined`?
-- **Intent Realm II+** (Feast+) breakpoints — owner pass when Core ceiling known
+- Tier 0 name — **Stirring** locked for now; alts: First Bite, Emergent Maw
 - Shared FE band cap for **weapon** intent tracks vs devouring-only
 
 ## Implementation crumbs
