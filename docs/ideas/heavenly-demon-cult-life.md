@@ -189,11 +189,13 @@ Encourages rivalry without auto-paying everyone. Top outer disciple title is **m
 | Beat | Detail |
 |------|--------|
 | **Rivals** | 2–4 named outer NPCs per cell/gorge cohort — shared bunk, same pill pool |
-| **Spar** | Sanctioned — winner +merit; loser humiliated not maimed (usually) |
-| **Kill** | **Forbidden** outer-on-outer without cell sanction — breaks Rule 5 |
-| **Sanctioned hunt** | Cell sends pairs to field — **kill log counts** for merit; cult fiction: *"devour the weak prey, not the brother"* |
-| **Groundwork** | Outer kills on **sanctioned** hunts count toward later Devouring Intent groundwork (not random murder) |
-| **Betrayal** | Kill unsanctioned rival → corruption + hunt **by the cell** (you became liability) |
+| **Spar** | Sanctioned under elder eye — **typically to the death** at outer/initiate rungs; winner +merit; loser **fed to the winner** if Layer 2 known |
+| **Kill** | Unsanctioned outer-on-outer **outside** drill = breaks Rule 5; **in-hall spar to death** = doctrine |
+| **Sanctioned hunt** | Cell sends pairs to field — kill log counts for merit; *"devour the weak prey, not the brother"* — **spar is how brothers are prey** |
+| **Groundwork** | Outer kills on **sanctioned** hunts count toward later Devouring Intent groundwork |
+| **Betrayal** | Kill **outside** sanctioned spar/hunt → corruption + hunt **by the cell** (you became liability) |
+
+**Spar culture (owner lock 2026-07-31):** lower cult rungs (outer, initiate) — **strong eat weak**. The cell does not waste qi on the humiliated; the winner refines what the loser carried. Higher ranks (Feeder+) may use non-lethal trials for specific rites — exceptions are **named**, not default.
 
 Competition is **merit**, not free PvP in town.
 

@@ -142,7 +142,7 @@ Initiate work sits **between outer errands and Feeder predator missions**: you a
 | **Quarry escort** | Main | Rotation | Ironscar convoy vs bandits | Medium | If blood drawn |
 | **Relic salvage** | Main | Quarterly | Failed outer trial sites — broken weapons, bone scraps | Medium | Low |
 | **Pantry tithe run** | Main | Rotation | Gorge ↔ storehouse — mundane | Low | No |
-| **Drill spar** | Main | Weekly | Initiate hall | Medium (winner) | Spar win only |
+| **Drill spar** | Main | Weekly | Initiate hall — **lethal** under elder eye | High (winner) | **Full person-yield** if Layer 2; +intent use |
 | **Marked delivery** | Branch | Per task | Redwell ↔ dead drop — forged papers, blood mats | Medium | No |
 | **Debt shake** | Branch | Envoy assigns | Merchant / debtor in city | Medium–High | If intimidation works |
 | **Bounty proxy** | Branch | Player picks board | Redwell bounty tier — grit thieves, road cutters | Medium | Yes |
@@ -269,7 +269,7 @@ After **person-consumption** or sanctioned spar siphon (Layer 2 required):
 | Taking type | Needs Layer 2? | Growth | Speed | Cost |
 |-------------|----------------|--------|-------|------|
 | **Sanctioned hunt** (cultivator prey) | Yes | Full person-yield + merit | Modest | Time + tithe |
-| **Sanctioned spar win** | Yes | Small siphon credit | Small | Rival politics |
+| **Sanctioned spar win** | Yes | Small siphon credit | Small | Rival dies — **intent use** accrues |
 | **Gray prey** (unmarked cultivator) | Yes | Full yield, **no merit** | Faster | Bounty heat |
 | **Massacre / mortals** | Yes | **Tiny** per head — not efficient | Only "fast" if corruption ignored | Corruption, disown risk |
 
@@ -281,14 +281,14 @@ After **person-consumption** or sanctioned spar siphon (Layer 2 required):
 
 ## Evil pace — how fast can FE go?
 
-Inferior anchor remains **peak FE ~80–90** on the **disciplined** path ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)). Blood-fiend + taking stacks **compress** that window — player chooses how much world-cost to pay.
+Inferior anchor remains **peak FE ~80–90** on the **disciplined** path ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)). **Layer 2 taking** mid-FE + hunting **appropriate cultivator brackets** compresses that window — player chooses volume and legality.
 
 | Playstyle | What you do | Rough pace (inferior root → peak FE) | World cost |
 |-----------|-------------|--------------------------------------|------------|
-| **Disciplined initiate** | Hall cultivate, sanctioned hunts, fasts, tithe on time | **~80–90** (anchor) | Low bounty; cult likes you |
-| **Hungry initiate** | Max sanctioned hunts, spar grind, Refine Taking on cooldown | **~65–75** | Rival hate; still "legal" cult |
-| **Gray predator** | Off-book prey + field farming; hide arts in town | **~50–65** | Bounty tier 1–2; healers refuse |
-| **Open fiend** | Mass feeding, forbidden harvest, fear cultivation | **~40–55** | Corruption accrues; disown or "useful monster" arc |
+| **Disciplined initiate** | Hall cultivate, occasional sanctioned QC-peak prey, fasts | **~80–90** (anchor) | Low bounty; cult likes you |
+| **Hungry initiate** | Regular sanctioned hunts (QC–FE brackets), Refine Taking | **~65–75** | Rival hate; still "legal" cult |
+| **Gray predator** | Off-book cultivator prey in your bracket; hide arts in town | **~50–65** | Bounty tier 1–2; healers refuse |
+| **Open fiend** | Max bracket prey + forbidden harvest rites | **~40–55** | Corruption accrues; disown or "useful monster" arc |
 
 **Not a skip button:** evil pace saves **years**, not **realms**. You still chamber, seal, and tribulation — you just arrive with more stain and less runway before lifespan cap bites.
 
@@ -329,6 +329,8 @@ Initiates **do not** have Devouring Intent yet. They **prepare** the maw.
 **Hint line (UI / log):** *"Your dantian aches like an empty stomach."*
 
 **Spark timing:** can fire **any time** during Initiate years once groundwork + catalyst met — not gated to Feeder promotion. **Feeder rank** = awakened intent + merit, not the only awakening window.
+
+**FE intent band:** most who awaken hit **Vacuity** only; **Taking** (tier 1) before leaving FE = prodigy ([`devouring-intent.md`](devouring-intent.md)). Lethal spars are a primary **intent use** source alongside hunts.
 
 See sparks: Maw-Womb Shard, tempered relic read, envoy initiation trance, witness apex feed ([`devouring-intent.md`](devouring-intent.md)).
 
@@ -435,7 +437,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Induction** | QC → FE | *"You are Initiate. The scripture has a second face."* |
 | **Stained seal** | Seal beat | Foundation **marked** — orthodox NPCs flinch |
 | **First fast completed** | Year 1 FE | Doctrine lands — empty stomach, full intent |
-| **Spark** | Groundwork + catalyst | **Devouring Intent born** — crown art wakes |
+| **Spark** | Groundwork + catalyst | **Devouring Intent born** (Vacuity) — crown art wakes |
+| **Taking tier** | Before peak FE (rare) | **Prodigy** — gorge takes notice |
 | **Feeder promotion** | Post-awakening | *"The maw has use for your hunger."* |
 | **Gorge transfer** (branch) | Optional mid-FE | Leave cell posting for main hall — politics |
 

@@ -6,7 +6,7 @@
 | **Blocked on** | [`weapon-intent-awakening.md`](weapon-intent-awakening.md) (no picker); cult content |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 · [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
-| **Updated** | 2026-07-31 |
+| **Updated** | 2026-07-31 (FE intent band, spar culture) |
 
 Sister docs: [`devouring-law.md`](devouring-law.md), [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md), [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
@@ -48,18 +48,40 @@ Shares tier **structure** with weapon intent (uses, deepen, expand, domain) but 
 Deepen: **+ conversion** (more from siphon stacks, stronger finish-on-wounded).  
 Expand: **new taking expression** (see table below).
 
+### FE intent band — scope & rarity (owner lock 2026-07-31)
+
+**Full intent ceiling across all realms is not designed yet.** For now, scope **one intent band ≈ the whole of Foundation Establishment** — tiers **0–1** only matter at FE; higher tiers are **parked** until Core+ pass.
+
+| Tier | Name | At FE | World read |
+|------|------|-------|------------|
+| **0** | **Vacuity** (awakened) | **Rare** — even in cult; Feeder promotion wants this | *"They have a maw-shaped will."* |
+| **1** | **Taking** | **Prodigy** — possible but exceptional before leaving FE | *"The gorge is already grooming them."* |
+| **2+** | Feast, Surfeit, Maw Domain | **Not FE scope** — Intent Realm II+ (Core+) TBD | — |
+
+**Design intent:**
+
+- Most FE cultivators **never** awaken intent (orthodox or branch).
+- Cult path makes awakening **plausible** — groundwork + sparks + taking loop — but still **not guaranteed**.
+- **Vacuity** during FE = you made it; cult takes you seriously.
+- **Taking** during FE = prodigy flag — elder attention, rival fear, bounty heat rises faster.
+- Player can **step into tier 1** before peak seal if they grind sanctioned lethal spars + hunts; most initiates leave FE still at Vacuity or without intent at all.
+
+**Uses pacing (FE band, draft):** intent uses accrue from **meaningful combat** (lethal sanctioned spars, hunts, Feeder-prep trials) — not cultivate months. Hitting **10 uses** (Taking) in one FE lifetime = hungry, skilled, or very lucky.
+
+**Parked:** Intent Realm II+ tier breakpoints, uses thresholds, and expand arts gated above Taking until owner defines Core/GC ceiling ([`weapon-intent-awakening.md`](weapon-intent-awakening.md) may share the same FE band rule for weapon tracks).
+
 ### Expand arts (draft — the fun part)
 
 Pick **Deepen** or **Expand** at each breakpoint (same fork as weapon intent).
 
-| # | Id | Name | Tier | Effect (fiction-first) |
-|---|-----|------|------|------------------------|
-| 1 | `qi_siphon` | **Qi Siphon** | Taking | Basics restore a sliver of combat qi / breath on hit |
-| 2 | `predator_mark` | **Predator's Mark** | Taking | First damaging hit each fight tags prey — bonus damage while they're wounded |
-| 3 | `technique_taste` | **Technique Taste** | Feast | Once per fight, copying a **category** of enemy tech you survived (light buff — e.g. +armor pen after their heavy) |
-| 4 | `fear_feed` | **Fear Feed** | Feast | Intimidate/flee checks against you fail more; killing a fleeing foe heals |
-| 5 | `momentum_feast` | **Momentum Feast** | Surfeit | Each kill or execute in a window adds a stack (+basics / +siphon) until fight ends |
-| 6 | `maw_domain` | **Maw Domain** | Maw Domain | Opening turn: enemies below X% max HP feel **swallowed** — bonus damage + flee penalty; *not* a second GC field |
+| # | Id | Name | Tier | FE? | Effect (fiction-first) |
+|---|-----|------|------|-----|------------------------|
+| 1 | `qi_siphon` | **Qi Siphon** | Taking | **Yes** | Basics restore a sliver of combat qi / breath on hit |
+| 2 | `predator_mark` | **Predator's Mark** | Taking | **Yes** | First damaging hit each fight tags prey — bonus damage while they're wounded |
+| 3 | `technique_taste` | **Technique Taste** | Feast | Parked | Once per fight, copying a **category** of enemy tech you survived (light buff) |
+| 4 | `fear_feed` | **Fear Feed** | Feast | Parked | Intimidate/flee checks against you fail more; killing a fleeing foe heals |
+| 5 | `momentum_feast` | **Momentum Feast** | Surfeit | Parked | Each kill or execute in a window adds a stack until fight ends |
+| 6 | `maw_domain` | **Maw Domain** | Maw Domain | Parked | Opening turn: enemies below X% max HP feel **swallowed** |
 
 **Intent Domain manifestation (log / UI):**
 
@@ -128,7 +150,7 @@ Does not force sword → devouring. May **aid** awakening if groundwork is blood
 |-------|---------|
 | **Witness apex feed** | Watch a high cultivator **consume** a defeated foe's foundation (story or rare zone event). Trance: *"You understood the meal before the prayer."* |
 | **Survived being devoured** | Boss or envoy attempt to refine you; you break out with hunger mirrored |
-| **Cult initiation** | Envoy rite — rare spar where they fight to **taste** your qi, not kill you |
+| **Cult initiation** | Envoy rite — **rare** spar where they fight to **taste** your qi, not kill you (exception to lethal lower-rung culture) |
 
 Spar awakening: **rare**, opponent must carry devouring tags.
 
@@ -190,6 +212,8 @@ Full law doc: [`devouring-law.md`](devouring-law.md). Sect life: [`heavenly-demo
 - `technique_taste` — copy buff too RPG? Simpler: +5% vs last element hit by
 - Cult join vs found-manual-only path for first playthrough
 - Blood-only NPCs refuse to teach if nature is `sword_inclined`?
+- **Intent Realm II+** (Feast+) breakpoints — owner pass when Core ceiling known
+- Shared FE band cap for **weapon** intent tracks vs devouring-only
 
 ## Implementation crumbs
 
