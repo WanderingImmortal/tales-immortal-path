@@ -92,9 +92,101 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 | **Combat 2** | **Blood Refining Art** | Exists today — outer steal |
 | **Combat 3** (optional) | **Flee and Feed** | Utility — escape + small heal on kill; survival over pride |
 
-Outer disciples get **Layer 1 only**. No intent curriculum. No law. Black market sells **counterfeit page 1** sometimes — incomplete, no seal.
-
 Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No law. Branch pamphlets may be **incomplete**; main copies are **sealed**.
+
+### Layer 1 manual — what Hunger Scripture actually does
+
+**Cultivation method:** *Heavenly Demon Canon · Hunger Scripture* (outer syllabus: **Cell Hunger Breath**). Apex-cult QC breath — **refined**, not a crude forbidden pamphlet.
+
+| Effect | Detail |
+|--------|--------|
+| **Gather** | **Strong common–superior tier** for QC (cult invested in the art) — competes with sect heir breaths |
+| **Stability** | **No manual penalty** — demonic cultivation done *correctly* is not "leaky" |
+| **Power** | Combat-qi lean — breath channels killing momentum into the dantian **cleanly** |
+| **FE seal** | If still primary at Seal → often stamps **`blood_fiend`** — **chosen cult identity**, not a cracked foundation |
+| **Unlocks** | Full outer combat syllabus (Gnawing Palm, Blood Refining, etc.) |
+| **Branch pamphlet** | Incomplete copy may **lack pages** — downside is **access**, not art quality |
+
+**Not in Layer 1:** intent, law, meridian canon.
+
+#### Where the downsides actually live (not the manual)
+
+| Downside | Source |
+|----------|--------|
+| **Orthodox shunning** | Markets, healers, sects refuse or overcharge; bounty risk |
+| **Corruption / sacrilege** | **Your acts** — massacre feeding, forbidden rites, mandate bites ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) |
+| **Cult predation** | Tithe, disown, hunt — the cell eats you too |
+| **Personality / rumor** | NPCs say you're cold, hungry-eyed; harmony sects won't hire you — **social**, optional light dialogue flags |
+| **Exposure** | Walking the proper path hates you; that's the price of apex demonic lineage |
+
+**Design lock:** do **not** nerf `stabilityBias` or foundation quality on cult canon methods in data — when implemented, Hunger Scripture should be a **good** method with a **bad reputation**.
+
+---
+
+## Outer disciple benefits (why stay?)
+
+Downside is tithe, predation, exposure. Upside must be **real** or the loop is just punishment.
+
+| Benefit | Main gorge | Branch cell |
+|---------|------------|-------------|
+| **Residence** | Shared **outer barracks** — free rest, better than inn while posted | **Safehouse bunk** (2–4 cots) while tithe **current** — not ownership, not privacy |
+| **Manual** | Sealed Layer 1 + hall cultivate time | Pamphlet Layer 1 + alone |
+| **Instruction** | Drills, elder correction | Envoy tips only |
+| **Blood pills** | Quarterly **merit pool** (see below) | Same pool — **win or go without** |
+| **Black route** | Gorge storehouse prices | Cell dead-drop catalog (thin) |
+| **Rivals** | Barracks pecking order, sanctioned spars | Cell "brothers" competing for envoy favor |
+| **Growth hook** | Kill/devour in **trial hunts** (intent groundwork later) | Field kills + cell tasks feed competition score |
+| **Path** | Visible Initiate track | Transfer to gorge if FE + clean record |
+
+**Player sentence:** *The cult is a bad employer and a good bad teacher.*
+
+### Blood pill stipend (competition, owner lock 2026-07-31)
+
+Every **3 months** (same tick as tithe — pay **and** compete):
+
+| Rule | Detail |
+|------|--------|
+| **Pill** | **Blood Coagulant Pill** (working) — small HP / short combat sustain; cult-made, faint blood taste |
+| **Pool size** | **1 pill per 4 outer disciples** (round up) — scarcity on purpose |
+| **Who gets it** | Top scorers on **merit ledger** that quarter |
+| **Merit sources** | Tithe paid on time, cell tasks done, drill attendance (main), hunt yield, **sanctioned spar win**, envoy praise |
+| **Tie-break** | Elder pick (main) or envoy pick (branch) — **politics** |
+| **Loser** | Nothing. Go buy mortal balms. |
+
+Encourages rivalry without auto-paying everyone. Top outer disciple title is **meaningful** for one season.
+
+**Not given:** qi restore pills (too generous), intent sparks, law fragments.
+
+### Rivals & devour growth (outer band)
+
+| Beat | Detail |
+|------|--------|
+| **Rivals** | 2–4 named outer NPCs per cell/gorge cohort — shared bunk, same pill pool |
+| **Spar** | Sanctioned — winner +merit; loser humiliated not maimed (usually) |
+| **Kill** | **Forbidden** outer-on-outer without cell sanction — breaks Rule 5 |
+| **Sanctioned hunt** | Cell sends pairs to field — **kill log counts** for merit; cult fiction: *"devour the weak prey, not the brother"* |
+| **Groundwork** | Outer kills on **sanctioned** hunts count toward later Devouring Intent groundwork (not random murder) |
+| **Betrayal** | Kill unsanctioned rival → corruption + hunt **by the cell** (you became liability) |
+
+Competition is **merit**, not free PvP in town.
+
+---
+
+## Outer disciple rules (The Five Hungers — working)
+
+Rules taught with Layer 1. Break them → demotion, disown, or **fed to a Feeder**.
+
+| # | Rule | Plain meaning |
+|---|------|----------------|
+| **1** | **Feed the maw before yourself** | Tithe on time. Cell/gorge first. |
+| **2** | **Do not name the gorge in town** | No HQ location, no elder names, no routes. |
+| **3** | **Do not display hunger in the open** | No blood arts on main street; cultivate in safehouse/hall. |
+| **4** | **Outer devours only what is given** | Hunts, trials, sanctioned spars — not random citizens or unsanctioned brothers. |
+| **5** | **The cell settles outer disputes** | No guard, no public duels — bring it to envoy / drill master. |
+
+**Unspoken 6:** *If you are disowned, you were never ours.*
+
+Main adds barracks discipline (curfew, rotation). Branch adds *never lead hunters to the safehouse*.
 
 ---
 
@@ -123,9 +215,9 @@ Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No 
 5. Report     — attendance; absence without leave = demotion or expulsion
 ```
 
-**What you have:** real canon copy, barracks, peers, a **path** if you survive FE.
+**What you have:** real canon copy, barracks (**basic residence**), peers, merit shot at **blood pills**, a **path** if you survive FE.
 
-**What you don't have:** intent, inner halls, law, elder trust, freedom to leave easily.
+**What you don't have:** intent, inner halls, law, elder trust, freedom to leave easily, private room.
 
 ---
 
@@ -153,9 +245,9 @@ Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No 
 5. Report     — monthly check-in; miss twice → cut loose (or worse)
 ```
 
-**What you have:** Layer 1 (maybe pamphlet, not full copy). **No Devouring Intent.** Hunger dreams.
+**What you have:** Layer 1 pamphlet, **safehouse bunk** (if tithe paid), merit competition for **blood pills**, rivals, cell tasks.
 
-**What you don't have:** safehouse, drills, gorge protection, inner rites.
+**What you don't have:** gorge protection, drills, sealed canon, privacy, pills if you rank low.
 
 **Rising out:** FE breakthrough + cell vouch → **transfer candidate** to gorge, or stay branch Initiate (rarer, less respect).
 
