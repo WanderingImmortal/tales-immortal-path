@@ -52,7 +52,9 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 
 **Rank vs realm (owner lock 2026-07-31):** **Initiate** = FE sect rank. **Feeder** = **Golden Core** sect rank — above Initiate, not an FE promotion. **Stirring** at FE is rare; **Taking** at GC is the normal Feeder bar.
 
-**Talent & investment — hands off (owner lock 2026-07-31):** the **gorge does not watch you grow**. Lower-rung elders (drill masters, rotation overseers) **might** notice a strong merit line or awakened intent — a ledger tick, a grunt, nothing more. They have seen **centuries** of prodigies; talent alone is a **greenhouse flower**. The cult lets initiates **starve, hunt, and kill each other** in the field; only survivors are worth **investment** — or **consumption** if they fail. Hands off until you prove you are asset, not meal.
+**Talent & investment — hands off (owner lock 2026-07-31):** the **gorge does not watch you grow**. Lower-rung elders **might** notice a strong merit line or awakened intent — a ledger tick, a grunt, nothing more. They have seen **centuries** of prodigies; talent alone is a **greenhouse flower**. The cult lets initiates **starve, hunt, and kill each other** in the field; only survivors are worth **investment** — or **consumption** if they fail. Hands off until you prove you are asset, not meal.
+
+**Branch gorge secrecy (owner lock 2026-07-31):** **Initiates are not sent to the gorge** — too low, too disposable, too risky if captured or talkative. Rule 2 stands. Seal rites and Layer 2 gaps are handled **in-cell** (envoy, visiting junior elder, blind routes). **Gorge transfer** is for **GC-era Feeders** who proved they are assets, not FE children on a field trip.
 
 **Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Feeder** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates.
 
@@ -71,7 +73,7 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 | **Instruction** | Group drills, assigned elder rotation | Envoy checks in monthly; you're on your own |
 | **Tithe** | To the gorge — fixed, predictable | To the cell — harsher if harvests were thin |
 | **If caught** | Gorge may send lawyers / silence / revenge | **Deny you** is default |
-| **Promotion path** | Visible — trials toward Initiate | Must earn **transfer to gorge** or breakthrough + vouch |
+| **Promotion path** | Visible — trials toward Initiate | Earn **GC/Feeder** before gorge is even discussed |
 
 **Shared QC rule:** still outer. Still Layer 1. Still no Devouring Intent. Main is **better**, not **good**.
 
@@ -167,7 +169,7 @@ Downside is tithe, predation, exposure. Upside must be **real** or the loop is j
 | **Black route** | Gorge storehouse prices | Cell dead-drop catalog (thin) |
 | **Rivals** | Barracks pecking order, sanctioned spars | Cell "brothers" competing for envoy favor |
 | **Growth hook** | Kill/devour in **trial hunts** (intent groundwork later) | Field kills + cell tasks feed competition score |
-| **Path** | Visible Initiate track | Transfer to gorge if FE + clean record |
+| **Path** | Visible Initiate track | Stay branch until **GC/Feeder** merits gorge transfer — not FE |
 
 **Player sentence:** *The cult is a bad employer and a good bad teacher.*
 
@@ -282,7 +284,7 @@ Main adds barracks discipline (curfew, rotation). Branch adds *never lead hunter
 
 **What you don't have:** gorge protection, drills, sealed canon, privacy, pills if you rank low.
 
-**Rising out:** FE breakthrough + cell vouch → **transfer candidate** to gorge, or stay branch Initiate (rarer, less respect).
+**Rising out:** FE breakthrough on branch = **Initiate** with cell seal and incomplete Layer 2 — normal. **Gorge transfer** only after **GC + Feeder** (or exceptional merit); Initiates are **not** sent to HQ.
 
 #### Branch tithe loop (owner lock 2026-07-31)
 
@@ -318,7 +320,7 @@ Branch life needs **manual pressure** — not a menu checkbox. You **go pay** or
 
 Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Branch: receive **Layer 1 pamphlet**.
 
-**Promotion to Initiate (FE):** Break through + sponsor approves → Layer 2. Branch initiates often **must** visit gorge for seal rites.
+**Promotion to Initiate (FE):** Break through + sponsor approves → Layer 2. **Branch:** seal and manual stay **cell-side** — no gorge travel ([`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md)).
 
 ---
 

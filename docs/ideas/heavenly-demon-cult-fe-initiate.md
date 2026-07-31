@@ -39,7 +39,7 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Awa
 | **Sponsor** | Drill master (main) or envoy (branch) must **vouch** — clean tithe record helps |
 | **Rite** | Short induction — *"The gorge has teeth. Do not be the meal."* |
 | **Manual** | Receive **Stained Foundation** (Layer 2) — gorge-sealed copy or envoy handoff |
-| **Branch note** | Many branch outers **must visit gorge** once for seal rite; Layer 2 may be incomplete until transfer |
+| **Branch note** | **No gorge travel** at Initiate — seal and syllabus stay **cell-side** ([`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md)) |
 
 **Demotion still possible:** break Five Takings, miss tithe twice, blab gorge location → disowned (worse at FE — you know more).
 
@@ -50,13 +50,13 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Awa
 | | **Main cult** (Gullet Gorge) | **Branch cell** (Redwell, etc.) |
 |--|------------------------------|--------------------------------|
 | **Quarters** | **Initiate hall** — shared cells, better than outer barracks; assigned cultivate slots | **No initiate hall** — rent in town; safehouse bunk if tithe current (same as outer, cramped) |
-| **Layer 2** | Full **Stained Foundation** from archive | Envoy copy — may lack fasting chapters until gorge transfer |
-| **Seal rite** | **Blood-fiend** encouraged in gorge sanctum | Often **sent to gorge** for seal; branch seal = tolerated, less respect |
+| **Layer 2** | Full **Stained Foundation** from archive | Envoy copy — **incomplete** is normal; missing pages are not gorge-held, they're **not trusted yet** |
+| **Seal rite** | **Blood-fiend** in gorge sanctum | **Cell sanctum** — envoy or visiting junior elder; **never** told gorge route |
 | **Instruction** | Elder rotation, group fasting weeks | Monthly envoy check-in; you're mostly alone |
 | **Work** | Initiate hunt teams, quarry escort, relic salvage rotation | Cell field jobs + higher-risk deliveries |
 | **Tithe** | Gorge storehouse — **FE-scaled** quota | Same 3-month cadence — **higher amount**, same thin-harvest cruelty |
 | **Exposure** | Contained inside gorge | **Bounty tier 1** — healers, orthodox guards, rumor |
-| **Promotion** | Visible Feeder trials | Need **gorge transfer** or loud merit + awakened intent |
+| **Promotion** | Visible Feeder trials (at GC) | **Gorge transfer** only after **GC / Feeder** — not Initiate |
 
 **Design lock:** main Initiate life is **structured**; branch Initiate life is **exposed** — same doctrine, worse posting, same predation.
 
@@ -115,7 +115,9 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 
 Seal happens at **generic FE seal beat** (today's Seal Dantian; redesign may move — nature stamp reuses P2 helper).
 
-**Branch:** seal at gorge = **rite of passage**; seal in town = secret, **no gorge witness** — counts for gameplay, not for respect.
+**Branch:** seal at cell — envoy witnesses or junior elder **brought blind** to cell sanctum; **no** initiate travels to gorge. Counts for gameplay; main cult calls it **thin blood**.
+
+**Gorge secrecy (owner lock 2026-07-31):** branch **Initiates do not go to the gorge**. Too expendable, too likely to die or talk. HQ location is **not** their clearance. Gorge transfer is a **post-GC / Feeder** prize for assets that survived — not an FE pilgrimage.
 
 ---
 
@@ -378,7 +380,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Fasting week** | Main: mandatory once; Branch: optional but groundwork-weak without |
 | **Sanctioned hunt season** | Cell sends teams — **best merit season** for initiates |
 | **Bounty season** (branch) | Random orthodox patrol event — hide arts, forged papers |
-| **Gorge pilgrimage** (branch) | Optional until seal / Layer 2 complete pages require it |
+| **Gorge pilgrimage** (branch) | **Does not happen** at Initiate — Rule 2; see gorge secrecy lock |
 
 ---
 
@@ -442,7 +444,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **First fast completed** | Year 1 FE | Doctrine lands — empty stomach, full intent |
 | **Spark** | Groundwork + catalyst (FE) | **Stirring** — 1st intent realm |
 | **GC + Feeder** | After tribulation | **Taking** + Feeder scroll — normal path |
-| **Gorge transfer** (branch) | Optional mid-FE | Leave cell posting for main hall — politics |
+| **Gorge transfer** (branch) | **GC / Feeder** — if you live that long and merit ledger says asset |
 
 ---
 
@@ -460,9 +462,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 ## Open questions
 
 - Residual Taking — exact % and decay timer (**drafted above — tune in playtest**)
-- Can branch Initiate **refuse** gorge pilgrimage and stay "street demon" through Core?
+- **Blood pill pool (main gorge only):** on posting at gorge, do **Initiates** compete with **outers** for the same quarterly pool (`1 pill per 4` headcount **combined**), or does each rank get its own pool (`1 per 4 outers` + `1 per 4 initiates`)? Branch cells use one pool for whoever is in the cell.
 - Feeder trial — always PvE hunt or sometimes spar vs senior initiate?
-- Blood pill pool: separate initiate-only pool vs shared with outers?
 - Fast months — skip UI vs forced "meditation" action
 
 ## Implementation crumbs
