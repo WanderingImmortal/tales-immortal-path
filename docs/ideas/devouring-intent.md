@@ -6,7 +6,7 @@
 | **Blocked on** | [`weapon-intent-awakening.md`](weapon-intent-awakening.md) (no picker); cult content |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 · [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
-| **Updated** | 2026-07-31 (how to get / what it does; Stirring tier 0) |
+| **Updated** | 2026-07-31 (Intent Realm II / Feast gate sketch) |
 
 Sister docs: [`devouring-law.md`](devouring-law.md), [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md), [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
@@ -204,9 +204,77 @@ Expand: **new taking expression** (see table below).
 
 **Uses pacing (FE band, draft):** intent uses accrue from **meaningful combat** (lethal sanctioned spars, hunts, Feeder-prep trials) — not cultivate months. Hitting **10 uses** (Taking) in one FE lifetime = hungry, skilled, or very lucky.
 
-**Parked:** Intent Realm II+ tier breakpoints, uses thresholds, and expand arts gated above Taking until owner defines Core/GC ceiling ([`weapon-intent-awakening.md`](weapon-intent-awakening.md) may share the same FE band rule for weapon tracks).
+**Parked:** Intent Realm II+ detail below — Feast gate and polish loop sketched; tune at Core pass.
 
-### Expand arts (draft — the fun part)
+---
+
+## Intent Realm II — **Feast** (初筵 / working)
+
+**Intent Realm I** (FE band) ends at **Taking**. **Feast** is not "Taking but bigger" — it is the next **comprehension**, gated like a small breakthrough.
+
+### Why it is a realm above, not an extreme
+
+| | **Taking** (Realm I) | **Feast** (Realm II) |
+|--|----------------------|----------------------|
+| **Shape of will** | **Dyadic** — you ↔ one prey | **Serial** — each death feeds the **next** |
+| **When power moves** | **During** contact (siphon on hit) | **After** a kill — **feast window** empowers follow-up |
+| **Fight fantasy** | Duelist who drains | Predator of **chains** — horde, escort ambush, hall slaughter |
+| **Comprehension** | *I can pull* | *The fallen **leave residue** I can ride* |
+| **Failure mode** | Run out of qi in long duel | Window expires — you feel **flat** until next kill |
+
+**Taking pushed extreme** would mean +50% siphon — same duel, bigger number. **Feast** means a **second mechanic**: **Carnage** (working) — after you **finish** a cultivator in bracket, gain **Feast Window** (N turns): siphon amplified, conversion on subsequent kills in same fight, optional fear on witnesses. Multi-kill encounters **change category**.
+
+Surfeit (Realm III, later) shifts again — techniques feel **hollow until you've taken** (withdrawal), not chain snowball. Each realm = new **relationship** to consumption, not a scalar buff.
+
+### Gate to Feast (all required — draft)
+
+| Gate | Detail |
+|------|--------|
+| **1. Cultivation** | **Core realm** (or owner-defined limbo after Initial Core Formation — TBD). **Cannot** enter Feast while still FE, even with 30 uses. Hard ceiling on Realm I. |
+| **2. Uses** | **30 intent uses** accrued at **Taking** tier (meaningful cultivator kills / Feeder missions). FE-tier prey counts at **reduced rate** once already at Taking — polish wants Core-bracket blood. |
+| **3. Comprehension beat** | **First Feast** — one encounter, **2+ cultivator finishes** in the same fight **or** one finish + gorge **Feast Rite** meditation on the residue. Log: *"You did not only take — you **fed**."* |
+| **4. Cult syllabus** (devouring track) | **Layer 3 — Feeding Rites** comprehended — parallel to Layer 2 unlocking Stirring's practice. Orthodox weapon intents: equivalent **lineage layer** or elder trial TBD. |
+
+Uses alone **do not** break through — same pattern as awakening (groundwork + gate). At 30 uses with no First Feast, UI: *"Your will strains at Taking's edge. Something must **fall** for the next hunger to open."*
+
+### How you polish Taking toward Feast (pre-gate)
+
+Between Taking and Feast, player is **refining comprehension**, not grinding one duel stat.
+
+| Polish source | What it does |
+|---------------|--------------|
+| **Feeder missions** | Core-bracket marked prey — full intent use credit |
+| **Multi-kill fights** | Even pre-Feast, track "near feast" — 2 kills same encounter advances hidden First Feast progress |
+| **Gorge Feast Rite** | Monthly meditate with kill proof — cult ceremony |
+| **Layer 3 study** | Feeding Rites syllabus — unlocks rite, teaches chain doctrine |
+| **Deepen (Taking)** | More siphon per hit — **duel polish**, not Feast substitute |
+| **Lethal spars vs initiates** | Diminishing returns if only farming weak prey — doctrine punishes safe farming |
+
+**Not polish:** meditate months alone; beast hunts; mortal kills.
+
+### What Feast does (Realm II entry — draft)
+
+| Effect | Detail |
+|--------|--------|
+| **Feast Window** | On cultivator **finish**: **3–5 turn** window; siphon +20%; next finish in same fight **extends** window |
+| **Carnage stack** | 2nd+ kill in window: +basics / +conversion (cap per fight) |
+| **Technique Taste** (expand) | Once per fight — survive enemy art, light buff (parked detail) |
+| **Person-yield** | Post-fight refine bonus when fight had 2+ cultivator kills |
+| **Out of combat** | Feeder rank politics; bounty tier 2 attention |
+
+### Intent realms map (working)
+
+| Intent realm | Cultivation band | Tiers | Breakthrough |
+|--------------|------------------|-------|--------------|
+| **I** | FE | Stirring → Taking | Awakening spark |
+| **II** | Core | Feast → (Surfeit entry TBD) | First Feast gate |
+| **III+** | GC / NS / DS | Surfeit → Maw Domain | Owner pass |
+
+Weapon intent tracks may mirror realm bands with different tier names; devouring uses cult vocabulary.
+
+**Damage system note:** Feast / finisher identity may tighten when [`combat-anatomy-damage.md`](combat-anatomy-damage.md) lands (limb, meridian, bone harm) — design Feast as **exploit broken prey**, not raw HP race.
+
+---
 
 Pick **Deepen** or **Expand** at each breakpoint (same fork as weapon intent).
 
