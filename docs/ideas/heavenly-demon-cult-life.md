@@ -7,7 +7,10 @@
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 |
 | **Updated** | 2026-07-31 |
- — if Demon Cult life feels good from QC whisper to Dao Seeking feast, copy the pattern for Celestial Sword, Lotus, etc.
+
+## Intent
+
+**One great sect, end to end** — if Demon Cult life feels good from QC whisper to Dao Seeking feast, copy the pattern for Celestial Sword, Lotus, etc.
 
 This doc is the **player journey**: ranks, realms, what you do each decade, where Devouring Intent and Devouring Law land.
 
