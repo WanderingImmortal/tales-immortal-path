@@ -369,7 +369,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | Beat | Initiate change |
 |------|-----------------|
 | **Tithe due** | **Higher** stones/reagents than outer; miss twice → disown (worse: hunted) |
-| **Blood pill pool** | Still **1 per 4** — but pool is **initiates + outers** on main; branch pool is whole cell |
+| **Blood pill pool** | Still **1 per 4** — **initiates only**, not shared with outers |
 | **Merit ledger** | Hunt yield, drill wins, fast completion, tithe on time |
 | **Envoy / elder review** | Branch: transfer pitch; Main: merit ledger only — no special treatment |
 
@@ -395,7 +395,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Tithe** | Base quota | **FE-scaled** — hurts |
 | **Exposure** | Low (branch) / contained (main) | **Bounty 1** (branch); orthodox world, not gorge coddling |
 | **Housing** | Barracks / bunk | Initiate hall / still rent (branch) |
-| **Pills** | Compete with outers | Same pool — **more mouths**, fiercer politics |
+| **Pills** | Compete in **initiate-only** pool (1/4 merit) | Same on branch if initiate cohort exists |
 | **Endgame of rank** | Promote to Initiate | **GC** + Feeder trial — or decades stuck as Initiate |
 
 ---
@@ -412,7 +412,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Seal** | FE complete (blood-fiend preferred) |
 | **Sponsor** | Elder / envoy signs Feeder scroll |
 
-**Feeder unlocks:** Layer 3 **Feeding Rites**, predator missions, inner-store (main), bounty tier 2.
+**Feeder unlocks:** Layer 3 **Feeding Rites**, predator missions, **ranked pill stipend** + persistent rival loop, inner-store (main), bounty tier 2.
 
 **Cult posture:** sponsor signs scroll if you **survived** and the ledger says asset — not because the gorge raised you. See [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) hands-off lock.
 
@@ -462,8 +462,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 ## Open questions
 
 - Residual Taking — exact % and decay timer (**drafted above — tune in playtest**)
-- **Blood pill pool (main gorge only):** on posting at gorge, do **Initiates** compete with **outers** for the same quarterly pool (`1 pill per 4` headcount **combined**), or does each rank get its own pool (`1 per 4 outers` + `1 per 4 initiates`)? Branch cells use one pool for whoever is in the cell.
-- Feeder trial — always PvE hunt or sometimes spar vs senior initiate?
+- Feeder rival comeback — exact months / power cap per arc (tune in playtest)
+- Feeder trial — always PvE hunt or sometimes ranked spar vs persistent rival?
 - Fast months — skip UI vs forced "meditation" action
 
 ## Implementation crumbs

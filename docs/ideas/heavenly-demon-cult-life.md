@@ -173,35 +173,70 @@ Downside is tithe, predation, exposure. Upside must be **real** or the loop is j
 
 **Player sentence:** *The cult is a bad employer and a good bad teacher.*
 
-### Blood pill stipend (competition, owner lock 2026-07-31)
+### Blood pill stipend — by rank band (owner lock 2026-07-31)
 
-Every **3 months** (same tick as tithe — pay **and** compete):
+Same **3-month tick** as tithe. Pill = **Blood Coagulant Pill** (working) — small HP / combat sustain; cult-made.
+
+Mechanism **changes by stage** — not one rule for everyone.
+
+#### Outer (QC) — merit pool, winner-take-all
 
 | Rule | Detail |
 |------|--------|
-| **Pill** | **Blood Coagulant Pill** (working) — small HP / short combat sustain; cult-made, faint blood taste |
-| **Pool size** | **1 pill per 4 outer disciples** (round up) — scarcity on purpose |
-| **Who gets it** | Top scorers on **merit ledger** that quarter |
-| **Merit sources** | Tithe paid on time, cell tasks done, drill attendance (main), hunt yield, **sanctioned spar win**, envoy praise |
-| **Tie-break** | Elder pick (main) or envoy pick (branch) — **politics** |
-| **Loser** | Nothing. Go buy mortal balms. |
+| **Pool** | **1 pill per 4 outer disciples** (round up) |
+| **Who gets it** | Top merit scorers that quarter |
+| **Merit** | Tithe, tasks, drill, hunt yield, spar win, envoy praise |
 
-Encourages rivalry without auto-paying everyone. Top outer disciple title is **meaningful** for one season.
+Scarcity on purpose. Most get nothing.
 
-**Not given:** qi restore pills (too generous), intent sparks, law fragments.
+#### Initiate (FE) — **separate pool**, still lethal competition
 
-### Rivals & devour growth (outer band)
+| Rule | Detail |
+|------|--------|
+| **Pool** | **1 pill per 4 initiates** — **not** shared with outers |
+| **Who gets it** | Top merit that quarter (same sources + Layer 2 hunts) |
+| **Rivals** | **No persistent rival loop** — lethal spars **kill** too often; bunkmates rotate. Named NPCs exist; don't invest comeback fiction |
+
+Initiate = different **pool**, same **cutthroat** economy. Death is cheap; the cult doesn't groom recurring duelists.
+
+#### Feeder (GC) — **ranked stipend** + rival loop
+
+| Cohort rank (quarterly) | Pills / quarter |
+|-------------------------|-----------------|
+| **1st** | **2** |
+| **2nd** | **1** |
+| **3rd** | **1** |
+| **4th+** | **0** (buy mortal balms) |
+
+**Ranking** from merit ledger + **sanctioned feeder spars** (see rivals below). Predictable income — stage feels different from initiate scramble.
+
+**Not given at any band:** qi restore pills, intent sparks, law fragments.
+
+### Rivals & spars — by rank band (owner lock 2026-07-31)
+
+#### Outer + Initiate — lethal default
 
 | Beat | Detail |
 |------|--------|
-| **Rivals** | 2–4 named outer NPCs per cell/gorge cohort — shared bunk, same pill pool |
-| **Spar** | Sanctioned under elder eye — **typically to the death** at outer/initiate rungs; winner +merit; loser **fed to the winner** if Layer 2 known |
-| **Kill** | Unsanctioned outer-on-outer **outside** drill = breaks Rule 5; **in-hall spar to death** = doctrine |
-| **Sanctioned hunt** | Cell sends pairs to field — kill log counts for merit; *"devour the weak prey, not the brother"* — **spar is how brothers are prey** |
-| **Groundwork** | Outer kills on **sanctioned** hunts count toward later Devouring Intent groundwork |
-| **Betrayal** | Kill **outside** sanctioned spar/hunt → corruption + hunt **by the cell** (you became liability) |
+| **Rivals** | 2–4 names per cohort — **replaceable** when spar kills |
+| **Spar** | Sanctioned — **typically to the death**; winner +merit; loser fed to winner if Layer 2 |
+| **Hunts** | Sanctioned field kills — merit + groundwork |
+| **Betrayal** | Unsanctioned kill → corruption + cell hunt |
 
-**Spar culture (owner lock 2026-07-31):** lower cult rungs (outer, initiate) — **strong eat weak**. The cell does not waste qi on the humiliated; the winner refines what the loser carried. Higher ranks (Feeder+) may use non-lethal trials for specific rites — exceptions are **named**, not default.
+#### Feeder (GC) — **persistent rivals** + investment calculus
+
+| Beat | Detail |
+|------|--------|
+| **Rivals** | **2–3 persistent** named Feeders in your cohort — same pill ladder, years of overlap |
+| **Spar default** | **To yield** or elder **stops** before death — you've been **invested in**; dying for nothing wastes resources |
+| **Death match** | **Sanctioned only** — high merit stake, elder present; *not* casual bunk beef |
+| **Comeback loop** | Lose a ranked spar → rival climbs pill rank; rival **trains** (3–6 months fiction) → returns **stronger**, not instant outclass — capped growth per arc so player can rematch |
+| **Player loss** | Drop rank, lose stipend tier; train, hunt, rematch — same comeback rules apply to you |
+| **Sacrifice** | Cult **will** spend you on suicide missions, bait, siege — **for gain**. Not petty hall murder |
+
+**GC doctrine:** *"The maw does not throw away meat it already swallowed."* — sacrifice is strategic, not wasteful.
+
+**Spar culture summary:** outer/initiate = strong eat weak. Feeder = strong **test** weak, but stock is **inventory** until spent usefully.
 
 Competition is **merit**, not free PvP in town.
 
@@ -342,18 +377,17 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 
 ---
 
-### Golden Core — *the maw gets teeth*
+### Golden Core — *the maw gets teeth* (Feeder rank)
 
 | Loop | Feel |
 |------|------|
 | **Feeder missions** | Hunt cultivators who "waste" qi; retrieve tempered relics |
-| **Intent climb** | Gluttony → Bottomless; deepen vs expand choices matter in duels |
-| **Domain** | GC claim colors as **predatory pressure** — weak flee, not sword-line purity |
-| **Union tech** | Heaven-Defying Swallow online (intent + early law) |
-| **Life** | Maybe first **safehouse** rest; still no public mountain |
-| **Risk** | Sect hunters; Phoenix pamphlets smear you |
-
-**Intent second act:** post-100-use **Appetite Layers** (parked) — cult-specific deepen tree, not generic +%.
+| **Pill stipend** | **Ranked** quarterly — 1st gets 2, 2nd–3rd get 1 ([`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md)) |
+| **Rival loop** | **Persistent** cohort rivals; spars to yield; comeback arcs — not initiate slaughter |
+| **Investment** | Cult won't let you **die for nothing** in a bunk spat; **will** sacrifice you when worth it |
+| **Intent** | **Taking** (2nd realm) normal here; Feast later |
+| **Life** | Safehouse, predator missions, bounty tier 2 |
+| **Risk** | Sect hunters; you're visible now |
 
 ---
 
