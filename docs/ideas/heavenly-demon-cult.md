@@ -1,0 +1,94 @@
+# Heavenly Demon Cult (天魔教)
+
+| Field | Value |
+|-------|-------|
+| **Status** | `designed` (v1 — cult + intent hook) |
+| **Blocked on** | [`devouring-intent.md`](devouring-intent.md); lineage manual pass |
+| **Issue** | none yet |
+| **Chat / PR** | Planning chat 2026-07-31 · [`cursor/intent-awakening-devouring-c0d4`](../../) |
+| **Updated** | 2026-07-31 |
+
+## Intent
+
+A **hidden orthodox heresy** — not "random evil bandits." The Heavenly Demon Cult teaches that **heaven is a glutton** and the strong **devour** what the weak cannot hold. Their crown art is **Devouring Intent**: consumption as cultivation, not sword-shaped will.
+
+**Not the same as:** Chaos Path's *Devourer* (Lu Feng — forced Chaos, cautionary tale). **Not the same as:** walking the Wicked Path (attitude). Cult membership is **doctrine + initiation**, not a corruption slider.
+
+Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) (massacres stain; being blood-aligned ≠ crime), [`technique-driven-cultivation.md`](technique-driven-cultivation.md) (`blood_fiend` nature).
+
+## Design notes
+
+### One-line identity
+
+| Field | Lock |
+|-------|------|
+| **Display** | Heavenly Demon Cult |
+| **Data id** | `heavenly_demon_cult` (suggested) |
+| **Dao** | **Devouring Dao** — intake, refinement, hunger without end |
+| **Public face** | Rumors, cells, forged merchants; no mountain on the map (v1) |
+| **Sacred art** | **Heavenly Demon Canon** (天魔典) — breathing + intent curriculum |
+| **Crown intent** | **Devouring Intent** — see [`devouring-intent.md`](devouring-intent.md) |
+
+### Doctrine (three sentences players might hear)
+
+1. *Heaven eats the world every epoch — why shouldn't you?*
+2. *Qi that enters you and does not become **you** is wasted.*
+3. *The blade is a straw. The cultivator is the mouth.*
+
+### What they teach
+
+| Layer | Content |
+|-------|---------|
+| Outer cell | Crimson-flavored breath, survival rites, "do not starve your dantian" |
+| Initiate | Blood-fiend seal encouraged; first taste of **consumption** techniques |
+| Inner demon hall | **Devouring Intent** awakening rites; tempered relics from executed elders |
+| Apex | Intent Domain as **Bottomless Maw** — not a weapon line, a hunger field |
+
+### What they refuse
+
+- Orthodox "harmony" seals presented as weakness
+- Sword-only pride (they'll use any tool that feeds the maw)
+- Soul-refining that **breaks reincarnation** without cult sanction (that's corruption the ledger cares about — see alignment doc)
+
+### Relationship to existing systems
+
+| System | Cult angle |
+|--------|------------|
+| `blood_fiend` foundation | Common entry — Crimson Harvest Breath syllabus; not required for Devouring Intent but **strong groundwork** |
+| Blood Refining Art | Outer technique — life steal; not the intent itself |
+| Rebellious alignment | Overlaps; cult recruits lean rebellious; not automatic membership |
+| Corruption / sacrilege | **Feeding on villages** stains; studying devouring breath in a cell does not |
+| Four Heartlands sects | Hunted in public; bounties at friendly rep; Lotus might broker silence for a price |
+
+### Where they live (v1 — light)
+
+**No dedicated zone v1.** Cells and rumor hooks:
+
+- Redwell bounty board: "demon envoy spotted near Ironscar" (fiction)
+- Heartlands: hidden safehouse node later
+- Field ultra-rare: **Maw-womb shard** natural treasure (devouring spark)
+
+Full demon mountain = later slice; intent design does not wait on it.
+
+### NPC sketch (one)
+
+**Envoy of the Third Hunger** — polite, offers a pamphlet that is not in any legal market. Greet: *"You look… unfed. The heavens eat stars. We only ask you eat back."*
+
+## Prerequisites
+
+- [ ] [`devouring-intent.md`](devouring-intent.md) tier + expand table
+- [ ] [`weapon-intent-awakening.md`](weapon-intent-awakening.md) deviant spark rules
+- [ ] One cult manual id in `CULTIVATION_METHOD_POOL` (forbidden tier)
+- [ ] Faction or story `fate: demon_cell` hook (optional v1)
+
+## Open questions
+
+- Map node vs story-only cells for first contact
+- Sect join flow vs "found a forbidden manual and fell in"
+- Name lock: **Devouring Intent** vs **Blood Devouring Intent** (see devouring doc)
+
+## Implementation crumbs
+
+- `data.js` — factions, forbidden manuals, `FOUNDATION_NATURES.blood_fiend`
+- `intent.js` — deviant track (future)
+- `alignment-sacrilege-corruption.md` — massacre vs study distinction
