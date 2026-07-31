@@ -6,7 +6,7 @@
 | **Blocked on** | Intent/dao redo; hidden faction node |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 |
-| **Updated** | 2026-07-31 |
+| **Updated** | 2026-07-31 (FE initiate slice linked) |
 
 ## Intent
 
@@ -77,7 +77,7 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 
 | Layer | Canon name (working) | Realm / rank | What’s in the box |
 |-------|----------------------|--------------|-------------------|
-| **1** | **Devouring Scripture** (吞经) | QC · outer disciple / cell | Breathing method + 2–3 basic combat arts |
+| **1** | **Devouring Scripture** (吞经) | QC · outer disciple / cell | Breathing method + combat syllabus (**parked** — damage rework) |
 | **2** | **Stained Foundation** (染基篇) | FE · Initiate | FE circulation; blood-fiend seal syllabus; intent groundwork |
 | **3** | **Feeding Rites** (饲魔篇) | Core · Feeder | Devouring Intent techniques; mission arts |
 | **4** | **Inner Maw** (内噬篇) | NS · Inner Demon | Expand arts as techniques; relic rites |
@@ -88,9 +88,11 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 | Slot | Art (working) | Role |
 |------|---------------|------|
 | **Breath** | **Outer Devouring Breath** (Devouring Scripture ch.1) | Apex QC method — `lineageId: heavenly_demon_devour_line`; **gorge name**; branch gets abridged pamphlet only |
-| **Combat 1** | **Gnawing Palm** | Light qi nip — teaches *take a little* |
+| **Combat 1** | **Gnawing Palm** | Light qi nip — teaches *take a little* — **parked** |
 | **Combat 2** | **Blood Refining Art** | Exists today — outer steal |
-| **Combat 3** (optional) | **Flee and Feed** | Utility — escape + small heal on kill; survival over pride |
+| **Combat 3** (optional) | **Flee and Feed** | Utility — escape + small heal on kill — **parked** |
+
+**Combat arts parked (owner 2026-07-31):** Gnawing Palm, Flee and Feed, and new Layer 2 arts wait on **damage system rework**. Layer 1 lifestyle (breath, tithe, hunts, merit) does not depend on them.
 
 Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No law. Branch pamphlets may be **incomplete**; main copies are **sealed**.
 
@@ -110,7 +112,7 @@ Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No 
 | **Stability** | **No manual penalty** — demonic cultivation done *correctly* is not "leaky" |
 | **Power** | Combat-qi lean — breath channels killing momentum into the dantian **cleanly** |
 | **FE seal** | If still primary at Seal → often stamps **`blood_fiend`** — **chosen cult identity**, not a cracked foundation |
-| **Unlocks** | Full outer combat syllabus (Gnawing Palm, Blood Refining, etc.) |
+| **Unlocks** | Outer combat syllabus when shipped — Blood Refining exists today; Gnawing Palm / Flee and Feed **parked** |
 | **Branch pamphlet** | Incomplete copy may **lack pages** — downside is **access**, not art quality |
 
 **Not in Layer 1:** intent, law, meridian canon.
@@ -314,16 +316,19 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 
 ### Foundation Establishment — *Anchor the stained seal*
 
+**Full slice:** [`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md) — main vs branch, Layer 2, loops, Feeder promotion.
+
 | Loop | Feel |
 |------|------|
-| **Initiate** | Seal `blood_fiend` common — cult **prefers** the stain; plain seal allowed but less respect |
+| **Rank** | **Initiate** — Layer 2 **Stained Foundation**; blood-fiend seal encouraged |
 | **Chamber** | Same FE grind as everyone; cult adds **fasting meditations** (flavor months) |
-| **Awaken intent** | Spark rite in cell — Maw-Womb Shard or initiation trance ([`devouring-intent.md`](devouring-intent.md)) |
-| **Techniques** | Blood Refining Art, Gullet Palm (form arts) |
-| **Life** | Rent still matters (Redwell etc.); cell collects **tithe** monthly |
-| **Risk** | Bounty tier 1; healers side-eye your aura |
+| **Awaken intent** | Groundwork + spark — Maw-Womb Shard, envoy trance, witness feed ([`devouring-intent.md`](devouring-intent.md)) |
+| **Techniques** | Blood Refining Art exists today; new form arts **parked** (damage rework) |
+| **Life** | Main: initiate hall + hunt teams; Branch: rent, bounty 1, higher tithe |
+| **Pacing** | Inferior root **peak FE ~80–90** — decades as Initiate is normal |
+| **Risk** | Exposure, orthodox shunning, cult disown if tithe breaks |
 
-**First crown moment:** Devouring Intent born — not chosen from a menu.
+**First crown moment:** Devouring Intent born — not chosen from a menu. **Feeder** rank = awakened + merit.
 
 ---
 

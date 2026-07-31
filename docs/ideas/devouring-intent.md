@@ -54,11 +54,11 @@ Pick **Deepen** or **Expand** at each breakpoint (same fork as weapon intent).
 
 | # | Id | Name | Tier | Effect (fiction-first) |
 |---|-----|------|------|------------------------|
-| 1 | `qi_siphon` | **Qi Siphon** | Gnawing | Basics restore a sliver of combat qi / breath on hit |
-| 2 | `predator_mark` | **Predator's Mark** | Gnawing | First damaging hit each fight tags prey — bonus damage while they're wounded |
-| 3 | `technique_taste` | **Technique Taste** | Gluttony | Once per fight, copying a **category** of enemy tech you survived (light buff — e.g. +armor pen after their heavy) |
-| 4 | `fear_feed` | **Fear Feed** | Gluttony | Intimidate/flee checks against you fail more; killing a fleeing foe heals |
-| 5 | `momentum_feast` | **Momentum Feast** | Bottomless | Each kill or execute in a window adds a stack (+basics / +siphon) until fight ends |
+| 1 | `qi_siphon` | **Qi Siphon** | Taking | Basics restore a sliver of combat qi / breath on hit |
+| 2 | `predator_mark` | **Predator's Mark** | Taking | First damaging hit each fight tags prey — bonus damage while they're wounded |
+| 3 | `technique_taste` | **Technique Taste** | Feast | Once per fight, copying a **category** of enemy tech you survived (light buff — e.g. +armor pen after their heavy) |
+| 4 | `fear_feed` | **Fear Feed** | Feast | Intimidate/flee checks against you fail more; killing a fleeing foe heals |
+| 5 | `momentum_feast` | **Momentum Feast** | Surfeit | Each kill or execute in a window adds a stack (+basics / +siphon) until fight ends |
 | 6 | `maw_domain` | **Maw Domain** | Maw Domain | Opening turn: enemies below X% max HP feel **swallowed** — bonus damage + flee penalty; *not* a second GC field |
 
 **Intent Domain manifestation (log / UI):**
@@ -70,8 +70,8 @@ Pick **Deepen** or **Expand** at each breakpoint (same fork as weapon intent).
 | Beat | Behavior |
 |------|----------|
 | **Basics** | Lower raw bonus than sword deepen at same tier; higher **sustain** (qi back, stacks) |
-| **Techniques** | Cult techniques want `devouring` intent; orthodox high arts still work but feel "unfed" (soft debuff like wrong weapon) |
-| **Kill snowball** | Gluttony+ rewards **finishing** weak prey — not face-tanking bosses raw |
+| **Techniques** | Cult techniques want `devouring` intent; orthodox high arts still work but feel **unfed** (soft debuff like wrong weapon) |
+| **Kill snowball** | Feast+ rewards **finishing** weak prey — not face-tanking bosses raw |
 | **Boss fights** | Momentum Feast stacks slower; Maw Domain is opener burst not infinite scaling |
 | **Divided heart** | Devouring + Sword intent = classic demon swordsman — allowed, slower refinement |
 
@@ -136,11 +136,13 @@ Spar awakening: **rare**, opponent must carry devouring tags.
 
 ### Cult technique set (sketch — not full manual pass)
 
+**Parked until damage rework:** Gnawing Palm, Flee and Feed, Gullet Palm, and new Layer 2 combat chapter. Lifestyle / intent design proceeds without them.
+
 | Technique | Tier | Role |
 |-----------|------|------|
 | **Crimson Harvest Breath** | QC–FE | *Legacy data id* — retarget to `outer_devouring_breath` on `heavenly_demon_devour_line` |
 | **Blood Refining Art** | FE | Outer steal — exists today |
-| **Gullet Palm** | FE | Short-range qi drain; devouring intent soft-synergy |
+| **Gullet Palm** | FE | Short-range qi drain — **parked** |
 | **Heaven-Defying Swallow** | Core | Heavy — devours enemy buff / shield layer |
 | **Demon Maw Manifestation** | GC+ | Technique that **requires** Devouring Intent Major+ |
 
