@@ -6,9 +6,9 @@
 | **Blocked on** | none for lore; game beats parked |
 | **Issue** | none yet |
 | **Chat / PR** | Local design 2026-07-30 · park `cursor/void-prisoner-origin-docs` |
-| **Updated** | 2026-07-30 |
+| **Updated** | 2026-07-31 (hunt scar link) |
 
-Parent: [`void-temple-sect.md`](void-temple-sect.md) (Temple, Seeker, Little Heaven, Watch — keep). Dao ladder: [`data.js`](../../data.js) `DAO_TAXONOMY`. Chaos endgame: [`chaos-cultivation-path.md`](chaos-cultivation-path.md). Cosmology: [`post-immortal-cosmology.md`](post-immortal-cosmology.md).
+Parent: [`void-temple-sect.md`](void-temple-sect.md) (Temple, Seeker, Little Heaven, Watch — keep). Hunt battlefield scar: [`heartlands-hunt-scar.md`](heartlands-hunt-scar.md). Dao ladder: [`data.js`](../../data.js) `DAO_TAXONOMY`. Chaos endgame: [`chaos-cultivation-path.md`](chaos-cultivation-path.md). Cosmology: [`post-immortal-cosmology.md`](post-immortal-cosmology.md).
 
 **Agents:** this file is source of truth for the **prisoner’s origin / motive / power / sealing**. Do not invent a different origin in timeline or cult docs. Disciples = later pass (seeds only below).
 
@@ -131,16 +131,17 @@ Shadow arts + arrays can **wound and isolate**; they cannot cleanly erase.
 
 - Few disciples in the hunt era.
 - Some hunted → sealed as danger pins (contemporary with him).
+- **Default lean:** live **Sealed Ancients** (`HIDDEN_SUBZONES`) become disciple pins unless a site is explicitly reserved (e.g. Root Warden / continental lock). **Not** Grotto Masters (Chaos-path parked fiction — different job).
 - Post-box “experiments” = remnant recreations without him free.
-- Full disciple / forbidden-site mapping = **later pass**.
+- Full disciple pass = **later**. Hunt **Forbidden Ground** scar (not a disciple body): [`heartlands-hunt-scar.md`](heartlands-hunt-scar.md).
 
 ---
 
 ## Prerequisites
 
 - [x] Void Temple frame ([`void-temple-sect.md`](void-temple-sect.md))
-- [ ] Disciple + forbidden-site pass
-- [ ] Optional: sync Seeker-at-seal-was-DM into Temple doc wording if it still says Immortal at bind time
+- [x] Heartlands hunt scar fiction ([`heartlands-hunt-scar.md`](heartlands-hunt-scar.md))
+- [ ] Disciple pass (Sealed Ancients)
 - [ ] Optional: true/shadow note in timeline spine when that PR lands on main
 
 ## Open questions
