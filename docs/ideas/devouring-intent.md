@@ -20,6 +20,33 @@ Player fantasy: *"Every fight feeds me. Every kill makes the next one easier. He
 
 ---
 
+## Mental model — why intent exists (owner chat 2026-07-31)
+
+Xianxia **意** (intent) is nebulous in source material — often "will made manifest" without a clean ruleset. In *this* game we treat it as **combat expression**, not a second cultivation manual.
+
+| Layer | Job | Devouring example | When it matters |
+|-------|-----|-------------------|-----------------|
+| **Canon / path** | **How you cultivate** — breath, circulation, seal | Layer 2 *Refinement of Taking* → person-yield → chamber | Months, kills **refined after** the fight |
+| **Intent** | **How you fight as that cultivator** — will projected in combat | Stirring prey sense; Taking qi siphon | **Inside** the duel |
+| **Law** (later) | **How the world agrees** — rules, not just personal will | Devouring Law peels buffs, bites formations | Dao Seeking+ |
+
+**One sentence:** the manual teaches you to **eat**; intent teaches you to **fight like an eater**.
+
+That is why Devouring Intent is not a separate "devouring path" — it **supplements** the Heavenly Demon Canon the way Sword Intent supplements a sword sect's breathing method. Apex cult still needs both: a **refined manual** (good method, no stat malus) and a **crown will** (how violence expresses doctrine).
+
+### What might feel "off" (acknowledged)
+
+| Tension | Why it nags | Current answer |
+|---------|-------------|----------------|
+| **Two takings** | Layer 2 and intent both care about kills | Manual = **refine corpse into cultivation**; intent = **combat siphon + conversion bonus** — different beats |
+| **Crown art feels small at FE** | Intent band is only Stirring/Taking for now | FE scope intentional; Feast+ parked — intent grows across realms like sword intent does |
+| **Same groundwork** | Awakening wants kills; Layer 2 wants kills | Same **life** feeds both; **spark** still required for intent — not automatic |
+| **Genre fuzz** | 意 is never fully explained in novels | We pick **expression in combat** and leave cosmic law to Devouring Law later |
+
+If a future pass still feels wrong, alternatives to revisit: (a) merge post-kill refine entirely into intent and slim Layer 2 to pure circulation; (b) make intent the **only** kill-snowball system and manual purely passive breath. **Not switching now** — current split keeps cultivate months and combat duels as separate loops.
+
+---
+
 ## How you get Devouring Intent
 
 **No menu. No weapon picker.** Two layers, both required ([`weapon-intent-awakening.md`](weapon-intent-awakening.md)):
