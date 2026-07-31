@@ -39,14 +39,14 @@ Shares tier **structure** with weapon intent (uses, deepen, expand, domain) but 
 
 | Tier idx | Name | Uses (draft) | Feel |
 |----------|------|--------------|------|
-| 0 | **Hunger** | 0 | Qi feels thin; you notice what others waste |
-| 1 | **Gnawing** | 10 | Combat siphon begins; weak foes hesitate |
-| 2 | **Gluttony** | 30 | Kills within window empower next strike |
-| 3 | **Bottomless** | 60 | Techniques "taste" wrong without feeding first |
-| 4 | **Maw Domain** | 100 | Intent Domain — *the air feels like a throat* |
+| 0 | **Vacuity** | 0 | You notice what others hold and waste |
+| 1 | **Taking** | 10 | Combat siphon begins; weak foes yield a little |
+| 2 | **Feast** | 30 | Kills within window empower the next taking |
+| 3 | **Surfeit** | 60 | Techniques feel hollow until you've taken enough |
+| 4 | **Maw Domain** | 100 | Intent Domain — *the air feels like a closing throat* |
 
-Deepen: **+ killing conversion** (more damage from siphon stacks, stronger feast-on-wounded).  
-Expand: **new appetite expression** (see table below).
+Deepen: **+ conversion** (more from siphon stacks, stronger finish-on-wounded).  
+Expand: **new taking expression** (see table below).
 
 ### Expand arts (draft — the fun part)
 
