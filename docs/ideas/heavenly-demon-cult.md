@@ -37,14 +37,20 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 2. *Qi that enters you and does not become **you** is wasted.*
 3. *The blade is a straw. The cultivator is the mouth.*
 
-### What they teach
+### What they teach (outer band)
 
-| Layer | Content |
+| Benefit | Content |
+|---------|---------|
+| Layer 1 | Hunger Scripture — breath + outer combat |
+| Shelter | Barracks (main) / safehouse bunk (branch, tithe-gated) |
+| Pills | Quarterly blood pill pool — **merit winners only** |
+| Rivalry | Sanctioned spars + hunt merit — see life ladder doc |
+
+| Layer (inner) | Content |
 |-------|---------|
-| Outer cell | Crimson-flavored breath, survival rites, "do not starve your dantian" |
-| Initiate | Blood-fiend seal encouraged; first taste of **consumption** techniques |
-| Inner demon hall | **Devouring Intent** awakening rites; tempered relics from executed elders |
-| Apex | Intent Domain as **Bottomless Maw** — not a weapon line, a hunger field |
+| Initiate | Blood-fiend seal encouraged; Layer 2 |
+| Inner demon hall | Devouring Intent awakening rites; tempered relics |
+| Apex | Intent Domain as **Bottomless Maw** |
 
 ### What they refuse
 

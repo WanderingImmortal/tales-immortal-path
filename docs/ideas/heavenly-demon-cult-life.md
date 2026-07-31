@@ -61,7 +61,7 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 | **What it is** | Hidden HQ — doctrine, elders, canon archive | Smuggled contact point in the mortal world |
 | **QC rank name** | **Outer disciple** | **Cell Brother/Sister** (same layer, worse posting) |
 | **Layer 1** | Proper **Hunger Scripture** copy from the archive | Often a **trimmed pamphlet** or envoy handoff |
-| **Shelter** | Outer barracks / gorge rim quarters | None — you live in town |
+| **Shelter** | Outer barracks — shared quarters (basic residence) | **Cell safehouse** — bunk while tithe current; lose access if disowned |
 | **Instruction** | Group drills, assigned elder rotation | Envoy checks in monthly; you're on your own |
 | **Tithe** | To the gorge — fixed, predictable | To the cell — harsher if harvests were thin |
 | **If caught** | Gorge may send lawyers / silence / revenge | **Deny you** is default |
@@ -158,6 +158,27 @@ Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No 
 **What you don't have:** safehouse, drills, gorge protection, inner rites.
 
 **Rising out:** FE breakthrough + cell vouch → **transfer candidate** to gorge, or stay branch Initiate (rarer, less respect).
+
+#### Branch tithe loop (owner lock 2026-07-31)
+
+Branch life needs **manual pressure** — not a menu checkbox. You **go pay** or you **fall out of favor**.
+
+| Beat | Detail |
+|------|--------|
+| **Cadence** | Every **3 months** (calendar tick) — envoy message or dead-drop window opens |
+| **Pay how** | Meet envoy at tavern / marked ruin / night market stall; or leave stones + reagents at **cell dead drop** |
+| **Amount** | Scales lightly with realm (QC low, FE higher); thin harvest months = **same demand** (cult doesn't care about your job drought) |
+| **On time** | Brief nod. Maybe a task offer. Rep holds. |
+| **Miss once** | Warning line: *"The maw remembers hunger. Do not starve us twice."* |
+| **Miss twice** | **Disowned** — pamphlet burns worthless; no Layer 2 path; cult rep crashes |
+| **Miss twice + knew secrets** | **Hunted** — cell sends a Feeder to recover tithe **with interest** (ambush event, not instant game over) |
+| **Pay while disowned** | Too late for trust; may only buy **silence** (expensive) not reinstatement |
+
+**Player fantasy:** cult is useful (canon, path, identity) but **predatory** — same doctrine that teaches devouring applies to *you* if you stop feeding them.
+
+**Main cult contrast:** gorge outer disciples tithe on-site (storehouse rotation). **No travel loop** — absence from drills is the parallel failure mode.
+
+**Survive and grow:** tithe forces jobs, field, sell loot — ties branch QC into Redwell economy without new zone lore. FE breakthrough + clean tithe record = stronger **transfer** pitch to gorge.
 
 ---
 
@@ -283,7 +304,8 @@ Demon Cult is first because it's **deviant** (non-weapon intent) and **hidden** 
 
 ## Open questions
 
-- Tithe % vs flat cell fee
+- Tithe % vs flat cell fee — **branch: 3-month manual pay stub** (see branch tithe loop)
+- Hunt event severity when disowned (ambush tier vs bounty poster only)
 - Can player lead a cell (sect founder parallel)?
 - Expose Maw Elder as recurring NPC name
 
