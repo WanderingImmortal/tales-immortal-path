@@ -24,7 +24,7 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 
 | | |
 |--|--|
-| **Vibe** | Hidden hunger church — polite envoys, ugly inner rites, hunted in daylight |
+| **Vibe** | Hidden consumption cult — take, refine, become; polite envoys, ugly inner rites |
 | **Path** | Qi-primary; **blood-fiend** common; any weapon allowed, none required |
 | **Homeland** | **Main:** hidden **Gullet Gorge** (HQ). **Branches:** city cells (Redwell, Heartlands, …) — see [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 | **Lineage** | **Heavenly Demon Canon** (天魔典) |
@@ -60,7 +60,7 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 |--|------------------------------|--------------------------------|
 | **What it is** | Hidden HQ — doctrine, elders, canon archive | Smuggled contact point in the mortal world |
 | **QC rank name** | **Outer disciple** | **Cell Brother/Sister** (same layer, worse posting) |
-| **Layer 1** | Proper **Hunger Scripture** copy from the archive | Often a **trimmed pamphlet** or envoy handoff |
+| **Layer 1** | Proper **Devouring Scripture** copy from the archive | **Abridged** pamphlet (same text, no gorge seal) |
 | **Shelter** | Outer barracks — shared quarters (basic residence) | **Cell safehouse** — bunk while tithe current; lose access if disowned |
 | **Instruction** | Group drills, assigned elder rotation | Envoy checks in monthly; you're on your own |
 | **Tithe** | To the gorge — fixed, predictable | To the cell — harsher if harvests were thin |
@@ -77,7 +77,7 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 
 | Layer | Canon name (working) | Realm / rank | What’s in the box |
 |-------|----------------------|--------------|-------------------|
-| **1** | **Hunger Scripture** (饥经) | QC · outer disciple / cell | Breathing method + 2–3 basic combat arts |
+| **1** | **Devouring Scripture** (吞经) | QC · outer disciple / cell | Breathing method + 2–3 basic combat arts |
 | **2** | **Stained Foundation** (染基篇) | FE · Initiate | FE circulation; blood-fiend seal syllabus; intent groundwork |
 | **3** | **Feeding Rites** (饲魔篇) | Core · Feeder | Devouring Intent techniques; mission arts |
 | **4** | **Inner Maw** (内噬篇) | NS · Inner Demon | Expand arts as techniques; relic rites |
@@ -87,16 +87,22 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 
 | Slot | Art (working) | Role |
 |------|---------------|------|
-| **Breath** | **Cell Hunger Breath** (Hunger Scripture ch.1) | Apex QC method — `lineageId: heavenly_demon_devour_line`; implement as **good grade**, no stability malus |
+| **Breath** | **Outer Devouring Breath** (Devouring Scripture ch.1) | Apex QC method — `lineageId: heavenly_demon_devour_line`; **gorge name**; branch gets abridged pamphlet only |
 | **Combat 1** | **Gnawing Palm** | Light qi nip — teaches *take a little* |
 | **Combat 2** | **Blood Refining Art** | Exists today — outer steal |
 | **Combat 3** (optional) | **Flee and Feed** | Utility — escape + small heal on kill; survival over pride |
 
 Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No law. Branch pamphlets may be **incomplete**; main copies are **sealed**.
 
-### Layer 1 manual — what Hunger Scripture actually does
+### Theme lock — devouring ≠ hunger (owner 2026-07-31)
 
-**Cultivation method:** *Heavenly Demon Canon · Hunger Scripture* (outer syllabus: **Cell Hunger Breath**). Apex-cult QC breath — **refined**, not a crude forbidden pamphlet.
+**Devouring** = **consume, take, assimilate, use for yourself** — qi, merit, technique echo, fear, resources, life. **Hunger / maw / feast** are *imagery*, not the whole doctrine. Outer syllabus teaches **small takings** before the great ones.
+
+**Naming:** **No "Cell" in gorge-facing text** — that word is branch slang only. Main outer disciples learn **Outer Devouring Breath** from sealed **Devouring Scripture**.
+
+### Layer 1 manual — what Devouring Scripture actually does
+
+**Cultivation method:** *Heavenly Demon Canon · Devouring Scripture* (ch.1: **Outer Devouring Breath**). Apex-cult QC breath — refined, not a crude forbidden pamphlet.
 
 | Effect | Detail |
 |--------|--------|
@@ -119,7 +125,24 @@ Outer disciples get **Layer 1 only** (main or branch). No intent curriculum. No 
 | **Personality / rumor** | NPCs say you're cold, hungry-eyed; harmony sects won't hire you — **social**, optional light dialogue flags |
 | **Exposure** | Walking the proper path hates you; that's the price of apex demonic lineage |
 
-**Design lock:** do **not** nerf `stabilityBias` or foundation quality on cult canon methods in data — when implemented, Hunger Scripture should be a **good** method with a **bad reputation**.
+**Design lock:** do **not** nerf `stabilityBias` or foundation quality on cult canon methods in data — when implemented, Devouring Scripture should be a **good** method with a **bad reputation**.
+
+#### Manual presentation (player-facing)
+
+| | **Main gorge** | **Branch pamphlet** |
+|--|----------------|---------------------|
+| **Title** | *Heavenly Demon Canon · Devouring Scripture* (Layer 1) | *Devouring Scripture* (abridged) — **no** "cell" on cover |
+| **Ch.1** | **Outer Devouring Breath** | Same art name; may lack later chapters |
+| **Opening line** | *"What heaven takes, the wise take first. What others hold, you refine into yourself."* | Same; cheap ink |
+
+```
+封面  Cover — open maw sigil
+第一章  Ch.1 — Outer Devouring Breath
+第二章  Ch.2 — Gnawing Palm
+第三章  Ch.3 — Blood Refining Art
+第四章  Ch.4 — Flee and Feed
+封底  Back — Five Takings (outer rules)
+```
 
 ---
 
@@ -172,16 +195,16 @@ Competition is **merit**, not free PvP in town.
 
 ---
 
-## Outer disciple rules (The Five Hungers — working)
+## Outer disciple rules (The Five Takings — working)
 
 Rules taught with Layer 1. Break them → demotion, disown, or **fed to a Feeder**.
 
 | # | Rule | Plain meaning |
 |---|------|----------------|
-| **1** | **Feed the maw before yourself** | Tithe on time. Cell/gorge first. |
+| **1** | **What you take, the maw takes first** | Tithe on time. Cell/gorge before personal hoarding. |
 | **2** | **Do not name the gorge in town** | No HQ location, no elder names, no routes. |
-| **3** | **Do not display hunger in the open** | No blood arts on main street; cultivate in safehouse/hall. |
-| **4** | **Outer devours only what is given** | Hunts, trials, sanctioned spars — not random citizens or unsanctioned brothers. |
+| **3** | **Do not consume in the open** | No blood arts on main street; cultivate in safehouse/hall. |
+| **4** | **Outer takes only what is given** | Hunts, trials, sanctioned spars — not random citizens or unsanctioned brothers. |
 | **5** | **The cell settles outer disputes** | No guard, no public duels — bring it to envoy / drill master. |
 
 **Unspoken 6:** *If you are disowned, you were never ours.*
@@ -261,7 +284,7 @@ Branch life needs **manual pressure** — not a menu checkbox. You **go pay** or
 | **Pay how** | Meet envoy at tavern / marked ruin / night market stall; or leave stones + reagents at **cell dead drop** |
 | **Amount** | Scales lightly with realm (QC low, FE higher); thin harvest months = **same demand** (cult doesn't care about your job drought) |
 | **On time** | Brief nod. Maybe a task offer. Rep holds. |
-| **Miss once** | Warning line: *"The maw remembers hunger. Do not starve us twice."* |
+| **Miss once** | Warning line: *"The maw remembers what it is owed. Do not withhold twice."* |
 | **Miss twice** | **Disowned** — pamphlet burns worthless; no Layer 2 path; cult rep crashes |
 | **Miss twice + knew secrets** | **Hunted** — cell sends a Feeder to recover tithe **with interest** (ambush event, not instant game over) |
 | **Pay while disowned** | Too late for trust; may only buy **silence** (expensive) not reinstatement |
@@ -365,7 +388,7 @@ Copy this table when designing Sword / Lotus life:
 
 | Path | Fantasy |
 |------|---------|
-| **A — Envoy** | Redwell rumor → meet Envoy of Third Hunger → quests → initiate |
+| **A — Envoy** | Redwell rumor → meet Envoy of the Third Maw → quests → outer disciple |
 | **B — Forbidden manual** | Find cult syllabus page → cell contacts you |
 | **C — Survival** | Near-death vs demon tagged foe → mirrored hunger spark |
 

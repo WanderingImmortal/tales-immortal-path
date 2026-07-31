@@ -12,7 +12,7 @@
 
 **Devouring Law** (cult speech: *the Way of Devouring*; game id: `devouring` in Dao taxonomy) is what the Heavenly Demon Cult believes heaven already practices — **all qi is borrowed, all forms are food, all boundaries are shells to crack open**.
 
-It is **not** Devouring Intent. Intent is **your** hunger. Law is **the rule** that consumption is how the world actually works.
+It is **not** Devouring Intent. Intent is **your** drive to take and become. Law is **the rule** that consumption is how the world actually works.
 
 Player fantasy at Dao Seeking: *"I don't just eat my enemies — I understand why the universe permits eating."*
 
@@ -70,7 +70,7 @@ Element phases **do not** replace Devouring Law. Fire Phase + Devouring Law can 
 | **Mandate Bite** | Dao Seeking | Devouring greater | Briefly **consume** a zone law debuff (high sacrilege risk) |
 | **Gluttonous Heaven** | Dao Manifestation | Fundamental (NPC) | Patriarch myth only in v1 |
 
-**Fails without law:** *"You hunger — the world does not yield its skin."*
+**Fails without law:** *"You would take — the world does not yield its skin."*
 
 ---
 

@@ -12,7 +12,7 @@ Sister docs: [`devouring-law.md`](devouring-law.md), [`heavenly-demon-cult-life.
 
 ## Intent
 
-**Devouring Intent** is the Heavenly Demon Cult's crown art — not a sixth weapon type, but a **deviant intent track**: your will shaped as **hunger**. You do not "swing a devourer." You **take** — qi, momentum, fear, the last breath of a dying technique — and make it yours.
+**Devouring Intent** is the Heavenly Demon Cult's crown art — not a sixth weapon type, but a **deviant intent track**: your will shaped as **consumption** — take from others, refine it, make it yours. Qi, momentum, fear, technique echo, the last warmth of a dying guard. Hunger is only one face of the maw.
 
 **Name lock (owner lean):** **Devouring Intent** (吞意 / 吞天魔意 in sect speech). **Blood** is the most common *entry path* (`blood_fiend` foundation, blood techniques), not a separate "Blood Devouring Intent" track — blood is one flavor of the same maw.
 
@@ -95,7 +95,7 @@ Devouring Intent **never** appears on a weapon menu. Sparks only.
 
 Any **two** of (draft):
 
-- Sealed `blood_fiend` foundation **or** mastered Hunger Scripture / Cell Hunger Breath
+- Sealed `blood_fiend` foundation **or** mastered **Outer Devouring Breath** (Devouring Scripture)
 - Killed N sentient foes (not beasts-only) — **or** one story `fate: blood_debt` foe
 - Meditated with cult pamphlet / carried forbidden syllabus item
 - Walked Wicked Path or cult rep above threshold
@@ -138,7 +138,7 @@ Spar awakening: **rare**, opponent must carry devouring tags.
 
 | Technique | Tier | Role |
 |-----------|------|------|
-| **Crimson Harvest Breath** | QC–FE | *Legacy id* — retarget to `heavenly_demon_devour_line` / Cell Hunger Breath when canon ships |
+| **Crimson Harvest Breath** | QC–FE | *Legacy data id* — retarget to `outer_devouring_breath` on `heavenly_demon_devour_line` |
 | **Blood Refining Art** | FE | Outer steal — exists today |
 | **Gullet Palm** | FE | Short-range qi drain; devouring intent soft-synergy |
 | **Heaven-Defying Swallow** | Core | Heavy — devours enemy buff / shield layer |
@@ -168,7 +168,7 @@ Devouring: **you** grow from the wound — sustain + snowball. Same family, diff
 
 | | **Devouring Intent** | **Devouring Law** |
 |--|----------------------|-------------------|
-| Job | **Form** — your hunger, siphon, snowball | **Law** — peel buffs, bite formations, world agrees to intake |
+| Job | **Form** — your taking, siphon, snowball | **Law** — peel buffs, bite formations, world agrees to intake |
 | Era | FE+ | Dao Seeking+ |
 | Example art | Gullet Palm | Shell Crack |
 | Union | Heaven-Defying Swallow needs **both** | — |

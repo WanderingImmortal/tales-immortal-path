@@ -27,7 +27,7 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 | **Display** | Heavenly Demon Cult |
 | **Data id** | `heavenly_demon_cult` (suggested) |
 | **Standing** | **Apex demonic cult** (continent) — cells are tendrils, gorge is the heart |
-| **Dao** | **Devouring Dao** — intake, refinement, hunger without end |
+| **Dao** | **Devouring Dao** — intake, refinement, **take and become** |
 | **Public face** | Rumors, cells, forged merchants; no mountain on the map (v1) |
 | **Sacred art** | **Heavenly Demon Canon** (天魔典) — breathing + intent curriculum |
 | **Crown intent** | **Devouring Intent** — see [`devouring-intent.md`](devouring-intent.md) |
@@ -44,7 +44,7 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 
 | Benefit | Content |
 |---------|---------|
-| Layer 1 | Hunger Scripture — breath + outer combat |
+| Layer 1 | Devouring Scripture — Outer Devouring Breath + outer combat |
 | Shelter | Barracks (main) / safehouse bunk (branch, tithe-gated) |
 | Pills | Quarterly blood pill pool — **merit winners only** |
 | Rivalry | Sanctioned spars + hunt merit — see life ladder doc |
@@ -90,7 +90,7 @@ Branches **feed** the gorge (tithes, recruits, eyes). Gorge **does not** protect
 
 ### NPC sketch (one)
 
-**Envoy of the Third Hunger** — polite, offers a pamphlet that is not in any legal market. Greet: *"You look… unfed. The heavens eat stars. We only ask you eat back."*
+**Envoy of the Third Maw** — polite, offers a pamphlet that is not in any legal market. Greet: *"You carry more than you use. The heavens take the rest. We only ask you take back."*
 
 ## Prerequisites
 
