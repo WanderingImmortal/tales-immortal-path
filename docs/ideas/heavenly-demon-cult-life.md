@@ -87,7 +87,7 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 
 | Slot | Art (working) | Role |
 |------|---------------|------|
-| **Breath** | **Crimson Harvest Breath** (or canon rename: *Cell Hunger Breath*) | QC cultivate method; *can* stamp `blood_fiend` at FE if still primary |
+| **Breath** | **Cell Hunger Breath** (Hunger Scripture ch.1) | Apex QC method — `lineageId: heavenly_demon_devour_line`; implement as **good grade**, no stability malus |
 | **Combat 1** | **Gnawing Palm** | Light qi nip — teaches *take a little* |
 | **Combat 2** | **Blood Refining Art** | Exists today — outer steal |
 | **Combat 3** (optional) | **Flee and Feed** | Utility — escape + small heal on kill; survival over pride |
@@ -293,7 +293,7 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 
 | Loop | Feel |
 |------|------|
-| **Initiate** | Seal `blood_fiend` or walk hungry plain — cult prefers stain |
+| **Initiate** | Seal `blood_fiend` common — cult **prefers** the stain; plain seal allowed but less respect |
 | **Chamber** | Same FE grind as everyone; cult adds **fasting meditations** (flavor months) |
 | **Awaken intent** | Spark rite in cell — Maw-Womb Shard or initiation trance ([`devouring-intent.md`](devouring-intent.md)) |
 | **Techniques** | Blood Refining Art, Gullet Palm (form arts) |
@@ -366,7 +366,7 @@ Copy this table when designing Sword / Lotus life:
 | Path | Fantasy |
 |------|---------|
 | **A — Envoy** | Redwell rumor → meet Envoy of Third Hunger → quests → initiate |
-| **B — Forbidden manual** | Find Crimson Harvest Breath → cell contacts you |
+| **B — Forbidden manual** | Find cult syllabus page → cell contacts you |
 | **C — Survival** | Near-death vs demon tagged foe → mirrored hunger spark |
 
 All paths converge at **Initiate** rank; awakening still needs spark + groundwork.

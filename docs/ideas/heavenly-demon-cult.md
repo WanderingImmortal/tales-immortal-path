@@ -12,6 +12,8 @@
 
 A **hidden orthodox heresy** — not "random evil bandits." The Heavenly Demon Cult teaches that **heaven is a glutton** and the strong **devour** what the weak cannot hold. Their crown art is **Devouring Intent**: consumption as cultivation, not sword-shaped will.
 
+**Continental standing (owner lock 2026-07-31):** **Apex demonic cult** — not a roadside blood sect. Their canon is **refined and perfected** over generations. The cost of the path is **what you do** and **how the world treats you**, not a leaky beginner manual.
+
 **Not the same as:** Chaos Path's *Devourer* (Lu Feng — forced Chaos, cautionary tale). **Not the same as:** walking the Wicked Path (attitude). Cult membership is **doctrine + initiation**, not a corruption slider.
 
 Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) (massacres stain; being blood-aligned ≠ crime), [`technique-driven-cultivation.md`](technique-driven-cultivation.md) (`blood_fiend` nature).
@@ -24,6 +26,7 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 |-------|------|
 | **Display** | Heavenly Demon Cult |
 | **Data id** | `heavenly_demon_cult` (suggested) |
+| **Standing** | **Apex demonic cult** (continent) — cells are tendrils, gorge is the heart |
 | **Dao** | **Devouring Dao** — intake, refinement, hunger without end |
 | **Public face** | Rumors, cells, forged merchants; no mountain on the map (v1) |
 | **Sacred art** | **Heavenly Demon Canon** (天魔典) — breathing + intent curriculum |
@@ -62,7 +65,7 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 
 | System | Cult angle |
 |--------|------------|
-| `blood_fiend` foundation | Common entry — Crimson Harvest Breath syllabus; not required for Devouring Intent but **strong groundwork** |
+| `blood_fiend` foundation | **Common** cult seal at FE — identity (killing aura), not a manual defect |
 | Blood Refining Art | Outer technique — life steal; not the intent itself |
 | Rebellious alignment | Overlaps; cult recruits lean rebellious; not automatic membership |
 | Corruption / sacrilege | **Feeding on villages** stains; studying devouring breath in a cell does not |

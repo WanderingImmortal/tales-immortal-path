@@ -95,7 +95,7 @@ Devouring Intent **never** appears on a weapon menu. Sparks only.
 
 Any **two** of (draft):
 
-- Sealed `blood_fiend` foundation **or** mastered Crimson Harvest Breath
+- Sealed `blood_fiend` foundation **or** mastered Hunger Scripture / Cell Hunger Breath
 - Killed N sentient foes (not beasts-only) — **or** one story `fate: blood_debt` foe
 - Meditated with cult pamphlet / carried forbidden syllabus item
 - Walked Wicked Path or cult rep above threshold
@@ -138,7 +138,7 @@ Spar awakening: **rare**, opponent must carry devouring tags.
 
 | Technique | Tier | Role |
 |-----------|------|------|
-| **Crimson Harvest Breath** | QC–FE | Method — stamps `blood_fiend`; groundwork |
+| **Crimson Harvest Breath** | QC–FE | *Legacy id* — retarget to `heavenly_demon_devour_line` / Cell Hunger Breath when canon ships |
 | **Blood Refining Art** | FE | Outer steal — exists today |
 | **Gullet Palm** | FE | Short-range qi drain; devouring intent soft-synergy |
 | **Heaven-Defying Swallow** | Core | Heavy — devours enemy buff / shield layer |
