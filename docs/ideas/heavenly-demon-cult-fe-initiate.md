@@ -10,7 +10,7 @@
 
 ## Intent
 
-**Foundation Establishment as a cult Initiate** — not "I picked a seal and grinded the chamber." You are **rank 2** in the sect: stained foundation, Layer 2 canon, fasting beats, intent groundwork, and the first time the world **notices** you.
+**Foundation Establishment as a cult Initiate** — not "I picked a seal and grinded the chamber." You are **rank 2**: Layer 2 canon, fasting beats, intent groundwork. The **world** may notice you before the gorge does.
 
 Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Awakening: [`devouring-intent.md`](devouring-intent.md). FE mechanics (generic): [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md). Pacing anchor: [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) — **inferior root peaks FE ~80–90**.
 
@@ -110,8 +110,8 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 
 | Choice | Cult reaction | Game fiction |
 |--------|---------------|--------------|
-| **`blood_fiend` seal** | **Expected** — merit, elder attention, full fasting syllabus credit | Killing aura; orthodox NPCs **notice** faster |
-| **Plain / orthodox seal** | Allowed — *"You can walk the path with clean hands; the gorge doubts you."* | Less cult rep; harder Feeder sponsor; intent groundwork still works but **Maw-Womb Shard** wants stain |
+| **`blood_fiend` seal** | **Expected** — merit ledger; a junior elder **might** note it | Killing aura; orthodox NPCs notice faster |
+| **Plain / orthodox seal** | Allowed — *"You can walk the path with clean hands; the gorge doubts you."* | Less cult rep; harder Feeder sponsor later; **Maw-Womb Shard** wants stain |
 
 Seal happens at **generic FE seal beat** (today's Seal Dantian; redesign may move — nature stamp reuses P2 helper).
 
@@ -369,7 +369,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Tithe due** | **Higher** stones/reagents than outer; miss twice → disown (worse: hunted) |
 | **Blood pill pool** | Still **1 per 4** — but pool is **initiates + outers** on main; branch pool is whole cell |
 | **Merit ledger** | Hunt yield, drill wins, fast completion, tithe on time |
-| **Envoy / elder review** | Branch: transfer pitch; Main: Feeder candidacy notes |
+| **Envoy / elder review** | Branch: transfer pitch; Main: merit ledger only — no special treatment |
 
 ### Yearly beats
 
@@ -391,27 +391,30 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Intent** | Forbidden | Groundwork; **taking after Layer 2** |
 | **Seal** | Future | **Peak FE** — blood-fiend encouraged (amplifies taking) |
 | **Tithe** | Base quota | **FE-scaled** — hurts |
-| **Exposure** | Low (branch) / contained (main) | **Bounty 1** (branch); inner gorge eyes (main) |
+| **Exposure** | Low (branch) / contained (main) | **Bounty 1** (branch); orthodox world, not gorge coddling |
 | **Housing** | Barracks / bunk | Initiate hall / still rent (branch) |
 | **Pills** | Compete with outers | Same pool — **more mouths**, fiercer politics |
 | **Endgame of rank** | Promote to Initiate | **GC** + Feeder trial — or decades stuck as Initiate |
 
 ---
 
-## Promotion Initiate → Feeder
+## Promotion Initiate → Feeder (at Golden Core)
+
+**Not an FE promotion.** You stay **Initiate** through FE. **Feeder** is a **GC** rank.
 
 | Requirement | Detail |
 |-------------|--------|
-| **Devouring Intent** | **Awakened** (Stirring → play begins) — not menu pick |
-| **Merit** | Top third of initiate cohort **or** story vouch |
-| **Seal** | Complete FE seal (any nature; blood-fiend preferred) |
-| **Trial** (main) | Hunt a **marked prey** — cultivator or beast with qi; return proof |
-| **Trial** (branch) | Same, or **gorge transfer** trial if seeking main posting |
+| **Realm** | **Golden Core** |
+| **Intent** | **Taking** (2nd realm) at GC — normal Feeder bar. **Stirring** at FE = rare; a drill master **might** mark the ledger. **Prodigy** Taking before GC = noted, not nurtured. |
+| **Merit** | Feeder trial — marked prey, relic proof |
+| **Seal** | FE complete (blood-fiend preferred) |
 | **Sponsor** | Elder / envoy signs Feeder scroll |
 
-**Failure mode:** decades as Initiate without awakening — still cult, still tithe, still hunted if disowned. Not everyone gets a maw.
+**Feeder unlocks:** Layer 3 **Feeding Rites**, predator missions, inner-store (main), bounty tier 2.
 
-**Feeder unlocks:** Layer 3 **Feeding Rites**, mission arts with teeth, inner-store access (main), name on bounty tier 2.
+**Cult posture:** sponsor signs scroll if you **survived** and the ledger says asset — not because the gorge raised you. See [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) hands-off lock.
+
+**Failure mode:** peak FE Initiate for decades without GC — or GC without **Taking** and no one bothers to sign the scroll.
 
 ---
 
@@ -437,9 +440,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Induction** | QC → FE | *"You are Initiate. The scripture has a second face."* |
 | **Stained seal** | Seal beat | Foundation **marked** — orthodox NPCs flinch |
 | **First fast completed** | Year 1 FE | Doctrine lands — empty stomach, full intent |
-| **Spark** | Groundwork + catalyst | **Devouring Intent born** (Stirring) — crown art wakes |
-| **Taking tier** (2nd realm, idx 1) | Before GC (exceptional) | **Prodigy** — stepping past cultivation bounds |
-| **Feeder promotion** | Post-awakening | *"The maw has use for your hunger."* |
+| **Spark** | Groundwork + catalyst (FE) | **Stirring** — 1st intent realm |
+| **GC + Feeder** | After tribulation | **Taking** + Feeder scroll — normal path |
 | **Gorge transfer** (branch) | Optional mid-FE | Leave cell posting for main hall — politics |
 
 ---

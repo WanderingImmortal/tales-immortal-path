@@ -100,9 +100,18 @@ Wrong groundwork + strict spark → item **waits**. Open-read relic → player d
 1. Groundwork threshold met → hint line appears.
 2. Spark fires (or shard activates).
 3. Log: *"Something **stirs** in your dantian — not hunger, but **claim**."*
-4. **Devouring Intent** track opens at tier **0 — Stirring** (初噬). **0 uses.** Not Feeder rank yet — that's merit + sponsor.
+4. **Devouring Intent** track opens at tier **0 — Stirring** (初噬). **0 uses.** **Feeder** rank is still far off — GC + **Taking** + merit.
 
-**Rarity:** most FE cultivators never reach step 3. Cult makes it **plausible**; Feeder promotion still wants it.
+**Rarity:** most FE cultivators never reach step 3. Cult makes awakening **plausible**; **Stirring** at FE might get a **ledger mark** — not Feeder rank, not gorge favor.
+
+### How the cult treats talent (owner lock 2026-07-31)
+
+| Myth | Truth |
+|------|-------|
+| *"The gorge is grooming me"* | **Hands off.** Lower elders **might** notice; they have seen every prodigy for centuries. |
+| *"Intent makes me special"* | Makes you **visible** — worth investment **or** consumption. |
+| *"Greenhouse talent"* | **Weak.** Field kills, tithe pressure, lethal spars — flower dies without thorns. |
+| Feeder scroll | Signed when you **survive** to GC with **Taking** — cold merit, not affection. |
 
 ---
 
@@ -190,14 +199,14 @@ Expand: **new taking expression** (see table below).
 
 | Tier idx | Name | At FE | World read |
 |----------|------|-------|------------|
-| **0** | **Stirring** | **Rare** awakened — Feeder wants this | *"They have a maw-shaped will."* |
-| **1** | **Taking** | **Prodigy only** — 2nd realm before GC | *"The gorge is grooming them early."* |
+| **0** | **Stirring** | **Rare** at FE — ledger **might** note | *"Another maw. Let's see if it feeds or starves."* |
+| **1** | **Taking** | **Prodigy** if before GC; **normal** at Feeder promotion | *"Sign the scroll or send them to die useful."* |
 | **2+** | Feast+ | Not FE | — |
 
 - Most FE cultivators **never** awaken (idx 0).
-- **Stirring** at FE = cult takes you seriously; Feeder promotion wants **awakened**, not Taking.
-- **Taking** (idx 1) **before GC** = stepping past cultivation bounds — **that is prodigy**, not the normal FE ceiling.
-- Uses accrue at Stirring toward the **2nd realm** gate; breakthrough to Taking normally waits for **GC**.
+- **Stirring** at FE = rare; junior elder **may** mark merit — **no** protection, no grooming.
+- **Feeder** rank = **GC + Taking** + merit — earned in the field, not greenhouse.
+- **Taking** before GC = prodigy on paper; gorge still waits to see if you **live**.
 
 **Parked:** Intent Realm II (Taking) and III (Feast) below.
 

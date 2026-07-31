@@ -42,7 +42,7 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 | **0** | **Listener** | QC | Heard the doctrine; not trusted |
 | **1** | **Cell Brother/Sister** | QC–FE | Runs errands; Crimson breath pamphlet |
 | **2** | **Initiate** | FE | Blood-fiend seal encouraged; outer techniques |
-| **3** | **Feeder** | **GC** | **Taking** (2nd intent realm) + Layer 3; predator missions |
+| **3** | **Feeder** | **GC** | **Taking** (2nd intent realm) + Layer 3; predator missions — **earned**, not groomed |
 | **4** | **Inner Demon** | Core–NS | Relic rites; expand arts; hunted harder |
 | **5** | **Maw Elder** (NPC) | NS+ | Teaches law fragments; political liability |
 
@@ -50,7 +50,9 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 
 **Player terms:** **Listener** = probation. **Outer disciple** = QC + Layer 1 canon. **Initiate** = FE+.
 
-**Rank vs realm (owner lock 2026-07-31):** **Initiate** = FE sect rank. **Feeder** = **Golden Core** sect rank — above Initiate, not an FE promotion. Awakening **Stirring** (1st intent realm) as an Initiate is **candidacy** for the Feeder track; **Feeder** scroll normally requires **GC + Taking** (2nd intent realm) + merit.
+**Rank vs realm (owner lock 2026-07-31):** **Initiate** = FE sect rank. **Feeder** = **Golden Core** sect rank — above Initiate, not an FE promotion. **Stirring** at FE is rare; **Taking** at GC is the normal Feeder bar.
+
+**Talent & investment — hands off (owner lock 2026-07-31):** the **gorge does not watch you grow**. Lower-rung elders (drill masters, rotation overseers) **might** notice a strong merit line or awakened intent — a ledger tick, a grunt, nothing more. They have seen **centuries** of prodigies; talent alone is a **greenhouse flower**. The cult lets initiates **starve, hunt, and kill each other** in the field; only survivors are worth **investment** — or **consumption** if they fail. Hands off until you prove you are asset, not meal.
 
 **Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Feeder** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates.
 
