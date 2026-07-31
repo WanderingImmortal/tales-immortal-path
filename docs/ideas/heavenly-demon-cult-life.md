@@ -80,7 +80,7 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 | Layer | Canon name (working) | Realm / rank | What’s in the box |
 |-------|----------------------|--------------|-------------------|
 | **1** | **Devouring Scripture** (吞经) | QC · outer disciple / cell | Breathing method + combat syllabus (**parked** — damage rework) |
-| **2** | **Stained Foundation** (染基篇) | FE · Initiate | FE circulation; blood-fiend seal syllabus; intent groundwork |
+| **2** | **Stained Foundation** (染基篇) | FE · Initiate | Circulation + **Refinement of Taking** (unlock); seal syllabus at peak |
 | **3** | **Feeding Rites** (饲魔篇) | Core · Feeder | Devouring Intent techniques; mission arts |
 | **4** | **Inner Maw** (内噬篇) | NS · Inner Demon | Expand arts as techniques; relic rites |
 | **5+** | **Heaven’s Receipt** (天账篇) | Dao Seeking+ | Law fragments + union arts; elder-only beats |
@@ -322,7 +322,7 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 
 | Loop | Feel |
 |------|------|
-| **Rank** | **Initiate** — Layer 2 **Stained Foundation**; blood-fiend seal encouraged |
+| **Rank** | **Initiate** — Layer 2 **Stained Foundation**; **taking unlock** mid-FE; blood-fiend seal at **peak** |
 | **Chamber** | Same FE grind as everyone; cult adds **fasting meditations** (flavor months) |
 | **Awaken intent** | Groundwork + spark — Maw-Womb Shard, envoy trance, witness feed ([`devouring-intent.md`](devouring-intent.md)) |
 | **Techniques** | Blood Refining Art exists today; new form arts **parked** (damage rework) |

@@ -6,7 +6,7 @@
 | **Blocked on** | FE chamber redesign; intent awakening plumbing; damage system rework (combat arts) |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 · PR #95 |
-| **Updated** | 2026-07-31 (initiate jobs, blood-fiend taking, evil pace) |
+| **Updated** | 2026-07-31 (Layer 2 taking unlock, victim yield formula) |
 
 ## Intent
 
@@ -71,9 +71,10 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 | Slot | Content (working) | Role |
 |------|-------------------|------|
 | **Circulation** | **Stained Circulation** (ch.1) — upgrade from Outer Devouring Breath | FE gather/refine/stabilize fantasy; apex cult quality, **no stability malus** |
-| **Seal syllabus** | Blood-fiend seal **encouraged**; plain seal allowed | Cult **prefers** the stain — identity, not defect ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)) |
+| **Seal syllabus** | Blood-fiend seal **encouraged** at **peak**; plain seal allowed | Cult **prefers** the stain at seal time — **identity**, not the unlock for taking ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)) |
+| **Taking doctrine** | **Refinement of Taking** (ch.2) + associated arts | **Unlocks conversion** — how to draw power from the fallen |
 | **Groundwork** | Fasting meditations + taking ledger | Builds toward Devouring Intent spark ([`devouring-intent.md`](devouring-intent.md)) |
-| **Combat** | **Parked** — Blood Refining Art exists in data today; new Layer 2 arts wait on damage rework | Lifestyle loops use **sanctioned hunts**, not new palm arts |
+| **Combat** | **Parked** — Blood Refining Art exists in data today; new Layer 2 arts wait on damage rework | **Blood Refining** is the v1 practical art for conversion practice |
 
 ### Stained Circulation — effects (design)
 
@@ -82,8 +83,8 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 | **Gather** | Strong FE method — competes with orthodox heir breaths |
 | **Stability** | **No manual penalty** — same lock as Layer 1 |
 | **Lean** | Channels **taking momentum** into foundation pillars cleanly |
-| **Seal stamp** | If still primary at Seal → **`blood_fiend`** is **expected**; plain seal = elder sigh, −merit, not hard-blocked |
-| **Residual Taking** (signature) | Modest cultivate bonus after recent **sanctioned taking** (hunt win, spar win, cell task with teeth) — **scales at higher layers**; v1 = flavor + small number |
+| **Taking unlock** | **Not at seal** — see Layer 2 comprehension below |
+| **Seal stamp** | At **peak FE** — if still primary → **`blood_fiend`** expected; **amplifies** conversion, does not gate it |
 
 **Not in Layer 2:** Devouring Intent techniques (Feeder / Layer 3), law fragments, meridian canon.
 
@@ -92,9 +93,10 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 ```
 封面  Cover — stained seal sigil (blood thread through foundation glyph)
 第一章  Ch.1 — Stained Circulation
-第二章  Ch.2 — The Hungry Seal (blood-fiend syllabus)
-第三章  Ch.3 — Fasting Meditations
-第四章  Ch.4 — [reserved — combat arts parked]
+第二章  Ch.2 — Refinement of Taking (吞化篇) — conversion doctrine
+第三章  Ch.3 — Blood Refining Art — practical taking (more arts when shipped)
+第四章  Ch.4 — Fasting Meditations
+附录  Appendix — The Hungry Seal (blood-fiend syllabus; read before peak seal)
 封底  Back — Five Takings (initiate addendum)
 ```
 
@@ -154,49 +156,126 @@ Initiate work sits **between outer errands and Feeder predator missions**: you a
 
 ---
 
-## Blood-fiend seal — what it does
+## Taking unlock — Layer 2 comprehension (owner lock 2026-07-31)
 
-The seal is **not** a leaky foundation. It is a **license to convert violence into cultivation** — the mechanical key to "taking to grow" at FE.
+**Taking is not gated on the peak seal.** Outer disciples kill on hunts but cannot **refine** what they take into cultivation. That changes when you **comprehend Layer 2** — the doctrine and arts that teach conversion.
 
-**Design split (owner lock):** foundation **nature** does **not** replace method **grade** for base cultivate speed ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)). Blood-fiend owns the **taking → growth** bridge; evil play compresses calendar time by stacking that bridge, not by breaking the speed axis.
+### Unlock gate
+
+| Requirement | Why |
+|-------------|-----|
+| **Stained Circulation** comprehended (ch.1) | FE breath — you can hold what you steal |
+| **Refinement of Taking** comprehended (ch.2) | Theory — *how* borrowed qi becomes yours |
+| **One taking art** practiced | **Blood Refining Art** today; more when damage rework ships |
+
+**When:** early–mid FE — soon after Initiate promotion, **long before** peak seal / blood-fiend stamp.
+
+**Player beat:** first successful **Refine Taking** after a sanctioned kill — log line: *"The scripture lied about mercy. The qi did not fight you."*
+
+### What unlocks
+
+| Before Layer 2 | After Layer 2 comprehension |
+|----------------|----------------------------|
+| Hunt proof, loot, merit | Above + **cultivate credit** from fallen **cultivators** |
+| Outer kills bank intent groundwork only | **Person-consumption** formula online (see below) |
+| Beasts → mats + tiny flat buff | Beasts still **mats-first**; people are the growth lane |
+
+**Peak seal (later):** blood-fiend stamp **amplifies** conversion efficiency and social cost — it does **not** turn taking on for the first time.
+
+---
+
+## Consumption yield — victim realm & foundation (owner lock 2026-07-31)
+
+Growth from a **person** (cultivator with a dantian) scales off **what they had**, not who they were. Two prey in the **same power bracket** yield **roughly the same** — fair, predictable, encourages hunting **appropriate** targets rather than random murder lotto.
+
+### Inputs (victim)
+
+| Factor | Role |
+|--------|------|
+| **Realm** | Primary band — QC vs FE vs Core sets the base yield table |
+| **Subrealm** | Early vs peak within realm — peak victim = more qi in the tank |
+| **Foundation quality** | Crude → Peerless multiplier on top of band |
+| **Foundation nature** | Minor flavor — blood-fiend victim may convert slightly cleaner to blood path; not a lottery |
+
+### Draft formula
+
+```
+personYield = BASE_YIELD[realmIdx][subrealmBand] × QUALITY_MULT[foundationQuality]
+```
+
+| Example bracket | Rough relative yield |
+|-----------------|----------------------|
+| QC early | Low — barely worth an initiate's time |
+| QC peak | Moderate — sanctioned hunt target |
+| FE early | Good — rival initiate / rogue tier |
+| FE peak | High — Feeder-trial prey |
+| Core+ | **Off-limits** for initiate band — yield exists but cell won't sanction; corruption risk |
+
+**Same bracket rule:** two QC-peak cultivators with the same foundation grade give **~same** cultivate credit (± small variance). A peerless QC peak ≈ a crude early-FE — overlap at the watershed is intentional.
+
+### What does *not* use this table
+
+| Target | Yield |
+|--------|-------|
+| **Mortals** (no dantian) | **Negligible** cultivate credit — not an evil-speed lane by itself; corruption still applies if massacred |
+| **Beasts** | Materials + small flat **Residual Taking** tick — not person-formula |
+| **Spar win** (rival lives) | Merit + small siphon credit, not full consumption |
+
+### Spending yield
+
+| Action | Effect |
+|--------|--------|
+| **Residual Taking** | Passive buff — +gather/refine for 1–3 months; magnitude scales with **last person-yield** consumed |
+| **Refine Taking** (chamber) | Burn stored credit for one-shot density / pillar tick |
+| **Blood Refining Art** (combat) | In-fight sustain; post-fight, **portion** of heal adds to stored credit if Layer 2 unlocked |
+
+**Blood-fiend seal (peak):** **+25%** conversion on all person-yield (draft). Plain seal at peak can still take if Layer 2 learned — slower, cult-sidelined.
+
+---
+
+## Blood-fiend seal — peak identity (not the taking unlock)
+
+The seal at **peak FE** is **not** when you learn to take. It is when the foundation **commits** to the stained path — killing aura, cult respect, conversion **amplification**.
+
+**Design split:** foundation **nature** does **not** replace method **grade** for base cultivate speed ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)). Layer 2 opens taking; blood-fiend **tunes** it; evil play stacks consumption volume, not a hidden speed stat.
 
 ### Signature effects (v1 target)
 
-| Effect | Plain seal | **Blood-fiend seal** |
-|--------|------------|----------------------|
+| Effect | Plain seal (peak) | **Blood-fiend seal** (peak) |
+|--------|-------------------|------------------------------|
+| **Taking loop** | Online if Layer 2 learned | Online — **+25%** person-yield conversion |
 | **Combat** | — | +4% dmg, intimidation (coded today) |
 | **Social** | — | Killing aura — healers, orthodox, observe text |
-| **Residual Taking** | Weak or none | **Core loop** — see below |
-| **Blood techniques** | Works | **Synergy** — Blood Refining Art converts portion of heal to cultivate credit |
-| **Intent groundwork** | Standard | **Strong** tick from sanctioned kills |
+| **Blood techniques** | Works | **Synergy** — Blood Refining Art → higher % to stored credit |
+| **Intent groundwork** | Standard | **Strong** tick from person-consumption |
 | **Cult standing** | Doubted | Expected — full fasting credit, Feeder sponsor path |
 
-### Residual Taking (blood-fiend unlock)
+### Residual Taking (post–Layer 2)
 
-After a **sanctioned taking** (logged hunt, spar win, marked task with blood), blood-fiend initiates gain a **cultivate momentum buff**:
+After **person-consumption** or sanctioned spar siphon (Layer 2 required):
 
 | Parameter | Draft |
 |-----------|-------|
-| **Trigger** | Sanctioned kill, spar win, or envoy-marked task completed with combat |
-| **Duration** | **1–3 months** game time (stacks refresh, cap 1 stack) |
-| **Effect** | +**8–15%** effective gather/refine on chamber cultivate (not flat realm skip) |
-| **Blood-fiend bonus** | +**50%** duration or magnitude vs plain seal on same kill |
-| **Decay** | Fades if you only meditate without taking — cult doctrine: *use it or the stain starves* |
+| **Trigger** | Refine person-yield, spar win, or beast hunt (flat smaller tick) |
+| **Duration** | **1–3 months** — scales with yield magnitude |
+| **Effect** | +**8–15%** effective gather/refine (baseline); higher if last victim was strong bracket |
+| **Blood-fiend bonus** | +**25%** magnitude on same yield (stacks with conversion amp) |
+| **Decay** | Fades if you only meditate without taking — *use it or the stain starves* |
 
-**Refine Taking** (optional chamber action, Initiate+): spend active Residual Taking stack for a **one-shot density tick** — bigger punch, burns the buff. Evil-fast players spam this; disciplined players hoard for seal pushes.
+**Refine Taking** (chamber): spend stored person-yield for a **one-shot density tick** — evil-fast players hunt appropriate brackets; disciplined players hoard for seal push.
 
 ### When can you "properly" take to grow?
 
-| Taking type | Counts for growth? | Speed | Cost |
-|-------------|-------------------|-------|------|
-| **Sanctioned hunt / cell task** | Yes — Residual Taking + merit | Modest boost | Time + tithe |
-| **Sanctioned spar win** | Yes — smaller Taking credit | Small boost | Rival politics |
-| **Gray prey** (bandit, lone traveler, unmarked outer) | **Partial** — Taking works, **no merit**; may need hide body | **Faster** | Bounty heat, rebellious rep |
-| **Massacre / village bleed** | **Yes — strongest conversion** | **Fastest** | **Corruption**, sacrilege risk, cell may disown if exposed ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) |
+| Taking type | Needs Layer 2? | Growth | Speed | Cost |
+|-------------|----------------|--------|-------|------|
+| **Sanctioned hunt** (cultivator prey) | Yes | Full person-yield + merit | Modest | Time + tithe |
+| **Sanctioned spar win** | Yes | Small siphon credit | Small | Rival politics |
+| **Gray prey** (unmarked cultivator) | Yes | Full yield, **no merit** | Faster | Bounty heat |
+| **Massacre / mortals** | Yes | **Tiny** per head — not efficient | Only "fast" if corruption ignored | Corruption, disown risk |
 
-**Lock:** at FE Initiate you **can** take from others to grow — but the **sect wants it on the ledger**. Off-book predation is the evil speed lane; on-book hunting is the respectable cult path. Both feed blood-fiend faster than plain seal; massacre feeds fastest and burns the world.
+**Lock:** sect wants cultivator prey **on the ledger**. Off-book hunting of **appropriate brackets** is the evil speed lane — not mowing mortals (bad math + stain).
 
-**Before seal:** outer kills on sanctioned hunts **bank** groundwork but Residual Taking is **muted** until blood-fiend is stamped.
+**QC outer:** kills bank intent groundwork only — **no** person-yield until Layer 2.
 
 ---
 
@@ -213,9 +292,9 @@ Inferior anchor remains **peak FE ~80–90** on the **disciplined** path ([`wate
 
 **Not a skip button:** evil pace saves **years**, not **realms**. You still chamber, seal, and tribulation — you just arrive with more stain and less runway before lifespan cap bites.
 
-**Blood-fiend without evil:** possible — disciplined + stain seal still gets modest Residual Taking from legal hunts; plain seal player is slower and cult-sidelined but not hard-blocked.
+**Blood-fiend without evil:** possible — Layer 2 + legal hunts on appropriate prey; peak stain seal adds efficiency. Plain seal player converts slower and cult-sidelined.
 
----
+**Evil pace note:** speed comes from **volume of appropriate prey** (more hunts, gray targets), not from mortals — mowing villagers is stain without proportional yield.
 
 ## Fasting meditations
 
@@ -238,8 +317,9 @@ Initiates **do not** have Devouring Intent yet. They **prepare** the maw.
 
 | Source | Counts toward awakening? |
 |--------|-------------------------|
-| **Stained Circulation** mastered or primary | Yes |
-| **`blood_fiend` seal** | Yes (strong) |
+| **Stained Circulation** + **Refinement of Taking** comprehended | Yes (unlock) |
+| **Person-consumption** (Layer 2+) | Yes — scales with victim bracket |
+| **`blood_fiend` seal** (peak) | Yes (strong) — amplifier, not gate |
 | **Sanctioned hunt kills** (logged) | Yes — outer kills carry over |
 | **Unsanctioned murder** | **No** — corruption + cell hunt risk |
 | **Fasting meditation completed** | Yes |
@@ -306,8 +386,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 |-----------|------------|---------------|
 | **Canon** | Layer 1 Devouring Scripture | Layer 2 Stained Foundation |
 | **Identity** | Expendable chaff | **Shaped asset** — still disposable |
-| **Intent** | Forbidden | Groundwork + spark hunting |
-| **Seal** | Future | **Now** — blood-fiend encouraged |
+| **Intent** | Forbidden | Groundwork; **taking after Layer 2** |
+| **Seal** | Future | **Peak FE** — blood-fiend encouraged (amplifies taking) |
 | **Tithe** | Base quota | **FE-scaled** — hurts |
 | **Exposure** | Low (branch) / contained (main) | **Bounty 1** (branch); inner gorge eyes (main) |
 | **Housing** | Barracks / bunk | Initiate hall / still rent (branch) |
