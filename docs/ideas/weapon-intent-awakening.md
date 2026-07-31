@@ -44,7 +44,7 @@ Swinging a sword many times alone is **not** enough. Meditating *with* the sword
 
 ### FE intent band (owner lock 2026-07-31 — cross-ref [`devouring-intent.md`](devouring-intent.md))
 
-**Full intent ceiling TBD.** For FE slice: treat **awakening (tier 0 — Stirring)** as **rare**; **Taking** (tier 1) during FE as **prodigy**. Higher tiers parked until Core+ design pass. Weapon tracks keep Sprout / Minor Success labels until rename pass; devouring uses **Stirring / Taking**.
+**Full intent ceiling TBD.** **1st realm** (Stirring, idx 0) at FE = rare. **2nd realm** (Taking, idx 1) normally **GC** — prodigy if at FE. Tier idx + 1 = human "Nth realm". Weapon tracks keep Sprout / Minor Success until rename pass.
 
 ---
 

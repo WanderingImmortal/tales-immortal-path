@@ -276,6 +276,8 @@ Weapon intent tracks may mirror realm bands with different tier names; devouring
 
 ---
 
+### Expand arts (draft — the fun part)
+
 Pick **Deepen** or **Expand** at each breakpoint (same fork as weapon intent).
 
 | # | Id | Name | Tier | FE? | Effect (fiction-first) |
