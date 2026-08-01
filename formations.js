@@ -737,7 +737,7 @@ function actionResidenceCultivate() {
         return;
     }
     beginActionLog();
-    const months = ACTION_MONTHS.cultivate;
+    const months = typeof getFocusedCultivateMonths === 'function' ? getFocusedCultivateMonths() : ACTION_MONTHS.cultivate;
     if (!advanceTime(months, 'Cultivating at your quarters')) {
         cancelActionLog();
         fullRender();
@@ -748,7 +748,14 @@ function actionResidenceCultivate() {
     const bonusParts = [];
     if (formFx.cultivatePct > 0) bonusParts.push(`formations +${formFx.cultivatePct}%`);
     let cultMsg = '';
-    if (typeof runCultivateSession === 'function') {
+    if (typeof runFocusedCultivateSession === 'function') {
+        cultMsg = runFocusedCultivateSession({
+            extraMult: formMult,
+            extraFoundation: formFx.foundationPerCultivate || 0,
+            bonusNoteParts: bonusParts,
+            logPrefix: '🏠 At your quarters'
+        });
+    } else if (typeof runCultivateSession === 'function') {
         cultMsg = runCultivateSession({
             extraMult: formMult,
             extraFoundation: formFx.foundationPerCultivate || 0,

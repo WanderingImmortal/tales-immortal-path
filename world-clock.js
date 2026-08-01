@@ -113,7 +113,6 @@ function getWorldClockActivityLabel() {
     const p = G.worldClock.project;
     if (p?.label) return p.label;
     const s = G.worldClock.stance;
-    if (s === 'cultivate') return 'Gathering qi';
     if (s === 'explore') return 'Exploring';
     return '';
 }
@@ -124,8 +123,7 @@ function clearWorldClockStance(silent) {
     const was = G.worldClock.stance;
     G.worldClock.stance = null;
     if (!silent && typeof addLog === 'function') {
-        if (was === 'cultivate') addLog('🧘 You stop gathering qi.');
-        else if (was === 'explore') addLog('🌿 You stop exploring.');
+        if (was === 'explore') addLog('🌿 You stop exploring.');
     }
 }
 
@@ -144,8 +142,7 @@ function setWorldClockStance(stanceId) {
     }
     G.worldClock.stance = stanceId;
     if (typeof addLog === 'function') {
-        if (stanceId === 'cultivate') addLog('🧘 You settle into gathering qi — yield drips each week while the calendar runs.');
-        else if (stanceId === 'explore') addLog('🌿 You begin foraging the wilds — finds drip each week while the calendar runs.');
+        if (stanceId === 'explore') addLog('🌿 You begin foraging the wilds — finds drip each week while the calendar runs.');
     }
     renderWorldClockBar();
     if (typeof saveState === 'function') saveState();
@@ -197,6 +194,8 @@ function completeWorldClockProject() {
         finishWorldClockTravel(p.payload || {});
     } else if (p.id === 'threshold_job' && typeof finishThresholdJobProject === 'function') {
         finishThresholdJobProject(p.payload?.jobId);
+    } else if (p.id === 'focused_cultivate' && typeof finishFocusedCultivateProject === 'function') {
+        finishFocusedCultivateProject();
     }
     renderWorldClockBar();
     if (typeof fullRender === 'function') fullRender();
@@ -212,21 +211,9 @@ function tickWorldClockProjectAfterAdvance() {
 }
 
 function tickWorldClockStanceWeek() {
+    if (typeof tickPassiveCultivationWeek === 'function') tickPassiveCultivationWeek();
     const stance = getWorldClockStance();
-    if (!stance) return;
-    if (stance === 'cultivate' && typeof runCultivateSession === 'function') {
-        const weeksInOld = Math.max(1, Math.round((ACTION_MONTHS?.cultivate || 6) / WORLD_CLOCK_WEEK_MONTHS));
-        const msg = runCultivateSession({
-            yieldScale: 1 / weeksInOld,
-            logPrefix: '🧘 Gathering qi',
-            quiet: true
-        });
-        if (msg && typeof addLog === 'function' && Math.random() < 0.22) addLog(msg);
-        if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()
-            && typeof applyQcGatherBandProgress === 'function' && typeof getQcStanceGatherUnits === 'function') {
-            applyQcGatherBandProgress(getQcStanceGatherUnits());
-        }
-    } else if (stance === 'explore' && typeof runExploreStanceWeek === 'function') {
+    if (stance === 'explore' && typeof runExploreStanceWeek === 'function') {
         runExploreStanceWeek();
     }
 }
@@ -345,7 +332,6 @@ function renderWorldClockBar() {
     bar.classList.toggle('world-clock-busy', !!getWorldClockProject());
 
     const stance = getWorldClockStance();
-    document.getElementById('btnCultivate')?.classList.toggle('action-stance-on', stance === 'cultivate');
     document.getElementById('btnExplore')?.classList.toggle('action-stance-on', stance === 'explore');
 }
 

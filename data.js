@@ -3528,8 +3528,8 @@ const TUTORIAL_STEPS = {
         title: 'Refining Qi',
         emoji: '🧘',
         highlight: '#btnCultivate',
-        text: 'Cultivation refines your Qi Density — the purity and potency of your energy. Each session strengthens your foundation.',
-        learnMore: 'Each cultivation session costs 6 months. You gain Qi Density, refill your dantian, and slowly improve secondary stats. Higher density means stronger techniques and breakthroughs.'
+        text: 'Qi circulates each night while you live your life — bare breath without a manual is slow. Buy a cultivation method, set formations, and take focused sessions in the Qi Chamber when you can spare the time.',
+        learnMore: 'Passive circulation ticks each calendar week. Focused cultivation (chamber gather, quarters, or a dedicated month) pays out much more. Manuals, arrays, and pills buy back years against your root\'s floor pace.'
     },
     first_breakthrough: {
         id: 'first_breakthrough',
@@ -6382,8 +6382,8 @@ const CULTIVATION_ACTION_GUIDE = {
     cultivate: {
         label: 'Cultivate',
         emoji: '🧘',
-        flavor: 'Choose where to refine yourself today.',
-        desc: 'Open the cultivation hub — Qi, Body, or Soul chambers. Any path can be trained regardless of your primary path.'
+        flavor: 'Live as a cultivator — nights circulate qi; close the door when you mean business.',
+        desc: 'Open the cultivation hub for Qi, Body, or Soul chambers. Qi circulates passively each week (bare breath without a manual). Focused sessions in the chamber or at quarters earn much more.'
     },
     sealDantian: {
         label: 'Seal Dantian',

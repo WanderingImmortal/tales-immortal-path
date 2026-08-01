@@ -553,6 +553,7 @@ function setupCreation(refreshOnly) {
                 grade: creationState.selectedGrade,
                 deviant: creationState.selectedDeviant || null
             });
+            G.bareQiCirculation = true;
             if (typeof ensureCultivationMethodState === 'function') {
                 G.cultivationMethod = null;
                 ensureCultivationMethodState();

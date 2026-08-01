@@ -187,7 +187,11 @@ function initMainPanelActionHelp() {
     bindChamberActionHelp('helpCultivate', {
         title: `${g('cultivate')?.emoji || ''} ${g('cultivate')?.label || 'Cultivate'}`.trim(),
         desc: g('cultivate')?.desc,
-        stats: ['Opens Qi, Body, or Soul cultivation chambers', 'Any path can be trained']
+        stats: [
+            'Passive qi circulation each calendar week (bare breath without a manual)',
+            'Focused sessions in Qi Chamber / quarters pay much more',
+            'Manuals, formations, and dwelling quality buy back calendar time'
+        ]
     });
     bindChamberActionHelp('helpConsolidate', {
         title: `${g('sealDantian')?.emoji || ''} ${g('sealDantian')?.label || 'Seal Dantian'}`.trim(),

@@ -1212,17 +1212,16 @@ function applyQcChamberVerbVisibility() {
     const hint = document.getElementById('chamberStatsHint');
     if (hint) {
         hint.textContent = hide
-            ? 'Gather fills your Qi Store bar · Capacity rises on band mini-breakthroughs · Break Through from Late+'
+            ? 'Night circulation fills your store slowly — gather in the chamber for focused progress.'
             : 'Density = refinement · Capacity = max Qi · Foundation = cultivation base quality (Crude → Peerless)';
     }
 
     renderChamberQcBandMeter();
 }
 
-/** Slow stance cultivate drip — pills and chamber gather stay faster. */
+/** @deprecated — use getPassiveGatherUnits from passive-cultivation.js */
 function getQcStanceGatherUnits() {
-    const base = typeof getQcGatherProgressUnits === 'function' ? getQcGatherProgressUnits() : 1;
-    return Math.max(0.15, base * 0.22);
+    return typeof getPassiveGatherUnits === 'function' ? getPassiveGatherUnits() : 0.15;
 }
 
 /** Store-fill pills (Driftburst / Sunscar Burst / Marrowfall). */
@@ -1350,6 +1349,9 @@ function getQcBandMeterSummary() {
     const pct = getQcBandProgressPct();
     const label = getQcBandLabel();
     let hint = 'Gather Qi to deepen your store.';
+    if (!hasFormalCultivationMethod?.()) {
+        hint = 'Bare breath circulates each night — slow. Buy a manual at Redwell, then gather here for focused progress.';
+    }
     if (stage === 'late') hint = 'Break Through when ready — or keep gathering toward Peak.';
     if (stage === 'peak') hint = 'Peak store — Break Through for a harder tribulation, more power from this realm.';
     if (stage === 'mid') hint = 'Mid store holding — gather toward Late to unlock Break Through.';
