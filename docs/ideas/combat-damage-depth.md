@@ -265,31 +265,52 @@ Both are edge weapons. In xianxia they often split on **weight and temperament**
 
 ---
 
-### Staff intent — draft direction (owner unsure; park options)
+### Staff intent — rethink (owner open to rewrite, 2026-08-01)
 
-Staff is the awkward one. Existing expand arts already point somewhere: **Circulating Guard**, **Ward Pulse**, **Sanctuary Domain** — defend, resource, ward. Less “how hard you hit,” more **how you hold the space**.
+Staff is the awkward one. Existing expand arts (Circulating Guard, Ward Pulse, Sanctuary Domain) are **all defensive** — but staff techniques in the pool include **Celestial Judgment** (lightning blast), **Root-Vein Surge** (vein draw), **Staff Shatter** (body smash). Pure “tank intent” doesn’t match that spread.
 
-**Working pitch (soft default until playtest):**
+#### Does pure defensive suit xianxia?
 
-| | **Staff intent** |
-|---|------------------|
-| **Fantasy** | **Reach and ward** — your will extends into the circle around you; force is **redirected**, qi **circulates**, the fight bends to your rhythm |
-| **Not primarily** | Kill shape (that’s sword/blade/spear/fist) |
-| **Home expression** | Deflect, channel, meridian **flow** disruption — control the exchange |
-| **Cross-wield on attacks** | Arts don’t always look like staff bashes; they pick up **circulation** — palm pushes qi through their guard, sword strikes carry a deflecting line, spear thrust meets a turning ward |
-| **Cross-wield on defense** | Native home — staff intent + any defend = strongest expression |
+**Partly.** Monk staff, ward-circulation, turning force aside — all real. But in fiction staff cultivators also **sweep legions**, **command lightning**, **claim ground**. A staff intent that only says “I defend better” feels more like an MMO tank talent than a cultivation path. Fine as a *facet*, weak as the **whole identity**.
 
-**Candidate framings (pick one later):**
+#### Recommended reframe: **Circle intent** (working name: Staff)
 
-1. **Ward / circulation** (matches current arts) — Staff shapes *the fight*, not the wound. Stress leans inner (meridians) over outer (limbs).
-2. **Reach / separation** — Staff keeps distance and geometry; expression adds “you never let them close” tags (slow, root, zone control).
-3. **Scholar channel** — Staff is the qi-path intent; expression turns physical arts into **channelled** strikes (lightning staff, root-vein surge flavor).
+Staff intent = **you define the circle you fight in.**
 
-**Recommendation for planning:** default to **(1) ward / circulation** because the game already shipped staff expand picks in that direction. Revisit when someone playtests a staff-main character and hates it.
+| Facet | Fantasy | In combat |
+|-------|---------|-----------|
+| **Reach** | The staff is longer than their reach — you strike from *your* distance | Sweeps, channels, punishing entry |
+| **Hold** | What enters your circle is yours to judge | Ward, deflect, circulating guard *(keep or rewrite expand arts)* |
+| **Conduct** | The staff is a **conduit** — heaven, veins, earth answer the call | Celestial Judgment, Root-Vein flavor; cross-wield = arts feel *channelled* not raw |
 
-**Open:** Is Staff intent boring if it’s defensive? Mitigation: high Staff expression on *attack* arts still changes logs and stress (flow disruption), and Sanctuary Domain makes “I defended, now I punish” a real loop.
+**Cross-wield examples:**
+- Staff intent + palm → not a bash — qi **pushed through** them, meridian stumble
+- Staff intent + sword art → deflecting line, strike that **turns** their guard
+- Staff intent + fist → shockwave at **range**, ring of force (cousin to fist but spatial)
 
----
+**Offensive home:** sweep, channel, ring — not cut (sword), not cleave (blade), not thrust (spear), not crush (fist).
+
+**Defensive home:** strongest here — but it’s one leg of the stool, not the whole chair.
+
+#### Alternative if Circle feels too vague: **Conduct intent**
+
+Staff = the **conduit** intent. Lightning, vein qi, array-flavored strikes. Cross-wield makes physical arts look “conducted” through a medium. Weaker on “sweep the courtyard” monk fantasy; stronger on scholar / heavenly-strike fantasy. Pairs well with Celestial Judgment already gating on Staff intent.
+
+#### What we’d rewrite (if Circle wins)
+
+| Today | Possible change |
+|-------|-----------------|
+| Staff expand arts all defensive | Reframe as **Hold** leg of Circle — keep Sanctuary loop or replace one pick with a **Reach** or **Conduct** art |
+| `INTENT_DOMAIN_MANIFESTATIONS.Staff` | “An arcane ward circulates” → something like *“Your circle answers to you — reach, hold, conduct.”* |
+| Staff vs Spear | Spear = **line through** one point; Staff = **ring / volume** around you |
+
+**Owner call still open.** Lean **Circle** over pure defensive; **Conduct** if staff-main should feel like vein/lightning scholar first.
+
+#### Parked options (if Circle + Conduct both feel wrong)
+
+1. **Ward / circulation only** — simple, matches current arts; risk: passive staff mains  
+2. **Reach / separation** — distance control only  
+3. **Scholar channel** — subset of Conduct; lightning + vein focus
 
 ### Worked examples (fiction → mechanics)
 
@@ -431,7 +452,7 @@ Defaults locked for parking; revisit when building:
 - **Soul + intent:** flavor-only vs light stress bias — owner call
 - Sword palm / spear fist examples: locked as signature beats; add more via table rows not bespoke code
 - **Sword vs Blade:** temperament locked (soft/adapt vs heavy/bleed); tune numbers so they don’t play identically
-- **Staff intent:** owner leaning ward/circulation — confirm with staff-main playtest or swap to reach/scholar option
+- **Staff intent:** lean **Circle** (reach + hold + conduct) over pure defensive; existing ward expand arts may be rewritten; **Conduct** alt if scholar/lightning is the spine
 
 ## Implementation crumbs
 
