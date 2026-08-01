@@ -964,6 +964,7 @@ function advanceTime(months, activity) {
     }
     if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
     if (typeof tickDwellingRent === 'function') tickDwellingRent();
+    if (typeof tickPassiveCultivationForMonths === 'function') tickPassiveCultivationForMonths(months);
     if (deferLogs) G._deferringLogs = false;
     const remaining = getYearsRemaining();
     const remainStr = isImmortal() ? 'immortal' : `${remaining}y left`;

@@ -122,6 +122,9 @@ function runCultivateSession(options) {
         }
     }
     let cultMsg = `${opts.logPrefix || '🧘 You refine your Qi'}. +${densGain.toFixed(2)} Density, dantian +${fillGain}/${getMaxQi()}, +${statGain} secondary stats.`;
+    if (opts.silent || opts.quiet) {
+        return cultMsg;
+    }
     const cultParts = [...(opts.bonusNoteParts || [])];
     if (sectMult > 1) cultParts.push(`Hall +${Math.round((getSectBuildingBonus('cultivationSpeedPct') || 0))}%`);
     if (factionMult > 1) cultParts.push(`faction +${Math.round((factionMult - 1) * 100)}%`);
@@ -147,14 +150,11 @@ function runCultivateSession(options) {
 }
 
 function actionCultivate() {
-    if (actionBlocked()) return;
-    // Living calendar: Cultivate toggles a weekly gather-qi stance
-    if (typeof setWorldClockStance === 'function') {
-        setWorldClockStance('cultivate');
-        if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
-        fullRender();
+    if (typeof actionFocusedCultivate === 'function') {
+        actionFocusedCultivate();
         return;
     }
+    if (actionBlocked()) return;
     beginActionLog();
     if (!advanceTime(ACTION_MONTHS.cultivate, "Secluded meditation")) { cancelActionLog(); fullRender(); return; }
     commitActionLog(runCultivateSession());

@@ -51,23 +51,42 @@ function ensureMethodShelf() {
     if (!G.methodShelf || typeof G.methodShelf !== 'object') G.methodShelf = {};
 }
 
+function buildBareCultivationMethodState() {
+    return {
+        primaryId: null,
+        primaryLocked: false,
+        lineageId: null,
+        grade: 'crude',
+        studiedScrolls: [],
+        essenceMilestones: {},
+        essenceStock: {},
+        foundationLineage: null,
+        bareCirculation: true
+    };
+}
+
 function ensureCultivationMethodState() {
     if (!G.cultivationMethod || typeof G.cultivationMethod !== 'object') {
-        G.cultivationMethod = buildCultivationMethodStateFromDef(
-            getCultivationMethodDef(getDefaultCultivationMethodId())
-        );
+        G.cultivationMethod = G.bareQiCirculation
+            ? buildBareCultivationMethodState()
+            : buildCultivationMethodStateFromDef(
+                getCultivationMethodDef(getDefaultCultivationMethodId())
+            );
     } else {
         const state = G.cultivationMethod;
-        if (!state.primaryId) state.primaryId = getDefaultCultivationMethodId();
-        const def = getCultivationMethodDef(state.primaryId);
-        if (!def) {
+        if (!state.primaryId && !state.bareCirculation && !G.bareQiCirculation) {
+            state.primaryId = getDefaultCultivationMethodId();
+        }
+        const def = state.primaryId ? getCultivationMethodDef(state.primaryId) : null;
+        if (state.primaryId && !def) {
             const fallback = buildCultivationMethodStateFromDef(
                 getCultivationMethodDef(getDefaultCultivationMethodId())
             );
             state.primaryId = fallback.primaryId;
             state.lineageId = fallback.lineageId;
+            state.bareCirculation = false;
             if (!state.grade) state.grade = fallback.grade;
-        } else {
+        } else if (def) {
             if (!state.lineageId) state.lineageId = def.lineageId || null;
             if (!state.grade) state.grade = def.methodGrade || 'crude';
         }
@@ -96,7 +115,8 @@ function getActiveCultivationMethodId() {
 }
 
 function getActiveCultivationMethod() {
-    return getCultivationMethodDef(getActiveCultivationMethodId());
+    const id = getActiveCultivationMethodId();
+    return id ? getCultivationMethodDef(id) : null;
 }
 
 function getActiveMethodGradeId() {
@@ -152,6 +172,7 @@ function getCultivationMethodPathLabel() {
     ensureCultivationMethodState();
     const method = getActiveCultivationMethod();
     const gradeDef = getMethodGradeDef(getActiveMethodGradeId());
+    if (!method) return 'Bare qi circulation';
     const name = method?.name || 'Unknown Method';
     const grade = gradeDef?.name || getActiveMethodGradeId();
     let label = `${name} · ${grade}`;
@@ -457,6 +478,8 @@ function setCultivationMethodPrimary(methodId, options) {
     if (!def) return false;
     G.cultivationMethod.primaryId = def.id;
     G.cultivationMethod.lineageId = def.lineageId || null;
+    G.cultivationMethod.bareCirculation = false;
+    G.bareQiCirculation = false;
     if (opts.grade) G.cultivationMethod.grade = opts.grade;
     else if (!G.cultivationMethod.grade || opts.resetGrade) {
         G.cultivationMethod.grade = def.methodGrade || 'crude';

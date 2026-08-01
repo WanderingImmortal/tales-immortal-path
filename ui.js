@@ -197,9 +197,15 @@ function renderStatus() {
     }
     if (typeof renderQcBandChip === 'function') renderQcBandChip();
     const dwellingChip = document.getElementById('dwellingStatusChip');
-    if (dwellingChip && typeof getDwellingStatusLine === 'function') {
-        dwellingChip.textContent = getDwellingStatusLine();
-        dwellingChip.style.display = '';
+    if (dwellingChip) {
+        const parts = [];
+        if (typeof getDwellingStatusLine === 'function') parts.push(getDwellingStatusLine());
+        if (typeof getPassiveCirculationStatusLine === 'function') {
+            const passive = getPassiveCirculationStatusLine();
+            if (passive) parts.push(passive);
+        }
+        dwellingChip.textContent = parts.join(' · ');
+        dwellingChip.style.display = parts.length ? '' : 'none';
     }
     if (typeof STAT_GUIDE !== 'undefined') {
         const chipTips = {

@@ -397,7 +397,10 @@ function chamberGatherQi() {
     if (G.qiExhausted && G.qi > 0) G.qiExhausted = false;
     G.chamberGatherCount = (G.chamberGatherCount || 0) + 1;
     if (typeof applyQcGatherBandProgress === 'function') {
-        applyQcGatherBandProgress(typeof getQcGatherProgressUnits === 'function' ? getQcGatherProgressUnits() : 1);
+        const units = typeof getChamberGatherProgressUnits === 'function'
+            ? getChamberGatherProgressUnits()
+            : (typeof getQcGatherProgressUnits === 'function' ? getQcGatherProgressUnits() : 1);
+        applyQcGatherBandProgress(units);
     }
     const rootGain = typeof applyChamberGatherRootGrant === 'function' ? applyChamberGatherRootGrant() : 0;
     const milestoneGain = typeof checkCultivationDensityMilestones === 'function'
