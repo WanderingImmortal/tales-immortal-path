@@ -57,6 +57,96 @@ Awaken (spark + groundwork)
 
 You earn **both**. Expand is the **reward for finishing** the deepen track in that band, not a rival choice.
 
+**Owner lock (2026-08-01):** **Deepen is not an action button.** It is a **meter that fills while you live your path**, with spikes from choices that matter. The player watches intent ripen — they don’t hammer “Deepen” every few months.
+
+---
+
+## Deepen without a Deepen button — **Intent Saturation**
+
+Working name: **Intent Saturation** (意熟 · “the intent is ripening”). One meter per intent realm band (0 → 100%). **Milestone deepen steps** fire automatically at thresholds (e.g. 35 / 70 / 100). No “Deepen 12 months” popup choice.
+
+### What the player sees
+
+Intent screen (or dantian panel) shows something like:
+
+- **Realm** — Sprout / Stirring / etc.
+- **Saturation** — bar + *“Your sword intent ripens as you walk the path.”*
+- **Next milestone** — *“At 70%: cross-wield cuts bite harder.”*
+- **What’s feeding it** — short list of active boosts (carrying blade, sect drills, recent spar)
+- **Expand** — only at **100%** saturation (+ comprehension gate if any) — *“Your intent is ripe — consolidate a new expression?”*
+
+No deepen button. Optional **boost** actions live elsewhere (cultivate mode, sect board, combat) — not a third intent-menu chore.
+
+### Passive fill (always on, slow)
+
+While awakened + on the dantian path + this intent is **active** (or recently used):
+
+| Drip | Rate feel |
+|------|-----------|
+| **Time** | Slow months drip — intent ripens like roots in winter |
+| **Carried weapon** | Faster if inventory matches intent shape (sword intent + sword equipped) |
+| **Foundation / manual alignment** | Small mult if lineage matches (sword sect canon + sword intent) |
+
+**Soft cap (draft):** passive drip alone tops out around **~60–70%** per band. To finish the band you need at least one **engaging** boost source below. Prevents AFK decades to max intent without playing.
+
+### Engaging boosts (player choices, not a deepen click)
+
+These add **chunks** to saturation — the fun part is stacking and choosing how to invest months:
+
+| Boost | When | Feel |
+|-------|------|------|
+| **Fight with active intent** | Combat, explore elites, duels | Biggest steady chunk — intent is *wielded* |
+| **Meditate with weapon** | Cultivate / chamber **mode** — not a separate intent button | Sit with the blade; ties intent to main cultivate loop |
+| **Worthy spar** | NPC duel, sect hall, cult lethal spar | Spike + story |
+| **Witness / enlightenment** | Apex duel, story beat | One-time lump (awakening-adjacent) |
+| **Sect training** | Sword sect drill month, cult hunt board | Faction life feeds crown art |
+| **Manual layer milestone** | Comprehend canon chapter | Syllabus and intent grow together |
+| **Seclusion** *(optional one action)* | Multi-month retreat — **high burst**, cooldown | Rare “I’m focusing my will” without making every deepen a button |
+
+**Devouring variant:** sanctioned cultivator kills, feast rites, Layer 2 refine loop — same meter, different boost table ([`devouring-intent.md`](devouring-intent.md)).
+
+### Milestones (automatic deepen)
+
+When saturation crosses a threshold → **deepen step unlocks in log + stats** — no player fork.
+
+| Saturation | Example (Sword Realm 1) |
+|------------|-------------------------|
+| **35%** | +expression efficiency; faint cross-wield on palm |
+| **70%** | Cross-wield palm reads as cut more often; +basics |
+| **100%** | Band cap → **Expand** available (Returning Edge ceremony) |
+
+After Expand, saturation **resets to 0** for the next realm band (or next track within same realm — TBD).
+
+### Expand — the one intentional moment
+
+Expand at 100% can stay a **single deliberate beat** — not a grind button, a **payoff**:
+
+- Log: *“Returning Edge awakens — your intent shows a second face.”*
+- Maybe 1–3 months ceremony (sect elder, solitary seclude) — **once per expand**, feels earned
+- Distinct from saturation drip — player knows this is the crown of the band
+
+Breakthrough to **next intent realm** stays separate: saturation + cultivation realm + comprehension beat (First Taking, etc.).
+
+### What we retire
+
+| Today | Replace with |
+|-------|----------------|
+| `refineActiveIntent` button | Saturation drip + meditate-with-weapon cultivate mode |
+| `makeIntentChoice('deepen')` | Auto milestone at saturation % |
+| `makeIntentChoice('expand')` | 100% saturation + optional short ceremony |
+| Uses → tier index only | Combat still adds saturation chunk; tier gates need realm + beat |
+
+`intentRefine` months action can become **Seclusion** (optional burst) or vanish entirely if meditate-mode covers it.
+
+### Why this is more fun
+
+| Button deepen | Saturation deepen |
+|---------------|-------------------|
+| Same every time | Different months feel different (hunt month vs drill vs seclude) |
+| Menu hygiene | Intent grows while you play the game you already play |
+| Ignored system | Glance at bar — “I’m close to Expand” |
+| Passive OK | Passive to ~70%, then nudge toward spar / sect / meditate |
+
 ---
 
 ## Intent realms × cultivation realms
@@ -134,7 +224,7 @@ Intent should show up in **decades of play**: awaken at FE, saturation creeps th
 
 No weapon picker. **Groundwork + spark.** See [`weapon-intent-awakening.md`](weapon-intent-awakening.md).
 
-After awaken: track opens at **Intent Realm 1**, 0 deepen steps, 0 expand arts.
+After awaken: track opens at **Intent Realm 1**, saturation at 0%, no expand arts.
 
 ---
 
@@ -157,8 +247,9 @@ After awaken: track opens at **Intent Realm 1**, 0 deepen steps, 0 expand arts.
 | `chooseWeaponIntent` picker | Spark resolution |
 | `refineActiveIntent` / deepen button | **Intent Saturation** meter + milestones |
 | `pendingIntentChoice` deepen **or** expand | Saturation milestones + expand at 100% |
-
----
+| `INTENT_TIERS` use-only breakpoints | Intent realm gates + saturation + comprehension beat |
+| `INTENT_EXPAND_ARTS` fixed 3×3 grid | Per-realm one expand; saturation milestones per realm |
+| Intent popup deepen/expand/refine buttons | Saturation bar, boost hints, expand ceremony at 100% |
 
 ## Open questions
 
