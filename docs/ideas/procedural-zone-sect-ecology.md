@@ -683,15 +683,66 @@ Procedural sects are **intentionally shallow** — population texture, not craft
 
 | They have | They do **not** have |
 |-----------|---------------------|
-| Name, zone, kind (hall/branch/sect) | Lineage cultivation manuals |
-| Vitals, archetype, doctrine tag | Signature techniques players can learn |
-| 1–2 weak tags (`warrior`, `earth`, `merchant`) | Identity doc, founder myth, sacred art |
-| Patriarch name/realm when hydrated | Teachable inner court, unique perks |
+| Name, zone, kind (hall/branch/sect) | Full lineage manual trees |
+| Vitals, archetype, doctrine tag | Multiple teachable arts / inner court library |
+| **One signature pair** (see below) | Great-sect-tier manuals (Celestial Sword lineage, etc.) |
+| Patriarch name/realm when hydrated | Identity doc, founder myth, sacred art |
 | Chronicle beats | Faction-grade `FACTION_DEFINITIONS` depth |
 
-**Genre read:** Iron Reed Sect is a name in the jianghu — not Celestial Sword. Great powers are lovingly crafted; procedural sects are **hollow until promoted** (rare) or **until player joins/founds** something real.
+**Genre read:** Iron Reed Sect is a name in the jianghu — not Celestial Sword. Great powers are lovingly crafted; procedural sects stay **light** unless archetype gives them a hook manual.
 
-Chronicle and gossip use tags loosely (*"a sword-leaning minor sect"*) — never specific manual names.
+### Signature pair (one breath + one technique)
+
+Each procedural sect rolls **exactly one** breathing manual + **one** combat technique — not a full kit.
+
+**Name ↔ manual (either direction):**
+
+| Roll order | Example |
+|------------|---------|
+| Name first | "Sandveil Hall" → pick from `dustbone` + `sand` tag pool → `procedural_sand_root_breath` + `Sandburrow Palm` (procedural id) |
+| Manual first | Roll `procedural_frost_mantle_breath` → generate name from frost pool → "Rime Mantle Pavilion" |
+
+~50% name-led, ~50% manual-led at spawn. Pools are **small procedural catalogs** (`PROCEDURAL_SECT_SIGNATURES` in `data.js`) — never authored faction lineage ids.
+
+**Teaching strength** (what a stolen pamphlet or outer-oath student gets):
+
+```text
+teachingTier ≈ f(patriarch.realmIdx, might, depth, manualSource)
+```
+
+| Sect state | Pamphlet quality |
+|------------|------------------|
+| Weak hall, FE patriarch | Trash / outer pamphlet |
+| Stable minor, GC patriarch | Decent local art |
+| Strong regional | Good — still below great sect lineage ceiling |
+
+Player can loot/join briefly for **local** arts — not endgame manuals.
+
+### Archetype + manual (the exception)
+
+Most sects: generic procedural pair from zone pool (`source: 'generic'`).
+
+**Archetypes that carry a manual story:**
+
+| Archetype | `manualSource` | Fiction |
+|-----------|----------------|---------|
+| **Refugee remnant** | `fragment` or `stolen` | Fled fallen sect with one damaged art — explains modest renown + decline risk |
+| **Lone genius** | `stolen` | Patriarch lifted a pamphlet; sect strong while they live; manual may be **above** tier for size but **incomplete** (no upper floors) |
+| **Patron-backed** | `patron_copy` | Public breath copy from great power — weak, can't exceed patron tier |
+| **Proxy / vassal** | `patron_copy` | Same |
+| **Band of brothers / village hall** | `generic` | No special manual — strength is headcount or nothing |
+
+**Rule:** even `fragment` / `stolen` manuals cap **below** authored great-sect lineages. Archetype explains **why this hollow sect punched above its weight** — not a second Jade Lotus.
+
+**Chronicle:** *"The Iron Reed rose on a stolen Sand Root pamphlet — incomplete past the third cycle."*
+
+### What we still don't build
+
+- Full manual framework per sect (layers, consolidation, essence)
+- Named inner techniques, forbidden arts, array manuals
+- Manual-driven sect identity docs
+
+One pair + source tag is enough for gossip, raid loot tables, and "join outer disciple for 6 months" stubs.
 
 ## What players see (phased)
 
@@ -717,7 +768,7 @@ Chronicle and gossip use tags loosely (*"a sword-leaning minor sect"*) — never
 - [x] School vs sect — **hard line A**; halls FE/city, sects GC+/ground
 - [x] Major cities — **branches not indie**; tier table above
 - [x] Naming — ~50% generic, ~50% zone-themed pools
-- [x] Identity depth — **hollow** (no manuals/techniques/theme); weak tags only
+- [x] Identity depth — **light**: one signature breath + technique; archetype may grant fragment/stolen hook
 - [ ] Owner confirms GC lifespan target (200y code today vs ~300y design intent) before tuning succession math
 - [x] World seed history — **mid-story** backfill (2–4 beats); not empty young world
 - [ ] Shared world seed across playthroughs vs per-save random? → **per-save world state**; optional shared name/flavor pools only
