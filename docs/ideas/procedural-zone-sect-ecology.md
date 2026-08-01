@@ -6,7 +6,7 @@
 | **Blocked on** | [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) size taxonomy; zone power map (owner) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning, 2026-08-01 |
-| **Updated** | 2026-08-01 (owner: hard line A; city-tier branch rule) |
+| **Updated** | 2026-08-01 (persistent world + reincarnation north star) |
 
 ## Intent
 
@@ -21,6 +21,30 @@ Populate each zone with **mid and small cultivation organizations** without hand
 | **sect_hq locations** | Named HQs on local map | Hand-placed; no turnover |
 
 No global registry of "all sects in Dustbone." No size tier (`school` / `minor` / `regional`). No autonomous rise/fall beyond player defeating a rival.
+
+## Persistent world (owner north star)
+
+**One world** — not per-run random jianghu. The stage exists before the player and keeps moving when they're gone.
+
+| Principle | Implication for ecology |
+|-----------|-------------------------|
+| **You aren't the main character (yet)** | Background sects rise/fall on world clock — not spawned because you hit Established |
+| **Reincarnation** | Time shunts forward; new life enters a **changed** map |
+| **Marks left behind** | Founded sect, ruined enemy, allied hall, grudge — persist or echo in chronicle / ruins / NPC memory |
+| **Sim = believable delta** | Player returns and reads *what happened* — vitals + events exist so gaps aren't hand-waved |
+
+**Locked:** **Seed ecology at new game** (light density). **No lazy spawn on first visit.** World ticks during play **and** during reincarnation time-skip (batch resolve + highlight reel — same rule as [`chronicle-and-projects.md`](chronicle-and-projects.md)).
+
+**Per-save world state** (`G.world.zoneSects`, world chronicle) persists in save slot. **Cross-life meta** (`legacy.js` unlocks, multi-life chronicle) layers on top — not a substitute for in-world marks.
+
+**Player org marks** ([`player-organization-paths.md`](player-organization-paths.md)):
+
+- Sect at `headquartersNodeId` → successor, ruin, or enemy occupation after skip
+- Hall branch → closed, absorbed, or renamed
+- Joined faction → rank forgotten; grudge or favor may remain on `FACTION_DEFINITIONS` rep stub
+- Hermit fortify → reclaim tier ([`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md))
+
+**Why full sim isn't required:** player needs **consistent outcomes** after time passes, not tick-by-tick truth. Vitals + yearly events + reincarnation batch tick = enough if chronicle and map state match.
 
 ## Three-layer model (recommended)
 
@@ -650,7 +674,8 @@ Or flat `G.world.sects[]` with `zone` field + index by zone at read time.
 - [x] Major cities — **branches not indie**; tier table above
 - [ ] Owner confirms size tier names
 - [ ] Owner confirms GC lifespan target (200y code today vs ~300y design intent) before tuning succession math
-- [ ] Decision: seed at new game vs lazy spawn on first zone visit
+- [x] **Seed at new game** — world alive from start; ticks through reincarnation skip
+- [ ] Shared world seed across playthroughs vs per-save random? → **per-save world state**; optional shared name/flavor pools only
 - [ ] [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) — school vs sect founding gate (affects hall → sect graduation)
 - [ ] Optional: [`city-tiers.md`](city-tiers.md) — halls attach to city tier (more halls in Redwell-tier cities)
 
@@ -686,4 +711,5 @@ Or flat `G.world.sects[]` with `zone` field + index by zone at read time.
 - [`imperial-city-tianjing.md`](imperial-city-tianjing.md)
 - [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)
 - [`chronicle-and-projects.md`](chronicle-and-projects.md)
+- [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md) — reclaim tiers after skip
 - [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)
