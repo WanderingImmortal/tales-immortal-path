@@ -46,6 +46,8 @@ No global registry of "all sects in Dustbone." No size tier (`school` / `minor` 
 
 **Why full sim isn't required:** player needs **consistent outcomes** after time passes, not tick-by-tick truth. Vitals + yearly events + reincarnation batch tick = enough if chronicle and map state match.
 
+**Reincarnation time-skip (deferred):** duration likely varies by end type (`bitter` vs `true` in `legacy.js` today) — tune at playtest. Ecology only needs a hook: `advanceWorldEcology(monthsSkipped)` on reincarnate. **Note:** current `clearRunStateForReincarnation()` wipes save — persistent `G.world` across lives is future infra, not shipped.
+
 ## Three-layer model (recommended)
 
 ```text
