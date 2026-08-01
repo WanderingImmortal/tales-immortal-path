@@ -6,7 +6,7 @@
 | **Blocked on** | none for design; build Issue not opened |
 | **Issue** | none yet |
 | **Chat / PR** | Intent planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) · sister work [PR #95](https://github.com/WanderingImmortal/tales-immortal-path/pull/95) (awakening + Demon Cult life) |
-| **Updated** | 2026-08-01 |
+| **Updated** | 2026-08-01 (deepen = passive saturation + boosts, not a button) |
 
 ## Intent
 
@@ -34,6 +34,7 @@ Sister docs:
 | Weapon **picker** at FE | Feels like a class select, not xianxia awakening |
 | **Deepen or Expand** fork | Throws away half the design at every tier |
 | Uses from **combat only** | Thin loop — one `refineActiveIntent` action, not a life path |
+| **Refine / Deepen buttons** | “Spend 3 months to deepen” is **meh** — another menu tick, not a life system |
 | Tier names tied to **use count only** | Intent can outrun or lag cultivation realm with no story |
 | Expand arts on **basics only** | Techniques don’t inherit your expression |
 
@@ -82,22 +83,22 @@ Each intent realm has:
 
 | Piece | Count (draft) | Player feel |
 |-------|---------------|-------------|
-| **Deepen steps** | 2–3 per realm | “My sword intent sharpens.” |
-| **One Expand unlock** | 1 per realm | “A new expression opens.” |
-| **Breakthrough beat** | 1 per realm | Story / comprehension — not uses alone |
+| **Deepen milestones** | 2–3 per realm (saturation 35 / 70 / 100) | Automatic — “My sword intent sharpened.” |
+| **One Expand unlock** | At 100% saturation | “A new expression opens.” |
+| **Breakthrough beat** | 1 per realm | Story / comprehension — not meter alone |
 
 ### Example — Sword intent, Realm 1 (Sprout) @ FE
 
-| Step | Type | Effect |
-|------|------|--------|
-| 1 | Deepen | +basics / expression efficiency |
-| 2 | Deepen | Cross-wield palm → stronger cut lean |
-| 3 | Deepen | Cap — tier polish for Sprout |
-| 4 | **Expand** | **Returning Edge** unlocks |
-| — | *gate* | FE stable + N uses + optional spar/witness beat |
-| → | **Realm 2** | Minor Success — expression rewrite gets real |
+| Saturation | What happens |
+|------------|--------------|
+| **35%** | Deepen 1 — +expression efficiency |
+| **70%** | Deepen 2 — cross-wield palm → stronger cut lean |
+| **100%** | Deepen 3 cap → **Expand: Returning Edge** (short ceremony) |
+| *gate* | FE stable + comprehension beat → **Realm 2** (Minor Success) |
 
-Realm 2 deepen chain → **Blade Pressure** expand. Realm 3 → **Edge Domain**. Same pattern for Spear, Fist, Staff, Devouring.
+Player might hit 100% in year 40 or year 120 depending on fights, sect life, and whether they bother with meditate-with-weapon — not on how many times they clicked Deepen.
+
+Realm 2 saturation track → **Blade Pressure** expand. Realm 3 → **Edge Domain**.
 
 ### Staff (Circle intent) — expand slots by leg
 
@@ -111,20 +112,21 @@ Retire “all three staff expands are defensive” — Circle needs **Reach** an
 
 ---
 
-## How intent grows (more than combat clicks)
+## How intent grows (saturation sources)
 
-Uses still matter, but **intent cultivation** pulls from the same life as your path:
+The meter is fed by **living**, not intent-menu chores:
 
-| Source | Role |
-|--------|------|
-| **Combat** with active intent | Primary use gain (today) |
-| **Meditate with weapon** | FE+ action — groundwork before awaken; polish between realms after |
-| **Manual / canon layer** | Sect syllabus unlocks breakthrough rites (Demon Cult Layer 3 before Taking) |
-| **Comprehension beats** | First Taking, First Feast, witness duel, spar imprint — **not** automatic at use threshold |
-| **Realm breakthrough** | Opens next intent realm **ceiling** |
-| **Refine intent** (months action) | Bonus polish — supplement, not the whole loop |
+| Source | Saturation role |
+|--------|-----------------|
+| **Combat** with active intent | Large chunk per fight — primary driver |
+| **Meditate with weapon** | Cultivate/chamber **mode** — steady boost, no extra button |
+| **Manual / canon layer** | Lump on comprehend; ties syllabus to intent ([`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md)) |
+| **Sect life** | Drills, hunts, missions — faction-specific boost table |
+| **Comprehension beats** | One-time spikes; **realm breakthrough** still needs these, not meter alone |
+| **Passive drip** | Slow months while on-path — tops out ~60–70% without boosts |
+| **Seclusion** *(optional)* | Rare high burst if owner wants one explicit “focus will” action |
 
-Intent should show up in **decades of play**: awaken at FE, polish through GC missions, domain at NS+ — same rhythm as [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) rank × realm table.
+Intent should show up in **decades of play**: awaken at FE, saturation creeps through GC missions, expand at NS+ — same rhythm as cult life rank × realm table.
 
 ---
 
@@ -153,20 +155,21 @@ After awaken: track opens at **Intent Realm 1**, 0 deepen steps, 0 expand arts.
 | Legacy | Direction |
 |--------|-----------|
 | `chooseWeaponIntent` picker | Spark resolution |
-| `pendingIntentChoice` deepen **or** expand | Deepen steps until cap → expand unlock |
-| `INTENT_TIERS` use-only breakpoints | Intent realm gates + use floor + comprehension beat |
-| `INTENT_EXPAND_ARTS` fixed 3×3 grid | Per-realm one expand; deepen count per realm |
-| `refineActiveIntent` only polish | Part of a richer intent screen (meditate, breakthrough, preview next expand) |
+| `refineActiveIntent` / deepen button | **Intent Saturation** meter + milestones |
+| `pendingIntentChoice` deepen **or** expand | Saturation milestones + expand at 100% |
 
 ---
 
 ## Open questions
 
-- Exact deepen steps per realm (2 vs 3)
+- Saturation milestone % (35/70/100 vs 50/100)
+- Passive soft cap exact value (60 vs 70)
+- **Decay** if neglect intent for decades — yes/no (lean no for v1)
+- Meditate-with-weapon: new cultivate tab vs FE chamber toggle
+- Seclusion burst — keep one optional action or fold entirely into meditate mode
 - Whether weapon tier names rename to match “intent realm” vocabulary in UI
 - Shared breakthrough UI for weapon + deviant tracks
-- Can you **delay** expand to keep deepening (owner: probably no — expand is the band capstone)
-- Second awakened intent: divided heart + separate deepen/expand tracks per intent
+- Second awakened intent: divided heart + separate saturation tracks
 
 ## Prerequisites
 
@@ -176,7 +179,8 @@ After awaken: track opens at **Intent Realm 1**, 0 deepen steps, 0 expand arts.
 
 ## Implementation crumbs (when building — not now)
 
-- `intent.js` — realm model, deepen cap, expand unlock, breakthrough beats
-- `data.js` — `INTENT_EXPAND_ARTS` per realm; `INTENT_DEEPEN_STEPS` per weapon
-- `ui.js` — intent screen: realm, deepen progress, next expand preview, unawakened hints
+- `intent.js` — saturation meter, milestone auto-deepen, expand at 100%, breakthrough beats
+- `data.js` — `INTENT_SATURATION_BOOSTS` per activity; expand per realm; milestone effects
+- `ui.js` — intent screen: saturation bar, active boosts, next milestone (no deepen button)
+- `chamber.js` / cultivate — meditate-with-weapon mode feeds saturation
 - `heavenly-demon-cult-life.md` — rank promotions tied to intent realm gates
