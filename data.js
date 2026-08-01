@@ -948,6 +948,103 @@ const CULTIVATION_METHOD_POOL = [
         comprehendMonths: 3,
         desc: 'Forbidden breath that drinks killing intent into the dantian. Seals a blood-fiend foundation.',
         shopBlurb: 'Forbidden syllabus — stains the seal with killing aura. Handle with care.'
+    },
+  // Dustbone / Redwell street syllabus — docs/ideas/qc-technique-pamphlet-pool.md
+    {
+        id: 'redwell_well_breath',
+        name: 'Redwell Well Breath',
+        lineageId: 'redwell_well_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 1, mixed: 1, dual: 1, single: 1 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.08
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Cycle qi like drawing from the town well — slow, clean, what inn apprentices learn first.',
+        shopBlurb: 'Redwell inn pamphlet — steady breathwork from the deep well; nothing flashy.'
+    },
+    {
+        id: 'saltbrush_road_breath',
+        name: 'Saltbrush Road Breath',
+        lineageId: 'saltbrush_road_line',
+        family: 'breathing',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['earth'],
+        essences: [],
+        stampsNature: 'earth_aspected',
+        rootFit: { earth: 1.06, wood: 0.94, pentamixed: 1.02, mixed: 1, dual: 1, single: 1.02 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.05
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Dewcatch scrub herders breathe with salt-crusted wind — earth-leaning, road-dust practical.',
+        shopBlurb: 'Scrub-edge pamphlet — earth-leaning breath for herders and herb day-trips.'
+    },
+    {
+        id: 'ironscar_loader_cycle',
+        name: 'Ironscar Loader\'s Cycle',
+        lineageId: 'ironscar_loader_line',
+        family: 'circulation',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['earth'],
+        essences: [],
+        stampsNature: 'earth_aspected',
+        rootFit: { earth: 1.05, metal: 1.02, pentamixed: 1, mixed: 1, dual: 1, single: 1 },
+        profile: {
+            gatherMult: 0.98,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.06
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Quarry loaders sync breath to haul rhythm — dense qi, not fast qi.',
+        shopBlurb: 'Ironscar grit-yard syllabus — heavy cycles for loaders, not sprint cultivators.'
+    },
+    {
+        id: 'dune_rest_circulation',
+        name: 'Dune Rest Circulation',
+        lineageId: 'dune_rest_line',
+        family: 'circulation',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'common',
+        elements: ['neutral'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 1.08, mixed: 1.04, dual: 1, single: 0.96 },
+        profile: {
+            gatherMult: 1.0,
+            powerMult: 1.0,
+            densityEfficiency: 1.0,
+            stabilityBias: 0.04
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Miraj caravan handout — rest-stop circulation every rider on the red sand knows.',
+        shopBlurb: 'Caravan rest pamphlet — kind to tangled roots; common on the Dune Rider roads.'
     }
 ];
 
@@ -1941,7 +2038,11 @@ const REDWELL_METHOD_POOL = [
     { methodId: 'burning_breath_technique', price: 38 },
     { methodId: 'stone_root_breath', price: 38 },
     { methodId: 'flowing_tide_breath', price: 38 },
-    { methodId: 'verdant_breath_technique', price: 38 }
+    { methodId: 'verdant_breath_technique', price: 38 },
+    { methodId: 'redwell_well_breath', price: 34 },
+    { methodId: 'saltbrush_road_breath', price: 36 },
+    { methodId: 'ironscar_loader_cycle', price: 34 },
+    { methodId: 'dune_rest_circulation', price: 32 }
 ];
 const REDWELL_TECH_POOL = [
     { technique: 'Sandburrow Palm', price: 26 },

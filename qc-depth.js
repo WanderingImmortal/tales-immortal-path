@@ -413,7 +413,7 @@ function ensureRedwellMarketState(forceSeason) {
         m.lastSeasonRestock = season;
     }
     if (m.lastMonthRestock !== now) {
-        m.pillLeft = { spirit_gathering: 3, blood_recovery: 2 };
+        m.pillLeft = { qi_restore: 3, blood_recovery: 2 };
         m.stapleLeft = { travel_ration: 5, grit_kit: 3 };
         m.lastMonthRestock = now;
     }
