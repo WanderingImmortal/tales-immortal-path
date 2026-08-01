@@ -12,9 +12,11 @@
 
 **Five intent realms are not one-per-cultivation-realm.** Bands **stretch** — early intent ripens fast; later intent may take **two cultivation realms** to break through. At the peak, **Intent Domain** (5th realm) is sharpened until it behaves like a **personal law** — not heaven’s Dao, but **Self-Will** (我意 / 己道): *reality in my reach agrees with my imposed will.*
 
-**Who walks this path:** cultivators who **cannot or will not** wear a heaven-recognized law at Dao Manifestation — wrong affinity, rejected by fragments, orthodox dao closed, or deliberate choice to bet everything on the blade-line / maw / circle they already carry.
+**Who walks this path:** mostly cultivators who **cannot traverse the dao path** — wrong affinity, rejected fragments, closed orthodoxy. For them, intent-deep is **one of the only roads forward**. It is a **slog**: long bands, slow ripening, decades in the same intent realm while cultivation inches on.
 
-**Not too much** if treated as a **parallel endgame axis** to Dao Manifestation — same *weight class*, different *shape*. Sword Immortal wore **First Sword Law** at Dao Manifestation ([`celestial-sword-sect.md`](celestial-sword-sect.md)). This doc is for the **other** legend: Void Refining, no Phase dao, intent so absolute they can **wound or slay** a Manifestation peer anyway.
+**Theoretically** a genius with centuries can **max both** dao and intent apex — not hard-banned. In practice it is a **lifespan time crunch**; almost everyone specializes. The legends who wear law *and* absolute will are rarer than Manifestation alone.
+
+**Not too much** if treated as a **parallel endgame axis** to Dao Manifestation — same *weight class*, different *shape*. Sword Immortal wore **First Sword Law** at Dao Manifestation ([`celestial-sword-sect.md`](celestial-sword-sect.md)). This doc centers the **dao-blocked** legend: Void Refining, heaven’s dao won’t take, so they sharpen imposed will until the line can wound Manifestation peers anyway.
 
 > **Planning only.** QC–GC intent stays the near-term build. Apex Self-Will is parked until Dao Seeking band exists in code.
 
@@ -48,6 +50,29 @@ Five intent realms (idx 0–4). **Typical** cultivation bands — prodigy bypass
 
 **Owner lock:** highest intent **competes with Dao Manifestation Peak** in direct clash — not auto-win, not auto-lose. Sword Immortal at Manifestation **with law** still tops intent-only apex in *legislation* and *scale*; intent-only apex wins in *narrow duels*, ambushes, and killing blows where will outruns law setup.
 
+### Who goes deep — and who does both (owner lock 2026-08-01)
+
+| Profile | Typical choice | Feel |
+|---------|----------------|------|
+| **Dao-open cultivator** | Pursue fragments + Manifestation; intent ripens **along the way** but rarely to Self-Will apex | Orthodox great sect path — time goes to dao |
+| **Dao-blocked cultivator** | Dao Seeking stalls → **intent is the forward path** | **Slog** — same calendar, less payoff per year; saturation stretches; comprehension beats are duels and seclusion not libraries |
+| **Mythic both-maxed** | Centuries, perfect roots, sect resources — **law worn + will absolute** | NPC-tier or ultra-late player fantasy; union arts unlocked |
+
+**Not mutually exclusive** — **mutually expensive.** Lifespan sim makes “I’ll do both” a bet most builds cannot cash.
+
+**Intent-deep is compensatory, not optimal:** if heaven’s dao is open to you, grinding intent realm 4 is usually worse ROI than fragment hunting — unless your build *is* the blade and you were going there anyway.
+
+### The slog (design knobs)
+
+| Knob | Why |
+|------|-----|
+| Intent realms 3–4 span **two cultivation realms** each | Calendar sink |
+| Saturation **soft cap** + sparse boosts for dao-blocked beats | Can’t rush without living the path |
+| Comprehension beats at apex = **fights / witness**, not buyable | No shortcut past failed dao |
+| Inward obsession flavor | Heart demon, divided will if chasing second intent — optional pressure |
+
+Dao-blocked player should feel: *“I’m still moving, but every breakthrough costs years and blood where a dao disciple would be reading fragments.”*
+
 ---
 
 ## Self-Will vs Dao Law
@@ -76,7 +101,7 @@ Five intent realms (idx 0–4). **Typical** cultivation bands — prodigy bypass
 | **Dao Seeking fail / abandon** | Player or build cannot stabilize Phase dao — fork offered: keep seeking (slow) or **temper intent** (Self-Will bet) |
 | **Intent realm 3–4** | Saturation stretches; comprehension beats are **duel / witness / seclusion**, not fragments |
 | **Challenge Manifestation** | Elite NPC or tribulation-style fight — intent pressure vs law wear; winnable with expand arts + expression depth |
-| **Union impossible** | No intent+law union arts without law — peak power is **intent techniques + apex expression**, not Mandate Bite-tier legislation |
+| **Union arts** | Rare — need **both** law and intent apex; myth-tier, not dao-blocked default |
 
 Devouring parallel: cultist with Devouring Intent apex but **never** Devouring Law — starving emperor who eats anyway; weaker legislation, monstrous duelist.
 
@@ -120,9 +145,10 @@ Per-track apex line (one sentence in each intent doc):
 ## Open questions
 
 - Formal name: **Self-Will** · **Ego Dao** (flavor only) · **Absolute Intent** · 我意圆满
-- Can Manifestation cultivator **also** have intent apex, or mutually exclusive peak investment?
+- ~~Can Manifestation cultivator **also** have intent apex~~ — **yes, theoretically; lifespan time crunch in practice** (owner lock)
 - Tribulation for intent realm 4 breakthrough — heaven strikes **will**, not dao?
 - Sacrilege / alignment: is Self-Will apex “defying heaven’s categories”?
+- Exact saturation penalty when dao path is **open** but ignored — nudge player toward fragments?
 
 ## Prerequisites
 
