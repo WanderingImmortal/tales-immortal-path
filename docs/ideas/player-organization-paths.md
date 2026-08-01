@@ -176,7 +176,16 @@ Player **travels to sect** (Depart grounds / messenger / map). Cultivation at HQ
 
 ## GC without full sect (hermit fortify)
 
-**Owner:** At GC, claiming territory without founding a sect should be viable — personal residence + fortify (arrays, guards). Overlaps [`personal-residence.md`](personal-residence.md) / [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md). Not a sect: no disciple institution, no jianghu sect politics — **domain + home**. Distinct from hall (FE/city) and sect (GC+/institution).
+**Owner:** At GC, claiming territory without founding a sect should be viable — personal residence + fortify (arrays, guards). Overlaps [`personal-residence.md`](personal-residence.md) / [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md). Not a sect: no disciple institution, no jianghu sect politics — **domain + home**.
+
+**Fortify → sect (owner):**
+
+| Choice | What happens |
+|--------|----------------|
+| **Convert** (default) | Same `headquartersNodeId` — fortify becomes sect HQ; residence layers into sect grounds. Obvious path; sect residence covers personal anchor. |
+| **Keep + found elsewhere** | Allowed — hermit cave stays private; second site needed for sect (S4 pick again). Niche: secret retreat vs public mountain gate. No heavy penalty — just two sites to manage. |
+
+**No forced reason to avoid convert.** If player fortifies then founds at same node, it's one click/narrative step, not a rebuild from scratch.
 
 ## Management depth (later)
 
