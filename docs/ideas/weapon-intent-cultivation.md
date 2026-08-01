@@ -95,6 +95,19 @@ Saturation is one good implementation of “ripening.” Alternatives if playtes
 
 ---
 
+## What’s wrong today
+
+| Today | Problem |
+|-------|---------|
+| Weapon **picker** at FE | Feels like a class select, not xianxia awakening |
+| **Deepen or Expand** fork | Throws away half the design at every tier |
+| Uses from **combat only** | Thin loop — one `refineActiveIntent` action, not a life path |
+| **Refine / Deepen buttons** | “Spend 3 months to deepen” is **meh** — another menu tick, not a life system |
+| Tier names tied to **use count only** | Intent can outrun or lag cultivation realm with no story |
+| Expand arts on **basics only** | Techniques don’t inherit your expression |
+
+---
+
 | Today | Problem |
 |-------|---------|
 | Weapon **picker** at FE | Feels like a class select, not xianxia awakening |
