@@ -7,7 +7,7 @@
 | **Issue** | none yet |
 | **Chat / PR** | Combat damage depth planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
 | **Updated** | 2026-08-01 |
-| **Design focus** | **Intent wielding** (this pass) — dao + full stress pipeline parked in same doc |
+| **Design focus** | **Intent wielding** + **cultivation loop** — see [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) |
 
 ## Intent
 
@@ -213,14 +213,14 @@ Wrong-weapon arts should feel **awkward or costly**, not “grayed out unusable.
 
 ### Expression strength (intent depth)
 
-How far intent rewrites a mismatched art should scale with **how deep that intent is** — uses, tier, deepen picks, domain arts.
+How far intent rewrites a mismatched art scales with **intent realm** and **deepen steps** in that realm — not a single deepen pick vs expand fork. See [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md).
 
 | Intent depth | Cross-wield feel (example: Sword intent + palm art) |
 |--------------|-----------------------------------------------------|
 | **Sprout / shallow** | Art mostly as written. Small flavor line. Maybe +5% cut-leaning stress. |
 | **Minor / Major Success** | Clear shift — palm reads as chop or edge-slap; bleed weight rises. |
 | **Perfection** | Strong rewrite — *“Your fingers carry sword intent; the palm lands as a cut.”* Mechanical shift toward slash / flesh stress. |
-| **Intent Domain** | Signature — unarmed basics can default to sword expression; expand arts (Returning Edge, etc.) tint **techniques** too. |
+| **Intent Domain** | Signature — unarmed basics default to your expression; expand arts tint **techniques** |
 
 **Perfect match** (Sword intent + sword art) stays the cleanest line: full synergy, lowest cost, authored stress profile unchanged.
 
