@@ -7,12 +7,15 @@
 | **Issue** | none yet |
 | **Chat / PR** | Combat damage depth planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
 | **Updated** | 2026-08-01 |
+| **Design focus** | **Intent wielding** (this pass) — dao + full stress pipeline parked in same doc |
 
 ## Intent
 
 Fights should change based on **what you hurt**, not only how big the HP number is. Techniques need room to differ (slash vs crush vs meridian seal) without a body-part aim menu that makes arts feel arbitrarily locked to one limb (“this slash only hits legs”).
 
 **One HP** stays the kill race. **Systems** under that HP change fight *shape* when stressed or broken. Inner vs outer is a label for systems and poisons — **not** a second life bar.
+
+> **Planning only** — no build queue yet. Intent wielding below is the active design thread.
 
 ## Design notes
 
@@ -179,61 +182,135 @@ Pool authors add rows; engine stays generic.
 
 ---
 
-### Intent wielding (flexibility without gutting gates)
+### Intent wielding — the fantasy
 
-Current intent model (`getTechniqueIntentMatch`): **weapon + stage** gate high arts (45% dmg if wrong weapon on `high` quality). Intent expand arts only touch **basics**. That’s good for “this is a Sword art” but too rigid for “I wield everything through my killing intent.”
+**Weapon intent is not “which button you pressed.”** It is how you *carry* force through the world.
 
-**Split two concerns:**
+A sword cultivator among their peers might still throw a palm strike — but at high intent it does not read as a shove. Their fingers are the blade. The qi lines up like an edge. The wound is a **cut**, not a bruise. Same art, different expression.
 
-| Concern | Question | v1 behavior |
-|---------|----------|-------------|
-| **Requirement** | Can you *form* this art at all? | Keep path gates (body/soul). Soften **weapon** hard-fail on `high` → always *usable*, worse expression. |
-| **Expression** | *How* does your active intent wield it? | Active intent **tints** the attack profile — stress mix, delivery tag, small bonuses. |
+A spear cultivator’s fist does not have to be a haymaker. It can drive **through** guard like a thrust — piercing, linear, finding the gap.
 
-#### Expression (active intent tints the hit)
+That is the design goal: **your dominant intent shapes how any physical art lands**, especially when the art’s “native” weapon doesn’t match. Low intent = the art looks like what it is on paper (palm pushes, fist crushes). Deep intent = the art starts to look like *your* path.
 
-When you throw a technique (or basic) with an active intent, merge an **expression layer**:
-
-| Match | Expression |
-|-------|------------|
-| **Perfect** — weapon + stage met | Template stress + nature as authored; `intentExpr.bonus` on primary stress; synergy dmg/cost as today |
-| **Weapon match, shallow stage** | Same nature, −stress efficiency; warn as today |
-| **Cross-wield** — wrong weapon, art still forms | **Shift** primary nature toward intent’s “home” nature (see table); never flip path (soul art stays soul-cut) |
-| **No intent awakened** | Template defaults only; no expression bonus |
-
-**Cross-wield nature shift (draft)** — intent re-angles the wound, doesn’t rewrite the art:
-
-| Active intent | Home nature | Cross-wield effect on mismatched physical art |
-|---------------|-------------|-----------------------------------------------|
-| Sword | slash | +slash / Flesh splash; techniques read as “intent-carried” |
-| Blade | slash | +bleed weight on Flesh breaks |
-| Spear | pierce | +Circulation splash; guard-pierce tags more likely |
-| Fist | crush | +Structure weight; slow/concussive tags |
-| Staff | needle | +Circulation / ward-flavored stress on hybrids |
-
-Example: **Mountain Crash** (Fist, crush) wielded with **Spear intent** → still crush HP, but stress shifts `{ structure: 0.5, circulation: 0.3, flesh: 0.2 }` and may inherit `penetrating_line`-style guard interaction if Spear arts unlocked. Log: *“You drive the slam through a piercing line.”*
-
-**High-quality arts:** replace hard `noMatchMult: 0.45` **block-feel** with **usable + ugly expression** — higher cost, lower stress efficiency, cross-wield shift. Reserve true `usable: false` for **path** mismatch (body art on qi path), not wrong weapon.
-
-#### Intent arts beyond basics
-
-Expand arts should attach **profile modifiers**, not only basic-attack branches:
-
-```js
-// example shape — not shipped API
-{ id: 'returning_edge', onHit: { extraProfile: { hp: 0.45, nature: 'slash', delivery: 'melee' } } }
-{ id: 'pierce_domain', onHit: { tags: ['ignoresGuard'], stressBias: { circulation: 0.15 } } }
-```
-
-`applyIntentArtsOnBasicAttack` becomes `mergeIntentCombatModifiers(profile, intent, context)` shared by basics **and** techniques when expression matches.
-
-#### Multiple intents (future, not v1)
-
-Player may awaken several intents; one **active** for expression. Switching mid-fight costs a turn or breath (existing `intentSwitch` months out of combat). No dual-wielding two expressions on one swing in v1.
+This rewards long investment in one intent without hard-locking every technique to one weapon type. It also gives NPC and player fiction a clear read: *“He has no sword, but every strike opens like one.”*
 
 ---
 
-### Dao layer (stress + riders, not only bonus dmg)
+### Two questions (not one)
+
+Today the game mostly asks: **“Is your intent the right weapon?”** Wrong answer → big damage cut on fancy arts.
+
+Split that into two separate questions:
+
+| Question | Meaning | Stays strict? |
+|----------|---------|---------------|
+| **Can you use this art at all?** | Path, realm, soul mass, story gates | **Yes** — body arts still need body cultivation; soul arts stay soul |
+| **How does your intent express through it?** | What the hit *feels* like and what it stresses | **No hard fail** — always some expression; quality scales with intent depth |
+
+Wrong-weapon arts should feel **awkward or costly**, not “grayed out unusable.” A shallow sword intent throwing a fist palm is still a push. A **Perfection**-tier sword intent throwing the same palm is the finger-blade cut.
+
+---
+
+### Expression strength (intent depth)
+
+How far intent rewrites a mismatched art should scale with **how deep that intent is** — uses, tier, deepen picks, domain arts.
+
+| Intent depth | Cross-wield feel (example: Sword intent + palm art) |
+|--------------|-----------------------------------------------------|
+| **Sprout / shallow** | Art mostly as written. Small flavor line. Maybe +5% cut-leaning stress. |
+| **Minor / Major Success** | Clear shift — palm reads as chop or edge-slap; bleed weight rises. |
+| **Perfection** | Strong rewrite — *“Your fingers carry sword intent; the palm lands as a cut.”* Mechanical shift toward slash / flesh stress. |
+| **Intent Domain** | Signature — unarmed basics can default to sword expression; expand arts (Returning Edge, etc.) tint **techniques** too. |
+
+**Perfect match** (Sword intent + sword art) stays the cleanest line: full synergy, lowest cost, authored stress profile unchanged.
+
+**Weapon match, shallow stage** — same family, not enough depth: warn in UI, reduced efficiency, but not the old 45% damage cliff.
+
+---
+
+### Cross-wield expression table (draft)
+
+Each intent has a **home expression** — what it wants to do to the world. When you cross-wield, the art bends toward that home without erasing what the art is.
+
+| Your intent | Home expression | Fist / palm art becomes… | Sword / blade art becomes… | Staff / qi art becomes… |
+|-------------|-----------------|--------------------------|----------------------------|-------------------------|
+| **Sword** | Cut, edge, line | Chop, finger-blade, **cut not push** | Native — clean edge | Staff sweep “like a drawn line” |
+| **Blade** | Slash, bleed, slaughter | Tearing rake, knuckle slash | Native — heavy slash | Wide arc, blood-weight |
+| **Spear** | Thrust, pierce, line | **Piercing fist**, spear-hand, penetrating palm | Short thrust, tip-work | Bolt-like channel |
+| **Fist** | Crush, shock, rhythm | Native — concussive | Hilt strikes, blunt edge, guard break | Staff bash, ward pulse |
+| **Staff** | Flow, ward, circulation | Palm with circulating force, meridian push | Deflecting cut, parry edge | Native — ward and channel |
+
+**Owner beat (locked):** Sword-at-Perfection + Heavenly Palm = cut, not push. Spear-at-depth + Mountain Crash = still heavy, but stress and log read **piercing** — *“You drive the slam through a single penetrating line.”*
+
+Soul arts and spirit damage **do not** get rewritten into sword cuts — intent may add flavor text only, or bias secondary stress, but soul-cut stays soul-cut.
+
+---
+
+### Worked examples (fiction → mechanics)
+
+| Situation | Log flavor | Mechanical tilt (when stress system exists) |
+|-----------|------------|-----------------------------------------------|
+| Perfection Sword intent, no weapon, basic attack | *“Sword intent manifests — your hand falls like a blade.”* | Default nature **slash**; flesh stress; may inherit Returning Edge |
+| Major Success Sword intent, Scorching Palm | *“Flame rides the edge of your palm, not the heel of your hand.”* | Fire + slash-leaning flesh stress (not crush) |
+| Perfection Spear intent, Crushing Fist | *“A single penetrating knuckle finds the seam in their guard.”* | Pierce-leaning; circulation splash; penetrating_line bias |
+| Shallow Fist intent, Wind Blade Strike | *“The wind-blade forms, but your fist intent drags it blunt.”* | Weakened slash; more structure than authored |
+| Intent Domain Blade, enemy below half HP | *“Butcher Domain — every touch opens a wound.”* | Slaughter aura threshold; bleed break pressure |
+
+These are **log + stress tilt + tag bias** — not a second damage formula per combo.
+
+---
+
+### Room to grow (parked beats)
+
+Intent expression is a **platform**, not a closed list. Later beats that fit the same rules:
+
+- **NPC identity** — “The Palm Sovereign” is terrifying because every open-hand art expresses as a different intent than the manual says.
+- **Sect manuals** — same art taught two ways; expression table differs by lineage (Lotus softens, Sword sect sharpens).
+- **Trials / bosses** — read your active intent and counter-express (anti-line, anti-thrust).
+- **Unarmed specialists** — no weapon slot; intent *is* the weapon for basics and cross-wield.
+- **Dual expression (late)** — two awakened intents, switch mid-fight (months out of combat); never two on one swing in v1.
+- **Intent vs intent** — high Spear intent attacking high Staff ward: fiction of thrust vs circulating deflect (tag interaction, not rock-paper-scissors chart).
+
+Add rows to the cross-wield table as new weapons or paths appear. No new combat branch per row.
+
+---
+
+### What stays gated (on purpose)
+
+| Still hard-gated | Why |
+|------------------|-----|
+| Body / soul / qi **path** | You cannot body-temper a qi-only character into Mountain Crash |
+| **Realm** and technique requirements | Arts you haven’t earned don’t appear |
+| **High art cost** when cross-wielding | Expression is allowed; efficiency is not free |
+| Soul damage type | Intent colors; does not turn Soul Rend into a physical slash |
+
+Softened (design intent): **weapon type on high-quality arts** — usable with expression shift instead of ~45% damage brick.
+
+---
+
+### Intent arts beyond basics
+
+Expand arts (Returning Edge, Pierce Domain, Slaughter Aura, …) should eventually tint **techniques**, not only basic attacks — at least at Intent Domain tier, earlier for some arts.
+
+Shape (planning only):
+
+```js
+// example — not shipped
+{ id: 'returning_edge', expression: { natureBias: 'slash', onHit: { extraSwing: 0.45 } } }
+{ id: 'pierce_domain', expression: { tags: ['ignoresGuard'], stressBias: { circulation: 0.15 } } }
+```
+
+At Domain tier, Sword intent + any physical technique may roll Returning Edge at reduced strength — the “everything is a sword” endgame.
+
+#### Multiple intents (future)
+
+Several intents awakened; one **active** for expression. Mid-fight switch costs a turn or breath. One expression per swing.
+
+---
+
+### Dao layer (parked — not current focus)
+
+*Intent wielding is the active design thread. Dao hooks below stay valid but wait for a later pass.*
 
 Today: `rollTrueDaoCombatEffects` — element-aligned **greater phase** dao adds bonus HP + freeze/root/slow. `getDaoIntentSynergyMult` — +8% element, +7% more if intent matched. Fine for HP race; doesn’t interact with systems.
 
@@ -301,9 +378,11 @@ Defaults locked for parking; revisit when building:
 - Player Defend protecting a system: not v1
 - Fifth Spirit system: Circulation covers soul-cut for now
 - Exact pen/hardness numbers: Phase B+
-- Cross-wield shift table: tune per playtest — should feel different, not strictly better
+- Cross-wield table: tune per playtest — should feel different, not strictly better
 - High-art `noMatchMult` removal: confirm no degenerate “always Spear intent + every art” meta
-- Dao riders on basics: yes for phase bias; full rider procs on basics only if art-tier intent
+- **Expression at Sprout:** how much rewrite is too much too early?
+- **Soul + intent:** flavor-only vs light stress bias — owner call
+- Sword palm / spear fist examples: locked as signature beats; add more via table rows not bespoke code
 
 ## Implementation crumbs
 
