@@ -22,6 +22,7 @@ Sister docs:
 | [`weapon-intent-awakening.md`](weapon-intent-awakening.md) *(PR #95)* | How intent is **born** — groundwork + spark, no weapon picker |
 | [`devouring-intent.md`](devouring-intent.md) *(PR #95)* | Deviant track template — intent realms, gates, cult life |
 | [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) *(PR #95)* | Sect life × realm × intent spine (copy pattern for Sword Sect, etc.) |
+| [`intent-track-template.md`](intent-track-template.md) | **Copy this** for new tracks — shared engine, fill-in slots |
 
 > **Planning only.** Existing `intent.js` deepen/expand fork and weapon picker may be **rewritten** when this ships.
 

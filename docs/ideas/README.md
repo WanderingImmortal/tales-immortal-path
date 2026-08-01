@@ -69,6 +69,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
 | [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` | Build Issue not opened yet | — |
 | [Weapon Intent — cultivation loop](weapon-intent-cultivation.md) | `designed` | PR #95 awakening docs; intent redo | [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
+| [Intent track template](intent-track-template.md) | `designed` | Fill per track / sect | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
 | [Living world clock (continuous)](world-clock-continuous.md) | `building` (Phase 2) | — | [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) |
