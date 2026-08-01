@@ -145,14 +145,14 @@ Reuse patterns from `generateWorldSect` (`sect.js`) and `generateWorldNpc` (`wor
 3. **Roll per spawn:**
    - `size` (weighted by zone)
    - `name` (prefix/suffix pools — already exist)
-   - `doctrine` + `flavorType` (map to faction archetypes: warrior, merchant, mystic — **flavor only**, not full faction rep)
+   - `doctrine` + `flavorTags` (0–2 weak tags: warrior, merchant, earth — **not** manuals or techniques)
    - `zone` + optional `anchorLocationId` (city or wilderness node)
    - `apexRealm` (champion patriarch — capped by zone + size)
    - `renown`, `power`, `discipleCount` (lightweight numbers)
    - `status`: `rising` | `stable` | `declining` | `extinct`
    - `spawnedAtMonths`, `lastTickMonths`
 
-**Optional coherence:** "Lineage stub" — one element or breath name from a small pool so two sects in Jade don't feel identical. Not full identity docs; 1–2 tags.
+**No lineage stubs or technique identity** — see [Hollow by design](#hollow-by-design-owner) below.
 
 ## Founder archetypes (story-first sim)
 
@@ -663,6 +663,36 @@ Procedural sects spawn **already mid-story**, not at founding month zero. On new
 
 **Light touch:** backfill is template + age math, not simulating those decades tick-by-tick.
 
+### Naming — per-zone flavor (owner locked)
+
+~**50% generic** + ~**50% zone-themed** prefix/suffix pools (`ZONE_SECT_NAME_POOLS` in `data.js`).
+
+| Zone | Themed flavor (examples) | Generic OK |
+|------|--------------------------|------------|
+| Dustbone | Sand, bone, mirage, sun, ash | Crimson Peak Sect |
+| Jade | Tide, reef, pearl, mist, current | Iron Veil Pavilion |
+| Emberwild | Ember, fang, ash-wolf, kiln | Silent Moon Hall |
+| Frostbite | Frost, rime, glacier, still | Thunder Gate |
+| Heartlands | Fewer indie spawns; mostly branches with faction names | — |
+
+Reuse `SECT_RIVAL_PREFIXES/SUFFIXES` as global generic pool; add zone overlays.
+
+### Hollow by design (owner)
+
+Procedural sects are **intentionally shallow** — population texture, not crafted factions.
+
+| They have | They do **not** have |
+|-----------|---------------------|
+| Name, zone, kind (hall/branch/sect) | Lineage cultivation manuals |
+| Vitals, archetype, doctrine tag | Signature techniques players can learn |
+| 1–2 weak tags (`warrior`, `earth`, `merchant`) | Identity doc, founder myth, sacred art |
+| Patriarch name/realm when hydrated | Teachable inner court, unique perks |
+| Chronicle beats | Faction-grade `FACTION_DEFINITIONS` depth |
+
+**Genre read:** Iron Reed Sect is a name in the jianghu — not Celestial Sword. Great powers are lovingly crafted; procedural sects are **hollow until promoted** (rare) or **until player joins/founds** something real.
+
+Chronicle and gossip use tags loosely (*"a sword-leaning minor sect"*) — never specific manual names.
+
 ## What players see (phased)
 
 | Phase | Player-facing |
@@ -686,7 +716,8 @@ Procedural sects spawn **already mid-story**, not at founding month zero. On new
 - [x] Density — start light; tunable per zone (`ZONE_SECT_DENSITY`)
 - [x] School vs sect — **hard line A**; halls FE/city, sects GC+/ground
 - [x] Major cities — **branches not indie**; tier table above
-- [ ] Owner confirms size tier names
+- [x] Naming — ~50% generic, ~50% zone-themed pools
+- [x] Identity depth — **hollow** (no manuals/techniques/theme); weak tags only
 - [ ] Owner confirms GC lifespan target (200y code today vs ~300y design intent) before tuning succession math
 - [x] World seed history — **mid-story** backfill (2–4 beats); not empty young world
 - [ ] Shared world seed across playthroughs vs per-save random? → **per-save world state**; optional shared name/flavor pools only
