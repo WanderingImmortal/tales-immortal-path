@@ -91,6 +91,8 @@ Skip if orthodox weapon — use generic [`weapon-intent-awakening.md`](weapon-in
 
 ### 5. Per-realm band (repeat ×5 or stub 1–2 and park rest)
 
+**Realm 1 (Sprout) full slice:** [`weapon-intent-cultivation.md` § Intent Realm 1 — Sprout](weapon-intent-cultivation.md#intent-realm-1--sprout-what-it-should-be).
+
 For each idx:
 
 | Piece | Content |
