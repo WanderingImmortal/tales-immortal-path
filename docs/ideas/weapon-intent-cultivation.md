@@ -27,7 +27,73 @@ Sister docs:
 
 ---
 
-## What’s wrong today
+## How xianxia handles intent — and what that means for us
+
+Genre note: **意** in novels is deliberately fuzzy — “will made manifest,” not a stat block. We pick **expressions players can feel** (combat shape, logs, sect life) and accept that cosmic intent will stay partly mysterious until Law / Domain tiers.
+
+### What novels usually do
+
+| Pattern | What it looks like in fiction | Game job |
+|---------|------------------------------|----------|
+| **Learn vs realize** | Manual teaches the *move*; intent is *understood* — “you can copy the form, not the soul” | Techniques from syllabus; intent from **awakening + ripening** |
+| **Walk the path first** | Carry the sword, live as a sword cultivator, lose yourself in the weight — *then* something stirs | **Groundwork** before spark ([`weapon-intent-awakening.md`](weapon-intent-awakening.md)) |
+| **Spark / epiphany** | Treasure, relic, near-death, witnessing an apex duel, inheritance ground | **Awakening** — not a menu pick |
+| **Battle comprehension** | Life-or-death fights sharpen intent; worthy opponents matter | Combat saturation **chunks** |
+| **Sitting comprehension** | Meditate with blade, merge qi and mind, months in grotto | **Meditate-with-weapon** cultivate mode |
+| **Drilling** | Ten thousand strikes — boring on page, *felt* as time passing | **Passive drip** + soft cap (time alone isn’t enough) |
+| **Inheritance environment** | Sword sect valley, demon grotto, elder drills | **Sect life** boost table ([`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md)) |
+| **Stages** | 初意 → 小成 → 大成 → 圆满 → 意境 (sprout → minor → major → perfection → domain) | **Intent realms** + automatic deepen milestones |
+| **New face at each stage** | Intent “shows” differently — phantom sword, killing pressure, domain | **Expand** arts (Returning Edge, Maw Domain, …) |
+| **Realm coupling** | Can’t hold apex intent in a weak vessel | Intent **sleeps** off dantian path; breakthrough needs cultivation band |
+| **Divided heart** | Two intents / wrong path → progress halts or splits | Divided heart slower; cross-wield awkward until deep |
+| **Intent clash** | Stronger intent suppresses weaker without swinging | Future: morale, flee, tribulation — not v1 |
+| **Setback** | Intent injury, shattered comprehension | Parked — scars / limbo later |
+
+### What we had vs what genre wants
+
+| Shipped / old design | Xianxia read | Adaptation |
+|----------------------|--------------|------------|
+| Weapon picker at FE | “I chose Sword on a character sheet” | **Groundwork + spark** (PR #95) |
+| Uses → tier only | Fighting helps, but not the whole story | Uses = **one boost channel** inside saturation |
+| Refine Intent button | “I spent months” without living differently | **Ripening meter** — same months, different *activities* fill it |
+| Deepen **or** Expand | Fork isn’t in novels — you deepen *until* a new manifestation appears | **Deepen milestones → Expand at band cap** |
+| Expand on basics only | Intent should color *everything* you do at high depth | Expression + expand tint **techniques** ([`combat-damage-depth.md`](combat-damage-depth.md)) |
+| Intent separate from sect | Great sects *train* crown comprehensions over decades | Rank × realm life doc; drills feed saturation |
+
+### Proposed game adaptation (keeps saturation)
+
+Think of intent growth as **three layers** the player never names — one hidden ripening bar represents all of them:
+
+```text
+1. WALK    — passive drip, carried weapon, sect posting, manual alignment
+2. WIELD   — fights, spars, missions (big chunks)
+3. REALIZE — sparks, witness beats, expand ceremony, realm breakthrough
+```
+
+**Walk** alone hits ~70% (you’re living the shape). **Wield** pushes you through the band. **Realize** is the punctuation — awaken, expand, break into next intent realm.
+
+That maps cleanly onto xianxia: years of walking the path, punctuated by fights and epiphanies, capped by what your cultivation vessel can hold.
+
+### What we should *not* copy from novels
+
+| Trope | Why skip or soften in a game |
+|-------|------------------------------|
+| Pure author fiat | Player needs **readable** progress (bar, hints, next milestone) |
+| Infinite grind, no UI | Soft cap + boosts so decades feel directed |
+| Intent solves everything | Techniques, realm, gear still matter — intent **tints** and **rewards** |
+| Instant max from one treasure | Spark **opens** the track; saturation **fills** it |
+
+### Open synthesis (owner exploring)
+
+Saturation is one good implementation of “ripening.” Alternatives if playtest says otherwise:
+
+- **Hidden ripening** — no bar, only log milestones (“your palm begins to cut”) — more novel, less legible
+- **Dual meters** — Walk (passive) + Wield (combat) both required to breakthrough — more sim, more UI
+- **Event-only deepen** — no drip, only boosts — harsher, more roguelike
+
+**Lean:** keep saturation bar + soft cap + realize beats unless a prototype feels too idle.
+
+---
 
 | Today | Problem |
 |-------|---------|
