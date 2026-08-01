@@ -194,8 +194,8 @@ Language pattern: **imposed will + how settled it feels** — not “your qi is 
 | Awakened · low | *Sword-will **sits on** your circulation — thin, but when you look inward the edge is there.* |
 | Mid ripening | *The imposed line **holds** through a full cycle; root and will not yet one thing, but they stop fighting.* |
 | High ripening | *Within, every pulse wants to **exit as a cut**; you feel how deep the will has settled.* |
-| Ready to expand | *The will has **one shape** it wants to show — a second face presses to be born.* |
-| After Returning Edge | *Inward, you feel **two edges** in the same will — imposed line and returning line.* |
+| Ripe (100%, gates pending) | *The will has **one shape** it wants to show — you are ready to break through.* |
+| After Expand → Realm 2 | *Inward, you feel **two edges** in the same will — imposed line and returning line.* |
 
 Parallel tables: Spear (*imposed thrust*), Blade (*imposed weight*), Staff Circle (*imposed ring*), Devouring (*imposed claim*).
 
@@ -564,7 +564,7 @@ After awaken: track opens at **Intent Realm 1**, saturation at 0%, no expand art
 |--------|-----------|
 | `chooseWeaponIntent` picker | Spark resolution |
 | `refineActiveIntent` / deepen button | **Intent Saturation** meter + milestones |
-| `pendingIntentChoice` deepen **or** expand | Saturation milestones + expand at 100% |
+| `pendingIntentChoice` deepen **or** expand | Saturation milestones + Expand ceremony at 100% + gates |
 | `INTENT_TIERS` use-only breakpoints | Intent realm gates + saturation + comprehension beat |
 | `INTENT_EXPAND_ARTS` fixed 3×3 grid | Per-realm one expand; saturation milestones per realm |
 | Intent popup deepen/expand/refine buttons | Saturation bar, boost hints, expand ceremony at 100% |
@@ -588,7 +588,7 @@ After awaken: track opens at **Intent Realm 1**, saturation at 0%, no expand art
 
 ## Implementation crumbs (when building — not now)
 
-- `intent.js` — saturation meter, milestone auto-deepen, expand at 100%, breakthrough beats
+- `intent.js` — saturation meter, milestone auto-deepen, expand ceremony (realm-up + art)
 - `data.js` — `INTENT_SATURATION_BOOSTS` per activity; expand per realm; milestone effects
 - `ui.js` — intent screen: arts + focus only; **no ripening bar**
 - `chamber.js` — `getChamberInwardIntentLine()` (root block separate from will block)
