@@ -295,11 +295,13 @@ Intent has its **own** realm ladder (comprehensions), but each step is **gated b
 
 | Intent realm | Weapon names (draft) | Typical cultivation | What changes |
 |--------------|----------------------|---------------------|--------------|
-| **1st** | Sprout / Stirring | Foundation Establishment | Intent awakens; expression is weak; cross-wield is flavor |
-| **2nd** | Minor Success / Taking | Golden Core | Expression rewrites mismatched arts; first expand arts matter in duels |
-| **3rd** | Major Success / Feast | Nascent Soul (TBD) | Techniques inherit expand arts; stress / expression stack |
-| **4th** | Perfection / Surfeit | Void / Dao Seeking band (TBD) | Near-domain polish |
-| **5th** | Intent Domain / Maw Domain | High immortal band (TBD) | Signature domain manifestation |
+| **1st** | Sprout / Stirring | Foundation Establishment | Intent awakens; expression weak |
+| **2nd** | Minor Success / Taking | Golden Core | Expression rewrites mismatched arts |
+| **3rd** | Major Success / Feast | **Nascent Soul → Deity Transformation** | Spans 2 cultivation realms |
+| **4th** | Perfection / Surfeit | **Void Refinement → Dao Seeking** | Dao may open or fail; intent keeps sharpening |
+| **5th** | Intent Domain | **Late Seeking / Void apex** (dao-blocked builds) | Self-Will peak — competes with Dao Manifestation in duels ([`intent-apex-self-will.md`](intent-apex-self-will.md)) |
+
+**Not parallel:** later intent realms deliberately **stretch** across cultivation bands so apex will can match Manifestation weight without mirroring every breakthrough.
 
 **Prodigy bypass:** break intent realm **before** cultivation realm if gates are met (FE Taking, etc.) — rare, loud, from [`devouring-intent.md`](devouring-intent.md).
 

@@ -43,7 +43,7 @@ Worked example: [`devouring-intent.md`](devouring-intent.md) *(PR #95)* — same
 | **Imposed-will word** | edge, line | claim, maw | inward copy voice |
 | **Home expression** | slash / cut | consumption | cross-wield target |
 | **Realm names ×5** | Sprout → Domain | Stirring → Maw Domain | **flavor only** — same idx 0–4 |
-| **Typical cultivation ×5** | FE → GC → NS… | FE → GC → NS… | **same gates** unless prodigy |
+| **Typical cultivation ×5** | FE → GC → NS… | FE → GC → NS… | **not 1:1** — see spans in [`intent-apex-self-will.md`](intent-apex-self-will.md) |
 | **Expand arts ×5** | Returning Edge… | Qi Siphon… | **track-specific** — main creative work |
 | **Inward signs ×5** | see cultivation doc | cult voice | **copy pass** per band |
 | **Boost table** | spar, drill | kills, feast rite | optional overrides |
@@ -85,7 +85,7 @@ Skip if orthodox weapon — use generic [`weapon-intent-awakening.md`](weapon-in
 | 1 | | | GC | *First …* beat | |
 | 2 | | | NS (TBD) | *First …* beat | |
 | 3 | | | TBD | TBD | |
-| 4 | | Domain | TBD | TBD | domain art |
+| 4 | | Domain | TBD | TBD | domain art · **Self-Will apex** optional ([`intent-apex-self-will.md`](intent-apex-self-will.md)) |
 
 **Same row count for every track.** Names and beats change; structure does not.
 
