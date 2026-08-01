@@ -208,6 +208,21 @@ charterCityId: null,             // if opted into city lord protection
 
 Social modifiers applied from `PROXIMITY_PROFILES[band]` — separate from `SITE_TIER_PROFILES[tier]`.
 
+### Harness vs upgrade (genre fit)
+
+In xianxia, sects **don't turn a poor mountain into a holy land** by grinding the vein itself. They:
+
+| What fiction does | Game expression |
+|-------------------|-----------------|
+| **Claim** better ground | Move HQ or conquer A-tier site |
+| **Array the vein** | Sect buildings + formations → **harness mult** on fixed tier |
+| **Steal / tap** neighbour vein | War, array siphons (risky — feud events) |
+| **Awaken dormant branch** | Survey **same** node → reveal sub-spring (+small bonus, not full tier) |
+| **Maintain** dying vein | Post-war upkeep; neglect → cultivate mult decays |
+| **Immortal relocate vein** | Endgame / **D** unique only — not B→A button |
+
+**Locked:** `site.tier` is **fixed** for that node. Player improves output via **arrays, buildings, disciples** — not re-rolling vein grade. Want Threshold-grade qi? **Move** or **take** Threshold's fringe peak.
+
 ---
 
 ## Prerequisites
@@ -220,7 +235,7 @@ Social modifiers applied from `PROXIMITY_PROFILES[band]` — separate from `SITE
 
 - [x] **City outskirts** — weak B near Redwell: **sect-legal**; tier-4 fringe social profile
 - [x] **Proximity vs vein** — two axes; near higher city = social tradeoff not pure win
-- [ ] Can player **upgrade** tier in place (B→A) by array/vein deepening, or only by moving?
+- [x] **Upgrade vein tier in place?** — **No** (genre). Harness via arrays/buildings; true tier jump = move or conquer. Optional: awaken dormant sub-vein on same mountain (small bonus, not B→A).
 - [ ] **D** sites — one per zone max or hand-counted only?
 
 ## Links
