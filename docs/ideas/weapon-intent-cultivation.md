@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (planning — owner 2026-08-01) |
-| **Blocked on** | none for design; build Issue not opened |
+| **Status** | `designed` (parked — owner 2026-08-01) |
+| **Blocked on** | Redwell / starter slice first; no build Issue |
 | **Issue** | none yet |
 | **Chat / PR** | Intent planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) · sister work [PR #95](https://github.com/WanderingImmortal/tales-immortal-path/pull/95) (awakening + Demon Cult life) |
 | **Updated** | 2026-08-01 (playable slice scoped to intent realms 1–2) |
@@ -522,6 +522,8 @@ Retire “all three staff expands are defensive” — Circle needs **Reach** an
 
 ## Playable slice — realms 1–2 only (owner scope)
 
+> **Parked (2026-08-01).** Design retained for when intent build resumes; not on the current queue.
+
 **Goal:** ship something **feelable** at Foundation → Golden Core — not the full five-realm ladder. Realms 3–5 stay **designed / stubbed** in data; code paths should not assume they exist yet.
 
 ### What “playable” means
@@ -556,7 +558,7 @@ Second realm band can **start** ripening (same milestones) but **Realm 2 → 3 E
 | Realms 3–5 + arts 2–4 | Design exists; not needed to prove loop |
 | Full awakening (PR #95) | Weapon picker OK as **temporary** if spark doc not merged |
 | Meditate-with-weapon mode | Combat + drip enough for first playtest |
-| Sect life saturation boosts | Table later; [`heavenly-demon-cult-life.md`](weapon-intent-awakening.md) |
+| Sect life saturation boosts | Table later; [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) |
 | Combat damage depth / stress types | Log flavor only until [`combat-damage-depth.md`](combat-damage-depth.md) ships |
 | Devouring track | Separate Issue after orthodox slice works |
 | Staff Circle Reach/Conduct ladder | Realm 1–2 staff can use existing Circulating Guard only |

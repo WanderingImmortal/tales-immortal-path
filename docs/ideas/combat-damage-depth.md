@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
-| **Blocked on** | none for design; build Issue not opened yet |
+| **Status** | `designed` (parked — owner 2026-08-01) |
+| **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) playable slice; Redwell first |
 | **Issue** | none yet |
 | **Chat / PR** | Combat damage depth planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
 | **Updated** | 2026-08-01 |

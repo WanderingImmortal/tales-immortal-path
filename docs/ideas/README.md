@@ -67,10 +67,10 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Tribulation — per-gate backlog](tribulation-per-gate-backlog.md) | `idea` (QC→FE `building`) | Owner design per watershed | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-per-gate-backlog | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
-| [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` | Build Issue not opened yet | — |
-| [Weapon Intent — cultivation loop](weapon-intent-cultivation.md) | `designed` | PR #95 awakening docs; intent redo | [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
-| [Intent track template](intent-track-template.md) | `designed` | Fill per track / sect | — |
-| [Intent apex — Self-Will path](intent-apex-self-will.md) | `designed` (late-game) | Dao Seeking / Manifestation band | — |
+| [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` (parked) | Intent slice; Redwell first | [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
+| [Weapon Intent — cultivation loop](weapon-intent-cultivation.md) | `designed` (parked) | Redwell / starter slice | [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
+| [Intent track template](intent-track-template.md) | `designed` (parked) | Intent realms 1–2 build | — |
+| [Intent apex — Self-Will path](intent-apex-self-will.md) | `designed` (parked) | Intent playable slice | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
 | [Living world clock (continuous)](world-clock-continuous.md) | `building` (Phase 2) | — | [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) |

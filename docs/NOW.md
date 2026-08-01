@@ -2,7 +2,7 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-08-01
+**Updated:** 2026-08-01 (intent cluster parked)
 
 ## Focus
 - **Redwell starter city** (PR #90) — [`redwell-starter-city.md`](ideas/redwell-starter-city.md) · zone [`dustbone-living-board.md`](ideas/dustbone-living-board.md)
@@ -14,7 +14,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Threshold visit · mid city — **after** Redwell feels decent
 
 ## Parked (return later)
-- Combat damage depth + intent wielding — [`combat-damage-depth.md`](ideas/combat-damage-depth.md) · cultivation loop [`weapon-intent-cultivation.md`](ideas/weapon-intent-cultivation.md) · PR #95 awakening/cult stubs
+- **Intent + combat damage depth** (owner parked 2026-08-01) — [`weapon-intent-cultivation.md`](ideas/weapon-intent-cultivation.md) · [`combat-damage-depth.md`](ideas/combat-damage-depth.md) · template · Self-Will · [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) · sister [PR #95](https://github.com/WanderingImmortal/tales-immortal-path/pull/95) awakening stubs
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)

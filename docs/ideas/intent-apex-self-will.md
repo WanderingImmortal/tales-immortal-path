@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (late-game brainstorm — owner 2026-08-01) |
-| **Blocked on** | Nine-realm ladder stable; dao taxonomy; intent cultivation redo |
+| **Status** | `designed` (parked — late-game) |
+| **Blocked on** | Intent realms 1–2 playable slice; dao taxonomy |
 | **Issue** | none yet |
 | **Parent** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) · [`intent-track-template.md`](intent-track-template.md) · [`nine-realm-ladder.md`](nine-realm-ladder.md) |
 | **Updated** | 2026-08-01 (owner: both peakable; intent-deep = dao-blocked slog) |

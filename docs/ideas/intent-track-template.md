@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (meta — copy for new tracks) |
-| **Blocked on** | none |
+| **Status** | `designed` (parked — meta template) |
+| **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) build |
 | **Issue** | none |
 | **Parent** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) · [`combat-damage-depth.md`](combat-damage-depth.md) |
 | **Updated** | 2026-08-01 |
