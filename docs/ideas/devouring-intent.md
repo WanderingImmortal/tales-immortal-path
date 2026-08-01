@@ -100,9 +100,9 @@ Wrong groundwork + strict spark → item **waits**. Open-read relic → player d
 1. Groundwork threshold met → hint line appears.
 2. Spark fires (or shard activates).
 3. Log: *"Something **stirs** in your dantian — not hunger, but **claim**."*
-4. **Devouring Intent** track opens at tier **0 — Stirring** (初噬). **0 uses.** **Feeder** rank is still far off — GC + **Taking** + merit.
+4. **Devouring Intent** track opens at tier **0 — Stirring** (初噬). **0 uses.** **Reaver** rank is still far off — GC + **Taking** + merit.
 
-**Rarity:** most FE cultivators never reach step 3. Cult makes awakening **plausible**; **Stirring** at FE might get a **ledger mark** — not Feeder rank, not gorge favor.
+**Rarity:** most FE cultivators never reach step 3. Cult makes awakening **plausible**; **Stirring** at FE might get a **ledger mark** — not Reaver rank, not gorge favor.
 
 ### How the cult treats talent (owner lock 2026-07-31)
 
@@ -111,7 +111,7 @@ Wrong groundwork + strict spark → item **waits**. Open-read relic → player d
 | *"The gorge is grooming me"* | **Hands off.** Lower elders **might** notice; they have seen every prodigy for centuries. |
 | *"Intent makes me special"* | Makes you **visible** — worth investment **or** consumption. |
 | *"Greenhouse talent"* | **Weak.** Field kills, tithe pressure, lethal spars — flower dies without thorns. |
-| Feeder scroll | Signed when you **survive** to GC with **Taking** — cold merit, not affection. |
+| Reaver scroll | Signed when you **survive** to GC with **Taking** — cold merit, not affection. |
 
 ---
 
@@ -200,12 +200,12 @@ Expand: **new taking expression** (see table below).
 | Tier idx | Name | At FE | World read |
 |----------|------|-------|------------|
 | **0** | **Stirring** | **Rare** at FE — ledger **might** note | *"Another maw. Let's see if it feeds or starves."* |
-| **1** | **Taking** | **Prodigy** if before GC; **normal** at Feeder promotion | *"Sign the scroll or send them to die useful."* |
+| **1** | **Taking** | **Prodigy** if before GC; **normal** at Reaver promotion | *"Sign the scroll or send them to die useful."* |
 | **2+** | Feast+ | Not FE | — |
 
 - Most FE cultivators **never** awaken (idx 0).
 - **Stirring** at FE = rare; junior elder **may** mark merit — **no** protection, no grooming.
-- **Feeder** rank = **GC + Taking** + merit — earned in the field, not greenhouse.
+- **Reaver** rank = **GC + Taking** + merit — earned in the field, not greenhouse.
 - **Taking** before GC = prodigy on paper; gorge still waits to see if you **live**.
 
 **Parked:** Intent Realm II (Taking) and III (Feast) below.
@@ -251,7 +251,7 @@ Uses alone do not break through. At 10 uses, GC, no First Taking: *"Your will ci
 | Source | Role |
 |--------|------|
 | Intent uses from hunts / lethal spars | Toward 10-use floor |
-| Feeder missions | Full credit |
+| Reaver missions | Full credit |
 | Layer 3 study | Unlocks First Taking rite |
 | GC breakthrough | Cultivation gate for non-prodigies |
 
@@ -292,7 +292,7 @@ Between Taking and Feast, player is **refining comprehension**, not grinding one
 
 | Polish source | What it does |
 |---------------|--------------|
-| **Feeder missions** | Core-bracket marked prey — full intent use credit |
+| **Reaver missions** | Core-bracket marked prey — full intent use credit |
 | **Multi-kill fights** | Even pre-Feast, track "near feast" — 2 kills same encounter advances hidden First Feast progress |
 | **Gorge Feast Rite** | Monthly meditate with kill proof — cult ceremony |
 | **Layer 3 study** | Feeding Rites syllabus — unlocks rite, teaches chain doctrine |
@@ -309,7 +309,7 @@ Between Taking and Feast, player is **refining comprehension**, not grinding one
 | **Carnage stack** | 2nd+ kill in window: +basics / +conversion (cap per fight) |
 | **Technique Taste** (expand) | Once per fight — survive enemy art, light buff (parked detail) |
 | **Person-yield** | Post-fight refine bonus when fight had 2+ cultivator kills |
-| **Out of combat** | Feeder rank politics; bounty tier 2 attention |
+| **Out of combat** | Reaver rank politics; bounty tier 2 attention |
 
 ### Intent realms map (working)
 

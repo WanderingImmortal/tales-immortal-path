@@ -1,4 +1,4 @@
-# Heavenly Demon Cult — GC Feeder life
+# Heavenly Demon Cult — GC Reaver life
 
 | Field | Value |
 |-------|-------|
@@ -6,15 +6,15 @@
 | **Blocked on** | GC chamber substages; intent Taking plumbing; damage system rework (combat arts) |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 · PR #95 |
-| **Updated** | 2026-07-31 |
+| **Updated** | 2026-08-01 (rank renamed Feeder → **Reaver**) |
 
 ## Intent
 
-**Golden Core as a cult Feeder** — not "I tribulated and got a bigger number." You are **rank 3**: Layer 3 canon, **Taking** intent, predator missions, **persistent rivals**. The gorge treats you as **inventory** — worth feeding, worth spending, not worth coddling.
+**Golden Core as a cult Reaver** — not "I tribulated and got a bigger number." You are **rank 3**: Layer 3 canon, **Taking** intent, predator missions, **persistent rivals**. The gorge treats you as **inventory** — worth feeding, worth spending, not worth coddling.
 
 Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Initiate slice: [`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md). Intent: [`devouring-intent.md`](devouring-intent.md). GC mechanics (generic): [`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md). Pacing anchor: [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md).
 
-**Owner lock 2026-07-31:** Layer 3 **combat arts** (Heaven-Defying Swallow, Demon Maw Manifestation, etc.) are **parked** until the **damage system rework**. Feeder lifestyle design does **not** depend on new combat techniques.
+**Owner lock 2026-07-31:** Layer 3 **combat arts** (Heaven-Defying Swallow, Demon Maw Manifestation, etc.) are **parked** until the **damage system rework**. Reaver lifestyle design does **not** depend on new combat techniques.
 
 ---
 
@@ -23,7 +23,7 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Ini
 | | |
 |--|--|
 | **Realm** | Golden Core (full GC journey — nascent through purifying / consolidate) |
-| **Sect rank** | **Feeder** (promoted when GC + **Taking** + merit + sponsor) |
+| **Sect rank** | **Reaver** (promoted when GC + **Taking** + merit + sponsor) |
 | **Next rank** | **Inner Demon** — **Core+** + Feast (3rd intent realm, TBD) + relic rites |
 | **Canon** | **Layer 3 — Feeding Rites** (饲魔篇) |
 
@@ -31,18 +31,18 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Ini
 
 ---
 
-## Promotion into Feeder
+## Promotion into Reaver
 
-**Not an FE promotion.** You may have been **Initiate** for decades. **Feeder** arrives with **Golden Core** — and only if the ledger agrees.
+**Not an FE promotion.** You may have been **Initiate** for decades. **Reaver** arrives with **Golden Core** — and only if the ledger agrees.
 
 | Gate | Detail |
 |------|--------|
 | **Breakthrough** | FE → GC (generic tribulation per current build; substages per GC journey doc) |
 | **Intent** | **Taking** (2nd intent realm, tier idx 1) — **normal bar** at GC. **Stirring** only at FE = rare; prodigy **Taking** before GC = noted, not nurtured. |
 | **First Taking** | Comprehension beat — siphon mid-fight, finish bracket prey ([`devouring-intent.md`](devouring-intent.md)) |
-| **Merit** | Feeder trial — marked prey, relic proof, or ranked spar vs persistent rival |
+| **Merit** | Reaver trial — marked prey, relic proof, or ranked spar vs persistent rival |
 | **Seal** | FE complete — **blood-fiend** preferred; plain seal makes sponsor harder |
-| **Sponsor** | Elder / envoy signs Feeder scroll — cold merit, not affection |
+| **Sponsor** | Elder / envoy signs Reaver scroll — cold merit, not affection |
 | **Manual** | Receive **Feeding Rites** (Layer 3) — gorge-sealed or envoy handoff |
 
 **Demotion still possible:** break Five Takings at higher visibility, fail trial twice, blab gorge route → disown (worse at GC — you're a **named** asset).
@@ -51,11 +51,11 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Ini
 
 ---
 
-## Main gorge vs branch (Feeder band)
+## Main gorge vs branch (Reaver band)
 
 | | **Main cult** (Gullet Gorge) | **Branch cell** (Redwell, etc.) |
 |--|------------------------------|--------------------------------|
-| **Quarters** | **Feeder barracks** — semi-private cells; inner-store access (thin) | **No feeder hall** — upgraded safehouse room if tithe current; still exposed |
+| **Quarters** | **Reaver barracks** — semi-private cells; inner-store access (thin) | **No reaver hall** — upgraded safehouse room if tithe current; still exposed |
 | **Layer 3** | Full **Feeding Rites** from archive | Envoy copy — gaps normal; missing rites are **not trusted yet** |
 | **Instruction** | Assigned predator mentor (rotation); quarterly cohort review | Monthly envoy; you're the **senior** cell asset now |
 | **Work** | Gorge predator board — regional marked prey, relic retrieval | Cross-cell jobs, bounty tier 2, **gorge transfer pitch** window opens |
@@ -63,13 +63,13 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Ini
 | **Exposure** | Contained missions; name on internal ledgers | **Bounty tier 2** — sect hunters, orthodox charters |
 | **Gorge transfer** | N/A — you're already HQ | **Eligible** if merit ledger says asset — first real gorge posting for branch survivors |
 
-**Design lock:** main Feeder life is **mission-driven**; branch Feeder life is **visible predator** — same doctrine, worse heat, same inventory status.
+**Design lock:** main Reaver life is **mission-driven**; branch Reaver life is **visible predator** — same doctrine, worse heat, same inventory status.
 
 ---
 
 ## Layer 3 — Feeding Rites (饲魔篇)
 
-Third layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps in at Feeder rank; shared layer progress with later tiers per [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md).
+Third layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps in at Reaver rank; shared layer progress with later tiers per [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md).
 
 ### What the manual teaches
 
@@ -91,19 +91,19 @@ Third layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps in
 第二章  Ch.2 — First Taking Rite (初取篇)
 第三章  Ch.3 — Marked Prey Doctrine
 第四章  Ch.4 — Gorge Feast Rite (chain doctrine — groundwork only)
-附录  Appendix — Feeder Trial Ledger
-封底  Back — Five Takings (feeder addendum)
+附录  Appendix — Reaver Trial Ledger
+封底  Back — Five Takings (reaver addendum)
 ```
 
-**Feeder addendum (one new rule on the pamphlet back):**
+**Reaver addendum (one new rule on the pamphlet back):**
 
 *"What you hunt beyond the ledger, the world hunts you for."* — off-book GC prey is **your** bounty heat, not the cell's problem until you embarrass them.
 
 ---
 
-## Taking intent — Feeder band (owner lock 2026-07-31)
+## Taking intent — Reaver band (owner lock 2026-07-31)
 
-**Taking** (2nd intent realm) is the **normal Feeder bar**. You should arrive at GC with **Stirring** (1st realm) already awakened — rare but plausible. **Taking** is the comprehension that changes combat.
+**Taking** (2nd intent realm) is the **normal Reaver bar**. You should arrive at GC with **Stirring** (1st realm) already awakened — rare but plausible. **Taking** is the comprehension that changes combat.
 
 ### Gate recap
 
@@ -116,7 +116,7 @@ Third layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps in
 
 **Player beat:** first successful **Qi Siphon** during a sanctioned hunt — log line: *"You did not wait for the corpse to cool."*
 
-### What Taking adds (at Feeder promotion)
+### What Taking adds (at Reaver promotion)
 
 | Stirring only | **Taking** online |
 |---------------|-------------------|
@@ -127,12 +127,12 @@ Third layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps in
 
 See full tier table: [`devouring-intent.md`](devouring-intent.md) Intent Realm II.
 
-### Polish Stirring → Taking (pre-Feeder scroll)
+### Polish Stirring → Taking (pre-Reaver scroll)
 
 | Source | Role |
 |--------|------|
 | Initiate hunt carryover | Intent uses from FE lethal spars count |
-| Feeder trial prey | Full credit toward First Taking |
+| Reaver trial prey | Full credit toward First Taking |
 | Layer 3 study | Unlocks rite |
 | GC breakthrough | Cultivation gate for non-prodigies |
 
@@ -140,21 +140,21 @@ See full tier table: [`devouring-intent.md`](devouring-intent.md) Intent Realm I
 
 ---
 
-## Feeder assignments — missions & scale
+## Reaver assignments — missions & scale
 
-Feeder work sits **between initiate local hunts and Inner Demon politics**: you are sent to **consume** named prey on a **regional** board — Heartlands roads, rival outer compounds, tempered relic sites — not continental Dao games.
+Reaver work sits **between initiate local hunts and Inner Demon politics**: you are sent to **consume** named prey on a **regional** board — Heartlands roads, rival outer compounds, tempered relic sites — not continental Dao games.
 
 ### Scale lock (owner 2026-07-31)
 
 | Band | Geography | Opponents | Loot / yield | Who assigns |
 |------|-----------|-----------|--------------|-------------|
 | **Routine** | Gorge interior, Redwell underworld | Low FE / QC cells | Reagents, merit tick | Rotation board |
-| **Marked** | Regional triangle + road networks | **GC rogue**, rival feeder, orthodox outer | Bounty-grade proof, strong Taking credit | Elder order |
+| **Marked** | Regional triangle + road networks | **GC rogue**, rival reaver, orthodox outer | Bounty-grade proof, strong Taking credit | Elder order |
 | **Tempered** | Ruin sites, failed trial grounds | Guardian beasts + rival claimants | Relic shards, feast groundwork | Quarterly lottery |
 | **Cross-cell** | Sister cells, envoy routes | Cell targets, smuggling opposition | High merit, gorge transfer points | Envoy / Maw liaison |
-| **Off-limits (Feeder)** | Sect Core compounds, NS prey, open massacre | — | Corruption / disown — Inner Demon missions | **Inner Demon+** |
+| **Off-limits (Reaver)** | Sect Core compounds, NS prey, open massacre | — | Corruption / disown — Inner Demon missions | **Inner Demon+** |
 
-**Player sentence:** *Initiates run teeth on a leash. Feeders run **jaws** — but the gorge still holds the chain.*
+**Player sentence:** *Initiates run teeth on a leash. Reavers run **jaws** — but the gorge still holds the chain.*
 
 ### Assignment table (working)
 
@@ -164,7 +164,7 @@ Feeder work sits **between initiate local hunts and Inner Demon politics**: you 
 | **Relic retrieval** | Main | Monthly | Tempered weapon sites — rival claimants | High | If blood drawn |
 | **Escort ambush** | Main | Rotation | Bait convoy — draw orthodox patrol | Medium–High | Multi-kill fights |
 | **Cohort spar** | Main | Bi-weekly | **Persistent rival** — ranked, to yield | High (winner) | Siphon + uses |
-| **Death match** | Main | Sanctioned only | High-stake rival or traitor feeder | Very high | Full |
+| **Death match** | Main | Sanctioned only | High-stake rival or traitor reaver | Very high | Full |
 | **Bounty tier 2** | Branch | Player picks board | Named orthodox / rogue GC | High | Yes |
 | **Cross-cell purge** | Branch | Envoy assigns | Sister cell cleanup — disowned asset | Very high | Yes |
 | **Gorge transfer run** | Branch | Rare | Blind route escort — **first HQ posting** | Transfer gate | Yes |
@@ -179,14 +179,14 @@ Feeder work sits **between initiate local hunts and Inner Demon politics**: you 
 
 ## Consumption yield — GC bracket (extends Initiate formula)
 
-Same person-yield formula as Initiate ([`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md)) — scales victim **realm + foundation quality**. Feeder band shifts **appropriate prey**:
+Same person-yield formula as Initiate ([`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md)) — scales victim **realm + foundation quality**. Reaver band shifts **appropriate prey**:
 
-| Example bracket | Rough relative yield | Feeder sanction |
+| Example bracket | Rough relative yield | Reaver sanction |
 |-----------------|----------------------|-----------------|
 | FE peak | Moderate — beneath you; diminishing intent returns | Legal but **lazy** — doctrine punishes safe farming |
-| GC early | Good — rival feeder, rogue tier | Primary grind |
+| GC early | Good — rival reaver, rogue tier | Primary grind |
 | GC peak | High — trial prey, orthodox outer | Marked hunt target |
-| Core+ | **Off-limits** for feeder band — yield exists; cell won't sanction | Inner Demon missions |
+| Core+ | **Off-limits** for reaver band — yield exists; cell won't sanction | Inner Demon missions |
 
 **Taking bonus:** +25% person-yield on cultivator finish ([`devouring-intent.md`](devouring-intent.md)).
 
@@ -194,13 +194,13 @@ Same person-yield formula as Initiate ([`heavenly-demon-cult-fe-initiate.md`](he
 
 ---
 
-## Persistent rivals — Feeder cohort (owner lock 2026-07-31)
+## Persistent rivals — Reaver cohort (owner lock 2026-07-31)
 
-Outer and Initiate spars are **lethal by default** — rivals die, cast rotates. **Feeder** changes the economics: you are **inventory**.
+Outer and Initiate spars are **lethal by default** — rivals die, cast rotates. **Reaver** changes the economics: you are **inventory**.
 
 | Beat | Detail |
 |------|--------|
-| **Rivals** | **2–3 persistent** named Feeders in your cohort — same pill ladder, years of overlap |
+| **Rivals** | **2–3 persistent** named Reavers in your cohort — same pill ladder, years of overlap |
 | **Spar default** | **To yield** or elder **stops** before death — dying for nothing wastes resources |
 | **Death match** | **Sanctioned only** — high merit stake, elder present; traitor / trial / promotion dispute |
 | **Comeback loop** | Lose ranked spar → rival climbs pill rank; rival **trains** (3–6 months fiction) → returns **stronger**, not instant outclass — **capped growth per arc** so player can rematch |
@@ -219,7 +219,7 @@ Outer and Initiate spars are **lethal by default** — rivals die, cast rotates.
 
 **Named NPCs persist** until death match, disown, or promotion to Inner Demon. Replacement rival **backfills** within 1–2 quarters — cohort never empty.
 
-### Feeder trial format (open — draft options)
+### Reaver trial format (open — draft options)
 
 | Option | Fiction | Merit weight |
 |--------|---------|--------------|
@@ -233,7 +233,7 @@ Outer and Initiate spars are **lethal by default** — rivals die, cast rotates.
 
 ## Blood pill stipend — ranked (owner lock 2026-07-31)
 
-Initiate pool (1/4 merit scramble) **ends** at Feeder promotion. New economy:
+Initiate pool (1/4 merit scramble) **ends** at Reaver promotion. New economy:
 
 | Cohort rank (quarterly) | Pills / quarter |
 |-------------------------|-----------------|
@@ -242,15 +242,15 @@ Initiate pool (1/4 merit scramble) **ends** at Feeder promotion. New economy:
 | **3rd** | **1** |
 | **4th+** | **0** (buy mortal balms) |
 
-**Ranking inputs:** merit ledger + **sanctioned feeder spars** + hunt yield. **Strength tie-break** when merit is close — *"The gorge respects teeth."*
+**Ranking inputs:** merit ledger + **sanctioned reaver spars** + hunt yield. **Strength tie-break** when merit is close — *"The gorge respects teeth."*
 
 **Predictable income** — stage feels different from initiate cutthroat lottery.
 
 ---
 
-## Merit ledger — Feeder band in play
+## Merit ledger — Reaver band in play
 
-Quarterly placement UI: *"2nd of 7 feeders — Redwell cell"* or *"4th of 19 feeders — gorge cohort 3"*.
+Quarterly placement UI: *"2nd of 7 reavers — Redwell cell"* or *"4th of 19 reavers — gorge cohort 3"*.
 
 | Source | Weight |
 |--------|--------|
@@ -269,12 +269,12 @@ Quarterly placement UI: *"2nd of 7 feeders — Redwell cell"* or *"4th of 19 fee
 
 ## Life loops at GC
 
-Pacing: inferior root may spend **decades** as Feeder (~100–150 years in GC band before Core push). Loops must **carry** long calendars.
+Pacing: inferior root may spend **decades** as Reaver (~100–150 years in GC band before Core push). Loops must **carry** long calendars.
 
 ### Monthly loop (main gorge)
 
 ```
-1. Cultivate   — feeder slot or assigned chamber (Layer 3; GC substages)
+1. Cultivate   — reaver slot or assigned chamber (Layer 3; GC substages)
 2. Cohort spar — ranked rival rotation (yield default)
 3. Assignment  — marked hunt / relic / escort ambush
 4. Ledger      — hunt log, spar record, intent uses
@@ -295,7 +295,7 @@ Pacing: inferior root may spend **decades** as Feeder (~100–150 years in GC ba
 
 ### Quarterly loop (both)
 
-| Beat | Feeder change |
+| Beat | Reaver change |
 |------|---------------|
 | **Tithe due** | **GC-scaled** stones/reagents; miss twice → disown + hunter |
 | **Pill stipend** | **Ranked** — 1st: 2, 2nd–3rd: 1, 4th+: 0 |
@@ -309,13 +309,13 @@ Pacing: inferior root may spend **decades** as Feeder (~100–150 years in GC ba
 | **Gorge Feast season** | Best intent-use season — multi-kill missions |
 | **Bounty season** (branch) | Orthodox charter events — hide or fight |
 | **Gorge transfer** (branch) | Top merit may receive blind-route posting |
-| **Sacrifice lottery** | Rare — cult spends a feeder on siege bait; high merit if you survive |
+| **Sacrifice lottery** | Rare — cult spends a reaver on siege bait; high merit if you survive |
 
 ---
 
 ## What changes from Initiate life
 
-| Dimension | Initiate (FE) | Feeder (GC) |
+| Dimension | Initiate (FE) | Reaver (GC) |
 |-----------|---------------|-------------|
 | **Canon** | Layer 2 Stained Foundation | Layer 3 **Feeding Rites** |
 | **Intent** | Stirring (1st realm) | **Taking** (2nd realm) — normal bar |
@@ -326,11 +326,11 @@ Pacing: inferior root may spend **decades** as Feeder (~100–150 years in GC ba
 | **Missions** | Local triangle | **Regional** marked prey, relics |
 | **Exposure** | Bounty tier 1 (branch) | **Bounty tier 2** |
 | **Gorge** | Branch: **never** at Initiate | Branch: **transfer eligible** |
-| **Endgame of rank** | GC + Feeder trial | **Inner Demon** at Core+ |
+| **Endgame of rank** | GC + Reaver trial | **Inner Demon** at Core+ |
 
 ---
 
-## Promotion Feeder → Inner Demon (at Core)
+## Promotion Reaver → Inner Demon (at Core)
 
 | Requirement | Detail |
 |-------------|--------|
@@ -340,11 +340,11 @@ Pacing: inferior root may spend **decades** as Feeder (~100–150 years in GC ba
 | **Manual** | Layer 4 **Inner Maw** |
 | **Sponsor** | Maw Elder signs — political liability begins |
 
-**Failure mode:** peak GC Feeder for decades without Core — useful monster arc, or disown when heat outweighs value.
+**Failure mode:** peak GC Reaver for decades without Core — useful monster arc, or disown when heat outweighs value.
 
 ---
 
-## Risks & social pressure (Feeder)
+## Risks & social pressure (Reaver)
 
 | Risk | Source |
 |------|--------|
@@ -360,11 +360,11 @@ Pacing: inferior root may spend **decades** as Feeder (~100–150 years in GC ba
 
 ---
 
-## Crown moments (Feeder band)
+## Crown moments (Reaver band)
 
 | Moment | When | Fantasy |
 |--------|------|---------|
-| **Feeder scroll** | GC + Taking + trial | *"You are Feeder. The gorge sends you to **eat**."* |
+| **Reaver scroll** | GC + Taking + trial | *"You are Reaver. Take what the gorge is owed."* |
 | **First Taking** | Mid-fight siphon | *"You did not wait for the corpse to cool."* |
 | **Ranked 1st** | Quarterly placement | Two pills; rivals hate you |
 | **Death match win** | Sanctioned | Rival **gone** — replacement backfills |
@@ -386,19 +386,19 @@ Pacing: inferior root may spend **decades** as Feeder (~100–150 years in GC ba
 
 ## Open questions
 
-- Feeder trial — always PvE hunt or player choice vs ranked rival spar? (**draft: choice**)
+- Reaver trial — always PvE hunt or player choice vs ranked rival spar? (**draft: choice**)
 - Rival comeback — exact months / power cap per arc (tune in playtest)
 - Gorge transfer — merit percentile threshold vs envoy discretion?
-- Branch feeder spars — travel to main gorge for cohort, or proxy via envoy?
+- Branch reaver spars — travel to main gorge for cohort, or proxy via envoy?
 - Feast gate timing — late GC vs early Core?
 
 ## Implementation crumbs
 
-- Faction rank `feeder` on `G` + promotion gates (GC + intent tier >= 1)
-- Story flags: `cult:feeder_trial_type`, `cult:gorge_transfer_eligible`
+- Faction rank `reaver` on `G` + promotion gates (GC + intent tier >= 1)
+- Story flags: `cult:reaver_trial_type`, `cult:gorge_transfer_eligible`
 - Manual row: `feeding_rites` layer 3 on `heavenly_demon_devour_line`
 - Tithe scheduler: scale amount by `realmIdx >= 2`
-- Bounty hook: tier 2 when `rank >= feeder`
+- Bounty hook: tier 2 when `rank >= reaver`
 - Rival persistence: named NPC registry per cohort id
 - Pill stipend: quarterly ranked payout distinct from initiate pool
 - Intent: Taking tier unlock + Qi Siphon combat hook

@@ -24,7 +24,7 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Awa
 |--|--|
 | **Realm** | Foundation Establishment (full FE journey — early subrealm through peak) |
 | **Sect rank** | **Initiate** (promoted when you break through QC → FE + sponsor approves) |
-| **Next rank** | **Feeder** — **GC** + **Taking** (2nd intent realm) + merit; not an FE promotion |
+| **Next rank** | **Reaver** — **GC** + **Taking** (2nd intent realm) + merit; not an FE promotion |
 | **Canon** | **Layer 2 — Stained Foundation** (染基篇) |
 
 **Player sentence:** *You are no longer chaff. You are not trusted. You are being **shaped**.*
@@ -56,7 +56,7 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Awa
 | **Work** | Initiate hunt teams, quarry escort, relic salvage rotation | Cell field jobs + higher-risk deliveries |
 | **Tithe** | Gorge storehouse — **FE-scaled** quota | Same 3-month cadence — **higher amount**, same thin-harvest cruelty |
 | **Exposure** | Contained inside gorge | **Bounty tier 1** — healers, orthodox guards, rumor |
-| **Promotion** | Visible Feeder trials (at GC) | **Gorge transfer** only after **GC / Feeder** — not Initiate |
+| **Promotion** | Visible Reaver trials (at GC) | **Gorge transfer** only after **GC / Reaver** — not Initiate |
 
 **Design lock:** main Initiate life is **structured**; branch Initiate life is **exposed** — same doctrine, worse posting, same predation.
 
@@ -86,7 +86,7 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 | **Taking unlock** | **Not at seal** — see Layer 2 comprehension below |
 | **Seal stamp** | At **peak FE** — if still primary → **`blood_fiend`** expected; **amplifies** conversion, does not gate it |
 
-**Not in Layer 2:** Devouring Intent techniques (Feeder / Layer 3), law fragments, meridian canon.
+**Not in Layer 2:** Devouring Intent techniques (Reaver / Layer 3), law fragments, meridian canon.
 
 ### Manual presentation
 
@@ -111,19 +111,19 @@ Second layer of **Heavenly Demon Canon** (`heavenly_demon_devour_line`). Swaps i
 | Choice | Cult reaction | Game fiction |
 |--------|---------------|--------------|
 | **`blood_fiend` seal** | **Expected** — merit ledger; a junior elder **might** note it | Killing aura; orthodox NPCs notice faster |
-| **Plain / orthodox seal** | Allowed — *"You can walk the path with clean hands; the gorge doubts you."* | Less cult rep; harder Feeder sponsor later; **Maw-Womb Shard** wants stain |
+| **Plain / orthodox seal** | Allowed — *"You can walk the path with clean hands; the gorge doubts you."* | Less cult rep; harder Reaver sponsor later; **Maw-Womb Shard** wants stain |
 
 Seal happens at **generic FE seal beat** (today's Seal Dantian; redesign may move — nature stamp reuses P2 helper).
 
 **Branch:** seal at cell — envoy witnesses or junior elder **brought blind** to cell sanctum; **no** initiate travels to gorge. Counts for gameplay; main cult calls it **thin blood**.
 
-**Gorge secrecy (owner lock 2026-07-31):** branch **Initiates do not go to the gorge**. Too expendable, too likely to die or talk. HQ location is **not** their clearance. Gorge transfer is a **post-GC / Feeder** prize for assets that survived — not an FE pilgrimage.
+**Gorge secrecy (owner lock 2026-07-31):** branch **Initiates do not go to the gorge**. Too expendable, too likely to die or talk. HQ location is **not** their clearance. Gorge transfer is a **post-GC / Reaver** prize for assets that survived — not an FE pilgrimage.
 
 ---
 
 ## Initiate assignments — jobs & scale
 
-Initiate work sits **between outer errands and Feeder predator missions**: you are sent to **take** (resources, proof, fear) on a **local** board — Redwell, Dustbone field triangle, Heartlands road — not continental politics.
+Initiate work sits **between outer errands and Reaver predator missions**: you are sent to **take** (resources, proof, fear) on a **local** board — Redwell, Dustbone field triangle, Heartlands road — not continental politics.
 
 ### Scale lock (owner 2026-07-31)
 
@@ -132,7 +132,7 @@ Initiate work sits **between outer errands and Feeder predator missions**: you a
 | **Routine** | Gorge interior, Redwell streets | None / mortals | Reagents, stones, merit tick | Rotation board |
 | **Field** | Ironscar, Bonehollow, Dewcatch ([`explore-field-gathering.md`](explore-field-gathering.md)) | Beasts, bandits, QC thugs | Mats, hunt proof, Residual Taking credit | Hunt team lead / envoy |
 | **Marked** | Same + road outside Redwell | **Early FE** rogue, rival outer, cell target | Bounty-grade proof, strong Taking credit | Elder / envoy order |
-| **Off-limits (Initiate)** | Sect compounds, Core+ prey, villages (unsanctioned) | — | Corruption / disown — see evil pace below | **Feeder+** missions |
+| **Off-limits (Initiate)** | Sect compounds, Core+ prey, villages (unsanctioned) | — | Corruption / disown — see evil pace below | **Reaver+** missions |
 
 **Player sentence:** *Outer disciples run errands. Initiates run **teeth** — but only as far as the cell's leash reaches.*
 
@@ -150,11 +150,11 @@ Initiate work sits **between outer errands and Feeder predator missions**: you a
 | **Bounty proxy** | Branch | Player picks board | Redwell bounty tier — grit thieves, road cutters | Medium | Yes |
 | **Field solo hunt** | Branch | Self-driven | Dustbone triangle | High if logged | Yes — must report |
 | **Scout** | Both | Rare | Tail rival outer / guard patrol pattern | Low | No |
-| **Prey tracking** | Both | Pre-Feeder trial | Track QC–FE rogue for senior | High | Yes — trial prep |
+| **Prey tracking** | Both | Pre-Reaver trial | Track QC–FE rogue for senior | High | Yes — trial prep |
 
 **Reporting:** main assignments are **logged by elder**; branch hunts must be **declared at envoy check-in** or they do not count as sanctioned — only as rumor risk.
 
-**Feeder contrast:** marked **cultivator** hunts, tempered relic retrieval, cross-cell jobs — regional scale, names on bounty tier 2.
+**Reaver contrast:** marked **cultivator** hunts, tempered relic retrieval, cross-cell jobs — regional scale, names on bounty tier 2.
 
 ---
 
@@ -210,7 +210,7 @@ personYield = BASE_YIELD[realmIdx][subrealmBand] × QUALITY_MULT[foundationQuali
 | QC early | Low — barely worth an initiate's time |
 | QC peak | Moderate — sanctioned hunt target |
 | FE early | Good — rival initiate / rogue tier |
-| FE peak | High — Feeder-trial prey |
+| FE peak | High — Reaver-trial prey |
 | Core+ | **Off-limits** for initiate band — yield exists but cell won't sanction; corruption risk |
 
 **Same bracket rule:** two QC-peak cultivators with the same foundation grade give **~same** cultivate credit (± small variance). A peerless QC peak ≈ a crude early-FE — overlap at the watershed is intentional.
@@ -250,7 +250,7 @@ The seal at **peak FE** is **not** when you learn to take. It is when the founda
 | **Social** | — | Killing aura — healers, orthodox, observe text |
 | **Blood techniques** | Works | **Synergy** — Blood Refining Art → higher % to stored credit |
 | **Intent groundwork** | Standard | **Strong** tick from person-consumption |
-| **Cult standing** | Doubted | Expected — full fasting credit, Feeder sponsor path |
+| **Cult standing** | Doubted | Expected — full fasting credit, Reaver sponsor path |
 
 ### Residual Taking (post–Layer 2)
 
@@ -330,7 +330,7 @@ Initiates **do not** have Devouring Intent yet. They **prepare** the maw.
 
 **Hint line (UI / log):** *"Your dantian aches like an empty stomach."*
 
-**Spark timing:** during Initiate years (FE) → **Stirring** (1st realm) only. **Feeder** rank at **GC**; normal bar = **Taking** (2nd realm). Prodigy Taking at FE still counts when you break through.
+**Spark timing:** during Initiate years (FE) → **Stirring** (1st realm) only. **Reaver** rank at **GC**; normal bar = **Taking** (2nd realm). Prodigy Taking at FE still counts when you break through.
 
 **FE intent band:** **Stirring** is the normal intent ceiling at FE. **Taking** at FE = prodigy ([`devouring-intent.md`](devouring-intent.md)).
 
@@ -396,23 +396,23 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Exposure** | Low (branch) / contained (main) | **Bounty 1** (branch); orthodox world, not gorge coddling |
 | **Housing** | Barracks / bunk | Initiate hall / still rent (branch) |
 | **Pills** | Compete in **initiate-only** pool (1/4 merit) | Same on branch if initiate cohort exists |
-| **Endgame of rank** | Promote to Initiate | **GC** + Feeder trial — or decades stuck as Initiate |
+| **Endgame of rank** | Promote to Initiate | **GC** + Reaver trial — or decades stuck as Initiate |
 
 ---
 
-## Promotion Initiate → Feeder (at Golden Core)
+## Promotion Initiate → Reaver (at Golden Core)
 
-**Not an FE promotion.** You stay **Initiate** through FE. **Feeder** is a **GC** rank.
+**Not an FE promotion.** You stay **Initiate** through FE. **Reaver** is a **GC** rank.
 
 | Requirement | Detail |
 |-------------|--------|
 | **Realm** | **Golden Core** |
-| **Intent** | **Taking** (2nd realm) at GC — normal Feeder bar. **Stirring** at FE = rare; a drill master **might** mark the ledger. **Prodigy** Taking before GC = noted, not nurtured. |
-| **Merit** | Feeder trial — marked prey, relic proof |
+| **Intent** | **Taking** (2nd realm) at GC — normal Reaver bar. **Stirring** at FE = rare; a drill master **might** mark the ledger. **Prodigy** Taking before GC = noted, not nurtured. |
+| **Merit** | Reaver trial — marked prey, relic proof |
 | **Seal** | FE complete (blood-fiend preferred) |
-| **Sponsor** | Elder / envoy signs Feeder scroll |
+| **Sponsor** | Elder / envoy signs Reaver scroll |
 
-**Feeder unlocks:** Layer 3 **Feeding Rites**, predator missions, **ranked pill stipend** + persistent rival loop, inner-store (main), bounty tier 2. Full GC slice: [`heavenly-demon-cult-gc-feeder.md`](heavenly-demon-cult-gc-feeder.md).
+**Reaver unlocks:** Layer 3 **Feeding Rites**, predator missions, **ranked pill stipend** + persistent rival loop, inner-store (main), bounty tier 2. Full GC slice: [`heavenly-demon-cult-gc-reaver.md`](heavenly-demon-cult-gc-reaver.md).
 
 **Cult posture:** sponsor signs scroll if you **survived** and the ledger says asset — not because the gorge raised you. See [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) hands-off lock.
 
@@ -427,8 +427,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Orthodox shunning** | Healers overcharge; sect guards ask questions |
 | **Bounty tier 1** | Posters in Redwell — not hunt parties yet |
 | **Corruption** | Unsanctioned taking ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) |
-| **Cult predation** | Tithe, disown, Feeder sent to recover "interest" |
-| **Rival initiate** | Same pill pool, same Feeder slots — spars get meaner |
+| **Cult predation** | Tithe, disown, Reaver sent to recover "interest" |
+| **Rival initiate** | Same pill pool, same Reaver slots — spars get meaner |
 | **Exposure** | Using blood arts on main street — Rule 3; branch has no hall to hide in |
 
 **Not a risk:** bad manual stats. Cult canon stays **good**; the world stays **hostile**.
@@ -443,8 +443,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 | **Stained seal** | Seal beat | Foundation **marked** — orthodox NPCs flinch |
 | **First fast completed** | Year 1 FE | Doctrine lands — empty stomach, full intent |
 | **Spark** | Groundwork + catalyst (FE) | **Stirring** — 1st intent realm |
-| **GC + Feeder** | After tribulation | **Taking** + Feeder scroll — normal path |
-| **Gorge transfer** (branch) | **GC / Feeder** — if you live that long and merit ledger says asset |
+| **GC + Reaver** | After tribulation | **Taking** + Reaver scroll — normal path |
+| **Gorge transfer** (branch) | **GC / Reaver** — if you live that long and merit ledger says asset |
 
 ---
 
@@ -462,8 +462,8 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 ## Open questions
 
 - Residual Taking — exact % and decay timer (**drafted above — tune in playtest**)
-- Feeder rival comeback — exact months / power cap per arc (tune in playtest)
-- Feeder trial — always PvE hunt or sometimes ranked spar vs persistent rival?
+- Reaver rival comeback — exact months / power cap per arc (tune in playtest)
+- Reaver trial — always PvE hunt or sometimes ranked spar vs persistent rival?
 - Fast months — skip UI vs forced "meditation" action
 
 ## Implementation crumbs

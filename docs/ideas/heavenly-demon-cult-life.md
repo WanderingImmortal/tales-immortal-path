@@ -6,7 +6,7 @@
 | **Blocked on** | Intent/dao redo; hidden faction node |
 | **Issue** | none yet |
 | **Chat / PR** | Planning chat 2026-07-31 |
-| **Updated** | 2026-07-31 (GC Feeder slice linked) |
+| **Updated** | 2026-08-01 (GC rank **Reaver**; slice linked) |
 
 ## Intent
 
@@ -42,7 +42,7 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 | **0** | **Listener** | QC | Heard the doctrine; not trusted |
 | **1** | **Cell Brother/Sister** | QC–FE | Runs errands; Crimson breath pamphlet |
 | **2** | **Initiate** | FE | Blood-fiend seal encouraged; outer techniques |
-| **3** | **Feeder** | **GC** | **Taking** (2nd intent realm) + Layer 3; predator missions — **earned**, not groomed |
+| **3** | **Reaver** (掠魔) | **GC** | **Taking** (2nd intent realm) + Layer 3; predator missions — **earned**, not groomed |
 | **4** | **Inner Demon** | Core–NS | Relic rites; expand arts; hunted harder |
 | **5** | **Maw Elder** (NPC) | NS+ | Teaches law fragments; political liability |
 
@@ -50,13 +50,15 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 
 **Player terms:** **Listener** = probation. **Outer disciple** = QC + Layer 1 canon. **Initiate** = FE+.
 
-**Rank vs realm (owner lock 2026-07-31):** **Initiate** = FE sect rank. **Feeder** = **Golden Core** sect rank — above Initiate, not an FE promotion. **Stirring** at FE is rare; **Taking** at GC is the normal Feeder bar.
+**Rank vs realm (owner lock 2026-07-31):** **Initiate** = FE sect rank. **Reaver** = **Golden Core** sect rank — above Initiate, not an FE promotion. **Stirring** at FE is rare; **Taking** at GC is the normal Reaver bar.
+
+**Rank name lock (owner 2026-08-01):** GC rank = **Reaver** (掠魔) — *legions of initiates and reavers*; active predator who takes by force. Layer 3 manual stays **Feeding Rites** (饲魔篇). Retired name: *Feeder*.
 
 **Talent & investment — hands off (owner lock 2026-07-31):** the **gorge does not watch you grow**. Lower-rung elders **might** notice a strong merit line or awakened intent — a ledger tick, a grunt, nothing more. They have seen **centuries** of prodigies; talent alone is a **greenhouse flower**. The cult lets initiates **starve, hunt, and kill each other** in the field; only survivors are worth **investment** — or **consumption** if they fail. Hands off until you prove you are asset, not meal.
 
-**Branch gorge secrecy (owner lock 2026-07-31):** **Initiates are not sent to the gorge** — too low, too disposable, too risky if captured or talkative. Rule 2 stands. Seal rites and Layer 2 gaps are handled **in-cell** (envoy, visiting junior elder, blind routes). **Gorge transfer** is for **GC-era Feeders** who proved they are assets, not FE children on a field trip.
+**Branch gorge secrecy (owner lock 2026-07-31):** **Initiates are not sent to the gorge** — too low, too disposable, too risky if captured or talkative. Rule 2 stands. Seal rites and Layer 2 gaps are handled **in-cell** (envoy, visiting junior elder, blind routes). **Gorge transfer** is for **GC-era Reavers** who proved they are assets, not FE children on a field trip.
 
-**Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Feeder** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates.
+**Inner disciple ceiling (owner lock 2026-07-31):** the cult does **not** use orthodox "inner disciple" at FE. **Initiate** and **Reaver** are still outer-band in prestige — shaped assets, not trusted core. True **inner** standing begins at **Inner Demon** (Core+) — inner halls, relic rites, teaching initiates.
 
 **Branch vs main (owner lock 2026-07-31):** same **rank names**, different **posting**. Both are firmly **outer / QC treatment** — no intent, no inner halls, no trust with secrets.
 
@@ -73,7 +75,7 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 | **Instruction** | Group drills, assigned elder rotation | Envoy checks in monthly; you're on your own |
 | **Tithe** | To the gorge — fixed, predictable | To the cell — harsher if harvests were thin |
 | **If caught** | Gorge may send lawyers / silence / revenge | **Deny you** is default |
-| **Promotion path** | Visible — trials toward Initiate | Earn **GC/Feeder** before gorge is even discussed |
+| **Promotion path** | Visible — trials toward Initiate | Earn **GC/Reaver** before gorge is even discussed |
 
 **Shared QC rule:** still outer. Still Layer 1. Still no Devouring Intent. Main is **better**, not **good**.
 
@@ -87,7 +89,7 @@ One `lineageId` (`heavenly_demon_devour_line`). Same pattern as Celestial Sword 
 |-------|----------------------|--------------|-------------------|
 | **1** | **Devouring Scripture** (吞经) | QC · outer disciple / cell | Breathing method + combat syllabus (**parked** — damage rework) |
 | **2** | **Stained Foundation** (染基篇) | FE · Initiate | Circulation + **Remnant Refine** (conversion); seal syllabus at peak |
-| **3** | **Feeding Rites** (饲魔篇) | Core · Feeder | Devouring Intent techniques; mission arts |
+| **3** | **Feeding Rites** (饲魔篇) | GC · Reaver | Devouring Intent techniques; mission arts |
 | **4** | **Inner Maw** (内噬篇) | NS · Inner Demon | Expand arts as techniques; relic rites |
 | **5+** | **Heaven’s Receipt** (天账篇) | Dao Seeking+ | Law fragments + union arts; elder-only beats |
 
@@ -169,7 +171,7 @@ Downside is tithe, predation, exposure. Upside must be **real** or the loop is j
 | **Black route** | Gorge storehouse prices | Cell dead-drop catalog (thin) |
 | **Rivals** | Barracks pecking order, sanctioned spars | Cell "brothers" competing for envoy favor |
 | **Growth hook** | Kill/devour in **trial hunts** (intent groundwork later) | Field kills + cell tasks feed competition score |
-| **Path** | Visible Initiate track | Stay branch until **GC/Feeder** merits gorge transfer — not FE |
+| **Path** | Visible Initiate track | Stay branch until **GC/Reaver** merits gorge transfer — not FE |
 
 **Player sentence:** *The cult is a bad employer and a good bad teacher.*
 
@@ -199,7 +201,7 @@ Scarcity on purpose. Most get nothing.
 
 Initiate = different **pool**, same **cutthroat** economy. Death is cheap; the cult doesn't groom recurring duelists.
 
-#### Feeder (GC) — **ranked stipend** + rival loop
+#### Reaver (GC) — **ranked stipend** + rival loop
 
 | Cohort rank (quarterly) | Pills / quarter |
 |-------------------------|-----------------|
@@ -208,7 +210,7 @@ Initiate = different **pool**, same **cutthroat** economy. Death is cheap; the c
 | **3rd** | **1** |
 | **4th+** | **0** (buy mortal balms) |
 
-**Ranking** from merit ledger + **sanctioned feeder spars** (see rivals below). Predictable income — stage feels different from initiate scramble.
+**Ranking** from merit ledger + **sanctioned reaver spars** (see rivals below). Predictable income — stage feels different from initiate scramble.
 
 **Not given at any band:** qi restore pills, intent sparks, law fragments.
 
@@ -223,11 +225,11 @@ Initiate = different **pool**, same **cutthroat** economy. Death is cheap; the c
 | **Hunts** | Sanctioned field kills — merit + groundwork |
 | **Betrayal** | Unsanctioned kill → corruption + cell hunt |
 
-#### Feeder (GC) — **persistent rivals** + investment calculus
+#### Reaver (GC) — **persistent rivals** + investment calculus
 
 | Beat | Detail |
 |------|--------|
-| **Rivals** | **2–3 persistent** named Feeders in your cohort — same pill ladder, years of overlap |
+| **Rivals** | **2–3 persistent** named Reavers in your cohort — same pill ladder, years of overlap |
 | **Spar default** | **To yield** or elder **stops** before death — you've been **invested in**; dying for nothing wastes resources |
 | **Death match** | **Sanctioned only** — high merit stake, elder present; *not* casual bunk beef |
 | **Comeback loop** | Lose a ranked spar → rival climbs pill rank; rival **trains** (3–6 months fiction) → returns **stronger**, not instant outclass — capped growth per arc so player can rematch |
@@ -236,7 +238,7 @@ Initiate = different **pool**, same **cutthroat** economy. Death is cheap; the c
 
 **GC doctrine:** *"The maw does not throw away meat it already swallowed."* — sacrifice is strategic, not wasteful.
 
-**Spar culture summary:** outer/initiate = strong eat weak. Feeder = strong **test** weak, but stock is **inventory** until spent usefully.
+**Spar culture summary:** outer/initiate = strong eat weak. Reaver = strong **test** weak, but stock is **inventory** until spent usefully.
 
 Competition is **merit**, not free PvP in town.
 
@@ -262,7 +264,7 @@ Competition is **merit**, not free PvP in town.
 
 ## Outer disciple rules (The Five Takings — working)
 
-Rules taught with Layer 1. Break them → demotion, disown, or **fed to a Feeder**.
+Rules taught with Layer 1. Break them → demotion, disown, or **fed to a Reaver**.
 
 | # | Rule | Plain meaning |
 |---|------|----------------|
@@ -337,7 +339,7 @@ Main adds barracks discipline (curfew, rotation). Branch adds *never lead hunter
 
 **What you don't have:** gorge protection, drills, sealed canon, privacy, pills if you rank low.
 
-**Rising out:** FE breakthrough on branch = **Initiate** with cell seal and incomplete Layer 2 — normal. **Gorge transfer** only after **GC + Feeder** (or exceptional merit); Initiates are **not** sent to HQ.
+**Rising out:** FE breakthrough on branch = **Initiate** with cell seal and incomplete Layer 2 — normal. **Gorge transfer** only after **GC + Reaver** (or exceptional merit); Initiates are **not** sent to HQ.
 
 #### Branch tithe loop (owner lock 2026-07-31)
 
@@ -351,7 +353,7 @@ Branch life needs **manual pressure** — not a menu checkbox. You **go pay** or
 | **On time** | Brief nod. Maybe a task offer. Rep holds. |
 | **Miss once** | Warning line: *"The maw remembers what it is owed. Do not withhold twice."* |
 | **Miss twice** | **Disowned** — pamphlet burns worthless; no Layer 2 path; cult rep crashes |
-| **Miss twice + knew secrets** | **Hunted** — cell sends a Feeder to recover tithe **with interest** (ambush event, not instant game over) |
+| **Miss twice + knew secrets** | **Hunted** — cell sends a Reaver to recover tithe **with interest** (ambush event, not instant game over) |
 | **Pay while disowned** | Too late for trust; may only buy **silence** (expensive) not reinstatement |
 
 **Player fantasy:** cult is useful (canon, path, identity) but **predatory** — same doctrine that teaches devouring applies to *you* if you stop feeding them.
@@ -379,7 +381,7 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 
 ### Foundation Establishment — *Anchor the stained seal*
 
-**Full slice:** [`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md) — main vs branch, Layer 2, loops, Feeder promotion.
+**Full slice:** [`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md) — main vs branch, Layer 2, loops, Reaver promotion.
 
 | Loop | Feel |
 |------|------|
@@ -391,17 +393,17 @@ Listener → outer / cell = pass a **silence test**. Main: inducted at gorge. Br
 | **Pacing** | Inferior root **peak FE ~80–90** — decades as Initiate is normal |
 | **Risk** | Exposure, orthodox shunning, cult disown if tithe breaks |
 
-**First crown moment (Initiate):** Devouring Intent **Stirring** born — not chosen from a menu. **Feeder** rank comes at **GC** with **Taking** (see intent doc).
+**First crown moment (Initiate):** Devouring Intent **Stirring** born — not chosen from a menu. **Reaver** rank comes at **GC** with **Taking** (see intent doc).
 
 ---
 
-### Golden Core — *the maw gets teeth* (Feeder rank)
+### Golden Core — *the maw gets teeth* (Reaver rank)
 
-**Full slice:** [`heavenly-demon-cult-gc-feeder.md`](heavenly-demon-cult-gc-feeder.md) — main vs branch, Layer 3, Taking intent, persistent rivals, missions, ranked pill stipend.
+**Full slice:** [`heavenly-demon-cult-gc-reaver.md`](heavenly-demon-cult-gc-reaver.md) — main vs branch, Layer 3, Taking intent, persistent rivals, missions, ranked pill stipend.
 
 | Loop | Feel |
 |------|------|
-| **Rank** | **Feeder** — Layer 3 **Feeding Rites**; **Taking** (2nd intent realm) normal bar |
+| **Rank** | **Reaver** — Layer 3 **Feeding Rites**; **Taking** (2nd intent realm) normal bar |
 | **Chamber** | GC substages (nascent → expanding → purifying); cult adds **Feast Rite** |
 | **Intent** | **Taking** — Qi Siphon, First Taking beat; Feast groundwork late GC |
 | **Techniques** | Predator arts **parked** (damage rework) |
@@ -448,7 +450,7 @@ Copy this table when designing Sword / Lotus life:
 | **Teach** | Initiates copy your hunger | Outer court drills |
 | **Market** | Black route; forged papers | Sect quartermaster |
 | **Rest** | Safehouse (if rank) | Residence / inn |
-| **Rumor** | Who's hunting feeders this season | Charter politics |
+| **Rumor** | Who's hunting reavers this season | Charter politics |
 | **Cultivate** | Canon method + fasting beats | Lineage manual |
 | **Combat** | Intent expression + later law procs | Intent / dao per sect |
 
