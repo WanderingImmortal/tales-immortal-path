@@ -83,15 +83,16 @@ That maps cleanly onto xianxia: years of walking the path, punctuated by fights 
 | Intent solves everything | Techniques, realm, gear still matter — intent **tints** and **rewards** |
 | Instant max from one treasure | Spark **opens** the track; saturation **fills** it |
 
-### Open synthesis (owner exploring)
+### Open synthesis (owner 2026-08-01)
 
-Saturation is one good implementation of “ripening.” Alternatives if playtest says otherwise:
+**Hidden ripening** — saturation meter exists in code but **not shown as a bar**. Player reads progress through **qi chamber feel**, logs, combat expression, sect reactions. Keeps xianxia mystery without losing steerability for designers.
 
-- **Hidden ripening** — no bar, only log milestones (“your palm begins to cut”) — more novel, less legible
-- **Dual meters** — Walk (passive) + Wield (combat) both required to breakthrough — more sim, more UI
-- **Event-only deepen** — no drip, only boosts — harsher, more roguelike
+Saturation + soft cap + realize beats **still the model**; only the **UI** changes.
 
-**Lean:** keep saturation bar + soft cap + realize beats unless a prototype feels too idle.
+Alternatives if playtest says otherwise:
+
+- **Dual meters** — Walk + Wield both required — more sim, more UI
+- **Event-only deepen** — no drip — harsher
 
 ---
 
@@ -129,21 +130,69 @@ You earn **both**. Expand is the **reward for finishing** the deepen track in th
 
 ---
 
-## Deepen without a Deepen button — **Intent Saturation**
+## Deepen without a Deepen button — **Intent Saturation** (hidden)
 
-Working name: **Intent Saturation** (意熟 · “the intent is ripening”). One meter per intent realm band (0 → 100%). **Milestone deepen steps** fire automatically at thresholds (e.g. 35 / 70 / 100). No “Deepen 12 months” popup choice.
+Working name: **Intent Saturation** (意熟 · “the intent is ripening”). One **hidden** meter per intent realm band (0 → 100%). Milestone deepen steps fire automatically at thresholds (e.g. 35 / 70 / 100). Player never sees “67%.”
 
-### What the player sees
+### Dantian vs wielded — does intent change the dantian? (owner 2026-08-01)
 
-Intent screen (or dantian panel) shows something like:
+Short answer: **both, at different times.**
 
-- **Realm** — Sprout / Stirring / etc.
-- **Saturation** — bar + *“Your sword intent ripens as you walk the path.”*
-- **Next milestone** — *“At 70%: cross-wield cuts bite harder.”*
-- **What’s feeding it** — short list of active boosts (carrying blade, sect drills, recent spar)
-- **Expand** — only at **100%** saturation (+ comprehension gate if any) — *“Your intent is ripe — consolidate a new expression?”*
+| Where | What intent does | Player-facing |
+|-------|------------------|---------------|
+| **In the dantian** (stored qi, cultivating, meditating) | **Imprint** — qi takes on *character*: sharper, heavier, hungrier, more circulating. Does **not** swap your root or rewrite foundation. | Qi chamber **feel** lines, density *flavor*, root **resonance** hint |
+| **When wielded** (combat, techniques) | **Expression** — how force leaves you: cut vs push, pierce vs crush, cross-wield palm-as-blade | Combat logs, wound shape, expand arts |
+| **At apex** (Intent Domain) | **Pressure** — will bleeds into space; dantian and world agree | Domain manifestation, NPC flee, tribulation flavor |
 
-No deepen button. Optional **boost** actions live elsewhere (cultivate mode, sect board, combat) — not a third intent-menu chore.
+**Genre line:** the manual teaches circulation; intent is the **bias** your will puts on qi — first you notice it when you **circulate**, then when you **strike**, later the world notices before you swing.
+
+**Roots stay roots.** Sword intent on a fire root doesn’t become a sword root — you might get *“metal and blade harmonize oddly well”* at high depth. Congenital vs comprehended stay separate.
+
+### Hidden feedback — **Qi chamber as intent mirror**
+
+Primary readout for ripening: **cultivate / qi chamber**, not the intent popup. Reuse the QC **qi-feel** pattern ([`qi-condensation-depth.md`](qi-condensation-depth.md)) — feelings, not percentages.
+
+**Always show (when relevant):**
+
+| Panel bit | Example |
+|-----------|---------|
+| **Root** | Existing root display — unchanged |
+| **Density** | Keep mechanical number/bar if useful; add **viscosity flavor** (*“flows thin”* / *“like warmed mercury”*) from density band |
+| **Qi feel** | One line from **intent + saturation band** — see table below |
+| **Root resonance** *(optional)* | When intent depth high: *“Your fire root runs hot along the blade-line.”* |
+
+**Do not show:** saturation %, “Deepen available,” tier progress bar.
+
+#### Qi feel lines — Sword intent (draft)
+
+| Hidden band | Chamber readout (example) |
+|-------------|---------------------------|
+| Groundwork, no awaken | *When you hold a blade, something unnamed stirs in the dantian.* |
+| Awakened · low ripening | *Your qi feels **sharper than common qi** — as if it remembers an edge.* |
+| Mid ripening | *Circulating, the qi **lines up**; not yet a sword, but no longer mud.* |
+| High ripening | *The dantian hums along a single **line**; palm strikes itch to fall like cuts.* |
+| Ready to expand | *The qi has **condensed toward one expression** — something wants to show itself.* (expand ceremony nudge) |
+| After Returning Edge | *A second **edge** ghosts your circulation — intent shows two faces.* |
+
+Other weapons / Devouring get parallel tables (Spear: *linear*, *piercing*; Staff Circle: *turns*, *holds a ring*; Devouring: *empty*, *claiming*).
+
+#### What still surfaces elsewhere
+
+| Channel | Job |
+|---------|-----|
+| **Combat log** | Expression on cross-wield (*“Your palm lands as a cut.”*) |
+| **Milestone log** | Deepen auto-fire: *“Sword intent deepens — the line clarifies.”* |
+| **Sect / NPC** | *“The envoy watches how you carry qi.”* |
+| **Intent screen** | Which track, active focus, expand arts owned — **no ripening bar** |
+| **Spiritual sense** (later) | Others read your intent tier in duels |
+
+### What the player sees (summary)
+
+- **Qi chamber** — root, density flavor, **qi feel** line (main ripening hint)
+- **Intent panel** — awakened? active weapon? expand arts? — not a grind menu
+- **Expand** — short ceremony when hidden meter hits 100% (+ beat if any); log + new art
+
+No deepen button. Boosts still come from combat, meditate-with-weapon mode, sect life — they move the hidden meter.
 
 ### Passive fill (always on, slow)
 
@@ -321,8 +370,8 @@ After awaken: track opens at **Intent Realm 1**, saturation at 0%, no expand art
 
 ## Open questions
 
-- Saturation milestone % (35/70/100 vs 50/100)
-- Passive soft cap exact value (60 vs 70)
+- Hidden ripening vs visible bar — **hidden** (chamber feel); bar only in debug
+- Qi feel line tables per intent track — author with QC qi-feel voice
 - **Decay** if neglect intent for decades — yes/no (lean no for v1)
 - Meditate-with-weapon: new cultivate tab vs FE chamber toggle
 - Seclusion burst — keep one optional action or fold entirely into meditate mode
@@ -340,6 +389,6 @@ After awaken: track opens at **Intent Realm 1**, saturation at 0%, no expand art
 
 - `intent.js` — saturation meter, milestone auto-deepen, expand at 100%, breakthrough beats
 - `data.js` — `INTENT_SATURATION_BOOSTS` per activity; expand per realm; milestone effects
-- `ui.js` — intent screen: saturation bar, active boosts, next milestone (no deepen button)
-- `chamber.js` / cultivate — meditate-with-weapon mode feeds saturation
+- `ui.js` — intent screen: arts + focus only; **no ripening bar**
+- `chamber.js` — `getChamberQiFeelLine()`, density viscosity flavor, root resonance hint
 - `heavenly-demon-cult-life.md` — rank promotions tied to intent realm gates
