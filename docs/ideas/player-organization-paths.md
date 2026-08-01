@@ -252,5 +252,5 @@ Migration: current `G.sect` → `kind: 'sect'` with retroactive `headquartersNod
 - [`procedural-zone-sect-ecology.md`](procedural-zone-sect-ecology.md)
 - [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md)
 - [`personal-residence.md`](personal-residence.md)
-- [`sect-map-unification.md`](sect-map-unification.md)
+- [`cultivation-sites-and-claims.md`](cultivation-sites-and-claims.md) — site types, tiers, benefits
 - [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)

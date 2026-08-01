@@ -45,6 +45,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Procedural zone sect ecology](procedural-zone-sect-ecology.md) | `designed` (owner: hard line A) | Size taxonomy; zone density | — |
 | [Player organization paths](player-organization-paths.md) | `designed` | Site selection; affiliation pilot | — |
+| [Cultivation sites & claims](cultivation-sites-and-claims.md) | `designed` | Map nodes; `CULTIVATION_SITES` data | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
 | [Jade Lotus Sect](jade-lotus-sect.md) | `designed` (v2 — lineage sketch) | `jlc_*` manual pool; Matriarch reveal | — |
 | [Void Temple](void-temple-sect.md) | `designed` (v1) | Lineage stub; gate travel; Little Heaven beats | — |
