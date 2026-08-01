@@ -145,6 +145,71 @@ Residence in city: **no site tier chip** — only “Civic · Redwell courtyard.
 
 ---
 
+## Proximity — social layer (orthogonal to vein tier)
+
+**Vein tier (A–D)** = how good the **ground** is for cultivation, disciples, defense.
+
+**Proximity** = how close the site is to a **settlement** ([`city-tiers.md`](city-tiers.md)) — drives **jianghu, trade, and politics**, not raw qi.
+
+Two axes on inspect:
+
+```text
+Whispering Spur · Site A (vein) · Near Threshold (1st-tier fringe)
+```
+
+### Proximity bands
+
+| Band | Example | Travel to market |
+|------|---------|------------------|
+| **Remote** | Deep dunes, far peaks | Long — cargo risk ↑ |
+| **Fringe · tier 4** | Hills outside Redwell | Short — bazaar |
+| **Fringe · tier 3** | Zone capital outskirts | Medium — fuller market |
+| **Fringe · tier 1–2** | Outside Threshold / Tide Harbor | Short — **best regional** trade |
+| **Imperial fringe** | Longcheng outer hills | Markets of empire — **max scrutiny** |
+
+*City seat nodes themselves stay civic — proximity is “nearest settlement within N local hops.”*
+
+### Social benefits (near higher-tier city)
+
+| Benefit | What it means in play |
+|---------|------------------------|
+| **Recruitment pool** | Faster disciple ticks; higher chance of decent roots (not genius guarantee) |
+| **Market access** | Less travel months to sell pills / buy ore ([`commerce-and-markets.md`](commerce-and-markets.md)) |
+| **Labor & services** | Cheaper porters, smiths, array technicians — hire slots unlock easier |
+| **Face / renown** | “Sect under Threshold’s shadow” — local NPC deferral; easier city quests |
+| **Branch diplomacy** | Near great-power **branch** compounds — trade, feud, or charter deals |
+| **City lord charter** | Optional **protection** from bandit raids — in exchange for **fees / tribute** |
+| **Hall pipeline** | If you had a hall in that city, fringe sect inherits student reputation |
+
+### Social costs (why remote still wins sometimes)
+
+| Cost | Near tier-1–2 / imperial |
+|------|--------------------------|
+| **Scrutiny** | City lord, branches, and great factions **notice** you faster |
+| **Charter fees** | Ongoing stones or tribute |
+| **Competition** | Branches undercut recruitment; “unlicensed sect” pressure events |
+| **Privacy** | Hidden **C** sites harder to keep secret; spy/intel targets you sooner |
+| **Raid visibility** | More jianghu eyes — procedural rivals declare feuds earlier |
+| **Independence** | Harder to play rogue hermit; politics become mandatory texture |
+
+**Design rule:** near a **higher-tier city is a tradeoff**, not strictly better. Best **qi** might be remote **A** peak; best **recruits + trade** might be fringe **B** outside Threshold with weaker vein.
+
+### Redwell fringe B cave (owner question)
+
+**Yes — sect-legal.** Weak vein, but **tier-4 fringe** social profile: cheap founding, Redwell bazaar nearby, starter recruits, low great-faction notice. Classic “first sect outside starter town.” Upgrade path = remote better vein **or** move toward Threshold later.
+
+### Site object addendum
+
+```javascript
+nearestSettlementId: 'redwell',
+proximityBand: 'fringe_tier4',  // remote | fringe_tier4 | fringe_tier3 | fringe_tier12 | imperial_fringe
+charterCityId: null,             // if opted into city lord protection
+```
+
+Social modifiers applied from `PROXIMITY_PROFILES[band]` — separate from `SITE_TIER_PROFILES[tier]`.
+
+---
+
 ## Prerequisites
 
 - [ ] Wire `CULTIVATION_SITES` (or extend `WORLD_LOCATIONS`) per zone
@@ -153,7 +218,8 @@ Residence in city: **no site tier chip** — only “Civic · Redwell courtyard.
 
 ## Open questions
 
-- [ ] **City outskirts** — weak B cave attached to Redwell: sect-legal or fortify-only?
+- [x] **City outskirts** — weak B near Redwell: **sect-legal**; tier-4 fringe social profile
+- [x] **Proximity vs vein** — two axes; near higher city = social tradeoff not pure win
 - [ ] Can player **upgrade** tier in place (B→A) by array/vein deepening, or only by moving?
 - [ ] **D** sites — one per zone max or hand-counted only?
 
