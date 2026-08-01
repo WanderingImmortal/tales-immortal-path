@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (owner brainstorm — needs site-selection lock next) |
+| **Status** | `designed` (owner review — core decisions locked) |
 | **Blocked on** | [`personal-residence.md`](personal-residence.md) per-city dwelling; [`procedural-zone-sect-ecology.md`](procedural-zone-sect-ecology.md) for minor-sect join |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning, 2026-08-01 |
@@ -242,8 +242,9 @@ Migration: current `G.sect` → `kind: 'sect'` with retroactive `headquartersNod
 - [x] Sense gate — required for **unique / high-tier** grounds; optional bonus for normal hidden **C**
 - [x] Hall + sect coexistence — after migration; hall → optional branch or closed
 - [x] Join timing — **T3 deferred** (per-sect talent/root reqs in identity docs)
-- [ ] Join and hall simultaneously? → **No** (locked)
-- [ ] Does inherited sect count as `kind: 'sect'` at half-built state?
+- [x] Join and hall simultaneously? → **No** (locked)
+- [ ] Does inherited sect count as `kind: 'sect'` at half-built state? (defer — inherit phase)
+- [x] Fortify → sect — **convert default** at same site; optional second site if keep private retreat
 
 ## Links
 
