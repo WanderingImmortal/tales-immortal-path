@@ -234,15 +234,60 @@ Each intent has a **home expression** — what it wants to do to the world. When
 
 | Your intent | Home expression | Fist / palm art becomes… | Sword / blade art becomes… | Staff / qi art becomes… |
 |-------------|-----------------|--------------------------|----------------------------|-------------------------|
-| **Sword** | Cut, edge, line | Chop, finger-blade, **cut not push** | Native — clean edge | Staff sweep “like a drawn line” |
-| **Blade** | Slash, bleed, slaughter | Tearing rake, knuckle slash | Native — heavy slash | Wide arc, blood-weight |
+| **Sword** | Soft line, adaptable cut | Chop, finger-blade, **cut not push** | Light edge — find the seam | Deflecting channel, drawn line |
+| **Blade** | Heavy slash, bleed, slaughter | Tearing rake, knuckle rend | Native — cleaving weight | Wide arc, blood-weight |
 | **Spear** | Thrust, pierce, line | **Piercing fist**, spear-hand, penetrating palm | Short thrust, tip-work | Bolt-like channel |
 | **Fist** | Crush, shock, rhythm | Native — concussive | Hilt strikes, blunt edge, guard break | Staff bash, ward pulse |
-| **Staff** | Flow, ward, circulation | Palm with circulating force, meridian push | Deflecting cut, parry edge | Native — ward and channel |
+| **Staff** | Ward, circulation, reach *(draft)* | Meridian push, circulating palm | Deflecting cut, turning parry | Native — ward and channel |
 
 **Owner beat (locked):** Sword-at-Perfection + Heavenly Palm = cut, not push. Spear-at-depth + Mountain Crash = still heavy, but stress and log read **piercing** — *“You drive the slam through a single penetrating line.”*
 
 Soul arts and spirit damage **do not** get rewritten into sword cuts — intent may add flavor text only, or bias secondary stress, but soul-cut stays soul-cut.
+
+---
+
+### Sword vs Blade — same family, different temperament (owner 2026-08-01)
+
+Both are edge weapons. In xianxia they often split on **weight and temperament**, not “big sword vs small sword.”
+
+| | **Sword intent** | **Blade intent** |
+|---|------------------|------------------|
+| **Fantasy** | Light, adaptable, **follows the opening** — the line appears where the gap is | Heavy, committed, **cleaving** — the strike decides before it lands |
+| **Temperament** | Softness, change, precision | Heaviness, slaughter, finishing wounded prey |
+| **Home wound shape** | Clean cut, line, edge | Wide slash, rend, **bleed** — meat, not geometry |
+| **Cross-wield on palm** | Finger-blade, **cut not push** | Palm rake, tearing knuckle-slash, blood-weight |
+| **Cross-wield on the other’s art** | Sword art with Blade intent: heavier, slower, more bleed, less nimble | Blade art with Sword intent: lighter line, less rend, more “find the seam” |
+| **Domain fantasy** | Phantom forms, returning edge — **the line never ends** | Slaughter aura, butcher domain — **the wounded don’t get away** |
+
+**Design rule:** Sword and Blade are **neighbors**, not duplicates. If both express as “slash,” Blade leans **flesh / bleed / committed**; Sword leans **line / adapt / precise**. Playtest should make them *feel* different even when the log word is “cut.”
+
+**Open:** Can a cultivator awaken both? Probably yes over a long career, but **one active expression per fight** — switching is the out-of-combat intent-switch action. Dual Sword+Blade expression on one swing = not v1.
+
+---
+
+### Staff intent — draft direction (owner unsure; park options)
+
+Staff is the awkward one. Existing expand arts already point somewhere: **Circulating Guard**, **Ward Pulse**, **Sanctuary Domain** — defend, resource, ward. Less “how hard you hit,” more **how you hold the space**.
+
+**Working pitch (soft default until playtest):**
+
+| | **Staff intent** |
+|---|------------------|
+| **Fantasy** | **Reach and ward** — your will extends into the circle around you; force is **redirected**, qi **circulates**, the fight bends to your rhythm |
+| **Not primarily** | Kill shape (that’s sword/blade/spear/fist) |
+| **Home expression** | Deflect, channel, meridian **flow** disruption — control the exchange |
+| **Cross-wield on attacks** | Arts don’t always look like staff bashes; they pick up **circulation** — palm pushes qi through their guard, sword strikes carry a deflecting line, spear thrust meets a turning ward |
+| **Cross-wield on defense** | Native home — staff intent + any defend = strongest expression |
+
+**Candidate framings (pick one later):**
+
+1. **Ward / circulation** (matches current arts) — Staff shapes *the fight*, not the wound. Stress leans inner (meridians) over outer (limbs).
+2. **Reach / separation** — Staff keeps distance and geometry; expression adds “you never let them close” tags (slow, root, zone control).
+3. **Scholar channel** — Staff is the qi-path intent; expression turns physical arts into **channelled** strikes (lightning staff, root-vein surge flavor).
+
+**Recommendation for planning:** default to **(1) ward / circulation** because the game already shipped staff expand picks in that direction. Revisit when someone playtests a staff-main character and hates it.
+
+**Open:** Is Staff intent boring if it’s defensive? Mitigation: high Staff expression on *attack* arts still changes logs and stress (flow disruption), and Sanctuary Domain makes “I defended, now I punish” a real loop.
 
 ---
 
@@ -255,6 +300,8 @@ Soul arts and spirit damage **do not** get rewritten into sword cuts — intent 
 | Perfection Spear intent, Crushing Fist | *“A single penetrating knuckle finds the seam in their guard.”* | Pierce-leaning; circulation splash; penetrating_line bias |
 | Shallow Fist intent, Wind Blade Strike | *“The wind-blade forms, but your fist intent drags it blunt.”* | Weakened slash; more structure than authored |
 | Intent Domain Blade, enemy below half HP | *“Butcher Domain — every touch opens a wound.”* | Slaughter aura threshold; bleed break pressure |
+| Perfection Sword intent, same palm — Blade cultivator comparison | *“His palm cuts; yours rends.”* | Sword: precise flesh line; Blade: heavier bleed weight |
+| Major Staff intent, Heavenly Palm | *“Qi circulates through the palm — their meridians stumble.”* | Circulation stress; not a cut or push — **flow disruption** |
 
 These are **log + stress tilt + tag bias** — not a second damage formula per combo.
 
@@ -383,6 +430,8 @@ Defaults locked for parking; revisit when building:
 - **Expression at Sprout:** how much rewrite is too much too early?
 - **Soul + intent:** flavor-only vs light stress bias — owner call
 - Sword palm / spear fist examples: locked as signature beats; add more via table rows not bespoke code
+- **Sword vs Blade:** temperament locked (soft/adapt vs heavy/bleed); tune numbers so they don’t play identically
+- **Staff intent:** owner leaning ward/circulation — confirm with staff-main playtest or swap to reach/scholar option
 
 ## Implementation crumbs
 
