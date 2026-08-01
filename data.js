@@ -1305,6 +1305,56 @@ const PILL_TYPES = {
             }
             return `The pill's power finds no wound to mend.`;
         }
+    },
+    qi_restore: {
+        name: 'Qi Restore Pill',
+        emoji: '💊',
+        desc: 'Refills qi toward current max. No store progress.',
+        months: 0,
+        apply() {
+            const max = getMaxQi();
+            const before = G.qi || 0;
+            G.qi = max;
+            clampCurrentQi();
+            if (G.qiExhausted && G.qi > 0) G.qiExhausted = false;
+            return `Dantian refilled (+${G.qi - before} Qi, now ${G.qi}/${max}).`;
+        }
+    },
+    driftburst: {
+        name: 'Driftburst Pill',
+        emoji: '💨',
+        desc: 'Small shove into the qi store (~5 units). Dune Rider specialty.',
+        months: 0,
+        apply() {
+            if (typeof applyQcStoreFillPill === 'function') return applyQcStoreFillPill(5, 'Driftburst');
+            G.qi = Math.min(getMaxQi(), (G.qi || 0) + Math.floor(getMaxQi() * 0.08));
+            clampCurrentQi();
+            return 'Qi stirs in the dantian.';
+        }
+    },
+    sunscar_burst: {
+        name: 'Sunscar Burst Pill',
+        emoji: '🔥',
+        desc: 'Hot mid dump into the store (~15 units). Sunscar specialty.',
+        months: 0,
+        apply() {
+            if (typeof applyQcStoreFillPill === 'function') return applyQcStoreFillPill(15, 'Sunscar Burst');
+            G.qi = Math.min(getMaxQi(), (G.qi || 0) + Math.floor(getMaxQi() * 0.2));
+            clampCurrentQi();
+            return 'Quarry heat floods the store.';
+        }
+    },
+    marrowfall: {
+        name: 'Marrowfall Pill',
+        emoji: '🦴',
+        desc: 'Heavy settle into the store (~40 units). Ashen specialty.',
+        months: 0,
+        apply() {
+            if (typeof applyQcStoreFillPill === 'function') return applyQcStoreFillPill(40, 'Marrowfall');
+            G.qi = Math.min(getMaxQi(), (G.qi || 0) + Math.floor(getMaxQi() * 0.35));
+            clampCurrentQi();
+            return 'Marrow weight settles in the dantian.';
+        }
     }
 };
 
@@ -1909,7 +1959,7 @@ const MERCHANT_CATALOG = {
         methods: [],
         formations: [],
         pills: [
-            { id: 'spirit_gathering', price: 14, qty: 2 },
+            { id: 'qi_restore', price: 16, qty: 3 },
             { id: 'blood_recovery', price: 22, qty: 2 }
         ],
         staples: [
@@ -3843,6 +3893,7 @@ const ZONE_LOCAL_LAYOUT = {
             redwell: { x: 32, y: 62, layer: 2 },
             ironscar_quarry: { x: 48, y: 78, layer: 1 },
             dewcatch_scrub: { x: 18, y: 74, layer: 1 },
+            bonehollow_caverns: { x: 42, y: 88, layer: 1 },
             bone_crossroads: { x: 58, y: 38, layer: 2 },
             miraj_waystation: { x: 28, y: 36, layer: 1 },
             sunscar_camp: { x: 82, y: 28, layer: 1 },
@@ -3851,6 +3902,7 @@ const ZONE_LOCAL_LAYOUT = {
         paths: [
             { from: 'dewcatch_scrub', to: 'redwell' },
             { from: 'ironscar_quarry', to: 'redwell' },
+            { from: 'bonehollow_caverns', to: 'redwell' },
             { from: 'redwell', to: 'bone_crossroads' },
             { from: 'miraj_waystation', to: 'bone_crossroads' },
             { from: 'sunscar_camp', to: 'bone_crossroads' },
@@ -3947,6 +3999,13 @@ const WORLD_LOCATIONS = {
         description: 'Saltbrush and dawn dew on the scrub edge — safer herb day-trips from Redwell.',
         lore: 'Herders and herb thieves share the same dunes. Stay near the well-road if you want to see tomorrow.',
         tags: ['Explore', 'Herbs', 'Field']
+    },
+    bonehollow_caverns: {
+        id: 'bonehollow_caverns', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Bonehollow Caverns', emoji: '🕳️',
+        description: 'Wild cave day-trip — seep dew, glowcap, and marrow resin deeper in.',
+        lore: 'Third-dynasty dig scars left hollows that never warmed. Glowcap light and pin-haunt whispers — the Ashen know these tunnels.',
+        tags: ['Explore', 'Cave', 'Field']
     },
     bone_crossroads: {
         id: 'bone_crossroads', parentZone: 'dustbone', type: 'city', isDefault: false,
@@ -8213,6 +8272,155 @@ const ENCOUNTER_ENEMIES = {
             { id: "venom_spray", weight: 20, cooldown: 2, telegraph: "A cloud of venom mist erupts.", effect: { noDamage: true, applyPlayer: { poisonTurns: 3, poisonDmgPct: 0.03 }, log: "Toxin fills the air!" } }
         ],
         loot: { materials: { demon_core: 1, leather_scrap: 1 }, chance: 0.65 }
+    },
+    // Dustbone field sites — docs/ideas/explore-field-gathering.md
+    dust_viper: {
+        name: 'Dust Viper', template: 'Feral Spirit Wolf', hpMult: 0.75, dmgMult: 0.9,
+        zone: 'dustbone', element: 'earth',
+        abilities: [
+            { id: 'sand_strike', weight: 50, effect: { bonusDmgMult: 1.05, applyPlayer: { poisonTurns: 1, poisonDmgPct: 0.03 } } },
+            { id: 'coil', weight: 35, effect: { selfDefend: true, log: 'It coils in the scrub dust.' } },
+            { id: 'fang_rush', weight: 15, cooldown: 2, effect: { bonusDmgMult: 1.25 } }
+        ],
+        loot: { alchemyMaterials: { dust_root: 1, saltbrush_tip: 1 }, chance: 0.7 }
+    },
+    saltbrush_stalker: {
+        name: 'Saltbrush Stalker', template: 'Shadow Assassin', hpMult: 0.8, dmgMult: 0.95,
+        zone: 'dustbone', element: 'earth',
+        abilities: [
+            { id: 'scrub_slash', weight: 45, effect: { bonusDmgMult: 1.1 } },
+            { id: 'salt_blind', weight: 30, effect: { applyPlayer: { slowResourceRegen: 1 }, bonusDmgMult: 0.85, log: 'Salt dust blinds you.' } },
+            { id: 'thief_lunge', weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.2, stealStones: { min: 1, max: 4, chance: 0.35 } } }
+        ],
+        loot: { alchemyMaterials: { saltbrush_tip: 1, dawn_dew: 1 }, chance: 0.65 }
+    },
+    herb_thief: {
+        name: 'Herb Thief', template: 'Corrupted Cultivator', hpMult: 0.7, dmgMult: 0.85,
+        zone: 'dustbone', element: 'neutral',
+        abilities: [
+            { id: 'grab_herbs', weight: 40, effect: { bonusDmgMult: 0.95 } },
+            { id: 'dirty_kick', weight: 35, effect: { bonusDmgMult: 1.05 } },
+            { id: 'run_away', weight: 25, cooldown: 2, effect: { selfDefend: true, log: 'They try to bolt with your find.' } }
+        ],
+        loot: { alchemyMaterials: { dust_root: 1, marrow_thistle: 1 }, chance: 0.6 }
+    },
+    dew_catch_wight: {
+        name: 'Dew-Catch Wight', template: 'Heavenly Tribulation Phantom', hpMult: 1.1, dmgMult: 1.05,
+        zone: 'dustbone', element: 'soul',
+        abilities: [
+            { id: 'dew_drain', weight: 40, telegraph: 'Condensed dew claws at your qi.', effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
+            { id: 'mist_form', weight: 30, effect: { selfDefend: true, noDamage: true, log: 'It dissolves into morning mist.' } },
+            { id: 'wight_curse', weight: 30, cooldown: 2, effect: { bonusDmgMult: 1.3, applyPlayer: { slowResourceRegen: 2 } } }
+        ],
+        loot: { alchemyMaterials: { dawn_dew: 2, marrow_thistle: 1, dust_root: 1 }, chance: 0.85 }
+    },
+    claim_jumper: {
+        name: 'Claim-Jumper', template: 'Corrupted Cultivator', hpMult: 0.85, dmgMult: 1.0,
+        zone: 'dustbone', element: 'earth',
+        abilities: [
+            { id: 'grit_punch', weight: 45, effect: { bonusDmgMult: 1.1 } },
+            { id: 'claim_guard', weight: 30, effect: { selfDefend: true, log: 'They guard their stolen claim.' } },
+            { id: 'iron_hook', weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.25, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.03 } } }
+        ],
+        loot: { alchemyMaterials: { ironscar_grit: 2 }, chance: 0.7 }
+    },
+    rock_lizard: {
+        name: 'Rock Lizard', template: 'Demon Beast', hpMult: 0.9, dmgMult: 0.95,
+        zone: 'dustbone', element: 'earth',
+        abilities: [
+            { id: 'tail_slam', weight: 45, effect: { bonusDmgMult: 1.1 } },
+            { id: 'stone_hide', weight: 35, effect: { selfDefend: true, log: 'Grit crusts over its scales.' } },
+            { id: 'quarry_charge', weight: 20, cooldown: 2, effect: { bonusDmgMult: 1.3 } }
+        ],
+        loot: { alchemyMaterials: { ironscar_grit: 1, redvein_chip: 1 }, chance: 0.65 }
+    },
+    slag_mite: {
+        name: 'Slag Mite', template: 'Feral Spirit Wolf', hpMult: 0.7, dmgMult: 0.9,
+        zone: 'dustbone', element: 'fire', traits: ['swarm'],
+        abilities: [
+            { id: 'mite_swarm', weight: 50, effect: { bonusDmgMult: 0.85, extraHits: 1 } },
+            { id: 'slag_bite', weight: 30, effect: { bonusDmgMult: 1.0, applyPlayer: { poisonTurns: 1, poisonDmgPct: 0.025 } } },
+            { id: 'burrow', weight: 20, cooldown: 2, effect: { selfDefend: true, log: 'They vanish into hot slag.' } }
+        ],
+        loot: { alchemyMaterials: { ironscar_grit: 1, sun_stone: 1 }, chance: 0.6 }
+    },
+    redvein_shade: {
+        name: 'Redvein Shade', template: 'Shadow Assassin', hpMult: 0.95, dmgMult: 1.05,
+        zone: 'dustbone', element: 'fire',
+        abilities: [
+            { id: 'vein_cut', weight: 45, telegraph: 'Red ore dust trails the blade.', effect: { bonusDmgMult: 1.15, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.03 } } },
+            { id: 'shade_step', weight: 30, effect: { selfDefend: true, log: 'It flickers between ore shadows.' } },
+            { id: 'sun_flash', weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.25 } }
+        ],
+        loot: { alchemyMaterials: { redvein_chip: 1, sun_stone: 1 }, chance: 0.7 }
+    },
+    pit_brute: {
+        name: 'Pit Brute', template: 'Demon Beast', hpMult: 1.25, dmgMult: 1.12,
+        zone: 'dustbone', element: 'earth',
+        abilities: [
+            { id: 'pit_smash', weight: 40, telegraph: 'The brute raises a slag-hammer fist.', effect: { bonusDmgMult: 1.2 } },
+            { id: 'iron_hide', weight: 30, effect: { selfDefend: true, log: 'Ore scales lock over its hide.' } },
+            { id: 'pit_rage', weight: 30, cooldown: 2, effect: { bonusDmgMult: 1.4, applyPlayer: { slowResourceRegen: 1 } } }
+        ],
+        enrageThreshold: 0.35,
+        enrageAbilities: [
+            { id: 'pit_fury', weight: 100, telegraph: 'The Pit Brute bellows — the quarry answers!', effect: { bonusDmgMult: 1.45, extraHits: 1 } }
+        ],
+        loot: { alchemyMaterials: { sun_stone: 1, ironscar_grit: 2, redvein_chip: 1 }, chance: 0.9 }
+    },
+    bone_gnaw_rat: {
+        name: 'Bone-Gnaw Rat', template: 'Feral Spirit Wolf', hpMult: 0.65, dmgMult: 0.85,
+        zone: 'dustbone', element: 'earth', traits: ['swarm'],
+        abilities: [
+            { id: 'gnaw', weight: 50, effect: { bonusDmgMult: 0.9, extraHits: 1 } },
+            { id: 'scurry', weight: 30, effect: { selfDefend: true, log: 'Rats scatter through marrow cracks.' } },
+            { id: 'bone_bite', weight: 20, cooldown: 2, effect: { bonusDmgMult: 1.1, applyPlayer: { bleedTurns: 1, bleedDmgPct: 0.025 } } }
+        ],
+        loot: { alchemyMaterials: { seep_dew: 1, glowcap: 1 }, chance: 0.65 }
+    },
+    glowcap_skitter: {
+        name: 'Glowcap Skitter', template: 'Demon Beast', hpMult: 0.75, dmgMult: 0.9,
+        zone: 'dustbone', element: 'soul',
+        abilities: [
+            { id: 'spore_burst', weight: 40, telegraph: 'Bioluminescent spores erupt.', effect: { applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.03 }, bonusDmgMult: 0.95 } },
+            { id: 'skitter', weight: 35, effect: { bonusDmgMult: 1.05 } },
+            { id: 'glow_dash', weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.2 } }
+        ],
+        loot: { alchemyMaterials: { glowcap: 2 }, chance: 0.7 }
+    },
+    marrow_leech: {
+        name: 'Marrow Leech', template: 'Demon Beast', hpMult: 0.85, dmgMult: 1.0,
+        zone: 'dustbone', element: 'earth',
+        abilities: [
+            { id: 'leech_bite', weight: 45, effect: { bonusDmgMult: 1.05, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.035 } } },
+            { id: 'marrow_suck', weight: 30, telegraph: 'It latches to your meridians.', effect: { bonusDmgMult: 0.9, applyPlayer: { slowResourceRegen: 2 } } },
+            { id: 'cave_drop', weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.25 } }
+        ],
+        loot: { alchemyMaterials: { bone_marrow_resin: 1, seep_dew: 1 }, chance: 0.7 }
+    },
+    pin_haunt_remnant: {
+        name: 'Pin-Haunt Remnant', template: 'Heavenly Tribulation Phantom', hpMult: 0.9, dmgMult: 1.05,
+        zone: 'dustbone', element: 'soul',
+        abilities: [
+            { id: 'haunt_touch', weight: 40, effect: { bonusDmgMult: 1.05, applyPlayer: { spiritDamage: true } } },
+            { id: 'pin_echo', weight: 35, telegraph: 'Old pin-law whispers through the cave.', effect: { applyPlayer: { slowResourceRegen: 1 }, bonusDmgMult: 0.9 } },
+            { id: 'remnant_strike', weight: 25, cooldown: 2, effect: { bonusDmgMult: 1.3, applyPlayer: { spiritDamage: true } } }
+        ],
+        loot: { alchemyMaterials: { seep_dew: 2, glowcap: 1 }, chance: 0.65 }
+    },
+    hollow_ambusher: {
+        name: 'Hollow Ambusher', template: 'Shadow Assassin', hpMult: 1.15, dmgMult: 1.15,
+        zone: 'dustbone', element: 'soul',
+        abilities: [
+            { id: 'cave_ambush', weight: 40, telegraph: 'Something drops from the cavern roof!', effect: { bonusDmgMult: 1.25 } },
+            { id: 'marrow_cloak', weight: 30, effect: { selfDefend: true, log: 'Marrow resin cloaks its movements.' } },
+            { id: 'hollow_strike', weight: 30, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { spiritDamage: true } } }
+        ],
+        enrageThreshold: 0.4,
+        enrageAbilities: [
+            { id: 'bone_collapse', weight: 100, telegraph: 'The cavern squeezes inward!', effect: { bonusDmgMult: 1.4, applyPlayer: { slowResourceRegen: 2, spiritDamage: true } } }
+        ],
+        loot: { alchemyMaterials: { bone_marrow_resin: 2, glowcap: 1, seep_dew: 1 }, chance: 0.9 }
     },
     bandit_ambush: {
         name: "Roadside Bandit Chief", template: "Shadow Assassin", hpMult: 0.75, dmgMult: 1.15,

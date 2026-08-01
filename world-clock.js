@@ -222,6 +222,10 @@ function tickWorldClockStanceWeek() {
             quiet: true
         });
         if (msg && typeof addLog === 'function' && Math.random() < 0.22) addLog(msg);
+        if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()
+            && typeof applyQcGatherBandProgress === 'function' && typeof getQcStanceGatherUnits === 'function') {
+            applyQcGatherBandProgress(getQcStanceGatherUnits());
+        }
     } else if (stance === 'explore' && typeof runExploreStanceWeek === 'function') {
         runExploreStanceWeek();
     }

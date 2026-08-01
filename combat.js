@@ -671,11 +671,22 @@ function enemyAbilityTurn(enemy) {
 
 function grantEncounterCombatLoot(combatKey) {
     const def = ENCOUNTER_ENEMIES?.[combatKey];
-    if (!def?.loot || typeof addCraftMaterial !== 'function') return [];
+    if (!def?.loot) return [];
     const chance = def.loot.chance != null ? def.loot.chance : 1;
     if (Math.random() > chance) return [];
     const lines = [];
-    Object.entries(def.loot.materials || {}).forEach(([matId, qty]) => {
+    const alchemyBag = def.loot.alchemyMaterials || {};
+    const craftBag = def.loot.materials || {};
+    Object.entries(alchemyBag).forEach(([matId, qty]) => {
+        if (typeof addAlchemyMaterial === 'function' && addAlchemyMaterial(matId, qty)) {
+            const mat = typeof getAlchemyMaterialDef === 'function'
+                ? getAlchemyMaterialDef(matId)
+                : (ALCHEMY_MATERIALS?.[matId]);
+            lines.push(`${mat?.emoji || '🌿'} +${qty} ${mat?.name || matId}`);
+        }
+    });
+    Object.entries(craftBag).forEach(([matId, qty]) => {
+        if (typeof addCraftMaterial !== 'function') return;
         addCraftMaterial(matId, qty);
         const mat = CRAFT_MATERIALS?.[matId];
         lines.push(`${mat?.emoji || '📦'} +${qty} ${mat?.name || matId}`);

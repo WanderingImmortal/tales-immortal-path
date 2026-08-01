@@ -128,7 +128,18 @@ const ALCHEMY_MATERIALS = {
     earth_marrow:  { id: 'earth_marrow',  name: 'Earth Marrow',  tier: 'uncommon', emoji: '🪨' },
     blood_crystal: { id: 'blood_crystal', name: 'Blood Crystal', tier: 'uncommon', emoji: '🔴' },
     soul_mist:     { id: 'soul_mist',     name: 'Soul Mist',     tier: 'uncommon', emoji: '💨' },
-    foundation_root: { id: 'foundation_root', name: 'Foundation Root', tier: 'rare', emoji: '🌱' }
+    foundation_root: { id: 'foundation_root', name: 'Foundation Root', tier: 'rare', emoji: '🌱' },
+    // Dustbone QC book — docs/ideas/dustbone-qc-alchemy.md
+    dust_root: { id: 'dust_root', name: 'Dust Root', tier: 'common', emoji: '🌱', book: 'dustbone_qc' },
+    saltbrush_tip: { id: 'saltbrush_tip', name: 'Saltbrush Tip', tier: 'common', emoji: '🌿', book: 'dustbone_qc' },
+    dawn_dew: { id: 'dawn_dew', name: 'Dawn Dew', tier: 'common', emoji: '💧', book: 'dustbone_qc' },
+    marrow_thistle: { id: 'marrow_thistle', name: 'Marrow Thistle', tier: 'uncommon', emoji: '🌾', book: 'dustbone_qc' },
+    ironscar_grit: { id: 'ironscar_grit', name: 'Ironscar Grit', tier: 'common', emoji: '⛏️', book: 'dustbone_qc' },
+    sun_stone: { id: 'sun_stone', name: 'Sun Stone', tier: 'uncommon', emoji: '☀️', book: 'dustbone_qc' },
+    redvein_chip: { id: 'redvein_chip', name: 'Redvein Chip', tier: 'uncommon', emoji: '🪨', book: 'dustbone_qc' },
+    seep_dew: { id: 'seep_dew', name: 'Seep Dew', tier: 'common', emoji: '💧', book: 'dustbone_qc' },
+    glowcap: { id: 'glowcap', name: 'Glowcap', tier: 'uncommon', emoji: '🍄', book: 'dustbone_qc' },
+    bone_marrow_resin: { id: 'bone_marrow_resin', name: 'Bone Marrow Resin', tier: 'uncommon', emoji: '🦴', book: 'dustbone_qc' }
 };
 
 const ALCHEMY_RECIPES = {
@@ -233,6 +244,70 @@ const ALCHEMY_RECIPES = {
         daoAlignmentMin: 30,
         marketValue: 55,
         desc: 'Cleanses corruption and steadies the Dao heart — righteous alchemists only.'
+    },
+    // —— Dustbone QC Tier 1 (docs/ideas/dustbone-qc-alchemy.md) ——
+    dustbone_qi_restore: {
+        id: 'dustbone_qi_restore',
+        pillId: 'qi_restore',
+        tier: 'mortal',
+        name: 'Qi Restore Pill',
+        emoji: '💊',
+        element: 'neutral',
+        ingredients: { dust_root: 1, dawn_dew: 1 },
+        months: 1,
+        minSkill: 'apprentice',
+        unlockByDefault: true,
+        marketValue: 12,
+        book: 'dustbone_qc',
+        desc: 'Refills qi toward your current max — no store progress.'
+    },
+    dustbone_driftburst: {
+        id: 'dustbone_driftburst',
+        pillId: 'driftburst',
+        tier: 'mortal',
+        name: 'Driftburst Pill',
+        emoji: '💨',
+        element: 'earth',
+        ingredients: { dust_root: 2, dawn_dew: 1 },
+        months: 1,
+        minSkill: 'apprentice',
+        unlockByDefault: true,
+        marketValue: 18,
+        book: 'dustbone_qc',
+        storeFillUnits: 5,
+        desc: 'Dune Rider fame — a small explosive shove into the qi store.'
+    },
+    dustbone_sunscar_burst: {
+        id: 'dustbone_sunscar_burst',
+        pillId: 'sunscar_burst',
+        tier: 'mortal',
+        name: 'Sunscar Burst Pill',
+        emoji: '🔥',
+        element: 'fire',
+        ingredients: { sun_stone: 1, ironscar_grit: 2, saltbrush_tip: 1 },
+        months: 2,
+        minSkill: 'apprentice',
+        unlockByDefault: true,
+        marketValue: 28,
+        book: 'dustbone_qc',
+        storeFillUnits: 15,
+        desc: 'Sunscar warrior fuel — a hot mid dump into the store.'
+    },
+    dustbone_marrowfall: {
+        id: 'dustbone_marrowfall',
+        pillId: 'marrowfall',
+        tier: 'mortal',
+        name: 'Marrowfall Pill',
+        emoji: '🦴',
+        element: 'earth',
+        ingredients: { bone_marrow_resin: 2, seep_dew: 2, glowcap: 1, dust_root: 2 },
+        months: 3,
+        minSkill: 'apprentice',
+        unlockByDefault: true,
+        marketValue: 55,
+        book: 'dustbone_qc',
+        storeFillUnits: 40,
+        desc: 'Ashen rite denseness — heavy settle into the store.'
     }
 };
 
