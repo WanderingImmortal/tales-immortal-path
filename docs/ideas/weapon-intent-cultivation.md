@@ -6,13 +6,13 @@
 | **Blocked on** | none for design; build Issue not opened |
 | **Issue** | none yet |
 | **Chat / PR** | Intent planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) · sister work [PR #95](https://github.com/WanderingImmortal/tales-immortal-path/pull/95) (awakening + Demon Cult life) |
-| **Updated** | 2026-08-01 (deepen = passive saturation + boosts, not a button) |
+| **Updated** | 2026-08-01 (expand = breakthrough into next intent realm; deepen = passive saturation) |
 
 ## Intent
 
 Intent should grow **alongside cultivation** — not a side minigame you tick once at Foundation. It is a comprehension you **awaken**, **deepen** through lived practice, **expand** into named expressions, and **break through** into higher intent realms as your main realm rises.
 
-**Owner lock (2026-08-01):** retire **Deepen *or* Expand** at each breakpoint. New loop: **deepen within the band → expand when the band is full → breakthrough to the next intent realm** (with cultivation + comprehension gates). Keeps every deepen bonus **and** every expand art — nothing thrown away.
+**Owner lock (2026-08-01):** retire **Deepen *or* Expand** at each breakpoint. New loop: **deepen within the band → at 100% you are ripe → Expand ceremony breaks you into the next intent realm** (cultivation + comprehension gates required). **Expand is not a separate step before realm-up** — it *is* the realm-up. Keeps every deepen milestone **and** every expand art — nothing thrown away.
 
 Sister docs:
 
@@ -113,19 +113,18 @@ Alternatives if playtest says otherwise:
 ## New loop (plain language)
 
 ```text
-Awaken (spark + groundwork)
-  → Intent Realm 1 — live in it, fight, meditate with your shape
-  → Deepen, deepen, deepen… (band fills)
-  → Expand — unlock one named expression (Returning Edge, Qi Siphon, …)
-  → Breakthrough to Intent Realm 2 — needs higher cultivation + a comprehension beat
-  → repeat until Domain
+Awaken (spark + groundwork) → Intent Realm 1 (Sprout)
+  → Ripen: auto deepen milestones at ~35% / ~70%
+  → 100% = ripe (inward: “a new face wants to be born”)
+  → Expand ceremony → Intent Realm 2 (Minor Success) + that realm’s expand art + realm package
+  → Ripen in Realm 2… repeat until Domain
 ```
 
-**Deepen** = *the intent gets truer inside you* — stronger expression, better cross-wield, small combat bonuses.
+**Deepen** = *the intent gets truer inside you while you stay in this realm* — milestones at 35 / 70; 100% means **ready**, not “already promoted.”
 
-**Expand** = *the intent shows a new face to the world* — a named art, technique tint, or signature behavior.
+**Expand** = *breakthrough into the next intent realm* — one deliberate ceremony. Grants **realm promotion**, the **named expression** for the realm you enter, and that realm’s mechanical package (expression rewrite tier, synergy rules, etc.). Not a capstone you collect *before* leveling intent.
 
-You earn **both**. Expand is the **reward for finishing** the deepen track in that band, not a rival choice.
+You earn deepen milestones **in** realm N; you earn the expand art **on entering** realm N+1.
 
 **Owner lock (2026-08-01):** **Deepen is not an action button.** It is a **meter that fills while you live your path**, with spikes from choices that matter. The player watches intent ripen — they don’t hammer “Deepen” every few months.
 
@@ -253,19 +252,33 @@ When saturation crosses a threshold → **deepen step unlocks in log + stats** �
 |------------|-------------------------|
 | **35%** | +expression efficiency; faint cross-wield on palm |
 | **70%** | Cross-wield palm reads as cut more often; +basics |
-| **100%** | Band cap → **Expand** available (Returning Edge ceremony) |
+| **100%** | Band **ripe** — inward nudge; **Expand ceremony** available when cultivation + comprehension gates pass |
 
-After Expand, saturation **resets to 0** for the next realm band (or next track within same realm — TBD).
+After Expand, you are in the **next intent realm**, saturation **resets to 0** for that band, and the expand art for the realm you entered is yours.
 
-### Expand — the one intentional moment
+### Expand — breakthrough into the next intent realm (owner lock 2026-08-01)
 
-Expand at 100% can stay a **single deliberate beat** — not a grind button, a **payoff**:
+**Expand = realm-up.** One deliberate ceremony — not a grind button, not a separate reward before promotion.
 
-- Log: *“Returning Edge awakens — your intent shows a second face.”*
-- Maybe 1–3 months ceremony (sect elder, solitary seclude) — **once per expand**, feels earned
-- Distinct from saturation drip — player knows this is the crown of the band
+**Gates (all required):**
 
-Breakthrough to **next intent realm** stays separate: saturation + cultivation realm + comprehension beat (First Taking, etc.).
+| Gate | Role |
+|------|------|
+| **100% saturation** in current intent realm | Comprehension is ripe |
+| **Cultivation band** | Vessel can hold the next intent (e.g. GC for Realm 2) |
+| **Comprehension beat** | Story / sect / witness — not meter alone |
+
+**On Expand (single beat):**
+
+1. **Intent realm +1** (Sprout → Minor Success, …)
+2. **Expand art** for the realm you **enter** (e.g. Returning Edge when entering Minor Success)
+3. **Realm package** — mechanical identity of the new tier (see table below)
+4. Log + optional 1–3 month ceremony (sect elder, seclude)
+5. Saturation resets; new inward-sign band for the new realm
+
+**Fiction:** *“Your sword-will breaks into Minor Success — Returning Edge awakens as the intent shows its second face.”* One moment, not two.
+
+**Stuck at 100%:** ripeness without gates = inward line says *“the will is ready; your cultivation cannot hold more yet”* (or missing comprehension beat). Player keeps fighting; no fake expand.
 
 ### What we retire
 
@@ -273,7 +286,7 @@ Breakthrough to **next intent realm** stays separate: saturation + cultivation r
 |-------|----------------|
 | `refineActiveIntent` button | Saturation drip + meditate-with-weapon cultivate mode |
 | `makeIntentChoice('deepen')` | Auto milestone at saturation % |
-| `makeIntentChoice('expand')` | 100% saturation + optional short ceremony |
+| `makeIntentChoice('expand')` | 100% ripe + gates → **Expand ceremony** (realm-up + art) |
 | Uses → tier index only | Combat still adds saturation chunk; tier gates need realm + beat |
 
 `intentRefine` months action can become **Seclusion** (optional burst) or vanish entirely if meditate-mode covers it.
@@ -309,36 +322,199 @@ Intent has its **own** realm ladder (comprehensions), but each step is **gated b
 
 ---
 
-## Within one intent realm — deepen then expand
+## Intent Realm 1 — Sprout (what it should be)
+
+**Design target** for first intent level — Sword as worked example; other tracks swap voice + expand art. Replaces today’s thin “+0% and a flat +10 on basics.”
+
+### What Sprout usually is in xianxia
+
+Not power — **first honesty between will and qi.**
+
+| Fiction beat | Meaning |
+|--------------|---------|
+| **意初生** — intent first born | Will is no longer generic; it has a **shape** (line, thrust, ring…) |
+| **Self-known** | *You* feel it when circulating — not others (yet) |
+| **Form truer** | Matching arts **form cleaner**; wrong-path arts feel **slightly wrong** |
+| **Strike focused** | Basics aren’t bigger — they’re **more directed** (one line, not scattered qi) |
+| **Not yet domain** | No pressure field, no phantom army, no legislation |
+
+**One line:** Sprout is *“I have imposed a will, and I can feel it when I look inward.”* Not *“I am stronger.”*
+
+### Gameplay pillars (adaptation)
+
+| Pillar | Player feel | Avoid |
+|--------|-------------|-------|
+| **Recognition** | Chamber **Within yourself** line appears on awaken | +0% label with no fiction |
+| **Focus** | Basics **read different** (log + small mechanical identity) | Huge damage spike |
+| **Formation** | Sword arts **less punishing** at shallow will; true synergy waits for Realm 2 | Hard 72% brick on all high arts |
+| **Seed** | Hidden ripening + milestones → **ripe at 100%** → Expand into Realm 2 | Expand art on day one |
+
+**Sprout is the whole first intent realm** (awaken → ripen → **ready at 100%**). **Returning Edge belongs to Realm 2** — you get it when Expand promotes you to Minor Success, not while still Sprout.
+
+---
+
+### Sword Sprout — fiction → mechanics (draft)
+
+#### On awaken (spark + groundwork)
+
+| Deliver | Detail |
+|---------|--------|
+| Track opens | Sword intent, Realm 1, saturation 0% |
+| Log | *“Sword-will settles on your circulation — thin, but real when you look inward.”* |
+| Chamber | **Within yourself** line unlocks (updates as saturation rises) |
+| Combat | Basics log changes from generic qi blast → **line-flavored** (see below) |
+
+No Returning Edge yet. No outward tell (NPCs don’t read you).
+
+#### While ripening in Sprout (hidden saturation)
+
+| Hidden band | Inward (chamber) | Combat / formation |
+|-------------|------------------|---------------------|
+| **Low** | *Imposed line sits on the flow — shallow.* | Basics: **Focused Line** — small flat bonus **or** +precision vs same-realm trash (pick one in tuning) |
+| **~35%** milestone | *The line **holds** one full circulation.* | **Formation I** — high sword arts at wrong stage: penalty softened (e.g. 72% → **85%**), still warn *“forms weakly”* |
+| **~70%** milestone | *Every pulse wants to exit straight.* | **Expression preview** — cross-wield palm gets **flavor log** + tiny slash stress splash (when damage system exists); no full rewrite |
+| **100%** | *A new face presses to be born — you are **ripe**.* | **No art yet.** Expand ceremony → **Minor Success** + Returning Edge (when gates pass) |
+
+Passive drip + fights + meditate-with-weapon fill the band. Soft cap ~70% without engagement.
+
+#### Basics at Sprout (Sword) — replace today’s flat chunk
+
+Today: `+(8 + realmIdx×2)` with no identity.
+
+**Target:**
+
+| Element | Sprout behavior |
+|---------|-----------------|
+| **Log** | *“Qi carries a sword-line.”* (not “Qi blast!”) |
+| **Damage** | **Modest** — same ballpark as today or slightly lower flat; power is **focus**, not scale |
+| **Optional hook** | +small bonus vs **same or lower realm** fodder (*prey sense seed*) — Devouring Stirring parallel |
+| **Guard** | No Returning Edge until **Expand → Minor Success** |
+
+#### Techniques at Sprout
+
+| Case | Sprout behavior |
+|------|-----------------|
+| **High art, Sword req, need Realm 2+** | **Forms at reduced power** — softened penalty + UI *“Sword-will too shallow — art forms weakly.”* |
+| **Low/mid sword-tagged art** | Small synergy if Sword active (+3–6% band) |
+| **Wrong weapon art** | Usable; no expression rewrite (Realm 2 job) |
+
+Realm 2 (Minor Success) is when **expression rewrite** and real synergy kick in. Sprout is **formation**, not mastery.
+
+#### What Sprout does **not** do
+
+- No expand arts while still Sprout (Returning Edge unlocks **on entering** Realm 2)
+- No NPC intent read, no spiritual sense tier reveal
+- No Self-Will, no domain pressure
+- No chamber change to **root** or density numbers — only **Within yourself** + optional basics flavor
+
+---
+
+### Other tracks — one-line Sprout identity
+
+| Track | Sprout inward | Sprout combat seed |
+|-------|---------------|-------------------|
+| **Blade** | *Imposed weight on the flow — shallow.* | Basics lean **bleed-flavor** log; wounded bonus seed |
+| **Spear** | *Imposed thrust on the flow — shallow.* | Basics **linear** log; guard interaction seed at 70% |
+| **Fist** | *Imposed shock on the flow — shallow.* | Concussive log; slow seed at 70% |
+| **Staff (Circle)** | *Imposed ring on the flow — shallow.* | **Circulating** log; defend synergy seed |
+| **Devouring** | *Imposed claim on the flow — shallow.* | **Prey sense** + conversion seed ([`devouring-intent.md`](devouring-intent.md)) |
+
+Same milestone structure; swap copy. **100% Expand art** is always the **first art of the realm you enter** (Realm 2 for first Expand).
+
+---
+
+### vs shipped game today
+
+| Today (Sprout) | Target (Realm 1 Sprout) |
+|----------------|-------------------------|
+| Weapon picker awaken | Spark + groundwork |
+| +0% tier, flat basic chunk | Focused basics + inward line |
+| 72% hard fail on high arts | Softened formation + warning |
+| No fiction | Chamber + combat logs |
+| Expand at 10 uses / tier break | Expand at **100% + gates** = **realm-up** + art |
+| Refine button | Meditate-with-weapon + live path |
+
+**v1 slice order:** inward chamber line + basic log + soften high-art penalty → milestones → Expand ceremony (Sprout → Minor Success + Returning Edge) when combat depth ships.
+
+---
 
 Each intent realm has:
 
 | Piece | Count (draft) | Player feel |
 |-------|---------------|-------------|
-| **Deepen milestones** | 2–3 per realm (saturation 35 / 70 / 100) | Automatic — “My sword intent sharpened.” |
-| **One Expand unlock** | At 100% saturation | “A new expression opens.” |
-| **Breakthrough beat** | 1 per realm | Story / comprehension — not meter alone |
+| **Deepen milestones** | 2 at 35 / 70 (100% = ripe, not a third deepen) | Automatic — “My sword intent sharpened.” |
+| **Expand ceremony** | 1 per realm transition (×4 total to Domain) | “I broke into Minor Success — Returning Edge awakens.” |
+| **Comprehension beat** | 1 per transition (paired with Expand gates) | Story / sect — not meter alone |
 
-### Example — Sword intent, Realm 1 (Sprout) @ FE
+### Example — Sword intent @ FE → GC
 
-| Saturation | What happens |
-|------------|--------------|
-| **35%** | Deepen 1 — +expression efficiency |
-| **70%** | Deepen 2 — cross-wield palm → stronger cut lean |
-| **100%** | Deepen 3 cap → **Expand: Returning Edge** (short ceremony) |
-| *gate* | FE stable + comprehension beat → **Realm 2** (Minor Success) |
+| Phase | What happens |
+|-------|----------------|
+| Awaken | Realm 1 Sprout, saturation 0% |
+| **35%** | Deepen 1 — formation soften on high arts |
+| **70%** | Deepen 2 — cross-wield preview |
+| **100%** | Ripe — inward: *“a new face wants to be born”* |
+| *gates* | GC stable + comprehension beat (e.g. First Edge) |
+| **Expand** | → **Realm 2 Minor Success** + **Returning Edge** + expression rewrite tier |
 
-Player might hit 100% in year 40 or year 120 depending on fights, sect life, and whether they bother with meditate-with-weapon — not on how many times they clicked Deepen.
+Player might hit 100% Sprout in year 40 or year 120 — but cannot Expand until GC + beat. Hitting gates before 100% means living the path until ripe.
 
-Realm 2 saturation track → **Blade Pressure** expand. Realm 3 → **Edge Domain**.
+Next band: ripen in Minor Success → Expand → Major Success + **Blade Pressure**. Then **Edge Domain** on entering Perfection; apex **Intent Domain** on final Expand (manifestation line + Self-Will path — see [`intent-apex-self-will.md`](intent-apex-self-will.md)).
+
+---
+
+## What Expand unlocks (review)
+
+**Rule:** Expand art is granted **on entering** the destination realm, not while finishing the previous one. Four Expand ceremonies (Realm 1→2 … 4→5). Realm 1 (Sprout) has **no** expand art — only awaken + ripen.
+
+Each Expand bundles three things:
+
+| Bundle piece | Example (Sword, Sprout → Minor Success) |
+|--------------|----------------------------------------|
+| **Realm promotion** | Sprout → Minor Success (+tier bonus, UI name) |
+| **Named expand art** | Returning Edge |
+| **Realm package** | Expression rewrite tier, synergy rules, inward-sign band |
+
+### Realm packages (shared engine, Sword voice)
+
+| Entering realm | Tier bonus (draft) | Realm package (what changes beyond the art) |
+|----------------|-------------------|---------------------------------------------|
+| **1 Sprout** | +0% | Awaken only — focused basics, formation soften at milestones, no expand art |
+| **2 Minor Success** | +10% | **Expression rewrite** on cross-wield; high arts at full synergy; expand art **strike** role |
+| **3 Major Success** | +20% | Stronger rewrite; technique synergy band widens; expand art **pressure** role |
+| **4 Perfection** | +35% | Near-signature expression; expand art **domain** role on basics |
+| **5 Intent Domain** | +50% | Manifestation line; basics default to home expression; apex Self-Will duel weight |
+
+### Expand arts by weapon (from `data.js` — art unlocks **on entering** column’s realm)
+
+| Transition | Sword | Blade | Spear | Fist | Staff (Circle) |
+|------------|-------|-------|-------|------|----------------|
+| **→ Minor Success** | Returning Edge — basics chance double strike | Slaughter Aura — wounded foes take more from basics | Penetrating Line — basics pierce guard better | Concussive Rhythm — every 3rd basic slows | Circulating Guard — basics restore resource sliver |
+| **→ Major Success** | Blade Pressure — matching techniques stronger synergy | Blood Scent — flee less reliable vs you | Reach Advantage — bonus vs slowed/shaken | Iron Knuckle — basics cost less stamina/breath | Reach Sweep *(new)* — **Reach** leg |
+| **→ Perfection** | Edge Domain — basics always half Returning Edge | Butcher Domain — Slaughter Aura threshold widens | Pierce Domain — first basic ignores guard | Press Domain — slows last longer | Sanctuary Domain or Vein Channel — **Hold / Conduct** |
+| **→ Intent Domain** | Phantom sword-forms *(manifestation)* | Slaughter aura unnerves wounded | Piercing intent ignores half defense | Shockwaves from every strike | Arcane ward circulates |
+
+**Staff note:** first shipped expand may keep **Circulating Guard** on entering Minor Success; **Reach Sweep** replaces pure-defensive ladder gap on entering Major Success ([`combat-damage-depth.md`](combat-damage-depth.md)).
+
+### Devouring (PR #95 — same Expand = realm-up rule)
+
+| Transition | Expand art | Notes |
+|------------|------------|-------|
+| **→ Taking** (Realm 2) | Predator's Mark *(draft)* | Stirring has **no** expand — prey sense only |
+| **→ Feast** (Realm 3) | Qi Siphon | Dyadic conversion opens |
+| **→ Surfeit** (Realm 4) | TBD | |
+| **→ Maw Domain** (Realm 5) | Maw Domain | Apex |
+
+Old doc line “Realm 1 expand: Returning Edge / Stirring none” still holds: **first expand art arrives with first Expand ceremony** (entering Realm 2).
 
 ### Staff (Circle intent) — expand slots by leg
 
-| Realm | Expand art (draft) | Leg |
-|-------|-------------------|-----|
-| 1 | **Circulating Guard** (rewrite or keep) | Hold |
-| 2 | **Reach Sweep** *(new)* | Reach |
-| 3 | **Sanctuary Domain** or **Vein Channel** | Hold / Conduct |
+| Transition (entering…) | Expand art (draft) | Leg |
+|------------------------|-------------------|-----|
+| Minor Success | **Circulating Guard** (rewrite or keep) | Hold |
+| Major Success | **Reach Sweep** *(new)* | Reach |
+| Perfection | **Sanctuary Domain** or **Vein Channel** | Hold / Conduct |
+| Intent Domain | Circulating ward manifestation | Circle apex |
 
 Retire “all three staff expands are defensive” — Circle needs **Reach** and **Conduct** picks in the ladder.
 
@@ -376,8 +552,8 @@ After awaken: track opens at **Intent Realm 1**, saturation at 0%, no expand art
 
 | | Weapon Sword | Devouring |
 |--|--------------|-----------|
-| Realm 1 expand | Returning Edge | *(none at Stirring — siphon is Realm 2)* |
-| Realm 2 expand | Blade Pressure | Predator's Mark |
+| Realm 1 (Sprout / Stirring) | *(none — ripen only)* | Prey sense / formation seeds |
+| Realm 2 expand (on **entering**) | Returning Edge | Predator's Mark |
 | Deepen in Realm 2 | +line / +synergy | +conversion / +siphon |
 
 ---

@@ -10,7 +10,7 @@
 
 ## Intent
 
-**One engine, many tracks.** Sword, Spear, Staff Circle, and Devouring feel different in *fiction and combat knobs* — but they share the **same lifecycle**: awaken → ripen (hidden) → deepen milestones → expand → breakthrough → next intent realm.
+**One engine, many tracks.** Sword, Spear, Staff Circle, and Devouring feel different in *fiction and combat knobs* — but they share the **same lifecycle**: awaken → ripen (hidden) → deepen milestones → **Expand = breakthrough** into next intent realm.
 
 **Do not** hand-write five full design docs from scratch. **Do** copy this template, fill the slots, and only go bespoke where the table says **track-specific**.
 
@@ -24,8 +24,8 @@ Worked example: [`devouring-intent.md`](devouring-intent.md) *(PR #95)* — same
 |-------|----------------------|
 | Lifecycle | Groundwork → spark → Intent Realm 1…5 |
 | Ripening | Hidden saturation; inward chamber lines; no deepen button |
-| Per realm band | 3 auto deepen milestones (~35 / 70 / 100) + **1 expand** |
-| Breakthrough | Cultivation ceiling + comprehension beat — **not** meter alone |
+| Per realm band | 2 auto deepen milestones (~35 / 70); **100% = ripe**; **Expand = enter next realm** + art |
+| Expand gates | Cultivation ceiling + comprehension beat — **not** meter alone |
 | Inward vs outward | Chamber **Within yourself** in v1; sense/conceal later |
 | Expression | Cross-wield matrix from [`combat-damage-depth.md`](combat-damage-depth.md) |
 | Divided heart | Multiple tracks progress slower |
@@ -44,7 +44,7 @@ Worked example: [`devouring-intent.md`](devouring-intent.md) *(PR #95)* — same
 | **Home expression** | slash / cut | consumption | cross-wield target |
 | **Realm names ×5** | Sprout → Domain | Stirring → Maw Domain | **flavor only** — same idx 0–4 |
 | **Typical cultivation ×5** | FE → GC → NS… | FE → GC → NS… | **not 1:1** — see spans in [`intent-apex-self-will.md`](intent-apex-self-will.md) |
-| **Expand arts ×5** | Returning Edge… | Qi Siphon… | **track-specific** — main creative work |
+| **Expand arts ×4** | Returning Edge… *(on **entering** Realm 2–5)* | Qi Siphon… | **track-specific** — Realm 1 has no art |
 | **Inward signs ×5** | see cultivation doc | cult voice | **copy pass** per band |
 | **Boost table** | spar, drill | kills, feast rite | optional overrides |
 | **Awakening** | blade groundwork + treasure | stained path + shard | [`weapon-intent-awakening.md`](weapon-intent-awakening.md) |
@@ -79,10 +79,10 @@ Skip if orthodox weapon — use generic [`weapon-intent-awakening.md`](weapon-in
 
 ### 4. Intent realms table (required)
 
-| idx | Name | Hanzi (opt) | Typical cultivation | Comprehension beat | Expand art |
-|-----|------|-------------|---------------------|--------------------|------------|
-| 0 | | | FE | Awakening spark | |
-| 1 | | | GC | *First …* beat | |
+| idx | Name | Hanzi (opt) | Typical cultivation | Comprehension beat | Expand art *(on entering this realm)* |
+|-----|------|-------------|---------------------|--------------------|---------------------------------------|
+| 0 | | | FE | Awakening spark | *(none)* |
+| 1 | | | GC | *First …* beat | first expand (e.g. Returning Edge) |
 | 2 | | | NS (TBD) | *First …* beat | |
 | 3 | | | TBD | TBD | |
 | 4 | | Domain | TBD | TBD | domain art · **Self-Will apex** optional ([`intent-apex-self-will.md`](intent-apex-self-will.md)) |
@@ -99,8 +99,8 @@ For each idx:
 |-------|---------|
 | **Why this realm** | One sentence — how comprehension changed (*dyadic siphon* vs *just sharper edge*) |
 | **Inward signs** | 5 lines (groundwork → post-expand) — **imposed-will voice** |
-| **Deepen milestones** | What auto-unlocks at 35 / 70 / 100 (mechanical + log) |
-| **Expand art** | Name, id, combat hook (1 paragraph) |
+| **Deepen milestones** | What auto-unlocks at 35 / 70 (100% = ripe for Expand) |
+| **Expand art** | Name, id, combat hook — granted **when player Expands into this realm** |
 | **Breakthrough gates** | Cultivation + beat + syllabus if any |
 
 **Shortcut for weapon tracks:** realms 3–5 can be `TBD — copy Sword structure, swap names` until that band ships.
