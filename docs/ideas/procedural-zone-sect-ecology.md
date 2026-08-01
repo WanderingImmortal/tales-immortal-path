@@ -651,6 +651,18 @@ Or flat `G.world.sects[]` with `zone` field + index by zone at read time.
 
 **Migration:** On first load, seed each zone from templates + random roll. Authored `sect_hq` locations stay; procedural sects can attach to wilderness nodes or cities without new map pins initially (name in travel/look flavor).
 
+### World seed — mid-story (owner locked)
+
+Procedural sects spawn **already mid-story**, not at founding month zero. On new game / first `G.world` init:
+
+1. Roll each sect (kind, archetype, zone, vitals, patriarch age/realm)
+2. **Backfill `storyBeats`** — 2–4 chronicle lines from templates based on age + archetype (e.g. genius already rose; brotherhood lost an elder)
+3. Set `spawnedAtMonths` in the past so ecology tick continues from “now”
+
+**Why:** QC player won't deep-read every sect, but jianghu gossip and chronicle shouldn't feel like everything started yesterday. Avoids an empty world for the first ~40 in-game years.
+
+**Light touch:** backfill is template + age math, not simulating those decades tick-by-tick.
+
 ## What players see (phased)
 
 | Phase | Player-facing |
@@ -676,7 +688,7 @@ Or flat `G.world.sects[]` with `zone` field + index by zone at read time.
 - [x] Major cities — **branches not indie**; tier table above
 - [ ] Owner confirms size tier names
 - [ ] Owner confirms GC lifespan target (200y code today vs ~300y design intent) before tuning succession math
-- [x] **Seed at new game** — world alive from start; ticks through reincarnation skip
+- [x] World seed history — **mid-story** backfill (2–4 beats); not empty young world
 - [ ] Shared world seed across playthroughs vs per-save random? → **per-save world state**; optional shared name/flavor pools only
 - [ ] [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) — school vs sect founding gate (affects hall → sect graduation)
 - [ ] Optional: [`city-tiers.md`](city-tiers.md) — halls attach to city tier (more halls in Redwell-tier cities)
