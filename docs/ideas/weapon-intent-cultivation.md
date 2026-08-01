@@ -6,7 +6,7 @@
 | **Blocked on** | none for design; build Issue not opened |
 | **Issue** | none yet |
 | **Chat / PR** | Intent planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) · sister work [PR #95](https://github.com/WanderingImmortal/tales-immortal-path/pull/95) (awakening + Demon Cult life) |
-| **Updated** | 2026-08-01 (expand = breakthrough into next intent realm; deepen = passive saturation) |
+| **Updated** | 2026-08-01 (playable slice scoped to intent realms 1–2) |
 
 ## Intent
 
@@ -434,7 +434,7 @@ Same milestone structure; swap copy. **100% Expand art** is always the **first a
 | Expand at 10 uses / tier break | Expand at **100% + gates** = **realm-up** + art |
 | Refine button | Meditate-with-weapon + live path |
 
-**v1 slice order:** inward chamber line + basic log + soften high-art penalty → milestones → Expand ceremony (Sprout → Minor Success + Returning Edge) when combat depth ships.
+**v1 slice order:** see [Playable slice — realms 1–2 only](#playable-slice--realms-1-2-only-owner-scope). Do **not** block on realms 3–5 or combat damage depth.
 
 ---
 
@@ -517,6 +517,72 @@ Old doc line “Realm 1 expand: Returning Edge / Stirring none” still holds: *
 | Intent Domain | Circulating ward manifestation | Circle apex |
 
 Retire “all three staff expands are defensive” — Circle needs **Reach** and **Conduct** picks in the ladder.
+
+---
+
+## Playable slice — realms 1–2 only (owner scope)
+
+**Goal:** ship something **feelable** at Foundation → Golden Core — not the full five-realm ladder. Realms 3–5 stay **designed / stubbed** in data; code paths should not assume they exist yet.
+
+### What “playable” means
+
+One complete loop a player can run:
+
+```text
+Awaken → Sprout (ripen 35 / 70 / 100) → Expand → Minor Success + first expand art
+```
+
+Second realm band can **start** ripening (same milestones) but **Realm 2 → 3 Expand is out of scope** for this slice — UI may show “not yet” or simply cap intent realm at 2 until a later Issue.
+
+### In scope (build this)
+
+| Piece | Ship as |
+|-------|---------|
+| **Intent realm idx 0–1** | Sprout, Minor Success only (`INTENT_TIERS[0–1]` or equivalent) |
+| **Hidden saturation** | 0–100% per band; combat chunks + passive drip |
+| **Milestones** | Auto at 35% / 70%; 100% = ripe |
+| **Expand ceremony** | Sprout → Minor Success when 100% + **GC** + one comprehension beat |
+| **First expand art only** | Sword: Returning Edge; other weapons: first row in expand table — **one track for playtest is OK** |
+| **Chamber inward line** | `getChamberInwardIntentLine()` — Sprout + Minor Success copy |
+| **Sprout combat** | Basic log flavor; soften high-art penalty at 35%; preview log at 70% |
+| **Minor Success package** | +10% tier; high arts at `minStage: 1` full synergy; Returning Edge proc on basics |
+| **Expression rewrite (lite)** | Cross-wield **log + small damage lean** only — no full stress pipeline |
+| **Retire deepen/expand fork** | For realm 0→1 transition only; old buttons can stub realms 2+ |
+
+### Out of scope (park — do not block v1)
+
+| Piece | Why wait |
+|-------|----------|
+| Realms 3–5 + arts 2–4 | Design exists; not needed to prove loop |
+| Full awakening (PR #95) | Weapon picker OK as **temporary** if spark doc not merged |
+| Meditate-with-weapon mode | Combat + drip enough for first playtest |
+| Sect life saturation boosts | Table later; [`heavenly-demon-cult-life.md`](weapon-intent-awakening.md) |
+| Combat damage depth / stress types | Log flavor only until [`combat-damage-depth.md`](combat-damage-depth.md) ships |
+| Devouring track | Separate Issue after orthodox slice works |
+| Staff Circle Reach/Conduct ladder | Realm 1–2 staff can use existing Circulating Guard only |
+| Divided heart | Edge case |
+| Self-Will / Domain apex | [`intent-apex-self-will.md`](intent-apex-self-will.md) |
+
+### Suggested build order
+
+1. **Saturation engine** — hidden meter, combat chunk, passive drip, milestone flags  
+2. **Sprout feel** — inward line, basic log, 35% penalty soften (`techniques.js`)  
+3. **Expand = realm-up** — promote idx 0→1, grant first expand art, reset saturation  
+4. **Minor Success feel** — Returning Edge (already in `data.js`), rewrite-lite on one cross-wield case (Sword + palm)  
+5. **One comprehension beat** — minimal gate (sect line, story flag, or “win N fights with intent”)  
+6. **Polish** — 70% preview log, ripe-at-100% inward copy, remove deepen/expand buttons for this path  
+
+### Playtest success criteria
+
+- Awakening → inward line appears; basics no longer say “Qi blast!” (Sword).  
+- High sword art at Sprout: usable with warning, not a 72% brick after 35%.  
+- Fighting with intent fills ripening over months; player senses progress via chamber copy, not a bar.  
+- At 100% + GC + beat: one Expand → Minor Success, Returning Edge visible, double-strike sometimes fires.  
+- Palm with Sword intent at Minor Success: log reads as cut-leaning at least once.  
+
+### When to open the build Issue
+
+After owner signs this slice + picks **one playtest track** (Sword recommended). Issue title sketch: *“Intent saturation + Sprout/Minor Success playable slice.”* Link this section.
 
 ---
 
