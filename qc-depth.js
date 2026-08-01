@@ -34,6 +34,40 @@ const QC_BAND_POWER_BONUS = {
     peak: 10
 };
 
+/** Place-scoped field sites — docs/ideas/explore-field-gathering.md */
+const FIELD_SITE_DEFS = {
+    dewcatch_scrub: {
+        label: 'Dewcatch Scrub',
+        commons: ['dust_viper', 'saltbrush_stalker', 'herb_thief'],
+        elite: 'dew_catch_wight',
+        eliteChance: 0.1,
+        materials: [
+            { id: 'dust_root', w: 32 }, { id: 'dawn_dew', w: 28 }, { id: 'saltbrush_tip', w: 22 },
+            { id: 'marrow_thistle', w: 12 }
+        ]
+    },
+    ironscar_quarry: {
+        label: 'Ironscar Quarry',
+        commons: ['claim_jumper', 'rock_lizard', 'slag_mite', 'redvein_shade'],
+        elite: 'pit_brute',
+        eliteChance: 0.12,
+        materials: [
+            { id: 'ironscar_grit', w: 35 }, { id: 'sun_stone', w: 18 }, { id: 'redvein_chip', w: 15 },
+            { id: 'saltbrush_tip', w: 10 }
+        ]
+    },
+    bonehollow_caverns: {
+        label: 'Bonehollow Caverns',
+        commons: ['bone_gnaw_rat', 'glowcap_skitter', 'marrow_leech', 'pin_haunt_remnant'],
+        elite: 'hollow_ambusher',
+        eliteChance: 0.14,
+        materials: [
+            { id: 'seep_dew', w: 30 }, { id: 'glowcap', w: 22 }, { id: 'bone_marrow_resin', w: 18 },
+            { id: 'dust_root', w: 8 }
+        ]
+    }
+};
+
 const REDWELL_JOBS = [
     {
         id: 'well_attendant',
@@ -1185,8 +1219,81 @@ function applyQcChamberVerbVisibility() {
     renderChamberQcBandMeter();
 }
 
+/** Slow stance cultivate drip — pills and chamber gather stay faster. */
+function getQcStanceGatherUnits() {
+    const base = typeof getQcGatherProgressUnits === 'function' ? getQcGatherProgressUnits() : 1;
+    return Math.max(0.15, base * 0.22);
+}
+
+/** Store-fill pills (Driftburst / Sunscar Burst / Marrowfall). */
+function applyQcStoreFillPill(units, label) {
+    if (!isQiCondensationRealm()) {
+        const fill = Math.floor(getMaxQi() * Math.min(0.35, units * 0.01));
+        G.qi = Math.min(getMaxQi(), (G.qi || 0) + fill);
+        clampCurrentQi();
+        return `Qi stirs (+${fill}) — store bands need QC realm.`;
+    }
+    const before = G.qcBand?.gatherProgress || 0;
+    applyQcGatherBandProgress(units);
+    const after = G.qcBand?.gatherProgress || 0;
+    const gained = Math.round((after - before) * 10) / 10;
+    const bandNote = typeof getQcBandLabel === 'function' ? getQcBandLabel() : '';
+    return `Store +${gained} progress (${bandNote || 'qi store'} now ${Math.round(after)}).`;
+}
+
+function getFieldSiteId() {
+    const loc = typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : null;
+    if (loc && FIELD_SITE_DEFS[loc]) return loc;
+    return null;
+}
+
+function rollFieldSiteMaterial(siteId) {
+    const def = FIELD_SITE_DEFS[siteId];
+    if (!def?.materials?.length) return false;
+    const pool = def.materials;
+    const total = pool.reduce((s, p) => s + p.w, 0);
+    let roll = Math.random() * total;
+    let chosen = pool[0].id;
+    for (const entry of pool) {
+        roll -= entry.w;
+        if (roll <= 0) { chosen = entry.id; break; }
+    }
+    const qty = Math.random() < 0.14 ? 2 : 1;
+    if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
+    if (typeof addAlchemyMaterial === 'function' && addAlchemyMaterial(chosen, qty)) {
+        const mat = typeof getAlchemyMaterialDef === 'function' ? getAlchemyMaterialDef(chosen) : ALCHEMY_MATERIALS?.[chosen];
+        addLog(`🌿 ${def.label}: +${qty} ${mat?.emoji || ''} ${mat?.name || chosen}.`);
+        return true;
+    }
+    addLog(`🌿 ${def.label} — traces of reagents, nothing pocketable.`);
+    return false;
+}
+
+function tryStartFieldSiteCombat(source) {
+    if (G.gameOver || G.inCombat || (typeof isTribulationActive === 'function' && isTribulationActive())) return false;
+    const siteId = getFieldSiteId();
+    const def = siteId ? FIELD_SITE_DEFS[siteId] : null;
+    if (!def) return false;
+    let chance = source === 'travel' ? (ENCOUNTER_BALANCE?.travelChance || 0.22) : (ENCOUNTER_BALANCE?.exploreChance || 0.28);
+    if (typeof getDaoAlignmentEncounterChanceMult === 'function') chance *= getDaoAlignmentEncounterChanceMult();
+    if (Math.random() >= chance) return false;
+    const eliteRoll = def.elite && Math.random() < (def.eliteChance || 0.12);
+    const combatKey = eliteRoll
+        ? def.elite
+        : def.commons[Math.floor(Math.random() * def.commons.length)];
+    if (!combatKey || !ENCOUNTER_ENEMIES?.[combatKey]) return false;
+    if (typeof startEncounterCombat === 'function') {
+        addLog(`⚔️ ${ENCOUNTER_ENEMIES[combatKey].name} — ${def.label}!`);
+        startEncounterCombat(combatKey);
+        return true;
+    }
+    return false;
+}
+
 /** Explore miss → field reagents (not pity stones). */
 function rollExploreFieldMaterial(zoneId) {
+    const siteId = getFieldSiteId();
+    if (siteId) return rollFieldSiteMaterial(siteId);
     const z = zoneId || (typeof getLootZoneId === 'function' ? getLootZoneId() : (G.currentZone || currentZone));
     const zonePools = {
         dustbone: [

@@ -761,6 +761,15 @@ function runExploreOuting() {
     const eventName = zone.events[Math.floor(Math.random() * zone.events.length)];
     commitActionLog(`🗺️ Exploring ${placeLabel} — You encounter: ${eventName}`);
 
+    if (typeof tryStartFieldSiteCombat === 'function' && tryStartFieldSiteCombat('explore')) {
+        rollForbiddenClueFromExplore();
+        if (typeof rollAncientClueFromExplore === 'function') rollAncientClueFromExplore(zoneId);
+        if (typeof onExploreForStoryQuests === 'function') onExploreForStoryQuests(zoneId);
+        if (typeof recordMilestone === 'function') recordMilestone('explored');
+        fullRender();
+        return;
+    }
+
     if (tryStartZoneEncounter('explore')) {
         rollForbiddenClueFromExplore();
         if (typeof rollAncientClueFromExplore === 'function') rollAncientClueFromExplore(zoneId);
@@ -788,8 +797,23 @@ function applyExploreYield(opts) {
     if (!zone) return;
     const inSub = typeof isInHiddenSubZone === 'function' && isInHiddenSubZone();
     const fullOuting = !!opts.fullOuting;
+    const fieldSiteId = typeof getFieldSiteId === 'function' ? getFieldSiteId() : null;
 
-    if (fullOuting) {
+    if (fullOuting && fieldSiteId && !inSub) {
+        if (Math.random() < 0.1) {
+            const loot = typeof rollExploreLootWithPerception === 'function'
+                ? rollExploreLootWithPerception(zoneId)
+                : rollExploreLoot(zoneId);
+            if (loot) {
+                addLog(`📦 Rare while foraging: ${loot.name}`);
+                applyExploreLoot(loot);
+            } else if (typeof rollExploreFieldMaterial === 'function') {
+                rollExploreFieldMaterial(zoneId);
+            }
+        } else if (typeof rollExploreFieldMaterial === 'function') {
+            rollExploreFieldMaterial(zoneId);
+        }
+    } else if (fullOuting) {
         const loot = typeof rollExploreLootWithPerception === 'function'
             ? rollExploreLootWithPerception(zoneId)
             : rollExploreLoot(zoneId);
