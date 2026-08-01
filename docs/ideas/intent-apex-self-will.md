@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm ladder stable; dao taxonomy; intent cultivation redo |
 | **Issue** | none yet |
 | **Parent** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) · [`intent-track-template.md`](intent-track-template.md) · [`nine-realm-ladder.md`](nine-realm-ladder.md) |
-| **Updated** | 2026-08-01 |
+| **Updated** | 2026-08-01 (owner: both peakable; intent-deep = dao-blocked slog) |
 
 ## Intent
 
