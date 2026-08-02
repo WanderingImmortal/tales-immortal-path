@@ -129,22 +129,46 @@ Examples (flavor, not mechanics):
 
 ### The tribulation — **Rulebook Retaliation** (working name)
 
-Heaven does not hand out library cards. **Glimpsing** the law-layer is **trespass**. Retaliation is the audit.
+Heaven does not hand out library cards. **Glimpsing** the law-layer is **trespass** — **not a test**. There is no fair audit; heaven strikes because you looked. **Survival depends on everything you prepared beforehand.**
 
 | Beat | Fantasy |
 |------|---------|
 | **Trigger** | Peak VR consolidation / breakthrough attempt; veil parts for an instant |
-| **Crisis** | Heaven **strikes back** — not generic lightning only: **law made weapon** (karma reversal, void collapse, identity scrub, “unwrite” your recent passage) |
-| **Survive** | You keep **stabilized sight** — heaven cannot un-notice you; you enter **Dao Seeking** |
-| **Fail** | Dao fracture, blinded lens, dropped to mid-VR, or death — TBD |
+| **Crisis** | Heaven **retaliates** — law made weapon (karma reversal, void collapse, identity scrub, “unwrite” your passage) |
+| **Survive** | Stabilized sight; heaven cannot un-notice you → **Dao Seeking** |
+| **Fail** | Dao fracture, blinded lens, regression, death — TBD |
 
-**Not** “empty acquisition realm.” Surviving **is** the power spike:
+**Solo journey (owner lock 2026-08-02):** No sect can sit the tribulation **for** you. Void Temple may help you **arrive ready**; they cannot share the retaliation.
+
+**“Foundation” = full preparation**, not only FE qi foundation:
+
+| Prep axis | Examples |
+|-----------|----------|
+| Cultivation foundation | Dantian, seal grade, void qi depth, VR peak quality |
+| Arrays / formations | Shield arrays, karma deflection, void-anchor circles |
+| Equipment | Treasures, talismans, relics tuned for tribulation or void |
+| Aid consumed | Pills, one-shot protections — spent on the attempt |
+| Karma / choices | Prior deeds may weight retaliation severity |
+
+Copy lean: *“This is not a test. You trespassed. Be ready or do not look.”*
+
+### Void Temple’s role (owner lock 2026-08-02)
+
+Void Temple ≠ shortcut past retaliation. They **cultivate void more directly and efficiently** than generic jianghu VR paths.
+
+| What Temple helps | What stays solo |
+|-------------------|-----------------|
+| **Void qi** refinement — firmament-edge lineage, gate arrays | **Glimpse** — you still peer alone |
+| **DT → VR** breakthrough — higher **survival rate** (better prep, rites, void-anchor doctrine) | **VR → Seeking retaliation** — Temple prepares; **you** survive |
+| Reading **firmament stress**, sealed sites, void-pocket maintenance | Wearing the consequence of heaven noticing you |
+
+Temple disciples arrive at peak VR with **deeper void qi** and better tools — they do not skip Rulebook Retaliation; they **stack the deck** then walk in alone.
+
+See [`void-temple-sect.md`](void-temple-sect.md).
 
 - **Lifespan** — moderate jump (~12–15k band entry; see [`nine-realm-ladder.md`](nine-realm-ladder.md))
 - **Moderate power** — void qi + **law-sight** fused; patriarch-tier weight on the board
 - **Comprehension access** — pursuits/contemplation open; library **deepens** over millennia
-
-### Why this isn’t repeating VR’s empty early phase
 
 | | VR entry | Seeking entry |
 |--|----------|----------------|
@@ -169,11 +193,39 @@ Heaven does not hand out library cards. **Glimpsing** the law-layer is **trespas
 
 ---
 
+## Coherence rule (owner 2026-08-02)
+
+Layer split is **authoritative for future design** — even if players never read this doc. When adding void/dao/law content, pick a layer first. Sect names using “void” must declare **which layer** (Temple = firmament/outer/pockets; Phoenix = see below).
+
+---
+
+## Golden Phoenix — **Void Hollowing** (虚烬) recap
+
+**Status:** **One line in sect doc** — Ascent **#5** of the Nine Ascents; VR-threshold doctrine. **Not designed in cosmology terms yet.**
+
+From [`golden-phoenix-sect.md`](golden-phoenix-sect.md):
+
+| Field | What exists |
+|-------|-------------|
+| **Name** | Void Hollowing (虚烬) — Nine Ascents #5 |
+| **Scope** | **VR threshold** in Phoenix renewal ladder |
+| **Explicit note** | **Not Void Temple’s void** |
+| **Next ascent** | **#6 Law Ignition** (燃法) — **Dao Manifestation**, wear flame law |
+
+**What it is *not* (locked by cross-ref):** outer void, void qi cultivation, firmament gates, Void Prison — Phoenix does not use Temple’s void stack.
+
+**Lean read (parked — owner to confirm):** Phoenix **“hollows” the self to ash** at VR scale — **metaphysical emptying** for rebirth, not spatial passage. “Void” here ≈ **the hollow left after the flame burns you out** before **Law Ignition** wears fire as law. Different word, different layer — **do not** give Phoenix void-step or void qi by default.
+
+**Open:** Does Void Hollowing touch **interstitial void** at all, or is it purely Phoenix Dao interior work with a confusing name?
+
+---
+
 ## Open questions
 
 - [ ] Retaliation tribulation — single phase or multi (glimpse → strike → stabilize lens)?
-- [ ] Can Void Temple lineage **teach** veil-press safely, or is glimpse always solo/tribulation?
-- [ ] Golden Phoenix **Void Hollowing** — which void layer do they actually hollow?
+- [ ] Void Temple DT→VR rites — how much survival bonus without trivializing?
+- [ ] **Preparation scoring** for retaliation — how arrays/equipment/pills modify survive (not “test pass”)
+- [ ] Golden Phoenix **Void Hollowing** — confirm: interior ash-hollow only, or any spatial void?
 - [ ] Law-layer glimpse — always visual, or path-dependent (sword cultivator “cuts” the veil)?
 - [ ] NPC patriarchs: all survived retaliation, or some inherited **script-sight** by sect rite (rarer)?
 

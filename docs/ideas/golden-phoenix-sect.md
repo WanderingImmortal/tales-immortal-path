@@ -90,7 +90,7 @@ Renewal doctrine: each ascent is **death → ash → rise** at larger scope. Pol
 | 2 | Foundation Reforge | 基炉 | Dantian |
 | 3 | Core Kindling | 核焰 | Golden Core |
 | 4 | Soul Ash | 魂灰 | Nascent Soul |
-| 5 | Void Hollowing | 虚烬 | VR threshold *(not Void Temple’s void)* |
+| 5 | Void Hollowing | 虚烬 | VR threshold — **Phoenix interior hollow** (burn self to ash); **not** Void Temple’s void *(see [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md))* |
 | 6 | Law Ignition | 燃法 | Dao Manifestation — wear flame law |
 | 7 | **Sect Rebirth** | 宗涅槃 | Whole sect as one organism |
 | 8 | **Realm Reforge** | **界炉** | **The board** — charter, mandate, order — must burn and reform |
@@ -248,7 +248,7 @@ Techniques in culture: **Phoenix Ascent Palm**, ember fury set — rep unlocks T
 - [ ] Lineage canon + manual tiers when pool ships
 - [ ] Phoenix Immortal **intervention** beat in Gambit endings
 - [ ] #9 Heaven-Earth Rebirth — player / endgame scope
-- [ ] Longcheng embassy — pamphlet hall detail
+- [ ] Void Hollowing (#5) — confirm cosmology: ash-hollow / self-emptying only, or any spatial void?
 
 ## Prerequisites
 
