@@ -88,6 +88,16 @@ Possible shapes (pick one later):
 
 **QC / FE anchors stay:** inferior peak FE @ **80–90** with **120y** cap ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)). Everything above FE scales up sharply.
 
+### Acquisition realms (owner lock 2026-08-02)
+
+**Void Refinement**, **Dao Seeking**, and (lean) **Dao Manifestation** follow the same pattern: **breakthrough opens the basin**; the **new power is cultivated inside**, not granted at breakthrough.
+
+- **VR entry** ≈ **DT Peak** in combat footprint until void qi / void arts are acquired.
+- **Seeking entry** ≈ **VR peak** footprint until comprehensions land; law-sight and panel unlock, not a full library.
+- **Manifestation** gates on **first wield** — embodiment depth is the inner grind.
+
+See [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
+
 ### Grade vs tier (basin cap)
 
 | Axis | What it does | Pacing impact |
