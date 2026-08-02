@@ -74,7 +74,7 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **Contrast Sword** | Sword Immortal **waits** for the perfect line; Mad Monk **asks** “is that guy armored enough?” |
 | **Contrast Phoenix** | Phoenix wants **shock troops for ideology**; ridge monks will **punch alongside** anyone if the fight’s real — still refuse ash-rebirth dogma |
 
-**Vessel Rules as leash:** oaths are how **sharp elders** keep **fight addicts** from becoming a demon sect — power from **bound flesh**, not heaven ([`vessel-rules-design.md`](vessel-rules-design.md)).
+**Vessel Rules as leash:** oaths are how **sharp elders** keep **fight addicts** from becoming a demon sect — power from **bound flesh under Body Dao purview**, not heaven ([`vessel-rules-design.md`](vessel-rules-design.md), [`body-dao-design.md`](body-dao-design.md)).
 
 **Not blood demons:** mass slaughter and soul refining stay **acts** / forbidden lanes — Mad Monks are **oddballs**, not the evil physique embrace track.
 
@@ -202,6 +202,8 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 **Where he lives (now):** marrow hot springs / **bell vault** — stepped back when Bell Luo became **charter patriarch**; Da Chi remains **spine**, not administrator. Bell Luo renews Vessel Rule oaths and feeds trial-ground challengers so he does not restart the Gambit with his fists.
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
+
+**Apex sworn rule (owner lean):** **Rule of the Unnamed** — motion law; fist is not fixed technique; matches Martial Intent ceiling. **Charter leash** (never strike first, etc.) is Bell Luo’s separate layer — Da Chi **ignores boring leash** until Bell makes it interesting ([`vessel-rules-design.md`](vessel-rules-design.md)).
 
 ---
 
@@ -455,6 +457,7 @@ Da Chi **was patriarch** for most of the war — institution joined because **he
 - [x] Da Chi — **supreme body talent**, stubborn will; fool **act**, not idiot; no great-sect taboo (owner 2026-08-02)
 - [ ] Named **Sword border month** or Phoenix **intrusion** incident for chronicle hook
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
+- [ ] Lock Da Chi apex rule: **Unnamed** lean vs Answering Blow / Impact
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?
 
 ## Implementation crumbs (later)

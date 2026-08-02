@@ -6,9 +6,9 @@
 | **Blocked on** | More rule defs; sect-assigned rules |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-08-02 (Body Dao purview pass) |
 
-**Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
+**Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
 
 ## What they are (locked in code + taxonomy)
 
@@ -17,7 +17,7 @@
 | Layer | Vessel Rule |
 |-------|-------------|
 | **Not** | Axis, Great Dao, basin statute, imperial charter |
-| **Is** | **Personal oath** — will **bound** to a tempered vessel |
+| **Is** | **Personal oath** — will **bound** to a tempered vessel, **sworn under Body Dao purview** (working title — see below) |
 | **Payoff** | Combat + cultivation **behavior change** while oath holds; progression to **interior peak** |
 
 Oath text is flavor; mechanics are **constraints** (Rule of Blood: blood doesn’t mend; Rule of Unnamed: motion law).
@@ -60,11 +60,11 @@ Oath text is flavor; mechanics are **constraints** (Rule of Blood: blood doesn�
 
 **Not heaven, not a fragment, not demon bargain.**
 
-Power comes from **the vessel you already built** + **will locked into structure**:
+Power comes from **the vessel you already built** + **will locked into structure** + **Body Dao recognizing the oath** as valid flesh-law within its lane ([`body-dao-design.md`](body-dao-design.md)):
 
 ```text
-Temper flesh (chamber, realms)
-    → swear oath (binds behavior)
+Temper flesh (chamber, realms) — already walking Body Dao purview
+    → swear oath (binds behavior; witnessed under Body Dao)
     → flesh **reorganizes around the constraint**
     → payoff mechanics (bloodied, flow, soul contest/slip)
 ```
@@ -73,10 +73,15 @@ Temper flesh (chamber, realms)
 |--------|------|
 | **Tempered body** | Prerequisite — swear gates at **vessel realm + layer %** (e.g. idx 2, 50% blood/bones) |
 | **Will / oath** | The **binding** — you forbid default behavior (mend blood, freeze in form) |
+| **Body Dao purview** | **Jurisdiction** — all body refining falls under Body Dao (working title); oath is **sworn to / under** that path, not to axis or charter |
 | **Flesh response** | The **power** — alternate combat physics while oath holds |
-| **Progression** | Living the oath in fights + chamber → 100% → interior peak |
+| **Progression** | **Living** the oath in fights + chamber → 100% → interior peak |
 
-**Genre line:** you don’t **gain** an external force — you **forbid** the flesh its default and **channel** what remains. Break the oath → flesh **recoils** (realm regress) — proof the power was **the bond**, not a loan.
+**Genre line:** you don’t **gain** an external force — you **forbid** the flesh its default and **channel** what remains **inside Body Dao’s lane**. Break the oath → flesh **recoils** (realm regress) — proof the power was **the bond**, not a loan.
+
+**Not cosmic Dao wielding:** Body Dao here is **Great Dao path purview** (like Sword Dao for sword cultivators), not axis apex or embodied Manifestation wearing the continent. Vessel Rule power is **personal oath nested under path** — see [`law-taxonomy.md`](law-taxonomy.md).
+
+**Can of worms (parked):** dual-path cultivators, Saint vs Manifestation naming, whether every punch without an oath still “counts” as Body Dao — [`body-dao-design.md`](body-dao-design.md).
 
 **Contrast:**
 
@@ -88,6 +93,65 @@ Temper flesh (chamber, realms)
 | Blood demon **acts** | Stain, forbidden practice — separate |
 
 Rule of Blood is **not** “evil physique” — it’s **oath**: blood serves flesh, not healing.
+
+---
+
+## Restriction ≠ power magnitude (owner lock)
+
+**Harsher restriction does not linearly mean stronger payoff.**
+
+| Wrong model | Right model |
+|-------------|-------------|
+| “Suffer more → get more” | **Restriction defines the channel** — what flesh **reroutes** into |
+| Arbitrary pain oaths | Oath must forbid something flesh **can** reroute (blood flow, motion fixation) |
+| Rank rules by cruelty | Rank rules by **fit** to build + **depth of living** the oath |
+
+| Rule (shipped) | Channel opened | Not “more powerful than” |
+|----------------|----------------|--------------------------|
+| **Rule of Blood** | Bloodied lane — blood doesn’t mend; combat under wound load | Unnamed |
+| **Rule of the Unnamed** | Flow / motion — no frozen form; slip and unnamed movement | Blood |
+
+**Magnitude** comes from:
+
+1. **Living the oath** — real fights, chamber weeks, not theater
+2. **Rule progression** — 0→100% on that rule’s track
+3. **Body Dao acceptance** — flesh and path **hold** the bond (break = regress)
+
+So Da Chi’s “supreme Vessel Rule mastery” is **living an extreme channel deeply**, not picking the **meanest** text Bell Luo could write.
+
+**Design guard:** future rules must pass **“can flesh reroute this?”** — charter suffering (never eat meat, never speak) fails unless tied to a **flesh default** Body Dao can redirect.
+
+---
+
+## Leash rules vs apex sworn rules (Vajra Ridge)
+
+Two layers — don’t collapse them.
+
+| Kind | Who sets | Examples | Power |
+|------|----------|----------|-------|
+| **Charter / leash** | Bell Luo, sect trial | Never strike first; one life per contract; escort-only in Heartlands | **Social + charter** — break = expelled, not realm regress |
+| **Apex sworn rule** | Disciple (or sect assigns one of **catalog**) | Rule of Blood, Rule of Unnamed, future combat rules | **Vessel Rule** — break/release = realm regress + cooldown |
+
+Mad Monk fiction: outer court hears **leash**; inner court **must** swear one **apex** rule for interior peak. Bell Luo’s fox work is **aiming** brawlers with leash; Da Chi’s legend is **apex** rule lived at Saint scale.
+
+---
+
+## Da Chi — apex rule candidates (owner workshop)
+
+Da Chi needs **one** apex sworn rule for fiction consistency (player may pick differently). Candidates from design chat:
+
+| Rule idea | Oath shape | Fit to Da Chi |
+|-----------|------------|---------------|
+| **Rule of the Unnamed** *(strong lean)* | Motion law — no frozen technique; fist is not named form | Matches **Martial Intent** doctrine (“technique is decoration”); supreme flow; reads **easy** in his hands |
+| **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Fight-forward **ethics** — not murder-forward; “you started it, I finish it” |
+| **Rule of One Exchange** | No multi-hit combos — one exchange, then **reset** | Brawl aesthetic; makes intrusion brawls **messy** not lethal |
+| **Rule of Impact** | No mid-fight healing / qi mend; must **close** to decide | Harder survival channel; less fool-act, more ascetic |
+
+**Owner lean:** **Unnamed** for apex rule — Da Chi is the monk who **cannot be read** because he **refuses fixed form**, not because he picked the cruellest oath.
+
+**Separate from leash:** Da Chi may **ignore boring leash** until Bell makes it interesting — but his **apex** rule is the one flesh **cannot** fake (realm-scale proof).
+
+**Not chosen yet:** Answering Blow as **sect-default leash** for war monks vs Da Chi’s personal apex — both could coexist in fiction (charter never strike first + personal Unnamed).
 
 ---
 
@@ -120,6 +184,8 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 
 - [ ] Sect **assigns** rule vs disciple **chooses** after trial
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
+- [ ] Lock Da Chi apex rule: **Unnamed** vs Answering Blow / Impact
+- [ ] Body Dao hanzi + whether oath ritual **names** the path aloud ([`body-dao-design.md`](body-dao-design.md))
 - [ ] Can NPC Saints bear **multiple** historical oaths (fiction) while player stays one?
 - [ ] Interior peak without rule for **legendary physique** exception?
 - [ ] Rule progression **required** for realm breakthrough or only perfect-cultivation lane?

@@ -6,7 +6,7 @@
 | **Blocked on** | Owner lock on in-world terms (hanzi); cosmology depth pass |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (player voice — owner) |
+| **Updated** | 2026-08-02 (Body Dao purview pass) |
 
 ## Intent
 
@@ -27,7 +27,7 @@ Saying **“yin law reigns supreme”** (Sunless Scar), **“Law of Dust”** (D
 
 Taxonomy is for **agents avoiding contradictions** — not a glossary popup.
 
-Related: [`frostbite-origin.md`](frostbite-origin.md), [`realm-claims.md`](realm-claims.md), [`chaos-cultivation-path.md`](chaos-cultivation-path.md), [`post-immortal-cosmology.md`](post-immortal-cosmology.md), [`void-temple-sect.md`](void-temple-sect.md).
+Related: [`frostbite-origin.md`](frostbite-origin.md), [`realm-claims.md`](realm-claims.md), [`chaos-cultivation-path.md`](chaos-cultivation-path.md), [`post-immortal-cosmology.md`](post-immortal-cosmology.md), [`void-temple-sect.md`](void-temple-sect.md), [`body-dao-design.md`](body-dao-design.md), [`vessel-rules-design.md`](vessel-rules-design.md).
 
 ## The problem (writer/agent)
 
@@ -142,8 +142,10 @@ Cosmic vertical is 0–3 above. These sit **beside** that column — geographic 
 | **What** | Full **cultivation tradition** along one axis (or compound dao like Sword) — manuals, realms, comprehension |
 | **Who runs it** | **Sects and lineages** teach it; **Manifestation** completes it as embodied law |
 | **Feel** | “We walk the Yin Dao” — **path**, not geology |
-| **Examples** | Yin palace curriculum; Sword Dao only at Celestial Sword; Phoenix Dao |
+| **Examples** | Yin palace curriculum; Sword Dao only at Celestial Sword; Phoenix Dao; **Body Dao** (体道 — *working*) at Vajra Ridge |
 | **Player verb** | **Comprehend, cultivate, seek** — normal ladder fantasy |
+
+**Body Dao (working title):** Great Dao for **flesh refinement** — vessel realms, chamber, Martial Intent, Vessel Rules **nested under** its purview. Detail and worms: [`body-dao-design.md`](body-dao-design.md). **Not** “vessel rule = cosmic dao” — oath is **personal**, path is **Great Dao**.
 
 **Not axis:** you can teach Yin Dao in Heartlands — axis doesn’t care. **At Sunless Scar**, axis apex **still bends the rules** for everyone.
 
@@ -184,9 +186,12 @@ Cosmic vertical is 0–3 above. These sit **beside** that column — geographic 
 | | |
 |--|--|
 | **Design term** | **Personal oath** / **vessel rule** |
-| **What** | **Self-imposed** law on **your** body or soul — not cosmic |
-| **Code** | `VESSEL_RULES` — already documented as *not cosmic Dao* (`data.js` body chamber) |
-| **Examples** | Rule of Blood, Rule of the Unnamed |
+| **What** | **Self-imposed** law on **your** body or soul — **not** axis or basin; **nested under Great Dao purview** when body-oath (Body Dao) |
+| **Code** | `VESSEL_RULES` — personal oath on tempered vessel ([`vessel-rules-design.md`](vessel-rules-design.md)) |
+| **Examples** | Rule of Blood, Rule of the Unnamed — **sworn under Body Dao** (working title) |
+| **Distinct from Great Dao** | Body Dao is the **path**; Vessel Rule is **one disciple’s** sworn constraint **inside** that path — like charter under mortal law, but cultivation-relevant |
+
+**Stack placement:** horizontal beside basin/charter — **not** layer 4 of cosmic stack. Body-oath **points to** Great Dao (Body Dao) without becoming embodied Manifestation.
 
 ### **Mortal law**
 
@@ -205,7 +210,7 @@ Cosmic vertical is 0–3 above. These sit **beside** that column — geographic 
 | Law of Dust, cascades | **Basin statute** | primordial / axis |
 | Dao Manifestation patriarch | **Embodied dao** | axis or Great Dao |
 | Imperial charter | **Mortal law** | “dao” |
-| Body chamber oath | **Personal oath** | “law of the flesh” = cosmic |
+| Body chamber oath | **Personal oath** (under **Body Dao** purview) | “law of the flesh” = axis; “Body Dao” in player UI |
 
 ## Sunless Scar × taxonomy
 
@@ -230,7 +235,7 @@ Chaos endgame = **unwrite / author** at a layer **above or beside** orthodox dao
 
 ## Open questions
 
-- [ ] Lock hanzi: **理则** (axis) vs **大道** (great dao) vs **显法** (embodied)
+- [ ] Lock hanzi: **理则** (axis) vs **大道** (great dao) vs **显法** (embodied) vs **体道** (Body Dao)
 - [ ] Is **firmament** layer 1 or its own **shell law** between layers 1 and 2?
 - [ ] Can **embodied dao** at peak **distort** a regional statute, or only axis + Progenitor-tier?
 - [ ] UI: do ancient clues tag layer (“axis scar”, “basin statute”) for player clarity?
