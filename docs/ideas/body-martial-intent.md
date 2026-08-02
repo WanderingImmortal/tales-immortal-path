@@ -3,113 +3,116 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` (owner brainstorm — 2026-08-02) |
-| **Blocked on** | Body chamber depth; intent.js path split |
+| **Blocked on** | Body chamber depth; intent track split |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-08-02 (fist-only bodily intent — owner taxonomy) |
 
-Parent: [`body-path-sect.md`](body-path-sect.md), [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md). Qi analogue: Weapon Intent (`intent.js`, dantian). Body oath lane: [`vessel-rules.js`](../../vessel-rules.js) (Vessel Rules).
+Parent: [`body-path-sect.md`](body-path-sect.md), [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md). Qi lane: Weapon Intent (`intent.js`). Oaths: [`vessel-rules.js`](../../vessel-rules.js).
 
 ## Intent
 
-**Weapon Intent** is the qi-path expression of will through a **weapon category** (cultivated in the **dantian**). Body refining needs a **parallel** — not a copy of sword intent, not “qi fist palm.”
+Body refining needs an equivalent to qi **Weapon Intent** — but **not** the same thing.
 
-**Parked name:** **Martial Intent** (武意) — will made **impact**; the **limb is the weapon**.
+| Concept | What it is | Xianxia feel |
+|---------|------------|--------------|
+| **Weapon Intent** (器意 / 兵意) | Will channeled through an **external weapon category** via **qi** | Meditate the sword, staff, spear — **tool + qi** |
+| **Martial Intent** (武意) | **Bodily** enlightenment of **using the fist** | Not “meditating on fists” — **realization through impact** — knuckles, marrow, stance |
+| **Elemental / ethereal intent** *(future)* | Qi shaping **fire, lightning, void** etc. | Natural **qi-path** gate — not weapon taxonomy |
+
+**Owner lock:** **Martial Intent = fist / unarmed only.** If it’s a **weapon** (staff, sword), it stays **Weapon Intent** on the **qi** track — even for monks who carry a staff.
+
+## Taxonomy — why qi gates weapon intent (and doesn’t gate martial)
+
+**Weapon Intent behind qi path** is acceptable in game and in genre:
+
+- Sword, blade, spear, **staff** = **external** tools — intent is **qi meeting instrument**
+- Qi-path **Fist** Weapon Intent = **palm / knuckle qi** (Five Elements Fist, Phoenix palm) — still **qi ornament**, not bodily enlightenment
+
+**Martial Intent** answers the nitpick: *why do I need qi to unlock **my own fist***?
+
+- Body path cultivators **enlighten the fist through use** — Bell Trial, impacts, marrow feedback
+- Cultivated in **vessel / trial ground**, not dantian meditation on a weapon label
+- **Staff under martial felt wrong** — staff is a **weapon**; martial is **bodily** (拳、身、打击)
 
 ## What exists in code today (gap)
 
-| System | Path | Home | Weapons |
-|--------|------|------|---------|
-| **Weapon Intent** | Qi (`intent.js`) | Dantian | Sword, Blade, Spear, **Fist**, **Staff** |
-| **Vessel Rules** | Body (`vessel-rules.js`) | Vessel | Oaths (Blood, Unnamed) — **not** weapon progression |
-| **Technique `intentReq`** | Mixed | Checks `getActiveIntent()` | Body arts e.g. `War God's Roar` require **Fist** intent — **broken** for pure body focus today |
+| System | Path | Home | Notes |
+|--------|------|------|-------|
+| **Weapon Intent** | Qi | Dantian | Sword, Blade, Spear, Fist, Staff |
+| **Vessel Rules** | Body | Vessel | Oaths — not strike progression |
+| **Body `intentReq: Fist`** | Broken for pure body | Checks qi `getActiveIntent()` | Should gate on **Martial Intent**, not Weapon Intent |
 
-`INTENT_TRACK_BY_PATH` only registers **qi**. Body/soul tracks were **removed** from intent.js; body martial progression was **not** replaced yet.
+`INTENT_TRACK_BY_PATH` only has `qi`. Body track **not** implemented.
 
-**Da Chi fiction:** supreme **body** talent = Martial Intent (Fist) at ceiling — “the fist is not technique.”
+## Design rule — lanes
 
-## Design rule — three combat identities
+| Path | Unarmed | Weapons (sword, blade, spear, staff) | Elemental / ethereal *(future)* |
+|------|---------|--------------------------------------|--------------------------------|
+| **Qi** | **Fist Weapon Intent** (palm qi) | **Weapon Intent** | Qi-gated *(separate from weapon taxonomy)* |
+| **Body** | **Martial Intent** (武意) | No intent track — use body arts + optional **qi-fuel staff** without Staff Weapon Intent *or* accept qi gate for staff mastery |
+| **Soul** | Soul arts | — | — |
 
-| Path | Will expression | Cultivation home | Refuse |
-|------|-----------------|------------------|--------|
-| **Qi** | **Weapon Intent** (剑意 etc.) | Dantian | — |
-| **Body** | **Martial Intent** (武意) | Vessel / trial ground | Sword, Blade, Spear intent |
-| **Soul** | Soul Mass + soul arts | Spirit | *(TBD)* |
+**Vessel Rules** = oaths (leash). **Martial Intent** = how the **body** strikes. Both can coexist.
 
-**Vessel Rules** stay **oaths** (leash, combat modifiers) — **not** the same as Martial Intent. You can swear Rule of Blood **and** cultivate Fist Martial Intent.
+## Martial Intent — **fist only** (owner lock)
 
-## Martial Intent weapons — **Fist + Staff** (owner lean)
+| | Martial Intent (body) | Fist Weapon Intent (qi) |
+|--|----------------------|-------------------------|
+| **Hanzi** | **武意** (lean) | 拳意 as flavor of **器意** — fist-as-channel |
+| **Cultivation** | Trial ground, combat, tempering — **enlightenment through hitting** | Dantian awaken / deepen / expand |
+| **Feel** | Marrow shock, bone ring, flesh memory | Elemental palm, qi wave, breath |
+| **Da Chi** | Ceiling of **Martial Intent** | Refuses — “fist is not technique” |
+| **Schools** | Vajra Ridge, grit body styles | Five Elements, Phoenix palm, Heavenly Palm |
 
-Monks and body refiners fight with **fists, palms, staves, bells, girded bodies** — not sword lines.
+**Not two names for the same bar** in UI if confusing — technique resolver branches on `path`:
 
-| Martial Intent | Hanzi sketch | Who uses | Technique examples |
-|----------------|--------------|----------|-------------------|
-| **Fist** | 拳 | Mad Monks, palm-body hybrids, qi **palm** schools | `Crushing Fist`, `War God's Roar`, `Mountain Crash`, `Five Elements Fist` (qi) |
-| **Staff** | 棍 | Ridge bell-staff, monk escorts, some qi staff arts | `Staff Shatter`, `Celestial Judgment` (qi staff) |
+- Qi fist arts → `weaponIntent` Fist
+- Body fist arts → `martialIntent` (武意)
 
-**Not body Martial Intent (qi lane):** Sword, Blade, Spear — stay **Weapon Intent only** on dantian track.
+## Staff — **Weapon Intent** (qi), not martial
 
-## **Shareable** Fist / Staff — two tracks, one gate label (owner lean)
+| Approach | Detail |
+|----------|--------|
+| **Genre** | Staff is a **weapon** — 棍意 belongs with **weapon intent**, qi-shaped |
+| **Mad Monks** | Carry bell-staffs; **Staff Shatter** etc. may **not** require intent on body path — pure tempered leverage — *or* require qi outer-court breath + Staff Weapon Intent as **secondary** skill |
+| **Game** | Locking staff behind qi is **fine** — body mains fist; staff is **tool** monks learn with qi fuel, not bodily enlightenment |
 
-**Yes — Fist and Staff should be shareable weapon *labels* across paths**, not duplicate technique names.
+**Lean:** body-path **staff techniques** = **no `intentReq`** or low gate (technique quality only); **Staff Weapon Intent** stays **qi-path** for qi staff supremacy (`Celestial Judgment`).
 
-| Layer | Qi path | Body path |
-|-------|---------|-----------|
-| **Track id** | `weaponIntent` (dantian) | `martialIntent` (vessel) — *implementation name TBD* |
-| **Cultivation** | Awaken / deepen / expand in **Intent** UI on dantian focus | Same **UI pattern** on **vessel** focus — trial ground, combat uses, Bell Trial |
-| **Technique gate** | `intentReq: { weapon: "Fist", minStage: N }` | **Same string** — resolver checks **active path’s** intent record |
-| **Cross-path** | Weapon Intent **sleeps** on body focus (mirror today’s dormancy) | Martial Intent **sleeps** on dantian focus |
-| **Flavor** | Qi **ornaments** the strike | Flesh **is** the strike |
-
-**Why shareable:** one `TECHNIQUE_POOL` row for `Mountain Crash` — qi brawler with Fist Weapon Intent gets qi-flavored bonus; body cultivator with Fist Martial Intent gets impact bonus. **Different progression, same gate.**
-
-**Not shared:** expand arts / domain names may differ per track (qi Fist = Concussive Rhythm; body Fist = **Iron Press** / **Bone Echo** — TBD).
-
-### Qi vs body — same fist, different engine
-
-| | Qi **Fist** Weapon Intent | Body **Fist** Martial Intent |
-|--|---------------------------|------------------------------|
-| **Feel** | Palm qi, elemental cycle, breath | Knuckle memory, marrow shock, stamina |
-| **Schools** | Five Elements, Phoenix palm, Glacier Heart | Vajra Ridge, desert grit, blood conditioners |
-| **Sword sect** | Heavenly Palm outer court — **not** Martial Intent | N/A |
-
-## Vajra Ridge — teaching lane
+## Vajra Ridge — teaching
 
 | Teach | Refuse |
 |-------|--------|
-| **Fist Martial Intent** — core; Da Chi doctrine | Sword / Blade / Spear intent |
-| **Staff Martial Intent** — bell staff, escort pole | Sword intent |
-| Outer: stances, breath-for-stamina | Flame rebirth, void gates |
-| Inner: marrow + **Martial Intent** deepen | Qi-primary palm as **root** |
+| **Martial Intent** (武意) — fist enlightenment | Sword / blade / spear **Weapon Intent** |
+| Staff forms as **body techniques** (leverage, shatter) | Staff as **martial intent** |
+| Outer: breath-for-stamina (qi **fuel**) | Palm qi as **cultivation root** |
 
-**Trial ground:** Bell Trial awakens / stresses Martial Intent — same place Da Chi legend starts.
+**Bell Trial** — awakens / stresses **Martial Intent**, not weapon meditation.
 
-## Tier structure (mirror Weapon Intent — draft)
+## Tier structure (draft)
 
-Reuse **tier names** or body-flavored variants:
+Mirror Weapon Intent **mechanics**, body-flavored **names**:
 
-| Tier | Uses (draft) | Body-flavored name option |
-|------|--------------|---------------------------|
-| Sprout | 0 | **Bruise** |
-| Minor Success | 10 | **Ring** (bones ring) |
-| Major Success | 30 | **Echo** |
-| Perfection | 60 | **Temper** |
-| Domain | 100 | **Press Domain** (压境) |
-
-*Or keep shared tier names for UI simplicity — open.*
+| Uses | Name option |
+|------|-------------|
+| 0 | Bruise / Sprout |
+| 10 | Ring (骨鸣) |
+| 30 | Echo |
+| 60 | Temper |
+| 100 | Press Domain (压境) |
 
 ## Open questions
 
-- [ ] Track label UI: **Martial Intent** vs **Body Intent** vs **Strike Intent**
-- [ ] Hanzi lock: **武意** vs **拳意** (fist-only feel)
-- [ ] Staff expand arts — body-specific set vs share qi `INTENT_EXPAND_ARTS.Staff` pool
-- [ ] Can one cultivator awaken **both** Fist tracks (divided heart rules)?
-- [ ] `intent.js` refactor vs `martial-intent.js` sibling module
-- [ ] Da Chi: **Fist** only or **Fist + Staff** at legend tier?
+- [ ] UI label: **Martial Intent** vs **Body Intent** vs **Unarmed Intent**
+- [ ] Technique field: `martialReq` vs shared `intentReq` with path branch
+- [ ] Body staff arts — **no intent gate** vs optional Staff Weapon Intent for hybrid monks
+- [ ] Elemental intent system — separate from weapon intent when designed
+- [ ] Divided heart: Martial Intent + Weapon Intent Fist on mixed-path character?
 
 ## Implementation crumbs (later)
 
-- `INTENT_TRACK_BY_PATH.body` → martial intent metadata
-- `getTechniqueIntentMatch` — branch on `G.path` / focus track
-- Body chamber project hooks for deepen / expand
-- Vajra Ridge manual grants Fist Martial Intent syllabus
+- `martial-intent.js` or `INTENT_TRACK_BY_PATH.body` — **single** fist/unarmed track
+- `getTechniqueIntentMatch` — body path checks Martial Intent; qi fist checks Weapon Intent Fist
+- Remove / remap body arts `intentReq: { weapon: "Fist" }` → martial gate
+- Vajra Ridge manual → Martial Intent syllabus
