@@ -21,55 +21,61 @@ Realm claims for presentation: [`realm-claims.md`](realm-claims.md) idx 6–7.
 
 ---
 
-## Why Dao Seeking exists (open — owner 2026-08-02)
+## Why Dao Seeking exists (owner 2026-08-02)
 
-### The worry
+### Acquisition realms (owner lock)
 
-**Void Refinement** today risks feeling like **glorified Deity Transformation** until **void qi** and **void arts** ship — same stats, longer lifespan, no distinct verb. We should **not** repeat that with **Dao Seeking** = glorified VR with a dao panel bolted on.
+Some watersheds are **not** “breakthrough hands you new power.” They are **permission to acquire a new kind of power** inside the basin.
 
-If Seeking is only “VR but you can open a menu,” it does not deserve a watershed index.
+| Pattern | Breakthrough gives | You earn inside the basin |
+|---------|-------------------|---------------------------|
+| **Void Refinement** | Entry + lifespan; still **DT Peak** in practice | **Void qi**, void arts, passage verbs |
+| **Dao Seeking** (lean) | Entry + **law-sight** / pursuit access | **Comprehension**, merges, library depth |
+| **Dao Manifestation** | First **wield** (separate gate) | Imposition depth, worn-law mastery |
 
-### What each rung is *for* (orthogonal jobs)
+**Owner intent:** Early VR **is intentionally** essentially **DT Peak** until void is cultivated. That is not a content gap — it is the design. Breakthrough opens the **void basin**; void is the grind.
 
-| Idx | Realm | Job | Not this |
-|-----|-------|-----|----------|
-| 4 | Deity Transformation | **Civic-scale presence** — the jianghu names you | Bigger domain radius |
-| 5 | Void Refinement | **Geometry** — void qi, passage, spatial authority | “Stronger DT” |
-| 6 | Dao Seeking | **Epistemology** — read and accumulate **law** | “Stronger VR” |
-| 7 | Dao Manifestation | **Ontology** — **be** a law locally | “More library slots” |
+Dao Seeking should follow the **same shape**, not feel like a flat stat realm:
 
-VR refines **where** you can stand in the world. Seeking refines **what rules you can read**. Manifestation refines **which rule wears your name**.
+```text
+Enter VR   → you may now cultivate void (you don't have it yet)
+Enter DS   → you may now pursue laws systematically (you haven't comprehended them yet)
+First wield → you may now impose a law (embodiment is the grind)
+```
 
-**Prerequisite to ship Seeking well:** VR must have its own verbs first (void qi, void arts, blink/passage claim). See [`realm-claims.md`](realm-claims.md) idx 5.
+### What each rung is *for*
+
+| Idx | Realm | Job |
+|-----|-------|-----|
+| 4 | Deity Transformation | **Civic-scale presence** |
+| 5 | Void Refinement | **Acquire void** — geometry, void qi, passage |
+| 6 | Dao Seeking | **Acquire law-knowledge** — read, contemplate, merge |
+| 7 | Dao Manifestation | **Acquire embodiment** — wield, impose, refine wear |
+
+VR refines **where** you can stand. Seeking refines **what rules you can read**. Manifestation refines **which rule wears your name**.
 
 ### How you *step into* Dao Seeking (lean)
 
-Not “you got 30% stronger.” The breakthrough is **perceptual** — like QC’s Perception, not like GC’s Domain.
+Breakthrough is **perceptual** — like QC’s Perception: you can now **see** law-seams stable enough to study. You do **not** comprehend anything at breakthrough.
 
-**Lean narrative:** Void refinement thins the self enough that you stop seeing only **space** and start seeing **seams in the rules** — where heaven’s patterns show through. Dao Seeking is the realm where that second sight becomes **stable enough to study**.
+**Lean narrative:** Void work thinned the self; Seeking is when **rule-lines** stay in view long enough to pursue.
 
 ```text
 DT  → presence in the mortal hierarchy
-VR  → passage through space (void qi / void arts)
-DS  → perception of law-lines + time to pursue comprehension
-DM  → first successful WIELD — law anchors through you
+VR  → basin for void (power acquired inside)
+DS  → basin for law (comprehension acquired inside)
+DM  → basin for wield (imposition acquired inside)
 ```
 
-**Breakthrough trigger (sketch):** tribulation + consolidation at VR peak **and** at least one **law-sign** witnessed (see terminology below) — you proved you can see the seam, not that you own a shard.
+**Breakthrough trigger (sketch):** VR peak tribulation — same acquisition pattern as VR entry from DT. Optional: witnessed **sign** as flavor, not a loot requirement.
 
-**Alternative (if Seeking feels redundant):** fold early pursuit into VR as a **sub-phase** (“void → rule-sight”), and only promote to **named Seeking realm** when the player **comprehends their first law**. Realm label follows proof, not the other way around. *Owner has not chosen — both parked.*
+**Retired alternative:** “fold Seeking into VR until first comprehension” — conflicts with acquisition-realm model; Seeking is its own basin even when empty at entry.
 
 ### Why comprehension gates at Seeking (not earlier)
 
-**Wrong answer:** “Because the spreadsheet says `reqRealm: 5`.”
+Below Seeking you may **tease** (forbidden wrongness, rumors). At Seeking you get the **basin and tools** — dao panel, contemplation sessions, merge pipeline — to **acquire** law systematically, the way VR gives the void grind.
 
-**Better answers (can combine):**
-
-1. **Capacity** — below Seeking, holding a law-concept in the soul **shatters** or dissipates; NS/DT can *feel* wrongness at forbidden sites but not **retain** structure.
-2. **Tease early, pursue late** — NS+ explore can surface **signs** (rumors, one-off visions, “thin dao” warnings). **Systematic** library grind (sessions, merge, panel) unlocks at Seeking.
-3. **Seeking is the container** — the realm is not “dao turns on”; it is “you now have a **basin** whose whole job is comprehension,” like FE is the qi-chamber basin.
-
-Avoid: VR patriarch and fresh Seeker feel identical except menu access.
+Fresh Seeker ≈ VR novice: new realm label, **old combat footprint** until they do the inner work.
 
 ---
 
@@ -264,6 +270,8 @@ Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k*
 
 ---
 
+## Prerequisites
+
 - [ ] Nine-realm migration — Dao Seeking idx 5→6, add Manifestation idx 7
 - [ ] `G.daoState.wornLaw` (or equivalent) + swap cost rules
 - [ ] Manifestation depth track per worn law id
@@ -279,8 +287,8 @@ Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k*
 - [ ] Karma / seer integration from world-building chat ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)) — separate issue?
 - [ ] Half-Step benefit from Peak worn depth vs breadth of library?
 - [ ] Which comprehension beats grant lifespan extensions in Seeking?
-- [ ] Seeking breakthrough: VR peak tribulation only, or require first **sign** witnessed?
-- [ ] Collapse Seeking into VR sub-phase until first comprehension — yes/no?
+- [ ] Seeking breakthrough: VR peak tribulation only, or require first **sign** witnessed? (Lean: trib only — matches VR acquisition pattern)
+- [x] ~~Collapse Seeking into VR sub-phase~~ — **retired**; acquisition realm at idx 6 (owner 2026-08-02)
 - [ ] Rename `fragments` → `pursuits` / `threads` in code and copy
 
 ## Implementation crumbs

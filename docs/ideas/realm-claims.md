@@ -191,10 +191,14 @@ Tie to existing **standing / apprehension** axes (karma / reputation brainstorm)
 
 *Void is **geometry**, not raw damage.*
 
+**Acquisition realm (owner lock 2026-08-02):** Breakthrough into VR does **not** hand void power. Early VR is intentionally **DT Peak in footprint** — you entered the **void basin** and must **cultivate void qi** and **void arts** inside the realm. Passage verbs (blink, void skip) are **earned** milestones, not breakthrough gifts.
+
 **Body skin:** **Step through** — one bound ignores terrain.  
 **Soul skin:** **Soul blink** — projection snaps between nodes.
 
 **Note:** Today in **7-realm code**, Void = idx 4; transcendence perks (`void_step`, etc.) live here. Migration shifts to idx 5.
+
+**Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — acquisition-realm pattern (VR → Seeking → Manifest).
 
 ---
 
@@ -208,7 +212,7 @@ Tie to existing **standing / apprehension** axes (karma / reputation brainstorm)
 | **Aura** | Comprehending laws feeds immortal-layer legislation preview ([`immortal-world-layer.md`](immortal-world-layer.md)) |
 | **Jurisdiction** | Read the board — know which grounds answer to which law before entering |
 
-**Seeking** = study, **witness signs**, open pursuits, merge, build **library** — comprehend many; passives stack — **not** wear. Terminology: [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — retire “fragment.”
+**Seeking** = **acquisition realm** for law — breakthrough opens the basin and law-sight; **comprehension is earned inside**, like void in VR. Study, witness signs, open pursuits, merge, build **library** — not wear. Terminology: [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
 
 **Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — Lesser vs Greater, library/merge/wear, sword example.
 
