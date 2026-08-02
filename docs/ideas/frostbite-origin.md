@@ -6,7 +6,7 @@
 | **Blocked on** | Owner picks variant; yin sect + zone lore pass |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Sunless Scar gradient — owner) |
+| **Updated** | 2026-08-02 (player terms; yin sect off scar — owner) |
 
 **Replaces:** `ZONES.frostbite.lore` line about an immortal’s tribulation freezing the land for ten thousand years — **timeline awkward** and **same skin as Dustbone** (“strong person broke the region”).
 
@@ -14,13 +14,28 @@ Related: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.
 
 ## Design sentence
 
-> Dustbone is the **receipt for concentrated order**. Frostbite is the **Sunless Scar** — a far-northern point where **yin law reigns supreme**, yang is **inverted or annulled**, and absolute yin has **bled outward** and reshaped the land — not battle ice, **rule ice**.
+> Dustbone is the **receipt for concentrated order**. Frostbite is the **Sunless Scar** — far north where **yin runs supreme**, yang **inverts or fails**, and the **bleed** reshaped the land. Not battle ice — **absolute yin** (绝阴).
+
+## Player-facing words (owner lock — don’t overload “law”)
+
+Players should **not** need the [`law-taxonomy.md`](law-taxonomy.md) stack. Use **place + phenomenon** language in UI, chronicle, NPC greets.
+
+| Use in game | Avoid for Scar |
+|-------------|----------------|
+| **Sunless Scar** | “yin law,” “axis law,” “jurisdiction” |
+| **the Bleed** | explaining cosmology in a tooltip |
+| **absolute yin** (绝阴) | “primordial lane” |
+| **yin inversion** — yang collapses into yin | “law reigns supreme” |
+| **yin runs supreme** (plain) | “yin dao controls the region” |
+| **the Mirror** (scholars) | conflating with Yin Dao curriculum |
+
+**Writer/agent docs** can keep taxonomy for Dustbone vs Scar vs worn dao — **players** hear: *“Don’t cross the Scar line. Even yin cultivators die there if they’re stupid.”*
 
 ## The Sunless Scar (owner lock — 2026-08-02)
 
 ### What the word is — **yin inversion** (转阴 / 阳极归阴)
 
-At the scar’s heart, **axis-level yin** (see [`law-taxonomy.md`](law-taxonomy.md)) doesn’t merely “win” a fight with yang — it **overrides the lane**:
+At the scar’s heart, **yin runs supreme** — yang doesn’t “lose a duel”; it **stops working** or **inverts** (转阴 / 阳极归阴):
 
 | In the band | Yang behavior |
 |-------------|----------------|
@@ -28,31 +43,41 @@ At the scar’s heart, **axis-level yin** (see [`law-taxonomy.md`](law-taxonomy.
 | **Mid band** | Yang **weakens**; cold is environmental |
 | **Scar apex** (far far north) | Yang **ceases to function** as yang — or **inverts**: extreme yang input **collapses into yin** (classic 物极必反 / 阳极生阴). No warmth to harvest; fire arts sputter; daylight **ends** |
 
-Not meteorological cold alone — **absolute yin frost** (绝阴): a **deeper rule** that reshapes what “cold” means (stillness, lightlessness, form settling toward void).
+Not meteorological cold alone — **absolute yin** (绝阴): stillness, lightlessness, form settling toward void — deeper than temperature.
 
-### Geography — gradient north, not flat tundra
+### Geography — gradient north + **nobody lives on the Scar**
 
-The zone is a **slope into law**, not one biome:
+The zone is a **slope into the Scar**, not one biome. The Scar itself is **too grand to hold** — not controlled by any sect; **lethal even for yin-aligned** cultivators who overstay or push inward.
 
 ```text
-Heartlands margin ──► southern Frostbite (chilly, habitable edge — Frost Gate lives here)
-         ──► mid wastes (true tundra, killing wind)
-         ──► far far north (scar apex — sunless, landscape **reshaped** by bleed)
+Heartlands margin
+    └── Frost Gate (chilly edge — habitable)
+    └── Vajra Ridge (body monks — granite spine)
+    └── Moonfract Palace (yin sect — LAST habitable high peak; arrays at the ward line)
+    └── Scar margin (killing band — trials, escorts, delves; no permanent halls)
+    └── Sunless Scar apex (Mirror, absolute yin — uninhabitable; Frozen Abyss sink)
 ```
 
-- **Player-facing south:** “Why is it a bit cold near the border?” → scar **bleed**, not weather.
-- **Deep north:** land **re-sculpted** — ice that isn’t water-ice, stone that rings, forests that died in standing silence. The mirror didn’t blast; the **rule propagated**.
+| Band | Who lives here |
+|------|----------------|
+| **South → Moonfract** | Mortals, sects, caravans — **life** |
+| **Scar margin** | Short missions — witness tribulation, gather sunless mats, **retreat** |
+| **Scar apex** | **Nobody** — delvers only; yin palace **observes and wards**, does not **own** |
+
+- **Yin sect** sits on the **last peak before the Scar** — maintains **blizzard ward** so Bleed doesn’t creep south; **does not cultivate on the Mirror**
+- **Player-facing south:** chilly border = **Bleed**, not weather
+- **Deep Scar:** landscape **reshaped** — wrong ice, standing dead silence. Mirror didn’t blast; **Bleed propagated**
 
 ### Object — **Sunless Mirror** (无日镜) *(name TBD)*
 
-Pre-heaven treasure / ward node at the **pole**. It doesn’t freeze by force — it **runs a yin-supremacy jurisdiction** that leaked outward over ages.
+Pre-heaven treasure at the **pole**. It doesn’t freeze by force — **yin runs supreme** there, and the **Bleed** leaked outward over ages.
 
 | Piece | Sketch |
 |-------|--------|
-| **Core rule** | **Axis yin** supreme at apex; yang inverted or null (not a cultivator’s “yin dao” — **primordial lane**) |
-| **Bleed** | Gradient field — reshaped landscape is **centuries of leak**, not one event |
-| **Frozen Abyss** | **Sink** where inverted yin pools; array rim still hums |
-| **Frostbound Sage** | Collateral in the field — not the author |
+| **At apex** | Absolute yin; yang inverts — not a sect’s Yin Dao, **geography** |
+| **Bleed** | Gradient — reshaped landscape = centuries of leak |
+| **Frozen Abyss** | Sink where inverted yin pools; array rim still hums |
+| **Frostbound Sage** | Victim in the field — not the author |
 
 *Prisoner under abyss — still open; see Open questions.*
 
@@ -60,12 +85,12 @@ Pre-heaven treasure / ward node at the **pole**. It doesn’t freeze by force �
 
 | | **Dustbone** | **Frostbite** |
 |--|--------------|---------------|
-| **Cause type** | Completed **basin statute** (Law of Dust) + **human order density** | **Axis field** via pre-heaven artifact ([`law-taxonomy.md`](law-taxonomy.md)) |
-| **Mechanism** | Threshold cascades when imposed order exceeds basin capacity | **Yin-supremacy field** — yang inverts or fails; bleed reshapes land |
+| **Cause type** | Completed **basin statute** (Law of Dust) + **human order density** | Pre-heaven **Mirror** + **Bleed** (writer: see [`law-taxonomy.md`](law-taxonomy.md)) |
+| **Mechanism** | Threshold cascades when imposed order exceeds basin capacity | Yin runs supreme; yang inverts or fails; Bleed reshapes land |
 | **Agency** | Dynasties **chose** density (Pinwright exception, walls, registry) | Nobody “won a fight” here — something **was placed or fell**, then **leaked** |
 | **Timeline** | Three dynasties — mortal-scale history, still recent tribal memory | **Pre-sect, pre–Dao Wars** — continental ward era or treasure fall |
-| **Feel** | Sand = discharge, entropy, receipt | **Rule ice** — absolute yin, inverted yang, reshaped north |
-| **Living with it** | Stay under threshold; mobile tribes; pin maintenance | Endure, ward the leak, mine the scar — don’t **concentrate yang** in the band |
+| **Feel** | Sand = discharge, entropy, receipt | Absolute yin, inverted yang, reshaped north |
+| **Living with it** | Stay under threshold; mobile tribes; pin maintenance | Ward the Bleed; delve the Scar briefly — **no one rules the apex** |
 
 ## What already points this way (code + clues)
 
@@ -80,53 +105,49 @@ Pre-heaven treasure / ward node at the **pole**. It doesn’t freeze by force �
 
 Immortal tribulation as zone origin **fights** this kit — sunless field, array seal, pre-heaven leak.
 
-## Owner direction — heavenly treasure / distortion
-
-**Core:** pre-heaven mirror at the **far north pole** runs a **yin-supremacy jurisdiction**. Southern zone = chilly margin; apex = sunless absolute yin. Landscape reshape = **bleed over time**.
-
-### Three variants (pick one or blend)
+## Origin variants (pick one or blend)
 
 | Variant | Origin beat | Pros |
 |---------|-------------|------|
-| **A — Ward node** | Mirror placed to **balance** southern spiritual heat / Phoenix caldera line — leak = accidental | Ties Heartlands thermodynamics without another war story |
-| **B — Fallen fragment** | Treasure **fell** in pre-heaven war (not Dao Wars) — continent never dug it out | Clean ancient timeline; explore/delve fantasy |
-| **C — Failed containment** | Built to **hold** something else cold (echo of Void Prison problem) — mirror is the **lid**, not the prisoner | Links Void Temple lore; Sage = collateral |
+| **A — Ward node** | Mirror placed to **balance** southern spiritual heat — leak = accidental | Ties Heartlands thermodynamics |
+| **B — Fallen fragment** | Treasure **fell** in pre-heaven war — continent never dug it out | Delve fantasy |
+| **C — Failed containment** | Built to **hold** something cold — mirror is the **lid** | Links Void Temple; Sage = collateral |
 
-**Recommendation:** **A + C blend** — ward node that became containment when something was sealed beneath; leak is **unclosed scar**, not punishment.
+**Recommendation:** **A + C blend**.
 
 ## Timeline (fits immortal ladder)
 
 ```text
-Pre-sect era → mirror/node emplaced or fractured (no “immortal ascended here”)
+Pre-sect era → Mirror emplaced or fractured
      ↓
-Dao Wars → northern powers **bargain to ward the leak** (future yin palace + body ridge)
+Dao Wars → northern powers **bargain to ward the Bleed** (yin palace + body ridge)
      ↓
-Now → field still runs; mortals live in the margin (Frost Gate); sects **maintain arrays**, not “own the cold”
+Now → Bleed still runs; sects **hold the line** — **nobody owns the Scar apex**
 ```
-
-Immortals today are **stewards** of the scar — not its authors.
 
 ## Zone lore line (replacement draft)
 
-> Far in the north a **pre-heaven mirror** still runs — a **Sunless Scar** where yin law reigns and yang **inverts or dies**. The bleed is gradual: the border is only chilly; the pole is **absolute yin**, and the land there was **reshaped by the rule**, not by war. Frost Gate sits on the margin; only sects and madmen climb toward where the sun never rises.
+> Far in the north the **Sunless Scar** still bleeds — where **yin runs supreme** and yang **inverts or dies**. The border is only chilly; the pole is **absolute yin**, and the land there was **reshaped by the Bleed**, not by war. Moonfract Palace wards the last safe peak; only fools and delvers cross into where the sun never rises.
 
 ## Map / content implication
 
-| Band | Fiction | Game tone |
-|------|---------|-----------|
-| **South** (`frost_gate`, approaches) | Chilly Heartlands margin | Supplies, rumors, first frost mats — not brutal |
-| **Mid** | Tundra wastes | Current “hard zone” explore |
-| **North** (`frostpeak` / yin palace, `frozen_abyss`) | Scar apex | Sunless, arrays, absolute yin materials |
+| Band | Location (sketch) | Game tone |
+|------|-------------------|-----------|
+| **South** | `frost_gate` | Chilly margin |
+| **Mid** | wastes | Hard explore |
+| **Habitable crown** | Moonfract Palace (`frostpeak_monastery` id) | Yin sect — **not on Scar** |
+| **Lower** | Vajra Ridge (new node) | Body monks |
+| **Scar** | `frozen_abyss`, apex delve | Lethal — **no sect HQ** |
 
-`ZONES.frostbite.description` should not read as uniform frozen tundra — **gradient into law**.
+`ZONES.frostbite.description` — **gradient into the Scar**, not uniform tundra.
 
 ## Yin sect + body ridge (fiction fit)
 
-| Institution | Relationship to scar |
+| Institution | Relationship to Scar |
 |-------------|----------------------|
-| **Yin palace** (ice crown) | Cultivates **in harmony with the leak** — moon cold, stillness; Matriarch myth = survived mirror flare |
-| **Vajra Ridge** (body monks) | **Hammer flesh** to endure what qi cannot insulate — escort caravans through the band |
-| **Imperial bargain** | Don’t tamper with the mirror; **hold the blizzard line** so leak doesn’t creep south |
+| **Moonfract Palace** | **Last habitable peak** — arrays at ward line; witness tribulation from safety; **cannot control apex** |
+| **Vajra Ridge** | Escorts through margin; flesh endures Bleed edge |
+| **Imperial bargain** | Don’t tamper with Mirror; **hold Bleed** from creeping south |
 
 ## Gameplay hooks (later)
 

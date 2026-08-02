@@ -6,7 +6,7 @@
 | **Blocked on** | Owner lock on in-world terms (hanzi); cosmology depth pass |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Great Dao vs axis — owner Q) |
+| **Updated** | 2026-08-02 (player voice — owner) |
 
 ## Intent
 
@@ -14,9 +14,20 @@ Saying **“yin law reigns supreme”** (Sunless Scar), **“Law of Dust”** (D
 
 **Not designing Law of Dust vs chaos here** — see parked note in [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md).
 
-Related: [`frostbite-origin.md`](frostbite-origin.md), [`realm-claims.md`](realm-claims.md), [`chaos-cultivation-path.md`](chaos-cultivation-path.md), [`post-immortal-cosmology.md`](post-immortal-cosmology.md), [`void-temple-sect.md`](void-temple-sect.md).
+## Player voice vs writer voice (owner lock)
 
-## The problem
+**Players do not need this doc.** Frostbite Scar especially — don’t say “yin law” or “axis law” in UI.
+
+| Situation | Player hears | Writers use internally |
+|-----------|--------------|------------------------|
+| Sunless Scar | **Sunless Scar**, **the Bleed**, **absolute yin**, **yin runs supreme** | axis + Mirror + Bleed ([`frostbite-origin.md`](frostbite-origin.md)) |
+| Law of Dust | **Law of Dust**, **cascades**, **threshold** | basin statute |
+| Dao Manifestation | **wears the dao**, **flame law**, **sword line** | embodied Great Dao |
+| Charter | **charter**, **mandate** | mortal law |
+
+Taxonomy is for **agents avoiding contradictions** — not a glossary popup.
+
+## Intent
 
 | Phrase in docs | Sounds like | Actually is (today) |
 |----------------|-------------|---------------------|

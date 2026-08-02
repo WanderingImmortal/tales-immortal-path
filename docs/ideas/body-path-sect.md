@@ -59,8 +59,9 @@ Owner direction: outer zones get **great sect–tier peers** with their own stor
 
 | Peak | Tradition | Notes |
 |------|-----------|-------|
-| **Ice crown** (high) | Yin **female-only** great sect — Frostpeak pivot → [`frostbite-yin-sect.md`](frostbite-yin-sect.md) | Moon cold, stillness, northern ward |
-| **Granite ridge** (approach) | **Vajra Ridge** — body monks | Bells, iron, vessel oaths — this doc |
+| **Moonfract** (habitable crown) | Yin **female-only** great sect — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) | **Off the Scar** — wards Bleed |
+| **Granite ridge** (lower) | **Vajra Ridge** — body monks | Escorts, margin |
+| **Scar apex** | Sunless Scar — **no sect** | Delve / Frozen Abyss |
 
 Heartlands stays the **densest** power cluster; Frostbite is **less entangled** in charter cold war but not weaker — isolation bargain, ward the north.
 

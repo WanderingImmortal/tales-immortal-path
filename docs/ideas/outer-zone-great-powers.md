@@ -32,21 +32,17 @@ Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md
 | **Emberwild** | Emberwild Collective (loose coalition) | Promote Collective **or** add second peak great sect (volcanic) — owner pass |
 | **Heartlands** | Sword · Lotus · Void · Phoenix | Densest cluster — unchanged |
 
-## Frostbite — dual-peak model (locked direction)
+## Frostbite — north slope (locked direction)
 
 ```text
-        [ Yin ice crown — female-only great sect ]
-              Frostpeak / renamed palace
-                    ↑ killing wind
-        [ Vajra Ridge — body monks, bells, granite ]
-              lower spine, approach from Frost Gate
-                    ↑
-              Frost Gate Outpost
+Frost Gate (chilly margin)
+    └── Vajra Ridge — body monks
+    └── Moonfract Palace — yin sect (LAST habitable peak; wards Bleed)
+    └── Scar margin — delves only
+    └── Sunless Scar apex — uninhabitable (Mirror, Frozen Abyss)
 ```
 
-- **Two traditions, one zone** — classic xianxia (Emei + Qingcheng, two famous mountains).
-- **No Heartlands petal** — imperial **isolation bargain**: ward the north, stay out of charter votes.
-- **Contrast pair:** yin stillness / moon cold vs yang iron / hammered flesh.
+Yin sect is **not on the Scar** — too lethal even for yin cultivators; palace **holds the line**. See [`frostbite-origin.md`](frostbite-origin.md).
 
 ## Great-sect checklist (any outer flagship)
 
