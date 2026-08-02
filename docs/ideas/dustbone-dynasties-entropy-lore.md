@@ -6,7 +6,7 @@
 | **Blocked on** | none for lore |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent brainstorm; parked 2026-07-25; naming lock 2026-07-26 |
-| **Updated** | 2026-07-26 |
+| **Updated** | 2026-08-02 |
 
 ## Intent
 
@@ -103,6 +103,26 @@ Pre-First → First + Pin + First Cascade → Second + Second Cascade
 - [ ] Spring maintenance rites (calibration without blood tithe)
 - [ ] Player-visible order meter vs hidden
 - [ ] Whistling Dunes / Dune Sovereign vs Pinwright — same scar or echo?
+
+### Parked — why couldn’t a chaos walker wield Law of Dust effectively? (owner 2026-08-02)
+
+**Not designing now.** Pinwright was a **pre-peak chaos walker** who **legislated** Return-to-Dust and pinned the oasis — yet the First Cascade **ate his empire**. What makes **Law of Dust** different from “chaos energy you wield”?
+
+**Draft axes to resolve later:**
+
+| Axis | Law of Dust | Chaos path (endgame) |
+|------|-------------|----------------------|
+| **Nature** | **Completed local dao** — environmental rule in one basin | **Unwritten primordial** — return to source, author new law |
+| **Pinwright’s limit** | Could **write partial legislation**, not **Creation-peak balance** | Full chaos curriculum is **post–false-immortal** — he was **pre-peak** |
+| **Wield vs live inside** | After completion, the law is **physics of the basin** — not a technique to channel | Chaos walkers **compress / unwrite** — wielding a **finished entropy law** may **fight** the path |
+| **Pin’s mistake** | Routed dissolution **outward** to buy an **order exception** (spring + ward) without paying **creation-scale** counterweight | Cascade used **sand as fuel** — conservation of pattern, not controlled tool |
+| **Contrast Sunless Scar** | Dust = **order concentration triggers return-to-form** | Frost = **yin-supremacy object field** — different wound ([`frostbite-origin.md`](frostbite-origin.md)) |
+
+**Possible answer (parked, not locked):** Law of Dust isn’t weak chaos — it’s **already legislated**. A chaos walker doesn’t “wield” it like fire; they **either authored it and lost balance** (Pinwright) or **walk with it** (mortals under threshold). **Effective wielding** might require **Creator-aspect completion** he never reached — he wrote **half a law** (dissolution route) without the **creation** half that would have made the pin stable.
+
+- [ ] Is Law of Dust **incompatible** with chaos-as-unwriting, or **adjacent** (entropy aspect) but incomplete?
+- [ ] Could a **peak** chaos Progenitor **rewrite** the basin law, or only live with it?
+- [ ] Link Whistling Dunes / Dune Sovereign — second entropy echo or unrelated?
 
 ---
 
