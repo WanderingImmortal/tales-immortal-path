@@ -74,7 +74,7 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **Contrast Sword** | Sword Immortal **waits** for the perfect line; Mad Monk **asks** “is that guy armored enough?” |
 | **Contrast Phoenix** | Phoenix wants **shock troops for ideology**; ridge monks will **punch alongside** anyone if the fight’s real — still refuse ash-rebirth dogma |
 
-**Vessel Rules as leash:** oaths are how **sharp elders** keep **fight addicts** (and a few genuine dullards) from becoming a demon sect — e.g. never strike first, never kill after surrender, one life per contract. The **madness** is appetite; the **rule** is the chain. **Foxes write the rules; fools break them loudly.**
+**Vessel Rules as leash:** oaths are how **sharp elders** keep **fight addicts** from becoming a demon sect — power from **bound flesh**, not heaven ([`vessel-rules-design.md`](vessel-rules-design.md)).
 
 **Not blood demons:** mass slaughter and soul refining stay **acts** / forbidden lanes — Mad Monks are **oddballs**, not the evil physique embrace track.
 
