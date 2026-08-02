@@ -6,7 +6,7 @@
 | **Blocked on** | Lineage manual; technique tier pass; replaces Frostpeak stub in code |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Yin peak arts — not guardian sect) |
+| **Updated** | 2026-08-02 (spine + Dao Wars — cold/calculating owner) |
 
 Former filename stub: `frostbite-yin-sect.md`. Related: [`outer-zone-great-powers.md`](outer-zone-great-powers.md), [`body-path-sect.md`](body-path-sect.md), [`frostbite-origin.md`](frostbite-origin.md). **Not** a Void Temple analogue — see [`void-temple-sect.md`](void-temple-sect.md).
 
@@ -96,19 +96,71 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 | **Golden Phoenix** | Natural opposition — yang flame vs yin peak |
 | **Celestial Sword** | Distant — line vs moon |
 
-## Dao Wars — **role not locked** (owner 2026-08-02)
+## Sect spine — **not Lotus, not Sword** (owner lean)
 
-Personality **undefined**. Do not write them as northern guardians (Void Temple owns that lane) or Scar wardens. When personality lands, pick one **primary posture** — can blend lightly.
+**Personality:** **cold and calculating** — aloof by **nature**, not trauma. Similar *temperature* to Sword Immortal’s public aloofness, **different engine**.
 
-| Posture (parked) | War behavior | Settlement outcome |
-|------------------|--------------|-------------------|
-| **Mercenary silence** | Sold yin concealment / assassination to **both sides**; never held land south | Charter tolerates them; Heartlands distrusts |
-| **One southern reach** | Maidens marched for fragments; **failed** at Sword line / Bleed flank / Phoenix heat | **Isolation oath** — “we do not reach for the prize again” |
-| **Never marched** | Palace stayed on peak; outer court frost mercs only | Recognized as **sovereign peak**, not a threat |
-| **Observed stillness** | Watched Dao Wars as **tribulation of the continent**; True Yin Scripture codified from watching yang burn | Respected as mystics; no territorial claim |
-| **Ancient before wars** | Palace **predates** Dao Wars; war was **vulgar noise** below Maiden Peak | Isolation as **dignity**, not defeat |
+| | **Jade Lotus spine** (Leng Shuyu) | **Sword Immortal** | **Yin Maiden spine** *(stub)* |
+|--|-----------------------------------|--------------------|-------------------------------|
+| **Cold?** | Yes — meticulous | Yes — aloof | Yes — **default stillness** |
+| **Method** | **Bond web** — marriages, oaths, assets, charter gossip | **One line** — sword, array, wait | **Silence ledger** — concealment contracts, severance strikes, **no web** |
+| **Pleasure** | Schemes that **bind** others | Perfect cut / ascension | **Yang expenditure** elsewhere — minimal own exposure |
+| **Dao Wars** | **Spent bonds** faster than enemies cut them | **Withdrew** after seeing Half-Step — seal array, capitulate | **Never believed** in yang war; **used** it |
+| **After peace** | Machination, register, marriage machine | Array meditation; ignores politics | **Still**; intervention is **cost** |
+| **Player feel** | “Everyone owes the valley” | “The mountain sleeps” | “The peak was never in the war” |
 
-**Northern reach (continent sketch):** someone from the Maiden Peak line **reached inward** during Dao Wars because **Heartlands held the prizes** — learned **what not to touch** (Bleed when flanking, Sword/Phoenix when pushing deep). Fits user direction without locking Yin Maiden personality yet.
+**Lotus copy trap to avoid:** hidden matriarch who **socially engineers** the continent. Yin spine **does not weave** — she **subtracts**: let yang burn, **buy silence**, **take yin prizes**, **leave no name**.
+
+**Working epithet:** **Silent Moon Matriarch** (寂月宫主) or **First Yin Maiden** (玉女祖师) — *name TBD*
+
+### Spine sketch (draft)
+
+- **Nature:** mind like winter water — relationships are **thermodynamics**, not family.
+- **True Yin Scripture:** codified while **watching** yang factions exhaust each other — not a trauma response to Half-Step (Sword), not bond-survival (Lotus).
+- **Combat:** among **weaker immortals** in open yang war — strong in **concealment, severance, assassination**; does not duel Phoenix/Sword/Tian.
+- **Visibility:** even less than Shuyu — **no marriage news**; debts are **secret**.
+
+## Dao Wars — goals, why “join,” what they fought for (owner lock)
+
+They did **not** join the Dao Wars as a **territorial power**. Heartlands prizes were **veins and sect land** — **Lotus and Phoenix territory**. Maiden Peak wanted **different currencies**.
+
+### War goals (what the calculator wanted)
+
+| Goal | Why cold/calculating fits |
+|------|---------------------------|
+| **Yin fragment corpus** | Moon sites, pre-heaven yin shards, tribulation **observation** — cultivation capital, not acres |
+| **Silence ledger** | Contracts: *we conceal your retreat / sever your rival / hide your breakthrough* — **debts without marriage** |
+| **Multipolar board** | Prevent **one yang hegemon** north of Maiden Peak — cheap interventions, not armies |
+| **Subtraction** | Let Sword and Phoenix **expend**; acquire what falls from **dead schools** — no banner wars |
+
+**Not fighting for:** silk routes, charter votes, caldera courts, Lotus-style **binding** the Heartlands.
+
+### Why they “joined” at all
+
+- **Yang fever opened doors** — sealed yin sites unattended while great sects duel.
+- **Northern encirclement math** — if Phoenix **alone** wins the prize belt, Maiden Peak becomes **next frontier**; minimal spend to **keep chaos multipolar**.
+- **Not ideology** — war is **bad weather**; stillness is **strategy**.
+
+### What they actually did (behavior)
+
+| Layer | Action |
+|-------|--------|
+| **Palace** | Stayed on peak; **True Yin Scripture** written from observation |
+| **Outer court** | Frost mercs — **contracted**, not crusaders |
+| **Inner circle** | **One southern reach** — not conquest: **specific prize** (moon scripture / mirror lore / yin fragment from fallen sect) |
+| **Across board** | **Silence contracts** with **every** side — Lotus sells **bonds**; Maidens sell **forgetting** |
+
+**One southern expedition (sketch):** small maiden circle, not army — reached Heartlands fringe, **paid** at Sword line or Phoenix heat, returned **diminished but with the text** that became inner canon. Lesson: **yang prize belt is not yin soil** — settlement **no territorial claim south**.
+
+### Settlement outcome
+
+- **Maiden Peak recognized** — sovereign, non-annexable.
+- **Charter:** no southern **land** claim; **concealment services** licensed case-by-case — not Lotus **presence**.
+- **Heartlands memory:** unsettling — *they were at every retreat but never on the map*.
+
+**Player memory:** “The war burned south. The maidens **collected silence**.”
+
+**Primary lean:** **Observed stillness** + **one southern reach** + **silence ledger** — cold calculator bundle.
 
 Link: [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 
@@ -116,8 +168,8 @@ Link: [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 
 - [x] Apex scripture name — **True Yin Scripture** (真阴经) — owner 2026-08-02
 - [ ] Final palace name: **玉女宫** locked or blend with Moonfract 月碎?
-- [ ] Do males ever learn **outer frost** pamphlets only?
-- [ ] Matriarch tier — VR public; vault ancestor?
+- [ ] Spine true name + epithet — **Silent Moon Matriarch** vs **First Yin Maiden**
+- [ ] One southern expedition — **what text** did they bring back?
 
 ## Prerequisites
 

@@ -68,7 +68,7 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 - Scar + Bleed **predate** Dao Wars ([`frostbite-origin.md`](frostbite-origin.md)).
 - **Not** a main march route through the apex — but **northern powers pushed south** for Dao War spoils (fragments, vein toes, contracts).
 - **Lesson:** what bleeds in the north **does not march**; what burns in the Heartlands **does not yield** to yin alone.
-- **Yin Maiden Palace** — war role **TBD** when sect personality locks (see frostbite-yin-sect doc).
+- **Yin Maiden Palace** — **cold calculator** posture locked: **silence ledger**, one southern reach for **yin prizes**, **not** Lotus bonds — see [`frostbite-yin-sect.md`](frostbite-yin-sect.md).
 - Settlement likely includes **leave Maiden Peak alone** + **no northern claim on Heartlands veins** — details when identity doc matures.
 - **Player memory (draft):** “We reached for the prize. The prize reached back.”
 
