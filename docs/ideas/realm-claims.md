@@ -31,7 +31,7 @@ Uses indices from [`nine-realm-ladder.md`](nine-realm-ladder.md) (`0–8`).
 | 3 | Nascent Soul | **Sovereignty** | The soul walks outside the body; distance is negotiable |
 | 4 | Deity Transformation | **Transformation** | Regional presence — **contextual** by civic tier (lord in low cities, peer in 1st-tier, careful in imperial) |
 | 5 | Void Refinement | **Passage** | Space is a suggestion |
-| 6 | Dao Seeking | **Law (seek)** | You read the rules — comprehend, hunt fragments |
+| 6 | Dao Seeking | **Law (seek)** | You read the rules — pursue insights, contemplate threads |
 | 7 | Dao Manifestation | **Law (wear)** | You embody a law — local imposition, not study |
 | 8 | Immortal Ascension | **Transcendence** | Mortality's contract is void |
 
@@ -208,7 +208,7 @@ Tie to existing **standing / apprehension** axes (karma / reputation brainstorm)
 | **Aura** | Comprehending laws feeds immortal-layer legislation preview ([`immortal-world-layer.md`](immortal-world-layer.md)) |
 | **Jurisdiction** | Read the board — know which grounds answer to which law before entering |
 
-**Seeking** = study, hunt fragments, merge, build **library** — comprehend many; passives stack — **not** wear.
+**Seeking** = study, **witness signs**, open pursuits, merge, build **library** — comprehend many; passives stack — **not** wear. Terminology: [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — retire “fragment.”
 
 **Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — Lesser vs Greater, library/merge/wear, sword example.
 

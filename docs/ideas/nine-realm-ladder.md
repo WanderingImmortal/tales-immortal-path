@@ -51,7 +51,7 @@ Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian /
 … → Void → Dao Seeking → Dao Manifestation → Immortal
 ```
 
-- **Seeking** = comprehend, hunt fragments, read laws  
+- **Seeking** = comprehend laws, witness signs, open pursuit threads  
 - **Manifestation** = embody a law; local imposition; bridge to immortal politics  
 
 **Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — Lesser vs Greater, library/merge/wear, Manifestation depth, sword example.
