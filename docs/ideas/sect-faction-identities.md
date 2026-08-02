@@ -58,6 +58,7 @@ Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **I
 | **Jade** | Storm Dragon + Tidal Lotus | Rival-allies; sea routes; one quest each |
 | **Frostbite** | Frostpeak Monastery | Isolation, cold resist, ascetic |
 | **Emberwild** | Emberwild Collective | Beast tamers, primal |
+| **(planned)** | **Body-path sect** — [`body-path-sect.md`](body-path-sect.md) | Vajra Ridge sketch; not in code |
 
 ---
 

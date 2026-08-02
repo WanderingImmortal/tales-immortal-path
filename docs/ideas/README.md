@@ -53,6 +53,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `designed` | Phase 1 gates 2–3 | — |
+| [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
 | [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `idea` (parked) | — | — |
