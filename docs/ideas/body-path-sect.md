@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Mad Arhat spine + body immortal naming — owner lean) |
+| **Updated** | 2026-08-02 (generic Flesh Immortal + Buddhist Mad Arhat lane) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -78,33 +78,60 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 
 **Not blood demons:** mass slaughter and soul refining stay **acts** / forbidden lanes — Mad Monks are **oddballs**, not the evil physique embrace track.
 
-## Body path — immortal equivalent (status + owner lean)
+## Body path — immortal equivalent (two lanes — owner lean)
 
-**Not locked in design docs yet.** Code today (`PATHS.body`):
+**Not locked in code yet.** Body techniques in the wild are **not** all Buddhist — blood arts, desert grit, war-god roar, generic tempering ([`data.js`](../../data.js) `path: body`). Naming must split:
 
-| Layer | Name in code | Notes |
-|-------|--------------|-------|
-| Mortal ladder (7 majors today) | Bronze Skin → … → **Indestructible Vajra** | Top realm title: **Vajra Immortal** — *realm label*, not sect spine epithet |
-| Nine-realm alignment (draft) | Idx 8 **Immortal Ascension** ↔ Indestructible Vajra | See [`forging-equipment-tiers.md`](forging-equipment-tiers.md); [`nine-realm-ladder.md`](nine-realm-ladder.md) |
-| Post-Ascension epithet | **None locked** | Qi sects have **Sword Immortal**, **Phoenix Immortal**; body path needs parity |
+| Lane | Who uses it | Purpose |
+|------|-------------|---------|
+| **Generic path title** | **All body refiners** — player default, blood, desert, rogue manuals | Neutral xianxia; UI realm / chronicle label |
+| **Buddhist lineage epithet** | **Vajra Ridge** — Vessel Canon, Mad Arhat spine | Doctrine flavor; not the default player string |
 
-**Body refining’s “immortal” is the finished vessel** — not qi immortality, not soul eternal spirit. Buddhist lane fits the monk sect better than copying 仙 alone.
+### Generic — **Flesh Immortal** (owner lean)
 
-### Naming options (owner brainstorm — 2026-08-02)
+**Default immortal equivalent** for body refining — no monastery required.
 
-| Option | Hanzi (sketch) | Buddhist / xianxia fit | Notes |
-|--------|----------------|------------------------|-------|
-| **Golden Body Immortal** *(user lean)* | 金身仙 | 金身 = indestructible enlightened body in Buddhist idiom; 仙 = continent’s immortal tier | Familiar to readers; slightly generic |
-| **Golden Body Arhat** *(recommendation)* | 金身罗汉 | **罗汉** = arhat — one who **finished** the path by own effort; 金身 = golden / indestructible body | **Best monk-sect fit** — immortal *power*, arhat *doctrine* |
-| **Vajra Arhat** | 金刚罗汉 | Ties **Vajra Ridge** + arhat completion | Less “golden body” in the name |
-| **Indestructible Vajra Honored One** | 金刚不坏尊者 | Formal charter register | Sounds like title, not epithet |
-| **Mad Arhat** (nickname only) | 疯罗汉 | Jianghu name for spine | Pair with formal epithet above |
+| Use | Label |
+|-----|-------|
+| **Realm / breakthrough** (idx 8 body, parallel to Immortal Ascension) | **Flesh Immortal** (肉身仙) — *or UI short: 体仙* |
+| **State** (what you achieved) | **Indestructible flesh** / vessel finished — mortal cap realm stays **Indestructible Vajra** (金刚不灭) |
+| **Chronicle** | *“Ascended as a Flesh Immortal — the body outlived the world’s right to break it.”* |
 
-**Owner lean:** **Golden Body Immortal** or **Golden Body Arhat** — spine’s **public epithet** after Ascension; **Mad Arhat** (疯罗汉) as what everyone calls him — **the Mad Monk of Mad Monks**.
+Works for: Mad Monks who never learn arhat vocabulary, Sunscar-style warriors, blood conditioners, Dustbone grit, player who never joins Vajra Ridge.
 
-**Distinction from realm names:** mortal cap stays **Indestructible Vajra** (金刚不灭); immortal epithet is **what you become** when the vessel transcends — 金身罗汉 / 金身仙, not another “Vajra” tier in UI.
+**Alternates if tone shifts** (generic only):
 
-### Sect spine — **The Mad Arhat** (疯罗汉) *(stub — owner lean)*
+| Name | Hanzi | Notes |
+|------|-------|-------|
+| **Flesh Sainthood** | 肉身成圣 | Achievement beat — “flesh became saint”; slightly grand |
+| **Indestructible Body** | 不灭体 | State name; less “immortal tier” in the 仙 sense |
+| **Vessel Transcendence** | 炼体飞升 | Breakthrough verb — good for tribulation copy |
+
+**Not generic defaults:** 金身, 罗汉, 金刚尊者 — Buddhist / Vajra Ridge lane.
+
+### Buddhist variation — **Golden Body Arhat** + **Mad Arhat**
+
+**Vajra Ridge / Vessel Canon only** — lineage honorific, not the continent-wide body-path label.
+
+| Use | Label |
+|-----|-------|
+| **Formal epithet** (charter, inner court) | **Golden Body Arhat** (金身罗汉) |
+| **Jianghu nickname** (spine) | **The Mad Arhat** (疯罗汉) — Mad Monk of Mad Monks |
+| **Doctrine** | Same **power tier** as Flesh Immortal — arhat = finished vessel **by monk idiom** |
+
+A ridge monk at immortal tier might be called **Flesh Immortal** in a Heartlands registry and **Golden Body Arhat** on the bell-hall wall. Same cultivator; different **tradition**.
+
+### Code today (`PATHS.body`)
+
+| Layer | Current code | Target (draft) |
+|-------|--------------|----------------|
+| Mortal ladder | Bronze Skin → … → **Indestructible Vajra** | Keep — top **mortal** body realm |
+| Realm title at cap | **Vajra Immortal** in `titles[]` | Rename to **Flesh Immortal** (generic) when body ladder ships — *implementation later* |
+| Post-Ascension sect epithet | — | Buddhist: Mad Arhat; generic players: **Flesh Immortal** only |
+
+Nine-realm alignment: idx 8 ↔ Indestructible Vajra mortal cap breakthrough → **Flesh Immortal** title. See [`forging-equipment-tiers.md`](forging-equipment-tiers.md), [`nine-realm-ladder.md`](nine-realm-ladder.md).
+
+### Sect spine — **The Mad Arhat** (疯罗汉) *(stub)*
 
 **Soul of the fist** for Vajra Ridge — every outer monk learns from stories of his punches; Patriarch Bell Luo exists so the **immortal** doesn’t have to read charter mail.
 
@@ -114,7 +141,7 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **Dao Wars** | Dao Manifestation; **hid** in Seal Array | Knelt; brother ascended later | **Fought everywhere** — best years; elders **lie** in official histories |
 | **After peace** | Sleeps in array core | Veto on existential war | **Still wants a fight** — Bell Luo + Vessel Rules keep him on the ridge |
 | **Public face** | Forgotten true name | Younger brother patriarch | **Laughing old monk** who asks if your bones are interesting |
-| **Power** | Immortal | Immortal | Immortal — **golden body** finished; fist as doctrine |
+| **Power** | Immortal | Immortal | Immortal — **Golden Body Arhat** formally; continent says **Flesh Immortal** |
 
 **Spine sketch:**
 
@@ -128,7 +155,8 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 **Player hook:** rep climb → Iron Han trials → rare **bell vault** audience — “You’re not strong enough to bore me. Come back when you hurt right.”
 
 Link spine pattern: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Sword Immortal + Yun Jian), [`golden-phoenix-sect.md`](golden-phoenix-sect.md) (Phoenix Immortal).
- — **Frostbite south spine** (dual great sect)
+
+### Placement — **Frostbite south spine** (dual great sect)
 
 Owner direction: outer zones get **great sect–tier peers** with their own stories. Frostbite holds **two survivors** from the Dao Wars — not one northern bloc:
 
@@ -209,8 +237,10 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 - [x] Tier: **great sect Dao Wars survivor** — monk body refiners (owner 2026-08-02)
 - [x] Personality: **Mad Monks** nickname; ascetic official name; fight-forward not murder-forward (owner 2026-08-02)
 - [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
-- [ ] Immortal epithet lock: **金身仙** (Golden Body Immortal) vs **金身罗汉** (Golden Body Arhat) + spine true name
-- [x] Sect spine: **Mad Arhat** (疯罗汉) — soul of the fist; Bell Luo runs surface (owner lean 2026-08-02)
+- [x] Generic immortal title: **Flesh Immortal** (肉身仙) — all body paths (owner 2026-08-02)
+- [x] Buddhist lineage epithet: **Golden Body Arhat** (金身罗汉); spine nickname **Mad Arhat** (疯罗汉)
+- [ ] Generic alternate: **Flesh Sainthood** (肉身成圣) vs **Flesh Immortal** — final UI lock
+- [ ] Spine true name (疯罗汉 is epithet only)
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?

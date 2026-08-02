@@ -133,6 +133,7 @@ Linear-ish +40y steps after FE, not doubling:
 - `isImmortal()`: `>= 6` → `>= 8`  
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock, height labels in roots doc  
 - Soul / body paths: parallel realm **names** at each index (shared idx, different skin)  
+- Body idx 8 immortal title (generic): **Flesh Immortal** (肉身仙) — see [`body-path-sect.md`](body-path-sect.md); Buddhist lineage epithet **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**, not default UI
 
 ## Links
 
