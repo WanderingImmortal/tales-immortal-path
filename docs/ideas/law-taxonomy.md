@@ -210,7 +210,7 @@ Cosmic vertical is 0–3 above. These sit **beside** that column — geographic 
 | Law of Dust, cascades | **Basin statute** | primordial / axis |
 | Dao Manifestation patriarch | **Embodied dao** | axis or Great Dao |
 | Imperial charter | **Mortal law** | “dao” |
-| Body chamber oath | **Personal oath** (under **Body Dao** purview) | “law of the flesh” = axis; “Body Dao” in player UI |
+| Body chamber oath | **Personal oath** / **Rule** (under Body Dao) | **Law** = manifested Dao comprehension only |
 
 ## Sunless Scar × taxonomy
 

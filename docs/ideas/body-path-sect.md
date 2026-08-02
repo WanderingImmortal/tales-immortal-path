@@ -203,7 +203,7 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
 
-**Apex sworn rule (owner lean):** **Rule of No Yield** at **Sovereign adherence** — rule **in** the flesh, Body Dao enforces; not intent-style meditation. Frost Gate: Bell capitulates sect; Da Chi holds until charter stops war externally. [`vessel-rules-design.md`](vessel-rules-design.md).
+**Apex sworn rule (owner lean):** **Rule of Unyielding** (不屈律) at **Rooted** adherence — rule **settled into flesh**; Body Dao enforces. Frost Gate: Bell capitulates sect; Da Chi holds until charter stops war externally. [`vessel-rules-design.md`](vessel-rules-design.md).
 
 ---
 
@@ -457,7 +457,7 @@ Da Chi **was patriarch** for most of the war — institution joined because **he
 - [x] Da Chi — **supreme body talent**, stubborn will; fool **act**, not idiot; no great-sect taboo (owner 2026-08-02)
 - [ ] Named **Sword border month** or Phoenix **intrusion** incident for chronicle hook
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
-- [ ] Lock Da Chi apex rule: **No Yield** lean vs Unnamed / Answering Blow
+- [ ] Lock Da Chi apex rule: **Unyielding** vs Unnamed / Answering Blow
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?
 
 ## Implementation crumbs (later)
