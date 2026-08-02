@@ -163,7 +163,7 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 
 | Mechanism | Beat |
 |-----------|------|
-| **Trial ground monster** | Won every **Bell Trial** (钟试) — not clever, **unbreakable**; elders called him a fool who **wouldn’t fall** |
+| **Trial ground monster** | Won every **Bell Trial** (钟试) — **supreme body talent**; elders called him a fool because he **grinned** while winning, not because he **couldn’t** |
 | **Pre-war border skirmishes** | Rising tensions = Bleed wind, refugee sects, Heartlands proxies probing north — temple needed someone at the **gate** who **wanted** to be there |
 | **Heir lane** | Already **War Peak Elder** (战首) — patriarch’s fist; Bell Luo (then inner administrator) did paperwork |
 | **Crisis acceleration** | When old patriarch **withdrew to marrow seclusion**, Da Chi was **acting patriarch** in all but charter signature — then **patriarch** once the Dao Wars proper began |
@@ -184,17 +184,24 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 | **Age** | ~300 years since Saint breakthrough; looked **unfinished** even as patriarch — flesh that won’t settle |
 | **Look** | Bald, barrel-chested, rope belt, **bare feet on granite**; grin before the punch; knuckles like worn river stone |
 
-**Nature:** wildest **old fox** on the continent **without** fox patience — reads your trap in one glance, **still** walks toward your champion because impact is **honest**. Not stupid — **chooses** the fist when schemes would work but cost **years**.
+**Acts the fool — not an idiot.** Da Chi wears **Great Fool** (大痴) like a nickname the jianghu earned honestly: he laughs, he walks forward, he doesn’t perform cleverness. Under that:
 
-**Doctrine (his):** technique is decoration; **tempered flesh expressing will** is the whole Vessel Canon. He is the living proof — no sword intent, no rebirth flame, just **a body that decided it would not break**.
+| Gift | What it means |
+|------|----------------|
+| **Supreme body talent** | Among the continent’s **best living refiners** in war and now — marrow pace, tempering intuition, **Vessel Rule** mastery; Vessel Canon reads **easy** in his hands |
+| **Stubborn will** | Will stat as doctrine — mind does not **yield** to pain, fear, or social pressure; schemes **bore** him before they fail |
+| **Reads the room** | Sees traps, charter hooks, and assassination setups — **ignores** them when punching is faster |
+| **Bell Luo’s leash** | Chooses **not** to be clever; Bell chooses **when** clever is mandatory |
 
-**Pleasure:** a worthy hit — armor that **almost** hurts him, an expert who **almost** dodges, a war that **almost** justifies leaving the springs.
+**Not stupid. Not careless about survival.** He simply **does not care** to act intelligent when **walking toward the problem and fighting it** solves the week. Foxes (Bell Luo) exist because the sect still needs signatures.
 
-**Where he lives:** marrow hot springs and **bell vault** under the ridge — not sealed like Sword Immortal; **contained** by Vessel Rule oaths Bell Luo renews and by **trial-ground challengers** Bell feeds him so he does not walk south and restart the Gambit with his fists.
+**Doctrine (his):** technique is decoration; **tempered flesh expressing will** is the whole Vessel Canon. Living proof — no sword intent, no rebirth flame, a body that **refused** to learn breaking.
+
+**Pleasure:** a worthy hit — armor that **almost** hurts him, a line that **almost** cuts, a war that **almost** justifies leaving the springs.
+
+**Where he lives (now):** marrow hot springs / **bell vault** — stepped back when Bell Luo became **charter patriarch**; Da Chi remains **spine**, not administrator. Bell Luo renews Vessel Rule oaths and feeds trial-ground challengers so he does not restart the Gambit with his fists.
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
-
-**Where he lives (now):** marrow hot springs / **bell vault** — stepped back when Bell Luo became **charter patriarch**; Da Chi remains **spine**, not administrator.
 
 ---
 
@@ -265,9 +272,34 @@ Sect A vs Sect B — valley, vein, grudge
 
 **Why settlement still worked:** arrays intact; Da Chi **useful** at Gate; Bell Luo **negotiable**; intrusion victims mostly **mid sects** without charter pull — great powers **embarrassed**, not **broken**.
 
----
+### Heartlands lines — **no taboo, plenty of friction** *(owner lean)*
 
-#### Dao Wars — sect summary (institutional)
+Da Chi and Bell Luo **never** made **overt charter taboo** moves against the Heartlands **four great sects** — no massacres on Lotus land, no Void archive raids, no Phoenix caldera strikes, no Sword Sepulcher desecration. Bell’s fox work **kept** the ridge **hireable**, not **eradicable**.
+
+**What Da Chi did instead:** fight **near** great powers, **intrude** on their **proxies and expansion lanes**, and **spar** where honor allowed — annoying, memorable, **not** casus belli.
+
+| Great sect | Da Chi / Mad Monks during Dao Wars |
+|------------|-----------------------------------|
+| **Celestial Sword** | **Fought quite a bit** — border duels, escort disagreements, intrusion brawls that **stung Sword lines**; Da Chi **loves** a straight fight; Sword elders **respect** the fist, **loathe** the chaos. **No** Sepulcher taboo — see [`celestial-sword-sect.md`](celestial-sword-sect.md) |
+| **Golden Phoenix** | **Annoyed expansion** — Phoenix pushing north/east for flame jurisdiction; Mad Monk **intrusions** broke Phoenix **momentum** (both sides pushed back, Phoenix couldn’t **claim** a clean win); **ideology refused**, scraps **accepted**. Phoenix pamphlets call them **charter vermin** |
+| **Jade Lotus** | **Hired** often — Lotus paperwork **points** at trouble; monks tolerate it; intrusion brawls sometimes **helped** Lotus clients **by accident** |
+| **Void Temple** | Mutual disdain — Da Chi doesn’t raid seals; Void doesn’t lecture **successfully** |
+
+**Sword vs fist (parked beats):**
+
+- Da Chi and **Sword peak elders** traded **border months** — not charter duels, **honor spars** that escalated when neither would yield ground.
+- Intrusion squads **stung Sword-affiliated** columns more than once — Sword Immortal **did not** leave the array for a fool; **Yun Jian** aged faster from the reports.
+- Post-peace: **respectful rivalry** — “your line vs our fist”; Sword **noble**, Da Chi **gleeful**.
+
+**Phoenix vs mad monks:**
+
+- Phoenix **expansion** needed **clean victories** — Da Chi’s doctrine produces **muddy** battles and **enraged neutrals**.
+- **Realm Reforge** (界炉) fantasies hate third parties who **won’t stay dead** and **won’t pick a side**.
+- Phoenix Immortal’s younger brother **knew** the monks weren’t worth immortal war — **exhausting**, not existential.
+
+**Player hook:** high Sword rep + Ridge rep unlocks **veteran spar stories** — same fight, two scripts (Sword honor vs Mad Monk bath-house).
+
+---
 
 #### Yin Maiden Palace — neighbors on the spine *(owner lean)*
 
@@ -372,10 +404,10 @@ Da Chi **was patriarch** for most of the war — institution joined because **he
 
 | Power | Relationship | Why |
 |-------|--------------|-----|
-| **Celestial Sword** | Respectful rivalry | Both love a straight fight — “your line vs our fist”; Sword **noble**, Mad Monks **gleeful** |
-| **Jade Lotus** | Practical ties | Lotus hires ridge escorts; monks **tolerate** paperwork because it points toward trouble |
-| **Void Temple** | Mutual disdain | Books vs bell halls — “read less, punch more” |
-| **Golden Phoenix** | Uneasy kin | **Best war buddies**, worst peace neighbors — Phoenix wants ideology; monks want **a good scrap**; refuse ash renewal |
+| **Celestial Sword** | **Fought often** — border spars + intrusion stings; respect + loathing; **no** Sepulcher taboo | Da Chi **wanted** their line; Sword wanted **clean** war |
+| **Jade Lotus** | Practical ties | Lotus hires ridge; paperwork points toward trouble |
+| **Void Temple** | Mutual disdain | Books vs bell halls |
+| **Golden Phoenix** | **Expansion nuisance** | Intrusion brawls **broke Phoenix momentum** north; ideology refused, scraps taken |
 | **Yin Maiden Palace** | Neighbors — **oil and ice** | See [`body-path-sect.md`](body-path-sect.md) (Mad Arhat ↔ Maiden spine); one parked **silence debt**; joint Bleed witness |
 | **Sunscar Clan** | Distant kin | Desert warriors respect pain; different religion |
 | **Imperial court** | Licensed muscle | Border forts, tribulation guards — not dynasty marriage |
@@ -420,7 +452,8 @@ Da Chi **was patriarch** for most of the war — institution joined because **he
 - [x] Bell Luo — war chancellor → patriarch after Da Chi’s Saint breakthrough
 - [x] Spine true name — **Da Chi** (大痴) working; epithet **Mad Arhat** (疯罗汉)
 - [ ] Hanzi lock: **圣体境** vs **肉身圣境** for realm name
-- [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
+- [x] Da Chi — **supreme body talent**, stubborn will; fool **act**, not idiot; no great-sect taboo (owner 2026-08-02)
+- [ ] Named **Sword border month** or Phoenix **intrusion** incident for chronicle hook
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?
 
