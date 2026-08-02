@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Mad Monks personality — owner lean) |
+| **Updated** | 2026-08-02 (Mad Arhat spine + body immortal naming — owner lean) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -52,8 +52,9 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **Sacred practice** | **Vessel Rules** — sworn physical oaths; outer court learns discipline, inner court swears one rule for life |
 | **Homeland** | **Vajra Ridge** (金刚岭) — wind-scoured granite, hanging bell halls, marrow hot springs under the peak |
 | **Founder myth** | A mortal smith who **hammered his own ribs into scripture** until heaven could not break him — no immortal patron at founding, which they still boast about |
-| **Public leader** | **Patriarch Bell Luo** (钟络) — Void Refinement; rarely leaves the ridge |
-| **Player-facing elder** | **Elder Iron Han** (铁瀚) — Nascent Soul; trial master, accepts worthy wanderers |
+| **Public leader** | **Patriarch Bell Luo** (钟络) — Void Refinement; **old fox** — sees every scheme; **chooses** the fist; runs charters; rarely leaves the ridge |
+| **Sect spine** | **The Mad Arhat** (疯罗汉) — *working epithet* — **Immortal**; **soul of the fist** for the whole mountain; true name **TBD** |
+| **Player-facing elder** | **Elder Iron Han** (铁瀚) — Nascent Soul; **wildest** of the old foxes on the trial ground; accepts worthy wanderers |
 | **Primary lean** | **Fortification & escort** — ridge arrays, caravan muscle, border garrisons for hire |
 | **Also has hands in** | Ore and beast-bone trade, medicinal baths, duel arbitration (“flesh decides”) |
 | **What they teach** | Outer: stances, breath-for-stamina, bone conditioning · Inner: marrow arts, vessel rule rites · **Refuse:** sword intent, flame rebirth, void gates |
@@ -67,16 +68,67 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 |-------|------|
 | **Temper** | **Fight-forward, not murder-forward** — they don’t hunt sport-kills or slaughter villages; if there’s a fight to be had, there’s **probably a monk nearby** |
 | **Dao Wars** | **Thoroughly enjoyed it** — a continent of enemies to walk into; escort contracts were also **excuses to reach a battlefield**; veterans swap bath-house stories; **public minutes** say “we held the corridor in solemn duty” |
-| **Body path fit** | **Muscle-brained** in the social sense — not stupid, but **battle-first cognition**; cultivation **is** getting hit until heaven breaks; joy is **tempered flesh finding a worthy impact** |
+| **Body path fit** | Outer ranks: **some genuinely stupid** — all heart, no plan. Leaders: **none of them stupid** — among the **wildest old foxes** on the continent; they **don’t care for schemes** when they can **punch the problem** |
+| **Leader lens** | Lotus matriarch **weaves**; Sword Immortal **waits**; Mad Monk patriarch **already saw your trap** and is walking toward your champion because **that’s faster** |
 | **Contrast Yin Maiden** | Palace **subtracts** and calculates; ridge **adds heat** wherever two sides are already swinging — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) |
 | **Contrast Sword** | Sword Immortal **waits** for the perfect line; Mad Monk **asks** “is that guy armored enough?” |
 | **Contrast Phoenix** | Phoenix wants **shock troops for ideology**; ridge monks will **punch alongside** anyone if the fight’s real — still refuse ash-rebirth dogma |
 
-**Vessel Rules as leash:** oaths are how the patriarch keeps **fight addicts** from becoming a demon sect — e.g. never strike first, never kill after surrender, one life per contract. The **madness** is appetite; the **rule** is the chain.
+**Vessel Rules as leash:** oaths are how **sharp elders** keep **fight addicts** (and a few genuine dullards) from becoming a demon sect — e.g. never strike first, never kill after surrender, one life per contract. The **madness** is appetite; the **rule** is the chain. **Foxes write the rules; fools break them loudly.**
 
 **Not blood demons:** mass slaughter and soul refining stay **acts** / forbidden lanes — Mad Monks are **oddballs**, not the evil physique embrace track.
 
-### Placement — **Frostbite south spine** (dual great sect)
+## Body path — immortal equivalent (status + owner lean)
+
+**Not locked in design docs yet.** Code today (`PATHS.body`):
+
+| Layer | Name in code | Notes |
+|-------|--------------|-------|
+| Mortal ladder (7 majors today) | Bronze Skin → … → **Indestructible Vajra** | Top realm title: **Vajra Immortal** — *realm label*, not sect spine epithet |
+| Nine-realm alignment (draft) | Idx 8 **Immortal Ascension** ↔ Indestructible Vajra | See [`forging-equipment-tiers.md`](forging-equipment-tiers.md); [`nine-realm-ladder.md`](nine-realm-ladder.md) |
+| Post-Ascension epithet | **None locked** | Qi sects have **Sword Immortal**, **Phoenix Immortal**; body path needs parity |
+
+**Body refining’s “immortal” is the finished vessel** — not qi immortality, not soul eternal spirit. Buddhist lane fits the monk sect better than copying 仙 alone.
+
+### Naming options (owner brainstorm — 2026-08-02)
+
+| Option | Hanzi (sketch) | Buddhist / xianxia fit | Notes |
+|--------|----------------|------------------------|-------|
+| **Golden Body Immortal** *(user lean)* | 金身仙 | 金身 = indestructible enlightened body in Buddhist idiom; 仙 = continent’s immortal tier | Familiar to readers; slightly generic |
+| **Golden Body Arhat** *(recommendation)* | 金身罗汉 | **罗汉** = arhat — one who **finished** the path by own effort; 金身 = golden / indestructible body | **Best monk-sect fit** — immortal *power*, arhat *doctrine* |
+| **Vajra Arhat** | 金刚罗汉 | Ties **Vajra Ridge** + arhat completion | Less “golden body” in the name |
+| **Indestructible Vajra Honored One** | 金刚不坏尊者 | Formal charter register | Sounds like title, not epithet |
+| **Mad Arhat** (nickname only) | 疯罗汉 | Jianghu name for spine | Pair with formal epithet above |
+
+**Owner lean:** **Golden Body Immortal** or **Golden Body Arhat** — spine’s **public epithet** after Ascension; **Mad Arhat** (疯罗汉) as what everyone calls him — **the Mad Monk of Mad Monks**.
+
+**Distinction from realm names:** mortal cap stays **Indestructible Vajra** (金刚不灭); immortal epithet is **what you become** when the vessel transcends — 金身罗汉 / 金身仙, not another “Vajra” tier in UI.
+
+### Sect spine — **The Mad Arhat** (疯罗汉) *(stub — owner lean)*
+
+**Soul of the fist** for Vajra Ridge — every outer monk learns from stories of his punches; Patriarch Bell Luo exists so the **immortal** doesn’t have to read charter mail.
+
+| | **Sword Immortal** | **Phoenix Immortal** | **Mad Arhat** *(stub)* |
+|--|-------------------|---------------------|------------------------|
+| **Epithet** | 剑仙 — line made law | 凤凰仙 — tired guardian | **疯罗汉** — joy in impact |
+| **Dao Wars** | Dao Manifestation; **hid** in Seal Array | Knelt; brother ascended later | **Fought everywhere** — best years; elders **lie** in official histories |
+| **After peace** | Sleeps in array core | Veto on existential war | **Still wants a fight** — Bell Luo + Vessel Rules keep him on the ridge |
+| **Public face** | Forgotten true name | Younger brother patriarch | **Laughing old monk** who asks if your bones are interesting |
+| **Power** | Immortal | Immortal | Immortal — **golden body** finished; fist as doctrine |
+
+**Spine sketch:**
+
+- **Nature:** wildest old fox **without** the fox patience — already read your trap, **still** prefers to punch through it because the punch is **fun**.
+- **Doctrine:** the fist is not technique — **tempered flesh expressing will**; Vessel Canon’s living proof.
+- **Where he lives:** marrow hot springs / bell vault under ridge — not hiding like Sword Immortal; **contained** by oaths + patriarch’s carrots (“new challenger at the trial ground”).
+- **Bell Luo reports** once per season; Mad Arhat’s reply is usually one word or a belch.
+
+**Not stupid:** sharpest instinct on the mountain — **chooses** brawl over scheme; same tier as other sect spines.
+
+**Player hook:** rep climb → Iron Han trials → rare **bell vault** audience — “You’re not strong enough to bore me. Come back when you hurt right.”
+
+Link spine pattern: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Sword Immortal + Yun Jian), [`golden-phoenix-sect.md`](golden-phoenix-sect.md) (Phoenix Immortal).
+ — **Frostbite south spine** (dual great sect)
 
 Owner direction: outer zones get **great sect–tier peers** with their own stories. Frostbite holds **two survivors** from the Dao Wars — not one northern bloc:
 
@@ -157,7 +209,8 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 - [x] Tier: **great sect Dao Wars survivor** — monk body refiners (owner 2026-08-02)
 - [x] Personality: **Mad Monks** nickname; ascetic official name; fight-forward not murder-forward (owner 2026-08-02)
 - [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
-- [ ] Great sect **immortal in the vault** or founder-only myth (no sleeping apex)?
+- [ ] Immortal epithet lock: **金身仙** (Golden Body Immortal) vs **金身罗汉** (Golden Body Arhat) + spine true name
+- [x] Sect spine: **Mad Arhat** (疯罗汉) — soul of the fist; Bell Luo runs surface (owner lean 2026-08-02)
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?
