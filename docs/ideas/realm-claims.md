@@ -191,7 +191,9 @@ Tie to existing **standing / apprehension** axes (karma / reputation brainstorm)
 
 *Void is **geometry**, not raw damage.*
 
-**Acquisition realm (owner lock 2026-08-02):** Breakthrough into VR does **not** hand void power. Early VR is intentionally **DT Peak in footprint** — you entered the **void basin** and must **cultivate void qi** and **void arts** inside the realm. Passage verbs (blink, void skip) are **earned** milestones, not breakthrough gifts.
+**Acquisition realm (owner lock 2026-08-02):** Breakthrough into VR does **not** hand void power. Early VR is intentionally **DT Peak in footprint** — void qi / void arts are **earned inside**. *Unique pattern — not copied at Seeking.*
+
+**Dao Seeking contrast:** Seeking breakthrough **does** confer immediate **lifespan + moderate power + board weight** (patriarch-tier); comprehension deepens over millennia. See [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
 
 **Body skin:** **Step through** — one bound ignores terrain.  
 **Soul skin:** **Soul blink** — projection snaps between nodes.
@@ -212,7 +214,7 @@ Tie to existing **standing / apprehension** axes (karma / reputation brainstorm)
 | **Aura** | Comprehending laws feeds immortal-layer legislation preview ([`immortal-world-layer.md`](immortal-world-layer.md)) |
 | **Jurisdiction** | Read the board — know which grounds answer to which law before entering |
 
-**Seeking** = **acquisition realm** for law — breakthrough opens the basin and law-sight; **comprehension is earned inside**, like void in VR. Study, witness signs, open pursuits, merge, build **library** — not wear. Terminology: [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
+**Seeking** = breakthrough **mandate** (lifespan, power, board weight) + library grind to deepen. Not empty at entry. Terminology + Peak VR tribulation brainstorm: [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
 
 **Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — Lesser vs Greater, library/merge/wear, sword example.
 

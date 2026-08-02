@@ -90,13 +90,11 @@ Possible shapes (pick one later):
 
 ### Acquisition realms (owner lock 2026-08-02)
 
-**Void Refinement**, **Dao Seeking**, and (lean) **Dao Manifestation** follow the same pattern: **breakthrough opens the basin**; the **new power is cultivated inside**, not granted at breakthrough.
+**VR only:** breakthrough opens the void basin; power acquired inside (early VR ≈ DT Peak).
 
-- **VR entry** ≈ **DT Peak** in combat footprint until void qi / void arts are acquired.
-- **Seeking entry** ≈ **VR peak** footprint until comprehensions land; law-sight and panel unlock, not a full library.
-- **Manifestation** gates on **first wield** — embodiment depth is the inner grind.
+**Seeking:** breakthrough is a **real jump** — lifespan, moderate power, board weight **immediately**; comprehension deepens over millennia. Peak VR tribulation phenomenon TBD — see [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
 
-See [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
+**Manifestation:** first wield opens embodiment grind.
 
 ### Grade vs tier (basin cap)
 

@@ -23,25 +23,88 @@ Realm claims for presentation: [`realm-claims.md`](realm-claims.md) idx 6–7.
 
 ## Why Dao Seeking exists (owner 2026-08-02)
 
-### Acquisition realms (owner lock)
+### Acquisition realms — VR is the special case (owner 2026-08-02)
 
-Some watersheds are **not** “breakthrough hands you new power.” They are **permission to acquire a new kind of power** inside the basin.
+**Void Refinement** is intentionally an **acquisition realm**: breakthrough opens the void basin; early VR ≈ **DT Peak** until void qi / void arts are cultivated. That pattern is a **deliberate aside**, not the template for every watershed.
 
-| Pattern | Breakthrough gives | You earn inside the basin |
-|---------|-------------------|---------------------------|
-| **Void Refinement** | Entry + lifespan; still **DT Peak** in practice | **Void qi**, void arts, passage verbs |
-| **Dao Seeking** (lean) | Entry + **law-sight** / pursuit access | **Comprehension**, merges, library depth |
-| **Dao Manifestation** | First **wield** (separate gate) | Imposition depth, worn-law mastery |
+**Dao Seeking must not feel empty at entry.** These cultivators hold **major world positions** (sect patriarchs, vault elders, imperial ancients). If the realm takes millennia to comprehend and grants **no** immediate weight, treating them as apex players is silly.
 
-**Owner intent:** Early VR **is intentionally** essentially **DT Peak** until void is cultivated. That is not a content gap — it is the design. Breakthrough opens the **void basin**; void is the grind.
-
-Dao Seeking should follow the **same shape**, not feel like a flat stat realm:
+| Realm | Breakthrough fantasy |
+|-------|---------------------|
+| **VR** | Permission basin — power **acquired inside** (unique) |
+| **Seeking** | **Real jump** — lifespan + moderate power + **weight** on the board; comprehension **deepens** what you already received |
+| **Manifestation** | First **wield** — embodiment basin on top of Seeking’s foundation |
 
 ```text
-Enter VR   → you may now cultivate void (you don't have it yet)
-Enter DS   → you may now pursue laws systematically (you haven't comprehended them yet)
-First wield → you may now impose a law (embodiment is the grind)
+VR entry     → potential (void grind ahead)
+Seeking entry → mandate (you are now a cosmic-grade actor; library grind deepens you)
+Manifest entry → identity (which law wears your name)
 ```
+
+### Seeking breakthrough package (owner direction — numbers TBD)
+
+**At Peak VR tribulation → Dao Seeking**, the cultivator should receive **immediately**:
+
+| Gift | Purpose |
+|------|---------|
+| **Lifespan jump** | Moderate — e.g. **~12–15k** band entry (not 30k); buys millennia of pursuit |
+| **Moderate power bump** | Not “still VR peak” — combat-relevant edge, not full wield |
+| **Board weight** | Capabilities matching office: law-sense, faction/heaven react, forbidden read, NPC deferral tier |
+| **Comprehension access** | Dao panel, contemplation, pursuits — **opened**, not **filled** |
+
+Comprehension over thousands of years **stacks and merges** — it does not gate the first sense that this person **matters**.
+
+### What happens at Peak VR tribulation? (brainstorm — pick one)
+
+The tribulation is the **justify everything** moment: why law opens, why lifespan extends, why power jumps. **Owner has not locked a name yet.** Candidates:
+
+#### A — **Void Lens** (ties VR → Seeking)
+
+Peak void work thins the self until personal qi is no longer the only medium. Tribulation forces you to stabilize a **void-lens** — perception through the void **between** rules.
+
+- **Immediate power:** void arts + **law-sight** fuse — blink/passage **and** read dao alignment, thin-forbidden warnings
+- **Weight:** you register on **heaven’s notice board**, not just the jianghu’s
+- **Why comprehend now:** the lens can **hold** law-concepts; before this they shattered
+
+*Fits Void Temple cosmology (void as medium, not separate loot tree).*
+
+#### B — **Law Aperture** (new “organ”)
+
+Tribulation opens a **law aperture** in the soul/dantian — a chamber for **understanding**, parallel to FE’s qi chamber.
+
+- **Immediate power:** passive **dao pressure** (weaker than Manifestation wear; stronger than DT civic aura) — techniques near you skew slightly toward your **root/path affinity**
+- **Weight:** sects and imperial court treat you as **policy-tier**, not merely strong
+- **Why lifespan:** aperture maintenance burns slow; heaven grants runway
+
+*Gives Seeking a **body** — something to cultivate inside the realm beyond abstract library %.*
+
+#### C — **Heaven’s Question** (tribulation as inquiry)
+
+Not lightning-only — heaven **asks** (vision, heart-demon, karmic audit). Surviving = **permission to seek** + an **Answer’s Echo** (one tangible passive tied to how you answered).
+
+- **Immediate power:** player-facing **Echo** choice (defensive / offensive / insight skew) — real day one
+- **Weight:** chronicle tags you **Dao Inquirer**; factions react to the *kind* of answer
+- **Why comprehend:** echo is one thread; library is the rest of your life
+
+*Strong tribulation identity; links [`tribulation-per-realm-limbo.md`](tribulation-per-realm-limbo.md).*
+
+#### D — **Script-Sight** (read the board)
+
+You glimpse **heaven’s script** — not full text, but margins: karma lean, tribulation flavor, which grounds answer to which law.
+
+- **Immediate power:** **law-sense** verbs fully active; + resist low-tier technique suppression
+- **Weight:** **major position** fantasy — you can **audit** sect arrays, imperial edicts, forbidden seals (narrative permissions)
+- **Less combat spike, more sovereignty** — good if “weight” means institutional power
+
+#### E — **Ambient Dao Draw** (partial step out of self)
+
+Like Nascent Soul externalized the soul, Seeking lets you **sip ambient law** — not wield, but no longer 100% personal qi.
+
+- **Immediate power:** small flat combat/stat bump + elemental/dao **skew** from roots/history
+- **Weight:** other Seekers sense your **draw**; duels change character
+- **Risk:** feels stat-stick unless paired with a named phenomenon (combine with A or B)
+
+**Lean combo:** **A (Void Lens) + D (Script-Sight)** — VR investment pays off perceptually; board weight is reading and being read by heaven.
 
 ### What each rung is *for*
 
@@ -54,28 +117,20 @@ First wield → you may now impose a law (embodiment is the grind)
 
 VR refines **where** you can stand. Seeking refines **what rules you can read**. Manifestation refines **which rule wears your name**.
 
-### How you *step into* Dao Seeking (lean)
+### How you *step into* Dao Seeking
 
-Breakthrough is **perceptual** — like QC’s Perception: you can now **see** law-seams stable enough to study. You do **not** comprehend anything at breakthrough.
+**Trigger:** Peak **Void Refinement** tribulation — the event that justifies the jump (see brainstorm above).
 
-**Lean narrative:** Void work thinned the self; Seeking is when **rule-lines** stay in view long enough to pursue.
+Breakthrough is **not** empty: **lifespan + moderate power + board weight** land immediately. Comprehension **deepens** the mandate; it does not create apex status from zero.
 
 ```text
 DT  → presence in the mortal hierarchy
-VR  → basin for void (power acquired inside)
-DS  → basin for law (comprehension acquired inside)
-DM  → basin for wield (imposition acquired inside)
+VR  → basin for void (acquisition — special case)
+DS  → mandate on the cosmic board (jump, then library grind)
+DM  → first wield (embodiment grind)
 ```
 
-**Breakthrough trigger (sketch):** VR peak tribulation — same acquisition pattern as VR entry from DT. Optional: witnessed **sign** as flavor, not a loot requirement.
-
-**Retired alternative:** “fold Seeking into VR until first comprehension” — conflicts with acquisition-realm model; Seeking is its own basin even when empty at entry.
-
-### Why comprehension gates at Seeking (not earlier)
-
-Below Seeking you may **tease** (forbidden wrongness, rumors). At Seeking you get the **basin and tools** — dao panel, contemplation sessions, merge pipeline — to **acquire** law systematically, the way VR gives the void grind.
-
-Fresh Seeker ≈ VR novice: new realm label, **old combat footprint** until they do the inner work.
+Fresh Seeker should **not** feel like “VR peak with homework” — they should feel like **someone heaven and the jianghu already account for**, even with an empty library.
 
 ---
 
@@ -287,7 +342,8 @@ Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k*
 - [ ] Karma / seer integration from world-building chat ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)) — separate issue?
 - [ ] Half-Step benefit from Peak worn depth vs breadth of library?
 - [ ] Which comprehension beats grant lifespan extensions in Seeking?
-- [ ] Seeking breakthrough: VR peak tribulation only, or require first **sign** witnessed? (Lean: trib only — matches VR acquisition pattern)
+- [ ] **Peak VR tribulation phenomenon** — Void Lens? Law Aperture? Heaven’s Question? (see brainstorm)
+- [ ] Seeking breakthrough package: exact lifespan floor + combat/weight passives
 - [x] ~~Collapse Seeking into VR sub-phase~~ — **retired**; acquisition realm at idx 6 (owner 2026-08-02)
 - [ ] Rename `fragments` → `pursuits` / `threads` in code and copy
 
