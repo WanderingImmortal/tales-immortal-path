@@ -26,23 +26,25 @@ Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md
 
 | Zone | Flagship(s) today | Direction |
 |------|-------------------|-----------|
-| **Frostbite** | Yin Maiden Palace + body ridge — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) · [`body-path-sect.md`](body-path-sect.md) | [`outer-zone-great-powers.md`](outer-zone-great-powers.md) |
+| **Frostbite** | Yin Maiden Palace + **Vajra Ridge** (body monks, south) — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) · [`body-path-sect.md`](body-path-sect.md) | **Dual Dao Wars survivors** on one spine |
 | **Dustbone** | Sandveil Tribunal (three tribes) | Great power **TBD** — tribes may stay local law; optional dynasty-remnant or bone-scripture sect later |
 | **Jade** | Storm Dragon + Tidal Lotus | Already **two co-peers** — deepen to full great-sect docs (sea charter, drowned crown lore) |
 | **Emberwild** | Emberwild Collective (loose coalition) | Promote Collective **or** add second peak great sect (volcanic) — owner pass |
 | **Heartlands** | Sword · Lotus · Void · Phoenix | Densest cluster — unchanged |
 
-## Frostbite — north slope (locked direction)
+## Frostbite — south ridge + north crown (locked direction)
+
+**Two great sects survived the Dao Wars** on the same gradient spine — different peaks, different lanes:
 
 ```text
 Frost Gate (chilly margin)
-    └── Vajra Ridge — body monks
-    └── Yin Maiden Palace — all-female Yin peak sect (NOT Scar; NOT guardian)
+    └── Vajra Ridge — body-refining monks (SOUTH great sect; bells, escorts)
+    └── Yin Maiden Palace — peak Yin (CROWN; last habitable peak)
     └── Scar margin — delves only
     └── Sunless Scar apex — uninhabitable (Mirror, Frozen Abyss)
 ```
 
-Yin sect is **not on the Scar** — **Yin Maiden Palace** pursues **peak Yin arts**; Bleed is crucible, not job. See [`frostbite-yin-sect.md`](frostbite-yin-sect.md).
+Yin palace is **not on the Scar** — pursues **peak Yin arts**; Bleed is crucible, not job. Ridge is **not** a city dojo — **monk institution** whose scripture is the vessel. See [`frostbite-yin-sect.md`](frostbite-yin-sect.md) · [`body-path-sect.md`](body-path-sect.md).
 
 ## Great-sect checklist (any outer flagship)
 

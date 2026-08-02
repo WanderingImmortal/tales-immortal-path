@@ -56,7 +56,8 @@ Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **I
 | Zone | Powers | Depth |
 |------|--------|-------|
 | **Jade** | Storm Dragon + Tidal Lotus | Rival-allies; sea routes; one quest each |
-| **Moonfract / Yin Maiden Palace** | [`frostbite-yin-sect.md`](frostbite-yin-sect.md) — **Yin Maiden Palace** (玉女宫); Yin peak arts, not guardian sect |
+| **Moonfract / Yin Maiden Palace** | [`frostbite-yin-sect.md`](frostbite-yin-sect.md) — crown; peak Yin |
+| **Vajra Ridge** | [`body-path-sect.md`](body-path-sect.md) — **south spine**; monk **body refiners**; Dao Wars survivor |
 | **Emberwild** | Emberwild Collective | Beast tamers, primal |
 | **(planned)** | **Body-path sect** — [`body-path-sect.md`](body-path-sect.md) | Vajra Ridge sketch; not in code |
 

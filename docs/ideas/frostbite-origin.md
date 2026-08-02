@@ -52,8 +52,8 @@ The zone is a **slope into the Scar**, not one biome. The Scar itself is **too g
 ```text
 Heartlands margin
     └── Frost Gate (chilly edge — habitable)
-    └── Vajra Ridge (body monks — granite spine)
-    └── Moonfract Palace (yin sect — LAST habitable high peak; arrays at the ward line)
+    └── Vajra Ridge (body-refining monks — granite spine, **south**)
+    └── Yin Maiden Palace (yin sect — LAST habitable high peak; arrays at the ward line)
     └── Scar margin (killing band — trials, escorts, delves; no permanent halls)
     └── Sunless Scar apex (Mirror, absolute yin — uninhabitable; Frozen Abyss sink)
 ```
@@ -120,7 +120,7 @@ Immortal tribulation as zone origin **fights** this kit — sunless field, array
 ```text
 Pre-sect era → Mirror emplaced or fractured
      ↓
-Dao Wars → northern powers **bargain to ward the Bleed** (yin palace + body ridge)
+Dao Wars → northern powers bargain — **Vajra Ridge + Yin Maiden Palace** survive with homelands intact
      ↓
 Now → Bleed still runs; sects **hold the line** — **nobody owns the Scar apex**
 ```
@@ -135,8 +135,8 @@ Now → Bleed still runs; sects **hold the line** — **nobody owns the Scar ape
 |------|-------------------|-----------|
 | **South** | `frost_gate` | Chilly margin |
 | **Mid** | wastes | Hard explore |
-| **Habitable crown** | Moonfract Palace (`frostpeak_monastery` id) | Yin sect — **not on Scar** |
-| **Lower** | Vajra Ridge (new node) | Body monks |
+| **Habitable crown** | Yin Maiden Palace (`frostpeak_monastery` id) | Yin sect — **not on Scar** |
+| **Lower / south** | Vajra Ridge (new node) | **Body-refining monks** — gate corridor |
 | **Scar** | `frozen_abyss`, apex delve | Lethal — **no sect HQ** |
 
 `ZONES.frostbite.description` — **gradient into the Scar**, not uniform tundra.
@@ -146,7 +146,7 @@ Now → Bleed still runs; sects **hold the line** — **nobody owns the Scar ape
 | Institution | Relationship to Scar |
 |-------------|----------------------|
 | **Moonfract / Yin Maiden Palace** | **Last habitable peak** — trains **peak Yin**; Scar is neighbor, not domain |
-| **Vajra Ridge** | Escorts through margin; flesh endures Bleed edge |
+| **Vajra Ridge** | **Southern spine** — monk body refiners; escorts through margin; flesh endures Bleed edge |
 | **Imperial bargain** | Don’t tamper with Mirror; **hold Bleed** from creeping south |
 
 ## Gameplay hooks (later)

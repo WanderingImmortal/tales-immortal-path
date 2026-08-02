@@ -48,7 +48,7 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 |------|-------------------|------------------------|
 | **Heartlands** | **Yes — center** | Sword, Lotus, Void, Phoenix, Tian; kneeling, Gambit prehistory |
 | **Jade** | **Yes — maritime front** | Sea routes, island sects, piracy, drowned sites; **sea charter** = Dao Wars settlement |
-| **Frostbite** | **Margin, not march route** | Bleed + cold = armies **don't cross the Scar**; **isolation bargain** at settlement; mercs, tribulation pilgrims, frost fragment digs at **edge** |
+| **Frostbite** | **Margin, not march route** | Bleed + Scar = armies **don't cross**; **two great sect survivors** — Vajra Ridge (south spine, body monks) + Yin Maiden Palace (crown); isolation / recognition at settlement |
 | **Dustbone** | **Peripheral** | Caravan wars, fragment trade, **weak imperial reach**; Third Dynasty garrison may be **post-war extraction or late-war collapse**; tribes **local law** — Sandveil not a charter petitioner |
 | **Emberwild** | **Raid fringe** | Jungle **not worth heaven-debt** to conquer; **contained, not conquered**; beast tides, obsidian sites, Phoenix raiders at margins |
 
@@ -61,13 +61,12 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 - Settlement: throne **mediates sea charter** — does not sail as emperor’s navy; archipelago keeps **dual great sect** parity.
 - **Player memory:** “The war was on the water. The charter split the sea.”
 
-### Frostbite — **quell north, small reaches south**
+### Frostbite — **two survivors: ridge south, palace crown**
 
 - Scar + Bleed **predate** Dao Wars ([`frostbite-origin.md`](frostbite-origin.md)).
-- **Northern theater:** quell chaos from **innumerable minor sects** drifting north — tactical buffer, not empire.
-- **Southern theater:** **many small incursions** — yin expert circles (quality over quantity); play field toward **multipolar** end; **silence ledger** debts — some **still outstanding** ([`frostbite-yin-sect.md`](frostbite-yin-sect.md)).
-- Settlement: Maiden Peak recognized; **no land claim south**; unsettled debts **awkward** in charter peace.
-- **Player memory:** “They sorted the north. They dipped south when it paid. **Old sects still owe them.**”
+- **Vajra Ridge** (south spine): **monk body refiners** — held Frost Gate corridor, escort contracts, licensed border muscle; settlement = recognized bastion, no land claim south ([`body-path-sect.md`](body-path-sect.md)).
+- **Yin Maiden Palace** (crown): quell northern chaos; many small Heartlands incursions; silence ledger ([`frostbite-yin-sect.md`](frostbite-yin-sect.md)).
+- **Player memory:** “The bells held the gate. The maidens held the crown. Old sects still owe silence — **the ridge just sent invoices.**”
 
 ### Dustbone — **economics of war; extraction lesson already learned**
 

@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Frostbite dual-peak — owner) |
+| **Updated** | 2026-08-02 (great sect survivor; southern spine — owner) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -32,15 +32,17 @@ Every `FACTION_DEFINITIONS` entry is qi-leaning, trade, beast, or ascetic — **
 
 A body sect is **not** “the combat faction.” Celestial Sword and Phoenix already own martial prestige on the qi line. The body sect’s identity is **the vessel as scripture** — pain as curriculum, oath as law, flesh as the cultivation base. They fight well because they **are** the weapon, not because they picked a combat doctrine perk.
 
-## Candidate: **Vajra Ridge Sect** (金刚岭宗)
+## Candidate: **Vajra Ridge Sect** (金刚岭宗) — **owner lean: lock**
 
 Working name — matches end-realm **Indestructible Vajra** without sounding demonic.
+
+**Owner lock (2026-08-02):** Frostbite’s **other Dao Wars survivor** beside Yin Maiden Palace — a **monk sect of body refiners** on the **southern** habitable spine (granite ridge above Frost Gate), not on the crown. Same great-sect weight class as the palace; **different lane** (flesh, escort, bell halls vs yin silence).
 
 ### At a glance
 
 | | |
 |--|--|
-| **Vibe** | Ascetic iron monks on a storm ridge — silence, bell strikes, and bones that ring when tempered. |
+| **Vibe** | **Ascetic iron monks** — silence, bell strikes, bones that ring when tempered; **body refining** as scripture |
 | **Path** | **Body-primary**; qi used as fuel for tempering, not as the cultivation root |
 | **Cultivation identity** | **Vessel Canon** (金刚体经) — layer-by-layer refinement (skin → bone → marrow) |
 | **Sacred practice** | **Vessel Rules** — sworn physical oaths; outer court learns discipline, inner court swears one rule for life |
@@ -53,21 +55,39 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **What they teach** | Outer: stances, breath-for-stamina, bone conditioning · Inner: marrow arts, vessel rule rites · **Refuse:** sword intent, flame rebirth, void gates |
 | **Forbidden apex** | *Stub* — blood-as-oath extremes, unnamed-rule mastery; **not** soul-into-body (that stays separate forbidden practice) |
 
-### Placement — **Frostbite north** (dual peak)
+### Placement — **Frostbite south spine** (dual great sect)
 
-Owner direction: outer zones get **great sect–tier peers** with their own stories. Frostbite holds **two** flagship institutions:
+Owner direction: outer zones get **great sect–tier peers** with their own stories. Frostbite holds **two survivors** from the Dao Wars — not one northern bloc:
 
-| Peak | Tradition | Notes |
-|------|-----------|-------|
-| **Moonfract / Yin Maiden** (habitable crown) | Yin **female-only** great sect — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) | Peak Yin arts; frost at low tier only |
-| **Granite ridge** (lower) | **Vajra Ridge** — body monks | Escorts, margin |
-| **Scar apex** | Sunless Scar — **no sect** | Delve / Frozen Abyss |
+| Band on spine | Institution | Tradition | Notes |
+|---------------|-------------|-----------|-------|
+| **Frost Gate margin** | Traders, chilly edge | — | Habitable south |
+| **Granite ridge** (mid-south) | **Vajra Ridge** | **Body-refining monks** | **Southern** great sect — escorts, bell halls, marrow springs |
+| **Last habitable crown** | **Yin Maiden Palace** | Peak Yin, female-only | [`frostbite-yin-sect.md`](frostbite-yin-sect.md) — **northern** peer on spine |
+| **Scar margin → apex** | Sunless Scar | — | No sect HQ |
 
-Heartlands stays the **densest** power cluster; Frostbite is **less entangled** in charter cold war but not weaker — isolation bargain, ward the north.
+```text
+Frost Gate → Vajra Ridge (body monks, south) → Yin Maiden Palace (crown) → Scar margin → Scar apex
+```
 
-- Homeland: **lower spine** above Frost Gate — traders hear bells before the ice palace appears in cloud
+- Homeland: **lower granite spine** — traders hear **bells** before the ice palace appears in cloud
 - **Respected, not courted** — imperial hire for border muscle; Heartlands sects rarely invite them to votes
-- **Regional great sect** — same weight class as yin palace peer, not a Heartlands “fifth petal”
+- **Regional great sect** — Dao Wars **survivor** with homeland intact; not a Heartlands “fifth petal”
+
+### Dao Wars — hold the corridor, sell the fist (owner lean)
+
+Different war posture from Yin Maiden — **visible muscle**, not silence ledger.
+
+| Layer | What they did | Why |
+|-------|---------------|-----|
+| **Southern buffer** | Held **Frost Gate approaches** and granite spine — stopped armies and refugee sects from **clogging the only sane road north** | Ridge arrays + **flesh that doesn’t break in Bleed wind** |
+| **Licensed muscle** | Escort contracts for Lotus caravans, imperial border forts, tribulation witness parties | **Monks for hire** — oaths, not marriage webs |
+| **Body-refiner exports** | Sent **small squads** of tempered adepts south when pay justified — shock infantry, array anchors, “walk through the flank” | Quality flesh; **not** yin concealment |
+| **Settlement** | **Vajra Ridge recognized** — homeland behind bell arrays; **no southern land claim** | Same capitulation lane as palace: intact bastion, charter border |
+
+**Contrast Yin Maiden:** palace **quelled north** around the crown and **small yin incursions** south; ridge **held the southern door** and sold **body expertise** outward. Both survived; neither ruled Frostbite as an empire.
+
+**Player memory:** “The bells held the gate. The maidens held the crown. **Nobody held the Scar.**”
 
 ### Relationships (sketch)
 
@@ -77,7 +97,7 @@ Heartlands stays the **densest** power cluster; Frostbite is **less entangled** 
 | **Jade Lotus** | Practical ties | Lotus hires ridge escorts; Ridge tolerates Lotus paperwork |
 | **Void Temple** | Mutual disdain | Books vs bell halls |
 | **Golden Phoenix** | Uneasy | Phoenix wants shock troops; Ridge refuses “ash renewal” ideology |
-| **Moonfract Palace** (yin sect) | Mutual ward of the north | Moon stillness on the crown vs iron on the ridge — hire each other for tribulation / border work |
+| **Yin Maiden Palace** | Neighbors on spine — **mutual ward of the north** | Moon stillness on crown vs iron on ridge — hire each other for tribulation / Bleed-margin work; **not** shared doctrine |
 | **Sunscar Clan** | Distant kin | Desert warriors respect pain; different religion |
 | **Imperial court** | Licensed muscle | Border forts, tribulation guards — not dynasty marriage |
 
@@ -111,7 +131,8 @@ Heartlands stays the **densest** power cluster; Frostbite is **less entangled** 
 
 ## Open questions
 
-- [x] Zone: **Frostbite** — dual peak with yin palace (owner 2026-08-02)
+- [x] Zone: **Frostbite** — **southern** spine peer to Yin Maiden (owner 2026-08-02)
+- [x] Tier: **great sect Dao Wars survivor** — monk body refiners (owner 2026-08-02)
 - [ ] Great sect **immortal in the vault** or founder-only myth (no sleeping apex)?
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?

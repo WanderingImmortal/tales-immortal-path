@@ -92,7 +92,7 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 | Power | Relationship |
 |-------|--------------|
 | **Void Temple** | Mutual respect — **different job**; no rivalry over “who guards what” |
-| **Vajra Ridge** | Neighbors — escorts, not shared doctrine |
+| **Vajra Ridge** | Neighbors on spine — **south vs crown** | Ridge holds gate corridor; palace wards Bleed creep — escort each other for tribulation / margin work; iron vs moon, not shared doctrine |
 | **Golden Phoenix** | Natural opposition — yang flame vs yin peak |
 | **Celestial Sword** | Distant — line vs moon |
 
