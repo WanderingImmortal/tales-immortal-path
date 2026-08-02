@@ -47,7 +47,7 @@ Code: `frostpeak_monastery` → palace on habitable peak; Scar = optional delve 
 | **Path** | **Qi-primary**; **Yin Dao** to the peak — not ice path, not body path |
 | **Entry** | **Female-only** inner court; outer servants / contractors male OK |
 | **Homeland** | **Maiden Peak** (玉女峰) or retain **Moonfract** hanzi — high ice **below** Scar band |
-| **Lineage** | *Stub* — **Supreme Yin Canon** (太阴极典) or **Maiden Moon Scripture** (玉女月经) |
+| **Lineage** | **True Yin Scripture** (真阴经) — apex canon; outer court uses frost-flavored introductory manuals |
 | **Primary lean** | **Yin technique supremacy** — manuals, duels of concealment, assassination contracts, moon reagents |
 | **Also has hands in** | Frost mats (low-tier teaching), silence oaths, tribulation **observation** (side contract, not guardian duty) |
 | **Refuse** | Yang flame paths; male inner disciples; being hired as “northern wardens” |
