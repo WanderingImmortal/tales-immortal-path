@@ -208,28 +208,34 @@ Tie to existing **standing / apprehension** axes (karma / reputation brainstorm)
 | **Aura** | Comprehending laws feeds immortal-layer legislation preview ([`immortal-world-layer.md`](immortal-world-layer.md)) |
 | **Jurisdiction** | Read the board — know which grounds answer to which law before entering |
 
-**Seeking** = study, hunt fragments, read — **not** wear.
+**Seeking** = study, hunt fragments, merge, build **library** — comprehend many; passives stack — **not** wear.
+
+**Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — Lesser vs Greater, library/merge/wear, sword example.
 
 **Today in 7-realm code:** Dao Seeking = idx 5 (`DAO_SEEKING_REALM_IDX`).
 
 ---
 
-### 7 — Dao Manifestation · **Law (wear)** *(draft — owner to tune)*
+### 7 — Dao Manifestation · **Law (wear)**
 
 > *The law is not in your notes — it is on your skin.*
 
 | Type | What players get |
 |------|------------------|
-| **Verb** | **Embody one law** locally — chosen dao imposes on space (muffle weak techniques, skew tribulation character, formation interaction) |
+| **Verb** | **Embody one active law** locally — worn dao imposes on space (muffle weak techniques, skew tribulation character, formation interaction) |
 | **Aura** | Others sense **which** law you wear; faction and heaven react differently than generic "high realm" |
 | **Jurisdiction** | Bridge to immortal politics — preview **legislation** without full Court layer |
 
-**Distinction from idx 6:** Seeking **comprehends**; Manifestation **wears**. Seeking is library; Manifestation is armor.
+**Distinction from idx 6:** Seeking **comprehends** (library); Manifestation **wields** (one worn law). First **wield** — even a Lesser way-law — gates entry to idx 7.
+
+**Wear rules (owner lock 2026-08-02):** **one active worn law**; **swappable with cost** (not locked for life). Manifestation **depth** (Wielded → Refined → Imposed → Peak) tracks mastery with the worn law — not granted by equipping Greater alone.
+
+**Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md)
 
 **Body skin:** **Law-forged flesh** — physique expresses worn law.  
 **Soul skin:** **Law-bound soul** — will attacks carry law flavor.
 
-**Open:** one law per life vs swappable; gate to Half-Step / idx 8.
+**Open:** swap cost curve; Half-Step tie to Peak worn depth.
 
 ---
 
@@ -336,7 +342,7 @@ Ship against **today's indices** first; extend when nine-realm migration lands:
 - [ ] Body/soul paths — all 9 skins or subset at launch?
 - [x] QC Perception = light qi-feel — [`qi-condensation-depth.md`](qi-condensation-depth.md)
 - [x] Deity Transformation pressure — **contextual by civic tier**, not fixed radius (owner 2026-08-02)
-- [ ] Dao Manifestation — one worn law per life vs swappable?
+- [x] Dao Manifestation — **one active worn law, swappable with cost** (owner 2026-08-02) — see [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md)
 - [ ] GC combat qi-lock — v1 or v2?
 
 ## Implementation crumbs
@@ -347,6 +353,7 @@ Ship against **today's indices** first; extend when nine-realm migration lands:
 - `ui.js` — `renderScenePanel` chip
 - `npc.js`, `ambient-npcs.js` — pressure reactions
 - [`cultivation-realm-depth-pass.md`](cultivation-realm-depth-pass.md) — umbrella; this doc is the capability matrix
+- [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — idx 6–7 dao philosophy, library/merge/wear
 
 ## Links
 

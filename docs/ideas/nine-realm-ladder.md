@@ -54,6 +54,8 @@ Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian /
 - **Seeking** = comprehend, hunt fragments, read laws  
 - **Manifestation** = embody a law; local imposition; bridge to immortal politics  
 
+**Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — Lesser vs Greater, library/merge/wear, Manifestation depth, sword example.
+
 ## Half-Step Immortal (stub — peak, not realm?)
 
 **Intent:** Touch heaven’s threshold without completing ascension — peak state **within or immediately before** Immortal Ascension, analogous to Peak Golden Core / sealed dantian.

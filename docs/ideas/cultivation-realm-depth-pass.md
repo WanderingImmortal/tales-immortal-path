@@ -34,6 +34,7 @@ For each major realm (qi / body / spirit tracks as applicable):
 | Tribulation / limbo | [`tribulation-per-realm-limbo.md`](tribulation-per-realm-limbo.md) |
 | Lifespan / pacing | [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) |
 | Methods / manuals | [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) |
+| Dao Seeking / Manifestation | [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — **designed** 2026-08-02 |
 | Three-track / embryo | shipped / in progress elsewhere |
 
 ## Parked until this lands
@@ -48,7 +49,7 @@ For each major realm (qi / body / spirit tracks as applicable):
 ## Open questions
 
 - Order of realms to deepen in code (FE first vs ship GC/NS travel claims first)?
-- Owner tune: Deity Transformation radius; Dao Manifestation one-law-per-life?
+- Owner tune: Deity Transformation contextual pressure (done — see realm-claims); Dao Manifestation swap cost curve?
 
 ## Implementation crumbs (later)
 
