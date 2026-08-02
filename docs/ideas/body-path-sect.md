@@ -23,7 +23,7 @@ Add **one named great power** (or strong regional sect) whose **primary cultivat
 | Realms | Bronze Skin → … → Indestructible Vajra (`PATHS.body`) | Full ladder + chamber |
 | World factions | None body-primary | Heartlands four + zone stubs |
 | Techniques | Martial arts tagged `path: body` | Sword, flame, dao arts |
-| Identity | Vessel Rules (Blood, Unnamed) | Weapon Intent, dantian seal |
+| Identity | **Martial Intent** (武意) — Fist + Staff; Vessel Rules | Weapon Intent, dantian seal |
 | Manuals | Deferred in manuals framework | Lineage manuals in progress |
 
 Every `FACTION_DEFINITIONS` entry is qi-leaning, trade, beast, or ascetic — **no “we forge the body” institution.**
@@ -195,7 +195,7 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 
 **Not stupid. Not careless about survival.** He simply **does not care** to act intelligent when **walking toward the problem and fighting it** solves the week. Foxes (Bell Luo) exist because the sect still needs signatures.
 
-**Doctrine (his):** technique is decoration; **tempered flesh expressing will** is the whole Vessel Canon. Living proof — no sword intent, no rebirth flame, a body that **refused** to learn breaking.
+**Doctrine (his):** technique is decoration; **Fist Martial Intent** at ceiling — tempered flesh expressing will. Living proof — no sword intent, no rebirth flame, a body that **refused** to learn breaking. Detail: [`body-martial-intent.md`](body-martial-intent.md).
 
 **Pleasure:** a worthy hit — armor that **almost** hurts him, a line that **almost** cuts, a war that **almost** justifies leaving the springs.
 

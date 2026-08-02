@@ -53,6 +53,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `designed` | Phase 1 gates 2–3 | — |
+| [Body Martial Intent (武意)](body-martial-intent.md) | `idea` | Body chamber; intent.js split | — |
 | [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
 | [Outer-zone great powers (hub)](outer-zone-great-powers.md) | `idea` | Owner per-zone passes | — |
 | [Frostbite origin — Sunless Scar](frostbite-origin.md) | `idea` | Owner treasure variant | — |
