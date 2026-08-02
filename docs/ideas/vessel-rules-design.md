@@ -6,7 +6,7 @@
 | **Blocked on** | More rule defs; sect-assigned rules |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Settled stage workshop) |
+| **Updated** | 2026-08-02 (Permeated stage workshop) |
 
 **Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
 
@@ -201,7 +201,7 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 |-------|-------------------------|------------------|
 | **Adhered** | See **below** — first stage after swear | Young war monk: reputation, not aura |
 | **Settled** | Rule **settled into flesh** — flesh **defaults** to oath; passive combat support | See **Settled** section below |
-| **Permeated** | **Unyielding press** — enemy “winning” exchanges **stall** | Intrusion brawls: neither side finishes cleanly |
+| **Permeated** | Rule **permeates** marrow rhythm — first **outward** friction on foes / exchanges | See **Permeated** section below |
 | **Surfaced** | Knocked down → must **rise** before fight “ends” for you | Opponents learn: put him **down**, not **out** |
 | **Apex** *(name TBD)* | Battlefield rejects your **defeat-state** until flesh fails | Frost Gate; Golden Arhat scale — still not invincible |
 
@@ -303,7 +303,72 @@ Keeps **all Adhered** restrictions and payoffs. Adds:
 
 ---
 
-### Player feel — own UI lane
+#### Permeated — what it does (third stage)
+
+**After Settled.** The rule **permeates marrow rhythm** — it runs through how you fight every round, not only when you’re losing. **First stage where the oath pushes outward:** opponents and exchanges start to **feel** friction. Still not aura-tier; still not a crazy power bump — the jump from Settled is **noticeable**, not **dominant**.
+
+**How you reach Permeated (lean):**
+
+| Gate | Lean |
+|------|------|
+| **Compliance** | At **Settled**, accumulate more pressure rounds / fights without breach (e.g. +30 pressure rounds or +6 clean fights beyond Settled gates) |
+| **Chamber** | Continued tempering under oath; marrow-layer weeks start counting **double** toward adherence |
+| **Fulfillment** | `progressionPct` ~70–80% |
+| **Milestone fight** | **Long fight under pressure** — e.g. 8+ rounds in losing band in one engagement, win or lose, no yield attempt — rule **permeates** the rhythm of that grind |
+
+**Slip back:** sustained breach from Permeated → regress to **Settled**. Harder to lose Permeated than Adhered, but slip still real.
+
+**Interior peak lean:** **Permeated + ~100% fulfillment** can satisfy interior peak gate (alternative: Settled + 100% if owner wants earlier peak — open). Permeated = rule truly **through** the vessel, not just settled on it.
+
+---
+
+**Generic — all rules at Permeated**
+
+| Shift from Settled | What changes |
+|--------------------|--------------|
+| **Marrow rhythm** | Rule colors **every exchange** — basics / chamber-tempered body stats subtly align with rule channel while oath holds |
+| **Outward friction** | First tier where **foes or physics** notice — not self-only like Adhered/Settled |
+| **Compliance weight** | Pressure-round compliance counts **double** toward Surfaced |
+| **Fight length** | Build starts **extending** fights — attrition identity sharpens (by design) |
+
+---
+
+**Rule of Unyielding at Permeated (player)**
+
+Keeps **all Adhered + Settled**. Adds:
+
+| Payoff | Mechanic lean | Feel |
+|--------|---------------|------|
+| **Unyielding press** | When an enemy lands a **momentum hit** (heavy damage threshold, crit, or technique tagged as finisher) while you’re in **losing band**: enemy’s **follow-up tempo stalls** — no bonus chain turn, next hostile action **−15% damage** or **1-turn delay** on their combo | They **can’t close** on you cleanly — fight **drags** |
+| **Contest on close** | Once per fight: when a hit would drop you **below** losing band from above it, trigger **soul contest** (lean on shipped contest %) — on success, hit **stalls** (damage still lands but momentum dies) | “Almost had him” becomes **almost** |
+| **Enemy morale drag** | Foes with morale/momentum systems lose extra morale when a **stalled** exchange triggers | Intrusion fantasy — **frustration**, not fear |
+| **Still not** | Must-rise after knockdown; defeat-state rejection; DR when winning; you **always win** | You’re **hard to finish**, not **hard to hit** |
+
+**Power bump vs Settled:** Settled = **you** hold. Permeated = **they** can’t **cash in** — modest, but changes duel rhythm. Bad for burst-matchup **into** you; good for **third-party** brawls and wars of attrition.
+
+**Player fantasy at Permeated:** intrusion squads, corridor holds, “we stunned both sides and left.” Duels against finishers (Phoenix palms, sword lines) **stall** instead of ending in three exchanges.
+
+**Da Chi at Permeated (fiction — intrusion doctrine forming):**
+
+- **Intrusion brawls** become signature — squads enter others’ battles, sting **both** lines, **withdraw before anyone wins cleanly**
+- Charter complaints: ridge “**doesn’t finish fights**” — Bell Luo manages paper; Da Chi manages **training**
+- Jianghu shifts from “he stays” to “he **ruins** fights” — neither side gets ledger clarity
+- War monk recruitment **accelerates** — fight maniacs, not solemn ascetics
+- Da Chi **personally** leads flank-breaking squads — Permeated press on a **patriarch-scale** body is why intrusions work without massacres
+- Still **no** Golden Arhat aura — peers call it **madness**, not law; still knocked out in bad matchups
+
+---
+
+**Other rules at Permeated (sketch — for comparison)**
+
+| Rule | Permeated expression |
+|------|---------------------|
+| **Rule of Blood** | Bloodied **damage bonus** more consistent; **seal** arms faster when bloodied; foes contest/slow on seal backlash |
+| **Rule of the Unnamed** | Flow builds **+1 stack** on slip or peak flow turn; stagnation **clears** on flow win; enemies **slip** minor damage when you’re at flow cap |
+
+**Contrast later stages:** Surfaced = rule **visible** (knockdown / rise); apex = **defeat-state** rejection. Permeated = **exchange friction** — the fight **won’t end on their terms**.
+
+---
 
 - **Not** an Intent panel reskin — separate **Vessel Rule / Adherence** readout in Body Chamber
 - Show: rule name, **adherence stage**, fulfillment %, last sting/slip — not “uses: 47”
@@ -359,7 +424,7 @@ Da Chi is **not invincible** — he has **lost** fights, been knocked down, been
 
 | Rule idea | Oath shape | Fit to Da Chi |
 |-----------|------------|---------------|
-| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** — no surrender, voluntary retreat while capable of answering | Da Chi at apex (name TBD); **Adhered** was young-war; **Settled** was mid-war line-holder |
+| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** | Da Chi apex (name TBD); **Permeated** = intrusion doctrine era |
 | **Rule of the Unbroken Step** | Foot does not **retreat** from a declared engagement; advance or hold | Fight-forward Mad Monk; intrusion brawls **push** lines |
 | **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Ethics lane — pairs with Unyielding |
 | **Rule of the Unnamed** | Motion rule — no frozen technique; fist is not named form | Martial Intent doctrine; supreme **flow** — different channel than Unyielding |
@@ -405,7 +470,8 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
 - [ ] Lock Da Chi apex rule: **Unyielding** vs Unnamed / Answering Blow / Impact
 - [ ] Lock **apex** name after Permeated / Surfaced / finisher are defined — not before
-- [ ] Settled thresholds (fights, pressure rounds, fulfillment %) — tune in implementation
+- [ ] Permeated thresholds vs Settled — tune pressure rounds / fulfillment %
+- [ ] Interior peak at **Permeated + 100%** vs Settled + 100% — owner pick
 - [ ] **Adherence** stage thresholds; merge vs separate `progressionPct`
 - [ ] Body Dao **sting / slip** tuning — micro-breach vs release
 - [ ] Per-rule **milestone** unlocks (not generic deepen/expand clone)
