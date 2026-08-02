@@ -92,7 +92,7 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 | Power | Relationship |
 |-------|--------------|
 | **Void Temple** | Mutual respect — **different job**; no rivalry over “who guards what” |
-| **Vajra Ridge** | Neighbors on spine — **south vs crown** | Ridge holds gate corridor; palace wards Bleed creep — escort each other for tribulation / margin work; iron vs moon, not shared doctrine |
+| **Vajra Ridge** | Neighbors — **oil and ice** | Mad Arhat (Da Chi) vs crown stillness; tactical contracts only — see [`body-path-sect.md`](body-path-sect.md) |
 | **Golden Phoenix** | Natural opposition — yang flame vs yin peak |
 | **Celestial Sword** | Distant — line vs moon |
 
@@ -166,7 +166,19 @@ Every incursion and **expert deployment** could be **contracted**:
 | **Still outstanding** | Survivors who **still live** — mid sects, elders, hidden patrons *(owner may design)* |
 | **Player hook** | Faction rep reveals “your elder’s grandmother owed the Maidens a silence” |
 
-**Parked:** owner may design **a couple mid-tier sects** (or cadet branches) with **unsettled silence debts** — charter awkwardness, assassination refusal, forced yin aid. See [`silence-debt-mid-sects.md`](silence-debt-mid-sects.md).
+**Parked:** one **silence debt** (or paid bath-house settlement) from a Dao Wars southbound retreat — ridge hired palace concealment once. See [`body-path-sect.md`](body-path-sect.md) (Yin Maiden ↔ Mad Arhat).
+
+## Spine vs Mad Arhat — **exhausting neighbor** *(owner lean)*
+
+| | **Silent Moon Matriarch** *(stub)* | **Mad Arhat** (Da Chi) |
+|--|-----------------------------------|------------------------|
+| **Temperature** | Winter water — subtract | Forge heat — add impact |
+| **War** | Used war; never believed in it | **Loved** war; still wishes it continued |
+| **Each other** | He is **yang noise** on her slope | She is **no fun** — won’t brawl, won’t host a fair fight |
+| **Cooperation** | Hire ridge to **punch** what yin shouldn’t touch | Hire palace once for **concealment** — debt on the books |
+
+**Not romance.** Professional spine friction on one road north.
+
 
 ### Why “join” (summary)
 

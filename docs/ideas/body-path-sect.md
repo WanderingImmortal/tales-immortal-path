@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Saintly Flesh realm — saints vs immortals) |
+| **Updated** | 2026-08-02 (Mad Arhat character pass — owner workshop) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -51,9 +51,9 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **Cultivation identity** | **Vessel Canon** (金刚体经) — layer-by-layer refinement (skin → bone → marrow) |
 | **Sacred practice** | **Vessel Rules** — sworn physical oaths; outer court learns discipline, inner court swears one rule for life |
 | **Homeland** | **Vajra Ridge** (金刚岭) — wind-scoured granite, hanging bell halls, marrow hot springs under the peak |
-| **Founder myth** | A mortal smith who **hammered his own ribs into scripture** until heaven could not break him — no immortal patron at founding, which they still boast about |
+| **Founder myth** | **Rib-Hammer Ancestor** (锻肋祖师) — mortal smith who hammered his own ribs into scripture; **not** the Mad Arhat — see spine section |
 | **Public leader** | **Patriarch Bell Luo** (钟络) — Void Refinement; **old fox** — sees every scheme; **chooses** the fist; runs charters; rarely leaves the ridge |
-| **Sect spine** | **The Mad Arhat** (疯罗汉) — *working epithet* — **Immortal**; **soul of the fist** for the whole mountain; true name **TBD** |
+| **Sect spine** | **The Mad Arhat** (疯罗汉) — **Saint** (Saintly Flesh); true name **Da Chi** (大痴) — *working*; soul of the fist |
 | **Player-facing elder** | **Elder Iron Han** (铁瀚) — Nascent Soul; **wildest** of the old foxes on the trial ground; accepts worthy wanderers |
 | **Primary lean** | **Fortification & escort** — ridge arrays, caravan muscle, border garrisons for hire |
 | **Also has hands in** | Ore and beast-bone trade, medicinal baths, duel arbitration (“flesh decides”) |
@@ -97,6 +97,8 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 
 Same **power band** at idx 8 — different **what you finished**. Qi ascends as **immortal** (仙); body **sanctifies flesh** — jianghu shorthand calls them **Saints** (圣), not immortals.
 
+**UI note:** At capstone, “Saint” means **Saintly Flesh body cultivator** — not a generic moral label or qi-path title. Context disambiguates (cf. “Immortal” only attaching to 仙-tier figures).
+
 ### Generic — **Saintly Flesh** realm (owner lock)
 
 **Default body-path capstone** — no monastery required.
@@ -134,31 +136,151 @@ Breakthrough to **Saintly Flesh**; bell hall writes **Golden Body Arhat**; Heart
 
 Nine-realm alignment: idx 8 body = **Saintly Flesh** realm (not Immortal Ascension in body UI). See [`forging-equipment-tiers.md`](forging-equipment-tiers.md), [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
-### Sect spine — **The Mad Arhat** (疯罗汉) *(stub)*
+### Sect spine — **The Mad Arhat** (疯罗汉) *(owner lean — 2026-08-02)*
 
-**Soul of the fist** for Vajra Ridge — every outer monk learns from stories of his punches; Patriarch Bell Luo exists so the **Saint** doesn’t have to read charter mail.
+**Soul of the fist** for Vajra Ridge. Patriarch Bell Luo runs the mountain so the **Saint** never has to read charter mail.
 
-| | **Sword Immortal** | **Phoenix Immortal** | **Mad Arhat** *(stub)* |
-|--|-------------------|---------------------|------------------------|
-| **Title lane** | 仙 immortal | 仙 immortal | **圣** saint — **Golden Body Arhat** formally |
-| **Epithet** | 剑仙 — line made law | 凤凰仙 — tired guardian | **疯罗汉** — joy in impact |
-| **Dao Wars** | Dao Manifestation; **hid** in Seal Array | Knelt; brother ascended later | **Fought everywhere** — best years; elders **lie** in official histories |
-| **After peace** | Sleeps in array core | Veto on existential war | **Still wants a fight** — Bell Luo + Vessel Rules keep him on the ridge |
-| **Public face** | Forgotten true name | Younger brother patriarch | **Laughing old monk** who asks if your bones are interesting |
-| **Power** | Immortal tier | Immortal tier | **Saintly Flesh** tier — **Golden Body Arhat** on the wall; registry says **Saint** |
+Link spine pattern: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Sword Immortal + Yun Jian), [`golden-phoenix-sect.md`](golden-phoenix-sect.md) (Phoenix Immortal), [`frostbite-yin-sect.md`](frostbite-yin-sect.md) (Yin Maiden spine).
 
-**Spine sketch:**
+---
 
-- **Nature:** wildest old fox **without** the fox patience — already read your trap, **still** prefers to punch through it because the punch is **fun**.
-- **Doctrine:** the fist is not technique — **tempered flesh expressing will**; Vessel Canon’s living proof.
-- **Where he lives:** marrow hot springs / bell vault under ridge — not hiding like Sword Immortal; **contained** by oaths + patriarch’s carrots (“new challenger at the trial ground”).
-- **Bell Luo reports** once per season; Mad Arhat’s reply is usually one word or a belch.
+#### Founder vs Mad Arhat — **not the same person**
 
-**Not stupid:** sharpest instinct on the mountain — **chooses** brawl over scheme; same tier as other sect spines.
+| Figure | Role | Culture |
+|--------|------|---------|
+| **Rib-Hammer Ancestor** (锻肋祖师) | **Founder myth** — mortal smith, no immortal patron; hammered ribs into first **Vessel Canon** lines | Ridge was **solemn** ascetics — bells, hardship, “pain is curriculum” |
+| **Da Chi → Mad Arhat** | **Not founder** — arrived centuries later; became apex; **never left** | Turned the institution into what jianghu calls **Mad Monks** while charter still says **ascetic** |
 
-**Player hook:** rep climb → Iron Han trials → rare **bell vault** audience — “You’re not strong enough to bore me. Come back when you hurt right.”
+Official history praises the Ancestor’s iron discipline. **Living culture** copies Da Chi’s laugh, his walk toward trouble, and Bell Luo’s leash. Young monks quote the founder in initiation; veterans quote **what the Mad Arhat did at Frost Gate**.
 
-Link spine pattern: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Sword Immortal + Yun Jian), [`golden-phoenix-sect.md`](golden-phoenix-sect.md) (Phoenix Immortal).
+**Owner lock:** Mad Arhat **did not found** the sect — his **long stay** (post–Dao Wars Saint + ~two centuries of “still here”) **warped** a serious ridge monastery into a fight-happy great sect. Without him, Vajra Ridge might still be dour bell monks hired for escorts — **not** legends who wish the war never ended.
+
+---
+
+#### Who he is — **Da Chi** (大痴)
+
+| Field | Value |
+|-------|-------|
+| **True name** | **Da Chi** (大痴) — “Great Fool”; only Bell Luo and inner vault records use it |
+| **Epithet** | **Mad Arhat** (疯罗汉) — jianghu; **Golden Body Arhat** (金身罗汉) on bell-hall wall |
+| **Title lane** | **Saint** (圣) — Saintly Flesh; registry does **not** call him immortal (仙) |
+| **Realm** | **Saintly Flesh** — broke through **after** Dao Wars capitulation *(lean — see war section)* |
+| **Age** | ~300 mortal years since ascension as Saint; looked **sixty** and **unfinished** even before — flesh that won’t settle |
+| **Look** | Bald, barrel-chested, rope belt, **bare feet on granite**; grin before the punch; knuckles like worn river stone |
+
+**Nature:** wildest **old fox** on the continent **without** fox patience — reads your trap in one glance, **still** walks toward your champion because impact is **honest**. Not stupid — **chooses** the fist when schemes would work but cost **years**.
+
+**Doctrine (his):** technique is decoration; **tempered flesh expressing will** is the whole Vessel Canon. He is the living proof — no sword intent, no rebirth flame, just **a body that decided it would not break**.
+
+**Pleasure:** a worthy hit — armor that **almost** hurts him, an expert who **almost** dodges, a war that **almost** justifies leaving the springs.
+
+**Where he lives:** marrow hot springs and **bell vault** under the ridge — not sealed like Sword Immortal; **contained** by Vessel Rule oaths Bell Luo renews and by **trial-ground challengers** Bell feeds him so he does not walk south and restart the Gambit with his fists.
+
+**Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
+
+---
+
+#### How he reshaped sect culture
+
+| Before Da Chi (founder lane) | After Da Chi (Mad Monk lane) |
+|------------------------------|------------------------------|
+| Silence is virtue | Silence **until** the bell rings for spar |
+| Escort = duty | Escort = **ticket to someone’s war** |
+| Patriarch = grave elder | Patriarch = **fox who manages fight addicts** |
+| Outer court fears shame | Outer court fears **boredom** more than bruises |
+| “We temper flesh” | “We temper flesh — **then we test it on something**” |
+
+**Vessel Rules** tightened under Bell Luo **because** Da Chi exists — never strike first, never kill after surrender, one life per contract. **Foxes write the rules; fools break them loudly; the Saint ignores rules that don’t interest him** until Bell Luo makes them interesting.
+
+Every Mad Monk elder is a **fox** or a **fool** or both. Da Chi is the **template** elders secretly measure themselves against: *would the Arhat have walked into that?*
+
+---
+
+#### Dao Wars — sect + Mad Arhat personally
+
+**Institution (public record):** held **Frost Gate corridor** and granite spine; licensed muscle for Lotus caravans, imperial forts, tribulation witness; **no southern land claim** at settlement.
+
+**Mad Arhat (truth):** the war’s **golden age** — he was already **fight-mad inner-court elite** before capitulation, **not yet Saint**.
+
+| Phase | Sect | Da Chi personally |
+|-------|------|-------------------|
+| **Early war** | Ridge arrays lock the **south road**; escort contracts fund the peak | Volunteers for **every** southbound contract that smells like battle — “witness tribulation” often means **stand near a fight** |
+| **Mid war** | Shock squads of tempered adepts — quality flesh, small units | **Walked through flanks** for Lotus pay, Phoenix margins, imperial forts — **never** for Phoenix ideology; always for **the scrap** |
+| **Northern spill** | Stops refugee sects **clogging** the spine (institutional buffer) | **Personally** cleared camps that blocked the bell road — palace heard the punching from Maiden Peak |
+| **Half-Step** | Patriarch capitulates — **homeland intact** behind bell arrays | Da Chi **not** at Tian demonstration — was at Frost Gate **holding** against a retreating army that would have trampled the road |
+| **After peace** | Charter recognition; Mad Monk veterans everywhere | Breakthrough to **Saintly Flesh** — first **Golden Body Arhat** of the modern ridge; **did not calm down** |
+
+**Official minutes:** *“Solemn duty on the northern approaches.”* **Bath-house truth:** Da Chi fought **six** Heartlands skirmishes on escort papers that listed **one**.
+
+**Why the sect survived:** arrays + **a monster** at the gate who **wanted** the war to come to him — armies learned routing through Frost Gate cost **bodies** even when they won.
+
+**Player memory:** *“The bells held the gate. The maidens held the crown. The fool at the gate held **everything else**.”*
+
+---
+
+#### Yin Maiden Palace — neighbors on the spine *(owner lean)*
+
+**Not allies. Not enemies. Complementary thermodynamics.**
+
+```text
+Frost Gate ── Vajra Ridge (yang heat, noise, fists) ── Yin Maiden Palace (yin stillness, subtraction)
+```
+
+| Layer | Dynamic |
+|-------|---------|
+| **Geography** | Only **sane road north** — ridge **south**, palace **crown**; must coexist or both lose trade and ward lines |
+| **Doctrine** | Palace **subtracts** exposure; ridge **adds** impact — opposite cultivation weather |
+| **Social** | Palace thinks monks are **loud, undignified, bad for yin**; ridge thinks palace is **all subtraction, no joy** |
+| **Spine vs spine** | **Silent Moon Matriarch** (stub) finds Da Chi **exhausting** — yang noise on her slope; Da Chi finds her **no fun** — won’t fight him fairly, won’t host a good brawl |
+| **Romance** | **None** — female-only inner court; professional only |
+
+**Dao Wars cooperation (rare, tactical):**
+
+| Contract | Who hired whom | Why |
+|----------|----------------|-----|
+| **Northern quell** | Palace **implicitly** benefited | Ridge **punched** sect camps palace didn’t want to touch — **yang noise** without yin experts spending silence debts |
+| **One southbound retreat** *(parked beat)* | Ridge hired palace **concealment** | Da Chi’s squad came back **too visible** from a Heartlands fight — Maidens hid the retreat; ridge owes **one silence** (paid in marrow baths + bell ore — **not** marriage) |
+| **Bleed-margin witness** | Joint caravans | Flesh endures edge wind; yin adepts **observe** tribulation — **back-to-back**, not mixed doctrine |
+
+**Charter peace today:**
+
+- **Mutual recognition** on spine — neither claims the other’s peak.
+- **Case-by-case contracts** — escort, witness, concealment; no standing alliance.
+- Palace envoys **never** dine in bell hall (too loud); ridge escorts **never** enter inner palace courts (yang policy).
+
+**One line each:**
+
+- Maiden envoy: *“Keep your fool below the crown line.”*
+- Bell Luo: *“Keep your silence off our gate road.”*
+
+**Player hook:** high rep on **both** factions reveals the **single unpaid silence** (or paid bath-house debt) between them — charter awkwardness if exposed.
+
+---
+
+#### Leadership table
+
+| Role | Name | Realm | Notes |
+|------|------|-------|-------|
+| **Sect spine** | **Mad Arhat** / Da Chi (大痴) | **Saint** (Saintly Flesh) | Golden Body Arhat formally; contained in bell vault |
+| **Patriarch** | **Bell Luo** (钟络) | VR peak | Fox administrator; **manages** the Saint |
+| **Trial elder** | **Iron Han** (铁瀚) | NS | Player gate; wildest fox below Da Chi |
+| **Founder (myth)** | **Rib-Hammer Ancestor** | Mortal legend | Not the Mad Arhat |
+
+**Succession:** patriarch names heir from trial ground — **Da Chi does not inherit**; he **endures**. When he finally breaks (death, walk south, charter crisis), the Mad Monk culture **outlives** him — that’s Bell Luo’s real job.
+
+---
+
+#### Player beats
+
+| Rep / beat | Who | Hook |
+|------------|-----|------|
+| **Outer gate** | Elder Iron Han | Spar, trial, “prove your flesh” |
+| **High rep** | Patriarch Bell Luo | Charter witness, escort contract, **manage** Da Chi problem |
+| **Rare apex** | Mad Arhat audience | *“You’re not strong enough to bore me. Come back when you hurt right.”* |
+| **Dual rep** | Maiden + Ridge | Expose or settle the **one silence** between peaks |
+
+**Parked greet (Mad Arhat):** *“Your bones are loud. Good. Hit me once — if I feel it, I’ll remember your name.”*
+
 
 ### Placement — **Frostbite south spine** (dual great sect)
 
@@ -203,7 +325,7 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 | **Jade Lotus** | Practical ties | Lotus hires ridge escorts; monks **tolerate** paperwork because it points toward trouble |
 | **Void Temple** | Mutual disdain | Books vs bell halls — “read less, punch more” |
 | **Golden Phoenix** | Uneasy kin | **Best war buddies**, worst peace neighbors — Phoenix wants ideology; monks want **a good scrap**; refuse ash renewal |
-| **Yin Maiden Palace** | Neighbors on spine — **oil and ice** | Moon stillness vs fight-heat; hire each other for tribulation / Bleed-margin work; palace thinks they’re **loud**; ridge thinks palace is **all subtraction** |
+| **Yin Maiden Palace** | Neighbors — **oil and ice** | See [`body-path-sect.md`](body-path-sect.md) (Mad Arhat ↔ Maiden spine); one parked **silence debt**; joint Bleed witness |
 | **Sunscar Clan** | Distant kin | Desert warriors respect pain; different religion |
 | **Imperial court** | Licensed muscle | Border forts, tribulation guards — not dynasty marriage |
 
@@ -243,8 +365,9 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 - [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
 - [x] Generic capstone: **Saintly Flesh** realm (圣体境); person shorthand **Saint** / **Saints** — not “flesh saint” (owner 2026-08-02)
 - [x] Buddhist lineage epithet: **Golden Body Arhat** (金身罗汉); spine nickname **Mad Arhat** (疯罗汉)
+- [x] Mad Arhat **not founder** — Rib-Hammer Ancestor myth; Da Chi reshaped culture (owner 2026-08-02)
+- [x] Spine true name — **Da Chi** (大痴) working; epithet **Mad Arhat** (疯罗汉)
 - [ ] Hanzi lock: **圣体境** vs **肉身圣境** for realm name
-- [ ] Spine true name (疯罗汉 is epithet only)
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?
