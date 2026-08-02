@@ -6,7 +6,7 @@
 | **Blocked on** | Owner lock on in-world terms (hanzi); cosmology depth pass |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-08-02 (Great Dao vs axis — owner Q) |
 
 ## Intent
 
@@ -28,40 +28,113 @@ Related: [`frostbite-origin.md`](frostbite-origin.md), [`realm-claims.md`](realm
 
 Without labels, **absolute yin** and **Law of Dust** feel like the same category as **Sword Dao** — they aren’t.
 
-## Proposed stack (five layers)
+## Proposed stack — two axes of “law”
 
-Use **design English** in agent docs; lock **in-world hanzi** later.
+**Vertical (cosmic cultivation)** — how reality and cultivators relate to dao:
 
 ```text
-┌─────────────────────────────────────────────────────────┐
-│ 5 · Mortal law     — charter, registry, tribal truce    │
-├─────────────────────────────────────────────────────────┤
-│ 4 · Personal oath  — vessel rules, blood oaths, vows    │
-├─────────────────────────────────────────────────────────┤
-│ 3 · Embodied dao   — cultivator WEARS one law (realm 7) │
-├─────────────────────────────────────────────────────────┤
-│ 2 · Regional statute — completed LOCAL rules (basin etc.) │
-├─────────────────────────────────────────────────────────┤
-│ 1 · Axis / primordial — yin, yang, void… pre-Dao physics│
-│     (+ artifact fields that RUN an axis at a point)     │
-└─────────────────────────────────────────────────────────┘
+0 · Primordial     — undifferentiated (chaos / wuji) — before yin-yang split
+1 · Axis           — yin lane, yang lane, void lane… infrastructure
+2 · Great Dao      — Yin Dao, Yang Dao, Sword Dao… comprehensible PATHS along axes
+3 · Embodied dao   — one cultivator WEARS their completion (realm 7)
 ```
 
-### Layer 1 — **Axis laws** (primordial / fundamental)
+**Horizontal (place & politics)** — not “bigger dao,” different kind:
+
+```text
+· Basin statute    — completed regional rule (Law of Dust)
+· Artifact field   — object couples to axis at a point (Sunless Mirror)
+· Personal oath    — vessel rules, blood oaths
+· Mortal law       — charter, registry
+```
+
+Layer **0–3** = cultivation cosmology. **Basin / artifact / charter** = things that happen **on the map** — don’t stack them as “layer 4 of yin.”
+
+---
+
+## Axis vs Great Dao vs embodied — the owner question
+
+> “Is there a fundamental Yin Dao — or something greater? Is an axis law just dao not bound to a cultivator?”
+
+**Short answer:** **No.** Axis is **not** “Yin Dao with nobody attached.” It is **older and thinner** — the **lane** before there is a **path**.
+
+### One sentence each
 
 | | |
 |--|--|
-| **Design term** | **Axis law** or **primordial law** |
+| **Axis** | What reality **allows** — yin **as lane**, whether anyone cultivates |
+| **Great Dao** | What cultivators **comprehend and walk** — **Yin Dao** (太阴大道) as teachable tradition |
+| **Embodied** | What **one person** **finished** — Matriarch’s moon law, Sword Immortal’s line |
+| **Axis apex (scar)** | The **lane itself** runs in extreme mode — overrides normal yin/yang **balance** |
+
+### Analogy (design English)
+
+- **Axis** = the fact that **roads exist** and one of them is “yinward” (stillness, shade, reception, moon-cycle).
+- **Great Dao** = the **Yin Dao highway** — manuals, sect curriculum, breakthroughs, “walk the yin path.”
+- **Embodied** = a **driver who became the highway** — Dao Manifestation wearing **their** yin law.
+- **Sunless Scar** = the **roadbed tilted** so only the yinward lane works; yang traffic **inverts or stalls** — not because a driver is enforcing it, because **geography**.
+
+**Unbound embodied law** (Sword intent on a cliff after death) is still **layer 3 echo** — one person’s completion **left a stain**. **Axis** at the scar runs **without any cultivator** and **outranks** normal Great Dao balance.
+
+### Is Yin Great Dao “greater” than axis?
+
+**Different direction, not higher tier.**
+
+| | Axis | Yin Great Dao |
+|--|------|----------------|
+| **Has techniques?** | No | Yes — moon scripture, concealment, stillness arts |
+| **Has sects?** | No | Yes — future yin palace **teaches this** |
+| **Ends in?** | — | **Embodied** yin law at Manifestation |
+| **Runs alone?** | Yes — scar apex | No — needs cultivators walking the path |
+
+Yin Great Dao is **greater than one cultivator** but **not greater than the axis** — it is **how mortals climb the yin lane**. At the scar apex, **axis yin supreme** can **invert yang even in a Phoenix flame patriarch**; a **Yin Dao master** might **harmonize** (they’re aligned with the lane) but still **obeys** apex physics.
+
+**Something greater than both?** **Layer 0 — primordial / undifferentiated** — chaos, wuji, before yin-yang split. Axes **emerge** when Dao **differentiates**. Great Daos are **how cultivators re-enter** one differentiated lane at mastery scale. Chaos endgame ([`chaos-cultivation-path.md`](chaos-cultivation-path.md)) may touch **layer 0** or **rewrite axes** — not the same as wearing Sword Dao.
+
+### Layer 0 — **Primordial** (sketch)
+
+| | |
+|--|--|
+| **Design term** | Primordial / undifferentiated |
+| **Working hanzi** | **无极** / **混沌** — *not locked* |
+| **What** | Before yin-yang; source from which axes split |
+| **Relation** | Chaos path aims here; orthodox cultivators rarely name it until late |
+
+---
+
+## Map & politics stack (basin, oath, charter)
+
+Cosmic vertical is 0–3 above. These sit **beside** that column — geographic and social rules.
+
+### **Axis laws** (yin/yang infrastructure) — cosmic layer 1
+
+| | |
+|--|--|
+| **Design term** | **Axis law** |
 | **Working hanzi** | **理则** (principle-rule) or **元理** — *not locked* |
-| **What** | Old **infrastructure** of reality — yin and yang as **lanes**, not moods. Pre-Dao, pre-sect. |
+| **What** | Old **infrastructure** — yin and yang as **lanes**, not sect curricula. Pre-path. |
 | **Who runs it** | **Nobody** — or pre-heaven **objects** that **couple** to an axis (Sunless Mirror → absolute yin at pole) |
 | **Feel** | “Physics of the cultivation world” — daylight fails because **yin axis wins there**, not because someone is cultivating ice |
 | **Examples** | Sunless Scar apex ([`frostbite-origin.md`](frostbite-origin.md)); continental ward grid nodes; firmament shell ([`void-temple-sect.md`](void-temple-sect.md)) |
-| **Player verb** | **Endure, avoid, harmonize** — you don’t “comprehend” axis law like a technique |
+| **Player verb** | **Endure, avoid, harmonize** — you don’t “comprehend” axis like a technique |
 
-**Absolute yin** belongs here — **yin inversion** at the scar is axis behavior, not “a cultivator’s yin dao.”
+**Absolute yin** at scar apex = **axis running in extreme mode** — not Yin Great Dao, not embodied Matriarch law.
 
-### Layer 2 — **Regional statutes** (basin / local completed rules)
+### **Great Dao** (大道) — cosmic layer 2
+
+| | |
+|--|--|
+| **Design term** | **Great Dao** or **dao path** |
+| **Working hanzi** | **大道** — Yin Dao 太阴大道, Yang Dao, Sword Dao 剑道, Phoenix Dao… |
+| **What** | Full **cultivation tradition** along one axis (or compound dao like Sword) — manuals, realms, comprehension |
+| **Who runs it** | **Sects and lineages** teach it; **Manifestation** completes it as embodied law |
+| **Feel** | “We walk the Yin Dao” — **path**, not geology |
+| **Examples** | Yin palace curriculum; Sword Dao only at Celestial Sword; Phoenix Dao |
+| **Player verb** | **Comprehend, cultivate, seek** — normal ladder fantasy |
+
+**Not axis:** you can teach Yin Dao in Heartlands — axis doesn’t care. **At Sunless Scar**, axis apex **still bends the rules** for everyone.
+
+### **Regional statutes** (basin law)
 
 | | |
 |--|--|
@@ -77,13 +150,13 @@ Use **design English** in agent docs; lock **in-world hanzi** later.
 
 *Do not resolve Pinwright / chaos here — parked elsewhere.*
 
-### Layer 3 — **Embodied dao laws** (cultivator-worn)
+### **Embodied dao** (worn law) — cosmic layer 3
 
 | | |
 |--|--|
 | **Design term** | **Embodied dao** or **worn law** |
 | **Working hanzi** | **显法** / **戴法** — *not locked* |
-| **What** | At **Dao Manifestation** (idx 7), a cultivator **embodies one dao** as a **personal law** — Sword, Phoenix flame, etc. |
+| **What** | At **Dao Manifestation** (idx 7), a cultivator **embodies one Great Dao** as **personal law** |
 | **Who runs it** | **The cultivator** — portable **jurisdiction** around their dao lane |
 | **Feel** | “His sword line cuts reality” — **identity**, not continent geology |
 | **Examples** | Sword Immortal’s line; Phoenix flame law; Phoenix Nine Ascents [#6 Law Ignition](golden-phoenix-sect.md) |
@@ -91,7 +164,9 @@ Use **design English** in agent docs; lock **in-world hanzi** later.
 
 **Distinct from axis:** worn law **dies or sleeps** when the cultivator dies (unless legacy array). Axis at Sunless Scar **outlives** every sect.
 
-### Layer 4 — **Personal oaths** (self-bound)
+**Distinct from axis:** worn law **dies or sleeps** when the cultivator dies (unless legacy array). Axis at Sunless Scar **outlives** every sect. **Distinct from Great Dao:** Great Dao is the **path**; embodied is **one finisher’s** worn completion.
+
+### **Personal oaths**
 
 | | |
 |--|--|
@@ -100,7 +175,7 @@ Use **design English** in agent docs; lock **in-world hanzi** later.
 | **Code** | `VESSEL_RULES` — already documented as *not cosmic Dao* (`data.js` body chamber) |
 | **Examples** | Rule of Blood, Rule of the Unnamed |
 
-### Layer 5 — **Mortal law** (charter & custom)
+### **Mortal law**
 
 | | |
 |--|--|
@@ -112,9 +187,10 @@ Use **design English** in agent docs; lock **in-world hanzi** later.
 
 | When writing… | Use layer | Avoid calling it… |
 |---------------|-----------|-------------------|
-| Sunless Scar, yin inversion | **Axis law** (+ artifact coupling) | “yin dao” or “ice dao” alone |
-| Law of Dust, cascades | **Regional statute** / **basin law** | “primordial entropy” without qualifier |
-| Dao Manifestation patriarch | **Embodied dao** / **worn law** | “axis” |
+| Sunless Scar, yin inversion | **Axis** apex (+ artifact) | “yin dao” alone (use **axis yin** or **Yin Great Dao** deliberately) |
+| Yin palace curriculum | **Great Dao** (Yin Dao) | axis |
+| Law of Dust, cascades | **Basin statute** | primordial / axis |
+| Dao Manifestation patriarch | **Embodied dao** | axis or Great Dao |
 | Imperial charter | **Mortal law** | “dao” |
 | Body chamber oath | **Personal oath** | “law of the flesh” = cosmic |
 
@@ -125,7 +201,7 @@ Use **design English** in agent docs; lock **in-world hanzi** later.
 | **Absolute yin** at pole | **Axis** — yin lane supreme; yang inverts |
 | **Sunless Mirror** | **Pre-heaven artifact** that **couples** to yin axis at a **point** — not the axis itself, but the **anchor** |
 | **Bleed / reshaped landscape** | Axis **field** propagating over distance (gradient into law) |
-| **Yin palace cultivators** | **Harmonize** with axis + teach **embodied yin dao** (layer 3) — two different things in one sect |
+| **Yin palace cultivators** | Teach **Yin Great Dao** (path) **inside** an **axis yin field** (scar bleed) — harmonize vs endure |
 
 ## Dustbone × taxonomy (labels only — no chaos digression)
 
@@ -141,7 +217,7 @@ Chaos endgame = **unwrite / author** at a layer **above or beside** orthodox dao
 
 ## Open questions
 
-- [ ] Lock hanzi: **理则** vs **元理** vs **天道法则** for layer 1 — player-facing shorter term?
+- [ ] Lock hanzi: **理则** (axis) vs **大道** (great dao) vs **显法** (embodied)
 - [ ] Is **firmament** layer 1 or its own **shell law** between layers 1 and 2?
 - [ ] Can **embodied dao** at peak **distort** a regional statute, or only axis + Progenitor-tier?
 - [ ] UI: do ancient clues tag layer (“axis scar”, “basin statute”) for player clarity?
