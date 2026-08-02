@@ -6,7 +6,7 @@
 | **Blocked on** | More rule defs; sect-assigned rules |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Body Dao purview pass) |
+| **Updated** | 2026-08-02 (Rule Wielding tiers; Body Dao enforcement) |
 
 **Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
 
@@ -75,13 +75,13 @@ Temper flesh (chamber, realms) — already walking Body Dao purview
 | **Will / oath** | The **binding** — you forbid default behavior (mend blood, freeze in form) |
 | **Body Dao purview** | **Jurisdiction** — all body refining falls under Body Dao (working title); oath is **sworn to / under** that path, not to axis or charter |
 | **Flesh response** | The **power** — alternate combat physics while oath holds |
-| **Progression** | **Living** the oath in fights + chamber → 100% → interior peak |
+| **Progression** | **Rule Wielding tiers** — ongoing compliance under Body Dao; not habit-lock after swear |
 
-**Genre line:** you don’t **gain** an external force — you **forbid** the flesh its default and **channel** what remains **inside Body Dao’s lane**. Break the oath → flesh **recoils** (realm regress) — proof the power was **the bond**, not a loan.
+**Genre line:** you don’t **gain** an external loan — Body Dao **witnesses**, **rewards**, and **punishes** the bond. Break gravely → path **recoils** (realm regress). At apex tiers the rule is **wielded**, not remembered.
 
 **Not cosmic Dao wielding:** Body Dao here is **Great Dao path purview** (like Sword Dao for sword cultivators), not axis apex or embodied Manifestation wearing the continent. Vessel Rule power is **personal oath nested under path** — see [`law-taxonomy.md`](law-taxonomy.md).
 
-**Can of worms (parked):** dual-path cultivators, Saint vs Manifestation naming, whether every punch without an oath still “counts” as Body Dao — [`body-dao-design.md`](body-dao-design.md).
+**Can of worms (parked):** dual-path cultivators, Saint vs Manifestation naming — [`body-dao-design.md`](body-dao-design.md). **Dao importance asymmetry** (alchemy / forging / body vs wield-only daos) — [`law-taxonomy.md`](law-taxonomy.md), not now.
 
 **Contrast:**
 
@@ -113,13 +113,78 @@ Rule of Blood is **not** “evil physique” — it’s **oath**: blood serves f
 
 **Magnitude** comes from:
 
-1. **Living the oath** — real fights, chamber weeks, not theater
-2. **Rule progression** — 0→100% on that rule’s track
-3. **Body Dao acceptance** — flesh and path **hold** the bond (break = regress)
+1. **Living the oath** — witness events in real fights + chamber (not theater)
+2. **Rule Wielding tier** — Body Dao **recognizes** depth; unlocks expressions (see below)
+3. **Fulfillment track** — interior-peak gate (`progressionPct` in code today — may merge with tiers)
 
-So Da Chi’s “supreme Vessel Rule mastery” is **living an extreme channel deeply**, not picking the **meanest** text Bell Luo could write.
+So Da Chi’s “supreme Vessel Rule mastery” is **Rule Domain** wielding — the oath is **ambient law**, not a habit he checks.
 
-**Design guard:** future rules must pass **“can flesh reroute this?”** — charter suffering (never eat meat, never speak) fails unless tied to a **flesh default** Body Dao can redirect.
+**Design guard:** future rules must pass **“can flesh reroute this?”** — charter suffering fails unless tied to a **flesh default** Body Dao can redirect.
+
+---
+
+## Rule Wielding — tiers of wielding the oath (owner lean)
+
+**Problem (owner):** swear once → adjust habits → **never think about it again**. Fine for a minor cultivator; **parlor trick** at **Golden Body Arhat** / Saint scale. Da Chi’s No Yield can’t be “I don’t flee because I trained myself.”
+
+**Fix:** parallel **Intent tier ladder** — one sworn rule, **ongoing wielding depth**, Body Dao as **active enforcer** (reward + punishment), not passive habit.
+
+### Three body tracks (identity depth)
+
+| Track | Home | Ongoing? | Player feel |
+|-------|------|----------|-------------|
+| **Martial Intent** (武意) | Fist enlightenment | Yes — uses / tiers | How the body **strikes** |
+| **Rule Wielding** (持律 / 运律 — *hanzi open*) | Sworn Vessel Rule | Yes — witness / tiers | How the body **is bound** |
+| **Chamber layers** | Tempering | Yes — layer % | How the body **is built** |
+
+**Vessel Rules ≠ one-time perk.** Swear is **Bond** tier entry — not graduation.
+
+### Wielding tier ladder (draft — mirror `INTENT_TIERS`)
+
+| Tier | Witness threshold *(draft)* | Working name | Power feel |
+|------|----------------------------|--------------|------------|
+| 0 | 0 (swear) | **Bond** (立律) | Constraint live; base reroute (shipped blood/flow) |
+| 1 | 10 | **Hold** (持律) | Body Dao **marks** compliance — small combat expression unlock |
+| 2 | 30 | **Press** (压律) | Rule **presses** outward — enemies feel weight while oath channel active |
+| 3 | 60 | **Manifest** (显律) | Rule **visible** in physics — slip, blood seal, no-yield press as **law**, not trick |
+| 4 | 100 | **Rule Domain** (律境) | **Da Chi tier** — oath is **terrain**; still not invincibility |
+
+**Witness events** (like intent `uses`): bloodied wins, seal uses, flow peaks, **compliance under pressure** (No Yield: rounds fought while losing HP band), chamber weeks under oath, **tier-up choice moments** (deepen / expand expression — mirror intent deepen/expand).
+
+**Fulfillment % (code today):** `progressionPct` 0→100% for `hasVesselInteriorPeak()`. **Lean:** tie interior peak to **Hold** or **Press** tier **plus** fulfillment — not “100% bar then forget.” Post-peak, **wielding continues** toward Manifest / Domain for endgame body fantasy.
+
+### Body Dao enforces — reward and punishment
+
+Power is **not** “I chose restriction therefore bonus.” Body Dao **witnesses** and **responds**:
+
+| Event | Body Dao response | Player feel |
+|-------|-------------------|-------------|
+| **Compliance** under pressure | Witness +; tier progress; unlock expression | Path **rewards** living the law |
+| **Deepen / expand choice** | Permanent expression on this rule (mirror intent deepen) | Active cultivation, not autopilot |
+| **Micro-breach** (attempt flee / concede under No Yield) | **Sting** — temp debuff, witness loss, combat log “体道反噬” flavor | Law **noticed** |
+| **Sustained breach** | **Slip** — lose witness tier progress or drop one tier | Punishment without full release |
+| **Voluntary release / grave breach** | Realm regress + 12mo cooldown (shipped) | Path **revokes** bond |
+
+**Fiction:** cultivator may **not think** about the oath in daily life (Da Chi asks who’s at the gate). In **engagement**, Body Dao **enforces** — opponent feels **Press** at 30, **Domain** at 100. Habit is **outcome of** wielding, not **source of** power.
+
+### No Yield at apex (Da Chi)
+
+| Tier | No Yield expression |
+|------|---------------------|
+| Bond | Cannot voluntarily yield while capable — shipped flee/surrender block |
+| Hold | Flesh **holds** line — damage reduction while “losing” on HP |
+| Press | **Unyielding press** — enemies’ “winning” exchanges **stall** (soul contest lane) |
+| Manifest | Knocked down **must rise** — rule re-asserts before fight can “end” in his mind |
+| Rule Domain | Battlefield **rejects his defeat-state** until flesh **actually** fails — he still **can** be incapacitated; Domain ≠ always win |
+
+Saint breakthrough **after** Frost Gate = wielding jumped — institutional loss **around** him, **Domain** still held on the line until charter halted engagement **externally**.
+
+### Player anti-autopilot
+
+- UI: rule name + **wielding tier** beside Martial Intent (not hidden after swear)
+- Combat: witness ticks, sting/slip logs, tier-up **choice** prompts
+- Chronicle: “Press tier under Rule of Blood”; “Body Dao sting — nearly fled”
+- Da Chi NPC tag: `ruleWielding: domain` on No Yield — not `rule: noYield` alone
 
 ---
 
@@ -168,7 +233,9 @@ Da Chi is **not invincible** — he has **lost** fights, been knocked down, been
 | **Rule of One Exchange** | One exchange, then reset | Brawl aesthetic; less “undefeated will” |
 | **Rule of Impact** | No mid-fight mend; must close | Survival channel |
 
-**Owner lean (current):** **No Yield** family for Da Chi apex — stubborn will as **oath**, not personality garnish. Unnamed remains strong **alternate** (technique vs will).
+**Owner lean (current):** **No Yield** family for Da Chi apex — at **Rule Domain** wielding, not Bond-tier habit. Unnamed remains strong **alternate** (technique vs will).
+
+**Scale check:** Bond-tier No Yield = parlor trick at Golden Arhat. **Rule Domain** No Yield = oath as **landscape** — still not invincible.
 
 **Mechanics sketch (later):** while oath holds and HP/stamina allow — block **surrender / flee / concede** actions; payoff in **“losing” fights** (bloodied, outmatched) — flesh **reroutes** refusal-to-yield into combat physics, not guaranteed win. Fight ends when **incapacitated** or **external halt** (sect order, environmental), not when mind accepts loss.
 
@@ -208,6 +275,9 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 - [ ] Sect **assigns** rule vs disciple **chooses** after trial
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
 - [ ] Lock Da Chi apex rule: **No Yield** lean vs Unnamed / Answering Blow / Impact
+- [ ] **Rule Wielding** tier names + witness thresholds; merge vs separate `progressionPct`
+- [ ] Body Dao **sting / slip** tuning — micro-breach vs release
+- [ ] Deepen / expand choice tree per rule (mirror `INTENT_EXPAND_ARTS`)
 - [ ] Body Dao hanzi + whether oath ritual **names** the path aloud ([`body-dao-design.md`](body-dao-design.md))
 - [ ] Can NPC Saints bear **multiple** historical oaths (fiction) while player stays one?
 - [ ] Interior peak without rule for **legendary physique** exception?
@@ -216,5 +286,8 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 ## Implementation crumbs (later)
 
 - Expand `VESSEL_RULES` roster + Vajra Ridge manual unlocks
-- NPC veterans: “sworn Blood” / “broke Unnamed once” tags
-- Chronicle: oath sworn / broken / completed
+- **`RULE_WIELDING_TIERS`** in `data.js` — parallel `INTENT_TIERS`; `witnessUses` on `G.vesselRule`
+- `grantRuleWitness()` / `applyBodyDaoSting()` / `applyRuleSlip()` in `vessel-rules.js`
+- Tier-up choice UI — mirror intent deepen/expand prompts
+- NPC veterans: wielding tier tags (“Press Blood”, “Domain No Yield”)
+- Chronicle: oath sworn / sting / tier-up / broken / completed
