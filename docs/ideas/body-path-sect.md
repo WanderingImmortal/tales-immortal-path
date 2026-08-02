@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (great sect survivor; southern spine — owner) |
+| **Updated** | 2026-08-02 (Mad Monks personality — owner lean) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -30,7 +30,7 @@ Every `FACTION_DEFINITIONS` entry is qi-leaning, trade, beast, or ascetic — **
 
 ## Design principle
 
-A body sect is **not** “the combat faction.” Celestial Sword and Phoenix already own martial prestige on the qi line. The body sect’s identity is **the vessel as scripture** — pain as curriculum, oath as law, flesh as the cultivation base. They fight well because they **are** the weapon, not because they picked a combat doctrine perk.
+A body sect is **not** “the combat faction” on the **qi** line — Celestial Sword and Phoenix own martial prestige there. The body sect’s identity is **the vessel as scripture** — pain as curriculum, oath as law, flesh as the cultivation base. They fight well because they **are** the weapon. **Mad Monks** are fight-happy **body** cultists, not sword-line duelists — different lane, different joke.
 
 ## Candidate: **Vajra Ridge Sect** (金刚岭宗) — **owner lean: lock**
 
@@ -42,7 +42,11 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 
 | | |
 |--|--|
-| **Vibe** | **Ascetic iron monks** — silence, bell strikes, bones that ring when tempered; **body refining** as scripture |
+| **Official name** | **Vajra Ridge Sect** (金刚岭宗) — charter, imperial hire, patriarch’s letters |
+| **Jianghu nickname** | **Mad Monks** (疯僧 / 疯子和尚) — *owner lean; hanzi TBD* |
+| **Vibe** | **Paper ascetics, actual brawlers** — bells and marrow baths at home; on the road, **odd muscle-brained warriors** with battle-tempered bodies who **radiate toward a fight** |
+| **Public face** | Silence, bell discipline, “we temper flesh in hardship” |
+| **Truth** | **Lively sect** — they like fighting; Dao Wars were a **golden age** they’ll **never admit** on record |
 | **Path** | **Body-primary**; qi used as fuel for tempering, not as the cultivation root |
 | **Cultivation identity** | **Vessel Canon** (金刚体经) — layer-by-layer refinement (skin → bone → marrow) |
 | **Sacred practice** | **Vessel Rules** — sworn physical oaths; outer court learns discipline, inner court swears one rule for life |
@@ -54,6 +58,23 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **Also has hands in** | Ore and beast-bone trade, medicinal baths, duel arbitration (“flesh decides”) |
 | **What they teach** | Outer: stances, breath-for-stamina, bone conditioning · Inner: marrow arts, vessel rule rites · **Refuse:** sword intent, flame rebirth, void gates |
 | **Forbidden apex** | *Stub* — blood-as-oath extremes, unnamed-rule mastery; **not** soul-into-body (that stays separate forbidden practice) |
+
+### Personality — **Mad Monks** (owner lean — 2026-08-02)
+
+**The name says ascetic. Everyone says Mad Monks.** Same institution — official registry vs jianghu nickname. Patriarch signs **ascetic** charters; caravan guards **whisper** “the mad ones are on this contract.”
+
+| Layer | Beat |
+|-------|------|
+| **Temper** | **Fight-forward, not murder-forward** — they don’t hunt sport-kills or slaughter villages; if there’s a fight to be had, there’s **probably a monk nearby** |
+| **Dao Wars** | **Thoroughly enjoyed it** — a continent of enemies to walk into; escort contracts were also **excuses to reach a battlefield**; veterans swap bath-house stories; **public minutes** say “we held the corridor in solemn duty” |
+| **Body path fit** | **Muscle-brained** in the social sense — not stupid, but **battle-first cognition**; cultivation **is** getting hit until heaven breaks; joy is **tempered flesh finding a worthy impact** |
+| **Contrast Yin Maiden** | Palace **subtracts** and calculates; ridge **adds heat** wherever two sides are already swinging — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) |
+| **Contrast Sword** | Sword Immortal **waits** for the perfect line; Mad Monk **asks** “is that guy armored enough?” |
+| **Contrast Phoenix** | Phoenix wants **shock troops for ideology**; ridge monks will **punch alongside** anyone if the fight’s real — still refuse ash-rebirth dogma |
+
+**Vessel Rules as leash:** oaths are how the patriarch keeps **fight addicts** from becoming a demon sect — e.g. never strike first, never kill after surrender, one life per contract. The **madness** is appetite; the **rule** is the chain.
+
+**Not blood demons:** mass slaughter and soul refining stay **acts** / forbidden lanes — Mad Monks are **oddballs**, not the evil physique embrace track.
 
 ### Placement — **Frostbite south spine** (dual great sect)
 
@@ -81,35 +102,36 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 | Layer | What they did | Why |
 |-------|---------------|-----|
 | **Southern buffer** | Held **Frost Gate approaches** and granite spine — stopped armies and refugee sects from **clogging the only sane road north** | Ridge arrays + **flesh that doesn’t break in Bleed wind** |
-| **Licensed muscle** | Escort contracts for Lotus caravans, imperial border forts, tribulation witness parties | **Monks for hire** — oaths, not marriage webs |
-| **Body-refiner exports** | Sent **small squads** of tempered adepts south when pay justified — shock infantry, array anchors, “walk through the flank” | Quality flesh; **not** yin concealment |
+| **Licensed muscle** | Escort contracts for Lotus caravans, imperial border forts, tribulation witness parties | **Monks for hire** — oaths, not marriage webs; **also** a ticket to someone else’s war |
+| **Body-refiner exports** | Sent **small squads** of tempered adepts south when pay justified — shock infantry, array anchors, “walk through the flank” | Quality flesh; monks **volunteered** more than headquarters admits |
+| **Secret truth** | Many deployments were **“find an enemy”** missions dressed as escort | **Enjoyed the Dao Wars** — never on charter record |
 | **Settlement** | **Vajra Ridge recognized** — homeland behind bell arrays; **no southern land claim** | Same capitulation lane as palace: intact bastion, charter border |
 
 **Contrast Yin Maiden:** palace **quelled north** around the crown and **small yin incursions** south; ridge **held the southern door** and sold **body expertise** outward. Both survived; neither ruled Frostbite as an empire.
 
-**Player memory:** “The bells held the gate. The maidens held the crown. **Nobody held the Scar.**”
+**Player memory:** “The bells held the gate. The maidens held the crown. **The mad monks wish the war never ended.**”
 
 ### Relationships (sketch)
 
 | Power | Relationship | Why |
 |-------|--------------|-----|
-| **Celestial Sword** | Respectful rivalry | Both honor direct confrontation — “your line vs our fist” |
-| **Jade Lotus** | Practical ties | Lotus hires ridge escorts; Ridge tolerates Lotus paperwork |
-| **Void Temple** | Mutual disdain | Books vs bell halls |
-| **Golden Phoenix** | Uneasy | Phoenix wants shock troops; Ridge refuses “ash renewal” ideology |
-| **Yin Maiden Palace** | Neighbors on spine — **mutual ward of the north** | Moon stillness on crown vs iron on ridge — hire each other for tribulation / Bleed-margin work; **not** shared doctrine |
+| **Celestial Sword** | Respectful rivalry | Both love a straight fight — “your line vs our fist”; Sword **noble**, Mad Monks **gleeful** |
+| **Jade Lotus** | Practical ties | Lotus hires ridge escorts; monks **tolerate** paperwork because it points toward trouble |
+| **Void Temple** | Mutual disdain | Books vs bell halls — “read less, punch more” |
+| **Golden Phoenix** | Uneasy kin | **Best war buddies**, worst peace neighbors — Phoenix wants ideology; monks want **a good scrap**; refuse ash renewal |
+| **Yin Maiden Palace** | Neighbors on spine — **oil and ice** | Moon stillness vs fight-heat; hire each other for tribulation / Bleed-margin work; palace thinks they’re **loud**; ridge thinks palace is **all subtraction** |
 | **Sunscar Clan** | Distant kin | Desert warriors respect pain; different religion |
 | **Imperial court** | Licensed muscle | Border forts, tribulation guards — not dynasty marriage |
 
 ### Player hooks
 
-- **Body-path player:** natural home — lineage manual, martial set (`body_tempering`), vessel-rule mentorship, ridge trials
+- **Body-path player:** natural home — **Mad Monk** rep; lineage manual, martial set, vessel-rule mentorship, ridge trials, “find a fight” contracts
 - **Qi-path player:** friction — outer conditioning allowed, inner court closed; or a long “prove your flesh” side arc
 - **Found your own sect:** Vajra Ridge as template or rival once player sect systems deepen
 
 ### What they are *not*
 
-- Not the **blood demon sect** — blood conditioning is a lane; mass slaughter and soul refining are acts / separate forbidden design
+- Not **blood demon sect** — fight-happy ≠ slaughter-happy; Vessel Rules + charter leash
 - Not **beast tamers** — Emberwild owns primal communion; Ridge uses beast **bones** as material, not partners
 - Not a **dojo in a city** — that's the FE school track; Ridge is a mountain institution
 
@@ -133,7 +155,8 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 
 - [x] Zone: **Frostbite** — **southern** spine peer to Yin Maiden (owner 2026-08-02)
 - [x] Tier: **great sect Dao Wars survivor** — monk body refiners (owner 2026-08-02)
-- [ ] Great sect **immortal in the vault** or founder-only myth (no sleeping apex)?
+- [x] Personality: **Mad Monks** nickname; ascetic official name; fight-forward not murder-forward (owner 2026-08-02)
+- [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?

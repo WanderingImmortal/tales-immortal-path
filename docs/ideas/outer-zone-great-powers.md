@@ -38,7 +38,7 @@ Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md
 
 ```text
 Frost Gate (chilly margin)
-    └── Vajra Ridge — body-refining monks (SOUTH great sect; bells, escorts)
+    └── Vajra Ridge — **Mad Monks** (body-refining brawlers; official: ascetic ridge sect)
     └── Yin Maiden Palace — peak Yin (CROWN; last habitable peak)
     └── Scar margin — delves only
     └── Sunless Scar apex — uninhabitable (Mirror, Frozen Abyss)

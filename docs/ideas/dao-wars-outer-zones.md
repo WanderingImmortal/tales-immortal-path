@@ -64,7 +64,7 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 ### Frostbite — **two survivors: ridge south, palace crown**
 
 - Scar + Bleed **predate** Dao Wars ([`frostbite-origin.md`](frostbite-origin.md)).
-- **Vajra Ridge** (south spine): **monk body refiners** — held Frost Gate corridor, escort contracts, licensed border muscle; settlement = recognized bastion, no land claim south ([`body-path-sect.md`](body-path-sect.md)).
+- **Vajra Ridge** (south spine): **Mad Monks** — monk body refiners; held gate corridor; **loved** Dao Wars off-record; escort contracts as fight tickets ([`body-path-sect.md`](body-path-sect.md)).
 - **Yin Maiden Palace** (crown): quell northern chaos; many small Heartlands incursions; silence ledger ([`frostbite-yin-sect.md`](frostbite-yin-sect.md)).
 - **Player memory:** “The bells held the gate. The maidens held the crown. Old sects still owe silence — **the ridge just sent invoices.**”
 
