@@ -56,7 +56,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
 | [Outer-zone great powers (hub)](outer-zone-great-powers.md) | `idea` | Owner per-zone passes | — |
 | [Frostbite origin — Sunless Scar](frostbite-origin.md) | `idea` | Owner treasure variant | — |
-| [Yin Maiden Palace (Frostbite)](frostbite-yin-sect.md) | `idea` | Yin technique tiers; lineage | — |
+| [Dao Wars — outer zones](dao-wars-outer-zones.md) | `idea` | Timeline lock | — |
 | [Law taxonomy — primordial vs dao](law-taxonomy.md) | `idea` | Hanzi lock; cosmology pass | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
