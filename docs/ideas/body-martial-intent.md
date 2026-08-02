@@ -6,7 +6,7 @@
 | **Blocked on** | Body chamber depth; intent track split |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Rule Wielding parallel) |
+| **Updated** | 2026-08-02 (Rule Adherence distinct from Intent) |
 
 Parent: [`body-path-sect.md`](body-path-sect.md), [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md). Qi lane: Weapon Intent (`intent.js`). Oaths: [`vessel-rules.js`](../../vessel-rules.js).
 
@@ -40,7 +40,7 @@ Body refining needs an equivalent to qi **Weapon Intent** — but **not** the sa
 | System | Path | Home | Notes |
 |--------|------|------|-------|
 | **Weapon Intent** | Qi | Dantian | Sword, Blade, Spear, Fist, Staff |
-| **Vessel Rules** | Body | Vessel | **Rule Wielding** tiers — oath enforcement under Body Dao ([`vessel-rules-design.md`](vessel-rules-design.md)) |
+| **Vessel Rules** | Body | Vessel | **Rule Adherence** — oath settles into flesh; own loop ([`vessel-rules-design.md`](vessel-rules-design.md)) |
 | **Body `intentReq: Fist`** | Broken for pure body | Checks qi `getActiveIntent()` | Should gate on **Martial Intent**, not Weapon Intent |
 
 `INTENT_TRACK_BY_PATH` only has `qi`. Body track **not** implemented.
@@ -53,7 +53,7 @@ Body refining needs an equivalent to qi **Weapon Intent** — but **not** the sa
 | **Body** | **Martial Intent** (武意) | No intent track — use body arts + optional **qi-fuel staff** without Staff Weapon Intent *or* accept qi gate for staff mastery |
 | **Soul** | Soul arts | — | — |
 
-**Vessel Rules** = **Rule Wielding** (ongoing tiers, Body Dao reward/punish). **Martial Intent** = how the **body** strikes. **Chamber** = how the body is **built**. All three under Body Dao purview; all three should stay **active** in play — not swear-once habit lock.
+**Rule Adherence** = law **sticks**; flesh **settles**; Body Dao rewards/punishes — **not** meditate-on-rule. **Martial Intent** = fist enlightenment through **impact**. **Chamber** = tempering. Three verbs: **adhere**, **strike**, **temper** — not three reskins of intent `uses`.
 
 ## Martial Intent — **fist only** (owner lock)
 

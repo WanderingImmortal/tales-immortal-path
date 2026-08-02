@@ -6,7 +6,7 @@
 | **Blocked on** | Hanzi lock; Saint vs Manifestation stack; dual-path edge cases |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02; PR [#101](https://github.com/WanderingImmortal/tales-immortal-path/pull/101) |
-| **Updated** | 2026-08-02 (Body Dao enforcement; Rule Wielding) |
+| **Updated** | 2026-08-02 (Rule Adherence — not Intent parallel) |
 
 **Why this doc exists:** Owner proposed that **Vessel Rule power** is not only “self-binding on tempered flesh” — it is **sworn under Body Dao purview**, because **all body refining** technically falls under that path. That parallels **Sword Dao** for sword cultivators and opens a **cosmology can of worms**. Park worms here; mechanics lean in [`vessel-rules-design.md`](vessel-rules-design.md); stack labels in [`law-taxonomy.md`](law-taxonomy.md).
 
@@ -31,23 +31,23 @@ Related: [`body-path-sect.md`](body-path-sect.md), [`body-martial-intent.md`](bo
 
 ```text
 Walk body path (chamber, realms)     ← already under Body Dao purview
-    → swear Vessel Rule (Bond tier)    ← personal oath **under** Body Dao
-    → live oath → witness events       ← Body Dao **rewards** (tier up, expressions)
-    → breach → sting / slip / regress  ← Body Dao **punishes**
-    → Rule Domain wielding             ← oath as **law in play**, not habit memory
+    → swear Vessel Rule                ← rule **adheres** to flesh (Body Dao witnesses)
+    → flesh **settles** under law      ← adherence deepens (not intent meditation)
+    → breach → sting / slip / regress  ← Body Dao punishes
+    → Sovereign adherence              ← flesh **runs** the law (Da Chi)
 ```
 
 | Piece | Layer (taxonomy) |
 |-------|------------------|
-| **Body Dao** | Great Dao — the **path**; **active witness** of oaths |
-| **Vessel Rule** | Personal oath **nested under** Body Dao — not a second Great Dao |
-| **Rule Wielding** | **Tier ladder** on one oath — parallel Weapon Intent tiers ([`vessel-rules-design.md`](vessel-rules-design.md)) |
-| **Saintly Flesh** | Body-path **completion** lane (圣体境) — *wielding Domain at Saint is plausible* |
-| **Sword Dao + sword intent** | Analog — qi path + Weapon Intent under Sword Dao purview |
+| **Body Dao** | Great Dao — **witnesses** oaths; rewards/punishes adherence |
+| **Vessel Rule** | Personal oath **nested under** Body Dao |
+| **Rule Adherence** | **Own progression system** — law settling into flesh ([`vessel-rules-design.md`](vessel-rules-design.md)); **not** Weapon Intent clone |
+| **Saintly Flesh** | Body-path completion — *Sovereign adherence at Saint plausible* |
+| **Sword Dao + sword intent** | Different loop — qi resonance, imposed will on tool category |
 
-**Enforcement (owner lean):** Body Dao is not a passive filing system. It **marks compliance**, **grants** tier expressions, and **strikes back** on breach (sting → slip → regress). Player and Da Chi may **not think** about the oath off-duty — but in combat the path **enforces**. Golden Arhat power = **Rule Domain**, not Bond-tier parlor trick.
+**Enforcement (owner lean):** Body Dao **marks** when adhered flesh honors or violates the law. Growth is **settlement and permeation**, not exploring weapon resonance through dantian meditation.
 
-**Contrast Sword:** Celestial Sword teaches **Sword Dao**; disciples grow **Weapon Intent** tiers. Vajra Ridge teaches **body refining**; inner court swears and **wields** Vessel Rules through tiers — apex specialization **inside** Body Dao.
+**Contrast Sword (loop, not tier count):** Sword Dao disciples **meditate intent** — impose will on qi through a weapon category. Body Dao disciples **swear** — rule **sticks**; power **unlocks from adherence**. Vajra Ridge inner court **settles** one law into the vessel for life.
 
 **Player voice:** “Swore upon the flesh” / “body oath” — **not** UI popup “Body Dao layer 2.”
 
@@ -59,8 +59,8 @@ Walk body path (chamber, realms)     ← already under Body Dao purview
 |--|------------|-----------|
 | **Great Dao** | Sword Dao 剑道 | Body Dao 体道 (*working*) |
 | **Sect obsession** | Celestial Sword — sword only | Vajra Ridge — flesh only |
-| **Intent / specialization** | Weapon Intent (qi + tool category) | Martial Intent (武意 — fist) |
-| **Apex personal law** | Embodied sword line (Manifestation) | **Rule Domain** wielding + Saintly Flesh |
+| **Intent / specialization** | Weapon Intent — meditate, resonate, will on **qi** | Martial Intent (武意) + **Rule Adherence** — law **in flesh** |
+| **Apex personal law** | Embodied sword line (Manifestation) | **Sovereign adherence** + Saintly Flesh |
 | **Peak person** | Sword Immortal (仙) | Saint (圣) |
 
 **Symmetry is intentional but not identical:** qi Manifestation **wears** dao; body Saint **forges** dao into flesh — Saintly Flesh may be **embodied Body Dao** without copying qi’s “wear the law” UI fantasy 1:1.
@@ -154,7 +154,7 @@ Lock with [`law-taxonomy.md`](law-taxonomy.md) hanzi pass.
 - [ ] Saintly Flesh = embodied Body Dao or distinct completion shape?
 - [ ] Oath ritual **names** Body Dao aloud or stays flesh-only metaphor?
 - [ ] Great Dao row in taxonomy table — add Body Dao beside Sword Dao
-- [ ] Rule Wielding hanzi: **持律** vs **运律** vs **律境**
+- [ ] Rule Adherence hanzi: **附律** / **定律** / **身律** vs older 持律 / 律境
 - [ ] Does [`post-immortal-cosmology.md`](post-immortal-cosmology.md) need a Saint tier row?
 - [ ] **Dao importance asymmetry** (owner — later): why alchemy / forging / body feel like **cosmic infrastructure** while other daos are **wield-only curricula** — see law-taxonomy parked note
 

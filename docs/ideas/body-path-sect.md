@@ -203,7 +203,7 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
 
-**Apex sworn rule (owner lean — 2026-08-02):** **Rule of No Yield** at **Rule Domain** wielding — Body Dao enforces; not Bond-tier “don’t flee” habit. **Not** always-wins. Frost Gate: Bell capitulates sect; Da Chi holds until charter stops war **externally**. [`vessel-rules-design.md`](vessel-rules-design.md).
+**Apex sworn rule (owner lean):** **Rule of No Yield** at **Sovereign adherence** — rule **in** the flesh, Body Dao enforces; not intent-style meditation. Frost Gate: Bell capitulates sect; Da Chi holds until charter stops war externally. [`vessel-rules-design.md`](vessel-rules-design.md).
 
 ---
 
