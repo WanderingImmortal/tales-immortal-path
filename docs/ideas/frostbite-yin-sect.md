@@ -166,14 +166,14 @@ Every incursion and **expert deployment** could be **contracted**:
 | **Still outstanding** | Survivors who **still live** — mid sects, elders, hidden patrons *(owner may design)* |
 | **Player hook** | Faction rep reveals “your elder’s grandmother owed the Maidens a silence” |
 
-**Parked:** one **silence debt** (or paid bath-house settlement) from a Dao Wars southbound retreat — ridge hired palace concealment once. See [`body-path-sect.md`](body-path-sect.md) (Yin Maiden ↔ Mad Arhat).
+**Parked:** one **silence debt** to **Vajra Ridge** (Dao Wars southbound retreat — palace concealment for Mad Arhat’s squad) — may be paid or awkward on the books. See [`body-path-sect.md`](body-path-sect.md). **Also:** owner may design **mid-tier Heartlands sects** with outstanding Maiden silence debts — [`silence-debt-mid-sects.md`](silence-debt-mid-sects.md).
 
 ## Spine vs Mad Arhat — **exhausting neighbor** *(owner lean)*
 
 | | **Silent Moon Matriarch** *(stub)* | **Mad Arhat** (Da Chi) |
 |--|-----------------------------------|------------------------|
 | **Temperature** | Winter water — subtract | Forge heat — add impact |
-| **War** | Used war; never believed in it | **Loved** war; still wishes it continued |
+| **War** | Used war; never believed in it | **Patriarch** — **loved** it; intrusion brawls; still wishes it continued |
 | **Each other** | He is **yang noise** on her slope | She is **no fun** — won’t brawl, won’t host a fair fight |
 | **Cooperation** | Hire ridge to **punch** what yin shouldn’t touch | Hire palace once for **concealment** — debt on the books |
 

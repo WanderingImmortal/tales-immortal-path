@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Mad Arhat character pass — owner workshop) |
+| **Updated** | 2026-08-02 (Da Chi war-patriarch spine — owner workshop) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -52,7 +52,7 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **Sacred practice** | **Vessel Rules** — sworn physical oaths; outer court learns discipline, inner court swears one rule for life |
 | **Homeland** | **Vajra Ridge** (金刚岭) — wind-scoured granite, hanging bell halls, marrow hot springs under the peak |
 | **Founder myth** | **Rib-Hammer Ancestor** (锻肋祖师) — mortal smith who hammered his own ribs into scripture; **not** the Mad Arhat — see spine section |
-| **Public leader** | **Patriarch Bell Luo** (钟络) — Void Refinement; **old fox** — sees every scheme; **chooses** the fist; runs charters; rarely leaves the ridge |
+| **Public leader** | **Patriarch Bell Luo** (钟络) — Void Refinement; Da Chi’s **war chancellor** → charter patriarch; old fox who **aims** the Saint |
 | **Sect spine** | **The Mad Arhat** (疯罗汉) — **Saint** (Saintly Flesh); true name **Da Chi** (大痴) — *working*; soul of the fist |
 | **Player-facing elder** | **Elder Iron Han** (铁瀚) — Nascent Soul; **wildest** of the old foxes on the trial ground; accepts worthy wanderers |
 | **Primary lean** | **Fortification & escort** — ridge arrays, caravan muscle, border garrisons for hire |
@@ -153,7 +153,22 @@ Link spine pattern: [`celestial-sword-sect.md`](celestial-sword-sect.md) (Sword 
 
 Official history praises the Ancestor’s iron discipline. **Living culture** copies Da Chi’s laugh, his walk toward trouble, and Bell Luo’s leash. Young monks quote the founder in initiation; veterans quote **what the Mad Arhat did at Frost Gate**.
 
-**Owner lock:** Mad Arhat **did not found** the sect — his **long stay** (post–Dao Wars Saint + ~two centuries of “still here”) **warped** a serious ridge monastery into a fight-happy great sect. Without him, Vajra Ridge might still be dour bell monks hired for escorts — **not** legends who wish the war never ended.
+**Owner lock:** Mad Arhat **did not found** the sect. His **heyday is the Dao Wars era itself** — rising tensions through capitulation — not a post-war cultural afterthought. He **became leader early**, steered the temple toward **incursions for fights**, and **recruited maniacs** until the ridge became Mad Monks. Post-war he ascended **Saint**, stepped back; **Bell Luo** runs the charter; the culture **already** was his.
+
+---
+
+#### Rise — **fast at an ascetic temple** *(owner lean)*
+
+Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel Rule trials. Da Chi was **never slow** where it mattered.
+
+| Mechanism | Beat |
+|-----------|------|
+| **Trial ground monster** | Won every **Bell Trial** (钟试) — not clever, **unbreakable**; elders called him a fool who **wouldn’t fall** |
+| **Pre-war border skirmishes** | Rising tensions = Bleed wind, refugee sects, Heartlands proxies probing north — temple needed someone at the **gate** who **wanted** to be there |
+| **Heir lane** | Already **War Peak Elder** (战首) — patriarch’s fist; Bell Luo (then inner administrator) did paperwork |
+| **Crisis acceleration** | When old patriarch **withdrew to marrow seclusion**, Da Chi was **acting patriarch** in all but charter signature — then **patriarch** once the Dao Wars proper began |
+
+**Fast rise answer:** not corrupted asceticism — **war emergency** + **proof at the trial ground** + a grave patriarch who **preferred** the fool at the border over losing the ridge.
 
 ---
 
@@ -164,8 +179,9 @@ Official history praises the Ancestor’s iron discipline. **Living culture** co
 | **True name** | **Da Chi** (大痴) — “Great Fool”; only Bell Luo and inner vault records use it |
 | **Epithet** | **Mad Arhat** (疯罗汉) — jianghu; **Golden Body Arhat** (金身罗汉) on bell-hall wall |
 | **Title lane** | **Saint** (圣) — Saintly Flesh; registry does **not** call him immortal (仙) |
-| **Realm** | **Saintly Flesh** — broke through **after** Dao Wars capitulation *(lean — see war section)* |
-| **Age** | ~300 mortal years since ascension as Saint; looked **sixty** and **unfinished** even before — flesh that won’t settle |
+| **Realm (war)** | **Indestructible Vajra** peak — top mortal body; **not yet Saint** during most of the war |
+| **Realm (now)** | **Saintly Flesh** — broke through **after** capitulation; then **retired** from patriarch duties to bell vault |
+| **Age** | ~300 years since Saint breakthrough; looked **unfinished** even as patriarch — flesh that won’t settle |
 | **Look** | Bald, barrel-chested, rope belt, **bare feet on granite**; grin before the punch; knuckles like worn river stone |
 
 **Nature:** wildest **old fox** on the continent **without** fox patience — reads your trap in one glance, **still** walks toward your champion because impact is **honest**. Not stupid — **chooses** the fist when schemes would work but cost **years**.
@@ -178,45 +194,80 @@ Official history praises the Ancestor’s iron discipline. **Living culture** co
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
 
+**Where he lives (now):** marrow hot springs / **bell vault** — stepped back when Bell Luo became **charter patriarch**; Da Chi remains **spine**, not administrator.
+
 ---
 
-#### How he reshaped sect culture
+#### How he reshaped sect culture — **during the war, not after**
 
-| Before Da Chi (founder lane) | After Da Chi (Mad Monk lane) |
-|------------------------------|------------------------------|
+Culture shift = **Da Chi’s leadership + recruitment** over a **long warring era**, not post-peace nostalgia.
+
+| Era | Ridge culture |
+|-----|---------------|
+| **Pre-tension** (founder lane) | Solemn ascetics — bells, hardship, Rib-Hammer Ancestor stories |
+| **Rising tensions** | Da Chi at gate; trial ground **selects for pain tolerance**; first **war monks** (战僧) |
+| **Da Chi as patriarch** | **Incursion policy** — escort papers become **fight tickets**; intake favors **maniacs** who grin at the Bell Trial |
+| **Long war** | Whole generations of **war monks**; outer court = brawlers; inner court = foxes who **aim** the brawlers |
+| **Post–Saint** | Mad Monk identity **locked**; Bell Luo codifies Vessel Rules as **leash** on what Da Chi built |
+
+| Before Da Chi | Under Da Chi (locked in by war’s end) |
+|---------------|----------------------------------------|
 | Silence is virtue | Silence **until** the bell rings for spar |
 | Escort = duty | Escort = **ticket to someone’s war** |
-| Patriarch = grave elder | Patriarch = **fox who manages fight addicts** |
-| Outer court fears shame | Outer court fears **boredom** more than bruises |
-| “We temper flesh” | “We temper flesh — **then we test it on something**” |
+| Patriarch = grave elder | Patriarch = **fox** (Bell Luo) who **aims** fight addicts |
+| “We temper flesh” | “Temper flesh — **then test it on something**” |
 
-**Vessel Rules** tightened under Bell Luo **because** Da Chi exists — never strike first, never kill after surrender, one life per contract. **Foxes write the rules; fools break them loudly; the Saint ignores rules that don’t interest him** until Bell Luo makes them interesting.
+**Recruitment (owner lean):** Bell Trial + **Border Month** — candidates who **flinch** wash out; candidates who **smile** when hit advance. Not everyone stupid; all **fight-forward**.
 
-Every Mad Monk elder is a **fox** or a **fool** or both. Da Chi is the **template** elders secretly measure themselves against: *would the Arhat have walked into that?*
+**War monk** (战僧) — temple term for incursion disciples; jianghu hears **Mad Monks** (疯僧).
+
+---
+
+#### Dao Wars — Da Chi as **war patriarch** *(owner lean)*
+
+**Why the temple “joined”:** Da Chi **was leader** and **redirected** the institution toward fights **for his own interest** — while still doing real buffer work at Frost Gate. Official history blends both; bath-house says he **used** the temple as a **legion taxi**.
+
+**Public record:** held **Frost Gate corridor**; licensed muscle; **no southern land claim** at settlement.
+
+**Truth:** incursions, intrusion brawls, and a patriarch who **could not sit still** as tensions rose.
+
+| Phase | Institution | Da Chi |
+|-------|-------------|--------|
+| **Rising tensions** | Still **solemn** on paper; first escort contracts | **War Peak Elder** → **acting patriarch** at the gate; volunteers for **every** skirmish |
+| **Da Chi patriarch** | Policy shift — **incursion-first**; recruit fight maniacs | **Personally** sets “training” as **nearby wars** |
+| **Intrusion doctrine** | **Flank-breaking monks** (拆偏战僧) — squads led into **other sects’ battles** | Beat **both sides** back **lightly** — confused, **enraged**, not ruined; **then leave** |
+| **Long war** | Ridge = **regional nuisance** + **useful muscle**; Frost Gate still held | **Legion** jokes — hundreds of war monks **intruding** on “near enough” fights |
+| **Half-Step** | **Bell Luo** (then chancellor) **capitulates** — Da Chi at Frost Gate, **not** charter table | Holds retreating army off the road while Bell signs |
+| **After peace** | Mad Monk culture **already** set; veterans everywhere | **Saintly Flesh** breakthrough → **bell vault**; Bell Luo **patriarch** |
+
+### Intrusion brawls — signature Da Chi move *(owner lean)*
+
+Not assassination (Maidens). Not ideology (Phoenix). **Third-party chaos.**
+
+```text
+Sect A vs Sect B — valley, vein, grudge
+    → Vajra war monks **intrude**
+    → Push both lines back **hard enough to sting**, not enough to collapse
+    → Withdraw before anyone agrees who “won”
+    → A and B **both** furious, **light** casualties, **no** clear ledger entry
+```
+
+| Design beat | Why it works |
+|-------------|--------------|
+| **Low losses** | Vessel Rules + Da Chi **likes** repeat customers — dead sects don’t brawl twice |
+| **Confusion** | Charter courts **hate** this — “who violated border?” “who hired monks?” |
+| **Da Chi joy** | **Two** sides to hit; **no** paperwork if Bell Luo can’t find him |
+| **Contrast Yin Maiden** | Palace **small yin circles**, silence ledger, **surgical** — ridge **loud**, **intrusive**, **absurd** |
+
+**Heartlands memory:** *“The mad monks didn’t pick a side — they picked **everyone**.”*
+
+**Northern memory:** *“The bells held the gate. The maidens held the crown. The fool **intruded** on wars he wasn’t invited to.”*
+
+**Why settlement still worked:** arrays intact; Da Chi **useful** at Gate; Bell Luo **negotiable**; intrusion victims mostly **mid sects** without charter pull — great powers **embarrassed**, not **broken**.
 
 ---
 
-#### Dao Wars — sect + Mad Arhat personally
-
-**Institution (public record):** held **Frost Gate corridor** and granite spine; licensed muscle for Lotus caravans, imperial forts, tribulation witness; **no southern land claim** at settlement.
-
-**Mad Arhat (truth):** the war’s **golden age** — he was already **fight-mad inner-court elite** before capitulation, **not yet Saint**.
-
-| Phase | Sect | Da Chi personally |
-|-------|------|-------------------|
-| **Early war** | Ridge arrays lock the **south road**; escort contracts fund the peak | Volunteers for **every** southbound contract that smells like battle — “witness tribulation” often means **stand near a fight** |
-| **Mid war** | Shock squads of tempered adepts — quality flesh, small units | **Walked through flanks** for Lotus pay, Phoenix margins, imperial forts — **never** for Phoenix ideology; always for **the scrap** |
-| **Northern spill** | Stops refugee sects **clogging** the spine (institutional buffer) | **Personally** cleared camps that blocked the bell road — palace heard the punching from Maiden Peak |
-| **Half-Step** | Patriarch capitulates — **homeland intact** behind bell arrays | Da Chi **not** at Tian demonstration — was at Frost Gate **holding** against a retreating army that would have trampled the road |
-| **After peace** | Charter recognition; Mad Monk veterans everywhere | Breakthrough to **Saintly Flesh** — first **Golden Body Arhat** of the modern ridge; **did not calm down** |
-
-**Official minutes:** *“Solemn duty on the northern approaches.”* **Bath-house truth:** Da Chi fought **six** Heartlands skirmishes on escort papers that listed **one**.
-
-**Why the sect survived:** arrays + **a monster** at the gate who **wanted** the war to come to him — armies learned routing through Frost Gate cost **bodies** even when they won.
-
-**Player memory:** *“The bells held the gate. The maidens held the crown. The fool at the gate held **everything else**.”*
-
----
+#### Dao Wars — sect summary (institutional)
 
 #### Yin Maiden Palace — neighbors on the spine *(owner lean)*
 
@@ -238,7 +289,7 @@ Frost Gate ── Vajra Ridge (yang heat, noise, fists) ── Yin Maiden Palace
 
 | Contract | Who hired whom | Why |
 |----------|----------------|-----|
-| **Northern quell** | Palace **implicitly** benefited | Ridge **punched** sect camps palace didn’t want to touch — **yang noise** without yin experts spending silence debts |
+| **Northern quell** | Palace **implicitly** benefited | Ridge **punched** northern camps; Da Chi’s **intrusion squads** sometimes drifted **too north** — Maiden Peak heard brawls that weren’t “invited” |
 | **One southbound retreat** *(parked beat)* | Ridge hired palace **concealment** | Da Chi’s squad came back **too visible** from a Heartlands fight — Maidens hid the retreat; ridge owes **one silence** (paid in marrow baths + bell ore — **not** marriage) |
 | **Bleed-margin witness** | Joint caravans | Flesh endures edge wind; yin adepts **observe** tribulation — **back-to-back**, not mixed doctrine |
 
@@ -261,12 +312,12 @@ Frost Gate ── Vajra Ridge (yang heat, noise, fists) ── Yin Maiden Palace
 
 | Role | Name | Realm | Notes |
 |------|------|-------|-------|
-| **Sect spine** | **Mad Arhat** / Da Chi (大痴) | **Saint** (Saintly Flesh) | Golden Body Arhat formally; contained in bell vault |
-| **Patriarch** | **Bell Luo** (钟络) | VR peak | Fox administrator; **manages** the Saint |
-| **Trial elder** | **Iron Han** (铁瀚) | NS | Player gate; wildest fox below Da Chi |
-| **Founder (myth)** | **Rib-Hammer Ancestor** | Mortal legend | Not the Mad Arhat |
+| **Sect spine** | **Mad Arhat** / Da Chi (大痴) | **Saint** (Saintly Flesh) | War **patriarch** during Dao Wars; now bell vault |
+| **Patriarch** | **Bell Luo** (钟络) | VR peak | Da Chi’s **war chancellor** → charter patriarch after Saint breakthrough |
+| **Trial elder** | **Iron Han** (铁瀚) | NS | War-monk generation; player gate |
+| **Founder (myth)** | **Rib-Hammer Ancestor** | Mortal legend | Not Da Chi |
 
-**Succession:** patriarch names heir from trial ground — **Da Chi does not inherit**; he **endures**. When he finally breaks (death, walk south, charter crisis), the Mad Monk culture **outlives** him — that’s Bell Luo’s real job.
+**Succession:** Da Chi **did** hold patriarch title in war — then **gave** charter face to Bell Luo when he broke through Saint and **would not** sit at tables. Da Chi **endures** as spine; Bell **governs**.
 
 ---
 
@@ -301,21 +352,21 @@ Frost Gate → Vajra Ridge (body monks, south) → Yin Maiden Palace (crown) →
 - **Respected, not courted** — imperial hire for border muscle; Heartlands sects rarely invite them to votes
 - **Regional great sect** — Dao Wars **survivor** with homeland intact; not a Heartlands “fifth petal”
 
-### Dao Wars — hold the corridor, sell the fist (owner lean)
+### Dao Wars — hold the corridor, **intrude on the war** (owner lean)
 
-Different war posture from Yin Maiden — **visible muscle**, not silence ledger.
+Da Chi **was patriarch** for most of the war — institution joined because **he led it toward fights**. Buffer duty at Frost Gate was **real**; **intrusion brawls** were **policy**.
 
 | Layer | What they did | Why |
 |-------|---------------|-----|
-| **Southern buffer** | Held **Frost Gate approaches** and granite spine — stopped armies and refugee sects from **clogging the only sane road north** | Ridge arrays + **flesh that doesn’t break in Bleed wind** |
-| **Licensed muscle** | Escort contracts for Lotus caravans, imperial border forts, tribulation witness parties | **Monks for hire** — oaths, not marriage webs; **also** a ticket to someone else’s war |
-| **Body-refiner exports** | Sent **small squads** of tempered adepts south when pay justified — shock infantry, array anchors, “walk through the flank” | Quality flesh; monks **volunteered** more than headquarters admits |
-| **Secret truth** | Many deployments were **“find an enemy”** missions dressed as escort | **Enjoyed the Dao Wars** — never on charter record |
-| **Settlement** | **Vajra Ridge recognized** — homeland behind bell arrays; **no southern land claim** | Same capitulation lane as palace: intact bastion, charter border |
+| **Southern buffer** | Held **Frost Gate** — spine arrays, Bleed wind | **Necessary** — trade road north |
+| **Incursion policy** | Escort contracts + **volunteer** southbound squads | Da Chi’s **fight tickets** |
+| **Intrusion brawls** | **Flank-breaking war monks** into **nearby sect wars** — sting both sides, withdraw | Da Chi’s **favorite training**; charter nightmare |
+| **Recruitment** | Bell Trial selects **fight maniacs**; generations of **战僧** | Culture **locked** before peace |
+| **Settlement** | Bell Luo capitulates; ridge recognized; **no land claim** | Da Chi at Gate; **not** at Half-Step audience |
 
-**Contrast Yin Maiden:** palace **quelled north** around the crown and **small yin incursions** south; ridge **held the southern door** and sold **body expertise** outward. Both survived; neither ruled Frostbite as an empire.
+**Contrast Yin Maiden:** palace **surgical** small incursions + silence ledger; ridge **loud intrusion** + confused enemies.
 
-**Player memory:** “The bells held the gate. The maidens held the crown. **The mad monks wish the war never ended.**”
+**Player memory:** *“They didn’t pick a side. They picked **everyone**. The bells held the gate anyway.”*
 
 ### Relationships (sketch)
 
@@ -365,7 +416,8 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 - [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
 - [x] Generic capstone: **Saintly Flesh** realm (圣体境); person shorthand **Saint** / **Saints** — not “flesh saint” (owner 2026-08-02)
 - [x] Buddhist lineage epithet: **Golden Body Arhat** (金身罗汉); spine nickname **Mad Arhat** (疯罗汉)
-- [x] Mad Arhat **not founder** — Rib-Hammer Ancestor myth; Da Chi reshaped culture (owner 2026-08-02)
+- [x] Da Chi **war patriarch** — rise in rising tensions; intrusion doctrine; culture shift **during** war (owner 2026-08-02)
+- [x] Bell Luo — war chancellor → patriarch after Da Chi’s Saint breakthrough
 - [x] Spine true name — **Da Chi** (大痴) working; epithet **Mad Arhat** (疯罗汉)
 - [ ] Hanzi lock: **圣体境** vs **肉身圣境** for realm name
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
