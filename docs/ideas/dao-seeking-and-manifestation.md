@@ -58,15 +58,15 @@ Comprehension over thousands of years **stacks and merges** — it does not gate
 
 The tribulation is the **justify everything** moment: why law opens, why lifespan extends, why power jumps. **Owner has not locked a name yet.** Candidates:
 
-#### A — **Void Lens** (ties VR → Seeking)
+#### A — **Void Lens / Glimpse** (owner lean 2026-08-02)
 
-Peak void work thins the self until personal qi is no longer the only medium. Tribulation forces you to stabilize a **void-lens** — perception through the void **between** rules.
+Peak VR presses the **firmament veil**; for an instant you see **past** interstitial/outer void haze to **heaven’s laws in action** (not a book — phenomena: karma threading, tribulation assembling, law bare at a site).
 
-- **Immediate power:** void arts + **law-sight** fuse — blink/passage **and** read dao alignment, thin-forbidden warnings
-- **Weight:** you register on **heaven’s notice board**, not just the jianghu’s
-- **Why comprehend now:** the lens can **hold** law-concepts; before this they shattered
+- **Tribulation:** **Rulebook Retaliation** — heaven strikes for unauthorized witness; survive → stabilized lens → Dao Seeking
+- **Immediate power:** void qi + **law-sight**; patriarch **weight** on the board
+- **Full cosmology:** [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md)
 
-*Fits Void Temple cosmology (void as medium, not separate loot tree).*
+*Supersedes generic “void-lens” bullet; ties VR peak to Seeking gate.*
 
 #### B — **Law Aperture** (new “organ”)
 
@@ -342,7 +342,7 @@ Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k*
 - [ ] Karma / seer integration from world-building chat ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)) — separate issue?
 - [ ] Half-Step benefit from Peak worn depth vs breadth of library?
 - [ ] Which comprehension beats grant lifespan extensions in Seeking?
-- [ ] **Peak VR tribulation phenomenon** — Void Lens? Law Aperture? Heaven’s Question? (see brainstorm)
+- [ ] **Peak VR tribulation** — **Glimpse + Rulebook Retaliation** (owner lean) — see [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md)
 - [ ] Seeking breakthrough package: exact lifespan floor + combat/weight passives
 - [x] ~~Collapse Seeking into VR sub-phase~~ — **retired**; acquisition realm at idx 6 (owner 2026-08-02)
 - [ ] Rename `fragments` → `pursuits` / `threads` in code and copy

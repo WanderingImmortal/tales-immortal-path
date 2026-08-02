@@ -34,6 +34,7 @@ Breaking through is not instant promotion. The cultivator enters a **limbo / pse
 | FE → Golden Core | Lightning + heart common; core integrity tested | Limbo state; first full tribulation |
 | Golden Core → Nascent Soul | Soul emergence; inner self vs outer dao | `miniTribulation` already on NS seal in data — align or merge |
 | Nascent Soul → Void Refinement | Void / identity dissolution | |
+| Void Refinement → Dao Seeking | **Glimpse + Rulebook Retaliation** — see [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md) | Law-layer witness; heaven strikes back |
 | … | Dao Heart, Karmic, Heavenly Punishment stubs in `TRIBULATION_TYPES` | |
 
 **v1 option:** keep `getTribulationSeverity()` scaling + `pickTribulationType()` weights, but **flavor, omen text, and choice pools** keyed by `targetRealm` or `transitionId`.

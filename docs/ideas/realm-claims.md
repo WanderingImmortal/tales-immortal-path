@@ -198,9 +198,9 @@ Tie to existing **standing / apprehension** axes (karma / reputation brainstorm)
 **Body skin:** **Step through** — one bound ignores terrain.  
 **Soul skin:** **Soul blink** — projection snaps between nodes.
 
-**Note:** Today in **7-realm code**, Void = idx 4; transcendence perks (`void_step`, etc.) live here. Migration shifts to idx 5.
+**Note:** Today in **7-realm code**, Void = idx 4; transcendence perks (`void_step`, etc.) live here. Migration shifts to idx 5. Passage perks = **interstitial void**, not outer void.
 
-**Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — acquisition-realm pattern (VR → Seeking → Manifest).
+**Deep doc:** [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md) — void layers; Peak VR glimpse past veil → Seeking tribulation.
 
 ---
 
