@@ -29,9 +29,7 @@
 | **Who tried to expand inward** | Phoenix, Sword, Lotus routes — **main fight** | **North** may have **reached south** for war spoils; **learned limits** |
 | **Who tried to extract Dustbone** | **Third Dynasty (pre-wars)** — **catastrophic**; mandate later **light touch** | Tribes remember; Heartlands cite Third when tempted |
 
-**Northern reach (sketch):** Frostbite powers — proto **Yin Maiden** line on Maiden Peak, frost merc bands, yin cultivators — **extended south** during Dao Wars for fragments and vein access. Hit **Bleed flank**, Sword lines, Phoenix caldera heat, or charter coalitions — **learned what not to touch**. Settlement = **isolation / recognition**, not northern empire.
-
-**Yin Maiden Palace Dao Wars role — NOT LOCKED.** Personality undefined. Parked postures in [`frostbite-yin-sect.md`](frostbite-yin-sect.md).
+**Northern reach (owner lock):** Frostbite powers — **Yin Maiden Palace** on Maiden Peak — did **not** march for a northern empire. **Quelled northern chaos** (innumerable minor sects drifting north); **many small Heartlands incursions** when tactical ROI justified — yin expert circles, quality over quantity; **played the field** toward a multipolar end favorable to Maiden Peak; **racked up silence debts** (some **still outstanding**). Settlement = **recognition**, not southern land claim. Detail: [`frostbite-yin-sect.md`](frostbite-yin-sect.md); debt hooks: [`silence-debt-mid-sects.md`](silence-debt-mid-sects.md).
 
 ## What the Dao Wars were (locked sketch)
 
@@ -63,14 +61,13 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 - Settlement: throne **mediates sea charter** — does not sail as emperor’s navy; archipelago keeps **dual great sect** parity.
 - **Player memory:** “The war was on the water. The charter split the sea.”
 
-### Frostbite — **reached south, learned limits**
+### Frostbite — **quell north, small reaches south**
 
 - Scar + Bleed **predate** Dao Wars ([`frostbite-origin.md`](frostbite-origin.md)).
-- **Not** a main march route through the apex — but **northern powers pushed south** for Dao War spoils (fragments, vein toes, contracts).
-- **Lesson:** what bleeds in the north **does not march**; what burns in the Heartlands **does not yield** to yin alone.
-- **Yin Maiden Palace** — **cold calculator** posture locked: **silence ledger**, one southern reach for **yin prizes**, **not** Lotus bonds — see [`frostbite-yin-sect.md`](frostbite-yin-sect.md).
-- Settlement likely includes **leave Maiden Peak alone** + **no northern claim on Heartlands veins** — details when identity doc matures.
-- **Player memory (draft):** “We reached for the prize. The prize reached back.”
+- **Northern theater:** quell chaos from **innumerable minor sects** drifting north — tactical buffer, not empire.
+- **Southern theater:** **many small incursions** — yin expert circles (quality over quantity); play field toward **multipolar** end; **silence ledger** debts — some **still outstanding** ([`frostbite-yin-sect.md`](frostbite-yin-sect.md)).
+- Settlement: Maiden Peak recognized; **no land claim south**; unsettled debts **awkward** in charter peace.
+- **Player memory:** “They sorted the north. They dipped south when it paid. **Old sects still owe them.**”
 
 ### Dustbone — **economics of war; extraction lesson already learned**
 
@@ -116,8 +113,9 @@ Now → Phoenix Gambit (Heartlands politics)
 ## Open questions
 
 - [x] Third Dynasty — **before** Dao Wars (owner lean); exact age TBD
-- [ ] Yin Maiden Palace — **personality + war role** (see frostbite-yin-sect parked postures)
-- [ ] Northern southward reach — **one failed campaign** or **mercenary era only**?
+- [x] Yin Maiden Palace — **cold/calculating spine**; northern quell + small reaches + silence ledger (owner 2026-08-02)
+- [x] Northern southward reach — **many small incursions**, not one grand march (owner 2026-08-02)
+- [ ] **Silence-debt mid sects** — 2–3 survivors who still owe ([`silence-debt-mid-sects.md`](silence-debt-mid-sects.md))
 - [ ] Half-Step visible from outer zones or rumor-only?
 - [ ] Battlefield scars outside Heartlands?
 

@@ -120,47 +120,67 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 - **Combat:** among **weaker immortals** in open yang war — strong in **concealment, severance, assassination**; does not duel Phoenix/Sword/Tian.
 - **Visibility:** even less than Shuyu — **no marriage news**; debts are **secret**.
 
-## Dao Wars — goals, why “join,” what they fought for (owner lock)
+## Dao Wars — northern quell + small reaches + silence ledger (owner lock)
 
-They did **not** join the Dao Wars as a **territorial power**. Heartlands prizes were **veins and sect land** — **Lotus and Phoenix territory**. Maiden Peak wanted **different currencies**.
+They did **not** join as a **territorial power**. Two theaters: **clean the north around them**, then **many small Heartlands incursions** — quality over quantity — while **playing the field** and **racking up silence debts**.
 
-### War goals (what the calculator wanted)
+### Layer 1 — **Quell northern chaos** (home game)
 
-| Goal | Why cold/calculating fits |
-|------|---------------------------|
-| **Yin fragment corpus** | Moon sites, pre-heaven yin shards, tribulation **observation** — cultivation capital, not acres |
-| **Silence ledger** | Contracts: *we conceal your retreat / sever your rival / hide your breakthrough* — **debts without marriage** |
-| **Multipolar board** | Prevent **one yang hegemon** north of Maiden Peak — cheap interventions, not armies |
-| **Subtraction** | Let Sword and Phoenix **expend**; acquire what falls from **dead schools** — no banner wars |
+Dao Wars were **all over the continent** — innumerable minor sects, refugee cultivators, fragment hunters, broken armies drifting north.
 
-**Not fighting for:** silk routes, charter votes, caldera courts, Lotus-style **binding** the Heartlands.
+| Action | Why |
+|--------|-----|
+| **Tactical incursions** near Frost Gate, Bleed margin, approaches to Maiden Peak | Stop war **spilling onto their slope** — not charity, **buffer math** |
+| **Eliminate or redirect** minor northern sects that camped wrong | Cold calculation: chaos near peak = **bad cultivation weather** |
+| **No northern empire** | They **pruned** around themselves — did not **rule** the wastes |
 
-### Why they “joined” at all
+**Player memory (north):** “The war threw garbage north. The maidens **sorted it**.”
 
-- **Yang fever opened doors** — sealed yin sites unattended while great sects duel.
-- **Northern encirclement math** — if Phoenix **alone** wins the prize belt, Maiden Peak becomes **next frontier**; minimal spend to **keep chaos multipolar**.
-- **Not ideology** — war is **bad weather**; stillness is **strategy**.
+### Layer 2 — **Small reaches south** (Heartlands)
 
-### What they actually did (behavior)
+**Not one grand march** — **many small incursions** into the Heartlands prize belt when **tactical reason** justified cost.
 
-| Layer | Action |
-|-------|--------|
-| **Palace** | Stayed on peak; **True Yin Scripture** written from observation |
-| **Outer court** | Frost mercs — **contracted**, not crusaders |
-| **Inner circle** | **One southern reach** — not conquest: **specific prize** (moon scripture / mirror lore / yin fragment from fallen sect) |
-| **Across board** | **Silence contracts** with **every** side — Lotus sells **bonds**; Maidens sell **forgetting** |
+| Pattern | Detail |
+|---------|--------|
+| **Scale** | Small circles — **experts**, not armies |
+| **Quality** | Inner-court adepts in **high yin arts** — concealment, severance, stillness kills — **hard to fight**, few bodies needed |
+| **Goals per incursion** | Yin fragment, moon site, rescue a **debtor**, assassinate a **rival** for a client, observe tribulation — **each trip has a line on the ledger** |
+| **Field play** | Support side that keeps board **multipolar** — withdraw when math turns bad |
 
-**One southern expedition (sketch):** small maiden circle, not army — reached Heartlands fringe, **paid** at Sword line or Phoenix heat, returned **diminished but with the text** that became inner canon. Lesson: **yang prize belt is not yin soil** — settlement **no territorial claim south**.
+**Not fighting for:** veins, caldera land, charter mantle — **Lotus/Phoenix prizes**.
 
-### Settlement outcome
+### Layer 3 — **Silence ledger** (the real harvest)
 
-- **Maiden Peak recognized** — sovereign, non-annexable.
-- **Charter:** no southern **land** claim; **concealment services** licensed case-by-case — not Lotus **presence**.
-- **Heartlands memory:** unsettling — *they were at every retreat but never on the map*.
+Every incursion and **expert deployment** could be **contracted**:
 
-**Player memory:** “The war burned south. The maidens **collected silence**.”
+- *Conceal our retreat.*
+- *Sever their champion before duel.*
+- *Hide this breakthrough from heaven’s audit.*
+- *Quell the sect camped on our northern flank — we owe you.*
 
-**Primary lean:** **Observed stillness** + **one southern reach** + **silence ledger** — cold calculator bundle.
+**Debts without marriage** — Lotus binds with silk; Maidens bind with **secrets owed**.
+
+| Debt type | Today |
+|-----------|-------|
+| **Paid** | Dead schools, forgotten oaths |
+| **Still outstanding** | Survivors who **still live** — mid sects, elders, hidden patrons *(owner may design)* |
+| **Player hook** | Faction rep reveals “your elder’s grandmother owed the Maidens a silence” |
+
+**Parked:** owner may design **a couple mid-tier sects** (or cadet branches) with **unsettled silence debts** — charter awkwardness, assassination refusal, forced yin aid. See [`silence-debt-mid-sects.md`](silence-debt-mid-sects.md).
+
+### Why “join” (summary)
+
+- **Northern quell** — practical; chaos is expensive.
+- **Small southern reaches** — yin prizes + **ledger entries** when ROI clear.
+- **Play the field** — end war in a shape where Maiden Peak is **not encircled** and **many owe silence**.
+
+### Settlement
+
+- Maiden Peak **recognized**; **no southern land claim**.
+- Concealment / yin expert contracts **case-by-case** — not Lotus omnipresence.
+- **Unsettled debts** still valid where debtors survive — **awkward** in charter peace.
+
+**Player memory:** “They were never on the map. Half the old sects **still owe them**.”
 
 Link: [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 
@@ -169,7 +189,8 @@ Link: [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 - [x] Apex scripture name — **True Yin Scripture** (真阴经) — owner 2026-08-02
 - [ ] Final palace name: **玉女宫** locked or blend with Moonfract 月碎?
 - [ ] Spine true name + epithet — **Silent Moon Matriarch** vs **First Yin Maiden**
-- [ ] One southern expedition — **what text** did they bring back?
+- [ ] **Silence-debt mid sects** — 2–3 survivors who still owe (faction hooks, charter tension)
+- [ ] Example incursion — one named small reach and what it cost
 
 ## Prerequisites
 
