@@ -3,10 +3,10 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` |
-| **Blocked on** | Owner design time; may overlap roots v2 / manuals / per-realm idea docs below |
+| **Blocked on** | Owner tune on idx 4 / 7 in [`realm-claims.md`](realm-claims.md); may overlap roots v2 / manuals |
 | **Issue** | none yet |
 | **Chat / PR** | Owner pause on Chaos brainstorm, 2026-07-20 — branch `cursor/chaos-path-idea-stub-ea0c` |
-| **Updated** | 2026-07-20 |
+| **Updated** | 2026-08-02 |
 
 > **Current priority (owner):** Flesh out **existing major cultivation realms** with depth — power, scale, capabilities — before continuing Chaos / post-immortal design. Endgame ideas are **parked** until the lower ladder feels like a real foundation.
 
@@ -41,11 +41,14 @@ For each major realm (qi / body / spirit tracks as applicable):
 - [`chaos-cultivation-path.md`](chaos-cultivation-path.md) — brainstorm sufficient; **no more expansion** until realm depth pass informs scale
 - [`post-immortal-cosmology.md`](post-immortal-cosmology.md) — same
 
+## Capability matrix
+
+**Primary doc:** [`realm-claims.md`](realm-claims.md) — per-realm claims, travel, aura, and body/soul skins (expanded 2026-08-02 from cloud design chat). Per-realm *journey* depth still lives in sibling docs (QC, FE, GC, tribulation, etc.).
+
 ## Open questions
 
-- One umbrella doc vs per-realm docs only?
-- Order of realms to deepen (FE first vs full ladder outline first)?
-- Single “capability matrix” table for all seven before implementing any?
+- Order of realms to deepen in code (FE first vs ship GC/NS travel claims first)?
+- Owner tune: Deity Transformation radius; Dao Manifestation one-law-per-life?
 
 ## Implementation crumbs (later)
 
