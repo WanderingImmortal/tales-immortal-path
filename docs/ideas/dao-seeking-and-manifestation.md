@@ -163,7 +163,19 @@ Tie to realm claim **Law (wear)**:
 
 ---
 
-## Prerequisites
+## Lifespan (open — ties to watershed doc)
+
+Dao Seeking is **comprehension**, not “my body stores another twenty millennia on breakthrough.” Lifespan should follow **what you understand and wield**, not realm label alone.
+
+| Beat | Lean |
+|------|------|
+| Enter Seeking | Modest extension over VR peak (~**12–15k** years — TBD) |
+| Comprehend / merge milestones | Climb toward **~30k** band — milestones **not designed yet** |
+| First **wield** (Manifestation) | **~45–50k** — the big immortal-adjacent contract |
+
+Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k** is for law-wearers. Full table: [`nine-realm-ladder.md`](nine-realm-ladder.md) — Dao Seeking lifespan (open).
+
+---
 
 - [ ] Nine-realm migration — Dao Seeking idx 5→6, add Manifestation idx 7
 - [ ] `G.daoState.wornLaw` (or equivalent) + swap cost rules
@@ -179,6 +191,7 @@ Tie to realm claim **Law (wear)**:
 - [ ] Manifestation depth — shared sub-states across all laws or per-law mastery map?
 - [ ] Karma / seer integration from world-building chat ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)) — separate issue?
 - [ ] Half-Step benefit from Peak worn depth vs breadth of library?
+- [ ] Which comprehension beats grant lifespan extensions in Seeking?
 
 ## Implementation crumbs
 

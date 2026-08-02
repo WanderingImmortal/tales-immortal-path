@@ -108,20 +108,39 @@ Grade changes **how fast** you move, not the **ceiling years** at a given peak q
 | 2 | Core Formation | **300** | **400** | **500** | +180 |
 | 3 | Nascent Soul | **1,000** | **1,250** | **1,500** | +700 |
 | 4 | Deity Transformation | **2,000** | **2,500** | **3,000** | +1,000 |
-| 5 | Void Refinement | **6,000** | **8,000** | **10,000** | +4,000 |
-| 6 | Dao Seeking | **25,000** | **30,000** | **35,000** | +19,000 |
-| 7 | Dao Manifestation | **45,000** | **50,000** | **50,000** | +20,000 |
+| 5 | Void Refinement | **5,000** | **7,500** | **10,000** | +3,000 |
+| 6 | Dao Seeking | **see below** | **~30,000** (target) | TBD | TBD |
+| 7 | Dao Manifestation | **~45,000** | **50,000** | **50,000** | TBD |
 | 8 | Immortal Ascension | **unbound** (99999) | unbound | unbound | — |
 
 **Refinements from brainstorm:**
 
-- **GC 300–500** — owner memory; milestone bumps at consolidate / peak consolidate, not separate `realmIdx`.
-- **NS 1k–1.5k**, **DT 2k–3k** — same band pattern.
-- **VR 6k–10k** — solid jump after DT; midpoint **8k** for “standard” peak VR NPCs (owner said 5–10k; lean high-mid).
-- **Seek ~30k / Manifest ~50k** — owner memory; Seek gets optional +5k at perfected peak before Manifestation breakthrough resets band to 45k→50k.
+- **GC 300–500**, **NS 1k–1.5k**, **DT 2k–3k** — in-basin bands; **exact milestone bumps TBD** when consolidate/substage milestones are designed ([`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md)).
+- **VR 5k–10k** — owner lock: **5,000** on breakthrough (clean half of 10k), **7,500** competent, **10,000** perfected.
+- **Dao Seeking / Manifestation** — **not settled**; see [Dao Seeking lifespan (open)](#dao-seeking-lifespan-open) below. Target **~30k** deep Seek, **~50k** Manifest — but *how* you earn years in Seeking needs design tied to comprehension ([`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md)).
 - **Immortal** — mortal-map lifespan display ends; Court / immortal layer owns time.
 
-**Code today:** 7 entries, doubling-ish `80, 120, 200, 400, 800, 2000, 99999` — replace on nine-realm migration.
+### Dao Seeking lifespan (open)
+
+**Problem (owner 2026-08-02):** A fresh Dao Seeking breakthrough should not hand out **+20,000 years** just for changing realm label. Seeking is a **comprehension** watershed — you hunt and understand laws; that is a different fantasy than “my body got another ten millennia.” A VR peak expert (10k cap) vs someone who *just* broke through Seeking should not feel like the latter instantly outlives the former by triple.
+
+**Lean direction (needs dao milestone design):**
+
+| Beat | Lifespan idea | Why |
+|------|---------------|-----|
+| Enter Dao Seeking | **Modest bump** over VR perfected — e.g. **12,000–15,000** (TBD) | Buys time to hunt; you are not yet “era immortal” |
+| Comprehend / merge milestones | **Extensions toward ~30k band** | Time earned by **what you understand** — greater dao, fundamental merge, etc. (milestones not invented yet) |
+| First **wield** → Manifestation | **Big jump ~45k–50k** | Embodiment contract — aligns with Manifestation gate in dao doc |
+
+**NPC implication:** legendary Seekers who never wield stay in the **15k–30k** band (still ancient); true **50k** figures are law-wearers. Ambient “heard of for eras” can use comprehension depth, not just realm idx.
+
+**Open:**
+
+- [ ] Which comprehension beats grant years? (first Greater? first Fundamental merge? library size?)
+- [ ] Flat ~30k at “deep Seek” without Manifestation — valid tragedy / plateau ending?
+- [ ] Manifestation perfected — stay 50k or allow 55k before Immortal?
+
+**For implementers later (plain language):** the game will need one “years you can live” number per character, plus rules for when breakthroughs and dao milestones extend it. No need to decide file names now.
 
 ### World-map presence (why the numbers matter)
 
@@ -134,21 +153,11 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 2nd-tier regional lord | NS | **1,000–1,500y** | Dynasty-scale; rumors and grudges span your whole GC climb |
 | Great sect elder (retired peak) | GC perfected | ~500y | Roster fixture; not a quest NPC — still there |
 | Sect patriarch / imperial minister | NS–DT | 1k–3k | Background power; chronicle entries, not mandatory scenes |
-| 1st-tier vault elder | VR (hidden) | **8k–10k** | Mythic; name on laws and ruins |
-| Dao-wearer legend | Seek / Manifest | 30k–50k | Era-defining; mortal map treats them like weather |
+| 1st-tier vault elder | VR (hidden) | **7.5k–10k** | Mythic; name on laws and ruins |
+| Deep Seeker (comprehension, no wield) | Seek | **15k–30k** (TBD) | Ancient scholar; not yet law-on-skin |
+| Dao-wearer legend | Manifest | **~50k** | Era-defining; mortal map treats them like weather |
 
 **Design intent:** not every elder is a story character — **persistence** sells scale. Chronicle + living clock can reference “still Lord Chen” without bespoke scripting if lifespan and role data agree.
-
-### Implementation sketch (lifespan)
-
-```javascript
-// Base on breakthrough — LIFESPAN_BY_REALM[realmIdx]
-// Optional: getLifespanCap({ realmIdx, peakTier, basinMilestone }) for GC+ bands
-```
-
-- `world.js` — `lifespanUsesRealm` NPCs already index `LIFESPAN_BY_REALM`; extend with peak quality when basin milestones ship.
-- Player: extend on breakthrough + consolidate milestones (same as GC journey doc).
-- Display: show **cap** and **years remaining**; immortal = unbound copy.
 
 **Supersedes:** earlier draft +40y gentle steps (2026-07) — kept for history in git only.
 
@@ -186,7 +195,9 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 
 - [x] Idx 4 name — **Deity Transformation** (lean; UI copy may shorten)  
 - [ ] Half-Step model A vs B  
-- [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02) — see table above
-- [ ] Milestone extension amounts (+100y GC consolidate?) — tune with chamber pass
+- [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02)
+- [x] VR breakthrough floor — **5,000** (owner aesthetic: half of 10k)
+- [ ] GC+ in-basin milestone **+years** — when milestones exist
+- [ ] Dao Seeking — comprehension-linked extensions (see open section above)
 - [ ] Does idx 7 Dao Manifestation gate immortal-layer legislation preview?  
 - [ ] Upper celestial nine names — mirror this list or fresh set?
