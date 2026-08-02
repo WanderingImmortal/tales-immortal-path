@@ -46,7 +46,7 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 | **Void Temple** | Heartlands — observatory slopes | Neutral late — archives preserved by oath; *also* sealed-site monopoly, not “the library faction” |
 | **Golden Phoenix** | Heartlands — flame courts | Broken late — humiliating truce; *also* fuels modern revanchism; still a full martial flame sect |
 | **Frostpeak Monastery** | Frostbite | Isolation bargain — left alone if they ward the north |
-| **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal is local law |
+| **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal local law; **Third Cascade taught Heartlands not to extract** (pre–Dao Wars) |
 | **Storm Dragon / Tidal Lotus** | Jade archipelago | Sea charter — throne mediates, does not sail |
 | **Emberwild Collective** | Emberwild | Contained, not conquered — jungle not worth the debt |
 

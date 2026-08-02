@@ -6,7 +6,7 @@
 | **Blocked on** | none for lore |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent brainstorm; parked 2026-07-25; naming lock 2026-07-26 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-08-02 (Third pre–Dao Wars — owner) |
 
 ## Intent
 
@@ -66,10 +66,15 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 - Salvaged **architecture** of First; built **towering sandstone** shell of what is now **Threshold City**; registry law.
 - **Arrogance of density** — mistook exception for mastery.
 
-### Third — outsiders
+### Third — outsiders (**before the Dao Wars**)
 
-- Imperial garrison, extraction, standard order at scale; learned from **Second rubble**, not First mystery.
-- Recent enough for tribal memory.
+- **Continental / Heartlands-scale** garrison and extraction — **not** the Tian mandate (that comes later).
+- Predates the **Dao Wars** (道战 / “warring states” era) — owner lean 2026-08-02; exact age **TBD**.
+- Learned from **Second rubble**, not First mystery — repeated the mistake: **administrative order at empire scale** in a basin with Law of Dust.
+- **Third Cascade** — fast singularity; garrison **gone**; iron-grit layer in the sand.
+- **Lesson for the Heartlands** (learned **a long while ago**): heavy extraction in Dustbone **triggers the desert, not tribute**. Charter-era regents still cite Third when Lotus wants another registry push in Threshold.
+
+*Dao Wars Dustbone role:* caravans, smuggling, refugees — **not** another imperial garrison. See [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 
 ---
 
@@ -86,8 +91,14 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 
 ```text
 Pre-First → First + Pin + First Cascade → Second + Second Cascade
-→ Third + Third Cascade → Now (under threshold) → Fourth? (player/sect risk)
+→ Third Dynasty + Third Cascade (BEFORE Dao Wars — prior empire, not Tian)
+→ … long gap — tribes, Threshold under threshold, Heartlands learns “don’t extract Dustbone”
+→ Dao Wars (Heartlands = main territorial prize; outer zones touched differently)
+→ Half-Step + charter settlement
+→ Now (under cascade threshold; Fourth? risk)
 ```
+
+**Age:** Third is **old** — tribal memory, Registry scare quotes, not living veterans. Exact centuries **open**.
 
 ---
 

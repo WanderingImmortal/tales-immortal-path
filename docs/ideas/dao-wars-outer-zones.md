@@ -17,7 +17,21 @@
 - **Heartlands** = main theater — great sect capitulation, Half-Step demonstration, charter born here.
 - **Outer zones** = **spillover, bargains, and local wars** — touched by veins, fragments, armies, and trade disruption — but mostly **not** where the Tian knelt the four petals.
 
-**Distance alone did not spare anyone** (high-realm travel, sea routes, desert caravans). **Terrain and deterrence** shaped *how* each zone was touched.
+**Distance alone did not spare anyone** — but **most territorial prizes** (veins, fragment clusters, great sect homelands to absorb) sat in the **Heartlands**. Outer zones were **touched** (trade, raids, contracts, refugees) without being where the **map was redrawn**.
+
+**This doc is a living sketch** — as more great sect identity docs land ([`outer-zone-great-powers.md`](outer-zone-great-powers.md)), the war roster grows. Core frame stays: **Heartlands = prize**; outer = **angles, bargains, mistakes**.
+
+## Territorial logic (owner lock — 2026-08-02)
+
+| | Heartlands | Outer zones |
+|--|------------|-------------|
+| **What armies wanted** | Veins, fragments, sect territories, caldera courts | Routes, mats, flank positions — **secondary** |
+| **Who tried to expand inward** | Phoenix, Sword, Lotus routes — **main fight** | **North** may have **reached south** for war spoils; **learned limits** |
+| **Who tried to extract Dustbone** | **Third Dynasty (pre-wars)** — **catastrophic**; mandate later **light touch** | Tribes remember; Heartlands cite Third when tempted |
+
+**Northern reach (sketch):** Frostbite powers — proto **Yin Maiden** line on Maiden Peak, frost merc bands, yin cultivators — **extended south** during Dao Wars for fragments and vein access. Hit **Bleed flank**, Sword lines, Phoenix caldera heat, or charter coalitions — **learned what not to touch**. Settlement = **isolation / recognition**, not northern empire.
+
+**Yin Maiden Palace Dao Wars role — NOT LOCKED.** Personality undefined. Parked postures in [`frostbite-yin-sect.md`](frostbite-yin-sect.md).
 
 ## What the Dao Wars were (locked sketch)
 
@@ -49,21 +63,21 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 - Settlement: throne **mediates sea charter** — does not sail as emperor’s navy; archipelago keeps **dual great sect** parity.
 - **Player memory:** “The war was on the water. The charter split the sea.”
 
-### Frostbite — **bargained, not battled**
+### Frostbite — **reached south, learned limits**
 
-- Sunless Scar + Bleed **predate** Dao Wars ([`frostbite-origin.md`](frostbite-origin.md)) — north was already uninhabitable at apex.
-- No sensible army **marches through absolute yin**; Heartlands campaigns **skirt** the margin (Frost Gate mercs, not caldera sieges).
-- **Yin Maiden Palace** (successor to Frostpeak stub) likely **crystallized at settlement** — isolation + female-sovereign peak on Maiden Peak, **not** “northern guardian of the realm.”
-- Imperial row (draft): **left alone if they ward the Bleed** — may soften to **left alone on their peak** once Yin Maiden identity lands; Bleed **wards itself**.
-- **Player memory:** “The Heartlands burned. The north signed silence.”
+- Scar + Bleed **predate** Dao Wars ([`frostbite-origin.md`](frostbite-origin.md)).
+- **Not** a main march route through the apex — but **northern powers pushed south** for Dao War spoils (fragments, vein toes, contracts).
+- **Lesson:** what bleeds in the north **does not march**; what burns in the Heartlands **does not yield** to yin alone.
+- **Yin Maiden Palace** — war role **TBD** when sect personality locks (see frostbite-yin-sect doc).
+- Settlement likely includes **leave Maiden Peak alone** + **no northern claim on Heartlands veins** — details when identity doc matures.
+- **Player memory (draft):** “We reached for the prize. The prize reached back.”
 
-### Dustbone — **economics of war, not sect war**
+### Dustbone — **economics of war; extraction lesson already learned**
 
-- **First / Second / Third dynasties** = **local** Law of Dust story — mostly **before or beside** Dao Wars focus ([`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md)).
-- Third Dynasty **imperial garrison** = outsiders at **empire scale** — could be **late Dao Wars extraction** or **early mandate occupation** that **collapsed fast** (Third Cascade) — **open**.
-- Dao Wars **here:** caravan escorts, fragment smuggling, Threshold walls stressed by **refugee order-density**, tribes broker truce so **Fourth Cascade** doesn’t fire.
-- Imperial reach **weak** — Tribunal is **local law**; Tian got a **nod**, not a garrison that stuck.
-- **Player memory:** “Empires fell in the sand before. The mandate was another wind.”
+- **First / Second / Third** = **before Dao Wars** ([`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md)) — Third Cascade is **old history**.
+- Heartlands powers **already know**: empire-scale extraction **eats the basin**, not the extractor’s profit.
+- Dao Wars **here:** caravan wars, fragment smuggling, refugee pressure on Threshold — **not** another garrison empire.
+- **Player memory:** “They tried that in the Third. The sand remembered.”
 
 ### Emberwild — **contained fringe**
 
@@ -84,23 +98,28 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 
 Players in **outer zones at QC** should feel **Dao Wars echo** (charter, old grudges, veteran NPCs) without “why was my starter city a battlefield?”
 
-## Timeline sketch (not locked)
+## Timeline sketch (flexible — grows with sect docs)
 
 ```text
-Pre-wars → Scar/Mirror already bleeding; Dustbone dynasties 1–2; Jade sea powers rise
-Dao Wars → Heartlands inferno; Jade naval; margins raided; innumerable sects die
+… Third Cascade (Dustbone) — BEFORE Dao Wars
+… Heartlands learns: don’t extract Dustbone at scale
+Pre-wars → Scar bleeding; Jade sea powers; innumerable minor sects
+Dao Wars → Heartlands = territorial prize; north reaches south; Jade naval; margins raided
 Half-Step → wars stop fast
-Settlement → charter; sea charter; isolation oaths; Emberwild containment
-Post → buried founder; Third Cascade (Dustbone); Yin Maiden Palace formalizes; immortals accumulate
-Now → Phoenix Gambit (Heartlands politics, not second continental war)
+Settlement → charter; sea charter; northern isolation / recognition; Emberwild containment
+Post → buried founder; Yin Maiden formalizes (when); immortals accumulate
+Now → Phoenix Gambit (Heartlands politics)
 ```
+
+*Add rows to imperial table as each outer great sect identity lands.*
 
 ## Open questions
 
-- [ ] Third Dynasty garrison — **during** Dao Wars or **first century of mandate**?
-- [ ] Yin Maiden Palace — founded **before** wars (ancient) or **recognized at settlement**?
-- [ ] Any **Dao Wars battlefield scar** in outer zones (tribulation-scarred valley) vs only Heartlands?
-- [ ] Did **Half-Step demonstration** visible from outer zones (sky sign) or only rumor?
+- [x] Third Dynasty — **before** Dao Wars (owner lean); exact age TBD
+- [ ] Yin Maiden Palace — **personality + war role** (see frostbite-yin-sect parked postures)
+- [ ] Northern southward reach — **one failed campaign** or **mercenary era only**?
+- [ ] Half-Step visible from outer zones or rumor-only?
+- [ ] Battlefield scars outside Heartlands?
 
 ## Implementation crumbs (later)
 
