@@ -55,7 +55,7 @@ Per-realm *journey* depth still lives in sibling docs (QC, FE, GC, tribulation, 
 ## Open questions
 
 - Order of realms to deepen in code (FE first vs ship GC/NS travel claims first)?
-- Owner tune: Deity Transformation contextual pressure (done — see realm-claims); Dao Manifestation swap cost curve?
+- [ ] Consolidated open queue — [`upper-ladder-design-hub.md`](upper-ladder-design-hub.md)
 
 ## Implementation crumbs (later)
 
