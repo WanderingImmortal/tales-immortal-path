@@ -138,20 +138,43 @@ Mad Monk fiction: outer court hears **leash**; inner court **must** swear one **
 
 ## Da Chi — apex rule candidates (owner workshop)
 
-Da Chi needs **one** apex sworn rule for fiction consistency (player may pick differently). Candidates from design chat:
+Da Chi needs **one** apex sworn rule for fiction consistency (player may pick differently).
+
+### Owner direction — “never considers himself defeated” (not “always wins”)
+
+Da Chi is **not invincible** — he has **lost** fights, been knocked down, been outclassed. A literal **Rule of Victory** / “I must always win” **fails** fiction and mechanics (outcome oaths aren’t flesh-reroute channels).
+
+**What works:** oath on **will state**, not **scoreboard**.
+
+| Outcome oath (reject) | Will-state oath (lean) |
+|-----------------------|------------------------|
+| “I always win” | “I do not **yield** the fight” |
+| Invincibility | **No concede, no voluntary retreat** while flesh can still answer |
+| Deny he was ever beaten | Deny he **accepts** defeat as **his** end state mid-engagement |
+| Capitulation never happened | **Bell Luo** capitulates the **sect**; Da Chi **holds the gate** — charter ends the war **around** him, not **inside** his fist |
+
+**Genre line:** the Mad Arhat loses on the ledger like anyone — then grins and asks who’s at the gate. Defeat is **what happened**; yielding is **what he forbids**.
+
+**Frost Gate fiction fit:** Half-Step Bell signs; Da Chi **does not walk away** from the line — he **stays** until flesh or charter **externally** stops the engagement. Saint breakthrough **after** capitulation = oath held through institutional loss without **personal** yield.
+
+### Candidate rules (apex catalog)
 
 | Rule idea | Oath shape | Fit to Da Chi |
 |-----------|------------|---------------|
-| **Rule of the Unnamed** *(strong lean)* | Motion law — no frozen technique; fist is not named form | Matches **Martial Intent** doctrine (“technique is decoration”); supreme flow; reads **easy** in his hands |
-| **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Fight-forward **ethics** — not murder-forward; “you started it, I finish it” |
-| **Rule of One Exchange** | No multi-hit combos — one exchange, then **reset** | Brawl aesthetic; makes intrusion brawls **messy** not lethal |
-| **Rule of Impact** | No mid-fight healing / qi mend; must **close** to decide | Harder survival channel; less fool-act, more ascetic |
+| **Rule of No Yield** *(owner lean — 2026-08-02)* | Will does not **accept defeat** — no surrender, no voluntary retreat while capable of answering | “Never considers himself defeated”; **has** been beaten; not invincible |
+| **Rule of the Unbroken Step** | Foot does not **retreat** from a declared engagement; advance or hold | Fight-forward Mad Monk; intrusion brawls **push** lines |
+| **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Ethics lane — “you started it”; pairs with No Yield (answer until flesh stops) |
+| **Rule of the Unnamed** | Motion law — no frozen technique; fist is not named form | Martial Intent doctrine; supreme **flow** — different channel than No Yield |
+| **Rule of One Exchange** | One exchange, then reset | Brawl aesthetic; less “undefeated will” |
+| **Rule of Impact** | No mid-fight mend; must close | Survival channel |
 
-**Owner lean:** **Unnamed** for apex rule — Da Chi is the monk who **cannot be read** because he **refuses fixed form**, not because he picked the cruellest oath.
+**Owner lean (current):** **No Yield** family for Da Chi apex — stubborn will as **oath**, not personality garnish. Unnamed remains strong **alternate** (technique vs will).
 
-**Separate from leash:** Da Chi may **ignore boring leash** until Bell makes it interesting — but his **apex** rule is the one flesh **cannot** fake (realm-scale proof).
+**Mechanics sketch (later):** while oath holds and HP/stamina allow — block **surrender / flee / concede** actions; payoff in **“losing” fights** (bloodied, outmatched) — flesh **reroutes** refusal-to-yield into combat physics, not guaranteed win. Fight ends when **incapacitated** or **external halt** (sect order, environmental), not when mind accepts loss.
 
-**Not chosen yet:** Answering Blow as **sect-default leash** for war monks vs Da Chi’s personal apex — both could coexist in fiction (charter never strike first + personal Unnamed).
+**Separate from leash:** Answering Blow or “never strike first” may stay **Bell Luo charter**; Da Chi’s apex is **No Yield** — ignores boring leash until Bell makes it interesting.
+
+**Hanzi candidates (*not locked*):** 不屈律 · 不认败 · 不退志
 
 ---
 
@@ -184,7 +207,7 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 
 - [ ] Sect **assigns** rule vs disciple **chooses** after trial
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
-- [ ] Lock Da Chi apex rule: **Unnamed** vs Answering Blow / Impact
+- [ ] Lock Da Chi apex rule: **No Yield** lean vs Unnamed / Answering Blow / Impact
 - [ ] Body Dao hanzi + whether oath ritual **names** the path aloud ([`body-dao-design.md`](body-dao-design.md))
 - [ ] Can NPC Saints bear **multiple** historical oaths (fiction) while player stays one?
 - [ ] Interior peak without rule for **legendary physique** exception?

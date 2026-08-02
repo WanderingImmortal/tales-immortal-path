@@ -240,6 +240,7 @@ Chaos endgame = **unwrite / author** at a layer **above or beside** orthodox dao
 - [ ] Can **embodied dao** at peak **distort** a regional statute, or only axis + Progenitor-tier?
 - [ ] UI: do ancient clues tag layer (“axis scar”, “basin statute”) for player clarity?
 - [ ] Rename doc headings: “Law of Dust” → always “basin statute (Law of Dust)” in new writing?
+- [ ] **Dao importance asymmetry** (owner — later, not now): some traditions (alchemy, forging, body) read as **cosmic infrastructure / Great Dao with continent weight**; others (sword styles, palm lines, minor arts) read as **techniques to learn and wield** — why? Tier table? Sect marketing vs taxonomy truth? Park until cosmology pass.
 
 ## Implementation crumbs (later)
 

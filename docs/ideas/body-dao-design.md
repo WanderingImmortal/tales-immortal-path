@@ -65,6 +65,8 @@ Walk body path (chamber, realms)     ← already under Body Dao purview
 
 ## The can of worms (parked — do not resolve in one pass)
 
+**Owner note (2026-08-02):** the worm they care about later is **not** nested-oath mechanics — it is **why some daos feel cosmologically weighty** (alchemy, forging, body) while others are “just something to learn and wield.” **Not important right now.** Park in [`law-taxonomy.md`](law-taxonomy.md) § dao importance asymmetry.
+
 ### 1. Implicit vs explicit Body Dao
 
 Does every tempering action **implicitly** invoke Body Dao, or only **oath + peak** rituals **name** it?
@@ -149,6 +151,7 @@ Lock with [`law-taxonomy.md`](law-taxonomy.md) hanzi pass.
 - [ ] Oath ritual **names** Body Dao aloud or stays flesh-only metaphor?
 - [ ] Great Dao row in taxonomy table — add Body Dao beside Sword Dao
 - [ ] Does [`post-immortal-cosmology.md`](post-immortal-cosmology.md) need a Saint tier row?
+- [ ] **Dao importance asymmetry** (owner — later): why alchemy / forging / body feel like **cosmic infrastructure** while other daos are **wield-only curricula** — see law-taxonomy parked note
 
 ## Implementation crumbs (later)
 

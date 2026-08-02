@@ -203,7 +203,7 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
 
-**Apex sworn rule (owner lean):** **Rule of the Unnamed** — motion law; fist is not fixed technique; matches Martial Intent ceiling. **Charter leash** (never strike first, etc.) is Bell Luo’s separate layer — Da Chi **ignores boring leash** until Bell makes it interesting ([`vessel-rules-design.md`](vessel-rules-design.md)).
+**Apex sworn rule (owner lean — 2026-08-02):** **Rule of No Yield** family — will does not **accept defeat** (no surrender / voluntary retreat while flesh can answer). **Not** “always wins”: he **has** lost; oath binds **yielding**, not outcome. Frost Gate: Bell capitulates the **sect**; Da Chi **holds the line** until charter stops the war **around** him. Alternate: **Rule of the Unnamed** (motion). See [`vessel-rules-design.md`](vessel-rules-design.md).
 
 ---
 
@@ -457,7 +457,7 @@ Da Chi **was patriarch** for most of the war — institution joined because **he
 - [x] Da Chi — **supreme body talent**, stubborn will; fool **act**, not idiot; no great-sect taboo (owner 2026-08-02)
 - [ ] Named **Sword border month** or Phoenix **intrusion** incident for chronicle hook
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
-- [ ] Lock Da Chi apex rule: **Unnamed** lean vs Answering Blow / Impact
+- [ ] Lock Da Chi apex rule: **No Yield** lean vs Unnamed / Answering Blow
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?
 
 ## Implementation crumbs (later)
