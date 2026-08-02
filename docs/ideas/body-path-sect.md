@@ -157,6 +157,7 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 - [x] Tier: **great sect Dao Wars survivor** — monk body refiners (owner 2026-08-02)
 - [x] Personality: **Mad Monks** nickname; ascetic official name; fight-forward not murder-forward (owner 2026-08-02)
 - [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
+- [ ] Great sect **immortal in the vault** or founder-only myth (no sleeping apex)?
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?
 - [ ] Market unlock: which martial techniques are Ridge-exclusive at launch?
