@@ -203,7 +203,7 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
 
-**Apex sworn rule (owner lean):** **Rule of Unyielding** at **apex adherence** — Body Dao final gift: defeat-state rejection until flesh fails; Frost Gate without personal yield. [`vessel-rules-design.md`](vessel-rules-design.md).
+**Apex sworn rule (owner lean):** **Rule of Unyielding** at **Crowned** adherence (冠律) — Body Dao final gift; Frost Gate without personal yield. [`vessel-rules-design.md`](vessel-rules-design.md).
 
 ---
 
