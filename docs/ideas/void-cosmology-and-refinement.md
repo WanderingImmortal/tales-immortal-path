@@ -166,9 +166,13 @@ Temple disciples arrive at peak VR with **deeper void qi** and better tools — 
 
 See [`void-temple-sect.md`](void-temple-sect.md).
 
+**If you survive**, that **is** the Seeking power spike:
+
 - **Lifespan** — moderate jump (~12–15k band entry; see [`nine-realm-ladder.md`](nine-realm-ladder.md))
 - **Moderate power** — void qi + **law-sight** fused; patriarch-tier weight on the board
 - **Comprehension access** — pursuits/contemplation open; library **deepens** over millennia
+
+### Why this isn’t repeating VR’s empty early phase
 
 | | VR entry | Seeking entry |
 |--|----------|----------------|
@@ -199,24 +203,9 @@ Layer split is **authoritative for future design** — even if players never rea
 
 ---
 
-## Golden Phoenix — **Void Hollowing** (虚烬) recap
+## Golden Phoenix — **Void Hollowing** (虚烬)
 
-**Status:** **One line in sect doc** — Ascent **#5** of the Nine Ascents; VR-threshold doctrine. **Not designed in cosmology terms yet.**
-
-From [`golden-phoenix-sect.md`](golden-phoenix-sect.md):
-
-| Field | What exists |
-|-------|-------------|
-| **Name** | Void Hollowing (虚烬) — Nine Ascents #5 |
-| **Scope** | **VR threshold** in Phoenix renewal ladder |
-| **Explicit note** | **Not Void Temple’s void** |
-| **Next ascent** | **#6 Law Ignition** (燃法) — **Dao Manifestation**, wear flame law |
-
-**What it is *not* (locked by cross-ref):** outer void, void qi cultivation, firmament gates, Void Prison — Phoenix does not use Temple’s void stack.
-
-**Lean read (parked — owner to confirm):** Phoenix **“hollows” the self to ash** at VR scale — **metaphysical emptying** for rebirth, not spatial passage. “Void” here ≈ **the hollow left after the flame burns you out** before **Law Ignition** wears fire as law. Different word, different layer — **do not** give Phoenix void-step or void qi by default.
-
-**Open:** Does Void Hollowing touch **interstitial void** at all, or is it purely Phoenix Dao interior work with a confusing name?
+**Parked** until owner **great-sect pass** (elders, historical figures, relics) — [`golden-phoenix-sect.md`](golden-phoenix-sect.md). Nine Ascents #5 at VR threshold; explicitly **not** Void Temple’s void. Cosmology layer TBD; do not expand until sect revisit.
 
 ---
 
@@ -225,7 +214,7 @@ From [`golden-phoenix-sect.md`](golden-phoenix-sect.md):
 - [ ] Retaliation tribulation — single phase or multi (glimpse → strike → stabilize lens)?
 - [ ] Void Temple DT→VR rites — how much survival bonus without trivializing?
 - [ ] **Preparation scoring** for retaliation — how arrays/equipment/pills modify survive (not “test pass”)
-- [ ] Golden Phoenix **Void Hollowing** — confirm: interior ash-hollow only, or any spatial void?
+- [ ] Golden Phoenix **Void Hollowing** — **parked** until great-sect pass
 - [ ] Law-layer glimpse — always visual, or path-dependent (sword cultivator “cuts” the veil)?
 - [ ] NPC patriarchs: all survived retaliation, or some inherited **script-sight** by sect rite (rarer)?
 
