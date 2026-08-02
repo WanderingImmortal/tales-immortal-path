@@ -145,7 +145,7 @@ Now → Bleed still runs; sects **hold the line** — **nobody owns the Scar ape
 
 | Institution | Relationship to Scar |
 |-------------|----------------------|
-| **Moonfract Palace** | **Last habitable peak** — arrays at ward line; witness tribulation from safety; **cannot control apex** |
+| **Moonfract / Yin Maiden Palace** | **Last habitable peak** — trains **peak Yin**; Scar is neighbor, not domain |
 | **Vajra Ridge** | Escorts through margin; flesh endures Bleed edge |
 | **Imperial bargain** | Don’t tamper with Mirror; **hold Bleed** from creeping south |
 

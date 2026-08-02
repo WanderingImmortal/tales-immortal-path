@@ -59,7 +59,7 @@ Owner direction: outer zones get **great sect–tier peers** with their own stor
 
 | Peak | Tradition | Notes |
 |------|-----------|-------|
-| **Moonfract** (habitable crown) | Yin **female-only** great sect — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) | **Off the Scar** — wards Bleed |
+| **Moonfract / Yin Maiden** (habitable crown) | Yin **female-only** great sect — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) | Peak Yin arts; frost at low tier only |
 | **Granite ridge** (lower) | **Vajra Ridge** — body monks | Escorts, margin |
 | **Scar apex** | Sunless Scar — **no sect** | Delve / Frozen Abyss |
 

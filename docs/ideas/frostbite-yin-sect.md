@@ -1,96 +1,109 @@
-# Frostbite — yin great sect (Frostpeak pivot)
+# Yin Maiden Palace (玉女宫)
 
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` (owner direction — 2026-08-02) |
-| **Blocked on** | Owner name + lore pass; replaces thin Frostpeak ascetic stub |
+| **Blocked on** | Lineage manual; technique tier pass; replaces Frostpeak stub in code |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (off the Scar — owner) |
+| **Updated** | 2026-08-02 (Yin peak arts — not guardian sect) |
 
-Related: [`outer-zone-great-powers.md`](outer-zone-great-powers.md). Peer: [`body-path-sect.md`](body-path-sect.md) (Vajra Ridge). Scar: [`frostbite-origin.md`](frostbite-origin.md).
+Former filename stub: `frostbite-yin-sect.md`. Related: [`outer-zone-great-powers.md`](outer-zone-great-powers.md), [`body-path-sect.md`](body-path-sect.md), [`frostbite-origin.md`](frostbite-origin.md). **Not** a Void Temple analogue — see [`void-temple-sect.md`](void-temple-sect.md).
 
 ## Intent
 
-**Repurpose Frostpeak Monastery** into a **yin-aligned, female-only great sect** — **not on the Sunless Scar**. The Scar is **too grand to control** and **kills even yin-aligned** cultivators who push into the apex.
+**Repurpose Frostpeak Monastery** into **Yin Maiden Palace** — an **all-female great sect** that pursues the **peak of Yin arts** (太阴极致), not a **guardian** institution. They sit in Frostbite because **absolute yin Bleed** is the best crucible on the continent — **geography serves the curriculum**, not a second “we guard the horror” sect beside Void Temple.
 
-The sect sits on **Moonfract Peak** — the **last habitable crown** before the Scar margin — and **wards the Bleed** so it doesn’t creep south. They **observe, arbitrate, and hold the line** — they do **not** own the Mirror.
+**Lower techniques** may still look **frost- and cold-flavored** (outer court, zone materials, survival in the north). **Supreme arts** are **true Yin** — stillness, severance, concealment, dissolution, moon — **not** “bigger ice.”
+
+## Not another guardian sect
+
+| | **Void Temple** | **Yin Maiden Palace** |
+|--|-----------------|------------------------|
+| **Core job** | Seal **Void Prison**; firmament / gate network | **Master Yin Dao** to its apex |
+| **Why secluded** | Containment + pre-heaven risk | **Training crucible** + tradition |
+| **Public face** | “Don’t test the lock” | “Don’t insult our maidens” |
+| **Scar** | Irrelevant to identity | **Adjacent** — bleed sharpens yin, they **don’t own it** |
+| **Arrays** | Prison, gates, continental lock | **Palace wards** — live comfortably near Bleed; **not** imperial northern guardian mandate |
+
+Imperial **isolation bargain** can remain (leave them alone on their peak) — **not** because they ward the realm, because they’re **dangerous, ancient, and female-sovereign** on a mountain nobody else wants.
 
 ## Geography (locked)
 
+**Not on the Sunless Scar apex** — Scar kills even yin masters who linger.
+
 ```text
-Frost Gate → Vajra Ridge → Moonfract Palace (THIS SECT) → Scar margin → Scar apex (NOBODY)
+Frost Gate → Vajra Ridge → Yin Maiden Palace (last habitable crown) → Scar margin → Scar apex
 ```
 
-| | Moonfract Palace | Sunless Scar apex |
-|--|------------------|-------------------|
-| **Habitable?** | Yes — arrays, disciples, halls | No — delve only |
-| **Yin cultivators** | Train, thrive (within limits) | Die if careless |
-| **Sect role** | Ward line, tribulation witness **from safety** | Forbidden ground / story delve |
+Code: `frostpeak_monastery` → palace on habitable peak; Scar = optional delve content **for the player**, not sect HQ.
 
-Code location `frostpeak_monastery` maps to **Moonfract** — high ice, **below** the uninhabitable Scar band.
-
-## What exists in code today (to replace in fiction)
-
-| Piece | Today |
-|-------|-------|
-| Faction | `frostpeak_monastery` — ascetic, cold resist perks |
-| Location | `frostpeak_monastery` — stone steps, cloud, killing wind |
-| NPC | Warden Yun — gatekeeper |
-| Pact | Ice-Witness Covenant — frost tribulation witness |
-| Lore hook | `frost_sun_never_rises` ancient clue |
-
-Mechanics map forward: cold resist, tribulation witness — identity becomes **yin palace at the ward line**, not generic monastery **on** the Scar.
-
-## Working sketch — **Moonfract Palace** (月碎宫) *(name TBD)*
+## At a glance
 
 | | |
 |--|--|
-| **Vibe** | Pale silence on the **last safe ice** — moonlight that does not warm; disciples who outlast the wind **but do not walk into the Scar** |
-| **Path** | **Qi-primary**; **Yin Dao** curriculum — not body path |
-| **Entry** | **Female-only** inner court; outer gate may employ male servants who never enter inner peaks |
-| **Cultivation identity** | *Stub* — Moon Severing Canon (月断典) or Frost Yin Scripture |
-| **Homeland** | **Moonfract Peak** (月碎峰) — habitable crown; Scar visible in distance |
-| **Founder myth** | *Stub* — Moon Empress endured a **margin flare** and read the Scar **from the ward line** — not “lives on the Mirror” |
-| **Public leader** | *Stub* — Matriarch / Palace Mistress at Void Refinement |
-| **Player-facing NPC** | Gate Warden (Warden Yun pivot) — tests patience |
-| **Primary lean** | **Northern ward** — arrays hold the Bleed; imperial isolation bargain |
-| **Also has hands in** | Frost reagents, tribulation arbitration **at safe distance**, silence oaths |
-| **What they teach** | Yin frost arts, stillness, concealment · **Refuse:** yang flame paths, male inner disciples |
-| **What they refuse to claim** | **Control of the Scar** — “the Scar is not ours” |
+| **Name** | **Yin Maiden Palace** (玉女宫) — *owner lean; hanzi lock optional* |
+| **Vibe** | All-female lineage hall — pale moon discipline, silence as courtesy, cruelty as precision |
+| **Path** | **Qi-primary**; **Yin Dao** to the peak — not ice path, not body path |
+| **Entry** | **Female-only** inner court; outer servants / contractors male OK |
+| **Homeland** | **Maiden Peak** (玉女峰) or retain **Moonfract** hanzi — high ice **below** Scar band |
+| **Lineage** | *Stub* — **Supreme Yin Canon** (太阴极典) or **Maiden Moon Scripture** (玉女月经) |
+| **Primary lean** | **Yin technique supremacy** — manuals, duels of concealment, assassination contracts, moon reagents |
+| **Also has hands in** | Frost mats (low-tier teaching), silence oaths, tribulation **observation** (side contract, not guardian duty) |
+| **Refuse** | Yang flame paths; male inner disciples; being hired as “northern wardens” |
 
-## Player-facing words
+## Technique ladder — frost at the bottom, Yin at the top (owner lock)
 
-Say **Sunless Scar**, **the Bleed**, **absolute yin**, **yin runs supreme** — not “yin law” (see [`frostbite-origin.md`](frostbite-origin.md)). Yin Dao = what they **teach**; Scar = **geography** next door.
+**Design rule:** element tag **ice/frost** should **fade** as arts tier up. Supreme manuals are **yin** — stillness, severance, void-warding, moon — **not** glacier finishers.
 
-## Why female-only fits the zone
+| Tier | Player feel | Examples (fiction) |
+|------|-------------|-------------------|
+| **Outer / low** | Cold, frost, chill — **zone practical** | Ice-touch palm, frost concealment, breath that numbs; overlaps Frostbite explore loot |
+| **Inner / mid** | Yin **without** ice cosplay | Shadow sever, qi drain, moonlit step, spirit concealment — cold is side effect |
+| **Supreme / apex** | **Peak Yin** | Absolute stillness (动之极静), severing light (断阳), concealing fate from audit, form **dissolving** into moon-shadow — **no** “ultimate blizzard” |
 
-- Scar Bleed = extreme yin **environment**; palace teaches **Yin Dao** **beside** it, not inside it
-- Pairs with Vajra Ridge: moon on the last peak, iron on the lower spine
+**Why they're in the north:** outer court **needs** frost-flavored basics to survive the Bleed margin; inner court **transcends** “cold technique sect” into **Yin Maiden** proper — the sect Heartlands scholars argue is **the** yin reference, not Frostpeak ice monks.
 
-## Player hooks (design)
+**Contrast Phoenix:** Phoenix supreme = rebirth flame. Yin Maiden supreme = **not** rebirth ice — **extinction of yang presence**, concealment, severance.
+
+## Founder myth (stub)
+
+First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** where the Bleed made yang impossible, founded a palace so **women** could walk the peak without charter or marriage politics. Scar flare **tempered** her; she **did not** seal the Mirror.
+
+## What exists in code today
+
+| Piece | Pivot |
+|-------|-------|
+| `frostpeak_monastery` | → Yin Maiden Palace faction id *(rename later)* |
+| Cold resist perk | Still fits — **outer court** survival |
+| Ice-Witness Covenant | → optional **tribulation observe** pact — **service**, not guardian charter |
+| Warden Yun | → Gate Mistress — tests **stillness**, not “state your purpose to the cold” |
+
+## Player hooks
 
 | Player | Hook |
 |--------|------|
-| **Female cultivator** | Join palace; Scar delves as **optional lethal content** |
-| **Male cultivator** | Outer court, escort contracts, “you will not see inner peaks” |
-| **Any** | Tribulation witness pact — palace watches from **ward arrays**, not Scar floor |
+| **Female** | Join lineage; climb outer frost → inner yin → supreme non-ice arts |
+| **Male** | Outer contracts only; romance / sworn-service arcs; never inner peaks |
+| **Any** | Buy low-tier frost pamphlets at gate; supreme manuals **faction-locked** |
 
 ## Relationships (sketch)
 
 | Power | Relationship |
 |-------|--------------|
-| **Vajra Ridge** | Joint ward of the north; escorts to margin |
-| **Sunless Scar** | **Not allied** — respected horror next door |
-| **Heartlands four** | Distant; charter envoys rare |
+| **Void Temple** | Mutual respect — **different job**; no rivalry over “who guards what” |
+| **Vajra Ridge** | Neighbors — escorts, not shared doctrine |
+| **Golden Phoenix** | Natural opposition — yang flame vs yin peak |
+| **Celestial Sword** | Distant — line vs moon |
 
 ## Open questions
 
-- [ ] Final name — keep Frostpeak hanzi or Moonfract only?
-- [ ] How close can inner-court training get to Scar margin before casualties?
-- [ ] Matriarch vault asset — ever entered Scar once, never twice?
+- [ ] Final name: **玉女宫** locked or blend with Moonfract 月碎?
+- [ ] Supreme art names — one **signature** non-ice ultimate for marketing
+- [ ] Do males ever learn **outer frost** pamphlets only?
+- [ ] Matriarch tier — VR public; vault ancestor?
 
 ## Prerequisites
 
-- [ ] [`frostbite-origin.md`](frostbite-origin.md) — Scar vs habitable band locked
-- [ ] Identity v1 before `data.js` NPC / location text
+- [ ] Technique pool: tag low `element: ice` / high `element: yin` or `soul`
+- [ ] [`frostbite-origin.md`](frostbite-origin.md) — Scar as crucible, not sect property

@@ -27,7 +27,9 @@ Saying **“yin law reigns supreme”** (Sunless Scar), **“Law of Dust”** (D
 
 Taxonomy is for **agents avoiding contradictions** — not a glossary popup.
 
-## Intent
+Related: [`frostbite-origin.md`](frostbite-origin.md), [`realm-claims.md`](realm-claims.md), [`chaos-cultivation-path.md`](chaos-cultivation-path.md), [`post-immortal-cosmology.md`](post-immortal-cosmology.md), [`void-temple-sect.md`](void-temple-sect.md).
+
+## The problem (writer/agent)
 
 | Phrase in docs | Sounds like | Actually is (today) |
 |----------------|-------------|---------------------|

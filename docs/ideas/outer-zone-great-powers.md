@@ -26,7 +26,7 @@ Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md
 
 | Zone | Flagship(s) today | Direction |
 |------|-------------------|-----------|
-| **Frostbite** | Frostpeak Monastery (thin ascetic stub) | **Split north:** yin **female-only** great sect on the ice crown ([`frostbite-yin-sect.md`](frostbite-yin-sect.md)) + **body-path** iron monks on a lower granite ridge ([`body-path-sect.md`](body-path-sect.md)) |
+| **Frostbite** | Yin Maiden Palace + body ridge — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) · [`body-path-sect.md`](body-path-sect.md) | [`outer-zone-great-powers.md`](outer-zone-great-powers.md) |
 | **Dustbone** | Sandveil Tribunal (three tribes) | Great power **TBD** — tribes may stay local law; optional dynasty-remnant or bone-scripture sect later |
 | **Jade** | Storm Dragon + Tidal Lotus | Already **two co-peers** — deepen to full great-sect docs (sea charter, drowned crown lore) |
 | **Emberwild** | Emberwild Collective (loose coalition) | Promote Collective **or** add second peak great sect (volcanic) — owner pass |
@@ -37,12 +37,12 @@ Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md
 ```text
 Frost Gate (chilly margin)
     └── Vajra Ridge — body monks
-    └── Moonfract Palace — yin sect (LAST habitable peak; wards Bleed)
+    └── Yin Maiden Palace — all-female Yin peak sect (NOT Scar; NOT guardian)
     └── Scar margin — delves only
     └── Sunless Scar apex — uninhabitable (Mirror, Frozen Abyss)
 ```
 
-Yin sect is **not on the Scar** — too lethal even for yin cultivators; palace **holds the line**. See [`frostbite-origin.md`](frostbite-origin.md).
+Yin sect is **not on the Scar** — **Yin Maiden Palace** pursues **peak Yin arts**; Bleed is crucible, not job. See [`frostbite-yin-sect.md`](frostbite-yin-sect.md).
 
 ## Great-sect checklist (any outer flagship)
 
