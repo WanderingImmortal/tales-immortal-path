@@ -29,7 +29,7 @@ Oath text is flavor; mechanics are **constraints** (Rule of Blood: blood doesn�
 | **Rule** / **Vessel Rule** | Sworn oath on flesh; adherence stages | — |
 | **Rule settled into flesh** | Adherence progression | “law settled into flesh” |
 | **Law** | **Manifested Dao comprehension** — worn / embodied dao at Dao Manifestation (显法) | Vessel Rules, body chamber UI |
-| **Adherence stages** | Adhered → Settled → Permeated → Surfaced → Rooted | “Manifest” stage (realm 7 confusion), “Sovereign” stage (Nascent Soul Sovereignty) |
+| **Adherence stages** | **Adhered** (first — locked) → Settled → Permeated → Surfaced → **apex** (*name open — not Rooted*) | “Manifest” stage; “Sovereign” stage; **Law** = manifested Dao only |
 
 Writers: [`law-taxonomy.md`](law-taxonomy.md) **embodied dao** = Law. This doc = **Rule** on flesh only.
 
@@ -157,11 +157,19 @@ Swear oath (ritual months)
 | **Settled** | Rule **settled into flesh** — flesh **defaults** to oath, not memory |
 | **Permeated** | Rule runs through marrow rhythm — combat expressions thicken |
 | **Surfaced** | Rule **visible** outward — opponents feel it (slip, seal, unyielding press) |
-| **Rooted** | **Da Chi tier** — rule **rooted in flesh** at depth; still not invincible |
+| **Apex** *(name open)* | **Da Chi tier** — rule inseparable from flesh at depth; still not invincible |
 
-**Working hanzi (*open*):** 附律 → 定律 → 渗律 → 显律 → 根律 — UI English above.
+**Working hanzi (*open*):** 附律 → 定律 → 渗律 → 显律 → **apex hanzi TBD** — UI English above for stages 1–4.
 
-**Not** Bond / Hold / Press / Rule Domain — Intent-domain vocabulary. **Not** “Manifest” adherence stage — **Law** / Dao Manifestation owns that word.
+**Apex stage candidates (owner — not Rooted):**
+
+| Candidate | English | Hanzi lean | Feel |
+|-----------|---------|------------|------|
+| **Imprinted** *(lean)* | Rule **imprinted** in flesh — cannot peel off | 烙律 / 印律 | Brand / seal depth; Da Chi |
+| **Knotted** | Rule **knotted** — oath cannot untie from marrow | 结律 | Binding permanence |
+| **Ingrained** | Rule **ingrained** to bone | 入骨律 | Marrow-deep (near Permeated) |
+
+**Not** Rooted for apex — reads like a **first**-stage metaphor (rule takes root), not finisher.
 
 ### How adherence grows (distinct from intent `uses`)
 
@@ -173,7 +181,7 @@ Swear oath (ritual months)
 | **Choices** | Deepen vs expand weapon expression | **Rule-specific milestones** — e.g. Blood: first seal vs hundredth bloodied fight; not generic deepen picks |
 | **Failure** | Intent sleeps off-path | **Sting / slip** — Body Dao punishes **breach of sworn rule** |
 
-**Fulfillment % (code today):** `progressionPct` 0→100% for interior peak. **Lean:** tie peak to **Settled** or **Permeated** **plus** fulfillment — not flat grind then autopilot. Post-peak, adherence can still climb toward Surfaced / Rooted for endgame.
+**Fulfillment % (code today):** `progressionPct` 0→100% for interior peak. **Lean:** tie peak to **Settled** or **Permeated** **plus** fulfillment — not flat grind then autopilot. Post-peak, adherence can still climb toward Surfaced / apex stage for endgame.
 
 ### Body Dao enforces — reward and punishment
 
@@ -187,7 +195,7 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 | **Sustained breach** | **Slip** — adherence stage regresses | Punishment without full release |
 | **Release / grave breach** | Realm regress + cooldown (shipped) | Bond **revoked** |
 
-**Fiction:** cultivator may **not think** about the oath off-duty. The rule is **already in the flesh** — like bone structure, not a mantra. Da Chi at **Rooted**: engagement changes because **Unyielding is rooted in his flesh**; not because he meditates on qi each morning.
+**Fiction:** cultivator may **not think** about the oath off-duty. The rule is **already in the flesh** — like bone structure, not a mantra. Da Chi at **apex adherence** (*Imprinted* lean): engagement changes because **Unyielding is inseparable from his flesh**; not because he meditates on qi each morning.
 
 ### Rule of Unyielding (不屈律) — stage catalog *(owner workshop)*
 
@@ -201,11 +209,11 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 | **Settled** | DR while “losing” HP band; morale/fear can’t end fight early | Holds lines longer than peers expect |
 | **Permeated** | **Unyielding press** — enemy “winning” exchanges **stall** | Intrusion brawls: neither side finishes cleanly |
 | **Surfaced** | Knocked down → must **rise** before fight “ends” for you | Opponents learn: put him **down**, not **out** |
-| **Rooted** | Battlefield rejects your **defeat-state** until flesh fails | Frost Gate; Golden Arhat scale — still not invincible |
+| **Apex** *(Imprinted lean)* | Battlefield rejects your **defeat-state** until flesh fails | Frost Gate; Golden Arhat scale — still not invincible |
 
 #### Adhered — what it does (player + Da Chi)
 
-**First stage immediately after swear completes.** Not a parlor trick at Da Chi’s **current** tier — he is **Rooted**. At **Adhered**, the rule is **binding only** — modest payoff, heavy identity.
+**First stage immediately after swear completes.** Not a parlor trick at Da Chi’s **current** tier — he is at **apex adherence** (*Imprinted* lean). At **Adhered**, the rule is **binding only** — modest payoff, heavy identity.
 
 **Restriction (both):**
 
@@ -239,7 +247,7 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 - No battlefield physics yet — **behavior + reputation**; Bell Luo already calculating charter cleanup
 - **Not** invincible — he **has** been knocked out; he just **doesn’t yield** first
 
-**Contrast later stages:** Settled adds **flesh** holding the line; Permeated adds **enemy** stall; Surfaced adds **rise** obligation; Rooted adds **defeat-state** rejection. Adhered is **the oath bite** — everything else is **rule settling deeper into flesh**.
+**Contrast later stages:** Settled adds **flesh** holding the line; Permeated adds **enemy** stall; Surfaced adds **rise** obligation; apex adds **defeat-state** rejection. **Adhered** is **the oath bite** — everything else is **rule settling deeper into flesh**.
 
 ### Player feel — own UI lane
 
@@ -247,7 +255,7 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 - Show: rule name, **adherence stage**, fulfillment %, last sting/slip — not “uses: 47”
 - Combat: compliance pulses, breach warnings — not intent-tier kill bonuses
 - Chronicle: “Rule settled into flesh”; “Body Dao sting — nearly fled”
-- Da Chi NPC: `adherence: rooted`, rule `unyielding` — not intent vocabulary
+- Da Chi NPC: `adherence: imprinted` (apex — name open), rule `unyielding` — not intent vocabulary
 
 ### Three body tracks (still separate)
 
@@ -297,14 +305,14 @@ Da Chi is **not invincible** — he has **lost** fights, been knocked down, been
 
 | Rule idea | Oath shape | Fit to Da Chi |
 |-----------|------------|---------------|
-| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** — no surrender, voluntary retreat while capable of answering | Da Chi apex; **Rooted** adherence now; **Adhered** was young-war reputation |
+| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** — no surrender, voluntary retreat while capable of answering | Da Chi apex (**Imprinted** lean); **Adhered** was young-war reputation |
 | **Rule of the Unbroken Step** | Foot does not **retreat** from a declared engagement; advance or hold | Fight-forward Mad Monk; intrusion brawls **push** lines |
 | **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Ethics lane — pairs with Unyielding |
 | **Rule of the Unnamed** | Motion rule — no frozen technique; fist is not named form | Martial Intent doctrine; supreme **flow** — different channel than Unyielding |
 | **Rule of One Exchange** | One exchange, then reset | Brawl aesthetic; less “undefeated will” |
 | **Rule of Impact** | No mid-fight mend; must close | Survival channel |
 
-**Owner lean:** **Rule of Unyielding** at **Rooted** adherence for Da Chi today. **Adhered** Unyielding is **not** his current scale — parlor trick at Golden Arhat.
+**Owner lean:** **Rule of Unyielding** at **apex adherence** (*Imprinted* lean) for Da Chi today. **Adhered** Unyielding is **not** his current scale — parlor trick at Golden Arhat.
 
 **Separate from leash:** Answering Blow may stay **Bell Luo charter**; Da Chi apex is **Unyielding**.
 
@@ -342,7 +350,8 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 - [ ] Sect **assigns** rule vs disciple **chooses** after trial
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
 - [ ] Lock Da Chi apex rule: **Unyielding** vs Unnamed / Answering Blow / Impact
-- [ ] **Adherence** stage names + thresholds; merge vs separate `progressionPct`
+- [ ] Lock **apex adherence** name: **Imprinted** lean vs Knotted / Ingrained — **not** Rooted
+- [ ] **Adherence** stage thresholds; merge vs separate `progressionPct`
 - [ ] Body Dao **sting / slip** tuning — micro-breach vs release
 - [ ] Per-rule **milestone** unlocks (not generic deepen/expand clone)
 - [ ] Body Dao hanzi + whether oath ritual **names** the path aloud ([`body-dao-design.md`](body-dao-design.md))
@@ -357,6 +366,6 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 - `deepenAdherence()` from compliance / chamber-under-oath — **no** meditate-on-rule action
 - `applyBodyDaoSting()` / `applyAdherenceSlip()` in `vessel-rules.js`
 - Body Chamber UI lane — adherence readout separate from Martial Intent panel
-- NPC veterans: adherence stage tags (“Settled Blood”, “Rooted Unyielding”)
-- Chronicle: sworn / settled / sting / slip / rooted / broken
+- NPC veterans: adherence stage tags (“Settled Blood”, “Imprinted Unyielding” — apex name open)
+- Chronicle: sworn / settled / sting / slip / apex-tier / broken
 - `VESSEL_RULES.unyielding` — Rule of Unyielding; `RULE_OF_UNYIELDING_BALANCE` for Adhered payoffs
