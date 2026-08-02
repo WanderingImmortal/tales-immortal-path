@@ -6,7 +6,7 @@
 | **Blocked on** | More rule defs; sect-assigned rules |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Surfaced power spike workshop) |
+| **Updated** | 2026-08-02 (Apex finisher — Body Dao final gift) |
 
 **Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
 
@@ -159,13 +159,11 @@ Swear oath (ritual months)
 | **Settled** | Rule **settled into flesh** — flesh **defaults** to oath, not memory |
 | **Permeated** | Rule runs through marrow rhythm — combat expressions thicken |
 | **Surfaced** | Rule **visible** outward — opponents feel it (slip, seal, unyielding press) |
-| **Apex** *(name open)* | **Da Chi tier** — rule inseparable from flesh at depth; still not invincible |
+| **Apex** *(name from payoff — see below)* | **Final gift** of Body Dao — rule **inseparable** from flesh in engagement | See **Apex** section below |
 
-**Apex stage:** name **after** all stages are defined — see what the ladder **leads to** first ([`vessel-rules-design.md`](vessel-rules-design.md) stage workshop).
+**Working hanzi (*open*):** 附律 → 定律 → 渗律 → 显律 → **apex TBD** (name **from** finisher — e.g. 一体 / 结律 / 律成).
 
-**Working hanzi (*open*):** 附律 (Adhered) → 定律 (Settled) → 渗律 → 显律 → apex TBD.
-
-**Not** Rooted for apex — reads like a **first**-stage metaphor. Apex naming parked until Permeated / Surfaced / finisher are designed.
+**Reward curve:** Adhered/Settled modest → Permeated friction → **Surfaced spike** → **Apex finisher** — Body Dao’s last gift for living the chosen restriction to the extreme. Rework may tune numbers; spine holds.
 
 ### How adherence grows (distinct from intent `uses`)
 
@@ -442,6 +440,108 @@ Keeps **all prior stages**. Adds the **reason** you never fled:
 
 ---
 
+#### Apex — final payoff (fifth stage)
+
+**After Surfaced.** The **apex of adhering** to your chosen restriction under **Body Dao** (Physical Dao — working title). Not manifested **Law** (Dao comprehension at realm 7) — still **personal Rule** at maximum depth, but Body Dao **gives its last gift**: the restriction’s **final channel** runs as **flesh truth** in engagement.
+
+**What Body Dao gives (generic):**
+
+| | Surfaced | Apex |
+|--|----------|------|
+| **Scale** | Build-defining spike | **Finisher** — why body endgame keeps one rule for life |
+| **Feel** | “They must **finish** me” | “**Defeat isn’t a state** my flesh accepts until it **actually** fails” |
+| **Visibility** | Jianghu knows your rule | **Legend** — charter, rivals, chronicle |
+| **Breach** | Slip to Permeated hurts | Slip from apex → **Surfaced** or worse — catastrophic |
+
+**One sentence:** you **employed** one restriction forever; apex is Body Dao **honoring** that employment — the rule and the vessel **operate as one** in combat until incapacitation or **external** halt.
+
+**Apex name (from payoff — owner lean):**
+
+| Candidate | Hanzi lean | Why |
+|-----------|------------|-----|
+| **Whole** *(lean)* | 一体 / 律体合一 | Flesh and chosen Rule **undivided** — operating system |
+| **Knotted** | 结律 | Oath **cannot untie** from marrow — permanent |
+| **Crowned** | 冠律 | Rule **crowns** the tempered vessel |
+
+Lock after implementation playtest; code tag `adherenceStage: 'apex'` until then.
+
+**How you reach Apex (lean — endgame grind):**
+
+| Gate | Lean |
+|------|------|
+| **Prerequisite** | **Surfaced** + maintained for long period (in-game **years** — chamber months, wars) |
+| **Vessel depth** | High vessel realm (e.g. **Indestructible Vajra** lean) + chamber layers **marrow/nerves** strong |
+| **Milestone** | **External resolution without yield** — hold a fight or **post** while **losing on paper** (charter loss, war retreat order **around** you, tribulation end flag) **without** voluntary yield — Body Dao’s **final mark** |
+| **Optional** | **Saintly Flesh** breakthrough while Surfaced+ — Da Chi path: apex adherence **then** Saint after Frost Gate |
+
+**Slip from apex:** sustained breach or voluntary release → regress **multiple** stages or full release punishment — apex is **trust**; Body Dao revokes hard.
+
+---
+
+**Generic — all rules at Apex**
+
+| Gift | Meaning |
+|------|---------|
+| **Final channel** | Rule’s restriction → **maximum reroute** — not new oath text, **full depth** of chosen channel |
+| **Body-state jurisdiction** | Under oath, your flesh’s **state** in engagement (bloodied, flowing, unyielding…) is **valid** until true failure — not **morale**, not **ledger**, not **one clean KO** |
+| **Surfaced spike retained** | Surfaced mechanics **stay** — apex **adds** finisher layer |
+| **Not Law** | Not continent-worn dao — **Body Dao purview**, personal Rule. Sword Immortal’s **Law** is different layer ([`law-taxonomy.md`](law-taxonomy.md)) |
+| **Not invincibility** | Overwhelming force, focus fire, true incapacitation, sufficient damage **still** end you |
+
+---
+
+**Rule of Unyielding at Apex — final payoff**
+
+Keeps **all prior stages** (including Surfaced spike). Apex adds **why Da Chi is Da Chi**:
+
+| Payoff | Mechanic lean | Finisher feel |
+|--------|---------------|---------------|
+| **Defeat-state rejection** | While **capable**, you do not enter **defeated** state — morale victories, “foe yielded,” execute windows from **single** knockdown **fail** unless true **incapacitation** (HP 0 / hard KO flag) or **external halt** | They must **exhaust** you — not **convince** you |
+| **Institutional loss lane** | **External halt** (sect order, charter extraction, environmental) ends **engagement around you** — not **yield inside you** — matches Frost Gate: Bell signs, Da Chi **holds the line** | War **lost**; fist **not yielded** |
+| **Finish protocol** | Foes need **repeated** incapacitation, **focus fire**, or patriarch-tier burst — one knockdown + Rise Answer loop **indefinite** until stamina/HP **actually** gone | Assassins need **a plan**, not one opener |
+| **Apex press** | Unyielding press **always** in losing band; soul contest **elevated** when enemy would “close” | Closing **hurts** them too |
+| **Still not** | Always-win; immune above losing band; ignore damage; charter halt = your personal victory | **Incapacitate** me or **haul** me out — charter **around** me |
+
+**Player fantasy at Apex:** body-path **capstone** — you **chose** never to yield; Body Dao **answers** with “the world cannot declare you defeated until your flesh does.” Wars, duels, tribulation fights **change shape**. Bad for speed runs; **legend** for Mad Monk / war monk / Frost Gate fiction.
+
+**Da Chi at Apex (now — Golden Body Arhat / bell vault):**
+
+- **Frost Gate:** charter capitulation **around** him; he **does not yield** the line — apex expression in history
+- **Saintly Flesh** breakthrough **after** — flesh **finished** what the rule already was
+- Bell vault: apex adherence **static** at legend — challengers learn **exhaust or don’t bother**
+- Not Sword Immortal **Law** — personal **Rule** at depth; jianghu still says **Mad Arhat**, not “wears unyielding law”
+- **Can** be beaten by sufficient force — legend is **finish protocol**, not **untouchable**
+- Da Chi NPC: apex Unyielding — **`adherence: apex`**, rule `unyielding`
+
+---
+
+**Other rules at Apex (finisher sketch)**
+
+| Rule | Apex final gift |
+|------|-----------------|
+| **Rule of Blood** | **Bloodied default** — enter fights **bloodied** or blood to bloodied fast; **mortal wound** threshold shifted; **Seal** as duel-ending **protocol** (soul contest apex); blood **fuels** not drains at depth |
+| **Rule of the Unnamed** | **Unreadable apex** — slip **domain** on fist; named techniques **misconnect** at rate; unnamed motion **default**; Living Strike **apex scale** in flow |
+
+---
+
+**Physical Dao / Body Dao — what adherents receive at apex (owner framing)**
+
+```text
+Swear one restriction
+    → live it through Adhered … Surfaced
+    → Body Dao **recognizes** full employment
+    → apex: restriction’s channel = how your flesh **is allowed to be** in fight
+    → break trust → violent regress
+```
+
+**Not** qi meditation gift. **Not** manifested Law. **Employment payoff** — the Physical Dao **enforces and rewards** the rule you **chose** until flesh **actually** fails.
+
+**Open — rework spine later:** Surfaced spike tuning, interior-peak ordering, Last footing vs apex overlap, dual-path edge cases.
+
+---
+
+### Player feel — own UI lane
+
 - **Not** an Intent panel reskin — separate **Vessel Rule / Adherence** readout in Body Chamber
 - Show: rule name, **adherence stage**, fulfillment %, last sting/slip — not “uses: 47”
 - Combat: compliance pulses, breach warnings — not intent-tier kill bonuses
@@ -459,6 +559,8 @@ Keeps **all prior stages**. Adds the **reason** you never fled:
 All under Body Dao purview; **three different growth verbs** — strike, adhere, temper.
 
 ---
+
+## Leash rules vs apex sworn rules (Vajra Ridge)
 
 Two layers — don’t collapse them.
 
@@ -496,14 +598,14 @@ Da Chi is **not invincible** — he has **lost** fights, been knocked down, been
 
 | Rule idea | Oath shape | Fit to Da Chi |
 |-----------|------------|---------------|
-| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** | Da Chi apex (name TBD); **Surfaced** = war patriarch “put him down not out” |
+| **Rule of Unyielding** *(不屈律)* | Will does not **accept defeat** | Da Chi **apex** now; Frost Gate institutional loss without personal yield |
 | **Rule of the Unbroken Step** | Foot does not **retreat** from a declared engagement; advance or hold | Fight-forward Mad Monk; intrusion brawls **push** lines |
 | **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Ethics lane — pairs with Unyielding |
 | **Rule of the Unnamed** | Motion rule — no frozen technique; fist is not named form | Martial Intent doctrine; supreme **flow** — different channel than Unyielding |
 | **Rule of One Exchange** | One exchange, then reset | Brawl aesthetic; less “undefeated will” |
 | **Rule of Impact** | No mid-fight mend; must close | Survival channel |
 
-**Owner lean:** **Rule of Unyielding** at **apex adherence** (name TBD) for Da Chi today. **Settled** was “holds the line” war era; **Adhered** is not his scale.
+**Owner lean:** **Rule of Unyielding** at **apex adherence** — Da Chi today. Surfaced = war patriarch; apex = Frost Gate + bell vault legend.
 
 **Separate from leash:** Answering Blow may stay **Bell Luo charter**; Da Chi apex is **Unyielding**.
 
@@ -541,9 +643,9 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 - [ ] Sect **assigns** rule vs disciple **chooses** after trial
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
 - [ ] Lock Da Chi apex rule: **Unyielding** vs Unnamed / Answering Blow / Impact
-- [ ] Lock **apex** name after Permeated / Surfaced / finisher are defined — not before
-- [ ] Surfaced milestone — knockdown-rise fight tuning
-- [ ] **Last footing** once-per-fight — tune vs burst bosses
+- [ ] Lock apex **stage name** from payoff: **Whole** lean vs Knotted / Crowned
+- [ ] Apex milestone — external-resolution-without-yield (Frost Gate analog)
+- [ ] Surfaced spike tuning; overlap with apex **Rise** / Last footing — rework pass
 - [ ] **Adherence** stage thresholds; merge vs separate `progressionPct`
 - [ ] Body Dao **sting / slip** tuning — micro-breach vs release
 - [ ] Per-rule **milestone** unlocks (not generic deepen/expand clone)

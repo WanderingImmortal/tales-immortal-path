@@ -34,7 +34,7 @@ Walk body path (chamber, realms)     ← already under Body Dao purview
     → swear Vessel Rule                ← rule **adheres** to flesh (Body Dao witnesses)
     → flesh **settles** under law      ← adherence deepens (not intent meditation)
     → breach → sting / slip / regress  ← Body Dao punishes
-    → apex adherence (name open)       ← rule inseparable from flesh (Da Chi)
+    → apex adherence                 ← Body Dao **final gift** (Da Chi)
 ```
 
 | Piece | Layer (taxonomy) |
@@ -45,7 +45,9 @@ Walk body path (chamber, realms)     ← already under Body Dao purview
 | **Saintly Flesh** | Body-path completion — *apex rule adherence plausible* |
 | **Sword Dao + sword intent** | Different loop — qi resonance, imposed will on tool category |
 
-**Enforcement (owner lean):** Body Dao **marks** when adhered flesh honors or violates the law. Growth is **settlement and permeation**, not exploring weapon resonance through dantian meditation.
+**Apex adherence:** Body Dao’s **final gift** for full employment of one sworn Rule — not manifested **Law**; rule and flesh **operate as one** until true failure. See [`vessel-rules-design.md`](vessel-rules-design.md) § Apex.
+
+**Physical Dao (owner term):** same working lane as **Body Dao** in these docs until hanzi lock.
 
 **Contrast Sword (loop, not tier count):** Sword Dao disciples **meditate intent** — impose will on qi through a weapon category. Body Dao disciples **swear** — rule **sticks**; power **unlocks from adherence**. Vajra Ridge inner court **settles** one law into the vessel for life.
 
