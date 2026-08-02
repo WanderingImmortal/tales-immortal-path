@@ -29,7 +29,7 @@ Uses indices from [`nine-realm-ladder.md`](nine-realm-ladder.md) (`0–8`).
 | 1 | Foundation Establishment | **Anchor** | Your foundation holds; the world cannot shake you casually |
 | 2 | Core Formation | **Domain** | Your core projects — space near you answers to you |
 | 3 | Nascent Soul | **Sovereignty** | The soul walks outside the body; distance is negotiable |
-| 4 | Deity Transformation | **Transformation** | The mortal shell no longer contains you — the region feels your presence |
+| 4 | Deity Transformation | **Transformation** | Regional presence — **contextual** by civic tier (lord in low cities, peer in 1st-tier, careful in imperial) |
 | 5 | Void Refinement | **Passage** | Space is a suggestion |
 | 6 | Dao Seeking | **Law (seek)** | You read the rules — comprehend, hunt fragments |
 | 7 | Dao Manifestation | **Law (wear)** | You embody a law — local imposition, not study |
@@ -55,7 +55,7 @@ only   +probe body   zones  pressure local  sense    wear      map
 | 0–1 | QC, FE | Full | Full | Mortal scale — every month counts |
 | 2 | Golden Core | **0–1mo** (Light Body) | Full | Town shrinks; continent still far |
 | 3 | Nascent Soul | Trivial in-zone | **2–3mo** (Sky Travel) | Continent is yours |
-| 4 | Deity Transformation | Trivial | **2–3mo** (maintain) | **Region** reacts — not faster travel, deeper presence |
+| 4 | Deity Transformation | Trivial | **2–3mo** (maintain) | **Settlement posture** — lord / peer / guest by civic tier |
 | 5 | Void Refinement | **Blink** between nodes | **1–2mo** optional | Geometry bends |
 | 6–7 | Dao Seek / Wear | As Void+ | As Void+ | Law-sense, forbidden thin warnings |
 | 8 | Immortal | Narrative / free | Trivial / narrative | Left the walk loop |
@@ -130,22 +130,52 @@ only   +probe body   zones  pressure local  sense    wear      map
 
 ---
 
-### 4 — Deity Transformation · **Transformation** *(draft — owner to tune)*
+### 4 — Deity Transformation · **Transformation**
 
-> *The mortal shell no longer contains you. The jianghu names you with fear.*
+> *The mortal shell no longer contains you. The jianghu names you with fear — when the ground is low enough.*
 
 | Type | What players get |
 |------|------------------|
-| **Verb** | **Regional presence** — your qi registers across a city/sphere, not just arm's reach; sects and NPCs use different dialogue tier |
-| **Aura** | **Deity-pressure radius** — deference escalates beyond GC/NS personal domain; weak cultivators may flee without combat |
-| **Jurisdiction** | **Not more flight** — keep NS sky-travel band; add **sphere recognition** (events, faction stance, chronicle) |
+| **Verb** | **Regional presence** — your qi registers across a settlement, not just arm's reach; NPCs and factions shift dialogue tier based on **local civic power** |
+| **Aura** | **Contextual deity-pressure** — see table below; not a fixed radius or constant intimidation |
+| **Jurisdiction** | **Not more flight** — keep NS sky-travel band; add **settlement posture** (lord, peer, guest, shadow lord) |
 
-**Design intent:** idx 4 is the step from "powerful individual" to "force that bends a **region**." Void (idx 5) then bends **space**; Dao (6–7) bends **rules**.
+**Design intent:** idx 4 is mid-ladder on the **mortal** scale — powerful everywhere, but not the summit. DT is the realm where you can **own a place** if the place is low enough, and **know your place** when the apex is higher. Void (idx 5) bends **space**; Dao (6–7) bends **rules**.
+
+#### Contextual pressure (owner lock 2026-08-02)
+
+Pressure is **not constant**. Compare your effective standing to the settlement's **civic apex** ([`city-tiers.md`](city-tiers.md)):
+
+| Where you are | Civic apex (lean) | How DT reads |
+|---------------|-------------------|--------------|
+| **4th-tier** town (e.g. Redwell) | ~FE / strong QC | **Apex or shadow lord** — you can rule openly or from the dark; the city bends |
+| **3rd-tier** capital | ~GC | **Clear top dog** — city lord tier or unchallenged power behind the throne |
+| **2nd-tier** stronghold | ~NS | **Senior power** — respect, leverage; may share the summit with the nominal lord |
+| **1st-tier** capital (e.g. Threshold) | ~DT | **Peer** — you *are* the civic ceiling band; lord, co-lord, or respected equal |
+| **Imperial** (Longcheng / Tianjing) | Court + VR+ hidden | **Higher mid-tier** — respectable, not summit; patriarchs, ancestors, and the buried founder sit above; **do not throw weight around carelessly** |
+
+**Player fantasy:** DT in Redwell = lord or shadow lord. DT in the imperial city = someone who gets seated and heard, not someone who empties a banquet with aura alone.
+
+**Mechanics sketch (no constant):**
+
+```text
+posture = f(yourEffectiveTier, settlementCivicApex, factionBacking, notoriety)
+```
+
+| Gap (you vs civic apex) | Typical posture | Gameplay hooks |
+|-------------------------|-----------------|----------------|
+| **+2 or more** | Dominate / shadow lord | Non-combat wins, recruitment, vein terms, event branches |
+| **+1** | Senior / unchallenged | Strong deference; rival lords negotiate |
+| **0** | Peer | Mutual respect; domain clash possible |
+| **−1** | Respectful guest | Heard, not feared; careful with public displays |
+| **−2 or worse** | Know your place | Suppressed aura; imperial or sect heart reacts |
+
+Tie to existing **standing / apprehension** axes (karma / reputation brainstorm) — DT amplifies or dampens by venue, not a flat +50 intimidate everywhere.
 
 **Body skin:** **Titan step** — bound crossing without qi flight (physical sovereignty).  
 **Soul skin:** **Embodied avatar** — projection carries more weight, longer range.
 
-**Open:** exact radius (one city vs whole zone); overlap with GC domain clash rules.
+**Cross-links:** [`city-tiers.md`](city-tiers.md), [`domain-system.md`](domain-system.md) (GC domain is personal; DT presence is civic-scale), [`imperial-city-tianjing.md`](imperial-city-tianjing.md)
 
 ---
 
@@ -243,7 +273,8 @@ Shared `realmIdx` gates; breakthrough text and chip name vary by `G.path`. One m
 - **Flying at QC** — collapses local map before it matters
 - **Pure passives only** — "+5% explore" doesn't feel like a realm; pair with one felt verb
 - **Identical unlock rows on all three paths** — share milestone *index*, vary presentation
-- **Deity Transformation = more flight** — NS owns continent travel; DT owns regional presence
+- **Deity Transformation = more flight** — NS owns continent travel; DT owns **contextual civic presence**
+- **Flat DT intimidation everywhere** — imperial city and Redwell must feel different
 
 ---
 
@@ -304,7 +335,7 @@ Ship against **today's indices** first; extend when nine-realm migration lands:
 - [ ] Store claims explicitly vs derive from table?
 - [ ] Body/soul paths — all 9 skins or subset at launch?
 - [x] QC Perception = light qi-feel — [`qi-condensation-depth.md`](qi-condensation-depth.md)
-- [ ] Deity Transformation radius — one city vs whole zone?
+- [x] Deity Transformation pressure — **contextual by civic tier**, not fixed radius (owner 2026-08-02)
 - [ ] Dao Manifestation — one worn law per life vs swappable?
 - [ ] GC combat qi-lock — v1 or v2?
 

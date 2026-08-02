@@ -6,7 +6,7 @@
 | **Blocked on** | Settlement rename pass; `SETTLEMENT_PROFILES` when markets/jobs ship |
 | **Issue** | none yet |
 | **Chat / PR** | Owner lock 2026-07-26 with QC depth |
-| **Updated** | 2026-07-26 |
+| **Updated** | 2026-08-02 |
 
 ## Intent
 
@@ -30,6 +30,8 @@ Each numbered tier ≈ **one realm of civic apex** below the one above. Stop aro
 | **Outpost / camp** | n/a | Waystation, War-Camp, Shrine |
 
 **Dustbone civic ladder (2026-07-28):** **Redwell** = **4th-tier** spawn hub ([`redwell-starter-city.md`](redwell-starter-city.md)); unnamed **mid city** = **3rd**; **Threshold City** (id `bone_crossroads`) = **1st-tier capital** + organised chaos under **Law of Dust**. Joint Sandveil Tribunal; tribe HQs elsewhere → stationed civic apex a notch below a classic 1st-tier City Lord. Zone strategic power (survivors / tribe spines) stays high enough that Heartlands cannot casually annex. See [`dustbone-living-board.md`](dustbone-living-board.md).
+
+**DT contextual pressure:** At Deity Transformation, how much weight you can throw depends on **this table** vs your realm — see [`realm-claims.md`](realm-claims.md) idx 4. Redwell = lord/shadow lord; Threshold = peer; Longcheng = respectable mid-tier, not summit.
 
 ### Cities vs sects
 
