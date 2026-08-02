@@ -8,7 +8,7 @@
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
 | **Updated** | 2026-08-02 |
 
-Parent: [`outer-zone-great-powers.md`](outer-zone-great-powers.md). Peer on same zone: [`body-path-sect.md`](body-path-sect.md) (Vajra Ridge).
+Related: [`outer-zone-great-powers.md`](outer-zone-great-powers.md). Peer on same zone: [`body-path-sect.md`](body-path-sect.md) (Vajra Ridge). Origin: [`frostbite-origin.md`](frostbite-origin.md).
 
 ## Intent
 
@@ -37,7 +37,7 @@ Mechanics can **map forward** (cold resist, tribulation witness) — identity be
 | **Entry** | **Female-only** inner court; outer gate may employ male servants, porters, or sworn contractors who never enter inner peaks |
 | **Cultivation identity** | *Stub* — Moon Severing Canon (月断典) or Frost Yin Scripture |
 | **Homeland** | **Moonfract Peak** (月碎峰) — renames/reframes current Frostpeak location (highest crown) |
-| **Founder myth** | *Stub* — first **Moon Empress** who froze her own heartbeat to survive the immortal’s tribulation that scoured the Wastes |
+| **Founder myth** | *Stub* — first **Moon Empress** endured the mirror flare and **froze her heartbeat** to read the scar — not “survived someone’s tribulation” |
 | **Public leader** | *Stub* — Matriarch / Palace Mistress at Void Refinement |
 | **Player-facing NPC** | Gate Warden (Warden Yun pivot) — tests patience; inner audiences only for women or special story |
 | **Primary lean** | **Northern ward** — arrays that hold the blizzard line; imperial bargain unchanged |
@@ -46,7 +46,7 @@ Mechanics can **map forward** (cold resist, tribulation witness) — identity be
 
 ## Why female-only fits the zone
 
-- Frostbite lore: land frozen by an immortal’s tribulation — **yin extremity** already in the soil.
+- Frostbite lore: **Sunless Scar** — pre-heaven mirror field drinks daylight ([`frostbite-origin.md`](frostbite-origin.md)); yin sect cultivates *with* the leak, not tribulation aftermath
 - Pairs with body monks on the ridge: **soft moon on the crown, hard iron on the spine** — not gender stereotype only, but **cultivation axis** (yin stillness vs yang tempering).
 - Distinct from Jade Lotus (politics/trade) and Heartlands sword/flame/void — **no overlap with Lotus “silk courts.”**
 

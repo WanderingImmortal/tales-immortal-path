@@ -55,7 +55,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `designed` | Phase 1 gates 2–3 | — |
 | [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
 | [Outer-zone great powers (hub)](outer-zone-great-powers.md) | `idea` | Owner per-zone passes | — |
-| [Frostbite yin sect (Frostpeak pivot)](frostbite-yin-sect.md) | `idea` | Owner lore pass | — |
+| [Frostbite origin — Sunless Scar](frostbite-origin.md) | `idea` | Owner treasure variant | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
 | [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `idea` (parked) | — | — |
