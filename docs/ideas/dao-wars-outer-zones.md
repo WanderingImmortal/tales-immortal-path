@@ -6,7 +6,7 @@
 | **Blocked on** | Timeline dates; per-zone identity doc passes |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-08-02 (territorial prize model; live roster — owner) |
 
 **Hub:** [`imperial-clan.md`](imperial-clan.md) (Dao Wars settlement). **Outer powers:** [`outer-zone-great-powers.md`](outer-zone-great-powers.md).
 

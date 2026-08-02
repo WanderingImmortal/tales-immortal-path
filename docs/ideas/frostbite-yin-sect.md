@@ -96,6 +96,22 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 | **Golden Phoenix** | Natural opposition — yang flame vs yin peak |
 | **Celestial Sword** | Distant — line vs moon |
 
+## Dao Wars — **role not locked** (owner 2026-08-02)
+
+Personality **undefined**. Do not write them as northern guardians (Void Temple owns that lane) or Scar wardens. When personality lands, pick one **primary posture** — can blend lightly.
+
+| Posture (parked) | War behavior | Settlement outcome |
+|------------------|--------------|-------------------|
+| **Mercenary silence** | Sold yin concealment / assassination to **both sides**; never held land south | Charter tolerates them; Heartlands distrusts |
+| **One southern reach** | Maidens marched for fragments; **failed** at Sword line / Bleed flank / Phoenix heat | **Isolation oath** — “we do not reach for the prize again” |
+| **Never marched** | Palace stayed on peak; outer court frost mercs only | Recognized as **sovereign peak**, not a threat |
+| **Observed stillness** | Watched Dao Wars as **tribulation of the continent**; True Yin Scripture codified from watching yang burn | Respected as mystics; no territorial claim |
+| **Ancient before wars** | Palace **predates** Dao Wars; war was **vulgar noise** below Maiden Peak | Isolation as **dignity**, not defeat |
+
+**Northern reach (continent sketch):** someone from the Maiden Peak line **reached inward** during Dao Wars because **Heartlands held the prizes** — learned **what not to touch** (Bleed when flanking, Sword/Phoenix when pushing deep). Fits user direction without locking Yin Maiden personality yet.
+
+Link: [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
+
 ## Open questions
 
 - [x] Apex scripture name — **True Yin Scripture** (真阴经) — owner 2026-08-02
