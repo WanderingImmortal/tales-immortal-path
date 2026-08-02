@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (generic Flesh Immortal + Buddhist Mad Arhat lane) |
+| **Updated** | 2026-08-02 (Saintly Flesh realm — saints vs immortals) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -78,70 +78,74 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 
 **Not blood demons:** mass slaughter and soul refining stay **acts** / forbidden lanes — Mad Monks are **oddballs**, not the evil physique embrace track.
 
-## Body path — immortal equivalent (two lanes — owner lean)
+## Body path — saint vs immortal (owner lean)
 
-**Not locked in code yet.** Body techniques in the wild are **not** all Buddhist — blood arts, desert grit, war-god roar, generic tempering ([`data.js`](../../data.js) `path: body`). Naming must split:
+**Not locked in code yet.** Body techniques in the wild are **not** all Buddhist — blood arts, desert grit, war-god roar, generic tempering ([`data.js`](../../data.js) `path: body`). Naming splits **path** (saint vs immortal titles) and **tradition** (Buddhist arhat).
 
 | Lane | Who uses it | Purpose |
 |------|-------------|---------|
-| **Generic path title** | **All body refiners** — player default, blood, desert, rogue manuals | Neutral xianxia; UI realm / chronicle label |
-| **Buddhist lineage epithet** | **Vajra Ridge** — Vessel Canon, Mad Arhat spine | Doctrine flavor; not the default player string |
+| **Generic body capstone** | **All body refiners** — player default, blood, desert, rogue manuals | **Saint** title lane — not 仙 immortal |
+| **Buddhist lineage epithet** | **Vajra Ridge** — Vessel Canon, Mad Arhat spine | Doctrine flavor atop saint tier |
 
-### Generic — **Flesh Immortal** (owner lean)
+### Design rule — **saints ≠ immortals** (owner lock — 2026-08-02)
 
-**Default immortal equivalent** for body refining — no monastery required.
+| Path | Capstone **realm** | Typical title | Tier word |
+|------|-------------------|---------------|-----------|
+| **Qi** (continent default) | **Immortal Ascension** | Immortal (剑仙, 凤凰仙…) | 仙 |
+| **Body** | **Saintly Flesh** | **Flesh Saint** | 圣 |
+| **Soul** | *(TBD)* | Eternal Spirit (draft) | — |
+
+Same **power band** at idx 8 — different **what you finished**. Qi ascends as **immortal**; body **sanctifies flesh** and earns **saint** titles — not the jianghu’s usual 仙 label.
+
+### Generic — **Saintly Flesh** realm (owner lock)
+
+**Default body-path capstone** — no monastery required.
 
 | Use | Label |
 |-----|-------|
-| **Realm / breakthrough** (idx 8 body, parallel to Immortal Ascension) | **Flesh Immortal** (肉身仙) — *or UI short: 体仙* |
-| **State** (what you achieved) | **Indestructible flesh** / vessel finished — mortal cap realm stays **Indestructible Vajra** (金刚不灭) |
-| **Chronicle** | *“Ascended as a Flesh Immortal — the body outlived the world’s right to break it.”* |
+| **Realm name** (idx 8 body, parallel to Immortal Ascension) | **Saintly Flesh** (圣体境) — *alt hanzi: 肉身圣境* |
+| **Person title** | **Flesh Saint** (肉身圣人) — rumor short: **体圣** |
+| **State** | Mortal cap stays **Indestructible Vajra** (金刚不灭); breakthrough = vessel **sanctified** |
+| **Chronicle** | *“Broke through to Saintly Flesh — a flesh saint, not an immortal.”* |
 
-Works for: Mad Monks who never learn arhat vocabulary, Sunscar-style warriors, blood conditioners, Dustbone grit, player who never joins Vajra Ridge.
-
-**Alternates if tone shifts** (generic only):
-
-| Name | Hanzi | Notes |
-|------|-------|-------|
-| **Flesh Sainthood** | 肉身成圣 | Achievement beat — “flesh became saint”; slightly grand |
-| **Indestructible Body** | 不灭体 | State name; less “immortal tier” in the 仙 sense |
-| **Vessel Transcendence** | 炼体飞升 | Breakthrough verb — good for tribulation copy |
+Works for: Mad Monks, Sunscar warriors, blood conditioners, Dustbone grit, players who never join Vajra Ridge.
 
 **Not generic defaults:** 金身, 罗汉, 金刚尊者 — Buddhist / Vajra Ridge lane.
 
 ### Buddhist variation — **Golden Body Arhat** + **Mad Arhat**
 
-**Vajra Ridge / Vessel Canon only** — lineage honorific, not the continent-wide body-path label.
+**Vajra Ridge / Vessel Canon only** — lineage honorific atop **Saintly Flesh**, not a separate realm index.
 
 | Use | Label |
 |-----|-------|
 | **Formal epithet** (charter, inner court) | **Golden Body Arhat** (金身罗汉) |
 | **Jianghu nickname** (spine) | **The Mad Arhat** (疯罗汉) — Mad Monk of Mad Monks |
-| **Doctrine** | Same **power tier** as Flesh Immortal — arhat = finished vessel **by monk idiom** |
+| **Doctrine** | Same idx 8 band as **Saintly Flesh** — arhat idiom for monks who finished the vessel |
 
-A ridge monk at immortal tier might be called **Flesh Immortal** in a Heartlands registry and **Golden Body Arhat** on the bell-hall wall. Same cultivator; different **tradition**.
+Breakthrough to **Saintly Flesh**; bell hall writes **Golden Body Arhat**; Heartlands file **flesh saint** — three strings, one cultivator.
 
 ### Code today (`PATHS.body`)
 
 | Layer | Current code | Target (draft) |
 |-------|--------------|----------------|
 | Mortal ladder | Bronze Skin → … → **Indestructible Vajra** | Keep — top **mortal** body realm |
-| Realm title at cap | **Vajra Immortal** in `titles[]` | Rename to **Flesh Immortal** (generic) when body ladder ships — *implementation later* |
-| Post-Ascension sect epithet | — | Buddhist: Mad Arhat; generic players: **Flesh Immortal** only |
+| Realm title at cap | **Vajra Immortal** in `titles[]` | Rename to **Flesh Saint** / **Saintly Flesh** when body ladder ships — *implementation later* |
+| Post-Ascension sect epithet | — | Buddhist: Mad Arhat; generic: **Flesh Saint** |
 
-Nine-realm alignment: idx 8 ↔ Indestructible Vajra mortal cap breakthrough → **Flesh Immortal** title. See [`forging-equipment-tiers.md`](forging-equipment-tiers.md), [`nine-realm-ladder.md`](nine-realm-ladder.md).
+Nine-realm alignment: idx 8 body = **Saintly Flesh** realm (not Immortal Ascension in body UI). See [`forging-equipment-tiers.md`](forging-equipment-tiers.md), [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 ### Sect spine — **The Mad Arhat** (疯罗汉) *(stub)*
 
-**Soul of the fist** for Vajra Ridge — every outer monk learns from stories of his punches; Patriarch Bell Luo exists so the **immortal** doesn’t have to read charter mail.
+**Soul of the fist** for Vajra Ridge — every outer monk learns from stories of his punches; Patriarch Bell Luo exists so the **flesh saint** doesn’t have to read charter mail.
 
 | | **Sword Immortal** | **Phoenix Immortal** | **Mad Arhat** *(stub)* |
 |--|-------------------|---------------------|------------------------|
+| **Title lane** | 仙 immortal | 仙 immortal | **圣** saint — **Golden Body Arhat** formally |
 | **Epithet** | 剑仙 — line made law | 凤凰仙 — tired guardian | **疯罗汉** — joy in impact |
 | **Dao Wars** | Dao Manifestation; **hid** in Seal Array | Knelt; brother ascended later | **Fought everywhere** — best years; elders **lie** in official histories |
 | **After peace** | Sleeps in array core | Veto on existential war | **Still wants a fight** — Bell Luo + Vessel Rules keep him on the ridge |
 | **Public face** | Forgotten true name | Younger brother patriarch | **Laughing old monk** who asks if your bones are interesting |
-| **Power** | Immortal | Immortal | Immortal — **Golden Body Arhat** formally; continent says **Flesh Immortal** |
+| **Power** | Immortal tier | Immortal tier | **Saintly Flesh** tier — **Golden Body Arhat** on the wall; registry says **flesh saint** |
 
 **Spine sketch:**
 
@@ -237,9 +241,9 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 - [x] Tier: **great sect Dao Wars survivor** — monk body refiners (owner 2026-08-02)
 - [x] Personality: **Mad Monks** nickname; ascetic official name; fight-forward not murder-forward (owner 2026-08-02)
 - [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
-- [x] Generic immortal title: **Flesh Immortal** (肉身仙) — all body paths (owner 2026-08-02)
+- [x] Generic capstone: **Saintly Flesh** realm (圣体境); person title **Flesh Saint** — saints ≠ immortals (owner 2026-08-02)
 - [x] Buddhist lineage epithet: **Golden Body Arhat** (金身罗汉); spine nickname **Mad Arhat** (疯罗汉)
-- [ ] Generic alternate: **Flesh Sainthood** (肉身成圣) vs **Flesh Immortal** — final UI lock
+- [ ] Hanzi lock: **圣体境** vs **肉身圣境** for realm name
 - [ ] Spine true name (疯罗汉 is epithet only)
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?

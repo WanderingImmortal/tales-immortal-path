@@ -66,7 +66,7 @@ Gear tier **N** is keyed to cultivation **realm index N − 1** (0-based). Same 
 | 6 | Void Refinement | Sage Flesh | Transcendence |
 | 7 | Dao Seeking | War God Physique | Dao Heart |
 | 8 | Dao Manifestation *(new)* | *(parallel name TBD)* | *(parallel name TBD)* |
-| 9 | Immortal Ascension | Indestructible Vajra | Eternal Spirit |
+| 9 | Immortal Ascension | **Saintly Flesh** *(圣体境)* | Eternal Spirit |
 
 Until the nine-realm migration lands ([`nine-realm-ladder.md`](nine-realm-ladder.md)), **ship content against the live ladder** and extend when indices shift.
 
