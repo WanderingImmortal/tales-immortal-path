@@ -44,7 +44,13 @@ For each major realm (qi / body / spirit tracks as applicable):
 
 ## Capability matrix
 
-**Primary doc:** [`realm-claims.md`](realm-claims.md) — per-realm claims, travel, aura, and body/soul skins (expanded 2026-08-02 from cloud design chat). Per-realm *journey* depth still lives in sibling docs (QC, FE, GC, tribulation, etc.).
+| Layer | Doc |
+|-------|-----|
+| Per-realm claims, travel, skins | [`realm-claims.md`](realm-claims.md) — expanded 2026-08-02 |
+| Upper ladder (VR / Seek / Manifest) | [`upper-ladder-design-hub.md`](upper-ladder-design-hub.md) — locks + open queue |
+| Void layers + VR→Seeking trib | [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md) |
+
+Per-realm *journey* depth still lives in sibling docs (QC, FE, GC, tribulation, etc.).
 
 ## Open questions
 

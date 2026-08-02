@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (philosophy) — **Seeking identity / terminology open** (owner 2026-08-02) |
-| **Blocked on** | Nine-realm indices in code; sword dao taxonomy; owner tune on Manifestation depth tiers |
+| **Status** | `designed` |
+| **Blocked on** | Nine-realm indices in code; sword dao taxonomy; tribulation + breakthrough numbers |
 | **Issue** | none yet |
 | **Chat / PR** | Dao system world-building ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)); realm-claims expansion 2026-08-02 |
 | **Updated** | 2026-08-02 |
@@ -12,7 +12,7 @@
 
 **Dao Seeking** (idx 6) and **Dao Manifestation** (idx 7) are two watersheds on the nine-realm ladder with different jobs:
 
-- **Seeking** = comprehension realm — hunt fragments, build a **library** of laws you understand; passives stack.
+- **Seeking** = comprehension realm — pursue **insights/threads**, build a **library** of laws you understand; passives stack.
 - **Manifestation** = embodiment realm — **wield** one law at a time; the world reacts to *which* law you wear, not just how high your realm is.
 
 Lesser dao is **specialization**, not weakness. Greater dao is **umbrella law** — harder to comprehend, bigger toolkit. Most Manifestation cultivators **started** by wielding a Lesser because directed paths are easier; specialists who never comprehend Greater are **valid** full Manifestation builds.
@@ -54,57 +54,19 @@ Manifest entry → identity (which law wears your name)
 
 Comprehension over thousands of years **stacks and merges** — it does not gate the first sense that this person **matters**.
 
-### What happens at Peak VR tribulation? (brainstorm — pick one)
+### Peak VR tribulation — **Glimpse + Rulebook Retaliation** (owner lean 2026-08-02)
 
-The tribulation is the **justify everything** moment: why law opens, why lifespan extends, why power jumps. **Owner has not locked a name yet.** Candidates:
+Locked direction: see [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md). Peak VR glimpses **law-layer**; heaven **retaliates** for trespass; survive → Seeking mandate (lifespan, power, weight).
 
-#### A — **Void Lens / Glimpse** (owner lean 2026-08-02)
+**Optional combine:** **Script-Sight** (board-weight verbs) layered on Glimpse — not a separate tribulation type.
 
-Peak VR presses the **firmament veil**; for an instant you see **past** interstitial/outer void haze to **heaven’s laws in action** (not a book — phenomena: karma threading, tribulation assembling, law bare at a site).
+<details>
+<summary>Archived brainstorm alternates (not owner lean)</summary>
 
-- **Tribulation:** **Rulebook Retaliation** — heaven strikes for unauthorized witness; survive → stabilized lens → Dao Seeking
-- **Immediate power:** void qi + **law-sight**; patriarch **weight** on the board
-- **Full cosmology:** [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md)
+#### B — Law Aperture · C — Heaven's Question · D — Script-Sight alone · E — Ambient Dao Draw
 
-*Supersedes generic “void-lens” bullet; ties VR peak to Seeking gate.*
-
-#### B — **Law Aperture** (new “organ”)
-
-Tribulation opens a **law aperture** in the soul/dantian — a chamber for **understanding**, parallel to FE’s qi chamber.
-
-- **Immediate power:** passive **dao pressure** (weaker than Manifestation wear; stronger than DT civic aura) — techniques near you skew slightly toward your **root/path affinity**
-- **Weight:** sects and imperial court treat you as **policy-tier**, not merely strong
-- **Why lifespan:** aperture maintenance burns slow; heaven grants runway
-
-*Gives Seeking a **body** — something to cultivate inside the realm beyond abstract library %.*
-
-#### C — **Heaven’s Question** (tribulation as inquiry)
-
-Not lightning-only — heaven **asks** (vision, heart-demon, karmic audit). Surviving = **permission to seek** + an **Answer’s Echo** (one tangible passive tied to how you answered).
-
-- **Immediate power:** player-facing **Echo** choice (defensive / offensive / insight skew) — real day one
-- **Weight:** chronicle tags you **Dao Inquirer**; factions react to the *kind* of answer
-- **Why comprehend:** echo is one thread; library is the rest of your life
-
-*Strong tribulation identity; links [`tribulation-per-realm-limbo.md`](tribulation-per-realm-limbo.md).*
-
-#### D — **Script-Sight** (read the board)
-
-You glimpse **heaven’s script** — not full text, but margins: karma lean, tribulation flavor, which grounds answer to which law.
-
-- **Immediate power:** **law-sense** verbs fully active; + resist low-tier technique suppression
-- **Weight:** **major position** fantasy — you can **audit** sect arrays, imperial edicts, forbidden seals (narrative permissions)
-- **Less combat spike, more sovereignty** — good if “weight” means institutional power
-
-#### E — **Ambient Dao Draw** (partial step out of self)
-
-Like Nascent Soul externalized the soul, Seeking lets you **sip ambient law** — not wield, but no longer 100% personal qi.
-
-- **Immediate power:** small flat combat/stat bump + elemental/dao **skew** from roots/history
-- **Weight:** other Seekers sense your **draw**; duels change character
-- **Risk:** feels stat-stick unless paired with a named phenomenon (combine with A or B)
-
-**Lean combo:** **A (Void Lens) + D (Script-Sight)** — VR investment pays off perceptually; board weight is reading and being read by heaven.
+Parked alternates from early session; superseded by Glimpse + Retaliation unless owner revives.
+</details>
 
 ### What each rung is *for*
 
@@ -342,7 +304,8 @@ Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k*
 - [ ] Karma / seer integration from world-building chat ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)) — separate issue?
 - [ ] Half-Step benefit from Peak worn depth vs breadth of library?
 - [ ] Which comprehension beats grant lifespan extensions in Seeking?
-- [ ] **Peak VR tribulation** — **Glimpse + Rulebook Retaliation** (owner lean) — see [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md)
+- [x] **Peak VR tribulation** — **Glimpse + Rulebook Retaliation** (owner lean) — [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md)
+- [ ] Script-Sight combined with Glimpse for board-weight verbs — yes/no?
 - [ ] Seeking breakthrough package: exact lifespan floor + combat/weight passives
 - [x] ~~Collapse Seeking into VR sub-phase~~ — **retired**; acquisition realm at idx 6 (owner 2026-08-02)
 - [ ] Rename `fragments` → `pursuits` / `threads` in code and copy
@@ -362,3 +325,4 @@ Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k*
 - [`celestial-sword-sect.md`](celestial-sword-sect.md) — First Sword @ Manifestation
 - [`immortal-world-layer.md`](immortal-world-layer.md) — legislation preview
 - [`cultivation-realm-depth-pass.md`](cultivation-realm-depth-pass.md) — umbrella depth pass
+- [`upper-ladder-design-hub.md`](upper-ladder-design-hub.md) — session index + open-question queue

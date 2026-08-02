@@ -92,7 +92,7 @@ Possible shapes (pick one later):
 
 **VR only:** breakthrough opens the void basin; power acquired inside (early VR ≈ DT Peak).
 
-**Seeking:** breakthrough is a **real jump** — lifespan, moderate power, board weight **immediately**; comprehension deepens over millennia. Peak VR tribulation phenomenon TBD — see [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md).
+**Seeking:** breakthrough is **Glimpse + Rulebook Retaliation survived** — lifespan, moderate power, board weight immediately. See [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md).
 
 **Manifestation:** first wield opens embodiment grind.
 
@@ -179,7 +179,7 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 3 | Sovereignty | Sky travel (zones), soul sense |
 | 4 | Transformation | Deity-presence in a region (not soul-path) |
 | 5 | Passage | Blink / void skip |
-| 6 | Law (seek) | Dao panel, fragment hunt |
+| 6 | Law (seek) | Dao panel, insight pursuit |
 | 7 | Law (wear) | Embody law; local imposition |
 | 8 | Transcendence | Above mortal map; immortal fork |
 
