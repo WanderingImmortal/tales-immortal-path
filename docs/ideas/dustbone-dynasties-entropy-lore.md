@@ -27,7 +27,7 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 
 | Term | Use |
 |------|-----|
-| **Law of Dust** | Formal name of the completed local dao — accelerated return-to-formlessness in this basin |
+| **Law of Dust** | Formal name of the completed **basin statute** — accelerated return-to-formlessness in this basin ([`law-taxonomy.md`](law-taxonomy.md) layer 2) |
 | **Return-to-Dust** | Rites, common speech, cascade flavor (“may you return to dust”) |
 | **Entropy** | Scholar / Pinwright / chaos-path root metaphor |
 

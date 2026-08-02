@@ -20,7 +20,7 @@ Related: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.
 
 ### What the word is — **yin inversion** (转阴 / 阳极归阴)
 
-At the scar’s heart, yin laws don’t merely “win” a fight with yang — they **override the lane**:
+At the scar’s heart, **axis-level yin** (see [`law-taxonomy.md`](law-taxonomy.md)) doesn’t merely “win” a fight with yang — it **overrides the lane**:
 
 | In the band | Yang behavior |
 |-------------|----------------|
@@ -49,7 +49,7 @@ Pre-heaven treasure / ward node at the **pole**. It doesn’t freeze by force �
 
 | Piece | Sketch |
 |-------|--------|
-| **Core rule** | Yin laws supreme; yang inverted or null within apex radius |
+| **Core rule** | **Axis yin** supreme at apex; yang inverted or null (not a cultivator’s “yin dao” — **primordial lane**) |
 | **Bleed** | Gradient field — reshaped landscape is **centuries of leak**, not one event |
 | **Frozen Abyss** | **Sink** where inverted yin pools; array rim still hums |
 | **Frostbound Sage** | Collateral in the field — not the author |
@@ -60,7 +60,7 @@ Pre-heaven treasure / ward node at the **pole**. It doesn’t freeze by force �
 
 | | **Dustbone** | **Frostbite** |
 |--|--------------|---------------|
-| **Cause type** | Completed **local dao** (Law of Dust) + **human order density** | **Pre-heaven object / array** distorting the land |
+| **Cause type** | Completed **basin statute** (Law of Dust) + **human order density** | **Axis field** via pre-heaven artifact ([`law-taxonomy.md`](law-taxonomy.md)) |
 | **Mechanism** | Threshold cascades when imposed order exceeds basin capacity | **Yin-supremacy field** — yang inverts or fails; bleed reshapes land |
 | **Agency** | Dynasties **chose** density (Pinwright exception, walls, registry) | Nobody “won a fight” here — something **was placed or fell**, then **leaked** |
 | **Timeline** | Three dynasties — mortal-scale history, still recent tribal memory | **Pre-sect, pre–Dao Wars** — continental ward era or treasure fall |
