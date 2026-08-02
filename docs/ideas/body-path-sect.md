@@ -92,10 +92,10 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | Path | Capstone **realm** | Typical title | Tier word |
 |------|-------------------|---------------|-----------|
 | **Qi** (continent default) | **Immortal Ascension** | Immortal (剑仙, 凤凰仙…) | 仙 |
-| **Body** | **Saintly Flesh** | **Flesh Saint** | 圣 |
+| **Body** | **Saintly Flesh** | **Saint** (shorthand: **Saints**) | 圣 |
 | **Soul** | *(TBD)* | Eternal Spirit (draft) | — |
 
-Same **power band** at idx 8 — different **what you finished**. Qi ascends as **immortal**; body **sanctifies flesh** and earns **saint** titles — not the jianghu’s usual 仙 label.
+Same **power band** at idx 8 — different **what you finished**. Qi ascends as **immortal** (仙); body **sanctifies flesh** — jianghu shorthand calls them **Saints** (圣), not immortals.
 
 ### Generic — **Saintly Flesh** realm (owner lock)
 
@@ -104,9 +104,9 @@ Same **power band** at idx 8 — different **what you finished**. Qi ascends as 
 | Use | Label |
 |-----|-------|
 | **Realm name** (idx 8 body, parallel to Immortal Ascension) | **Saintly Flesh** (圣体境) — *alt hanzi: 肉身圣境* |
-| **Person title** | **Flesh Saint** (肉身圣人) — rumor short: **体圣** |
+| **Person title** | **Saint** (圣人 / 圣者) — jianghu shorthand: **Saints**; *not* “flesh saint” |
 | **State** | Mortal cap stays **Indestructible Vajra** (金刚不灭); breakthrough = vessel **sanctified** |
-| **Chronicle** | *“Broke through to Saintly Flesh — a flesh saint, not an immortal.”* |
+| **Chronicle** | *“Broke through to Saintly Flesh — the jianghu calls him a Saint, not an immortal.”* |
 
 Works for: Mad Monks, Sunscar warriors, blood conditioners, Dustbone grit, players who never join Vajra Ridge.
 
@@ -122,21 +122,21 @@ Works for: Mad Monks, Sunscar warriors, blood conditioners, Dustbone grit, playe
 | **Jianghu nickname** (spine) | **The Mad Arhat** (疯罗汉) — Mad Monk of Mad Monks |
 | **Doctrine** | Same idx 8 band as **Saintly Flesh** — arhat idiom for monks who finished the vessel |
 
-Breakthrough to **Saintly Flesh**; bell hall writes **Golden Body Arhat**; Heartlands file **flesh saint** — three strings, one cultivator.
+Breakthrough to **Saintly Flesh**; bell hall writes **Golden Body Arhat**; Heartlands file **Saint** — three strings, one cultivator.
 
 ### Code today (`PATHS.body`)
 
 | Layer | Current code | Target (draft) |
 |-------|--------------|----------------|
 | Mortal ladder | Bronze Skin → … → **Indestructible Vajra** | Keep — top **mortal** body realm |
-| Realm title at cap | **Vajra Immortal** in `titles[]` | Rename to **Flesh Saint** / **Saintly Flesh** when body ladder ships — *implementation later* |
-| Post-Ascension sect epithet | — | Buddhist: Mad Arhat; generic: **Flesh Saint** |
+| Realm title at cap | **Vajra Immortal** in `titles[]` | Rename to **Saint** / **Saintly Flesh** when body ladder ships — *implementation later* |
+| Post-Ascension sect epithet | — | Buddhist: Mad Arhat; generic: **Saint** |
 
 Nine-realm alignment: idx 8 body = **Saintly Flesh** realm (not Immortal Ascension in body UI). See [`forging-equipment-tiers.md`](forging-equipment-tiers.md), [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 ### Sect spine — **The Mad Arhat** (疯罗汉) *(stub)*
 
-**Soul of the fist** for Vajra Ridge — every outer monk learns from stories of his punches; Patriarch Bell Luo exists so the **flesh saint** doesn’t have to read charter mail.
+**Soul of the fist** for Vajra Ridge — every outer monk learns from stories of his punches; Patriarch Bell Luo exists so the **Saint** doesn’t have to read charter mail.
 
 | | **Sword Immortal** | **Phoenix Immortal** | **Mad Arhat** *(stub)* |
 |--|-------------------|---------------------|------------------------|
@@ -145,7 +145,7 @@ Nine-realm alignment: idx 8 body = **Saintly Flesh** realm (not Immortal Ascensi
 | **Dao Wars** | Dao Manifestation; **hid** in Seal Array | Knelt; brother ascended later | **Fought everywhere** — best years; elders **lie** in official histories |
 | **After peace** | Sleeps in array core | Veto on existential war | **Still wants a fight** — Bell Luo + Vessel Rules keep him on the ridge |
 | **Public face** | Forgotten true name | Younger brother patriarch | **Laughing old monk** who asks if your bones are interesting |
-| **Power** | Immortal tier | Immortal tier | **Saintly Flesh** tier — **Golden Body Arhat** on the wall; registry says **flesh saint** |
+| **Power** | Immortal tier | Immortal tier | **Saintly Flesh** tier — **Golden Body Arhat** on the wall; registry says **Saint** |
 
 **Spine sketch:**
 
@@ -241,7 +241,7 @@ Different war posture from Yin Maiden — **visible muscle**, not silence ledger
 - [x] Tier: **great sect Dao Wars survivor** — monk body refiners (owner 2026-08-02)
 - [x] Personality: **Mad Monks** nickname; ascetic official name; fight-forward not murder-forward (owner 2026-08-02)
 - [ ] Nickname hanzi lock: 疯僧 vs 疯子和尚 vs 狂僧
-- [x] Generic capstone: **Saintly Flesh** realm (圣体境); person title **Flesh Saint** — saints ≠ immortals (owner 2026-08-02)
+- [x] Generic capstone: **Saintly Flesh** realm (圣体境); person shorthand **Saint** / **Saints** — not “flesh saint” (owner 2026-08-02)
 - [x] Buddhist lineage epithet: **Golden Body Arhat** (金身罗汉); spine nickname **Mad Arhat** (疯罗汉)
 - [ ] Hanzi lock: **圣体境** vs **肉身圣境** for realm name
 - [ ] Spine true name (疯罗汉 is epithet only)
