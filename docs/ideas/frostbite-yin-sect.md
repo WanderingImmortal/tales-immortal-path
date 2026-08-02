@@ -60,7 +60,7 @@ Code: `frostpeak_monastery` → palace on habitable peak; Scar = optional delve 
 |------|-------------|-------------------|
 | **Outer / low** | Cold, frost, chill — **zone practical** | Ice-touch palm, frost concealment, breath that numbs; overlaps Frostbite explore loot |
 | **Inner / mid** | Yin **without** ice cosplay | Shadow sever, qi drain, moonlit step, spirit concealment — cold is side effect |
-| **Supreme / apex** | **Peak Yin** | Absolute stillness (动之极静), severing light (断阳), concealing fate from audit, form **dissolving** into moon-shadow — **no** “ultimate blizzard” |
+| **Supreme / apex** | **True Yin Scripture** tier — peak Yin; **no** “ultimate blizzard” |
 
 **Why they're in the north:** outer court **needs** frost-flavored basics to survive the Bleed margin; inner court **transcends** “cold technique sect” into **Yin Maiden** proper — the sect Heartlands scholars argue is **the** yin reference, not Frostpeak ice monks.
 
@@ -98,8 +98,8 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 
 ## Open questions
 
-- [ ] Final name: **玉女宫** locked or blend with Moonfract 月碎?
-- [ ] Supreme art names — one **signature** non-ice ultimate for marketing
+- [x] Apex scripture name — **True Yin Scripture** (真阴经) — owner 2026-08-02
+- [ ] Final palace name: **玉女宫** locked or blend with Moonfract 月碎?
 - [ ] Do males ever learn **outer frost** pamphlets only?
 - [ ] Matriarch tier — VR public; vault ancestor?
 
