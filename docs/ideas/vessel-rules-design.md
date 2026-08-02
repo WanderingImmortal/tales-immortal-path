@@ -6,7 +6,7 @@
 | **Blocked on** | More rule defs; sect-assigned rules |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Rule Adherence — own system, not Intent clone) |
+| **Updated** | 2026-08-02 (Settled stage workshop) |
 
 **Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
 
@@ -159,17 +159,11 @@ Swear oath (ritual months)
 | **Surfaced** | Rule **visible** outward — opponents feel it (slip, seal, unyielding press) |
 | **Apex** *(name open)* | **Da Chi tier** — rule inseparable from flesh at depth; still not invincible |
 
-**Working hanzi (*open*):** 附律 → 定律 → 渗律 → 显律 → **apex hanzi TBD** — UI English above for stages 1–4.
+**Apex stage:** name **after** all stages are defined — see what the ladder **leads to** first ([`vessel-rules-design.md`](vessel-rules-design.md) stage workshop).
 
-**Apex stage candidates (owner — not Rooted):**
+**Working hanzi (*open*):** 附律 (Adhered) → 定律 (Settled) → 渗律 → 显律 → apex TBD.
 
-| Candidate | English | Hanzi lean | Feel |
-|-----------|---------|------------|------|
-| **Imprinted** *(lean)* | Rule **imprinted** in flesh — cannot peel off | 烙律 / 印律 | Brand / seal depth; Da Chi |
-| **Knotted** | Rule **knotted** — oath cannot untie from marrow | 结律 | Binding permanence |
-| **Ingrained** | Rule **ingrained** to bone | 入骨律 | Marrow-deep (near Permeated) |
-
-**Not** Rooted for apex — reads like a **first**-stage metaphor (rule takes root), not finisher.
+**Not** Rooted for apex — reads like a **first**-stage metaphor. Apex naming parked until Permeated / Surfaced / finisher are designed.
 
 ### How adherence grows (distinct from intent `uses`)
 
@@ -195,7 +189,7 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 | **Sustained breach** | **Slip** — adherence stage regresses | Punishment without full release |
 | **Release / grave breach** | Realm regress + cooldown (shipped) | Bond **revoked** |
 
-**Fiction:** cultivator may **not think** about the oath off-duty. The rule is **already in the flesh** — like bone structure, not a mantra. Da Chi at **apex adherence** (*Imprinted* lean): engagement changes because **Unyielding is inseparable from his flesh**; not because he meditates on qi each morning.
+**Fiction:** cultivator may **not think** about the oath off-duty at **Settled+**. The rule is **already in the flesh** — like bone structure, not a mantra. Da Chi at apex adherence: engagement changes because **Unyielding is inseparable from his flesh**.
 
 ### Rule of Unyielding (不屈律) — stage catalog *(owner workshop)*
 
@@ -206,14 +200,14 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 | Stage | Player (mechanics lean) | Da Chi (fiction) |
 |-------|-------------------------|------------------|
 | **Adhered** | See **below** — first stage after swear | Young war monk: reputation, not aura |
-| **Settled** | DR while “losing” HP band; morale/fear can’t end fight early | Holds lines longer than peers expect |
+| **Settled** | Rule **settled into flesh** — flesh **defaults** to oath; passive combat support | See **Settled** section below |
 | **Permeated** | **Unyielding press** — enemy “winning” exchanges **stall** | Intrusion brawls: neither side finishes cleanly |
 | **Surfaced** | Knocked down → must **rise** before fight “ends” for you | Opponents learn: put him **down**, not **out** |
-| **Apex** *(Imprinted lean)* | Battlefield rejects your **defeat-state** until flesh fails | Frost Gate; Golden Arhat scale — still not invincible |
+| **Apex** *(name TBD)* | Battlefield rejects your **defeat-state** until flesh fails | Frost Gate; Golden Arhat scale — still not invincible |
 
 #### Adhered — what it does (player + Da Chi)
 
-**First stage immediately after swear completes.** Not a parlor trick at Da Chi’s **current** tier — he is at **apex adherence** (*Imprinted* lean). At **Adhered**, the rule is **binding only** — modest payoff, heavy identity.
+**First stage immediately after swear completes.** Not a parlor trick at Da Chi’s **current** tier — he is at **apex adherence** (name TBD). At **Adhered**, the rule is **binding only** — modest payoff, heavy identity.
 
 **Restriction (both):**
 
@@ -247,7 +241,67 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 - No battlefield physics yet — **behavior + reputation**; Bell Luo already calculating charter cleanup
 - **Not** invincible — he **has** been knocked out; he just **doesn’t yield** first
 
-**Contrast later stages:** Settled adds **flesh** holding the line; Permeated adds **enemy** stall; Surfaced adds **rise** obligation; apex adds **defeat-state** rejection. **Adhered** is **the oath bite** — everything else is **rule settling deeper into flesh**.
+**Contrast later stages:** Settled adds **flesh defaults** under stress; Permeated adds **enemy** stall; Surfaced adds **rise** obligation; apex adds **defeat-state** rejection. **Adhered** is **the oath bite** — Settled is **the rule living in the flesh without you managing it**.
+
+#### Settled — what it does (second stage)
+
+**After Adhered.** The rule is no longer only a **choice you enforce** — flesh **defaults** to it under stress. Player feel shifts from “I can’t flee” to “my body **doesn’t know how to quit**.” Still not aura-tier; still not Da Chi’s Golden Arhat scale.
+
+**How you reach Settled (lean):**
+
+| Gate | Lean |
+|------|------|
+| **Compliance** | N fights or **M rounds under pressure** without breach since swear (e.g. 8 fights or 40 pressure rounds — tune later) |
+| **Chamber** | Weeks tempering **with oath active** (body chamber actions under rule) |
+| **Fulfillment** | `progressionPct` ~40–50% — settlement and fulfillment **overlap** but aren’t identical |
+| **Milestone fight** | Survive at least one fight you **lost** (incapacitated or ended externally) **without** attempting yield — Body Dao marks settlement |
+
+**Slip back:** sustained breach from Settled → regress to **Adhered** (not full release). Sting at Settled still hurts adherence progress toward Permeated.
+
+---
+
+**Generic — all rules at Settled**
+
+| Shift from Adhered | What changes |
+|--------------------|----------------|
+| **Passive default** | Rule runs in background — recuperate / travel don’t feel like “oath off” (flavor); combat **defaults** to compliance |
+| **Sting softened** | Near-breach (UI hover on flee) warns before full sting — flesh **almost** slipped, Body Dao caught it |
+| **Settlement ticks** | Recuperate + oath-month chamber weeks feed **Settled → Permeated** faster than Adhered grind |
+| **Interior peak lean** | **Settled** is minimum adherence stage to **begin** counting toward interior peak (with fulfillment %) — Adhered alone is not enough for “rule settled into flesh” gate |
+
+---
+
+**Rule of Unyielding at Settled (player)**
+
+Keeps **all Adhered** restrictions and payoffs. Adds:
+
+| Payoff | Mechanic lean | Feel |
+|--------|---------------|------|
+| **Hold the line** | While **losing band** (HP ≤ 65% *or* stamina ≤ 40%): **~8–12% damage reduction** | Flesh **doesn’t collapse** when outmatched — you **stay** in the loss |
+| **Stamina under pressure** | In losing band: stamina cost of **basics** −1 (min 1) *or* +small regen per round | Don’t **gas out** from panic while refusing to yield |
+| **Answer impulse upgraded** | After taking hit damage: answer applies to **first basic or technique** once per fight (not only basic); slightly larger rebate | Flesh **answers harder** without you planning it |
+| **Still not** | Enemy stall, must-rise, defeat-state rejection, DR outside losing band | No press — you’re **stubborn**, not **dominant** yet |
+
+**Player fantasy at Settled:** fights you were **losing** become winnable through **attrition** — Mad Monk holding a corridor, bloodied builds stabilizing, intrusion squads that **don’t scatter**. Bad matchups hurt less; you’re still beatable if focused down.
+
+**Da Chi at Settled (fiction — mid war career, pre-patriarch apex):**
+
+- Holds skirmish lines **longer than charter math expects** — not because he’s stronger, because his flesh **doesn’t break** when outmatched
+- War monks under him copy **behavior** (“don’t run when it still hurts”) — culture seed before full Mad Monk doctrine
+- Bell Luo’s early notes: ridge casualties **lower** — monks get **put down**, not **routed**
+- Jianghu: “hit him all you want — he **stays**” — still **no** battlefield aura; peers think it’s **stubborn marrow**, not law
+- **Has** been knocked out — settlement isn’t invincibility; it’s **no rout**
+
+---
+
+**Other rules at Settled (sketch — for comparison)**
+
+| Rule | Settled expression |
+|------|-------------------|
+| **Rule of Blood** | Bloodied state **stabilizes** — shipped bloodied DR becomes reliable; seal **backlash** chance reduced; wound load doesn’t spiral stamina |
+| **Rule of the Unnamed** | Flow stacks **linger** 1 turn when you stop attacking; stagnation threshold +1 attempt before penalty |
+
+---
 
 ### Player feel — own UI lane
 
@@ -255,7 +309,7 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 - Show: rule name, **adherence stage**, fulfillment %, last sting/slip — not “uses: 47”
 - Combat: compliance pulses, breach warnings — not intent-tier kill bonuses
 - Chronicle: “Rule settled into flesh”; “Body Dao sting — nearly fled”
-- Da Chi NPC: `adherence: imprinted` (apex — name open), rule `unyielding` — not intent vocabulary
+- Da Chi NPC: `adherence: apex` (name TBD), rule `unyielding` — not intent vocabulary
 
 ### Three body tracks (still separate)
 
@@ -305,14 +359,14 @@ Da Chi is **not invincible** — he has **lost** fights, been knocked down, been
 
 | Rule idea | Oath shape | Fit to Da Chi |
 |-----------|------------|---------------|
-| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** — no surrender, voluntary retreat while capable of answering | Da Chi apex (**Imprinted** lean); **Adhered** was young-war reputation |
+| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** — no surrender, voluntary retreat while capable of answering | Da Chi at apex (name TBD); **Adhered** was young-war; **Settled** was mid-war line-holder |
 | **Rule of the Unbroken Step** | Foot does not **retreat** from a declared engagement; advance or hold | Fight-forward Mad Monk; intrusion brawls **push** lines |
 | **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Ethics lane — pairs with Unyielding |
 | **Rule of the Unnamed** | Motion rule — no frozen technique; fist is not named form | Martial Intent doctrine; supreme **flow** — different channel than Unyielding |
 | **Rule of One Exchange** | One exchange, then reset | Brawl aesthetic; less “undefeated will” |
 | **Rule of Impact** | No mid-fight mend; must close | Survival channel |
 
-**Owner lean:** **Rule of Unyielding** at **apex adherence** (*Imprinted* lean) for Da Chi today. **Adhered** Unyielding is **not** his current scale — parlor trick at Golden Arhat.
+**Owner lean:** **Rule of Unyielding** at **apex adherence** (name TBD) for Da Chi today. **Settled** was “holds the line” war era; **Adhered** is not his scale.
 
 **Separate from leash:** Answering Blow may stay **Bell Luo charter**; Da Chi apex is **Unyielding**.
 
@@ -350,7 +404,8 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 - [ ] Sect **assigns** rule vs disciple **chooses** after trial
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
 - [ ] Lock Da Chi apex rule: **Unyielding** vs Unnamed / Answering Blow / Impact
-- [ ] Lock **apex adherence** name: **Imprinted** lean vs Knotted / Ingrained — **not** Rooted
+- [ ] Lock **apex** name after Permeated / Surfaced / finisher are defined — not before
+- [ ] Settled thresholds (fights, pressure rounds, fulfillment %) — tune in implementation
 - [ ] **Adherence** stage thresholds; merge vs separate `progressionPct`
 - [ ] Body Dao **sting / slip** tuning — micro-breach vs release
 - [ ] Per-rule **milestone** unlocks (not generic deepen/expand clone)

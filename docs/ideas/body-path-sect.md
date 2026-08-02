@@ -203,7 +203,7 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 
 **Typical Bell Luo report:** three lines of charter news. Mad Arhat reply: *“Anyone good at the gate?”* or silence (= continue governing).
 
-**Apex sworn rule (owner lean):** **Rule of Unyielding** (不屈律) at **apex adherence** (*Imprinted* lean — name open). **Adhered** = first stage after swear. Frost Gate: Bell capitulates sect; Da Chi holds until charter stops war externally. [`vessel-rules-design.md`](vessel-rules-design.md).
+**Apex sworn rule (owner lean):** **Rule of Unyielding** (不屈律) at apex adherence (name after stages defined). **Adhered** → **Settled** documented. [`vessel-rules-design.md`](vessel-rules-design.md).
 
 ---
 
