@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-08-02 (Frostbite dual-peak — owner) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -53,15 +53,20 @@ Working name — matches end-realm **Indestructible Vajra** without sounding dem
 | **What they teach** | Outer: stances, breath-for-stamina, bone conditioning · Inner: marrow arts, vessel rule rites · **Refuse:** sword intent, flame rebirth, void gates |
 | **Forbidden apex** | *Stub* — blood-as-oath extremes, unnamed-rule mastery; **not** soul-into-body (that stays separate forbidden practice) |
 
-### Why not the Heartlands “fifth petal”?
+### Placement — **Frostbite north** (dual peak)
 
-Heartlands four are a **qi-politics cold war** (charter, Lotus marriage lines, Phoenix Gambit). Vajra Ridge fits better as:
+Owner direction: outer zones get **great sect–tier peers** with their own stories. Frostbite holds **two** flagship institutions:
 
-- **Western or northern border power** — ridge between Heartlands and Frostbite, or a spine west of the imperial road
-- **Respected, not courted** — imperial envoys hire them; Heartlands sects **don't** invite them to charter votes
-- **Regional apex** comparable to Frostpeak — serious power, not necessarily another immortal-loaded caldera
+| Peak | Tradition | Notes |
+|------|-----------|-------|
+| **Ice crown** (high) | Yin **female-only** great sect — Frostpeak pivot → [`frostbite-yin-sect.md`](frostbite-yin-sect.md) | Moon cold, stillness, northern ward |
+| **Granite ridge** (approach) | **Vajra Ridge** — body monks | Bells, iron, vessel oaths — this doc |
 
-*Open:* promote to full Heartlands peer later if the map needs five great sects ringing the lotus.
+Heartlands stays the **densest** power cluster; Frostbite is **less entangled** in charter cold war but not weaker — isolation bargain, ward the north.
+
+- Homeland: **lower spine** above Frost Gate — traders hear bells before the ice palace appears in cloud
+- **Respected, not courted** — imperial hire for border muscle; Heartlands sects rarely invite them to votes
+- **Regional great sect** — same weight class as yin palace peer, not a Heartlands “fifth petal”
 
 ### Relationships (sketch)
 
@@ -71,7 +76,7 @@ Heartlands four are a **qi-politics cold war** (charter, Lotus marriage lines, P
 | **Jade Lotus** | Practical ties | Lotus hires ridge escorts; Ridge tolerates Lotus paperwork |
 | **Void Temple** | Mutual disdain | Books vs bell halls |
 | **Golden Phoenix** | Uneasy | Phoenix wants shock troops; Ridge refuses “ash renewal” ideology |
-| **Frostpeak Monastery** | Cousin ascetics | Shared endurance culture — cold ice vs hammered iron |
+| **Moonfract Palace** (yin sect) | Mutual ward of the north | Moon stillness on the crown vs iron on the ridge — hire each other for tribulation / border work |
 | **Sunscar Clan** | Distant kin | Desert warriors respect pain; different religion |
 | **Imperial court** | Licensed muscle | Border forts, tribulation guards — not dynasty marriage |
 
@@ -105,7 +110,7 @@ Heartlands four are a **qi-politics cold war** (charter, Lotus marriage lines, P
 
 ## Open questions
 
-- [ ] Zone: **west ridge** (Heartlands border) vs **Frostbite flank** vs new sub-zone?
+- [x] Zone: **Frostbite** — dual peak with yin palace (owner 2026-08-02)
 - [ ] Great sect **immortal in the vault** or founder-only myth (no sleeping apex)?
 - [ ] Do they accept **mixed-path disciples** (qi outer, body inner) or body-only?
 - [ ] Vessel Rule: sect assigns your rule, or you choose after trial?

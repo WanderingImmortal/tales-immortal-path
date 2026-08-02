@@ -56,7 +56,7 @@ Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **I
 | Zone | Powers | Depth |
 |------|--------|-------|
 | **Jade** | Storm Dragon + Tidal Lotus | Rival-allies; sea routes; one quest each |
-| **Frostbite** | Frostpeak Monastery | Isolation, cold resist, ascetic |
+| **Frostbite** | Yin great sect (Frostpeak **pivot**) + body ridge — [`frostbite-yin-sect.md`](frostbite-yin-sect.md) · [`body-path-sect.md`](body-path-sect.md) | Dual peak; outer-zone peers — [`outer-zone-great-powers.md`](outer-zone-great-powers.md) |
 | **Emberwild** | Emberwild Collective | Beast tamers, primal |
 | **(planned)** | **Body-path sect** — [`body-path-sect.md`](body-path-sect.md) | Vajra Ridge sketch; not in code |
 
