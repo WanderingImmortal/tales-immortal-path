@@ -4,9 +4,9 @@
 |-------|-------|
 | **Status** | `designed` (competent vs perfected peak — owner 2026-07-22) |
 | **Blocked on** | Roots v2 landed; chamber pacing tune pass |
-| **Updated** | 2026-07-22 |
+| **Updated** | 2026-08-02 |
 
-> **Nine realms:** Mortal ladder expanded to 9 indices — see [`nine-realm-ladder.md`](nine-realm-ladder.md). Lifespan table and anchors in this doc need a pass (+40y gentle steps, not ×2 jumps).
+> **Nine realms:** Mortal ladder expanded to 9 indices — see [`nine-realm-ladder.md`](nine-realm-ladder.md). **Lifespan table updated 2026-08-02** — xianxia scale (GC 300–500y … Manifest ~50ky); supersedes +40y gentle-step draft.
 
 ## Intent
 
@@ -94,6 +94,35 @@ Tie roots to **creation CP** and optional **breathing technique** unlock (`techn
 
 Without aid, inferior root = **respect the clock**.
 
+### Lifespan caps (nine realms — owner lean 2026-08-02)
+
+Full table: [`nine-realm-ladder.md`](nine-realm-ladder.md). Summary for basin math:
+
+| Idx | Realm | Breakthrough cap | Peak band | Notes |
+|-----|-------|------------------|-----------|-------|
+| 0–1 | QC, FE | 80, **120** | flat | Inferior anchor: peak FE @ 80–90 → **30–40y** left for GC attempt |
+| 2 | Golden Core | **300** | **400–500** | Milestone extensions on consolidate / peak ([`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md)) |
+| 3 | Nascent Soul | **1,000** | **1,250–1,500** | 2nd-tier lords; sect face characters |
+| 4 | Deity Transformation | **2,000** | **2,500–3,000** | 1st-tier peer band; regional deity presence |
+| 5 | Void Refinement | **6,000** | **8,000–10,000** | Hidden patriarchs; vault elders |
+| 6 | Dao Seeking | **25,000** | **30,000–35,000** | Era-scale comprehension |
+| 7 | Dao Manifestation | **45,000** | **50,000** | Law-wearers; mortal map ceiling |
+| 8 | Immortal | unbound | unbound | Left mortal lifespan loop |
+
+**Why long caps:** cultivators who cross become **persistent world furniture** — city lords, clan ministers, sect elders who are still named when the player returns after centuries. Not every one is a quest NPC; lifespan + civic tier + chronicle is enough for “you hear about Patriarch X again.”
+
+#### Presence examples (ambient, not story-mandatory)
+
+| NPC role | Realm lean | Years in seat (order of) |
+|----------|------------|--------------------------|
+| Redwell magistrate | FE peak | ~40–80 active rule |
+| Zone capital lord | GC peak | **200–400** |
+| Threshold co-lord | DT peer | **1,000+** |
+| Imperial minister (not founder) | NS–DT | spans player’s whole mid-game |
+| Sect roster elder | GC perfected | ~500 — “still on the wall” |
+
+Tie to `world.js` `lifespanUsesRealm` and future `peakTier` on world NPCs.
+
 ### NPC / world expression
 
 - Peak elders, broken cores, sect masters who "stopped" centuries ago
@@ -122,11 +151,13 @@ Without aid, inferior root = **respect the clock**.
 - Does QC also take "most of mortal lifespan" before first extension, or can geniuses BT young?
 - Stuck-at-peak game over, or free play until lifespan death with legacy?
 - How many root variants at creation vs discovered in-world?
-- Body/soul paths: same watershed calendar or different lifespans?
+- Body/soul paths: same watershed calendar or different lifespans? (Lean: **same idx caps**, different flavor text)
+- Milestone +50y / +100y per consolidate step — exact numbers vs % of band?
+- VR floor 6k vs 5k — owner said 5–10k; table uses 6k breakthrough / 8k competent / 10k perfected
 
 ## Implementation crumbs
 
-- `LIFESPAN_BY_REALM`, `CHAMBER_BALANCE`, `TALENT_GRADES`, `REALM_PROGRESS_TIERS`
+- `LIFESPAN_BY_REALM` (9 entries on migration), `getLifespanCap()` for GC+ bands, `CHAMBER_BALANCE`, `TALENT_GRADES`, `REALM_PROGRESS_TIERS`
 - `CONSOLIDATION_BY_REALM` — seal months and peak requirements
 - `talent.js` — `naturalRealmCap`, `getTalentCultivateMult`
 - `ACTION_MONTHS.breakthrough` (24)

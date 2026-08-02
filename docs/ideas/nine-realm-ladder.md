@@ -6,7 +6,7 @@
 | **Blocked on** | Watershed pacing pass; roots v2 basin labels; full `reqRealm` audit |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chats, 2026-07-19–20 |
-| **Updated** | 2026-07-20 |
+| **Updated** | 2026-08-02 |
 
 ## Intent
 
@@ -82,7 +82,11 @@ Possible shapes (pick one later):
 
 ## Lifespan pacing philosophy (owner direction)
 
-**Goal:** Roughly **similar calendar cost** to peak each basin — comparable to QC → FE — not explosive jumps (`80 → 120 → 200 → 400 → 800`).
+**Goal (2026-08-02):** **Xianxia time-scale** — each watershed grants enough years that high-realm figures are **fixtures on the world map**, not one-generation cameos. A 3rd-tier GC lord can still be ruling when you return centuries later; imperial ancients and sect patriarchs are names you hear across eras without needing bespoke story arcs.
+
+**Basin rule unchanged:** lifespan extension buys calendar for the *next* climb; most cultivators peak late and die in-basin. Long caps at the top reward those who cross — they become the jianghu's long memory.
+
+**QC / FE anchors stay:** inferior peak FE @ **80–90** with **120y** cap ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)). Everything above FE scales up sharply.
 
 ### Grade vs tier (basin cap)
 
@@ -91,27 +95,62 @@ Possible shapes (pick one later):
 | **Tier / basin cap** (spirit root composition + ceiling) | Highest **realm index** you can ever reach without aid | Tragedy ending: stuck at peak FE, etc. |
 | **Grade** (inferior → heavenly) | **Speed** within each basin; breakthrough odds | Same basins, faster or slower climb — not shorter basins |
 
-**Owner note:** All grades are “equivalent” across tiers in the sense that **time-to-peak a basin** should feel in the same ballpark for whoever can enter that basin; grade changes how fast you move, not how many months the basin inherently costs.
+Grade changes **how fast** you move, not the **ceiling years** at a given peak quality.
 
-Inferior root that caps at Peak FE still spends ~a lifetime in QC+FE; heavenly root reaches higher basins but each basin still costs **meaningful years**.
+### Lifespan caps — nine realms (owner lean 2026-08-02)
 
-### Draft lifespan **caps** (gentle steps — tune in watershed doc)
+**Breakthrough** = cap on entering the realm. **GC+** also use **in-basin milestones** (consolidate / competent peak / perfected peak) to extend within the band — matches substage grind ([`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md)).
 
-Linear-ish +40y steps after FE, not doubling:
+| Idx | Realm | On breakthrough | Competent peak | Perfected peak | Δ (breakthrough) |
+|-----|-------|-----------------|----------------|----------------|------------------|
+| 0 | Qi Condensation | **80** | 80 | 80 | — |
+| 1 | Foundation Establishment | **120** | 120 | 120 | +40 |
+| 2 | Core Formation | **300** | **400** | **500** | +180 |
+| 3 | Nascent Soul | **1,000** | **1,250** | **1,500** | +700 |
+| 4 | Deity Transformation | **2,000** | **2,500** | **3,000** | +1,000 |
+| 5 | Void Refinement | **6,000** | **8,000** | **10,000** | +4,000 |
+| 6 | Dao Seeking | **25,000** | **30,000** | **35,000** | +19,000 |
+| 7 | Dao Manifestation | **45,000** | **50,000** | **50,000** | +20,000 |
+| 8 | Immortal Ascension | **unbound** (99999) | unbound | unbound | — |
 
-| Idx | Realm | Cap (draft years) | Δ from prev |
-|-----|-------|-------------------|-------------|
-| 0 | QC | 80 | — |
-| 1 | FE | 120 | +40 |
-| 2 | Core | 160 | +40 |
-| 3 | NS | 200 | +40 |
-| 4 | TBD | 240 | +40 |
-| 5 | Void | 280 | +40 |
-| 6 | Dao Seeking | 320 | +40 |
-| 7 | Dao Manifestation | 360 | +40 |
-| 8 | Immortal | 99999 (or “unbound”) | — |
+**Refinements from brainstorm:**
 
-**Implication:** reaching idx 8 still takes **many** breakthroughs; each extension buys time for the **next** climb, but no single jump dominates the calendar. Watershed doc should re-anchor inferior FE @ 80–90 against **+40** steps, not ×2 jumps.
+- **GC 300–500** — owner memory; milestone bumps at consolidate / peak consolidate, not separate `realmIdx`.
+- **NS 1k–1.5k**, **DT 2k–3k** — same band pattern.
+- **VR 6k–10k** — solid jump after DT; midpoint **8k** for “standard” peak VR NPCs (owner said 5–10k; lean high-mid).
+- **Seek ~30k / Manifest ~50k** — owner memory; Seek gets optional +5k at perfected peak before Manifestation breakthrough resets band to 45k→50k.
+- **Immortal** — mortal-map lifespan display ends; Court / immortal layer owns time.
+
+**Code today:** 7 entries, doubling-ish `80, 120, 200, 400, 800, 2000, 99999` — replace on nine-realm migration.
+
+### World-map presence (why the numbers matter)
+
+Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambient power** can hold a seat without chronicle hand-waving.
+
+| Figure | Typical realm / peak | Lifespan band | Player experience |
+|--------|----------------------|---------------|-------------------|
+| 4th-tier town lord (Redwell) | FE / strong QC | ~120y | May outlive a reckless QC run; generational turnover |
+| 3rd-tier capital lord | GC competent–peak | **400–500y** | **Same name when you return** after decades of cultivation |
+| 2nd-tier regional lord | NS | **1,000–1,500y** | Dynasty-scale; rumors and grudges span your whole GC climb |
+| Great sect elder (retired peak) | GC perfected | ~500y | Roster fixture; not a quest NPC — still there |
+| Sect patriarch / imperial minister | NS–DT | 1k–3k | Background power; chronicle entries, not mandatory scenes |
+| 1st-tier vault elder | VR (hidden) | **8k–10k** | Mythic; name on laws and ruins |
+| Dao-wearer legend | Seek / Manifest | 30k–50k | Era-defining; mortal map treats them like weather |
+
+**Design intent:** not every elder is a story character — **persistence** sells scale. Chronicle + living clock can reference “still Lord Chen” without bespoke scripting if lifespan and role data agree.
+
+### Implementation sketch (lifespan)
+
+```javascript
+// Base on breakthrough — LIFESPAN_BY_REALM[realmIdx]
+// Optional: getLifespanCap({ realmIdx, peakTier, basinMilestone }) for GC+ bands
+```
+
+- `world.js` — `lifespanUsesRealm` NPCs already index `LIFESPAN_BY_REALM`; extend with peak quality when basin milestones ship.
+- Player: extend on breakthrough + consolidate milestones (same as GC journey doc).
+- Display: show **cap** and **years remaining**; immortal = unbound copy.
+
+**Supersedes:** earlier draft +40y gentle steps (2026-07) — kept for history in git only.
 
 ## Realm claims (draft — 9 tiers)
 
@@ -147,6 +186,7 @@ Linear-ish +40y steps after FE, not doubling:
 
 - [x] Idx 4 name — **Deity Transformation** (lean; UI copy may shorten)  
 - [ ] Half-Step model A vs B  
-- [ ] Exact +40 lifespan table or different step size  
+- [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02) — see table above
+- [ ] Milestone extension amounts (+100y GC consolidate?) — tune with chamber pass
 - [ ] Does idx 7 Dao Manifestation gate immortal-layer legislation preview?  
 - [ ] Upper celestial nine names — mirror this list or fresh set?
