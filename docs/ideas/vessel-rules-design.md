@@ -6,7 +6,7 @@
 | **Blocked on** | More rule defs; sect-assigned rules |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Permeated stage workshop) |
+| **Updated** | 2026-08-02 (Surfaced power spike workshop) |
 
 **Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
 
@@ -131,6 +131,8 @@ Rule of Blood is **not** “evil physique” — it’s **oath**: blood serves f
 
 So Da Chi’s mastery is **apex adherence** — the rule is **how his flesh runs**, not a habit he checks.
 
+**Reward curve (owner lock):** early stages (Adhered / Settled) = **identity + modest** payoff — not crazy. **Permeated** = outward friction. **Surfaced** = **decent power spike** — the reason you **carried** the restriction to the extreme. **Apex** = beyond Surfaced (Da Chi / Saint scale). Without Surfaced spike, oath feels like a permanent debuff with chores.
+
 **Design guard:** future rules must pass **“can flesh reroute this?”** — charter suffering fails unless tied to a **flesh default** Body Dao can redirect.
 
 ---
@@ -202,7 +204,7 @@ Power is **not** “I chose restriction therefore bonus.” The rule **adhered**
 | **Adhered** | See **below** — first stage after swear | Young war monk: reputation, not aura |
 | **Settled** | Rule **settled into flesh** — flesh **defaults** to oath; passive combat support | See **Settled** section below |
 | **Permeated** | Rule **permeates** marrow rhythm — first **outward** friction on foes / exchanges | See **Permeated** section below |
-| **Surfaced** | Knocked down → must **rise** before fight “ends” for you | Opponents learn: put him **down**, not **out** |
+| **Surfaced** | Rule **visible** — major combat spike; foes must **finish** you, not beat you | See **Surfaced** section below |
 | **Apex** *(name TBD)* | Battlefield rejects your **defeat-state** until flesh fails | Frost Gate; Golden Arhat scale — still not invincible |
 
 #### Adhered — what it does (player + Da Chi)
@@ -366,7 +368,77 @@ Keeps **all Adhered + Settled**. Adds:
 | **Rule of Blood** | Bloodied **damage bonus** more consistent; **seal** arms faster when bloodied; foes contest/slow on seal backlash |
 | **Rule of the Unnamed** | Flow builds **+1 stack** on slip or peak flow turn; stagnation **clears** on flow win; enemies **slip** minor damage when you’re at flow cap |
 
-**Contrast later stages:** Surfaced = rule **visible** (knockdown / rise); apex = **defeat-state** rejection. Permeated = **exchange friction** — the fight **won’t end on their terms**.
+**Contrast later stages:** **Surfaced** = **power spike** (why you endured the oath); apex = **defeat-state** / continent scale. Permeated = exchange friction only.
+
+---
+
+#### Surfaced — what it does (fourth stage — **power spike**)
+
+**After Permeated.** The rule **surfaces** — visible in combat, on the jianghu, in chronicle. **This is the tier that justifies the oath:** you spent years not fleeing; Surfaced pays you back. **Decent power spike** — not apex/Golden Arhat, but **build-defining** for body endgame.
+
+**How you reach Surfaced (lean — harder than Permeated):**
+
+| Gate | Lean |
+|------|------|
+| **Fulfillment** | **100%** `progressionPct` — oath **fulfilled in flesh** before rule can surface |
+| **Compliance** | Substantial Permeated-era record (e.g. +50 pressure rounds or +10 clean fights **after** Permeated) |
+| **Chamber** | Marrow / nerves layer actions under oath — body **ready** to surface the rule |
+| **Milestone fight** | **Knockdown and continue** — knocked prone/stunned, **rise**, and **win or survive** to external end without yield — Body Dao **surfaces** the rule |
+
+**Slip back:** Surfaced → Permeated on sustained breach — **painful**; you lose the spike.
+
+**Interior peak:** Surfaced is **post**-interior-peak climb for most — fulfill oath → peak gate → push to Surfaced for **power**. Alt: peak at Permeated + 100% if owner wants peak before spike (open).
+
+---
+
+**Generic — all rules at Surfaced**
+
+| Shift from Permeated | What changes |
+|------------------------|--------------|
+| **Visible** | Combat logs, NPC recognition, chronicle — rule is **known** |
+| **Power spike** | Rule-specific **defining mechanic** turns on — why you restricted yourself |
+| **Enemy behavior** | Smart foes **prioritize finishing** you — high reward, high threat |
+| **Not apex** | Still beatable; still KO’d by overwhelming force — spike ≠ invincibility |
+
+---
+
+**Rule of Unyielding at Surfaced (player) — the payoff**
+
+Keeps **all prior stages**. Adds the **reason** you never fled:
+
+| Payoff | Mechanic lean | Spike feel |
+|--------|---------------|------------|
+| **Knockdown isn’t out** | Prone / stunned / knockdown **does not** end your engagement — you **act** (reduced) or **must Rise** within 2 turns while capable | They have to **keep hitting** you |
+| **Rise Answer** | On **Rise**: clear brief control loss; **+35–50%** first hostile action after rise *or* free basic + stamina refund | The **“still here”** punch — spike moment every fight |
+| **Press everywhere** | Permeated **press** also triggers when a hit would knockdown or on **any** heavy hit while losing | Finishers **break** on you |
+| **Hold the line +** | Losing-band DR → **~15–18%**; band starts at **75% HP** | Harder to **enter** collapse |
+| **Last footing** *(once per fight)* | Single blow that would **incapacitate** from above losing band: survive at **1 HP**, auto-**Rise**, trigger Rise Answer | One **cheat-death** — visible, fair, spike |
+| **Still not** | Defeat-state battlefield rejection; always-win; immune while winning | **Finish** me or **exhaust** me — not **scare** me |
+
+**Player fantasy at Surfaced:** duelists and assassins **fail** their burst. Wars of attrition and **2v1** favor you. Intrusion monks become **nightmares** — third party enters, nobody gets a clean finish. **This** is why Mad Monk inner court swears.
+
+**Build identity:** counter to **burst**, **execute**, **morale victory** — you paid for it with **permanent no-flee**.
+
+**Da Chi at Surfaced (fiction — war patriarch / acting patriarch era):**
+
+- Jianghu lesson **crystallizes:** put him **down**, not **out** — kill attempts **fail** on one knockdown
+- Intrusion doctrine at **full power** — squads leave because **nobody can end it**, not only charter noise
+- War monks at squad level gain **surfaced** veterans — ridge becomes **regional nuisance** + **useful muscle**
+- **Bell Luo formalizes** Vessel Rule charter — surfaced monks are **dangerous**; fox work **because** spike exists
+- Da Chi **personally** infamous — still grinning after rise; charter tables hate his name
+- **Still** loses to overwhelming force / patriarch-tier focus fire — spike ≠ beat Celestial Sword patriarch solo
+- Saint / apex **still ahead** — Surfaced Da Chi is **war legend**, not Golden Arhat
+
+---
+
+**Other rules at Surfaced (sketch — spikes for comparison)**
+
+| Rule | Surfaced spike |
+|------|----------------|
+| **Rule of Blood** | **Seal dominance** — seal backlash **halved**; bloodied **+15–20%** damage sustained; soul contest on seal at **complete** progression values in fight; bloodied wins heal **stamina** chunk |
+| **Rule of the Unnamed** | **Living Strike** at flow cap **doubles** effective scale; slip **−20%** enemy technique damage for 2 turns on peak flow; flow cap **+2** |
+
+**Contrast apex:** Surfaced = **they must finish you**. Apex = **defeat-state** rejected until flesh **actually** fails — Da Chi Frost Gate / bell vault scale.
 
 ---
 
@@ -424,7 +496,7 @@ Da Chi is **not invincible** — he has **lost** fights, been knocked down, been
 
 | Rule idea | Oath shape | Fit to Da Chi |
 |-----------|------------|---------------|
-| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** | Da Chi apex (name TBD); **Permeated** = intrusion doctrine era |
+| **Rule of Unyielding** *(不屈律 — owner lean)* | Will does not **accept defeat** | Da Chi apex (name TBD); **Surfaced** = war patriarch “put him down not out” |
 | **Rule of the Unbroken Step** | Foot does not **retreat** from a declared engagement; advance or hold | Fight-forward Mad Monk; intrusion brawls **push** lines |
 | **Rule of the Answering Blow** | Never strike first; every hit taken must be **answered** at full force | Ethics lane — pairs with Unyielding |
 | **Rule of the Unnamed** | Motion rule — no frozen technique; fist is not named form | Martial Intent doctrine; supreme **flow** — different channel than Unyielding |
@@ -470,8 +542,8 @@ Sect **catalog** of allowed oaths (Blood, Unnamed, future “never strike first�
 - [ ] More rules: **pacifist** leash rules vs **combat** rules (Mad Monk charter)
 - [ ] Lock Da Chi apex rule: **Unyielding** vs Unnamed / Answering Blow / Impact
 - [ ] Lock **apex** name after Permeated / Surfaced / finisher are defined — not before
-- [ ] Permeated thresholds vs Settled — tune pressure rounds / fulfillment %
-- [ ] Interior peak at **Permeated + 100%** vs Settled + 100% — owner pick
+- [ ] Surfaced milestone — knockdown-rise fight tuning
+- [ ] **Last footing** once-per-fight — tune vs burst bosses
 - [ ] **Adherence** stage thresholds; merge vs separate `progressionPct`
 - [ ] Body Dao **sting / slip** tuning — micro-breach vs release
 - [ ] Per-rule **milestone** unlocks (not generic deepen/expand clone)
