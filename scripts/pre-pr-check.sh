@@ -8,4 +8,7 @@ echo "=== Pre-PR recursion audits ==="
 node scripts/audit-ensure-sync-recursion.js
 node scripts/audit-storage-recursion.js
 echo ""
-echo "All recursion audits passed."
+echo "=== Body overlay fit audit ==="
+node scripts/audit-body-overlay-fit.js
+echo ""
+echo "All pre-PR audits passed."
