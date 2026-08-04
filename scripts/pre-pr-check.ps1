@@ -8,4 +8,8 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/audit-storage-recursion.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host ''
-Write-Host 'All recursion audits passed.'
+Write-Host '=== Body overlay fit audit ==='
+node scripts/audit-body-overlay-fit.js
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+Write-Host ''
+Write-Host 'All pre-PR audits passed.'

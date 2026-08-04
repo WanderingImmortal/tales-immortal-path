@@ -63,6 +63,16 @@ const BODY_LAYER_TAB_DESC = {
     nerves: 'The final gate. Refine the Nerve Sea once — lightning reflexes and spirit perception, never to be repeated.'
 };
 
+/** Shared anatomical landmarks — every overlay layer should agree with these. */
+const BODY_LANDMARKS = {
+    centreX: 104,
+    crown: 1, chin: 23, neckBase: 34,
+    shoulder: 43.6, elbow: 75.5, wrist: 101, fingertip: 119,
+    sternalNotch: 38.4, xiphoid: 67.6, costalMargin: 76,
+    navel: 82, dantian: 97, iliacCrest: 90.4, hip: 105.4, pubis: 111,
+    knee: 150.6, ankle: 190, sole: 205
+};
+
 const BODY_SILHOUETTE_REGIONS = {
     head: { label: 'Head & Skull', boneAction: 'skull', layers: ['skin', 'flesh', 'nerves'] },
     spine: { label: 'Spine', boneAction: 'spine', layers: ['bones', 'meridians', 'nerves'] },
@@ -76,6 +86,17 @@ const BODY_SILHOUETTE_REGIONS = {
     'foot-l': { label: 'Left Foot', boneAction: 'feet', layers: ['skin'] },
     'foot-r': { label: 'Right Foot', boneAction: 'feet', layers: ['skin'] }
 };
+
+/** Part path ids in index.html (Phase 1 silhouette rebuild). */
+const BODY_SILHOUETTE_PART_IDS = [
+    'sil-head', 'sil-neck', 'sil-torso',
+    'sil-upper-arm-l', 'sil-upper-arm-r',
+    'sil-forearm-l', 'sil-forearm-r',
+    'sil-hand-l', 'sil-hand-r',
+    'sil-thigh-l', 'sil-thigh-r',
+    'sil-shin-l', 'sil-shin-r',
+    'sil-foot-l', 'sil-foot-r'
+];
 
 const BODY_GLOBAL_SIL_LAYERS = ['skin', 'flesh'];
 
@@ -129,7 +150,7 @@ const BODY_FLESH_ACTION_MUSCLES = {
 // Skeleton geometry is authored against the silhouette in index.html (viewBox 206.326 units tall):
 // skull 3–23, shoulders 40, costal margin 76, iliac crest 90, hip joint 106, knee 151, ankle 190, sole 205.
 // Only the viewer-left half is written out; `mirrorBoneD` reflects it about the body's centre line.
-const BODY_SKELETON_CENTER_X = 104;
+const BODY_SKELETON_CENTER_X = BODY_LANDMARKS.centreX;
 
 function mirrorBoneD(d) {
     let axis = 0;
@@ -1663,21 +1684,25 @@ function runBodyChamberAction(layerId, actionId) {
 function pulseBodyRegionShapes(regionId) {
     const el = document.querySelector(`.body-sil-region[data-region="${regionId}"]`);
     if (!el) return;
-    const shape = el.querySelector('.body-sil-shape');
-    if (!shape) return;
-    shape.classList.remove('body-sil-shape-pulse');
-    void shape.offsetWidth;
-    shape.classList.add('body-sil-shape-pulse');
-    setTimeout(() => shape.classList.remove('body-sil-shape-pulse'), 900);
+    const shapes = el.querySelectorAll('.body-sil-shape');
+    if (!shapes.length) return;
+    shapes.forEach(shape => {
+        shape.classList.remove('body-sil-shape-pulse');
+        void shape.offsetWidth;
+        shape.classList.add('body-sil-shape-pulse');
+        setTimeout(() => shape.classList.remove('body-sil-shape-pulse'), 900);
+    });
 }
 
 function pulseBodySkinUnified() {
-    const shape = document.querySelector('.body-sil-skin-full');
-    if (!shape) return;
-    shape.classList.remove('body-sil-shape-pulse');
-    void shape.offsetWidth;
-    shape.classList.add('body-sil-shape-pulse');
-    setTimeout(() => shape.classList.remove('body-sil-shape-pulse'), 900);
+    const shapes = document.querySelectorAll('.body-sil-skin-full');
+    if (!shapes.length) return;
+    shapes.forEach(shape => {
+        shape.classList.remove('body-sil-shape-pulse');
+        void shape.offsetWidth;
+        shape.classList.add('body-sil-shape-pulse');
+        setTimeout(() => shape.classList.remove('body-sil-shape-pulse'), 900);
+    });
 }
 
 function pulseBodyMeridianStar(index) {

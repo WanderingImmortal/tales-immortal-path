@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
+| **Status** | `building` (Phase 1) |
 | **Blocked on** | none (Phase 1 is the prerequisite for Phases 2–3) |
 | **Issue** | none yet |
-| **Chat / PR** | Skeleton redesign — [PR #80](https://github.com/WanderingImmortal/tales-immortal-path/pull/80) (`cursor/anatomical-skeleton-overlay`) |
-| **Updated** | 2026-07-27 |
+| **Chat / PR** | Skeleton [PR #80](https://github.com/WanderingImmortal/tales-immortal-path/pull/80) · Phase 1 `cursor/body-silhouette-p1` |
+| **Updated** | 2026-08-05 |
 
 ## Intent
 
@@ -193,16 +193,21 @@ Bone patterns (骨纹) — faint etched runes on femur/humerus/skull above ~85% 
 
 ## Prerequisites / order
 
-- [ ] Phase 1 silhouette rebuild + landmark table + fit audit script
-- [ ] Phase 2 layer re-fits (flesh → organs → blood → nerves → meridians, any order after Phase 1)
-- [ ] Phase 3a/3b (independent of Phase 2; only needs bones, which are shipped)
+- [x] Phase 1 silhouette rebuild + landmark table + fit audit script (`cursor/body-silhouette-p1`)
+- [ ] Phase 2 layer re-fits (flesh → organs → blood → nerves → meridians, any order after Phase 1) — arm bones may need nudge onto opened arms
+- [ ] Phase 3a/3b (independent of Phase 2; only needs bones, which are shipped) — parked vs [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md)
 - [ ] Phase 3c after meridians are re-fitted
+
+## Owner locks (2026-08-05)
+
+- **Arms:** slightly opened (~8–12°) — not spread-eagle.
+- **Reuse:** keep part paths / landmarks reusable for later body-path visuals.
+- **Bone tier / ACS rewrite:** parked in [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md); Phase 1–2 do not wait.
 
 ## Open questions
 
-- Is the opened-arm pose acceptable visually, or should the figure keep its current tight stance and we accept cramped limb layers?
-- Is the silhouette reused anywhere outside the body chamber (soul chamber? creation screen?) — check before re-cutting.
-- Should bone tier be driven by bones-layer progress alone, or gated by cultivation realm as well?
+- Visual polish of part seams / shoulder join after playtest
+- Phase 2 order of layer re-fits
 
 ## Implementation crumbs
 
