@@ -37,7 +37,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Dustbone starter gameplay (hub)](dustbone-starter-gameplay.md) | `designed` (index) | Child slices | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) · [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | [Dustbone living board](dustbone-living-board.md) | `designed` | Redwell v1 | [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | [Redwell starter city](redwell-starter-city.md) | `building` | Pamphlet pool; field loot polish | [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
-| [QC technique pamphlet pool](qc-technique-pamphlet-pool.md) | `idea` (content needed) | Manuals framework | — |
+| [QC technique pamphlet pool](qc-technique-pamphlet-pool.md) | `shipped` (v1) | Playtest redraw; rare slots later | `cursor/qc-pamphlet-pool` |
 | [Dustbone QC alchemy](dustbone-qc-alchemy.md) | `designed` (names locked) | Field drops; cultivate buffs | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Redwell starter slice | — || [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
