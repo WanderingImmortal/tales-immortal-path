@@ -3,10 +3,10 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `building` |
-| **Blocked on** | QC pamphlet pool size; field loot tables polish |
+| **Blocked on** | Economy feel playtest |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/redwell-living-board-docs` · build 2026-07-28 |
-| **Updated** | 2026-07-28 |
+| **Chat / PR** | `cursor/redwell-living-board-docs` · build 2026-07-28 · pamphlets `cursor/qc-pamphlet-pool` |
+| **Updated** | 2026-08-04 |
 
 **Zone vision:** [`dustbone-living-board.md`](dustbone-living-board.md)  
 **Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md)  
@@ -124,8 +124,8 @@ NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlan
 - [x] Owner design lock (this doc)
 - [x] Location + spawn (`redwell` default)
 - [x] Inn rent + FE courtyard + jobs + bazaar stock + seats (thin)
+- [x] QC pamphlet pool v1 ([`qc-technique-pamphlet-pool.md`](qc-technique-pamphlet-pool.md))
 - [ ] Economy feel playtest
-- [ ] QC pamphlet pool larger than current 6 methods / 5 techs
 
 ## Open questions
 

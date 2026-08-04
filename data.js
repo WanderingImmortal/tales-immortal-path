@@ -517,6 +517,10 @@ const TECHNIQUE_POOL = [
     { name: "Meridian Flow", path: "qi", element: "neutral", category: "buff", combatTier: "buff", baseDamage: 3, baseCost: 4, costType: "qi", rarity: "common", desc: "Circulates qi through meridians — light recovery mid-fight." },
     { name: "Root-Vein Surge", path: "qi", element: "earth", category: "attack", combatTier: "medium", weaponType: "staff", baseDamage: 12, baseCost: 6, costType: "qi", rarity: "uncommon", desc: "Draws power from the continental spiritual veins." },
     { name: "Sandburrow Palm", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 10, baseCost: 5, costType: "qi", rarity: "uncommon", desc: "Burrowing sand qi that finds cracks in armor." },
+    { name: "Grit Palm", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 8, baseCost: 4, costType: "qi", rarity: "common", desc: "Ironscar grit packed into a crude palm — Redwell street pamphlet." },
+    { name: "Saltbrush Snap", path: "qi", element: "earth", category: "attack", combatTier: "light", weaponType: "fist", baseDamage: 9, baseCost: 5, costType: "qi", rarity: "common", desc: "A scrub-edge slap that stings like saltbrush thorns." },
+    { name: "Well-Road Guard", path: "neutral", element: "earth", category: "defense", combatTier: "defense", weaponType: "fist", baseDamage: 5, baseCost: 3, costType: "qi", rarity: "common", desc: "Brace like a Redwell well-wall — crude, practical cover." },
+    { name: "Dust Step", path: "neutral", element: "wind", category: "utility", combatTier: "utility", baseDamage: 0, baseCost: 3, costType: "qi", rarity: "common", desc: "Kick red sand into the eyes and slip aside — caravan road trick." },
     { name: "Glacier Heart Palm", path: "qi", element: "ice", category: "attack", combatTier: "medium", weaponType: "fist", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 1 }, baseDamage: 14, baseCost: 7, costType: "qi", rarity: "rare", desc: "The frozen heart of a glacier spirit — numbing cold." },
     { name: "Demon Seal", path: "soul", school: "soul_condensation", element: "soul", category: "attack", combatTier: "medium", techniqueQuality: "high", soulMassMin: 20, spiritDamage: true, baseDamage: 15, baseCost: 10, costType: "spirit", rarity: "uncommon", desc: "Seals and damages demonic energy." },
     { name: "Phoenix Ascent Palm", path: "qi", element: "fire", category: "attack", combatTier: "heavy", weaponType: "fist", setId: "ember_fury", techniqueQuality: "high", intentReq: { weapon: "Fist", minStage: 2 }, baseDamage: 20, baseCost: 11, costType: "qi", rarity: "rare", desc: "Rising flame like a phoenix breaching the caldera sky." },
@@ -1099,6 +1103,9 @@ const TECHNIQUE_CULTIVATION_TIERS = {
     'Quickfoot Art': 'mortal',
     'Focused Breath': 'mortal',
     'Cinder Volley': 'mortal',
+    'Grit Palm': 'mortal',
+    'Well-Road Guard': 'mortal',
+    'Dust Step': 'mortal',
     'Heavenly Palm': 'condensation',
     'Iron Mountain Stance': 'condensation',
     'Soul Severing Sword': 'condensation',
@@ -1108,6 +1115,8 @@ const TECHNIQUE_CULTIVATION_TIERS = {
     'Crushing Fist': 'condensation',
     'Bone Tempering Stance': 'condensation',
     'Soul Lash': 'condensation',
+    'Saltbrush Snap': 'condensation',
+    'Sandburrow Palm': 'condensation',
     'Five Elements Fist': 'foundation',
     'Scorching Palm': 'foundation',
     'Tide Spiral': 'foundation',
@@ -1115,7 +1124,6 @@ const TECHNIQUE_CULTIVATION_TIERS = {
     'Wind Blade Strike': 'foundation',
     'Heavenly Sword Qi': 'foundation',
     'Root-Vein Surge': 'foundation',
-    'Sandburrow Palm': 'foundation',
     'Raging Ember Fist': 'foundation',
     'Blood Refining Art': 'foundation',
     'Demon Seal': 'foundation',
@@ -2044,12 +2052,18 @@ const REDWELL_METHOD_POOL = [
     { methodId: 'ironscar_loader_cycle', price: 34 },
     { methodId: 'dune_rest_circulation', price: 32 }
 ];
+/** QC-only combat pamphlets — no FE-gated arts (e.g. Bronze Skin) on the Redwell shelf. */
 const REDWELL_TECH_POOL = [
-    { technique: 'Sandburrow Palm', price: 26 },
-    { technique: 'Bronze Skin Palm', price: 30 },
+    { technique: 'Grit Palm', price: 22 },
+    { technique: 'Well-Road Guard', price: 24 },
+    { technique: 'Dust Step', price: 24 },
     { technique: 'Quickfoot Art', price: 28 },
+    { technique: 'Focused Breath', price: 26 },
+    { technique: 'Saltbrush Snap', price: 30 },
+    { technique: 'Sandburrow Palm', price: 32 },
     { technique: 'Crushing Fist', price: 34 },
-    { technique: 'Earth Pulse Palm', price: 36 }
+    { technique: 'Earth Pulse Palm', price: 36 },
+    { technique: 'Meridian Flow', price: 34 }
 ];
 
 const MERCHANT_CATALOG = {
