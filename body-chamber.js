@@ -67,7 +67,7 @@ const BODY_LAYER_TAB_DESC = {
 const BODY_LANDMARKS = {
     centreX: 104,
     crown: 1, chin: 23, neckBase: 34,
-    shoulder: 43.6, elbow: 75.5, wrist: 101, fingertip: 119,
+    shoulder: 43.6, elbow: 75.5, wrist: 104, fingertip: 122,
     sternalNotch: 38.4, xiphoid: 67.6, costalMargin: 76,
     navel: 82, dantian: 97, iliacCrest: 90.4, hip: 105.4, pubis: 111,
     knee: 150.6, ankle: 190, sole: 205
@@ -101,45 +101,45 @@ const BODY_SILHOUETTE_PART_IDS = [
 const BODY_GLOBAL_SIL_LAYERS = ['skin', 'flesh'];
 
 const BODY_MUSCLE_DEFS = [
-    // Chest — sternal pecs
+    // Chest — sternal pecs (torso)
     { id: 'pec-l', action: 'muscle', d: 'M 93,52 Q 86,58 88,72 Q 98,70 102,60 Q 100,52 93,52 Z' },
-    { id: 'pec-r', action: 'muscle', d: 'M 113,52 Q 120,58 118,72 Q 108,70 104,60 Q 106,52 113,52 Z' },
-    // Shoulders — delt cap over arm head
-    { id: 'delt-l', action: 'muscle', d: 'M 92,40 Q 80,42 66,50 Q 56,58 58,68 Q 68,66 78,58 Q 88,50 94,44 Z' },
-    { id: 'delt-r', action: 'muscle', d: 'M 114,40 Q 126,42 140,50 Q 150,58 148,68 Q 138,66 128,58 Q 118,50 112,44 Z' },
-    // Arms — anterior upper & lower
-    { id: 'bicep-l', action: 'muscle', d: 'M 64,56 Q 56,68 58,84 Q 70,82 74,66 Q 72,58 64,56 Z' },
-    { id: 'bicep-r', action: 'muscle', d: 'M 142,56 Q 150,68 148,84 Q 136,82 132,66 Q 134,58 142,56 Z' },
-    { id: 'forearm-l', action: 'muscle', d: 'M 58,86 Q 52,98 50,112 Q 62,110 68,96 Q 66,90 58,86 Z' },
-    { id: 'forearm-r', action: 'muscle', d: 'M 148,86 Q 154,98 156,112 Q 144,110 138,96 Q 140,90 148,86 Z' },
-    // Core — rectus block + flanks
-    { id: 'abs-upper', action: 'enhance', d: 'M 93,56 L 113,56 Q 115,66 113,76 L 93,76 Q 91,66 93,56 Z' },
-    { id: 'abs-mid', action: 'enhance', d: 'M 94,78 Q 103,76 112,78 L 111,88 Q 103,90 95,88 Z' },
-    { id: 'abs-lower', action: 'enhance', d: 'M 95,90 Q 103,88 111,90 L 110,100 Q 103,102 96,100 Z' },
-    { id: 'oblique-l', action: 'enhance', d: 'M 88,58 Q 80,70 82,88 Q 90,84 92,70 Q 90,62 88,58 Z' },
+    { id: 'pec-r', action: 'muscle', d: 'M 115,52 Q 122,58 120,72 Q 110,70 106,60 Q 108,52 115,52 Z' },
+    // Shoulders — delt over new open-arm head (76,44)
+    { id: 'delt-l', action: 'muscle', d: 'M 90,40 Q 80,41 72,46 Q 66,52 67,62 Q 74,60 80,54 Q 88,48 92,43 Z' },
+    { id: 'delt-r', action: 'muscle', d: 'M 118,40 Q 128,41 136,46 Q 142,52 141,62 Q 134,60 128,54 Q 120,48 116,43 Z' },
+    // Arms — along capsule axes (76,44)→(66,76)→(58,104)
+    { id: 'bicep-l', action: 'muscle', d: 'M 72,52 Q 66,60 65,72 Q 72,74 76,64 Q 76,56 72,52 Z' },
+    { id: 'bicep-r', action: 'muscle', d: 'M 136,52 Q 142,60 143,72 Q 136,74 132,64 Q 132,56 136,52 Z' },
+    { id: 'forearm-l', action: 'muscle', d: 'M 66,78 Q 60,88 58,100 Q 64,102 68,90 Q 68,82 66,78 Z' },
+    { id: 'forearm-r', action: 'muscle', d: 'M 142,78 Q 148,88 150,100 Q 144,102 140,90 Q 140,82 142,78 Z' },
+    // Core — rectus + flanks (centre 104)
+    { id: 'abs-upper', action: 'enhance', d: 'M 94,56 L 114,56 Q 116,66 114,76 L 94,76 Q 92,66 94,56 Z' },
+    { id: 'abs-mid', action: 'enhance', d: 'M 95,78 Q 104,76 113,78 L 112,88 Q 104,90 96,88 Z' },
+    { id: 'abs-lower', action: 'enhance', d: 'M 96,90 Q 104,88 112,90 L 111,100 Q 104,102 97,100 Z' },
+    { id: 'oblique-l', action: 'enhance', d: 'M 90,58 Q 82,70 84,88 Q 92,84 94,70 Q 92,62 90,58 Z' },
     { id: 'oblique-r', action: 'enhance', d: 'M 118,58 Q 126,70 124,88 Q 116,84 114,70 Q 116,62 118,58 Z' },
-    { id: 'trap', action: 'enhance', d: 'M 88,30 Q 103,34 118,30 L 116,46 Q 103,50 90,46 Z' },
-    // Legs — anterior thigh & shin
-    { id: 'quad-l', action: 'muscle', d: 'M 88,106 Q 84,122 86,140 Q 100,138 102,122 Q 100,108 88,106 Z' },
-    { id: 'quad-r', action: 'muscle', d: 'M 118,106 Q 122,122 120,140 Q 106,138 104,122 Q 106,108 118,106 Z' },
-    { id: 'calf-l', action: 'muscle', d: 'M 84,146 Q 80,164 82,182 Q 96,178 98,160 Q 96,150 84,146 Z' },
-    { id: 'calf-r', action: 'muscle', d: 'M 122,146 Q 126,164 124,182 Q 110,178 108,160 Q 110,150 122,146 Z' },
-    { id: 'glute-l', action: 'muscle', d: 'M 86,100 Q 80,108 82,118 Q 94,114 98,104 Q 94,100 86,100 Z' },
-    { id: 'glute-r', action: 'muscle', d: 'M 120,100 Q 126,108 124,118 Q 112,114 108,104 Q 112,100 120,100 Z' },
-    // Tendons — sinew lines (rendered on top)
-    { id: 'tendon-shoulder-l', action: 'tendons', kind: 'tendon', d: 'M 90,42 Q 76,48 62,56' },
-    { id: 'tendon-shoulder-r', action: 'tendons', kind: 'tendon', d: 'M 116,42 Q 130,48 144,56' },
-    { id: 'tendon-elbow-l', action: 'tendons', kind: 'tendon', d: 'M 60,82 Q 56,90 52,98' },
-    { id: 'tendon-elbow-r', action: 'tendons', kind: 'tendon', d: 'M 146,82 Q 150,90 154,98' },
-    { id: 'tendon-wrist-l', action: 'tendons', kind: 'tendon', d: 'M 52,112 Q 50,104 54,94' },
-    { id: 'tendon-wrist-r', action: 'tendons', kind: 'tendon', d: 'M 154,112 Q 156,104 152,94' },
-    { id: 'tendon-knee-l', action: 'tendons', kind: 'tendon', d: 'M 94,138 L 90,152' },
-    { id: 'tendon-knee-r', action: 'tendons', kind: 'tendon', d: 'M 112,138 L 116,152' },
-    { id: 'tendon-achilles-l', action: 'tendons', kind: 'tendon', d: 'M 90,170 Q 86,182 82,194' },
-    { id: 'tendon-achilles-r', action: 'tendons', kind: 'tendon', d: 'M 116,170 Q 120,182 124,194' }
+    { id: 'trap', action: 'enhance', d: 'M 90,30 Q 104,34 118,30 L 116,46 Q 104,50 92,46 Z' },
+    // Legs — along (93,112)→(90,151)→(92,190)
+    { id: 'quad-l', action: 'muscle', d: 'M 86,114 Q 84,130 86,146 Q 96,144 98,128 Q 96,114 86,114 Z' },
+    { id: 'quad-r', action: 'muscle', d: 'M 122,114 Q 124,130 122,146 Q 112,144 110,128 Q 112,114 122,114 Z' },
+    { id: 'calf-l', action: 'muscle', d: 'M 84,154 Q 82,170 85,186 Q 96,182 98,166 Q 96,154 84,154 Z' },
+    { id: 'calf-r', action: 'muscle', d: 'M 124,154 Q 126,170 123,186 Q 112,182 110,166 Q 112,154 124,154 Z' },
+    { id: 'glute-l', action: 'muscle', d: 'M 88,104 Q 84,110 86,118 Q 94,116 98,108 Q 94,104 88,104 Z' },
+    { id: 'glute-r', action: 'muscle', d: 'M 120,104 Q 124,110 122,118 Q 114,116 110,108 Q 114,104 120,104 Z' },
+    // Tendons along new joints
+    { id: 'tendon-shoulder-l', action: 'tendons', kind: 'tendon', d: 'M 88,42 Q 80,44 72,50' },
+    { id: 'tendon-shoulder-r', action: 'tendons', kind: 'tendon', d: 'M 120,42 Q 128,44 136,50' },
+    { id: 'tendon-elbow-l', action: 'tendons', kind: 'tendon', d: 'M 68,74 Q 64,82 60,90' },
+    { id: 'tendon-elbow-r', action: 'tendons', kind: 'tendon', d: 'M 140,74 Q 144,82 148,90' },
+    { id: 'tendon-wrist-l', action: 'tendons', kind: 'tendon', d: 'M 58,104 Q 56,98 60,90' },
+    { id: 'tendon-wrist-r', action: 'tendons', kind: 'tendon', d: 'M 150,104 Q 152,98 148,90' },
+    { id: 'tendon-knee-l', action: 'tendons', kind: 'tendon', d: 'M 92,140 L 90,152' },
+    { id: 'tendon-knee-r', action: 'tendons', kind: 'tendon', d: 'M 116,140 L 118,152' },
+    { id: 'tendon-achilles-l', action: 'tendons', kind: 'tendon', d: 'M 92,172 Q 90,182 90,194' },
+    { id: 'tendon-achilles-r', action: 'tendons', kind: 'tendon', d: 'M 116,172 Q 118,182 118,194' }
 ];
 
-const BODY_MUSCLE_LAYOUT_VERSION = '3';
+const BODY_MUSCLE_LAYOUT_VERSION = '4';
 
 const BODY_FLESH_ACTION_MUSCLES = {
     'flesh:muscle': ['pec-l', 'pec-r', 'delt-l', 'delt-r', 'bicep-l', 'bicep-r', 'forearm-l', 'forearm-r', 'quad-l', 'quad-r', 'calf-l', 'calf-r', 'glute-l', 'glute-r'],
@@ -215,7 +215,7 @@ function ribDefs() {
 
 // Bones that straddle the centre line. Marrow is listed first so bone outlines stay legible on top of it.
 const BODY_BONE_AXIAL_DEFS = [
-    { id: 'marrow-spine', action: 'marrow', kind: 'marrow', d: 'M 103,40.4 C 103.6,39.9 104.4,39.9 105,40.4 C 105.4,56 105.6,74 105,89.6 C 104.4,90.2 103.6,90.2 103,89.6 C 102.4,74 102.6,56 103,40.4 Z' },
+    { id: 'marrow-spine', action: 'marrow', kind: 'marrow', d: 'M 103.2,40.4 C 103.8,39.9 104.6,39.9 105.2,40.4 C 105.6,56 105.8,74 105.2,89.6 C 104.6,90.2 103.8,90.2 103.2,89.6 C 102.6,74 102.8,56 103.2,40.4 Z' },
     { id: 'skull-cranium', action: 'skull', kind: 'plate', d: 'M 104,2.9 C 108.8,2.9 112.3,6.7 112.3,11.6 C 112.3,14.1 111.8,15.9 110.8,17.3 C 110.4,18.7 109.6,19.7 108.2,20.2 L 99.8,20.2 C 98.4,19.7 97.6,18.7 97.2,17.3 C 96.2,15.9 95.7,14.1 95.7,11.6 C 95.7,6.7 99.2,2.9 104,2.9 Z' },
     { id: 'skull-nasal', action: 'skull', kind: 'fine', d: 'M 104,15 L 102.4,18.3 L 105.6,18.3 Z' },
     { id: 'skull-jaw', action: 'skull', kind: 'fine', d: 'M 98.2,15.4 L 98.6,19.4 C 99,21.3 100.6,22.7 104,22.7 C 107.4,22.7 109,21.3 109.4,19.4 L 109.8,15.4' },
@@ -228,37 +228,38 @@ const BODY_BONE_AXIAL_DEFS = [
 ];
 
 // Viewer-left bones; each is emitted twice (`-l` / `-r`) via mirrorBoneD.
+// Limb axes match Phase 1 silhouette capsules: arm (76,44)→(66,76)→(58,104); leg (93,112)→(90,151)→(92,190).
 const BODY_BONE_SIDE_DEFS = [
     { id: 'marrow-ilium', action: 'marrow', kind: 'marrow', d: boneOvalD(93.8, 95.8, 2.6, 3.2) },
-    { id: 'marrow-femur-head', action: 'marrow', kind: 'marrow', d: boneOvalD(96.4, 105.4, 1.4, 1.3) },
-    { id: 'marrow-humerus-head', action: 'marrow', kind: 'marrow', d: boneOvalD(86.4, 43.6, 1.3, 1.2) },
+    { id: 'marrow-femur-head', action: 'marrow', kind: 'marrow', d: boneOvalD(93, 112, 1.4, 1.3) },
+    { id: 'marrow-humerus-head', action: 'marrow', kind: 'marrow', d: boneOvalD(76, 44, 1.3, 1.2) },
     { id: 'skull-orbit', action: 'skull', kind: 'fine', d: boneOvalD(99.8, 12.4, 3, 2.6) },
     { id: 'skull-cheek', action: 'skull', kind: 'fine', d: 'M 96.6,14.6 C 98.2,16.1 99.8,16.6 101.4,16.6' },
     ...ribDefs(),
     { id: 'costal-margin', action: 'ribs', kind: 'fine', d: 'M 103.4,66.8 C 101,69.4 97.6,72.6 93.6,75.8' },
-    { id: 'clavicle', action: 'arms', kind: 'bone', d: 'M 102.2,38.2 C 98.6,36.4 93.2,36.4 87.4,39.8' },
-    { id: 'scapula', action: 'arms', kind: 'fine', d: 'M 87.6,39.6 C 84.6,41.8 83.6,46 84.4,50.6 C 85,54 86.6,56.8 88.6,58.6' },
-    { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(86.4, 43.6, 2.3, 2.2) },
-    { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 86.2,45.4 C 85,54 83.2,64.8 81.2,74.8' },
-    { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 79.4,75.2 L 83,74.3' },
-    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 82,76.8 C 79.6,84.6 76.4,93.4 73.6,100.8' },
-    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 79.4,77 C 77.2,84.6 73.8,93.2 70.9,100.4' },
-    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 69.8,101.8 C 71.6,101 73.6,101.2 74.4,102.6 C 75.1,103.9 74.6,105.4 73.2,106 C 71.4,106.6 69.4,106 68.8,104.6 C 68.4,103.5 68.9,102.3 69.8,101.8 Z' },
-    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 70.2,105.8 L 68.6,111.4 M 71.1,106 L 70.4,111.8 M 72,106 L 72.2,111.8 M 72.8,105.6 L 74,111.2 M 69.4,105 L 67.4,109.4' },
-    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 68.6,111.9 L 68.2,115.3 M 68.2,116 L 68.1,117.8 M 70.4,112.3 L 70.2,116 M 70.2,116.7 L 70.2,118.8 M 72.2,112.3 L 72.5,115.8 M 72.5,116.5 L 72.6,118.4 M 74,111.7 L 74.3,114.4 M 74.3,115.1 L 74.4,116.8 M 67.4,109.8 L 66.8,112.1 M 66.8,112.8 L 66.5,114.8' },
+    { id: 'clavicle', action: 'arms', kind: 'bone', d: 'M 102.2,38.2 C 96,36.8 86,38.2 78,42.5' },
+    { id: 'scapula', action: 'arms', kind: 'fine', d: 'M 82,40 C 78,42 76,46 76.5,52 C 77,56 79,58.5 82,60' },
+    { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(76, 44, 2.3, 2.2) },
+    { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 76,45.5 C 73.2,54 69.2,65 66,75.5' },
+    { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 63.4,76.8 L 68.6,75.2' },
+    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 67.2,77.2 C 64,86 60.8,95 58.8,103.2' },
+    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 64.6,77.8 C 61.8,86.2 59,95.2 57.2,103' },
+    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 55.8,102.2 C 57.6,101.4 59.8,101.6 60.6,103 C 61.3,104.3 60.8,105.8 59.4,106.4 C 57.6,107 55.6,106.4 55,105 C 54.6,103.9 55.1,102.7 55.8,102.2 Z' },
+    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 56.2,106.2 L 54.4,112 M 57.2,106.4 L 56,112.4 M 58.2,106.4 L 57.8,112.6 M 59,106 L 59.6,112 M 55.4,105.4 L 53.2,110' },
+    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 54.4,112.5 L 53.8,116.2 M 53.8,116.8 L 53.6,119.2 M 56,112.8 L 55.6,116.6 M 55.6,117.2 L 55.5,119.8 M 57.8,113 L 57.8,116.6 M 57.8,117.2 L 57.9,119.6 M 59.6,112.4 L 60,115.4 M 60,116 L 60.2,118 M 53.2,110.4 L 52.4,113 M 52.4,113.6 L 52,115.8' },
     { id: 'ilium', action: 'legs', kind: 'plate', d: 'M 100.8,90.4 C 97,88.2 92.4,88.8 90.2,92.4 C 89,94.6 89.2,97.4 90.6,100.2 C 91.8,103 93.6,105.2 95.8,106.4 C 95.6,103 96.2,99.6 97.8,96.6 C 99.4,94 100.6,92.4 100.8,90.4 Z' },
-    { id: 'obturator', action: 'legs', kind: 'fine', d: 'M 96.6,109.4 C 99,110.4 101.2,111 102.8,111.4 C 103,113 103,114.4 102.6,115.4 C 100,115.6 97.6,114.4 96.2,112.4 C 95.2,111.2 95.4,109.8 96.6,109.4 Z' },
-    { id: 'acetabulum', action: 'legs', kind: 'fine', d: 'M 93.4,104 C 94,101.8 96.4,101 98.4,102.2' },
-    { id: 'femur-head', action: 'legs', kind: 'bone', d: boneOvalD(96.4, 105.4, 2.5, 2.4) },
-    { id: 'femur', action: 'legs', kind: 'heavy', d: 'M 95.4,107 C 93.6,108.2 92.2,109.4 91.9,111.2 C 92.6,121 93.6,134 94.5,147.6' },
-    { id: 'femur-condyles', action: 'legs', kind: 'fine', d: 'M 91.6,147.2 C 91.4,150.2 92.6,151.8 94.6,152 C 96.6,151.8 97.8,150.2 97.6,147.2' },
-    { id: 'patella', action: 'legs', kind: 'fine', d: boneOvalD(94.8, 150.6, 1.8, 1.9) },
-    { id: 'tibia-plateau', action: 'legs', kind: 'fine', d: 'M 92.4,154 L 98,154' },
-    { id: 'tibia', action: 'legs', kind: 'heavy', d: 'M 95.2,154.4 C 95.9,164 96.6,177 97.1,189.4' },
-    { id: 'fibula', action: 'legs', kind: 'fine', d: 'M 91.8,155.4 C 92.1,165 92.7,177 93.4,188.6' },
-    { id: 'tarsals', action: 'feet', kind: 'fine', d: 'M 95,190.8 C 97.2,190.4 99.2,191.4 99.6,193.4 C 100,195.2 99.2,196.6 97.4,197 C 95.4,197.4 93.8,196.6 93.4,194.8 C 93.1,193 93.4,191.2 95,190.8 Z' },
-    { id: 'metatarsals', action: 'feet', kind: 'fine', d: 'M 95.2,196.6 L 93,201 M 96.2,197 L 94.7,201.6 M 97.1,197.2 L 96.7,202 M 98,197 L 98.7,201.8 M 98.8,196.4 L 100.8,201' },
-    { id: 'toes', action: 'feet', kind: 'fine', d: 'M 93,201.4 L 92.3,203.2 M 94.7,202 L 94.3,204 M 96.7,202.4 L 96.6,204.4 M 98.7,202.2 L 99.1,204 M 100.8,201.4 L 101.7,203' }
+    { id: 'obturator', action: 'legs', kind: 'fine', d: 'M 95,110 C 97.4,111 99.6,111.6 101.2,112 C 101.4,113.6 101.4,115 101,116 C 98.4,116.2 96,115 94.6,113 C 93.6,111.8 93.8,110.4 95,110 Z' },
+    { id: 'acetabulum', action: 'legs', kind: 'fine', d: 'M 91,110 C 91.6,107.8 94,107 96,108.2' },
+    { id: 'femur-head', action: 'legs', kind: 'bone', d: boneOvalD(93, 112, 2.5, 2.4) },
+    { id: 'femur', action: 'legs', kind: 'heavy', d: 'M 93,113.2 C 91.8,122 90.8,135 90.2,149.5' },
+    { id: 'femur-condyles', action: 'legs', kind: 'fine', d: 'M 87.4,148.8 C 87.2,151.8 88.4,153.4 90.4,153.6 C 92.4,153.4 93.6,151.8 93.4,148.8' },
+    { id: 'patella', action: 'legs', kind: 'fine', d: boneOvalD(90.5, 151.2, 1.8, 1.9) },
+    { id: 'tibia-plateau', action: 'legs', kind: 'fine', d: 'M 87.2,154.2 L 93.2,154.2' },
+    { id: 'tibia', action: 'legs', kind: 'heavy', d: 'M 90.6,154.6 C 91.2,165 91.6,177 92,189.2' },
+    { id: 'fibula', action: 'legs', kind: 'fine', d: 'M 87.4,155.6 C 88,166 89,177.5 90.2,188.4' },
+    { id: 'tarsals', action: 'feet', kind: 'fine', d: 'M 90.2,190.6 C 92.4,190.2 94.4,191.2 94.8,193.2 C 95.2,195 94.4,196.4 92.6,196.8 C 90.6,197.2 89,196.4 88.6,194.6 C 88.3,192.8 88.6,191 90.2,190.6 Z' },
+    { id: 'metatarsals', action: 'feet', kind: 'fine', d: 'M 90.4,196.4 L 88,201 M 91.4,196.8 L 89.8,201.4 M 92.3,197 L 91.6,201.8 M 93.2,196.8 L 93.6,201.6 M 94,196.2 L 95.8,200.8' },
+    { id: 'toes', action: 'feet', kind: 'fine', d: 'M 88,201.4 L 87.2,203.2 M 89.8,202 L 89.4,204 M 91.6,202.4 L 91.4,204.4 M 93.6,202.2 L 94,204 M 95.8,201.4 L 96.8,203' }
 ];
 
 const BODY_BONE_DEFS = [
@@ -268,7 +269,7 @@ const BODY_BONE_DEFS = [
         { ...def, id: `bone-${def.id}-r`, d: mirrorBoneD(def.d) }
     ])
 ];
-const BODY_BONE_LAYOUT_VERSION = '2';
+const BODY_BONE_LAYOUT_VERSION = '3';
 const BODY_BONE_BY_ID = new Map(BODY_BONE_DEFS.map(b => [b.id, b]));
 const BODY_BONE_ACTION_PARTS = BODY_BONE_DEFS.reduce((acc, b) => {
     const key = `bones:${b.action}`;
@@ -277,15 +278,15 @@ const BODY_BONE_ACTION_PARTS = BODY_BONE_DEFS.reduce((acc, b) => {
 }, {});
 
 const BODY_ORGAN_DEFS = [
-    { id: 'organ-heart', action: 'heart', kind: 'organ', type: 'ellipse', cx: 103, cy: 54, rx: 9, ry: 10 },
-    { id: 'organ-lung-l', action: 'lungs', kind: 'organ', type: 'ellipse', cx: 88, cy: 50, rx: 10, ry: 12 },
-    { id: 'organ-lung-r', action: 'lungs', kind: 'organ', type: 'ellipse', cx: 118, cy: 50, rx: 10, ry: 12 },
-    { id: 'organ-liver', action: 'liver', kind: 'organ', type: 'ellipse', cx: 114, cy: 78, rx: 9, ry: 7 },
-    { id: 'organ-spleen', action: 'spleen', kind: 'organ', type: 'ellipse', cx: 90, cy: 74, rx: 7, ry: 6 },
-    { id: 'organ-kidney-l', action: 'kidneys', kind: 'organ', type: 'ellipse', cx: 94, cy: 82, rx: 6, ry: 8 },
-    { id: 'organ-kidney-r', action: 'kidneys', kind: 'organ', type: 'ellipse', cx: 112, cy: 82, rx: 6, ry: 8 }
+    { id: 'organ-heart', action: 'heart', kind: 'organ', type: 'ellipse', cx: 104, cy: 54, rx: 8, ry: 9 },
+    { id: 'organ-lung-l', action: 'lungs', kind: 'organ', type: 'ellipse', cx: 92, cy: 52, rx: 9, ry: 11 },
+    { id: 'organ-lung-r', action: 'lungs', kind: 'organ', type: 'ellipse', cx: 116, cy: 52, rx: 9, ry: 11 },
+    { id: 'organ-liver', action: 'liver', kind: 'organ', type: 'ellipse', cx: 114, cy: 72, rx: 8, ry: 6 },
+    { id: 'organ-spleen', action: 'spleen', kind: 'organ', type: 'ellipse', cx: 92, cy: 70, rx: 6, ry: 5 },
+    { id: 'organ-kidney-l', action: 'kidneys', kind: 'organ', type: 'ellipse', cx: 96, cy: 80, rx: 5.5, ry: 7 },
+    { id: 'organ-kidney-r', action: 'kidneys', kind: 'organ', type: 'ellipse', cx: 112, cy: 80, rx: 5.5, ry: 7 }
 ];
-const BODY_ORGAN_LAYOUT_VERSION = '1';
+const BODY_ORGAN_LAYOUT_VERSION = '2';
 const BODY_ORGAN_ACTION_PARTS = {
     'organs:heart': ['organ-heart'],
     'organs:lungs': ['organ-lung-l', 'organ-lung-r'],
@@ -295,22 +296,22 @@ const BODY_ORGAN_ACTION_PARTS = {
 };
 
 const BODY_BLOOD_DEFS = [
-    { id: 'blood-heart', action: 'vessels', kind: 'blood-core', type: 'ellipse', cx: 103, cy: 56, rx: 11, ry: 12 },
-    { id: 'blood-aorta', action: 'vessels', kind: 'blood-line', d: 'M 103,68 L 103,90' },
-    { id: 'blood-carotid-l', action: 'circulate', kind: 'blood-line', d: 'M 103,42 Q 92,38 88,28' },
-    { id: 'blood-carotid-r', action: 'circulate', kind: 'blood-line', d: 'M 103,42 Q 114,38 118,28' },
-    { id: 'blood-arm-l', action: 'circulate', kind: 'blood-line', d: 'M 103,48 Q 78,54 62,88' },
-    { id: 'blood-arm-r', action: 'circulate', kind: 'blood-line', d: 'M 103,48 Q 128,54 144,88' },
-    { id: 'blood-leg-l', action: 'circulate', kind: 'blood-line', d: 'M 103,90 Q 90,110 86,150' },
-    { id: 'blood-leg-r', action: 'circulate', kind: 'blood-line', d: 'M 103,90 Q 116,110 120,150' },
-    { id: 'blood-vein-l', action: 'purify', kind: 'blood-line', d: 'M 96,62 Q 84,72 80,88' },
-    { id: 'blood-vein-r', action: 'purify', kind: 'blood-line', d: 'M 110,62 Q 122,72 126,88' },
-    { id: 'blood-essence', action: 'condense', kind: 'blood-glow', type: 'ellipse', cx: 103, cy: 64, rx: 18, ry: 20 },
-    { id: 'blood-battle-l', action: 'battle', kind: 'blood-line', d: 'M 100,76 Q 88,84 76,92' },
+    { id: 'blood-heart', action: 'vessels', kind: 'blood-core', type: 'ellipse', cx: 104, cy: 56, rx: 10, ry: 11 },
+    { id: 'blood-aorta', action: 'vessels', kind: 'blood-line', d: 'M 104,68 L 104,90' },
+    { id: 'blood-carotid-l', action: 'circulate', kind: 'blood-line', d: 'M 104,42 Q 94,38 90,28' },
+    { id: 'blood-carotid-r', action: 'circulate', kind: 'blood-line', d: 'M 104,42 Q 114,38 118,28' },
+    { id: 'blood-arm-l', action: 'circulate', kind: 'blood-line', d: 'M 104,48 Q 86,52 70,70 Q 62,86 58,104' },
+    { id: 'blood-arm-r', action: 'circulate', kind: 'blood-line', d: 'M 104,48 Q 122,52 138,70 Q 146,86 150,104' },
+    { id: 'blood-leg-l', action: 'circulate', kind: 'blood-line', d: 'M 104,90 Q 96,110 91,150 Q 91,170 92,190' },
+    { id: 'blood-leg-r', action: 'circulate', kind: 'blood-line', d: 'M 104,90 Q 112,110 117,150 Q 117,170 116,190' },
+    { id: 'blood-vein-l', action: 'purify', kind: 'blood-line', d: 'M 98,62 Q 88,72 84,86' },
+    { id: 'blood-vein-r', action: 'purify', kind: 'blood-line', d: 'M 110,62 Q 120,72 124,86' },
+    { id: 'blood-essence', action: 'condense', kind: 'blood-glow', type: 'ellipse', cx: 104, cy: 64, rx: 16, ry: 18 },
+    { id: 'blood-battle-l', action: 'battle', kind: 'blood-line', d: 'M 102,76 Q 90,84 78,92' },
     { id: 'blood-battle-r', action: 'battle', kind: 'blood-line', d: 'M 106,76 Q 118,84 130,92' },
-    { id: 'blood-lineage', action: 'bloodline', kind: 'blood-glow', d: 'M 103,56 Q 103,90 103,130 Q 90,150 103,170 Q 116,150 103,130' }
+    { id: 'blood-lineage', action: 'bloodline', kind: 'blood-glow', d: 'M 104,56 Q 104,90 104,130 Q 92,150 104,170 Q 116,150 104,130' }
 ];
-const BODY_BLOOD_LAYOUT_VERSION = '1';
+const BODY_BLOOD_LAYOUT_VERSION = '2';
 const BODY_BLOOD_ACTION_PARTS = {
     'blood:purify': ['blood-vein-l', 'blood-vein-r'],
     'blood:condense': ['blood-essence'],
@@ -321,32 +322,36 @@ const BODY_BLOOD_ACTION_PARTS = {
 };
 
 const BODY_NERVE_DEFS = [
-    { id: 'nerve-spine', d: 'M103 14 L103 195', sw: 1.8 },
-    { id: 'nerve-arm-l', d: 'M103 48 L64 88', sw: 1.2 },
-    { id: 'nerve-arm-r', d: 'M103 48 L142 88', sw: 1.2 },
-    { id: 'nerve-leg-l', d: 'M103 88 L78 130', sw: 1.2 },
-    { id: 'nerve-leg-r', d: 'M103 88 L128 130', sw: 1.2 },
-    { id: 'nerve-neck-l', d: 'M103 36 L88 24', sw: 1.2 },
-    { id: 'nerve-neck-r', d: 'M103 36 L118 24', sw: 1.2 },
-    { id: 'nerve-palm-l', d: 'M78 130 Q 68 150 62 170', sw: 1 },
-    { id: 'nerve-palm-r', d: 'M128 130 Q 138 150 144 170', sw: 1 }
+    // Cord stops near L1–L2 (~y 80) with a short cauda fan — not past the sacrum
+    { id: 'nerve-spine', d: 'M104 14 L104 80', sw: 1.8 },
+    { id: 'nerve-cauda-l', d: 'M104 80 Q 98 95 94 112', sw: 1 },
+    { id: 'nerve-cauda-r', d: 'M104 80 Q 110 95 114 112', sw: 1 },
+    { id: 'nerve-arm-l', d: 'M104 48 L76 52 L66 76 L58 104', sw: 1.2 },
+    { id: 'nerve-arm-r', d: 'M104 48 L132 52 L142 76 L150 104', sw: 1.2 },
+    { id: 'nerve-leg-l', d: 'M104 88 L93 112 L90 151 L92 190', sw: 1.2 },
+    { id: 'nerve-leg-r', d: 'M104 88 L115 112 L118 151 L116 190', sw: 1.2 },
+    { id: 'nerve-neck-l', d: 'M104 36 L92 24', sw: 1.2 },
+    { id: 'nerve-neck-r', d: 'M104 36 L116 24', sw: 1.2 },
+    { id: 'nerve-palm-l', d: 'M58 104 Q 55 112 54 120', sw: 1 },
+    { id: 'nerve-palm-r', d: 'M150 104 Q 153 112 154 120', sw: 1 }
 ];
-const BODY_NERVE_LAYOUT_VERSION = '1';
+const BODY_NERVE_LAYOUT_VERSION = '2';
 
 const BODY_MERIDIAN_STAR_POINTS = [
-    { index: 0, cx: 90, cy: 50, id: 'lung' },
-    { index: 1, cx: 132, cy: 90, id: 'large_intestine' },
-    { index: 2, cx: 103, cy: 74, id: 'stomach' },
-    { index: 3, cx: 88, cy: 68, id: 'spleen' },
-    { index: 4, cx: 103, cy: 54, id: 'heart' },
-    { index: 5, cx: 62, cy: 52, id: 'small_intestine' },
-    { index: 6, cx: 103, cy: 118, id: 'bladder' },
-    { index: 7, cx: 96, cy: 82, id: 'kidney' },
+    { index: 0, cx: 92, cy: 50, id: 'lung' },
+    { index: 1, cx: 122, cy: 88, id: 'large_intestine' },
+    { index: 2, cx: 104, cy: 74, id: 'stomach' },
+    { index: 3, cx: 92, cy: 68, id: 'spleen' },
+    { index: 4, cx: 104, cy: 54, id: 'heart' },
+    { index: 5, cx: 84, cy: 56, id: 'small_intestine' },
+    { index: 6, cx: 104, cy: 108, id: 'bladder' },
+    { index: 7, cx: 96, cy: 80, id: 'kidney' },
     { index: 8, cx: 110, cy: 56, id: 'pericardium' },
-    { index: 9, cx: 103, cy: 64, id: 'triple_burner' },
-    { index: 10, cx: 148, cy: 38, id: 'gallbladder' },
-    { index: 11, cx: 118, cy: 76, id: 'liver' }
+    { index: 9, cx: 104, cy: 64, id: 'triple_burner' },
+    { index: 10, cx: 118, cy: 48, id: 'gallbladder' },
+    { index: 11, cx: 116, cy: 72, id: 'liver' }
 ];
+const BODY_MERIDIAN_LAYOUT_VERSION = '2';
 
 const BODY_ACTION_TO_REGIONS = {
     'bones:hands': ['hand-l', 'hand-r'],
@@ -710,6 +715,11 @@ function isBodyMeridianStarLit(index) {
 function renderBodyMeridianStars() {
     const group = document.getElementById('bodySilMeridianStars');
     if (!group) return;
+    if (group.dataset.meridianLayout !== BODY_MERIDIAN_LAYOUT_VERSION) {
+        group.replaceChildren();
+        delete group.dataset.built;
+        group.dataset.meridianLayout = BODY_MERIDIAN_LAYOUT_VERSION;
+    }
     if (!group.dataset.built) {
         BODY_MERIDIAN_STAR_POINTS.forEach(pt => {
             const star = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -1023,12 +1033,18 @@ function renderBodyMeridianChannels() {
     }
     group.hidden = !isBodyLayerUnlocked('meridians');
     if (group.hidden) return;
+    const cx = BODY_LANDMARKS.centreX;
+    if (group.dataset.meridianLayout !== BODY_MERIDIAN_LAYOUT_VERSION) {
+        group.replaceChildren();
+        delete group.dataset.built;
+        group.dataset.meridianLayout = BODY_MERIDIAN_LAYOUT_VERSION;
+    }
     if (!group.dataset.built) {
         BODY_MERIDIAN_STAR_POINTS.forEach(pt => {
             const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             line.setAttribute('class', 'body-sil-meridian-channel');
             line.setAttribute('data-meridian-index', String(pt.index));
-            line.setAttribute('x1', '103');
+            line.setAttribute('x1', String(cx));
             line.setAttribute('y1', '36');
             line.setAttribute('x2', String(pt.cx));
             line.setAttribute('y2', String(pt.cy));
@@ -1036,7 +1052,7 @@ function renderBodyMeridianChannels() {
         });
         const orbit = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         orbit.setAttribute('class', 'body-sil-meridian-orbit');
-        orbit.setAttribute('d', 'M 103,28 Q 118,64 103,100 Q 88,64 103,28');
+        orbit.setAttribute('d', `M ${cx},28 Q ${cx + 15},64 ${cx},100 Q ${cx - 15},64 ${cx},28`);
         orbit.setAttribute('fill', 'none');
         group.appendChild(orbit);
         group.dataset.built = '1';
