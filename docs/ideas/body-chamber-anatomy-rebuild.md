@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Phase 1) |
-| **Blocked on** | none (Phase 1 is the prerequisite for Phases 2–3) |
+| **Status** | `building` (Phase 2) |
+| **Blocked on** | none |
 | **Issue** | none yet |
-| **Chat / PR** | Skeleton [PR #80](https://github.com/WanderingImmortal/tales-immortal-path/pull/80) · Phase 1 `cursor/body-silhouette-p1` |
+| **Chat / PR** | Skeleton [PR #80](https://github.com/WanderingImmortal/tales-immortal-path/pull/80) · Phase 1 [PR #104](https://github.com/WanderingImmortal/tales-immortal-path/pull/104) · Phase 2 `cursor/body-silhouette-p2` |
 | **Updated** | 2026-08-05 |
 
 ## Intent
@@ -193,16 +193,18 @@ Bone patterns (骨纹) — faint etched runes on femur/humerus/skull above ~85% 
 
 ## Prerequisites / order
 
-- [x] Phase 1 silhouette rebuild + landmark table + fit audit script (`cursor/body-silhouette-p1`)
-- [ ] Phase 2 layer re-fits (flesh → organs → blood → nerves → meridians, any order after Phase 1) — arm bones may need nudge onto opened arms
+- [x] Phase 1 silhouette rebuild + landmark table + fit audit script ([PR #104](https://github.com/WanderingImmortal/tales-immortal-path/pull/104))
+- [x] Phase 2 layer re-fits (bones → flesh → organs → blood → nerves → meridians; stars masked) — `cursor/body-silhouette-p2`
 - [ ] Phase 3a/3b (independent of Phase 2; only needs bones, which are shipped) — parked vs [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md)
 - [ ] Phase 3c after meridians are re-fitted
+- [ ] Visual polish after playtest (shoulder seams, bone glow near edges)
 
 ## Owner locks (2026-08-05)
 
 - **Arms:** slightly opened (~8–12°) — not spread-eagle.
 - **Reuse:** keep part paths / landmarks reusable for later body-path visuals.
 - **Bone tier / ACS rewrite:** parked in [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md); Phase 1–2 do not wait.
+- **Injury visuals (broken/severed limbs):** later — part ids are the surface; do not block Phase 2 geometry.
 
 ## Open questions
 
