@@ -343,6 +343,7 @@ function flushWorldClockWeek() {
         : (typeof advanceTime === 'function' ? advanceTime(WORLD_CLOCK_WEEK_MONTHS, activity) : false);
 
     if (typeof tickDwellingRent === 'function') tickDwellingRent();
+    if (typeof tickWellRingCalendar === 'function') tickWellRingCalendar();
     maybeWarnDwellingRentRunway();
     tickWorldClockStanceWeek();
     emitWorldClockMonthlyDigest();

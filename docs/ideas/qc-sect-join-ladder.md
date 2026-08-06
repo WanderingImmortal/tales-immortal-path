@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | [`jianghu-organization-types.md`](jianghu-organization-types.md); Dustbone lesser sect identities; Redwell loop playtest |
+| **Status** | `designed` (Well-Ring v1 slice drafted) |
+| **Blocked on** | Owner confirm slice → implement Well-Ring |
 | **Issue** | none yet |
-| **Chat / PR** | design chat 2026-07-31 · [`cursor/qc-density-org-stubs-ae81`](../../) |
-| **Updated** | 2026-07-31 |
+| **Chat / PR** | design chat 2026-07-31 · Well-Ring sketch 2026-08-06 · `cursor/redwell-corrupt-hall-design` |
+| **Updated** | 2026-08-06 |
 
 **Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) · [`jianghu-organization-types.md`](jianghu-organization-types.md) · [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md)
 
@@ -71,10 +71,11 @@ Does **not** replace field → brew → cultivate loop; **sits on top**.
 
 ## Prerequisites
 
-- [ ] [`jianghu-organization-types.md`](jianghu-organization-types.md) locked
-- [ ] 2–3 lesser sect identities ([`dustbone-lesser-sects.md`](dustbone-lesser-sects.md))
-- [ ] Redwell field + alchemy loop playable
-- [ ] Root grade on character sheet for exam UI
+- [x] [`jianghu-organization-types.md`](jianghu-organization-types.md) locked
+- [x] Well-Ring Lodge identity + v1 slice ([`dustbone-lesser-sects.md`](dustbone-lesser-sects.md))
+- [x] Redwell field + alchemy loop playable
+- [ ] Owner confirm v1 slice → build
+- [ ] Root grade on character sheet — only needed for **great branch** exams (not Well-Ring)
 
 ## Open questions
 

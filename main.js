@@ -834,6 +834,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnDwelling')?.addEventListener('click', () => {
         if (typeof openDwellingPopup === 'function') openDwellingPopup();
     });
+    document.getElementById('btnWellRing')?.addEventListener('click', () => {
+        if (typeof openWellRingPopup === 'function') openWellRingPopup();
+    });
     document.getElementById('btnCombat').addEventListener('click', actionCombat);
     document.getElementById('btnTech').addEventListener('click', actionTech);
     document.getElementById('btnReset').addEventListener('click', resetGame);

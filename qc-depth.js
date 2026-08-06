@@ -139,7 +139,15 @@ const REDWELL_RUMORS = [
     'Road dust toward Threshold — a caravan left without full escort.',
     'Ironscar claimed another claim-jumper; the Pit Brute rumor is back.',
     'The well boss wants quiet hands — fat loading work has dried up.',
-    'A letter from the capital: Registry is counting pins again. Redwell shrugs.'
+    'A letter from the capital: Registry is counting pins again. Redwell shrugs.',
+    'Well-Ring Lodge took another outer this week — sash fee and all.',
+    'Master Liang\'s outers keep the road quiet. Or so they say.',
+    'Wei Shun topped last month\'s Well-Ring board. Again.'
+];
+
+const REDWELL_RUMORS_FEE_SCAM = [
+    'Someone mutters the Well-Ring sash fee never comes back — goes straight into quiet pockets.',
+    'A drunk swears Master Liang and the city lord split the outer-roll coin.'
 ];
 
 const REDWELL_BOUNTIES = [
@@ -175,6 +183,7 @@ function ensureQcDepthState() {
     if (!G.travelCautions) G.travelCautions = {};
     ensureRedwellMarketState();
     ensureRedwellSeats();
+    ensureWellRingState();
     // Early CSS lock before full action render (dao/forbidden default-hidden in HTML too).
     if (typeof document !== 'undefined' && document.documentElement) {
         const qc = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm();
@@ -473,7 +482,15 @@ function actionRedwellRumor() {
         return;
     }
     G.stones -= cost;
-    const line = REDWELL_RUMORS[Math.floor(Math.random() * REDWELL_RUMORS.length)];
+    let pool = REDWELL_RUMORS.slice();
+    const wr = G.wellRing;
+    if (wr?.member && (wr.heardFeeScam || (wr.merit || 0) >= 5 || wr.dirtyDone)) {
+        pool = pool.concat(typeof REDWELL_RUMORS_FEE_SCAM !== 'undefined' ? REDWELL_RUMORS_FEE_SCAM : []);
+        if (!wr.heardFeeScam && (wr.merit || 0) >= 5) {
+            wr.heardFeeScam = true;
+        }
+    }
+    const line = pool[Math.floor(Math.random() * pool.length)];
     addLog(`🍺 ${getRedwellSeatName('redwell_innkeep')} pours. Rumor: ${line}`);
     fullRender();
 }
@@ -966,6 +983,471 @@ function openDwellingPopup() {
     document.getElementById('dwellingBountyBtn')?.addEventListener('click', () => {
         popup.classList.remove('active');
         openRedwellBountyBoard();
+    });
+    popup.classList.add('active');
+}
+
+// ----- Well-Ring Lodge (docs/ideas/dustbone-lesser-sects.md) -----
+
+const WELL_RING_JOIN_FEE = 32;
+const WELL_RING_MANUAL_ID = 'well_ring_quiet_breath';
+const WELL_RING_MANUAL_MERIT = 6;
+const WELL_RING_MANUAL_FEE = 6;
+const WELL_RING_BOARD_FAKES = [
+    { name: 'Outer Ke', merit: 3 },
+    { name: 'Outer Yue', merit: 2 },
+    { name: 'Outer Hark', merit: 1 }
+];
+
+const WELL_RING_MISSIONS = [
+    {
+        id: 'wr_road_escort',
+        name: 'Road Quiet Escort',
+        emoji: '🛤️',
+        months: 2,
+        payMin: 18,
+        payMax: 30,
+        merit: 2,
+        dirty: false,
+        risk: 0.25,
+        flavor: 'Walk a short grit run and keep mouths quiet.'
+    },
+    {
+        id: 'wr_well_muster',
+        name: 'Well Muster Duty',
+        emoji: '💧',
+        months: 1,
+        payMin: 8,
+        payMax: 14,
+        merit: 1,
+        dirty: false,
+        risk: 0,
+        flavor: 'Stand muster at the well ring. Boring. Seen.'
+    },
+    {
+        id: 'wr_scrub_cull',
+        name: 'Scrub Cull',
+        emoji: '🌿',
+        months: 2,
+        payMin: 16,
+        payMax: 28,
+        merit: 2,
+        dirty: false,
+        risk: 0.4,
+        flavor: 'Cull pests on the Dewcatch edge for the lodge.'
+    },
+    {
+        id: 'wr_grit_run',
+        name: 'Grit Crate Run',
+        emoji: '📦',
+        months: 2,
+        payMin: 14,
+        payMax: 26,
+        merit: 2,
+        dirty: false,
+        risk: 0.15,
+        flavor: 'Haul Ironscar crates under the lodge sash.'
+    },
+    {
+        id: 'wr_sealed_pouch',
+        name: 'Sealed Pouch Errand',
+        emoji: '🧧',
+        months: 1,
+        payMin: 28,
+        payMax: 44,
+        merit: 3,
+        dirty: true,
+        risk: 0.1,
+        flavor: 'Deliver a sealed pouch. Do not open it. Master Liang will remember.'
+    }
+];
+
+function ensureWellRingState() {
+    if (!G.wellRing) {
+        G.wellRing = {
+            member: false,
+            merit: 0,
+            rivalMerit: 4,
+            lastMissionMonth: 0,
+            lastBoardMonth: -1,
+            lastTournamentYear: -1,
+            tournamentDue: false,
+            manualClaimed: false,
+            dirtyDone: 0,
+            heardFeeScam: false,
+            joinMonth: 0
+        };
+    }
+    const wr = G.wellRing;
+    if (wr.rivalMerit == null) wr.rivalMerit = 4;
+    if (wr.lastBoardMonth == null) wr.lastBoardMonth = -1;
+    if (wr.lastTournamentYear == null) wr.lastTournamentYear = -1;
+    return wr;
+}
+
+function isWellRingMember() {
+    ensureWellRingState();
+    return !!G.wellRing.member;
+}
+
+function getWellRingBoardRows() {
+    ensureWellRingState();
+    const wr = G.wellRing;
+    const rows = [
+        { name: 'You', merit: wr.merit || 0, you: true },
+        { name: 'Wei Shun', merit: wr.rivalMerit || 0, rival: true },
+        ...WELL_RING_BOARD_FAKES.map(f => ({ name: f.name, merit: f.merit + Math.floor((wr.rivalMerit || 0) / 4) }))
+    ];
+    rows.sort((a, b) => (b.merit - a.merit) || a.name.localeCompare(b.name));
+    return rows;
+}
+
+function getWellRingPlayerRank() {
+    const rows = getWellRingBoardRows();
+    const idx = rows.findIndex(r => r.you);
+    return idx >= 0 ? idx + 1 : rows.length;
+}
+
+function tickWellRingCalendar() {
+    ensureWellRingState();
+    const wr = G.wellRing;
+    if (!wr.member) return;
+    const now = G.ageMonths || 0;
+    const month = now;
+    const year = Math.floor(now / 12);
+
+    if (wr.lastBoardMonth !== month) {
+        wr.lastBoardMonth = month;
+        // Soft rival climb
+        if (Math.random() < 0.45) wr.rivalMerit = (wr.rivalMerit || 0) + 1;
+        // Idle decay if no mission for 18+ months
+        if (wr.lastMissionMonth && now - wr.lastMissionMonth >= 18) {
+            wr.merit = Math.max(0, (wr.merit || 0) - 1);
+        }
+        if (Math.random() < 0.35) {
+            const rank = getWellRingPlayerRank();
+            addLog(`💧 Well-Ring monthly board: you sit ${rank}${rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th'} — Wei Shun at ${wr.rivalMerit} merit.`);
+        }
+    }
+
+    if (wr.lastTournamentYear < 0) wr.lastTournamentYear = year;
+    if (year > wr.lastTournamentYear) {
+        wr.tournamentDue = true;
+    }
+}
+
+function actionWellRingJoin() {
+    if (G.gameOver || G.inCombat) return;
+    ensureWellRingState();
+    if (!isAtRedwell()) {
+        addLog('💧 Well-Ring Lodge is in Redwell.');
+        fullRender();
+        return;
+    }
+    if (G.wellRing.member) {
+        addLog('💧 You already wear the outer sash.');
+        fullRender();
+        return;
+    }
+    if ((G.stones || 0) < WELL_RING_JOIN_FEE) {
+        addLog(`💧 Outer registration costs ${WELL_RING_JOIN_FEE} Stones (have ${G.stones || 0}).`);
+        fullRender();
+        return;
+    }
+    G.stones -= WELL_RING_JOIN_FEE;
+    G.wellRing.member = true;
+    G.wellRing.merit = 0;
+    G.wellRing.joinMonth = G.ageMonths || 0;
+    G.wellRing.lastMissionMonth = G.ageMonths || 0;
+    G.wellRing.lastBoardMonth = G.ageMonths || 0;
+    G.wellRing.lastTournamentYear = Math.floor((G.ageMonths || 0) / 12);
+    addLog(`💧 Master Liang takes your coin. Outer sash of Well-Ring Lodge — registration fee ${WELL_RING_JOIN_FEE} Stones. "Keeps the lodge in grit and ink."`);
+    fullRender();
+}
+
+function actionWellRingLeave() {
+    if (G.gameOver || G.inCombat) return;
+    ensureWellRingState();
+    if (!G.wellRing.member) return;
+    G.wellRing.member = false;
+    G.wellRing.tournamentDue = false;
+    addLog('💧 You leave Well-Ring Lodge. The sash stays behind. Rejoin means paying registration again.');
+    fullRender();
+}
+
+function listWellRingMissionsAvailable() {
+    ensureWellRingState();
+    const wr = G.wellRing;
+    return WELL_RING_MISSIONS.filter(m => {
+        if (!m.dirty) return true;
+        // Dirty pouch after a little merit, or once they've done dirty before
+        return (wr.merit || 0) >= 3 || (wr.dirtyDone || 0) > 0;
+    });
+}
+
+function actionWellRingMission(missionId) {
+    if (G.gameOver || G.inCombat) return;
+    ensureWellRingState();
+    if (!isAtRedwell()) {
+        addLog('💧 Lodge missions start from Redwell.');
+        fullRender();
+        return;
+    }
+    if (!G.wellRing.member) {
+        addLog('💧 Only outers take Well-Ring work.');
+        fullRender();
+        return;
+    }
+    const mission = WELL_RING_MISSIONS.find(m => m.id === missionId);
+    if (!mission) return;
+    if (mission.dirty && (G.wellRing.merit || 0) < 3 && !(G.wellRing.dirtyDone > 0)) {
+        addLog('💧 Master Liang has not offered that errand yet.');
+        fullRender();
+        return;
+    }
+
+    beginActionLog();
+    if (!advanceTime(mission.months, `Well-Ring: ${mission.name}`)) {
+        cancelActionLog();
+        fullRender();
+        return;
+    }
+
+    let pay = mission.payMin + Math.floor(Math.random() * (mission.payMax - mission.payMin + 1));
+    let meritGain = mission.merit;
+    let note = '';
+    if (mission.risk && Math.random() < mission.risk) {
+        const dmg = 2 + Math.floor(Math.random() * 5);
+        G.hp = Math.max(1, (G.hp || 1) - dmg);
+        pay = Math.floor(pay * 0.75);
+        note = ` A scrap costs ${dmg} HP.`;
+    }
+    if (mission.dirty) {
+        G.wellRing.dirtyDone = (G.wellRing.dirtyDone || 0) + 1;
+        note += ' The pouch changes hands. You do not ask.';
+        if (!G.wellRing.heardFeeScam && G.wellRing.dirtyDone >= 1 && Math.random() < 0.55) {
+            G.wellRing.heardFeeScam = true;
+            note += ' Later you hear the sash fee never comes back — quiet pockets.';
+        }
+    }
+
+    G.stones = (G.stones || 0) + pay;
+    G.wellRing.merit = (G.wellRing.merit || 0) + meritGain;
+    G.wellRing.lastMissionMonth = G.ageMonths || 0;
+    if (Math.random() < 0.55) {
+        G.wellRing.rivalMerit = (G.wellRing.rivalMerit || 0) + 1 + (mission.dirty ? 1 : 0);
+        note += ' Wei Shun logged a run too.';
+    }
+
+    commitActionLog(`💧 ${mission.name}: +${pay} Stones, +${meritGain} merit.${note}`);
+    fullRender();
+}
+
+function actionWellRingRefuseDirty() {
+    if (G.gameOver || G.inCombat) return;
+    ensureWellRingState();
+    if (!G.wellRing.member) return;
+    G.wellRing.merit = Math.max(0, (G.wellRing.merit || 0) - 1);
+    addLog('💧 You turn down the sealed pouch. Master Liang notes it. Sash stays — merit slips (−1).');
+    fullRender();
+}
+
+function actionWellRingClaimManual() {
+    if (G.gameOver || G.inCombat) return;
+    ensureWellRingState();
+    const wr = G.wellRing;
+    if (!wr.member) {
+        addLog('💧 Only lodge outers may claim Quiet Breath.');
+        fullRender();
+        return;
+    }
+    if (wr.manualClaimed) {
+        addLog('💧 You already took a copy of Quiet Breath.');
+        fullRender();
+        return;
+    }
+    if ((wr.merit || 0) < WELL_RING_MANUAL_MERIT) {
+        addLog(`💧 Master Liang wants more merit first (${wr.merit || 0}/${WELL_RING_MANUAL_MERIT}).`);
+        fullRender();
+        return;
+    }
+    if ((G.stones || 0) < WELL_RING_MANUAL_FEE) {
+        addLog(`💧 Manual courtesy fee: ${WELL_RING_MANUAL_FEE} Stones.`);
+        fullRender();
+        return;
+    }
+    if (typeof grantMethodScroll !== 'function') {
+        addLog('💧 The notebook copy cannot be granted right now.');
+        fullRender();
+        return;
+    }
+    G.stones -= WELL_RING_MANUAL_FEE;
+    const ok = grantMethodScroll(WELL_RING_MANUAL_ID, { source: 'well_ring_lodge', silent: true });
+    if (!ok) {
+        G.stones += WELL_RING_MANUAL_FEE;
+        addLog('💧 Could not stow the scroll — travel kit full?');
+        fullRender();
+        return;
+    }
+    wr.manualClaimed = true;
+    addLog(`💧 Master Liang slides you his patched notebook copy — Well-Ring Quiet Breath (−${WELL_RING_MANUAL_FEE} Stones courtesy). Better than bazaar trash. Study it from your scrolls.`);
+    fullRender();
+}
+
+function actionWellRingTournament() {
+    if (G.gameOver || G.inCombat) return;
+    ensureWellRingState();
+    const wr = G.wellRing;
+    if (!wr.member) return;
+    if (!wr.tournamentDue) {
+        addLog('💧 Promotion tournament is not due until next year.');
+        fullRender();
+        return;
+    }
+    beginActionLog();
+    if (!advanceTime(1, 'Well-Ring promotion tournament')) {
+        cancelActionLog();
+        fullRender();
+        return;
+    }
+    const year = Math.floor((G.ageMonths || 0) / 12);
+    wr.lastTournamentYear = year;
+    wr.tournamentDue = false;
+
+    const seed = (wr.merit || 0) >= (wr.rivalMerit || 0);
+    let won = seed ? Math.random() < 0.62 : Math.random() < 0.38;
+    let line;
+    if (won) {
+        wr.merit = (wr.merit || 0) + 4;
+        line = '💧 Promotion tournament — you take the yard nod. +4 merit. Master Liang\'s "inner nod" is only flavor; the board still rules.';
+    } else {
+        wr.rivalMerit = (wr.rivalMerit || 0) + 3;
+        wr.merit = (wr.merit || 0) + 1;
+        line = '💧 Promotion tournament — Wei Shun edges you. +1 merit. The board will remember.';
+    }
+    if (!wr.heardFeeScam && (wr.merit || 0) >= 8) {
+        wr.heardFeeScam = true;
+        line += ' Between bouts someone laughs: sash fees feed quiet pockets.';
+    }
+    commitActionLog(line);
+    fullRender();
+}
+
+function openWellRingPopup() {
+    if (G.gameOver || G.inCombat) return;
+    ensureQcDepthState();
+    if (!isAtRedwell()) {
+        addLog('💧 Well-Ring Lodge sits on Redwell\'s fringe.');
+        fullRender();
+        return;
+    }
+    const list = document.getElementById('thresholdJobsList');
+    const popup = document.getElementById('thresholdJobsPopup');
+    const title = popup?.querySelector('h2');
+    if (title) title.textContent = '💧 Well-Ring Lodge';
+    if (!list || !popup) {
+        if (!isWellRingMember()) actionWellRingJoin();
+        return;
+    }
+
+    ensureWellRingState();
+    const wr = G.wellRing;
+
+    if (!wr.member) {
+        list.innerHTML = `
+            <div class="desc" style="margin-bottom:10px;">Sand-brick fringe lodge. Master Liang (early FE) trains local outers to "keep the well and road quiet." Registration takes a sash fee — grit and ink, he says.</div>
+            <div class="popup-item can-buy" id="wellRingJoinBtn" style="cursor:pointer;">
+                <div class="name">💧 Pay outer registration</div>
+                <div class="desc">Join as outer · ${WELL_RING_JOIN_FEE} Stones · no trial</div>
+            </div>`;
+        document.getElementById('wellRingJoinBtn')?.addEventListener('click', () => {
+            popup.classList.remove('active');
+            actionWellRingJoin();
+        });
+        popup.classList.add('active');
+        return;
+    }
+
+    const board = getWellRingBoardRows().map((r, i) => {
+        const mark = r.you ? ' ← you' : (r.rival ? ' ← rival' : '');
+        return `${i + 1}. ${r.name} · ${r.merit} merit${mark}`;
+    }).join('<br>');
+
+    const missions = listWellRingMissionsAvailable();
+    let missionHtml = missions.map(m => {
+        const dirty = m.dirty ? ' · Quiet errand' : '';
+        const risk = m.risk ? ' · Risk' : '';
+        return `<div class="popup-item can-buy" data-wr-mission="${m.id}" style="cursor:pointer;">
+            <div class="name">${m.emoji} ${m.name}</div>
+            <div class="desc">${m.flavor}</div>
+            <div class="desc" style="margin-top:4px;color:#d4a860;">${m.months} mo · ${m.payMin}–${m.payMax} Stones · +${m.merit} merit${dirty}${risk}</div>
+        </div>`;
+    }).join('');
+
+    if (missions.some(m => m.dirty)) {
+        missionHtml += `<div class="popup-item" id="wellRingRefuseDirty" style="cursor:pointer;opacity:0.9;">
+            <div class="name">✋ Refuse sealed pouch</div>
+            <div class="desc">Keep the sash · −1 merit · Liang notes it</div>
+        </div>`;
+    }
+
+    const manualReady = !wr.manualClaimed && (wr.merit || 0) >= WELL_RING_MANUAL_MERIT;
+    const manualLine = wr.manualClaimed
+        ? 'Quiet Breath already claimed.'
+        : manualReady
+            ? `Claim Quiet Breath · ${WELL_RING_MANUAL_FEE} Stones courtesy · merit ok`
+            : `Quiet Breath locked · merit ${wr.merit || 0}/${WELL_RING_MANUAL_MERIT}`;
+
+    const tourneyLine = wr.tournamentDue
+        ? 'Promotion tournament due — click to enter (1 mo)'
+        : 'Next promotion tournament after year-turn';
+
+    const scamNote = wr.heardFeeScam
+        ? '<div class="desc" style="margin-top:8px;color:#a09080;">You have heard the sash fee never returns — quiet pockets with the town\'s betters.</div>'
+        : '';
+
+    list.innerHTML = `
+        <div class="desc" style="margin-bottom:8px;">Master Liang · outer sash · merit <b>${wr.merit || 0}</b> · board rank <b>${getWellRingPlayerRank()}</b></div>
+        <div class="desc" style="margin-bottom:10px;line-height:1.45;"><b>Monthly board</b><br>${board}</div>
+        <div class="popup-item${wr.tournamentDue ? ' can-buy' : ''}" id="wellRingTourneyBtn" style="${wr.tournamentDue ? 'cursor:pointer;' : 'opacity:0.65;'}">
+            <div class="name">🏅 Yearly promotion tournament</div>
+            <div class="desc">${tourneyLine}</div>
+        </div>
+        <div class="popup-item${manualReady ? ' can-buy' : ''}" id="wellRingManualBtn" style="${manualReady ? 'cursor:pointer;' : 'opacity:0.65;'}">
+            <div class="name">📘 Well-Ring Quiet Breath</div>
+            <div class="desc">${manualLine}</div>
+        </div>
+        <div class="tech-group-header" style="margin-top:10px;">Missions</div>
+        ${missionHtml}
+        ${scamNote}
+        <div class="popup-item" id="wellRingLeaveBtn" style="cursor:pointer;margin-top:8px;opacity:0.85;">
+            <div class="name">Leave lodge</div>
+            <div class="desc">Drop sash · rejoin costs registration again</div>
+        </div>`;
+
+    list.querySelectorAll('[data-wr-mission]').forEach(row => {
+        row.addEventListener('click', () => {
+            popup.classList.remove('active');
+            actionWellRingMission(row.getAttribute('data-wr-mission'));
+        });
+    });
+    document.getElementById('wellRingRefuseDirty')?.addEventListener('click', () => {
+        popup.classList.remove('active');
+        actionWellRingRefuseDirty();
+    });
+    document.getElementById('wellRingTourneyBtn')?.addEventListener('click', () => {
+        if (!G.wellRing.tournamentDue) return;
+        popup.classList.remove('active');
+        actionWellRingTournament();
+    });
+    document.getElementById('wellRingManualBtn')?.addEventListener('click', () => {
+        if (!manualReady) return;
+        popup.classList.remove('active');
+        actionWellRingClaimManual();
+    });
+    document.getElementById('wellRingLeaveBtn')?.addEventListener('click', () => {
+        popup.classList.remove('active');
+        actionWellRingLeave();
     });
     popup.classList.add('active');
 }
