@@ -60,6 +60,16 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Gu cultivation system (symbiotic)](gu-cultivation-system.md) | `idea` (**parked**) | Owner gu research; mechanics sketch | — |
 | [Jade Archipelago — gu great sect](jade-archipelago-gu-sect.md) | `idea` (**parked**) | Gu cultivation system | — |
 | [Storm Dragon Sect (archipelago)](storm-dragon-sect.md) | `idea` (shell) | Owner great-sect pass; zone spine | — |
+| [Outer-zone great powers (hub)](outer-zone-great-powers.md) | `idea` | Owner per-zone passes | — |
+| [Frostbite origin — Sunless Scar](frostbite-origin.md) | `idea` | Owner treasure variant | — |
+| [Yin Maiden Palace (Frostbite)](frostbite-yin-sect.md) | `idea` | Lineage manual; Frostpeak pivot | — |
+| [Silence-debt mid sects](silence-debt-mid-sects.md) | `idea` (parked) | Yin Maiden war role | — |
+| [Dao Wars — outer zones](dao-wars-outer-zones.md) | `idea` | Timeline lock; mid sect debts | — |
+| [Dao Wars — Capital Turn](dao-wars-capital-turn.md) | `designed` (v2) | Tianjing siege; chronicle | — |
+| [Law taxonomy — primordial vs dao](law-taxonomy.md) | `idea` | Hanzi lock; cosmology pass | — |
+| [Cosmology — ancients taxonomy](cosmology-ancients-taxonomy.md) | `designed` (v1) | Grotto vs prisoner vs sealed | — |
+| [World timeline handoff](world-timeline-handoff.md) | `idea` | Dates for Seal, Dao Wars, mandate, now | — |
+| [World timeline — author spine](world-timeline-author-spine.md) | `idea` | Eras, Warring States, sites; owner PC for prisoner | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
 | [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes | — |
@@ -67,6 +77,10 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
 | [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | \idea\ (lean locked) | Anatomy P1–2; full design later | — |
+| [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
+| [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
+| [Body Martial Intent (武意)](body-martial-intent.md) | `idea` | Body chamber; intent split | — |
+| [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
 | [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
 | [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `designed` (Pinwright + strata lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
@@ -81,14 +95,26 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Tribulation — per-gate backlog](tribulation-per-gate-backlog.md) | `idea` (QC→FE `building`) | Owner design per watershed | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-per-gate-backlog | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
-| [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` (parked) | Intent slice; Redwell first | [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
-| [Weapon Intent — cultivation loop](weapon-intent-cultivation.md) | `designed` (parked) | Redwell / starter slice | [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
+| [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` (parked) | Intent slice; Redwell first | — |
+| [Combat — anatomy & damage types](combat-anatomy-damage.md) | `idea` (parked) | Owner damage pass | — |
+| [Weapon Intent — cultivation loop](weapon-intent-cultivation.md) | `designed` (parked) | Redwell / starter slice | — |
+| [Weapon Intent — awakening redesign](weapon-intent-awakening.md) | `designed` (stub) | First catalyst items; FE slice | — |
 | [Intent track template](intent-track-template.md) | `designed` (parked) | Intent realms 1–2 build | — |
 | [Intent apex — Self-Will path](intent-apex-self-will.md) | `designed` (parked) | Intent playable slice | — |
+| [Devouring Intent](devouring-intent.md) | `designed` (v1) | Awakening redesign; cult content | — |
+| [Devouring Law](devouring-law.md) | `designed` (v1) | Dao redo; cult fragments | — |
+| [Heavenly Demon Cult](heavenly-demon-cult.md) | `designed` (v1) | Devouring Intent; lineage manual | — |
+| [Heavenly Demon Cult — life ladder](heavenly-demon-cult-life.md) | `designed` (v1) | Template sect slice | — |
+| [Heavenly Demon Cult — FE Initiate life](heavenly-demon-cult-fe-initiate.md) | `designed` (v1) | FE chamber; damage rework (combat) | — |
+| [Heavenly Demon Cult — GC Reaver life](heavenly-demon-cult-gc-reaver.md) | `designed` (v1) | GC chamber; Taking intent; damage rework | — |
+| [Heavenly Demon Cult — branch cells](heavenly-demon-cult-branch-cells.md) | `idea` (parked) | Merit ledger; multi-cell math | — |
+| [Blood Sealing Gorge](blood-sealing-gorge.md) | `designed` (v1) | Cult HQ layout; hidden map | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
+| [Time model — lived journey + seclusion skips](time-model.md) | `designed` | Deferred priority; lived mode needs location/NPC density | — |
 | [Living world clock (continuous)](world-clock-continuous.md) | `building` (Phase 2) | — | [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) |
 | [QC cultivate on the living clock](qc-cultivate-excitement.md) | `designed` | Clock Phase 2 playtest | — |
+| [Passive cultivation floor & focused sessions](passive-cultivation-floor.md) | `building` | Playtest tune (inferior bare → Peak QC) | — |
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `designed` | Chamber pacing tune pass | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
