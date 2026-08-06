@@ -84,6 +84,8 @@ Centuries of pamphlets, recruiters, raid culture, noble patrons (House of Su som
 
 **Fanatical, not stupid:** test mandate, fund coups, raid for fervor — all toward **metaphysical renewal**, not blind continental war.
 
+**Vajra Ridge (Mad Monks):** northern **expansion nuisance** — Da Chi’s **intrusion brawls** broke Phoenix **momentum** on fringe campaigns (both sides stung, no clean Phoenix victory); monks refused ash ideology but took the scraps. Phoenix pamphlets: **charter vermin**. Detail: [`body-path-sect.md`](body-path-sect.md).
+
 ---
 
 ## The Nine Ascents (涅槃九升)

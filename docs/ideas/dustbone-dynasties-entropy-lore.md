@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (Pinwright + basin law lock) |
+| **Status** | `idea` — lore stub |
 | **Blocked on** | none for lore |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent brainstorm; parked 2026-07-25; Pinwright + sand strata lock 2026-07-31 · PR [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
-| **Updated** | 2026-07-31 |
+| **Chat / PR** | Cloud agent brainstorm; parked 2026-07-25; naming lock 2026-07-26 |
+| **Updated** | 2026-08-02 (Third pre–Dao Wars — owner) |
 
 ## Intent
 
@@ -27,7 +27,7 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 
 | Term | Use |
 |------|-----|
-| **Law of Dust** | Formal name of the completed local dao — accelerated return-to-formlessness in this basin |
+| **Law of Dust** | Formal name of the completed **basin statute** — accelerated return-to-formlessness in this basin ([`law-taxonomy.md`](law-taxonomy.md) layer 2) |
 | **Return-to-Dust** | Rites, common speech, cascade flavor (“may you return to dust”) |
 | **Entropy** | Scholar / Pinwright / chaos-path root metaphor |
 
@@ -47,55 +47,34 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 
 **Now:** law still true; **cascade frequency low** — post-Third equilibrium, smaller city inside vast walls, mobile tribes, pin maintained. **Organised chaos** (no single iron throne) helps stay under threshold. **Fourth Cascade** risk if order density spikes again (player manor, sect industrial scale).
 
-### Sand stratigraphy (owner lock 2026-07-31)
+### Sand
 
-**Layers are real depth** — each cascade laid down a signature body. **Surface exposure varies by place** (wind, erosion, Third-dynasty digging).
-
-| Stratum | Cascade | Character |
-|---------|---------|-----------|
-| **First** | First | Deep / pale — oldest converted mass |
-| **Second** | Second | **Red** sand |
-| **Third** | Third | **Iron-grit** — extraction-era discharge |
-
-| Place | At grade | Notes |
-|-------|----------|-------|
-| **Threshold (pin)** | First spring infrastructure + built dynasty layers | See [`settlement-lore.md`](settlement-lore.md) — spring/towers/iron scars = **vertical city archaeology**, not a separate sand belt |
-| **Redwell** | **Second red** stratum | [`redwell-starter-city.md`](redwell-starter-city.md) |
-| **Ironscar** | Third-dynasty **cut** into ridge — iron-grit at face | Place ≠ Sunscar tribe |
-| **Deep dunes** | Mostly First exposed | Hostile margins |
-
-Large chunk of basin sand = cascade discharge + eaten landscape — not every grain continent-wide. Ongoing slow grind at margins.
+**Large chunk** of basin sand = discharge from three cascades + eaten landscape — not necessarily every grain continent-wide. Layers: First deep / Second red / Third iron-grit. Ongoing slow grind at margins.
 
 ---
 
 ## Three dynasties (successive)
 
-### First — Pinwright (owner lock 2026-07-31)
+### First — Pinwright
 
-**Same person, two acts** — not “founder builds pin on day one.”
-
-| Act | Beat |
-|-----|------|
-| **Early First** | Young ruler builds **First Dynasty** on the oasis / Threshold site — normal city, empire prospers |
-| **Late First** | Abdicates / steps back; **comprehends** Return-to-Dust (pre-peak **chaos-path** partial law) |
-| **Pinwright act** | Tries an **unending city** — no erosion by time or division; **practical permanence** at the pin (ward holds for mortal lifespans; **not** true eternity) |
-| **Failure / price** | **Partial success:** **Order Anchor** (spirit spring + ward) by **routing dissolution outward** — conservation of mass/pattern, not sacrifice. **Rest of basin pays:** geography + empire mass → sand (**fuel for pin**); basin now runs on his **half-finished rule** |
-
-**Motive (locked):** **Hubris** — thought himself capable of imposing permanence; failed Creation-scale balance.
-
-**Law of Dust:** Legislated when he tried to **exempt** his city — cascades as **consequence** of partial overreach, not a threat he was fleeing. Pre-First: weak scar / slow loss possible; formal **order ceiling** + dissolution events = his legislation.
-
-**Remembered vs Chaos “forgotten”:** Pinwright **wrote on the basin** — too visible to erase. Late Chaos / grotto masters who **sever** heaven’s ledger aim for **unwritten** obscurity; he is the counterexample (**badly written**, not forgotten). Personal name may be lost; **Pinwright** title/epithet persists. See [`chaos-cultivation-path.md`](chaos-cultivation-path.md).
+- High **chaos-path** walker (**pre-peak**) — could **write partial laws**, not balance creation-scale edits. See [`chaos-cultivation-path.md`](chaos-cultivation-path.md).
+- Built **Order Anchor** (spirit spring + undecaying ward) by **routing dissolution outward** — **conservation of mass/pattern**, not human sacrifice.
+- Empire lost **coherence** — scattered to winds; became sand **fuel**.
 
 ### Second — remnants, wrong lesson
 
 - Salvaged **architecture** of First; built **towering sandstone** shell of what is now **Threshold City**; registry law.
 - **Arrogance of density** — mistook exception for mastery.
 
-### Third — outsiders
+### Third — outsiders (**before the Dao Wars**)
 
-- Imperial garrison, extraction, standard order at scale; learned from **Second rubble**, not First mystery.
-- Recent enough for tribal memory.
+- **Continental / Heartlands-scale** garrison and extraction — **not** the Tian mandate (that comes later).
+- Predates the **Dao Wars** (道战 / “warring states” era) — owner lean 2026-08-02; exact age **TBD**.
+- Learned from **Second rubble**, not First mystery — repeated the mistake: **administrative order at empire scale** in a basin with Law of Dust.
+- **Third Cascade** — fast singularity; garrison **gone**; iron-grit layer in the sand.
+- **Lesson for the Heartlands** (learned **a long while ago**): heavy extraction in Dustbone **triggers the desert, not tribute**. Charter-era regents still cite Third when Lotus wants another registry push in Threshold.
+
+*Dao Wars Dustbone role:* caravans, smuggling, refugees — **not** another imperial garrison. See [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 
 ---
 
@@ -105,33 +84,21 @@ Large chunk of basin sand = cascade discharge + eaten landscape — not every gr
 - Player-facing name: **Threshold City** (lives under cascade threshold on purpose). Data id may remain `bone_crossroads` until rename pass.
 - **1st-tier** civic scale ([`city-tiers.md`](city-tiers.md)) with thin stationed apex — joint **Sandveil Tribunal**, not one City Lord.
 - **Sandveil Tribunal:** Ashen (rites/decay), Dune Riders (move trade), Sunscar (strength in sand) — **coping strategies**, not dynasty crowns. Tribes do not fight to rule the city hard — concentration risks the Fourth Cascade.
-- **Empty towers:** deliberate **negative space** — monument to unending-city ambition; taboo is **known occupancy risk**, not paranormal. Squatter rumors + harsh civic response → [`settlement-lore.md`](settlement-lore.md).
-
-### Why tribes (and dynasties) don’t “just grow” inside Threshold
-
-The pin protects the **spring/ward node**, not unlimited population. **Order = cascade fuel** under Pinwright’s rule.
-
-| Reason | Fiction |
-|--------|---------|
-| **Concentration ceiling** | Registry caps / census = **load accounting**; one ward too many can trip Fourth Cascade |
-| **Historical lesson** | Second (monument order) and Third (admin at pin) **already cascaded** from growing on the exception |
-| **Tribal identity** | Blood + camp + caravan — not city census; profit **from** pin without **becoming** it |
-| **Treaty logic** | Sandveil = none of the three crowns the pin; gates not garrison |
-| **Economics** | Miraj/Sunscar/Ashen as **feeders** (trade, escort, rites) — see [`sandveil-tribunal-cultures.md`](sandveil-tribunal-cultures.md) |
-
-Tribe origins (Model B): Third Dynasty **departments** went feral — extraction security → Sunscar; caravan corps → Miraj; cascade shrine-readers → Ashen. Intermarried adjacent posts; rivalry = old service contempt, not separate peoples.
 
 ---
 
 ## Timeline
 
 ```text
-Pre-First (weak scar; not always sand sea)
-→ Early First (dynasty prospers on oasis)
-→ Late First (same ruler comprehends; Pinwright act; First Cascade)
-→ Second + Second Cascade → Third + Third Cascade
-→ Now (shrunken Threshold, tribes outside, under threshold) → Fourth? (player/sect risk)
+Pre-First → First + Pin + First Cascade → Second + Second Cascade
+→ Third Dynasty + Third Cascade (BEFORE Dao Wars — prior empire, not Tian)
+→ … long gap — tribes, Threshold under threshold, Heartlands learns “don’t extract Dustbone”
+→ Dao Wars (Heartlands = main territorial prize; outer zones touched differently)
+→ Half-Step + charter settlement
+→ Now (under cascade threshold; Fourth? risk)
 ```
+
+**Age:** Third is **old** — tribal memory, Registry scare quotes, not living veterans. Exact centuries **open**.
 
 ---
 
@@ -143,11 +110,30 @@ Pre-First (weak scar; not always sand sea)
 
 ## Open questions
 
-- [x] Pinwright motive — **hubris** (unending city); **same person** early king → late comprehend-er (2026-07-31)
-- [ ] Pinwright **personal name** (epithet may be all that survives)
+- [ ] Pinwright name, motive (save vs hubris)
 - [ ] Spring maintenance rites (calibration without blood tithe)
 - [ ] Player-visible order meter vs hidden
 - [ ] Whistling Dunes / Dune Sovereign vs Pinwright — same scar or echo?
+
+### Parked — why couldn’t a chaos walker wield Law of Dust effectively? (owner 2026-08-02)
+
+**Not designing now.** Pinwright was a **pre-peak chaos walker** who **legislated** Return-to-Dust and pinned the oasis — yet the First Cascade **ate his empire**. What makes **Law of Dust** different from “chaos energy you wield”?
+
+**Draft axes to resolve later:**
+
+| Axis | Law of Dust | Chaos path (endgame) |
+|------|-------------|----------------------|
+| **Nature** | **Completed local dao** — environmental rule in one basin | **Unwritten primordial** — return to source, author new law |
+| **Pinwright’s limit** | Could **write partial legislation**, not **Creation-peak balance** | Full chaos curriculum is **post–false-immortal** — he was **pre-peak** |
+| **Wield vs live inside** | After completion, the law is **physics of the basin** — not a technique to channel | Chaos walkers **compress / unwrite** — wielding a **finished entropy law** may **fight** the path |
+| **Pin’s mistake** | Routed dissolution **outward** to buy an **order exception** (spring + ward) without paying **creation-scale** counterweight | Cascade used **sand as fuel** — conservation of pattern, not controlled tool |
+| **Contrast Sunless Scar** | Dust = **order concentration triggers return-to-form** | Frost = **yin-supremacy object field** — different wound ([`frostbite-origin.md`](frostbite-origin.md)) |
+
+**Possible answer (parked, not locked):** Law of Dust isn’t weak chaos — it’s **already legislated**. A chaos walker doesn’t “wield” it like fire; they **either authored it and lost balance** (Pinwright) or **walk with it** (mortals under threshold). **Effective wielding** might require **Creator-aspect completion** he never reached — he wrote **half a law** (dissolution route) without the **creation** half that would have made the pin stable.
+
+- [ ] Is Law of Dust **incompatible** with chaos-as-unwriting, or **adjacent** (entropy aspect) but incomplete?
+- [ ] Could a **peak** chaos Progenitor **rewrite** the basin law, or only live with it?
+- [ ] Link Whistling Dunes / Dune Sovereign — second entropy echo or unrelated?
 
 ---
 

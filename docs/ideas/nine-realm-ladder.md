@@ -191,6 +191,7 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 - `isImmortal()`: `>= 6` → `>= 8`  
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock, height labels in roots doc  
 - Soul / body paths: parallel realm **names** at each index (shared idx, different skin)  
+- Body idx 8 capstone (generic): **Saintly Flesh** realm (圣体境); person shorthand **Saint** / **Saints** (圣人 / 圣者) — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). Buddhist **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**.
 
 ## Links
 

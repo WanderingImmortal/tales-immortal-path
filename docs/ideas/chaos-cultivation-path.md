@@ -22,9 +22,7 @@ It sits **beyond** the false Immortal Ascension watershed: long, difficult, tran
 
 ### Mortal-world link (Dustbone)
 
-First-era **Pinwright** — pre-peak chaos walker who **legislated Return-to-Dust** and **pinned** Threshold oasis — is **local history**, not this path’s full curriculum. Lore: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md). Life-sim hub: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md).
-
-**Pinwright vs “forgotten” Chaos walkers (owner 2026-07-31):** Pinwright **wrote partial law into the basin** — hyper-visible, cannot be karma-severed into obscurity. Late Chaos / **grotto masters** who complete **unregister** (`Split registry` / sacrifice entry) aim for **unwritten** personal fate — myth, not geography. Pinwright = failed legislator on the ledger; grotto master = left the ledger. Same chaos-adjacent vocabulary; opposite relationship to memory.
+First-era **Pinwright** — pre-peak chaos walker who **legislated Return-to-Dust** and **pinned** Bone Crossroads oasis — is **local history**, not this path’s full curriculum. Lore: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md) (includes **parked question**: why he couldn’t *wield* Law of Dust effectively). Life-sim hub: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md).
 
 ## How Chaos plugs into mandate / true immortality
 
@@ -256,8 +254,6 @@ Rough **feel** mapping — not 1:1 combat parity:
 | Primordial Ascension | Immortal Ascension **but far beyond it** |
 
 ### Grotto Masters (hidden mentors / cautionary tales)
-
-**Taxonomy:** These are **category A — grotto masters** of **this heaven** ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)), not epoch survivors and **not** the Void **unclassified** prisoner.
 
 Hidden, hard to find; offer insight into the Chaos Path. Tied narratively to failed or incomplete walks:
 

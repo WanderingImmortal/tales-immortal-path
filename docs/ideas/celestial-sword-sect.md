@@ -74,6 +74,7 @@ Phoenix broke **late** and was **forced** to kneel after the Flame Emperor fell.
 - **Cold war with Golden Phoenix** — flame expansionists vs Sword Dao purists; Phoenix Gambit puts Sword in an awkward seat (honor vs Lotus ally).
 - **Imperial relation** — respected, not loved. Tian court hires Sword for **licensed duels** and edict enforcement; Sword accepts when the job is *worthy of a sword*, refuses when it isn’t.
 - **Void Temple** — uneasy respect. Sword elders think Void scholars hide behind books; Void adepts think Sword cultivators mistake violence for clarity. They ally against Phoenix when the charter cracks.
+- **Vajra Ridge (Mad Monks)** — Dao Wars **border spars** and intrusion brawls that **stung Sword lines**; Da Chi (pre–Saint patriarch) **wanted** honorable fist tests; **no** Sepulcher taboo. Yun Jian aged from the reports; Sword Immortal did not leave the array for a fool. Detail: [`body-path-sect.md`](body-path-sect.md).
 
 ---
 
