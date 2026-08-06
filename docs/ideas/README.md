@@ -47,6 +47,9 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Jade Lotus Sect](jade-lotus-sect.md) | `designed` (v2 — lineage sketch) | `jlc_*` manual pool; Matriarch reveal | — |
 | [Void Temple](void-temple-sect.md) | `designed` (v1) | Lineage stub; gate travel; Little Heaven beats | — |
 | [Golden Phoenix Sect](golden-phoenix-sect.md) | `designed` (v1) | Lineage stub; Gambit immortal veto | — |
+| [Gu cultivation system (symbiotic)](gu-cultivation-system.md) | `idea` (**parked**) | Owner gu research; mechanics sketch | — |
+| [Jade Archipelago — gu great sect](jade-archipelago-gu-sect.md) | `idea` (**parked**) | Gu cultivation system | — |
+| [Storm Dragon Sect (archipelago)](storm-dragon-sect.md) | `idea` (shell) | Owner great-sect pass; zone spine | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
 | [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes | — |
