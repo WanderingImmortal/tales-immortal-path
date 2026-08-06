@@ -46,6 +46,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
 | [Jade Lotus Sect](jade-lotus-sect.md) | `designed` (v2 — lineage sketch) | `jlc_*` manual pool; Matriarch reveal | — |
 | [Void Temple](void-temple-sect.md) | `designed` (v1) | Lineage stub; gate travel; Little Heaven beats | — |
+| [Void Prisoner](void-prisoner.md) | `designed` (origin) | Disciple pass (Sealed Ancients) | — |
+| [Heartlands hunt scar](heartlands-hunt-scar.md) | `designed` | High-realm climb; FG rewrite Issue | — |
 | [Golden Phoenix Sect](golden-phoenix-sect.md) | `designed` (v1) | Lineage stub; Gambit immortal veto | — |
 | [Gu cultivation system (symbiotic)](gu-cultivation-system.md) | `idea` (**parked**) | Owner gu research; mechanics sketch | — |
 | [Jade Archipelago — gu great sect](jade-archipelago-gu-sect.md) | `idea` (**parked**) | Gu cultivation system | — |

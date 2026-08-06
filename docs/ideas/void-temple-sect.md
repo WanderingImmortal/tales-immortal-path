@@ -3,12 +3,12 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `designed` (v1 — prison spine + Void Seeker) |
-| **Blocked on** | Lineage manual implementation; gate travel mechanics; prisoner track design |
+| **Blocked on** | Lineage manual implementation; gate travel mechanics; Little Heaven beats |
 | **Issue** | none yet |
-| **Chat / PR** | Heartlands sect pass, 2026-07-23 |
-| **Updated** | 2026-07-23 (Void Seeker locked) |
+| **Chat / PR** | Heartlands sect pass, 2026-07-23; prisoner origin → [`void-prisoner.md`](void-prisoner.md) |
+| **Updated** | 2026-07-30 (prisoner origin parked) |
 
-Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`jade-lotus-sect.md`](jade-lotus-sect.md), [`celestial-sword-sect.md`](celestial-sword-sect.md).
+Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`jade-lotus-sect.md`](jade-lotus-sect.md), [`celestial-sword-sect.md`](celestial-sword-sect.md). **Prisoner origin (agents):** [`void-prisoner.md`](void-prisoner.md).
 
 **Terminology:** **Void Temple** / **Void Gate** arts ≠ **Void Refinement** (realm 5). **Outer void** = beyond the firmament (sky shell), not the ocean horizon.
 
@@ -56,7 +56,7 @@ Planet-scale cosmology **parked** — continent + firmament is enough for v1.
 
 The Void Temple predates every other Heartlands great sect in its **current duty**. They were not founded to teach the jianghu — they were founded to **hold something**.
 
-A **pre-heaven cultivator** — unbound by heaven’s rules, possibly a **different cultivation track** *(parked)* — could not be destroyed. Killing failed. Banishment failed. The one who would become the **Void Seeker** bound him in a **void pocket**: **Void Prison**.
+A **pre-Seal true-dao walker** — see [`void-prisoner.md`](void-prisoner.md) — could not be destroyed under heaven’s ledger. Killing failed. Banishment failed. The one who would become the **Void Seeker** (then **Dao Manifestation**, not yet Immortal) rounded up peer DMs and bound him in a **void pocket**: **Void Prison**.
 
 The prisoner, with black humor, named it **Little Heaven** (小天堂). The name stuck in inner court.
 
@@ -74,7 +74,7 @@ They were **neutral late** — not from weakness, from **priority**.
 
 ### After the mandate — the Seeker left
 
-The prison held. Maintenance did not end. The Void Seeker — already **Immortal** — could not **finish** the prisoner. He laid the lock, trained the **Watch**, and entered the **outer void** to find a true end: unmake, kill, or seal that does not require eternal upkeep.
+The prison held. Maintenance did not end. The Void Seeker — **Dao Manifestation at the binding**, later **Immortal** — still could not **finish** the prisoner. He laid the lock, trained the **Watch**, and entered the **outer void** to find a true end: unmake, kill, or seal that does not require eternal upkeep.
 
 He has **not** retired. He **returns through gates** when the seal strains. Some Watch elders say he is dead beyond the sky; gate signatures say otherwise.
 
@@ -89,13 +89,15 @@ He has **not** retired. He **returns through gates** when the seal strains. Some
 
 ## The seal — nameless prisoner
 
+**Full origin / power / dao locks:** [`void-prisoner.md`](void-prisoner.md) — do not invent a parallel backstory here.
+
 | Field | Value |
 |-------|-------|
 | **Name** | **None** — nameless by policy and practicality |
-| **Nature** | Pre-heaven; **outside** current heaven’s rules |
-| **Lifespan** | At least **immortal-tier**; may be longer |
-| **Durability** | Extreme — **sealing** because destruction is not feasible |
-| **Cultivation** | Separate track *(parked — not player-facing in v1)* |
+| **Nature** | Pre-Seal; **true Samsara** (just stepped on when caught); outside ledger kill rules |
+| **Lifespan** | Inestimable |
+| **Durability** | Extreme — **sealing** because ledger destruction is not feasible |
+| **Cultivation** | True-fundamental track *(not player-facing in v1)* |
 | **Prison** | **Void Prison** / **Little Heaven** (小天堂) |
 | **Voice** | Rare; inner court only; bargains **not** like tourist sealed ancients |
 
@@ -283,7 +285,7 @@ Void may **witness**, **warn**, or **gate-deploy wardens** — not pick Lotus’
 | **`lineageId`** | TBD — e.g. `void_temple_qi_line` |
 | **Foundation stamp** | TBD — firmament-edge or void-threshold lean |
 | **VR ratio** | **Highest** among Heartlands four — deliberate pipeline |
-| **Prisoner track** | **Parked** — incompatible pre-heaven path |
+| **Prisoner track** | **Parked** — see [`void-prisoner.md`](void-prisoner.md); not player-facing in v1 |
 
 Ancient arts table above — implement when [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) sect pool ships.
 

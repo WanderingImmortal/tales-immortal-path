@@ -2,19 +2,20 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-08-04
+**Updated:** 2026-07-31
 
 ## Focus
-- Playtest Redwell → fields → brew → bazaar pamphlets ([#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) · [#97](https://github.com/WanderingImmortal/tales-immortal-path/pull/97) · pamphlet pool WIP)
+- **Redwell starter city** (PR #90) — [`redwell-starter-city.md`](ideas/redwell-starter-city.md) · zone [`dustbone-living-board.md`](ideas/dustbone-living-board.md)
 
 ## Next
-- Economy feel (job dry-up / market restock) · cultivate Phase 3 · pacing tune
+- Playtest Redwell · field loot tables · QC pamphlet pool — [`qc-technique-pamphlet-pool.md`](ideas/qc-technique-pamphlet-pool.md)
+- Alchemy close-loop ([`dustbone-qc-alchemy.md`](ideas/dustbone-qc-alchemy.md)) · field enemies ([`explore-field-gathering.md`](ideas/explore-field-gathering.md)) · cultivate Phase 3 · pacing
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
 - Threshold visit · mid city — **after** Redwell feels decent
 
 ## Parked (return later)
-- Forge share of Ironscar ores — after forging content pass
-- Field bosses / Survey-Delve UI — [`explore-field-gathering.md`](ideas/explore-field-gathering.md)
+- Void Prisoner origin (designed) — disciples next — [`void-prisoner.md`](ideas/void-prisoner.md)
+- Heartlands hunt scar FG (designed) — DM+; Glimpse not true Samsara — [`heartlands-hunt-scar.md`](ideas/heartlands-hunt-scar.md)
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
@@ -27,8 +28,6 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
-- Dustbone field sites + QC alchemy close-loop ([#97](https://github.com/WanderingImmortal/tales-immortal-path/pull/97))
-- Redwell starter city ([#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90))
 - Dustbone starter gameplay hub + QC alchemy designs ([#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89))
 - Qi Condensation depth slice ([#78](https://github.com/WanderingImmortal/tales-immortal-path/pull/78))
 - Mortal life sim doc cluster ([#76](https://github.com/WanderingImmortal/tales-immortal-path/pull/76))
