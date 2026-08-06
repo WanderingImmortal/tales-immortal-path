@@ -1049,6 +1049,30 @@ const CULTIVATION_METHOD_POOL = [
         comprehendMonths: 2,
         desc: 'Miraj caravan handout — rest-stop circulation every rider on the red sand knows.',
         shopBlurb: 'Caravan rest pamphlet — kind to tangled roots; common on the Dune Rider roads.'
+    },
+    {
+        id: 'well_ring_quiet_breath',
+        name: 'Well-Ring Quiet Breath',
+        lineageId: 'well_ring_quiet_line',
+        family: 'circulation',
+        methodTier: 'mortal',
+        methodGrade: 'common',
+        reqRealm: 0,
+        rarity: 'uncommon',
+        elements: ['neutral', 'earth'],
+        essences: [],
+        stampsNature: 'plain_balanced',
+        rootFit: { pentamixed: 1.04, mixed: 1.02, dual: 1, single: 1, earth: 1.04 },
+        profile: {
+            gatherMult: 1.08,
+            powerMult: 1.0,
+            densityEfficiency: 1.02,
+            stabilityBias: 0.12
+        },
+        infrastructure: null,
+        comprehendMonths: 2,
+        desc: 'Master Liang\'s patched notebook — years of bazaar breath refined into a lodge syllabus. Better than street pamphlets; still early-FE ceiling trash beside real sects.',
+        shopBlurb: 'Well-Ring Lodge copy — Quiet Breath from the master\'s notes. Not sold at the bazaar.'
     }
 ];
 

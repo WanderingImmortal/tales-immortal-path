@@ -6,16 +6,18 @@
 | **Blocked on** | [`personal-residence.md`](personal-residence.md) per-city dwelling; [`procedural-zone-sect-ecology.md`](procedural-zone-sect-ecology.md) for minor-sect join |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning, 2026-08-01 |
-| **Updated** | 2026-08-01 |
+| **Updated** | 2026-08-06 |
 
 ## Intent
 
 Player progression through cultivation organizations should match xianxia — not only **found a sect at GC and drag it around the map**. Parallel paths:
 
-1. **Hall** (Peak FE) — city politics, rent/buy space, local disciples
+1. **Hall / lodge** (**early FE** to found small; **Peak FE** expands) — city politics, rent/buy space, local disciples
 2. **Sect** (GC+) — anchored mountain/compound, build over time
 3. **Join** — great or minor sect; rise through ranks; skip founder investment
 4. **Inherit** (rare) — talisman deed, ancient claim, story arc
+
+**Owner lock 2026-08-06:** World lesser halls (e.g. Redwell’s Well-Ring Lodge, early-FE master) proved the old “player hall only at Peak FE” gate was too high. Player and world use the **same ladder** — see Path 1.
 
 Hard line A from [`procedural-zone-sect-ecology.md`](procedural-zone-sect-ecology.md) applies to the **world**; player can walk any path below.
 
@@ -34,8 +36,8 @@ Hard line A from [`procedural-zone-sect-ecology.md`](procedural-zone-sect-ecolog
 ```text
                     ┌── Join great sect (authored) ──────────────┐
                     │                                            │
-Peak FE ──► Hall? ──┼── Join minor sect (procedural, later)     ├──► Inner court / elder / leave
-                    │                                            │
+Early FE ──► Lodge/Hall? ──┼── Join minor sect (later)          ├──► Inner court / elder / leave
+                    │         (Peak FE = expand hall)            │
                     └── Skip hall ───────────────────────────────┘
                               │
                          Golden Core
@@ -48,17 +50,25 @@ Peak FE ──► Hall? ──┼── Join minor sect (procedural, later)     
 
 ---
 
-## Path 1 — Hall (Peak FE)
+## Path 1 — Hall / lodge (early FE → Peak FE expand)
 
 **Who:** Player wants local influence without a mountain yet.
 
+**Why early FE (owner 2026-08-06):** Starter towns already have lesser halls run by **early FE** masters (Well-Ring Lodge). Player founding must match that world — not wait until Peak FE while NPCs already run lodges.
+
+**Two steps (same path, not two systems):**
+
+| Step | Gate | What you get |
+|------|------|----------------|
+| **Found lodge / small hall** | **Early FE** + fame/stones (light) | Anchored to city; tiny disciple cap (~Well-Ring scale); teach basics; full city politics (cut, squeeze, charter) |
+| **Expand hall** | **Peak FE** + cost | Bigger cap, stronger local renown, better buffer before GC mountain; still not a sect |
+
 **Mechanics (reuse mortal-life-sim):**
 
-- Found **hall** at Peak FE + fame/stones (lighter than sect founding)
-- **Anchored to `settlementId`** — Redwell courtyard lease, not a wandering flag
+- **Anchored to `settlementId`** — Redwell courtyard / leased compound, not a wandering flag
 - Rent → buy hall space (extend [`personal-residence.md`](personal-residence.md) or `G.hall.lease`)
-- **City politics:** standing with city lord, branch pressure, charter fees ([`city-tiers.md`](city-tiers.md))
-- Recruit **local disciples** (small cap); teach basics; local renown
+- **City politics:** standing with city lord, existing lodge pressure, charter fees ([`city-tiers.md`](city-tiers.md))
+- Recruit **local disciples** (small at early FE; larger after Peak expand)
 - Tab: **Hall** or early **Sect** tab in "hall mode" — TBD UI
 
 **Ascension flow (owner — H3 with phases):**
@@ -73,6 +83,8 @@ Branch is **opt-in after migration**, not default. Light management: steward or 
 ---
 
 **Pushback / fit:** Don't build a second city sim. Hall politics = **standing + events** (branch undercut, warden shakedown, charter renewal) — same vitals fake as background sects.
+
+**Redwell note (2026-08-06):** founding a player lodge here (early FE) hits **Well-Ring Lodge + city lord** soft pressure first (pay a cut / get squeezed) — not instant open war. You’re a peer-weight threat to the *master*, still under the *lord*. Detail: [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md).
 
 ---
 
@@ -219,7 +231,7 @@ Migration: current `G.sect` → `kind: 'sect'` with retroactive `headquartersNod
 
 | Idea | Verdict |
 |------|---------|
-| Hall at FE + city politics | **Yes** — reuse dwelling + standing; event-driven |
+| Hall at FE + city politics | **Yes** — **early FE** found lodge; **Peak FE** expand; reuse dwelling + standing |
 | GC sect with build-out | **Yes** — fix anchor first |
 | HQ follows player | **No** — break this; fixed `headquartersNodeId` |
 | Join great sect | **Yes, high priority** — equal path; use authored factions |
@@ -241,6 +253,7 @@ Migration: current `G.sect` → `kind: 'sect'` with retroactive `headquartersNod
 
 - [x] Sense gate — required for **unique / high-tier** grounds; optional bonus for normal hidden **C**
 - [x] Hall + sect coexistence — after migration; hall → optional branch or closed
+- [x] Hall founding gate — **early FE** (match world lesser halls); Peak FE = expand (2026-08-06)
 - [x] Join timing — **T3 deferred** (per-sect talent/root reqs in identity docs)
 - [x] Join and hall simultaneously? → **No** (locked)
 - [ ] Does inherited sect count as `kind: 'sect'` at half-built state? (defer — inherit phase)

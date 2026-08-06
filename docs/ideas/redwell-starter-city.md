@@ -6,7 +6,7 @@
 | **Blocked on** | Economy feel playtest |
 | **Issue** | none yet |
 | **Chat / PR** | `cursor/redwell-living-board-docs` · build 2026-07-28 · pamphlets `cursor/qc-pamphlet-pool` |
-| **Updated** | 2026-08-04 |
+| **Updated** | 2026-08-06 |
 
 **Zone vision:** [`dustbone-living-board.md`](dustbone-living-board.md)  
 **Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md)  
@@ -25,8 +25,53 @@
 | **Display** | Redwell |
 | **Data id** | `redwell` (suggested) |
 | **Type** | City |
-| **Tier** | 4th ([`city-tiers.md`](city-tiers.md)) — lord ~FE / strong Peak QC |
+| **Tier** | 4th ([`city-tiers.md`](city-tiers.md)) — lord mid–late FE |
 | **Spawn** | **Yes** — replace `bone_crossroads` as default start |
+
+### What Redwell offers the player (usefulness curve)
+
+**Owner lock 2026-08-06:** Redwell is a **good enough** home for rough cultivation through QC into early FE — **not optimal**. More exists out there. You are never *kicked out*; you leave because opportunity pulls harder than the well’s comfort. Staying patiently is always allowed (diminishing returns).
+
+#### Offer by stage
+
+| Stage | What Redwell still gives | Feel |
+|-------|--------------------------|------|
+| **QC (all bands)** | Inn, jobs, bounties, bazaar QC pamphlets/pills, fields (Ironscar / Dewcatch / Bonehollow), brew, Well-Ring join, rumors | **Home.** Suitable rough cultivation. Soft, complete loop. |
+| **Early FE** | Courtyard buy, local top-dog weight rising, Well-Ring peer / found own lodge, still useful fields + civic life | **Still suitable.** Best years to matter here. |
+| **Mid FE** | Can be / pressure the lord seat; town politics peak; cultivation returns thin (mats, manuals, peers) | **Usefulness fades.** Comfort remains; growth slows. Natural “leave when ready” window. |
+| **Late FE** (if you **take the town**) | Lord seat + skim + Well-Ring leash — local power fantasy; still a small pond | **Extended usefulness** for *civic* play, not for optimal cultivate. Buys time, not a GC path. |
+| **Peak FE** | Humble grind: stack stones/fame/disciples slowly **or** chase GC opportunities elsewhere | **Diminishing returns.** Patient hermit-lord valid; ambitious leave. |
+| **GC+** | Legend / wrong pond; home base optional | Overqualified. Visit, don’t live the loop. |
+
+#### Soft offer list (what “suitable” means)
+
+- **Shelter + clock life** — rent → FE courtyard; seats turn over; jobs dry and restock  
+- **QC economy** — bazaar basics, limited pills, pamphlet pool (no FE+ shelf)  
+- **Fields in a day** — grit/herbs/wilder site without Threshold  
+- **Institutional foot** — Well-Ring Lodge (join) or later your own early-FE lodge  
+- **Board weight** — FE can be local top dog; QC is small but at home  
+- **Rough cultivate** — manuals + formations + time work here; no spirit-vein paradise  
+
+#### What it deliberately does **not** offer
+
+- Optimal qi land, FE+ manuals on the shelf, tribe Burst/Marrowfall as daily stock  
+- Great-sect lineage, GC peers on the street, Heartlands patronage as a QC lifestyle  
+- A forced exile — no script that boots you at mid FE  
+
+#### Why you leave (pull, not push)
+
+| Pull | When it bites |
+|------|----------------|
+| Better mats / sites / mid city density | Mid FE — growth feels slow |
+| Great branch / root exam fantasy | Late QC–FE ambition |
+| GC opportunity (treasure, patron, mountain site, crisis) | Peak FE window — or earlier if luck hits |
+| Take the town *then* get bored of the skim | Late FE local ceiling |
+
+**Manage when:** player chooses. Mid FE = soft recommendation via thin returns + rumors of denser ponds. Late FE town-take = optional side path. Peak FE = stay humble and stack **or** seek GC. Never a hard “you must leave Redwell” gate.
+
+#### Stay patiently (valid)
+
+Hermit / porter / Well-Ring outer / quiet courtyard lord for decades — allowed. Reward is safety and local story, not power curve. The world should still move (seats age, caravans, rare NPC luck) so patience isn’t a frozen tutorial.
 
 ### Origin
 
@@ -85,12 +130,76 @@ Well attendant, grit/loader, short escort, sweeper/marker, maybe letter copyist.
 
 | Seat | Owns |
 |------|------|
+| `redwell_city_lord` | Thin apex — well/road fees, “keeps Redwell quiet”; graft cut from hall |
 | `redwell_innkeep` | Rent / rooms (common-room can be same person) |
 | `redwell_bazaar` | Basics buy/sell |
 | `redwell_well_boss` | Jobs |
-| `redwell_warden` | Escorts + bounty turn-ins |
+| `redwell_warden` | Escorts + bounty turn-ins (often the lord’s dirty hands) |
 
 Holders have lifespan; age-out → generated successor + optional one-liner. Murder/grudge rare → vacant → successor. Story arcs ≠ seats.
+
+### Starter-city FE lord — pattern (multi-zone friendly)
+
+**Problem:** Redwell’s lord is the **first FE** the player learns about, lord of the spawn town, and (owner lean) **in bed with the local hall**. He must feel sharp early — without eating design budget that other starter cities will need later, and without turning every 4th-tier lord into the same guy in a different hat.
+
+**Owner locks (2026-08-06):**
+
+| Lock | Decision |
+|------|----------|
+| What reuses | **Seat role** only — `{city}_city_lord`, ~FE civic apex, thin town face |
+| What does **not** reuse | Personality, graft flavor, exit story, tick — **each city different** |
+| Design depth for Redwell | **One starter instance card** — not a novel; not a lifelong rival |
+| Importance curve | Huge **locally at QC** → often a footnote later — **unless luck/will changes that** |
+| Not | Heartlands plot key by default; immortal mentor; “every lord is the corrupt well-boss clone” |
+
+**Familiar seat ≠ familiar person.** Future starters clone the *office*, not the Redwell man. Dustbone grit-graft lord should not feel like a Frost Gate ice-clerk or Tide Harbor dock boss.
+
+#### Fate space — not a predictable script
+
+Xianxia world rule (owner 2026-08-06): **opportunities are not player-only.** Seats and named faces can catch rare breaks — breakthrough, treasure, patronage, fleeing upward — or die stupid, stagnate, or age out. Will + luck, not a fixed “FE disposable” track.
+
+**Possible outcomes for a 4th-tier lord** (examples, not a checklist every run):
+
+| Outcome | Feel |
+|---------|------|
+| Age out / quiet succession | Common — seat continues, name fades |
+| Wrong enemy | Common-ish seasoning — journal note |
+| Stagnate forever in the well-town | Common — many do |
+| Break through (e.g. FE→GC) and **leave** | Uncommon — town loses its ceiling; rumor pulse |
+| Rare treasure / inheritance / formation find | Rare — power spike or theft war |
+| Patron / mid-city / tribe notice | Uncommon — pulled upward or crushed |
+| Player involvement | Optional — help, hinder, replace, ignore |
+
+**Do not** script Redwell’s first lord as “must die as a footnote.” Do **seed** him as local-important with **open fate** — most runs he’ll stay small; some runs the world surprises you.
+
+**“Chance to ascend” (parked — don’t build the full engine for Redwell v1):** any character *can* rise via opportunity or will. Needs a later world pulse / chronicle / rumor system so NPC luck isn’t fake. For now: design seats so **exit ramps exist**, don’t implement a universal opportunity sim yet. See Open questions.
+
+**Template fields (reuse the blanks — fill differently per city):**
+
+| Field | What to fill once per city |
+|-------|----------------------------|
+| Seat id | `{city}_city_lord` |
+| Apex realm | ~FE / strong Peak QC (4th-tier) — *starting* ceiling, not destiny |
+| Public job | Thin civic apex — fees, order, face of the town |
+| Private lean | Graft / clean / merchant / martial — **city-specific** |
+| Starter tick | **One** memorable habit or line |
+| Fate seeds | 2–3 *possible* ramps (leave / treasure / wrong enemy / stagnate) — not a scripted campaign |
+
+**Redwell starter instance (fill names later — structure locked):**
+
+| Field | Lock / draft |
+|-------|----------------|
+| Seat | `redwell_city_lord` |
+| Starting realm | **Mid–late FE** (heavier than hall master; local top dog today) |
+| Public | Quiet well-town boss; capital barely knows his name |
+| Private | Senior embezzlement partner with early-FE hall master; warden as dirty hands |
+| Stands out because | First FE on the board; **this** town’s grit-graft flavor — not a generic lord template personality |
+| Fate seeds | Stagnate in Redwell · age out · skim once too often · **rare:** break through and leave for mid city / Threshold · **rare:** Ironscar/road find |
+| Do not design | Full biography, guaranteed death, immortal arc, “he can never leave FE” |
+
+**Hall triangle (v1 locked — dirty partners):** **lord mid–late FE (senior cut + cover) ↔ hall master early FE (runs hall) ↔ warden (dirty hands)**. Real joinable hall; they embezzle together — not a shell corp. Detail: [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md).
+
+**Other zones later:** same *office*, different person and lean. Don’t invent a new lord *system* per starter — don’t clone Redwell’s conspiracy either.
 
 ### Just outside (no Threshold required)
 
@@ -100,13 +209,17 @@ Holders have lifespan; age-out → generated successor + optional one-liner. Mur
 | **Dewcatch Scrub** | Herbs — day trip |
 | **Bonehollow Caverns** | Wilder — optional / slightly later |
 
+### Linked later — one corrupt fringe hall
+
+Owner 2026-08-06: **Well-Ring Lodge** locked — dirty partners (lord mid–late FE + early-FE master + warden). ~25–40 outers. Player may found their own lodge at **early FE** (Peak FE expands) — soft cut/squeeze first, not instant war. Design: [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md) · [`player-organization-paths.md`](player-organization-paths.md). “Redwell City Lord” fine until interactions. Not cosmic corruption.
+
 ### Explicitly not Redwell v1
 
-NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlands patronage, residence cultivate %, Taiwu-grade NPC social.
+NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlands patronage, residence cultivate %, Taiwu-grade NPC social, multiple in-town halls.
 
 ### Success feel
 
-> Inn → job or bounty → bazaar balm/QC pamphlet/pill → Ironscar or scrub → brew → cultivate. At FE, buy the sand-brick courtyard. Come back in 200 years — new innkeep, same seat. Still nobody in Threshold.
+> Inn → job or bounty → bazaar balm/QC pamphlet/pill → Ironscar or scrub → brew → cultivate. Join Well-Ring or stay hermit. At early FE, buy the sand-brick courtyard — still at home. By mid FE the well feels small; leave when opportunity pulls, or take the town and linger. Come back in 200 years — new innkeep, same seat. Still nobody in Threshold.
 
 ## Suggested build chunks (implementable)
 
@@ -129,10 +242,13 @@ NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlan
 
 ## Open questions
 
-- Exact pamphlet pool list / names (content pass)
+- Exact pamphlet pool list / names (content pass) — mostly shipped
 - Innkeep starting name flavor
 - Mid-city caravan restock timing numbers
 - Thin Registry desk in Redwell — yes/no for v1 UI
+- City lord starter name + one memorable tick
+- Hall name / master name
+- How far to push NPC “chance to ascend” pulses before a real opportunity engine exists (parked)
 
 ## Implementation crumbs
 

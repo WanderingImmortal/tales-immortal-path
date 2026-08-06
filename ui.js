@@ -2469,6 +2469,16 @@ function updateMarketButton() {
             ? getDwellingStatusLine()
             : 'Rent or buy lodging in Redwell';
     }
+    const wellRingBtn = document.getElementById('btnWellRing');
+    if (wellRingBtn) {
+        const atHub = typeof isAtRedwell === 'function' ? isAtRedwell() : false;
+        wellRingBtn.disabled = !atHub;
+        wellRingBtn.style.opacity = atHub ? '' : '0.45';
+        const member = typeof isWellRingMember === 'function' && isWellRingMember();
+        wellRingBtn.title = atHub
+            ? (member ? 'Well-Ring Lodge — missions, merit board, Quiet Breath' : 'Well-Ring Lodge — pay outer registration')
+            : 'Well-Ring Lodge is in Redwell';
+    }
 }
 
 function renderMerchantPopup() {

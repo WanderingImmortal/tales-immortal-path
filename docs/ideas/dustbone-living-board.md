@@ -25,13 +25,16 @@ Weight is **relative to which city you’re in**.
 | Your realm (rough) | Redwell (4th) | Mid city (3rd, unnamed) | Threshold (1st) |
 |--------------------|---------------|-------------------------|-----------------|
 | **QC** | Small but *at home* | Insignificant visitor | Ant under ancient walls |
-| **FE** | Can be **top dog** locally | Respectable; don’t swagger — **GC** walk here | Still small |
-| **GC** | Overqualified / local legend | Can throw some weight | Useful hands, not top dog |
+| **Early–mid FE** | Rising → **top dog** locally; town still useful | Respectable; don’t swagger — **GC** walk here | Still small |
+| **Late FE / Peak** | Lord fantasy or diminishing returns; leave by **pull** | Can throw some weight | Useful hands, not top dog |
+| **GC** | Overqualified / local legend | Real board weight | Useful hands, not top dog |
 | **NS+** | Wrong pond | Big presence | Where top dogs walk |
 
 **Heartlands grip:** **B** — local day-to-day in QC Redwell years; soft patronage politics later / higher weight.
 
 Do **not** gate having a loop behind FE. Redwell fully supports QC life.
+
+**Usefulness curve (owner 2026-08-06):** suitable rough cultivate through QC → early FE; fades ~**mid FE**; take-the-town can stretch civic play to **late FE**; Peak FE = humble stack or seek GC. Leave by opportunity **pull**, never forced push. Full list: [`redwell-starter-city.md`](redwell-starter-city.md) “What Redwell offers”.
 
 ### Three-city civic ladder
 
@@ -74,6 +77,8 @@ Clock-driven pulses, not NPC day sims:
 
 Seats persist; holders age/die and get successors. Story arcs (Su, rivals) = unique IDs, not seats. Murder/grudge = rare seasoning.
 
+**Owner lean 2026-08-06 (parked depth):** seats are offices; **holders are not clones**. Different starter cities get different people. Xianxia **opportunities** (breakthrough leave, rare find, patronage, stupid death) can hit NPCs too — not player-only. Full “chance to ascend” opportunity engine = later; for now design open fate seeds, don’t simulate every soul. Redwell lord detail: [`redwell-starter-city.md`](redwell-starter-city.md).
+
 ### Presence ladder
 
 | Presence | Redwell | Mid | Threshold |
@@ -104,6 +109,7 @@ Seats persist; holders age/die and get successors. Story arcs (Su, rivals) = uni
 - Mid city name / vibe
 - Exact map spacing between the three cities
 - When Threshold thin visit ships vs after Redwell playtest
+- How/when to pulse rare NPC opportunities (treasure, breakthrough leave) without a full social sim
 
 ## Implementation crumbs
 

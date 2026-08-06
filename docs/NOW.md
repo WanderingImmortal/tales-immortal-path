@@ -5,12 +5,12 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-08-04
 
 ## Focus
-- Playtest Redwell → fields → brew → bazaar pamphlets ([#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) · [#97](https://github.com/WanderingImmortal/tales-immortal-path/pull/97) · pamphlet pool WIP)
+- Well-Ring Lodge v1 at Redwell (join / merit / missions) — play a full QC run
+- Pamphlet pool already on main (#103)
 
 ## Next
-- Economy feel (job dry-up / market restock) · cultivate Phase 3 · pacing tune
-- Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
-- Threshold visit · mid city — **after** Redwell feels decent
+- Economy feel · cultivate pacing · Threshold thin visit after Redwell feels decent
+- Loyalty meter for shady sects — **parked**
 
 ## Parked (return later)
 - Forge share of Ironscar ores — after forging content pass
