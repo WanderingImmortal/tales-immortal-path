@@ -6,7 +6,7 @@
 | **Blocked on** | Watershed pacing pass; roots v2 basin labels; full `reqRealm` audit |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chats, 2026-07-19–20 |
-| **Updated** | 2026-07-20 |
+| **Updated** | 2026-08-02 |
 
 ## Intent
 
@@ -51,8 +51,10 @@ Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian /
 … → Void → Dao Seeking → Dao Manifestation → Immortal
 ```
 
-- **Seeking** = comprehend, hunt fragments, read laws  
+- **Seeking** = comprehend laws, witness signs, open pursuit threads  
 - **Manifestation** = embody a law; local imposition; bridge to immortal politics  
+
+**Deep doc:** [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) — Lesser vs Greater, library/merge/wear, Manifestation depth, sword example.
 
 ## Half-Step Immortal (stub — peak, not realm?)
 
@@ -80,7 +82,19 @@ Possible shapes (pick one later):
 
 ## Lifespan pacing philosophy (owner direction)
 
-**Goal:** Roughly **similar calendar cost** to peak each basin — comparable to QC → FE — not explosive jumps (`80 → 120 → 200 → 400 → 800`).
+**Goal (2026-08-02):** **Xianxia time-scale** — each watershed grants enough years that high-realm figures are **fixtures on the world map**, not one-generation cameos. A 3rd-tier GC lord can still be ruling when you return centuries later; imperial ancients and sect patriarchs are names you hear across eras without needing bespoke story arcs.
+
+**Basin rule unchanged:** lifespan extension buys calendar for the *next* climb; most cultivators peak late and die in-basin. Long caps at the top reward those who cross — they become the jianghu's long memory.
+
+**QC / FE anchors stay:** inferior peak FE @ **80–90** with **120y** cap ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md)). Everything above FE scales up sharply.
+
+### Acquisition realms (owner lock 2026-08-02)
+
+**VR only:** breakthrough opens the void basin; power acquired inside (early VR ≈ DT Peak).
+
+**Seeking:** breakthrough is **Glimpse + Rulebook Retaliation survived** — lifespan, moderate power, board weight immediately. See [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md).
+
+**Manifestation:** first wield opens embodiment grind.
 
 ### Grade vs tier (basin cap)
 
@@ -89,27 +103,71 @@ Possible shapes (pick one later):
 | **Tier / basin cap** (spirit root composition + ceiling) | Highest **realm index** you can ever reach without aid | Tragedy ending: stuck at peak FE, etc. |
 | **Grade** (inferior → heavenly) | **Speed** within each basin; breakthrough odds | Same basins, faster or slower climb — not shorter basins |
 
-**Owner note:** All grades are “equivalent” across tiers in the sense that **time-to-peak a basin** should feel in the same ballpark for whoever can enter that basin; grade changes how fast you move, not how many months the basin inherently costs.
+Grade changes **how fast** you move, not the **ceiling years** at a given peak quality.
 
-Inferior root that caps at Peak FE still spends ~a lifetime in QC+FE; heavenly root reaches higher basins but each basin still costs **meaningful years**.
+### Lifespan caps — nine realms (owner lean 2026-08-02)
 
-### Draft lifespan **caps** (gentle steps — tune in watershed doc)
+**Breakthrough** = cap on entering the realm. **GC+** also use **in-basin milestones** (consolidate / competent peak / perfected peak) to extend within the band — matches substage grind ([`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md)).
 
-Linear-ish +40y steps after FE, not doubling:
+| Idx | Realm | On breakthrough | Competent peak | Perfected peak | Δ (breakthrough) |
+|-----|-------|-----------------|----------------|----------------|------------------|
+| 0 | Qi Condensation | **80** | 80 | 80 | — |
+| 1 | Foundation Establishment | **120** | 120 | 120 | +40 |
+| 2 | Core Formation | **300** | **400** | **500** | +180 |
+| 3 | Nascent Soul | **1,000** | **1,250** | **1,500** | +700 |
+| 4 | Deity Transformation | **2,000** | **2,500** | **3,000** | +1,000 |
+| 5 | Void Refinement | **5,000** | **7,500** | **10,000** | +3,000 |
+| 6 | Dao Seeking | **see below** | **~30,000** (target) | TBD | TBD |
+| 7 | Dao Manifestation | **~45,000** | **50,000** | **50,000** | TBD |
+| 8 | Immortal Ascension | **unbound** (99999) | unbound | unbound | — |
 
-| Idx | Realm | Cap (draft years) | Δ from prev |
-|-----|-------|-------------------|-------------|
-| 0 | QC | 80 | — |
-| 1 | FE | 120 | +40 |
-| 2 | Core | 160 | +40 |
-| 3 | NS | 200 | +40 |
-| 4 | TBD | 240 | +40 |
-| 5 | Void | 280 | +40 |
-| 6 | Dao Seeking | 320 | +40 |
-| 7 | Dao Manifestation | 360 | +40 |
-| 8 | Immortal | 99999 (or “unbound”) | — |
+**Refinements from brainstorm:**
 
-**Implication:** reaching idx 8 still takes **many** breakthroughs; each extension buys time for the **next** climb, but no single jump dominates the calendar. Watershed doc should re-anchor inferior FE @ 80–90 against **+40** steps, not ×2 jumps.
+- **GC 300–500**, **NS 1k–1.5k**, **DT 2k–3k** — in-basin bands; **exact milestone bumps TBD** when consolidate/substage milestones are designed ([`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md)).
+- **VR 5k–10k** — owner lock: **5,000** on breakthrough (clean half of 10k), **7,500** competent, **10,000** perfected.
+- **Dao Seeking / Manifestation** — **not settled**; see [Dao Seeking lifespan (open)](#dao-seeking-lifespan-open) below. Target **~30k** deep Seek, **~50k** Manifest — but *how* you earn years in Seeking needs design tied to comprehension ([`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md)).
+- **Immortal** — mortal-map lifespan display ends; Court / immortal layer owns time.
+
+### Dao Seeking lifespan (open)
+
+**Problem (owner 2026-08-02):** A fresh Dao Seeking breakthrough should not hand out **+20,000 years** just for changing realm label. Seeking is a **comprehension** watershed — you hunt and understand laws; that is a different fantasy than “my body got another ten millennia.” A VR peak expert (10k cap) vs someone who *just* broke through Seeking should not feel like the latter instantly outlives the former by triple.
+
+**Lean direction (needs dao milestone design):**
+
+| Beat | Lifespan idea | Why |
+|------|---------------|-----|
+| Enter Dao Seeking | **Modest bump** over VR perfected — e.g. **12,000–15,000** (TBD) | Buys time to hunt; you are not yet “era immortal” |
+| Comprehend / merge milestones | **Extensions toward ~30k band** | Time earned by **what you understand** — greater dao, fundamental merge, etc. (milestones not invented yet) |
+| First **wield** → Manifestation | **Big jump ~45k–50k** | Embodiment contract — aligns with Manifestation gate in dao doc |
+
+**NPC implication:** legendary Seekers who never wield stay in the **15k–30k** band (still ancient); true **50k** figures are law-wearers. Ambient “heard of for eras” can use comprehension depth, not just realm idx.
+
+**Open:**
+
+- [ ] Which comprehension beats grant years? (first Greater? first Fundamental merge? library size?)
+- [ ] Flat ~30k at “deep Seek” without Manifestation — valid tragedy / plateau ending?
+- [ ] Manifestation perfected — stay 50k or allow 55k before Immortal?
+
+**For implementers later (plain language):** the game will need one “years you can live” number per character, plus rules for when breakthroughs and dao milestones extend it. No need to decide file names now.
+
+### World-map presence (why the numbers matter)
+
+Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambient power** can hold a seat without chronicle hand-waving.
+
+| Figure | Typical realm / peak | Lifespan band | Player experience |
+|--------|----------------------|---------------|-------------------|
+| 4th-tier town lord (Redwell) | FE / strong QC | ~120y | May outlive a reckless QC run; generational turnover |
+| 3rd-tier capital lord | GC competent–peak | **400–500y** | **Same name when you return** after decades of cultivation |
+| 2nd-tier regional lord | NS | **1,000–1,500y** | Dynasty-scale; rumors and grudges span your whole GC climb |
+| Great sect elder (retired peak) | GC perfected | ~500y | Roster fixture; not a quest NPC — still there |
+| Sect patriarch / imperial minister | NS–DT | 1k–3k | Background power; chronicle entries, not mandatory scenes |
+| 1st-tier vault elder | VR (hidden) | **7.5k–10k** | Mythic; name on laws and ruins |
+| Deep Seeker (comprehension, no wield) | Seek | **15k–30k** (TBD) | Ancient scholar; not yet law-on-skin |
+| Dao-wearer legend | Manifest | **~50k** | Era-defining; mortal map treats them like weather |
+
+**Design intent:** not every elder is a story character — **persistence** sells scale. Chronicle + living clock can reference “still Lord Chen” without bespoke scripting if lifespan and role data agree.
+
+**Supersedes:** earlier draft +40y gentle steps (2026-07) — kept for history in git only.
 
 ## Realm claims (draft — 9 tiers)
 
@@ -121,7 +179,7 @@ Linear-ish +40y steps after FE, not doubling:
 | 3 | Sovereignty | Sky travel (zones), soul sense |
 | 4 | Transformation | Deity-presence in a region (not soul-path) |
 | 5 | Passage | Blink / void skip |
-| 6 | Law (seek) | Dao panel, fragment hunt |
+| 6 | Law (seek) | Dao panel, insight pursuit |
 | 7 | Law (wear) | Embody law; local imposition |
 | 8 | Transcendence | Above mortal map; immortal fork |
 
@@ -133,6 +191,7 @@ Linear-ish +40y steps after FE, not doubling:
 - `isImmortal()`: `>= 6` → `>= 8`  
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock, height labels in roots doc  
 - Soul / body paths: parallel realm **names** at each index (shared idx, different skin)  
+- Body idx 8 capstone (generic): **Saintly Flesh** realm (圣体境); person shorthand **Saint** / **Saints** (圣人 / 圣者) — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). Buddhist **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**.
 
 ## Links
 
@@ -145,6 +204,9 @@ Linear-ish +40y steps after FE, not doubling:
 
 - [x] Idx 4 name — **Deity Transformation** (lean; UI copy may shorten)  
 - [ ] Half-Step model A vs B  
-- [ ] Exact +40 lifespan table or different step size  
+- [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02)
+- [x] VR breakthrough floor — **5,000** (owner aesthetic: half of 10k)
+- [ ] GC+ in-basin milestone **+years** — when milestones exist
+- [ ] Dao Seeking — comprehension-linked extensions (see open section above)
 - [ ] Does idx 7 Dao Manifestation gate immortal-layer legislation preview?  
 - [ ] Upper celestial nine names — mirror this list or fresh set?

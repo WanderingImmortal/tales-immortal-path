@@ -38,7 +38,7 @@ Fill identities using the template below; **do not** reduce a sect to “the tra
 | NPCs | Chief Rakhul, Elder Miraj, Seer Asha — one-line greets |
 | Mechanics | Broker peace, omen pacts, caravan quests |
 
-**Gap:** Owner backstory for Tribunal may live outside repo or in chat — **not yet in `docs/ideas/`**. Worth writing down before it drifts. Tribes have **roles** but thin **myth** (why ash? why sunscar? what broke before the Tribunal?).
+**Gap:** Tribe **myth** still thin — flesh in [`sandveil-tribunal-cultures.md`](sandveil-tribunal-cultures.md). Tribes ≠ sects: [`jianghu-organization-types.md`](jianghu-organization-types.md).
 
 ### Heartlands — **Four Powerhouse Sects** *(thinnest — priority)*
 
@@ -46,17 +46,26 @@ Fill identities using the template below; **do not** reduce a sect to “the tra
 |------|------------------|---------------------|
 | **Celestial Sword** | Sword Dao, aloof masters | Allies Lotus; rivals Phoenix | → [`celestial-sword-sect.md`](celestial-sword-sect.md) |
 | **Jade Lotus** | Trade, politics, silk | Allies Sword + Void; rivals Phoenix | → [`jade-lotus-sect.md`](jade-lotus-sect.md) |
-| **Void Temple** | Pre-heaven knowledge, sealed sites | Allies Lotus; rivals Phoenix | → [`void-temple-sect.md`](void-temple-sect.md) |
+| **Void Temple** | Pre-heaven knowledge, sealed sites | Allies Lotus; rivals Phoenix | → [`void-temple-sect.md`](void-temple-sect.md) — **ancient Watch**; prison **predates** other three as great sects |
 | **Golden Phoenix** | Expansionist, absorb Lotus | Rivals all three; alignment cost | → [`golden-phoenix-sect.md`](golden-phoenix-sect.md) |
 
 Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **Identity docs** add cultivation spine, leadership, and lineage sketches.
+
+### Heartlands — **shadow fifth** *(demonic, unchartered)*
+
+| Power | One-line | Notes |
+|-------|----------|-------|
+| **Heavenly Demon Cult** | Blood harvest; **Dao Wars butcher**; dormant since Half-Step | HQ **Blood Sealing Gorge**; public **“extirpated”** fiction | → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
+
+Orthodox four **do not** list them among charter peers. Elders remember the **Great Withdrawal**; juniors think boogeyman.
 
 ### Other zones *(stubs)*
 
 | Zone | Powers | Depth |
 |------|--------|-------|
 | **Jade** | Storm Dragon + Tidal Lotus | Rival-allies; sea routes; one quest each |
-| **Frostbite** | Frostpeak Monastery | Isolation, cold resist, ascetic |
+| **Moonfract / Yin Maiden Palace** | [`frostbite-yin-sect.md`](frostbite-yin-sect.md) — crown; peak Yin |
+| **Vajra Ridge** | [`body-path-sect.md`](body-path-sect.md) — south spine; **Mad Monks**; monk body refiners |
 | **Emberwild** | Emberwild Collective | Beast tamers, primal |
 
 ---
@@ -85,6 +94,7 @@ Use one block per sect/clan/tribe. Lineage manuals hang off this.
 
 1. **Imperial clan** — [`imperial-clan.md`](imperial-clan.md) *(continental anchor)*
 2. **Heartlands four** — [`celestial-sword-sect.md`](celestial-sword-sect.md) ✓ · [`jade-lotus-sect.md`](jade-lotus-sect.md) ✓ · [`void-temple-sect.md`](void-temple-sect.md) ✓ · [`golden-phoenix-sect.md`](golden-phoenix-sect.md) ✓
+2b. **Heavenly Demon Cult** — [`heavenly-demon-cult.md`](heavenly-demon-cult.md) ✓ (shadow fifth; branches per zone)
 3. **Dustbone Tribunal** — capture owner backstory; deepen three tribes
 4. Jade / Frostbite / Emberwild when those zones get content passes
 

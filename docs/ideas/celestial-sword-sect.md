@@ -25,7 +25,7 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperi
 | **Lineage** | **Celestial Sword Canon** (天体剑典) — what disciples learn |
 | **Forbidden apex** | **Solitary Sword Path** (孤剑道) — Sword Immortal; Patriarch only if permitted |
 | **Public leader** | **Patriarch Yun Jian** (云鉴) — Void Refinement peak |
-| **Sect spine** | **The Sword Immortal** (剑仙) — true name forgotten; Immortal today, was Dao Manifestation in the Dao Wars |
+| **Sect spine** | **The Sword Immortal** (剑仙) — ascended **after** the mandate; in the Dao Wars **Sword Ancestor** (剑祖), **peak Dao Manifestation** |
 | **Player-facing elder** | **Elder Sword Feng** (锋长老) — Nascent Soul, discipline / trials *(code: `Elder Blade Feng` — rename later)* |
 | **Allies / rivals** | Allies **Jade Lotus**; rivals **Golden Phoenix**; respectful distance from **Void Temple** |
 | **Combat lean** | Best **sword duelist** among Heartlands four; weaker at siege economics and dirty charter war |
@@ -48,25 +48,25 @@ Through the pre-imperial chaos they survived by three rules passed down as **The
 
 ### Dao Wars
 
-The Sword Sect fought in the Dao Wars as a **major power** — not the largest, but the one other armies learned to route around.
+The Sword Sect fought in the Dao Wars as a **major power** — not the largest, but the one other armies learned to route around. With Phoenix, they were the **only great sects** that **marched on Tianjing** to stop the Tian genius ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)).
 
-Their apex asset at the time was not the patriarch. It was **the one they now call only the Sword Immortal** (剑仙) — a Dao Manifestation cultivator who **wore the law of the First Sword**, old enough to remember the continent before anyone spoke of “Tian.” **Not** a true immortal yet. Not enough to stop the Tian founder’s Half-Step breakthrough.
+Their apex asset was not the patriarch. It was **the Sword Ancestor** (剑祖) — war-era name for the one who would become **Sword Immortal** (剑仙). **Peak Dao Manifestation**, **wearing the law of the First Sword**, old enough to remember the continent before anyone spoke of “Tian.” **Not Immortal yet** — a **true peer** to the Tian founder **at peak DM** before Half-Step. Chroniclers still argue whether he could have ended the breakthrough if the inner walls had failed sooner.
 
-When the board broke, Sword leadership read it faster than Phoenix or Lotus. The Sword Immortal **did not duel the sleeping dragon’s herald to the death**. They raised the **Ten Thousand Swords Seal Array** (万剑封山阵) and **waited inside** while envoys negotiated.
+When the tide turned at **Tianjing’s gates**, the Sword Ancestor **did not** throw the mountain into a suicide duel with the Half-Step. He **receded**, raised the **Ten Thousand Swords Seal Array** (万剑封山阵), and sent envoys.
 
 The array held. That is why Solitary Sword Mountain still stands.
 
-They **capitulated early** — on terms:
+They **capitulated first among the great sects after the garden walk** — on terms:
 
 - **Solitary Sword Mountain**, the **Seal Array**, and ancestral grounds remain Sword sovereign soil.
 - The sect keeps its **lineage**, **trials**, and **internal ranks** — no imperial appointment of patriarch.
 - In exchange: charter oaths, no open war against the mandate, and **licensed sword work** when imperial law must look clean.
 
-The humiliation is whispered in inner court: they were the first great sect to kneel. The pragmatism is taught in outer court: they knelt **with their mountain intact** because the Sword Immortal chose survival over a gesture that would have broken the Sepulcher.
+**Sword culture after the war:** the mountain **does not deny** its role or its loss. Outer court teaches plainly: *we marched on Tianjing; we lost; we kept the peak.* They **pay little mind to politics** — Longcheng is a chore; the sword is the point. That honesty fuels quiet contempt for Phoenix **pamphlet wars** and Lotus **ledger dances**.
 
-Phoenix broke late and was **forced** to kneel. Sword chose. That difference fuels a quiet contempt — Phoenix fights the charter with pamphlets; Sword would rather return to the mountain and cultivate.
+Phoenix broke **late** and was **forced** to kneel after the Flame Emperor fell. Sword had already accepted charter peace.
 
-**After the wars:** the Sword Immortal finished the path — **Immortal Ascension**, heaven’s restrictions and all. They are the sect’s **spine** now: the reason a great power does not test the charter by storming the peak. Patriarch Yun Jian rules day-to-day; the mountain’s true weight sleeps in the array core.
+**After the wars:** the Sword Ancestor finished the path — **Immortal Ascension** as **Sword Immortal** (剑仙), heaven’s restrictions and all. They are the sect’s **spine** now. Patriarch Yun Jian rules day-to-day; the mountain’s true weight sleeps in the array core.
 
 ### Now
 
@@ -74,6 +74,7 @@ Phoenix broke late and was **forced** to kneel. Sword chose. That difference fue
 - **Cold war with Golden Phoenix** — flame expansionists vs Sword Dao purists; Phoenix Gambit puts Sword in an awkward seat (honor vs Lotus ally).
 - **Imperial relation** — respected, not loved. Tian court hires Sword for **licensed duels** and edict enforcement; Sword accepts when the job is *worthy of a sword*, refuses when it isn’t.
 - **Void Temple** — uneasy respect. Sword elders think Void scholars hide behind books; Void adepts think Sword cultivators mistake violence for clarity. They ally against Phoenix when the charter cracks.
+- **Vajra Ridge (Mad Monks)** — Dao Wars **border spars** and intrusion brawls that **stung Sword lines**; Da Chi (pre–Saint patriarch) **wanted** honorable fist tests; **no** Sepulcher taboo. Yun Jian aged from the reports; Sword Immortal did not leave the array for a fool. Detail: [`body-path-sect.md`](body-path-sect.md).
 
 ---
 
@@ -83,7 +84,7 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) —
 
 | Role | Name | Realm (public) | Notes |
 |------|------|----------------|-------|
-| **Sect spine** | **The Sword Immortal** (剑仙) | **Immortal** *(ascended post–Dao Wars)* | True name **forgotten** — only the epithet remains. Dao Manifestation during the war; survived inside the Seal Array |
+| **Sect spine** | **The Sword Immortal** (剑仙) | **Immortal** *(ascended post–Dao Wars)* | War name **Sword Ancestor** (剑祖); **peak DM** at Tianjing; true name **forgotten** after ascension |
 | **Patriarch** | **Yun Jian** (云鉴) | VR peak | “Cloud Mirror” — runs the mountain; rarely speaks for the Sword Immortal |
 | **War peak elder** | **Elder Iron Xu** (铁墟) | Deity Transformation *(9-realm)* / NS peak today | Leads enforcement; inner court |
 | **Discipline elder** | **Elder Sword Feng** (锋) | Nascent Soul | Player NPC at hall gate — trials, spars, rep |
@@ -117,7 +118,7 @@ Charter meetings, Lotus marriage contracts, Longcheng rotations, Sepulcher inven
 | Trait | How it shows |
 |-------|----------------|
 | **Dry** | Short sentences; no speeches; silence is a tool |
-| **Pragmatic** | Inherited “first to kneel” — chooses survival over gesture **every time** |
+| **Pragmatic** | Inherited “first charter peace after Tianjing” — chooses survival over gesture **every time** |
 | **Weary** | Not defeated — **tired** of carrying politics the Sword Immortal refuses to touch |
 | **Fair** | Not cruel for sport — **sharp enough to keep peace** on the mountain; discipline serves order, not ego |
 | **Private devotion** | Still meditates at Intent Pool monthly; Sword Dao matters to him — he just serves it by governing |

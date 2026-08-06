@@ -58,13 +58,13 @@ Lotus was **not** pushed into the valley by the Tian Clan. They were **squeezed*
 
 When the board broke, Lotus **consolidated** into **Jade Lotus Valley**, raised the **Pure Lotus Array**, and stopped trying to hold every court at once. Enemies called it hiding. Lotus called it **concentrating roots**.
 
-The **Tian** offer was alliance, not siege:
+The **Tian** offer was alliance, not siege — Lotus **never marched on Tianjing** and **would not** war against the rising clan:
 
 - Recognize valley sovereignty and charter borders.
 - Marriage reaffirmation and supply contracts in crisis.
-- Best charter terms among early allies.
+- Best charter terms among mandate allies.
 
-Lotus accepted **early** — grain, herbs, and marriage legitimacy for protected soil and trade routes. Phoenix broke **late** and was humiliated. Lotus bought **time** with disciples and treaties — and won.
+Lotus accepted the mandate **early in the peace** — grain, herbs, and marriage legitimacy — and **bloomed publicly** after the Tianjing walk while Sword and Phoenix were still bleeding ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)). Phoenix broke **late** and was humiliated. Lotus had **hedged** (bonds, supply) against Phoenix/Sword squeeze — **not** against Tian. Sword calls post-war bloom opportunism. Lotus bought **time** with disciples and treaties — and won.
 
 **Matriarch Leng Shuyu** was already apex-adjacent during the retreat; she ascended to **true Immortal** after the mandate settled. Heaven’s restrictions stalled further cultivation — her obsession turned **inward**, then **outward** through proxies.
 

@@ -6,7 +6,7 @@
 | **Blocked on** | none for lore |
 | **Issue** | none yet |
 | **Chat / PR** | parked 2026-07-25; Threshold rename 2026-07-26 |
-| **Updated** | 2026-07-28 |
+| **Updated** | 2026-07-31 |
 
 **Hub:** [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Cosmology:** [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md)  
@@ -39,7 +39,16 @@ Full v1 inventory (bazaar, Inn, courtyard, seats, fields): [`redwell-starter-cit
 
 ### History
 
-Three dynasties fell under the **Law of Dust** (cascades). **Pinwright** pinned spring + ward; First empire became sand. Second built **towering sandstone walls** + Registry on pin. Third garrison collapsed fast. City = **shrunken shell** inside walls built for millions — organised chaos to stay under the cascade **threshold**.
+Three dynasties fell under the **Law of Dust** (cascades). **Pinwright** (late First — same ruler, two acts) tried an unending city; pinned spring + ward; basin paid in sand. Second built **towering sandstone walls** + Registry on pin. Third garrison collapsed fast. City = **shrunken shell** inside walls built for millions — organised chaos to stay under the cascade **threshold**. Full cosmology: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md).
+
+### Empty wards (owner lock 2026-07-31)
+
+**Not ruin — deliberate negative space.** Towers planned for millions; population kept thin on purpose. Taboo is **civic knowledge**, not paranormal:
+
+- Everyone knows **occupancy = order density** — one squat too many is a **basin-wide** bet, not a housing dispute.
+- **No** haunted feelings / cursed plazas / supernatural unease in design.
+- **Squatters:** rare (desperate migrants, road fools); **harsh treatment** from locals + fast Registry eviction — rumors teach the lesson (“they’d rather run you out than count you twice”).
+- Player read: limits of Pinwright’s ambition **visible in brick and vacancy**.
 
 ### Motivation
 
@@ -56,7 +65,9 @@ Three dynasties fell under the **Law of Dust** (cascades). **Pinwright** pinned 
 
 Capital lodging later; **QC rent/buy lives in Redwell** ([`redwell-starter-city.md`](redwell-starter-city.md)). Full cot→manor ladder later ([`personal-residence.md`](personal-residence.md)).
 
-### Physical layers
+### Physical layers (built archaeology at pin)
+
+**Not the same as basin sand strata** — see [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md).
 
 First spring/channels · Second sandstone towers · Third iron scars · Bone totems = oath-road law.
 

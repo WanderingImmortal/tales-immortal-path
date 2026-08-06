@@ -6,7 +6,9 @@
 | **Blocked on** | World power map (owner); [`nine-realm-ladder.md`](nine-realm-ladder.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent brainstorm, 2026-07-21 |
-| **Updated** | 2026-07-21 |
+| **Updated** | 2026-07-31 |
+
+**Organization shape (sects vs tribes vs clans):** [`jianghu-organization-types.md`](jianghu-organization-types.md) — realm pyramid here; institution type / unity / deployment tier there.
 
 ## Intent
 
@@ -97,7 +99,7 @@ Imperial: wider top — more Manifestation/Immortal assets, stricter heaven acco
 ## Prerequisites
 
 - [ ] Owner maps zones to power bands
-- [ ] Sect founding gate decision (school at FE vs sect at GC)
+- [ ] Sect founding gate: Peak FE hall vs GC sect — **owner: both paths** → [`player-organization-paths.md`](player-organization-paths.md)
 - [ ] Immortal restriction mechanics — [`immortal-world-layer.md`](immortal-world-layer.md)
 
 ## Open questions

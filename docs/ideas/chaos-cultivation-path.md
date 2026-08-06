@@ -22,7 +22,7 @@ It sits **beyond** the false Immortal Ascension watershed: long, difficult, tran
 
 ### Mortal-world link (Dustbone)
 
-First-era **Pinwright** — pre-peak chaos walker who **legislated Return-to-Dust** and **pinned** Bone Crossroads oasis — is **local history**, not this path’s full curriculum. Lore: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md). Life-sim hub: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md).
+First-era **Pinwright** — pre-peak chaos walker who **legislated Return-to-Dust** and **pinned** Bone Crossroads oasis — is **local history**, not this path’s full curriculum. Lore: [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md) (includes **parked question**: why he couldn’t *wield* Law of Dust effectively). Life-sim hub: [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md).
 
 ## How Chaos plugs into mandate / true immortality
 

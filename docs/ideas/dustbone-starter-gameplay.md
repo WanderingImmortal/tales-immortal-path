@@ -45,6 +45,11 @@ A player who stays in Dustbone through Late/Peak QC should be able to:
 | [`explore-field-gathering.md`](explore-field-gathering.md) | Field triangle + enemies + material explore remake |
 | [`qi-condensation-depth.md`](qi-condensation-depth.md) | QC bands, pacing (hub life retargeted to Redwell) |
 | [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) | Cultivate-on-clock Phase 3 |
+| [`jianghu-organization-types.md`](jianghu-organization-types.md) | Sect vs tribe vs clan taxonomy |
+| [`qc-sect-join-ladder.md`](qc-sect-join-ladder.md) | Lesser halls · great branch root exams |
+| [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md) | Local hall design slots (TBD) |
+| [`world-events-layered-battlefield.md`](world-events-layered-battlefield.md) | Beast waves · conscription |
+| [`sandveil-tribunal-cultures.md`](sandveil-tribunal-cultures.md) | Tribunal tribe myth pass |
 | [`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md) | Law of Dust / dynasties |
 | [`dustbone-surroundings-later.md`](dustbone-surroundings-later.md) | Miraj / camps **after** Redwell |
 | [`creation-path-guilds.md`](creation-path-guilds.md) | Alchemy guild; Threshold = branch |

@@ -32,7 +32,7 @@ Uses indices from [`nine-realm-ladder.md`](nine-realm-ladder.md) (`0–8`).
 | 4 | Deity Transformation | **Transformation** | Regional deity-presence; NPC defer | Pressure radius; not more flight |
 | 5 | Void Refinement | **Passage** | Spatial authority | **Blink** between two local nodes; void skip on roads |
 | 6 | Dao Seeking | **Law (seek)** | Dao panel (existing) | Law-sense — faction dao, thin forbidden |
-| 7 | Dao Manifestation | **Law (wear)** | Embody one law locally | Muffle weak techniques; tribulation skew |
+| 7 | Dao Manifestation | **Law (wear)** | Embody one **dao law** (cultivator-worn — not axis / basin statute) | Muffle weak techniques; tribulation skew |
 | 8 | Immortal Ascension | **Transcendence** | True reincarnation; immortal fork | Mortal travel trivial; above map loop |
 
 **Half-Step Immortal** (peak before idx 8 breakthrough): see nine-realm-ladder — threshold at heaven’s gate; not a separate claim row.

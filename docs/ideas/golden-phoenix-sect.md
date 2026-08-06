@@ -58,17 +58,23 @@ During the war the sect lived **Sect Rebirth** (Ascent **7**) — constant death
 
 **Flame Emperor** (焰帝) — paragon saint-king — pushed **Realm Reforge** (Ascent **8**): not “get our courts back” (they already had courts) but **burn the stale board** so the Heartlands order could renew under flame.
 
-### The kneel — paragon died, brother stopped the war
+### The kneel — paragon executed, brother stopped the war
 
-Losses that broke Phoenix will:
+At **Tianjing’s gates**, the **Flame Emperor** **saw** the garden walk and **tested** the Half-Step — one **brief, terrible** clash — then **withdrew injured**, refusing to kneel ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)).
+
+What followed is **not** denied in Phoenix records:
+
+1. **Seven Days of Weight** — the Half-Step **held Tianjing**; the continent **felt** the new ceiling; Phoenix **regrouped** for **Realm Reforge** (#8).
+2. **Ember Crown Plain** (烬冠原) — second great muster; last flame gamble.
+3. **Execution** — the founder **did not** honor-duel the paragon. He **arrived** wielding an **Immortal-path** art — or so close the continent had no taxonomy — and **killed the Flame Emperor before both armies** in **one gesture** of that technique. Demoralization and **mandate** in one act. Pride **forbids** calling it assassination; inner court calls it **judgment**.
+
+When he fell, his **younger brother** took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
 
 | Loss | Effect |
 |------|--------|
 | **Territory** | Flame realm **truncated** to caldera + stripped border courts |
 | **Expansion rights** | Charter **caps** flame jurisdiction and absorption |
-| **Flame Emperor** | **Killed** — paragon whose death **swayed hearts** to stop |
-
-When he fell, his **younger brother** took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
+| **Flame Emperor** | **Executed** at Ember Crown Plain — symbol for revanchists; eighth ring shrine **unfinished** |
 
 That brother later ascended as the **Phoenix Immortal**. Inner court still argues whether Half-Step would have ended it anyway.
 
@@ -77,6 +83,8 @@ That brother later ascended as the **Phoenix Immortal**. Inner court still argue
 Centuries of pamphlets, recruiters, raid culture, noble patrons (House of Su sometimes funds pamphlets). Phoenix **broke late** among the four — humiliation fuels **Phoenix Gambit** and charter tests.
 
 **Fanatical, not stupid:** test mandate, fund coups, raid for fervor — all toward **metaphysical renewal**, not blind continental war.
+
+**Vajra Ridge (Mad Monks):** northern **expansion nuisance** — Da Chi’s **intrusion brawls** broke Phoenix **momentum** on fringe campaigns (both sides stung, no clean Phoenix victory); monks refused ash ideology but took the scraps. Phoenix pamphlets: **charter vermin**. Detail: [`body-path-sect.md`](body-path-sect.md).
 
 ---
 
@@ -90,7 +98,7 @@ Renewal doctrine: each ascent is **death → ash → rise** at larger scope. Pol
 | 2 | Foundation Reforge | 基炉 | Dantian |
 | 3 | Core Kindling | 核焰 | Golden Core |
 | 4 | Soul Ash | 魂灰 | Nascent Soul |
-| 5 | Void Hollowing | 虚烬 | VR threshold *(not Void Temple’s void)* |
+| 5 | Void Hollowing | 虚烬 | VR threshold — **parked** until great-sect pass (elders, relics, history); **not** Void Temple’s void |
 | 6 | Law Ignition | 燃法 | Dao Manifestation — wear flame law |
 | 7 | **Sect Rebirth** | 宗涅槃 | Whole sect as one organism |
 | 8 | **Realm Reforge** | **界炉** | **The board** — charter, mandate, order — must burn and reform |
@@ -101,7 +109,7 @@ Renewal doctrine: each ascent is **death → ash → rise** at larger scope. Pol
 | Era | Ascent in play |
 |-----|----------------|
 | **Dao Wars** | Living **#7**; Flame Emperor pushing **#8** |
-| **Flame Emperor’s death** | **#8 interrupted** mid-cycle |
+| **Flame Emperor’s death** | **#8 interrupted** at Ember Crown Plain — **executed**, not duel ash |
 | **Now** | Patriarch seeks to **finish #8** via Gambit; Immortal fears immortal-tier war = destruction, not rebirth |
 | **#9** | *Parked* — only if #8 leaves a world worth rising in |
 
@@ -248,7 +256,7 @@ Techniques in culture: **Phoenix Ascent Palm**, ember fury set — rep unlocks T
 - [ ] Lineage canon + manual tiers when pool ships
 - [ ] Phoenix Immortal **intervention** beat in Gambit endings
 - [ ] #9 Heaven-Earth Rebirth — player / endgame scope
-- [ ] Longcheng embassy — pamphlet hall detail
+- [ ] **Great-sect pass** — elders, historical figures, relics; **Void Hollowing (#5)** cosmology then
 
 ## Prerequisites
 
