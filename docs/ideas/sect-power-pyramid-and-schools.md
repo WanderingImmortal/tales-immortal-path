@@ -99,7 +99,7 @@ Imperial: wider top — more Manifestation/Immortal assets, stricter heaven acco
 ## Prerequisites
 
 - [ ] Owner maps zones to power bands
-- [ ] Sect founding gate decision (school at FE vs sect at GC)
+- [ ] Sect founding gate: Peak FE hall vs GC sect — **owner: both paths** → [`player-organization-paths.md`](player-organization-paths.md)
 - [ ] Immortal restriction mechanics — [`immortal-world-layer.md`](immortal-world-layer.md)
 
 ## Open questions
