@@ -6,11 +6,13 @@
 | **Blocked on** | Noble clan count (7 vs 8); gray-layer design pass; phase-1 map nodes |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
-| **Updated** | 2026-07-23 |
+| **Updated** | 2026-07-28 (Dao Wars origin of Tianjing) |
 
 ## Intent
 
-Design the **continental capital** — not a single palace on a hill, but a **layered metropolis**: an open imperial hub where every power keeps a footprint, wrapped around **Tianjing** (天京), the Tian Clan's inner home grounds where the sleeping founder lies sealed.
+Design the **continental capital** — not a single palace on a hill, but a **layered metropolis**: an open imperial hub where every power keeps a footprint, wrapped around **Tianjing** (天京), the Tian Clan's **original Dao Wars seat** and today's inner home grounds where the sleeping founder lies sealed.
+
+**Historical stack:** In the Dao Wars, **Tianjing was the Tian clan's city** — walled seat, deep arrays, underpalace veins. The coalition of Sword and Phoenix **assaulted these gates** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)). After the mandate, the throne **expanded outward**; **Longcheng** (龙城) grew as the outer imperial hub. Today's **inner Tianjing** is the **ancient core** — still the hardest walls on the continent.
 
 Parent lore: [`imperial-clan.md`](imperial-clan.md). Map pattern: [`local-world-map-split.md`](local-world-map-split.md).
 
@@ -25,7 +27,7 @@ So **Tianjing (天京)** is not the whole metropolis. It is the **inner city** �
 | Layer | Name | Who lives there |
 |-------|------|-----------------|
 | **Outer imperial city** | **Longcheng** (龙城) | Everyone: merchants, sect branches, associations, noble clans, petitioners |
-| **Inner city** | **Tianjing** (天京) | Tian blood, court, regents, emperor's household — charter forbids sect ownership |
+| **Inner city** | **Tianjing** (天京) | Tian blood, court, regents, emperor's household — **Dao Wars-era clan capital**; charter forbids sect ownership; **deepest defenses** |
 | **Underpalace** | (unnamed on maps) | Sleeping founder seal |
 
 **Player-facing English:** *Longcheng* · *the Imperial City* · inner ring = *Tianjing* when you earn the name.

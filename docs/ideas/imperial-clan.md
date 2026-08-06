@@ -6,7 +6,7 @@
 | **Blocked on** | City name lock; phase-1 map nodes | four-sect charter detail |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
-| **Updated** | 2026-07-23 |
+| **Updated** | 2026-07-28 (Capital Turn cross-link) |
 
 ## Intent
 
@@ -28,7 +28,13 @@ The **Dao Wars** (道战 — working name) — sects and rising powers tore the 
 
 ### The turn
 
-The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first to touch the gates of true immortality. The wars ended **swiftly** under that might. Not a century of siege; a demonstration that the board had a new ceiling.
+The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first on the **public mortal ladder** to touch the gates of true immortality in **recorded history** (Capital Turn). That does **not** mean no **pre-ledger** cultivators existed off the public ladder — see Void Temple ([`void-temple-sect.md`](void-temple-sect.md)).
+
+**Canonical set-piece:** [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) — Tianjing siege and garden walk; **Seven Days of Weight** (contemplative founder); **Dragon’s Edict** (龙敕) at **Ember Crown**; Flame Emperor executed; Sword recede; Lotus neutral; Void silent.
+
+### The founder at war (locked sketch)
+
+**Contemplative dragon:** after Tianjing, **seven days** of stillness inside the clan city — measuring Half-Step, not gloating. At **Ember Crown Plain**, he **arrived** with **Dragon’s Edict** — first named glimpse of **Immortal-path** power on the mortal board; **Flame Emperor** fell to **one gesture**, not a duel. That memory is why regents later prefer the founder **sleeping**: every open walk accrues **heaven’s debt**.
 
 *(Older immortals among the top sects may remember the clan's **original name** and older sins. They do not dwell on it in public.)*
 
@@ -41,14 +47,15 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 | Power (draft) | Homeland | Dao Wars outcome (sketch) |
 |---------------|----------|---------------------------|
 | **Tian Clan** | Heartlands core (capital TBD) | Victor; became imperial mandate |
-| **Celestial Sword** | Heartlands — **Solitary Sword Mountain** (孤剑山) | Early capitulation — kept mountain honor; *also* licensed charter sword work when law must look clean |
-| **Jade Lotus** | Heartlands — silk courts & trade cities | Early alliance — best charter terms; *also* richest great sect commercially, not “a trade guild” |
+| **Celestial Sword** | Heartlands — **Solitary Sword Mountain** (孤剑山) | **Receded** after Capital Turn — first charter capitulation; mountain + Seal Array intact |
+| **Jade Lotus** | Heartlands — silk courts & trade cities | **Hedged pre-walk, bloomed post-walk** — best charter terms; not in assault coalition |
 | **Void Temple** | Heartlands — observatory slopes | Neutral late — archives preserved by oath; *also* sealed-site monopoly, not “the library faction” |
-| **Golden Phoenix** | Heartlands — flame courts | Broken late — humiliating truce; *also* fuels modern revanchism; still a full martial flame sect |
+| **Golden Phoenix** | Heartlands — flame courts | **Refused** surrender at the walk; **late** truce after Flame Emperor falls |
 | **Frostpeak Monastery** | Frostbite | Isolation bargain — left alone if they ward the north |
 | **Sandveil tribes** | Dustbone | Imperial reach **weak** — Tribunal is local law |
 | **Storm Dragon / Tidal Lotus** | Jade archipelago | Sea charter — throne mediates, does not sail |
 | **Emberwild Collective** | Emberwild | Contained, not conquered — jungle not worth the debt |
+| **Heavenly Demon Cult** | Heartlands — **Blood Sealing Gorge** | **Broken at Tianjing**; Great Withdrawal; public **extirpation** fiction → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 
 *Sect rows are draft for [`sect-faction-identities.md`](sect-faction-identities.md) — refine in owner pass.*
 

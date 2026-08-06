@@ -46,10 +46,18 @@ Fill identities using the template below; **do not** reduce a sect to “the tra
 |------|------------------|---------------------|
 | **Celestial Sword** | Sword Dao, aloof masters | Allies Lotus; rivals Phoenix | → [`celestial-sword-sect.md`](celestial-sword-sect.md) |
 | **Jade Lotus** | Trade, politics, silk | Allies Sword + Void; rivals Phoenix | → [`jade-lotus-sect.md`](jade-lotus-sect.md) |
-| **Void Temple** | Pre-heaven knowledge, sealed sites | Allies Lotus; rivals Phoenix | → [`void-temple-sect.md`](void-temple-sect.md) |
+| **Void Temple** | Pre-heaven knowledge, sealed sites | Allies Lotus; rivals Phoenix | → [`void-temple-sect.md`](void-temple-sect.md) — **ancient Watch**; prison **predates** other three as great sects |
 | **Golden Phoenix** | Expansionist, absorb Lotus | Rivals all three; alignment cost | → [`golden-phoenix-sect.md`](golden-phoenix-sect.md) |
 
 Each has: one NPC, one generic quest, one sect pact, combat/dao/market perk. **Identity docs** add cultivation spine, leadership, and lineage sketches.
+
+### Heartlands — **shadow fifth** *(demonic, unchartered)*
+
+| Power | One-line | Notes |
+|-------|----------|-------|
+| **Heavenly Demon Cult** | Blood harvest; **Dao Wars butcher**; dormant since Half-Step | HQ **Blood Sealing Gorge**; public **“extirpated”** fiction | → [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
+
+Orthodox four **do not** list them among charter peers. Elders remember the **Great Withdrawal**; juniors think boogeyman.
 
 ### Other zones *(stubs)*
 
@@ -85,6 +93,7 @@ Use one block per sect/clan/tribe. Lineage manuals hang off this.
 
 1. **Imperial clan** — [`imperial-clan.md`](imperial-clan.md) *(continental anchor)*
 2. **Heartlands four** — [`celestial-sword-sect.md`](celestial-sword-sect.md) ✓ · [`jade-lotus-sect.md`](jade-lotus-sect.md) ✓ · [`void-temple-sect.md`](void-temple-sect.md) ✓ · [`golden-phoenix-sect.md`](golden-phoenix-sect.md) ✓
+2b. **Heavenly Demon Cult** — [`heavenly-demon-cult.md`](heavenly-demon-cult.md) ✓ (shadow fifth; branches per zone)
 3. **Dustbone Tribunal** — capture owner backstory; deepen three tribes
 4. Jade / Frostbite / Emberwild when those zones get content passes
 
