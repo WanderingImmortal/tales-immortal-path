@@ -6,7 +6,9 @@
 | **Blocked on** | World power map (owner); [`nine-realm-ladder.md`](nine-realm-ladder.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent brainstorm, 2026-07-21 |
-| **Updated** | 2026-07-21 |
+| **Updated** | 2026-07-31 |
+
+**Organization shape (sects vs tribes vs clans):** [`jianghu-organization-types.md`](jianghu-organization-types.md) — realm pyramid here; institution type / unity / deployment tier there.
 
 ## Intent
 

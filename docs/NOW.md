@@ -3,8 +3,6 @@
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
 **Updated:** 2026-07-31
-
-## Focus
 - **Redwell starter city** (PR #90) — [`redwell-starter-city.md`](ideas/redwell-starter-city.md) · zone [`dustbone-living-board.md`](ideas/dustbone-living-board.md)
 
 ## Next
@@ -13,9 +11,11 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Body chamber silhouette rebuild (Phase 1) — [`body-chamber-anatomy-rebuild.md`](ideas/body-chamber-anatomy-rebuild.md)
 - Threshold visit · mid city — **after** Redwell feels decent
 
+## Parked (design — not building yet)
+- QC density: org taxonomy · lesser sect slots · layered world events — [`jianghu-organization-types.md`](ideas/jianghu-organization-types.md) · [`dustbone-lesser-sects.md`](ideas/dustbone-lesser-sects.md) · [`world-events-layered-battlefield.md`](ideas/world-events-layered-battlefield.md)
+- Dustbone lore: Pinwright · sand strata · tribes · Threshold empty wards — [`dustbone-dynasties-entropy-lore.md`](ideas/dustbone-dynasties-entropy-lore.md) · [`sandveil-tribunal-cultures.md`](ideas/sandveil-tribunal-cultures.md) · PR [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94)
+
 ## Parked (return later)
-- Void Prisoner origin (designed) — disciples next — [`void-prisoner.md`](ideas/void-prisoner.md)
-- Heartlands hunt scar FG (designed) — DM+; Glimpse not true Samsara — [`heartlands-hunt-scar.md`](ideas/heartlands-hunt-scar.md)
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
