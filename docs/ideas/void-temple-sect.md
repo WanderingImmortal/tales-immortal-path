@@ -213,6 +213,9 @@ When he returns:
 - Transit between **gate nodes** without crossing mortal distance.
 - Read **firmament stress** — when Little Heaven strains.
 - Touch **outer-void qi** without instant dao fracture — what lineage trains toward.
+- **Void qi** cultivation — more direct / efficient than generic VR paths; arrays and gate doctrine.
+- **DT → VR** breakthrough support — rites and prep raise **survival rate** (not guaranteed).
+- **Cannot** sit **VR → Seeking Rulebook Retaliation** for a disciple — solo trespass; Temple only helps them **arrive ready** (gear, arrays, void depth).
 
 Relative to Sword Immortal: may be **weaker in open duel**; **stranger** in where and when he acts.
 
