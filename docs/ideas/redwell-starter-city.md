@@ -199,6 +199,8 @@ Xianxia world rule (owner 2026-08-06): **opportunities are not player-only.** Se
 
 **Hall triangle (v1 locked — dirty partners):** **lord mid–late FE (senior cut + cover) ↔ hall master early FE (runs hall) ↔ warden (dirty hands)**. Real joinable hall; they embezzle together — not a shell corp. Detail: [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md).
 
+**City Lord v1 (shipped thin):** seat `redwell_city_lord`, title **City Lord {Name}**, meet button + Look around glimpse + quiet thanks after useful Well-Ring work + soft outsider escort tax. No quest tree / take-the-town. Depth later.
+
 **Other zones later:** same *office*, different person and lean. Don’t invent a new lord *system* per starter — don’t clone Redwell’s conspiracy either.
 
 ### Just outside (no Threshold required)

@@ -2479,6 +2479,16 @@ function updateMarketButton() {
             ? (member ? 'Well-Ring Lodge — missions, merit board, Quiet Breath' : 'Well-Ring Lodge — pay outer registration')
             : 'Well-Ring Lodge is in Redwell';
     }
+    const cityLordBtn = document.getElementById('btnCityLord');
+    if (cityLordBtn) {
+        const atHub = typeof isAtRedwell === 'function' ? isAtRedwell() : false;
+        cityLordBtn.disabled = !atHub;
+        cityLordBtn.style.opacity = atHub ? '' : '0.45';
+        const title = typeof getRedwellCityLordName === 'function' ? getRedwellCityLordName() : 'City Lord';
+        cityLordBtn.title = atHub
+            ? `${title} — Redwell apex (local weight only)`
+            : 'City Lord holds Redwell';
+    }
 }
 
 function renderMerchantPopup() {

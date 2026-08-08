@@ -326,7 +326,8 @@ Optional seasoning: well boss job skim, bazaar fence, innkeep rumor filter.
 - [x] Master / rival names: Liang / Wei Shun
 - [x] Manual = patched notebook
 - [x] Loyalty as full meter — **parked** (return for larger shady sects)
-- [ ] Lord name + one memorable tick — only when interactions exist; “Redwell City Lord” fine until then
+- [x] Lord name + one memorable tick — only when interactions exist; “Redwell City Lord” fine until then
+  → **v1 shipped:** generated seat name as **City Lord {Name}**; thin meet / glimpse / thanks (depth later)
 - [x] Refuse dirty: **keep sash + small merit hit** (locked for v1)
 - [x] FE courtyard vs conspiracy — **still outsider** for v1 (no auto membership)
 - [ ] Preferred *seeded* fate ramps for this lord (not a forced outcome): stagnate / leave on breakthrough / rare find / wrong enemy

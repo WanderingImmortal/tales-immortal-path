@@ -195,12 +195,17 @@ function actionLookAround() {
     G.crowdSessionUids = crowd.map(n => n.uid);
 
     if (!crowd.length) {
-        commitActionLog(`👁️ You look around ${placeLabel} — nothing catches your eye.`);
+        const glimpseEmpty = typeof maybeRedwellCityLordGlimpse === 'function' ? maybeRedwellCityLordGlimpse() : null;
+        if (glimpseEmpty) commitActionLog(glimpseEmpty);
+        else commitActionLog(`👁️ You look around ${placeLabel} — nothing catches your eye.`);
         fullRender();
         return;
     }
 
-    commitActionLog(`👁️ You scan ${placeLabel} — ${crowd.length} figure${crowd.length === 1 ? '' : 's'} stand out from the noise.`);
+    const glimpse = typeof maybeRedwellCityLordGlimpse === 'function' ? maybeRedwellCityLordGlimpse() : null;
+    let scanLine = `👁️ You scan ${placeLabel} — ${crowd.length} figure${crowd.length === 1 ? '' : 's'} stand out from the noise.`;
+    if (glimpse) scanLine = `${glimpse}\n${scanLine}`;
+    commitActionLog(scanLine);
     if (typeof logQiFeelForNpc === 'function' && crowd[0]) {
         logQiFeelForNpc(crowd[0]);
     }
