@@ -12,7 +12,7 @@
 
 Cities have a **civic power tier** separate from cultivation realm of the player. Naming must read as cities (not Waystation/Crossroads). Default cities are **not** unorganized sects — thin apex, trade, law.
 
-Cross-links: [`qi-condensation-depth.md`](qi-condensation-depth.md), [`settlement-lore.md`](settlement-lore.md), [`imperial-city-tianjing.md`](imperial-city-tianjing.md), [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`creation-path-guilds.md`](creation-path-guilds.md).
+Cross-links: [`qi-condensation-depth.md`](qi-condensation-depth.md), [`settlement-lore.md`](settlement-lore.md), [`imperial-city-tianjing.md`](imperial-city-tianjing.md), [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`creation-path-guilds.md`](creation-path-guilds.md), [`civic-seats-generator.md`](civic-seats-generator.md).
 
 ## Design notes
 

@@ -33,6 +33,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (sword/blood manuals + aura) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) · [#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74) |
 | [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing / Dustbone | `cursor/qc-playtest-fixes` |
 | [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
+| [Civic seats generator](civic-seats-generator.md) | `building` (v1 Redwell) | Other cities / capital kit later | `cursor/civic-seats-generator-design` |
 | [Explore — field gathering](explore-field-gathering.md) | `designed` (field triangle) | Site tables; enemy pools | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
 | [Dustbone starter gameplay (hub)](dustbone-starter-gameplay.md) | `designed` (index) | Child slices | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) · [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | [Dustbone living board](dustbone-living-board.md) | `designed` | Redwell v1 | [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |

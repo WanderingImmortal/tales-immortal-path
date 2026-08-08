@@ -164,18 +164,6 @@ const REDWELL_BOUNTIES = [
     { id: 'debt_skip', name: 'Debt-Skipper', pay: 22, months: 2, risk: 0.25, flavor: 'Owes the Innkeep and fled to the dunes.' }
 ];
 
-const REDWELL_SEAT_IDS = ['redwell_city_lord', 'redwell_innkeep', 'redwell_bazaar', 'redwell_well_boss', 'redwell_warden'];
-const REDWELL_SEAT_LABELS = {
-    redwell_city_lord: 'City Lord',
-    redwell_innkeep: 'Innkeep',
-    redwell_bazaar: 'Bazaar face',
-    redwell_well_boss: 'Well boss',
-    redwell_warden: 'Road warden'
-};
-const REDWELL_NAME_POOL = [
-    'Mei', 'Jun', 'Sable', 'Orrin', 'Lian', 'Kest', 'Nara', 'Tobin', 'Yue', 'Hark', 'Sela', 'Rook'
-];
-
 function ensureQcDepthState() {
     if (!G.qcBand) {
         G.qcBand = { stage: 'early', gatherProgress: 0, capacityGranted: { mid: false, late: false, peak: false } };
@@ -333,69 +321,6 @@ function isAtDwellingSettlement() {
     return loc === G.dwelling.settlementId;
 }
 
-function rollRedwellPersonName() {
-    const pool = REDWELL_NAME_POOL;
-    return pool[Math.floor(Math.random() * pool.length)];
-}
-
-function ensureRedwellSeats() {
-    if (!G.civicSeats) G.civicSeats = {};
-    const now = G.ageMonths || 0;
-    REDWELL_SEAT_IDS.forEach(seatId => {
-        let holder = G.civicSeats[seatId];
-        const isLord = seatId === 'redwell_city_lord';
-        if (!holder) {
-            const ageYears = isLord ? (42 + Math.floor(Math.random() * 28)) : (28 + Math.floor(Math.random() * 30));
-            G.civicSeats[seatId] = {
-                name: rollRedwellPersonName(),
-                ageYears,
-                bornMonth: now - ageYears * 12,
-                deathAgeYears: isLord
-                    ? (110 + Math.floor(Math.random() * 40))
-                    : (72 + Math.floor(Math.random() * 12))
-            };
-            return;
-        }
-        const ageYears = Math.floor((now - (holder.bornMonth || 0)) / 12);
-        holder.ageYears = ageYears;
-        if (holder.deathAgeYears == null) {
-            holder.deathAgeYears = isLord
-                ? (110 + Math.floor(Math.random() * 40))
-                : (72 + Math.floor(Math.random() * 12));
-        }
-        if (ageYears >= holder.deathAgeYears) {
-            const old = holder.name;
-            const ageNew = isLord ? (40 + Math.floor(Math.random() * 25)) : (24 + Math.floor(Math.random() * 20));
-            G.civicSeats[seatId] = {
-                name: rollRedwellPersonName(),
-                ageYears: ageNew,
-                bornMonth: now - ageNew * 12,
-                deathAgeYears: isLord
-                    ? (110 + Math.floor(Math.random() * 40))
-                    : (72 + Math.floor(Math.random() * 12))
-            };
-            if (typeof addLog === 'function') {
-                if (isLord) {
-                    addLog(`🏜️ City Lord ${old} is gone from the seat. ${G.civicSeats[seatId].name} holds Redwell now — same office, new face.`);
-                    if (G.redwellLord) {
-                        G.redwellLord.met = false;
-                        G.redwellLord.thanksGiven = false;
-                        G.redwellLord.successionSeen = true;
-                    }
-                } else {
-                    addLog(`🏜️ ${REDWELL_SEAT_LABELS[seatId] || seatId}: ${old} is gone. ${G.civicSeats[seatId].name} holds the seat now.`);
-                }
-            }
-        }
-    });
-}
-
-function getRedwellCityLordName() {
-    ensureRedwellSeats();
-    const n = G.civicSeats?.redwell_city_lord?.name;
-    return n ? `City Lord ${n}` : 'the City Lord';
-}
-
 function ensureRedwellLordState() {
     if (!G.redwellLord) {
         G.redwellLord = {
@@ -445,6 +370,9 @@ function actionMeetRedwellCityLord() {
     const wr = G.wellRing;
     const heardScam = !!(wr?.heardFeeScam);
 
+    const lean = typeof getRedwellSeatLean === 'function' ? getRedwellSeatLean('redwell_city_lord') : null;
+    const tick = typeof getRedwellSeatTick === 'function' ? getRedwellSeatTick('redwell_city_lord') : null;
+
     beginActionLog();
     if (!advanceTime(0, `Seeking ${title}`)) {
         cancelActionLog();
@@ -460,6 +388,8 @@ function actionMeetRedwellCityLord() {
         } else {
             line = `🏛️ ${title} barely glances your way. "Redwell has work. Don't make noise." Mid–late FE pressure sits on the street like heat. You are small here.`;
         }
+        if (lean === 'graft') line += ' The cut of his smile says quiet coin moves under this seat.';
+        if (tick) line += ` ${tick}`;
     } else if (heardScam) {
         line = `🏛️ ${title} again. Something in his smile says the sash fees feed quiet cups — Liang's and his. He does not confirm. He does not need to.`;
     } else if (member && (wr?.merit || 0) >= 4) {
@@ -493,14 +423,18 @@ function openRedwellCityLordPopup() {
     ensureRedwellLordState();
     const lord = G.redwellLord;
     const member = typeof isWellRingMember === 'function' && isWellRingMember();
+    const tick = typeof getRedwellSeatTick === 'function' ? getRedwellSeatTick('redwell_city_lord') : null;
+    const lean = typeof getRedwellSeatLean === 'function' ? getRedwellSeatLean('redwell_city_lord') : null;
     const blurb = lord.met
         ? `${title} — Redwell's civic apex (mid–late FE). Local big fish. Not a Heartlands name.`
         : `Redwell's City Lord. Mid–late FE. The street bends around him when you are weak. Seek an audience (free — short).`;
     const sashNote = member
         ? 'You wear a Well-Ring sash — he may nod once.'
         : 'No lodge sash — expect dismissal.';
+    const habit = tick ? `<div class="desc" style="margin-bottom:10px;color:#908070;">${tick}${lean === 'graft' ? ' · Quiet graft under the seat.' : ''}</div>` : '';
     list.innerHTML = `
         <div class="desc" style="margin-bottom:10px;">${blurb}</div>
+        ${habit}
         <div class="desc" style="margin-bottom:10px;color:#a09080;">${sashNote}</div>
         <div class="popup-item can-buy" id="cityLordMeetBtn" style="cursor:pointer;">
             <div class="name">🏛️ ${lord.met ? 'Seek him again' : 'Seek audience'}</div>
@@ -527,11 +461,6 @@ function maybeRedwellLordQuietThanks(mission) {
     lord.thanksGiven = true;
     const title = getRedwellCityLordName();
     return ` A runner later: "${title} is pleased the road stayed quiet." No coin — just weight.`;
-}
-
-function getRedwellSeatName(seatId) {
-    ensureRedwellSeats();
-    return G.civicSeats?.[seatId]?.name || 'someone';
 }
 
 function playerOwnsMethod(methodId) {
@@ -681,7 +610,10 @@ function openRedwellBountyBoard() {
         actionRedwellBounty(REDWELL_BOUNTIES[0].id);
         return;
     }
-    list.innerHTML = REDWELL_BOUNTIES.map(b => `
+    const warden = getRedwellSeatName('redwell_warden');
+    const wardenTick = typeof getRedwellSeatTick === 'function' ? getRedwellSeatTick('redwell_warden') : null;
+    const wardenLabel = typeof getCivicSeatLabel === 'function' ? getCivicSeatLabel('redwell', 'warden') : 'Road warden';
+    list.innerHTML = `<div class="desc" style="margin-bottom:8px;">${wardenLabel} ${warden} posts the low bounties.${wardenTick ? ' ' + wardenTick : ''}</div>` + REDWELL_BOUNTIES.map(b => `
         <div class="popup-item can-buy" data-redwell-bounty="${b.id}" style="cursor:pointer;">
             <div class="name">🗡️ ${b.name}</div>
             <div class="desc">${b.flavor}</div>
@@ -740,6 +672,11 @@ function actionThresholdWork(jobId) {
     ensureQcDepthState();
     if (!isAtRedwell()) {
         addLog('👷 Work boards are in Redwell. Walk there first.');
+        fullRender();
+        return;
+    }
+    if (typeof settlementHasJobs === 'function' && !settlementHasJobs('redwell')) {
+        addLog('👷 No work boards are posted in Redwell right now.');
         fullRender();
         return;
     }
@@ -840,6 +777,11 @@ function openThresholdJobsPopup() {
         fullRender();
         return;
     }
+    if (typeof settlementHasJobs === 'function' && !settlementHasJobs('redwell')) {
+        addLog('👷 No work boards are posted in Redwell right now.');
+        fullRender();
+        return;
+    }
     const list = document.getElementById('thresholdJobsList');
     const popup = document.getElementById('thresholdJobsPopup');
     const title = popup?.querySelector('h2');
@@ -850,7 +792,8 @@ function openThresholdJobsPopup() {
         return;
     }
     const boss = getRedwellSeatName('redwell_well_boss');
-    list.innerHTML = `<div class="desc" style="margin-bottom:8px;">${boss} posts what work still pays.</div>` + REDWELL_JOBS.map(job => {
+    const bossTick = typeof getRedwellSeatTick === 'function' ? getRedwellSeatTick('redwell_well_boss') : null;
+    list.innerHTML = `<div class="desc" style="margin-bottom:8px;">${boss} posts what work still pays.${bossTick ? ' ' + bossTick : ''}</div>` + REDWELL_JOBS.map(job => {
         const dry = isThresholdJobDry(job.id);
         const pay = `${job.payMin}–${job.payMax}`;
         const risk = job.risk ? ' · Risk' : '';
