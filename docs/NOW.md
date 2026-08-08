@@ -5,11 +5,10 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-08-04
 
 ## Focus
-- Well-Ring Lodge v1 at Redwell (join / merit / missions) — play a full QC run
-- Pamphlet pool already on main (#103)
+- Well-Ring + thin City Lord presence at Redwell — pile content, big feel pass later
 
 ## Next
-- Economy feel · cultivate pacing · Threshold thin visit after Redwell feels decent
+- Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Loyalty meter for shady sects — **parked**
 
 ## Parked (return later)
