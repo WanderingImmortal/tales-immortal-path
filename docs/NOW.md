@@ -2,13 +2,14 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-08-04
+**Updated:** 2026-08-08
 
 ## Focus
-- Well-Ring + thin City Lord presence at Redwell — pile content, big feel pass later
+- Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
 
 ## Next
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
+- Wire other Dustbone towns onto civic seats (same kit)
 - Loyalty meter for shady sects — **parked**
 
 ## Parked (return later)
