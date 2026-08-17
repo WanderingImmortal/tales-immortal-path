@@ -84,6 +84,10 @@ No hard `minRealm` zone locks. Warn: above your station is a good way to die. So
 3. **Combat Tech** — side drawer → panel under combat when in fight.
 4. **Lodge after buy** — was economy flag only; minimal home screen + owned chest (not sect residence).
 
+### Playtest findings (2026-08-17)
+
+5. **Break Through stayed greyed at Late QC** — `applyQcProgressiveActionUi` locked the button at Mid but never cleared `disabled` when band advanced to Late/Peak (fixed in `cursor/playtest-breakthrough-escape-6077`). Mid still shows a locked Break preview until Late — intentional horizon UI.
+
 ### Break styles (QC→FE)
 
 Keep ids `balanced` / `power` / `wisdom`. QC labels: Steady Settle · Force the Basin · Read the Audit. Tradeoffs: odds/trib severity/fail cracks/FE entry. Full style redesign for later gates parked.

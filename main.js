@@ -1012,6 +1012,8 @@ document.addEventListener('DOMContentLoaded', function() {
         executePeakGrind();
     });
 
+    if (typeof initOverlayKeyboardEscape === 'function') initOverlayKeyboardEscape();
+
     // Start the game
     if (typeof initWorldClockUi === 'function') initWorldClockUi();
     initGame();

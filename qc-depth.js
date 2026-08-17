@@ -1722,15 +1722,27 @@ function applyQcProgressiveActionUi() {
             if (showBreak) breakWrap.style.removeProperty('display');
             else breakWrap.style.setProperty('display', 'none', 'important');
         }
-        if (breakBtn && showBreak && !hasQcBandBreakthroughReady()) {
-            breakBtn.classList.add('action-locked');
-            breakBtn.disabled = true;
-            breakBtn.title = '🔒 Reach Late Qi Condensation by gathering qi, then Break Through.';
+        if (breakBtn) {
+            const ready = hasQcBandBreakthroughReady();
+            if (showBreak && ready) {
+                breakBtn.classList.remove('action-locked');
+                breakBtn.disabled = false;
+                breakBtn.title = breakBtn.dataset.defaultTitle || '';
+            } else if (showBreak) {
+                breakBtn.classList.add('action-locked');
+                breakBtn.disabled = true;
+                breakBtn.title = '🔒 Reach Late Qi Condensation by gathering qi, then Break Through.';
+            }
         }
     } else if (breakWrap) {
         breakWrap.hidden = false;
         breakWrap.classList.remove('action-realm-hidden');
         breakWrap.style.removeProperty('display');
+        if (breakBtn) {
+            breakBtn.classList.remove('action-locked');
+            breakBtn.disabled = false;
+            breakBtn.title = breakBtn.dataset.defaultTitle || '';
+        }
     }
 }
 
