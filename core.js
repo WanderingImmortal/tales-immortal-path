@@ -282,7 +282,8 @@ function getBreakChance() {
     base += getPlayerTraitBonus('breakthroughPct', 0);
     if (typeof getTalentBreakthroughBonus === 'function') base += getTalentBreakthroughBonus();
     if (G.trait?.bonus?.breakthrough) base += G.trait.bonus.breakthrough;
-    base -= G.breakAttempts * 5;
+    const attemptPenaltyPer = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm() ? 2 : 5;
+    base -= (G.breakAttempts || 0) * attemptPenaltyPer;
     const openCount = G.meridians.filter(m => m).length;
     base += openCount * 2;
     if (typeof getScarBreakthroughBonus === 'function') base += getScarBreakthroughBonus();
@@ -937,8 +938,10 @@ function formatActionTimeMeta(months, remainStr) {
 }
 
 function advanceTime(months, activity) {
-    // Living calendar owns age while Play is live — actions keep effects, not month cost.
-    if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
+    // Living calendar owns age while Play is requested — menus freeze ticks but not action month cost.
+    if (typeof isWorldClockPlayRequested === 'function' && isWorldClockPlayRequested()) {
+        months = 0;
+    } else if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
         months = 0;
     }
     if (months <= 0) return true;
