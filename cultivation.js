@@ -35,7 +35,19 @@ function openSpiritBreakthrough() {
 }
 
 function openTrackBreakthrough(track) {
-    if (G.gameOver || G.inCombat || isTribulationActive() || (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending())) return;
+    if (G.gameOver) return;
+    if (G.inCombat) {
+        if (typeof addLog === 'function') addLog('⚔️ You cannot break through mid-fight.');
+        return;
+    }
+    if (typeof isTribulationActive === 'function' && isTribulationActive()) {
+        if (typeof addLog === 'function') addLog('⚡ Heavenly tribulation is in progress — finish it first.');
+        return;
+    }
+    if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) {
+        if (typeof addLog === 'function') addLog('🌟 Choose your transcendence blessing first.');
+        return;
+    }
     setBreakthroughTrack(track);
     setBreakthroughTrack(track);
     const pathKey = typeof getTrackPathKey === 'function' ? getTrackPathKey(track) : G.path;
@@ -215,7 +227,14 @@ function closeBreakthrough() {
 }
 
 function executeBreakthrough(style) {
-    if (G._breakthroughResolving) return;
+    if (G._breakthroughResolving) {
+        if (typeof addLog === 'function') addLog('🌀 Breakthrough still resolving — wait for the roll or close the popup.');
+        return;
+    }
+    if (typeof isTribulationActive === 'function' && isTribulationActive()) {
+        if (typeof addLog === 'function') addLog('⚡ Finish (or fail) the heavenly tribulation before another breakthrough.');
+        return;
+    }
     executeTrackBreakthrough(style, getBreakthroughTrack());
 }
 
