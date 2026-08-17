@@ -281,6 +281,9 @@ function executeTrackBreakthrough(style, track) {
         const realmName = typeof getTrackRealmName === 'function' ? getTrackRealmName(track) : getRealm();
         const titleName = typeof getTrackTitle === 'function' ? getTrackTitle(track) : getTitle();
         commitActionLog(`✨ SUCCESS! ${track === 'spirit' ? 'Spirit track' : track === 'vessel' ? 'Vessel' : 'Dantian'}: ${realmName} (${titleName})!`);
+        if (qcCrossing) {
+            addLog('⚡ The heavenly audit opens — survive tribulation to cement Foundation.');
+        }
         if (typeof notifyActionUnlocks === 'function' && prevUnlocks) {
             notifyActionUnlocks(prevUnlocks);
             if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
@@ -302,6 +305,7 @@ function executeTrackBreakthrough(style, track) {
         closeBreakthrough();
         if (perfectBreak && track === 'dantian' && typeof canOfferTranscendencePerks === 'function' && canOfferTranscendencePerks(newIdx)) {
             offerTranscendencePerkChoice(newIdx, style);
+            if (typeof fullRender === 'function') fullRender();
             return;
         }
         if (track === 'dantian' && shouldTriggerTribulation()) {
@@ -314,9 +318,10 @@ function executeTrackBreakthrough(style, track) {
             };
             if (typeof beginTribulationWithTutorial === 'function') {
                 beginTribulationWithTutorial(style, tribOpts);
-            } else {
+            } else if (typeof startTribulation === 'function') {
                 startTribulation(tribOpts);
             }
+            if (typeof fullRender === 'function') fullRender();
             return;
         }
         if (track === 'dantian') checkPerfectCultivation();

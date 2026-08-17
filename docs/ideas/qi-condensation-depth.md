@@ -87,6 +87,16 @@ No hard `minRealm` zone locks. Warn: above your station is a good way to die. So
 ### Playtest findings (2026-08-17)
 
 5. **Break Through stayed greyed at Late QC** — `applyQcProgressiveActionUi` locked the button at Mid but never cleared `disabled` when band advanced to Late/Peak (fixed in `cursor/playtest-breakthrough-escape-6077`). Mid still shows a locked Break preview until Late — intentional horizon UI.
+6. **Break posture buttons felt like they only fail** — tribulation was deferred behind the first-tribulation tutorial modal; success path skipped `fullRender`; QC→FE trial math was harsh. Fixed: trib opens immediately, UI refreshes, first-watershed trib eased ([#110](https://github.com/WanderingImmortal/tales-immortal-path/pull/110) follow-up).
+
+### Breakthrough feel (owner 2026-08-17)
+
+Current loop = **break roll + trib phases + scars** reads roguelike. Parked direction (not shipped):
+
+- **QC→FE** — breakthrough opens tribulation; **realm promotion** should feel earned by surviving audit (limbo / pseudo-realm), not a hidden second RNG gate after a hidden first roll.
+- **FE+** — [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md): seal foundation → **Initial Core Formation** → trib, not generic 24-month break + generic deck.
+- **Per-gate scripts** — [`tribulation-per-gate-backlog.md`](tribulation-per-gate-backlog.md); avoid scar-risk click roulette as the main verb.
+- **Interim** — tune first watershed trib so playtests can cross; redesign replaces double-RNG when owner locks FE journey.
 
 ### Break styles (QC→FE)
 

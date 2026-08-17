@@ -138,6 +138,9 @@ function startTribulation(arg) {
     }
 
     let severity = getTribulationSeverity();
+    if (transitionId === 'qc_to_fe') {
+        severity = Math.max(6, Math.floor(severity * 0.72));
+    }
     let trialScore = 0;
     // QC→FE style postures (and later gates sharing the same breakStyle ids)
     if (breakStyle === 'power') {
@@ -562,6 +565,15 @@ function applyScriptedLightningFail(choice) {
     }
 }
 
+function getQcFirstWatershedResistBonus() {
+    const state = G.tribulationState;
+    if (!state || state.transitionId !== 'qc_to_fe') return 0;
+    let bonus = 12;
+    if (typeof getQcBandPowerBonus === 'function') bonus += getQcBandPowerBonus();
+    if (G.qcBand?.stage === 'peak') bonus += 4;
+    return bonus;
+}
+
 function resolveLightningTrial(choice) {
     const state = G.tribulationState;
     if (typeof isPlaytestAutoPassTribulation === 'function' && isPlaytestAutoPassTribulation()) {
@@ -572,6 +584,7 @@ function resolveLightningTrial(choice) {
         return;
     }
     let resist = getLightningResistPower();
+    resist += getQcFirstWatershedResistBonus();
     if (choice.script === 'qc_bedrock') {
         resist += getQcBedrockResistBonus();
     } else if (choice.script === 'qc_compress') {

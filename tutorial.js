@@ -228,12 +228,14 @@ function beginTribulationWithTutorial(breakStyle, tribOpts) {
         breakStyle: breakStyle || 'balanced',
         ...(tribOpts && typeof tribOpts === 'object' ? tribOpts : {})
     };
-    if (isTutorialComplete('first_tribulation')) {
-        startTribulation(opts);
-        return;
+    // Always open tribulation immediately — deferring behind a modal tutorial blocked the trial UI.
+    if (typeof startTribulation === 'function') startTribulation(opts);
+    if (!isTutorialComplete('first_tribulation')) {
+        completeTutorial('first_tribulation');
+        if (typeof addLog === 'function') {
+            addLog('⚡ Heaven\'s Trial — omen, trial, aftermath. Survive to cement the crossing; scars linger but can be healed.');
+        }
     }
-    G._pendingTribulation = opts;
-    triggerTutorial('first_tribulation');
 }
 
 function dismissTutorialPopup() {
