@@ -179,6 +179,12 @@ function startTribulation(arg) {
         addLog('📖 Sacrilege on the ledger — the audit is harsher than it would have been.');
     }
 
+    const breakthroughEl = document.getElementById('breakthroughPopup');
+    if (breakthroughEl?.classList.contains('active')) {
+        breakthroughEl.classList.remove('active');
+        if (typeof setBreakthroughPostureButtonsBusy === 'function') setBreakthroughPostureButtonsBusy(false);
+        G._breakthroughResolving = false;
+    }
     renderTribulationOverlay();
     document.getElementById('tribulationOverlay').classList.add('active');
     fullRender();

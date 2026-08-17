@@ -938,8 +938,10 @@ function formatActionTimeMeta(months, remainStr) {
 }
 
 function advanceTime(months, activity) {
-    // Living calendar owns age while Play is live — actions keep effects, not month cost.
-    if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
+    // Living calendar owns age while Play is requested — menus freeze ticks but not action month cost.
+    if (typeof isWorldClockPlayRequested === 'function' && isWorldClockPlayRequested()) {
+        months = 0;
+    } else if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
         months = 0;
     }
     if (months <= 0) return true;
