@@ -78,7 +78,13 @@ function openTrackBreakthrough(track) {
         const chance = Math.round(getBreakChance());
         const band = typeof getQcBandLabel === 'function' ? getQcBandLabel() : null;
         if (qcCrossing) {
-            return `${band || 'Qi Condensation'} → ${next} · Chance ~${chance}% · Attempts: ${G.breakAttempts || 0} · Pick a posture — success starts the heavenly audit into Foundation. Fail and you remain here to try again.`;
+            const seclusion = getBreakthroughSeclusionMonths(realmIdx);
+            const balancedChance = Math.round(clamp(chance + getBreakthroughStyleChanceBonus('balanced', true), 10, 95));
+            const attempts = G.breakAttempts || 0;
+            const attemptNote = attempts
+                ? ` · ${attempts} failed attempt${attempts === 1 ? '' : 's'} (−${attempts * 2}% at QC)`
+                : '';
+            return `${band || 'Qi Condensation'} → ${next} · Costs ${formatBreakthroughSeclusionLabel(seclusion)} seclusion · Steady Settle ~${balancedChance}%${attemptNote} · Success opens tribulation (not on fail).`;
         }
         const preview = typeof getPerfectBreakthroughPreview === 'function'
             ? getPerfectBreakthroughPreview(3)
@@ -118,6 +124,7 @@ function openTrackBreakthrough(track) {
         return `${trackLabel} · ${realmName} → ${next} | Foundation: ${typeof getFoundationPlayerLabel === 'function' ? getFoundationPlayerLabel() : (typeof getFoundationDisplayText === 'function' ? getFoundationDisplayText() : getEffectiveFoundation())} | Chance: ${chance}%${alignText ? ' (' + alignText + ')' : ''} | ${statusLabel} | Attempts: ${G.breakAttempts} | Meridians: ${getMeridianOpenCount()}/13 | Age: ${formatYears(G.ageMonths)} | ${isImmortal() ? 'Immortal' : getYearsRemaining() + ' years left'} | ${marginText}${tierLine ? ' | ' + tierLine : ''}`;
     })();
     applyBreakthroughStyleButtonLabels(qcCrossing);
+    setBreakthroughPostureButtonsBusy(false);
     document.getElementById('breakthroughPopup').classList.add('active');
     if (typeof triggerTutorial === 'function') triggerTutorial('first_breakthrough');
 }
@@ -155,6 +162,30 @@ function getBreakthroughStyleChanceBonus(style, qcCrossing) {
     return 0;
 }
 
+/** Seclusion cost — QC watershed is shorter than later 2-year breaks. */
+function getBreakthroughSeclusionMonths(realmIdx) {
+    const months = typeof ACTION_MONTHS !== 'undefined' ? ACTION_MONTHS.breakthrough : 24;
+    if (realmIdx === 0 && typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        return 6;
+    }
+    return months;
+}
+
+function formatBreakthroughSeclusionLabel(months) {
+    if (typeof formatDuration === 'function') return formatDuration(months);
+    if (months % 12 === 0) return `${months / 12} year${months === 12 ? '' : 's'}`;
+    return `${months} months`;
+}
+
+function setBreakthroughPostureButtonsBusy(busy) {
+    ['btBalanced', 'btPower', 'btWisdom', 'btCancel'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.disabled = !!busy;
+        btn.classList.toggle('action-busy', !!busy);
+    });
+}
+
 function applyQcBreakthroughEntryBonuses(style) {
     if (style === 'power') {
         G.maxQiBonus = (G.maxQiBonus || 0) + 6;
@@ -179,14 +210,20 @@ function applyQcBreakthroughEntryBonuses(style) {
 
 function closeBreakthrough() {
     document.getElementById('breakthroughPopup').classList.remove('active');
+    G._breakthroughResolving = false;
+    setBreakthroughPostureButtonsBusy(false);
 }
 
 function executeBreakthrough(style) {
+    if (G._breakthroughResolving) return;
     executeTrackBreakthrough(style, getBreakthroughTrack());
 }
 
 function executeTrackBreakthrough(style, track) {
     track = track || 'dantian';
+    if (G._breakthroughResolving) return;
+    G._breakthroughResolving = true;
+    setBreakthroughPostureButtonsBusy(true);
     const realmIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : G.realmIdx;
     const qcCrossing = track === 'dantian'
         && typeof isQiCondensationRealm === 'function'
@@ -216,7 +253,8 @@ function executeTrackBreakthrough(style, track) {
         return;
     }
     beginActionLog();
-    if (!advanceTime(ACTION_MONTHS.breakthrough, `${getTrackRealmName(track)} breakthrough seclusion`)) {
+    const seclusionMonths = getBreakthroughSeclusionMonths(realmIdx);
+    if (!advanceTime(seclusionMonths, `${getTrackRealmName(track)} breakthrough seclusion`)) {
         cancelActionLog();
         addLog('🚫 Breakthrough seclusion could not begin (time / lifespan blocked).');
         closeBreakthrough();
@@ -280,6 +318,7 @@ function executeTrackBreakthrough(style, track) {
         extendLifespanOnBreakthrough(sealTier);
         const realmName = typeof getTrackRealmName === 'function' ? getTrackRealmName(track) : getRealm();
         const titleName = typeof getTrackTitle === 'function' ? getTrackTitle(track) : getTitle();
+        addLog(`🎲 Roll ${Math.round(roll)} vs ${Math.round(finalChance)}% needed — cleared.`);
         commitActionLog(`✨ SUCCESS! ${track === 'spirit' ? 'Spirit track' : track === 'vessel' ? 'Vessel' : 'Dantian'}: ${realmName} (${titleName})!`);
         if (qcCrossing) {
             addLog('⚡ The heavenly audit opens — survive tribulation to cement Foundation.');
@@ -327,6 +366,14 @@ function executeTrackBreakthrough(style, track) {
         if (track === 'dantian') checkPerfectCultivation();
     } else {
         G.breakAttempts++;
+        addLog(`🎲 Roll ${Math.round(roll)} vs ${Math.round(finalChance)}% needed — rejected.`);
+        if (qcCrossing) {
+            const nextBalanced = Math.round(clamp(
+                getBreakChance() + getBreakthroughStyleChanceBonus('balanced', true),
+                10, 95
+            ));
+            addLog(`📉 Next Steady Settle try ~${nextBalanced}% · ${G.breakAttempts} fail${G.breakAttempts === 1 ? '' : 's'} on record (−2% each at QC).`);
+        }
         let rawDmg = 5 + Math.floor(Math.random() * 15) + (style === 'power' ? 5 : 0) + (style === 'wisdom' ? 5 : 0);
         if (qcCrossing && style === 'power') rawDmg += 4;
         if (qcCrossing && style === 'balanced') rawDmg = Math.max(3, rawDmg - 3);

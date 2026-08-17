@@ -282,7 +282,8 @@ function getBreakChance() {
     base += getPlayerTraitBonus('breakthroughPct', 0);
     if (typeof getTalentBreakthroughBonus === 'function') base += getTalentBreakthroughBonus();
     if (G.trait?.bonus?.breakthrough) base += G.trait.bonus.breakthrough;
-    base -= G.breakAttempts * 5;
+    const attemptPenaltyPer = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm() ? 2 : 5;
+    base -= (G.breakAttempts || 0) * attemptPenaltyPer;
     const openCount = G.meridians.filter(m => m).length;
     base += openCount * 2;
     if (typeof getScarBreakthroughBonus === 'function') base += getScarBreakthroughBonus();
