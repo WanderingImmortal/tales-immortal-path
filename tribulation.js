@@ -185,6 +185,7 @@ function startTribulation(arg) {
         if (typeof setBreakthroughPostureButtonsBusy === 'function') setBreakthroughPostureButtonsBusy(false);
         G._breakthroughResolving = false;
     }
+    if (typeof suspendTutorialPopupForHighStakesFlow === 'function') suspendTutorialPopupForHighStakesFlow();
     renderTribulationOverlay();
     document.getElementById('tribulationOverlay').classList.add('active');
     fullRender();

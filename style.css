@@ -6636,7 +6636,7 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 
 /* Ritual / moment overlays stay centred */
 #tribulationOverlay {
-    z-index: 1050;
+    z-index: 1200;
 }
 
 #tribulationOverlay,
