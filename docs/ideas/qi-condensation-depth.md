@@ -87,7 +87,8 @@ No hard `minRealm` zone locks. Warn: above your station is a good way to die. So
 ### Playtest findings (2026-08-17)
 
 5. **Break Through stayed greyed at Late QC** — `applyQcProgressiveActionUi` locked the button at Mid but never cleared `disabled` when band advanced to Late/Peak (fixed in `cursor/playtest-breakthrough-escape-6077`). Mid still shows a locked Break preview until Late — intentional horizon UI.
-6. **Break posture buttons felt like they only fail** — tribulation was deferred behind the first-tribulation tutorial modal; success path skipped `fullRender`; QC→FE trial math was harsh. Fixed: trib opens immediately, UI refreshes, first-watershed trib eased ([#110](https://github.com/WanderingImmortal/tales-immortal-path/pull/110) follow-up).
+6. **Break posture buttons felt like they only fail** — tribulation was deferred behind the first-tribulation tutorial modal; success path skipped `fullRender`; QC→FE trial math was harsh. Fixed: trib opens immediately, UI refreshes, first-watershed trib eased ([#111](https://github.com/WanderingImmortal/tales-immortal-path/pull/111)).
+7. **Every breakthrough cost 2 years (Play or Pause)** — `advanceTime` only waived months when `isWorldClockLive()`; breakthrough popup hard-freezes the clock so Play still charged 24mo. Fixed: waive when Play is requested; QC seclusion 6mo when paused ([#111](https://github.com/WanderingImmortal/tales-immortal-path/pull/111)).
 
 ### Breakthrough feel (owner 2026-08-17)
 
