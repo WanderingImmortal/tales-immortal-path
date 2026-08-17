@@ -123,9 +123,6 @@ function migrateTutorialForExistingSave() {
         if (G.realmConsolidation && Object.values(G.realmConsolidation).some(r => r?.done)) {
             completeTutorial('first_consolidation');
         }
-        if ((G.tribulationMarks?.length || 0) > 0) {
-            completeTutorial('first_tribulation');
-        }
         if ((G.daoAlignment || 0) !== 0) {
             completeTutorial('first_alignment');
         }
@@ -145,7 +142,23 @@ function migrateTutorialForExistingSave() {
 }
 
 function canShowTutorialNow() {
-    return !G.gameOver && !G.inCombat;
+    if (G.gameOver || G.inCombat) return false;
+    if (G._breakthroughResolving) return false;
+    if (typeof isTribulationActive === 'function' && isTribulationActive()) return false;
+    return true;
+}
+
+/** Hide an active lesson without marking complete — re-queue after trib / breakthrough. */
+function suspendTutorialPopupForHighStakesFlow() {
+    const overlay = document.getElementById('tutorialPopup');
+    const id = overlay?.dataset?.tutorialId;
+    if (overlay?.classList.contains('active') && id && !isTutorialComplete(id)) {
+        if (!tutorialQueue.includes(id)) tutorialQueue.push(id);
+    }
+    clearTutorialHighlight();
+    overlay?.classList.remove('active');
+    tutorialShowing = false;
+    tutorialReviewMode = false;
 }
 
 function triggerTutorial(id) {
@@ -228,14 +241,8 @@ function beginTribulationWithTutorial(breakStyle, tribOpts) {
         breakStyle: breakStyle || 'balanced',
         ...(tribOpts && typeof tribOpts === 'object' ? tribOpts : {})
     };
-    // Always open tribulation immediately — deferring behind a modal tutorial blocked the trial UI.
+    if (typeof suspendTutorialPopupForHighStakesFlow === 'function') suspendTutorialPopupForHighStakesFlow();
     if (typeof startTribulation === 'function') startTribulation(opts);
-    if (!isTutorialComplete('first_tribulation')) {
-        completeTutorial('first_tribulation');
-        if (typeof addLog === 'function') {
-            addLog('⚡ Heaven\'s Trial — omen, trial, aftermath. Survive to cement the crossing; scars linger but can be healed.');
-        }
-    }
 }
 
 function dismissTutorialPopup() {
@@ -250,7 +257,6 @@ function dismissTutorialPopup() {
     if (!tutorialReviewMode && id) {
         completeTutorial(id);
         tutorialShowing = false;
-        if (id === 'first_tribulation') runPendingTribulationIfAny();
         processTutorialQueue();
     } else {
         tutorialReviewMode = false;

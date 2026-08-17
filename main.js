@@ -801,6 +801,9 @@ function initGame() {
             setTimeout(() => openAncientBargainPopup(G.ancients.pendingBargain), 600);
         }
         fullRender();
+        if (G._pendingTribulation && typeof runPendingTribulationIfAny === 'function') {
+            requestAnimationFrame(() => runPendingTribulationIfAny());
+        }
     } else {
         setupCreation();
     }

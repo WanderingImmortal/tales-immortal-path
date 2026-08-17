@@ -3686,14 +3686,6 @@ const TUTORIAL_STEPS = {
         text: 'You have reached the peak of your realm. To go further, you must first stabilize what you have built — your Foundation must be solid before you can ascend.',
         learnMore: 'Consolidation locks in your realm\'s gains: Foundation, max Qi, and density. Perfect consolidation at peak power grants the best bonuses. Most realms require consolidation before the next breakthrough.'
     },
-    first_tribulation: {
-        id: 'first_tribulation',
-        title: 'Heaven\'s Trial',
-        emoji: '⚡',
-        highlight: null,
-        text: 'The Heavens test the worthy. Survive, and you grow stronger. Fall, and you bear a scar.',
-        learnMore: 'Tribulations have three phases: omen, trial, and combat or choice. Scars are permanent debuffs but can be healed through rare means. Dao Alignment and preparation shift the odds.'
-    },
     first_alignment: {
         id: 'first_alignment',
         title: 'Dao Alignment',
@@ -3730,7 +3722,7 @@ const TUTORIAL_STEPS = {
 
 const TUTORIAL_ORDER = [
     'first_boot', 'first_cultivate', 'first_breakthrough', 'first_consolidation',
-    'first_tribulation', 'first_alignment', 'first_npc',
+    'first_alignment', 'first_npc',
     'unlock_factions', 'unlock_forbidden'
 ];
 
