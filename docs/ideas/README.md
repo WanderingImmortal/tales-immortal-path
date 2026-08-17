@@ -31,6 +31,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Cultivation manuals framework](cultivation-manuals-framework.md) | `building` (P2 designed) | Essence infra (P3+) | [#52](https://github.com/WanderingImmortal/tales-immortal-path/issues/52) |
 | [Burning Breath — layers](burning-breath-layers.md) | `shipped` (policy A — no layers) | — | [#64](https://github.com/WanderingImmortal/tales-immortal-path/pull/64) |
 | [Technique-driven cultivation & foundation variants](technique-driven-cultivation.md) | `building` (sword/blood manuals + aura) | — | [#54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) · [#74](https://github.com/WanderingImmortal/tales-immortal-path/pull/74) |
+| [Escape key overlay navigation](escape-key-overlay-navigation.md) | `building` (layer 1) | Layer 2 tab reset | `cursor/playtest-breakthrough-escape-6077` |
 | [Qi Condensation depth](qi-condensation-depth.md) | `building` | Band pacing / Dustbone | `cursor/qc-playtest-fixes` |
 | [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
 | [Civic seats generator](civic-seats-generator.md) | `building` (v1 Redwell) | Other cities / capital kit later | `cursor/civic-seats-generator-design` |
