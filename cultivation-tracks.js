@@ -19,6 +19,13 @@ function emptyTrackState() {
     return { realmIdx: 0, consolidation: {} };
 }
 
+function normalizeCultivationTrackId(track) {
+    if (!track) return 'dantian';
+    if (CULTIVATION_TRACKS.includes(track)) return track;
+    if (LEGACY_PATH_TO_TRACK[track]) return LEGACY_PATH_TO_TRACK[track];
+    return 'dantian';
+}
+
 function ensureCultivationTracksState() {
     if (!G.cultivation) {
         G.cultivation = {
@@ -38,6 +45,7 @@ function ensureCultivationTracksState() {
     if (G.cultivation.soulEmbryo == null) G.cultivation.soulEmbryo = false;
     if (G.cultivation.soulEmbryoOrigin === undefined) G.cultivation.soulEmbryoOrigin = null;
     if (!G.cultivation.focusTrack) G.cultivation.focusTrack = 'dantian';
+    else G.cultivation.focusTrack = normalizeCultivationTrackId(G.cultivation.focusTrack);
     syncLegacyPathShims();
 }
 
@@ -110,25 +118,28 @@ function syncLegacyPathShims() {
 }
 
 function getFocusTrack() {
-    if (G.cultivation?.focusTrack) return G.cultivation.focusTrack;
-    return LEGACY_PATH_TO_TRACK[G.path] || 'dantian';
+    if (G.cultivation?.focusTrack) return normalizeCultivationTrackId(G.cultivation.focusTrack);
+    return normalizeCultivationTrackId(LEGACY_PATH_TO_TRACK[G.path] || G.path || 'dantian');
 }
 
 function setFocusTrack(track) {
     ensureCultivationTracksState();
-    if (!CULTIVATION_TRACKS.includes(track)) track = 'dantian';
+    track = normalizeCultivationTrackId(track);
     G.cultivation.focusTrack = track;
     syncLegacyPathShims();
     syncRealmConsolidationFromFocusTrack();
 }
 
 function getTrackRealmIdx(track) {
+    track = normalizeCultivationTrackId(track);
     if (!G.cultivation?.[track]) ensureCultivationTracksState();
     return G.cultivation[track]?.realmIdx ?? 0;
 }
 
 function setTrackRealmIdx(track, idx) {
+    track = normalizeCultivationTrackId(track);
     ensureCultivationTracksState();
+    if (!G.cultivation[track]) G.cultivation[track] = emptyTrackState();
     const max = getMaxCultivationRealmIdx(TRACK_TO_LEGACY_PATH[track]);
     G.cultivation[track].realmIdx = clamp(idx, 0, max);
     if (track === getFocusTrack()) syncLegacyPathShims();
@@ -136,7 +147,7 @@ function setTrackRealmIdx(track, idx) {
 }
 
 function getTrackPathKey(track) {
-    return TRACK_TO_LEGACY_PATH[track] || 'qi';
+    return TRACK_TO_LEGACY_PATH[normalizeCultivationTrackId(track)] || 'qi';
 }
 
 function getTrackPathData(track) {
