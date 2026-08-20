@@ -18,11 +18,16 @@ function updateShield() {
 
 // ===== BREAKTHROUGH =====
 function getBreakthroughTrack() {
-    return G._breakthroughTrack || 'dantian';
+    const track = G._breakthroughTrack || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');
+    return typeof normalizeCultivationTrackId === 'function'
+        ? normalizeCultivationTrackId(track)
+        : (track || 'dantian');
 }
 
 function setBreakthroughTrack(track) {
-    G._breakthroughTrack = track;
+    G._breakthroughTrack = typeof normalizeCultivationTrackId === 'function'
+        ? normalizeCultivationTrackId(track)
+        : (track || 'dantian');
 }
 
 function openBreakthrough(track) {
@@ -190,7 +195,7 @@ function formatBreakthroughSeclusionLabel(months) {
 }
 
 function setBreakthroughPostureButtonsBusy(busy) {
-    ['btBalanced', 'btPower', 'btWisdom', 'btCancel'].forEach(id => {
+    ['btBalanced', 'btPower', 'btWisdom'].forEach(id => {
         const btn = document.getElementById(id);
         if (!btn) return;
         btn.disabled = !!busy;
@@ -222,8 +227,7 @@ function applyQcBreakthroughEntryBonuses(style) {
 
 function closeBreakthrough() {
     document.getElementById('breakthroughPopup').classList.remove('active');
-    G._breakthroughResolving = false;
-    setBreakthroughPostureButtonsBusy(false);
+    resetBreakthroughPopupState();
 }
 
 function executeBreakthrough(style) {
@@ -238,11 +242,30 @@ function executeBreakthrough(style) {
     executeTrackBreakthrough(style, getBreakthroughTrack());
 }
 
+function resetBreakthroughPopupState() {
+    G._breakthroughResolving = false;
+    setBreakthroughPostureButtonsBusy(false);
+}
+
 function executeTrackBreakthrough(style, track) {
-    track = track || 'dantian';
+    track = typeof normalizeCultivationTrackId === 'function'
+        ? normalizeCultivationTrackId(track || 'dantian')
+        : (track || 'dantian');
     if (G._breakthroughResolving) return;
     G._breakthroughResolving = true;
     setBreakthroughPostureButtonsBusy(true);
+    try {
+        executeTrackBreakthroughCore(style, track);
+    } catch (err) {
+        console.error('Breakthrough failed:', err);
+        if (typeof cancelActionLog === 'function') cancelActionLog();
+        if (typeof addLog === 'function') addLog('🚫 Breakthrough interrupted — the attempt collapsed. Try again.');
+        closeBreakthrough();
+        if (typeof fullRender === 'function') fullRender();
+    }
+}
+
+function executeTrackBreakthroughCore(style, track) {
     const realmIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : G.realmIdx;
     const qcCrossing = track === 'dantian'
         && typeof isQiCondensationRealm === 'function'
