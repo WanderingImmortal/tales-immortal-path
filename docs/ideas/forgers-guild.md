@@ -6,7 +6,7 @@
 | **Blocked on** | HQ city on map; branch exam ceiling; forge profession Phase C+ |
 | **Issue** | none yet |
 | **Chat / PR** | Forging spine brainstorm 2026-08-27 |
-| **Updated** | 2026-08-27 (org structure + geography map) |
+| **Updated** | 2026-08-27 (realm, roles, creation dao sketch) |
 
 Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-organization-types.md`](jianghu-organization-types.md). Mechanics: [`forging-equipment-tiers.md`](forging-equipment-tiers.md). Longcheng footprint: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 
@@ -21,10 +21,10 @@ Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-
 | **Vibe** | Hot metal, cold contracts — **standards, stamps, and signatures** in a world where every sect claims their blade is heaven-blessed. |
 | **Path** | **Creation-path craft** (qi gear primary in v1); body/soul forging verbs later |
 | **Charter name** | **Forgers Guild** (铸匠会) — simple, imposing; no cute sub-brand |
-| **HQ** | **Furnaceheart City** (炉心城) *(candidate — ore-adjacent, Frostbite margin)* |
+| **HQ** | **Furnaceheart City** (炉心城) — **own map node** (ore-adjacent, Frostbite margin) |
 | **Heartlands branch** | **Guild Row, Longcheng** — licensing, imperial commissions, mid-tier exams |
-| **Guild spine** | **Grandmaster Hong Lian** (洪炼) — *Furnace Sovereign* (炉君); VR peak; **ore purification + grade reliability** — fundamentals to the extreme |
-| **Public face (Longcheng)** | **Registrar Yan Tie** (严铁) — Core Formation+; charter stamps, player-facing exams |
+| **Guild spine** | **Grandmaster Hong Lian** (洪炼) — *Furnace Sovereign* (炉君); **Dao Seeking peak** *(lean early Manifestation)*; **Forge Dao** — not combat-forward |
+| **Capital admin** | **License Marshal Yan Tie** (严铁) — day-to-day Longcheng paperwork; Hong Lian still forges |
 | **Allies / rivals** | **House of Luo** (ore leases — partner and competitor); **Alchemists Guild** (adjacent patronage); **Celestial Sword** / **Golden Phoenix** (both buy, neither owns) |
 | **Player feel** | “My signature is on the blade.” Rank up by **work**, not gossip. |
 
@@ -99,7 +99,18 @@ He makes **weapons** — plain ones. A Hong Lian blade might look unremarkable i
 
 ## Organisation — structure × geography *(owner lean 2026-08-27)*
 
-**Design order:** geography skeleton is **already locked enough** ([`creation-path-guilds.md`](creation-path-guilds.md)) — hang structure on it. Not every seat is a **place**; not every place invents a new elder.
+**Design order:** geography skeleton is **locked** — Furnaceheart is its **own node**; hang structure on zone hubs from [`creation-path-guilds.md`](creation-path-guilds.md).
+
+### Who runs what (owner lean)
+
+Hong Lian is **face + final authority + still at the anvil** — not a full-time bureaucrat. **Yan Tie** and charter deputies run **admin**; the grandmaster **vetoes** and **forges**.
+
+```text
+Hong Lian     →  craft apex, register signature, peak disputes, still purifies/forges daily
+Yan Tie       →  Longcheng licenses, commissions, exams, hire roster — the desk you actually visit
+Register Warden →  HQ book of marks & craft-titles (NOT “guild signup” — see below)
+Branch Registrar  →  walk-in desk per zone — first exam, recipe register, local buy/sell
+```
 
 ### Two kinds of seat
 
@@ -138,16 +149,19 @@ ZONE BRANCHES — one primary hub per zone
 
 | Office | Hanzi *(stub)* | Usual seat | Realm lean | Job |
 |--------|----------------|------------|------------|-----|
-| **Grandmaster** | 炉君 | Furnaceheart | VR peak | Apex craft; register keeper; peak exams |
-| **Register Warden** | 册守 | Furnaceheart | NS–VR | **Master Register** (名匠册) — craft-titles, marks, succession |
+| **Grandmaster** | 炉君 | Furnaceheart | **Dao Seeking peak** *(lean early Manifestation)* | Apex craft; **Forge Dao**; still at anvil; co-signs register |
 | **Chief Appraiser** | 品正 | Furnaceheart | Master+ | Grade disputes; calibrates exam blades; *The blade reads honesty* is the reference |
-| **License Marshal** | 铁符使 | **Longcheng** | CF+ | Spirit-iron licensing; imperial charter interface |
+| **Register Warden** | 册守 | Furnaceheart | Master+ | **Master Register** — craft-titles, marks, senior roll; **not** first-time signup |
+| **License Marshal** | 铁符使 | **Longcheng** | CF+ | Spirit-iron licensing; imperial charter; **Yan Tie** — day-to-day admin |
 | **Commission Broker** | 工单行 | Longcheng + HQ | CF+ | Post/fill tier commissions; military & noble contracts |
-| **Purification Elder** | 炼真座 | Furnaceheart *(Frost branch deputy lean)* | Master+ | Ore intake standards; Luo lot disputes — **Hong Lian’s lane** |
+| **Purification Elder** | 炼真座 | Furnaceheart *(Frost deputy lean)* | Master+ | Ore intake standards; Luo lot disputes — **Hong Lian’s lane** |
+| **Branch Registrar** | 分号执事 | **Each zone hub** | FE+ | **Guild signup desk** — apprentice exam, recipe register, local exams |
 
-**Owner note:** Hong Lian **dual-hats** Grandmaster + de facto Purification Elder until he trains a successor. Register Warden might be a trusted deputy *(stub NPC)* — he is old; the register must outlive one pair of hands.
+**Register Warden vs signup:** walking in to **join / first exam** → **Branch Registrar** (Threshold, Longcheng, …). **Register Warden** keeps the **master book** when you earn **Master Smith+** and register your **craft-title + 诚-style mark** — copy filed at HQ. Hong Lian still co-signs as grandmaster until a deputy is named.
 
-**Council:** Charter Council = Register Warden + Chief Appraiser + License Marshal + **three Branch Regents** (Longcheng, Furnaceheart, one **rotating** outer-zone seat). Votes on standard changes; argues constantly.
+**Owner note:** Hong Lian **dual-hats** Grandmaster + de facto Purification Elder. Register Warden = trusted deputy *(stub)* — he forges; he does not want to chase paperwork.
+
+**Charter Council — what “rotating / outer seat” means:** seven seats total — Register Warden, Chief Appraiser, License Marshal (Yan Tie), Branch Regent (Longcheng), Branch Regent (Furnaceheart), plus **Outer Seat** (轮值). The **Outer Seat** is **one vote shared by non-Heartlands zones** (Dustbone, Frostbite, Jade, Emberwild) — they **take turns** each term so Longcheng doesn’t set every pin alone. Plain English: *“whose zone is on the council this year.”*
 
 ### Branch seats *(geographic — one per zone hub)*
 
@@ -155,7 +169,7 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 
 | Zone | Hub | Branch seat | Registrar | Branch specialty *(lean)* | Exam ceiling *(lean)* |
 |------|-----|-------------|-----------|---------------------------|------------------------|
-| **Heartlands** | Longcheng — Guild Row | **Capital branch** | **Yan Tie** (严铁) | Licensing, commissions, richest hire roster | Dao Smith (rank 7) |
+| **Heartlands** | Longcheng — Guild Row | **Capital branch** | **Yan Tie** — License Marshal *(runs the desk)* | Licensing, commissions, richest hire roster | Dao Smith (rank 7) |
 | **Frostbite** | Frost Gate Outpost | Frost branch | *(stub)* | Cold-steel, ore escort; **Purification deputy** | Spirit Smith (5) |
 | **Dustbone** | Threshold City | Dustbone branch | *(stub)* | QC recipe register, apprentice exams | Artisan (3) |
 | **Jade** | Tide Harbor | Registry office *(ph.2)* | *(stub)* | Import/export stamp only at first | — |
@@ -183,13 +197,23 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 
 ### Open (structure)
 
-- [ ] Register Warden — separate NPC deputy, or Hong Lian until succession crisis?
-- [ ] Rotating council seat — Frostbite or Dustbone first?
-- [ ] **Furnaceheart** — new map node vs elevate Frost Gate (geography lock)
+- [x] **Furnaceheart** — own map node (ore-adjacent) — owner 2026-08-27
+- [ ] Register Warden deputy NPC — name when needed
+- [ ] Outer Seat — which zone holds council first (Dustbone vs Frostbite)?
 
 ---
 
 ## Leadership *(summary — see [Organisation](#organisation--structure--geography-owner-lean-2026-08-27))*
+
+| Role | Name | Seat type | Notes |
+|------|------|-----------|-------|
+| **Grandmaster** | **Hong Lian** (洪炼) | Charter @ HQ | Kind old man; stubborn; late Dao Wars rise |
+| **License Marshal** | **Yan Tie** (严铁) | Branch @ Longcheng | Player-facing capital desk — exams, licensing, commissions |
+| **Threshold Registrar** | *(stub)* | Branch @ Threshold | QC exams, recipe registration |
+| **Register Warden** | *(stub deputy)* | Charter @ HQ | Master Register custody — Hong Lian still signs until named |
+| **Charter Council** | Branch Regents + office holders | Mixed | Standards votes; rarely agree |
+
+**Succession:** Grandmaster title passes by **unanimous Charter Council + proof forge** — successor must forge a **Supreme-grade tier-7 commission** before the register turns. Hong Lian is old; council is **split** on whether the next grandmaster must be guild-born or can be a sect exile.
 
 ---
 
@@ -199,7 +223,7 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 |-------|-------|
 | **Epithet** | **Furnace Sovereign** (炉君) |
 | **True name** | **Hong Lian** (洪炼) — *vast* + *refine in fire* |
-| **Realm** | **Void Refinement peak** — combat-capable today; was **never** a duelist legend |
+| **Realm** | **Dao Seeking peak** *(owner lean: early Dao Manifestation)* — **Forge Dao**; combat is **ordinary** for his tier |
 | **Talent** | **Not gifted** — owner lock: dedication + stubbornness, not prodigy |
 | **Specialty** | **Ore purification** + **grade reliability** — fundamentals to the extreme ([owner lock](#grandmaster-specialty--owner-lock-2026-08-27)) |
 | **Public face** | **Kind old man** — slight smile, eyes usually **closed** |
@@ -234,7 +258,27 @@ What he had:
 - **Patience** — outlast teachers who wanted shortcuts
 - **Honesty** — a reputation for poverty before a reputation for greatness
 
-His cultivation advanced **late and ugly** — not on a mountain, but in the gap between hammer strokes. VR peak came **after** the craft, not before it. He is proof the guild path is **work**, not heaven’s favor.
+His cultivation advanced **late and ugly** — not on a mountain, but in the gap between hammer strokes. **Dao Seeking** came when he finally **understood metal as law**, not just technique. He may be **half-step toward Manifestation** — the forge answers him in ways it shouldn’t for a “mere smith” — but he has **never** oriented that toward killing. He is proof the guild path is **work**, not heaven’s favor.
+
+### Forge Dao — what that even means *(sketch — owner 2026-08-27)*
+
+**Sword Dao** is a **wield dao**: comprehend the sword → become the sword → **fight** as the law.
+
+**Forge Dao** (铸道) *(working name)* is a **creation dao**: comprehend **transformation and truth in matter** → the metal **cannot lie** around you → **make** as the law.
+
+| | **Wield dao** (Sword, Phoenix flame…) | **Creation dao** (Forge, Alchemy…) |
+|--|--------------------------------------|-------------------------------------|
+| **Question** | How do I **strike** / **channel**? | How do I **change** / **stabilize** matter? |
+| **Dao Seeking** | Sees the law of the **cut**, the **flame** | Sees the law of **phase**, **pin**, **honest form** |
+| **Manifestation** *(if reached)* | **Wears** sword law — duels rewrite terrain | **Wears** craft law — **material in radius obeys truth** (slag separates, grades stabilize) |
+| **Combat** | Primary expression | **Side effect** — he is dangerous because his **gear** and **guards** are perfect, not because he throws forge-fire |
+| **Weirdness** | Players get it immediately | Feels odd until you frame it as **infrastructure**, not a beam attack |
+
+**Hong Lian’s expression:** at the anvil, ore **yields** impurity. Hammers **find** the true line. A 诚 mark is not branding — it is **statement of material fact** under his dao. That is why the continent trusts his pins.
+
+**Not designed today:** full Forge Dao cultivation track for players ([`law-taxonomy.md`](law-taxonomy.md) — *dao importance asymmetry* parked). For v1, forging stays **profession + smith rank**; Hong Lian is the **lore proof** that creation paths can reach Seeking/Manifestation without looking like Sword Dao.
+
+**Alchemy parallel *(one line)*:** Alchemy Dao = **change of essence / dose / reaction** — pills, not palm strikes. Same “creation not wield” family; detail when alchemy guild ships.
 
 ### Dao Wars arc — late rise *(owner lock)*
 
@@ -345,7 +389,7 @@ Earned at **Master Smith+**, chosen or granted at registration. Shorter and more
 On the steel:     tiny 诚 + 诚炉翁
 Inspect line:     "The blade reads honesty."
 In charter law:   Grandmaster Hong Lian, the Furnace Sovereign
-In guild exams:   Void Smith (rank 6) — standard rank title
+In guild exams:   Law Smith (rank 8) — craft rank; cultivation Dao Seeking+
 ```
 
 ### Player loop (later)
@@ -485,6 +529,8 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 - [x] **Assassination + Furnace Wardens** — one attempt, hired guards with his gear — owner 2026-08-27
 - [x] **Personal craft-titles** — register at Master Smith+; Hong Lian = 诚炉翁 *(lean)* — owner 2026-08-27
 - [x] **Signature mark** — 诚 (honest); inspect *The blade reads honesty.* — owner 2026-08-27
+- [x] **Furnaceheart** — own map node — owner 2026-08-27
+- [x] **Hong Lian realm** — Dao Seeking peak (lean early Manifestation); Forge Dao — owner 2026-08-27
 - [ ] **Lock HQ city name** — Furnaceheart (炉心城) vs elevate existing Frostbite node
 - [ ] Exact branch exam ceiling (rank 5 vs 7 at Longcheng)
 - [ ] Threshold branch building + registrar NPC — implementation Issue
