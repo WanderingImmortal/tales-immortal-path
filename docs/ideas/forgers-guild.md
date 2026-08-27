@@ -6,7 +6,7 @@
 | **Blocked on** | HQ city on map; branch exam ceiling; forge profession Phase C+ |
 | **Issue** | none yet |
 | **Chat / PR** | Forging spine brainstorm 2026-08-27 |
-| **Updated** | 2026-08-27 (grandmaster specialty fork) |
+| **Updated** | 2026-08-27 (grandmaster specialty locked) |
 
 Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-organization-types.md`](jianghu-organization-types.md). Mechanics: [`forging-equipment-tiers.md`](forging-equipment-tiers.md). Longcheng footprint: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 
@@ -23,7 +23,7 @@ Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-
 | **Charter name** | **Forgers Guild** (铸匠会) — simple, imposing; no cute sub-brand |
 | **HQ** | **Furnaceheart City** (炉心城) *(candidate — ore-adjacent, Frostbite margin)* |
 | **Heartlands branch** | **Guild Row, Longcheng** — licensing, imperial commissions, mid-tier exams |
-| **Guild spine** | **Grandmaster Hong Lian** (洪炼) — *Furnace Sovereign* (炉君); VR peak; **specialty TBD** *(see [Grandmaster specialty](#grandmaster-specialty-design-fork))* |
+| **Guild spine** | **Grandmaster Hong Lian** (洪炼) — *Furnace Sovereign* (炉君); VR peak; **ore purification + grade reliability** — fundamentals to the extreme |
 | **Public face (Longcheng)** | **Registrar Yan Tie** (严铁) — Core Formation+; charter stamps, player-facing exams |
 | **Allies / rivals** | **House of Luo** (ore leases — partner and competitor); **Alchemists Guild** (adjacent patronage); **Celestial Sword** / **Golden Phoenix** (both buy, neither owns) |
 | **Player feel** | “My signature is on the blade.” Rank up by **work**, not gossip. |
@@ -49,111 +49,51 @@ Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-
 
 ---
 
-## Grandmaster specialty (design fork)
+## Grandmaster specialty — **owner lock (2026-08-27)**
 
-**Owner tension (2026-08-27):** all-around #1 feels **too good to be real**; a specialist raises **which specialty deserves the continent’s top smith**.
+**Not** an all-rounder. **Not** a gimmick niche. **Simple proficiency taken to extremes** — the boring steps done perfectly for 180 years.
 
-### Rule — #1 is not “best at every hammer stroke”
+### What he’s #1 at
 
-In this world the **best sword** and the **best smith** are different questions.
-
-| Who | Often actually “best” at | Why they’re not guild grandmaster |
-|-----|--------------------------|-----------------------------------|
-| Sword Sect elder | Named blades, kill-duel weapons | Sect-owned; makes for **one doctrine** |
-| Formation crossover | Inscription arrays on plate | Formations Guild owns **pattern law** |
-| House of Luo master | Ore lots, spirit-iron leases | Noble profit; not **neutral charter** |
-| Mercenary smith | Fast military tonnage | No **grade truth**; slag with good marketing |
-
-The grandmaster is #1 on the axis the **guild exists to protect** — not on every craft sub-skill.
+| Step | Skill | Why it matters |
+|------|-------|----------------|
+| **1. Purify** | **Spirit-iron refinement** — strips slag, mixed qi, cursed grit, noble dilution | Bad ore caps grade no matter how fancy the hammer work |
+| **2. Forge** | **Grade reliability** — from honest stock, his pieces land **上品 / 极品** at rates no one else matches | Everyone can forge; almost no one forges **consistently well** |
 
 ```text
-Weapon fame          →  often a sect story
-Inscription fame     →  often a formation story
-Ore fortune          →  often a noble story
-Grade / standard fame →  guild story  ← lean here
+Sect elder:  named blade, dao inscription, sect legend
+Luo smelter: cheap lot, fast ingot, profit margin
+Hong Lian:   clean ore → honest steel → correct grade, again and again
 ```
 
-### Three viable specialties (pick one — or hybrid A+C)
+**Vibe line:** “No tricks. No heavenly names. Just **clean metal** and **correct pins**.”
 
-#### Option A — **Proof-Smith** (证物匠) *(owner lean)*
+### What he’s **not** (and why that’s fine)
 
-**Specialty:** forges **reference pieces** — exam blades, calibration ingots, dispute swords — not field weapons.
+| Not his lane | Who owns it |
+|--------------|-------------|
+| Flashiest kill-blade / named heavenly sword | Sword Sect elders |
+| Inscription / array gear | Formations crossover |
+| Fastest army tonnage | Mercenary forges |
+| Ore leases and export politics | House of Luo |
 
-| | |
-|--|--|
-| **What he’s #1 at** | **Grade truth** — when two masters argue 上品 vs 极品, his strike is the appeal court |
-| **What he’s merely great at** | Martial-layer steel; ordinary commissions |
-| **What he’s not** | Fastest production, flashiest inscriptions, sect-style named heavenly swords |
-| **Why believable** | Spent 180 years making **one perfect thing at a time** for the register — not a thousand battle blades |
-| **Player hook** | Bring a disputed piece; his appraisal **sets market price** and exam standards |
-| **Epithet alt** | **Standard-Keeper** (尺匠) — he holds the ruler |
+He makes **weapons** — plain ones. A Hong Lian blade might look unremarkable in the hand. The extremity is in the **grade roll** and the **honest ingot**, not in glow effects or chronicle titles.
 
-*Vibe line:* “He doesn’t forge the most swords. He forges **what ‘supreme’ means**.”
+### Why this reads believable
 
-**Fits systems:** grade ladder, appraisal (Phase F), guild exams — his work **is** the answer key.
+- **Specialist without a gimmick** — purification + consistency is one craft axis, not “good at everything.”
+- **Explains guild authority** — the register codified **grade language** (下品→极品) because *he proved buyers could trust pins when the metal wasn’t lying*.
+- **Explains Luo friction** — Luo dilutes lots for margin; Hong Lian **refuses** to forge from their “convenient” stock without re-purification.
+- **Player fantasy echo** — the forge loop you already have (materials → craft → grade). He’s what the loop looks like at VR peak.
 
----
+### Rejected forks (for the record)
 
-#### Option B — **Finishing / quench master** (淬炉宗匠)
-
-**Specialty:** the **last ten breaths** — quench, temper, seal micro-flaws. Others bring nearly-finished work; only he reliably hits **极品**.
-
-| | |
-|--|--|
-| **What he’s #1 at** | **Finishing** — grade ceiling on the final hammer |
-| **What he’s merely great at** | Reading flawed ore; repair |
-| **What he’s not** | Whole-weapon design from scratch; mass army contracts |
-| **Why believable** | Narrower than “all weapons” — but **every master still needs him once** |
-| **Player hook** | Commission him to **finish** your best attempt; risk fee if it fails |
-| **Risk** | Can feel like a support NPC unless quench (Phase H) is central early |
-
-*Vibe line:* “The blade was yours. The **last fire** was his.”
-
-**Fits systems:** Phase C grade rolls, Phase H quench — he’s the **ceiling**, not the floor.
-
----
-
-#### Option C — **Spirit-iron honest smelting** (灵铁真炉)
-
-**Specialty:** **ore → true ingot** — strips lies from spirit-metal (mixed slag, cursed veins, false qi).
-
-| | |
-|--|--|
-| **What he’s #1 at** | **Material tier honesty** — the bottom layer of the weapon stack |
-| **What he’s merely great at** | Weapons from honest stock |
-| **What he’s not** | Dao-channel inscriptions; sexy named blades |
-| **Why believable** | Cosmic-infrastructure angle ([`law-taxonomy.md`](law-taxonomy.md)) — forgery is **infrastructure**, not a palm art |
-| **Player hook** | Luo ore politics; “this vein is lying” plot |
-| **Risk** | Less romantic than a sword; needs strong visual (furnace, ingot, not blade) |
-
-*Vibe line:* “Sects argue doctrine. He argues **whether the metal is real**.”
-
-**Fits systems:** material tier rule, House of Luo friction, Ironscar grit → honest steel fantasy.
-
----
-
-### Hybrids (if none alone feels right)
-
-| Hybrid | Read |
-|--------|------|
-| **A + C** | He doesn’t make your sword — he makes the **ingot examiners swear on**, then **judges** your finished work |
-| **A + B** | Proof-Smith who only accepts **finish commissions** on pieces already 上品+ — 极品 lottery |
-| **Reject all** | Grandmaster isn’t a crafter — **institutional spine only** (register keeper who stopped forging). *Feels cold; use only if craft legend isn’t wanted* |
-
-### What **not** to make him #1 at
-
-| Specialty | Why it steals someone else’s job |
-|-----------|----------------------------------|
-| Best kill-blade / duel sword | Celestial Sword’s lane |
-| Best inscription / array gear | Formations Guild lane |
-| Best pill-crucible metal | Alchemists lane |
-| Best body-reforge / temple bell | Vajra Ridge lane |
-| Best mass army tonnage | Qin mercenary / imperial war office lane |
-
-### Owner decision (open)
-
-- [ ] Lock specialty: A Proof-Smith / B Finishing / C Smelting / hybrid
-- [ ] Does “#1” mean **legendary skill** or **institutional authority** (can be both if specialty = standard)?
+| Option | Why passed |
+|--------|------------|
+| All-rounder | Too good to be real |
+| Proof-Smith only (arbitration, no weapons) | Too institutional; owner wants a **crafter** |
+| Finishing-only (last ten breaths) | Too niche / support-NPC feel |
+| Inscription / dao-channel specialist | Steals Formations + sect lanes |
 
 ---
 
@@ -171,7 +111,7 @@ REGISTERED SMITHS — player + NPC crafters (rank on the work)
 
 | Role | Name | Realm (public) | Notes |
 |------|------|----------------|-------|
-| **Guild spine** | **Hong Lian** (洪炼) | **VR peak** | HQ; has not left Furnaceheart in ~180 years; **strongest living smith**; middling in open immortal duel |
+| **Guild spine** | **Hong Lian** (洪炼) | **VR peak** | HQ; ~180 years at the main forge; **#1 purification + grade reliability**; middling duelist |
 | **Longcheng registrar** | **Yan Tie** (严铁) | Core Formation+ | Guild Row branch — player exams, spirit-iron licensing, commissions |
 | **Threshold registrar** | *(stub)* | Foundation+ | Dustbone branch — QC-tier exams, recipe registration, buy/sell |
 | **Charter Council** | Regional masters | Master Smith – Spirit Smith | Vote on standard changes; rarely agree |
@@ -180,26 +120,33 @@ REGISTERED SMITHS — player + NPC crafters (rank on the work)
 
 ---
 
-## Grandmaster Hong Lian (洪炼) — guild spine *(specialty open)*
+## Grandmaster Hong Lian (洪炼) — guild spine
 
 | Field | Value |
 |-------|-------|
-| **Epithet** | **Furnace Sovereign** (炉君) — alt if Proof-Smith: **Standard-Keeper** (尺匠) |
+| **Epithet** | **Furnace Sovereign** (炉君) |
 | **True name** | **Hong Lian** (洪炼) — *vast* + *refine in fire* |
 | **Realm** | **Void Refinement peak** — combat-capable; **reputation is craft**, not dueling |
-| **Specialty** | **TBD** — see [design fork](#grandmaster-specialty-design-fork); lean **Proof-Smith (grade truth)** |
+| **Specialty** | **Ore purification** + **grade reliability** — fundamentals to the extreme ([owner lock](#grandmaster-specialty--owner-lock-2026-08-27)) |
 | **Where** | **Furnaceheart main hall** — the continent’s largest spirit-forge; audiences by **commission queue**, not favor |
-| **Role** | Apex **craft authority** **and** keeper of the **Master Register** (名匠册) |
+| **Role** | Apex **crafter** **and** keeper of the **Master Register** (名匠册) |
 
 ### Who he is
 
-Hong Lian rose during the **Dao Wars re-armament rush** — every faction needed steel faster than oaths could break. He refused to forge **only** for one banner. His price was **charter neutrality**: stamp the guild’s mark, take the contract, **no questions about who dies holding the blade**.
+Hong Lian rose during the **Dao Wars re-armament rush** — every faction needed steel faster than oaths could break. While others **rushed** and **diluted**, he did the opposite: **purify the lot, then forge slowly**. His blades weren’t the flashiest on the field. They **didn’t snap**, and they **graded honestly**.
 
-After the wars, the guild **codified** what had been emergency practice: **one register**, **nine smith ranks**, **four grades per tier**, **spirit-iron licensing** tied to imperial charter. Lotus binds with silk; Forgers bind with **heat-treated contracts**.
+He refused to forge **only** for one banner. His price was **charter neutrality**: stamp the guild’s mark, take the contract, **no questions about who dies holding the blade**.
 
-He is **not** secretly forging the Sword Immortal’s blade. He is **openly** annoyed that half the continent wields steel he would have rejected as **Inferior** (下品) — and **quietly furious** when someone stamps 极品 on slag.
+After the wars, the guild **codified** what he had been proving in practice: **one register**, **nine smith ranks**, **four grades per tier**, **spirit-iron licensing** tied to imperial charter. Lotus binds with silk; Forgers bind with **heat-treated contracts**.
 
-**If Proof-Smith (lean):** his personal commissions are almost never “go kill my enemy.” They are **calibration blades** for exam halls, **reference ingots** for ore disputes, and **one Supreme proof-piece per decade** that redefines the guild ruler. Sect elders still have flashier named weapons. **His** weapons are boring, perfect, and legally devastating.
+He is **not** secretly forging the Sword Immortal’s blade. He is **openly** annoyed that half the continent wields steel he would have rejected as **Inferior** (下品) — and **quietly furious** when someone stamps 极品 on slag that never saw a true furnace.
+
+**His work:** unremarkable-looking weapons and ingots. No heavenly names, no spectacle. Buyers pay for **pin accuracy** — when Hong Lian signs a piece **Supreme** (极品), the continent believes it. Sect elders still win duels with **named** blades. Hong Lian wins **trust**.
+
+**The two steps nobody skips around him:**
+
+1. **Purify** — even House of Luo’s “export grade” ore gets re-smelted in his hall before it touches his anvil.
+2. **Forge** — from that stock, his grade outcomes are the benchmark examiners calibrate against.
 
 ### What he wants
 
@@ -210,6 +157,7 @@ He is **not** secretly forging the Sword Immortal’s blade. He is **openly** an
 ### What he won’t do
 
 - Duel for honor — “Bring a broken blade; that is a conversation.”
+- Forge from **unpurified** lots to save time — “Fast slag is still slag.”
 - Forge **named** cursed weapons for cults without charter review.
 - Leave Furnaceheart for court politics — **Yan Tie** handles Longcheng.
 
@@ -251,7 +199,7 @@ Smithing guilds were **local** — city stamps, family forges, sect armories. No
 | Beat | Detail |
 |------|--------|
 | **Early wars** | Sect forges prioritize their own disciples; mercenary steel is slag |
-| **Hong Lian’s rise** | Independent master; takes **all paid contracts**; introduces **grade language** (下品→极品) as buyer protection |
+| **Hong Lian’s rise** | Independent master; **purifies every lot**; grade language (下品→极品) spreads because his pins were **trustworthy** |
 | **Charter neutrality** | Guild refuses sect ownership bids from Phoenix **and** Sword |
 | **Post-war** | Imperial mandate recognizes **spirit-iron licensing** — Longcheng branch opens on Guild Row |
 
@@ -336,7 +284,7 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 - [x] Guild = charter craft institution, not sect (owner prior)
 - [x] Longcheng branch; HQ ore-adjacent (owner prior)
 - [x] Smith rank = public reputation — no second rep bar (owner prior)
-- [ ] **Lock grandmaster specialty** — Proof-Smith (A) vs Finishing (B) vs Smelting (C) — see [design fork](#grandmaster-specialty-design-fork)
+- [x] **Grandmaster specialty** — ore purification + grade reliability (fundamentals extreme) — owner 2026-08-27
 - [ ] **Lock HQ city name** — Furnaceheart (炉心城) vs elevate existing Frostbite node
 - [ ] Exact branch exam ceiling (rank 5 vs 7 at Longcheng)
 - [ ] Hong Lian name / epithet — owner pass
