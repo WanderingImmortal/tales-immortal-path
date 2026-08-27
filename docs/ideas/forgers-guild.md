@@ -131,7 +131,7 @@ REGISTERED SMITHS — player + NPC crafters (rank on the work)
 | **Specialty** | **Ore purification** + **grade reliability** — fundamentals to the extreme ([owner lock](#grandmaster-specialty--owner-lock-2026-08-27)) |
 | **Public face** | **Kind old man** — slight smile, eyes usually **closed** |
 | **Personal craft-title** | **Honest Furnace Elder** (诚炉翁) *(owner lean)* — registered at Master rank; simpler than grandmaster epithet |
-| **Signature mark** | Small imprint on every piece — **design TBD** ([marks](#craft-signatures--personal-titles)) |
+| **Signature mark** | **诚** (*honest*) — tiny stamp near tang or pommel ([locked](#signature-mark--owner-lock-2026-08-27)) |
 | **Where** | **Furnaceheart main hall** — audiences by **commission queue**, not favor |
 | **Guard** | **Furnace Wardens** (炉卫) — hired muscle after one assassination; armed with his steel |
 | **Role** | Apex **crafter** **and** keeper of the **Master Register** (名匠册) |
@@ -214,6 +214,19 @@ Stacked reasons — assassination attempt proved the last mile:
 | **The Furnace Wardens** | After the first attempt, killing him meant fighting **his steel** in someone else's hands |
 | **Indispensable** | By peak fame, killing him meant declaring war on **supply** |
 
+### What he wants
+
+- **Standards hold** — guild stamp means something when sect pamphlets lie.
+- **Ore access** — veins stay open; noble leases (Luo) don’t monopolize spirit-iron.
+- **No sect ownership** — Sword and Phoenix may **hire** guild masters; they may not **own** the register.
+
+### What he won’t do
+
+- Duel for honor — “Bring a broken blade; that is a conversation.”
+- Forge from **unpurified** lots to save time — “Fast slag is still slag.”
+- Forge **named** cursed weapons for cults without charter review.
+- Leave Furnaceheart for court politics — **Yan Tie** handles Longcheng.
+
 ---
 
 ## Craft signatures & personal titles *(owner lean 2026-08-27)*
@@ -226,20 +239,22 @@ Separate from **guild smith rank** (Apprentice → Forge Saint in [`forging-equi
 | **Personal craft-title** (匠号) | **Your** name on the work — path, character, specialty | **Master Smith (rank 4)+** — register mark at guild branch |
 | **Signature mark** (款识) | Tiny physical imprint on each piece | Same registration — proves the title |
 
-### Signature mark — small imprint *(design TBD)*
+### Signature mark — **owner lock (2026-08-27)**
 
-Not a banner crest. A **small stamp** near the tang, inside the pommel, or on the ingot face — visible only if you know where to look.
+**Hong Lian:** single character **诚** (*honest*) — stamped small near the tang, inside the pommel, or on the ingot face. Visible only if you know where to look. No banner crest, no glow.
 
-**Hong Lian candidates** *(pick one later)*:
+**Inspect flavor (owner lock):**
 
-| Mark | Read |
-|------|------|
-| **Single closed curve** | Eyelid line — his public face |
-| **One flame dot** | Furnace, minimal |
-| **Character 诚** (*honest*) | His path in one stroke |
-| **One hammer tick** | Single impact — fundamentals |
+| Surface | Copy |
+|---------|------|
+| **Log / first read** | *The blade reads honesty.* |
+| **Tooltip / full inspect** | *Mark: Honest (诚) · Honest Furnace Elder (诚炉翁)* |
+
+Hanzi stays **secondary** per [`forging-equipment-tiers.md`](forging-equipment-tiers.md) — English leads; brackets on tooltips only.
 
 **Rule:** grandmaster mark is **simple**. Flashy sigils are sect vanity; guild trust is **small and true**.
+
+**Player marks (later):** other registered smiths pick from a preset list or guild-approved single character at Master Smith+ — each with its own short inspect line (e.g. 寒 → *The steel reads cold.*). Hong Lian’s **诚** is the reference everyone knows.
 
 ### Personal craft-titles — examples
 
@@ -254,7 +269,8 @@ Earned at **Master Smith+**, chosen or granted at registration. Shorter and more
 **Hong Lian vs epithet:** **诚炉翁** (Honest Furnace Elder) is his **registered craft-name** — what buyers see on the mark. **炉君** (Furnace Sovereign) is the **grandmaster epithet** the continent uses in chronicle and charter — heavier, institutional.
 
 ```text
-On the steel:     small mark + 诚炉翁
+On the steel:     tiny 诚 + 诚炉翁
+Inspect line:     "The blade reads honesty."
 In charter law:   Grandmaster Hong Lian, the Furnace Sovereign
 In guild exams:   Void Smith (rank 6) — standard rank title
 ```
@@ -263,21 +279,7 @@ In guild exams:   Void Smith (rank 6) — standard rank title
 
 - Rank 4 exam → register **craft-title** + **mark design** (preset list or short custom)
 - Forged gear shows mark on inspect; sell price bonus if mark matches registered title
-- Appraisal (Phase F) reads mark before stats
-
----
-### What he wants
-
-- **Standards hold** — guild stamp means something when sect pamphlets lie.
-- **Ore access** — veins stay open; noble leases (Luo) don’t monopolize spirit-iron.
-- **No sect ownership** — Sword and Phoenix may **hire** guild masters; they may not **own** the register.
-
-### What he won’t do
-
-- Duel for honor — “Bring a broken blade; that is a conversation.”
-- Forge from **unpurified** lots to save time — “Fast slag is still slag.”
-- Forge **named** cursed weapons for cults without charter review.
-- Leave Furnaceheart for court politics — **Yan Tie** handles Longcheng.
+- Appraisal (Phase F) reads mark before stats — Hong Lian line: *The blade reads honesty.*
 
 ---
 
@@ -409,14 +411,15 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 - [x] **Character pass v1** — kind old man, closed eyes, untalented stubborn, late Dao Wars rise — owner 2026-08-27
 - [x] **Assassination + Furnace Wardens** — one attempt, hired guards with his gear — owner 2026-08-27
 - [x] **Personal craft-titles** — register at Master Smith+; Hong Lian = 诚炉翁 *(lean)* — owner 2026-08-27
-- [ ] **Lock signature mark design** — eyelid curve / 诚 / flame dot / hammer tick
+- [x] **Signature mark** — 诚 (honest); inspect *The blade reads honesty.* — owner 2026-08-27
+- [ ] **Lock HQ city name** — Furnaceheart (炉心城) vs elevate existing Frostbite node
+- [ ] Exact branch exam ceiling (rank 5 vs 7 at Longcheng)
 - [ ] Threshold branch building + registrar NPC — implementation Issue
 - [ ] Charter questline vs pure exam UI — scope for first forge guild slice
 
 ## Open questions
 
 - **HQ city:** brand-new Furnaceheart on map, or repurpose Frost Gate / new Frostbite hub?
-- **Signature mark:** eyelid curve vs 诚 vs flame dot vs hammer tick?
 - **Assassination attacker:** name the rival forge / sect cutout, or stay vague?
 - **Grandmaster combat:** ever a fightable NPC, or always off-screen craft authority?
 - **Sect forges:** do great sects **honor** guild stamps internally, or run parallel standards?

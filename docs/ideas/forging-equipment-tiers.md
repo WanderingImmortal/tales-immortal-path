@@ -355,7 +355,7 @@ At **Master Smith (rank 4)+**, register a **personal craft-title** and **signatu
 | Smith rank | Void Smith (虚空匠) |
 | Craft-title | Honest Furnace Elder (诚炉翁) |
 | Grandmaster epithet | Furnace Sovereign (炉君) |
-| Mark on steel | small imprint — design TBD |
+| Mark on steel | **诚** (honest) — inspect: *The blade reads honesty.* |
 
 ### Skill XP sources
 
