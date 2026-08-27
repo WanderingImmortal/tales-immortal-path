@@ -6,7 +6,7 @@
 | **Blocked on** | HQ city on map; branch exam ceiling; forge profession Phase C+ |
 | **Issue** | none yet |
 | **Chat / PR** | Forging spine brainstorm 2026-08-27 |
-| **Updated** | 2026-08-27 (grandmaster specialty locked) |
+| **Updated** | 2026-08-27 (character pass — owner) |
 
 Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-organization-types.md`](jianghu-organization-types.md). Mechanics: [`forging-equipment-tiers.md`](forging-equipment-tiers.md). Longcheng footprint: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 
@@ -111,7 +111,7 @@ REGISTERED SMITHS — player + NPC crafters (rank on the work)
 
 | Role | Name | Realm (public) | Notes |
 |------|------|----------------|-------|
-| **Guild spine** | **Hong Lian** (洪炼) | **VR peak** | HQ; ~180 years at the main forge; **#1 purification + grade reliability**; middling duelist |
+| **Guild spine** | **Hong Lian** (洪炼) | **VR peak** | Kind old man in public; **stubborn** underneath; late Dao Wars rise |
 | **Longcheng registrar** | **Yan Tie** (严铁) | Core Formation+ | Guild Row branch — player exams, spirit-iron licensing, commissions |
 | **Threshold registrar** | *(stub)* | Foundation+ | Dustbone branch — QC-tier exams, recipe registration, buy/sell |
 | **Charter Council** | Regional masters | Master Smith – Spirit Smith | Vote on standard changes; rarely agree |
@@ -126,27 +126,79 @@ REGISTERED SMITHS — player + NPC crafters (rank on the work)
 |-------|-------|
 | **Epithet** | **Furnace Sovereign** (炉君) |
 | **True name** | **Hong Lian** (洪炼) — *vast* + *refine in fire* |
-| **Realm** | **Void Refinement peak** — combat-capable; **reputation is craft**, not dueling |
+| **Realm** | **Void Refinement peak** — combat-capable today; was **never** a duelist legend |
+| **Talent** | **Not gifted** — owner lock: dedication + stubbornness, not prodigy |
 | **Specialty** | **Ore purification** + **grade reliability** — fundamentals to the extreme ([owner lock](#grandmaster-specialty--owner-lock-2026-08-27)) |
-| **Where** | **Furnaceheart main hall** — the continent’s largest spirit-forge; audiences by **commission queue**, not favor |
+| **Public face** | **Kind old man** — slight smile, eyes usually **closed** |
+| **Where** | **Furnaceheart main hall** — audiences by **commission queue**, not favor |
 | **Role** | Apex **crafter** **and** keeper of the **Master Register** (名匠册) |
 
-### Who he is
+### Presentation — the smile and the closed eyes
 
-Hong Lian rose during the **Dao Wars re-armament rush** — every faction needed steel faster than oaths could break. While others **rushed** and **diluted**, he did the opposite: **purify the lot, then forge slowly**. His blades weren’t the flashiest on the field. They **didn’t snap**, and they **graded honestly**.
+To strangers he reads as **harmless** — soft voice, unhurried hands, a grandfather at a hearth.
 
-He refused to forge **only** for one banner. His price was **charter neutrality**: stamp the guild’s mark, take the contract, **no questions about who dies holding the blade**.
+| Surface | Truth behind the eyelids |
+|---------|--------------------------|
+| Slight, patient smile | He has heard every excuse for bad steel |
+| Eyes closed while he listens | He is **not** sleeping — he is **measuring** you the way he measures ore |
+| Slow nods, never rushes an answer | Will tempered longer than any blade he has ever made |
+| Offers tea before business | You are in **his** furnace rhythm now |
 
-After the wars, the guild **codified** what he had been proving in practice: **one register**, **nine smith ranks**, **four grades per tier**, **spirit-iron licensing** tied to imperial charter. Lotus binds with silk; Forgers bind with **heat-treated contracts**.
+**Owner line:** *Hiding behind those eyelids is a will stronger than any blade he's ever made.*
 
-He is **not** secretly forging the Sword Immortal’s blade. He is **openly** annoyed that half the continent wields steel he would have rejected as **Inferior** (下品) — and **quietly furious** when someone stamps 极品 on slag that never saw a true furnace.
+He opens his eyes only when he must — to read a flaw in metal, or to let someone understand they have exhausted his patience.
 
-**His work:** unremarkable-looking weapons and ingots. No heavenly names, no spectacle. Buyers pay for **pin accuracy** — when Hong Lian signs a piece **Supreme** (极品), the continent believes it. Sect elders still win duels with **named** blades. Hong Lian wins **trust**.
+### Origin — not talented, just stubborn
+
+Hong Lian was **never** a prodigy. No sect recruited him young. No vein opened at his touch. He **scraped** — failed apprenticeships, bad ore lots, years of **Inferior** work he refused to sell as anything else.
+
+What he had:
+
+- **Stubbornness** — re-smelt the same lot ten times rather than ship a lie
+- **Patience** — outlast teachers who wanted shortcuts
+- **Honesty** — a reputation for poverty before a reputation for greatness
+
+His cultivation advanced **late and ugly** — not on a mountain, but in the gap between hammer strokes. VR peak came **after** the craft, not before it. He is proof the guild path is **work**, not heaven’s favor.
+
+### Dao Wars arc — late rise *(owner lock)*
+
+He was **not** a notable figure for most of the war. A small independent forge. Correct pins. No banner.
+
+| Phase | Hong Lian |
+|-------|-----------|
+| **Early / mid war** | Background noise — one more smith in a continent drowning in smiths |
+| **While sects rushed** | Purified every lot; forged slowly; **refused dilution** even when clients screamed |
+| **Turning point** | Commanders noticed blades **didn’t snap** — then noticed the **same signature** on steel from a dozen losing sides |
+| **Late war** | Reputation **carried by the weapons**, not by him — the powerful came to the forge; he did not go to them |
+| **Post-war** | Charter neutrality codified **because** everyone already depended on his pins |
+
+**Player memory:** “For years nobody knew his face. Everyone knew when the steel was **his**.”
+
+### Craft today
+
+Unremarkable-looking weapons and ingots. No heavenly names, no spectacle. When Hong Lian signs **Supreme** (极品), the continent believes it — because he spent a lifetime refusing to stamp a lie.
 
 **The two steps nobody skips around him:**
 
-1. **Purify** — even House of Luo’s “export grade” ore gets re-smelted in his hall before it touches his anvil.
-2. **Forge** — from that stock, his grade outcomes are the benchmark examiners calibrate against.
+1. **Purify** — even House of Luo’s “export grade” ore gets re-smelted in his hall.
+2. **Forge** — from that stock, his grade outcomes are what examiners calibrate against.
+
+### Why rivals didn’t erase him *(draft — owner agrees concept needs polish)*
+
+Plausible stack — not one miracle, several boring reasons:
+
+| Reason | Detail |
+|--------|--------|
+| **Not worth killing early** | No territory, no disciples worth capturing, no secret manual — just a **poor** smith with correct pins |
+| **Arms-dealer math** | Kill the neutral forge and **your** next contract gets worse steel while enemies still buy |
+| **Everyone’s customer** | Late-war factions all had officers carrying his work — assassination makes **clients** angry |
+| **Not a duelist threat** | Sect assassins target cultivators; he was **infrastructure** until he was **indispensable** |
+| **Stubborn, not flashy** | No provocations, no heavenly sword lineage — nothing to “crush for face” until too late |
+| **One known attempt** *(optional beat)* | Early-mid war — bandits or rival forge; he **outlasted** them (closed forge, waited, re-smelted everything). Survived by **refusing to stop**, not by winning a fight |
+
+**Open:** name the failed assassination (who, when) — or leave it rumor-only.
+
+By the time he mattered, killing him meant declaring war on **supply** — and the mandate peace was already leaning on his licensing model.
 
 ### What he wants
 
@@ -198,9 +250,11 @@ Smithing guilds were **local** — city stamps, family forges, sect armories. No
 
 | Beat | Detail |
 |------|--------|
-| **Early wars** | Sect forges prioritize their own disciples; mercenary steel is slag |
-| **Hong Lian’s rise** | Independent master; **purifies every lot**; grade language (下品→极品) spreads because his pins were **trustworthy** |
-| **Charter neutrality** | Guild refuses sect ownership bids from Phoenix **and** Sword |
+| **Early wars** | Sect forges prioritize disciples; mercenary steel is slag; Hong Lian is **nobody** |
+| **Mid war** | Scrapes by on purification work — correct pins, no banner, **refuses dilution** |
+| **Late war turn** | Commanders notice blades that **don’t snap**; signature spreads; powerful come to **him** |
+| **Hong Lian’s rise** | Reputation carried by **weapons**, not charisma — grade language (下品→极品) spreads because pins were **trustworthy** |
+| **Charter neutrality** | Codified because all sides already depended on his steel |
 | **Post-war** | Imperial mandate recognizes **spirit-iron licensing** — Longcheng branch opens on Guild Row |
 
 **Player memory:** “Every faction hated each other. Everyone still paid the guild.”
@@ -285,15 +339,17 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 - [x] Longcheng branch; HQ ore-adjacent (owner prior)
 - [x] Smith rank = public reputation — no second rep bar (owner prior)
 - [x] **Grandmaster specialty** — ore purification + grade reliability (fundamentals extreme) — owner 2026-08-27
+- [x] **Character pass v1** — kind old man, closed eyes, untalented stubborn, late Dao Wars rise — owner 2026-08-27
 - [ ] **Lock HQ city name** — Furnaceheart (炉心城) vs elevate existing Frostbite node
 - [ ] Exact branch exam ceiling (rank 5 vs 7 at Longcheng)
-- [ ] Hong Lian name / epithet — owner pass
+- [ ] Failed assassination beat — name attacker or leave rumor-only
 - [ ] Threshold branch building + registrar NPC — implementation Issue
 - [ ] Charter questline vs pure exam UI — scope for first forge guild slice
 
 ## Open questions
 
 - **HQ city:** brand-new Furnaceheart on map, or repurpose Frost Gate / new Frostbite hub?
+- **Assassination lore:** one named failed attempt (who / when), or keep it rumor?
 - **Grandmaster combat:** ever a fightable NPC, or always off-screen craft authority?
 - **Sect forges:** do great sects **honor** guild stamps internally, or run parallel standards?
 - **Body-path forging:** same guild charter, or sister register under Vajra Ridge influence?
