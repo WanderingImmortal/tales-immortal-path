@@ -6,7 +6,7 @@
 | **Blocked on** | HQ city on map; branch exam ceiling; forge profession Phase C+ |
 | **Issue** | none yet |
 | **Chat / PR** | Forging spine brainstorm 2026-08-27 |
-| **Updated** | 2026-08-27 (character pass — owner) |
+| **Updated** | 2026-08-27 (org structure + geography map) |
 
 Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-organization-types.md`](jianghu-organization-types.md). Mechanics: [`forging-equipment-tiers.md`](forging-equipment-tiers.md). Longcheng footprint: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 
@@ -97,26 +97,99 @@ He makes **weapons** — plain ones. A Hong Lian blade might look unremarkable i
 
 ---
 
-## Leadership
+## Organisation — structure × geography *(owner lean 2026-08-27)*
 
-Per [`jianghu-organization-types.md`](jianghu-organization-types.md) — guild apex ≈ strongest **craft authority**, not necessarily strongest duelist.
+**Design order:** geography skeleton is **already locked enough** ([`creation-path-guilds.md`](creation-path-guilds.md)) — hang structure on it. Not every seat is a **place**; not every place invents a new elder.
+
+### Two kinds of seat
+
+| Kind | Binds to | Examples |
+|------|----------|----------|
+| **Charter office** | **Function** — may have a usual HQ desk, but the *job* is what matters | Register Warden, Chief Appraiser, License Marshal |
+| **Branch seat** | **Zone hub** — player walks in here | Threshold Registrar, Longcheng Guild Row, Frost cold-forge desk |
 
 ```text
-VOID REFINEMENT — Grandmaster Hong Lian (炉君; HQ main forge; charter authority)
-    ↑ peak exams, charter law, masterwork arbitration
-CORE FORMATION+ — Branch registrars (zone hubs — Threshold, Frost Gate, Longcheng, …)
-    ↑ exams to branch ceiling, hire roster, commission intake
-REGISTERED SMITHS — player + NPC crafters (rank on the work)
+Charter offices  →  "what the guild does"     (some travel, some dual-hat)
+Branch seats     →  "where you walk in"         (exams, buy/sell, local hire)
+Grandmaster      →  person first, HQ second    (Hong Lian; successor might move — unlikely)
 ```
 
-| Role | Name | Realm (public) | Notes |
-|------|------|----------------|-------|
-| **Guild spine** | **Hong Lian** (洪炼) | **VR peak** | Kind old man in public; **stubborn** underneath; late Dao Wars rise |
-| **Longcheng registrar** | **Yan Tie** (严铁) | Core Formation+ | Guild Row branch — player exams, spirit-iron licensing, commissions |
-| **Threshold registrar** | *(stub)* | Foundation+ | Dustbone branch — QC-tier exams, recipe registration, buy/sell |
-| **Charter Council** | Regional masters | Master Smith – Spirit Smith | Vote on standard changes; rarely agree |
+**Rule:** branch registrars are **always** geographic. Peak craft authority and register custody are **usually HQ**. Imperial paperwork is **always Longcheng**.
 
-**Succession:** Grandmaster title passes by **unanimous Charter Council + proof forge** — successor must forge a **Supreme-grade tier-7 commission** before the register turns. Hong Lian is old; council is **split** on whether the next grandmaster must be guild-born or can be a sect exile.
+### Hierarchy (lean)
+
+```text
+GRANDMASTER — Hong Lian @ Furnaceheart main forge
+    │  craft apex · Master Register · peak exams · Furnace Wardens
+    │
+CHARTER COUNCIL — senior smiths (Master Smith+), rarely unanimous
+    │  standards votes · mark disputes · succession proof
+    │
+CHARTER OFFICES — functional elders (not all at one city)
+    │  Register Warden · Chief Appraiser · License Marshal · Commission Broker
+    │
+ZONE BRANCHES — one primary hub per zone
+    └── Branch Registrar + examiners + hire roster + local intake
+```
+
+**Not a sect pyramid.** No outer/inner court, no cultivation lineage. You join by **exam + register**, not disciple oath.
+
+### Charter offices *(functional — location lean)*
+
+| Office | Hanzi *(stub)* | Usual seat | Realm lean | Job |
+|--------|----------------|------------|------------|-----|
+| **Grandmaster** | 炉君 | Furnaceheart | VR peak | Apex craft; register keeper; peak exams |
+| **Register Warden** | 册守 | Furnaceheart | NS–VR | **Master Register** (名匠册) — craft-titles, marks, succession |
+| **Chief Appraiser** | 品正 | Furnaceheart | Master+ | Grade disputes; calibrates exam blades; *The blade reads honesty* is the reference |
+| **License Marshal** | 铁符使 | **Longcheng** | CF+ | Spirit-iron licensing; imperial charter interface |
+| **Commission Broker** | 工单行 | Longcheng + HQ | CF+ | Post/fill tier commissions; military & noble contracts |
+| **Purification Elder** | 炼真座 | Furnaceheart *(Frost branch deputy lean)* | Master+ | Ore intake standards; Luo lot disputes — **Hong Lian’s lane** |
+
+**Owner note:** Hong Lian **dual-hats** Grandmaster + de facto Purification Elder until he trains a successor. Register Warden might be a trusted deputy *(stub NPC)* — he is old; the register must outlive one pair of hands.
+
+**Council:** Charter Council = Register Warden + Chief Appraiser + License Marshal + **three Branch Regents** (Longcheng, Furnaceheart, one **rotating** outer-zone seat). Votes on standard changes; argues constantly.
+
+### Branch seats *(geographic — one per zone hub)*
+
+Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
+
+| Zone | Hub | Branch seat | Registrar | Branch specialty *(lean)* | Exam ceiling *(lean)* |
+|------|-----|-------------|-----------|---------------------------|------------------------|
+| **Heartlands** | Longcheng — Guild Row | **Capital branch** | **Yan Tie** (严铁) | Licensing, commissions, richest hire roster | Dao Smith (rank 7) |
+| **Frostbite** | Frost Gate Outpost | Frost branch | *(stub)* | Cold-steel, ore escort; **Purification deputy** | Spirit Smith (5) |
+| **Dustbone** | Threshold City | Dustbone branch | *(stub)* | QC recipe register, apprentice exams | Artisan (3) |
+| **Jade** | Tide Harbor | Registry office *(ph.2)* | *(stub)* | Import/export stamp only at first | — |
+| **Emberwild** | Ashvein Village | Outpost *(ph.2)* | *(stub)* | Hunter gear, crude iron | Journeyman (2) |
+
+**HQ (Furnaceheart)** is **not** a zone branch — it is the **forge city**: peak exams, purification hall, Charter Council, grandmaster forge. Sits Frostbite **margin** (ore-adjacent) but serves the **whole charter**.
+
+### What players touch (v1 lean)
+
+| Player need | Where |
+|-------------|-------|
+| QC apprentice exam, recipe register | **Threshold** branch |
+| Sell gear properly, mid exams | Zone branch when it exists |
+| Spirit-iron license, commission post | **Longcheng** |
+| Craft-title + mark registration | Any branch **Master Smith+** exam pass; copy filed HQ |
+| Peak exam / legend commission | **Furnaceheart** pilgrimage (late) |
+
+### Elder naming — avoid sect copy
+
+| Call them | Not |
+|-----------|-----|
+| **Registrar**, **Appraiser**, **Marshal**, **Branch Regent** | Elder of the Inner Forge Court |
+| **Hall seat** (座) | Peak |
+| **Registered smith** | Disciple |
+
+### Open (structure)
+
+- [ ] Register Warden — separate NPC deputy, or Hong Lian until succession crisis?
+- [ ] Rotating council seat — Frostbite or Dustbone first?
+- [ ] **Furnaceheart** — new map node vs elevate Frost Gate (geography lock)
+
+---
+
+## Leadership *(summary — see [Organisation](#organisation--structure--geography-owner-lean-2026-08-27))*
 
 ---
 
