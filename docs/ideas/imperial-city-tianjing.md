@@ -117,7 +117,7 @@ Aligns with [`creation-path-guilds.md`](creation-path-guilds.md).
 |-------|-------------------|-----------|
 | **Alchemists Guild** | **HQ** | Owner lean — wealth, pills, and patronage pool in the imperial hub |
 | **Formations Guild** | **Branch** | HQ = **own city** elsewhere; Heartlands branch is the prestige branch (richest SKUs, exams through mid tier) |
-| **Forgers Guild** | **Branch** *(recommend)* | Imperial **weapon & spirit-iron licensing** lives here; HQ deferred — lean **ore-adjacent city later** (Frostbite or dedicated forge town), not Longcheng |
+| **Forgers Guild** | **Branch** *(recommend)* | Imperial **weapon & spirit-iron licensing** lives here; HQ deferred — lean **ore-adjacent city later** (Frostbite or dedicated forge town), not Longcheng — spine: [`forgers-guild.md`](forgers-guild.md) |
 | **Beast Tamers Guild** | **Registry office** only *(phase 2)* | Full branch stays **Emberwild**-adjacent; capital gets papers, not pens |
 
 **Branch vs HQ — Forgers:** keep Longcheng as **branch**. HQ should sit where the work is — veins, forges, military contracts — while the capital branch handles **charter stamps, commissions, and exams**. Same pattern as Formations (autonomy outside, footprint inside).
