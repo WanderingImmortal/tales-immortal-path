@@ -130,7 +130,10 @@ REGISTERED SMITHS — player + NPC crafters (rank on the work)
 | **Talent** | **Not gifted** — owner lock: dedication + stubbornness, not prodigy |
 | **Specialty** | **Ore purification** + **grade reliability** — fundamentals to the extreme ([owner lock](#grandmaster-specialty--owner-lock-2026-08-27)) |
 | **Public face** | **Kind old man** — slight smile, eyes usually **closed** |
+| **Personal craft-title** | **Honest Furnace Elder** (诚炉翁) *(owner lean)* — registered at Master rank; simpler than grandmaster epithet |
+| **Signature mark** | Small imprint on every piece — **design TBD** ([marks](#craft-signatures--personal-titles)) |
 | **Where** | **Furnaceheart main hall** — audiences by **commission queue**, not favor |
+| **Guard** | **Furnace Wardens** (炉卫) — hired muscle after one assassination; armed with his steel |
 | **Role** | Apex **crafter** **and** keeper of the **Master Register** (名匠册) |
 
 ### Presentation — the smile and the closed eyes
@@ -174,6 +177,22 @@ He was **not** a notable figure for most of the war. A small independent forge. 
 
 **Player memory:** “For years nobody knew his face. Everyone knew when the steel was **his**.”
 
+### The assassination — and the Furnace Wardens *(owner lock)*
+
+**At least one real attempt** — mid-to-late Dao Wars, when his signature was spreading but his face was still obscure.
+
+| Beat | Detail |
+|------|--------|
+| **Who** | *(lean)* rival forge backed by a sect cutout — wanted his register **or** his silence on diluted ore |
+| **What happened** | Night strike on the small forge; Hong Lian **survived** (closed eyes, closed doors, refused to flee the furnace) |
+| **After** | He did **not** become a fighter. He **hired** — discharged soldiers, failed cultivators, honest mercenaries. **Decent muscle**, not legends |
+| **The twist** | Armed them with **his** work — plain blades, honest pins, no heavenly names. Steel that **didn’t snap**. Guards became **formidable** because the craft held |
+| **Today** | **Furnace Wardens** (炉卫) — permanent hall guard. Everyone assumes the old man is soft. The wardens are the reminder |
+
+**Lesson he took:** *I will not pretend the world is kind. I will equip the people who stand between me and the fire.*
+
+No more assassination attempts made public after the wardens were seen **breaking** a second team without losing a blade edge. Rumors say the third group never found the forge.
+
 ### Craft today
 
 Unremarkable-looking weapons and ingots. No heavenly names, no spectacle. When Hong Lian signs **Supreme** (极品), the continent believes it — because he spent a lifetime refusing to stamp a lie.
@@ -183,23 +202,70 @@ Unremarkable-looking weapons and ingots. No heavenly names, no spectacle. When H
 1. **Purify** — even House of Luo’s “export grade” ore gets re-smelted in his hall.
 2. **Forge** — from that stock, his grade outcomes are what examiners calibrate against.
 
-### Why rivals didn’t erase him *(draft — owner agrees concept needs polish)*
+### Why rivals didn’t erase him
 
-Plausible stack — not one miracle, several boring reasons:
+Stacked reasons — assassination attempt proved the last mile:
 
 | Reason | Detail |
 |--------|--------|
-| **Not worth killing early** | No territory, no disciples worth capturing, no secret manual — just a **poor** smith with correct pins |
-| **Arms-dealer math** | Kill the neutral forge and **your** next contract gets worse steel while enemies still buy |
-| **Everyone’s customer** | Late-war factions all had officers carrying his work — assassination makes **clients** angry |
-| **Not a duelist threat** | Sect assassins target cultivators; he was **infrastructure** until he was **indispensable** |
-| **Stubborn, not flashy** | No provocations, no heavenly sword lineage — nothing to “crush for face” until too late |
-| **One known attempt** *(optional beat)* | Early-mid war — bandits or rival forge; he **outlasted** them (closed forge, waited, re-smelted everything). Survived by **refusing to stop**, not by winning a fight |
+| **Not worth killing early** | No territory, no secret manual — just a **poor** smith with correct pins |
+| **Arms-dealer math** | Kill the neutral forge → **your** contract gets worse steel |
+| **Everyone’s customer** | Late-war factions all had officers carrying his work |
+| **The Furnace Wardens** | After the first attempt, killing him meant fighting **his steel** in someone else's hands |
+| **Indispensable** | By peak fame, killing him meant declaring war on **supply** |
 
-**Open:** name the failed assassination (who, when) — or leave it rumor-only.
+---
 
-By the time he mattered, killing him meant declaring war on **supply** — and the mandate peace was already leaning on his licensing model.
+## Craft signatures & personal titles *(owner lean 2026-08-27)*
 
+Separate from **guild smith rank** (Apprentice → Forge Saint in [`forging-equipment-tiers.md`](forging-equipment-tiers.md)). Two layers:
+
+| Layer | What it is | When |
+|-------|------------|------|
+| **Smith rank** | Guild standard title — tier gate, exams, sell mult | Rank 1–9 on promotion |
+| **Personal craft-title** (匠号) | **Your** name on the work — path, character, specialty | **Master Smith (rank 4)+** — register mark at guild branch |
+| **Signature mark** (款识) | Tiny physical imprint on each piece | Same registration — proves the title |
+
+### Signature mark — small imprint *(design TBD)*
+
+Not a banner crest. A **small stamp** near the tang, inside the pommel, or on the ingot face — visible only if you know where to look.
+
+**Hong Lian candidates** *(pick one later)*:
+
+| Mark | Read |
+|------|------|
+| **Single closed curve** | Eyelid line — his public face |
+| **One flame dot** | Furnace, minimal |
+| **Character 诚** (*honest*) | His path in one stroke |
+| **One hammer tick** | Single impact — fundamentals |
+
+**Rule:** grandmaster mark is **simple**. Flashy sigils are sect vanity; guild trust is **small and true**.
+
+### Personal craft-titles — examples
+
+Earned at **Master Smith+**, chosen or granted at registration. Shorter and more personal than rank title.
+
+| Smith | Craft-title (EN) | Hanzi | Why |
+|-------|------------------|-------|-----|
+| **Hong Lian** | **Honest Furnace Elder** | 诚炉翁 | Honest metal + hearth + old man (*翁*) |
+| *(player examples)* | Frostbite Edge | 寒锋匠 | Zone specialty |
+| *(player examples)* | Road Nail | 道钉匠 | Humble, stubborn |
+
+**Hong Lian vs epithet:** **诚炉翁** (Honest Furnace Elder) is his **registered craft-name** — what buyers see on the mark. **炉君** (Furnace Sovereign) is the **grandmaster epithet** the continent uses in chronicle and charter — heavier, institutional.
+
+```text
+On the steel:     small mark + 诚炉翁
+In charter law:   Grandmaster Hong Lian, the Furnace Sovereign
+In guild exams:   Void Smith (rank 6) — standard rank title
+```
+
+### Player loop (later)
+
+- Rank 4 exam → register **craft-title** + **mark design** (preset list or short custom)
+- Forged gear shows mark on inspect; sell price bonus if mark matches registered title
+- Appraisal (Phase F) reads mark before stats
+
+---
 ### What he wants
 
 - **Standards hold** — guild stamp means something when sect pamphlets lie.
@@ -252,7 +318,8 @@ Smithing guilds were **local** — city stamps, family forges, sect armories. No
 |------|--------|
 | **Early wars** | Sect forges prioritize disciples; mercenary steel is slag; Hong Lian is **nobody** |
 | **Mid war** | Scrapes by on purification work — correct pins, no banner, **refuses dilution** |
-| **Late war turn** | Commanders notice blades that **don’t snap**; signature spreads; powerful come to **him** |
+| **Late war turn** | Commanders notice blades that **don’t snap**; small **mark** on the tang spreads; powerful come to **him** |
+| **Assassination** | One serious night strike — survives; hires **Furnace Wardens**, arms them with his steel |
 | **Hong Lian’s rise** | Reputation carried by **weapons**, not charisma — grade language (下品→极品) spreads because pins were **trustworthy** |
 | **Charter neutrality** | Codified because all sides already depended on his steel |
 | **Post-war** | Imperial mandate recognizes **spirit-iron licensing** — Longcheng branch opens on Guild Row |
@@ -340,16 +407,17 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 - [x] Smith rank = public reputation — no second rep bar (owner prior)
 - [x] **Grandmaster specialty** — ore purification + grade reliability (fundamentals extreme) — owner 2026-08-27
 - [x] **Character pass v1** — kind old man, closed eyes, untalented stubborn, late Dao Wars rise — owner 2026-08-27
-- [ ] **Lock HQ city name** — Furnaceheart (炉心城) vs elevate existing Frostbite node
-- [ ] Exact branch exam ceiling (rank 5 vs 7 at Longcheng)
-- [ ] Failed assassination beat — name attacker or leave rumor-only
+- [x] **Assassination + Furnace Wardens** — one attempt, hired guards with his gear — owner 2026-08-27
+- [x] **Personal craft-titles** — register at Master Smith+; Hong Lian = 诚炉翁 *(lean)* — owner 2026-08-27
+- [ ] **Lock signature mark design** — eyelid curve / 诚 / flame dot / hammer tick
 - [ ] Threshold branch building + registrar NPC — implementation Issue
 - [ ] Charter questline vs pure exam UI — scope for first forge guild slice
 
 ## Open questions
 
 - **HQ city:** brand-new Furnaceheart on map, or repurpose Frost Gate / new Frostbite hub?
-- **Assassination lore:** one named failed attempt (who / when), or keep it rumor?
+- **Signature mark:** eyelid curve vs 诚 vs flame dot vs hammer tick?
+- **Assassination attacker:** name the rival forge / sect cutout, or stay vague?
 - **Grandmaster combat:** ever a fightable NPC, or always off-screen craft authority?
 - **Sect forges:** do great sects **honor** guild stamps internally, or run parallel standards?
 - **Body-path forging:** same guild charter, or sister register under Vajra Ridge influence?

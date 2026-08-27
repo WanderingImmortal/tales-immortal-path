@@ -346,6 +346,17 @@ Today’s code has 4 ranks — migrate IDs: keep `apprentice` / `journeyman` / `
 
 Log on rank-up: *“🔨 Rank ascends — you are now a Dao Smith (求道匠), smith of the seventh tier.”*
 
+### Personal craft-titles (匠号) — **owner lean 2026-08-27**
+
+At **Master Smith (rank 4)+**, register a **personal craft-title** and **signature mark** at a guild branch — separate from the standard rank name. Detail + Hong Lian example: [`forgers-guild.md`](forgers-guild.md#craft-signatures--personal-titles).
+
+| Layer | Example (Hong Lian) |
+|-------|---------------------|
+| Smith rank | Void Smith (虚空匠) |
+| Craft-title | Honest Furnace Elder (诚炉翁) |
+| Grandmaster epithet | Furnace Sovereign (炉君) |
+| Mark on steel | small imprint — design TBD |
+
 ### Skill XP sources
 
 | Source | Skill XP | Notes |
