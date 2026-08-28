@@ -207,10 +207,10 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 
 | Role | Name | Seat type | Notes |
 |------|------|-----------|-------|
-| **Grandmaster** | **Hong Lian** (洪炼) | Charter @ HQ | Kind old man; stubborn; late Dao Wars rise |
-| **License Marshal** | **Yan Tie** (严铁) | Branch @ Longcheng | Player-facing capital desk — exams, licensing, commissions |
+| **Grandmaster** | **Hong Lian** (洪炼) | Charter @ HQ | Dao Seeking peak; Forge Dao; still forges daily |
+| **License Marshal** | **Yan Tie** (严铁) | Branch @ Longcheng | **Admin** — licenses, commissions, exams; runs the capital desk |
 | **Threshold Registrar** | *(stub)* | Branch @ Threshold | QC exams, recipe registration |
-| **Register Warden** | *(stub deputy)* | Charter @ HQ | Master Register custody — Hong Lian still signs until named |
+| **Register Warden** | *(stub deputy)* | Charter @ HQ | Master Register book — **not** guild signup; Hong Lian co-signs |
 | **Charter Council** | Branch Regents + office holders | Mixed | Standards votes; rarely agree |
 
 **Succession:** Grandmaster title passes by **unanimous Charter Council + proof forge** — successor must forge a **Supreme-grade tier-7 commission** before the register turns. Hong Lian is old; council is **split** on whether the next grandmaster must be guild-born or can be a sect exile.
@@ -529,16 +529,16 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 - [x] **Assassination + Furnace Wardens** — one attempt, hired guards with his gear — owner 2026-08-27
 - [x] **Personal craft-titles** — register at Master Smith+; Hong Lian = 诚炉翁 *(lean)* — owner 2026-08-27
 - [x] **Signature mark** — 诚 (honest); inspect *The blade reads honesty.* — owner 2026-08-27
-- [x] **Furnaceheart** — own map node — owner 2026-08-27
+- [x] **Furnaceheart** — own map node (炉心城) — owner 2026-08-27
 - [x] **Hong Lian realm** — Dao Seeking peak (lean early Manifestation); Forge Dao — owner 2026-08-27
-- [ ] **Lock HQ city name** — Furnaceheart (炉心城) vs elevate existing Frostbite node
+- [x] **Org structure v1** — charter offices vs branch seats — owner 2026-08-27
 - [ ] Exact branch exam ceiling (rank 5 vs 7 at Longcheng)
 - [ ] Threshold branch building + registrar NPC — implementation Issue
 - [ ] Charter questline vs pure exam UI — scope for first forge guild slice
 
 ## Open questions
 
-- **HQ city:** brand-new Furnaceheart on map, or repurpose Frost Gate / new Frostbite hub?
+- **Outer Seat:** Dustbone or Frostbite holds council first?
 - **Assassination attacker:** name the rival forge / sect cutout, or stay vague?
 - **Grandmaster combat:** ever a fightable NPC, or always off-screen craft authority?
 - **Sect forges:** do great sects **honor** guild stamps internally, or run parallel standards?
