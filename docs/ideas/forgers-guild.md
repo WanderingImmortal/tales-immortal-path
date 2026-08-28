@@ -97,20 +97,56 @@ He makes **weapons** — plain ones. A Hong Lian blade might look unremarkable i
 
 ---
 
-## Organisation — structure × geography *(owner lean 2026-08-27)*
+## Plain language — jargon & who you actually meet
 
-**Design order:** geography skeleton is **locked** — Furnaceheart is its **own node**; hang structure on zone hubs from [`creation-path-guilds.md`](creation-path-guilds.md).
+**Words that sound fussy:**
 
-### Who runs what (owner lean)
+| Jargon | Plain English |
+|--------|----------------|
+| **Charter** | The guild’s **official license** — rules the mandate recognizes (who can stamp steel, what grades mean, neutrality). |
+| **Register** / **Master Register** | The **official list** of certified smiths — names, ranks, craft-titles, marks. Like a professional roll of doctors or lawyers. |
+| **Register Warden** | **Chief examiner + keeper of the master list** — signs off that a **serious** exam counted and you’re on the roll **for real** (especially Master Smith+ and your personal mark). **Not** the famous face. |
+| **Branch Registrar** | **Front desk** at a branch — first exams, recipe filing, local buy/sell. |
+| **License Marshal** | **Capital paperwork boss** — Yan Tie; licenses, commissions, imperial forms. |
 
-Hong Lian is **face + final authority + still at the anvil** — not a full-time bureaucrat. **Yan Tie** and charter deputies run **admin**; the grandmaster **vetoes** and **forges**.
+### Exam chain (who signs what)
 
 ```text
-Hong Lian     →  craft apex, register signature, peak disputes, still purifies/forges daily
-Yan Tie       →  Longcheng licenses, commissions, exams, hire roster — the desk you actually visit
-Register Warden →  HQ book of marks & craft-titles (NOT “guild signup” — see below)
-Branch Registrar  →  walk-in desk per zone — first exam, recipe register, local buy/sell
+Apprentice / mid rank exam:
+  Branch examiner  →  tests you at the anvil
+  Branch Registrar →  files pass locally, updates your guild rank
+
+Master Smith+ (craft-title + personal mark like 诚):
+  Branch examiner  →  tests you
+  Register Warden  →  enters you in the Master Register at HQ (“this exam counted”)
+  Grandmaster      →  co-signs top stamp (Hong Lian — until he names a full deputy)
+
+Peak / dispute:
+  Chief Appraiser or Grandmaster
 ```
+
+So yes — **Register Warden is “above the examiner”** for anything that goes in the **permanent master book**. Day-to-day apprentice exams mostly stop at the branch.
+
+### Who the outside world sees *(sect-leader comparison)*
+
+| Visibility | Who | Sect analogue |
+|------------|-----|----------------|
+| **The name everyone knows** | **Hong Lian** — Grandmaster, Furnace Sovereign, still at the forge | **Patriarch / Immortal** on the mountain — fame, authority, symbol |
+| **The person you meet in the capital** | **Yan Tie** — License Marshal, Guild Row desk | **Sect envoy** — handles business, not the legend |
+| **The person you meet at home** | **Branch Registrar** — Threshold, Frost Gate, … | **Local hall head** |
+| **Mostly invisible** | **Register Warden** — HQ records, exam sign-off for master roll | **Inner archivist / head examiner** — important, not a celebrity |
+
+**Hong Lian is the public face** — highest office, most publicity, most power. He is **not** doing admin; he **still forges**. The guild does **not** replace him with “just representatives” for authority — but **practically**, you interact with **desks** (Yan Tie, branch registrars) unless you pilgrimage to Furnaceheart.
+
+**Register Warden is not acting as sect leader.** He’s senior staff — the guy who makes sure the **official list** is honest. Outsiders might know the *title* exists; they don’t tell stories about him at tea houses.
+
+```text
+Stories at tea houses:     Hong Lian, his steel, the 诚 mark, the Furnace Wardens
+Paperwork you file:        Yan Tie (Longcheng) or Branch Registrar (local)
+Permanent “you’re legit”:    Register Warden + Hong Lian’s co-sign (master roll)
+```
+
+---
 
 ### Two kinds of seat
 
@@ -151,7 +187,7 @@ ZONE BRANCHES — one primary hub per zone
 |--------|----------------|------------|------------|-----|
 | **Grandmaster** | 炉君 | Furnaceheart | **Dao Seeking peak** *(lean early Manifestation)* | Apex craft; **Forge Dao**; still at anvil; co-signs register |
 | **Chief Appraiser** | 品正 | Furnaceheart | Master+ | Grade disputes; calibrates exam blades; *The blade reads honesty* is the reference |
-| **Register Warden** | 册守 | Furnaceheart | Master+ | **Master Register** — craft-titles, marks, senior roll; **not** first-time signup |
+| **Register Warden** | 册守 | Furnaceheart | Master+ | **Chief examiner for the master roll** — signs off serious exams; keeps the official smith list |
 | **License Marshal** | 铁符使 | **Longcheng** | CF+ | Spirit-iron licensing; imperial charter; **Yan Tie** — day-to-day admin |
 | **Commission Broker** | 工单行 | Longcheng + HQ | CF+ | Post/fill tier commissions; military & noble contracts |
 | **Purification Elder** | 炼真座 | Furnaceheart *(Frost deputy lean)* | Master+ | Ore intake standards; Luo lot disputes — **Hong Lian’s lane** |
@@ -210,7 +246,7 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 | **Grandmaster** | **Hong Lian** (洪炼) | Charter @ HQ | Dao Seeking peak; Forge Dao; still forges daily |
 | **License Marshal** | **Yan Tie** (严铁) | Branch @ Longcheng | **Admin** — licenses, commissions, exams; runs the capital desk |
 | **Threshold Registrar** | *(stub)* | Branch @ Threshold | QC exams, recipe registration |
-| **Register Warden** | *(stub deputy)* | Charter @ HQ | Master Register book — **not** guild signup; Hong Lian co-signs |
+| **Register Warden** | *(stub deputy)* | HQ internal | Chief examiner + master list — **not** public face; Hong Lian co-signs |
 | **Charter Council** | Branch Regents + office holders | Mixed | Standards votes; rarely agree |
 
 **Succession:** Grandmaster title passes by **unanimous Charter Council + proof forge** — successor must forge a **Supreme-grade tier-7 commission** before the register turns. Hong Lian is old; council is **split** on whether the next grandmaster must be guild-born or can be a sect exile.
