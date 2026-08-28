@@ -49,7 +49,7 @@ So “branch in each zone’s best city” ≈ **pin to that one hub** until/unl
 |------|---------|-----|
 | **Formations Guild** | Own city | Arrays / guild-scale patterns need space and autonomy |
 | **Alchemy** | **Imperial city** | Wealth and power accumulate there — alchemists are fish in water |
-| **Forging** | **Branch in Longcheng**; HQ deferred (ore-adjacent city TBD) | Imperial licensing + commissions at capital; forges stay near veins |
+| **Forging** | **Branch in Longcheng**; **HQ = Furnaceheart City** (own node) | Imperial licensing + commissions at capital; forges at HQ — full design: [`forgers-guild.md`](forgers-guild.md) |
 
 Separate guilds per path (not one mega Artisan Guild) unless that changes later.
 

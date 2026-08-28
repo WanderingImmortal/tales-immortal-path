@@ -263,6 +263,8 @@ Ties to [`formations-and-arrays.md`](formations-and-arrays.md) equipment-formati
 
 **Qi path** — full traditional gear loop (weapons, armor, jewelry). Forging is a core profession.
 
+**Material families (owner 2026-08-28):** one Forgers Guild charter covers **metal, leather/hide, and fabric/weave** — same gear **tier + grade** math; different recipe inputs. Dragon-hide armor is **forging**, not a separate profession. High-tier mats need not be ore (`dragon_hide_t7` = tier-7 input). Detail: [`forgers-guild.md`](forgers-guild.md#forge-scope--metal-leather-fabric-owner-lean-2026-08-28).
+
 **Body / soul paths** — don’t lean on external gear the same way. **Something special** instead of mirroring qi slot soup (TBD — park here):
 
 | Path | Lean | Draft “special” direction |
@@ -345,6 +347,17 @@ Skill XP thresholds (draft — tune in playtest):
 Today’s code has 4 ranks — migrate IDs: keep `apprentice` / `journeyman` / `artisan` / `master`, add `spirit_smith` … `forge_saint` when tiers 5–9 land.
 
 Log on rank-up: *“🔨 Rank ascends — you are now a Dao Smith (求道匠), smith of the seventh tier.”*
+
+### Personal craft-titles (匠号) — **owner lean 2026-08-27**
+
+At **Master Smith (rank 4)+**, register a **personal craft-title** and **signature mark** at a guild branch — separate from the standard rank name. Detail + Hong Lian example: [`forgers-guild.md`](forgers-guild.md#craft-signatures--personal-titles).
+
+| Layer | Example (Hong Lian) |
+|-------|---------------------|
+| Smith rank | Void Smith (虚空匠) |
+| Craft-title | Honest Furnace Elder (诚炉翁) |
+| Grandmaster epithet | Furnace Sovereign (炉君) |
+| Mark on steel | **诚** (honest) — inspect: *The blade reads honesty.* |
 
 ### Skill XP sources
 
@@ -1531,6 +1544,6 @@ A ✅ → B (grades) → H (furnace + quench) → C (grade roll + attunement) �
 
 ## Links
 
-- [`creation-path-guilds.md`](creation-path-guilds.md) — Forgers Guild, exams, commissions
+- [`forgers-guild.md`](forgers-guild.md) — Forgers Guild identity (owner sign-off 2026-08-28)
 - [`nine-realm-ladder.md`](nine-realm-ladder.md) — 7 → 9 realm indices
 - [`imperial-city-tianjing.md`](imperial-city-tianjing.md) — Forgers Guild branch
