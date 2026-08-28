@@ -269,7 +269,7 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 | **Personal craft-title** | **Honest Furnace Elder** (诚炉翁) *(owner lean)* — registered at Master rank; simpler than grandmaster epithet |
 | **Signature mark** | **诚** (*honest*) — tiny stamp near tang or pommel ([locked](#signature-mark--owner-lock-2026-08-27)) |
 | **Where** | **Furnaceheart main hall** — audiences by **commission queue**, not favor |
-| **Guard** | **Forge Knights** (炉卫) *(owner lean)* — Furnace Wardens renamed in player-facing text? **Lean:** keep **Furnace Wardens** lore / **Forge Knights** UI — pick one later |
+| **Guard** | **Furnace Wardens** (炉卫) — hired muscle; armed with his steel. **Forge Knights** — parked name for something else later |
 | **Role** | Apex **crafter** **and** keeper of the **Master Register** (名匠册) |
 
 ### Presentation — the smile and the closed eyes
@@ -483,21 +483,65 @@ Not an imperial capital. Not a sect mountain. A **forge city** — reason to exi
 | **Cold margin** | Frostbite approaches north/east — cold air meets hot smog → **perpetual bronze twilight** in the lower districts |
 | **Not** | Dead wasteland — farms on the rim outside the bowl; food comes in; it's **busy**, not post-apocalyptic |
 
-### Sky & atmosphere — tone fix for Hong Lian
+### Sky & atmosphere — **both** *(owner 2026-08-28)*
 
-**Owner worry:** smog + artificial darkness might clash with kindly grandmaster.
+**City:** amber twilight, forge-light holes at night, industrial cathedral — busy and proud, not miserable.
 
-**Lean — industrious sublime, not grimdark:**
+**Hong Lian:** the **warm forge in the haze** — outside, smog and racket; in his hall, the **brightest fire in the crater**. Kindly old man until he works; then **determination and respect for the Forge Dao** show on his face — closed eyes, slight smile, hammer that does not lie. He is the **light in the dark** without making the city grimdark: the city is harsh; **he** is the reason people trust the guild.
 
-| Avoid | Lean instead |
-|-------|----------------|
-| Oppressive black sky, misery | **Amber twilight** — sun visible as a dull coin through haze |
-| Hellscape | **Forge-light constellation** — thousands of furnace mouths punch **warm holes** in the smog at night |
-| Suffering city | **Workers choose to be here** — best pay on the continent, honest stamps, dangerous but **proud** |
+```text
+Furnaceheart at night:   thousands of orange mouths in the smog
+Hong Lian’s forge:       one steady white-gold hearth — quiet, honest, the one you walk toward
+```
 
-*Vibe reference:* industrial cathedral — loud, hot, beautiful in a harsh way. Hong Lian’s hall is the **quietest** place in the city — that contrast is the point.
+**Optional rule:** upper rim districts have clearer sky — rich rent higher; main forge district stays hazy.
 
-**Optional rule:** upper rim districts (outside the worst smog) have clearer sky — rich rent higher.
+### Who lives there *(owner 2026-08-28)*
+
+| Population | Lean |
+|------------|------|
+| **Core** | Smiths, smelters, ore haulers, charter clerks, Furnace Wardens |
+| **Secondary** | Traders, caravan handlers, food importers, tavern keepers, tool sellers |
+| **Sparse** | Farmers — **rim only**; crater bowl + vein fields + volcanic lean = **bad for crops** |
+| **Food / timber / cloth** | **Imported** — caravan terminus at the rim; trade solves what geology denies |
+| **Size feel** | **Medium city** — not Longcheng; bigger than Threshold; dense industrial core, thinner residential rim |
+
+### Player visit timing *(owner 2026-08-28)*
+
+**Run-dependent** — no hard gate; **wealth and rank** gate the experience.
+
+| Visitor | Experience |
+|---------|------------|
+| **QC cultivator** | Can **reach** Furnaceheart and **survive** — bottom of the social ladder; apprentice exams, gawking at the main forge, **no** great-weapon commissions |
+| **Mid realm + smith rank** | Meaningful exams, craft-title registration pilgrimage, hire roster |
+| **Late** | Peak exams, legend commissions, Hong Lian queue |
+
+*Fantasy:* you can **see** the legend early; you **cannot buy** the legend early.
+
+### House of Luo — the compound *(what it is)*
+
+From [`imperial-city-tianjing.md`](imperial-city-tianjing.md) — **House of Luo** (罗氏) are **Heartlands nobles** whose **primary lean** is **spirit-metal leases and ore politics**. They are **not** the Forgers Guild.
+
+| | **Forgers Guild** | **House of Luo** |
+|--|-------------------|------------------|
+| **What** | Charter institution — standards, exams, stamps | **Noble house** — owns/mined **vein leases**, export margins |
+| **Furnaceheart** | Runs the **main forges** and register | Has a **private compound** next to the guild — townhouses, ore ledgers, negotiators |
+| **Longcheng** | Branch on Guild Row (Yan Tie) | Also owns **Longcheng townhouses** — ore deals at court |
+| **Relationship** | Needs Luo **ore**; hates Luo **dilution** | Needs guild **stamps** to export at premium; wants **exclusive** leases |
+
+**The Luo compound at Furnaceheart** = their **local HQ**: scribes, lease managers, guards, maybe a private smelter — **neighbor and rival**, not boss. Hong Lian re-smelts their “export grade” stock before it touches his anvil. Plot hook: Luo offers you a **cheap lot**; guild appraiser says it’s lying.
+
+**Player lean:** visible antagonist **pressure**, not a must-fight villain — trade, bribes, better ore if you look away.
+
+### Hong Lian’s guard — **Furnace Wardens** *(owner lock 2026-08-28)*
+
+| | |
+|--|--|
+| **Name** | **Furnace Wardens** (炉卫) — **locked** for his bodyguards |
+| **Forge Knights** | **Parked** — save for another role (elite order? military charter? player escort tier?) |
+| **What** | Hired muscle after assassination — discharged soldiers, failed cultivators |
+| **Why scary** | **Hong Lian’s** plain steel — doesn’t snap |
+| **Faces** | Not needed yet |
 
 ### Unique defences *(starting points — pick later)*
 
@@ -505,7 +549,7 @@ Hong Lian doesn’t duel; the **city** must deter sieges. Mix lean:
 
 | Option | Read |
 |--------|------|
-| **Forge Knights** (炉卫) | His armed guard — **formidable because of his steel**, not cultivation legends |
+| **Furnace Wardens** (炉卫) | His armed guard — **formidable because of his steel**, not cultivation legends |
 | **Ballista / scorpion batteries** | Crater **rim emplacements** — charter city has seen wars; practical artillery |
 | **Purification golems** *(lean)* | Not flashy war-puppets — **ore-fed automatons** that guard vein lifts; slow, heavy, guild-maintained; feel **crafted** not sect-summoned |
 | **Smog veil** | Invaders misread the haze — formations **drift** in heat shimmer (minor array, formations guild contract) |
@@ -524,18 +568,27 @@ Guild charter doubles as **local forge law** inside the crater:
 | **Night noise** | Hammers may run **24h** in industrial zone — residential rim has quiet hours |
 | **Weapon draw** | Permitted in industrial belt; **forbidden** near exam halls and Hong Lian’s queue |
 
-### Hong Lian’s guard — **Forge Knights** *(owner starting point)*
+---
 
-Rename brainstorm from Furnace Wardens → **Forge Knights** (炉卫 can stay hanzi).
+## Forge scope — metal, leather, fabric *(owner lean 2026-08-28)*
 
-| | |
-|--|--|
-| **What** | Hired muscle after the assassination — discharged soldiers, failed cultivators |
-| **Why scary** | Armed with **Hong Lian’s** plain, honest steel — doesn’t snap |
-| **Faces** | **Not needed yet** — uniform: dark apron, rim guard tabard, no sect colors |
-| **Player** | Maybe hire one as escort later (commission system) |
+**Forge Dao / Forgers Guild ≠ metal only.** One creation path, **multiple material families** — same tier + grade math, different recipes and specialties.
 
-**Naming fork:** **Forge Knights** (romantic) vs **Furnace Wardens** (institutional) — UI vs lore split OK.
+| Family | Examples | Guild lane |
+|--------|----------|------------|
+| **Metal** | Spirit iron, ore ingots, blades, plate | Core — Hong Lian’s lane (purification) |
+| **Leather / hide** | Beast hide, **dragon hide** armor, straps | Same guild — **tanner-smith** specialty; heat-set, qi-stitch, temper hides |
+| **Fabric / weave** | Spirit silk, celestial thread, formation-thread cloaks | Same guild — **weave-smith** specialty; often partners with formations for inscriptions |
+
+**Rule for implementation ease:** if you **craft wearable gear** through the forge chamber loop, it’s **forging** — dragon hide chestplate uses **tier N hide + tier N recipe**, same grade roll as a metal chest. Material tier can be **vague** at high end (one “tier 7 dragon hide” beats inventing fifteen ore names) — **honesty pin** still applies.
+
+**Not alchemy:** pills, brews, store-fills — Alchemists Guild.  
+**Not formations-only:** array plates without craft — Formations Guild.  
+**Overlap OK:** inscribed silk cloak = forge base + formation inscription layer (later phase).
+
+**Specialties** = registered craft-titles / branch flavor (Frostbite cold-steel, dragon-hide master, etc.) — **one charter**, many benches.
+
+**Material tier note:** `dragon_hide_t7` and `spirit_iron_ingot_t7` both mean **“tier-7 crafting input”** — not every high-tier mat is ore. See [`forging-equipment-tiers.md`](forging-equipment-tiers.md) for gear tier/grade; material catalog pass still TBD.
 
 ---
 
@@ -560,7 +613,7 @@ Gear tier        →  output realm band (already designed)
 Gear grade       →  craft quality roll (Phase C)
 ```
 
-**Dustbone today:** `ironscar_grit`, `sun_stone` etc. are alchemy reagents with scarcity — forge can **reuse** some IDs or add parallel **ingot** line (`spirit_iron_ingot_t1` …) when a forge materials pass ships. **Not blocking** Hong Lian / Furnaceheart fiction.
+**Dustbone today:** `ironscar_grit`, `sun_stone` etc. are alchemy reagents with scarcity — forge can **reuse** some IDs or add parallel inputs (`spirit_iron_ingot_t1`, `dragon_hide_t4`, …) when a materials pass ships. **High-tier mats need not be ore** — see [Forge scope](#forge-scope--metal-leather-fabric-owner-lean-2026-08-28). Not blocking Furnaceheart fiction.
 
 ---
 
@@ -680,10 +733,9 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 ## Open questions
 
 ### Furnaceheart & world
-- **Sky tone:** amber twilight + forge-light holes — enough, or push darker?
-- **Defences:** Forge Knights only vs + ballistas vs + purification golems?
-- **Civic tier:** 2nd-tier regional locked, or special charter-city status?
-- **Forge Knights vs Furnace Wardens** — one name or UI/lore split?
+- **Sky tone:** locked — amber haze + Hong Lian as warm forge/light in the dark
+- **Defences:** Furnace Wardens + ballistas vs + golems?
+- **Luo relationship:** neighbor pressure — how antagonistic in v1?
 
 ### Guild & characters
 - **Outer Seat:** Dustbone or Frostbite holds council first?
@@ -692,7 +744,8 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 
 ### Systems (implementation)
 - **Branch exam ceilings** — Longcheng rank 7 vs 5?
-- **Material tier catalog** — new ingot line vs tag existing explore mats?
+- **Material tier catalog** — per-family inputs (metal / hide / fabric) with tier tag
+- **Forge Knights** — reserve name for future role
 - **First guild slice** — Threshold branch vs exam UI only?
 
 ### Lore (can wait)
