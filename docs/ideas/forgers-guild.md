@@ -269,7 +269,7 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 | **Personal craft-title** | **Honest Furnace Elder** (诚炉翁) *(owner lean)* — registered at Master rank; simpler than grandmaster epithet |
 | **Signature mark** | **诚** (*honest*) — tiny stamp near tang or pommel ([locked](#signature-mark--owner-lock-2026-08-27)) |
 | **Where** | **Furnaceheart main hall** — audiences by **commission queue**, not favor |
-| **Guard** | **Furnace Wardens** (炉卫) — hired muscle after one assassination; armed with his steel |
+| **Guard** | **Forge Knights** (炉卫) *(owner lean)* — Furnace Wardens renamed in player-facing text? **Lean:** keep **Furnace Wardens** lore / **Forge Knights** UI — pick one later |
 | **Role** | Apex **crafter** **and** keeper of the **Master Register** (名匠册) |
 
 ### Presentation — the smile and the closed eyes
