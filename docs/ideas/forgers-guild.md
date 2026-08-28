@@ -105,7 +105,7 @@ He makes **weapons** — plain ones. A Hong Lian blade might look unremarkable i
 |--------|----------------|
 | **Charter** | The guild’s **official license** — rules the mandate recognizes (who can stamp steel, what grades mean, neutrality). |
 | **Register** / **Master Register** | The **official list** of certified smiths — names, ranks, craft-titles, marks. Like a professional roll of doctors or lawyers. |
-| **Register Warden** | **Chief examiner + keeper of the master list** — signs off that a **serious** exam counted and you’re on the roll **for real** (especially Master Smith+ and your personal mark). **Not** the famous face. |
+| **Register Warden** | **Chief examiner** + keeper of the master list — signs off serious exams. **UI name: Chief Examiner**; lore title: Register Warden (册守). **Not** the famous face. |
 | **Branch Registrar** | **Front desk** at a branch — first exams, recipe filing, local buy/sell. |
 | **License Marshal** | **Capital paperwork boss** — Yan Tie; licenses, commissions, imperial forms. |
 
@@ -134,7 +134,7 @@ So yes — **Register Warden is “above the examiner”** for anything that goe
 | **The name everyone knows** | **Hong Lian** — Grandmaster, Furnace Sovereign, still at the forge | **Patriarch / Immortal** on the mountain — fame, authority, symbol |
 | **The person you meet in the capital** | **Yan Tie** — License Marshal, Guild Row desk | **Sect envoy** — handles business, not the legend |
 | **The person you meet at home** | **Branch Registrar** — Threshold, Frost Gate, … | **Local hall head** |
-| **Mostly invisible** | **Register Warden** — HQ records, exam sign-off for master roll | **Inner archivist / head examiner** — important, not a celebrity |
+| **Mostly invisible** | **Chief Examiner** *(Register Warden)* — HQ records, exam sign-off for master roll | **Inner archivist / head examiner** — important, not a celebrity |
 
 **Hong Lian is the public face** — highest office, most publicity, most power. He is **not** doing admin; he **still forges**. The guild does **not** replace him with “just representatives” for authority — but **practically**, you interact with **desks** (Yan Tie, branch registrars) unless you pilgrimage to Furnaceheart.
 
@@ -143,8 +143,10 @@ So yes — **Register Warden is “above the examiner”** for anything that goe
 ```text
 Stories at tea houses:     Hong Lian, his steel, the 诚 mark, the Furnace Wardens
 Paperwork you file:        Yan Tie (Longcheng) or Branch Registrar (local)
-Permanent “you’re legit”:    Register Warden + Hong Lian’s co-sign (master roll)
+Permanent “you’re legit”:    Chief Examiner + Hong Lian’s co-sign (master roll)
 ```
+
+**Player UI:** use **Chief Examiner** everywhere players see the role. **Register Warden** (册守) stays in lore, chronicle, and NPC dialogue flavor.
 
 ---
 
@@ -187,7 +189,7 @@ ZONE BRANCHES — one primary hub per zone
 |--------|----------------|------------|------------|-----|
 | **Grandmaster** | 炉君 | Furnaceheart | **Dao Seeking peak** *(lean early Manifestation)* | Apex craft; **Forge Dao**; still at anvil; co-signs register |
 | **Chief Appraiser** | 品正 | Furnaceheart | Master+ | Grade disputes; calibrates exam blades; *The blade reads honesty* is the reference |
-| **Register Warden** | 册守 | Furnaceheart | Master+ | **Chief examiner for the master roll** — signs off serious exams; keeps the official smith list |
+| **Chief Examiner** *(Register Warden)* | 册守 | Furnaceheart | Master+ | **Chief examiner for the master roll** — UI: **Chief Examiner**; signs off serious exams |
 | **License Marshal** | 铁符使 | **Longcheng** | CF+ | Spirit-iron licensing; imperial charter; **Yan Tie** — day-to-day admin |
 | **Commission Broker** | 工单行 | Longcheng + HQ | CF+ | Post/fill tier commissions; military & noble contracts |
 | **Purification Elder** | 炼真座 | Furnaceheart *(Frost deputy lean)* | Master+ | Ore intake standards; Luo lot disputes — **Hong Lian’s lane** |
@@ -234,7 +236,8 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 ### Open (structure)
 
 - [x] **Furnaceheart** — own map node (ore-adjacent) — owner 2026-08-27
-- [ ] Register Warden deputy NPC — name when needed
+- [x] **Chief Examiner UI name** — player-facing; lore = Register Warden (册守) — owner 2026-08-28
+- [ ] Chief Examiner deputy NPC — name when needed
 - [ ] Outer Seat — which zone holds council first (Dustbone vs Frostbite)?
 
 ---
@@ -246,7 +249,7 @@ Pins from [`creation-path-guilds.md`](creation-path-guilds.md):
 | **Grandmaster** | **Hong Lian** (洪炼) | Charter @ HQ | Dao Seeking peak; Forge Dao; still forges daily |
 | **License Marshal** | **Yan Tie** (严铁) | Branch @ Longcheng | **Admin** — licenses, commissions, exams; runs the capital desk |
 | **Threshold Registrar** | *(stub)* | Branch @ Threshold | QC exams, recipe registration |
-| **Register Warden** | *(stub deputy)* | HQ internal | Chief examiner + master list — **not** public face; Hong Lian co-signs |
+| **Chief Examiner** | *(stub deputy)* | HQ internal | Master list sign-off — **UI: Chief Examiner**; Hong Lian co-signs |
 | **Charter Council** | Branch Regents + office holders | Mixed | Standards votes; rarely agree |
 
 **Succession:** Grandmaster title passes by **unanimous Charter Council + proof forge** — successor must forge a **Supreme-grade tier-7 commission** before the register turns. Hong Lian is old; council is **split** on whether the next grandmaster must be guild-born or can be a sect exile.
@@ -442,7 +445,7 @@ Aligns with [`creation-path-guilds.md`](creation-path-guilds.md) and [`imperial-
 
 | Site | Presence | Services |
 |------|----------|----------|
-| **Furnaceheart City** *(HQ candidate)* | Main forge, Charter Council, peak exams | Masterwork arbitration, tier 8–9 exams, military contracts, ore intake |
+| **Furnaceheart City** | **HQ** — own node | Main forge, Charter Council, peak exams | Masterwork arbitration, tier 8–9 exams, military contracts, ore intake |
 | **Longcheng — Guild Row** | **Branch** | Spirit-iron licensing, imperial commissions, exams through **Spirit Smith** *(lean)* |
 | **Threshold City** | **Branch** | QC–FE exams, recipe registration, buy surplus gear |
 | **Frost Gate Outpost** | **Branch** *(lean)* | Cold-steel specialty, ore escort contracts |
