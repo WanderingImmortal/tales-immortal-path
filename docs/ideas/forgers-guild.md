@@ -343,7 +343,7 @@ He was **not** a notable figure for most of the war. A small independent forge. 
 | **What happened** | Night strike on the small forge; Hong Lian **survived** (closed eyes, closed doors, refused to flee the furnace) |
 | **After** | He did **not** become a fighter. He **hired** — discharged soldiers, failed cultivators, honest mercenaries. **Decent muscle**, not legends |
 | **The twist** | Armed them with **his** work — plain blades, honest pins, no heavenly names. Steel that **didn’t snap**. Guards became **formidable** because the craft held |
-| **Today** | **Furnace Wardens** (炉卫) — permanent hall guard. Everyone assumes the old man is soft. The wardens are the reminder |
+| **Today** | **Forge Knights** *(lean)* / Furnace Wardens (炉卫) — permanent hall guard. Everyone assumes the old man is soft. The knights are the reminder |
 
 **Lesson he took:** *I will not pretend the world is kind. I will equip the people who stand between me and the fire.*
 
@@ -453,12 +453,114 @@ Aligns with [`creation-path-guilds.md`](creation-path-guilds.md) and [`imperial-
 
 **HQ rationale:** forges belong on **veins and rivers of ore**, not in the capital. Longcheng handles **law and money**; Furnaceheart handles **fire**.
 
-**Furnaceheart City sketch:**
+**Furnaceheart City** — see [full sketch](#furnaceheart-city-brainstorm-owner-starting-points-2026-08-28) below.
 
-- Built in a **collapsed spirit-iron crater** (pre-mandate mining scar — not Void Prisoner lore).
-- **Perpetual furnace district** — guild-owned; noble forges rent charter slots.
-- **House of Luo** has a **compound** here *(lean)* — ore politics live next door to the guild, not inside it.
-- Frostbite cold-forge traditions **adjacent** — Yin Maiden buys seals; Vajra Ridge buys temple bells; neither controls the guild.
+---
+
+## Furnaceheart City — brainstorm *(owner starting points 2026-08-28)*
+
+**Not gospel** — starting ideas to react to. Hong Lian is kindly; the city can be **industrial and strange** without being **miserable**.
+
+### Is it technically a city?
+
+**Yes — a City** per [`city-tiers.md`](city-tiers.md) (not Outpost/Camp). UI shows type chip **City**.
+
+| Question | Lean |
+|----------|------|
+| **Civic tier** | **2nd-tier regional** *(lean)* — lord ~Nascent Soul; guild charter makes it *feel* bigger than civic rank |
+| **Who rules on paper?** | **Charter Mayor** (炉城主) — elected/appointed under guild charter; **Hong Lian veto** on forge law |
+| **Guild vs city** | City = people, wells, markets, housing. Guild = standards, main forges, exam halls. **Overlapping but not identical** — like a university town where the university is the reason the town exists |
+
+Not an imperial capital. Not a sect mountain. A **forge city** — reason to exist is ore + fire.
+
+### Geography nearby *(stub)*
+
+| Feature | Lean |
+|---------|------|
+| **Crater bowl** | Collapsed spirit-iron scar — city sits **inside** the rim; ore lifts climb the inner walls |
+| **Vein roads** | Cart tracks to Frostbite ore fields + Luo lease pits; constant ore traffic |
+| **Ash wind** | Prevailing wind carries **cinder** from the furnace district — explains haze without “evil darkness” |
+| **Cold margin** | Frostbite approaches north/east — cold air meets hot smog → **perpetual bronze twilight** in the lower districts |
+| **Not** | Dead wasteland — farms on the rim outside the bowl; food comes in; it's **busy**, not post-apocalyptic |
+
+### Sky & atmosphere — tone fix for Hong Lian
+
+**Owner worry:** smog + artificial darkness might clash with kindly grandmaster.
+
+**Lean — industrious sublime, not grimdark:**
+
+| Avoid | Lean instead |
+|-------|----------------|
+| Oppressive black sky, misery | **Amber twilight** — sun visible as a dull coin through haze |
+| Hellscape | **Forge-light constellation** — thousands of furnace mouths punch **warm holes** in the smog at night |
+| Suffering city | **Workers choose to be here** — best pay on the continent, honest stamps, dangerous but **proud** |
+
+*Vibe reference:* industrial cathedral — loud, hot, beautiful in a harsh way. Hong Lian’s hall is the **quietest** place in the city — that contrast is the point.
+
+**Optional rule:** upper rim districts (outside the worst smog) have clearer sky — rich rent higher.
+
+### Unique defences *(starting points — pick later)*
+
+Hong Lian doesn’t duel; the **city** must deter sieges. Mix lean:
+
+| Option | Read |
+|--------|------|
+| **Forge Knights** (炉卫) | His armed guard — **formidable because of his steel**, not cultivation legends |
+| **Ballista / scorpion batteries** | Crater **rim emplacements** — charter city has seen wars; practical artillery |
+| **Purification golems** *(lean)* | Not flashy war-puppets — **ore-fed automatons** that guard vein lifts; slow, heavy, guild-maintained; feel **crafted** not sect-summoned |
+| **Smog veil** | Invaders misread the haze — formations **drift** in heat shimmer (minor array, formations guild contract) |
+
+**Not lean:** hidden immortal formation under every street — too sect-like.
+
+### City rules *(charter law — starting points)*
+
+Guild charter doubles as **local forge law** inside the crater:
+
+| Rule | Why |
+|------|-----|
+| **No false stamp** | Selling slag as 上品 = exile or worse |
+| **Open vein access** | Luo leases operate but **cannot seal the guild intake** |
+| **Neutral forge** | Sect banners **down** in the main furnace district — charter neutrality visible |
+| **Night noise** | Hammers may run **24h** in industrial zone — residential rim has quiet hours |
+| **Weapon draw** | Permitted in industrial belt; **forbidden** near exam halls and Hong Lian’s queue |
+
+### Hong Lian’s guard — **Forge Knights** *(owner starting point)*
+
+Rename brainstorm from Furnace Wardens → **Forge Knights** (炉卫 can stay hanzi).
+
+| | |
+|--|--|
+| **What** | Hired muscle after the assassination — discharged soldiers, failed cultivators |
+| **Why scary** | Armed with **Hong Lian’s** plain, honest steel — doesn’t snap |
+| **Faces** | **Not needed yet** — uniform: dark apron, rim guard tabard, no sect colors |
+| **Player** | Maybe hire one as escort later (commission system) |
+
+**Naming fork:** **Forge Knights** (romantic) vs **Furnace Wardens** (institutional) — UI vs lore split OK.
+
+---
+
+## Material & equipment tiers — where we are
+
+**You did a lot** in [`forging-equipment-tiers.md`](forging-equipment-tiers.md). Quick map:
+
+| Axis | Status | Notes |
+|------|--------|-------|
+| **Gear tier** (1–9) | **Designed**; **4 tiers in code** | Aligns to cultivation realm index |
+| **Gear grade** (下品→极品) | **Designed**; **Phase B building** | 4 grades, stat mults in `forge-data.js` |
+| **Smith rank** (9 ranks) | **Designed**; **4 ranks in code** | Apprentice → Master today |
+| **Forge materials by tier** | **⚠️ Not done** | Recipes use flat IDs (`iron_ore`, `frost_essence`) — **no material tier field** yet |
+| **Alchemy parallel** | Reagents have **scarcity** (common/uncommon/rare) + pills have **tier** (mortal/earth/Tier 1 QC book) — **two axes** |
+
+**What’s missing for forge (lean):**
+
+```text
+Material tier N  →  used in gear tier N recipes (like alchemy Tier 1 book)
+Material grade   →  optional scarcity within tier (honest ingot vs slag lot)
+Gear tier        →  output realm band (already designed)
+Gear grade       →  craft quality roll (Phase C)
+```
+
+**Dustbone today:** `ironscar_grit`, `sun_stone` etc. are alchemy reagents with scarcity — forge can **reuse** some IDs or add parallel **ingot** line (`spirit_iron_ingot_t1` …) when a forge materials pass ships. **Not blocking** Hong Lian / Furnaceheart fiction.
 
 ---
 
@@ -577,12 +679,24 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 
 ## Open questions
 
+### Furnaceheart & world
+- **Sky tone:** amber twilight + forge-light holes — enough, or push darker?
+- **Defences:** Forge Knights only vs + ballistas vs + purification golems?
+- **Civic tier:** 2nd-tier regional locked, or special charter-city status?
+- **Forge Knights vs Furnace Wardens** — one name or UI/lore split?
+
+### Guild & characters
 - **Outer Seat:** Dustbone or Frostbite holds council first?
-- **Assassination attacker:** name the rival forge / sect cutout, or stay vague?
-- **Grandmaster combat:** ever a fightable NPC, or always off-screen craft authority?
-- **Sect forges:** do great sects **honor** guild stamps internally, or run parallel standards?
-- **Body-path forging:** same guild charter, or sister register under Vajra Ridge influence?
-- **Illegal steel:** how does guild treat cult weapons — destroy, delist, or triple fee?
+- **Chief Examiner deputy** — name when needed
+- **Assassination attacker** — name rival forge, or stay vague?
+
+### Systems (implementation)
+- **Branch exam ceilings** — Longcheng rank 7 vs 5?
+- **Material tier catalog** — new ingot line vs tag existing explore mats?
+- **First guild slice** — Threshold branch vs exam UI only?
+
+### Lore (can wait)
+- **Grandmaster fightable?** · **Sect forges vs guild stamps** · **Body-path forging** · **Illegal steel policy**
 
 ## Implementation crumbs
 
