@@ -2,7 +2,7 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-08-08
+**Updated:** 2026-08-28
 
 ## Focus
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
@@ -13,7 +13,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Loyalty meter for shady sects — **parked**
 
 ## Parked (return later)
-- Forge share of Ironscar ores — after forging content pass
+- **Forgers Guild + Furnaceheart** — design locked [`forgers-guild.md`](ideas/forgers-guild.md) · [PR #114](https://github.com/WanderingImmortal/tales-immortal-path/pull/114); build when forge phases / map ready
 - Field bosses / Survey-Delve UI — [`explore-field-gathering.md`](ideas/explore-field-gathering.md)
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)

@@ -2,15 +2,86 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (spine v1 — owner react) |
-| **Blocked on** | HQ city on map; branch exam ceiling; forge profession Phase C+ |
-| **Issue** | none yet |
-| **Chat / PR** | Forging spine brainstorm 2026-08-27 |
-| **Updated** | 2026-08-27 (realm, roles, creation dao sketch) |
+| **Status** | `designed` *(owner sign-off 2026-08-28 — forging pass complete)* |
+| **Blocked on** | Implementation — map node, forge profession phases, branch NPCs ([`forging-equipment-tiers.md`](forging-equipment-tiers.md)) |
+| **Issue** | none yet — open when building first guild slice |
+| **Chat / PR** | Forging pass 2026-08-27–28 — [PR #114](https://github.com/WanderingImmortal/tales-immortal-path/pull/114) |
+| **Updated** | 2026-08-28 |
 
 Parent index: [`creation-path-guilds.md`](creation-path-guilds.md) · [`jianghu-organization-types.md`](jianghu-organization-types.md). Mechanics: [`forging-equipment-tiers.md`](forging-equipment-tiers.md). Longcheng footprint: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 
 **Design principle:** The Forgers Guild is a **charter institution** — it teaches **craft**, not a cultivation lineage. Your rank is **on the steel**, not in a second reputation bar. It sells violence to anyone who can pay and stamp the paperwork.
+
+---
+
+## Design lock *(owner sign-off 2026-08-28)*
+
+Single-page recap so this pass is not lost. **Build from here**; soft defaults marked *(default lean)*.
+
+### Guild & grandmaster
+
+| Lock | Detail |
+|------|--------|
+| **Name** | Forgers Guild (铸匠会) |
+| **Grandmaster** | **Hong Lian** (洪炼) — Furnace Sovereign (炉君) |
+| **Character** | Kind old man, closed eyes, slight smile; **stubborn**, not talented; late Dao Wars rise |
+| **Realm** | **Dao Seeking peak** *(default lean: early Manifestation)* |
+| **Dao** | **Forge Dao** (铸道) — creation dao (truth in matter), not combat-forward |
+| **Specialty** | Ore **purification** + **grade reliability** — fundamentals to the extreme |
+| **Craft-title** | Honest Furnace Elder (诚炉翁) |
+| **Mark** | **诚** — inspect: *The blade reads honesty.* |
+| **Guard** | **Furnace Wardens** (炉卫) — after one assassination; his steel |
+| **Forge Knights** | Name **reserved** for future use |
+
+### Organisation
+
+| Lock | Detail |
+|------|--------|
+| **Public face** | Hong Lian — still at the anvil; not full-time admin |
+| **Capital admin** | **Yan Tie** — License Marshal, Longcheng Guild Row |
+| **Chief Examiner** | UI name for Register Warden (册守) — master roll sign-off, not signup |
+| **Signup desk** | **Branch Registrar** per zone hub |
+| **HQ** | **Furnaceheart City** (炉心城) — **own map node**, 2nd-tier regional *(lean)* |
+| **Branches** | Longcheng (licensing), Threshold (QC), Frost Gate *(lean)*, others ph.2 |
+| **Exam ceilings** *(default lean)* | Zone branches → Spirit Smith (5); Longcheng → Dao Smith (7); HQ → peak |
+
+### Furnaceheart
+
+| Lock | Detail |
+|------|--------|
+| **Geography** | Spirit-iron crater bowl; vein roads; volcanic/ore margin; **imported food** |
+| **Atmosphere** | Amber twilight + forge-light holes; industrial, proud |
+| **Hong Lian beat** | **Light in the dark** — warmest honest hearth in the haze |
+| **Defences** *(partial)* | Furnace Wardens locked; ballistas/golems TBD |
+| **vs Luo** | Compound next door — neighbor rival |
+
+### House of Luo (sketch)
+
+| Lock | Detail |
+|------|--------|
+| **Role** | Noble house — **volume / margin** vs guild **quality / truth** |
+| **Business** | Spirit-metal leases, ore export, private smelter |
+| **Not** | Fake guild stamps — **diluted** convenient metal |
+| **NPCs** | Unnamed — patriarch / factor TBD at build time |
+
+### Forge scope
+
+| Lock | Detail |
+|------|--------|
+| **One guild** | Metal + leather/hide + fabric/weave — same tier + grade math |
+| **Dragon hide etc.** | Tier-N material → tier-N recipe — not metal-only |
+| **Material catalog** | Implementation pass still needed ([`forging-equipment-tiers.md`](forging-equipment-tiers.md)) |
+
+### Player
+
+| Lock | Detail |
+|------|--------|
+| **QC visit Furnaceheart** | Allowed — bottom rung, no legend commissions |
+| **Craft-title + mark** | Master Smith+ exam at branch; Chief Examiner + Hong Lian co-sign |
+
+### Still open when building *(not blocking design)*
+
+Chief Examiner NPC name · Luo patriarch · outer council seat first holder · defences mix · assassination attacker named or vague · first slice = Threshold branch vs exam UI only · lore: fightable Hong Lian, cult steel policy, sect parallel forges
 
 ---
 
@@ -686,6 +757,41 @@ Day-to-day forging should not require a pilgrimage to HQ until **high tier**.
 
 **Friction:** Luo wants **exclusive** spirit-iron export stamps. Hong Lian wants **open veins** and **merit-based** master ranks. They trade — they do not trust.
 
+### Volume vs quality *(owner lean 2026-08-28 — matches prior dilution lore)*
+
+| | **Forgers Guild** | **House of Luo** |
+|--|-------------------|------------------|
+| **Product** | **Best** — honest pins, reliable 上品/极品, slower | **Most** — high tonnage, export lots, “good enough” |
+| **Speed** | Takes time — purification, no shortcuts | Fast smelt, **diluted** lots, margin on volume |
+| **Market** | Premium commissions, charter trust, “wait for Hong Lian” | Undercut unlicensed smiths, flood **common** stock, sell ore + middling ingot to armies |
+| **Reputation** | *The blade reads honesty.* | *It’s Luo ore — it’ll do.* |
+| **Analogy** | Artisan watchmaker | Steel mill with a noble stamp |
+
+**Not:** Luo doesn’t make **fake** guild stamps (that’s criminal). They make **convenient** metal — export grade that **technically passes** until someone like Hong Lian re-smelts it.
+
+**Player hook:** cheap Luo ingot vs guild-purified stock — save money now vs grade ceiling later.
+
+**Luo lore depth today:** thin — no dedicated doc, no patriarch name. See [rundown](#house-of-luo--locked-lore-rundown) below.
+
+### House of Luo — locked lore rundown
+
+**Status:** sketch only — [`imperial-city-tianjing.md`](imperial-city-tianjing.md) noble table + guild friction in this file. **No** `house-of-luo.md` yet.
+
+| Field | Locked / lean |
+|-------|----------------|
+| **Hanzi** | 罗氏 |
+| **Type** | **Noble house** — not guild, not sect |
+| **Origin** | **Forge-town nobles** — grew up around industry, not court blood first |
+| **Primary lean** | **Spirit-metal leases, ore politics** — who digs, who exports |
+| **Also in** | Formation plate investments; sells to **Sword and Phoenix alike** (neutral profit); hires **Qin** guards; Longcheng **townhouses** |
+| **Power band** | Patriarch ~**Nascent Soul** public; hidden **VR** ancestor max (standard noble house rule) |
+| **Furnaceheart** | **Compound** near guild — lease scribes, private smelter, export ledgers |
+| **vs Guild** | **Volume / margin** vs **quality / truth**; partners who don’t trust each other |
+| **Named NPCs** | **None yet** — patriarch, Furnaceheart factor, Longcheng envoy all TBD |
+| **Open** | Patriarch name; how corrupt vs merely sharp; cadet branch plot |
+
+**Related noble (not Luo):** **House of Qin** (秦氏) — martial mercenaries; **ore leases with Luo** per imperial-city table.
+
 ---
 
 ## Dustbone presence (QC starter)
@@ -721,35 +827,16 @@ Parallel to alchemy in [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md):
 - [x] **Grandmaster specialty** — ore purification + grade reliability (fundamentals extreme) — owner 2026-08-27
 - [x] **Character pass v1** — kind old man, closed eyes, untalented stubborn, late Dao Wars rise — owner 2026-08-27
 - [x] **Assassination + Furnace Wardens** — one attempt, hired guards with his gear — owner 2026-08-27
-- [x] **Personal craft-titles** — register at Master Smith+; Hong Lian = 诚炉翁 *(lean)* — owner 2026-08-27
-- [x] **Signature mark** — 诚 (honest); inspect *The blade reads honesty.* — owner 2026-08-27
-- [x] **Furnaceheart** — own map node (炉心城) — owner 2026-08-27
-- [x] **Hong Lian realm** — Dao Seeking peak (lean early Manifestation); Forge Dao — owner 2026-08-27
-- [x] **Org structure v1** — charter offices vs branch seats — owner 2026-08-27
-- [ ] Exact branch exam ceiling (rank 5 vs 7 at Longcheng)
-- [ ] Threshold branch building + registrar NPC — implementation Issue
-- [ ] Charter questline vs pure exam UI — scope for first forge guild slice
+- [x] **Personal craft-titles** — register at Master Smith+; Hong Lian = 诚炉翁 — owner 2026-08-27
+- [x] **Chief Examiner UI name** — owner 2026-08-28
+- [x] **Furnaceheart atmosphere** — amber haze + Hong Lian as light in the dark — owner 2026-08-28
+- [x] **House of Luo** — volume vs guild quality — owner 2026-08-28
+- [x] **Forge scope** — metal + leather + fabric under one guild — owner 2026-08-28
+- [x] **Furnace Wardens** name locked; Forge Knights reserved — owner 2026-08-28
+- [x] **Owner sign-off** — forging pass complete — 2026-08-28
+- [ ] **Implementation:** map node · branch NPCs · material tier catalog · forge phases (see [`forging-equipment-tiers.md`](forging-equipment-tiers.md))
 
-## Open questions
-
-### Furnaceheart & world
-- **Sky tone:** locked — amber haze + Hong Lian as warm forge/light in the dark
-- **Defences:** Furnace Wardens + ballistas vs + golems?
-- **Luo relationship:** neighbor pressure — how antagonistic in v1?
-
-### Guild & characters
-- **Outer Seat:** Dustbone or Frostbite holds council first?
-- **Chief Examiner deputy** — name when needed
-- **Assassination attacker** — name rival forge, or stay vague?
-
-### Systems (implementation)
-- **Branch exam ceilings** — Longcheng rank 7 vs 5?
-- **Material tier catalog** — per-family inputs (metal / hide / fabric) with tier tag
-- **Forge Knights** — reserve name for future role
-- **First guild slice** — Threshold branch vs exam UI only?
-
-### Lore (can wait)
-- **Grandmaster fightable?** · **Sect forges vs guild stamps** · **Body-path forging** · **Illegal steel policy**
+## Open questions *(deferred to build — see [Design lock](#design-lock-owner-sign-off-2026-08-28))*
 
 ## Implementation crumbs
 

@@ -1544,7 +1544,6 @@ A ✅ → B (grades) → H (furnace + quench) → C (grade roll + attunement) �
 
 ## Links
 
-- [`creation-path-guilds.md`](creation-path-guilds.md) — Forgers Guild geography, exams
-- [`forgers-guild.md`](forgers-guild.md) — Forgers Guild spine (Hong Lian, charter, branches)
+- [`forgers-guild.md`](forgers-guild.md) — Forgers Guild identity (owner sign-off 2026-08-28)
 - [`nine-realm-ladder.md`](nine-realm-ladder.md) — 7 → 9 realm indices
 - [`imperial-city-tianjing.md`](imperial-city-tianjing.md) — Forgers Guild branch
