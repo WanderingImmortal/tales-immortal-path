@@ -263,6 +263,8 @@ Ties to [`formations-and-arrays.md`](formations-and-arrays.md) equipment-formati
 
 **Qi path** — full traditional gear loop (weapons, armor, jewelry). Forging is a core profession.
 
+**Material families (owner 2026-08-28):** one Forgers Guild charter covers **metal, leather/hide, and fabric/weave** — same gear **tier + grade** math; different recipe inputs. Dragon-hide armor is **forging**, not a separate profession. High-tier mats need not be ore (`dragon_hide_t7` = tier-7 input). Detail: [`forgers-guild.md`](forgers-guild.md#forge-scope--metal-leather-fabric-owner-lean-2026-08-28).
+
 **Body / soul paths** — don’t lean on external gear the same way. **Something special** instead of mirroring qi slot soup (TBD — park here):
 
 | Path | Lean | Draft “special” direction |
