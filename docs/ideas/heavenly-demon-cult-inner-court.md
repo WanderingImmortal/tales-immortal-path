@@ -227,9 +227,10 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 |-------|------|
 | **Name** | **Tuo Yan** (拓岩) — *"expanding stone"* / quarry-bed rock |
 | **Gender** | **Male** |
-| **Age** | **~50** mortal years; reads **mid-40s** (body density slows visible age) |
+| **Age** | **~50** chronological years; **apparent ~early 30s** (NS-tier body holds youth — not a boy, not weathered) |
 | **Qi realm** | **Foundation Establishment** (paper) — **vestigial**; dantian barely maintained; **not** a real threat on qi axis |
 | **Body track** | **Nascent Soul equivalent** (body idx **3**, Diamond Body tier) — founder-fed flesh ladder; **not** public NS soul |
+| **Lifespan** | **NS-band cap** (~1k+ runway per [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) body/qi parity lean) — he's **~50 years into** a thousand-year clock; horror is **power vs years lived** |
 | **Path** | **Body-primary** — qi exists only because ward Canon **stuck**; fights, regen, and power are **all flesh** |
 | **Rank** | None — pit specimen; former ward **expendable** |
 
@@ -322,7 +323,7 @@ Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **
 | **Axis** | Will / dantian | Flesh / vessel |
 | **Origin** | Infant village drain | Ward expendable |
 | **Mind** | Calculating, flirty | Meathead, passive |
-| **Age** | ~17–19 | ~50 |
+| **Age** | ~17–19 (reads ~15) | ~50 (apparent ~early 30s) |
 | **Qi** | Early GC | Vestigial FE (paper only) |
 | **Body** | Ordinary | NS-equivalent |
 | **Horror** | *Keep or eat?* | *Won't stop coming* |
