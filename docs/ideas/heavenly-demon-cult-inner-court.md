@@ -6,7 +6,7 @@
 | **Blocked on** | Gorge playable slice; intent wiring; body ward doc |
 | **Issue** | none yet |
 | **Chat / PR** | Design chat 2026-08-29 |
-| **Updated** | 2026-08-29 (Gu Wei owner pass) |
+| **Updated** | 2026-08-29 (Gu Wei + Tuo Yan owner pass) |
 
 **Parent:** [`heavenly-demon-cult.md`](heavenly-demon-cult.md) · [`blood-sealing-gorge.md`](blood-sealing-gorge.md) · [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md)
 
@@ -201,16 +201,127 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 
 ---
 
-## Pit Two — stub (flesh specimen)
+## Pit Two — **Tuo Yan** (拓岩) — owner pass
 
-**Status:** `idea` — draft when Pit One locked.
+**Status:** `designed` (owner pass 2026-08-29).
 
-| Field | Draft |
-|-------|-------|
-| **One-liner** | *Kills feed flesh, not dantian — blood-fiend seal won't stick; body ward failed.* |
-| **Name** | TBD |
-| **Gender / age** | TBD — lean male ~24 if contrast with Gu Wei |
-| **Breaks** | Cult conversion pipeline; see body ward doc |
+### One-liner
+
+> *A ward meathead who ate wrong — kills hardened his flesh instead of filling his dantian. The founder keeps him to learn what body path could become beyond shock troops.*
+
+### Origin
+
+| Beat | Fiction |
+|------|---------|
+| **Ward life** | Raised **Blood Vessel Ward** — diversion squad, blood pills, bind-seal loyalty; **expendable** stock |
+| **Peculiarity** | After missions, **stronger and harder to hurt** — not higher qi; skin **bruised less**, breaks **healed wrong** |
+| **Report** | Ward **elder** (name TBD) flagged him after repeated survival; Hong Lian's desk logged **conversion anomaly** |
+| **Transfer** | Pulled from ward → **pit** — founder experiment: *can devouring feed **body** as primary ladder?* |
+| **Now** | In pit **~20 years**; ward thinks he's **dead** or **pit-offered** |
+
+### Identity
+
+| Field | Lock |
+|-------|------|
+| **Name** | **Tuo Yan** (拓岩) — *"expanding stone"* / quarry-bed rock |
+| **Gender** | **Male** |
+| **Age** | **~40** mortal years; reads **mid-30s** (slow age from body density) |
+| **Qi realm** | **Peak Golden Core** — **stagnant**; dantian barely advances |
+| **Body track** | **Nascent Soul equivalent** (body idx **3**) — founder-fed flesh ladder; **not** public NS soul |
+| **Path** | **Dual asymmetric** — qi-primary on paper; **body is the real threat** |
+| **Rank** | None — pit specimen; former ward **expendable** |
+
+### vs ward elders (why he stands out)
+
+Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **Tuo Yan** is past that kit:
+
+| Ward elder | Tuo Yan |
+|------------|---------|
+| Regen via **taught** blood arts | Regen via **consumption** — eat kill, **flesh** remembers |
+| Bronze → Iron on schedule | **Skipped syllabus** — body **grew wrong** |
+| Killable with effort | **Simple weapons fail** on skin; pierce → **monstrous** close |
+| Strategic asset | **Meathead** who doesn't plan — doesn't **need** to |
+
+**Founder question:** shock troops are **ammunition** — can cult body path produce a **walking fortress** if intake routes to vessel first?
+
+### What he breaks
+
+| Cult norm | Tuo Yan |
+|-----------|---------|
+| Kill → Remnant Refine → **dantian** | Kill → **flesh** (strength, endurance, regen) |
+| Blood-fiend seal + pills | Pills **still work**; seal **held** — he's **loyal meat**, not rebel |
+| Body ward = fodder tier | Became **pit-grade** abomination |
+| Devouring needs intent + Canon | **No** Devouring Intent — **body gluttony** only |
+
+**Pair with Gu Wei:** she = **pure will** before doctrine; he = **pure intake** into wrong organ. Founder runs both experiments.
+
+### Abilities (lore / future hooks)
+
+| Ability | Detail |
+|---------|--------|
+| **Consumption fortify** | Eating slain cultivators (or offerings) → **temp stack** strength / regen / hardness |
+| **Skin** | Common steel **skids**; needs **intent**, **array**, or **NS+** focus to pierce reliably |
+| **Regeneration** | Wounds **seal mid-fight**; severed parts **slow** to regrow (horror tier, not immortal) |
+| **Endurance** | Outlasts GC peers; **boring** to fight — he waits you out |
+| **No qi flair** | Fights like a **brawler** — terrifying because he **doesn't stop** |
+
+### Personality (owner lock)
+
+| Trait | Show |
+|-------|------|
+| **Meathead** | Big, still, **simple** presence |
+| **Not stupid** | Can follow orders; **chooses** not to think — *why bother?* |
+| **No danger** | Pit + founder + his skin = **nothing hurts enough** to care |
+| **Flat affect** | Small talk, food, sleep, **occasional** fight — same face |
+| **Gu Wei** | Wary of her — **instinct** says *don't be alone with that smile* |
+| **Mo Xuan** | Barely registers; obeys feed schedule |
+
+**Voice line sketch:** *"Huh. You still breathing? Good. I'm hungry again."*
+
+### Founder use
+
+- Test: **body path apex** for cult — beyond ward shock troops.
+- **Not** heir, clone, pulpit, or ward instructor.
+- Mo Xuan: approved transfer; **regrets** pit depth; rotates guards who **stare** at him.
+
+### Rumors (what juniors hear)
+
+- *"Something in the pit **doesn't bleed right**."*
+- *"They say a ward boy got **offered** and the terrace still hears him **walking**."*
+- *"Don't throw rocks in the pit shaft — one **bounced back** once."*
+- *"Gu Wei smiles. The **other one** just **eats**."*
+
+### Fate seeds (story)
+
+| Seed | Use |
+|------|-----|
+| `stagnate` | Founder keeps feeding him — body idx climbs toward **4** |
+| `wrong_enemy` | Unleashed as **siege engine** in charter war |
+| `consumed` | Founder devours him when flesh peaks |
+| `broken` | Weapon that **finally** sticks — he learns fear |
+
+### Open (Pit Two)
+
+- [x] Male meathead — locked
+- [x] Ward origin → pit experiment — locked
+- [x] Peak GC qi / NS body — locked
+- [x] Consumption → body stats — locked
+- [ ] Ward elder who reported him — name?
+- [ ] First kill that proved conversion (mission id / year)?
+
+---
+
+## Pit pair (quick contrast)
+
+| | **Gu Wei** (Pit One) | **Tuo Yan** (Pit Two) |
+|--|----------------------|------------------------|
+| **Axis** | Will / dantian | Flesh / vessel |
+| **Origin** | Infant village drain | Ward expendable |
+| **Mind** | Calculating, flirty | Meathead, passive |
+| **Age** | ~17–19 | ~40 |
+| **Qi** | Early GC | Peak GC (stuck) |
+| **Body** | Ordinary | NS-equivalent |
+| **Horror** | *Keep or eat?* | *Won't stop coming* |
 
 ---
 
@@ -218,7 +329,7 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 
 - [ ] Merge fuller founder/Mo Xuan leadership pass from cult design branch into [`heavenly-demon-cult.md`](heavenly-demon-cult.md)
 - [ ] Seven faces drafted (separate pass)
-- [ ] Pit Two rough shape
+- [x] Pit Two rough shape (Tuo Yan)
 - [ ] Gorge approach beats reference pit rumors
 
 ## Implementation crumbs

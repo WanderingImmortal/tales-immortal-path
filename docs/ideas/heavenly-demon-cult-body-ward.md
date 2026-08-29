@@ -89,18 +89,18 @@ Not a second HQ — a **foundry for flesh** under the industrial floor.
 
 ### 3 — Pit-adjacent (founder only)
 
-Failures and **anomalies** the ward cannot process — including **Pit Two** ([`heavenly-demon-cult-inner-court.md`](heavenly-demon-cult-inner-court.md)). Mo Xuan may not control this floor fully.
+Failures and **anomalies** the ward cannot process — **Tuo Yan** (pit specimen; see [`heavenly-demon-cult-inner-court.md`](heavenly-demon-cult-inner-court.md)) and founder-only lines. Mo Xuan may not control this floor fully.
 
 ---
 
 ## Pit Two vs ward (why specimen matters)
 
-| Ward produces | Pit Two breaks |
-|---------------|----------------|
-| Rapid Bronze via pills + seals | **Seal won't stick**; flesh grows anyway |
-| Loyalty-bound expendables | **Cannot be bound** |
+| Ward produces | Tuo Yan (pit specimen) breaks |
+|---------------|-------------------------------|
+| Rapid Bronze via pills + seals | Pills **still work**; seal **held** — he's loyal meat, not rebel |
+| Kill → Remnant Refine → **dantian** | Kill → **flesh** (strength, endurance, regen) |
 | Regen via taught blood arts | **Regen without manual** — wrong channel |
-| Fodder → Reaver pipeline | **Skipped pipeline** — kills feed **flesh not dantian** |
+| Fodder → Reaver pipeline | **Skipped pipeline** — ward elders can't replicate him |
 
 ---
 
@@ -128,7 +128,7 @@ Failures and **anomalies** the ward cannot process — including **Pit Two** ([`
 
 - [ ] Body path milestone design ([`body-path-refining-rewrite.md`](body-path-refining-rewrite.md))
 - [ ] Continental presence table ([`body-path-sect.md`](body-path-sect.md))
-- [ ] Pit Two rough draft
+- [x] Pit Two owner pass — **Tuo Yan** ([`heavenly-demon-cult-inner-court.md`](heavenly-demon-cult-inner-court.md))
 
 ## Open questions
 
