@@ -62,6 +62,7 @@ Founder personality: devil's **ego**, older and **patient**; tested Half-Step wi
 | **Count** | **7** public disciples |
 | **Goal** | Win **Patriarch** (admin) — not Heavenly Demon mask |
 | **Tone** | **Unorthodox** oddballs — not orthodox young masters |
+| **Young prodigy** | **One** of the seven owns the outrageously talented youth slot — **not** Gu Wei (pit is separate; avoid gimmick clash) |
 | **Competition** | Real but **dormancy-frozen** — grudges rot for decades |
 | **Ambition** | Uneven — some want the chair, some know it's hollow, some play along |
 | **Pit two** | Most **rumor only**; fear without clarity |
@@ -116,7 +117,7 @@ Two existences **locked below** inner court. Rumors spread with **fear**; full t
 |-------|------|
 | **Name** | **Gu Wei** (顾未) — *"considers what is not yet [dead]"* |
 | **Gender** | **Female** |
-| **Age** | **~17–19** mortal years (young; reads **15** to strangers) |
+| **Age** | **~22** chronological years; **apparent early 20s** (reads **~19** to strangers — uncanny, not childlike) |
 | **Realm (cap)** | **Early Golden Core** — founder allows growth for study; **not** NS+ while specimen |
 | **Path** | Qi-primary; **no** public rank |
 | **Intent** | **Devouring Intent — Stirring** (1st realm) since before FE; **pure** variant (see below) |
@@ -180,7 +181,7 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 - *"The pit girl **smiles** when Blood Servants die."*
 - *"Don't meet her eyes on descent — she **remembers** who flinched."*
 - *"Mo Xuan rotated attendants again. Third this year."*
-- *"She's **young**. That's the worst part."*
+- *"She's **too calm** for someone that age."*
 
 ### Fate seeds (story)
 
@@ -196,7 +197,7 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 - [x] Female — locked
 - [x] Flirty / manipulative prey predator — locked
 - [x] Infant origin — locked
-- [x] Realm cap GC — locked (**Early GC** now)
+- [x] Age — locked (**~22**, apparent early 20s; young-prodigy slot reserved for seven)
 - [ ] Village name / which cell found her?
 - [ ] Player ever meets her (gorge crisis only)?
 - [ ] Any attendant who **believes** they’re special to her?
@@ -323,7 +324,7 @@ Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **
 | **Axis** | Will / dantian | Flesh / vessel |
 | **Origin** | Infant village drain | Ward expendable |
 | **Mind** | Calculating, flirty | Meathead, passive |
-| **Age** | ~17–19 (reads ~15) | ~50 (apparent ~early 30s) |
+| **Age** | ~22 (apparent early 20s) | ~50 (apparent ~early 30s) |
 | **Qi** | Early GC | Vestigial FE (paper only) |
 | **Body** | Ordinary | NS-equivalent |
 | **Horror** | *Keep or eat?* | *Won't stop coming* |
