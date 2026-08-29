@@ -34,6 +34,8 @@ TRUTH →  Founder in pit + two specimens
 
 **Author rule:** Nobody **becomes** the Heavenly Demon through discipleship. Clone is **manufactured**; specimens are **contained**.
 
+**Pit pair vs Patriarch (owner lock):** Gu Wei and Tuo Yan are **not** competing for Mo Xuan's chair — **not** in the seven, **not** on the merit board, **not** succession candidates. The seven fight admin; the pit holds founder R&D. Gu Wei would **use** the game if she met it; Tuo Yan would treat Patriarch as **paperwork and thinking** — a hassle he'd ignore unless the founder **obligated** him.
+
 ---
 
 ## Leadership recap (owner lock from gorge / cult pass)
@@ -225,10 +227,10 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 |-------|------|
 | **Name** | **Tuo Yan** (拓岩) — *"expanding stone"* / quarry-bed rock |
 | **Gender** | **Male** |
-| **Age** | **~40** mortal years; reads **mid-30s** (slow age from body density) |
-| **Qi realm** | **Peak Golden Core** — **stagnant**; dantian barely advances |
-| **Body track** | **Nascent Soul equivalent** (body idx **3**) — founder-fed flesh ladder; **not** public NS soul |
-| **Path** | **Dual asymmetric** — qi-primary on paper; **body is the real threat** |
+| **Age** | **~50** mortal years; reads **mid-40s** (body density slows visible age) |
+| **Qi realm** | **Foundation Establishment** (paper) — **vestigial**; dantian barely maintained; **not** a real threat on qi axis |
+| **Body track** | **Nascent Soul equivalent** (body idx **3**, Diamond Body tier) — founder-fed flesh ladder; **not** public NS soul |
+| **Path** | **Body-primary** — qi exists only because ward Canon **stuck**; fights, regen, and power are **all flesh** |
 | **Rank** | None — pit specimen; former ward **expendable** |
 
 ### vs ward elders (why he stands out)
@@ -262,8 +264,8 @@ Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **
 | **Consumption fortify** | Eating slain cultivators (or offerings) → **temp stack** strength / regen / hardness |
 | **Skin** | Common steel **skids**; needs **intent**, **array**, or **NS+** focus to pierce reliably |
 | **Regeneration** | Wounds **seal mid-fight**; severed parts **slow** to regrow (horror tier, not immortal) |
-| **Endurance** | Outlasts GC peers; **boring** to fight — he waits you out |
-| **No qi flair** | Fights like a **brawler** — terrifying because he **doesn't stop** |
+| **Endurance** | Outlasts qi peers on **body alone**; **boring** to fight — he waits you out |
+| **No qi flair** | No techniques worth naming — **brawler** only; terrifying because he **doesn't stop** |
 
 ### Personality (owner lock)
 
@@ -273,6 +275,8 @@ Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **
 | **Not stupid** | Can follow orders; **chooses** not to think — *why bother?* |
 | **No danger** | Pit + founder + his skin = **nothing hurts enough** to care |
 | **Flat affect** | Small talk, food, sleep, **occasional** fight — same face |
+| **Patriarch game** | **Not in it** — admin looks like **hassle** (ledgers, politics, thinking); would ignore unless founder orders |
+| **Chaos** | **Obligation** (feed schedule, founder's word, seal) or **boredom** (a fight is something to do) — not ambition |
 | **Gu Wei** | Wary of her — **instinct** says *don't be alone with that smile* |
 | **Mo Xuan** | Barely registers; obeys feed schedule |
 
@@ -304,7 +308,7 @@ Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **
 
 - [x] Male meathead — locked
 - [x] Ward origin → pit experiment — locked
-- [x] Peak GC qi / NS body — locked
+- [x] Peak GC qi / NS body — locked → **vestigial FE qi / NS body** (owner refine 2026-08-29)
 - [x] Consumption → body stats — locked
 - [ ] Ward elder who reported him — name?
 - [ ] First kill that proved conversion (mission id / year)?
@@ -318,8 +322,8 @@ Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **
 | **Axis** | Will / dantian | Flesh / vessel |
 | **Origin** | Infant village drain | Ward expendable |
 | **Mind** | Calculating, flirty | Meathead, passive |
-| **Age** | ~17–19 | ~40 |
-| **Qi** | Early GC | Peak GC (stuck) |
+| **Age** | ~17–19 | ~50 |
+| **Qi** | Early GC | Vestigial FE (paper only) |
 | **Body** | Ordinary | NS-equivalent |
 | **Horror** | *Keep or eat?* | *Won't stop coming* |
 
