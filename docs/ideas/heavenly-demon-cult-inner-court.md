@@ -6,7 +6,7 @@
 | **Blocked on** | Gorge playable slice; intent wiring; body ward doc |
 | **Issue** | none yet |
 | **Chat / PR** | Design chat 2026-08-29 |
-| **Updated** | 2026-08-29 |
+| **Updated** | 2026-08-29 (Gu Wei owner pass) |
 
 **Parent:** [`heavenly-demon-cult.md`](heavenly-demon-cult.md) · [`blood-sealing-gorge.md`](blood-sealing-gorge.md) · [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md)
 
@@ -92,78 +92,112 @@ Two existences **locked below** inner court. Rumors spread with **fear**; full t
 
 ## Pit One — **Gu Wei** (顾未) — rough draft
 
-**Status:** `designed` (rough shape — owner pass).
+**Status:** `designed` (owner pass 2026-08-29).
 
 ### One-liner
 
-> *Born with the maw awake before any syllabus — prey sense without induction, Layer 2, or spark.*
+> *Found as an infant still drinking her parents dry — hunger before words, doctrine, or cruelty. The founder calls her intent **pure**.*
+
+### Origin
+
+| Beat | Fiction |
+|------|---------|
+| **Discovery** | Remote village / foster line — baby **drained mother dead**, **father unconscious** (qi/life-essence bleed, not knife murder) |
+| **Aftermath** | One or two **foster carers** sickened or died in the same slow pattern before word reached a cell |
+| **Cult response** | Envoy traced the bleed; infant taken **alive** — not execution, **acquisition** |
+| **Why founder cared** | Hunger operated **before speech, manual, or malice** — not taught devouring; **innate** |
+| **Pit** | Raised in **Demon Lord Pit** margins since infancy — not merit board, not outer disciple |
 
 ### Identity
 
-| Field | Draft |
-|-------|-------|
+| Field | Lock |
+|-------|------|
 | **Name** | **Gu Wei** (顾未) — *"considers what is not yet [dead]"* |
-| **Gender** | Female (lean — change freely) |
-| **Age** | **~20** mortal years; taken at **~7** |
-| **Realm (official)** | **Mid QC** — cultivation progress deliberately **slowed** in pit |
-| **Path** | Qi-primary on paper; **no** primary manual completed |
-| **Rank** | None — **not** outer disciple; specimen |
+| **Gender** | **Female** |
+| **Age** | **~17–19** mortal years (young; reads **15** to strangers) |
+| **Realm (cap)** | **Early Golden Core** — founder allows growth for study; **not** NS+ while specimen |
+| **Path** | Qi-primary; **no** public rank |
+| **Intent** | **Devouring Intent — Stirring** (1st realm) since before FE; **pure** variant (see below) |
+
+### "Pure" Devouring Intent (owner lock)
+
+Cult intent is usually **learned hunger** — Layer 2, kills, fasts, stained seal, spark. Gu Wei's maw is **instinct first**:
+
+| Cult norm | Gu Wei |
+|-----------|--------|
+| Hunger after doctrine | Hunger **before** doctrine |
+| Blood as common entry flavor | No blood-fiend **performance** — intake is **clean**, almost **polite** |
+| Taking learned through conversion arts | **Registers** life leaving others; **sip** is unconscious until recently |
+| Cruelty as identity | **Appraisal** — *keep or eat?* — not slaughter for sport |
+
+**Founder term (inner court):** *pure swallow* (吞净) — not a separate track id; **quality** of the same Devouring Intent. Less stained, more **absolute**. Mo Xuan finds it **worse** than bloody Reavers.
+
+**Gameplay sketch (later):** same `devouring` intent family; NPC flags `intentPurity: pure` for dialogue / witness beats — not a player pick.
 
 ### What she breaks
 
-Per [`devouring-intent.md`](devouring-intent.md): Devouring Intent needs **FE + Layer 2 + groundwork + spark**. Gu Wei has **Stirring-tier prey sense** without any of that.
+Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE + Layer 2 + groundwork + spark**. Gu Wei had **Stirring** as an **infant**; **Early GC** in pit with **incomplete** Canon exposure.
 
 | Normal rule | Gu Wei |
 |-------------|--------|
-| Intent awakens after FE Anchor | **Prey sense since childhood** |
-| Needs Remnant Refine | **Never taught** — still **registers** kills wrong |
-| Cult hands-off until asset/meal | Founder took her **before** merit board saw her |
+| Intent after FE Anchor | **Prey sense since babyhood** |
+| Remnant Refine before taking | **Registers** drains without syllabus |
+| Cult hands-off | Founder **claimed at source** — village incident erased |
 
 ### Abilities (lore / future hooks)
 
 | Ability | Detail |
 |---------|--------|
-| **Prey sense** | Reads wounded / weak qi as **weight**; NPC line: *"She looks at you like you're already portioned."* |
-| **No siphon** | Not **Taking** — maw **notices**, does not **drink** in combat |
-| **Kill register** | Finishing blows **feel** significant to her; dantian gain **muted** (founder studies why) |
-| **Social stain** | Animals and low-realm cultivators **shy** without intimidation skill |
-| **Pit isolation** | Speaks rarely; full sentences unsettle attendants |
+| **Prey sense** | Reads weakness as **portion size**; flirty eye contact feels like **weighing** |
+| **Pure register** | Slow drains on the **willing or careless** — carers, attendants, lovers (rumor) |
+| **Stirring combat** | Wounded-foe bonus; no **Taking** siphon in fight yet — **GC bar** for 2nd realm |
+| **Social predation** | **Intelligent manipulation** — gets others to walk into her maw for her |
+| **Uncanny smile** | Smiles like courtesy; doesn't reach eyes — *"not quite a smile"* |
 
-### Personality (rough)
+### Personality (owner lock)
 
 | Trait | Show |
 |-------|------|
-| **Still** | Not shy — **hungry-quiet** |
-| **Patient** | Waits; does not scramble for merit |
-| **Uninterested in Patriarch game** | Does not know seven exist; **founder's specimen** |
-| **Not cruel for sport** | Horror is **appraisal**, not giggling evil |
+| **Flirty** | Light touch, praise, proximity — always **predator framing** |
+| **Calculating** | Running tally: **worth keeping or worth eating?** |
+| **Intelligent** | Reads rooms fast; plays pit attendants against each other |
+| **Not manic** | Sweet voice, **cold math** behind it |
+| **Uninterested in Patriarch game** | Doesn't know the seven; would **use** them if she met them |
+| **Founder's specimen** | Performs **obedience** to founder; **experiments** on everyone else |
+
+**Voice line sketch:** *"You're still warm. Stay a little longer?"*
 
 ### Founder use
 
-- Test: **intent before doctrine** — can Devouring Intent exist without Canon order?
-- **Not** heir, clone stock, or pulpit candidate.
-- Mo Xuan: knows she exists; **does not** visit; schedules feedings.
+- Test: **intent before doctrine** — can Devouring Intent exist **pure** without Canon corruption?
+- **Not** heir, clone stock, or pulpit face.
+- Mo Xuan: knows she exists; **refuses** private audiences; fears slow bleed on staff.
 
 ### Rumors (what juniors hear)
 
-- *"Something in the pit **counts** you."*
-- *"Pit girl doesn't speak — but the attendants say she **knew** when a Blood Servant died on the terrace."*
-- *"Don't ask about Gu Wei. Mo Xuan doesn't answer."*
+- *"The pit girl **smiles** when Blood Servants die."*
+- *"Don't meet her eyes on descent — she **remembers** who flinched."*
+- *"Mo Xuan rotated attendants again. Third this year."*
+- *"She's **young**. That's the worst part."*
 
 ### Fate seeds (story)
 
 | Seed | Use |
 |------|-----|
-| `stagnate` | Kept in pit decades — research unfinished |
-| `wrong_enemy` | Escapes once — continent omen |
-| `consumed` | Founder eats experiment when it peaks |
-| `ascend_and_leave` | Awakens true Devouring Intent without Canon — crisis |
+| `stagnate` | Kept in pit past GC — founder won't release |
+| `wrong_enemy` | Manipulates escape — uses someone as **door** |
+| `consumed` | Founder devours her when purity peaks |
+| `ascend_and_leave` | **Taking** awakens without Feast groundwork — omen |
 
 ### Open (Pit One)
 
-- [ ] True name vs epithet only in inner court?
-- [ ] Any pit attendant character who pities her?
+- [x] Female — locked
+- [x] Flirty / manipulative prey predator — locked
+- [x] Infant origin — locked
+- [x] Realm cap GC — locked (**Early GC** now)
+- [ ] Village name / which cell found her?
 - [ ] Player ever meets her (gorge crisis only)?
+- [ ] Any attendant who **believes** they’re special to her?
 
 ---
 
