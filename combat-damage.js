@@ -2,6 +2,14 @@
 // COMBAT-DAMAGE.JS — Phase A: stress systems + breaks
 // One HP kill race + Flesh / Structure / Circulation / Core stress (enemy-only v1).
 // ============================================
+//
+// Tuning knobs (playtest here — all combat-only for now):
+//   breakThreshold / stressScale / stressMaxHpMult — how fast systems break
+//   fleshBleedTurns / fleshBleedDmgPct — bleed duration and tick size
+//   maxStructureOutcomes — total structure breaks per fight (arms, legs, frame)
+//   structureLegSlowTurns / frameGuardWeaken — leg and frame debuff strength
+//   circulationDmgMult / coreDmgMult — inner break enemy damage shave (hidden; log flavor only)
+// Future: getCombatStressMult() — weapon nature, enemy traits, defense (stub below)
 
 const COMBAT_DAMAGE_BALANCE = {
     breakThreshold: 100,
@@ -16,6 +24,9 @@ const COMBAT_DAMAGE_BALANCE = {
     circulationDmgMult: 0.82,
     coreDmgMult: 0.88
 };
+
+/** Per-slot caps — arms/legs can break twice (both sides); frame once. */
+const STRUCTURE_SLOT_CAPS = { arm: 2, leg: 2, frame: 1 };
 
 const WOUND_NATURE_STRESS = {
     crush: { flesh: 0.18, structure: 0.68, circulation: 0.09, core: 0.05 },
@@ -42,6 +53,43 @@ const TRIBULATION_STRESS_PROFILES = {
 };
 
 const COMBAT_STRESS_SYSTEMS = ['flesh', 'structure', 'circulation', 'core'];
+
+function woundLog(text, kind) {
+    return { text, kind: kind || 'entry-wound' };
+}
+
+function emitCombatDamageLogs(logs) {
+    if (!logs?.length || typeof addCombatLog !== 'function') return;
+    logs.forEach(entry => {
+        if (!entry) return;
+        if (typeof entry === 'string') {
+            addCombatLog(entry, 'entry-wound');
+            return;
+        }
+        addCombatLog(entry.text, entry.kind || 'entry-wound');
+    });
+}
+
+function countStructureSlot(ws, slot) {
+    return (ws.structureOutcomes || []).filter(s => s === slot).length;
+}
+
+/** Future hook — weapon nature, enemy type, defense. Returns 1.0 when unknown. */
+function getCombatStressMult(profile, enemy) {
+    let mult = 1;
+    if (!enemy || !profile) return mult;
+
+    if (enemy.defending && profile.nature !== 'pierce' && !(profile.tags || []).includes('execute')) {
+        mult *= 0.88;
+    }
+    const traits = enemy.traits || [];
+    if (traits.includes('swarm') && profile.nature === 'slash') {
+        mult *= 1.08;
+    }
+    // TODO: thick shell, meridian-sealed beasts, realm gap, gear pen
+
+    return Math.max(0.25, mult);
+}
 
 function cloneStressWeights(weights) {
     return {
@@ -176,8 +224,10 @@ function initEnemyWoundState(enemy) {
 
 function pickStructureOutcome(enemy, profile) {
     const ws = ensureEnemyWoundState(enemy);
+    if (ws.structureOutcomes.length >= COMBAT_DAMAGE_BALANCE.maxStructureOutcomes) return null;
+
     const slots = ['arm', 'leg', 'frame'];
-    const available = slots.filter(s => !ws.structureOutcomes.includes(s));
+    const available = slots.filter(s => countStructureSlot(ws, s) < (STRUCTURE_SLOT_CAPS[s] || 1));
     if (!available.length) return null;
 
     const weights = {};
@@ -197,6 +247,22 @@ function pickStructureOutcome(enemy, profile) {
     return available[available.length - 1];
 }
 
+function structureBreakMessage(enemyName, outcome, ws) {
+    if (outcome === 'arm') {
+        if (countStructureSlot(ws, 'arm') >= 2) {
+            return `💥 ${enemyName}'s other arm gives way — both arms are ruined!`;
+        }
+        return `🏮 WOUND — ${enemyName}'s arm breaks! Their swings on that side falter.`;
+    }
+    if (outcome === 'leg') {
+        if (countStructureSlot(ws, 'leg') >= 2) {
+            return `🏮 WOUND — Both of ${enemyName}'s legs buckle — they can barely stand!`;
+        }
+        return `🏮 WOUND — ${enemyName}'s leg buckles — footing crumbles!`;
+    }
+    return `🏮 WOUND — ${enemyName}'s frame cracks — their guard will not hold!`;
+}
+
 function applyFleshBreak(enemy, logs) {
     const ws = ensureEnemyWoundState(enemy);
     if (ws.breaks.flesh) return;
@@ -206,31 +272,27 @@ function applyFleshBreak(enemy, logs) {
     const name = typeof stripEnemyDisplayPrefix === 'function'
         ? stripEnemyDisplayPrefix(enemy.name)
         : enemy.name;
-    logs.push(`🩸 ${name}'s flesh gives — they bleed heavily!`);
+    logs.push(woundLog(`🏮 WOUND — ${name} bleeds heavily! Flesh gives under the assault.`));
 }
 
 function applyStructureBreak(enemy, profile, logs) {
     const ws = ensureEnemyWoundState(enemy);
-    if (ws.breaks.structure && ws.structureOutcomes.length >= COMBAT_DAMAGE_BALANCE.maxStructureOutcomes) return;
     if (ws.structureOutcomes.length >= COMBAT_DAMAGE_BALANCE.maxStructureOutcomes) return;
 
     const outcome = pickStructureOutcome(enemy, profile);
     if (!outcome) return;
 
     ws.breaks.structure = true;
-    ws.structureOutcome = outcome;
     ws.structureOutcomes.push(outcome);
+    ws.structureOutcome = outcome;
     const name = typeof stripEnemyDisplayPrefix === 'function'
         ? stripEnemyDisplayPrefix(enemy.name)
         : enemy.name;
 
-    if (outcome === 'arm') {
-        logs.push(`💥 ${name}'s arm hangs wrong — two-handed blows are beyond them!`);
-    } else if (outcome === 'leg') {
+    logs.push(woundLog(structureBreakMessage(name, outcome, ws)));
+
+    if (outcome === 'leg') {
         enemy.slowTurns = Math.max(enemy.slowTurns || 0, COMBAT_DAMAGE_BALANCE.structureLegSlowTurns);
-        logs.push(`🦴 ${name}'s leg buckles — they can barely keep footing!`);
-    } else {
-        logs.push(`🏚️ ${name}'s frame cracks — their guard will not hold!`);
     }
 }
 
@@ -241,7 +303,8 @@ function applyCirculationBreak(enemy, logs) {
     const name = typeof stripEnemyDisplayPrefix === 'function'
         ? stripEnemyDisplayPrefix(enemy.name)
         : enemy.name;
-    logs.push(`☯️ ${name}'s meridians seize — their strikes lose cohesion!`);
+    // Outer symptom only — inner meridian damage not shown on HUD (spiritual sense later).
+    logs.push(woundLog(`${name} doubles over, coughing blood — their strikes lose cohesion!`));
 }
 
 function applyCoreBreak(enemy, logs) {
@@ -251,7 +314,7 @@ function applyCoreBreak(enemy, logs) {
     const name = typeof stripEnemyDisplayPrefix === 'function'
         ? stripEnemyDisplayPrefix(enemy.name)
         : enemy.name;
-    logs.push(`💠 ${name}'s core shudders — will alone keeps them standing!`);
+    logs.push({ text: `${name} shudders as something deep gives — sheer will keeps them upright.`, kind: 'entry-mod' });
 }
 
 function applySystemBreak(enemy, system, profile, logs) {
@@ -271,11 +334,17 @@ function resolveCombatHit(profile, enemy) {
     const scale = COMBAT_DAMAGE_BALANCE.stressScale;
     const threshold = Math.min(ws.stressMax, COMBAT_DAMAGE_BALANCE.breakThreshold);
 
+    const stressMult = getCombatStressMult(profile, enemy);
+
     COMBAT_STRESS_SYSTEMS.forEach(system => {
-        if (ws.breaks[system]) return;
+        if (system === 'structure') {
+            if (ws.structureOutcomes.length >= COMBAT_DAMAGE_BALANCE.maxStructureOutcomes) return;
+        } else if (ws.breaks[system]) {
+            return;
+        }
         const weight = profile.stress?.[system] || 0;
         if (weight <= 0) return;
-        ws.stress[system] += profile.hp * weight * scale;
+        ws.stress[system] += profile.hp * weight * scale * stressMult;
         if (ws.stress[system] >= threshold) {
             applySystemBreak(enemy, system, profile, logs);
         }
@@ -287,7 +356,7 @@ function resolveCombatHit(profile, enemy) {
 function getEnemyGuardDamageMult(baseMult) {
     let mult = baseMult == null ? 0.45 : baseMult;
     const ws = G.enemy?.woundState;
-    if (ws?.structureOutcome === 'frame') {
+    if (ws && (ws.structureOutcomes || []).includes('frame')) {
         mult = Math.min(0.75, mult + COMBAT_DAMAGE_BALANCE.frameGuardWeaken);
     }
     return mult;
@@ -307,11 +376,16 @@ function getEnemyWoundStatusChips(enemy) {
     if (!ws) return [];
     const chips = [];
     if (ws.bleeding) chips.push({ cls: 'wound-bleed-chip', label: '🩸 Bleeding', title: 'Bleed damage each turn' });
-    if (ws.structureOutcome === 'arm') chips.push({ cls: 'wound-structure-chip', label: '💥 Arm broken', title: 'Structure break — arm' });
-    if (ws.structureOutcome === 'leg') chips.push({ cls: 'wound-structure-chip', label: '🦴 Leg ruined', title: 'Structure break — mobility' });
-    if (ws.structureOutcome === 'frame') chips.push({ cls: 'wound-structure-chip', label: '🏚️ Frame broken', title: 'Structure break — guard weakened' });
-    if (ws.breaks.circulation) chips.push({ cls: 'wound-inner-chip', label: '☯️ Meridians sealed', title: 'Circulation break' });
-    if (ws.breaks.core) chips.push({ cls: 'wound-inner-chip', label: '💠 Core cracked', title: 'Core break' });
+    const armCount = countStructureSlot(ws, 'arm');
+    const legCount = countStructureSlot(ws, 'leg');
+    if (armCount >= 2) chips.push({ cls: 'wound-structure-chip', label: '💥 Both arms broken', title: 'Structure break' });
+    else if (armCount === 1) chips.push({ cls: 'wound-structure-chip', label: '💥 Arm broken', title: 'Structure break — arm' });
+    if (legCount >= 2) chips.push({ cls: 'wound-structure-chip', label: '🦴 Both legs ruined', title: 'Structure break — mobility' });
+    else if (legCount === 1) chips.push({ cls: 'wound-structure-chip', label: '🦴 Leg ruined', title: 'Structure break — mobility' });
+    if (countStructureSlot(ws, 'frame') >= 1) {
+        chips.push({ cls: 'wound-structure-chip', label: '🏚️ Frame broken', title: 'Structure break — guard weakened' });
+    }
+    // Inner breaks (circulation / core): log flavor only until spiritual sense read exists.
     return chips;
 }
 

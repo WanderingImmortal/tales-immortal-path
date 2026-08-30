@@ -5239,6 +5239,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 .combat-log .hit-mod { color: #a89880; }
 .combat-log .entry-hp { color: #e08070; }
 .combat-log .entry-mod { color: #a89880; }
+.combat-log .entry-wound {
+    color: #e8b878;
+    font-weight: 600;
+}
 
 .combat-log {
     background: #0f0c0a;

@@ -1298,13 +1298,17 @@ function combatAttack() {
     const hit = typeof dealPlayerDamageToEnemy === 'function'
         ? dealPlayerDamageToEnemy(dmg, basicProfile)
         : { hpApplied: dmg, logs: [] };
-    (hit.logs || []).forEach(line => addCombatLog(line));
+    (hit.logs || []).forEach(line => {
+        if (typeof emitCombatDamageLogs === 'function') emitCombatDamageLogs([line]);
+        else addCombatLog(line);
+    });
     let totalApplied = hit.hpApplied || 0;
     if (intentFx.extraDmg > 0) {
         const follow = typeof dealPlayerDamageToEnemy === 'function'
             ? dealPlayerDamageToEnemy(intentFx.extraDmg, basicProfile)
             : { hpApplied: intentFx.extraDmg, logs: [] };
-        (follow.logs || []).forEach(line => addCombatLog(line));
+        if (typeof emitCombatDamageLogs === 'function') emitCombatDamageLogs(follow.logs);
+        else (follow.logs || []).forEach(line => addCombatLog(line));
         totalApplied += follow.hpApplied || 0;
         addCombatLog(`⚔️ Follow-up strike! ${follow.hpApplied || intentFx.extraDmg} damage.`);
     }
@@ -1569,7 +1573,8 @@ function combatUseTechnique(name) {
     let appliedDmg = 0;
     if (baseDmg > 0 && typeof dealPlayerDamageToEnemy === 'function') {
         const hit = dealPlayerDamageToEnemy(baseDmg, techProfile);
-        (hit.logs || []).forEach(line => addCombatLog(line));
+        if (typeof emitCombatDamageLogs === 'function') emitCombatDamageLogs(hit.logs);
+        else (hit.logs || []).forEach(line => addCombatLog(line));
         appliedDmg += hit.hpApplied || 0;
     } else if (baseDmg > 0) {
         G.enemy.hp -= baseDmg;
@@ -1579,7 +1584,8 @@ function combatUseTechnique(name) {
         addCombatLog(`🔥 Fire Affinity ignites! +${result.igniteBonus} bonus damage!`);
         if (typeof dealPlayerDamageToEnemy === 'function') {
             const igniteHit = dealPlayerDamageToEnemy(result.igniteBonus, fireIgniteProfile);
-            (igniteHit.logs || []).forEach(line => addCombatLog(line));
+            if (typeof emitCombatDamageLogs === 'function') emitCombatDamageLogs(igniteHit.logs);
+            else (igniteHit.logs || []).forEach(line => addCombatLog(line));
             appliedDmg += igniteHit.hpApplied || 0;
         } else {
             G.enemy.hp -= result.igniteBonus;
@@ -1590,7 +1596,8 @@ function combatUseTechnique(name) {
         if (result.daoFx.log) addCombatLog(result.daoFx.log + ` +${result.daoFx.bonusDmg} damage!`);
         if (typeof dealPlayerDamageToEnemy === 'function') {
             const daoHit = dealPlayerDamageToEnemy(result.daoFx.bonusDmg, techProfile);
-            (daoHit.logs || []).forEach(line => addCombatLog(line));
+            if (typeof emitCombatDamageLogs === 'function') emitCombatDamageLogs(daoHit.logs);
+            else (daoHit.logs || []).forEach(line => addCombatLog(line));
             appliedDmg += daoHit.hpApplied || 0;
         } else {
             G.enemy.hp -= result.daoFx.bonusDmg;
