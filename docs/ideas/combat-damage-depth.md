@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (parked — owner 2026-08-01) |
-| **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) playable slice; Redwell first |
+| **Status** | `building` (Phase A+B on branch) |
+| **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) playable slice for Phase C; zonal engine pass before redoing pool profiles |
 | **Issue** | none yet |
-| **Chat / PR** | Combat damage depth planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
-| **Updated** | 2026-08-01 |
+| **Chat / PR** | [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116) — Phase A+B; zonal resolution designed 2026-08-30 |
+| **Updated** | 2026-08-30 |
 | **Design focus** | **Intent wielding** + **cultivation loop** — see [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) |
 
 ## Intent
@@ -62,6 +62,49 @@ Structure is **one** integrity pool — not four limb HP bars. When it crosses a
 - Flesh + Structure on that arm → **arm severed** (worse; full lasting stakes later; v1 may preview as harder in-fight lock).
 
 Flesh breaks do **not** pick limbs. Flesh → bleed. Limbs/frame are Structure’s job.
+
+### Zonal resolution — one hit, one line (owner 2026-08-30)
+
+**Problem:** Global structure stress + break-time RNG feels like basics “nick everywhere.” One slash should land **somewhere**, not smear damage across the whole body each swing.
+
+**Principle:** Basics hit **one zone** per attack; repeated hits **deepen that line**; only arts that read as wide (sweep, whirlwind, domain, trib bolt) hit **multiple zones or all systems** (AoE fantasy).
+
+| Zone (v1 humanoid) | Role |
+|----------------------|------|
+| **arm** | Guard arm, weapon hand — disable swings / two-hand |
+| **leg** | Footing, mobility — slow, flee |
+| **frame** | Chest, ribs, trunk — guard collapse, cleave fantasy |
+
+**Fairness (no technique gating):** Any reasonable kit can disable any way — techniques change **speed, reliability, and flavor**, not **permission**. Missing a rare sweep art means crippling takes longer, not that legs are unreachable. Storm Needle is “meridian disruption in one shot,” not “the only meridian attack.”
+
+**Who picks the zone (no aim menu, no focus toggle):**
+
+1. **Openings** — enemy posture exposes a line (guard high → arm/frame; off-balance → leg).
+2. **Attack shape** — quick clash → arm; heavy commit → frame; authored sweep → low line **for that hit**.
+3. **Stickiness** — first hit of an exchange establishes `currentLine`; follow-ups ~70% same zone until break or foe recovers. Small RNG on **first** hit only, not every swing.
+4. **Technique nudge** — +bias for one swing, not a key to a body part.
+
+**Systems vs zones:**
+
+- **Structure / circulation breaks** — zonal (arm break, leg buckle, arm meridian sealed).
+- **Bleed** — can go **global** once flesh gives *somewhere* (one wound bleeding out is fine).
+- **Needles** — same lane model: one meridian lane per hit (arm / leg / torso); weak on basics, strong on needle arts.
+
+**Non-HP wins (all paths):** bleed out, cripple (limbs/frame), qi seal (circulation), core collapse / morale flee (later), cleave on cracked frame (heavy finish — any heavy kit when pen beats hardness, not one scroll).
+
+**Implementation note:** Phase A shipped a **single global structure pool** + break roll. Next engine pass: per-zone stress + `currentLine` stickiness before redoing Phase B pool profiles.
+
+#### Later — sensory & internal depth (parked)
+
+Extend zones when ready; same “one hit, one line” rule unless art is AoE:
+
+| Extension | Example | Effect |
+|-----------|---------|--------|
+| **Sensory** | eyes, ears | Blind, disorient — high stakes; rare breaks; spiritual sense / probe to detect |
+| **Internal poisons** | outer vs inner coat | Outer → flesh/system stress; inner → circulation/core lanes; meridian toxins vs blood toxins (see battle coats) |
+| **Fine bilateral** | left/right arm | After v1 `arm` works; bilateral caps already in Phase A |
+
+Do not add per-fight focus UI. Depth comes from openings, stickiness, pen/hardness, and authored wide arts — not inventory keys or aim wheels.
 
 ### Debuffs (owner-locked)
 
@@ -469,8 +512,9 @@ Defaults locked for parking; revisit when building:
 
 ## Build phases (Issues later)
 
-1. **`resolveCombatHit` + enemy stress pools** — breaks, bleed, logs (HP victory unchanged)
-2. **Attack profiles on pool** — default `nature` / `stress` on techniques + weapon basics
+1. **`resolveCombatHit` + enemy stress pools** — breaks, bleed, logs (HP victory unchanged) — **shipped Phase A** [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)
+2. **Attack profiles on pool** — default `nature` / `stress` on techniques + weapon basics — **first pass shipped**; redo after zonal engine
+2b. **Zonal resolution** — `currentLine`, per-zone stress, stickiness, openings — **designed, not built**
 3. **Intent expression** — cross-wield shift; soften high-art weapon hard-fail; port expand arts to profile modifiers
 4. **Dao riders** — stress bias + move phase procs into `DAO_TAXONOMY`
 5. Outer/inner poisons & battle coats

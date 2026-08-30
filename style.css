@@ -5239,6 +5239,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 .combat-log .hit-mod { color: #a89880; }
 .combat-log .entry-hp { color: #e08070; }
 .combat-log .entry-mod { color: #a89880; }
+.combat-log .entry-wound {
+    color: #e8b878;
+    font-weight: 600;
+}
 
 .combat-log {
     background: #0f0c0a;
@@ -7503,6 +7507,21 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 .enemy-status-chip.weak-chip {
     border-color: #806020;
     color: #f0d080;
+}
+
+.enemy-status-chip.wound-bleed-chip {
+    border-color: #8a3030;
+    color: #f0a0a0;
+}
+
+.enemy-status-chip.wound-structure-chip {
+    border-color: #705030;
+    color: #e8c090;
+}
+
+.enemy-status-chip.wound-inner-chip {
+    border-color: #405880;
+    color: #a8c8f0;
 }
 
 .combat-enemy-telegraph {
