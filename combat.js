@@ -565,6 +565,8 @@ function buildEnemyFromDef(def, template, options = {}) {
     if (template?.weakness && !enemy.weakness) enemy.weakness = template.weakness;
     if (template?.traits && !enemy.traits) enemy.traits = template.traits;
 
+    if (typeof initEnemyWoundState === 'function') initEnemyWoundState(enemy);
+
     return enemy;
 }
 
@@ -572,6 +574,7 @@ function calcEnemyStrikeDamage(enemy, mult) {
     mult = mult || 1;
     let raw = enemy.dmg + Math.floor(Math.random() * 4);
     if (isEnemyEnraged(enemy)) raw = Math.floor(raw * 1.2);
+    if (typeof getEnemyWoundDamageMult === 'function') raw = Math.floor(raw * getEnemyWoundDamageMult(enemy));
     raw = Math.floor(raw * mult);
     if (enemy.intimidateTurns > 0) {
         let reduction = 0.25 + Math.min(0.25, G.will * 0.01);
@@ -1275,6 +1278,7 @@ function combatAttack() {
     }
     if (G.enemy.defending) {
         let defendMult = typeof getBasicDefendDamageMult === 'function' ? getBasicDefendDamageMult() : 0.45;
+        if (typeof getEnemyGuardDamageMult === 'function') defendMult = getEnemyGuardDamageMult(defendMult);
         const pen = typeof getFoundationNatureArmorPenPct === 'function' ? getFoundationNatureArmorPenPct() : 0;
         if (pen > 0 && !intentFx.ignoreDefend) {
             defendMult = Math.min(1, defendMult + (1 - defendMult) * pen);
@@ -1290,12 +1294,21 @@ function combatAttack() {
 
     trackMirrorAction('attack');
     if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('attack')) return;
-    G.enemy.hp -= applyMirrorDamageToReflection(dmg);
+    const basicProfile = typeof buildAttackProfileFromBasic === 'function' ? buildAttackProfileFromBasic : null;
+    const hit = typeof dealPlayerDamageToEnemy === 'function'
+        ? dealPlayerDamageToEnemy(dmg, basicProfile)
+        : { hpApplied: dmg, logs: [] };
+    (hit.logs || []).forEach(line => addCombatLog(line));
+    let totalApplied = hit.hpApplied || 0;
     if (intentFx.extraDmg > 0) {
-        G.enemy.hp -= applyMirrorDamageToReflection(intentFx.extraDmg);
-        addCombatLog(`⚔️ Follow-up strike! ${intentFx.extraDmg} damage.`);
+        const follow = typeof dealPlayerDamageToEnemy === 'function'
+            ? dealPlayerDamageToEnemy(intentFx.extraDmg, basicProfile)
+            : { hpApplied: intentFx.extraDmg, logs: [] };
+        (follow.logs || []).forEach(line => addCombatLog(line));
+        totalApplied += follow.hpApplied || 0;
+        addCombatLog(`⚔️ Follow-up strike! ${follow.hpApplied || intentFx.extraDmg} damage.`);
     }
-    logBodyChamberLifeSteal(dmg + (intentFx.extraDmg || 0));
+    logBodyChamberLifeSteal(totalApplied);
     if (intentFx.resourceGain > 0 && typeof applyIntentResourceGain === 'function') {
         applyIntentResourceGain(intentFx.resourceGain);
     }
@@ -1507,16 +1520,8 @@ function combatUseTechnique(name) {
     }
 
     const result = executeCombatTechnique(tech);
-    let dmg = applyMirrorDamageToReflection(result.damage);
-    dmg = applyEnemyElementModifier(dmg, meta.element);
-    if (result.igniteBonus) {
-        dmg += result.igniteBonus;
-        addCombatLog(`🔥 Fire Affinity ignites! +${result.igniteBonus} bonus damage!`);
-    }
-    if (result.daoFx?.bonusDmg) {
-        dmg += result.daoFx.bonusDmg;
-    }
-    if (result.daoFx?.log) addCombatLog(result.daoFx.log + (result.daoFx.bonusDmg ? ` +${result.daoFx.bonusDmg} damage!` : ''));
+    let baseDmg = result.damage;
+    baseDmg = applyEnemyElementModifier(baseDmg, meta.element);
     if (meta.category === 'defense') {
         G.defending = true;
         G.fortifyActive = meta.path === 'body' || G.path === 'body';
@@ -1526,16 +1531,16 @@ function combatUseTechnique(name) {
     if (wasDefending) {
         G.enemy.defending = false;
         if (meta.spiritDamage && typeof applySpiritDamageToEnemy === 'function') {
-            dmg = applySpiritDamageToEnemy(dmg, {
+            baseDmg = applySpiritDamageToEnemy(baseDmg, {
                 bypassPhysiquePct: meta.spiritBypassPhysiquePct,
                 defending: true
             });
             addCombatLog(`🪞 Condensed soul force slips past part of their guard.`);
         } else {
-            let defendMult = 0.45;
+            let defendMult = typeof getEnemyGuardDamageMult === 'function' ? getEnemyGuardDamageMult(0.45) : 0.45;
             const pen = typeof getFoundationNatureArmorPenPct === 'function' ? getFoundationNatureArmorPenPct() : 0;
             if (pen > 0) defendMult = Math.min(1, defendMult + (1 - defendMult) * pen);
-            dmg = Math.floor(dmg * defendMult);
+            baseDmg = Math.floor(baseDmg * defendMult);
             addCombatLog(pen > 0
                 ? `🪞 Your sealed nature bites through the reflection's guard.`
                 : `🪞 Your technique glances off the reflection's guard.`);
@@ -1544,11 +1549,55 @@ function combatUseTechnique(name) {
         G.enemy.defending = false;
         addCombatLog(`🪞 Mirror Step passes through the reflection's guard!`);
     } else if (meta.spiritDamage && typeof applySpiritDamageToEnemy === 'function') {
-        dmg = applySpiritDamageToEnemy(dmg, { bypassPhysiquePct: meta.spiritBypassPhysiquePct });
+        baseDmg = applySpiritDamageToEnemy(baseDmg, { bypassPhysiquePct: meta.spiritBypassPhysiquePct });
     }
     trackMirrorAction('technique');
     if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('technique')) return;
-    G.enemy.hp -= dmg;
+
+    const techProfile = typeof buildAttackProfileFromTechnique === 'function'
+        ? () => buildAttackProfileFromTechnique(tech)
+        : null;
+    const fireIgniteProfile = () => ({
+        nature: 'slash',
+        stress: typeof stressForNature === 'function'
+            ? stressForNature('slash', 'light')
+            : { flesh: 0.62, structure: 0.28, circulation: 0.06, core: 0.04 },
+        delivery: 'aura',
+        tags: ['outer']
+    });
+
+    let appliedDmg = 0;
+    if (baseDmg > 0 && typeof dealPlayerDamageToEnemy === 'function') {
+        const hit = dealPlayerDamageToEnemy(baseDmg, techProfile);
+        (hit.logs || []).forEach(line => addCombatLog(line));
+        appliedDmg += hit.hpApplied || 0;
+    } else if (baseDmg > 0) {
+        G.enemy.hp -= baseDmg;
+        appliedDmg += baseDmg;
+    }
+    if (result.igniteBonus > 0) {
+        addCombatLog(`🔥 Fire Affinity ignites! +${result.igniteBonus} bonus damage!`);
+        if (typeof dealPlayerDamageToEnemy === 'function') {
+            const igniteHit = dealPlayerDamageToEnemy(result.igniteBonus, fireIgniteProfile);
+            (igniteHit.logs || []).forEach(line => addCombatLog(line));
+            appliedDmg += igniteHit.hpApplied || 0;
+        } else {
+            G.enemy.hp -= result.igniteBonus;
+            appliedDmg += result.igniteBonus;
+        }
+    }
+    if (result.daoFx?.bonusDmg > 0) {
+        if (result.daoFx.log) addCombatLog(result.daoFx.log + ` +${result.daoFx.bonusDmg} damage!`);
+        if (typeof dealPlayerDamageToEnemy === 'function') {
+            const daoHit = dealPlayerDamageToEnemy(result.daoFx.bonusDmg, techProfile);
+            (daoHit.logs || []).forEach(line => addCombatLog(line));
+            appliedDmg += daoHit.hpApplied || 0;
+        } else {
+            G.enemy.hp -= result.daoFx.bonusDmg;
+            appliedDmg += result.daoFx.bonusDmg;
+        }
+    }
+    const dmg = appliedDmg;
     const tierLabel = TECHNIQUE_COMBAT_TIERS[getTechniqueCombatTier(tech)]?.label || result.tier;
     if (dmg > 0) {
         addCombatLog(`🌀 ${name} [${result.tier}]! ${dmg} damage!`);
@@ -1747,6 +1796,12 @@ function combatVictory(fromTechnique) {
 
 function enemyTurn() {
     if (!G.inCombat || !G.enemy) return;
+    if (G.enemy.hp <= 0) {
+        combatVictory(false);
+        return;
+    }
+
+    if (typeof processEnemyWoundTurnStart === 'function') processEnemyWoundTurnStart(G.enemy);
     if (G.enemy.hp <= 0) {
         combatVictory(false);
         return;
