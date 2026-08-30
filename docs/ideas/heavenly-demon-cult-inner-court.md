@@ -117,7 +117,7 @@ Charm is a **tool**, different per disciple — not a single envoy archetype.
 |---|-----------|-----------------|------------------------|
 | **1** | **Young qi genius** | Patriarch eventually; prove **talent** earns throne | Elite small unit; merit-line chaff |
 | **2** | **Fanatic** | **Pulpit / god proximity** — Heavenly Demon as **living god** | Oath reavers; cauldron junior priests; lower-rung true believers |
-| **3** | **Lazy refuser** | **Won't take chair** (or says so); Mo Xuan's rumored favorite | Accidental chaff web (retirees gather); legion **runs itself**; optional **hidden brawler** when forced |
+| **3** | **Lazy refuser** | **Won't take chair** (or says so); rumored favorite — **who Mo Xuan privately favors: open** | Accidental chaff web (retirees gather); legion **runs itself**; optional **hidden brawler** when forced |
 | **4** | **Schemer** | Win by **slow ruin** — not a coward; **cautious** to mockery | Informants, clerks; menial elders; charming public face |
 | **5** | **Assassin** | **Deniable power** — burst kill, weak sustained / head-on | Cells not regiments; charm as **cover identity** |
 | **6** | **Soul genius** | **Founder access** / forbidden soul lane | Pit-adjacent hermits; wrong-feeling followers |
@@ -408,7 +408,8 @@ Ward **elders** run regen Reavers — blood arts + Canon + tempering manuals. **
 ## Prerequisites
 
 - [ ] Merge fuller founder/Mo Xuan leadership pass from cult design branch into [`heavenly-demon-cult.md`](heavenly-demon-cult.md)
-- [ ] Seven faces drafted (separate pass)
+- [x] Seven archetypes + banner-war framework (names TBD)
+- [ ] Seven faces drafted (names, genders, #7 defect)
 - [x] Pit Two rough shape (Tuo Yan)
 - [ ] Gorge approach beats reference pit rumors
 
