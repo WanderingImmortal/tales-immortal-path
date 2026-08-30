@@ -111,6 +111,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Heavenly Demon Cult — FE Initiate life](heavenly-demon-cult-fe-initiate.md) | `designed` (v1) | FE chamber; damage rework (combat) | — |
 | [Heavenly Demon Cult — GC Reaver life](heavenly-demon-cult-gc-reaver.md) | `designed` (v1) | GC chamber; Taking intent; damage rework | — |
 | [Heavenly Demon Cult — branch cells](heavenly-demon-cult-branch-cells.md) | `idea` (parked) | Merit ledger; multi-cell math | — |
+| [Heavenly Demon Cult — inner court (seven + pit)](heavenly-demon-cult-inner-court.md) | `designed` | Gu Wei + Tuo Yan; seven archetypes locked | — |
+| [Heavenly Demon Cult — Blood Vessel Ward](heavenly-demon-cult-body-ward.md) | `designed` | Body sector vs Vajra Ridge | — |
 | [Blood Sealing Gorge](blood-sealing-gorge.md) | `designed` (v1) | Cult HQ layout; hidden map | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
