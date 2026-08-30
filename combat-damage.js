@@ -151,6 +151,30 @@ function buildAttackProfileTags(meta, nature, combatTier, techName) {
     return tags;
 }
 
+function mergeAttackTags(baseTags, extraTags) {
+    const merged = (baseTags || []).slice();
+    (extraTags || []).forEach(t => {
+        if (t && !merged.includes(t)) merged.push(t);
+    });
+    return merged;
+}
+
+function getTechniqueAttackProfileData(tech) {
+    if (!tech?.name || typeof TECHNIQUE_ATTACK_PROFILES === 'undefined') return null;
+    return TECHNIQUE_ATTACK_PROFILES[tech.name] || null;
+}
+
+function applyAuthoredAttackProfile(authored, meta, combatTier, techName) {
+    const nature = authored.nature || inferWoundNatureFromMeta(meta, techName);
+    const stress = authored.stress
+        ? cloneStressWeights(authored.stress)
+        : stressForNature(nature, combatTier);
+    const baseTags = buildAttackProfileTags(meta, nature, combatTier, techName);
+    const tags = mergeAttackTags(baseTags, authored.tags);
+    const delivery = authored.delivery || (meta.spiritDamage ? 'soul' : 'melee');
+    return { hp: 0, nature, stress, delivery, tags };
+}
+
 function buildAttackProfileFromBasic() {
     const path = G.path;
     let nature = 'slash';
@@ -158,6 +182,17 @@ function buildAttackProfileFromBasic() {
     else if (path === 'soul') nature = 'soul-cut';
     else {
         const wt = getEquippedWeaponTypeForDamage();
+        const weaponProfile = wt && typeof WEAPON_BASIC_ATTACK_PROFILES !== 'undefined'
+            ? WEAPON_BASIC_ATTACK_PROFILES[wt]
+            : null;
+        if (weaponProfile) {
+            return applyAuthoredAttackProfile(
+                weaponProfile,
+                { path, spiritDamage: false, weaponType: wt },
+                'light',
+                ''
+            );
+        }
         if (wt === 'fist') nature = 'crush';
         else if (wt === 'spear') nature = 'pierce';
         else if (wt === 'staff') nature = 'crush';
@@ -176,6 +211,8 @@ function buildAttackProfileFromTechnique(tech) {
     if (!tech) return buildAttackProfileFromBasic();
     const meta = typeof getTechniqueMeta === 'function' ? getTechniqueMeta(tech) : {};
     const combatTier = typeof getTechniqueCombatTier === 'function' ? getTechniqueCombatTier(tech) : 'medium';
+    const authored = getTechniqueAttackProfileData(tech);
+    if (authored) return applyAuthoredAttackProfile(authored, meta, combatTier, tech.name);
     const nature = inferWoundNatureFromMeta(meta, tech.name);
     return {
         hp: 0,
