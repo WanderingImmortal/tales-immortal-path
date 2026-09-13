@@ -244,6 +244,14 @@ Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scho
 - **Blocked on:** **armor + pierce** stat redesign (`docs` pen/hardness Phase B+). "Finds cracks in armor" is penetration fantasy, not generic pierce spread.
 - Revisit after player/enemy armor model and `spatial`/`pen` tags are clearer.
 
+##### Soul arts — entire cluster (parked 2026-09-13)
+
+**No profiles until soul/spirit combat slice exists.** Includes: Soul Severing Sword, Soul Lash, Phantom Blade, Mind Sever, Ghost Spear Thrust, Spirit Suppression Art, Demon Seal, Abyss Gaze, Soul Spike, Soul Rend (signature may revisit earlier — owner call). Soul Search → Bucket 2b placeholder.
+
+##### Nature-only defaults (owner designation, in progress)
+
+*See chat 2026-09-13 — Heavenly Palm through Maelstrom Lance.*
+
 *Remaining Bucket 3 entries — pending owner pass.*
 
 ### Debuffs (owner-locked)
