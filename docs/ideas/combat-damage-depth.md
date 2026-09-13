@@ -200,6 +200,28 @@ Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scho
 - **Tagged foes** (`corrupted` / `demonic` when enemy traits exist): **circulation burn** — purifying element scours taint from channels; bonus damage + circulation stress skew.
 - Enemy taint traits not on mobs yet — add with alignment/sacrilege combat hooks. Not player `corruptionLevel`.
 
+##### Five Elements Fist (owner 2026-09-13)
+
+- **UI pick element:** neat but cumbersome + bespoke code for one art now — **defer**.
+- **Cycle elements (default lean):** each use advances fire → water → earth → wind → lightning; **elemental matchup** on foes (effective ~1/5 vs resistant enemies unless they're neutral). No picker UI; log shows which element landed.
+- **Profile (interim):** crush or element-tinted stress per cycle when matchup table exists; until then crush + `sweep` acceptable.
+
+##### Tide Spiral (owner 2026-09-13)
+
+- Redirecting foe's force is odd for wound pipeline — **rewrite fantasy:** spiral **generates** its own crushing water force (not parry-redirect).
+- **Profile:** crush · structure lean (keep or simplify).
+
+##### Gale Spiral (owner 2026-09-13)
+
+- Fantasy: compressed wind spiral — **rasengan-adjacent**, wind blades cutting.
+- **Profile:** slash · flesh-primary; **light core** splash (compressed qi at center). **Not** full multi-limb — one line per hit (zonal); avoid "strong everywhere" unless tiered as heavy.
+- If too strong in playtest: drop core splash to circulation chip or reduce stress scale.
+
+##### Sandstorm Body Art (owner 2026-09-13)
+
+- **Not a single-attack wound profile** — **damaging stance / aura** (Bucket **1c**): while active, grit and wind scour foe **wide** (all zones or light flesh across body). Advance while you close.
+- Move out of normal attack profile table; implement with aura tick + `wide` when damaging-buff slice lands.
+
 *Remaining Bucket 3 entries — pending owner pass.*
 
 ### Debuffs (owner-locked)
