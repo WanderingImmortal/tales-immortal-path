@@ -6,7 +6,7 @@
 | **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) playable slice for Phase C; zonal engine pass before redoing pool profiles |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116) — Phase A+B; zonal resolution designed 2026-08-30 |
-| **Updated** | 2026-08-30 |
+| **Updated** | 2026-09-13 |
 | **Design focus** | **Intent wielding** + **cultivation loop** — see [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) |
 
 ## Intent
