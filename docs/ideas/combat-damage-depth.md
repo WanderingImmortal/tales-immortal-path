@@ -172,6 +172,36 @@ Techniques granted by narrative (e.g. quest ally rewards, `reqTalent`). Design *
 
 Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scholar thread.
 
+#### Bucket 3 — Weird attacks (owner designation, in progress)
+
+##### Mirror Step (owner 2026-09-13)
+
+- **Rework → mobility technique** (Bucket 2a family), not a guard-piercing attack.
+- Remove attack profile / `ignoresGuard` hardcode in `combat.js`.
+- **Prerequisite:** mobility utility **infrastructure** — evade, reposition, or opening creation must do something or mobility arts are useless (same note as Quickfoot / Void Step / Dust Step). Track as combat slice, not profile-only.
+
+##### Void Rend (owner 2026-09-13)
+
+- **Stress:** core + frame (not generic pierce spread).
+- **Tag:** `spatial` (or equivalent) — attack operates through space; **ignores normal guard/block**, only blocked by **spatial defenses** (ward, void shield, domain — define when those exist).
+- Replace generic `ignoresGuard` with spatial interaction rules.
+
+##### Blood Refining Art (owner 2026-09-13)
+
+- Fantasy: **blood devour / blood siphon** (cultivation-adjacent), not generic slash.
+- **v1 (likely enough):** flesh-heavy stress + lifesteal (keep current heal hook); rename/flavor toward siphon.
+- **Zonal option:** when wide/zonal exists, light flesh stress across limbs (siphon "everywhere" without per-limb menu).
+- **Deep option (parked):** blood volume / vitae layer on HP for poisons & blood arts — **defer** until poison pass; not worth full system until then. Note in poison/blood ideas when building.
+
+##### Purifying Palm (owner 2026-09-13)
+
+- **Not needle** — palm strike; agent `needle` profile is wrong.
+- **Stress:** circulation **or** flesh (owner pick pending) — righteous qi purge, not meridian seal.
+- **Bonus vs tainted foes:** extra damage vs **corrupted / demonic** targets (e.g. Corrupted Cultivator, Demon Beast). Enemy **`corrupted` / `demonic` traits** not on mobs yet — add when alignment/sacrilege combat hooks land. Not player `corruptionLevel`; foe taint tag.
+- Sacrilege (heaven ledger) is a **player** track — separate from foe weakness unless story ties them.
+
+*Remaining Bucket 3 entries — pending owner pass.*
+
 ### Debuffs (owner-locked)
 
 **Flesh broken**
