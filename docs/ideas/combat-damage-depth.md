@@ -106,6 +106,72 @@ Extend zones when ready; same “one hit, one line” rule unless art is AoE:
 
 Do not add per-fight focus UI. Depth comes from openings, stickiness, pen/hardness, and authored wide arts — not inventory keys or aim wheels.
 
+### Phase B — owner technique designation (2026-09)
+
+Pool profiles are split into **buckets** so defense/buff/aura types are not lumped together. Future “damaging aura” buffs get their own bucket when added.
+
+#### Bucket 1a — Defense stances (locked 2026-09-13)
+
+**No HP damage. No wound stress.** Skip `resolveCombatHit` / attack profile when used as intended.
+
+| Technique | Intended combat role (today) |
+|-----------|------------------------------|
+| Iron Mountain Stance | Root stance → guard next blow (body fortify) |
+| Well-Road Guard | Brace → guard |
+| Bone Tempering Stance | Bone temper → guard |
+| Bronze Skin Palm | Harden flesh → guard |
+| Spectral Shield | Soul barrier → guard |
+
+**Later (separate techniques, not these):** reflect/thorns/counter — stance itself still no stress; reflect **proc** may wound attacker as its own hit.
+
+#### Bucket 1b — Self buffs (locked 2026-09-13)
+
+**No HP damage. No wound stress.** Descriptions promise self-effects; combat hooks are **not built yet** (currently weak chip attacks — fix in a buff-combat slice).
+
+| Technique | Xianxia fantasy | Target self-effect (when built) |
+|-----------|-----------------|--------------------------------|
+| Meridian Flow | Circulate qi | Light heal / qi or stamina recovery |
+| Blood Aegis | Blood membrane | Damage absorb / brief shield |
+| Focused Breath | Center breath & intent | Steady next exchange (dmg bonus or resist) |
+
+#### Bucket 1c — Damaging auras / domains (parked)
+
+**Not in pool yet.** When added: may deal HP + stress tick (e.g. slaughter domain, lightning field) — **explicit AoE/wide** profile, not mixed with 1a/1b.
+
+Rule: category or `delivery: 'aura'` + authored `wide: true` (or equivalent) gates wound stress. Self-only circulate/ward arts stay in 1b.
+
+#### Bucket 2a — Mobility utilities (locked 2026-09-13)
+
+**No HP damage. No wound stress.** Not the same family as soul-probe or story arts.
+
+| Technique | Role | Combat today |
+|-----------|------|--------------|
+| Quickfoot Art | Reposition before enemy strikes | Placeholder — no effect yet |
+| Void Step | Evade next attack | Works via transcendence button (`voidStepActive`) |
+| Dust Step | Sand in eyes, slip aside | Placeholder — **sensory / eyes debuff** when that system exists |
+
+#### Bucket 2b — Soul probe (placeholder — 2026-09-13)
+
+**Soul Search** — utility in *role* (probe, read, soften foe) but not footwork. Owner has **not** developed spirit/soul damage yet; **do not finalize profile** until soul combat slice exists.
+
+When built (notes for later):
+
+- Light **spirit HP** + debuff (current: enemy dmg mult down ~2 turns) — keep out-of-combat probe hooks
+- Stress: **circulation / core** (`soul-cut`) — **not flesh or structure**
+- Not comparable to Soul Spike / Soul Rend power tier
+
+Remove agent-authored `TECHNIQUE_ATTACK_PROFILES` row until soul system is designed.
+
+#### Bucket 2c — Story / quest arts (placeholder — 2026-09-13)
+
+Techniques granted by narrative (e.g. quest ally rewards, `reqTalent`). Design **case by case** — must not be trash, but combat role revisits when story context is clear.
+
+| Technique | Source (today) | Status |
+|-----------|----------------|--------|
+| Gentle Repression | Wei Ling ally path · `cursed_scholar` | **Deferred** — owner doesn't recall intended combat role; desc: suppress corruption, steady meridians |
+
+Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scholar thread.
+
 ### Debuffs (owner-locked)
 
 **Flesh broken**
