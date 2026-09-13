@@ -189,16 +189,16 @@ Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scho
 ##### Blood Refining Art (owner 2026-09-13)
 
 - Fantasy: **blood devour / blood siphon** (cultivation-adjacent), not generic slash.
-- **v1 (likely enough):** flesh-heavy stress + lifesteal (keep current heal hook); rename/flavor toward siphon.
+- **v1 (locked):** flesh-heavy stress + lifesteal (keep current heal hook); rename/flavor toward siphon.
 - **Zonal option:** when wide/zonal exists, light flesh stress across limbs (siphon "everywhere" without per-limb menu).
-- **Deep option (parked):** blood volume / vitae layer on HP for poisons & blood arts — **defer** until poison pass; not worth full system until then. Note in poison/blood ideas when building.
+- **v3 (parked):** blood volume / vitae layer on HP for poisons & blood arts — defer until poison pass.
 
 ##### Purifying Palm (owner 2026-09-13)
 
 - **Not needle** — palm strike; agent `needle` profile is wrong.
-- **Stress:** circulation **or** flesh (owner pick pending) — righteous qi purge, not meridian seal.
-- **Bonus vs tainted foes:** extra damage vs **corrupted / demonic** targets (e.g. Corrupted Cultivator, Demon Beast). Enemy **`corrupted` / `demonic` traits** not on mobs yet — add when alignment/sacrilege combat hooks land. Not player `corruptionLevel`; foe taint tag.
-- Sacrilege (heaven ledger) is a **player** track — separate from foe weakness unless story ties them.
+- **Untagged foes:** regular palm — flesh stress (same family as other palms).
+- **Tagged foes** (`corrupted` / `demonic` when enemy traits exist): **circulation burn** — purifying element scours taint from channels; bonus damage + circulation stress skew.
+- Enemy taint traits not on mobs yet — add with alignment/sacrilege combat hooks. Not player `corruptionLevel`.
 
 *Remaining Bucket 3 entries — pending owner pass.*
 
