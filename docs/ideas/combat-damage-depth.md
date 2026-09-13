@@ -110,6 +110,21 @@ Do not add per-fight focus UI. Depth comes from openings, stickiness, pen/hardne
 
 Pool profiles are split into **buckets** so defense/buff/aura types are not lumped together. Future “damaging aura” buffs get their own bucket when added.
 
+#### Flesh delivery — blunt vs cut (locked 2026-09-13)
+
+**No new HP bar.** Same flesh / structure / circulation / core systems; delivery changes *how* flesh is stressed and when bleed applies.
+
+| Delivery | Nature (usual) | Flesh behavior |
+|----------|----------------|----------------|
+| **Open palm, qi palm** | `crush` profile but **flesh-heavy stress** | Blunt trauma — bruise, shock; **bleed mainly on flesh break**, not every chip. Optional future tag: `blunt` (lower bleed rate per hit until break). |
+| **Claw, rake, finger-blade** | `slash` | Flesh **cut** — bleed builds on flesh stress normally. Hand-to-hand + `slash` = unarmed cut, not a new system. |
+| **Slam, iron palm, body avalanche** | `crush` (structure-heavy) | Bone, frame, limb buckle — Mountain Crash family. |
+| **Meridian palm, seal** | `needle` | Circulation — not default palm identity. |
+
+**Power gap** (sever chunks, bisect): deferred — `pen` / hardness vs flesh & structure when that slice lands; same blunt palm can bruise a peer or ruin a weak foe.
+
+**Redo scope:** **palm family rows only** (~10 arts), not the whole `TECHNIQUE_ATTACK_PROFILES` table. Slash weapons, crush slams, needles already fit.
+
 #### Bucket 1a — Defense stances (locked 2026-09-13)
 
 **No HP damage. No wound stress.** Skip `resolveCombatHit` / attack profile when used as intended.
@@ -248,11 +263,50 @@ Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scho
 
 **No profiles until soul/spirit combat slice exists.** Includes: Soul Severing Sword, Soul Lash, Phantom Blade, Mind Sever, Ghost Spear Thrust, Spirit Suppression Art, Demon Seal, Abyss Gaze, Soul Spike, Soul Rend (signature may revisit earlier — owner call). Soul Search → Bucket 2b placeholder.
 
-##### Nature-only defaults (owner designation, in progress)
+##### Nature-only defaults (locked 2026-09-13)
 
-*See chat 2026-09-13 — Heavenly Palm through Maelstrom Lance.*
+Under **flesh blunt vs cut** rule above:
 
-*Remaining Bucket 3 entries — pending owner pass.*
+| Technique | Profile read |
+|-----------|----------------|
+| Heavenly Palm | Flesh-forward **blunt palm** — reference palm for the game |
+| Grit Palm | Same family, trash tier — flesh blunt, accept generic weights |
+| Earth Pulse Palm | Blunt palm + earth; `sweep` (ground pulse → legs) |
+| Crushing Fist | **Crush** structure — body path raw impact, not a palm |
+| Staff Shatter | **Crush** frame; `twoHand` — staff-force through body |
+| Maelstrom Lance | **Pierce**; `twoHand`; core lean — spear home art |
+
+##### Bucket 3 — misc (not yet reviewed)
+
+Accept agent defaults until zonal pass unless playtest feels wrong: Saltbrush Snap, Cinder Volley, Root-Vein Surge, Scorching Palm, Raging Ember Fist, Wind Blade Strike, Heavenly Sword Qi, Demon Seal (soul — parked with cluster), etc.
+
+---
+
+### Phase B designation — what we have (2026-09-13)
+
+| Layer | Status |
+|-------|--------|
+| **Design — zonal resolution** | Locked: one hit / one line, stickiness, openings, no aim menu, no technique gating |
+| **Design — buckets 1–3** | Owner pass largely complete; soul cluster + system-blocked arts parked |
+| **Design — flesh blunt/cut** | Locked; palm-family profile redo scoped (~10 rows) |
+| **Code — Phase A** | Shipped on [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116): stress, breaks, logs, chips, heuristic + agent profiles |
+| **Code — Phase B profiles** | First-pass `TECHNIQUE_ATTACK_PROFILES` in `data.js` — **do not treat as canon**; rewrite after zonal engine + designation |
+| **Code — zonal engine** | Not built (`currentLine`, per-zone stress) |
+| **Code — combat slices** | Not built: mobility infra, defense/buff zero-damage, damaging auras, spatial guard, foe `corrupted`/`demonic` tags, part debuffs, poison, pen/armor |
+
+### Phase B designation — next steps (priority)
+
+1. **Playtest Phase A spine** (optional) — breaks, bleed, logs feel; merge PR #116 when happy with numbers-only tuning later.
+2. **Build zonal engine (Phase 2b)** — `currentLine`, per-zone stress, stickiness; prerequisite for meaningful wound shape.
+3. **Rewrite profiles in one pass** — apply bucket rules + palm blunt/cut; strip parked/bucket-1 rows from stress pipeline; remove agent noise.
+4. **Small combat slices** (can parallelize after 2–3):
+   - Mobility utility infrastructure (Quickfoot, Dust Step, Mirror Step rework)
+   - Defense/buff: no HP, no stress + real self-effects for 1b
+   - Sandstorm → damaging aura (1c) when aura tick exists
+   - Void Rend `spatial` + Purifying Palm dual-mode when foe tags exist
+5. **Deferred** (own Issues later): soul arts, poison (+ bleed-accelerator), part debuffs (ice limbs), pen/armor (Sandburrow), blood vitae v3, Gentle Repression story role.
+
+**Do not** re-design every technique before step 2 — designation doc is the source of truth until zonal lands.
 
 ### Debuffs (owner-locked)
 
@@ -662,7 +716,8 @@ Defaults locked for parking; revisit when building:
 
 1. **`resolveCombatHit` + enemy stress pools** — breaks, bleed, logs (HP victory unchanged) — **shipped Phase A** [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)
 2. **Attack profiles on pool** — default `nature` / `stress` on techniques + weapon basics — **first pass shipped**; redo after zonal engine
-2b. **Zonal resolution** — `currentLine`, per-zone stress, stickiness, openings — **designed, not built**
+2b. **Zonal resolution** — `currentLine`, per-zone stress, stickiness, openings — **designed, not built** ← **next engine work**
+2c. **Profile rewrite** — owner designation rules + palm blunt/cut; strip parked rows — **after 2b**
 3. **Intent expression** — cross-wield shift; soften high-art weapon hard-fail; port expand arts to profile modifiers
 4. **Dao riders** — stress bias + move phase procs into `DAO_TAXONOMY`
 5. Outer/inner poisons & battle coats
