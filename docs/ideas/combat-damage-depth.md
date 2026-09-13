@@ -222,6 +222,28 @@ Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scho
 - **Not a single-attack wound profile** — **damaging stance / aura** (Bucket **1c**): while active, grit and wind scour foe **wide** (all zones or light flesh across body). Advance while you close.
 - Move out of normal attack profile table; implement with aura tick + `wide` when damaging-buff slice lands.
 
+##### Frostbite Palm (parked 2026-09-13)
+
+- **Blocked on:** **part debuffs** — frozen limb, necrotic limb, etc. (zonal break payoffs beyond generic slow).
+- Ice "chills to the bone" needs limb-level status, not just flesh/structure weights.
+- No final profile until part-debuff slice designed.
+
+##### Glacier Heart Palm (parked 2026-09-13)
+
+- **Blocked on:** same **part debuff** system as Frostbite; step-up ice art (numbing / marrow freeze).
+- Design after Frostbite + debuff framework; likely circulation or structure lane on a frozen zone.
+
+##### Viper Fang Strike (parked 2026-09-13)
+
+- **Blocked on:** **poison** pass. Fantasy: venom palm / poison strike, not generic slash flesh.
+- **Idea (owner):** poison that **accelerates bleed** on a bleeding foe — needs bleed + poison + debuff interaction. Park in poison ideas when building.
+- No lifesteal hook required until poison slice; may pair with blood path later.
+
+##### Sandburrow Palm (parked 2026-09-13)
+
+- **Blocked on:** **armor + pierce** stat redesign (`docs` pen/hardness Phase B+). "Finds cracks in armor" is penetration fantasy, not generic pierce spread.
+- Revisit after player/enemy armor model and `spatial`/`pen` tags are clearer.
+
 *Remaining Bucket 3 entries — pending owner pass.*
 
 ### Debuffs (owner-locked)
