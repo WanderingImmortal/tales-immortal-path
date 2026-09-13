@@ -555,6 +555,90 @@ const TECHNIQUE_POOL = [
 ];
 
 /**
+ * Phase B — authored attack profiles for combat techniques.
+ * Omit an entry to use heuristic inference in combat-damage.js.
+ * Fields: nature, stress ({ flesh, structure, circulation, core }), tags[], delivery
+ */
+const TECHNIQUE_ATTACK_PROFILES = {
+    'Heavenly Palm': { nature: 'crush', stress: { flesh: 0.35, structure: 0.45, circulation: 0.12, core: 0.08 } },
+    'Soul Severing Sword': { nature: 'soul-cut', delivery: 'soul' },
+    'Five Elements Fist': { nature: 'crush', tags: ['outer', 'sweep'] },
+    'Scorching Palm': { nature: 'slash', stress: { flesh: 0.7, structure: 0.2, circulation: 0.06, core: 0.04 } },
+    'Tide Spiral': { nature: 'crush', stress: { flesh: 0.25, structure: 0.55, circulation: 0.15, core: 0.05 } },
+    'Blood Refining Art': { nature: 'slash', stress: { flesh: 0.75, structure: 0.15, circulation: 0.06, core: 0.04 }, tags: ['outer', 'execute'] },
+    'Gentle Repression': { nature: 'needle', stress: { flesh: 0.1, structure: 0.08, circulation: 0.72, core: 0.1 } },
+    'Celestial Judgment': {
+        nature: 'needle',
+        stress: { flesh: 0.18, structure: 0.1, circulation: 0.42, core: 0.3 },
+        tags: ['outer', 'inner', 'twoHand'],
+        delivery: 'aura'
+    },
+    'War God\'s Roar': { nature: 'crush', stress: { flesh: 0.2, structure: 0.68, circulation: 0.08, core: 0.04 }, tags: ['outer', 'sweep'] },
+    'Soul Rend': { nature: 'soul-cut', stress: { flesh: 0.06, structure: 0.06, circulation: 0.55, core: 0.33 }, delivery: 'soul', tags: ['inner', 'execute'] },
+    'Frostbite Palm': { nature: 'slash', stress: { flesh: 0.55, structure: 0.35, circulation: 0.08, core: 0.02 } },
+    'Mirror Step': { nature: 'pierce', tags: ['outer', 'ignoresGuard', 'execute'] },
+    'Gale Spiral': { nature: 'slash' },
+    'Earth Pulse Palm': { nature: 'crush', tags: ['outer', 'sweep'] },
+    'Storm Needle': {
+        nature: 'needle',
+        stress: { flesh: 0.08, structure: 0.05, circulation: 0.78, core: 0.09 },
+        tags: ['outer', 'inner']
+    },
+    'Wind Blade Strike': { nature: 'slash', stress: { flesh: 0.68, structure: 0.26, circulation: 0.04, core: 0.02 } },
+    'Heavenly Sword Qi': { nature: 'slash', stress: { flesh: 0.58, structure: 0.32, circulation: 0.06, core: 0.04 } },
+    'Root-Vein Surge': {
+        nature: 'needle',
+        stress: { flesh: 0.12, structure: 0.08, circulation: 0.68, core: 0.12 },
+        tags: ['outer', 'inner', 'twoHand']
+    },
+    'Sandburrow Palm': { nature: 'pierce', stress: { flesh: 0.3, structure: 0.35, circulation: 0.25, core: 0.1 } },
+    'Grit Palm': { nature: 'crush' },
+    'Saltbrush Snap': { nature: 'slash', stress: { flesh: 0.65, structure: 0.28, circulation: 0.05, core: 0.02 } },
+    'Glacier Heart Palm': { nature: 'needle', stress: { flesh: 0.2, structure: 0.45, circulation: 0.28, core: 0.07 } },
+    'Demon Seal': { nature: 'needle', stress: { flesh: 0.08, structure: 0.07, circulation: 0.7, core: 0.15 }, delivery: 'soul', tags: ['inner'] },
+    'Phoenix Ascent Palm': { nature: 'slash', stress: { flesh: 0.72, structure: 0.2, circulation: 0.05, core: 0.03 }, tags: ['outer', 'sweep'] },
+    'Raging Ember Fist': { nature: 'slash', stress: { flesh: 0.6, structure: 0.32, circulation: 0.06, core: 0.02 } },
+    'Cinder Volley': { nature: 'slash', stress: { flesh: 0.62, structure: 0.3, circulation: 0.06, core: 0.02 } },
+    'Maelstrom Lance': { nature: 'pierce', tags: ['outer', 'twoHand'] },
+    'Void Rend': { nature: 'pierce', stress: { flesh: 0.25, structure: 0.2, circulation: 0.3, core: 0.25 }, tags: ['outer', 'ignoresGuard'] },
+    'Crushing Fist': { nature: 'crush' },
+    'Sandstorm Body Art': { nature: 'slash', stress: { flesh: 0.5, structure: 0.38, circulation: 0.08, core: 0.04 }, tags: ['outer', 'sweep'] },
+    'Viper Fang Strike': { nature: 'slash', stress: { flesh: 0.72, structure: 0.18, circulation: 0.08, core: 0.02 } },
+    'Mountain Crash': {
+        nature: 'crush',
+        stress: { flesh: 0.14, structure: 0.74, circulation: 0.08, core: 0.04 },
+        tags: ['outer', 'sweep']
+    },
+    'Staff Shatter': { nature: 'crush', tags: ['outer', 'twoHand', 'sweep'] },
+    'Soul Lash': { nature: 'soul-cut', delivery: 'soul' },
+    'Phantom Blade': { nature: 'soul-cut', stress: { flesh: 0.15, structure: 0.1, circulation: 0.6, core: 0.15 }, delivery: 'soul' },
+    'Spirit Suppression Art': { nature: 'needle', stress: { flesh: 0.08, structure: 0.07, circulation: 0.72, core: 0.13 }, delivery: 'soul', tags: ['inner'] },
+    'Mind Sever': { nature: 'needle', delivery: 'soul', tags: ['inner'] },
+    'Ghost Spear Thrust': { nature: 'pierce', delivery: 'soul', tags: ['twoHand', 'inner'] },
+    'Abyss Gaze': { nature: 'soul-cut', stress: { flesh: 0.05, structure: 0.05, circulation: 0.48, core: 0.42 }, delivery: 'soul', tags: ['inner', 'execute'] },
+    'Soul Spike': { nature: 'pierce', stress: { flesh: 0.2, structure: 0.15, circulation: 0.45, core: 0.2 }, delivery: 'soul', tags: ['inner'] },
+    'Purifying Palm': { nature: 'needle', stress: { flesh: 0.12, structure: 0.08, circulation: 0.68, core: 0.12 } },
+    'Blood Sever': { nature: 'slash', stress: { flesh: 0.78, structure: 0.14, circulation: 0.05, core: 0.03 }, tags: ['outer', 'execute'] },
+    'Iron Mountain Stance': { nature: 'crush', stress: { flesh: 0.1, structure: 0.8, circulation: 0.05, core: 0.05 } },
+    'Well-Road Guard': { nature: 'crush', stress: { flesh: 0.15, structure: 0.75, circulation: 0.05, core: 0.05 } },
+    'Bone Tempering Stance': { nature: 'crush', stress: { flesh: 0.12, structure: 0.78, circulation: 0.05, core: 0.05 } },
+    'Bronze Skin Palm': { nature: 'crush', stress: { flesh: 0.2, structure: 0.7, circulation: 0.05, core: 0.05 } },
+    'Meridian Flow': { nature: 'needle', stress: { flesh: 0.05, structure: 0.05, circulation: 0.85, core: 0.05 } },
+    'Blood Aegis': { nature: 'crush', stress: { flesh: 0.25, structure: 0.65, circulation: 0.05, core: 0.05 } },
+    'Spectral Shield': { nature: 'soul-cut', delivery: 'soul', stress: { flesh: 0.05, structure: 0.1, circulation: 0.7, core: 0.15 } },
+    'Focused Breath': { nature: 'needle', stress: { flesh: 0.05, structure: 0.05, circulation: 0.8, core: 0.1 } }
+};
+
+/** Basic-attack wound shape by equipped weapon (qi path). */
+const WEAPON_BASIC_ATTACK_PROFILES = {
+    Sword: { nature: 'slash' },
+    Blade: { nature: 'slash', stress: { flesh: 0.68, structure: 0.26, circulation: 0.04, core: 0.02 } },
+    Spear: { nature: 'pierce', tags: ['outer', 'twoHand'] },
+    Fist: { nature: 'crush' },
+    Staff: { nature: 'crush', tags: ['outer', 'twoHand'] }
+};
+
+/**
  * Cultivation method grade ladder (manual quality).
  * Speed midpoints from docs/ideas/cultivation-manuals-framework.md.
  * Separate from combat TECHNIQUE_POOL — do not merge.
