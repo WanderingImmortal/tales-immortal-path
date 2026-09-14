@@ -470,6 +470,53 @@ function buildRedwellCivicRumors() {
     return buildSettlementCivicRumors('redwell');
 }
 
+/** Bazaar face lean nudges buy prices at settlement markets (content hook, not a full economy sim). */
+function getSettlementMarketLeanMult(settlementId) {
+    const profile = getSettlementCivicProfile(settlementId);
+    if (!profile?.generateSeats) return 1;
+    const lean = getSettlementSeatHolder(settlementId, 'market')?.lean;
+    const table = {
+        graft: 1.08,
+        clean: 0.97,
+        merchant: 0.96,
+        martial: 1.02,
+        clerk: 1.0
+    };
+    return table[lean] || 1;
+}
+
+function getSettlementMarketLeanPriceNote(settlementId) {
+    const lean = getSettlementSeatHolder(settlementId, 'market')?.lean;
+    if (lean === 'graft') return 'prices run a little rich';
+    if (lean === 'clean') return 'posted prices are fair';
+    if (lean === 'merchant') return 'haggling is useless here';
+    if (lean === 'martial') return 'stall fees are stiff';
+    return '';
+}
+
+/** Well boss lean nudges job payouts — martial favors risky escort runs. */
+function getSettlementJobsLeanMult(settlementId, jobId) {
+    const profile = getSettlementCivicProfile(settlementId);
+    if (!profile?.generateSeats) return 1;
+    const lean = getSettlementSeatHolder(settlementId, 'jobs')?.lean;
+    const job = typeof getThresholdJobDef === 'function' ? getThresholdJobDef(jobId) : null;
+    const risky = !!(job?.risk || jobId === 'short_escort');
+    const table = {
+        graft: 0.92,
+        clean: 1.02,
+        merchant: 0.98,
+        martial: risky ? 1.06 : 1.0,
+        clerk: 1.03
+    };
+    return table[lean] || 1;
+}
+
+function getSettlementJobsLeanPayNote(settlementId, mult) {
+    if (mult < 0.95) return 'Well boss clipped the tally.';
+    if (mult > 1.01) return 'Fair count — pays what was posted.';
+    return '';
+}
+
 /** Age civic holders on world time — succession runs inside ensureSettlementSeats. */
 function tickCivicSeats(delta) {
     if (!delta || delta <= 0 || typeof G === 'undefined') return;
