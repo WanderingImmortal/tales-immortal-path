@@ -327,9 +327,11 @@ function ensureRedwellLordState() {
             met: false,
             thanksGiven: false,
             lastGlimpseMonth: -1,
-            successionSeen: false
+            successionSeen: false,
+            lastSuccession: null
         };
     }
+    if (G.redwellLord.lastSuccession === undefined) G.redwellLord.lastSuccession = null;
     return G.redwellLord;
 }
 
@@ -346,11 +348,21 @@ function maybeRedwellCityLordGlimpse() {
     const chance = lord.met ? 0.12 : 0.28;
     if (Math.random() > chance) return null;
     lord.lastGlimpseMonth = now;
+    const lean = typeof getRedwellSeatLean === 'function' ? getRedwellSeatLean('redwell_city_lord') : null;
     if (!lord.met) {
-        return `👁️ Through the grit you glimpse ${title} — mid–late FE weight. The street makes room. He does not look at you.`;
+        let line = `👁️ Through the grit you glimpse ${title} — mid–late FE weight. The street makes room. He does not look at you.`;
+        if (lean === 'graft') line += ' A clerk trails him with a coin pouch.';
+        if (lean === 'martial') line += ' Road warden flanks him without a word.';
+        return line;
     }
     if (member) {
         return `👁️ ${title} passes near the well. A Well-Ring sash gets a slight nod; nothing more.`;
+    }
+    if (lean === 'merchant') {
+        return `👁️ ${title} haggles with a caravan factor mid-stride. Your face does not register.`;
+    }
+    if (lean === 'clean') {
+        return `👁️ ${title} inspects a guard post as he passes. Neat. Unhurried. You are invisible.`;
     }
     return `👁️ ${title} crosses the yard. Your outsider face earns no pause.`;
 }
@@ -578,7 +590,13 @@ function actionRedwellRumor() {
         return;
     }
     G.stones -= cost;
+    ensureRedwellSeats();
     let pool = REDWELL_RUMORS.slice();
+    const civicPool = typeof buildRedwellCivicRumors === 'function' ? buildRedwellCivicRumors() : [];
+    if (civicPool.length) {
+        // Weight civic seat gossip — names and leans from the live generator.
+        pool = pool.concat(civicPool, civicPool);
+    }
     const wr = G.wellRing;
     const lord = ensureRedwellLordState();
     if (wr?.member && (wr.heardFeeScam || (wr.merit || 0) >= 5 || wr.dirtyDone)) {
@@ -591,7 +609,13 @@ function actionRedwellRumor() {
         pool = pool.concat(REDWELL_RUMORS_LORD_EXIT);
     }
     const line = pool[Math.floor(Math.random() * pool.length)];
-    addLog(`🍺 ${getRedwellSeatName('redwell_innkeep')} pours. Rumor: ${line}`);
+    const innkeep = getRedwellSeatName('redwell_innkeep');
+    const marketLean = typeof getRedwellSeatLean === 'function' ? getRedwellSeatLean('redwell_bazaar') : null;
+    let pour = `${innkeep} pours`;
+    if (marketLean === 'graft' && Math.random() < 0.2) {
+        pour = `${innkeep} pours — ${getRedwellSeatName('redwell_bazaar')}\'s man is drinking in the corner`;
+    }
+    addLog(`🍺 ${pour}. Rumor: ${line}`);
     fullRender();
 }
 
