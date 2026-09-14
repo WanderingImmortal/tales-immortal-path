@@ -6,11 +6,13 @@
 | **Blocked on** | Combat damage depth (for full tribulation combat); per-gate journey design |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent brainstorm, 2026-09-14 |
-| **Updated** | 2026-09-14 |
+| **Updated** | 2026-09-14 (owner: buildup + per-realm feel + prep→reward) |
 
 ## Intent
 
 Breakthroughs and tribulations should feel like **a cultivator's life catching up at a watershed** — not a roguelite draft at the finish line. Heaven audits whether you belong in the next realm; the player should already know *how* they cultivate before the sky falls. Rewards should read from your path, not from picking one of three random perks.
+
+**Owner direction (2026-09-14):** breakthroughs need **buildup and weight** — something you've worked toward. Each realm's breakthrough should **feel different** or the ladder gets repetitive. Prep should **not** be a hard-locked grind checklist, but **what you put in beforehand must show up in the tribulation and in the rewards**.
 
 **Parent docs:** [`tribulation-system-rework.md`](tribulation-system-rework.md) (engine + heaven's ledger), [`tribulation-per-gate-backlog.md`](tribulation-per-gate-backlog.md) (per-gate scripts), [`combat-damage-depth.md`](combat-damage-depth.md) (blocked for full combat trib).
 
@@ -45,6 +47,92 @@ None of this is *wrong mechanically* — it's the **interaction model** that say
 ```
 
 **Roguelite drafts become sim outcomes:** if you want a "power" breakthrough, you earn it by *how* you consolidated and *which* technique you used — not by clicking ⚡ Power thirty seconds before tribulation.
+
+---
+
+## Buildup & weight (not a checklist grind)
+
+The breakthrough should land because **the sim already told you you were ready** — then the tribulation is the dramatic punctuation.
+
+### What creates weight
+
+| Signal | Player feeling |
+|--------|----------------|
+| **Realm journey meter** fills over calendar time | "I've been at this stage for years" |
+| **Consolidate action** is a deliberate capstone | "I'm choosing to knock on the gate now" |
+| **Named limbo state** (nascent core, unconfirmed foundation) | "I'm in between — one wrong step and it's over" |
+| **Chronicle / log callbacks** | "That pill I hoarded / that shortcut I took — it's here now" |
+| **Preview before commit** | "I can see how my prep changes the audit" |
+
+### Soft prep, hard payoff (no grind lock)
+
+Prep is **optional depth**, not a wall. You can break through hasty; you pay in trib severity, scar risk, and reward ceiling.
+
+| Prep axis | How it enters tribulation | How it enters rewards |
+|-----------|---------------------------|------------------------|
+| **Consolidation tier** (hasty / settled / peak) | Severity, which choices are *strong* vs *risky* | Perfect → imprint; peak → grade ceiling |
+| **Foundation / core quality** | Resist, which fail scars apply | Foundation echo, core grade band |
+| **Pills & arrays spent** | One-time resist, skip a wave, soften a scar | None directly — survival is the win |
+| **Manual / breakthrough method** | Different trial copy + eligible choices | Path-specific imprint, technique unlock |
+| **Ledger** (theft, corruption) | Harsher audit, karmic beats surface | None — punishment lane |
+| **Sect backing** (elder array, guarded site) | Ease %, extra omen option | Sect standing, diary beat |
+
+**Rule:** every prep axis the game tracks should either **change tribulation text/mechanics** or **change what you walk away with** — or don't track it. No invisible grind.
+
+### Anti-patterns
+
+- Mandatory "collect 7 herbs before breakthrough" quest with no trib payoff
+- Same overlay shape every gate with only severity scaled up
+- Rewards that only come from a post-trib 3-pick, ignoring months of cultivation
+
+---
+
+## Each realm feels different
+
+**Different ≠ longer.** Different means different *question*, *verb*, *limbo fiction*, *failure shape*, and *reward type*.
+
+| Transition | Breakthrough **verb** | Limbo fiction | Tribulation **feel** | Reward **shape** |
+|------------|---------------------|---------------|----------------------|------------------|
+| **QC → FE** | Qi settles into foundation | Unstable gathered qi | Bedrock test — can it hold? | Foundation variant / crack scar |
+| **FE → GC** | Initial Core Formation | Nascent core, unaccepted | Core-integrity lightning | Core grade + condition (cracked / intact) |
+| **GC → NS** | Soul birth / embryo | Something stirs behind the eyes | Identity fracture — heart demon | Soul imprint, embryo origin |
+| **NS → Void** | Dissolve boundaries | Self thinning | Void unmaking — hold center | Void tolerance, sense shift |
+| **Later** | Per cosmology | Per gate | Dao heart, karmic, punishment | Law glimpse, heaven mark |
+
+**Per-gate differentiation toolkit** (mix 2–3 per gate — don't reuse the same combo):
+
+1. **Different breakthrough action name** in cultivation hub (not always "Breakthrough")
+2. **Different limbo label** on stats panel for 0–1 player-minutes
+3. **Different tribulation type default** (lightning vs heart demon vs dao heart)
+4. **Different choice verbs** (bedrock / compress / thunder ≠ barrier / channel / pill)
+5. **Different failure mode** (regression vs crack vs broken core vs scar only)
+6. **Different reward object** (foundation seal vs core grade vs soul embryo vs void mark)
+
+QC→FE is "can qi become bedrock?" FE→GC is "does the core belong?" — same engine, **different story**.
+
+---
+
+## Prep → tribulation → reward (one pipeline)
+
+```text
+BEFORE (sim)                    AT GATE (drama)              AFTER (permanent)
+─────────────────────────────────────────────────────────────────────────────
+Consolidation tier      →       Severity + choice strength  →  Grade ceiling / perfect imprint
+Foundation variant      →       Trial options + copy        →  Foundation echo on core
+Pills / array spent     →       Resist, scar soften         →  (spent — survival is payoff)
+Manual / method         →       Which beats appear          →  Path-specific blessing
+Hasty break             →       Higher severity, worse opts →  Lower grade cap, scar bias
+Perfect + peak          →       Easier audit, named choices →  Deterministic imprint
+```
+
+**Player-readable preview** before committing to breakthrough:
+
+> *Nascent Core Formation — Initial Core Formation*
+> *Consolidation: Peak · Foundation: Sealed (Superior) · Ledger: clean*
+> *Audit: Lightning · severity ~moderate · core grade ceiling: Superior*
+> *If flawless: Heaven's Mark (matches your sealed nature)*
+
+No hidden math — the sim shows what your life built.
 
 ---
 
@@ -195,12 +283,14 @@ Open question from backlog still stands: fold transcendence into consolidation t
 
 ## Open questions (owner)
 
-- [ ] Breakthrough popup: remove entirely, or keep as "confirm + preview" with no style draft?
+- [ ] Breakthrough popup: remove entirely, or keep as **confirm + preview** (no style draft)? — *lean: preview carries weight*
 - [ ] Transcendence: deterministic imprint per perfect path, or small curated pool filtered by build?
 - [ ] Omen phase: always present, or skip when player did chamber prep?
 - [ ] Body path tribulation default — lightning on flesh, or endurance trial with different copy?
 - [ ] Can players *avoid* tribulation at low gates (hidden paths), or is audit mandatory at every watershed?
 - [ ] How much sect infrastructure (array, elder guard) before first tribulation is teachable?
+- [ ] Minimum viable "different feel" per gate: is **verb + limbo + reward object** enough before unique combat?
+- [ ] Hasty break: always allowed, or gated below "insufficient" consolidation only?
 
 ## Implementation crumbs
 
