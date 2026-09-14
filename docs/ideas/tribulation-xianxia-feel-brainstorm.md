@@ -6,7 +6,7 @@
 | **Blocked on** | Combat damage depth (for full tribulation combat); per-gate journey design |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent brainstorm, 2026-09-14 |
-| **Updated** | 2026-09-14 (owner: buildup + per-realm feel + prep→reward) |
+| **Updated** | 2026-09-14 (owner: per-gate trib sketches QC / FE→GC / GC→NS) |
 
 ## Intent
 
@@ -154,17 +154,55 @@ Use **type** for *what heaven is testing*, **script** for *which gate*, **contex
 
 ---
 
-## Per-gate identity (heaven's question)
+## Per-gate tribulation sketches (owner pass — QC / FE→GC / GC→NS)
 
-Each watershed gets **one sentence** heaven is asking. The tribulation is the test for that question — not a reskin of the last gate with bigger numbers.
+Three gates, three **structural** relationships — not three lightning reskins:
 
-| Transition | Heaven's question (draft) | Trial shape |
-|------------|---------------------------|-------------|
-| **QC → FE** | Can gathered qi settle into bedrock the ledger recognizes? | Bedrock / compress / meet thunder (shipped direction) |
-| **FE → GC** | Does this nascent core belong in the ledger? | Core-integrity lightning; thin limbo; failure = crack or shatter |
-| **GC → NS** | What is born when the soul emerges — you, or something wearing you? | Heart demon + soul-pressure; identity beats |
-| **NS → Void** | Can you dissolve without scattering? | Void-lightning / dissolution sequence |
-| **Fate rite** | You stole from the ledger — does your array hold? | Chronicle sit → multi-wave assault (high threat only) |
+| Transition | What changes | Tribulation type | One-line heaven question |
+|------------|--------------|------------------|--------------------------|
+| **QC → FE** | Loose qi → solid foundation | **Lightning** (external) | Can gathered qi settle into bedrock the ledger recognizes? |
+| **FE → GC** | Foundation → golden core | **Foundation collapse / inward forge** (internal) | Can what you built collapse into a core without shattering? |
+| **GC → NS** | Core shell → nascent soul | **Soul lightning** (external, soul-frequency) | May what stirs inside the core be born — and is it still you? |
+
+### QC → FE — Lightning tribulation
+
+**Obvious and correct.** Heaven strikes from outside; you prove loose qi can **settle** into something the ledger calls Foundation.
+
+- **Feel:** first storm — bedrock, compression, meeting thunder openly (existing script direction).
+- **Failure:** foundation crack, unstable foundation, qi backlash — the foundation never properly formed.
+- **Prep payoff:** consolidation tier makes "stand on bedrock" strong; rushed break = crack risk.
+
+### FE → GC — Foundation implosion / inward forge
+
+**Owner direction:** not another sky bolt — the foundation **melts, implodes, or collapses inward** under heaven's audit until it becomes a golden core.
+
+Aligns with [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md): player attempts **Initial Core Formation** → thin limbo (mid-forge) → tribulation is the catastrophic condensation.
+
+- **Feel:** pressure from *inside* — dantian contracts, foundation liquefies and re-crystallizes. Horror is **scattering**, not burning.
+- **Different from QC:** QC asks "can qi hold shape?" FE→GC asks "can your whole foundation **die as foundation** and become something denser?"
+- **Limbo fiction:** *Nascent Core* / *Unconfirmed Golden Core* — the collapse has started; heaven has not stamped it yet.
+- **Trial beats (draft):** hold the collapse center · channel melt through sealed nature · let a weak section shatter and seal after (risky).
+- **Failure:** core never forms (regression); **cracked core** (formed but damaged); rare **broken core** (wrong shape survived).
+- **Prep payoff:** foundation grade/nature echoes into core grade band; peak consolidate = cleaner collapse.
+
+**Soul path variant:** same gate, different auditor — heart demon of *what you're willing to destroy to advance* (not lightning, still inward).
+
+### GC → NS — Soul lightning
+
+**Owner direction:** lightning tinged with soul energy — facilitates the **nascent soul breaking out of the core**.
+
+Already sketched in `TRIBULATION_TRANSITIONS.gc_to_ns` log line. Not heart-demon shadow combat (that's identity *after* birth) — this is the **birth trauma** of the shell cracking open.
+
+- **Feel:** the bolt doesn't test flesh or foundation — it strikes the **boundary** between condensed qi (core) and the soul trying to emerge. Violet-white, wrong-frequency thunder. The core is the egg; the soul is what hatches.
+- **Different from FE→GC:** FE→GC is **inward collapse** (making the container). GC→NS is **outward emergence** (breaking the container). Opposite direction.
+- **Heaven's question:** not "can you endure?" but "may this soul exist — and is it yours?"
+- **Trial beats (draft):** hold the shell together until the soul anchors · let the bolt crack you open (fast, risky) · reject the emergence (will test — wrong for most builds).
+- **Failure:** soul stillborn (core intact, no NS path); **warped soul** / weakened soul scars; core cracks but soul survives (playable scar).
+- **Prep payoff:** late GC purify stage, core grade, will/spirit — affects whether emergence is clean.
+
+### Parked (owner will do later)
+
+NS → Void, Void → Dao, Dao → Immortal — not in this pass.
 
 If we can't write the heaven's question yet, **park that gate's tribulation** and design the cultivation journey first ([`tribulation-per-gate-backlog.md`](tribulation-per-gate-backlog.md) rule).
 
