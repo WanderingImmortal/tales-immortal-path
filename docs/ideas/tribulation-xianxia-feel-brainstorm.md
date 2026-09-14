@@ -214,6 +214,14 @@ Already sketched in `TRIBULATION_TRANSITIONS.gc_to_ns` log line. Not heart-demon
 
 **Existing hooks:** `soulEmbryo`, `soulMass` (latent → crystallize at birth), `nine-realm-ladder.md` (“qi-path soul externalized; distinct from soul refinement track”).
 
+**Parked (owner 2026-09-14 — ethereal, no names locked):**
+
+- Nascent soul = per-life ledger **credential**, not true self; does not survive reincarnation.
+- True-self / deep soul cultivation = **high realm** (PoS / ED–adjacent *ideas* only — do not reuse Resonant Soul / Anima names; respect for source novels).
+- Soul path needs its **own endgame fork** — not “switch to Chaos.” Chaos doc already: spirit track **distinct** from Chaos Soul stages (`chaos-cultivation-path.md`).
+- “Chaotic soul” rejected as tacky — soul counterpart to chaos should feel **inward / sovereign**, not chaos-with-soul-paint.
+- Direction sketch: Chaos = unwritten **outside** taxonomy; soul apex = unwritable **inside** (what the ledger never indexed). Names TBD.
+
 ### Parked (owner will do later)
 
 NS → Void, Void → Dao, Dao → Immortal — not in this pass.
