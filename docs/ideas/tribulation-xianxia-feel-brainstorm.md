@@ -193,12 +193,26 @@ Aligns with [`qi-foundation-establishment-redesign.md`](qi-foundation-establishm
 
 Already sketched in `TRIBULATION_TRANSITIONS.gc_to_ns` log line. Not heart-demon shadow combat (that's identity *after* birth) — this is the **birth trauma** of the shell cracking open.
 
-- **Feel:** the bolt doesn't test flesh or foundation — it strikes the **boundary** between condensed qi (core) and the soul trying to emerge. Violet-white, wrong-frequency thunder. The core is the egg; the soul is what hatches.
+- **Feel:** the bolt doesn't test flesh or foundation — it strikes the **boundary** between condensed qi (core) and what is trying to emerge. Violet-white, wrong-frequency thunder. The core is the egg; the **nascent soul** is what hatches.
 - **Different from FE→GC:** FE→GC is **inward collapse** (making the container). GC→NS is **outward emergence** (breaking the container). Opposite direction.
-- **Heaven's question:** not "can you endure?" but "may this soul exist — and is it yours?"
-- **Trial beats (draft):** hold the shell together until the soul anchors · let the bolt crack you open (fast, risky) · reject the emergence (will test — wrong for most builds).
-- **Failure:** soul stillborn (core intact, no NS path); **warped soul** / weakened soul scars; core cracks but soul survives (playable scar).
-- **Prep payoff:** late GC purify stage, core grade, will/spirit — affects whether emergence is clean.
+- **Heaven's question:** not "can you endure?" but "may this **nascent soul** be forged — and is it well-made?"
+- **Trial beats (draft):** hold the shell together until the nascent soul anchors · let the bolt crack you open (fast, risky) · reject the emergence (will test — wrong for most builds).
+- **Failure:** stillborn nascent soul (core intact, no NS path); **warped** / weakened nascent scars; core cracks but nascent survives (playable scar).
+- **Prep payoff:** late GC purify stage, core grade, will/spirit — affects whether the **vessel** is clean. Not “soul cultivation” prep — **cradle** prep.
+
+### Soul layers (owner 2026-09-14 — Paragon of Sin–adjacent, not a rip)
+
+**Nascent Soul ≠ the person's true self.** Common xianxia territory (each novel defines layers differently); PoS makes the split explicit and usable — good model to **echo**, not copy term-for-term.
+
+| Layer | Draft role | When it matters |
+|-------|------------|-----------------|
+| **Nascent Soul** (元婴) | Cultivated spiritual infant / second vessel — forged at GC→NS, refined after | Combat escape, possession, soul arts, domain — the **tool-body** qi path births |
+| **True Self** (name TBD — 本我 / anchor / root spirit) | The person underneath — reincarnation, identity, void dissolution | Always latent on qi path; heart demon and late realms touch *this*; not “trained” before NS |
+| **Soul track** (`spirit` refinement) | Refines relationship between nascent vessel and true self; soul mass | Parallel track — `soulEmbryoOrigin` already tags dantian vs vessel vs spirit birth |
+
+**Why this helps GC→NS fairness:** qi players prep the **egg** (core quality, purify, will/spirit). Tribulation forges the **nascent soul** — not an exam on true-self depth they never had access to. True-self questions belong to heart demon, void, dao — later watersheds.
+
+**Existing hooks:** `soulEmbryo`, `soulMass` (latent → crystallize at birth), `nine-realm-ladder.md` (“qi-path soul externalized; distinct from soul refinement track”).
 
 ### Parked (owner will do later)
 
