@@ -79,7 +79,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
-| [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | \idea\ (lean locked) | Anatomy P1–2; full design later | — |
+| [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `idea` (lean locked) | Hub: vessel vision doc | — |
+| [**Body vessel refining vision (hub)**](body-vessel-refining-vision.md) | `designed` (workshop) | Owner greenlight; damage pass | — |
 | [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
 | [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
 | [Body Martial Intent (武意)](body-martial-intent.md) | `idea` | Body chamber; intent split | — |

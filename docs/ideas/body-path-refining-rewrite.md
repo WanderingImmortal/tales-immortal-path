@@ -2,17 +2,19 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` (owner lean locked 2026-08-05; full design still open) |
-| **Blocked on** | Anatomy Phase 1–2 can proceed; full rewrite design after that |
+| **Status** | `idea` (owner lean locked 2026-08-05; **full vision → hub doc**) |
+| **Blocked on** | Anatomy Phase 1–2 can proceed; see hub for full rewrite |
 | **Issue** | none yet |
-| **Chat / PR** | Body chamber triage 2026-08-05 |
-| **Updated** | 2026-08-05 |
+| **Chat / PR** | Body chamber triage 2026-08-05 · vision hub [body-vessel-refining-vision.md](body-vessel-refining-vision.md) 2026-09-16 |
+| **Updated** | 2026-09-16 |
 
 ## Intent
 
 Body cultivation should feel like **refining a living vessel** — layer by layer, organ by organ, with visible quality changes — closer in spirit to *Amazing Cultivation Simulator* body work than to qi’s “fill bar → break into a new realm.”
 
 **Owner lean (2026-08-05):** body path does **not** need qi-style realm breakthroughs. It needs **milestone equivalents** — named checkpoints that line up with qi/soul realm *indices* so relative power, travel danger, trib gates, and UI comparisons stay easy to track. The *work* is refining; the *milestones* are the power ruler, not the fantasy of “ascending a new realm” the way qi does.
+
+**Full design hub:** [`body-vessel-refining-vision.md`](body-vessel-refining-vision.md) — vessel state, harmonize, co-refine, novel alignment guide (2026-09-16 workshop).
 
 Related visuals: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md) (Phase 1–2 anatomy can ship first). Forbidden practice stub: [`soul-body-refining.md`](soul-body-refining.md).
 
