@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (workshop — owner 2026-09-16; **no implementation until owner says**) |
+| **Status** | `designed` (workshop — owner; **no implementation until owner says**) |
 | **Blocked on** | Combat damage pass ([`combat-damage-depth.md`](combat-damage-depth.md)); anatomy P2 polish |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent design chats 2026-09-16 (stats/body granularity → vessel state → harmonize → co-refine → novel alignment) |
-| **Updated** | 2026-09-16 |
+| **Chat / PR** | Design chats 2026-09-16 – 2026-09-20 (granularity → vessel state → progression spine → methods → balance → qi/body framing) · prior [PR #119](https://github.com/WanderingImmortal/tales-immortal-path/pull/119) |
+| **Updated** | 2026-09-20 |
 
 ## Intent
 
@@ -15,6 +15,8 @@ Body cultivation should feel like **refining a living vessel** — limb by limb,
 The player **is** a **vessel state** (a map of what they built). Named physiques and jianghu titles are **what the world calls you**, not achievements unlocked by checklist.
 
 **Planning only** until owner greenlights implementation.
+
+**Hub sentence:** Qi and body share a **realm-grade spine**; qi specializes variance in **how power is expressed**; body in **what the vessel is made of**.
 
 ---
 
@@ -32,45 +34,130 @@ When something feels limiting, **check whether the foundation needs to change** 
 | New physique as unlockable SKU | Vessel state + optional world name |
 | Clash = only debuff | Harmonize → tension → spend / co-refine |
 | Recipe table for builds | Principles, pair recognition, emergent fingerprint |
-| One word for multiple processes | Use vocabulary below (imprint / harmonize / co-refine) |
+| Realm name = requirement (Iron Bone) | Neutral **grade** + method realm + **epithet** |
+| One word for multiple processes | Vocabulary below (imprint / harmonize / co-refine) |
 
-The [**Novel alignment guide**](#novel-alignment-guide-not-rules) below is a **feel checklist**, not a locked spec. Use it to widen the design when the sim feels thin — not as a mandatory feature list.
+The [**Novel alignment guide**](#novel-alignment-guide-not-rules) is a **feel checklist**, not a locked spec.
 
 ### Supersedes / extends
 
-- Extends [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) (ACS lean, milestones as power ruler).
-- Combat expression: [`combat-damage-depth.md`](combat-damage-depth.md) (four systems, structure outcomes — **not** limb HP bars).
+- Extends [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) (ACS lean; milestones reframed below).
+- Combat: [`combat-damage-depth.md`](combat-damage-depth.md) (four systems — **not** limb HP bars).
 - Visuals: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md).
-- Parked anatomy damage note: [`combat-anatomy-damage.md`](combat-anatomy-damage.md) (superseded in spirit by damage-depth + this doc).
+- Qi methods pattern: [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — body branch **deferred**; see [Body refining methods](#body-refining-methods).
 - Forbidden: [`soul-body-refining.md`](soul-body-refining.md). Sect: [`body-path-sect.md`](body-path-sect.md). Rules: [`vessel-rules-design.md`](vessel-rules-design.md).
 
 ---
 
-## Path asymmetry (qi vs body)
+## Qi vs body — expression vs substrate
+
+**Do not** frame qi as “linear / no variance” and body as “the only varied path.” Qi has arts, intent, dao, method, foundation — real spread at the same idx.
 
 | | **Qi path** | **Body path** |
 |--|-------------|---------------|
-| **Trains** | Dantian | Vessel (parts + layers) |
-| **Body relationship** | Collateral — must survive tribulation | The project — body **is** the weapon |
-| **Passive body growth** | **Overflow** on breakthrough (see below) | None — active refinement only |
-| **Customization** | Low (overflow is shallow, untagged) | High (composition, methods, clash mastery) |
-| **Poisons** | External (battle coats) | Internal (marrow, bone, Thousand Poisons arc) |
+| **Vertical spine** | Realm ladder + dantian | Vessel **grade** + forge projects |
+| **Horizontal depth** | Arts, intent, dao, cultivation method | Map regions, materials, harmonize, apertures, refining manual |
+| **Variance character** | **Configure** — how you *deploy* power | **Inscribe** — what you *are* (persistent vessel state) |
+| **Persistence** | Loadout can shift (costs apply) | Build is **sticky** — remold is saga-tier |
+| **Collateral body** | **Overflow** on qi breakthrough (shallow) | Active refinement only |
 
-Qi mains being **worse at body expression** than body mains is **expected**, not a balance bug.
+**Linear** = one **idx** ruler + breakthrough rhythm (trib, travel, enemies) — **both** paths.  
+**Lateral** = **between** grade jumps, body work is spatial/compositional (which tile next), not layer-tab itinerary.
+
+### Parallel horizontal systems
+
+| Qi | Body parallel |
+|----|----------------|
+| Weapon / martial intent | Martial intent + vessel rules |
+| Dao phases / laws | Harmonize, imprint phases, co-refine alloys |
+| Technique pool | Aperture arts, body techniques |
+| Cultivation method | **Refining manual** (Dragon, Poison, Vajra, …) |
+| Foundation at seal | Grade **snapshot** + epithet at breakthrough |
 
 ### Qi overflow (leakage)
 
-When the dantian breaks open or consolidates, surplus qi **sloshes into flesh**.
-
 | Property | Direction |
 |----------|-----------|
-| **When** | Breakthroughs, major consolidation (FE seal, GC condense, …) — not every cultivate tick |
-| **What** | Passive progress on **global** shallow layers (skin/flesh) or small one-time bump |
-| **Ceiling** | Hard cap per realm — e.g. never exceeds ~30–40% of a body-main at same idx without switching focus |
-| **Combat** | Baseline **Flesh hardness** only — untagged, no imprint, no tension play |
-| **Flavor** | “Impure overflow” — effective but shallow |
+| **When** | Qi breakthroughs / major consolidation — not every cultivate tick |
+| **What** | Shallow global flesh progress — **untagged**, no tension play |
+| **Ceiling** | Hard cap vs body-main at same idx (~30–40% effective) |
+| **Combat** | Baseline Flesh hardness only |
 
-Optional: overflow quality tracks root purity (single root = clean bias; pentamixed = messy).
+---
+
+## Progression spine (four pillars)
+
+Separates **clean breakthrough** from **lateral map work**.
+
+```text
+LATERAL VESSEL MAP (always)     regions, materials, eyes, poison — personal
+        │
+        ▼
+SUB-REALM + PROJECT             method revolutions + gate package
+        │
+        ▼
+BOTTLENECK + KEY                ready to attempt?
+        │
+        ▼
+BREAKTHROUGH                    grade idx +1 — discrete phenomenon
+        │
+        ▼
+SNAPSHOT + EPITHET              fingerprint — not homogenized
+```
+
+| # | Pillar | Job |
+|---|--------|-----|
+| 1 | **Clean breakthrough** | **Grade index** moves only here — ordeal, log, new ceiling |
+| 2 | **Sub-realms** | Named progress **within** grade (method revolutions — not anatomy `%`) |
+| 3 | **Project** | Chronicle-tracked gate package for **this** transition (nine breaths, twelve seeds, …) |
+| 4 | **Bottleneck + key** | Why attempt blocked; material, chapter, floor, ordeal |
+
+**Between breakthroughs:** map work does **not** silently tick realm idx. It feeds sub-realm, project slots, readiness, epithet.
+
+**Current game gap:** layer `%` + realm idx tied to tab order feels qi-like. Target: **grade attempt** when project + keys satisfied; layers are **work types on the map**.
+
+---
+
+## Grade naming: power vs identity
+
+**Problem:** names like Iron Bone telegraph requirements and homogenize (“everyone at idx 1 is Iron Bone”).
+
+| Layer | Purpose | Example |
+|-------|---------|---------|
+| **Grade index** | Parity with qi, trib, travel | idx 0, 1, 2… |
+| **Neutral UI name** | No anatomy track | Unrefined Vessel → **First Temper** → **Second Forge** → … |
+| **Method realm name** | Art-specific | Hidden Dragon Vessel (潜龙体), Poison Seed Vessel (毒原体) |
+| **Epithet** | Emergent from fingerprint | Scale-Marked Sleeper, Green-veined Skin |
+| **Registry (optional)** | Bureaucracy | “Indexed First Temper — dragon-class expression” |
+
+Legacy names (Bronze Skin, Iron Bones) may exist in sect lore as **equivalents**, not player-facing track.
+
+**Unlocking work:** **manual chapters** unlock *can do* (marrow, eye aperture, fingers). **Grade breakthrough** raises *how deep* refinement can go (purity cap, co-refine ceiling) — not “bone tab unlocks.”
+
+---
+
+## Three layers of identity (variance)
+
+```text
+MODEL         Refining manual — project shape, curve, bottlenecks
+COMPOSITION   Map + imprints + alloys + apertures — endless physiques
+GRADE         Neutral idx — world permissions + parity band
+```
+
+- **Models** = designed paths (Nine Dragons, Thousand Poisons, Vajra, crude).
+- **Composition** = combinatorial tags + trait/epithet clusters — **feels** endless.
+- **Endless** in game = tag combinations + chronicle names, not infinite handcrafted skills.
+
+### Optional apex — “one true vessel” (lore)
+
+Novel trope: perfect / primal body. **Do not** collapse all builds into one meta.
+
+| Use | Avoid |
+|-----|--------|
+| Cosmology, Saint fiction, completionist ordeal | Mandatory best stats |
+| Optional title / trib flavor at whole-vessel harmonize | Only viable endgame body |
+
+Most players: their “true” body = **model + composition**, not server-wide true physique.
 
 ---
 
@@ -78,352 +165,230 @@ Optional: overflow quality tracks root purity (single root = clean bias; pentami
 
 | Term | Meaning |
 |------|---------|
-| **Vessel state** | Whole-body map — always true, never “unlocked” |
-| **Region** | Gameplay part (~6): head, torso, arm-l, arm-r, leg-l, leg-r (extend later) |
+| **Vessel state** | Whole-body map — always true |
+| **Region** | ~6 parts: head, torso, arms, legs (extend later) |
 | **Layer** | skin → flesh → bones → organs → blood → meridians → nerves |
-| **Imprint** | Element / essence / poison set in a region (first refinement) |
-| **Depth** | How far a layer is pushed in that region |
-| **Purity** | Clean settle vs rushed / clashed / scarred |
-| **Link** | Meridian connection quality between neighbors |
-| **Tension** | Stored clash energy on a **link** between opposing imprints |
-| **Harmonize** | Comprehension — **wield** both imprints; spend tension — **does not overwrite** |
-| **Co-refine** | **Second** material pass — dual-element **alloy** tissue; better regional stats |
-| **Alloy** | Co-refine product on a layer (e.g. dual fire-water bone) |
-| **Physique name** | Optional jianghu / chronicle label for dense fingerprint — **not** a power source |
-
-Avoid one umbrella word **“synthesis”** — reserve for co-refine **products** if needed (“steam marrow synthesis”).
-
----
-
-## Four stacked layers (novel model)
-
-Novel body arcs stack; our systems should map to all four:
-
-```text
-① CONSTITUTION (seed)     Innate or awakened — what the vessel tolerates / leans toward
-② METHOD (scripture)      Legendary art — *how* you refine (rules, revolutions, failure)
-③ MATERIAL + PLACE        What you feed it / where you sit (essence, site, trial)
-④ EXPRESSION              Traits, apertures, world names — what they see
-```
-
-**Today’s workshop depth:** strong on ③ + vessel state; **harmonize/co-refine** bridge ③→④; **thin on ①②** and legendary **texture** — see [Novel alignment guide](#novel-alignment-guide-not-rules).
+| **Work type** | skin temper, **aperture** (eyes), marrow, … — on region, not global organ `%` |
+| **Imprint** | Element / essence / poison in a region |
+| **Link** | Meridian quality between neighbors |
+| **Tension** | Clash energy on a **link** |
+| **Harmonize** | Wield both imprints; spend tension — **no overwrite** |
+| **Co-refine** | Second pass → **alloy** on layer |
+| **Physique name** | Jianghu label — not power source |
 
 ---
 
 ## Core object: region imprint
 
-Chamber already has limb-shaped bone actions (`hands`, `arms`, `legs`, …) but bonuses aggregate globally. Target: **what you fed each region** matters.
+Per **region**: `depth`, `imprint`, `purity`, `link`, optional `alloy`.
 
-Per **region**:
+- **Regions** → local hardness, on-hit bias, break vulnerability.
+- **Globals** → derived speed, circulation, strain (capped aggregation).
+- **Eyes / apertures** → head region + aperture track — **not** `organs layerProgress +=`.
 
-| Field | Role |
-|-------|------|
-| `depth` | Layer progress here (skin → marrow …) |
-| `imprint` | Dominant element / essence / poison / beast-blood |
-| `purity` | Rushed, clashed, fever, scarred |
-| `link` | How well meridians connect to neighbors |
-| `alloy` | Optional — co-refined dual-element **material** on a layer |
+### Lateral work (piece-by-piece)
 
-### Stat aggregation (no explosion)
-
-**Regions contribute identity; globals contribute caps.**
-
-- **Local:** hardness (Flesh/Structure per slot), on-hit bias, break vulnerability
-- **Whole body:** speed, circulation integrity, strain — derived from legs/spine/meridians
-- **Dominant read:** top 1–2 imprints by depth × purity (“known for”)
-- **Do not** sum six fire limbs into 600% fire
-
-**UI:** silhouette heatmap as character sheet — not twenty detached `%` lines.
-
-### Combat hook (damage pass)
-
-- **No limb HP bars.** One HP kill race; [`combat-damage-depth.md`](combat-damage-depth.md) four systems.
-- Structure break (`arm` / `leg` / `frame`) **biases** toward lowest regional hardness × purity.
-- Harmonized tension **spend** tilts stress / nature on hits.
-- Co-refined alloy raises regional hardness ceiling.
+- **Not** an itinerary: player may jump tiles (arm → eye → leg).
+- **Soft gates:** early eye = low purity, unstable; manuals **advise** outward→inward for **efficiency**.
+- **Breakthrough** uses **method project** + holistic **floor** (frame), not “organs 50%.”
+- **UI:** silhouette-first; tabs = filters, not the spine.
 
 ---
 
-## Five-step pipeline (body path only)
+## Five-step refine pipeline
 
 ```text
-① FIRST REFINE     Set imprint on region + layer
-        ↓
-② CIRCULATE        Meridians link neighbors
-        ↓
-③ CLASH → TENSION  Opposing imprints store tension on links
-        ↓
-④ HARMONIZE        Comprehension — wield both; tension useful
-        ↓
-⑤ CO-REFINE        Second pass — dual-element alloy; better stats
+① FIRST REFINE → ② CIRCULATE → ③ TENSION → ④ HARMONIZE → ⑤ CO-REFINE
 ```
 
-| Step | Skippable? | Notes |
-|------|----------|-------|
-| First refine | No | Blind refining OK |
-| Circulate | Partial | Weak link = more leak |
-| Tension | Auto if clash | Fuel on link |
-| Harmonize | Yes | Ignorant / scattered bodies viable |
-| Co-refine | Yes | Harmonize-only builds exist; best regional stats need alloy |
-
-**Harmonize** = harnessing both powers **within** you — fire still fire, water still water.  
-**Co-refine** = re-temper tissue with both energies **together** — alloy at **material** layer; history preserved in chronicle + silhouette.
-
-Co-refine without harmonize: lean **fail / injury / impure alloy**; genius fever may count as one-shot harmonize.
+Harmonize = harness; co-refine = alloy material. See prior workshop detail in git history / PR #119 body.
 
 ---
 
-## Imperfection (not failure)
+## Body refining methods
 
-| Kind | What happened | Feel |
-|------|---------------|------|
-| **Gap** | Region never refined | Obvious weak point |
-| **Clash** | Neighbor imprints fight | Fever, leak, wasted time — body still works |
-| **Rush** | Low purity success | Shallow — breaks early |
+Extends [Novel guide §1](#guide-1--legendary-methods-not-just-materials). **Not** recipe physiques.
 
-**Completeness** = coherence, not a recipe:
+### Pyramid (like qi cultivation methods)
 
-| Coherent shape | Description |
-|----------------|-------------|
-| Monotone | One element deep everywhere |
-| Cycle | Productive phase relation + bridges |
-| Duel body | Opposite limbs **on purpose** + bridge work |
-| Chimera | Beast + human + poison — high strain |
-| Scattered | No bridges — friction-heavy, valid |
+| Tier | Who | Effect |
+|------|-----|--------|
+| **Crude / common** | Everyone — `basic_flesh_temper` analog | Refinement works; shallow; generic sub-realms |
+| **Lineage** | Sect, stolen scroll | Named revolutions, material rules, failure flavor |
+| **Legendary / legacy** | Plot, ruin | Higher ceiling, nine-gate spine, unique bottlenecks |
 
----
+**Muddling** = no / crude manual only — viable, capped purity, no fine chapters.
 
-## Knowledge (principles, not recipes)
+**Legendary** = **unlock depth**, not **permission** to body cultivate. Same idx floor; higher extent + clarity.
 
-| Source | Gives |
+### One primary refining scripture
+
+Mirror qi: one `bodyRefiningMethod.primaryId`; fragments upgrade **grade** within lineage; **remold rite** to change (harsher than meridian-wash).
+
+### Broad vs specific parts
+
+| Access | Scope |
 |--------|--------|
-| Manual / elder | “Poison in marrow before skin — invert, fever.” |
-| Alchemist | Material nature vs your imprint |
-| Journal | Your attempts, purity, friction delta |
-| Insight | Highlights **tension** — not step 4 of a build |
+| Crude / no chapter | **Broad** regions only (arm, leg, head, torso) |
+| Manual chapters | **Fine** (eyes, fingers, ear, single meridian) |
 
-Players refine how they want; second playthrough = wiser, not same checklist.
+**Coarse → fine** on **same** region = zoom, not side quest. Milestones read **whole vessel** quality, not one tab.
+
+### Method defines
+
+Revolution names, compatibility, project templates, failure tables, harmonize hints — **not** which physique ID you unlock.
 
 ---
 
-## Harmonize & tension (comprehension)
+## Reference manuals — grade I (playtest wedge)
 
-Clash is **potential**, not only punishment.
+Common **grade I** = **First Temper** (idx 0→1). Two legendaries + crude for triangle.
 
-```text
-IGNORANT → TOLERANT → HARMONIZED → (co-refine eligible)
-  leak      cap strain    spend tension
-```
+### Nine Dragons Body Forging (九龙锻体诀)
 
-**Tension** lives on the **link**: `[fire arm] ——tension: 62—— [water leg]`
+| | |
+|--|--|
+| **Legendary because** | Full nine-dragon cycle; dragon-material protocol; yang sovereign apex toward dragon-vessel |
+| **Method realm I** | **Hidden Dragon Vessel** (潜龙体) — first of nine |
+| **First temper** | **Skin + blood** (wake sleeping dragon lineage — not bone first) |
+| **Project** | **Nine Breaths, Hidden Dragon** (九息潜龙) — nine skin–blood circuits |
+| **Bottleneck** | Dragon-touched material + ninth breath ordeal; soft torso/frame floor |
+| **Sub-realms** | Named breaths 1–9 |
+| **Traits I** | Yang blood, scale-skin, dragon pressure; weak to yin/cold poison |
+| **Curve** | Under qi at I; spikes II–III (frame dragons) |
 
-**Comprehension sources:** Yin-Yang / Five Phases dao, **body insight** projects on *your* pair, teacher principles, tribulation fever, genius/talent (shortens road, doesn’t remove clash).
+### Thousand Poisons Body Forging (千毒锻体诀)
 
-**Graded** — not on/off. Shallow dao shaves friction; deep dao flips tension to power.
+| | |
+|--|--|
+| **Legendary because** | Poison as fuel; graduated canon; apex Thousand Poisons miasma |
+| **Method realm I** | **Poison Seed Vessel** (毒原体) |
+| **First temper** | **Skin** — twelve weak poisons in order; **no antidote** during seed phase |
+| **Project** | **Twelve Poison Seeds** (十二毒种) |
+| **Bottleneck** | Twelfth seed; liver support advised; stain / social hooks |
+| **Traits I** | Resist stack, seed backlash, healer wariness |
+| **Curve** | Niche-strong attrition/toxin; weak burst; spikes mid–late |
 
-### Co-refine (second refinement)
+### Crude (no legendary)
 
-**Gate:** both imprints present, link quality, harmonize tier, tension banked, materials, time.
+| | |
+|--|--|
+| **Project** | Broad skin + flesh temper |
+| **Bottleneck** | Aggregate readiness |
+| **Epithet** | Rough Vessel, Militia Bone |
+| **Same idx** | Lowest purity ceiling |
 
-**Result:** `alloy` tag on region+layer (e.g. dual fire-water bone) — **better** regional stats; imprints still both present.
+**Same idx on success — different snapshot, epithet, fight script.**
 
-**Scope:** one region+layer per project (lean) — not whole skeleton in one button.
+Grade II+ sketch: Dragons → frame dragon; Poisons → venom marrow — diverging projects, same idx rules.
 
-**Overwrite:** material layer only; harmonize still governs **wielding**.
+---
+
+## Balance & variance
+
+### Three kinds of power
+
+| Kind | Balance job |
+|------|-------------|
+| **Grade idx** | Qi parity — trib, travel, enemy bands |
+| **Combat expression** | Art + map — fight feel |
+| **Niche spike** | Strong in lane — bounded, not higher idx |
+
+### Body vs body (same idx)
+
+Intentional spread: model curve, composition, specialization, harmonize, crude vs legendary ceiling. **Profiles** not one DPS number.
+
+### Body vs qi (same idx)
+
+| | Lean |
+|--|------|
+| Neutral content | ~0.85–1.15 fair |
+| Early idx | Qi **ahead** |
+| Mid | Parity band |
+| Late body commit | Body **ahead** in physical niche; qi in technique/domain |
+| Matchups | Poison long fight, dragon sustain, qi burst/range — **content favors** |
+
+### Tools
+
+- **Frame multiplier** — weak spine caps regional expression.
+- **Diminishing returns** — over-specialize one region before grade → purity/traits, not idx.
+- **Smaller realm jumps** — power in sub-realms + map; breakthrough = **ceiling** bump.
+- **Delayed spikes per art** — document in manual flavor.
+
+### Admit early niche power
+
+Poison I / Dragon I can **beat** qi in **their** lane at same idx; **lose** elsewhere. **Not** higher idx.
+
+**Principle:** Same grade index, same world permissions; different models and maps = different fighters.
+
+---
+
+## Imperfection, knowledge, harmonize, co-refine
+
+(Unchanged core — see sections above in PR #119 / earlier revision.)
+
+**Completeness** = coherence (monotone, cycle, duel-body, chimera, scattered) — not recipe.
+
+**Knowledge** = principles, journal, tension insight — not build wiki.
+
+**Harmonize** = tension spend; **co-refine** = alloy; clash is fuel.
 
 ---
 
 ## Element on region (expression sketch)
 
-Same element, different region — different expression (not a recipe table):
-
-| Imprint | Arm/hand | Leg/foot | Torso/spine | Head/skull |
-|---------|----------|----------|-------------|------------|
-| Fire | speed, ignite | burst mobility | guard break lean | will, fear |
-| Water | flow, circulation stress | evasion | regen under hit | sense read |
-| Earth | weighted strike | stability, leg-break resist | frame hardness | trib stubbornness |
-| Poison | venom on hit | toxic trail | internalize toxin | predator sense, stain↑ |
-
-Depth amplifies; purity scales efficiency; neighbor clash adds **strain** unless harmonized.
-
----
-
-## Milestones (power ruler)
-
-From [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) owner lean:
-
-- **Refining = the loop.** Bronze Skin / Iron Bones / … = **milestone labels** at realm **index** parity with qi — not qi-copy breakthrough ritual.
-- Milestone **names** can come from depth + revolutions (see novel guide §2) — TBD in implementation.
+| Imprint | Arm | Leg | Torso | Head |
+|---------|-----|-----|-------|------|
+| Fire | ignite, speed | burst mobility | guard break | will |
+| Water | flow, circ. stress | evasion | regen | sense read |
+| Earth | weight | stability | frame hardness | trib stubbornness |
+| Poison | venom | toxic trail | internalize | stain, predator sense |
 
 ---
 
 ## Novel alignment guide (NOT rules)
 
-Use this to recover **xianxia feel** when the sim feels like a spreadsheet. Items are **guides for future design passes** — go deep one-by-one; none are mandatory scope for v1.
-
-**Novel sentence we want:**
-
-> *He cultivated the **[legendary method]**, fed it **[impossible material]**, survived the **[nth revolution]**, and his **[part]** carries **[named ability]** — the jianghu calls him **[title]**.*
-
-**Alignment scorecard (2026-09-16):** ~65% structure, ~40% legend texture.
-
----
-
-### Guide 1 — Legendary **methods** (not just materials)
-
-**Novel:** *Nine Revolutions Golden Body*, *Great Sun Scripture* flesh chapter — a **protocol** that changes rules.
-
-**Gap:** Chamber actions are generic (`Temper Hand Bones` + flat `%`).
-
-**Direction:**
-
-- Scarce **body manuals** / inheritances: revolution count, compatible materials, failure flavor, lineage identity.
-- Method changes **how** refinement runs — not just which essence you click.
-- Freedom: two disciples, same manual, different materials/regions → different vessels.
-
-**Not:** recipe physique unlock.
-
----
-
-### Guide 2 — **Named sub-stages** inside each layer
-
-**Novel:** *third revolution iron bone*, *jade bone ninth layer*.
-
-**Gap:** Only 0–100% depth visible.
-
-**Direction:**
-
-- **Revolution** counters or named rungs per region+layer.
-- UI: `Iron Bone · Third Revolution (left arm)` not `bone 34%`.
-- Co-refine / aperture gates may key off revolution cap.
-
----
-
-### Guide 3 — **Constitution** as seed
-
-**Novel:** Born *Saint Yin Body*; ancient remnant roots a constitution.
-
-**Gap:** Pure emergent fingerprint only — may lose innate punch.
-
-**Direction:**
-
-- **Vessel seed** (innate or one-time awakening): tolerances, method affinity, clash lean — **not** a destination build.
-- **Vessel state** = journey on top.
-- Legendary trial physiques (Thunder Soul, …) = **events**, not composition recipes.
-
----
-
-### Guide 4 — **Environmental & trial** tempering
-
-**Novel:** Lightning gorge nine days; dragon miasma bath; tribulation hammers bone.
-
-**Gap:** Chamber-only weeks + items.
-
-**Direction:**
-
-- **Sites / ordeals** as refinement venues — same action, different **place** = different ceiling or imprint bias.
-- Hooks: [`cultivation-sites-and-claims.md`](cultivation-sites-and-claims.md), tribulation rework.
-
----
-
-### Guide 5 — **Specific legendary traits** (rule-breakers)
-
-**Novel:** Needles cannot pierce; palm shatters treasures; pores as blades.
-
-**Gap:** Hardness / stress only — generic.
-
-**Direction:**
-
-- Small set of **trait** unlocks from deep co-refine or revolution capstone — rule-bending passives tied to **what** you built.
-- Example: steam alloy capstone → first hit ignores defend once per fight.
-
----
-
-### Guide 6 — **Divine abilities from parts**
-
-**Novel:** Evil Eye, Dao Bone, Heavenly Punishment Palm.
-
-**Gap:** Eyes mentioned; organs are stat buckets.
-
-**Direction:**
-
-- **Aperture** unlocks — body techniques / passives gated by region depth + method + revolution.
-- Harmonize = wield clash; aperture = **part becomes a move**.
-
----
-
-### Guide 7 — **Manual scarcity & master lineages**
-
-**Novel:** Cannot use dragon blood without the **art**; sect methods incompatible; stolen manual is plot.
-
-**Gap:** Principles-only may lack lineage bite.
-
-**Direction:**
-
-- **Method exclusivity** — Vajra marrow art vs blood gorge corpse refining = different **rules**.
-- Experimentation works at low purity; legendary outcomes want lineage or remnant.
-- Balance: many materials, **few methods you truly understand**.
-
----
-
-### Guide 8 — **Battle forging & remold**
-
-**Novel:** Bone cracks in fight → re-refine stronger; crippled → remold physique.
-
-**Gap:** Soft clash failure.
-
-**Direction:**
-
-- **Break → opportunity** — remold projects after structure break, near-death, trib scar.
-- High stakes without bricking run if remold path exists.
-
----
-
-### Guide 9 — **Jianghu recognition**
-
-**Novel:** *"That's the Undying Vajra!"* — envy, assassination, recruitment.
-
-**Gap:** Emergent names without world reaction.
-
-**Direction:**
-
-- Standing hooks when fingerprint crosses thresholds — rumors, sect interest, bounty, trade premium.
-- Names are **social**, not private journal only.
-
----
-
-### Guide 10 — **Scale & pacing fantasy**
-
-**Novel:** Decades per bone layer; arc-long quest for one material.
-
-**Gap:** 2-week chamber buttons.
-
-**Direction:**
-
-- **Weight classes** — same loop; legendary tier = **projects** (months/years, seclusion, chronicle chapters).
-- Acknowledge time in fiction even if game compresses.
+Workshop items — **one pass each**; foundational changes allowed.
+
+**Target sentence:** *He cultivated **[method]**, fed **[material]**, survived **[nth revolution]**, **[part]** carries **[ability]** — jianghu calls him **[title]**.*
+
+| § | Topic | Status |
+|---|--------|--------|
+| 1 | [Methods](#body-refining-methods) | **Expanded** in this doc |
+| 2 | Named sub-stages / revolutions | Tied to progression spine |
+| 3 | Constitution seed | Open |
+| 4 | Site / trial tempering | Open |
+| 5 | Legendary traits | Open |
+| 6 | Aperture abilities | Open — broad vs fine parts |
+| 7 | Lineage scarcity | Open |
+| 8 | Battle remold | Open |
+| 9 | Jianghu recognition | Open |
+| 10 | Pacing weight classes | Open |
+
+### Guide 1 — Legendary methods (summary)
+
+Scarce **refining scriptures** change **protocol** (revolutions, materials, failure). Two disciples, same manual, different composition → different vessels. **Not** physique SKU unlock.
 
 ---
 
 ## Work queue (when owner says build)
 
-Suggested order — **each guide can get its own workshop pass before Issues**:
-
-1. [ ] Vessel state data model + regional imprints (replace global `%` chamber bonuses)
-2. [ ] Bridge to combat damage pass (hardness, break bias)
-3. [ ] Tension + harmonize (comprehension hooks)
-4. [ ] Co-refine projects
-5. [ ] Novel guides 1–10 — **one guide per design pass**, foundational changes allowed
+1. [ ] Progression spine data (grade, sub-realm, project, bottleneck) — decouple from layer-tab `%`
+2. [ ] Vessel state + regional imprints
+3. [ ] Body refining method pool (crude + 2 legendaries for wedge)
+4. [ ] Combat bridge (hardness, break bias)
+5. [ ] Tension + harmonize + co-refine
+6. [ ] Novel guides 2–10 as design passes
 
 ---
 
-## Open questions (parked — owner said hold)
+## Open questions (parked)
 
-- Co-refine scope: one limb per project vs matched sets?
-- Tension decay when ignorant vs harmonized?
-- Triple+ element alloys per region?
-- Harmonize per clash pair vs one global balance score?
-- Clash punishment: soft (friction) vs hard (permanent scar until cleanse)?
+- Co-refine scope per project; tension decay; triple alloys; harmonize per pair vs global.
+- Clash punishment soft vs hard scar.
+- Grade II+ for Dragon / Poison; third model (e.g. Vajra frame).
+- Power curve table idx 0–4 × (qi, dragon, poison, crude).
+- Body method in `cultivation-manuals-framework.md` — separate save key from qi `primaryId`?
 
 ---
 
@@ -432,19 +397,19 @@ Suggested order — **each guide can get its own workshop pass before Issues**:
 | Area | Files / ideas |
 |------|----------------|
 | Chamber today | `body-chamber.js`, `BODY_CHAMBER_*` in `data.js` |
-| Combat | `combat.js` → `resolveCombatHit`, stress, breaks |
-| Physique staging | `physique-cultivation.js`, `TRAINABLE_PHYSIQUES` — likely rework |
-| Milestones | `PATHS.body`, `body-path-refining-rewrite.md` |
-| Manuals | [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md) — body branch TBD |
-| Sites | [`cultivation-sites-and-claims.md`](cultivation-sites-and-claims.md) |
+| Combat | `combat.js`, `combat-damage-depth.md` |
+| Physique staging | `physique-cultivation.js` — likely rework |
+| Qi methods pattern | `data.js` `CULTIVATION_METHODS`, `cultivation-manuals-framework.md` |
+| Milestones | `PATHS.body` — reframe names vs idx |
 
 ---
 
-## Chat arc preserved (summary)
+## Chat arc (preserved)
 
-1. Stats/body granularity — limb hardness vs flat defense; after damage redo.
-2. Qi overflow vs body composition; materials clash/synergy; Thousand Poisons as emergent not recipe.
-3. **Vessel state** — regional imprints; incomplete bodies OK; silhouette as build.
-4. Harmonize — comprehension wields opposing elements; tension as fuel.
-5. **Co-refine** — second pass; alloy; harmonize harnesses, co-refine upgrades material.
-6. Novel alignment — four layers (constitution / method / material / expression); ten feel guides.
+1. Granularity, limb hardness, damage pass; overflow vs composition.
+2. Vessel state; harmonize + co-refine; no recipe physiques.
+3. **Four pillars** progression; neutral grades + epithet; lateral map vs tab itinerary.
+4. Methods: pyramid, chapters, broad/fine; Dragon + Poison grade I.
+5. Balance: idx parity, niche curves, delayed spikes; variance body–body and body–qi.
+6. **Qi/body rewrite:** expression vs substrate; both have horizontal depth.
+7. Models + composition + grade; optional true-vessel lore apex.

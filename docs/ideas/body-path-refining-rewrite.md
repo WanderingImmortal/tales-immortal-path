@@ -6,7 +6,7 @@
 | **Blocked on** | Anatomy Phase 1–2 can proceed; see hub for full rewrite |
 | **Issue** | none yet |
 | **Chat / PR** | Body chamber triage 2026-08-05 · vision hub [body-vessel-refining-vision.md](body-vessel-refining-vision.md) 2026-09-16 |
-| **Updated** | 2026-09-16 |
+| **Updated** | 2026-09-20 |
 
 ## Intent
 
