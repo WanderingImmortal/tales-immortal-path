@@ -16,6 +16,8 @@ The player **is** a **vessel state** (a map of what they built). Named physiques
 
 **Planning only** until owner greenlights implementation.
 
+**North star (game):** Freedom to **explore a working cultivation system in depth** inside a detailed xianxia world — paths differ (qi configure / body inscribe), but each should support **real build identity**, material loops, and readable power fantasy.
+
 **Hub sentence:** Qi and body share a **realm-grade spine**; qi specializes variance in **how power is expressed**; body in **what the vessel is made of**.
 
 ---
@@ -280,7 +282,16 @@ Common **grade I** = **First Temper** (idx 0→1). Two legendaries + crude for t
 
 **Same idx on success — different snapshot, epithet, fight script.**
 
-Grade II+ sketch: Dragons → frame dragon; Poisons → venom marrow — diverging projects, same idx rules.
+### Grade II (Second Forge) — sketch
+
+Same **idx** for all; different project and fight identity. See workshop chat 2026-09-20.
+
+| | **Baseline** | **Nine Dragons** | **Thousand Poisons** |
+|--|--------------|------------------|----------------------|
+| **Method name** | Settled frame | **Frame Dragon** (2nd of nine) | **Venom Marrow** |
+| **Work** | Broad bones + torso | Dragon yang **spine/ribs** project | Poison into **marrow** |
+| **Fight feel** | Solid brawler | Tank, structure; art **starts to pay off** | Attrition, toxin; **melee hurts them** |
+| **vs qi (baseline)** | ~even on ground | Often **ahead** in grind melee | **Ahead** long/poison; **behind** burst |
 
 ---
 
@@ -320,6 +331,82 @@ Intentional spread: model curve, composition, specialization, harmonize, crude v
 Poison I / Dragon I can **beat** qi in **their** lane at same idx; **lose** elsewhere. **Not** higher idx.
 
 **Principle:** Same grade index, same world permissions; different models and maps = different fighters.
+
+---
+
+## Economy & material pacing (body balance lever)
+
+Body combat edge is **paid for** in supply chains — not free with the path. Qi is what the **world’s economy is built around**; body is **bespoke**.
+
+| | **Qi (dominant)** | **Body (minority)** |
+|--|-------------------|---------------------|
+| **Floor progress** | Cultivate from **ambient qi** (slow, always possible) | Crude broad temper with **common** stuff; real depth wants **rare** inputs |
+| **Pills & market** | Alchemy mainstream — cheap QC pills, decent pills appear often | Body-support pills **rarer**, pricier, fewer recipes |
+| **Who crafts** | Sect alchemy halls everywhere | Often **body-literate** alchemist (frequently dual-path experience) |
+| **Breakthrough rhythm** | Can **grind** months; materials **soft-accelerate** | Often **hard-waits** on key material, then **survive** the refine rite |
+| **Risk** | Failed pill dose | Failed poison bath, fever, scar, stain |
+
+**Two gates:** **method** (how to use materials without wasting) + **materials** (whether the next project / breakthrough is **possible**).
+
+### Body pills (player-facing lean)
+
+| Tier | Use |
+|------|-----|
+| **Generic body pills** | Default shop/sect — marrow support, toxin buffer; ~full efficiency not required |
+| **Element-tagged** | Matches imprint lean (fire marrow aid, etc.) |
+| **Personalised** | **Optional** — late game, rich, sect service; bonus purity / flavor; **not** campaign-critical |
+
+Raw materials + chamber refine remain the **main** body loop; pills are **shortcuts**, not the only path.
+
+**Cross-links:** [`economy-framework.md`](economy-framework.md), [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md) (qi pill abundance vs body niche TBD).
+
+**One line:** Qi progresses on **air and a pill economy the world already has**; body on **manuals, rare materials, and surviving refines**.
+
+---
+
+## Combat identity, range & realm claims
+
+Design before more refining detail: fights must respect **distance** and **flight** at higher idx.
+
+### No flight (body) — parallel claims
+
+Per [`realm-claims.md`](realm-claims.md): qi gets **Sky Travel** (NS); body gets **leap / bound crossing** — not hovering. Below NS, fights are **ground game** anyway.
+
+| Idx band | Qi fight edge | Body fight edge |
+|----------|---------------|-----------------|
+| Early | Techniques at range | **Must close** — wins in the trade |
+| GC (2) | Light Body (travel); kiting | **Shockwave / intimidation** claim — reach without flight |
+| NS (3)+ | Air mobility | **Leaps** + learned **range skills** |
+
+### Baseline vs baseline (same idx)
+
+**Target fantasy:** Average qi cultivator **fears** average body cultivator in an open **ground** brawl — **speed + durability**; without methods, restraints, terrain, or elite arts, qi **struggles to finish** the fight. **Not** auto-win: smart qi controls distance; **elites** on either side break the baseline band.
+
+| Baseline body | Baseline qi |
+|---------------|-------------|
+| **Faster** close speed on ground (refinement **shapes** how fast: legs vs heavy frame vs poison fog) | Better **tools at range** |
+| **Tougher** in melee | **Glassier** if caught |
+
+**Elites** prove they are not average — intent, method, gear, flight (qi NS+), dragon breath, poison fog, arrays.
+
+### Range (not ignored)
+
+Default body delivery = **melee**. Range is **learned**:
+
+| Source | Examples |
+|--------|----------|
+| Path / method | Dragon **breath**; poison **fog / miasma** |
+| Techniques / claims | Palm wind, GC **shockwave** stomp |
+| Gear | Weapons, thrown talismans |
+| Late | **Bloody qi** / life-force flung — body flavor, not second dantian |
+
+Attack profile `delivery` (melee · projectile · aura · …) in [`combat-damage-depth.md`](combat-damage-depth.md) should tag body arts explicitly.
+
+### Content mix
+
+Some encounters favor qi (flyer, cliff); some favor body (arena, cave). Idx still gates world power; **matchup** is path + build.
+
+**Open:** Full “fight by idx” table (qi / body / dragon / poison); combat integration pass after damage spine.
 
 ---
 
@@ -379,6 +466,8 @@ Scarce **refining scriptures** change **protocol** (revolutions, materials, fail
 4. [ ] Combat bridge (hardness, break bias)
 5. [ ] Tension + harmonize + co-refine
 6. [ ] Novel guides 2–10 as design passes
+7. [ ] Economy hooks — body material sinks, pill tiers, specialist NPCs
+8. [ ] Combat identity pass — baseline speeds, delivery tags, realm claims in fights
 
 ---
 
@@ -386,9 +475,10 @@ Scarce **refining scriptures** change **protocol** (revolutions, materials, fail
 
 - Co-refine scope per project; tension decay; triple alloys; harmonize per pair vs global.
 - Clash punishment soft vs hard scar.
-- Grade II+ for Dragon / Poison; third model (e.g. Vajra frame).
+- Grade II+ detail for Dragon / Poison; third model (e.g. Vajra frame).
 - Power curve table idx 0–4 × (qi, dragon, poison, crude).
 - Body method in `cultivation-manuals-framework.md` — separate save key from qi `primaryId`?
+- Exact **close-speed** mult body vs qi baseline; NS flyer tuning.
 
 ---
 
@@ -401,6 +491,8 @@ Scarce **refining scriptures** change **protocol** (revolutions, materials, fail
 | Physique staging | `physique-cultivation.js` — likely rework |
 | Qi methods pattern | `data.js` `CULTIVATION_METHODS`, `cultivation-manuals-framework.md` |
 | Milestones | `PATHS.body` — reframe names vs idx |
+| Realm claims | [`realm-claims.md`](realm-claims.md) — leap vs flight |
+| Economy | [`economy-framework.md`](economy-framework.md), alchemy docs |
 
 ---
 
@@ -409,7 +501,10 @@ Scarce **refining scriptures** change **protocol** (revolutions, materials, fail
 1. Granularity, limb hardness, damage pass; overflow vs composition.
 2. Vessel state; harmonize + co-refine; no recipe physiques.
 3. **Four pillars** progression; neutral grades + epithet; lateral map vs tab itinerary.
-4. Methods: pyramid, chapters, broad/fine; Dragon + Poison grade I.
+4. Methods: pyramid, chapters, broad/fine; Dragon + Poison grade I–II sketch.
 5. Balance: idx parity, niche curves, delayed spikes; variance body–body and body–qi.
 6. **Qi/body rewrite:** expression vs substrate; both have horizontal depth.
 7. Models + composition + grade; optional true-vessel lore apex.
+8. **Combat:** no body flight; baseline bc faster/tougher than baseline qc on ground; range via skills (breath, fog).
+9. **Economy:** material + method gates; rare body pills; qi grinds on air + cheap pills.
+10. **North star:** deep, explorable cultivation in a detailed xianxia world.
