@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=102" />
+    <link rel="stylesheet" href="style.css?v=103" />
 </head>
 <body>
 
@@ -128,6 +128,38 @@
     </div>
 
     <div id="game-screen" class="game-screen" style="display:none;">
+        <div class="phone-playtest-chrome" id="phonePlaytestChrome" hidden>
+            <header class="phone-top-bar">
+                <button type="button" class="phone-identity" id="phoneOpenCharacter" aria-label="Character stats">
+                    <span class="phone-identity-name" id="phoneHeroName">—</span>
+                    <span class="phone-identity-meta">
+                        <span id="phoneHeroRealm">—</span>
+                        <span class="phone-identity-sep">·</span>
+                        <span id="phoneHeroAge">—</span>
+                    </span>
+                </button>
+                <div class="phone-clock-host" id="phoneClockHost"></div>
+            </header>
+            <div class="phone-focal" id="phoneFocalHost" aria-hidden="true"></div>
+            <button type="button" class="phone-cultivate-cta" id="phoneCultivateCta">🧘 Cultivate</button>
+            <nav class="phone-group-dock" aria-label="Action groups">
+                <button type="button" class="phone-dock-btn" data-phone-sheet="cultivation" aria-label="Cultivation actions">⚡</button>
+                <button type="button" class="phone-dock-btn" data-phone-sheet="world" aria-label="World">🌍</button>
+                <button type="button" class="phone-dock-btn" data-phone-sheet="arts" aria-label="Arts and gear">🎒</button>
+                <button type="button" class="phone-dock-btn" data-phone-sheet="sect" aria-label="Sect and people">🏯</button>
+                <button type="button" class="phone-dock-btn" data-phone-sheet="more" aria-label="More">⋯</button>
+            </nav>
+        </div>
+        <div class="phone-group-sheet" id="phoneGroupSheet" hidden>
+            <div class="phone-group-sheet-backdrop" id="phoneGroupSheetBackdrop"></div>
+            <div class="phone-group-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="phoneGroupSheetTitle">
+                <header class="phone-group-sheet-header">
+                    <h3 id="phoneGroupSheetTitle">Actions</h3>
+                    <button type="button" class="phone-group-sheet-close" id="phoneGroupSheetClose" aria-label="Close">✕</button>
+                </header>
+                <div class="phone-group-sheet-body" id="phoneGroupSheetBody"></div>
+            </div>
+        </div>
         <div id="worldClockBar" class="world-clock-bar" hidden aria-label="Living calendar">
             <button type="button" id="worldClockPlayPause" class="world-clock-play" aria-pressed="false" title="Resume the living calendar (Space)">▶ Play</button>
             <div class="world-clock-speeds" role="group" aria-label="Calendar speed">
@@ -141,7 +173,7 @@
         <div class="main-layout">
             <!-- LEFT: compact controls -->
             <aside class="sidebar">
-                <section class="hero-panel">
+                <section class="hero-panel" data-phone-group="character">
                     <div class="realm-title">
                         <span class="realm" id="realmDisplay">Qi Condensation</span>
                         <span class="title" id="titleDisplay">— Mortal Aspirant</span>
@@ -196,6 +228,8 @@
                     <div id="settingsPanel" class="settings-panel" hidden>
                         <label class="settings-check"><input type="checkbox" id="settingHoverTooltips" /> Show hover tooltips</label>
                         <p class="settings-hint">Action details use the <span class="action-help-inline-demo">?</span> button by default.</p>
+                        <label class="settings-check"><input type="checkbox" id="settingPhonePlaytestLayout" /> Phone playtest layout</label>
+                        <p class="settings-hint">Scene-first hub with group menus. PC layout when off.</p>
                     </div>
                     <button type="button" id="btnTutorialLog" class="details-toggle tutorial-log-btn">📖 Cultivation Lessons</button>
                     <div id="advancedStats" class="advanced-stats">
@@ -226,7 +260,7 @@
 
                 <section class="actions-panel">
                     <div class="actions-panel-core">
-                        <div class="action-group">
+                        <div class="action-group" data-phone-group="cultivation">
                             <div class="action-group-label">Cultivation</div>
                             <div class="actions-row">
                                 <div class="action-with-help">
@@ -255,7 +289,7 @@
                                 <button id="btnIntent">🗡️ Intent</button>
                             </div>
                         </div>
-                        <div class="action-group">
+                        <div class="action-group" data-phone-group="arts">
                             <div class="action-group-label">Arts &amp; Gear</div>
                             <div class="actions-row actions-row-wrap">
                                 <button id="btnTech">📚 Techs</button>
@@ -265,7 +299,7 @@
                                 <button id="btnInventory">🎒 Inventory</button>
                             </div>
                         </div>
-                        <div class="action-group">
+                        <div class="action-group" data-phone-group="world">
                             <div class="action-group-label">World</div>
                             <div class="actions-row">
                                 <button id="btnExplore" title="Toggle forage stance — weekly finds while calendar runs">🌿 Explore</button>
@@ -283,7 +317,7 @@
                                 <button id="btnForbidden" title="Forbidden grounds" hidden class="action-realm-hidden">🌑 Forbidden</button>
                             </div>
                         </div>
-                        <div class="action-group action-group-sect">
+                        <div class="action-group action-group-sect" data-phone-group="sect">
                             <div class="action-group-label">Sect &amp; People</div>
                             <div class="actions-row">
                                 <button id="btnRecruit" title="1 year · requires founded sect">👤 Recruit</button>
@@ -293,21 +327,21 @@
                         </div>
                     </div>
                     <div class="actions-panel-people">
-                        <div class="action-group" id="questLogGroup">
+                        <div class="action-group" id="questLogGroup" data-phone-group="quests">
                             <div class="action-group-label">Quests</div>
                             <div id="questLogList" class="quest-log-list">
                                 <p class="quest-log-empty">No active quests.</p>
                             </div>
                             <button type="button" id="btnQuestJournal" class="details-toggle quest-journal-btn">📖 Open Diary</button>
                         </div>
-                        <div class="action-group" id="npcPresenceGroup">
+                        <div class="action-group" id="npcPresenceGroup" data-phone-group="people">
                             <div class="action-group-label">People you know</div>
                             <div id="npcPresenceList" class="npc-presence-list">
                                 <p class="npc-presence-empty">You do not know anyone here yet. Look around or walk the roads.</p>
                             </div>
                         </div>
                     </div>
-                    <section class="playtest-panel" id="playtestPanel">
+                    <section class="playtest-panel" id="playtestPanel" data-phone-group="playtest">
                         <button type="button" id="playtestToggle" class="playtest-toggle details-toggle">📝 Playtest notes ▼</button>
                         <div id="playtestBody" class="playtest-body">
                             <p class="playtest-hint">Bugs, balance, ideas — saved in this browser. Export when you want to send them over.</p>
@@ -353,8 +387,10 @@
                             </div>
                         </div>
                     </section>
-                    <button type="button" id="btnTrueReincarnation" class="btn-reset" style="display:none;">🌀 True Reincarnation</button>
-                    <button id="btnReset" class="btn-danger btn-reset">↺ Reset Journey</button>
+                    <div id="phoneSidebarExtras" class="phone-sidebar-extras">
+                        <button type="button" id="btnTrueReincarnation" class="btn-reset" style="display:none;">🌀 True Reincarnation</button>
+                        <button id="btnReset" class="btn-danger btn-reset">↺ Reset Journey</button>
+                    </div>
                 </section>
             </aside>
 
@@ -1457,7 +1493,8 @@
 <script src="combat.js?v=37"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
-<script src="settings.js?v=1"></script>
+<script src="settings.js?v=2"></script>
+<script src="phone-playtest.js?v=1"></script>
 <script src="action-help.js?v=1"></script>
 <script src="overlay-keyboard.js?v=1"></script>
 <script src="main.js?v=50"></script>

@@ -1152,6 +1152,7 @@ function fullRender() {
     if (typeof applyQcProgressiveActionUi === 'function') applyQcProgressiveActionUi();
     renderOverlayLifespanChip();
     if (typeof renderWorldClockBar === 'function') renderWorldClockBar();
+    if (typeof syncPhonePlaytestHeader === 'function') syncPhonePlaytestHeader();
     const reincBtn = document.getElementById('btnTrueReincarnation');
     if (reincBtn) reincBtn.style.display = (typeof isImmortal === 'function' && isImmortal()) ? '' : 'none';
     saveState();
