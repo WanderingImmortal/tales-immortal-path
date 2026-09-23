@@ -2,125 +2,185 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` |
-| **Blocked on** | Central **public identity** read ([`jianghu-situation-threads.md`](jianghu-situation-threads.md) dossier + thread beats); optional [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) for realm peel |
+| **Status** | `designed` (north star — phased) |
+| **Blocked on** | Identity resolver; [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md); public **signature ledger**; situation threads |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-09-23 |
-| **Updated** | 2026-09-23 |
+| **Updated** | 2026-09-23 (deep cover + signatures) |
 
-**Sisters:** [`jianghu-situation-threads.md`](jianghu-situation-threads.md) · [`world-standing-and-property.md`](world-standing-and-property.md) · [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) · [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)
+**Sisters:** [`jianghu-situation-threads.md`](jianghu-situation-threads.md) · [`world-standing-and-property.md`](world-standing-and-property.md) · [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) · [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) · [`combat-damage-depth.md`](combat-damage-depth.md)
 
 ## Intent
 
-When the MC has **no backing** and **hot debts**, novels lean on **disguise, alias, and suppressed aura** to walk major cities without every grudge firing on sight. Same game: disguise is a **counterplay** to the dossier / thread system — not immunity, but **buying time** and **choosing where recognition happens**.
+When the MC has **no backing** and **hot debts**, novels lean on **layered disguise** — cheap face paint fools mortal guards; **bone-shifting** fools a cursory spirit sense on the face; only **deep cover** (new gear, no signature arts) survives experts who tie you to **that sword** or **that technique** you showed in public once.
 
-**Feel:** prepare vs move on includes *“can I enter Threshold as someone else?”* — success is mundane travel; failure is a spike (recognized, envoy, law).
+Disguise is **counterplay** to the dossier / threads: debts persist, but the world must **earn** the link between cover and true self.
 
----
-
-## How hard? (engineering + design)
-
-| Slice | Scope | Difficulty | Notes |
-|-------|--------|------------|--------|
-| **A — Alias & low profile** | One `getPlayerPublicIdentity()` (or similar) used by NPC greet / converse fame lines | **Moderate** | Fame checks live in `npc.js`, `npc-converse.js` today — many **call sites**, but one **API** if refactored early |
-| **B — Cover profile** | Active disguise: display name, robe faction tag, “claimed realm band”, conceal fame tier | **Moderate** | State on `G.activeCover`; beats consult cover before firing **recognition** |
-| **C — Items / techniques** | Mask consumable, concealment art, transformation talisman | **Moderate+** | Hooks in inventory + cultivate; tie to [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) |
-| **D — Deep sim** | Aura mismatch, voice, gait, spiritual sense peel, known gear, ally NPCs, zone-wide wanted art | **Hard** | Spread across combat, explore, every named NPC — park |
-
-**Honest take:** **A+B is a reasonable milestone** once situation threads exist — disguise without threads is mostly cosmetic. **D is a project**, not a feature.
-
-**Prerequisite that pays twice:** anything that asks “does this NPC know who you are?” should call **one identity resolver**, not raw `G.name` / `G.fame`. That refactor is the main cost; after that, disguise is mostly data + checks.
+**Owner north star (2026-09-23):** Deep enough that disguise is a **commitment loop**, not a toggle — signature weapons and publicly displayed arts become liabilities until the player invests in bone arts, concealment, and a full alternate kit.
 
 ---
 
-## Design — identity layers
+## How hard? (revised)
 
-Separate what **exists** from what **this scene believes**.
+| Slice | Scope | Difficulty |
+|-------|--------|------------|
+| **A — Identity API** | `resolvePublicIdentity(context)` replaces raw `G.name` / fame in greets | Moderate |
+| **B — Cover profile + ledger** | Active cover + **public signatures** (arts/weapons witnessed) | Moderate–high |
+| **C — Layered disguise stack** | Makeup · robe · bone-shift · aura conceal — each answers different **scan channels** | High |
+| **D — Sense integration** | Spirit sense reads face/bone/qi per [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) | High |
+| **E — Deep cover mode** | UI + rules: locked loadout, banned signature skills in public | Moderate (rules) + content |
 
-| Layer | Stored | Used for |
-|-------|--------|----------|
-| **True self** | Real name, realm, sect, fame, dossier debts | Save, chronicle, post-combat |
-| **Active cover** | Alias, optional false sect, displayed realm band, outfit tag | Greetings, market gates, **recognition rolls** |
-| **Public record** | Dossier — what jianghu believes about true self | Unchanged by cover until **blown** |
-| **Scene context** | Zone tier, witnesses, “registered at inn” | Modifiers to recognition |
-
-Cover does **not** erase threads — it reduces **automatic recognition** and **casual** beat triggers. Blood debts still exist; they just might not find you in the tea house.
-
----
-
-## Recognition (when cover fails)
-
-Not binary globally — **checks** at choke points:
-
-| Choke point | Check sketch |
-|-------------|--------------|
-| **Ambient NPC greet** | Cover suppresses fame name; generic “traveling cultivator” |
-| **Thread beat (grudge, envoy)** | Roll or threshold: `recognition = f(fame, zone posters, cover quality, witness link, spiritual sense gap)` |
-| **Public combat** | Cover **breaks** for that zone / dossier (incident: `identity_revealed`) |
-| **Formal registry** | Inn ledger, sect gate, charter — often **requires** truth or high-tier forgery |
-| **Personal enemy** | NPC who **met you** before: bonus recognition vs strangers |
-
-**Spiritual sense:** higher realm observer vs weak concealment → peel displayed realm band ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md)). Optional v1: skip — only **social** recognition.
-
-**Owner lean:** failure is **interesting**, not instant game over — chase, law, thread heat +1, “blown cover in Tianjing” chronicle line.
+**Honest take:** The **ideal is slice C+D+E together** over time. **A+B** is still the right wedge (resolver + ledger data model). Without the ledger, bone-shifting has nothing interesting to protect against.
 
 ---
 
-## Disguise sources (content, not one system)
+## Identity layers (unchanged core)
 
-| Source | Strength | Cost |
-|--------|----------|------|
-| **Low profile** (no robe, alias only) | Weak — fools bandits, not heirs | Free |
-| **Face change item** | Medium — new alias until combat/public feat | Consumable / craft |
-| **Concealment technique** | Medium–strong — aura + realm band misread | Cultivation slot, qi upkeep optional |
-| **Transformation talisman** | Strong, short | Rare, breaks on hit |
-| **Sect uniform (stolen/borrowed)** | Social only — wrong behavior blows it | Standing risk if caught |
+| Layer | Role |
+|-------|------|
+| **True self** | Name, realm, sect, fame, dossier, **signature ledger** |
+| **Active cover** | Alias, displayed realm band, outfit, **which disguise layers are active** |
+| **Public record** | What jianghu believes about true self — updates on **reveal**, not on successful stealth |
+| **Scene belief** | What *this* observer thinks after scans + memory |
 
-Gear **visibility** ([`world-standing-and-property.md`](world-standing-and-property.md)): legendary sword on hip may ignore a cheap mask.
+---
+
+## Public signature ledger (the long tail)
+
+Anything **witnessed in public** (or recorded: duel board, tournament, story beat) can become a **recognition key** tied to true self — even under cover.
+
+| Signature type | Example | Tied when |
+|----------------|---------|-----------|
+| **Weapon bond** | Named blade, unique forged piece, intent-linked weapon | Equipped in public fight; shown in market; dossier “arts shown” |
+| **Technique tell** | Sect sword form, deviant intent flare, formation signature | Used where witnesses exist |
+| **Aura / dao tell** | Edged sword aura greet, rare dao resonance | Already hinted in NPC greet (`npc.js`) — promote to ledger |
+| **Face / body** | True appearance | Default known in zones where fame high or portrait posted |
+| **Voice / manner** | Parked v2 — optional for named enemies only | |
+
+Ledger entries: `{ sigId, kind, label, firstSeenZone, heat, linkStrength }`.  
+**Recognition check** = cover layers vs observer’s channels **plus** match against ledger.
+
+Player fantasy: *“They might not know my face under paint, but if I draw Frostbite Severance they’ll know it’s me.”*
+
+Dossier **legibility**: show **signatures the jianghu knows about you** (your legend’s tells) — not which guard will spot you. Teaches deep cover without spoilering beats.
+
+---
+
+## Disguise stack (layered, not one buff)
+
+Each layer defends **scan channels**. Observer runs one or more channels based on context (gate guard vs elder vs personal enemy).
+
+| Layer | Fiction | Beats channel | Weak vs |
+|-------|---------|---------------|---------|
+| **Cosmetic** | Makeup, prosthetic, cheap mask | **Mundane sight** | Spirit sense (face/bone), familiar enemy |
+| **Dress / role** | Robe, servant, merchant kit | **Social expectation** | Wrong accent/sect seal, registry |
+| **Bone-shifting art** | Reshape face, height, bone profile | **Spirit sense (structure)** | Higher sense delta, prolonged scan, combat stress (slip) |
+| **Qi concealment / mimic** | Hide or fake realm band, suppress aura | **Sense (cultivation read)** | Probe technique, array appraisal, fight |
+| **Transformation talisman** | Strong all-in, short | Multiple | Breaks on damage; expensive |
+
+**Example (owner scenario):**
+
+- Gate guard: **mundane sight** only → cheap makeup **passes**.
+- Junior cultivator with cursory **face scan**: reads bone under makeup → **fails** unless **bone-shifting** active.
+- Rival who saw your **public duel**: **ledger match** if you use signature art or draw signature weapon → **fails** regardless of face — unless **deep cover** (different weapon, generic kit).
+
+Channels compose: `effectiveAnonymity = min(layer coverage per channel) − ledger match bonus`.
+
+---
+
+## Spiritual sense & face (tie-in)
+
+Extend [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md):
+
+| Scan depth | Reveals | Typical observer |
+|------------|---------|------------------|
+| **Glance / aura** | Realm band (rough), dao tint | QC guard with basic technique |
+| **Face / bone pass** | Skull structure vs cosmetic | Cultivator gate, yamen scanner |
+| **Deep probe** | Core integrity, concealed realm | Elder, array, combat exchange |
+
+**Bone-shifting** sets `boneProfileId` on cover — must be **maintained** (qi upkeep / meditate anchor optional). Stronger reader with `senseDelta > threshold` may see **seams** (fiction: “something wrong with the jaw”).
+
+Cosmetic alone: **no** effect on bone channel — exactly the guard vs sense split you want.
+
+---
+
+## Deep cover (player commitment)
+
+**Deep cover** is a deliberate mode — not automatic when wearing a mask.
+
+| Rule | Purpose |
+|------|---------|
+| **Loadout lock** | No signature weapon; generic or bought trash gear |
+| **Technique ban list** | Signature arts greyed in public scenes (or warn + auto-reveal if used) |
+| **Intent / aura suppression** | Extra upkeep or secondary concealment art |
+| **Behavior** | Optional: don’t use player name in dialogue choices |
+
+**Shallow cover:** alias + makeup — fine for low fame, mortal guards, shopping.  
+**Deep cover:** required for high-tier cities with sense gates + hot ledger.
+
+Failure to commit: you pass the face scan then **one signature stroke** in an alley fight updates ledger and blows cover city-wide.
+
+Rewards patient players; punishes “mask on, same god sword”.
+
+---
+
+## Recognition choke points (updated)
+
+| Choke point | Channels used |
+|-------------|---------------|
+| Mortal guard | Sight |
+| Cultivator checkpoint | Sight + face/bone scan |
+| Thread beat (hunter) | Ledger + prior meeting + scan |
+| Public combat | **Auto-add/update signatures**; cover break incident |
+| Appraisal array | Deep probe — bone shift may not enough without realm mimic |
+| Personal enemy | All of the above + memory bonus |
 
 ---
 
 ## UI & dossier
 
-| UI | Show |
-|----|------|
-| **Status strip** | “Cover: **Grey Mask** (alias Zhou San)” vs “Traveling as yourself” |
-| **Dossier** | True record unchanged; optional subline “Active concealment — public may not link you to debts **yet**” |
-| **After blown** | Incident + dossier may gain “seen as {true name} in {zone}” |
-
-Legibility rule holds: player knows **cover is active**; not told **which** NPC will pierce it.
-
----
-
-## Interaction with threads & appetite
-
-- **Appetite** unchanged — they still want you; **modality** may shift to city-wide poster / spiritual sense hunt if you hide well (shadow + search).
-- **Formal challenge** harder to serve if identity unknown — delays beat, doesn’t cancel debt.
-- **Grudge interrupt** while disguised: recognition check first; fail → normal interrupt; success → skip or “wrong person” false alarm (rare, costs nothing long-term? or small suspicion flag).
+| UI | Content |
+|----|---------|
+| **Cover panel** | Active layers (cosmetic · bone · qi) + upkeep warnings |
+| **Signatures** | “The jianghu knows you by: {weapon}, {technique}, …” |
+| **Deep cover toggle** | Checklist: generic weapon equipped? signatures disabled? |
+| **Dossier** | True record; cover noted as “unlinked **if** no reveal incidents” |
 
 ---
 
-## Phased build
+## Interaction with threads
+
+- Threads still **active**; modality may shift to **ledger-led hunt** (“find the one who uses that art”).
+- Righteous orgs: public arrest bad; **witness signature** + shadow capture good.
+- Blown cover does not reset debts — adds **link** incident (cover alias ↔ true name in zone).
+
+---
+
+## Phased build (toward north star)
 
 | Phase | Deliverable |
 |-------|-------------|
-| **P0** | `resolvePublicIdentity(context)` + migrate top greet/converse paths |
-| **P1** | Active cover state, alias, suppress fame tier in ambient NPC |
-| **P2** | Recognition on thread beats + `identity_revealed` incident |
-| **P3** | Items/techniques + spiritual sense peel |
-| **P4** | Forgery, registry, wanted posters per zone |
+| **P0** | Identity resolver; incident type `identity_revealed` |
+| **P1** | Signature ledger from public combat + dossier display |
+| **P2** | Cover stack (cosmetic + bone art hook); channel table v1 |
+| **P3** | Sense reads per channel at gates / select NPCs |
+| **P4** | Deep cover mode + technique/weapon bans |
+| **P5** | Forgery papers, zone portraits, array appraisal hubs |
+
+Early play can ship **P0–P1** without bone arts; design **data model** for layers day one so nothing is reworked.
 
 ---
 
 ## Open questions
 
-- [ ] Can player run **multiple aliases** with separate mini-reputations, or one cover at a time?
-- [ ] Sect members always recognize robes / seal — yes/no?
-- [ ] Disguise in **own** sect territory — absurd or allowed for missions?
-- [ ] Reincarnation / name change — carry over dossier?
+- [ ] Bone-shifting: dedicated manual vs physique branch vs alchemy body pill?
+- [ ] Signature **decay** — old art forgotten after N years / low heat?
+- [ ] Forged copy of famous weapon — mislead ledger or partial match?
+- [ ] NPCs with **Soul Search** / memory technique — bypass bone layer?
+- [ ] Multiplayer of signatures — disciple uses master’s sect art (false positive)?
 
 ---
 
 ## Implementation crumbs
 
-`npc.js` / `npc-converse.js` (`G.name`, `G.fame` greets), `quests.js` kill log, `story-arcs.js` threads (future), `core.js` `addFame`, alignment/aura greet notes, inventory/consumables, combat reveal hooks.
+`npc.js` / `npc-converse.js` (fame, aura tells), combat technique resolution, equipment display, `quests.js` incidents, future `resolveRecognition(observer, context)`, intent/weapon docs, spiritual sense helper.

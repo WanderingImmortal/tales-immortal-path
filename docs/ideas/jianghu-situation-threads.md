@@ -332,7 +332,7 @@ Immersion line: *“The jianghu is wrong sometimes. What spreads is what kills y
 | Section | Content | Precision |
 |---------|---------|-----------|
 | **Displayed strength** | Realm band **as known** (not true realm if hidden) | Bands: “Rumored QC” · “Seen at FE early” · “Confirmed GC” — from public fights / breakthrough witness / boasts |
-| **Arts shown** | Named techniques or tags seen in public combat | List caps ~5 recent; older fade |
+| **Arts shown** | Named techniques or tags seen in public combat | Signature ledger — drives recognition under disguise ([`disguise-and-public-identity.md`](disguise-and-public-identity.md)) |
 | **Face / name** | Alias, fame tier, “face known in X zones” | Tied to fame + visibility ([`world-standing-and-property.md`](world-standing-and-property.md)) |
 | **Backing (known)** | Sect robe, hall, patron — **only if displayed** | “Disciple of …” vs “Unaffiliated (rumors say …)” if uncertain |
 | **Enemies & debts** | Persons · clans · sects · law | Filters + sort by heat; see below |
