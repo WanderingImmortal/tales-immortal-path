@@ -6,7 +6,7 @@
 | **Blocked on** | Grudge cultivate interrupt v1 ([`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)); backing/sect power read for NPCs (partial hooks: fame, sect renown, grudge tiers) |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-09-23 |
-| **Updated** | 2026-09-23 (clan summons / parley beat) |
+| **Updated** | 2026-09-23 (rumor spread, favor ledger, player aggression, sect discipline) |
 
 **Hub:** [`dustbone-living-board.md`](dustbone-living-board.md) · [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Sisters:** [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) (personal interrupts) · [`world-events-layered-battlefield.md`](world-events-layered-battlefield.md) (civic scale) · [`world-standing-and-property.md`](world-standing-and-property.md) (visibility) · [`chronicle-and-projects.md`](chronicle-and-projects.md) (diary) · [`civic-seats-generator.md`](civic-seats-generator.md) (same “engine + packs” pattern) · [`disguise-and-public-identity.md`](disguise-and-public-identity.md) (counterplay)
@@ -418,7 +418,7 @@ Immersion line: *“The jianghu is wrong sometimes. What spreads is what kills y
 | **Face / name** | Alias, fame tier, “face known in X zones” | Tied to fame + visibility ([`world-standing-and-property.md`](world-standing-and-property.md)) |
 | **Backing (known)** | Sect robe, hall, patron — **only if displayed** | “Disciple of …” vs “Unaffiliated (rumors say …)” if uncertain |
 | **Enemies & debts** | Persons · clans · sects · law | Filters + sort by heat; see below |
-| **Allies & credit** | Mirror for positive standing | Stops dossier feeling like pure punishment |
+| **Allies & credit** | Callable favors + major goodwill only — see **Favor ledger** | Stops dossier feeling like pure punishment |
 
 #### Enemy list — how much to tell?
 
@@ -497,17 +497,101 @@ Dossier rows **unlock** when the world would plausibly know — not at incident 
 
 What we have covers **personal → org retaliation**, **face/modality**, **backing layers**, **dossier legibility**, **disguise/signatures**, and **clan parley**. For a deep xianxia sim, these are the main **missing pieces** worth designing next (not all v1).
 
-### Strong fits (same engine)
+### Rumor propagation (design — was mentioned, now specified)
+
+Incidents do **not** instantly update every org’s dossier. Each incident gets **spread** state per `(zoneId | orgId)`:
+
+| Stage | Meaning | Typical trigger |
+|-------|---------|-----------------|
+| **unknown** | No local belief | Private kill, no witnesses |
+| **whisper** | Inn/scatter gossip | 1+ witness, or rumor broker |
+| **known** | Locals treat it as fact | Time + travel along trade routes, or envoy |
+| **posted** | Charter poster / sect bulletin | High level, law, or org push |
+
+**Spread ticks** on world clock (monthly): move along **adjacency** (Redwell → mid city → Threshold) at speed `f(severity, witnesses, fame, org PR push)`. Beats like `rumor_tick` fire when a zone **crosses** a threshold — thread may stay **dormant** until `known` in *that* zone.
+
+**Player levers:** silence witnesses (hard), bribe broker, flee zone before `posted`, disguise delays **link** not erase ledger.
+
+**Existing crumbs:** inn rumor lines ([`redwell-starter-city.md`](redwell-starter-city.md)), Merchant Su `rumorCost`, Wei template quests — **re-use UI**, new **`spread` model** on incidents.
+
+---
+
+### Favor ledger (credit — big debts only)
+
+Mirror grudge threads with **`favor` / `credit`** entries — not a log of every kind act.
+
+**Record when:**
+
+- Incident type in **favor tier** table: saved named NPC/heir, returned clan relic, tournament forfeit to give face, major sect aid, etc.
+- Witnesses or recipient org **acknowledges** (beat: `gratitude_ack`).
+- Optional **collectible**: recipient flags `owesPlayer` until **called in** (one major ask: escort, loan, sanctuary, speak at parley).
+
+**Do not record:** random street help, small coin, generic “merciful” converse — those stay **alignment/fame** only if anything.
+
+**Dossier:** **Allies & credit** — short list (cap ~8 active), each row: who · what you did (past tense) · **callable?** · heat/decay. Callable favors are gameplay; passive goodwill is mood only.
+
+**Scale:** same **grudge levels** inverted lightly (1 = courtesy, 3 = life debt, 5 = clan owes survival) — tune separately.
+
+---
+
+### Home sect discipline (genuine vs show)
+
+When **your** actions threaten sect face, spawn **`sect_discipline`** thread (`orgId = playerSect`) — may run **before** external `clan_summons`.
+
+| Mode | When | Beats |
+|------|------|-------|
+| **Genuine** | You wronged ally sect, broke charter, outer caused war scare | Hall punishment, strip rank, pay from **your** stones, expulsion risk |
+| **Show** | External org demands blood but sect wants peace | Public **three lashes**, kneel, small compensation — **heat down** on external thread; sect standing cost to you is real but survivable |
+
+Picker: `externalGrudgeLevel`, `playerRole`, sect doctrine tag, `compensation_offer` on other thread pending.
+
+Same **`clan_summons`** scene shell; dialogue source is **your elder**, not House Pei.
+
+---
+
+### Player-initiated aggression (elaborated)
+
+Feuds are not only “you offended someone.” **Player is aggressor** when an incident lists `actor: player` and `provoked: true` on a **response thread** owned by target/org.
+
+**How aggression starts (examples):**
+
+| Player action | Incident | Who gets a response thread |
+|---------------|----------|----------------------------|
+| Rob / extort caravan | `robbery` | Merchant house, escort sect, story giver |
+| Public duel challenge | `challenge_issued` | Target + their clan if heir |
+| Kill in fight you started | `kill` + provoked | Kin/clan packs |
+| `declare_grudge` (sect) | org incident | Rival sect diplomacy (existing hooks) |
+| Steal from seat holder | `theft` | Civic org + law |
+| Humiliate for sport | `humiliation_public` | Same as reactive — but **you** chose it |
+
+**Flow:**
+
+```text
+Player commits act → incident (witnesses?) → spread rules apply
+→ spawn/defend RESPONSE thread on victim org (they are “counterparty”)
+→ appetite/modality on *their* side (may still clan_summons you if parity)
+→ parallel: sect_discipline if you drag sect in
+→ dossier: your memory always; public record when spread catches up
+```
+
+**Why it matters:**
+
+- Rogue / demonic / ambitious paths stay viable without fake “you were attacked” framing.
+- **Alignment & fame** skew from provoked incidents; dossier shows **you** as known aggressor in zones where spread landed.
+- NPC **appetite** can be **low** if you picked on a weak target — backlash is **law/shame**, not duel (bullying optics).
+- **Callable favors** can be **burned** if you later attack someone who owed you — incident `betrayed_credit`.
+
+**Not every fight is aggression:** self-defense flag on incident suppresses provoked response or lowers level.
+
+---
+
+### Strong fits (same engine) — remainder
 
 | Addition | Why |
 |----------|-----|
-| **Rumor propagation** | Incidents do not instantly globalize — `spreadState` per zone (unknown · whisper · known · poster). Drives disguise time-buying and “leave before it reaches Threshold.” |
-| **Positive threads (credit / favor owed)** | Mirror of grudge: you saved an heir, gave face at tournament. Unlocks parley options, loans, sanctuary — dossier **Allies & credit** is not decoration. |
-| **Home sect discipline** | Before House Pei hunts you, **your hall** may summon *you* (outer shame, compensation from *your* purse). Same beats, `orgId = playerSect`. |
-| **Player-initiated feuds** | You declare challenge, rob caravan, declare_grudge — creates incidents with **you as aggressor**; appetite rules apply to *their* response threads. |
 | **Resolution catalog** | Beyond pay/fight: **oath on contract** (break → heaven strikes?), **serve N years**, **marriage / adoption tie**, **hand technique copy**, **kowtow in public**. Level 2–3 summons become rich. |
 | **Third-party lanes** | Charter **yamen**, **neutral hub** (market truce, Forgers charter hall), **jianghu mediator** NPC — beat type `arbitration_summons` when both sides high backing. |
-| **Mortal vs cultivator lane** | Mortals do not `clan_summons`; they **hire blades**, **petition law**, **slander**. Same incident ledger, different pack. |
+| **Mortal vs cultivator lane** | *Parked until mortal civic play justifies it* — mortals **hire blades**, **petition law**, **slander**; same ledger, different pack ([`redwell-starter-city.md`](redwell-starter-city.md) mortals exist but aren’t feud drivers yet). |
 | **Thread interaction** | Two active debts collide: House A hunt vs your B sect ally → merge, choose side, or `crossfire` beat. (P4 sketch.) |
 | **Time & seclusion** | Heat decays in dormancy; **blood level** barely decays; long seclusion pauses beats but not ledger; world moves (posters appear when you emerge). |
 | **Counter-disguise** | Soul lamp, karma tie, **fate** hooks ([`chronicle-and-projects.md`](chronicle-and-projects.md) fate-rite), **framed signature** — someone else uses your art. Deep cover stays risky late game. |
@@ -555,6 +639,9 @@ What we have covers **personal → org retaliation**, **face/modality**, **backi
 - [ ] Assassins guild as universal shadow sink vs per-org hired blades only?
 - [ ] Dossier **Blunt** toggle — default off; copy-only or also show heat numbers?
 - [ ] “Your memory” private incidents — always visible to player or locked behind Soul Search / high insight perk?
+- [ ] Favor **call-in** — one active request per creditor or cooldown?
+- [ ] Rumor **speed** — fixed adjacency vs caravan-linked?
+- [ ] Show punishment — player opt-in to elder or forced?
 
 ---
 
