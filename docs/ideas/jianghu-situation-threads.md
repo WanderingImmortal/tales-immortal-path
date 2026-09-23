@@ -205,6 +205,18 @@ grievanceLevelBase         (1–5 from incident)
 
 **Retaliation ceiling:** `min(grudgeLevel, maxBoldness(org, appetite))` caps beat severity — level 4 thread does not spawn apex hunter if backing shield wins *unless* heat maxed or heir flag.
 
+**Escalation ceiling — ant vs giant (owner lock 2026-09-23):**
+
+Lies and **`face_first`** drama should **not** default to death hunts or endless “court.” They raise **heat** and **response tier** (stronger junior comes to humiliate you). **Blood-level (4–5)** threads require **factual** kill/heir death **or** player **backing ≪ clan** (provoked a giant as an ant — low fame, no sect, weak realm vs house apex). Embellished +1 on a slap **cannot** spawn blood debt unless that gap is huge and player keeps escalating (kills junior, repeats offenses).
+
+```text
+lethalAllowed =
+  factualGrudgeLevel >= 4
+  OR (backingGap >= LETHAL_GAP && (heat maxed || player killed their people))
+```
+
+Most disputes: rumor → **`proxy_junior_beatdown`** → maybe repeat → compensation letter **only** at parity backing. **`clan_summons` / formal parley** = parity + live heir + level 2–3 **factual or hardened claim**, not every embellished story.
+
 | Band | Typical behavior |
 |------|------------------|
 | **Low appetite** | Rumor only, cold shoulder, report to patron, wait for player to leave tier-4 pond |
@@ -265,6 +277,7 @@ Store on thread: `lastAppetite`, `preferredModality`, `publicFacePressure` (0–
 | `shadow_bounty` | No giver name; hunter thread; righteous org **deniability** |
 | `economic_squeeze` | Refuse service, price spike, license revoke |
 | `proxy_duel` | Send champion disciple — org saves apex face |
+| `proxy_junior_beatdown` | Stronger junior sent to **return a beating** — default unfair-clan response, not court |
 | `forbear` | Chronicle: “House X watches silently” — dormant thread, heat decays unless provoked again |
 | `compensation_offer` | Noble/clerk lean after low-level hit on weak backing — stones, public apology; accept → heat down, level may stick |
 | `sect_inquiry` | Great sect asks if outer worth defending — player choices affect future shield |
@@ -326,7 +339,7 @@ Author **packs**, not 500 quests. Each pack: trigger conditions + stage list + p
 **Stages (sketch):** each stage runs **appetite + modality** pick before firing.
 
 1. **Word spreads** — rumor beat; optional visibility bump ([`world-standing-and-property.md`](world-standing-and-property.md))
-2. **Envoy or summons** — parity + live heir → **`clan_summons`**; else `letter_choice` / `formal_challenge`; shadow if righteous + player strong
+2. **Response** — **`face_first` + weak player** → **`proxy_junior_beatdown`**; parity + live heir → **`clan_summons`** or `letter_choice`; high player backing → shadow/law
 3. **Pressure** — `economic_squeeze` or standing hit; skip open raid if `publicFacePressure` high
 4. **Hunters** — `spawn_hunter` (wilds) or `proxy_duel` (send champion) — not both unless heat maxed
 5. **Apex** — optional authored beat if player ignored N stages; apex only if appetite still high **and** modality allows public apex (or story override)
@@ -619,7 +632,9 @@ Novel beat: junior gets humbled, runs home, **embellishes** → clan mobilizes o
 
 - Victim NPC has **`embellisher`** personality and/or clan **`spoiled_heir`** frequency — not every loss.
 - **No witnesses** → pride clans default to **claim** for spread; witnessed fights can still lie but player gets **rebuttal tools** (below).
-- Lie **inflates** at most +1 level (e.g. bruised ego → “nearly killed”) — not instant blood debt from a slap unless tag extreme + no pushback.
+- Lie **inflates** at most +1 **response tier** (e.g. bruised ego → send **inner** junior instead of outer) — **not** +1 full grudge level into blood unless **lethalAllowed** (see escalation ceiling).
+
+**Default `face_first` response to claim:** skip apology demand → schedule **`proxy_junior_beatdown`** (stronger clan junior, realm-banded above player). Captures *the world is unfair to the weak* — not a tribunal every time.
 
 **Spread uses claim** for `public record` until **`narrative_disputed`** or **`truth_beat`** resolves.
 
@@ -629,12 +644,13 @@ Novel beat: junior gets humbled, runs home, **embellishes** → clan mobilizes o
 |----------------|-----|
 | **Telegraph** | Arrogant/scion personality before fight; inn rumor “House X’s youngest is thin-skinned”; clan tag known after first rumor |
 | **Dossier split** | **Your memory** shows factual; **public** shows claim — mismatch flags **disputed** once you’ve heard the rumor |
-| **Rebuttal window** | Beat between rumor and `clan_summons`/hunters: confront scion in public, produce **witness** NPC, charter **truth-seeking** array (city tier), callable favor (“he was bullying a junior merchant — I have names”) |
-| **Parley option** | At summons, present evidence — success downgrades level/heat; failure means elder believes nephew |
-| **Cost of truth** | Rebuttal takes time/stones — fits “prepare vs move on”; ignoring rumor lets claim harden (+heat) |
+| **Rebuttal window** | Beat after rumor, **before** second beatdown: confront scion in public, witness, favor — downgrades **heat/tier**, not mandatory court |
+| **Parley (optional)** | **`clan_summons`** only when backing parity warrants talk — present evidence there if summoned |
+| **Cost of truth** | Rebuttal takes time/stones — fits “prepare vs move on”; ignoring rumor lets **heat** rise → harder junior or repeat beat |
 | **Comeuppance** | Rare: proven lie **burns scion face** — internal clan heat, player optional favor, elder ashamed (not required every time) |
+| **Survivable default** | Beatdown is **humiliation + HP/injury**, not auto-lethal; death spiral needs **lethalAllowed** or player killing envoys |
 
-**Self-defense + lie combo:** you fought back after bully scion struck first → factual has `selfDefense`; claim says “unprovoked attack.” **`face_first`** clan acts on claim until rebuttal; **`martial_fair`** clan may **`sect_inquiry`** or **`forbear`** when witness exists.
+**Self-defense + lie combo:** you fought back after bully scion struck first → factual has `selfDefense`; claim says “unprovoked attack.” **`face_first`** sends the junior anyway until rebuttal cools heat; **`martial_fair`** may **`forbear`** or send inquiry instead of beatdown when witnesses exist.
 
 **Initiating vs lying:** if **you** truly provoked, rebuttal fails — no “I was innocent” minigame for real aggression.
 
@@ -699,6 +715,8 @@ Novel beat: junior gets humbled, runs home, **embellishes** → clan mobilizes o
 - [ ] Show punishment — player opt-in to elder or forced?
 - [ ] Embellish **max inflate** — always +1 level or tag-dependent?
 - [ ] Witness jade / recording treasure — mandatory for rebuttal or optional hard mode?
+- [ ] **`LETHAL_GAP`** tuning — realm steps vs org tier vs sect role composite?
+- [ ] Beatdown **injury** duration vs purely narrative HP chunk?
 
 ---
 
