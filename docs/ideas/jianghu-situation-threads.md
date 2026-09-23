@@ -6,7 +6,7 @@
 | **Blocked on** | Grudge cultivate interrupt v1 ([`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)); backing/sect power read for NPCs (partial hooks: fame, sect renown, grudge tiers) |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-09-23 |
-| **Updated** | 2026-09-23 (rumor spread, favor ledger, player aggression, sect discipline) |
+| **Updated** | 2026-09-23 (clan pride, embellished reports, initiate-via-actions) |
 
 **Hub:** [`dustbone-living-board.md`](dustbone-living-board.md) · [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Sisters:** [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) (personal interrupts) · [`world-events-layered-battlefield.md`](world-events-layered-battlefield.md) (civic scale) · [`world-standing-and-property.md`](world-standing-and-property.md) (visibility) · [`chronicle-and-projects.md`](chronicle-and-projects.md) (diary) · [`civic-seats-generator.md`](civic-seats-generator.md) (same “engine + packs” pattern) · [`disguise-and-public-identity.md`](disguise-and-public-identity.md) (counterplay)
@@ -228,7 +228,7 @@ grievanceLevelBase         (1–5 from incident)
 |-------|--------|
 | **`witnesses` / `humiliation_public` on incident** | Counterparty **must** respond or lose face; method still varies |
 | **Location tier** | Threshold / capital / tournament month → more **public** optics |
-| **Org brand** | `righteous_charter` · `imperial_clan` · `merchant_guild` · `martial_house` · `hidden_evil` (data tags on org/clan packs) |
+| **Org brand** | `righteous_charter` · `imperial_clan` · `merchant_guild` · `martial_house` · `hidden_evil` · **`face_first`** · **`martial_fair`** (data tags on org/clan packs) |
 | **Relative status** | High-status clan vs unknown cultivator: winning a **street brawl** can look **petty or bullying** |
 | **Player fame** | Famous victimizer → public defeat of player **gains** face; failed public attack **hurts** |
 
@@ -551,6 +551,8 @@ Same **`clan_summons`** scene shell; dialogue source is **your elder**, not Hous
 
 ### Player-initiated aggression (elaborated)
 
+**Not a “start thread” menu.** You initiate by **doing things in the world** that write incidents — rob, challenge, steal, declare sect grudge, public humiliation. Each qualifying action can spawn the victim’s **response thread** (same engine as reactive grudges). Explicit actions (duel letter, extort choice in event) are just **clear** initiators; sneaky initiators still write incidents with witnesses optional.
+
 Feuds are not only “you offended someone.” **Player is aggressor** when an incident lists `actor: player` and `provoked: true` on a **response thread** owned by target/org.
 
 **How aggression starts (examples):**
@@ -581,7 +583,60 @@ Player commits act → incident (witnesses?) → spread rules apply
 - NPC **appetite** can be **low** if you picked on a weak target — backlash is **law/shame**, not duel (bullying optics).
 - **Callable favors** can be **burned** if you later attack someone who owed you — incident `betrayed_credit`.
 
-**Not every fight is aggression:** self-defense flag on incident suppresses provoked response or lowers level.
+**Not every fight is aggression:** see **Clan pride & self-defense** — reasonable orgs honor `selfDefense: true`; some clans ignore it.
+
+---
+
+### Clan pride & self-defense (org temperament)
+
+Not every house is insufferable — **mix org tags** so most honor proportionality; a few **pride** clans drive xianxia friction.
+
+| Org tag | Self-defense | Fiction |
+|---------|--------------|---------|
+| **`pragmatic`** | Lowers level or drops thread | Merchant house, clerk lean — wants money not martyrs |
+| **`martial_fair`** | Honors `selfDefense` if witnesses or clear bully | Respects counter-challenge |
+| **`face_first`** | Often **ignores** self-defense — “you touched our blood” | Insufferable but **predictable** from dossier/rumor |
+| **`imperial_kin`** | Law + face blend | May use yamen instead of alley even when angry |
+
+**Rule:** on incident resolve, if `selfDefense: true` → apply tag modifier **before** thread spawn. `face_first` may still spawn at **claimed** severity (below).
+
+Store tags on clan packs / civic seat culture tables — same place as `nobleBoldness`.
+
+---
+
+### Embellished reports (young scion lies — fair mechanic)
+
+Novel beat: junior gets humbled, runs home, **embellishes** → clan mobilizes on a fiction. System needs **truth vs claim** without feeling like cheating RNG.
+
+**Two records on one encounter:**
+
+| Record | Contents |
+|--------|----------|
+| **`factualIncident`** | Engine truth: who struck first, `selfDefense`, severity, witnesses |
+| **`claimedNarrative`** | What the scion told their house (may inflate level + erase self-defense) |
+
+**When lies happen:**
+
+- Victim NPC has **`embellisher`** personality and/or clan **`spoiled_heir`** frequency — not every loss.
+- **No witnesses** → pride clans default to **claim** for spread; witnessed fights can still lie but player gets **rebuttal tools** (below).
+- Lie **inflates** at most +1 level (e.g. bruised ego → “nearly killed”) — not instant blood debt from a slap unless tag extreme + no pushback.
+
+**Spread uses claim** for `public record` until **`narrative_disputed`** or **`truth_beat`** resolves.
+
+**Fair to the player (telegraph + counterplay):**
+
+| Fairness lever | How |
+|----------------|-----|
+| **Telegraph** | Arrogant/scion personality before fight; inn rumor “House X’s youngest is thin-skinned”; clan tag known after first rumor |
+| **Dossier split** | **Your memory** shows factual; **public** shows claim — mismatch flags **disputed** once you’ve heard the rumor |
+| **Rebuttal window** | Beat between rumor and `clan_summons`/hunters: confront scion in public, produce **witness** NPC, charter **truth-seeking** array (city tier), callable favor (“he was bullying a junior merchant — I have names”) |
+| **Parley option** | At summons, present evidence — success downgrades level/heat; failure means elder believes nephew |
+| **Cost of truth** | Rebuttal takes time/stones — fits “prepare vs move on”; ignoring rumor lets claim harden (+heat) |
+| **Comeuppance** | Rare: proven lie **burns scion face** — internal clan heat, player optional favor, elder ashamed (not required every time) |
+
+**Self-defense + lie combo:** you fought back after bully scion struck first → factual has `selfDefense`; claim says “unprovoked attack.” **`face_first`** clan acts on claim until rebuttal; **`martial_fair`** clan may **`sect_inquiry`** or **`forbear`** when witness exists.
+
+**Initiating vs lying:** if **you** truly provoked, rebuttal fails — no “I was innocent” minigame for real aggression.
 
 ---
 
@@ -642,6 +697,8 @@ Player commits act → incident (witnesses?) → spread rules apply
 - [ ] Favor **call-in** — one active request per creditor or cooldown?
 - [ ] Rumor **speed** — fixed adjacency vs caravan-linked?
 - [ ] Show punishment — player opt-in to elder or forced?
+- [ ] Embellish **max inflate** — always +1 level or tag-dependent?
+- [ ] Witness jade / recording treasure — mandatory for rebuttal or optional hard mode?
 
 ---
 
