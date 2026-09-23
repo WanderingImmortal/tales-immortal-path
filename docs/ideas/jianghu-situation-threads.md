@@ -6,7 +6,7 @@
 | **Blocked on** | Grudge cultivate interrupt v1 ([`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)); backing/sect power read for NPCs (partial hooks: fame, sect renown, grudge tiers) |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-09-23 |
-| **Updated** | 2026-09-23 (face + fight appetite) |
+| **Updated** | 2026-09-23 (face, backing layers, grudge levels) |
 
 **Hub:** [`dustbone-living-board.md`](dustbone-living-board.md) · [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Sisters:** [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) (personal interrupts) · [`world-events-layered-battlefield.md`](world-events-layered-battlefield.md) (civic scale) · [`world-standing-and-property.md`](world-standing-and-property.md) (visibility) · [`chronicle-and-projects.md`](chronicle-and-projects.md) (diary) · [`civic-seats-generator.md`](civic-seats-generator.md) (same “engine + packs” pattern) · [`disguise-and-public-identity.md`](disguise-and-public-identity.md) (counterplay)
@@ -85,8 +85,9 @@ A thread is “the noble clan hunt” or “Merchant Su’s grudge” — one **
 | `participants` | Player + NPC uids + optional `orgId` |
 | `rootIncidentId` | What started it |
 | `nextBeatAt` | Scheduler hook |
-| `flags` | Player choices (`paid_blood_price`, `fled_region`, `killed_envoy`) |
-| `heat` | Optional intensity 0–100 (escalation / de-escalation) |
+| `flags` | Player choices (`paid_blood_price`, `fled_region`, `killed_envoy`, `accepted_compensation`) |
+| `grudgeLevel` | 1–5 ladder at spawn (slight → clan stain) — rarely drops; compensation may lower |
+| `heat` | 0–100 intensity within level (escalation / decay / provocation) |
 
 **Caps:** max active **personal** threads (e.g. 3–5); org-level threads separate cap — avoids quest spam.
 
@@ -132,8 +133,8 @@ Both run **after** an incident exists; they do not replace personal grudges (`gr
 | **Realm band** | `G.realmIdx` | Coarse; main “can you crush my son?” read |
 | **Fame / renown** | `G.fame`, sect renown tiers | Jianghu **visibility**, not only power |
 | **Recent deeds** | Incidents ledger, kill log | “You humiliated us *last week*” vs ancient slight |
-| **Sect face tag** | Player sect rank, hall vs mountain | Disciple vs elder proxy changes who may strike |
-| **Backing** | Sect id + org tier ([`jianghu-organization-types.md`](jianghu-organization-types.md)), allies, imperial charter touch | “His master is a GC elder” |
+| **Sect role** | Outer · registered · inner · core · elder · named heir — see **Backing layers** | Outer disciple ≠ patriarch’s closed-door pupil |
+| **Backing** | Org tier × role weight + patron link ([`jianghu-organization-types.md`](jianghu-organization-types.md)) | Great sect **name** vs **who you are inside it** |
 | **Gear / aura display** | Stretch — luxury gear → [`world-standing-and-property.md`](world-standing-and-property.md) visibility | Optional appetite modifier, not required v1 |
 
 **Counterparty — who is judging**
@@ -146,17 +147,63 @@ Both run **after** an incident exists; they do not replace personal grudges (`gr
 
 Use a simple **power index** per side for v1: realm band + optional org apex band + small fame/renown bump — not a full combat sim. Goal: *plausible hesitation*, not perfect prediction.
 
+### Backing layers (org × role)
+
+**Backing is not one flag.** Counterparties read:
+
+```text
+effectiveBacking =
+  orgTierWeight(great_sect | mid_hall | clan | none)
+× roleWeight(outer | inner | core | elder | direct_pupil)
++ optionalPatronBonus(named_elder | city_seat | imperial_touch)
+```
+
+| Sect role (player) | Fiction | Retaliation risk from outsiders |
+|--------------------|---------|--------------------------------|
+| **Outer / probationary** | Name on the ledger; sect may deny you | **Low** — noble house may strike *you* and **pay compensation later** if heat stays small |
+| **Registered / inner** | Sect will ask questions | **Medium** — open kill triggers diplomatic beat |
+| **Core / named disciple** | Master’s face tied to yours | **High** — proxy duel or sect envoy first |
+| **Elder / representative** | You *are* sect face in city | **Very high** — attack = org incident |
+
+Same **great sect** on the robe: killing an **outer** is “discipline our trash or accept stones”; killing a **core** is “declare war or grovel.”
+
+**Org tier** sets the **price of compensation** and whether the sect **notices** at all (lesser hall outer vs Celestial Sword outer).
+
+Store on player: `sectAffiliation { orgId, role, publicRobe }` — robe may lie under [`disguise-and-public-identity.md`](disguise-and-public-identity.md) until blown.
+
+### Grudge levels (severity ladder)
+
+Separate **grudge level** (what the debt *is*) from **heat** (how hot it burns this month).
+
+| Level | Typical incident | Counterparty goal | vs low backing | vs high backing |
+|-------|------------------|-------------------|----------------|-----------------|
+| **1 — Sl slight** | Rudeness, small cheat | Save face, warn | Cold shoulder | Ignore / clerk note |
+| **2 — Grievance** | Robbery, insult, lost money | Compensation, lesson | Beatings, hirelings | Formal letter, law |
+| **3 — Vendetta** | Public humiliation, maim, repeat offense | Name cleared | Ambush, hunters | Challenge, sect petition |
+| **4 — Blood** | Kill kin, heir, sworn ally | Life for life | Open hunt | Shadow + compensation politics |
+| **5 — Clan stain** | Mass kill, sect disciple dead, charter breach | Exterminate / trial | Total war local | Org thread + imperial attention |
+
+**Level** set at thread spawn from incident type + targets (heir, seat holder). **Heat** ticks up/down with beats, time, bribes, new incidents.
+
+**Dossier legibility:** show level in fiction voice (“House Pei: **grievance**” not “level 2”) — aligns with heat band.
+
 ### Appetite score (sketch)
 
 Conceptual formula — tune in data, not prose:
 
 ```text
-grievanceHeat
-  + personalityAggression
-  - powerGapPenalty        (they are much weaker than player + backing)
-  - apexRisk               (player’s patron org tier >> ours)
-  + heirOrBloodDebt        (non-negotiable for some packs)
+grievanceLevelBase         (1–5 from incident)
++ heatDrift
++ personalityAggression
+- powerGapPenalty          (realm vs player)
+- backingShield            (org tier × sect role — outer shield weak)
+- apexRisk                 (their patriarch vs your patron)
++ nobleBoldness            (clan tag: “will touch outers, pay later”)
 ```
+
+**Noble-clan boldness (owner lean):** A **martial house / noble clan** may **appetite-medium** strike even a **great-sect outer** on level **2–3** if face demands response — then offer **compensation** (`letter_choice` · stones · grovel) before escalating to level 4. They are betting the sect **does not spend political capital** on an outer. Wrong if player is secretly core or incident was **blood**.
+
+**Retaliation ceiling:** `min(grudgeLevel, maxBoldness(org, appetite))` caps beat severity — level 4 thread does not spawn apex hunter if backing shield wins *unless* heat maxed or heir flag.
 
 | Band | Typical behavior |
 |------|------------------|
@@ -170,6 +217,8 @@ grievanceHeat
 - QC nobody slaps a **named GC heir** in a 3rd-tier city → house appetite **high**, modality likely **formal** (duel summons) or **legal** (yamen) — not a back-alley thug unless `lean: graft`.
 - QC nobody with **no sect** kills a bandit chief’s son → chief appetite **high**, modality **open** (they think they win).
 - Player backed by **feared** sect renown + high realm → weaker clan appetite **low** unless incident severity 5 or heir killed — then they **escalate sideways** (see face).
+- **Noble son** slaps **great-sect outer disciple** (level 2) → house **bold**: steward beats you in alley; chronicle later *“House Pei sends stones to the sect hall — an outer was not worth a war.”* Same house, **core disciple** (level 2) → **envoy + compensation demand**, no alley.
+- Incident escalates to **blood** (level 4) → compensation window **closes**; backing shield matters less.
 
 ### Face calculus (public vs shadow)
 
@@ -217,6 +266,8 @@ Store on thread: `lastAppetite`, `preferredModality`, `publicFacePressure` (0–
 | `economic_squeeze` | Refuse service, price spike, license revoke |
 | `proxy_duel` | Send champion disciple — org saves apex face |
 | `forbear` | Chronicle: “House X watches silently” — dormant thread, heat decays unless provoked again |
+| `compensation_offer` | Noble/clerk lean after low-level hit on weak backing — stones, public apology; accept → heat down, level may stick |
+| `sect_inquiry` | Great sect asks if outer worth defending — player choices affect future shield |
 
 ### v1 vs later
 
@@ -347,7 +398,7 @@ Immersion line: *“The jianghu is wrong sometimes. What spreads is what kills y
 | **That** House X or NPC Y bears a grievance (once rumor or envoy fired) | **When** the next beat fires |
 | **Category** of grudge in fiction voice: “blood debt,” “public humiliation,” “broken contract” | Exact beat type (`shadow_bounty` vs `formal_challenge`) |
 | **Hint** tied to *past* public facts: “After the bazaar incident…” | “Prepare for ambush in Dustbone” |
-| **Heat band** (watching · grievance · vendetta) | Numeric stage index / scheduler |
+| **Grudge level + heat band** (slight → blood; cold · warm · burning) | Numeric stage index / scheduler |
 
 Private/shadow threads: list as **“Unknown party”** or **“Whispers, no name”** until a rumor beat names them — righteous sect shadow play stays deniable in-fiction.
 
@@ -415,7 +466,9 @@ Dossier rows **unlock** when the world would plausibly know — not at incident 
 
 - [ ] Thread vs existing `STORY_ARCS`: can an arc **spawn** a thread on fail/betray path only, or always?
 - [ ] Player-initiated feuds (`declare_grudge` analog for NPCs)?
-- [ ] De-escalation economy: blood money amounts by city tier?
+- [ ] De-escalation economy: blood money amounts by city tier × org tier × grudge level?
+- [ ] Sect **defends outer** automatically or needs player merit / elder quest?
+- [ ] Grudge **downgrade** via compensation — can level 3 → 2, or only heat?
 - [ ] Permadeath of thread NPC — thread transfers to org or ends?
 - [ ] Wei-style **opportunity** world quests vs **consequence** threads — same UI or separate tab?
 - [ ] Org **brand tags** — one enum per great sect / clan pack, or derive from alignment + charter fiction?
