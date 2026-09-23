@@ -62,6 +62,8 @@ Ledger entries: `{ sigId, kind, label, firstSeenZone, heat, linkStrength }`.
 
 Player fantasy: *“They might not know my face under paint, but if I draw Frostbite Severance they’ll know it’s me.”*
 
+**Retaliation tie-in:** clans pick **`proxy_junior_beatdown`** juniors from **known** realm band ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)) — low display invites weak envoys; beating them without revealing true band is deliberate “they underestimated me” fantasy.
+
 Dossier **legibility**: show **signatures the jianghu knows about you** (your legend’s tells) — not which guard will spot you. Teaches deep cover without spoilering beats.
 
 ---

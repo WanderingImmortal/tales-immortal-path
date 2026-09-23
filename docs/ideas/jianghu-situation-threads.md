@@ -6,7 +6,7 @@
 | **Blocked on** | Grudge cultivate interrupt v1 ([`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)); backing/sect power read for NPCs (partial hooks: fame, sect renown, grudge tiers) |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-09-23 |
-| **Updated** | 2026-09-23 (proxy junior beatdown, lethal escalation gate) |
+| **Updated** | 2026-09-23 (displayed power for proxy sends) |
 
 **Hub:** [`dustbone-living-board.md`](dustbone-living-board.md) · [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Sisters:** [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) (personal interrupts) · [`world-events-layered-battlefield.md`](world-events-layered-battlefield.md) (civic scale) · [`world-standing-and-property.md`](world-standing-and-property.md) (visibility) · [`chronicle-and-projects.md`](chronicle-and-projects.md) (diary) · [`civic-seats-generator.md`](civic-seats-generator.md) (same “engine + packs” pattern) · [`disguise-and-public-identity.md`](disguise-and-public-identity.md) (counterplay)
@@ -130,7 +130,8 @@ Both run **after** an incident exists; they do not replace personal grudges (`gr
 
 | Signal | Source (today / near) | Notes |
 |--------|------------------------|-------|
-| **Realm band** | `G.realmIdx` | Coarse; main “can you crush my son?” read |
+| **Realm band (known)** | Dossier / cover / last public fight — **not** true realm by default | [`disguise-and-public-identity.md`](disguise-and-public-identity.md) |
+| **Realm band (true)** | `G.realmIdx` | Used after peel, deep probe, or you **reveal** in fight |
 | **Fame / renown** | `G.fame`, sect renown tiers | Jianghu **visibility**, not only power |
 | **Recent deeds** | Incidents ledger, kill log | “You humiliated us *last week*” vs ancient slight |
 | **Sect role** | Outer · registered · inner · core · elder · named heir — see **Backing layers** | Outer disciple ≠ patriarch’s closed-door pupil |
@@ -141,11 +142,34 @@ Both run **after** an incident exists; they do not replace personal grudges (`gr
 
 | Actor | Reads |
 |-------|--------|
-| **Individual NPC** | Own realm vs player, impression/trust, personality (`proud_*` overestimates self; `schemer` prefers shadow) |
+| **Individual NPC** | Own realm vs player **known** band (may misread), impression/trust, personality (`proud_*` overestimates self; `schemer` prefers shadow) |
 | **Clan / house org** | House apex band (seat tier table), `lean`, heir flag, **public reputation tier** |
 | **Sect** | Sect diplomacy rep, alignment branding, grudge rules |
 
-Use a simple **power index** per side for v1: realm band + optional org apex band + small fame/renown bump — not a full combat sim. Goal: *plausible hesitation*, not perfect prediction.
+Use a simple **power index** per side for v1: **known** realm band + optional org apex band + small fame/renown bump — not a full combat sim. Goal: *plausible hesitation*, not perfect prediction.
+
+### Displayed vs true power (owner lock 2026-09-23)
+
+**Clan sends and appetite read what you’ve *shown*, not what you are** — until something updates the public band.
+
+| API (concept) | Source |
+|---------------|--------|
+| `getPlayerKnownRealmBand()` | Dossier public record, cover, last witnessed fight, appraisal — default for **NPC/clan planning** |
+| `getPlayerTrueRealmBand()` | Actual cultivation — combat scaling, your stats |
+
+**`proxy_junior_beatdown`:** pick junior at **knownBand + 1** (margin configurable), **not** true band. Low profile / concealment → they send a scrub to teach “QC trash” a lesson; you reveal FE → **underestimate moment**, chronicle + optional `knownBand` bump incident.
+
+**After the fight:**
+
+| Outcome | Effect |
+|---------|--------|
+| You win while still concealed | Heat +1 (embarrassed house); next send may **probe** (stronger junior or sense peel beat) — not instant apex |
+| You win and **reveal** true level | `identity_revealed` / band update; appetite recalc — may flip to parley or heavier response |
+| You lose | Thread satisfied for beatdown path; heat may decay |
+
+**Lethal gate (`LETHAL_GAP`):** uses **known** backing for “ant vs giant” *unless* you have publicly revealed high realm — don’t let hidden GC get death-hunted off a lie on a QC profile; do let death spiral if you **presented as ant** and picked fight with imperial kin (you chose the mask).
+
+**Spiritual sense:** peel updates **their** planning band for future beats in that org — see spiritual-sense doc.
 
 ### Backing layers (org × role)
 
@@ -195,7 +219,7 @@ Conceptual formula — tune in data, not prose:
 grievanceLevelBase         (1–5 from incident)
 + heatDrift
 + personalityAggression
-- powerGapPenalty          (realm vs player)
+- powerGapPenalty          (their read: **known** band vs their strength)
 - backingShield            (org tier × sect role — outer shield weak)
 - apexRisk                 (their patriarch vs your patron)
 + nobleBoldness            (clan tag: “will touch outers, pay later”)
@@ -634,7 +658,7 @@ Novel beat: junior gets humbled, runs home, **embellishes** → clan mobilizes o
 - **No witnesses** → pride clans default to **claim** for spread; witnessed fights can still lie but player gets **rebuttal tools** (below).
 - Lie **inflates** at most +1 **response tier** (e.g. bruised ego → send **inner** junior instead of outer) — **not** +1 full grudge level into blood unless **lethalAllowed** (see escalation ceiling).
 
-**Default `face_first` response to claim:** skip apology demand → schedule **`proxy_junior_beatdown`** (stronger clan junior, realm-banded above player). Captures *the world is unfair to the weak* — not a tribunal every time.
+**Default `face_first` response to claim:** skip apology demand → schedule **`proxy_junior_beatdown`** (junior at **knownBand + 1**, not true realm). Captures unfair weak-world **and** “they underestimated me” when your display was low.
 
 **Spread uses claim** for `public record` until **`narrative_disputed`** or **`truth_beat`** resolves.
 
