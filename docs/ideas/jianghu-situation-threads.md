@@ -268,6 +268,37 @@ Store on thread: `lastAppetite`, `preferredModality`, `publicFacePressure` (0–
 | `forbear` | Chronicle: “House X watches silently” — dormant thread, heat decays unless provoked again |
 | `compensation_offer` | Noble/clerk lean after low-level hit on weak backing — stones, public apology; accept → heat down, level may stick |
 | `sect_inquiry` | Great sect asks if outer worth defending — player choices affect future shield |
+| `clan_summons` | Escorted to manor/hall for **compensation parley** — see below |
+
+### Clan summons (compensation parley)
+
+**Owner lean (2026-09-23):** Not every beat is a beatdown. When **backing is roughly even** and the wound is **social not mortal** (humiliated heir, maim-lite, heavy beating but alive), a proud house often prefers **drag you to the clan** and ask *how you will compensate* — face for them (authority on their ground), leverage for you (talk before blood).
+
+This is still a **thread beat** (cause-linked), but plays like a **set-piece event**: travel interrupt, short scene, choices — same shell as cultivate interrupt or a story stage, not a separate orphan quest.
+
+**When to pick `clan_summons` over ambush**
+
+| Favor summons | Favor ambush / hunters |
+|---------------|------------------------|
+| `grudgeLevel` 2–3 (grievance / vendetta, **not** blood) | Level 4–5 or heir **killed** |
+| Victim tie: **heir**, young master, named scion — **alive** | Witnesses + they want hide deniability |
+| `\|backingPlayer − backingHouse\|` within **parity band** | Player backing ≪ house (contempt alley) or ≫ house (they use law/shadow) |
+| Org lean: martial house, noble clan, merchant (contract room) | `schemer` + high face pressure → skip open summons |
+| `publicFacePressure` high — spectacle on **their** turf | Player fled twice — skip talk |
+
+**Scene shape (sketch)**
+
+1. **Find you** — inn, road, city gate (recognition check; disguise may delay).
+2. **Escort** — resist → fight + heat; comply → no free damage if you don’t run.
+3. **Hall** — elder / steward; victim visible or absent.
+4. **Choices** (examples): pay stones · public apology · serve term · hand item · accept duel later · name your sect to share blame · **refuse** → thrown out, heat +1, next beat hunters.
+5. **Outcome** — incident `compensation_settled` or thread dormant with level maybe lowered; chronicle + dossier update.
+
+**Why parity matters:** If you’re a nobody outer, they may not ** bother** with a hall — alley + compensation by mail. If you’re equal backing (your sect’s inner vs their heir), summons is the **honorable default** before both sides lose face in the street.
+
+**Player fantasy:** “I punched the young master and lived because his uncle wanted **terms**, not a corpse.” Still tension — wrong tone and you’re kneeling in the hall or dead in the courtyard.
+
+**Event type note:** Implement as `registerWorldEventHandler('clan_summons', …)` **or** thread stage firing the same handler — one handler, two schedulers. Prefer thread-owned payload `{ threadId, houseId, victimUid }` so the parley knows **why** you’re there.
 
 ### v1 vs later
 
@@ -295,7 +326,7 @@ Author **packs**, not 500 quests. Each pack: trigger conditions + stage list + p
 **Stages (sketch):** each stage runs **appetite + modality** pick before firing.
 
 1. **Word spreads** — rumor beat; optional visibility bump ([`world-standing-and-property.md`](world-standing-and-property.md))
-2. **Envoy** — `letter_choice` or `formal_challenge` if face high; `shadow_bounty` if org brand righteous + player strong
+2. **Envoy or summons** — parity + live heir → **`clan_summons`**; else `letter_choice` / `formal_challenge`; shadow if righteous + player strong
 3. **Pressure** — `economic_squeeze` or standing hit; skip open raid if `publicFacePressure` high
 4. **Hunters** — `spawn_hunter` (wilds) or `proxy_duel` (send champion) — not both unless heat maxed
 5. **Apex** — optional authored beat if player ignored N stages; apex only if appetite still high **and** modality allows public apex (or story override)
@@ -462,6 +493,52 @@ Dossier rows **unlock** when the world would plausibly know — not at incident 
 
 ---
 
+## Sim depth — gaps & high-value additions
+
+What we have covers **personal → org retaliation**, **face/modality**, **backing layers**, **dossier legibility**, **disguise/signatures**, and **clan parley**. For a deep xianxia sim, these are the main **missing pieces** worth designing next (not all v1).
+
+### Strong fits (same engine)
+
+| Addition | Why |
+|----------|-----|
+| **Rumor propagation** | Incidents do not instantly globalize — `spreadState` per zone (unknown · whisper · known · poster). Drives disguise time-buying and “leave before it reaches Threshold.” |
+| **Positive threads (credit / favor owed)** | Mirror of grudge: you saved an heir, gave face at tournament. Unlocks parley options, loans, sanctuary — dossier **Allies & credit** is not decoration. |
+| **Home sect discipline** | Before House Pei hunts you, **your hall** may summon *you* (outer shame, compensation from *your* purse). Same beats, `orgId = playerSect`. |
+| **Player-initiated feuds** | You declare challenge, rob caravan, declare_grudge — creates incidents with **you as aggressor**; appetite rules apply to *their* response threads. |
+| **Resolution catalog** | Beyond pay/fight: **oath on contract** (break → heaven strikes?), **serve N years**, **marriage / adoption tie**, **hand technique copy**, **kowtow in public**. Level 2–3 summons become rich. |
+| **Third-party lanes** | Charter **yamen**, **neutral hub** (market truce, Forgers charter hall), **jianghu mediator** NPC — beat type `arbitration_summons` when both sides high backing. |
+| **Mortal vs cultivator lane** | Mortals do not `clan_summons`; they **hire blades**, **petition law**, **slander**. Same incident ledger, different pack. |
+| **Thread interaction** | Two active debts collide: House A hunt vs your B sect ally → merge, choose side, or `crossfire` beat. (P4 sketch.) |
+| **Time & seclusion** | Heat decays in dormancy; **blood level** barely decays; long seclusion pauses beats but not ledger; world moves (posters appear when you emerge). |
+| **Counter-disguise** | Soul lamp, karma tie, **fate** hooks ([`chronicle-and-projects.md`](chronicle-and-projects.md) fate-rite), **framed signature** — someone else uses your art. Deep cover stays risky late game. |
+
+### Player agency & power fantasy
+
+| Addition | Why |
+|----------|-----|
+| **Patron intervention (limited)** | Once per arc: call master/elder — cancels one beat, costs face/ debt to sect. Not a reload button. |
+| **You as hunter** | Bounty board reads **your** threads from enemy side — same ledger, reverse role. |
+| **Founded sect / hall** | When player is org apex, threads hit **your disciples/caravan** as weak ties ([`player-organization-paths.md`](player-organization-paths.md)). |
+
+### Already sister docs — wire in, do not duplicate
+
+| Topic | Doc |
+|-------|-----|
+| Property / weak ties | [`world-standing-and-property.md`](world-standing-and-property.md) |
+| Civic / war scale | [`world-events-layered-battlefield.md`](world-events-layered-battlefield.md) |
+| Alignment & “righteous” fiction | [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) |
+| Imperial / charter law | [`imperial-clan.md`](imperial-clan.md) · [`city-tiers.md`](city-tiers.md) |
+
+### Park (depth creep)
+
+- NPCs feuding among themselves off-screen (Taiwu full sim — [`dustbone-living-board.md`](dustbone-living-board.md) already parked).
+- Full procedural marriage / heir politics.
+- Every technique as unique signature (curate **signature tier** on arts/weapons).
+
+**Build order hint:** rumor propagation + positive threads + home sect discipline pay off immediately after P1 threads; arbitration + resolution catalog before more combat beats.
+
+---
+
 ## Open questions
 
 - [ ] Thread vs existing `STORY_ARCS`: can an arc **spawn** a thread on fail/betray path only, or always?
@@ -469,6 +546,8 @@ Dossier rows **unlock** when the world would plausibly know — not at incident 
 - [ ] De-escalation economy: blood money amounts by city tier × org tier × grudge level?
 - [ ] Sect **defends outer** automatically or needs player merit / elder quest?
 - [ ] Grudge **downgrade** via compensation — can level 3 → 2, or only heat?
+- [ ] Summons **refusal** — instant combat in courtyard vs escape chase beat?
+- [ ] Can player **counter-summon** (request duel on neutral ground instead of their hall)?
 - [ ] Permadeath of thread NPC — thread transfers to org or ends?
 - [ ] Wei-style **opportunity** world quests vs **consequence** threads — same UI or separate tab?
 - [ ] Org **brand tags** — one enum per great sect / clan pack, or derive from alignment + charter fiction?
