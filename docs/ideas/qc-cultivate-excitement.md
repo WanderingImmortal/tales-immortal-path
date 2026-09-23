@@ -58,13 +58,9 @@ While you cultivate, the world may pause and someone with a **reason** finds you
 
 Owner lean: a **sect disciple** might weigh **face** before attacking in public — is it dishonourable to be *seen* doing that? Private courtyard / wilderness = different calculus than Threshold street.
 
-**No face/honor system yet.** Do **not** invent one inside cultivate interrupts. Park:
+**Face / appetite spec:** [`jianghu-situation-threads.md`](jianghu-situation-threads.md) — fight appetite, backing read, public vs shadow modality. Do **not** duplicate that logic inside cultivate interrupts; grudge picker should read **active thread** beat type when sect/clan threads exist.
 
-- Public vs private location mattering for *who will risk attacking*
-- Sect reputation / face cost for open violence
-- “Challenge board / duel summons” as the honourable path vs alley knife
-
-Until then, grudge interrupts should feel like **personal** enemies (road NPCs, story foes, revenge for kills) — not sect politics with fake face math.
+Until those threads ship, grudge interrupts should feel like **personal** enemies (road NPCs, story foes, revenge for kills) — not sect politics with fake face math.
 
 ## Prerequisites
 

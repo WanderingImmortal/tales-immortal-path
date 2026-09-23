@@ -3,10 +3,10 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `designed` |
-| **Blocked on** | Grudge cultivate interrupt v1 ([`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)); face/public honor parked |
+| **Blocked on** | Grudge cultivate interrupt v1 ([`qc-cultivate-excitement.md`](qc-cultivate-excitement.md)); backing/sect power read for NPCs (partial hooks: fame, sect renown, grudge tiers) |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-09-23 |
-| **Updated** | 2026-09-23 |
+| **Updated** | 2026-09-23 (face + fight appetite) |
 
 **Hub:** [`dustbone-living-board.md`](dustbone-living-board.md) · [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Sisters:** [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) (personal interrupts) · [`world-events-layered-battlefield.md`](world-events-layered-battlefield.md) (civic scale) · [`world-standing-and-property.md`](world-standing-and-property.md) (visibility) · [`chronicle-and-projects.md`](chronicle-and-projects.md) (diary) · [`civic-seats-generator.md`](civic-seats-generator.md) (same “engine + packs” pattern)
@@ -110,6 +110,126 @@ Reuse **world-scheduler** pattern: beat type → function.
 
 ---
 
+## Fight appetite & face (how NPCs choose *whether* and *how* to hit back)
+
+Xianxia feuds are not “everyone always rushes you.” Actors weigh **can we win?**, **what do we lose if we lose?**, and **how ugly would it look if we win?** That belongs in the **thread engine** (when picking the next beat), not in hand-written quest text.
+
+### Two decisions per escalation step
+
+| Decision | Question | Drives |
+|----------|----------|--------|
+| **Appetite** | Do we engage at all, wait, or drop it? | Delay beat · de-escalate · ignore (with personality exceptions) |
+| **Modality** | Open · formal · or shadow? | Beat type: duel letter, public challenge, ambush, bounty, poison, law trap, clan petition |
+
+Both run **after** an incident exists; they do not replace personal grudges (`grudge_keeper` may fight anyway when appetite says “no”).
+
+### Signals the world already has (or will)
+
+**Player — displayed strength & record**
+
+| Signal | Source (today / near) | Notes |
+|--------|------------------------|-------|
+| **Realm band** | `G.realmIdx` | Coarse; main “can you crush my son?” read |
+| **Fame / renown** | `G.fame`, sect renown tiers | Jianghu **visibility**, not only power |
+| **Recent deeds** | Incidents ledger, kill log | “You humiliated us *last week*” vs ancient slight |
+| **Sect face tag** | Player sect rank, hall vs mountain | Disciple vs elder proxy changes who may strike |
+| **Backing** | Sect id + org tier ([`jianghu-organization-types.md`](jianghu-organization-types.md)), allies, imperial charter touch | “His master is a GC elder” |
+| **Gear / aura display** | Stretch — luxury gear → [`world-standing-and-property.md`](world-standing-and-property.md) visibility | Optional appetite modifier, not required v1 |
+
+**Counterparty — who is judging**
+
+| Actor | Reads |
+|-------|--------|
+| **Individual NPC** | Own realm vs player, impression/trust, personality (`proud_*` overestimates self; `schemer` prefers shadow) |
+| **Clan / house org** | House apex band (seat tier table), `lean`, heir flag, **public reputation tier** |
+| **Sect** | Sect diplomacy rep, alignment branding, grudge rules |
+
+Use a simple **power index** per side for v1: realm band + optional org apex band + small fame/renown bump — not a full combat sim. Goal: *plausible hesitation*, not perfect prediction.
+
+### Appetite score (sketch)
+
+Conceptual formula — tune in data, not prose:
+
+```text
+grievanceHeat
+  + personalityAggression
+  - powerGapPenalty        (they are much weaker than player + backing)
+  - apexRisk               (player’s patron org tier >> ours)
+  + heirOrBloodDebt        (non-negotiable for some packs)
+```
+
+| Band | Typical behavior |
+|------|------------------|
+| **Low appetite** | Rumor only, cold shoulder, report to patron, wait for player to leave tier-4 pond |
+| **Medium** | Formal letter, compensation demand, challenge board in **their** venue |
+| **High** | Hunters, ambush, sect proxy fight |
+| **Obsessed** | `grudge_keeper` / blood debt — ignores gap (may still pick **shadow** if face demands) |
+
+**Examples:**
+
+- QC nobody slaps a **named GC heir** in a 3rd-tier city → house appetite **high**, modality likely **formal** (duel summons) or **legal** (yamen) — not a back-alley thug unless `lean: graft`.
+- QC nobody with **no sect** kills a bandit chief’s son → chief appetite **high**, modality **open** (they think they win).
+- Player backed by **feared** sect renown + high realm → weaker clan appetite **low** unless incident severity 5 or heir killed — then they **escalate sideways** (see face).
+
+### Face calculus (public vs shadow)
+
+**Face** here means: *reputation cost to the aggressor if the response is seen*. It picks **modality**, not whether the grudge exists.
+
+| Input | Effect |
+|-------|--------|
+| **`witnesses` / `humiliation_public` on incident** | Counterparty **must** respond or lose face; method still varies |
+| **Location tier** | Threshold / capital / tournament month → more **public** optics |
+| **Org brand** | `righteous_charter` · `imperial_clan` · `merchant_guild` · `martial_house` · `hidden_evil` (data tags on org/clan packs) |
+| **Relative status** | High-status clan vs unknown cultivator: winning a **street brawl** can look **petty or bullying** |
+| **Player fame** | Famous victimizer → public defeat of player **gains** face; failed public attack **hurts** |
+
+**Modality rules (owner lean):**
+
+| Profile | Prefers when face-sensitive |
+|---------|----------------------------|
+| **Righteous / charter sect / imperial kin** | Petition law, **duel under witness**, “righteous punishment” framing; **avoid** alley knife in market |
+| **Same, but schemer seat holder** | Public apology demand + **private** assassin / poison / bounty — [`npc-betrayal.js`](../../npc-betrayal.js) beats |
+| **Martial house / bandit kin** | Open challenge, hunt in wilds — public brawl OK if honor narrative fits |
+| **Merchant / clerk lean** | Economic squeeze, deed contest, hire blades — minimal public violence |
+
+So: a **great righteous sect** whose disciple you wronged might **not** send ten disciples to jump you at the inn. They send **one envoy**, a **formal challenge**, or a **bounty through gray guild** — fiction matches “we are righteous” without giving the player a free pass.
+
+### Backing asymmetry (sect vs lone cultivator)
+
+When **player backing ≥ counterparty apex**:
+
+- Appetite may drop to **wait** or **legal/economic** pressure only.
+- Face logic flips: *they* cannot afford to lose in public either — stalemate, poison, or targeting **weak ties** (disciple, caravan, residence) per [`world-standing-and-property.md`](world-standing-and-property.md).
+
+When **counterparty ≫ player**:
+
+- Appetite high but modality may be **contemptuous** (send a steward, not the patriarch) unless you killed an heir.
+
+Store on thread: `lastAppetite`, `preferredModality`, `publicFacePressure` (0–100) so beats stay consistent across months.
+
+### New beat types (face-aware)
+
+| Beat | When |
+|------|------|
+| `formal_challenge` | Public venue; honourable path; timer to accept/flee/forfeit face |
+| `law_petition` | City seat / charter — arrest, fine, ban from market |
+| `shadow_bounty` | No giver name; hunter thread; righteous org **deniability** |
+| `economic_squeeze` | Refuse service, price spike, license revoke |
+| `proxy_duel` | Send champion disciple — org saves apex face |
+| `forbear` | Chronicle: “House X watches silently” — dormant thread, heat decays unless provoked again |
+
+### v1 vs later
+
+| v1 (personal grudge) | Later (clan / sect threads) |
+|----------------------|-----------------------------|
+| Individual appetite from realm + impression + personality | Org tags + backing index |
+| Wilderness vs settlement flag only | Full face tiers + challenge board UI |
+| Open ambush vs converse coldness | Shadow bounty, proxy duel, law petition |
+
+[`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) v1 stays **personal enemies**; when sect-face threads land, interrupts must respect **modality** (no righteous sect alley ambush in capital without a flag).
+
+---
+
 ## Escalation packs (what you author)
 
 Author **packs**, not 500 quests. Each pack: trigger conditions + stage list + personality/org modifiers.
@@ -121,21 +241,21 @@ Author **packs**, not 500 quests. Each pack: trigger conditions + stage list + p
 - Incident `kill` or `humiliation_public` where `target` has `tie: clan_heir` or seat holder with `fateSeed: wrong_enemy`
 - Or kill logged + target carries `clanId` in NPC data
 
-**Stages (sketch):**
+**Stages (sketch):** each stage runs **appetite + modality** pick before firing.
 
 1. **Word spreads** — rumor beat; optional visibility bump ([`world-standing-and-property.md`](world-standing-and-property.md))
-2. **Envoy** — letter_choice: compensation · formal duel · refuse
-3. **Pressure** — standing hit in clan territories; market refusal thin hook
-4. **Hunters** — scheduled `spawn_hunter` in adjacent zones (realm-banded)
-5. **Apex** — optional authored beat if player ignored N stages (named elder — hand-placed or seat-linked)
+2. **Envoy** — `letter_choice` or `formal_challenge` if face high; `shadow_bounty` if org brand righteous + player strong
+3. **Pressure** — `economic_squeeze` or standing hit; skip open raid if `publicFacePressure` high
+4. **Hunters** — `spawn_hunter` (wilds) or `proxy_duel` (send champion) — not both unless heat maxed
+5. **Apex** — optional authored beat if player ignored N stages; apex only if appetite still high **and** modality allows public apex (or story override)
 
 **Personality modifiers:**
 
 | Synergy | Effect |
 |---------|--------|
-| `grudge_keeper` | Slower decay, +heat on insult incidents |
-| `schemer` | Extra `betrayal` beat instead of open fight |
-| `proud_*` | Prefers `letter_choice` duel over ambush |
+| `grudge_keeper` | Slower decay, +heat on insult incidents; may force high appetite when others would forbear |
+| `schemer` | Shadow modality bias; `betrayal` beat instead of open fight |
+| `proud_*` | Overestimates power → higher open-fight appetite; still prefers witnessed duel over ambush |
 
 **Relationship modifiers:**
 
@@ -203,7 +323,7 @@ Personal threads **may** escalate into org standing (clan puts bounty) but shoul
 | **P0** | Incident recorder API; `personal_grudge` thread; hook grudge interrupt picker to active threads |
 | **P1** | Scheduler beats + rumor + chronicle; thread caps + resolve paths |
 | **P2** | Kill-log kin + `clan_blood_debt` pack; NPC/seat `clanId` on holders |
-| **P3** | Face/public location rules; challenge board vs alley knife |
+| **P3** | Appetite + modality picker; org face tags; challenge board vs shadow beats |
 | **P4** | Cross-thread arbitration (two clans both hunting — pick or merge) |
 
 ---
@@ -215,6 +335,9 @@ Personal threads **may** escalate into org standing (clan puts bounty) but shoul
 - [ ] De-escalation economy: blood money amounts by city tier?
 - [ ] Permadeath of thread NPC — thread transfers to org or ends?
 - [ ] Wei-style **opportunity** world quests vs **consequence** threads — same UI or separate tab?
+- [ ] Org **brand tags** — one enum per great sect / clan pack, or derive from alignment + charter fiction?
+- [ ] Player **forfeit face** — skip duel → thread heat vs permanent standing hit?
+- [ ] Assassins guild as universal shadow sink vs per-org hired blades only?
 
 ---
 
