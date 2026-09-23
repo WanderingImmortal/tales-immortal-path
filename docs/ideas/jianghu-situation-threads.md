@@ -314,6 +314,87 @@ Personal threads **may** escalate into org standing (clan puts bounty) but shoul
 - **Quest journal**: optional mirror for players who want a checklist — title from template + participant names
 - **No objective spam:** stages can be hidden until rumor fires (“something is coming”) — fits non-linear play
 
+### Jianghu dossier (player-facing “what the world thinks”)
+
+A dedicated **Diary tab** (or sub-panel): **Your name in the jianghu** — slightly meta, but matches cultivator introspection / “know thyself on the path.” Not a combat spoiler screen; a **legibility layer** so chaos stays readable when threads multiply.
+
+**Split two ledgers in UI copy:**
+
+| Ledger | Player sees | Source |
+|--------|-------------|--------|
+| **Public record** | What others plausibly believe | Witnessed incidents, rumors fired, public duels, sect announcements |
+| **Your memory** | What *you* did (fuller) | Same incident log, including private acts — may note “not yet spread” |
+
+Immersion line: *“The jianghu is wrong sometimes. What spreads is what kills you.”*
+
+#### Sections (sketch)
+
+| Section | Content | Precision |
+|---------|---------|-----------|
+| **Displayed strength** | Realm band **as known** (not true realm if hidden) | Bands: “Rumored QC” · “Seen at FE early” · “Confirmed GC” — from public fights / breakthrough witness / boasts |
+| **Arts shown** | Named techniques or tags seen in public combat | List caps ~5 recent; older fade |
+| **Face / name** | Alias, fame tier, “face known in X zones” | Tied to fame + visibility ([`world-standing-and-property.md`](world-standing-and-property.md)) |
+| **Backing (known)** | Sect robe, hall, patron — **only if displayed** | “Disciple of …” vs “Unaffiliated (rumors say …)” if uncertain |
+| **Enemies & debts** | Persons · clans · sects · law | Filters + sort by heat; see below |
+| **Allies & credit** | Mirror for positive standing | Stops dossier feeling like pure punishment |
+
+#### Enemy list — how much to tell?
+
+**Owner lean: retrospective yes, predictive no.**
+
+| Show | Hide |
+|------|------|
+| **That** House X or NPC Y bears a grievance (once rumor or envoy fired) | **When** the next beat fires |
+| **Category** of grudge in fiction voice: “blood debt,” “public humiliation,” “broken contract” | Exact beat type (`shadow_bounty` vs `formal_challenge`) |
+| **Hint** tied to *past* public facts: “After the bazaar incident…” | “Prepare for ambush in Dustbone” |
+| **Heat band** (watching · grievance · vendetta) | Numeric stage index / scheduler |
+
+Private/shadow threads: list as **“Unknown party”** or **“Whispers, no name”** until a rumor beat names them — righteous sect shadow play stays deniable in-fiction.
+
+**Why not full transparency?**
+
+- Full “you did X → they will Y” turns the game into a **retribution checklist** and pushes optimal pacifist play — bad for rogue cultivator fantasy.
+- Zero feedback makes threads feel like **random jumps** — bad for learning and for “I pissed off everyone” manageability.
+
+**Middle path:** dossier is a **mirror of incidents + surfaced threads**, not the thread AI’s plan. Player can prepare **generally** (leave clan lands, don’t cultivate exposed, buy guards) without dodging every scheduled beat.
+
+Optional **accessibility / tone** toggle (settings):
+
+| Mode | Feel |
+|------|------|
+| **Jianghu voice** (default) | Rumor prose, bands, vague heat |
+| **Blunt** | Same facts, shorter labels — still no beat timers |
+
+Do **not** gate difficulty on the toggle; only wording density.
+
+#### Filters (when the list explodes)
+
+- Type: **Persons** · **Clans/houses** · **Sects** · **Law/charter** · **Unknown**
+- State: **Active** · **Dormant** · **Settled**
+- Zone: where grudge is loudest
+- Sort: heat · recent · alphabetical
+
+Cap **pinned** entries (3) for “main feud” without hiding the long tail.
+
+#### Relation to other UI
+
+| Surface | Role |
+|---------|------|
+| **My path** chronicle | Story of your life |
+| **Jianghu dossier** | Structured **status** — skimmable |
+| **Quest journal mirror** | Optional objectives for players who want tasks |
+| **Rumor inn lines** | First hint before dossier row appears |
+
+Dossier rows **unlock** when the world would plausibly know — not at incident write for secret kills.
+
+#### Phasing
+
+| Phase | Dossier |
+|-------|---------|
+| P0–P1 | Manual-ish: fame, sect tag, story `fate: enemy`, kill-log names after rumor |
+| P2+ | Thread-driven rows, heat bands, org/person filters |
+| P3 | Known vs true realm, arts shown, backing uncertainty |
+
 ---
 
 ## Phased build (when implementing)
@@ -338,6 +419,8 @@ Personal threads **may** escalate into org standing (clan puts bounty) but shoul
 - [ ] Org **brand tags** — one enum per great sect / clan pack, or derive from alignment + charter fiction?
 - [ ] Player **forfeit face** — skip duel → thread heat vs permanent standing hit?
 - [ ] Assassins guild as universal shadow sink vs per-org hired blades only?
+- [ ] Dossier **Blunt** toggle — default off; copy-only or also show heat numbers?
+- [ ] “Your memory” private incidents — always visible to player or locked behind Soul Search / high insight perk?
 
 ---
 
