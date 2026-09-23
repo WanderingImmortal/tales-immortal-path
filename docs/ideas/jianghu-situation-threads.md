@@ -358,6 +358,8 @@ Private/shadow threads: list as **“Unknown party”** or **“Whispers, no nam
 
 **Middle path:** dossier is a **mirror of incidents + surfaced threads**, not the thread AI’s plan. Player can prepare **generally** (leave clan lands, don’t cultivate exposed, buy guards) without dodging every scheduled beat.
 
+**Owner lock (2026-09-23):** Legibility replaces a “main quest.” The player should know **they have enemies** and roughly **why / how hot**, but not **when** or **how** retaliation arrives. That forces a real choice: *how much do I prepare vs can I move on to the next thing?* — cultivation, travel, opportunity, seclusion — without the UI prescribing a single correct path. No main quest arrow; **direction**, not **solution**.
+
 Optional **accessibility / tone** toggle (settings):
 
 | Mode | Feel |
