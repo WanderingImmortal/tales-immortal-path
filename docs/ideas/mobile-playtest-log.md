@@ -4,7 +4,7 @@
 |-------|-------|
 | **Status** | `idea` |
 | **Blocked on** | none — capture only; implement via Issues when ready |
-| **Updated** | 2026-09-24 (session 2) |
+| **Updated** | 2026-09-24 (session 3) |
 
 Informal notes while playing on mobile. **Do not treat as spec** until triaged into Issues or design docs.
 
