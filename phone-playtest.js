@@ -13,11 +13,23 @@ const PHONE_SHEET_TITLES = {
 
 const PHONE_MORE_GROUPS = ['quests', 'people', 'playtest'];
 
+const PHONE_POPUP_BACK_BLOCK_IDS = new Set([
+    'combatOverlay',
+    'tribulationOverlay',
+    'transcendencePerkPopup',
+    'tutorialPopup'
+]);
+
 let _phoneSheetOpen = null;
 let _phoneGroupRestore = new Map();
 
 function isPhonePlaytestLayoutEnabled() {
     return !!getUiSetting('phonePlaytestLayout');
+}
+
+function isPhoneGroupSheetOpen() {
+    const sheet = document.getElementById('phoneGroupSheet');
+    return !!sheet && !sheet.hidden;
 }
 
 function getPhoneGroupEl(key) {
@@ -55,6 +67,7 @@ function closePhoneGroupSheet() {
     sheet.hidden = true;
     _phoneSheetOpen = null;
     document.body.classList.remove('phone-sheet-open');
+    updatePhoneOverlayBack();
 }
 
 function openPhoneGroupSheet(key) {
@@ -89,6 +102,43 @@ function openPhoneGroupSheet(key) {
     sheet.hidden = false;
     _phoneSheetOpen = key;
     document.body.classList.add('phone-sheet-open');
+    updatePhoneOverlayBack();
+}
+
+function getActivePhoneDismissiblePopup() {
+    const overlays = document.querySelectorAll('.popup-overlay.active');
+    for (const el of overlays) {
+        if (PHONE_POPUP_BACK_BLOCK_IDS.has(el.id)) continue;
+        return el;
+    }
+    return null;
+}
+
+function phoneOverlayBackAction() {
+    if (getActivePhoneDismissiblePopup()) {
+        if (typeof closeTopEscapeOverlay === 'function' && closeTopEscapeOverlay()) {
+            updatePhoneOverlayBack();
+            return;
+        }
+        getActivePhoneDismissiblePopup()?.classList.remove('active');
+        if (typeof fullRender === 'function') fullRender();
+        updatePhoneOverlayBack();
+        return;
+    }
+    if (isPhoneGroupSheetOpen()) {
+        closePhoneGroupSheet();
+    }
+}
+
+function updatePhoneOverlayBack() {
+    const btn = document.getElementById('phoneOverlayBack');
+    if (!btn) return;
+    if (!isPhonePlaytestLayoutEnabled()) {
+        btn.hidden = true;
+        return;
+    }
+    const show = isPhoneGroupSheetOpen() || !!getActivePhoneDismissiblePopup();
+    btn.hidden = !show;
 }
 
 function syncPhonePlaytestHeader() {
@@ -104,6 +154,27 @@ function syncPhonePlaytestHeader() {
     nameEl.textContent = cultivator?.textContent?.trim() || G?.name || '—';
     realmEl.textContent = realm?.textContent?.trim() || '—';
     ageEl.textContent = age?.textContent?.trim() || '—';
+}
+
+function phonePlaytestMountBottomChrome(enabled) {
+    const bottom = document.getElementById('phoneBottomChrome');
+    const log = document.getElementById('logPanel');
+    const dock = document.querySelector('.phone-group-dock');
+    const gameScreen = document.getElementById('game-screen');
+    if (!bottom || !log || !dock || !gameScreen) return;
+
+    if (enabled) {
+        bottom.hidden = false;
+        if (log.parentElement !== bottom) {
+            bottom.insertBefore(log, dock);
+        }
+        return;
+    }
+
+    bottom.hidden = true;
+    if (log.parentElement === bottom) {
+        gameScreen.appendChild(log);
+    }
 }
 
 function phonePlaytestMoveChrome() {
@@ -124,6 +195,7 @@ function phonePlaytestMoveChrome() {
 
     if (!enabled) {
         closePhoneGroupSheet();
+        phonePlaytestMountBottomChrome(false);
         if (clock && gameScreen && clock.parentElement === clockHost) {
             gameScreen.insertBefore(clock, gameScreen.querySelector('.main-layout'));
         }
@@ -131,6 +203,7 @@ function phonePlaytestMoveChrome() {
             const scene = document.querySelector('.scene-panel');
             if (scene) scene.insertBefore(visual, scene.querySelector('.scene-header'));
         }
+        updatePhoneOverlayBack();
         return;
     }
 
@@ -140,7 +213,9 @@ function phonePlaytestMoveChrome() {
     if (visual && focalHost && visual.parentElement !== focalHost) {
         focalHost.appendChild(visual);
     }
+    phonePlaytestMountBottomChrome(true);
     syncPhonePlaytestHeader();
+    updatePhoneOverlayBack();
 }
 
 function applyPhonePlaytestLayout(enabled) {
@@ -165,8 +240,10 @@ function initPhonePlaytestLayout() {
     }
 
     document.getElementById('phoneCultivateCta')?.addEventListener('click', () => {
+        closePhoneGroupSheet();
         if (typeof openCultivationHub === 'function') openCultivationHub();
         else document.getElementById('btnCultivate')?.click();
+        updatePhoneOverlayBack();
     });
 
     document.querySelectorAll('.phone-dock-btn[data-phone-sheet]').forEach(btn => {
@@ -182,6 +259,31 @@ function initPhonePlaytestLayout() {
 
     document.getElementById('phoneGroupSheetClose')?.addEventListener('click', closePhoneGroupSheet);
     document.getElementById('phoneGroupSheetBackdrop')?.addEventListener('click', closePhoneGroupSheet);
+    document.getElementById('phoneOverlayBack')?.addEventListener('click', phoneOverlayBackAction);
+
+    document.getElementById('phoneGroupSheetBody')?.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('button');
+        if (!btn || !isPhoneGroupSheetOpen()) return;
+        if (btn.id === 'phoneGroupSheetClose') return;
+        if (btn.classList.contains('phone-dock-btn')) return;
+        if (btn.classList.contains('details-toggle') && btn.id !== 'playtestAdd') {
+            return;
+        }
+        window.setTimeout(() => {
+            closePhoneGroupSheet();
+            updatePhoneOverlayBack();
+        }, 0);
+    });
+
+    document.addEventListener('click', (ev) => {
+        if (!isPhonePlaytestLayoutEnabled()) return;
+        const inSheet = ev.target.closest('#phoneGroupSheetBody');
+        if (inSheet) return;
+        const actionBtn = ev.target.closest('#phoneGroupSheetBody button, .sidebar button, .actions-panel button');
+        if (actionBtn && isPhoneGroupSheetOpen()) {
+            window.setTimeout(updatePhoneOverlayBack, 50);
+        }
+    }, true);
 
     phonePlaytestMoveChrome();
 }
