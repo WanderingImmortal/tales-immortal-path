@@ -11799,8 +11799,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 /* ===== PHONE PLAYTEST LAYOUT (opt-in: .layout-phone-playtest on #app) ===== */
 
 .layout-phone-playtest {
-    --phone-dock-h: 132px;
-    --phone-chrome-h: 220px;
+    /* Must match .phone-group-dock outer height (padding + buttons + safe area) */
+    --phone-dock-h: calc(62px + env(safe-area-inset-bottom, 0));
+    --phone-log-h: 108px;
+    --phone-log-h-expanded: min(38vh, 320px);
 }
 
 body.phone-playtest-active {
@@ -11809,22 +11811,36 @@ body.phone-playtest-active {
     overflow: auto;
 }
 
+.layout-phone-playtest header h1 {
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.layout-phone-playtest header .subtitle {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.layout-phone-playtest #app {
+    padding: 10px 12px 12px;
+}
+
 .layout-phone-playtest .phone-playtest-chrome {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 6px;
     flex-shrink: 0;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     border-bottom: 1px solid var(--ink-border);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .layout-phone-playtest .phone-top-bar {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: space-between;
-    gap: 10px;
+    gap: 8px;
 }
 
 .layout-phone-playtest .phone-identity {
@@ -11833,16 +11849,20 @@ body.phone-playtest-active {
     text-align: left;
     background: var(--ink-paper-raised);
     border: 1px solid var(--ink-border);
-    border-radius: 10px;
-    padding: 8px 12px;
+    border-radius: 8px;
+    padding: 6px 10px;
     cursor: pointer;
     font-family: inherit;
     color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .layout-phone-playtest .phone-identity-name {
     display: block;
-    font-size: 16px;
+    font-size: 13px;
+    line-height: 1.25;
     color: var(--ink-accent);
     white-space: nowrap;
     overflow: hidden;
@@ -11851,9 +11871,10 @@ body.phone-playtest-active {
 
 .layout-phone-playtest .phone-identity-meta {
     display: block;
-    font-size: 12px;
+    font-size: 10px;
+    line-height: 1.3;
     color: var(--ink-text-muted);
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 .layout-phone-playtest .phone-identity-sep {
@@ -11861,42 +11882,71 @@ body.phone-playtest-active {
     margin: 0 4px;
 }
 
+.layout-phone-playtest .phone-clock-host {
+    flex-shrink: 0;
+    max-width: 48%;
+    display: flex;
+    align-items: stretch;
+}
+
 .layout-phone-playtest .phone-clock-host .world-clock-bar {
     position: static;
     right: auto;
     top: auto;
     flex-wrap: wrap;
-    max-width: min(200px, 46vw);
-    font-size: 11px;
-    padding: 5px 8px;
-    gap: 4px;
+    align-content: center;
+    width: 100%;
+    max-width: none;
+    font-size: 9px;
+    padding: 4px 6px;
+    gap: 3px;
+    border-radius: 8px;
+}
+
+.layout-phone-playtest .phone-clock-host .world-clock-speed {
+    padding: 2px 5px;
+    font-size: 9px;
+}
+
+.layout-phone-playtest .phone-clock-host .world-clock-play {
+    font-size: 9px;
+    padding: 2px 6px;
+}
+
+.layout-phone-playtest .phone-clock-host .world-clock-age {
+    font-size: 9px;
+    min-width: 0;
 }
 
 .layout-phone-playtest .phone-focal {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    min-height: 88px;
-    max-height: 120px;
-    margin: 0 auto;
+    min-height: 64px;
+    max-height: 88px;
+    margin: 2px auto 0;
     width: 100%;
+    padding-bottom: 0;
+    overflow: hidden;
 }
 
 .layout-phone-playtest .phone-focal .scene-visual {
     position: static;
     width: auto;
-    max-width: 140px;
-    max-height: 110px;
+    max-width: 100px;
+    max-height: 80px;
     margin: 0;
     opacity: 0.85;
 }
 
 .layout-phone-playtest .phone-cultivate-cta {
     font-family: inherit;
-    font-size: 17px;
-    letter-spacing: 0.04em;
-    padding: 14px 20px;
-    border-radius: 12px;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    margin-top: 8px;
+    padding: 10px 16px;
+    flex-shrink: 0;
+    border-radius: 10px;
     border: 1px solid rgba(160, 128, 80, 0.55);
     background: linear-gradient(165deg, rgba(70, 52, 28, 0.85), rgba(40, 30, 18, 0.92));
     color: #f0e0c4;
@@ -11911,23 +11961,23 @@ body.phone-playtest-active {
 .layout-phone-playtest .phone-group-dock {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
+    gap: 5px;
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 45;
-    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0));
-    background: linear-gradient(0deg, var(--ink-void) 70%, transparent);
-    border-top: 1px solid var(--ink-border-strong);
+    padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0));
+    background: var(--ink-void);
+    border-top: none;
 }
 
 .layout-phone-playtest .phone-dock-btn {
     font-family: inherit;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1;
-    padding: 12px 8px;
-    border-radius: 10px;
+    padding: 8px 4px;
+    border-radius: 8px;
     border: 1px solid var(--ink-border);
     background: var(--ink-paper-raised);
     cursor: pointer;
@@ -11940,7 +11990,7 @@ body.phone-playtest-active {
 
 .layout-phone-playtest .game-screen {
     overflow: visible;
-    padding-bottom: var(--phone-dock-h);
+    padding-bottom: calc(var(--phone-dock-h) + var(--phone-log-h));
 }
 
 .layout-phone-playtest .main-layout {
@@ -11953,9 +12003,27 @@ body.phone-playtest-active {
 }
 
 .layout-phone-playtest .scene-panel {
-    padding: 12px 14px 8px;
-    padding-bottom: 160px;
-    min-height: 200px;
+    padding: 8px 12px 6px;
+    padding-bottom: 8px;
+    min-height: 120px;
+    font-size: 16px;
+}
+
+.layout-phone-playtest .scene-zone-name {
+    font-size: 20px;
+}
+
+.layout-phone-playtest .scene-desc,
+.layout-phone-playtest .scene-latest p {
+    font-size: 14px;
+}
+
+.layout-phone-playtest .scene-card-label {
+    font-size: 10px;
+}
+
+.layout-phone-playtest .scene-card-value {
+    font-size: 13px;
 }
 
 .layout-phone-playtest .scene-header {
@@ -11980,12 +12048,38 @@ body.phone-playtest-active {
     bottom: var(--phone-dock-h);
     width: 100%;
     max-width: none;
-    border-radius: 12px 12px 0 0;
+    height: var(--phone-log-h);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    box-shadow: none;
     z-index: 35;
 }
 
+.layout-phone-playtest .log-panel .log-header {
+    padding: 5px 10px;
+    font-size: 11px;
+}
+
+.layout-phone-playtest .log-panel .log-title {
+    font-size: 11px;
+}
+
+.layout-phone-playtest .log-panel .log-toggle {
+    font-size: 10px;
+    padding: 3px 8px;
+}
+
+.layout-phone-playtest .log-panel #log {
+    font-size: 14px;
+    line-height: 1.45;
+    padding: 6px 10px;
+}
+
 .layout-phone-playtest .log-panel.expanded {
-    height: min(42vh, 380px);
+    height: var(--phone-log-h-expanded);
+    box-shadow: 0 -4px 20px var(--ink-shadow);
 }
 
 .layout-phone-playtest #btnCultivate {
@@ -12102,7 +12196,6 @@ body.phone-sheet-open {
         margin: 0 auto;
         left: auto;
         right: auto;
-        border-radius: 12px 12px 0 0;
     }
 
     .layout-phone-playtest .log-panel {
