@@ -1153,6 +1153,7 @@ function fullRender() {
     renderOverlayLifespanChip();
     if (typeof renderWorldClockBar === 'function') renderWorldClockBar();
     if (typeof syncPhonePlaytestHeader === 'function') syncPhonePlaytestHeader();
+    if (typeof updatePhoneOverlayBack === 'function') updatePhoneOverlayBack();
     const reincBtn = document.getElementById('btnTrueReincarnation');
     if (reincBtn) reincBtn.style.display = (typeof isImmortal === 'function' && isImmortal()) ? '' : 'none';
     saveState();
