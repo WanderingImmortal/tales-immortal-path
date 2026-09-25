@@ -4,7 +4,7 @@
 |-------|-------|
 | **Status** | `idea` |
 | **Blocked on** | none — capture only; implement via Issues when ready |
-| **Updated** | 2026-09-25 (session 10) |
+| **Updated** | 2026-09-25 (session 11) |
 
 Informal notes while playing on mobile. **Do not treat as spec** until triaged into Issues or design docs.
 
@@ -19,3 +19,4 @@ Informal notes while playing on mobile. **Do not treat as spec** until triaged i
 - **Condense Core still wants ≥1 meridian** — Block comes from **FE peak gate**, not a separate condense rule: `CONSOLIDATION_BY_REALM[1].peak.minMeridians: 1` (`data.js`) → `getPeakProgress` / `getChamberCondenseReadiness` (`consolidation.js`, `chamber.js`). **Already flagged in design:** Condense Core at FE is wrong fantasy — belongs at **GC peak** ([`golden-core-condense-peak.md`](golden-core-condense-peak.md)); FE exit should be form-core / tribulation ([`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md)). Revisit meridian minimum when FE→GC path is redone (meridians = FE wiring per redesign doc); no in-game “why” today.
 - **Owner review: sect heirlooms** — Rarely playtested sect layer. **Revisit** `SECT_HEIRLOOMS` / legacy bonuses (`data.js`, `sect-expand.js`) — are effects clear, satisfying, and worth chasing? Schedule dedicated sect playtest pass when ready (not a bug report; satisfaction audit).
 - **Refine Foundation — technique sacrifice feels wrong** — Qi chamber **Refine Foundation** (`chamberPerfectFoundation` / `CHAMBER_BALANCE.perfectFoundation`) requires burning a **spare martial technique** (+Flow pillar). Player: “makes little sense” — fiction/mechanic mismatch vs expectation (materials, time, seal work, not deleting a combat art). **Rework** cost model when foundation/chamber pass lands; see `refineFoundation` in `CULTIVATION_ACTION_GUIDE` (`data.js`).
+- **Seal Dantian — no technique sacrifice / clearer lore** — Same bucket as Refine Foundation. **Seal Dantian** capstone (`executeConsolidation` in `consolidation.js`; `CULTIVATION_ACTION_GUIDE.sealDantian`) should not force burning a martial art — reads as wasting months/lifespan with weak fiction. **Today:** technique sacrifice is on **Core Formation** realm seal only (`CONSOLIDATION_BY_REALM[2].sacrificeTechnique` in `data.js`); QC/FE seals don’t. Player still wants **no** seal path to require technique loss; rework costs + in-fiction reason for seclusion time.
