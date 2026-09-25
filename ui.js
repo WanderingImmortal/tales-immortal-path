@@ -543,7 +543,11 @@ function renderScenePanel() {
     document.getElementById('sceneZoneDesc').textContent = locDef ? locDef.description : (zone ? zone.description : '');
     document.getElementById('sceneCultivator').textContent = G.name;
     const traitDef = typeof getPlayerTraitDef === 'function' ? getPlayerTraitDef() : G.trait;
-    document.getElementById('scenePath').textContent = PATHS[G.path].name + (traitDef ? ' · ' + traitDef.name : '');
+    const realmLabel = typeof getRealm === 'function' ? getRealm() : '';
+    const pathLabel = PATHS[G.path].name + (traitDef ? ' · ' + traitDef.name : '');
+    document.getElementById('scenePath').textContent = realmLabel
+        ? `${realmLabel} · ${pathLabel}`
+        : pathLabel;
     document.getElementById('sceneBreakRealm').textContent = getNextRealm();
     const alignMod = typeof getDaoAlignmentBreakModifierLabel === 'function' ? getDaoAlignmentBreakModifierLabel() : '';
     document.getElementById('sceneBreakChance').textContent = Math.round(getBreakChance()) + '% chance' + (alignMod ? ' · ' + alignMod : '');
@@ -2580,7 +2584,11 @@ function renderMerchantPopup() {
     if (hint) {
         const discount = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
         const discountNote = discount < 1 ? ` · 🪷 ${Math.round((1 - discount) * 100)}% faction discount` : '';
-        const stockNote = zoneId === 'redwell' ? ' · finite stock · QC manuals redraw seasonally' : '';
+        const stockNote = zoneId === 'redwell'
+            ? (typeof getRedwellRestockHint === 'function'
+                ? ` · ${getRedwellRestockHint()}`
+                : ' · finite stock · QC manuals redraw seasonally')
+            : '';
         hint.textContent = `${G.stones} Stones · ${catalog.name}${discountNote}${stockNote} · Click an item to buy`;
     }
 
