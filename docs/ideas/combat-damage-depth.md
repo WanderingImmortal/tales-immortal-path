@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (parked — owner 2026-08-01) |
-| **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) playable slice; Redwell first |
+| **Status** | `building` (Phase A+B on branch) |
+| **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) playable slice for Phase C; zonal engine pass before redoing pool profiles |
 | **Issue** | none yet |
-| **Chat / PR** | Combat damage depth planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
-| **Updated** | 2026-08-01 |
+| **Chat / PR** | [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116) — Phase A+B; zonal resolution designed 2026-08-30 |
+| **Updated** | 2026-09-13 |
 | **Design focus** | **Intent wielding** + **cultivation loop** — see [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) |
 
 ## Intent
@@ -62,6 +62,251 @@ Structure is **one** integrity pool — not four limb HP bars. When it crosses a
 - Flesh + Structure on that arm → **arm severed** (worse; full lasting stakes later; v1 may preview as harder in-fight lock).
 
 Flesh breaks do **not** pick limbs. Flesh → bleed. Limbs/frame are Structure’s job.
+
+### Zonal resolution — one hit, one line (owner 2026-08-30)
+
+**Problem:** Global structure stress + break-time RNG feels like basics “nick everywhere.” One slash should land **somewhere**, not smear damage across the whole body each swing.
+
+**Principle:** Basics hit **one zone** per attack; repeated hits **deepen that line**; only arts that read as wide (sweep, whirlwind, domain, trib bolt) hit **multiple zones or all systems** (AoE fantasy).
+
+| Zone (v1 humanoid) | Role |
+|----------------------|------|
+| **arm** | Guard arm, weapon hand — disable swings / two-hand |
+| **leg** | Footing, mobility — slow, flee |
+| **frame** | Chest, ribs, trunk — guard collapse, cleave fantasy |
+
+**Fairness (no technique gating):** Any reasonable kit can disable any way — techniques change **speed, reliability, and flavor**, not **permission**. Missing a rare sweep art means crippling takes longer, not that legs are unreachable. Storm Needle is “meridian disruption in one shot,” not “the only meridian attack.”
+
+**Who picks the zone (no aim menu, no focus toggle):**
+
+1. **Openings** — enemy posture exposes a line (guard high → arm/frame; off-balance → leg).
+2. **Attack shape** — quick clash → arm; heavy commit → frame; authored sweep → low line **for that hit**.
+3. **Stickiness** — first hit of an exchange establishes `currentLine`; follow-ups ~70% same zone until break or foe recovers. Small RNG on **first** hit only, not every swing.
+4. **Technique nudge** — +bias for one swing, not a key to a body part.
+
+**Systems vs zones:**
+
+- **Structure / circulation breaks** — zonal (arm break, leg buckle, arm meridian sealed).
+- **Bleed** — can go **global** once flesh gives *somewhere* (one wound bleeding out is fine).
+- **Needles** — same lane model: one meridian lane per hit (arm / leg / torso); weak on basics, strong on needle arts.
+
+**Non-HP wins (all paths):** bleed out, cripple (limbs/frame), qi seal (circulation), core collapse / morale flee (later), cleave on cracked frame (heavy finish — any heavy kit when pen beats hardness, not one scroll).
+
+**Implementation note:** Phase A shipped a **single global structure pool** + break roll. Next engine pass: per-zone stress + `currentLine` stickiness before redoing Phase B pool profiles.
+
+#### Later — sensory & internal depth (parked)
+
+Extend zones when ready; same “one hit, one line” rule unless art is AoE:
+
+| Extension | Example | Effect |
+|-----------|---------|--------|
+| **Sensory** | eyes, ears | Blind, disorient — high stakes; rare breaks; spiritual sense / probe to detect |
+| **Internal poisons** | outer vs inner coat | Outer → flesh/system stress; inner → circulation/core lanes; meridian toxins vs blood toxins (see battle coats) |
+| **Fine bilateral** | left/right arm | After v1 `arm` works; bilateral caps already in Phase A |
+
+Do not add per-fight focus UI. Depth comes from openings, stickiness, pen/hardness, and authored wide arts — not inventory keys or aim wheels.
+
+### Phase B — owner technique designation (2026-09)
+
+Pool profiles are split into **buckets** so defense/buff/aura types are not lumped together. Future “damaging aura” buffs get their own bucket when added.
+
+#### Flesh delivery — blunt vs cut (locked 2026-09-13)
+
+**No new HP bar.** Same flesh / structure / circulation / core systems; delivery changes *how* flesh is stressed and when bleed applies.
+
+| Delivery | Nature (usual) | Flesh behavior |
+|----------|----------------|----------------|
+| **Open palm, qi palm** | `crush` profile but **flesh-heavy stress** | Blunt trauma — bruise, shock; **bleed mainly on flesh break**, not every chip. Optional future tag: `blunt` (lower bleed rate per hit until break). |
+| **Claw, rake, finger-blade** | `slash` | Flesh **cut** — bleed builds on flesh stress normally. Hand-to-hand + `slash` = unarmed cut, not a new system. |
+| **Slam, iron palm, body avalanche** | `crush` (structure-heavy) | Bone, frame, limb buckle — Mountain Crash family. |
+| **Meridian palm, seal** | `needle` | Circulation — not default palm identity. |
+
+**Power gap** (sever chunks, bisect): deferred — `pen` / hardness vs flesh & structure when that slice lands; same blunt palm can bruise a peer or ruin a weak foe.
+
+**Redo scope:** **palm family rows only** (~10 arts), not the whole `TECHNIQUE_ATTACK_PROFILES` table. Slash weapons, crush slams, needles already fit.
+
+#### Bucket 1a — Defense stances (locked 2026-09-13)
+
+**No HP damage. No wound stress.** Skip `resolveCombatHit` / attack profile when used as intended.
+
+| Technique | Intended combat role (today) |
+|-----------|------------------------------|
+| Iron Mountain Stance | Root stance → guard next blow (body fortify) |
+| Well-Road Guard | Brace → guard |
+| Bone Tempering Stance | Bone temper → guard |
+| Bronze Skin Palm | Harden flesh → guard |
+| Spectral Shield | Soul barrier → guard |
+
+**Later (separate techniques, not these):** reflect/thorns/counter — stance itself still no stress; reflect **proc** may wound attacker as its own hit.
+
+#### Bucket 1b — Self buffs (locked 2026-09-13)
+
+**No HP damage. No wound stress.** Descriptions promise self-effects; combat hooks are **not built yet** (currently weak chip attacks — fix in a buff-combat slice).
+
+| Technique | Xianxia fantasy | Target self-effect (when built) |
+|-----------|-----------------|--------------------------------|
+| Meridian Flow | Circulate qi | Light heal / qi or stamina recovery |
+| Blood Aegis | Blood membrane | Damage absorb / brief shield |
+| Focused Breath | Center breath & intent | Steady next exchange (dmg bonus or resist) |
+
+#### Bucket 1c — Damaging auras / domains (parked)
+
+**Not in pool yet.** When added: may deal HP + stress tick (e.g. slaughter domain, lightning field) — **explicit AoE/wide** profile, not mixed with 1a/1b.
+
+Rule: category or `delivery: 'aura'` + authored `wide: true` (or equivalent) gates wound stress. Self-only circulate/ward arts stay in 1b.
+
+#### Bucket 2a — Mobility utilities (locked 2026-09-13)
+
+**No HP damage. No wound stress.** Not the same family as soul-probe or story arts.
+
+| Technique | Role | Combat today |
+|-----------|------|--------------|
+| Quickfoot Art | Reposition before enemy strikes | Placeholder — no effect yet |
+| Void Step | Evade next attack | Works via transcendence button (`voidStepActive`) |
+| Dust Step | Sand in eyes, slip aside | Placeholder — **sensory / eyes debuff** when that system exists |
+
+#### Bucket 2b — Soul probe (placeholder — 2026-09-13)
+
+**Soul Search** — utility in *role* (probe, read, soften foe) but not footwork. Owner has **not** developed spirit/soul damage yet; **do not finalize profile** until soul combat slice exists.
+
+When built (notes for later):
+
+- Light **spirit HP** + debuff (current: enemy dmg mult down ~2 turns) — keep out-of-combat probe hooks
+- Stress: **circulation / core** (`soul-cut`) — **not flesh or structure**
+- Not comparable to Soul Spike / Soul Rend power tier
+
+Remove agent-authored `TECHNIQUE_ATTACK_PROFILES` row until soul system is designed.
+
+#### Bucket 2c — Story / quest arts (placeholder — 2026-09-13)
+
+Techniques granted by narrative (e.g. quest ally rewards, `reqTalent`). Design **case by case** — must not be trash, but combat role revisits when story context is clear.
+
+| Technique | Source (today) | Status |
+|-----------|----------------|--------|
+| Gentle Repression | Wei Ling ally path · `cursed_scholar` | **Deferred** — owner doesn't recall intended combat role; desc: suppress corruption, steady meridians |
+
+Not mixed with 2a mobility or 2b soul probe. Revisit with Wei Ling / cursed scholar thread.
+
+#### Bucket 3 — Weird attacks (owner designation, in progress)
+
+##### Mirror Step (owner 2026-09-13)
+
+- **Rework → mobility technique** (Bucket 2a family), not a guard-piercing attack.
+- Remove attack profile / `ignoresGuard` hardcode in `combat.js`.
+- **Prerequisite:** mobility utility **infrastructure** — evade, reposition, or opening creation must do something or mobility arts are useless (same note as Quickfoot / Void Step / Dust Step). Track as combat slice, not profile-only.
+
+##### Void Rend (owner 2026-09-13)
+
+- **Stress:** core + frame (not generic pierce spread).
+- **Tag:** `spatial` (or equivalent) — attack operates through space; **ignores normal guard/block**, only blocked by **spatial defenses** (ward, void shield, domain — define when those exist).
+- Replace generic `ignoresGuard` with spatial interaction rules.
+
+##### Blood Refining Art (owner 2026-09-13)
+
+- Fantasy: **blood devour / blood siphon** (cultivation-adjacent), not generic slash.
+- **v1 (locked):** flesh-heavy stress + lifesteal (keep current heal hook); rename/flavor toward siphon.
+- **Zonal option:** when wide/zonal exists, light flesh stress across limbs (siphon "everywhere" without per-limb menu).
+- **v3 (parked):** blood volume / vitae layer on HP for poisons & blood arts — defer until poison pass.
+
+##### Purifying Palm (owner 2026-09-13)
+
+- **Not needle** — palm strike; agent `needle` profile is wrong.
+- **Untagged foes:** regular palm — flesh stress (same family as other palms).
+- **Tagged foes** (`corrupted` / `demonic` when enemy traits exist): **circulation burn** — purifying element scours taint from channels; bonus damage + circulation stress skew.
+- Enemy taint traits not on mobs yet — add with alignment/sacrilege combat hooks. Not player `corruptionLevel`.
+
+##### Five Elements Fist (owner 2026-09-13)
+
+- **UI pick element:** neat but cumbersome + bespoke code for one art now — **defer**.
+- **Cycle elements (default lean):** each use advances fire → water → earth → wind → lightning; **elemental matchup** on foes (effective ~1/5 vs resistant enemies unless they're neutral). No picker UI; log shows which element landed.
+- **Profile (interim):** crush or element-tinted stress per cycle when matchup table exists; until then crush + `sweep` acceptable.
+
+##### Tide Spiral (owner 2026-09-13)
+
+- Redirecting foe's force is odd for wound pipeline — **rewrite fantasy:** spiral **generates** its own crushing water force (not parry-redirect).
+- **Profile:** crush · structure lean (keep or simplify).
+
+##### Gale Spiral (owner 2026-09-13)
+
+- Fantasy: compressed wind spiral — **rasengan-adjacent**, wind blades cutting.
+- **Profile:** slash · flesh-primary; **light core** splash (compressed qi at center). **Not** full multi-limb — one line per hit (zonal); avoid "strong everywhere" unless tiered as heavy.
+- If too strong in playtest: drop core splash to circulation chip or reduce stress scale.
+
+##### Sandstorm Body Art (owner 2026-09-13)
+
+- **Not a single-attack wound profile** — **damaging stance / aura** (Bucket **1c**): while active, grit and wind scour foe **wide** (all zones or light flesh across body). Advance while you close.
+- Move out of normal attack profile table; implement with aura tick + `wide` when damaging-buff slice lands.
+
+##### Frostbite Palm (parked 2026-09-13)
+
+- **Blocked on:** **part debuffs** — frozen limb, necrotic limb, etc. (zonal break payoffs beyond generic slow).
+- Ice "chills to the bone" needs limb-level status, not just flesh/structure weights.
+- No final profile until part-debuff slice designed.
+
+##### Glacier Heart Palm (parked 2026-09-13)
+
+- **Blocked on:** same **part debuff** system as Frostbite; step-up ice art (numbing / marrow freeze).
+- Design after Frostbite + debuff framework; likely circulation or structure lane on a frozen zone.
+
+##### Viper Fang Strike (parked 2026-09-13)
+
+- **Blocked on:** **poison** pass. Fantasy: venom palm / poison strike, not generic slash flesh.
+- **Idea (owner):** poison that **accelerates bleed** on a bleeding foe — needs bleed + poison + debuff interaction. Park in poison ideas when building.
+- No lifesteal hook required until poison slice; may pair with blood path later.
+
+##### Sandburrow Palm (parked 2026-09-13)
+
+- **Blocked on:** **armor + pierce** stat redesign (`docs` pen/hardness Phase B+). "Finds cracks in armor" is penetration fantasy, not generic pierce spread.
+- Revisit after player/enemy armor model and `spatial`/`pen` tags are clearer.
+
+##### Soul arts — entire cluster (parked 2026-09-13)
+
+**No profiles until soul/spirit combat slice exists.** Includes: Soul Severing Sword, Soul Lash, Phantom Blade, Mind Sever, Ghost Spear Thrust, Spirit Suppression Art, Demon Seal, Abyss Gaze, Soul Spike, Soul Rend (signature may revisit earlier — owner call). Soul Search → Bucket 2b placeholder.
+
+##### Nature-only defaults (locked 2026-09-13)
+
+Under **flesh blunt vs cut** rule above:
+
+| Technique | Profile read |
+|-----------|----------------|
+| Heavenly Palm | Flesh-forward **blunt palm** — reference palm for the game |
+| Grit Palm | Same family, trash tier — flesh blunt, accept generic weights |
+| Earth Pulse Palm | Blunt palm + earth; `sweep` (ground pulse → legs) |
+| Crushing Fist | **Crush** structure — body path raw impact, not a palm |
+| Staff Shatter | **Crush** frame; `twoHand` — staff-force through body |
+| Maelstrom Lance | **Pierce**; `twoHand`; core lean — spear home art |
+
+##### Bucket 3 — misc (not yet reviewed)
+
+Accept agent defaults until zonal pass unless playtest feels wrong: Saltbrush Snap, Cinder Volley, Root-Vein Surge, Scorching Palm, Raging Ember Fist, Wind Blade Strike, Heavenly Sword Qi, Demon Seal (soul — parked with cluster), etc.
+
+---
+
+### Phase B designation — what we have (2026-09-13)
+
+| Layer | Status |
+|-------|--------|
+| **Design — zonal resolution** | Locked: one hit / one line, stickiness, openings, no aim menu, no technique gating |
+| **Design — buckets 1–3** | Owner pass largely complete; soul cluster + system-blocked arts parked |
+| **Design — flesh blunt/cut** | Locked; palm-family profile redo scoped (~10 rows) |
+| **Code — Phase A** | Shipped on [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116): stress, breaks, logs, chips, heuristic + agent profiles |
+| **Code — Phase B profiles** | First-pass `TECHNIQUE_ATTACK_PROFILES` in `data.js` — **do not treat as canon**; rewrite after zonal engine + designation |
+| **Code — zonal engine** | Not built (`currentLine`, per-zone stress) |
+| **Code — combat slices** | Not built: mobility infra, defense/buff zero-damage, damaging auras, spatial guard, foe `corrupted`/`demonic` tags, part debuffs, poison, pen/armor |
+
+### Phase B designation — next steps (priority)
+
+1. **Playtest Phase A spine** (optional) — breaks, bleed, logs feel; merge PR #116 when happy with numbers-only tuning later.
+2. **Build zonal engine (Phase 2b)** — `currentLine`, per-zone stress, stickiness; prerequisite for meaningful wound shape.
+3. **Rewrite profiles in one pass** — apply bucket rules + palm blunt/cut; strip parked/bucket-1 rows from stress pipeline; remove agent noise.
+4. **Small combat slices** (can parallelize after 2–3):
+   - Mobility utility infrastructure (Quickfoot, Dust Step, Mirror Step rework)
+   - Defense/buff: no HP, no stress + real self-effects for 1b
+   - Sandstorm → damaging aura (1c) when aura tick exists
+   - Void Rend `spatial` + Purifying Palm dual-mode when foe tags exist
+5. **Deferred** (own Issues later): soul arts, poison (+ bleed-accelerator), part debuffs (ice limbs), pen/armor (Sandburrow), blood vitae v3, Gentle Repression story role.
+
+**Do not** re-design every technique before step 2 — designation doc is the source of truth until zonal lands.
 
 ### Debuffs (owner-locked)
 
@@ -469,8 +714,10 @@ Defaults locked for parking; revisit when building:
 
 ## Build phases (Issues later)
 
-1. **`resolveCombatHit` + enemy stress pools** — breaks, bleed, logs (HP victory unchanged)
-2. **Attack profiles on pool** — default `nature` / `stress` on techniques + weapon basics
+1. **`resolveCombatHit` + enemy stress pools** — breaks, bleed, logs (HP victory unchanged) — **shipped Phase A** [PR #116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)
+2. **Attack profiles on pool** — default `nature` / `stress` on techniques + weapon basics — **first pass shipped**; redo after zonal engine
+2b. **Zonal resolution** — `currentLine`, per-zone stress, stickiness, openings — **designed, not built** ← **next engine work**
+2c. **Profile rewrite** — owner designation rules + palm blunt/cut; strip parked rows — **after 2b**
 3. **Intent expression** — cross-wield shift; soften high-art weapon hard-fail; port expand arts to profile modifiers
 4. **Dao riders** — stress bias + move phase procs into `DAO_TAXONOMY`
 5. Outer/inner poisons & battle coats
