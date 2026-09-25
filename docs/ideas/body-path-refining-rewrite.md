@@ -68,7 +68,7 @@ A mortal frame can hold so much converted nature, and then it is saturated. Vess
 
 | Band | Flesh | World |
 |------|--------|--------|
-| **Early** | First conversions. Common meat, hide, field herbs, grit take. | You stop being an ordinary laborer. A shift doesn't ruin you. Cuts close. |
+| **Early** | First soaks. Common meat, beast hide, field herbs, and grit will fill a vat. | You stop being an ordinary laborer. A shift doesn't ruin you. Cuts close. |
 | **Mid** | The temper is reliable. Variety matters: the same carcass pays less the second time. | Town strongman, caravan muscle. Ordinary Dustbone beasts are huntable. |
 | **Late** | The frame is saturated. This is the door to Vessel Establishment. | As much "stolen wild" as a human body can keep without a brace. |
 | **Peak** (optional) | A little more density. The step into establishment is harsher because you are packed tighter. | Still a mortal. The Redwell hunter people tell stories about. |
@@ -96,7 +96,7 @@ The screen is the body. A resource is a bath, or part of one. The player should 
 | Enough raw material for the body | Soak the whole frame. | The same grain, everywhere. Costs much more. |
 | Materials for a solution (x, or x + y + z) | Brew, then soak a limb or the body. Purer essence. Less waste. | A cleaner take of that grain. |
 
-You choose the target: a limb, or the whole body. The bath chooses the grain. Hide, muscle, and blood-deep flesh are what Inner Tempering can steep. Organs, marrow, and meridians stay closed.
+You choose the target: a limb, or the whole body. The bath chooses what that flesh learns. The soak reaches the skin and the meat and blood under it. It does not reach organs, marrow, or meridians.
 
 Early, Mid, and Late move by themselves as the frame fills. There is no button between bands. Redwell feels it: work hurts less, ordinary beasts are huntable, people ask you to lift things.
 
@@ -130,13 +130,13 @@ The **vessel physique** is the recipe of what the flesh kept. It is not rolled a
 
 | Material grain (mortal) | What the flesh learns | Not this |
 |-------------------------|----------------------|----------|
-| Stone, iron, hide-beasts | Density, blows turn | A new combat stat row |
+| Stone, iron, beast hide | Density. Blows turn on the skin and meat. | A new combat stat row |
 | Sinew, springy beasts | Quickness of the frame | |
 | Sunscar heat, frost plants | Tolerance to that hardship | Casting that element |
 | Bitter organs, venomous game | Poison and filth tolerance | |
 | Rich blood, marrow foods | Staying power | A pearl (that is the next realm) |
 
-The same carcass pays less the more of that grain you already hold. A frame full of hide is a lopsided mortal, and Late is still Late. Saturation does not move.
+The same bath pays less the more of that grain the flesh already holds. A body soaked only in toughening solutions is lopsided, and Late is still Late. Saturation does not move.
 
 **Close combat, not a fireball.** A natural treasure can leave an element in the flesh. It shows up on contact: knuckles coated in flame, a step that frosts the ground, venom on the palm. Qi throws the bolt. The body wears it. Vajra Ridge still refuses flame *rebirth* (a qi art). A monk’s fists running hot is a different thing.
 
