@@ -64,7 +64,7 @@ Names and the oath split: [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 **The realm has a limit.** Diminishing returns only decide how you fill the cup. They are not the ceiling.
 
-A mortal frame can hold so much converted nature, and then it is saturated. Vessel Establishment exists to brace that frame so it can hold more. If feasting forever still made you stronger, the next realm would be optional. Qi Condensation already works this way: Early, Mid, Late, then an optional Peak inside the same basin. Late is full enough to leave. Peak is a little more of the same kind of power, not a new kind.
+A mortal frame can hold so much converted nature, and then it is saturated. Vessel Establishment exists to brace that frame so it can hold more. If soaking forever still made you stronger, the next realm would be optional. Qi Condensation already works this way: Early, Mid, Late, then an optional Peak inside the same basin. Late is full enough to leave. Peak is a little more of the same kind of power, not a new kind.
 
 | Band | Flesh | World |
 |------|--------|--------|
