@@ -120,13 +120,13 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [QC cultivate on the living clock](qc-cultivate-excitement.md) | `designed` | Clock Phase 2 playtest | — |
 | [Passive cultivation floor & focused sessions](passive-cultivation-floor.md) | `building` | Playtest tune (inferior bare → Peak QC) | — |
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `designed` | Chamber pacing tune pass | — |
-| [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | — | PR in progress |
+| [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | Later: height expansion after the nine-realm index bump | PR in progress |
 | [Creation screen redesign](creation-screen-redesign.md) | `idea` (stubbed) | Roots v2, cultivation manuals framework, event hooks | — |
 | [Cultivation realm depth pass](cultivation-realm-depth-pass.md) | `idea` | QC designed — see qi-condensation-depth | — |
 | [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` (**parked**) | Realm depth pass; Immortal Ascension beat | — |
 | [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` (**parked**) | Realm depth pass; Immortal climax | — |
 | [Upper ladder design hub](upper-ladder-design-hub.md) | `designed` (partial) | Nine-realm code; void qi; tribulation | — |
-| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Watershed pacing; half-step peak | — |
+| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Body/soul names; half-step powers. Seeking entry 10k. | — |
 | [Realm claims](realm-claims.md) | `designed` (expanded) | Nine-realm ladder in code; owner tune idx 4/7 | — |
 | [Dao Seeking & Manifestation](dao-seeking-and-manifestation.md) | `designed` | Nine-realm idx 6–7; sword taxonomy | — |
 | [Void cosmology & Void Refinement](void-cosmology-and-refinement.md) | `designed` (partial) | Void qi / arts; VR→Seeking tribulation | — |

@@ -6,7 +6,7 @@
 | **Blocked on** | — |
 | **Issue** | none yet (PR in progress) |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 (mixed-root philosophy, deviant variants, basin tiers, reincarnation creation) |
+| **Updated** | 2026-09-25 (nine-realm index bump is mechanical; height expansion is later) |
 
 ## Intent
 
@@ -90,7 +90,7 @@ Grade column removed from ceiling — superior single and inferior single both *
 | 5 | Dao Seeking | Dao Threshold |
 | 6 | Immortal Ascension | Immortal Firmament |
 
-> **Nine mortal realms:** Two tiers added after Nascent Soul — see [`nine-realm-ladder.md`](nine-realm-ladder.md). Height labels need +2 rows when ladder ships.
+> **Needs a later pass (owner 2026-09-25).** When the nine-realm ladder ships, bump these numbers so a label still means the same realm: Void Horizon stays Void Refinement, which moves from index 4 to 5. Do not invent new height labels or a new ceiling philosophy in that change. Roots still need real work after that bump — what a root is allowed to reach once Deity Transformation and Dao Manifestation exist, and the names for those heights. See [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 Below Foundation Shore (stuck in QC): **Condensation Pool** (index 0) — rootless / worst pentamixed penalty case.
 

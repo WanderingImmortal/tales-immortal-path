@@ -4,7 +4,7 @@
 |-------|-------|
 | **Status** | `designed` (competent vs perfected peak — owner 2026-07-22) |
 | **Blocked on** | Roots v2 landed; chamber pacing tune pass |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-09-25 |
 
 > **Nine realms:** Mortal ladder expanded to 9 indices — see [`nine-realm-ladder.md`](nine-realm-ladder.md). **Lifespan table updated 2026-08-02** — xianxia scale (GC 300–500y … Manifest ~50ky); supersedes +40y gentle-step draft.
 
@@ -105,7 +105,7 @@ Full table: [`nine-realm-ladder.md`](nine-realm-ladder.md). Summary for basin ma
 | 3 | Nascent Soul | **1,000** | **1,250–1,500** | 2nd-tier lords; sect face characters |
 | 4 | Deity Transformation | **2,000** | **2,500–3,000** | 1st-tier peer band; regional deity presence |
 | 5 | Void Refinement | **5,000** | **7,500–10,000** | Hidden patriarchs; 5k = clean half of 10k (owner lock) |
-| 6 | Dao Seeking | **~12–15k** (lean) | **~30,000** target | **Open** — years earned by comprehension milestones, not breakthrough alone |
+| 6 | Dao Seeking | **10,000** | laws, playtest | Entry ties perfected Void (owner 2026-09-25). Years above 10k come from laws — amounts not locked. |
 | 7 | Dao Manifestation | **~45,000** | **50,000** | Big jump on **first wield**; mortal map ceiling |
 | 8 | Immortal | unbound | unbound | Left mortal lifespan loop |
 
@@ -153,7 +153,7 @@ Tie to `world.js` `lifespanUsesRealm` and future `peakTier` on world NPCs.
 - How many root variants at creation vs discovered in-world?
 - Body/soul paths: same watershed calendar or different lifespans? (Lean: **same idx caps**, different flavor text)
 - GC+ in-basin **+years** per milestone — defer until milestones designed
-- Dao Seeking: which comprehension beats extend life? (see [`nine-realm-ladder.md`](nine-realm-ladder.md) — Dao Seeking lifespan open)
+- Dao Seeking: which law beats extend life past 10,000? Playtest; try depth before count. (see [`nine-realm-ladder.md`](nine-realm-ladder.md))
 
 ## Implementation crumbs
 
