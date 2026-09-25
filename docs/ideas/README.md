@@ -95,6 +95,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Personal residence](personal-residence.md) | `building` (QC minimal home) | Full ladder later | `cursor/qc-playtest-fixes` |
 | [World standing & property](world-standing-and-property.md) | `idea` (parked) | Residence buy | — |
 | [Sect vs personal anchor](sect-vs-personal-anchor.md) | `idea` (parked) | Residence | — |
+| [Tribulation & breakthrough — xianxia feel](tribulation-xianxia-feel-brainstorm.md) | `designed` (brainstorm) | Damage depth; per-gate journeys | — |
 | [Tribulation system rework](tribulation-system-rework.md) | `shipped` (v1) + v2 QC→FE building | Higher gates — see per-gate backlog | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-gate backlog](tribulation-per-gate-backlog.md) | `idea` (QC→FE `building`) | Owner design per watershed | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-per-gate-backlog | — |
