@@ -58,6 +58,29 @@ The “three clicks, +1%” gimmick is a depth problem **inside** the mortal dig
 
 Names and the oath split: [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
+### Inner Tempering — saturation (lean 2026-09-25)
+
+**Work:** take power out of natural materials and weave it into your own flesh and blood.
+
+**The realm has a limit.** Diminishing returns only decide how you fill the cup. They are not the ceiling.
+
+A mortal frame can hold so much converted nature, and then it is saturated. Vessel Establishment exists to brace that frame so it can hold more. If feasting forever still made you stronger, the next realm would be optional. Qi Condensation already works this way: Early, Mid, Late, then an optional Peak inside the same basin. Late is full enough to leave. Peak is a little more of the same kind of power, not a new kind.
+
+| Band | Flesh | World |
+|------|--------|--------|
+| **Early** | First conversions. Common meat, hide, field herbs, grit take. | You stop being an ordinary laborer. A shift doesn't ruin you. Cuts close. |
+| **Mid** | The temper is reliable. Variety matters: the same carcass pays less the second time. | Town strongman, caravan muscle. Ordinary Dustbone beasts are huntable. |
+| **Late** | The frame is saturated. This is the door to Vessel Establishment. | As much "stolen wild" as a human body can keep without a brace. |
+| **Peak** (optional) | A little more density. The step into establishment is harsher because you are packed tighter. | Still a mortal. The Redwell hunter people tell stories about. |
+
+**What does not raise the ceiling:** rarer ingredients, talent, or patience. They fill the frame faster and with less waste. A demon core, jade, a beast's cultivation core, marrow-as-pearl, meridians, and Vessel Rules are later work. Forcing them into a full mortal body is rejection — fever, scarring, the power will not stay — not a secret rank above Late.
+
+**How far that still is:** the strongest honest mortal. Visible in a 4th-tier town. Same social weight as a peak Qi Condenser: real, local, not a lord. A vessel-established cultivator is a different category, the way a foundation cultivator is heavier than someone whose dantian is merely full.
+
+**Lifespan:** the idx 0 cap stays **80 years**. Tempered flesh lets you reach that cap still sound, instead of broken at sixty. It does not buy centuries. Law of Dust still applies: this body holds together better, and it is still dust.
+
+Pacing can share the Qi Condensation clock (inferior: Late around 40–44, Peak around 45–50) so a full mortal physique still has years left to attempt the vessel, or to live out the basin and die the strongest body in town.
+
 ## Prerequisites
 
 - [x] Owner lean: milestones for power parity, not qi-style realm breakthroughs
