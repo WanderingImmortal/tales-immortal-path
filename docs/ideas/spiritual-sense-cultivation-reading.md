@@ -6,7 +6,7 @@
 | **Blocked on** | Owner world rules; possibly Nascent Soul+ when sense is common in fiction |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 |
+| **Updated** | 2026-09-23 |
 
 ## Intent
 
@@ -20,6 +20,7 @@ Cultivators should not automatically know another party's **true realm**, **core
 - Core **integrity** (whole vs fractured vs false nascent)
 - Foundation variant / dao alignment (faint signature)
 - Concealment art, treasures, or higher realm masking lower readings
+- **Face / bone structure** vs cosmetic disguise — see [`disguise-and-public-identity.md`](disguise-and-public-identity.md) (bone-shifting vs makeup)
 
 ### Detection channels (sketch — pick mix later)
 

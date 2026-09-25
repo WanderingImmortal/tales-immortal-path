@@ -6,7 +6,7 @@
 | **Blocked on** | Realm/lifespan table parked; world tick sim optional for v1 |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
-| **Updated** | 2026-07-22 |
+| **Updated** | 2026-09-23 |
 
 ## Intent
 
@@ -33,6 +33,7 @@ Today the game scatters history across several logs (`worldChronicle`, sect chro
 | **My path** | Breakthroughs, seclusion, projects, personal beats |
 | **Sect** | Sect history (if founded) — founded, wars, succession, disciples |
 | **Jianghu** | World events — factions, calamities, things that happened while you were gone |
+| **Name in the jianghu** | Player dossier — known strength, face, backing, grievances ([`jianghu-situation-threads.md`](jianghu-situation-threads.md) § dossier) |
 
 **Era chapters** for long lives — auto headers so millennia stay readable:
 
