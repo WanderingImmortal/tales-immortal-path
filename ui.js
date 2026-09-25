@@ -2578,21 +2578,33 @@ function renderMerchantPopup() {
     }
     if (title) title.textContent = catalog.name;
     if (hint) {
-        const discount = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
-        const discountNote = discount < 1 ? ` · 🪷 ${Math.round((1 - discount) * 100)}% faction discount` : '';
+        const priceMultHint = typeof getMarketPriceMult === 'function' ? getMarketPriceMult(zoneId)
+            : (typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1);
+        const discountNote = priceMultHint < 1 ? ` · 🪷 ${Math.round((1 - priceMultHint) * 100)}% discount` : '';
+        const markupNote = priceMultHint > 1 ? ` · prices +${Math.round((priceMultHint - 1) * 100)}%` : '';
+        let civicNote = '';
+        if (zoneId === 'redwell' && typeof getRedwellSeatName === 'function') {
+            const face = getRedwellSeatName('redwell_bazaar');
+            const leanNote = typeof getSettlementMarketLeanPriceNote === 'function'
+                ? getSettlementMarketLeanPriceNote('redwell')
+                : '';
+            civicNote = leanNote ? ` · ${face}: ${leanNote}` : ` · ${face} runs the stalls`;
+        }
         const stockNote = zoneId === 'redwell' ? ' · finite stock · QC manuals redraw seasonally' : '';
-        hint.textContent = `${G.stones} Stones · ${catalog.name}${discountNote}${stockNote} · Click an item to buy`;
+        hint.textContent = `${G.stones} Stones · ${catalog.name}${discountNote}${markupNote}${civicNote}${stockNote} · Click an item to buy`;
     }
 
-    const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    const priceMult = typeof getMarketPriceMult === 'function' ? getMarketPriceMult(zoneId)
+        : (typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1);
     let html = '';
 
     if (catalog.staples?.length) {
         html += `<div class="tech-group-header">🥖 Staples</div>`;
         html += catalog.staples.map(item => {
             const left = item.stockLeft != null ? item.stockLeft : 1;
-            const canBuy = G.stones >= item.price && left > 0;
-            const status = `${item.price} Stones · ${left} left` + (canBuy ? ' · Click to buy' : '');
+            const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+            const canBuy = G.stones >= finalPrice && left > 0;
+            const status = `${finalPrice} Stones · ${left} left` + (canBuy ? ' · Click to buy' : '');
             return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-staple="${item.id}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
                 <div class="name">${item.emoji || '🥖'} ${item.name}</div>
                 <div class="desc">${item.desc || ''}</div>
@@ -2700,8 +2712,9 @@ function renderMerchantPopup() {
             if (!pill) return '';
             const locked = item.reqRealm != null && G.realmIdx < item.reqRealm;
             const left = item.stockLeft != null ? item.stockLeft : (item.qty || 1);
-            const canBuy = !locked && G.stones >= item.price && left > 0;
-            const status = (locked ? `Need ${PATHS[G.path].realms[item.reqRealm]}` : `${item.price} Stones · ${left} left`)
+            const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+            const canBuy = !locked && G.stones >= finalPrice && left > 0;
+            const status = (locked ? `Need ${PATHS[G.path].realms[item.reqRealm]}` : `${finalPrice} Stones · ${left} left`)
                 + (canBuy ? ' · Click to buy' : '');
             return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-pill="${item.id}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
                 <div class="name">${pill.emoji} ${pill.name}</div>

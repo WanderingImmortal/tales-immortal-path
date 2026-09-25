@@ -44,6 +44,40 @@ const CIVIC_LEAN_POOL = ['graft', 'clean', 'merchant', 'martial', 'clerk'];
 
 const CIVIC_FATE_SEEDS = ['stagnate', 'leave_up', 'wrong_enemy', 'age_out'];
 
+/** Short rumor fragments keyed by holder lean — paired with seat name in buildSettlementCivicRumors(). */
+const CIVIC_LEAN_RUMOR_FRAGMENTS = {
+    graft: [
+        'skims a coin off every fee that passes their desk',
+        'never signs a paper without a second purse watching',
+        'owes favors at the well — and collects them twice',
+        'keeps two ledgers: one for the Registry, one for friends'
+    ],
+    clean: [
+        'posts fines in public and means every word',
+        'turned down a bribe loud enough for the whole bazaar to hear',
+        'counts the guard roster personally each dawn',
+        'made an enemy last month by refusing to look away'
+    ],
+    merchant: [
+        'knows every caravan before it kicks up dust',
+        'buys low from panicked sellers and never apologizes',
+        'quotes prices like scripture — and still finds buyers',
+        'lost money on a Miraj run and swears the road cheated them'
+    ],
+    martial: [
+        'broke a quarry brawler\'s arm without drawing a blade',
+        'walks the road at dusk when others hide indoors',
+        'posted a bounty with their own coin just to send a message',
+        'still carries grit under their nails from younger years'
+    ],
+    clerk: [
+        'memorized every debt on the board before breakfast',
+        'files complaints in triplicate and answers none of them quickly',
+        'quotes Registry law when anyone raises their voice',
+        'has not missed a rent tally in three seasons'
+    ]
+};
+
 /** Zone culture packs — names + ticks. */
 const CIVIC_CULTURE_PACKS = {
     dustbone: {
@@ -310,19 +344,38 @@ function ensureSettlementSeats(settlementId) {
                 bag[roleId] = rollCivicHolder(roleId, profile, {
                     ageYears: isApex ? (40 + Math.floor(Math.random() * 25)) : (24 + Math.floor(Math.random() * 20))
                 });
+                const label = getCivicSeatLabel(settlementId, roleId);
+                const place = profile.displayName || settlementId;
+                const newName = bag[roleId].name;
+                if (typeof appendWorldChronicle === 'function') {
+                    const summary = roleId === 'city_lord'
+                        ? `City Lord ${old} left the seat in ${place}. ${newName} holds the office now.`
+                        : `${label} ${old} stepped down in ${place}. ${newName} took the seat.`;
+                    appendWorldChronicle({
+                        emoji: '🏛️',
+                        type: 'civic',
+                        zoneId: settlementId,
+                        summary
+                    });
+                }
                 if (typeof addLog === 'function') {
-                    const place = profile.displayName || settlementId;
                     if (roleId === 'city_lord') {
-                        addLog(`🏜️ City Lord ${old} is gone from the seat. ${bag[roleId].name} holds ${place} now — same office, new face.`);
-                        if (settlementId === 'redwell' && G.redwellLord) {
-                            G.redwellLord.met = false;
-                            G.redwellLord.thanksGiven = false;
-                            G.redwellLord.successionSeen = true;
-                        }
+                        addLog(`🏜️ City Lord ${old} is gone from the seat. ${newName} holds ${place} now — same office, new face.`);
                     } else {
-                        const label = getCivicSeatLabel(settlementId, roleId);
-                        addLog(`🏜️ ${label}: ${old} is gone. ${bag[roleId].name} holds the seat now.`);
+                        addLog(`🏜️ ${label}: ${old} is gone. ${newName} holds the seat now.`);
                     }
+                }
+                if (settlementId === 'redwell' && G.redwellLord) {
+                    G.redwellLord.met = false;
+                    G.redwellLord.thanksGiven = false;
+                    G.redwellLord.successionSeen = true;
+                    G.redwellLord.lastSuccession = {
+                        roleId,
+                        label,
+                        oldName: old,
+                        newName,
+                        month: G.ageMonths || 0
+                    };
                 }
                 // Preserve Redwell graft lean on lord when profile forces it
                 if (profile.overrides?.[roleId]?.lean) {
@@ -375,4 +428,100 @@ function getRedwellSeatLean(seatId) {
     const roleId = profile?.legacySeatMap?.[seatId];
     if (!roleId) return null;
     return getSettlementSeatHolder('redwell', roleId)?.lean || null;
+}
+
+/** Rumor lines pulled from live civic seat holders (name + lean + tick). */
+function buildSettlementCivicRumors(settlementId) {
+    const profile = getSettlementCivicProfile(settlementId);
+    if (!profile?.generateSeats) return [];
+    ensureSettlementSeats(settlementId);
+    const rumors = [];
+    const roles = listCivicRolesForSettlement(settlementId);
+    roles.forEach(roleId => {
+        const holder = getSettlementSeatHolder(settlementId, roleId);
+        if (!holder?.name) return;
+        const label = getCivicSeatLabel(settlementId, roleId);
+        const lean = holder.lean && CIVIC_LEAN_RUMOR_FRAGMENTS[holder.lean]
+            ? holder.lean
+            : 'clerk';
+        const frags = CIVIC_LEAN_RUMOR_FRAGMENTS[lean];
+        const frag = frags[Math.floor(Math.random() * frags.length)];
+        rumors.push(`${label} ${holder.name} ${frag}.`);
+        if (holder.tick) {
+            rumors.push(`At the Inn: "${label} ${holder.name} — ${holder.tick}"`);
+        }
+    });
+    const lordState = settlementId === 'redwell' ? G.redwellLord : null;
+    if (lordState?.lastSuccession?.newName) {
+        const s = lordState.lastSuccession;
+        const monthsAgo = Math.max(0, (G.ageMonths || 0) - (s.month || 0));
+        if (monthsAgo <= 36) {
+            if (s.roleId === 'city_lord') {
+                rumors.push(`Since City Lord ${s.oldName} left, ${s.newName} runs a tighter or looser purse — depends who you ask.`);
+            } else {
+                rumors.push(`${s.label} ${s.oldName} is already forgotten. ${s.newName} sets the tone now.`);
+            }
+        }
+    }
+    return rumors;
+}
+
+function buildRedwellCivicRumors() {
+    return buildSettlementCivicRumors('redwell');
+}
+
+/** Bazaar face lean nudges buy prices at settlement markets (content hook, not a full economy sim). */
+function getSettlementMarketLeanMult(settlementId) {
+    const profile = getSettlementCivicProfile(settlementId);
+    if (!profile?.generateSeats) return 1;
+    const lean = getSettlementSeatHolder(settlementId, 'market')?.lean;
+    const table = {
+        graft: 1.08,
+        clean: 0.97,
+        merchant: 0.96,
+        martial: 1.02,
+        clerk: 1.0
+    };
+    return table[lean] || 1;
+}
+
+function getSettlementMarketLeanPriceNote(settlementId) {
+    const lean = getSettlementSeatHolder(settlementId, 'market')?.lean;
+    if (lean === 'graft') return 'prices run a little rich';
+    if (lean === 'clean') return 'posted prices are fair';
+    if (lean === 'merchant') return 'haggling is useless here';
+    if (lean === 'martial') return 'stall fees are stiff';
+    return '';
+}
+
+/** Well boss lean nudges job payouts — martial favors risky escort runs. */
+function getSettlementJobsLeanMult(settlementId, jobId) {
+    const profile = getSettlementCivicProfile(settlementId);
+    if (!profile?.generateSeats) return 1;
+    const lean = getSettlementSeatHolder(settlementId, 'jobs')?.lean;
+    const job = typeof getThresholdJobDef === 'function' ? getThresholdJobDef(jobId) : null;
+    const risky = !!(job?.risk || jobId === 'short_escort');
+    const table = {
+        graft: 0.92,
+        clean: 1.02,
+        merchant: 0.98,
+        martial: risky ? 1.06 : 1.0,
+        clerk: 1.03
+    };
+    return table[lean] || 1;
+}
+
+function getSettlementJobsLeanPayNote(settlementId, mult) {
+    if (mult < 0.95) return 'Well boss clipped the tally.';
+    if (mult > 1.01) return 'Fair count — pays what was posted.';
+    return '';
+}
+
+/** Age civic holders on world time — succession runs inside ensureSettlementSeats. */
+function tickCivicSeats(delta) {
+    if (!delta || delta <= 0 || typeof G === 'undefined') return;
+    Object.keys(SETTLEMENT_CIVIC_PROFILES).forEach(settlementId => {
+        const profile = SETTLEMENT_CIVIC_PROFILES[settlementId];
+        if (profile?.generateSeats) ensureSettlementSeats(settlementId);
+    });
 }

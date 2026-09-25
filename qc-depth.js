@@ -327,9 +327,11 @@ function ensureRedwellLordState() {
             met: false,
             thanksGiven: false,
             lastGlimpseMonth: -1,
-            successionSeen: false
+            successionSeen: false,
+            lastSuccession: null
         };
     }
+    if (G.redwellLord.lastSuccession === undefined) G.redwellLord.lastSuccession = null;
     return G.redwellLord;
 }
 
@@ -346,11 +348,21 @@ function maybeRedwellCityLordGlimpse() {
     const chance = lord.met ? 0.12 : 0.28;
     if (Math.random() > chance) return null;
     lord.lastGlimpseMonth = now;
+    const lean = typeof getRedwellSeatLean === 'function' ? getRedwellSeatLean('redwell_city_lord') : null;
     if (!lord.met) {
-        return `👁️ Through the grit you glimpse ${title} — mid–late FE weight. The street makes room. He does not look at you.`;
+        let line = `👁️ Through the grit you glimpse ${title} — mid–late FE weight. The street makes room. He does not look at you.`;
+        if (lean === 'graft') line += ' A clerk trails him with a coin pouch.';
+        if (lean === 'martial') line += ' Road warden flanks him without a word.';
+        return line;
     }
     if (member) {
         return `👁️ ${title} passes near the well. A Well-Ring sash gets a slight nod; nothing more.`;
+    }
+    if (lean === 'merchant') {
+        return `👁️ ${title} haggles with a caravan factor mid-stride. Your face does not register.`;
+    }
+    if (lean === 'clean') {
+        return `👁️ ${title} inspects a guard post as he passes. Neat. Unhurried. You are invisible.`;
     }
     return `👁️ ${title} crosses the yard. Your outsider face earns no pause.`;
 }
@@ -525,6 +537,15 @@ function ensureRedwellMarketState(forceSeason) {
     return m;
 }
 
+/** Faction discount × civic bazaar lean (Redwell). */
+function getMarketPriceMult(zoneId) {
+    let mult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    if (zoneId === 'redwell' && typeof getSettlementMarketLeanMult === 'function') {
+        mult *= getSettlementMarketLeanMult('redwell');
+    }
+    return mult;
+}
+
 function getResolvedMerchantCatalog(catalogKey) {
     const key = catalogKey || (typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : null);
     if (!key || typeof MERCHANT_CATALOG === 'undefined') return null;
@@ -578,7 +599,13 @@ function actionRedwellRumor() {
         return;
     }
     G.stones -= cost;
+    ensureRedwellSeats();
     let pool = REDWELL_RUMORS.slice();
+    const civicPool = typeof buildRedwellCivicRumors === 'function' ? buildRedwellCivicRumors() : [];
+    if (civicPool.length) {
+        // Weight civic seat gossip — names and leans from the live generator.
+        pool = pool.concat(civicPool, civicPool);
+    }
     const wr = G.wellRing;
     const lord = ensureRedwellLordState();
     if (wr?.member && (wr.heardFeeScam || (wr.merit || 0) >= 5 || wr.dirtyDone)) {
@@ -591,7 +618,13 @@ function actionRedwellRumor() {
         pool = pool.concat(REDWELL_RUMORS_LORD_EXIT);
     }
     const line = pool[Math.floor(Math.random() * pool.length)];
-    addLog(`🍺 ${getRedwellSeatName('redwell_innkeep')} pours. Rumor: ${line}`);
+    const innkeep = getRedwellSeatName('redwell_innkeep');
+    const marketLean = typeof getRedwellSeatLean === 'function' ? getRedwellSeatLean('redwell_bazaar') : null;
+    let pour = `${innkeep} pours`;
+    if (marketLean === 'graft' && Math.random() < 0.2) {
+        pour = `${innkeep} pours — ${getRedwellSeatName('redwell_bazaar')}\'s man is drinking in the corner`;
+    }
+    addLog(`🍺 ${pour}. Rumor: ${line}`);
     fullRender();
 }
 
@@ -732,6 +765,16 @@ function applyThresholdJobResult(jobId, opts) {
     }
     let pay = job.payMin + Math.floor(Math.random() * (job.payMax - job.payMin + 1));
     let eventLine = '';
+    const jobLeanMult = typeof getSettlementJobsLeanMult === 'function'
+        ? getSettlementJobsLeanMult('redwell', jobId)
+        : 1;
+    if (jobLeanMult !== 1) {
+        pay = Math.max(1, Math.floor(pay * jobLeanMult));
+        const leanNote = typeof getSettlementJobsLeanPayNote === 'function'
+            ? getSettlementJobsLeanPayNote('redwell', jobLeanMult)
+            : '';
+        if (leanNote) eventLine += ` ${leanNote}`;
+    }
     // Soft outsider tax: fat escort runs lean toward Well-Ring / City Lord's quiet arrangement
     if (jobId === 'short_escort' && typeof isWellRingMember === 'function' && !isWellRingMember()) {
         pay = Math.max(job.payMin, Math.floor(pay * 0.82));
@@ -793,9 +836,20 @@ function openThresholdJobsPopup() {
     }
     const boss = getRedwellSeatName('redwell_well_boss');
     const bossTick = typeof getRedwellSeatTick === 'function' ? getRedwellSeatTick('redwell_well_boss') : null;
-    list.innerHTML = `<div class="desc" style="margin-bottom:8px;">${boss} posts what work still pays.${bossTick ? ' ' + bossTick : ''}</div>` + REDWELL_JOBS.map(job => {
+    const bossLean = typeof getRedwellSeatLean === 'function' ? getRedwellSeatLean('redwell_well_boss') : null;
+    let bossLeanNote = '';
+    if (bossLean === 'graft') bossLeanNote = ' Watch the tally — he skims.';
+    else if (bossLean === 'clean') bossLeanNote = ' Honest counts, if you earn them.';
+    else if (bossLean === 'martial') bossLeanNote = ' Escort runs pay better when he posts them.';
+    else if (bossLean === 'clerk') bossLeanNote = ' Every coin is logged.';
+    list.innerHTML = `<div class="desc" style="margin-bottom:8px;">Well boss ${boss} posts what work still pays.${bossLeanNote}${bossTick ? ' ' + bossTick : ''}</div>` + REDWELL_JOBS.map(job => {
+        const leanMult = typeof getSettlementJobsLeanMult === 'function' ? getSettlementJobsLeanMult('redwell', job.id) : 1;
+        const adjMin = leanMult !== 1 ? Math.max(1, Math.floor(job.payMin * leanMult)) : job.payMin;
+        const adjMax = leanMult !== 1 ? Math.max(adjMin, Math.floor(job.payMax * leanMult)) : job.payMax;
         const dry = isThresholdJobDry(job.id);
-        const pay = `${job.payMin}–${job.payMax}`;
+        const pay = adjMin === job.payMin && adjMax === job.payMax
+            ? `${job.payMin}–${job.payMax}`
+            : `${adjMin}–${adjMax}`;
         const risk = job.risk ? ' · Risk' : '';
         const status = dry ? 'No work of this kind right now' : `${job.months} mo · ${pay} Stones${risk} · Click to work`;
         return `<div class="popup-item${dry ? '' : ' can-buy'}" data-threshold-job="${job.id}" style="${dry ? 'opacity:0.55;' : 'cursor:pointer;'}">
