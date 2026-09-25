@@ -185,6 +185,30 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 7 | Law (wear) | Embody law; local imposition |
 | 8 | Transcendence | Above mortal map; immortal fork |
 
+## Body path names (proposal — not locked, 2026-09-25)
+
+The live list (Bronze Skin through Indestructible Vajra) ranks materials. It does not match the weight of the qi steps, and it has no room for the two new realms. Owner ask: rework all nine. Power is excavated from inside the body. **Saintly Flesh** stays the end (Saint, parallel to Immortal).
+
+One dig, getting grander:
+
+| Idx | Qi neighbor | Proposed body name | What the step is |
+|-----|-------------|--------------------|------------------|
+| 0 | Qi Condensation | **Inner Tempering** | Start digging power out of your own flesh |
+| 1 | Foundation Establishment | **Vessel Establishment** | Brace the body so the dig has something that can hold it |
+| 2 | Core Formation | **Essence Pearl** | The dig condenses into one precious thing inside you. The watershed. |
+| 3 | Nascent Soul | **Nascent Physique** | That pearl gives birth to a physique. A second body, not a soul. |
+| 4 | Deity Transformation | **Deity Physique** | The physique no longer fits an ordinary person. A place feels you arrive. |
+| 5 | Void Refinement | **Hollow Refinement** | Dig past the physique into the empty place under it. Opening it is the door; strength is refined inside. |
+| 6 | Dao Seeking | **Origin Seeking** | Hunt the source the dig was aimed at. Understanding, not a new crown. |
+| 7 | Dao Manifestation | **Origin Manifestation** | The origin comes out and is the flesh people meet. |
+| 8 | Immortal Ascension | **Saintly Flesh** | Locked. Saint, not immortal. |
+
+**Swaps still on the table:** Essence Pearl → Marrow Pearl, or Inner Seed. Deity Physique → Physique Transformation if “deity” should stay a qi word (圣 still outranks 神). Origin → Source, if origin sounds too cosmic.
+
+**Indestructible Vajra** leaves the generic ladder. **Golden Body Arhat** stays a Vajra Ridge nickname for someone at Saintly Flesh, not a realm.
+
+Soul names are a separate pass.
+
 ## Implementation migration (when building)
 
 - `PATHS.*.realms` — add 2 names; shift indices 4+
@@ -192,7 +216,7 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 - `DAO_SEEKING_REALM_IDX`: `5` → `6`
 - Immortal is already “the last name on the list” in code. It stays correct if qi, body, and soul all grow to nine names together.
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock. Old saves store a realm number: anyone past Nascent Soul has to be shifted.
-- **Body / soul names (owner 2026-09-25):** the two new slots are unnamed on purpose. A naming pass comes next. Placeholders are fine so all three paths stay the same length. Body’s top realm stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). Buddhist **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**.
+- **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Soul names still deferred. All three paths still need nine labels when the ladder ships.
 - **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Deity Transformation and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
 
 ## Links

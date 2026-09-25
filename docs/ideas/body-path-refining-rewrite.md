@@ -48,7 +48,7 @@ Related visuals: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuil
 
 - Does every milestone need a tribulation, or only watershed steps?
 - ACS-style “temper organ X with material Y” recipes?
-- Keep current body realm *names* as milestone labels, or rename?
+- Realm names: **rename** (owner 2026-09-25). Live material ladder does not match qi grandeur. Proposal, not locked: [`nine-realm-ladder.md`](nine-realm-ladder.md) — Inner Tempering through Saintly Flesh.
 
 ## Implementation crumbs
 

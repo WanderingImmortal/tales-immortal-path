@@ -70,6 +70,8 @@ Gear tier **N** is keyed to cultivation **realm index N − 1** (0-based). Same 
 
 Until the nine-realm migration lands ([`nine-realm-ladder.md`](nine-realm-ladder.md)), **ship content against the live ladder** and extend when indices shift.
 
+The body column above is the old names shifted into nine slots. A full rename is proposed in that ladder doc (Inner Tempering → Saintly Flesh) and is **not locked**.
+
 **Wearing gear uses two different gates** (owner lock 2026-07-23):
 
 | Gate type | What it does | Example |
