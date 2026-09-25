@@ -137,7 +137,7 @@ That hub (`body-vessel-refining-vision.md`, not merged) is the wider body-path r
 
 Spirit roots still do not cap the vessel. The workshop’s grade index stays the parity ruler with qi once you have arrived. It does not decide whether you may arrive.
 
-## Physique is built (lean 2026-09-25)
+### Physique is built (lean 2026-09-25)
 
 The **vessel physique** is the recipe of what the flesh kept. It is not rolled at birth. Variations are the point of the body path, and they lock in when the recipe locks. Something you are born with is a different object — a birth marrow or a physique seed — covered below.
 
