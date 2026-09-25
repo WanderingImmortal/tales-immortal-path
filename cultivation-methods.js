@@ -430,7 +430,7 @@ function comprehendCultivationMethod(methodId) {
     }
     const months = getComprehendMethodMonths(method);
     beginActionLog();
-    if (!advanceTime(months, `Studying ${method.name}`)) {
+    if (!advanceTime(months, `Studying ${method.name}`, { billMonths: true })) {
         cancelActionLog();
         fullRender();
         return false;
@@ -654,32 +654,9 @@ function renderMethodShelfHtml() {
     return html;
 }
 
+/** @deprecated use bindInventoryListDelegation in ui.js */
 function bindMethodShelfActions(container) {
-    const root = container || document.getElementById('inventoryList');
-    if (!root) return;
-    root.querySelectorAll('[data-comprehend-method]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (this.disabled) return;
-            comprehendCultivationMethod(this.dataset.comprehendMethod);
-            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
-            fullRender();
-        });
-    });
-    root.querySelectorAll('[data-consign-method]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            consignMethodScroll(this.dataset.consignMethod);
-            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
-            fullRender();
-        });
-    });
-    root.querySelectorAll('[data-walk-method]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (this.disabled) return;
-            walkCultivationPath(this.dataset.walkMethod);
-            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
-            fullRender();
-        });
-    });
+    if (typeof bindInventoryListDelegation === 'function') bindInventoryListDelegation();
 }
 
 /** Explore / market helpers — qi methods players can find in P1. */

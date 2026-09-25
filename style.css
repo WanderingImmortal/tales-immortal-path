@@ -6938,6 +6938,8 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     background: #221c16;
     color: #c4b4a0;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .manual-shelf-btn:hover {
@@ -12119,10 +12121,6 @@ body.phone-playtest-active {
     display: none !important;
 }
 
-.layout-phone-playtest .phone-group-sheet {
-    z-index: 950;
-}
-
 .layout-phone-playtest .popup-overlay.active {
     z-index: 1000;
     justify-content: center;
@@ -12161,7 +12159,7 @@ body.phone-playtest-active {
 .layout-phone-playtest .phone-group-sheet {
     position: fixed;
     inset: 0;
-    z-index: 200;
+    z-index: 950;
     display: flex;
     align-items: flex-end;
     justify-content: center;
