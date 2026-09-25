@@ -81,6 +81,26 @@ A mortal frame can hold so much converted nature, and then it is saturated. Vess
 
 Pacing can share the Qi Condensation clock (inferior: Late around 40–44, Peak around 45–50) so a full mortal physique still has years left to attempt the vessel, or to live out the basin and die the strongest body in town.
 
+### What the player does (lean 2026-09-25)
+
+The screen is the body. In this realm the meals go into hide, muscle, and the blood that carries them. Organs, marrow, and meridians are visible and closed.
+
+1. Bring materials back from a hunt, a gather, or the market. Wolf meat, hide, saltbrush, ironscar grit. Mortal nature only.
+2. Choose a site and a material. The action takes days. The figure changes in that place. A log line says whether the flesh took it.
+3. The same carcass pays less the next time. Forcing it past dullness is fever or a scar, and almost no gain. A different grain still takes, until the whole frame is full.
+4. Early, Mid, and Late move by themselves as the cup fills. There is no button between bands. The town feels it: work hurts less, ordinary beasts are huntable, people start asking you to lift things.
+
+At **Late**, meals reject. **Brace the Vessel** appears if you have the method. Without that manual you stay a full mortal until the 80-year cap. That is the common ending. Peak is optional before the brace: small gains, easier rejection, a harsher brace, still the first realm.
+
+**The breakthrough is the brace, not a feast and not heaven’s lightning.** You stop eating. You spend a stretch you cannot spend hunting, binding what you already wove so it stops leaking back to dust. Wrappings, resin, stillness, pain.
+
+| Result | What the player gets |
+|--------|----------------------|
+| **Success** | Vessel Establishment. Lifespan becomes the 120-year cap. The frame can hold more. The next work is structure, not another meal of the same kind. |
+| **Failure** | You live. Some of the weave slips. You are Late again, not quite full. Feed back up and try again. |
+
+A birth marrow makes matching meals waste less during the feeding. It does not perform the brace for you.
+
 ### Physique is built (lean 2026-09-25)
 
 The **vessel physique** is the recipe of what the flesh kept. It is not rolled at birth. Variations are the point of the body path, and they lock in when the recipe locks. Something you are born with is a different object — a birth marrow or a physique seed — covered below.
