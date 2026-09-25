@@ -30,20 +30,40 @@ Expand the mortal qi ladder from **7 → 9 realms** (indices `0–8`). Early blo
 | 7 | Dao Manifestation | **New** — dao is worn / embodied, not merely studied |
 | 8 | Immortal Ascension | Mortal capstone; heavenly ceiling / chaos revelation |
 
-### Idx 4 — Deity Transformation (owner lean)
+### Lane words (owner rule, 2026-09-25)
 
-Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line stepping into deity-scale presence — not “Soul Transformation.”
+Each path has one apex word; its vocabulary is **reserved** for that lane in realm names and titles.
 
-**Preferred name:** **Deity Transformation** (化神). Owner note: can feel *too grand* for UI — that may be fine (it’s xianxia); use shorter copy where needed.
+| Lane | Hanzi | Apex | Reserved words |
+|------|-------|------|----------------|
+| Qi | 仙 | Immortal Ascension | immortal, celestial, transcendent |
+| Body | 圣 | Saintly Flesh | saint, holy, sage |
+| Spirit | 神 | Soul Deification | divine, deity, god, godhood |
+
+Consequences: **Deity Transformation** (qi idx 4) is on the wrong lane → rename below. Live titles that leak lanes: qi idx 3 *Soul Sovereign*, body *War God Incarnate*, *Vajra Immortal* (body titles go with the body rename anyway). **Nascent Soul stays** — 元婴 is literally “origin infant”; the English “soul” is a translation habit, it is the qi-born avatar, not the spirit lane.
+
+### Idx 4 — rename under review (was Deity Transformation)
+
+Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line stepping into a presence that fills a region — not “Soul Transformation” (reserved for spirit idx 4).
+
+**Previous lean:** Deity Transformation (化神). **Owner 2026-09-25:** divinity belongs to the spirit lane → rename. Candidates (all on the 仙 lane):
+
+| Candidate | Form | Note |
+|-----------|------|------|
+| **Celestial Transformation** *(lean)* | becoming | Keeps the Transformation trio: Physique / Soul / Celestial. Overlaps Celestial Sword Sect / upper celestial nine — acceptable, same meaning everywhere |
+| **Mortal Shedding** | doing | From the oracle line below. Strong fiction; breaks the trio. Lean: use as the **oracle text**, not the name |
+| Transcendent Form | becoming | Lane-neutral fallback; bland |
+
+Hanzi open: 化神 no longer fits the lane rule → 化仙 or 脱凡 when locked. Owner note still applies: grand is fine (it’s xianxia); shorten in sidebar copy.
 
 | Use | Label |
 |-----|-------|
-| Formal realm name | Deity Transformation |
-| Short / sidebar | Deity Form · Spirit Form · 化神 |
+| Formal realm name | Celestial Transformation *(lean — see rename above)* |
+| Short / sidebar | Celestial Form · 化仙 / 脱凡 *(hanzi open)* |
 | Oracle / breakthrough | *“The mortal shell no longer contains you. You have become something the jianghu names with fear.”* |
 | NPC rumor | *“A deity-transcended cultivator passed through Dustbone.”* |
 
-**Alternates if tone shifts:** Spirit Transformation, Transcendent Form.
+**Alternates if tone shifts:** Transcendent Form. *(Spirit Transformation withdrawn — spirit is a lane word.)*
 
 ### Dao order (owner confirmed)
 
@@ -197,7 +217,7 @@ One dig, getting grander:
 | 1 | Foundation Establishment | **Vessel Establishment** | What you’re doing. Brace the body so the dig has something that can hold it. |
 | 2 | Core Formation | **Essence Pearl** | What you’ve become. The dig condenses into one precious thing inside you. The watershed. Vessel Rules can be sworn around here; they are not required to enter the realm. |
 | 3 | Nascent Soul | **Nascent Physique** | What you’re becoming. That pearl gives birth to a physique. A second body, not a soul. |
-| 4 | Deity Transformation | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
+| 4 | Celestial Transformation *(rename lean)* | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
 | 5 | Void Refinement | **Hollow Refinement** | What you’re doing. Dig past the physique into the empty place under it. Opening it is the door; strength is refined inside. |
 | 6 | Dao Seeking | **Origin Seeking** | What you’re doing. See play note below — the name can stay; the activity must not be a dao library. |
 | 7 | Dao Manifestation | **Origin Manifestation** | What you’re becoming. The origin is the flesh people meet. Same play note as Seeking. |
@@ -229,15 +249,17 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 | 1 | Foundation Establishment | **Sea Stilling** *(or Still Sea)* | What you’re doing. An opened sea churns with every thought; still it so it can hold anything. Sea **size** is the meter, not a realm. |
 | 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
 | 3 | Nascent Soul | **Soul Birth** *(or Living Soul)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
-| 4 | Deity Transformation | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
+| 4 | Celestial Transformation *(rename lean)* | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
 | 5 | Void Refinement | **Selfless Refinement** | What you’re doing. Refine away the person so only the soul remains (忘我). Echoes Mind Lake “Purge Attachment.” |
-| 6 | Dao Seeking | **Divinity Seeking** | What you’re doing. Seek what makes a soul a god. |
-| 7 | Dao Manifestation | **Divine Soul** | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
-| 8 | Immortal Ascension | **Soul Deification** | What you’ve become. God. Title: **Godhood**, parallel to Saint / Immortal. |
+| 6 | Dao Seeking | **Divinity Seeking** *(owner lean)* | What you’re doing. Seek what makes a soul a god. |
+| 7 | Dao Manifestation | **Divine Soul** *(owner lean)* | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
+| 8 | Immortal Ascension | **Soul Deification** *(owner lean)* | What you’ve become. God. Title: **Godhood**, parallel to Saint / Immortal. |
+
+**Owner 2026-09-25:** the spirit path *is* the road to a divine soul and godhood (神 lane) — 6–8 wording endorsed. Still to pick: idx 1 *Sea Stilling* vs *Still Sea*; idx 3 *Soul Birth* vs *Living Soul*.
 
 **Avoided on purpose:** *Manifestation* as a spirit realm (collides with Dao Manifestation 显法); *Nascent Soul* (qi idx 3); *True Soul* (Paragon of Sin); *Void Soul* (owner: tacky).
 
-**Known near-collision:** *Divinity / Divine* at 6–7 sits near qi’s *Deity Transformation* (化神) at 4. Genre reads 化神 as a mid realm, not literal godhood, so the lean is to accept. Alternative for 6–7 if it grates: the **divine seat** idiom (神位) — *Throne Seeking* → *Enthroned Soul*.
+**Collision resolved the other way:** *Divinity / Divine* at 6–7 vs qi’s *Deity Transformation* at 4 → the **qi** realm is renamed (see lane words + idx 4 above); divinity stays with spirit. The **divine seat** idiom (神位 — *Throne Seeking* / *Enthroned Soul*) is **not** a realm; parked as imperial soul flavour in [`spirit-path-full-design.md`](spirit-path-full-design.md).
 
 **Swaps still on the table:** Soul Seed → Spirit Seed · Sea Stilling → Sea Settling · Selfless Refinement → Ego Refinement · Soul Transformation → Unbound Soul.
 

@@ -145,6 +145,12 @@ Rule: each name is the work or the change, same as body. Sea *size* is the meter
 
 Owner: soul path apex = **god**, parallel to qi immortal / body saint. Self ascends. Ties to [`post-immortal-cosmology.md`](post-immortal-cosmology.md) and [`upper-ladder-design-hub.md`](upper-ladder-design-hub.md); detail later.
 
+**Lane words (owner rule 2026-09-25):** qi → 仙 immortal · body → 圣 saint · spirit → 神 divine / god. Reserved vocabulary per lane; full table in [`nine-realm-ladder.md`](nine-realm-ladder.md) § Lane words. Qi's *Deity Transformation* is being renamed off this lane.
+
+### Parked flavour — Enthroned Soul (神位, divine seat)
+
+**Not a realm.** Owner liked *Enthroned Soul* / *Throne Seeking*; keep for a later **imperial soul technique or sub-path**: a soul cultivator takes a **divine seat** and rules through worship, mandate, or incense-faith (香火) rather than raw soul power. Natural neighbours: [`imperial-clan.md`](imperial-clan.md), [`void-temple-sect.md`](void-temple-sect.md), Divinity Seeking band (idx 6+). Stub only.
+
 ---
 
 ## Build order (vertical slice first — do not build seven layers)
