@@ -199,6 +199,35 @@ Today the talent check does not care which path is breaking through (`isRealmBlo
 
 Da Chi’s “supreme body talent” reads as this kind of luck: a marrow that drank tempering and took the canon easily. Not a man who understood the scripture faster than his elders.
 
+### Cult refiners and Pit Two (lean 2026-09-25)
+
+The Blood Vessel Ward and **Tuo Yan** (Pit Two) are written on [PR #115](https://github.com/WanderingImmortal/tales-immortal-path/pull/115), not on this branch. The story still works. The old material names and the “he ate his way up” picture need a retell when that branch is next touched. Do not edit #115 from the nine-realm notes.
+
+**What stays.** He is the founder’s question: can devouring feed the body and skip the dantian? Ward life, bind seal, vestigial Foundation qi, no Devouring Intent, meathead who chooses not to think, ~50 years old and still looking about thirty, not a successor. Gu Wei stays the other experiment: will in the dantian, ordinary flesh. The ward is still ammunition. Vajra Ridge is still scripture. Same body ladder, opposite culture. No public saint. His fate seeds stay, including the founder eating him when the experiment has an answer.
+
+**Rename the steps, not the man.**
+
+| Old line | Under this design |
+|----------|-------------------|
+| Fodder rushed to **Bronze Skin** | Rushed **Inner Tempering**. Still mortal. Still 80 years. Most die in a diversion before anyone teaches a brace. |
+| Reavers at **Golden Core** and up | **Essence Pearl** and up. Taught blood arts plus a real method. Investment, not a sermon. |
+| Tuo Yan at body idx **3**, **Diamond Body**, Nascent Soul parity | **Nascent Physique**. One step past a typical Reaver. Founder-fed. Not a Saint. |
+| Stagnate seed climbs toward idx **4** | **Physique Transformation**. The fortress changes kind. Not a march on Saintly Flesh. |
+
+His lifespan line still fits. Nascent Physique is the thousand-year band. He is about fifty years into it. The horror is how little of that clock he has used.
+
+**Two kinds of feeding. Do not collapse them.**
+
+A player refines by soaking. A cult kill is supposed to go the other way: Remnant Refine into the dantian. Tuo Yan’s horror is that the kill stays in the flesh. Eating the slain is his anomaly, not the player loop. Skin that turns common steel is Nascent Physique density, not a word for hide, and not something an Inner Tempering strongman has.
+
+Blood pills are the ward’s cruel shortcut, not qi alchemy and not a clean bath. They are a concentrated ration that forces a crude soak and keeps the seal. Faster, more waste, same mortal cup. They do not open the next realm by themselves.
+
+**He is not proof that manuals do not matter.** Without a method, a full mortal stays a full mortal. Ward elders have manuals and still cannot copy him. His birth marrow is why the rite stuck in the flesh instead of the dantian — luck, not comprehension. The founder’s feeding is why he walked to Nascent Physique. A bad spirit root would not have stopped that climb. Roots still explain the paper Foundation: the dantian was neglected, not the vessel.
+
+Once that accident is written down, a normal body fed the same way should be able to walk the same distance, with more waste if the marrow fights it. Until then he is unreplicable, because the elders are trying to rebuild an accident with pills, seals, and the syllabus. The founder is trying to turn the accident into a manual. That is the experiment.
+
+Fodder are expendable because they are sealed, untaught, and sent to die. Not because a short root caps the body.
+
 ## Prerequisites
 
 - [x] Owner lean: milestones for power parity, not qi-style realm breakthroughs
@@ -211,6 +240,7 @@ Da Chi’s “supreme body talent” reads as this kind of luck: a marrow that d
 - Does every milestone need a tribulation, or only watershed steps?
 - ACS-style “temper organ X with material Y” recipes?
 - Realm names: **rename** (owner 2026-09-25). Live material ladder does not match qi grandeur. Proposal, not locked: [`nine-realm-ladder.md`](nine-realm-ladder.md) — Inner Tempering through Saintly Flesh.
+- Cult ward and Pit Two (PR #115) still use Bronze / Diamond Body and “ate wrong” as the climb. Retell is parked above. Apply it on that branch when someone next edits Tuo Yan. Not this PR.
 
 ## Implementation crumbs
 
