@@ -543,7 +543,11 @@ function renderScenePanel() {
     document.getElementById('sceneZoneDesc').textContent = locDef ? locDef.description : (zone ? zone.description : '');
     document.getElementById('sceneCultivator').textContent = G.name;
     const traitDef = typeof getPlayerTraitDef === 'function' ? getPlayerTraitDef() : G.trait;
-    document.getElementById('scenePath').textContent = PATHS[G.path].name + (traitDef ? ' · ' + traitDef.name : '');
+    const realmLabel = typeof getRealm === 'function' ? getRealm() : '';
+    const pathLabel = PATHS[G.path].name + (traitDef ? ' · ' + traitDef.name : '');
+    document.getElementById('scenePath').textContent = realmLabel
+        ? `${realmLabel} · ${pathLabel}`
+        : pathLabel;
     document.getElementById('sceneBreakRealm').textContent = getNextRealm();
     const alignMod = typeof getDaoAlignmentBreakModifierLabel === 'function' ? getDaoAlignmentBreakModifierLabel() : '';
     document.getElementById('sceneBreakChance').textContent = Math.round(getBreakChance()) + '% chance' + (alignMod ? ' · ' + alignMod : '');
@@ -1976,8 +1980,80 @@ function actionStatGuide() {
     document.getElementById('statGuidePopup')?.classList.add('active');
 }
 
+/** One delegated listener — survives innerHTML refresh; reliable on mobile touch. */
+function bindInventoryListDelegation() {
+    const list = document.getElementById('inventoryList');
+    if (!list || list.dataset.delegationBound === '1') return;
+    list.dataset.delegationBound = '1';
+    list.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('button');
+        if (!btn || btn.disabled || !list.contains(btn)) return;
+
+        const refresh = () => {
+            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
+            fullRender();
+        };
+
+        if (btn.dataset.comprehendManual) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            comprehendManual(btn.dataset.comprehendManual);
+            refresh();
+            return;
+        }
+        if (btn.dataset.comprehendMethod) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            comprehendCultivationMethod(btn.dataset.comprehendMethod);
+            refresh();
+            return;
+        }
+        if (btn.dataset.consignManual) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            consignManual(btn.dataset.consignManual);
+            refresh();
+            return;
+        }
+        if (btn.dataset.consignMethod) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            consignMethodScroll(btn.dataset.consignMethod);
+            refresh();
+            return;
+        }
+        if (btn.dataset.walkMethod) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            walkCultivationPath(btn.dataset.walkMethod);
+            refresh();
+            return;
+        }
+        if (btn.dataset.depositHallKit) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const result = typeof depositManualToHall === 'function'
+                ? depositManualToHall(btn.dataset.depositHallKit, 1)
+                : { success: false, message: 'Manual Hall unavailable.' };
+            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
+            refresh();
+            return;
+        }
+        if (btn.dataset.stashManualKit) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const result = typeof stashManualToResidence === 'function'
+                ? stashManualToResidence(btn.dataset.stashManualKit, 1)
+                : { success: false, message: 'Home storage unavailable.' };
+            if (result.message) addLog(result.success ? `🏠 ${result.message}` : `🏠 ${result.message}`);
+            refresh();
+        }
+    });
+}
+
 function renderInventoryPopup() {
     ensureGearState();
+    bindInventoryListDelegation();
     const list = document.getElementById('inventoryList');
     const summary = document.getElementById('inventorySummary');
     const slotsEl = document.getElementById('gearSlotsGrid');
@@ -2149,8 +2225,6 @@ function renderInventoryPopup() {
     }
     list.innerHTML = html;
 
-    if (typeof bindMethodShelfActions === 'function') bindMethodShelfActions(list);
-    if (typeof bindTravelKitManualActions === 'function') bindTravelKitManualActions(list);
     if (typeof bindSpatialRingActions === 'function') bindSpatialRingActions(kitPanel || list);
 
     list.querySelectorAll('[data-gear-equip]').forEach(btn => {
@@ -2510,7 +2584,11 @@ function renderMerchantPopup() {
     if (hint) {
         const discount = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
         const discountNote = discount < 1 ? ` · 🪷 ${Math.round((1 - discount) * 100)}% faction discount` : '';
-        const stockNote = zoneId === 'redwell' ? ' · finite stock · QC manuals redraw seasonally' : '';
+        const stockNote = zoneId === 'redwell'
+            ? (typeof getRedwellRestockHint === 'function'
+                ? ` · ${getRedwellRestockHint()}`
+                : ' · finite stock · QC manuals redraw seasonally')
+            : '';
         hint.textContent = `${G.stones} Stones · ${catalog.name}${discountNote}${stockNote} · Click an item to buy`;
     }
 

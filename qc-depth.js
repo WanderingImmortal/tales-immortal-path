@@ -525,6 +525,19 @@ function ensureRedwellMarketState(forceSeason) {
     return m;
 }
 
+/** Player-facing Redwell bazaar restock timing (monthly consumables, seasonal scroll redraw). */
+function getRedwellRestockHint() {
+    const m = ensureRedwellMarketState();
+    const now = G.ageMonths || 0;
+    const monthNote = 'Staples & pills refresh on the next calendar month you live through';
+    const seasonEndMonth = (Math.floor(now / 3) + 1) * 3;
+    const moToSeason = Math.max(0, seasonEndMonth - now);
+    const seasonNote = moToSeason <= 0
+        ? 'Scroll slots redraw this season'
+        : `Scroll slots redraw in ~${moToSeason} mo`;
+    return `${monthNote} · ${seasonNote}`;
+}
+
 function getResolvedMerchantCatalog(catalogKey) {
     const key = catalogKey || (typeof getMerchantCatalogKey === 'function' ? getMerchantCatalogKey() : null);
     if (!key || typeof MERCHANT_CATALOG === 'undefined') return null;

@@ -262,42 +262,7 @@ function renderTravelKitManualsHtml() {
     }).join('');
 }
 
+/** @deprecated use bindInventoryListDelegation in ui.js */
 function bindTravelKitManualActions(container) {
-    const root = container || document.getElementById('inventoryList');
-    if (!root) return;
-    root.querySelectorAll('[data-comprehend-manual]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (this.disabled) return;
-            comprehendManual(this.dataset.comprehendManual);
-            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
-            fullRender();
-        });
-    });
-    root.querySelectorAll('[data-consign-manual]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            consignManual(this.dataset.consignManual);
-            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
-            fullRender();
-        });
-    });
-    root.querySelectorAll('[data-deposit-hall-kit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const result = typeof depositManualToHall === 'function'
-                ? depositManualToHall(this.dataset.depositHallKit, 1)
-                : { success: false, message: 'Manual Hall unavailable.' };
-            if (result.message) addLog(result.success ? `📜 ${result.message}` : `📜 ${result.message}`);
-            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
-            fullRender();
-        });
-    });
-    root.querySelectorAll('[data-stash-manual-kit]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const result = typeof stashManualToResidence === 'function'
-                ? stashManualToResidence(this.dataset.stashManualKit, 1)
-                : { success: false, message: 'Home storage unavailable.' };
-            if (result.message) addLog(result.success ? `🏠 ${result.message}` : `🏠 ${result.message}`);
-            if (typeof renderInventoryPopup === 'function') renderInventoryPopup();
-            fullRender();
-        });
-    });
+    if (typeof bindInventoryListDelegation === 'function') bindInventoryListDelegation();
 }
