@@ -14,7 +14,7 @@ Forbidden body cultivation: **refining souls into the flesh** — not a physique
 
 Distinct from **blood devourer** physique: being a blood cultivator is not a crime; **massacres and feeding** are acts that stain. Soul refining is **inherently** cycle tampering.
 
-Related: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md), [`tribulation-system-rework.md`](tribulation-system-rework.md), physique / body chamber rewrite (TBD).
+Related: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md), [`tribulation-system-rework.md`](tribulation-system-rework.md), physique / body chamber rewrite (TBD). Forbidden branch of the spirit path — see [`spirit-path-full-design.md`](spirit-path-full-design.md) § World presence.
 
 ## Design notes (stub)
 
