@@ -100,14 +100,21 @@ You choose the target: a limb, or the whole body. The bath chooses what that fle
 
 Early, Mid, and Late move by themselves as the frame fills. There is no button between bands. Redwell feels it: work hurts less, ordinary beasts are huntable, people ask you to lift things.
 
-At **Late**, soaks reject. **Brace the Vessel** appears if you have the method. Without that manual you stay a full mortal until the 80-year cap. Peak is optional before the brace: a purer soak might still take a little, rejection comes easier, the brace is harsher, and you are still in the first realm.
+At **Late**, soaks reject. A brace can be attempted if you know **any** method for it. Without a method you stay a full mortal until the 80-year cap. Peak is optional before the brace: a purer soak might still take a little, rejection comes easier, the brace is harsher, and you are still in the first realm.
 
-**The breakthrough is the brace.** You stop soaking. You spend a stretch you cannot spend hunting, binding what you already drew in so it stops leaking back to dust. Wrappings, resin, stillness, pain.
+**The breakthrough is the brace.** You stop soaking. The flesh you drew in has to be bound so it stops leaking back to dust. The result is always Vessel Establishment. The way you bind it depends on the manual.
 
-| Result | What the player gets |
-|--------|----------------------|
-| **Success** | Vessel Establishment. Lifespan becomes the 120-year cap. The frame can hold more. The next work is structure, not another soak of the same kind. |
-| **Failure** | You live. Some of the weave slips. You are Late again, not quite full. Soak back up and try again. |
+**Methods, not one ritual for every realm (owner 2026-09-25).** Each threshold has its own act. The brace belongs to this door only. Later doors are different work (a pearl, a physique, a hollow), not the same brace with a new caption. A manual teaches one method for one door. Knowing any method for that door is enough to attempt it.
+
+Ship one common brace first. Leave room for more manuals that open the same door with a different cost.
+
+| Method | What you spend | How it feels |
+|--------|----------------|--------------|
+| **Stillness** | Wrappings, resin, a long stretch you cannot hunt | The common manual. Failure slips some of the weave. You live. |
+| **Heat** | A harsh solution, shorter | Sets the flesh the way a smith sets steel. Failure scars. |
+| **Weight** | A place that can load the body (yard, quarry). Few reagents. | The frame is forced to hold. Failure is pain and a slipped weave. |
+
+Same success either way: Vessel Establishment, the 120-year cap, a frame that can hold more. The next work is structure, not another soak of the same kind. Failure on any of the three leaves you alive and not quite full. Soak back up and try again. Heat also scars.
 
 A birth marrow makes a matching bath waste less. It does not perform the brace for you.
 
