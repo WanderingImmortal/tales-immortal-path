@@ -120,7 +120,24 @@ A birth marrow makes a matching bath waste less. It does not perform the brace f
 
 Pills stay qi alchemy. A body bath is not a potion you drink.
 
-### Physique is built (lean 2026-09-25)
+### Against the September vessel-vision workshop ([PR #119](https://github.com/WanderingImmortal/tales-immortal-path/pull/119))
+
+That hub (`body-vessel-refining-vision.md`, not merged) is the wider body-path redo from 2026-09-16–20. This file’s 2026-09-25 leans correct the first realm and the names. They agree more than they clash.
+
+**Keep from the workshop:** a manual can replace the project for the same door (Nine Breaths, Twelve Poison Seeds) the way stillness, heat, and weight are three braces. The world’s nickname for a body (epithet) is not the realm name. Two natures in one body should be able to clash and then be reconciled later (harmonize), not only scar. Body progress is paid in materials. Range arts (breath, fog) are learned techniques, not what a bath grants.
+
+**Prefer this chat where they differ:**
+
+| Workshop | This chat | Why |
+|----------|-----------|-----|
+| Neutral grades (“First Temper”) so a realm name does not force one body | **Inner Tempering** and the rest of the nine names | The old Bronze/Iron names were the problem. These names are the work or the change. A dragon manual can still call the same step Hidden Dragon Vessel. |
+| Do not lock a recipe physique | **Vessel physique** locks at Nascent Physique from what you soaked | The lock is the fingerprint of the baths, not a shop item. The epithet is still what people call you. |
+| Crude temper is viable but purity-capped at the same grade | Same manual and a normal body walk the same distance. No method for the door means you wait. | Matches the later owner lean. A legendary text changes the project, not the height of the ladder. |
+| Five-step pipeline and a region map before the first temper is playable | Soak a limb or the whole body. Skin and the meat and blood under it only. | The bath is what a resource is for. Eyes, marrow, and harmonize wait. |
+
+Spirit roots still do not cap the vessel. The workshop’s grade index stays the parity ruler with qi once you have arrived. It does not decide whether you may arrive.
+
+## Physique is built (lean 2026-09-25)
 
 The **vessel physique** is the recipe of what the flesh kept. It is not rolled at birth. Variations are the point of the body path, and they lock in when the recipe locks. Something you are born with is a different object — a birth marrow or a physique seed — covered below.
 
