@@ -217,7 +217,7 @@ One dig, getting grander:
 
 **Chamber (lean 2026-09-25):** the live body chamber is the mortal dig for realms 0–3 only, one screen, milestones along it. Later realms change the work on that finished body. They do not each inherit a layer. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
 
-**Inner Tempering** has a saturation limit (Late = full mortal frame). Diminishing returns only apply while filling it. Peak is optional and still mortal. Lifespan stays the 80-year cap. The physique you **build** is the vessel physique. Luck at birth is a **birth marrow** or, rarely, a physique seed — not a genius trait. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
+**Inner Tempering** has a saturation limit (Late = full mortal frame). Diminishing returns only apply while filling it. Peak is optional and still mortal. Lifespan stays the 80-year cap. The physique you **build** is the vessel physique. Luck at birth is a **birth marrow** or, rarely, a physique seed. Spirit roots do not cap how far body refining can go. Manuals and materials do. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
 
 Soul names are a separate pass.
 

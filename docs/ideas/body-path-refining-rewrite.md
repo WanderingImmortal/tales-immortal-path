@@ -124,7 +124,15 @@ Body cultivation is not a comprehension path. Someone who pulls ahead is **lucky
 
 They can look alike in a fight and still be different things. Birth marrow is a **tenant** you did not choose. The vessel physique is the **house** you build. If they agree, meals of that nature waste less and the physique comes out specialized. If they fight, you either feed the tenant or build against it, and the house comes out compromised or costly. Two fists coated in flame are not the same story: one was born hot, the other was fed until it learned heat.
 
-Creation points can sell this later. Birth marrow is the ordinary spend. A physique seed costs more. A stirring seed is the rare one, in the same spirit as a heavenly root. Spirit roots still set heaven’s height on the shared step number until that is deliberately split. A lucky marrow does not erase a low root ceiling.
+Creation points can sell this later. Birth marrow is the ordinary spend. A physique seed costs more. A stirring seed is the rare one, in the same spirit as a heavenly root. None of them enlarge the mortal cup, skip a step, or decide how far the ladder goes.
+
+**How far the body can climb (owner 2026-09-25):** with the same manual and a normal body, every person can walk the same distance. Spirit roots do not cap vessel height. They cap the dantian. What stops a body cultivator is a missing manual or missing materials. Birth luck changes waste and the shape of the physique. It does not open a realm a normal body cannot enter, and it does not close one.
+
+The tragedy stays. Most people never see the manual or the treasure for the next step, so they die full of the realm they could feed. That is poverty and supply, not a bad root. Reaching a realm still grants that realm’s lifespan. A body cultivator who is fed and taught can outlive a heavenly-root qi cultivator who never leaves Foundation.
+
+Soul height is untouched by this lean.
+
+Today the talent check does not care which path is breaking through (`isRealmBlockedByTalent`). The vessel track already has its own step number. The root cap has to apply to the dantian only, once this is built.
 
 Da Chi’s “supreme body talent” reads as this kind of luck: a marrow that drank tempering and took the canon easily. Not a man who understood the scripture faster than his elders.
 

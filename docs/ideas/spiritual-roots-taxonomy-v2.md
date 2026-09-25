@@ -388,7 +388,7 @@ Most players should start **mixed or single inferior/common**, not superior.
 - Dual-root: player picks both classical elements or roll?
 - In-run deviant awaken: permanent for that life only, or carry to meta catalog?
 - Five-elements constitution: run unlock only, reincarnation only, or both?
-- Body/soul paths: same root object or parallel constitution?
+- Body/soul paths: soul height is still open. **Body (owner 2026-09-25):** spirit roots do not cap vessel height. Same manual and a normal body walk the same distance. Manuals and materials gate the path. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
 - **Derived vs independent basin** — owner confirm (see below)
 
 ### Derived vs independent basin (for owner)
