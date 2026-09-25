@@ -60,7 +60,7 @@ Names and the oath split: [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 ### Inner Tempering — saturation (lean 2026-09-25)
 
-**Work:** take power out of natural materials and weave it into your own flesh and blood.
+**Work:** soak the body, or a part of it, in a material or a brewed solution, and draw the essence out of that bath into the flesh.
 
 **The realm has a limit.** Diminishing returns only decide how you fill the cup. They are not the ceiling.
 
@@ -83,23 +83,35 @@ Pacing can share the Qi Condensation clock (inferior: Late around 40–44, Peak 
 
 ### What the player does (lean 2026-09-25)
 
-The screen is the body. In this realm the meals go into hide, muscle, and the blood that carries them. Organs, marrow, and meridians are visible and closed.
+The screen is the body. A resource is a bath, or part of one. The player should be able to read a stack of demon-beast blood and know what it is for.
 
-1. Bring materials back from a hunt, a gather, or the market. Wolf meat, hide, saltbrush, ironscar grit. Mortal nature only.
-2. Choose a site and a material. The action takes days. The figure changes in that place. A log line says whether the flesh took it.
-3. The same carcass pays less the next time. Forcing it past dullness is fever or a scar, and almost no gain. A different grain still takes, until the whole frame is full.
-4. Early, Mid, and Late move by themselves as the cup fills. There is no button between bands. The town feels it: work hurts less, ordinary beasts are huntable, people start asking you to lift things.
+**Demon-beast blood, as the picture.** It is not in the game yet. Collected, it fills a vat. Enough for a limb is a smaller vat than enough for the whole body. You soak the arm, or you soak yourself. Over days the essence leaves the blood and enters the flesh you steeped. That arm runs with whatever grain the blood carried. A second soak of the same blood in the same arm pays less. A whole-body soak writes the grain everywhere and drinks far more blood. If the frame is already full, or the blood is too fierce for a mortal body, the soak rejects: fever, scarring, the essence will not stay.
 
-At **Late**, meals reject. **Brace the Vessel** appears if you have the method. Without that manual you stay a full mortal until the 80-year cap. That is the common ending. Peak is optional before the brace: small gains, easier rejection, a harsher brace, still the first realm.
+**The rule for every resource.**
 
-**The breakthrough is the brace, not a feast and not heaven’s lightning.** You stop eating. You spend a stretch you cannot spend hunting, binding what you already wove so it stops leaking back to dust. Wrappings, resin, stillness, pain.
+| You have | You can do | You learn |
+|----------|------------|-----------|
+| A little of one material | Nothing yet. It is not a bath. | Keep collecting. |
+| Enough raw material for a limb | Soak that limb. Crude. More waste, more chance of a scar. | The grain, in that limb only. |
+| Enough raw material for the body | Soak the whole frame. | The same grain, everywhere. Costs much more. |
+| Materials for a solution (x, or x + y + z) | Brew, then soak a limb or the body. Purer essence. Less waste. | A cleaner take of that grain. |
+
+You choose the target: a limb, or the whole body. The bath chooses the grain. Hide, muscle, and blood-deep flesh are what Inner Tempering can steep. Organs, marrow, and meridians stay closed.
+
+Early, Mid, and Late move by themselves as the frame fills. There is no button between bands. Redwell feels it: work hurts less, ordinary beasts are huntable, people ask you to lift things.
+
+At **Late**, soaks reject. **Brace the Vessel** appears if you have the method. Without that manual you stay a full mortal until the 80-year cap. Peak is optional before the brace: a purer soak might still take a little, rejection comes easier, the brace is harsher, and you are still in the first realm.
+
+**The breakthrough is the brace.** You stop soaking. You spend a stretch you cannot spend hunting, binding what you already drew in so it stops leaking back to dust. Wrappings, resin, stillness, pain.
 
 | Result | What the player gets |
 |--------|----------------------|
-| **Success** | Vessel Establishment. Lifespan becomes the 120-year cap. The frame can hold more. The next work is structure, not another meal of the same kind. |
-| **Failure** | You live. Some of the weave slips. You are Late again, not quite full. Feed back up and try again. |
+| **Success** | Vessel Establishment. Lifespan becomes the 120-year cap. The frame can hold more. The next work is structure, not another soak of the same kind. |
+| **Failure** | You live. Some of the weave slips. You are Late again, not quite full. Soak back up and try again. |
 
-A birth marrow makes matching meals waste less during the feeding. It does not perform the brace for you.
+A birth marrow makes a matching bath waste less. It does not perform the brace for you.
+
+Pills stay qi alchemy. A body bath is not a potion you drink.
 
 ### Physique is built (lean 2026-09-25)
 
@@ -112,9 +124,9 @@ The **vessel physique** is the recipe of what the flesh kept. It is not rolled a
 | **Nascent Physique** | A physique is born with that character. Two people at the same step are not the same body. |
 | **Physique Transformation** | The lean stops being a tilt and becomes what you are. |
 
-**“Endless” means combinations, not infinite hand-authored bodies.** A short list of natures, stacked by what you ate and where you put it, is enough for two refiners to diverge. Authoring a new physique for every beast is not the model.
+**“Endless” means combinations, not infinite hand-authored bodies.** A short list of natures, stacked by what you soaked and where you soaked it, is enough for two refiners to diverge. Authoring a new physique for every beast is not the model.
 
-**Where the meal goes vs what the meal is.** The current chamber lets you choose the site: muscle, organ, bone, blood. Keep that. The material chooses the grain of that site.
+**Where the soak lands vs what the bath is.** You choose a limb or the whole body. The solution chooses the grain.
 
 | Material grain (mortal) | What the flesh learns | Not this |
 |-------------------------|----------------------|----------|
@@ -128,7 +140,7 @@ The same carcass pays less the more of that grain you already hold. A frame full
 
 **Close combat, not a fireball.** A natural treasure can leave an element in the flesh. It shows up on contact: knuckles coated in flame, a step that frosts the ground, venom on the palm. Qi throws the bolt. The body wears it. Vajra Ridge still refuses flame *rebirth* (a qi art). A monk’s fists running hot is a different thing.
 
-**Most manuals are recipes.** Do this, eat this, in this order. Practice, not comprehension. A few late manuals can demand comprehension because they bind a Vessel Rule or reconcile a birth bias with a diet. That is a second gate on top of rare materials. Keep it rare. Inner Tempering pamphlets should not require a scholar.
+**Most manuals are recipes.** Gather this, brew this solution, soak this long. Practice, not comprehension. A few late manuals can demand comprehension because they bind a Vessel Rule or reconcile a birth bias with a bath. That is a second gate on top of rare materials. Keep it rare. Inner Tempering pamphlets should not require a scholar.
 
 ### Birth marrow vs vessel physique (lean 2026-09-25)
 
