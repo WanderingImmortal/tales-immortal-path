@@ -106,17 +106,27 @@ The physique is not a birth stat. It is the recipe of what the flesh kept. Varia
 
 The same carcass pays less the more of that grain you already hold. A frame full of hide is a lopsided mortal, and Late is still Late. Saturation does not move.
 
-**Elemental powers wait.** Roots, techniques, and sect elements already belong to qi. Vajra Ridge refuses flame rebirth. A common Inner Tempering outcome that “unlocks fire” is a qi cultivator who skipped the dantian. Heat in the flesh can be a resistance now, and a rare expression later (a deviant meal, a forbidden dish, or Physique Transformation), when the punch is hot because the body is hot.
+**Close combat, not a fireball.** A natural treasure can leave an element in the flesh. It shows up on contact: knuckles coated in flame, a step that frosts the ground, venom on the palm. Qi throws the bolt. The body wears it. Vajra Ridge still refuses flame *rebirth* (a qi art). A monk’s fists running hot is a different thing.
 
-**Body geniuses are real. They are not a second spirit root.** Da Chi’s supreme body talent is marrow pace, tempering intuition, and a canon that sticks in his hands — not a physique he was born as.
+**Most manuals are recipes.** Do this, eat this, in this order. Practice, not comprehension. A few late manuals can demand comprehension because they bind a Vessel Rule or reconcile a birth bias with a diet. That is a second gate on top of rare materials. Keep it rare. Inner Tempering pamphlets should not require a scholar.
 
-| Genius, in practice | What it does not do |
-|---------------------|---------------------|
-| Flesh accepts foreign power readily. Less waste, less fever. Late comes young. | It does not enlarge the mortal cup. |
-| They feel what the body is still hungry for, so they stop repeating a meal that has gone dull. | Taste is not talent. A fast fool who only eats hide still builds a lopsided physique, sooner. |
-| Later, Vessel Rules and the canon settle cleanly. | It does not grant an element or a free realm. |
+### Birth marrow vs vessel physique (lean 2026-09-25)
 
-If a creation knob is ever needed, it is appetite and cleanliness (how fast, how little scar), the way root **grade** is speed. It is not a composition that sets how high the body may climb. Spirit roots remain heaven’s height on the shared step number until that is deliberately split. Legendary constitutions and blood deviants stay rare bends, not the talent ladder.
+Body cultivation is not a comprehension path. Someone who pulls ahead is **lucky**, not a genius. The luck is congenital. It biases what the flesh will take. It does not make the mortal cup bigger, and it does not skip a realm.
+
+| What you start with | How common | What it is |
+|---------------------|------------|------------|
+| **Birth marrow** | The usual “lucky” case | A bias in the flesh from birth. Stone meals settle easier, or the blood runs hot. Not a physique yet. |
+| **Physique seed** | Rare | An unopened physique sleeping in the body. It hungers for one nature and quarrels with meals that contradict it. |
+| **Stirring seed** | Very rare | The seed is already faintly awake. A close-combat flicker before you have earned anything (warm knuckles, heavy bones). Still Inner Tempering. Still a mortal frame. |
+
+**Vessel physique** is the one you make. It is the recipe locked at Nascent Physique from what you tempered. “Vessel” here means the body you raised, not a Vessel Rule.
+
+They can look alike in a fight and still be different things. Birth marrow is a **tenant** you did not choose. The vessel physique is the **house** you build. If they agree, meals of that nature waste less and the physique comes out specialized. If they fight, you either feed the tenant or build against it, and the house comes out compromised or costly. Two fists coated in flame are not the same story: one was born hot, the other was fed until it learned heat.
+
+Creation points can sell this later. Birth marrow is the ordinary spend. A physique seed costs more. A stirring seed is the rare one, in the same spirit as a heavenly root. Spirit roots still set heaven’s height on the shared step number until that is deliberately split. A lucky marrow does not erase a low root ceiling.
+
+Da Chi’s “supreme body talent” reads as this kind of luck: a marrow that drank tempering and took the canon easily. Not a man who understood the scripture faster than his elders.
 
 ## Prerequisites
 
