@@ -193,17 +193,25 @@ One dig, getting grander:
 
 | Idx | Qi neighbor | Proposed body name | What the step is |
 |-----|-------------|--------------------|------------------|
-| 0 | Qi Condensation | **Inner Tempering** | Start digging power out of your own flesh |
-| 1 | Foundation Establishment | **Vessel Establishment** | Brace the body so the dig has something that can hold it |
-| 2 | Core Formation | **Essence Pearl** | The dig condenses into one precious thing inside you. The watershed. |
-| 3 | Nascent Soul | **Nascent Physique** | That pearl gives birth to a physique. A second body, not a soul. |
-| 4 | Deity Transformation | **Deity Physique** | The physique no longer fits an ordinary person. A place feels you arrive. |
-| 5 | Void Refinement | **Hollow Refinement** | Dig past the physique into the empty place under it. Opening it is the door; strength is refined inside. |
-| 6 | Dao Seeking | **Origin Seeking** | Hunt the source the dig was aimed at. Understanding, not a new crown. |
-| 7 | Dao Manifestation | **Origin Manifestation** | The origin comes out and is the flesh people meet. |
-| 8 | Immortal Ascension | **Saintly Flesh** | Locked. Saint, not immortal. |
+| 0 | Qi Condensation | **Inner Tempering** | What you’re doing. Start digging power out of your own flesh. |
+| 1 | Foundation Establishment | **Vessel Establishment** | What you’re doing. Brace the body so the dig has something that can hold it. |
+| 2 | Core Formation | **Essence Pearl** | What you’ve become. The dig condenses into one precious thing inside you. The watershed. Vessel Rules can be sworn around here; they are not required to enter the realm. |
+| 3 | Nascent Soul | **Nascent Physique** | What you’re becoming. That pearl gives birth to a physique. A second body, not a soul. |
+| 4 | Deity Transformation | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
+| 5 | Void Refinement | **Hollow Refinement** | What you’re doing. Dig past the physique into the empty place under it. Opening it is the door; strength is refined inside. |
+| 6 | Dao Seeking | **Origin Seeking** | What you’re doing. See play note below — the name can stay; the activity must not be a dao library. |
+| 7 | Dao Manifestation | **Origin Manifestation** | What you’re becoming. The origin is the flesh people meet. Same play note as Seeking. |
+| 8 | Immortal Ascension | **Saintly Flesh** | Locked. What you’ve become. Saint, not immortal. |
 
-**Swaps still on the table:** Essence Pearl → Marrow Pearl, or Inner Seed. Deity Physique → Physique Transformation if “deity” should stay a qi word (圣 still outranks 神). Origin → Source, if origin sounds too cosmic.
+**Naming rule (owner 2026-09-25):** a body realm name is either the work (what you’re doing) or the change (what you’re becoming).
+
+**Physique Transformation** is the lean at idx 4. Deity Physique still works as a title you hold; Transformation is the event, and it should feel like a new kind of body, the way Deity Transformation feels like a new kind of cultivator.
+
+**Origin Seeking / Origin Manifestation** sound like Dao Seeking with the noun swapped. That is acceptable only if the play is obviously not a law library. Dao at this height is witnessing signs, collecting laws, merging them, and later wearing one. Body at this height is one excavated source in the flesh. A swearer finds that the source is their Vessel Rule: the body gets narrower and more terrifying at what the oath allows. Someone who never swore is still digging out the source, and does not get interior peak. Neither one is browsing a second dao panel.
+
+**Vessel Rules are not a realm.** They already open around the Essence Pearl band (swear gate leans vessel idx 2), which is mid-path, and they are how a dedicated body cultivator specializes. Most temperers never swear. Interior peak and the road to Saint want the oath completed. Naming a realm after the rule would force that oath on everyone who wants the step. The divergence lives in the oath, not in the nine shared names.
+
+**Swaps still on the table:** Essence Pearl → Marrow Pearl, or Inner Seed. Origin → Source, if origin sounds too cosmic. If the Seeking / Manifestation verbs still feel like a reskin after the play split, change the verbs and keep the journey: **Origin Tempering** (the work) and **Origin Flesh** (what you become).
 
 **Indestructible Vajra** leaves the generic ladder. **Golden Body Arhat** stays a Vajra Ridge nickname for someone at Saintly Flesh, not a realm.
 
