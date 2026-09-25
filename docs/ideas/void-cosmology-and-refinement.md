@@ -6,7 +6,7 @@
 | **Blocked on** | Void qi / void arts implementation; VR→Seeking tribulation design |
 | **Issue** | none yet |
 | **Chat / PR** | Dao Seeking design pass 2026-08-02 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-09-25 |
 
 ## Intent
 
@@ -168,7 +168,7 @@ See [`void-temple-sect.md`](void-temple-sect.md).
 
 **If you survive**, that **is** the Seeking power spike:
 
-- **Lifespan** — moderate jump (~12–15k band entry; see [`nine-realm-ladder.md`](nine-realm-ladder.md))
+- **Lifespan** — raised to **10,000** if you were below that; no years past a perfected Void cultivator until laws extend it ([`nine-realm-ladder.md`](nine-realm-ladder.md))
 - **Moderate power** — void qi + **law-sight** fused; patriarch-tier weight on the board
 - **Comprehension access** — pursuits/contemplation open; library **deepens** over millennia
 

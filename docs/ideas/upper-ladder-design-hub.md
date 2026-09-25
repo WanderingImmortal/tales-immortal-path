@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm code migration; void qi/arts; tribulation scripts |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design pass 2026-08-02; PR [#100](https://github.com/WanderingImmortal/tales-immortal-path/pull/100) |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-09-25 |
 
 ## Intent
 
@@ -42,7 +42,7 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 ### Lifespan (xianxia scale)
 
 - **FE 120**, **GC 300–500** (band), **NS 1k–1.5k**, **DT 2k–3k**, **VR 5k / 7.5k / 10k** (5k = half of 10k aesthetic).
-- **Seeking** — modest entry ~12–15k; climb toward **~30k** via comprehension milestones (TBD); **Manifest ~45–50k** on wield.
+- **Seeking** — entry **10,000** (owner 2026-09-25), same as perfected Void. Years above that come from laws and are playtest; stay under the Manifestation jump. **Manifest ~45–50k** on wield.
 - In-basin **+year milestones** deferred until GC+ substage milestones exist.
 
 ### Dao
@@ -71,8 +71,9 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 ### Lifespan & pacing
 
 - [ ] GC+ in-basin milestone **+years** — amounts when consolidate/substage milestones designed
-- [ ] Which **comprehension beats** extend Seeking lifespan? (first Greater? Fundamental merge?)
-- [ ] Deep Seek **~30k without wield** — valid tragedy plateau?
+- [x] Seeking entry lifespan — **10,000** (owner 2026-09-25). Law and depth bonuses are playtest.
+- [ ] Which **comprehension beats** extend Seeking lifespan past 10,000? Try depth of a law before raw count.
+- [ ] Where the no-wield plateau sits, under the Manifestation jump (~45–50k). Old ~30k figure is a test target, not a lock.
 - [ ] Manifest perfected — flat **50k** or **55k** before Immortal?
 
 ### VR → Seeking tribulation
@@ -82,7 +83,8 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 - [ ] Void Temple **DT→VR** rite — how much survival bonus without trivializing?
 - [ ] Glimpse — always visual, or path-dependent (e.g. sword cultivator “cuts” veil)?
 - [ ] NPC patriarchs — all survived retaliation, or rare **inherited script-sight** by sect rite?
-- [ ] Seeking breakthrough — exact **lifespan floor** and **combat/weight** passives list
+- [x] Seeking breakthrough lifespan floor — **10,000**
+- [ ] Seeking breakthrough — **combat/weight** passives list
 - [ ] Combine **Script-Sight** (board weight) with Glimpse, or Glimpse alone enough?
 
 ### Dao system
@@ -95,9 +97,9 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 
 ### Realm claims & ladder
 
-- [ ] **Half-Step Immortal** model A vs B ([`nine-realm-ladder.md`](nine-realm-ladder.md))
+- [x] **Half-Step** is not a realm — a step above peak Dao Manifestation (owner 2026-09-25). Powers still open.
 - [ ] Claims stored explicitly vs derived from table?
-- [ ] Body/soul **9 skins** at launch or subset?
+- [ ] Soul names for nine realms. Body names are a proposal, not a lock ([`nine-realm-ladder.md`](nine-realm-ladder.md)). All three paths still need nine labels when the ladder ships.
 - [ ] GC combat **qi-lock** — v1 or v2?
 - [ ] Manifestation gate **immortal legislation** preview?
 - [ ] Upper celestial nine — mirror mortal nine or fresh names?
@@ -118,6 +120,10 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 - [x] VR early ≈ DT Peak — intentional acquisition realm
 - [x] Seeking must confer breakthrough weight — not VR-style empty entry
 - [x] VR lifespan floor — 5,000 years
+- [x] Seeking entry lifespan — 10,000 years (owner 2026-09-25); law bonuses are playtest
+- [x] Half-Step is not a realm index (owner 2026-09-25)
+- [x] Roots — index bump only with the ladder; height expansion is later
+- [x] Body names — proposal parked 2026-09-25 (Inner Tempering through Saintly Flesh). Not locked. Soul names still open.
 - [x] Void layer split + coherence rule
 - [x] Retaliation = trespass, solo, full-prep foundation
 - [x] Void Temple prepares, does not proxy retaliation
