@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Da Chi war-patriarch spine — owner workshop) |
+| **Updated** | 2026-08-29 (continental presence map) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -27,6 +27,24 @@ Add **one named great power** (or strong regional sect) whose **primary cultivat
 | Manuals | Deferred in manuals framework | Lineage manuals in progress |
 
 Every `FACTION_DEFINITIONS` entry is qi-leaning, trade, beast, or ascetic — **no “we forge the body” institution.**
+
+## Where body shows up (presence map — owner 2026-08-29)
+
+Address **before** painting the whole map. Every violent zone should imply **some** body presence; most factions are not body-primary.
+
+| Tier | Who | Body role |
+|------|-----|-----------|
+| **Great sect (body-primary)** | **Vajra Ridge** (Mad Monks) | Vessel Canon, escort, bell halls — [`body-path-sect.md`](body-path-sect.md) |
+| **Great sect (body-support)** | Sword (Heavenly Palm), Phoenix (flame tempering), Lotus, Void | Conditioning before main path |
+| **Apex cult (body-sector)** | Heavenly Demon — **Blood Vessel Ward** | Expendable fodder + blood-regen Reavers — [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md) |
+| **Tribes / martial** | Sunscar, grit labor, caravan muscle | Fighter physique; scrap tempering |
+| **Imperial / mercenary** | Dragon Guard, hired blades | Trained fighters; not always body **cultivators** |
+| **Rogues** | Bloodrift thugs, pit fighters | No lineage |
+| **Player** | Body path | Generic **Saintly Flesh** ladder — no sect required |
+
+**NPC tag sketch (future):** `body_primary` · `body_support` · `blood_vessel` · `meat_expended`
+
+**Phasing:** lore + rumors now; mechanics when body path ships. Do not block qi-first slices.
 
 ## Design principle
 
