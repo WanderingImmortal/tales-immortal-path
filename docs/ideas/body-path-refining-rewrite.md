@@ -81,6 +81,43 @@ A mortal frame can hold so much converted nature, and then it is saturated. Vess
 
 Pacing can share the Qi Condensation clock (inferior: Late around 40–44, Peak around 45–50) so a full mortal physique still has years left to attempt the vessel, or to live out the basin and die the strongest body in town.
 
+### Physique is built (lean 2026-09-25)
+
+The physique is not a birth stat. It is the recipe of what the flesh kept. Variations are the point of the body path. They show up when the recipe locks, not as a creation-screen element.
+
+| When | What the meals have become |
+|------|----------------------------|
+| **Inner Tempering** | A lean in the mortal frame. Still one kind of person: the strongest honest mortal. |
+| **Essence Pearl** | The mix condenses. The pearl remembers the recipe. |
+| **Nascent Physique** | A physique is born with that character. Two people at the same step are not the same body. |
+| **Physique Transformation** | The lean stops being a tilt and becomes what you are. |
+
+**“Endless” means combinations, not infinite hand-authored bodies.** A short list of natures, stacked by what you ate and where you put it, is enough for two refiners to diverge. Authoring a new physique for every beast is not the model.
+
+**Where the meal goes vs what the meal is.** The current chamber lets you choose the site: muscle, organ, bone, blood. Keep that. The material chooses the grain of that site.
+
+| Material grain (mortal) | What the flesh learns | Not this |
+|-------------------------|----------------------|----------|
+| Stone, iron, hide-beasts | Density, blows turn | A new combat stat row |
+| Sinew, springy beasts | Quickness of the frame | |
+| Sunscar heat, frost plants | Tolerance to that hardship | Casting that element |
+| Bitter organs, venomous game | Poison and filth tolerance | |
+| Rich blood, marrow foods | Staying power | A pearl (that is the next realm) |
+
+The same carcass pays less the more of that grain you already hold. A frame full of hide is a lopsided mortal, and Late is still Late. Saturation does not move.
+
+**Elemental powers wait.** Roots, techniques, and sect elements already belong to qi. Vajra Ridge refuses flame rebirth. A common Inner Tempering outcome that “unlocks fire” is a qi cultivator who skipped the dantian. Heat in the flesh can be a resistance now, and a rare expression later (a deviant meal, a forbidden dish, or Physique Transformation), when the punch is hot because the body is hot.
+
+**Body geniuses are real. They are not a second spirit root.** Da Chi’s supreme body talent is marrow pace, tempering intuition, and a canon that sticks in his hands — not a physique he was born as.
+
+| Genius, in practice | What it does not do |
+|---------------------|---------------------|
+| Flesh accepts foreign power readily. Less waste, less fever. Late comes young. | It does not enlarge the mortal cup. |
+| They feel what the body is still hungry for, so they stop repeating a meal that has gone dull. | Taste is not talent. A fast fool who only eats hide still builds a lopsided physique, sooner. |
+| Later, Vessel Rules and the canon settle cleanly. | It does not grant an element or a free realm. |
+
+If a creation knob is ever needed, it is appetite and cleanliness (how fast, how little scar), the way root **grade** is speed. It is not a composition that sets how high the body may climb. Spirit roots remain heaven’s height on the shared step number until that is deliberately split. Legendary constitutions and blood deviants stay rare bends, not the talent ladder.
+
 ## Prerequisites
 
 - [x] Owner lean: milestones for power parity, not qi-style realm breakthroughs
