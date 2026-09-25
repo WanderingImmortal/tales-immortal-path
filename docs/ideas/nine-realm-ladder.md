@@ -215,6 +215,8 @@ One dig, getting grander:
 
 **Indestructible Vajra** leaves the generic ladder. **Golden Body Arhat** stays a Vajra Ridge nickname for someone at Saintly Flesh, not a realm.
 
+**Chamber (lean 2026-09-25):** the live body chamber is the mortal dig for realms 0–3 only, one screen, milestones along it. Later realms change the work on that finished body. They do not each inherit a layer. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
+
 Soul names are a separate pass.
 
 ## Implementation migration (when building)

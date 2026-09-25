@@ -37,6 +37,27 @@ Related visuals: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuil
 
 **Phase 1–2 anatomy does not wait on this.**
 
+### Chamber scope (lean 2026-09-25)
+
+The live chamber is seven layers on one figure: skin, flesh, bones, organs, blood, meridians, nerves. Each layer is a few repeats for a small percent. The next layer opens at 50% of the previous. Nerves is one capstone click. Realm progress treats “your realm index” as “which layer you are on,” and there are only seven layers.
+
+That chamber is the **mortal dig**, the work of realms 0–3 (Inner Tempering through Nascent Physique). It stays **one screen**. The realm name changes when the dig crosses a threshold. A layer is not a realm. Skin is not Inner Tempering by itself. The physique being born is the moment this chamber is finished.
+
+Later realms do not add layers. They change the work done to the body you already refined:
+
+| Idx | Realm | Work |
+|-----|--------|------|
+| 0–3 | Inner Tempering → Nascent Physique | The current chamber, one continuous refinement. Milestones rename you. Heaven does not need a tribulation at every layer. |
+| 4 | Physique Transformation | Change the finished mortal body. Same figure, new kind of flesh. Not new organs. |
+| 5 | Hollow Refinement | Open an empty place inside that body and refine power there. Early on you are not past a transformed physique until the hollow fills. |
+| 6 | Origin Seeking | One source in the flesh. A sworn rule becomes that source. No oath means a slower dig, and no interior peak. Not a dao library. |
+| 7 | Origin Manifestation | That source becomes the flesh people meet. |
+| 8 | Saintly Flesh | Sanctify. The end. |
+
+The “three clicks, +1%” gimmick is a depth problem **inside** the mortal dig. Solve it there later (quality, materials, the figure actually changing). Do not solve it by inventing layers for the saint path.
+
+Names and the oath split: [`nine-realm-ladder.md`](nine-realm-ladder.md).
+
 ## Prerequisites
 
 - [x] Owner lean: milestones for power parity, not qi-style realm breakthroughs
