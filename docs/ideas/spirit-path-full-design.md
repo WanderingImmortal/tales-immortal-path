@@ -124,11 +124,15 @@ One ability, chosen by play, not menu. Gives the birth moment a payoff beyond "m
 
 Mirrors body's "milestones as power ruler" lean: gates are **insight events**, not click counts.
 
-### Realm names — OPEN (next design session)
+### Realm names — PROPOSED (nine, not locked)
 
-Current `PATHS.soul.realms`: Awakened Spirit → Manifestation → Spirit Confluence → Soul Integration → Transcendence → Dao Heart → Eternal Spirit. Layer ids: awakened / clarity / purity / dao_heart / manifestation / void / transcendent.
+Current `PATHS.soul.realms`: Awakened Spirit → Manifestation → Spirit Confluence → Soul Integration → Transcendence → Dao Heart → Eternal Spirit. Layer ids: awakened / clarity / purity / dao_heart / manifestation / void / transcendent. Both go.
 
-Direction: **one ladder**. Pre-birth realms named for the spirit sea (opening / widening / condensing), birth at idx 3, post-birth for the soul, apex toward **deification**. Avoid "Manifestation" (显法 collision) and "Nascent Soul" (qi realm 4). Nine-realm alignment per [`nine-realm-ladder.md`](nine-realm-ladder.md).
+**Proposal (2026-09-25)** — full table with per-rung reasoning lives in [`nine-realm-ladder.md`](nine-realm-ladder.md) § Spirit path names:
+
+Sea Opening → Sea Stilling → **Soul Seed** → **Soul Birth** (idx 3, shared birth gate) → Soul Transformation → Selfless Refinement → Divinity Seeking → Divine Soul → **Soul Deification** (title: Godhood).
+
+Rule: each name is the work or the change, same as body. Sea *size* is the meter, not a realm. Avoids Manifestation / Nascent Soul / True Soul / Void Soul.
 
 ### World presence
 

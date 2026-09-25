@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (partial — soul names and half-step powers still open; body names proposed) |
+| **Status** | `designed` (partial — half-step powers still open; body and spirit names proposed) |
 | **Blocked on** | Soul names; half-step powers. Body names are a proposal, not a lock. Roots: index bump only — expansion is later. |
 | **Issue** | none yet |
 | **Chat / PR** | Owner leans 2026-09-25 — Seeking entry 10k; half-step is not a realm |
@@ -219,7 +219,29 @@ One dig, getting grander:
 
 **Inner Tempering** has a saturation limit (Late = full mortal frame). Diminishing returns only apply while filling it. Peak is optional and still mortal. Lifespan stays the 80-year cap. The physique you **build** is the vessel physique. Luck at birth is a **birth marrow** or, rarely, a physique seed. Spirit roots do not cap how far body refining can go. Manuals and materials do. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
 
-Soul names are a separate pass.
+## Spirit path names (proposal — not locked, 2026-09-25)
+
+Same naming rule as body: each realm is **the work** (what you’re doing) or **the change** (what you’re becoming). The ladder follows the spirit-sea idiom: open a sea → still it → a seed condenses → the soul is born → it transforms → the self is refined away → seek divinity → become divine → **deification** (god, parallel to Immortal / Saint). Full path design: [`spirit-path-full-design.md`](spirit-path-full-design.md).
+
+| Idx | Qi neighbor | Proposed spirit name | What the step is |
+|-----|-------------|----------------------|------------------|
+| 0 | Qi Condensation | **Sea Opening** | What you’re doing. Open the spirit sea (识海). |
+| 1 | Foundation Establishment | **Sea Stilling** *(or Still Sea)* | What you’re doing. An opened sea churns with every thought; still it so it can hold anything. Sea **size** is the meter, not a realm. |
+| 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
+| 3 | Nascent Soul | **Soul Birth** *(or Living Soul)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
+| 4 | Deity Transformation | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
+| 5 | Void Refinement | **Selfless Refinement** | What you’re doing. Refine away the person so only the soul remains (忘我). Echoes Mind Lake “Purge Attachment.” |
+| 6 | Dao Seeking | **Divinity Seeking** | What you’re doing. Seek what makes a soul a god. |
+| 7 | Dao Manifestation | **Divine Soul** | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
+| 8 | Immortal Ascension | **Soul Deification** | What you’ve become. God. Title: **Godhood**, parallel to Saint / Immortal. |
+
+**Avoided on purpose:** *Manifestation* as a spirit realm (collides with Dao Manifestation 显法); *Nascent Soul* (qi idx 3); *True Soul* (Paragon of Sin); *Void Soul* (owner: tacky).
+
+**Known near-collision:** *Divinity / Divine* at 6–7 sits near qi’s *Deity Transformation* (化神) at 4. Genre reads 化神 as a mid realm, not literal godhood, so the lean is to accept. Alternative for 6–7 if it grates: the **divine seat** idiom (神位) — *Throne Seeking* → *Enthroned Soul*.
+
+**Swaps still on the table:** Soul Seed → Spirit Seed · Sea Stilling → Sea Settling · Selfless Refinement → Ego Refinement · Soul Transformation → Unbound Soul.
+
+**Maturity labels** in `SOUL_MATURITY_LABELS` (Hollow Nascent / Nascent Soul / Settled / Ascendant) must be renamed so “Nascent Soul” means only the qi realm.
 
 ## Implementation migration (when building)
 
@@ -228,7 +250,7 @@ Soul names are a separate pass.
 - `DAO_SEEKING_REALM_IDX`: `5` → `6`
 - Immortal is already “the last name on the list” in code. It stays correct if qi, body, and soul all grow to nine names together.
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock. Old saves store a realm number: anyone past Nascent Soul has to be shifted.
-- **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Soul names still deferred. All three paths still need nine labels when the ladder ships.
+- **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Spirit names: proposal above (not locked). All three paths still need nine labels when the ladder ships.
 - **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Deity Transformation and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
 
 ## Links
