@@ -83,7 +83,7 @@ Pacing can share the Qi Condensation clock (inferior: Late around 40–44, Peak 
 
 ### Physique is built (lean 2026-09-25)
 
-The physique is not a birth stat. It is the recipe of what the flesh kept. Variations are the point of the body path. They show up when the recipe locks, not as a creation-screen element.
+The **vessel physique** is the recipe of what the flesh kept. It is not rolled at birth. Variations are the point of the body path, and they lock in when the recipe locks. Something you are born with is a different object — a birth marrow or a physique seed — covered below.
 
 | When | What the meals have become |
 |------|----------------------------|
