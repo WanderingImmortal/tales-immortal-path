@@ -6,7 +6,7 @@
 | **Blocked on** | Anatomy Phase 1–2 can proceed; full rewrite design after that |
 | **Issue** | none yet |
 | **Chat / PR** | Body chamber triage 2026-08-05 |
-| **Updated** | 2026-08-05 |
+| **Updated** | 2026-09-25 |
 
 ## Intent
 
