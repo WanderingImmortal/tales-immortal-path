@@ -30,10 +30,10 @@ Related visuals: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuil
 
 **Refining = the loop. Milestones = the power ruler.**
 
-- Player refines layers / parts (ACS feel).
+- Player refines by soaking, then by later work on the finished body.
 - Thresholds award **milestones** mapped to the same index as qi’s QC / FE / GC / …
-- Milestone names can keep Bronze Skin / Iron Bones / etc. as **labels** without a qi-copy breakthrough ritual.
-- Tribulation / heaven notice: TBD.
+- Milestone names are the proposed ladder, Inner Tempering through Saintly Flesh. The live Bronze Skin list is what the game still shows. The proposal is not locked: [`nine-realm-ladder.md`](nine-realm-ladder.md).
+- The first door is a brace, not heaven’s lightning. Later notices: TBD.
 
 **Phase 1–2 anatomy does not wait on this.**
 
@@ -148,7 +148,7 @@ Same manual, same distance. The lineage text changes the baths and the ordeal. I
 
 The **vessel physique** is the recipe of what the flesh kept. It is not rolled at birth. Variations are the point of the body path, and they lock in when the recipe locks. Something you are born with is a different object — a birth marrow or a physique seed — covered below.
 
-| When | What the meals have become |
+| When | What the soaks have become |
 |------|----------------------------|
 | **Inner Tempering** | A lean in the mortal frame. Still one kind of person: the strongest honest mortal. |
 | **Essence Pearl** | The mix condenses. The pearl remembers the recipe. |
@@ -179,13 +179,13 @@ Body cultivation is not a comprehension path. Someone who pulls ahead is **lucky
 
 | What you start with | How common | What it is |
 |---------------------|------------|------------|
-| **Birth marrow** | The usual “lucky” case | A bias in the flesh from birth. Stone meals settle easier, or the blood runs hot. Not a physique yet. |
-| **Physique seed** | Rare | An unopened physique sleeping in the body. It hungers for one nature and quarrels with meals that contradict it. |
+| **Birth marrow** | The usual “lucky” case | A bias in the flesh from birth. Stone baths settle easier, or the blood runs hot. Not a physique yet. |
+| **Physique seed** | Rare | An unopened physique sleeping in the body. It hungers for one nature and quarrels with baths that contradict it. |
 | **Stirring seed** | Very rare | The seed is already faintly awake. A close-combat flicker before you have earned anything (warm knuckles, heavy bones). Still Inner Tempering. Still a mortal frame. |
 
 **Vessel physique** is the one you make. It is the recipe locked at Nascent Physique from what you tempered. “Vessel” here means the body you raised, not a Vessel Rule.
 
-They can look alike in a fight and still be different things. Birth marrow is a **tenant** you did not choose. The vessel physique is the **house** you build. If they agree, meals of that nature waste less and the physique comes out specialized. If they fight, you either feed the tenant or build against it, and the house comes out compromised or costly. Two fists coated in flame are not the same story: one was born hot, the other was fed until it learned heat.
+They can look alike in a fight and still be different things. Birth marrow is a **tenant** you did not choose. The vessel physique is the **house** you build. If they agree, baths of that nature waste less and the physique comes out specialized. If they fight, you either feed the tenant or build against it, and the house comes out compromised or costly. Two fists coated in flame are not the same story: one was born hot, the other was fed until it learned heat.
 
 Creation points can sell this later. Birth marrow is the ordinary spend. A physique seed costs more. A stirring seed is the rare one, in the same spirit as a heavenly root. None of them enlarge the mortal cup, skip a step, or decide how far the ladder goes.
 

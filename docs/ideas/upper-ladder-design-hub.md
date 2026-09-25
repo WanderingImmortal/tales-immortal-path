@@ -99,7 +99,7 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 
 - [x] **Half-Step** is not a realm — a step above peak Dao Manifestation (owner 2026-09-25). Powers still open.
 - [ ] Claims stored explicitly vs derived from table?
-- [ ] Body/soul names for the two new slots — deferred; owner will name them next. Placeholders are fine so all three paths stay the same length.
+- [ ] Soul names for nine realms. Body names are a proposal, not a lock ([`nine-realm-ladder.md`](nine-realm-ladder.md)). All three paths still need nine labels when the ladder ships.
 - [ ] GC combat **qi-lock** — v1 or v2?
 - [ ] Manifestation gate **immortal legislation** preview?
 - [ ] Upper celestial nine — mirror mortal nine or fresh names?
@@ -123,7 +123,7 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 - [x] Seeking entry lifespan — 10,000 years (owner 2026-09-25); law bonuses are playtest
 - [x] Half-Step is not a realm index (owner 2026-09-25)
 - [x] Roots — index bump only with the ladder; height expansion is later
-- [x] Body/soul names for the two new slots — deferred to a naming pass
+- [x] Body names — proposal parked 2026-09-25 (Inner Tempering through Saintly Flesh). Not locked. Soul names still open.
 - [x] Void layer split + coherence rule
 - [x] Retaliation = trespass, solo, full-prep foundation
 - [x] Void Temple prepares, does not proxy retaliation

@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (partial — body/soul names and half-step powers still open) |
-| **Blocked on** | Body/soul names for the two new slots; half-step powers. Roots: index bump only — expansion is later. |
+| **Status** | `designed` (partial — soul names and half-step powers still open; body names proposed) |
+| **Blocked on** | Soul names; half-step powers. Body names are a proposal, not a lock. Roots: index bump only — expansion is later. |
 | **Issue** | none yet |
 | **Chat / PR** | Owner leans 2026-09-25 — Seeking entry 10k; half-step is not a realm |
 | **Updated** | 2026-09-25 |
