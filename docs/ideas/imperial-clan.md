@@ -36,7 +36,7 @@ The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** 
 
 An **uneasy peace**: great powers **capitulated** — not **surrendered**. Each great sect holds a **homeland bastion** defended by apex **sect arrays** even a Half-Step at the gate could not breach without unacceptable cost. The Tian ended the Dao Wars by forcing **charter borders** and mutual recognition, not by owning sect mountains.
 
-Over the peace centuries, sects gained **immortals of their own**. They **respect** throne authority and charter law; they do **not** bend the knee daily. The continent runs on **mutual deterrence**: Tian buried founder + imperial seal, sect arrays + hidden patriarchs.
+Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immortals of their own**. They **respect** throne authority and charter law; they do **not** bend the knee daily. The continent runs on **mutual deterrence**: Tian buried founder + imperial seal, sect arrays + hidden patriarchs.
 
 | Power (draft) | Homeland | Dao Wars outcome (sketch) |
 |---------------|----------|---------------------------|

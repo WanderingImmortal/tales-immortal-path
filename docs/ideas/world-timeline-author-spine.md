@@ -34,6 +34,7 @@ Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated event
 
 ### Imperial Sky Era
 
+- **Length so far: ~3,000 years** since the Dao Wars ended *(working anchor, owner 2026-09-26 — may change with later lore)*. Derived anchors: Yun Jian (~3,200–3,500) a young elder in the war, patriarch ~2,000 years; Da Chi's sainthood ~midway through the peace; Tian founder and Sword Ancestor ascend inside this span.
 - Tian are the **ruling faction** for a **set duration** (years TBD).
 - Rose from the **Dao War Era** / mandate settlement.
 - Public story: founder **chose mercy** and charter — **propaganda**; insiders add **homeland arrays make extermination too costly** (mechanics TBD).

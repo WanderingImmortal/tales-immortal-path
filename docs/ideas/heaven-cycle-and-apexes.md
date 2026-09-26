@@ -143,7 +143,7 @@ Lane words (from PR #127): qi → 仙 **Immortal** · body → 圣 **Saint** · 
 
 **Walking-bomb problem (owner):** low audit means Saints can make more moves. Only the Mad Arhat exists today — excusable by mutual destruction or disinterest — but new Saints could be uncontrollable without extreme risk. **Suggested containment:**
 
-1. **Visible approach** — nobody hoards enough cores, blood and ore quietly; charter hoarding clauses, courting, containment, pre-breakthrough assassination. Explains why there's only one. *Story hook:* how did Da Chi break through after capitulation unnoticed?
+1. **Visible approach** — nobody hoards enough cores, blood and ore quietly; charter hoarding clauses, courting, containment, pre-breakthrough assassination. Explains why there's only one. **Da Chi (owner):** broke through in peacetime, ~midway through the peace; nobody knew the door existed, no one held blood feuds with his monastery, and he was already a formidable fighter — no reason to raze or threaten it.
 2. **Short reach** — devastating up close, no regional press (Celestial Avatar) or Immortal reach; grand arrays can pin; ranged powers keep distance.
 3. **Vessel Rules** — the Saint's own oaths bind harder than heaven (Da Chi doesn't walk away from the line). A Saint with no rules is the real nightmare.
 4. Sacrilege / corruption tracking still applies to atrocities.
