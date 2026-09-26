@@ -64,7 +64,7 @@ Orthodox four **do not** list them among charter peers. Elders remember the **Gr
 | Zone | Powers | Depth |
 |------|--------|-------|
 | **Jade** | Storm Dragon + Tidal Lotus | Rival-allies; sea routes; one quest each |
-| **Moonfract / Yin Maiden Palace** | [`frostbite-yin-sect.md`](frostbite-yin-sect.md) — crown; peak Yin |
+| **Yin Maiden Palace** | [`frostbite-yin-sect.md`](frostbite-yin-sect.md) — crown; peak Yin |
 | **Vajra Ridge** | [`body-path-sect.md`](body-path-sect.md) — south spine; **Mad Monks**; monk body refiners |
 | **Emberwild** | Emberwild Collective | Beast tamers, primal |
 
