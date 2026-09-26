@@ -78,6 +78,14 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 
 **Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founder is the first Half-Step **in living memory**. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
 
+### The Heavenly Demon Cult — a managed threat (owner 2026-09-26)
+
+- The founder **knows** he did not truly kill the Heavenly Demon at Tianjing (only the Blood Clone) — [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md).
+- **Publicly** the throne states the cult is gone.
+- He believes it is a **managed threat**: the cult **never leaves its lands**; the throne **doesn't want to pick that fight**; everyone else **rests easy** with the cult "dead."
+- *Suggestion — extra reasons not to fight:* two apex beings clashing openly draws heaven's resistance on both; Blood Sealing Gorge is a natural seal that a war could break; admitting the cult lives reopens the mandate's founding story.
+- **Open:** branch cells, Longcheng "Dr. Wen" front and shadow kidnapping ([`blood-sealing-gorge.md`](blood-sealing-gorge.md), [`heavenly-demon-cult-branch-cells.md`](heavenly-demon-cult-branch-cells.md)) operate outside the gorge. *Suggestion:* "never leaves" means never acts **openly as the cult** — outside work stays deniable (unregistered victims, fronts); the throne files it as "remnants / copycats." The unspoken line holds while it stays small and deniable.
+
 ---
 
 ## Modern politics — Phoenix vs Lotus (in-game arc)
