@@ -320,6 +320,19 @@ function getFormationLayFuel(def) {
     return def?.layFuel ?? cfg.defaultLayFuel;
 }
 
+function formatFormationLayRequirements(cost) {
+    if (!cost) return 'No inscription recipe.';
+    const parts = [];
+    if (cost.months) parts.push(`${cost.months} mo`);
+    if (cost.stones) parts.push(`${cost.stones}💎`);
+    Object.entries(cost.materials || {}).forEach(([matId, qty]) => {
+        const mat = typeof CRAFT_MATERIALS !== 'undefined' ? CRAFT_MATERIALS[matId] : null;
+        const have = typeof getMaterialCount === 'function' ? getMaterialCount(matId) : 0;
+        parts.push(`${have >= qty ? '✓' : '✗'} ${have}/${qty} ${mat?.emoji || '◆'} ${mat?.name || matId}`);
+    });
+    return parts.join(' · ');
+}
+
 function createResidenceFormationSlotState(formationId, options) {
     const def = getFormationDef(formationId);
     const cfg = getFormationF1aConfig();
@@ -823,7 +836,7 @@ function renderFormationShelfHtml() {
         if (entry.deciphered) {
             const canLay = knowsFormation(def.id);
             const layNote = canLay
-                ? 'Ready to lay'
+                ? 'Pattern mastered'
                 : `Deciphered — need Master tier ${ft} to lay`;
             html += `<li>${def.emoji} <strong>${def.name}</strong> <span class="sect-formation-shelf-badge is-ready">${layNote}</span>
                 <div class="sect-hint">${def.desc} · ${ft}${ft === 1 ? 'st' : ft === 2 ? 'nd' : 'th'}-tier</div>
@@ -1073,10 +1086,14 @@ function renderResidenceFormationsHtml() {
                 const block = getLayFormationBlockReason(i, def.id);
                 const cost = def.layCost;
                 const matHint = cost?.months ? `${cost.months}mo` : '';
-                html += `<button type="button" class="sect-formation-lay-btn" data-formation-lay="${def.id}" data-formation-slot="${i}"
-                    ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
-                    ${def.emoji} Inscribe ${def.name}${matHint ? ` (${matHint})` : ''}
-                </button>`;
+                html += `<div class="sect-formation-lay-option">
+                    <button type="button" class="sect-formation-lay-btn" data-formation-lay="${def.id}" data-formation-slot="${i}"
+                        ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
+                        ${def.emoji} Inscribe ${def.name}${matHint ? ` (${matHint})` : ''}
+                    </button>
+                    <div class="sect-hint">Requires: ${formatFormationLayRequirements(cost)}</div>
+                    ${block ? `<div class="sect-hint sect-construction-blocked">🔒 ${escapeSectAttr(block)}</div>` : ''}
+                </div>`;
             });
             html += `</div>`;
         }
@@ -1468,10 +1485,14 @@ function renderSectAnchorFormationsHtml(anchorId) {
                 const block = getLayAnchorFormationBlockReason(anchorId, i, def.id);
                 const cost = def.layCost;
                 const matHint = cost?.months ? `${cost.months}mo` : '';
-                html += `<button type="button" class="sect-formation-lay-btn" data-anchor-id="${anchorId}" data-formation-lay="${def.id}" data-formation-slot="${i}"
-                    ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
-                    ${def.emoji} Inscribe ${def.name}${matHint ? ` (${matHint})` : ''}
-                </button>`;
+                html += `<div class="sect-formation-lay-option">
+                    <button type="button" class="sect-formation-lay-btn" data-anchor-id="${anchorId}" data-formation-lay="${def.id}" data-formation-slot="${i}"
+                        ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
+                        ${def.emoji} Inscribe ${def.name}${matHint ? ` (${matHint})` : ''}
+                    </button>
+                    <div class="sect-hint">Requires: ${formatFormationLayRequirements(cost)}</div>
+                    ${block ? `<div class="sect-hint sect-construction-blocked">🔒 ${escapeSectAttr(block)}</div>` : ''}
+                </div>`;
             });
             html += `</div>`;
         } else if (!laidDef) {
