@@ -55,7 +55,7 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 | **Wealth was fragmented** *(owner)* | No pool large enough to push anyone through. |
 | **Anyone close became a target** *(suggestion)* | Same logic as the two-DM taboo break — a near-Half-Step invites a pre-emptive coalition. The Tianjing siege **is** that logic; Tian defences held "one beat too long." |
 | **War thins the world** *(suggestion)* | Damaged veins → more resistance at the gate (§2). |
-| **Body / soul thresholds** *(owner: likely)* | Saint and God need their own Half-Step-equivalent peak states. Soul: **Pseudo God**. Body name open. Peak conditions, not realms. |
+| **Body / soul thresholds** *(owner)* | Saint and God need their own Half-Step-equivalent states: a **second peak** that can partly use the next realm's abilities. Qi: **Half-Step Immortal**. Body: **Demi-Saint**. Soul: **Pseudo God**. Peak conditions, not realms — see [`nine-realm-ladder.md`](nine-realm-ladder.md). |
 | **Da Chi — nobody knew the door existed** *(owner)* | The body path was thought to top out at Indestructible Vajra. Da Chi found Saintly Flesh through his Vessel Rule held through capitulation — and nobody was watching for it. Every later Saint **will** be watched. |
 | **Soul stigma** *(owner)* | Soul cultivation is always reviled or disquieting. Godhood may have been theorised, but stigma kept any soul sect from forming openly during the wars. *Suggestion:* invasive arts (soul search, possession) + touching heaven's jurisdiction over reincarnation. |
 
@@ -192,7 +192,7 @@ Lane words (from PR #127): qi → 仙 **Immortal** · body → 圣 **Saint** · 
 - [ ] Which noble house is the puppet, and whose
 - [ ] Why the three who know stay silent (owner: later)
 - [x] Tian founder → ascended; sleeps as a restrained Immortal
-- [ ] Body-path threshold state name (soul = Pseudo God)
+- [x] Body-path threshold state name → **Demi-Saint** (soul = Pseudo God, qi = Half-Step Immortal)
 - [ ] World qi: one global meter vs regional values; recovery rate
 - [ ] Saint post-apex growth steps — what each refinement needs
 - [ ] God reclaiming: one-time trial vs recurring (like Immortal Calamities)?
