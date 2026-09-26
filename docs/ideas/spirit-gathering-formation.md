@@ -124,6 +124,20 @@ Trace, exam, hire, chamber stacking rule implementation, hall replacement, essen
 
 ---
 
+## How to find it (especially phone)
+
+Formations are **not** on the ⛩️ Courtyard hub. That room is disciples and sect affairs. The word “courtyard” in the pattern text means the **slots on your quarters page**.
+
+**Inner Court Room** is not a second map pin. It is the **name of residence level 1** (after Makeshift Shelter). The map node is always **🏠 Leader's Quarters**.
+
+On **main today**, the illustrated grounds map stacks pins on a phone — Quarters is easy to miss. Workaround: open 🏯 **Sect**, then hunt for the 🏠 pin **below** the courtyard pin (same column), or scroll the sheet and try again. Fix: [PR #130](https://github.com/WanderingImmortal/tales-immortal-path/pull/130) flattens the map to a list and adds a **Quarters** chip.
+
+Path once you can tap it:
+
+1. Found a sect → 🏯 Sect → **Leader's Quarters**
+2. If the title says Makeshift Shelter, upgrade at the bottom of that page → **Inner Court Room**
+3. Scroll: **Formation Shelf** (unread Spirit Gathering) then **Courtyard Formations** (slot 1)
+
 ## Playtest script
 
 1. Found a sect, upgrade to Inner Court Room. Unread gather should appear on the shelf — not already known.
