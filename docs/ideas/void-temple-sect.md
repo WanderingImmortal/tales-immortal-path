@@ -28,7 +28,7 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperi
 | **True core** | **Void Prison** (虚空狱) — pocket realm; prisoner calls it **Little Heaven** (小天堂) |
 | **Sect immortal** | **The Void Seeker** (寻虚仙) — bound the prisoner; **Immortal warden**; hunts a **final seal** beyond the firmament |
 | **Public admin** | **Duty Patriarch** (执宗) — rotating senior VR; **job**, not throne |
-| **Player-facing adept** | **Adept Silent Moon** — branch scholar *(code: `faction_void_adept`)* |
+| **Player-facing adept** | **Adept Still Abyss** — branch scholar *(code: `faction_void_adept`)* |
 | **Network** | **Void Gates** — formation portals; confirmed major cities + rumored extras |
 | **Allies / rivals** | Allies **Jade Lotus**; rivals **Golden Phoenix** |
 | **Combat lean** | Few **gate wardens**; win by position and seal-work, not mass armies |
@@ -243,7 +243,7 @@ VOID PRISON — Watch elders (rotation in Little Heaven) ← real prestige
     ↑
 HANGING STAR — duty patriarch (执宗) + outer court
     ↑
-BRANCH SHRINES — Silent Moon tier; gate wardens
+BRANCH SHRINES — Still Abyss tier; gate wardens
 ```
 
 | Role | Notes |
@@ -252,7 +252,7 @@ BRANCH SHRINES — Silent Moon tier; gate wardens
 | **Watch elder** | VR+; prison rotation — **what matters** |
 | **Duty patriarch** | Senior VR **term** — treaties, schedules, who speaks to Longcheng; then back to watch |
 | **Gate warden** | Elite combat — gate transit, leak response, survey escort |
-| **Scribe / adept** | Script, archives, dao pointers, sealed-site reads — **Silent Moon** at branch |
+| **Scribe / adept** | Script, archives, dao pointers, sealed-site reads — **Still Abyss** at branch |
 
 **Succession:** patriarch is **volunteered or assigned** until the elder returns to watch. No cult of personality.
 
@@ -385,7 +385,7 @@ Ancient arts table above — implement when [`cultivation-manuals-framework.md`]
 | **Friendly** | Ancient clue | `heartlands_root` at friendly |
 | **Elder** | Archive study + explore | `elder_void_archive` |
 | **Allied + sect** | Void scholarship | `void_temple_scholarship` |
-| **Silent Moon** | Clue at rep 30 | `faction_void_adept` talk hook |
+| **Still Abyss** | Clue at rep 30 | `faction_void_adept` talk hook |
 | **Seeker / Little Heaven** | *Not implemented* | high rep / crisis chronicle |
 
 ### Code backlog

@@ -111,7 +111,7 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 
 **Lotus copy trap to avoid:** hidden matriarch who **socially engineers** the continent. Yin spine **does not weave** — she **subtracts**: let yang burn, **buy silence**, **take yin prizes**, **leave no name**.
 
-**Working epithet:** **Silent Moon Matriarch** (寂月宫主) or **First Yin Maiden** (玉女祖师) — *name TBD*
+**Epithet:** **Silent Moon Matriarch** (寂月宫主) — kept 2026-09-26 when the Void adept was renamed Still Abyss (owner); "Silent Moon" is reserved for her and leaves the procedural sect pool. *Suggestion:* **First Yin Maiden** (玉女祖师) survives as an in-sect honorific. True name TBD.
 
 ### Spine sketch (draft)
 
@@ -214,7 +214,7 @@ Link: [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 
 - [x] Apex scripture name — **True Yin Scripture** (真阴经) — owner 2026-08-02
 - [x] Final palace name: **Yin Maiden Palace** (玉女宫) — owner 2026-09-26; Moonfract dropped
-- [ ] Spine true name + epithet — **Silent Moon Matriarch** vs **First Yin Maiden**
+- [ ] Spine true name (epithet: **Silent Moon Matriarch**, kept 2026-09-26)
 - [ ] **Silence-debt mid sects** — 2–3 survivors who still owe (faction hooks, charter tension)
 - [ ] Example incursion — one named small reach and what it cost
 

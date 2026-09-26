@@ -70,7 +70,7 @@ The gorge is the cult’s **true homeland** — not a dungeon sticker on the Hea
         |
 [ Cauldron Lanes — 鼎巷 ]         ← sect industrial belt; **Great Cauldron statue**; uniforms
         |
-[ Inner Cauldron Hall — 内鼎殿 ]  ← array controls; Hong Lian’s seat
+[ Inner Cauldron Hall — 内鼎殿 ]  ← array controls; Xue Lian’s seat
         |
 [ Great Cauldron Vault — 镇教鼎窟 ] ← **real** 镇教鼎; offerings; opens toward pit
         |
@@ -199,7 +199,7 @@ New recruits from the shadow pipelines are **rolled on the tally stone** (head c
 | **Approach** | Wrong quiet; **dead** map; Mist Veil **fever** |
 | **Stake field** | Nosebleed; choice — **turn back**, **sneak**, or **find** knock lore |
 | **False trail** | Loop, ambush shelf, or **caravan_demon** tier fight **before** town |
-| **Safe entry** | Blood knock from envoy quest, captured code, or Hong Lian’s **invitation thread** |
+| **Safe entry** | Blood knock from envoy quest, captured code, or Xue Lian’s **invitation thread** |
 | **Tell** | Third stake groove **warm** if pit is **feeding** heavily that week |
 
 ### Open (mouth only)
@@ -449,7 +449,7 @@ The **industrial and military floor** of the gorge — channels, pill foundry, d
 | **Location** | **Great Cauldron Vault** (镇教鼎窟) — **one level below** the inner end of the lanes, **against the pit wall**, **beside** the Demon Lord Pit offering chutes |
 | **Not** | The statue in the lanes — that is **public face**; mass conversion happens at the **vault** |
 | **Flow** | Tribute blood, war spill, failed merit → **vault cauldron** → **vein** + **pit** (founder’s feed) |
-| **Who attends** | Hong Lian’s priests, pit attendants, Mo Xuan on rare rites — **not** market crowds |
+| **Who attends** | Xue Lian’s priests, pit attendants, Mo Xuan on rare rites — **not** market crowds |
 
 ### Entering from Bloodrift (first impression)
 
@@ -549,13 +549,13 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 #### Descent Road (行道)
 
 - **Guarded** ramp to **Inner Cauldron Hall** → **Great Cauldron Vault** → patriarch → pit.
-- **Hong Lian** or envoys **escort** only for the worthy / the doomed.
+- **Xue Lian** or envoys **escort** only for the worthy / the doomed.
 
 ### Who you meet here
 
 | Who | Role |
 |-----|------|
-| **Hong Lian** (红莲) | **Elder of the Cauldron** — splits time: **foundry + channels** in lanes, **array desk** in Inner Hall, **vault rites** at pit |
+| **Xue Lian** (血莲) | **Elder of the Cauldron** — splits time: **foundry + channels** in lanes, **array desk** in Inner Hall, **vault rites** at pit |
 | **Foundry alchemists** | Pills, stabilizers |
 | **Drill instructors** | Core Demon+ veterans |
 | **Lane scribes** | Merit, issue ledgers |
@@ -593,7 +593,7 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 |--|--|
 | **Vibe** | Quiet **control room** after the lanes’ noise — stone desks, array **charts**, bronze **needles** in maps of the gorge |
 | **Function** | **Blood Seal Grand Array** metering; **Descent Road** lock; scripts from Great Draught **archived** |
-| **NPC** | **Hong Lian** (红莲) — primary desk; player quest giver at rep / infiltrate |
+| **NPC** | **Xue Lian** (血莲) — primary desk; player quest giver at rep / infiltrate |
 | **Not here** | The **physical** Great Cauldron — that is **vault** beside pit ([`blood-sealing-gorge.md`](blood-sealing-gorge.md) district map) |
 
 ### Patriarch Seal Court (魔印庭)
@@ -641,7 +641,7 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 |------------|-------------------|-------|
 | **Blood Servants** | Hundreds *(down from thousands)* | Mortal thralls; town **visible** misery |
 | **Outer / Core Demon** | Low hundreds | Mostly gorge-bound; few **envoys** outside |
-| **Inner court** | Dozens | Hong Lian’s cauldron priests; pit **attendants** only by rotation |
+| **Inner court** | Dozens | Xue Lian’s cauldron priests; pit **attendants** only by rotation |
 | **Bloodrift civilians** | Thousands *(thinned)* | Many **don’t** know pit truth; know **not to ask** |
 | **Patriarch + pit** | 1 + 1 | Mo Xuan **admin**; founder **feeds** |
 

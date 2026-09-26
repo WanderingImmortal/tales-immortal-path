@@ -671,7 +671,7 @@ Procedural sects spawn **already mid-story**, not at founding month zero. On new
 |------|--------------------------|------------|
 | Dustbone | Sand, bone, mirage, sun, ash | Crimson Peak Sect |
 | Jade | Tide, reef, pearl, mist, current | Iron Veil Pavilion |
-| Emberwild | Ember, fang, ash-wolf, kiln | Silent Moon Hall |
+| Emberwild | Ember, fang, ash-wolf, kiln | Jade Serpent Hall |
 | Frostbite | Frost, rime, glacier, still | Thunder Gate |
 | Heartlands | Fewer indie spawns; mostly branches with faction names | — |
 
