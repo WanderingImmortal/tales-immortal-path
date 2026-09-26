@@ -80,6 +80,36 @@ Handoff to Void Refinement: only a unified self can safely draw qi from outside 
 
 Lean: Celestial Transformation as the name, Mortal Shedding as oracle text — **hold the lock** until the owner confirms the merge beat. If presence is the point, *Celestial Presence* is the better name and a different realm to design.
 
+#### Genre survey — what follows Nascent Soul (2026-09-26)
+
+| Family | Ladder after NS | Notes |
+|--------|-----------------|-------|
+| Er Gen / RMJI (Renegade Immortal, RMJI, ISSTH…) | **化神** → 炼虚 Void Refinement → 合体 Integration → 大乘 Grand Ascension → 渡劫 Tribulation | 化神 = “transform into spirit/deity”; English varies by translator: *Deity Transformation* (RMJI), *Soul Formation* (Renegade Immortal), *Spirit Severing* (ISSTH — severing mechanic is its own invention) |
+| Piaomiao (A Journey to the Ethereal…) | **出窍** Out-of-Body → **分神** Divided Spirit → 合体 → 渡劫 → 大乘 | NS leaves the body; then splits into clones |
+
+What authors depict at that rung: (1) the infant (元婴) **matures** and merges back; (2) divine sense **explodes** to region scale; (3) NS can **leave the body**, survive body death, possess; (4) first touch of **laws** / personal domain (Renegade Immortal requires a domain to form); (5) **法相 dharma image** — power stands up as a giant visible form; (6) ISSTH **severing** attachments.
+
+**Against our lanes and ladder:** out-of-body / clones → spirit path (Soul Transformation, spirit idx 4). Domain → Golden Core claim (idx 2, [`domain-system.md`](domain-system.md)). Laws → Dao Seeking (idx 6). Void → idx 5. Severing → owner: do not copy. **Left over: the merge and the dharma image — the same event seen from inside and outside.**
+
+#### Idx 4 — image beat (agent lean, 2026-09-26)
+
+The refined nascent soul is **turned outward**. GC domain pressed on a room; NS on a city; at idx 4 the matured infant merges with the cultivator and their presence **stands up as a visible image over a region** (法相). An angry idx 4 cultivator = a hundred-foot figure in the sky over the town. This *is* the realm claim (regional presence, civic pressure by settlement tier, NPC defer) as fiction, and it is **showable**: a town-screen line, a combat intimidation hook, the lever for civic pressure.
+
+- Work: nourish → fuse (tribulation beat) → **raise the image**
+- Change: a presence with a form the world can see
+- Void next: the region is filled; the only way further is *out* of the world
+- Seeking after: the image was a crude shadow of a real Law
+
+**Names for the image beat (仙 lane):**
+
+| Name | Form | Note |
+|------|------|------|
+| **Celestial Form** *(lean)* | change | Already the sidebar short label; says what the realm gives |
+| Celestial Transformation | change | Keeps the Physique / Soul / Celestial Transformation trio — parity over specificity |
+| Celestial Image / Heavenly Image | change | Closest to 法相 literally; “Image” reads oddly in English |
+
+Lean set: **Celestial Form** (realm) · *Celestial Transformation* (breakthrough event text) · *Mortal Shedding* (oracle line). Owner to confirm the image beat before lock.
+
 | Use | Label |
 |-----|-------|
 | Formal realm name | Celestial Transformation *(lean — see rename above)* |
