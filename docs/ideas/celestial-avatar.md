@@ -32,7 +32,9 @@ One line: *Golden Core pressed on a room. Nascent Soul pressed on a city. The Ce
 |----|--------|
 | **You**, at region scale — the matured nascent soul given a form the world can see | A summon, pet, or separate creature |
 | Coloured by **root + Weapon Intent + foundation nature + core grade** (sword cultivator's avatar carries a sword; flame root burns) — same rule as GC domain: untagged power, tagged presentation | An elemental stat block (`fire_avatar`) |
-| **Patriarch-tier**: peak inner elders / 1st-tier city lords are this realm ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)). Seeing one raised is an **event** the living board remembers | Something every mid-realm NPC has |
+| **War-elder / city-lord tier** — peak inner elders (war, enforcement, inheritance) and **1st-tier city lords** are this realm; **patriarchs are Void Refinement** and carry the *hollowed* form ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`city-tiers.md`](city-tiers.md)). Seeing one raised is an **event** the living board remembers | Something every mid-realm NPC has; a patriarch's everyday tool |
+
+**Owner framing (2026-09-26):** the avatar is the **personification of your claim over a region** — which is why it fits city lords and war elders exactly: they *hold ground*. A patriarch has moved past holding ground (Passage), which is why the avatar hollows at idx 5.
 | Heaven-visible — raising it is noticed | Free |
 
 ### The realm journey — raising the avatar (bands)
