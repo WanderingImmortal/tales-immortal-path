@@ -32,8 +32,8 @@ Findings from a full read of `docs/ideas/` plus in-game text. Tick items off as 
 - [x] **Silence debts** → owner: politics — Maidens hold evidence and aren't publicly reviled; suggestions (coordination problem, charter status, oaths under heaven) in `frostbite-yin-sect.md`. Original finding: why haven't Tian / sects erased the Yin Maidens to bury their war-crime secrets? *Suggestion:* the ledger is a dead-man's switch.
 - [x] **Half-Step definitions** — peak condition on DM (locked) vs "idx 8" (`dao-seeking-and-manifestation.md:143`) vs loose "half-step toward Manifestation" (`forgers-guild.md`). → owner: threshold state = **second peak** that partly uses the next realm's abilities; **Half-Step Immortal** / **Demi-Saint** / **Pseudo God**. Recorded in [`nine-realm-ladder.md`](nine-realm-ladder.md); both stray usages fixed.
 - [ ] **Void Seeker vs "first"** — ascended to Immortal before the Tian Half-Step; fine under "first in living memory / first public" — make the wording consistent.
-- [ ] **Third Dynasty timing** — locked pre–Dao Wars (`dustbone-dynasties-entropy-lore.md`) vs "may be post-war" (`dao-wars-outer-zones.md:52`).
-- [ ] **Name collisions** — Hong Lian (洪炼 Forgers grandmaster / 红莲 cult elder); "Silent Moon" (Void adept / Yin matriarch); soul-path "Manifestation" vs Dao Manifestation (being fixed on PR #127).
+- [x] **Third Dynasty timing** — locked pre–Dao Wars (`dustbone-dynasties-entropy-lore.md`) vs "may be post-war" (`dao-wars-outer-zones.md:52`). → owner: **before** the wars, inside the open-ended Warring States era (no stretching of the ~3,000-year peace). Wartime echo: one power tried to garrison Dustbone and the **collective region rebuffed it** long before any cascade — a cascade collapses a society, not just an army. Recorded in both docs; the "collapsed during" row is fixed too.
+- [x] **Name collisions** — Hong Lian (洪炼 Forgers grandmaster / 红莲 cult elder); "Silent Moon" (Void adept / Yin matriarch). → owner: cult elder is now **Xue Lian** (血莲) in `blood-sealing-gorge.md`; Void adept is now **Adept Still Abyss** in `void-temple-sect.md`; **Silent Moon Matriarch** keeps the name; the procedural-ecology example no longer uses it. Code follow-ups are listed below. Soul-path "Manifestation" vs Dao Manifestation is still being fixed on PR #127.
 - [ ] **Stale meta-notes** — author spine says ~50k DM "not in ladder yet" (it is); `world-timeline-handoff.md` points to a founder section that no longer exists.
 
 ## In-game text behind the docs (code)
@@ -49,6 +49,8 @@ Findings from a full read of `docs/ideas/` plus in-game text. Tick items off as 
 - [ ] `data.js` `crimson_harvest_breath` common grade / stability malus → cult apex canon says refined
 - [ ] `ACTION_MONTHS.localTravel = 2` vs Redwell "day trips"
 - [ ] Heartlands "Spirit Coin" loot vs single `G.stones` wallet
+- [ ] `data.js:4870` `faction_void_adept` name "Adept Silent Moon" → **Adept Still Abyss** (owner 2026-09-26)
+- [ ] `data.js:5359` `SECT_RIVAL_PREFIXES` — drop "Silent Moon" (reserved for the Yin matriarch)
 
 ## Other suggestions from the review
 
