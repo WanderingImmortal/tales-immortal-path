@@ -84,7 +84,7 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 - **Publicly** the throne states the cult is gone.
 - He believes it is a **managed threat**: the cult **never leaves its lands**; the throne **doesn't want to pick that fight**; everyone else **rests easy** with the cult "dead."
 - *Suggestion — extra reasons not to fight:* two apex beings clashing openly draws heaven's resistance on both; Blood Sealing Gorge is a natural seal that a war could break; admitting the cult lives reopens the mandate's founding story.
-- **Open:** branch cells, Longcheng "Dr. Wen" front and shadow kidnapping ([`blood-sealing-gorge.md`](blood-sealing-gorge.md), [`heavenly-demon-cult-branch-cells.md`](heavenly-demon-cult-branch-cells.md)) operate outside the gorge. *Suggestion:* "never leaves" means never acts **openly as the cult** — outside work stays deniable (unregistered victims, fronts); the throne files it as "remnants / copycats." The unspoken line holds while it stays small and deniable.
+- **Outside the gorge (owner):** the cult never acts **publicly** outside its lands. Branch cells ([`heavenly-demon-cult-branch-cells.md`](heavenly-demon-cult-branch-cells.md)), fronts like Longcheng "Dr. Wen" and shadow kidnapping ([`blood-sealing-gorge.md`](blood-sealing-gorge.md)) stay deniable — when found and destroyed they look like **bandit camps, random cults, society's outlaws**. Nothing ties back: exposing the cult is one of the **ultimate sins inside the cult**. **Secrecy at all costs.**
 
 ---
 
