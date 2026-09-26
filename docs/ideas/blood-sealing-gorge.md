@@ -516,7 +516,7 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 
 - **Centerpiece of the lanes** — **not** the working vessel.
 - **Statue:** **Cauldron alone** (owner lock) — bronze-black **bowl on pedestal**; **Pulpit Demon** (usually Blood Clone) leads rites **in front of** it, not as part of it.
-- **Use:** oaths for **Outer → Core** promotion; **Pulpit Demon** (讲台魔) sermons before the bowl — usually a **Blood Clone**; lower ranks read it as **successive** Heavenly Demons; **Mo Xuan** is **admin**, not the sermon face.
+- **Use:** oaths for **Outer → Core** promotion; **Pulpit Demon** (讲台魔) sermons before the bowl — usually a **Blood Clone**; lower ranks read it as **successive** Heavenly Demons; **Mo Xuan** is **admin**, not the sermon face. **Clones never stopped** (owner 2026-09-26): the Demon is cautious and cunning — he always has Blood Clones made or ready for whatever he needs; losing one at Tianjing changed nothing.
 - **Offerings** here are **symbolic** (incense, small blood cups); **mass** offerings go to the **vault**.
 
 #### Drill Yard (东校场)
@@ -610,7 +610,7 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 |--|--|
 | **Vibe** | Vertical shaft beside the **Great Cauldron Vault** — air **thick**; bronze **glow** from cauldron bleed |
 | **Layout** | **Vault lip** and **pit chute** share a chamber — offerings **hit cauldron first**, then **what the founder needs** descends |
-| **Function** | **Founder** in seclusion; slow **devour** of failed merit + tribute; **beyond-Immortal** research |
+| **Function** | **Founder** (**Immortal** — owner 2026-09-26) in seclusion; slow **devour** of failed merit + tribute; **beyond-Immortal** research *(deliberately vague until an upper world / post-Immortal shape exists — [`post-immortal-cosmology.md`](post-immortal-cosmology.md))* |
 | **Myth** | Outer court told **“next Heavenly Demon”** will **rise from the pit** — **ruse** |
 | **Hook** | P4: omen spike if he **stirs**; Half-Step suspicion **not** relevant until someone **wakes** him |
 

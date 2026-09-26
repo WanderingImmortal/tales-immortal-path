@@ -53,7 +53,7 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Ini
 
 ## Main gorge vs branch (Reaver band)
 
-| | **Main cult** (Gullet Gorge) | **Branch cell** (Redwell, etc.) |
+| | **Main cult** (Blood Sealing Gorge) | **Branch cell** (Redwell, etc.) |
 |--|------------------------------|--------------------------------|
 | **Quarters** | **Reaver barracks** — semi-private cells; inner-store access (thin) | **No reaver hall** — upgraded safehouse room if tithe current; still exposed |
 | **Layer 3** | Full **Feeding Rites** from archive | Envoy copy — gaps normal; missing rites are **not trusted yet** |
@@ -379,7 +379,7 @@ Pacing: inferior root may spend **decades** as Reaver (~100–150 years in GC ba
 |------|-----|
 | **Heaven-Defying Swallow, Demon Maw Manifestation** | Damage system rework |
 | **Feast tier combat** | Intent Realm III — owner pass at Core ceiling |
-| **Gullet Gorge zone** | Later — lifestyle stubs assume posting exists |
+| **Blood Sealing Gorge zone** | Later — lifestyle stubs assume posting exists |
 | **GC chamber substages** | Generic tribulation beats; cult skin layers on top |
 
 ---

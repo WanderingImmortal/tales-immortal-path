@@ -94,6 +94,14 @@ Both, deliberately entangled: the **betrayal and hunt** gave him the grudge; **d
 
 **"Never again" (owner → suggestion):** hoards power, builds a fortress city, trusts no one, never lets the sect grow soft or visible enough to be purged twice. The sect's fanaticism comes from him.
 
+### Curiosity about the Void Seeker (owner 2026-09-26)
+
+- The Emperor has **heard of** the Void Seeker and **looks for traces** of him — fight or talk is not relevant now; he **cannot reach** him in the outer void.
+- Motive: **curiosity about working with souls**.
+- *Suggestion — why the Seeker:* he captured the one man who built a rival reincarnation cycle ([`void-prisoner.md`](void-prisoner.md)) and has spent ages searching for a way to **finish** him — the being who knows most about true Samsara **from outside**. Traces: old gate signatures when he returns as the seal strains, places he studied (Nameless Basin rim), fragments in Void archives.
+- *Suggestion — why not the prisoner:* Little Heaven is behind Void's lock; approaching it brings the whole fanatical Temple down on him. The Seeker is the **safer** door to the same knowledge.
+- *Tension:* Void's soul department would treat any sign of the Emperor near Seeker traces or the basin as a top-level alarm.
+
 ---
 
 ## Fengdu (丰都) — City of the Dead
