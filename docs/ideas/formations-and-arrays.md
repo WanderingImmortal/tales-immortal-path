@@ -278,7 +278,7 @@ Owner lean: mastery unlocks **environment-as-formation**, not bypassing tier rul
 
 | Blueprint | Tier | Grade *(stub)* | Primary | Notes |
 |-----------|------|----------------|---------|-------|
-| Spirit Gathering | 1st | common | Gather | v1 shipped |
+| Spirit Gathering | 1st | common | Gather | Playtest card: [`spirit-gathering-formation.md`](spirit-gathering-formation.md) |
 | Qi Stabilizer | 2nd | common | Stabilise | FE-band |
 | Iron Wall Ward | 2nd | common | Ward | Perimeter |
 | Golden Core Slayer | 3rd | superior+ | Kill | Peerless → kills most GC; crude → mostly stymie |
