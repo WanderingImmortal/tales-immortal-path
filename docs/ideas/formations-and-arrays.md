@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (F1–F2b on PR #61) |
-| **Blocked on** | Cultivation methods P0–P2 for essence fuel bands; roots v2 for rite formations |
+| **Status** | `building` (F0–F2b **shipped on main**; next = feel / payoff) |
+| **Blocked on** | Cultivation methods P3 for essence sites; chronicle fate-rite for root rites; array-assist content for Array Disciple (4) |
 | **Issue** | none yet |
-| **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
-| **Updated** | 2026-07-22 (guild fiction parked; F2b on PR #61) |
+| **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (F1–F2b) · 2026-09-26 audit |
+| **Updated** | 2026-09-26 (audit: shipped vs gaps vs next slice) |
 
 ## Intent
 
@@ -541,6 +541,56 @@ G.sect.residence.formations.slots = [
 | Save keys | shelf, master `{ tier, insight, lastExamAgeMonths }`, residence slots, `G.sect.anchors` |
 
 **Still gaps:** Array Disciple exam (4), Trace, command talisman, hire UI, cultivation-hall pattern, arrays.
+
+### 2026-09-26 audit (playable but payoff is thin)
+
+F1–F2b is **on main**, not waiting on PR #61. The profession skeleton works: unread starter gather → Decipher → lay at courtyard / meditation chamber / defense array → fuel / switch / integrity → FI → Adept exam → Vein Seal. Catalog is four live patterns (`spirit_gathering`, `qi_stabilizer`, `iron_wall_ward`, `vein_seal_ward`).
+
+**Do not climb to arrays / guilds / rites next.** The existing loop does not pay off yet. Last three unmerged PRs (#128 lore, #127 spirit-path docs, #125 mobile feel) do not touch this system — clean lane.
+
+#### Bugs / wrong feel (fix before new verbs)
+
+| Issue | What happens | Where |
+|-------|--------------|-------|
+| **Ward math inverted / gated** | `getSectEventStoneLossMult` only applies defense when the loss mult is already `< 1`, then **adds** `(defense/100)*0.35` — so Iron Wall / Vein Seal often do nothing, and when they fire they can **worsen** already-soft losses. Vault save has the same `!= 1` gate. | `sect.js` |
+| **Courtyard cultivate double-counts gather %** | `actionResidenceCultivate` passes `extraMult = getResidenceFormationCultivateMult()`, but `runFocusedCultivateSession` already multiplies `getPassiveCultivationSupportMult()` (which includes that same residence %) **and** then `runCultivateSession` applies `extraMult` again on top of `getSectCultivationMult()` (chamber %). | `formations.js` → `passive-cultivation.js` → `actions.js` |
+| **Adept “soft” realm gate is hard** | Comment says formation-mains can attempt slightly early; `getFormationExamBlockReason` **blocks** below FE. | `formations.js` |
+| **Redwell sells zero manuals** | Starter bazaar `formations: []`. Threshold sells Stabilizer only; wards only at Heartlands / Jade. Early Dustbone runs stall after the unread gather. | `data.js` `MERCHANT_CATALOG` |
+| **“Light the mountain” has no trigger** | Wards default off (correct fantasy) but sect events fire on a timer with no raid-alert / command talisman. Player must leave the ward burning or miss the beat. | design vs `sect-expand.js` events |
+| **Lay always succeeds** | Doc first-lay fail / Trace risk never shipped. Fine for F1; do not add fail% until Trace exists. | — |
+| **No tests** | `formations.js` is ~1.5k lines, residence vs anchor APIs are near-duplicates, zero unit tests. | — |
+
+#### Stacking (write the rule before a hall pattern)
+
+- Residence gather % hits **passive night circulation** and **every focused session** (via `getPassiveCultivationSupportMult`).
+- Meditation-chamber gather % hits **sect-wide** cultivate (`getSectCultivationMult`) — same soup as Cultivation Hall's flat `cultivationSpeedPct`.
+- Courtyard “Cultivate at quarters” currently **re-applies** residence % on top (bug above).
+- Defense rating is **added** to the building's `defenseRating`, then (buggily) fed into event stone-loss.
+
+Owner rule from this doc still stands: pattern should **replace or modulate** a building %, never silent additive soup. Cultivation Hall as a third gather anchor is **parked** until that rule is coded.
+
+#### Recommended next slice — **F2.5 feel / payoff** (not F3)
+
+Small, playable, no new profession rank:
+
+1. **Fix ward math** so an active, fueled Iron Wall / Vein Seal always softens event stone loss, with the advertised “keep it off until needed” cost still mattering. Show the soften % on the defense-array panel.
+2. **Fix courtyard double-count** — `extraMult` / `extraFoundation` should be *session-only extras*, not a second copy of the global support mult.
+3. **One early acquire path** — Redwell or Threshold loot / SKU for Stabilizer (and maybe Iron Wall at Threshold) so Dustbone playtests can reach the Adept loop without Heartlands.
+4. **Hire stub (one button)** — pay stones to decipher or lay at NPC skill; no FI. Protects cultivator-mains from the profession UI.
+5. **Command talisman (thin)** — consume item → flip defense-array switch from anywhere. Makes “standby ward” real.
+6. **UI thin-out** — courtyard is a button farm (3 fuel presets × slots + lay + maintain + exam). Collapse fuel to one control; hide lay row when the slot is filled.
+
+**Skip for now:** Trace, Array Disciple, cultivation-hall pattern, essence sites, gear/talisman combat deploy, Formations Guild city, root rites, natural/heavenly formations.
+
+#### Later ideas (parked, still good)
+
+| Idea | Why wait |
+|------|----------|
+| Third courtyard pattern with a *different* primary (conceal / trap stub) | Slots 2–3 are gather+stabilise soup |
+| Disciple “Array tender” duty | Integrity decay is real (~30 mo to fade) but only the player clicks Maintain |
+| Explore loot unread manuals | Markets are the only non-starter acquire |
+| Integrity SVG fade on the sect map | Text bands exist (`is-fading` / `is-decayed`); visual next |
+| Dedup residence vs `*SectAnchor*` functions | Same slot verbs copied ~2× — refactor when touching feel, not as its own PR |
 
 ---
 
