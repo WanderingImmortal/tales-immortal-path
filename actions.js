@@ -396,6 +396,19 @@ function actionStatus() {
 
 // ----- COMBAT -----
 function actionCombat() {
+    // The Fight button doubles as the escape hatch for its timed seek project.
+    // Handle cancellation before the global busy guard so it also works while paused.
+    const clockProject = typeof getWorldClockProject === 'function' ? getWorldClockProject() : null;
+    if (clockProject?.id === 'fight_seek') {
+        if (typeof cancelWorldClockProject === 'function') {
+            cancelWorldClockProject('fight_seek', '⚔️ You stop seeking a fight.');
+        } else if (typeof clearWorldClockProject === 'function') {
+            clearWorldClockProject();
+        }
+        fullRender();
+        return;
+    }
+
     // Stuck save: inCombat true but overlay gone — Fight used to no-op with no log.
     if (G.inCombat && typeof isCombatOverlayActive === 'function' && !isCombatOverlayActive()) {
         if (typeof clearOrphanedCombatState === 'function') {
