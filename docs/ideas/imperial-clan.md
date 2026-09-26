@@ -75,6 +75,8 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 
 **Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks waking the dragon *and* spending sect immortals against each other while the court watches.
 
+**Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founder is the first Half-Step **in living memory**. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
+
 ---
 
 ## Modern politics — Phoenix vs Lotus (in-game arc)

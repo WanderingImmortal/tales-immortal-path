@@ -141,6 +141,8 @@ Heaven = the **rule-engine** left behind when Chaos was ordered into Dao:
 
 **Why immortals are fake (lore, nailed down):**
 
+> **Owner lean 2026-09-26:** heaven **prefers** no Immortals rather than holding a hard cap — the cost is anything held **permanently** out of the cycle, and it grows. Decline over centuries–millennia; Immortal death returns qi ("last dying gift"). Saint and God costs, knowledge tiers, returning qi: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md).
+
 When the Dao was patched to close the primordial wound, the engineers (founders, forgotten) encoded a **sustainment rule**:
 
 > *Registry Immortals shall not decay. Maintenance cost: debit from `MortalFortuneIndex` per registered node.*
