@@ -181,7 +181,7 @@ Grade changes **how fast** you move, not the **ceiling years** at a given peak q
 | 1 | Foundation Establishment | **120** | 120 | 120 | +40 |
 | 2 | Core Formation | **300** | **400** | **500** | +180 |
 | 3 | Nascent Soul | **1,000** | **1,250** | **1,500** | +700 |
-| 4 | Deity Transformation | **2,000** | **2,500** | **3,000** | +1,000 |
+| 4 | Celestial Avatar | **2,000** | **2,500** | **3,000** | +1,000 |
 | 5 | Void Refinement | **5,000** | **7,500** | **10,000** | +3,000 |
 | 6 | Dao Seeking | **10,000** | via laws (playtest) | via laws (playtest) | +0 if Void is already perfected |
 | 7 | Dao Manifestation | **~45,000** | **50,000** | **50,000** | TBD |
@@ -253,7 +253,7 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 1 | Anchor | Intent, probe sealed sites |
 | 2 | Domain | Light body (local), sect / forbidden |
 | 3 | Sovereignty | Sky travel (zones), soul sense |
-| 4 | Transformation | Deity-presence in a region (not soul-path) |
+| 4 | Avatar | Regional presence made visible (法相) — [`celestial-avatar.md`](celestial-avatar.md) |
 | 5 | Passage | Blink / void skip |
 | 6 | Law (seek) | Dao panel, insight pursuit |
 | 7 | Law (wear) | Embody law; local imposition |
