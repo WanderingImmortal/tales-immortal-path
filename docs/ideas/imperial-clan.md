@@ -10,7 +10,7 @@
 
 ## Intent
 
-The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder sleeps at the gate of immortality.
+The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder — first Half-Step, later **Immortal** — sleeps beneath the capital, restrained.
 
 **Imperial public face:** five-clawed true dragon (五爪真龙) — *only* the Tian may bear it; usurpation is existential treason.
 
@@ -57,9 +57,10 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 ### Now
 
 - **Sleeping giant:** no open continental wars; scheming, charters, succession plots, buried deterrence.
-- **Founder** (first Half-Step) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
+- **Founder** (first Half-Step in living memory; **ascended to Immortal** after the mandate — owner 2026-09-26) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
 - **Public myth:** the founder chose sleep so the realm could heal.
 - **Sect whisper:** the founder sleeps because acting openly accrues heaven's debt — wake them only if the mandate cracks.
+- **Truth (owner):** a **restrained Immortal** — he knows what immortality costs the world and sleeps to keep his draw low. See [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md).
 
 ---
 
@@ -67,7 +68,7 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 
 | Layer | Role |
 |-------|------|
-| **Buried founder** | Half-Step at heaven's gate — ultimate Tian deterrence; waking = continental crisis |
+| **Buried founder** | Sleeping **Immortal** (was first Half-Step) — ultimate Tian deterrence; waking = continental crisis |
 | **Imperial court** | Regents, blood branches, chancellors — **surface scheming** |
 | **Charter law** | Sect homelands + licensed rivalry; open conquest forbidden without imperial verdict |
 | **Sect arrays + immortals** | Each great sect **cannot be erased** by force alone — capitulated, never surrendered |

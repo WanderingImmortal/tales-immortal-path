@@ -17,7 +17,7 @@ Findings from a full read of `docs/ideas/` plus in-game text. Tick items off as 
 ## Big plot holes
 
 - [x] **Why do the Tian still rule** when sects gain Immortals? → owner answer in [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1 (long gap; Tian + noble houses centralised; restrained top, powerful middle)
-- [~] **Why was the Tian founder first to Half-Step** after a long Warring States era of ~50k-year Dao Manifestation lives? `post-immortal-cosmology.md:283` has early Immortals right after the Seal. → owner: **first in living memory**. Cause of the Warring States drought still open.
+- [x] **Why was the Tian founder first to Half-Step** after a long Warring States era of ~50k-year Dao Manifestation lives? `post-immortal-cosmology.md:283` has early Immortals right after the Seal. → owner: **first in living memory**; wealth + talent requirements in a fragmented world; Da Chi found an unknown door; soul stigma blocked godhood. See [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1. Founder **later ascended** (restrained Immortal). Spin-off: [`hollow-throne-sect.md`](hollow-throne-sect.md).
 - [ ] **Cult secrecy** — Blood Sealing Gorge has thousands in Bloodrift, a Deity-tier (now Celestial Avatar) mouth guard, DS overseers for branch cells; Sword patrols the rim; Tian forbid surveys. `imperial-clan.md` never mentions the gorge. *Suggestion:* the cover-up is a **deal** — the Half-Step killed the clone knowing the founder escaped; the mandate needs the extirpation story; the gorge is a pressure valve.
 
 ## Doc ↔ doc contradictions

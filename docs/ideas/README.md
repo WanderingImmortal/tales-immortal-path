@@ -137,3 +137,4 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Upper celestial nine](upper-celestial-nine.md) | `idea` | Mortal nine + immortal Court MVP | — |
 | [Heaven's cycle, false immortality & the three apexes](heaven-cycle-and-apexes.md) | `idea` | Spirit path (PR #127); world qi sketch | — |
 | [Lore consistency review (2026-09)](lore-consistency-review-2026-09.md) | `idea` (checklist) | Owner calls per item | — |
+| [The Hollow Throne — shadow soul sect (Fengdu)](hollow-throne-sect.md) | `idea` | Spirit path (PR #127); God kinds | — |

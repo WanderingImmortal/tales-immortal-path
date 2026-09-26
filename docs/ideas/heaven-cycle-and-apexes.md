@@ -20,7 +20,9 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 
 ## 1. Why the Tian still rule (owner 2026-09-26)
 
-**Problem:** the Tian deterrent is a sleeping **Half-Step**; the Sword Ancestor later ascends to **Immortal**, other sects gain Immortals, and the cult founder may be one too. The throne's trump card is outranked.
+**Problem:** the Tian founder is one Immortal among several — the Sword Ancestor ascends after the peace, other sects gain Immortals, and the cult founder may be one too. Apex power alone doesn't explain the throne.
+
+**Founder (owner 2026-09-26):** first Half-Step in living memory at Tianjing, **later ascended to Immortal**; sleeps because he is **restrained** (knows the cost — see §2).
 
 **Owner answer:**
 
@@ -44,6 +46,26 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 
 **Tension sources:** Tian is not one bloc (regents, blood branches, cadet lines); a noble house outgrowing a cadet Tian branch; nobody can prove the sleeping founder can still wake.
 
+### Why no apex emerged during the Warring States (owner 2026-09-26)
+
+**Owner:** a world of destruction and scattered wealth — tribes, clans, sects and cities all fighting. No Half-Step (and no Saint or God) emerged because of the **sheer wealth and talent requirements**. A **supreme genius** of the **consolidated** Tian clan made the step near the end of the Dao Wars.
+
+| Point | Detail |
+|-------|--------|
+| **Wealth was fragmented** *(owner)* | No pool large enough to push anyone through. |
+| **Anyone close became a target** *(suggestion)* | Same logic as the two-DM taboo break — a near-Half-Step invites a pre-emptive coalition. The Tianjing siege **is** that logic; Tian defences held "one beat too long." |
+| **War thins the world** *(suggestion)* | Damaged veins → more resistance at the gate (§2). |
+| **Body / soul thresholds** *(owner: likely)* | Saint and God need their own Half-Step-equivalent peak states. Soul: **Pseudo God**. Body name open. Peak conditions, not realms. |
+| **Da Chi — nobody knew the door existed** *(owner)* | The body path was thought to top out at Indestructible Vajra. Da Chi found Saintly Flesh through his Vessel Rule held through capitulation — and nobody was watching for it. Every later Saint **will** be watched. |
+| **Soul stigma** *(owner)* | Soul cultivation is always reviled or disquieting. Godhood may have been theorised, but stigma kept any soul sect from forming openly during the wars. *Suggestion:* invasive arts (soul search, possession) + touching heaven's jurisdiction over reincarnation. |
+
+### Void Temple and soul cultivation (owner 2026-09-26)
+
+- Void Temple is **not** a soul-aligned sect — it has a **department** that does soul cultivation, created **for a purpose**: proactively monitoring soul activity and keeping everything running tightly.
+- Almost the whole sect is **fanatical** about its goals.
+- **No relation** to the Hollow Throne ([`hollow-throne-sect.md`](hollow-throne-sect.md)) — but the department is its natural hunter.
+- Supersedes "Void Temple as natural home sect" for the spirit path (PR #127 wording).
+
 ---
 
 ## 2. Heaven's cycle — why a permanent cost is too much
@@ -65,7 +87,8 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 |-----|-----------|
 | **Mortals → Dao Manifestation** | It never occurs to them. **Owner:** DM-equivalents notice the world getting worse over the ages but can't figure out why. |
 | **Immortals (long-lived)** | **Owner:** discover clues over time — possibly via **tribulation**; they feel the world doesn't want them to exist. *Suggestion:* post-ascension pressure never stops — like a body rejecting a transplant or pushing out a splinter; Immortal Calamities feel like being expelled, not tested. |
-| **Know exactly (owner)** | **Void Seeker**, **Tian founder**, possibly the **Heavenly Demon**. It shapes their actions (guard · sleep · devour). *Why they don't tell — later.* |
+| **Know exactly (owner)** | **Void Seeker**, **Tian founder** (restrained — sleeps), possibly the **Heavenly Demon**. It shapes their actions (guard · sleep · devour). *Why they don't tell — later.* |
+| **Knows the ways to godhood** | **Emperor of Souls** ([`hollow-throne-sect.md`](hollow-throne-sect.md)) — lived Worshipped and Devouring, seeks Personal. |
 
 **Red herring (suggestion):** elders blame the **Dao War law scars**, over-harvested veins and fading lineages — partly true, so nobody looks upward.
 
@@ -164,11 +187,12 @@ Lane words (from PR #127): qi → 仙 **Immortal** · body → 圣 **Saint** · 
 
 ## Open questions
 
-- [ ] Why nobody reached Half-Step during the long Warring States era (resistance? thin world? something else) — "first in living memory" covers the claim, not the cause
+- [x] Why nobody reached Half-Step during the Warring States → wealth + talent; see §1
 - [ ] Gap length between Half-Step and later Immortals (owner: generous, unspecified)
 - [ ] Which noble house is the puppet, and whose
 - [ ] Why the three who know stay silent (owner: later)
-- [ ] Does the Tian founder sleep from mercy, strategy, or something darker?
+- [x] Tian founder → ascended; sleeps as a restrained Immortal
+- [ ] Body-path threshold state name (soul = Pseudo God)
 - [ ] World qi: one global meter vs regional values; recovery rate
 - [ ] Saint post-apex growth steps — what each refinement needs
 - [ ] God reclaiming: one-time trial vs recurring (like Immortal Calamities)?
