@@ -70,7 +70,7 @@ Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated event
 ### Before Warring States — early heaven (not “Chaos Era”)
 
 - **Chaos** = what was **sealed**, residues, wrong-law scars — **not** the label for all deep time ([`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md)).
-- **Pre-heaven** = **path / category** (ante-law cultivators), **not** an era name. Void **prisoner** is **not** “from the Chaos era” as a period — human who walked **Pre-Ledger Way after the Seal**; binding and Watch are **institutional**, older than Tian and Dao Wars. **Origin story on owner PC — do not expand here.**
+- **Pre-heaven** = **path / category** (ante-law cultivators), **not** an era name. Void **prisoner** is **not** “from the Chaos era” as a period — human who began the **Pre-Ledger Way** before the Seal and kept walking it after; binding and Watch are **institutional**, older than Tian and Dao Wars. **Origin story on owner PC — do not expand here.**
 - **Mortal historians** may compress myth (Seal) as “before the dynasties” — TBD how much they know.
 
 **Parked:** one early-heaven era vs 2–3 named sub-eras before Warring States slides into cold DM deterrence.

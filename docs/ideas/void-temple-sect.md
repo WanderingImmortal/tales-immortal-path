@@ -59,7 +59,7 @@ The **Heartlands four** on today’s maps are **not** four siblings born togethe
 | Era *(rough)* | Void / Watch | Sword · Lotus · Phoenix |
 |---------------|--------------|-------------------------|
 | **Post-Seal, early law** | **Firmament Watch** (守界) — engineers at the **sky shell**; void pockets; **no** jianghu brand | Mortal kingdoms; **minor** sword schools, trade houses, flame shrines — not yet “great sects” |
-| **The binding** | Watch + future **Void Seeker** seal the prisoner — **alone** | **Not involved** — ancestors may not exist as cultivators yet |
+| **The binding** | Future **Void Seeker** convenes individual DMs to **capture**; Watch + Seeker **alone** build and hold the lock ([`void-prisoner.md`](void-prisoner.md)) | **Not involved** — ancestors may not exist as cultivators yet |
 | **Centuries of maintenance** | **Little Heaven** + gate scripts; Watch **shrinks** into secrecy | Schools **rise**, fight, merge; **ante-law** manuals **lost** or outlawed |
 | **Dao Wars** | **Silent** — prison first ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)) | **Mature** great sects; assault Tianjing; mandate |
 | **Mandate now** | **Archive Oath** — throne **recognizes** prison sovereignty; **does not** claim they built it | Fear **release** in folklore; **no** prison keys |
@@ -93,6 +93,8 @@ Orthodox histories **redact** details; Watch tablets are **blunt**. Before the g
 | Cast **Pale Name-stripping** over a **whole river basin** — tens of millions of mortals and thousands of early cultivators | Heaven **no longer “saw”** births, deaths, broken oaths, or tribulation targets there — as if the basin **had no names** |
 | **Taught** Pre-Ledger breathing; elders **spread** it before Watch could stop them | The dead **did not pass cleanly into the cycle** — souls **backed up** like a blocked river |
 | Left a **scar** on the firmament stitch near the basin | If he walked free, the **same rite** could spread — mandate centuries later would be **unenforceable** |
+
+**Same act as true Samsara (owner merge 2026-09-26):** name-stripping was the **method** of his Work — taking the basin out of heaven's cycle so a true cycle could run. Souls backed up because he was caught **mid-Work**. Detail: [`void-prisoner.md`](void-prisoner.md) § Motive. The Nameless Basin is also the **purpose** behind Void's soul-monitoring department ([`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1).
 
 **Void’s stake:** the scar was at a **shell weak point**. Only **firmament / void-gate** craft could **quarantine** the fallout and **bind** the man who could repeat it. The Watch did **not** do this for Sword, Lotus, or Phoenix — those powers **were not yet** the board.
 
