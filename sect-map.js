@@ -97,6 +97,9 @@ function renderSectMapHeaderHtml() {
         <div class="sect-stat"><span class="label">Renown</span><span class="value">${G.sect.renown || 0}</span></div>
         <div class="sect-stat"><span class="label">Disciples</span><span class="value">${getDiscipleCount()}</span></div>
         <div class="sect-stat"><span class="label">Income</span><span class="value">💎 ${getSectDiscipleIncome() || 0}</span></div>
+        <div class="sect-stat sect-stat-clickable" data-sect-view="residence" title="Open your quarters — formations live here">
+            <span class="label">Quarters</span><span class="value">${SECT_RESIDENCE.emoji} ${getResidenceDef().name}</span>
+        </div>
         <div class="sect-stat sect-stat-clickable" data-sect-view="inventory" title="Open sect stores">
             <span class="label">Stores</span><span class="value">📦 ${invUsed}/${invCap}</span>
         </div>
@@ -161,7 +164,7 @@ function renderSectMapHtml() {
     });
 
     html += `</div></div>`;
-    html += `<p class="sect-hint sect-map-hint">Click a building to visit it. Courtyard holds disciples and sect affairs.</p>`;
+    html += `<p class="sect-hint sect-map-hint">Tap a building to visit it. Formations are at <strong>Leader's Quarters</strong> (not the Courtyard hub). Courtyard is disciples and sect affairs.</p>`;
     return html;
 }
 
@@ -174,7 +177,8 @@ function renderSectCourtyardHtml() {
         <span class="sect-bc-sep">›</span>
         <span>⛩️ Courtyard</span>
     </div>`;
-    html += `<p class="sect-hint">The heart of ${G.sect.name || 'your sect'} — roster, advancement, and affairs.</p>`;
+    html += `<p class="sect-hint">The heart of ${G.sect.name || 'your sect'} — roster, advancement, and affairs. Formations are inscribed at your quarters, not here.</p>`;
+    html += `<button type="button" class="sect-action-btn" data-sect-view="residence">${SECT_RESIDENCE.emoji} Open Leader's Quarters</button>`;
 
     if (docDef) {
         html += `<div class="sect-doctrine-display">${docDef.emoji} <strong>${docDef.label}</strong> · ${docDef.subtitle}</div>`;
@@ -247,7 +251,7 @@ function renderSectResidenceDetailHtml() {
 
     html += `<div class="sect-building-actions">`;
     html += `<div class="sect-section-title">Your Quarters</div>`;
-    html += `<p class="sect-hint">Your personal anchor on the grounds. Inscribe formations in the courtyard, then cultivate here for their blessing.</p>`;
+    html += `<p class="sect-hint">Your personal rooms on the grounds. The formation shelf, Decipher, and courtyard slots live on this page. Upgrade to <strong>Inner Court Room</strong> (residence lv 1) for the first slot and the unread Spirit Gathering manual.</p>`;
     if (typeof renderResidenceFormationsHtml === 'function') {
         html += renderResidenceFormationsHtml();
     }
