@@ -24,7 +24,7 @@ Expand the mortal qi ladder from **7 → 9 realms** (indices `0–8`). Early blo
 | 1 | Foundation Establishment | Unchanged |
 | 2 | Core Formation (Golden Core) | Unchanged — “major realm” watershed |
 | 3 | Nascent Soul | Unchanged — qi-path soul externalized; distinct from **soul refinement track** |
-| 4 | **Celestial Transformation** (rename lean — was Deity Transformation) | 化神-equivalent beat; **renamed off the 神 lane** 2026-09-25 — see lane words + idx 4 note below |
+| 4 | **Celestial Avatar** (owner lock 2026-09-26 — was Deity Transformation) | 法相 beat — the matured nascent soul stands up as a visible image over a region. **Renamed off the 神 lane.** System: [`celestial-avatar.md`](celestial-avatar.md) |
 | 5 | Void Refinement | Existing — shift index from `4` → `5` |
 | 6 | Dao Seeking | Existing — comprehend / pursue dao **before** manifestation |
 | 7 | Dao Manifestation | **New** — dao is worn / embodied, not merely studied |
@@ -108,7 +108,7 @@ The refined nascent soul is **turned outward**. GC domain pressed on a room; NS 
 | Celestial Transformation | change | Keeps the Physique / Soul / Celestial Transformation trio — parity over specificity |
 | Celestial Image / Heavenly Image | change | Closest to 法相 literally; “Image” reads oddly in English |
 
-Lean set: **Celestial Form** (realm) · *Celestial Transformation* (breakthrough event text) · *Mortal Shedding* (oracle line). Owner to confirm the image beat before lock.
+**Owner lock 2026-09-26: Celestial Avatar.** Image beat confirmed — idx 4 is where an individual starts holding regional power, and the avatar is what that looks like. *Celestial Transformation* stays as breakthrough event text, *Mortal Shedding* as oracle line. Hanzi open (法相境?). **System design: [`celestial-avatar.md`](celestial-avatar.md)** — what it does, how it is trained, what it becomes at idx 5–8.
 
 | Use | Label |
 |-----|-------|
@@ -271,7 +271,7 @@ One dig, getting grander:
 | 1 | Foundation Establishment | **Vessel Establishment** | What you’re doing. Brace the body so the dig has something that can hold it. |
 | 2 | Core Formation | **Essence Pearl** | What you’ve become. The dig condenses into one precious thing inside you. The watershed. Vessel Rules can be sworn around here; they are not required to enter the realm. |
 | 3 | Nascent Soul | **Nascent Physique** | What you’re becoming. That pearl gives birth to a physique. A second body, not a soul. |
-| 4 | Celestial Transformation *(rename lean)* | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
+| 4 | Celestial Avatar | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
 | 5 | Void Refinement | **Hollow Refinement** | What you’re doing. Dig past the physique into the empty place under it. Opening it is the door; strength is refined inside. |
 | 6 | Dao Seeking | **Origin Seeking** | What you’re doing. See play note below — the name can stay; the activity must not be a dao library. |
 | 7 | Dao Manifestation | **Origin Manifestation** | What you’re becoming. The origin is the flesh people meet. Same play note as Seeking. |
@@ -303,7 +303,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 | 1 | Foundation Establishment | **Sea Stilling** *(owner lock 2026-09-26)* | What you’re doing. An opened sea churns with every thought; still it so it can hold anything. Sea **size** is the meter, not a realm. |
 | 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
 | 3 | Nascent Soul | **Soul Birth** *(owner lock 2026-09-26)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
-| 4 | Celestial Transformation *(rename lean)* | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
+| 4 | Celestial Avatar | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
 | 5 | Void Refinement | **Selfless Refinement** | What you’re doing. Refine away the person so only the soul remains (忘我). Echoes Mind Lake “Purge Attachment.” |
 | 6 | Dao Seeking | **Divinity Seeking** *(owner lean)* | What you’re doing. Seek what makes a soul a god. |
 | 7 | Dao Manifestation | **Divine Soul** *(owner lean)* | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
@@ -338,7 +338,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 
 ## Open questions
 
-- [ ] Idx 4 name — **reopened 2026-09-25** (lane rule): lean **Celestial Transformation**; alt Mortal Shedding (oracle text) / Transcendent Form; hanzi open
+- [x] Idx 4 name — **Celestial Avatar** (owner lock 2026-09-26; lane rule). Hanzi open. System doc: [`celestial-avatar.md`](celestial-avatar.md)
 - [x] Half-Step is not a realm — a step above peak Dao Manifestation. Powers still open (owner 2026-09-25)
 - [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02)
 - [x] VR breakthrough floor — **5,000** (owner aesthetic: half of 10k)

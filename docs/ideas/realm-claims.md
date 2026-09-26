@@ -29,7 +29,7 @@ Uses indices from [`nine-realm-ladder.md`](nine-realm-ladder.md) (`0–8`).
 | 1 | Foundation Establishment | **Anchor** | Intent, physique, sealed-site probe (existing) | Rooted — resist zone chip |
 | 2 | Core Formation | **Domain** | Aura pressure; sect/forbidden (existing) | **Light Body** — local 2mo → 0–1mo |
 | 3 | Nascent Soul | **Sovereignty** | Soul sense; projection (light) | **Sky Travel** — zone 8mo → 2–3mo |
-| 4 | Deity Transformation | **Transformation** | Regional deity-presence; NPC defer | Pressure radius; not more flight |
+| 4 | Celestial Avatar *(renamed 2026-09-26)* | **Avatar** | Regional presence made visible (法相); press settlements by civic tier; NPC defer — [`celestial-avatar.md`](celestial-avatar.md) | Pressure radius; not more flight |
 | 5 | Void Refinement | **Passage** | Spatial authority | **Blink** between two local nodes; void skip on roads |
 | 6 | Dao Seeking | **Law (seek)** | Dao panel (existing) | Law-sense — faction dao, thin forbidden |
 | 7 | Dao Manifestation | **Law (wear)** | Embody one **dao law** (cultivator-worn — not axis / basin statute) | Muffle weak techniques; tribulation skew |

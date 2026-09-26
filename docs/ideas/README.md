@@ -81,6 +81,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite; forbidden branch of spirit path | — |
 | [Spirit / Soul path — full third path](spirit-path-full-design.md) | `designed` (direction locked; names open) | Stats → meters rework | — |
 | [Stats → meters rework (guards, natures, fifth system)](stats-to-meters-rework.md) | `designed` (change now) | none | — |
+| [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
 | [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `idea` (lean locked) | Inner Tempering leaned; later realms and a name lock still open | — |
 | [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
