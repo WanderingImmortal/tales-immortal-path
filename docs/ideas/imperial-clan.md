@@ -10,7 +10,7 @@
 
 ## Intent
 
-The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder sleeps at the gate of immortality.
+The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder — first Half-Step, later **Immortal** — sleeps beneath the capital, restrained.
 
 **Imperial public face:** five-clawed true dragon (五爪真龙) — *only* the Tian may bear it; usurpation is existential treason.
 
@@ -36,7 +36,7 @@ The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** 
 
 An **uneasy peace**: great powers **capitulated** — not **surrendered**. Each great sect holds a **homeland bastion** defended by apex **sect arrays** even a Half-Step at the gate could not breach without unacceptable cost. The Tian ended the Dao Wars by forcing **charter borders** and mutual recognition, not by owning sect mountains.
 
-Over the peace centuries, sects gained **immortals of their own**. They **respect** throne authority and charter law; they do **not** bend the knee daily. The continent runs on **mutual deterrence**: Tian buried founder + imperial seal, sect arrays + hidden patriarchs.
+Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immortals of their own**. They **respect** throne authority and charter law; they do **not** bend the knee daily. The continent runs on **mutual deterrence**: Tian buried founder + imperial seal, sect arrays + hidden patriarchs.
 
 | Power (draft) | Homeland | Dao Wars outcome (sketch) |
 |---------------|----------|---------------------------|
@@ -57,9 +57,10 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 ### Now
 
 - **Sleeping giant:** no open continental wars; scheming, charters, succession plots, buried deterrence.
-- **Founder** (first Half-Step) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
+- **Founder** (first Half-Step in living memory; **ascended to Immortal** after the mandate — owner 2026-09-26) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
 - **Public myth:** the founder chose sleep so the realm could heal.
 - **Sect whisper:** the founder sleeps because acting openly accrues heaven's debt — wake them only if the mandate cracks.
+- **Truth (owner):** a **restrained Immortal** — he knows what immortality costs the world and sleeps to keep his draw low. See [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md).
 
 ---
 
@@ -67,13 +68,23 @@ Over the peace centuries, sects gained **immortals of their own**. They **respec
 
 | Layer | Role |
 |-------|------|
-| **Buried founder** | Half-Step at heaven's gate — ultimate Tian deterrence; waking = continental crisis |
+| **Buried founder** | Sleeping **Immortal** (was first Half-Step) — ultimate Tian deterrence; waking = continental crisis |
 | **Imperial court** | Regents, blood branches, chancellors — **surface scheming** |
 | **Charter law** | Sect homelands + licensed rivalry; open conquest forbidden without imperial verdict |
 | **Sect arrays + immortals** | Each great sect **cannot be erased** by force alone — capitulated, never surrendered |
 | **Today's emperor** | Face of mandate — **Void Refinement peak** (sect-patriarch public tier); ancient ancestors + buried founder above — see [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) |
 
 **Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks waking the dragon *and* spending sect immortals against each other while the court watches.
+
+**Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founder is the first Half-Step **in living memory**. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
+
+### The Heavenly Demon Cult — a managed threat (owner 2026-09-26)
+
+- The founder **knows** he did not truly kill the Heavenly Demon at Tianjing (only the Blood Clone) — [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md).
+- **Publicly** the throne states the cult is gone.
+- He believes it is a **managed threat**: the cult **never leaves its lands**; the throne **doesn't want to pick that fight**; everyone else **rests easy** with the cult "dead."
+- *Suggestion — extra reasons not to fight:* two apex beings clashing openly draws heaven's resistance on both; Blood Sealing Gorge is a natural seal that a war could break; admitting the cult lives reopens the mandate's founding story.
+- **Outside the gorge (owner):** the cult never acts **publicly** outside its lands. Branch cells ([`heavenly-demon-cult-branch-cells.md`](heavenly-demon-cult-branch-cells.md)), fronts like Longcheng "Dr. Wen" and shadow kidnapping ([`blood-sealing-gorge.md`](blood-sealing-gorge.md)) stay deniable — when found and destroyed they look like **bandit camps, random cults, society's outlaws**. Nothing ties back: exposing the cult is one of the **ultimate sins inside the cult**. **Secrecy at all costs.**
 
 ---
 

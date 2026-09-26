@@ -75,7 +75,7 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 
 | Site | Role | Player (v1) |
 |------|------|-------------|
-| **Gullet Gorge** (咽谷) | **Main cult** — hidden HQ, outer barracks, inner halls, canon archive | Later zone; QC life **better** but still outer |
+| **Blood Sealing Gorge** (封血峡) — HQ lands ([`blood-sealing-gorge.md`](blood-sealing-gorge.md); was "Gullet Gorge", owner 2026-09-26) | **Main cult** — hidden HQ, outer barracks, inner halls, canon archive | Later zone; QC life **better** but still outer |
 | **Branch cells** | Redwell, Heartlands safehouses, forged merchants | **v1 contact** — envoy, pamphlet, cell tasks |
 | **Field** | Maw-Womb Shard ultra-rare | Spark treasure |
 

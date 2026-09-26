@@ -74,7 +74,7 @@ So: grotto masters **do** belong to **this time of heaven** — that **makes sen
 | **Pre-heaven** | **Outside heaven’s categories** — unclassified, or from **beyond the firmament shell** | “Survivor of Desolate Eight” |
 | **Pre-heaven cultivator** (Void doc shorthand) | Walks **Pre-Ledger Way** — heaven’s law **does not close the book** on them the normal way | A cultivator who maxed the old ladder |
 
-**Void Prisoner (locked v2 — owner 2026-07-28):** **Human pre-heaven cultivator** — walked **Pre-Ledger Way** after the Seal; **tribulation and orthodox execution do not finish him**; **one** full peer. Detail: [`void-temple-sect.md`](void-temple-sect.md).
+**Void Prisoner (locked v2 — owner 2026-07-28):** **Human pre-heaven cultivator** — began the **Pre-Ledger Way** before the Seal and kept walking it after; **tribulation and orthodox execution do not finish him**; **one** full peer. Detail: [`void-temple-sect.md`](void-temple-sect.md).
 
 > **Superseded:** firmament-leak / chaos-remnant hybrid and § *One face, two origins* — archived below for git history; **do not** use in new writing.
 

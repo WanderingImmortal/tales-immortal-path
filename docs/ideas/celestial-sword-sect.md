@@ -74,7 +74,7 @@ Phoenix broke **late** and was **forced** to kneel after the Flame Emperor fell.
 - **Cold war with Golden Phoenix** — flame expansionists vs Sword Dao purists; Phoenix Gambit puts Sword in an awkward seat (honor vs Lotus ally).
 - **Imperial relation** — respected, not loved. Tian court hires Sword for **licensed duels** and edict enforcement; Sword accepts when the job is *worthy of a sword*, refuses when it isn’t.
 - **Void Temple** — uneasy respect. Sword elders think Void scholars hide behind books; Void adepts think Sword cultivators mistake violence for clarity. They ally against Phoenix when the charter cracks.
-- **Vajra Ridge (Mad Monks)** — Dao Wars **border spars** and intrusion brawls that **stung Sword lines**; Da Chi (pre–Saint patriarch) **wanted** honorable fist tests; **no** Sepulcher taboo. Yun Jian aged from the reports; Sword Immortal did not leave the array for a fool. Detail: [`body-path-sect.md`](body-path-sect.md).
+- **Vajra Ridge (Mad Monks)** — Dao Wars **border spars** and intrusion brawls that **stung Sword lines**; Da Chi (pre–Saint patriarch) **wanted** honorable fist tests; **no** Sepulcher taboo. The **Sword Ancestor** (not yet Immortal) did not leave the mountain for a fool; the patriarch of the day aged from the reports — and a young Yun Jian still remembers them. Detail: [`body-path-sect.md`](body-path-sect.md).
 
 ---
 
@@ -102,12 +102,12 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) —
 |-------|-------|
 | **Title** | Patriarch (宗主) · called **Cloud Mirror** (云鉴) off the mountain |
 | **Realm** | **Void Refinement peak** — legitimate great-sect patriarch tier |
-| **Age** | ~400 mortal years; looks **fifty** — old for a duelist, young for a patriarch |
+| **Age** | ~3,200–3,500 years *(owner 2026-09-26)*; looks **fifty**. Reached Void Refinement at ~1,200–1,500 (≈40–50% of a Celestial Avatar lifespan — a genius); patriarch ~2,000 years. A young elder (~NS) during the Dao Wars. |
 | **Role** | Administrator, diplomat, array-key holder — **not** the continent’s #1 sword (that’s the Sword Immortal) |
 
 ### Who he is
 
-Yun Jian won the **Ancestral Sword Trial** three centuries ago and has held the peak since the previous patriarch ascended to peak elder then passed into the Sepulcher. He is **good enough** with a sword that no elder openly challenges him — but everyone knows he stopped chasing the Apex the day he accepted the seal.
+Yun Jian won the **Ancestral Sword Trial** about two thousand years ago and has held the peak since the previous patriarch ascended to peak elder then passed into the Sepulcher. He is **good enough** with a sword that no elder openly challenges him — but everyone knows he stopped chasing the Apex the day he accepted the seal.
 
 He is the man who **keeps the mountain boring**.
 

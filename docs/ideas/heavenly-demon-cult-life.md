@@ -26,7 +26,7 @@ Identity doc: [`heavenly-demon-cult.md`](heavenly-demon-cult.md). Intent: [`devo
 |--|--|
 | **Vibe** | Hidden consumption cult — take, refine, become; polite envoys, ugly inner rites |
 | **Path** | Qi-primary; **blood-fiend** common; any weapon allowed, none required |
-| **Homeland** | **Main:** hidden **Gullet Gorge** (HQ). **Branches:** city cells (Redwell, Heartlands, …) — see [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
+| **Homeland** | **Main:** hidden **Blood Sealing Gorge** (HQ). **Branches:** city cells (Redwell, Heartlands, …) — see [`heavenly-demon-cult.md`](heavenly-demon-cult.md) |
 | **Lineage** | **Heavenly Demon Canon** (天魔典) |
 | **Crown intent** | **Devouring Intent** |
 | **Crown law** | **Devouring Law** |
@@ -66,7 +66,7 @@ Promotion = **merit + feeding the cell** (resources, kills, fragments handed up)
 
 ## Main cult vs branch cells
 
-| | **Main cult** (Gullet Gorge) | **Branch cell** (Redwell, etc.) |
+| | **Main cult** (Blood Sealing Gorge) | **Branch cell** (Redwell, etc.) |
 |--|------------------------------|--------------------------------|
 | **What it is** | Hidden HQ — doctrine, elders, canon archive | Smuggled contact point in the mortal world |
 | **QC rank name** | **Outer disciple** | **Cell Brother/Sister** (same layer, worse posting) |
@@ -487,7 +487,7 @@ Demon Cult is first because it's **deviant** (non-weapon intent) and **hidden** 
 
 - [ ] Intent + dao system redo (gates, families)
 - [ ] One playable join path (envoy chain)
-- [ ] Gullet Gorge zone (later — not v1)
+- [ ] Blood Sealing Gorge zone (later — not v1)
 
 ## Open questions
 

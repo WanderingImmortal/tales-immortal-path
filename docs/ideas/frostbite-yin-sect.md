@@ -46,7 +46,7 @@ Code: `frostpeak_monastery` → palace on habitable peak; Scar = optional delve 
 | **Vibe** | All-female lineage hall — pale moon discipline, silence as courtesy, cruelty as precision |
 | **Path** | **Qi-primary**; **Yin Dao** to the peak — not ice path, not body path |
 | **Entry** | **Female-only** inner court; outer servants / contractors male OK |
-| **Homeland** | **Maiden Peak** (玉女峰) or retain **Moonfract** hanzi — high ice **below** Scar band |
+| **Homeland** | **Maiden Peak** (玉女峰) — high ice **below** Scar band. Sect name **Yin Maiden Palace** locked (owner 2026-09-26); Moonfract dropped; Frostpeak = legacy code id only |
 | **Lineage** | **True Yin Scripture** (真阴经) — apex canon; outer court uses frost-flavored introductory manuals |
 | **Primary lean** | **Yin technique supremacy** — manuals, duels of concealment, assassination contracts, moon reagents |
 | **Also has hands in** | Frost mats (low-tier teaching), silence oaths, tribulation **observation** (side contract, not guardian duty) |
@@ -111,7 +111,7 @@ First **Yin Maiden** (玉女祖师) — not a warden. She **completed Yin Dao** 
 
 **Lotus copy trap to avoid:** hidden matriarch who **socially engineers** the continent. Yin spine **does not weave** — she **subtracts**: let yang burn, **buy silence**, **take yin prizes**, **leave no name**.
 
-**Working epithet:** **Silent Moon Matriarch** (寂月宫主) or **First Yin Maiden** (玉女祖师) — *name TBD*
+**Epithet:** **Silent Moon Matriarch** (寂月宫主) — kept 2026-09-26 when the Void adept was renamed Still Abyss (owner); "Silent Moon" is reserved for her and leaves the procedural sect pool. *Suggestion:* **First Yin Maiden** (玉女祖师) survives as an in-sect honorific. True name TBD.
 
 ### Spine sketch (draft)
 
@@ -166,6 +166,20 @@ Every incursion and **expert deployment** could be **contracted**:
 | **Still outstanding** | Survivors who **still live** — mid sects, elders, hidden patrons *(owner may design)* |
 | **Player hook** | Faction rep reveals “your elder’s grandmother owed the Maidens a silence” |
 
+### Why nobody wipes them out (owner 2026-09-26)
+
+**Owner:** politics. Unlike the Hollow Throne ([`hollow-throne-sect.md`](hollow-throne-sect.md)), the Maidens **hold evidence** and are **not publicly reviled** — much harder for everyone to gang up on them.
+
+**Suggestions that stack:**
+
+| Reason | Detail |
+|--------|--------|
+| **No one knows who else owes** | Debts are private contracts. Organising a coalition means **revealing your own debt** to the others — the coordination problem protects them. |
+| **A charter great power** | Recognised homeland, palace arrays, an apex spine. Attacking them is open war on a charter sect — needs imperial verdict, invites everyone's scrutiny. |
+| **Oaths under heaven** | Silence contracts sworn as **oaths** — heaven's law answers for oaths. Destroying the creditor to escape the debt risks **sacrilege** ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)). |
+| **Still useful** | Many debtors are future clients; killing the only broker of concealment kills a service everyone wants. |
+| **Evidence is real** | They performed the concealment — they know exactly what was hidden and can prove it, unlike soul-read memories. |
+
 **Parked:** one **silence debt** to **Vajra Ridge** (Dao Wars southbound retreat — palace concealment for Mad Arhat’s squad) — may be paid or awkward on the books. See [`body-path-sect.md`](body-path-sect.md). **Also:** owner may design **mid-tier Heartlands sects** with outstanding Maiden silence debts — [`silence-debt-mid-sects.md`](silence-debt-mid-sects.md).
 
 ## Spine vs Mad Arhat — **exhausting neighbor** *(owner lean)*
@@ -199,8 +213,8 @@ Link: [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 ## Open questions
 
 - [x] Apex scripture name — **True Yin Scripture** (真阴经) — owner 2026-08-02
-- [ ] Final palace name: **玉女宫** locked or blend with Moonfract 月碎?
-- [ ] Spine true name + epithet — **Silent Moon Matriarch** vs **First Yin Maiden**
+- [x] Final palace name: **Yin Maiden Palace** (玉女宫) — owner 2026-09-26; Moonfract dropped
+- [ ] Spine true name (epithet: **Silent Moon Matriarch**, kept 2026-09-26)
 - [ ] **Silence-debt mid sects** — 2–3 survivors who still owe (faction hooks, charter tension)
 - [ ] Example incursion — one named small reach and what it cost
 

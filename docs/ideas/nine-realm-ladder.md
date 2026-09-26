@@ -62,6 +62,16 @@ Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian /
 
 It sits on **Dao Manifestation** (the last realm before ascension): past that realm’s normal peak, short of the Immortal Ascension breakthrough. Same family as Peak Golden Core — a condition on the character, not a new row on the ladder. While you are Half-Step, you are still a Manifestation cultivator. Immortal Ascension is the breakthrough that comes after.
 
+**Owner definition (2026-09-26):** a **threshold state** is a kind of **second peak** above the realm's normal peak. Standing there, you can **partially use abilities of the realm above** (those abilities are not designed yet). Each lane has its own name:
+
+| Lane | Threshold state | Sits on | Leads to |
+|------|-----------------|---------|----------|
+| Qi | **Half-Step Immortal** | Peak Dao Manifestation | Immortal (仙) |
+| Body | **Demi-Saint** | Body-path peak before sanctification | Saint (圣) |
+| Soul | **Pseudo God** | Soul-path peak before godhood | God (神) |
+
+Use these three names in chronicles and NPC text. Do not write "half-step toward X" for lower realms. That phrasing belongs only to these threshold states.
+
 **Rejected:** a separate realm index. That would be ten mortal realms.
 
 **Can hang here later, without deciding them now:** the final tribulation, the court, the chaos revelation ([`chaos-cultivation-path.md`](chaos-cultivation-path.md)). Upper celestial nine still starts after mortal Immortal, not at Half-Step.
@@ -70,7 +80,7 @@ It sits on **Dao Manifestation** (the last realm before ascension): past that re
 
 - [ ] What Half-Step actually does (travel, law, or only a gate in the story)
 - [ ] Can you fail and drop back to ordinary peak?
-- [ ] What chronicles and NPCs call someone standing there
+- [x] What chronicles and NPCs call someone standing there → Half-Step Immortal / Demi-Saint / Pseudo God (owner 2026-09-26)
 
 ## Lifespan pacing philosophy (owner direction)
 

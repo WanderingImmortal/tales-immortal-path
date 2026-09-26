@@ -47,7 +47,7 @@ Parent ladder: [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md). Awa
 
 ## Main gorge vs branch (Initiate band)
 
-| | **Main cult** (Gullet Gorge) | **Branch cell** (Redwell, etc.) |
+| | **Main cult** (Blood Sealing Gorge) | **Branch cell** (Redwell, etc.) |
 |--|------------------------------|--------------------------------|
 | **Quarters** | **Initiate hall** — shared cells, better than outer barracks; assigned cultivate slots | **No initiate hall** — rent in town; safehouse bunk if tithe current (same as outer, cramped) |
 | **Layer 2** | Full **Stained Foundation** from archive | Envoy copy — **incomplete** is normal; missing pages are not gorge-held, they're **not trusted yet** |
@@ -454,7 +454,7 @@ Pacing: inferior root may spend **decades** as Initiate (~30–50 years in FE ba
 |------|-----|
 | **Gnawing Palm, Flee and Feed, Gullet Palm** | Damage system rework |
 | **Layer 2 combat chapter** | Same |
-| **Gullet Gorge zone** | Later — lifestyle stubs assume posting exists |
+| **Blood Sealing Gorge zone** | Later — lifestyle stubs assume posting exists |
 | **FE chamber redesign** | Generic gather/seal beats; cult skin layers on top |
 
 ---
