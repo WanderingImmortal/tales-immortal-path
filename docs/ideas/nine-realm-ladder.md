@@ -24,7 +24,7 @@ Expand the mortal qi ladder from **7 → 9 realms** (indices `0–8`). Early blo
 | 1 | Foundation Establishment | Unchanged |
 | 2 | Core Formation (Golden Core) | Unchanged — “major realm” watershed |
 | 3 | Nascent Soul | Unchanged — qi-path soul externalized; distinct from **soul refinement track** |
-| 4 | **Deity Transformation** (owner lean) | 化神-equivalent; see naming note below — not soul-path vocabulary |
+| 4 | **Celestial Transformation** (rename lean — was Deity Transformation) | 化神-equivalent beat; **renamed off the 神 lane** 2026-09-25 — see lane words + idx 4 note below |
 | 5 | Void Refinement | Existing — shift index from `4` → `5` |
 | 6 | Dao Seeking | Existing — comprehend / pursue dao **before** manifestation |
 | 7 | Dao Manifestation | **New** — dao is worn / embodied, not merely studied |
@@ -55,6 +55,30 @@ Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian /
 | Transcendent Form | becoming | Lane-neutral fallback; bland |
 
 Hanzi open: 化神 no longer fits the lane rule → 化仙 or 脱凡 when locked. Owner note still applies: grand is fine (it’s xianxia); shorten in sidebar copy.
+
+**Owner 2026-09-26:** Celestial Transformation is acceptable, but the realm’s *journey* was never sketched (only world effects: regional presence, civic pressure by settlement tier, NPC defer, lifespan 2–3k) — hard to name a realm with no work underneath. Sketch below; **name follows the beat the owner picks.**
+
+#### Idx 4 — journey sketch (agent proposal, owner to confirm)
+
+Bridge from idx 3 (“I hold a nascent-soul infant”) to idx 5 (“I draw void qi from outside the world”). Genre beat: the infant **grows up and merges back** — avatar and cultivator stop being two things; what remains is a **presence**, not a person holding power. Hence the oracle line and the civic-pressure claim.
+
+| Phase | Work | Becoming |
+|-------|------|----------|
+| Early | **Nourish** the nascent soul — qi, dao insight, time; infant → adult | Avatar thinks and acts as you |
+| Mid | **Fuse** — soul and dantian, avatar and self, unify (likely the tribulation beat) | No longer two things |
+| Late / Peak | **Radiate** — unified self presses on the region; civic pressure by settlement tier ([`city-tiers.md`](city-tiers.md)) | Presence; NPCs defer |
+
+Handoff to Void Refinement: only a unified self can safely draw qi from outside the world — an infant would be torn apart.
+
+**Name by beat:**
+
+| If the realm is about… | Name (work / change) |
+|------------------------|----------------------|
+| the **merge** | **Celestial Transformation** *(lean)* — qi-soul transforms into a celestial nature |
+| **shedding the shell** | **Mortal Shedding** (脱凡) — the work |
+| **presence** | **Celestial Presence** — the change; maps 1:1 onto the realm claim |
+
+Lean: Celestial Transformation as the name, Mortal Shedding as oracle text — **hold the lock** until the owner confirms the merge beat. If presence is the point, *Celestial Presence* is the better name and a different realm to design.
 
 | Use | Label |
 |-----|-------|
@@ -246,16 +270,16 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 | Idx | Qi neighbor | Proposed spirit name | What the step is |
 |-----|-------------|----------------------|------------------|
 | 0 | Qi Condensation | **Sea Opening** | What you’re doing. Open the spirit sea (识海). |
-| 1 | Foundation Establishment | **Sea Stilling** *(or Still Sea)* | What you’re doing. An opened sea churns with every thought; still it so it can hold anything. Sea **size** is the meter, not a realm. |
+| 1 | Foundation Establishment | **Sea Stilling** *(owner lock 2026-09-26)* | What you’re doing. An opened sea churns with every thought; still it so it can hold anything. Sea **size** is the meter, not a realm. |
 | 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
-| 3 | Nascent Soul | **Soul Birth** *(or Living Soul)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
+| 3 | Nascent Soul | **Soul Birth** *(owner lock 2026-09-26)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
 | 4 | Celestial Transformation *(rename lean)* | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
 | 5 | Void Refinement | **Selfless Refinement** | What you’re doing. Refine away the person so only the soul remains (忘我). Echoes Mind Lake “Purge Attachment.” |
 | 6 | Dao Seeking | **Divinity Seeking** *(owner lean)* | What you’re doing. Seek what makes a soul a god. |
 | 7 | Dao Manifestation | **Divine Soul** *(owner lean)* | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
 | 8 | Immortal Ascension | **Soul Deification** *(owner lean)* | What you’ve become. God. Title: **Godhood**, parallel to Saint / Immortal. |
 
-**Owner 2026-09-25:** the spirit path *is* the road to a divine soul and godhood (神 lane) — 6–8 wording endorsed. Still to pick: idx 1 *Sea Stilling* vs *Still Sea*; idx 3 *Soul Birth* vs *Living Soul*.
+**Owner 2026-09-25:** the spirit path *is* the road to a divine soul and godhood (神 lane) — 6–8 wording endorsed. **2026-09-26:** idx 1 *Sea Stilling* and idx 3 *Soul Birth* picked (“fine / decent for now”). Remaining swaps stay on the table below; nothing else blocks using these nine as the working set.
 
 **Avoided on purpose:** *Manifestation* as a spirit realm (collides with Dao Manifestation 显法); *Nascent Soul* (qi idx 3); *True Soul* (Paragon of Sin); *Void Soul* (owner: tacky).
 
@@ -284,7 +308,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 
 ## Open questions
 
-- [x] Idx 4 name — **Deity Transformation** (lean; UI copy may shorten)
+- [ ] Idx 4 name — **reopened 2026-09-25** (lane rule): lean **Celestial Transformation**; alt Mortal Shedding (oracle text) / Transcendent Form; hanzi open
 - [x] Half-Step is not a realm — a step above peak Dao Manifestation. Powers still open (owner 2026-09-25)
 - [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02)
 - [x] VR breakthrough floor — **5,000** (owner aesthetic: half of 10k)

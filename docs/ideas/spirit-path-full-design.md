@@ -132,6 +132,8 @@ Current `PATHS.soul.realms`: Awakened Spirit → Manifestation → Spirit Conflu
 
 Sea Opening → Sea Stilling → **Soul Seed** → **Soul Birth** (idx 3, shared birth gate) → Soul Transformation → Selfless Refinement → Divinity Seeking → Divine Soul → **Soul Deification** (title: Godhood).
 
+**Working set as of 2026-09-26** — owner picked Sea Stilling (idx 1) and Soul Birth (idx 3); 6–8 endorsed; swaps still listed in the ladder doc but nothing blocks using these nine.
+
 Rule: each name is the work or the change, same as body. Sea *size* is the meter, not a realm. Avoids Manifestation / Nascent Soul / True Soul / Void Soul.
 
 ### World presence
