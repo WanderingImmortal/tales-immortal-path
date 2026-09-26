@@ -25,7 +25,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 |------|--------|------------|-------|
 | [Phone playtest layout](phone-playtest-layout.md) | `designed` | none — opt-in CSS shell | — |
 | [Root rite formations](root-rite-formations.md) | `designed` | Chronicle fate-rite project; formation tiers | — |
-| [Formations & arrays](formations-and-arrays.md) | `building` (F2b shipped; next = feel) | Ward payoff; hire / talisman; hall stacking | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
+| [Formations & arrays](formations-and-arrays.md) | `building` (F2b shipped; next = feel) | Event-ward placeholder; combat wards wait on guards | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) · [#129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
 | [Forging — equipment tiers & grades](forging-equipment-tiers.md) | `building` (Phase B) | Phase C rolls next; nine-realm for G | `cursor/forge-phase-b-grades` |
 | [Forge — affix temperaments (parked)](forge-temperaments-idea.md) | `idea` | Quench shipped; owner call | — |
 | [Creation-path guilds](creation-path-guilds.md) | `designed` (parked) | HQ city; branch exam max (4 vs 5) | — |

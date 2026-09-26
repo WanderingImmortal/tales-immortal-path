@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `building` (F0–F2b **shipped on main**; next = feel / payoff) |
-| **Blocked on** | Cultivation methods P3 for essence sites; chronicle fate-rite for root rites; array-assist content for Array Disciple (4) |
+| **Blocked on** | Combat wards/kills: enemy **guards** + hit pipeline ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116), [`stats-to-meters-rework.md`](stats-to-meters-rework.md)). Ranks 4+: nine-realm names in code (not extra ranks). Essence sites / rites / array-assist as before. |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (F1–F2b) · 2026-09-26 audit |
 | **Updated** | 2026-09-26 (audit: shipped vs gaps vs next slice) |
@@ -195,9 +195,11 @@ Finished formations are **recipes** of a few **primitives** — the “grammar�
 | **2nd** | Foundation Establishment | Residence/hall patterns; FE traps |
 | **3rd** | Core Formation (Golden Core) | Kill or hard-control vs GC **in pattern** |
 | **4th** | Nascent Soul | Sect-scale; NS traps (heavy prep) |
-| **5th** | Void Refinement | Regional arrays |
-| **6th** | Dao Seeking | Requires **dao / law components** |
-| **7th** | Immortal Ascension | Dao/law + heaven materials; rite-adjacent |
+| **5th** | **Celestial Avatar** *(was Void — remapped 2026-09-26)* | Regional arrays / “fake avatar” civic suppression |
+| **6th** | Void Refinement → Dao Seeking | Passage-scale + **dao / law components** start |
+| **7th** | Dao Manifestation → Immortal Ascension | Worn-law nodes + heaven materials; rite-adjacent |
+
+**Nine-realm lock:** keep **seven** formation tiers and **seven** master ranks. Do **not** add ranks 8–9 because two mortal realms were inserted. Target bands are named realms, not `realmIdx + 1`. See [Nine-realm + combat coupling](#nine-realm--combat-coupling-2026-09-26).
 
 ### Formation grade (effectiveness *within* tier)
 
@@ -591,6 +593,69 @@ Small, playable, no new profession rank:
 | Explore loot unread manuals | Markets are the only non-starter acquire |
 | Integrity SVG fade on the sect map | Text bands exist (`is-fading` / `is-decayed`); visual next |
 | Dedup residence vs `*SectAnchor*` functions | Same slot verbs copied ~2× — refactor when touching feel, not as its own PR |
+
+### Nine-realm + combat coupling (2026-09-26)
+
+Owner is committing the **nine-realm** ladder ([`nine-realm-ladder.md`](nine-realm-ladder.md), idx 4 = **Celestial Avatar** on [#127](https://github.com/WanderingImmortal/tales-immortal-path/pull/127)). Damage depth ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)) and the **guards** redo ([`stats-to-meters-rework.md`](stats-to-meters-rework.md) on #127) land on the same lane as attack / ward formations.
+
+#### Formation master climb — do not add ranks
+
+The old 7 formation tiers were 1:1 with the **old 7-realm** path (QC → … → Immortal). Nine realms insert **Celestial Avatar** (between NS and Void) and **Dao Manifestation** (between Seeking and Immortal). That does **not** mean nine master ranks.
+
+| Keep | Why |
+|------|-----|
+| Master **0–3** (Uninitiated → Adept) | Still QC / FE / GC. All shipped content. Adept exam `minRealmIdx: 1` stays FE. |
+| **Seven** master ranks, **seven** formation tiers | Profession product, not `realmIdx + 1` |
+| Named target bands | “3rd-tier = Golden Core band” stays true even after Void’s index moves 4 → 5 |
+
+| Do not | Why |
+|--------|-----|
+| Master 8–9 / 8th–9th-tier diagrams | Two extra exams, guild ranks, and manuals for realms that are **job changes**, not new inscription grades |
+| Hardcode `minRealmIdx === formationTier - 1` later | Void exam would silently point at Avatar after the index shift |
+
+**What the two new realms do to formations (job, not rank):**
+
+| Realm | Formation job |
+|-------|----------------|
+| **4 Celestial Avatar** | Arrays become **regional presence**. [`celestial-avatar.md`](celestial-avatar.md): pre-laid patterns at great-sect gates / imperial heart are **fake avatars** — they suppress civic Press / clash without a fair duel. This is the old “5th = regional array” fantasy, now with a named realm. |
+| **7 Dao Manifestation** | Already the **dao / law component** rule (old 6th+). Worn law sits in a node; swapping the worn law re-forms the pattern. No new rank. |
+
+**Soft realm gates for future exams:** gate on **named realm** (or a helper that looks up current idx), never a frozen number. Formation-mains may still sit **one band early** (the intended Adept soft gate — currently implemented as a hard block).
+
+**When 9 realms land in code:** no formation.js change required for F2.5. Update this table + any `reqRealm` on formation SKUs if Void+ stock used old idx 4. Current markets do not.
+
+#### Attack / ward formations vs damage + guards
+
+Live Iron Wall / Vein Seal are **not combat**. They add `defenseRating` into sect-event stone loss (and that math is wrong — see audit). The damage/guard work does **not** break courtyard gather. It **does** kill `defenseRating` as the long-term ward language.
+
+**Guards** (every entity, shown on the card) — [`stats-to-meters-rework.md`](stats-to-meters-rework.md):
+
+| Guard | From | Stops |
+|-------|------|-------|
+| Flesh | physique / vessel | physical |
+| Qi barrier | qi capacity / shield | qi / elemental; some physical |
+| Soul | Soul Mass + maturity | soul |
+
+**Systems** (what landed damage stresses) — [#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116) four (Flesh / Structure / Circulation / Core) + **Spirit** as fifth. One hit pipeline: `buildAttackProfile` → `resolveCombatHit`.
+
+**Contract when combat-adjacent formations exist (F5 kill / talisman / gear, later arrays):**
+
+1. **Ward primitive = a guard, not a rating.** A running, in-tier, fueled ward *is* the matching guard (usually **qi barrier**; Iron Wall may lean flesh; Vein Seal / soul-seals lean soul). Owner 2026-07-22 still holds: if it can handle the attack, it **keeps blocking** until **fuel** runs out — not a hit-counter, not a second HP bar. Integrity remains “are the lines still there.”
+2. **Do not invent a fourth “formation defense” number.** Avatar stance is already “hits test the outer barrier first, stance drops if it cracks” — a city-gate array is the same slot: a **pre-laid fake avatar / barrier layer**.
+3. **Kill / trap / sever go through the hit pipeline.** `delivery: environment` (or `formation`). Nature + which **guard they test** come from the blueprint, not `G.path`. Crude grade → **stymie** (Circulation / Structure stress, no kill). Peerless in-band → threaten the path **seat** (Core / Structure / Spirit). This is the first mechanical home for “grade within tier.”
+4. **Frame break ≠ ward fail.** Structure→frame already says personal guard fails. A qi-barrier formation should not drop because someone’s ribs broke. A physical iron-wall that *is* flesh guard might.
+5. **F2.5 event soften is a placeholder.** Keep fixing event stone-loss so the mountain ward *does something now*, but label it as the civic/event face of a qi barrier. When enemy guards ship, rematerialize — do not grow `defenseRating`.
+
+**Build order vs those PRs:**
+
+| Work | Forms? |
+|------|--------|
+| Commit nine-realm **docs** | Update this table only. Live code untouched. |
+| Nine-realm **in code** (idx shift) | Audit formation SKU `reqRealm` / future exam idx. Ranks 1–3 safe. |
+| Damage Phase A+B ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)) | Do not write a second resolver. Future springs call `resolveCombatHit`. |
+| Guards on enemy sheets (#127 step 3) | **Contract** for combat wards. Cheapest “what does a ward look like” beat. |
+| F2.5 event-ward + courtyard math | Can ship **now** — event-only, no combat profiles. |
+| F5 gear / talisman / kill ground | **Blocked on** guards + the hit pipeline being the only path. |
 
 ---
 
