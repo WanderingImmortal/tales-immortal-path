@@ -702,7 +702,7 @@ function pickWeightedWorldRelationship() {
 function pickWorldSectStageId() {
     const pool = SECT_WORLD_BALANCE.stagePoolAtEstablished;
     let stageId = pool[Math.floor(Math.random() * pool.length)] || 'established';
-    const playerStage = getSectStage();
+    const playerStage = getSectStageId();
     const playerOrder = SECT_STAGES[playerStage]?.order || 2;
     const stageOrder = SECT_STAGES[stageId]?.order || 1;
     if (stageOrder > playerOrder) stageId = playerStage;
@@ -733,7 +733,7 @@ function calcWorldSectPower(sect) {
 }
 
 function getPlayerSectPowerEstimate() {
-    const stageOrder = SECT_STAGES[getSectStage()]?.order || 1;
+    const stageOrder = SECT_STAGES[getSectStageId()]?.order || 1;
     const renown = G.sect?.renown || 0;
     const b = SECT_WORLD_BALANCE;
     let power = stageOrder * b.powerPerStageOrder + renown * b.powerPerRenown;
@@ -1045,7 +1045,7 @@ function tickWorldSectGrowth(monthsPassed) {
             s.renown = Math.max(3, (s.renown || 0) - 1);
         }
 
-        const playerStageOrder = SECT_STAGES[getSectStage()]?.order || 2;
+        const playerStageOrder = SECT_STAGES[getSectStageId()]?.order || 2;
         const sectOrder = SECT_STAGES[s.stage]?.order || 1;
         if (sectOrder < playerStageOrder && Math.random() < 0.22) {
             const stages = Object.values(SECT_STAGES).filter(st => st.order > sectOrder && st.order <= playerStageOrder);
