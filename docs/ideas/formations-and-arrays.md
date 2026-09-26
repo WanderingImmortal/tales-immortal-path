@@ -195,11 +195,13 @@ Finished formations are **recipes** of a few **primitives** — the “grammar�
 | **2nd** | Foundation Establishment | Residence/hall patterns; FE traps |
 | **3rd** | Core Formation (Golden Core) | Kill or hard-control vs GC **in pattern** |
 | **4th** | Nascent Soul | Sect-scale; NS traps (heavy prep) |
-| **5th** | **Celestial Avatar** *(was Void — remapped 2026-09-26)* | Regional arrays / “fake avatar” civic suppression |
-| **6th** | Void Refinement → Dao Seeking | Passage-scale + **dao / law components** start |
-| **7th** | Dao Manifestation → Immortal Ascension | Worn-law nodes + heaven materials; rite-adjacent |
+| **5th** | Celestial Avatar | Regional arrays / “fake avatar” civic suppression |
+| **6th** | Void Refinement | Passage-scale; void-qi nodes |
+| **7th** | Dao Seeking | **Dao / law components** required |
+| **8th** | Dao Manifestation | Worn-law nodes; array that *is* a law |
+| **9th** | Immortal Ascension | Heaven materials; rite-adjacent |
 
-**Nine-realm lock:** keep **seven** formation tiers and **seven** master ranks. Do **not** add ranks 8–9 because two mortal realms were inserted. Target bands are named realms, not `realmIdx + 1`. See [Nine-realm + combat coupling](#nine-realm--combat-coupling-2026-09-26).
+**Owner 2026-09-26 — 50/50 on 7 vs 9 ranks.** Table above is the **idx-matched** shape (`formationTier = realmIdx + 1`, so *“8th-tier fights Manifestation”*). The squeezed 7-tier remap is parked in [Rank count](#rank-count-7-vs-9--owner-5050). Do not implement exams past Adept either way.
 
 ### Formation grade (effectiveness *within* tier)
 
@@ -314,9 +316,13 @@ Being a formation master is **dedication**, not a side perk. Most cultivators **
 | **2** | Inscriber | 2nd | Single primary |
 | **3** | Formation Adept | 3rd | Talismans; simple hybrids |
 | **4** | Array Disciple | 4th | Array assist; essence sites |
-| **5** | Formation Master | 5th | Gear inscription; full hybrids |
-| **6** | Array Master | 6th | Arrays + dao components |
-| **7** | Grand Formationist | 7th | Rite-grade with law/heaven mats |
+| **5** | Formation Master | 5th (Avatar) | Gear inscription; regional array assist |
+| **6** | *(title TBD — Void)* | 6th | Passage-scale; void nodes |
+| **7** | Array Master | 7th (Seeking) | Arrays + dao components |
+| **8** | *(title TBD — Manifestation)* | 8th | Worn-law nodes |
+| **9** | Grand Formationist | 9th (Immortal) | Rite-grade with law/heaven mats |
+
+Titles 4–9 are **labels only** until those exams exist. If the owner keeps 7 ranks, drop rows 8–9 and squeeze 5–7 as in the parked remap. See [Rank count](#rank-count-7-vs-9--owner-5050).
 
 Promotion via **exam + FI** — lay standard pattern at current max **tier**.
 
@@ -598,31 +604,52 @@ Small, playable, no new profession rank:
 
 Owner is committing the **nine-realm** ladder ([`nine-realm-ladder.md`](nine-realm-ladder.md), idx 4 = **Celestial Avatar** on [#127](https://github.com/WanderingImmortal/tales-immortal-path/pull/127)). Damage depth ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)) and the **guards** redo ([`stats-to-meters-rework.md`](stats-to-meters-rework.md) on #127) land on the same lane as attack / ward formations.
 
-#### Formation master climb — do not add ranks
+#### Rank count (7 vs 9) — owner 50/50
 
-The old 7 formation tiers were 1:1 with the **old 7-realm** path (QC → … → Immortal). Nine realms insert **Celestial Avatar** (between NS and Void) and **Dao Manifestation** (between Seeking and Immortal). That does **not** mean nine master ranks.
+Seven ranks only felt natural because they were **1:1 with the old seven-realm path**. That mapping is gone, so seven is now the arbitrary number.
 
-| Keep | Why |
-|------|-----|
-| Master **0–3** (Uninitiated → Adept) | Still QC / FE / GC. All shipped content. Adept exam `minRealmIdx: 1` stays FE. |
-| **Seven** master ranks, **seven** formation tiers | Profession product, not `realmIdx + 1` |
-| Named target bands | “3rd-tier = Golden Core band” stays true even after Void’s index moves 4 → 5 |
+| Shape | How it reads | Cost |
+|-------|----------------|------|
+| **9 tiers = `realmIdx + 1`** *(table above)* | “8th-tier ward fights a Dao Manifestation.” Same ladder the player already climbs. | Two extra titles / future exams / manuals. **No code until those realms exist.** |
+| **Keep 7, squeeze the new bands** | Avatar+Void share 5th, Seeking 6th, Manifestation+Immortal share 7th. | Fewer ranks, but “7th-tier” means two different worlds. That is the arbitrary one. |
+| **Title-only, no numbers** | Adept / Array Disciple / … and “Golden Core-band ward.” | Clean, but you lose the “rank 8” glance. |
 
-| Do not | Why |
-|--------|-----|
-| Master 8–9 / 8th–9th-tier diagrams | Two extra exams, guild ranks, and manuals for realms that are **job changes**, not new inscription grades |
-| Hardcode `minRealmIdx === formationTier - 1` later | Void exam would silently point at Avatar after the index shift |
+**Agent lean:** lock the **9-tier table in the doc** (familiar shape). Do not build exams, guild grades, or manuals past Adept. Titles 4–9 can sit empty for years. If a later pass wants fewer *exams*, skip ranks (e.g. no exam at Void, jump Seeking) — the **tier number on the blueprint** still matches the path idx.
 
-**What the two new realms do to formations (job, not rank):**
+**Still true either way:**
 
-| Realm | Formation job |
-|-------|----------------|
-| **4 Celestial Avatar** | Arrays become **regional presence**. [`celestial-avatar.md`](celestial-avatar.md): pre-laid patterns at great-sect gates / imperial heart are **fake avatars** — they suppress civic Press / clash without a fair duel. This is the old “5th = regional array” fantasy, now with a named realm. |
-| **7 Dao Manifestation** | Already the **dao / law component** rule (old 6th+). Worn law sits in a node; swapping the worn law re-forms the pattern. No new rank. |
+- Master **0–3** unchanged (QC / FE / GC). All shipped content.
+- Gate future exams on **named realm**, never `minRealmIdx === formationTier - 1` (Void moved 4 → 5).
+- Avatar / Manifestation still change **job** (fake-avatar civic arrays; worn-law nodes) — that work is the same whether those jobs are 5th+8th or squeezed into 5th+7th.
 
-**Soft realm gates for future exams:** gate on **named realm** (or a helper that looks up current idx), never a frozen number. Formation-mains may still sit **one band early** (the intended Adept soft gate — currently implemented as a hard block).
+**When 9 realms land in code:** no `formations.js` change for F2.5. Audit SKU `reqRealm` if any Void+ stock used old idx 4 (none today).
 
-**When 9 realms land in code:** no formation.js change required for F2.5. Update this table + any `reqRealm` on formation SKUs if Void+ stock used old idx 4. Current markets do not.
+#### Assault energy — not a third HP bar
+
+Owner ask (2026-09-26): some **reserve** so you can see a formation being broken by brute force. Applies to **future arrays / kill-grounds / gate wards**, not courtyard gather.
+
+**Already on the slot:**
+
+| Axis | What it is | Not for |
+|------|------------|---------|
+| **Fuel** | Energy tank. Active patterns draw. Empty → starved (still laid, inert). | Inscription health |
+| **Integrity** | Ink / nodes. Neglect fades. Maintain repaints. | Combat “how close is it to breaking” |
+| **Switch** | On / off | Power remaining |
+
+Fuel **is** the reserve. A third “formation HP” would be the durability soup this doc already forbids (2026-07-22): players mixing “the ward is tired” with “the lines faded.”
+
+**Two ways a pattern dies in a fight** (arrays / siege — later):
+
+| Pressure | What the player watches | Outcome |
+|----------|-------------------------|---------|
+| **In-tier brute force** | **Fuel falling faster** (the parked use-scaled drain). Guard UI can *be* this number. | Tank empty → starved. Pattern still on the land; relight if you refuel. “We exhausted the mountain.” |
+| **Over-tier / out-of-band** | Short **strain** (or immediate exception). Not a long HP grind. | Scatter or forced repair — the diagram could not carry that blow. “A Manifestation walked through a 3rd-tier wall.” |
+
+That matches the old defense lean: in-band attacks keep getting blocked until **fuel** dies; above-band is a **tier/grade exception**, not “chip the HP for 40 hits.”
+
+**Arrays:** one **shared fuel pool** (the array eye), sub-formations sip from it. Siege UI shows that tank + whether the attacker is in-band (drain) or over-band (strain). Avatar clash already treats gate arrays as fake avatars — the visible barrier layer is this same fuel/guard read, not a fourth meter.
+
+**Do not add** a hit-counter or `formationHp` field. Grow **use-scaled fuel** + an over-tier strain exception when those arrays exist.
 
 #### Attack / ward formations vs damage + guards
 
@@ -640,8 +667,8 @@ Live Iron Wall / Vein Seal are **not combat**. They add `defenseRating` into sec
 
 **Contract when combat-adjacent formations exist (F5 kill / talisman / gear, later arrays):**
 
-1. **Ward primitive = a guard, not a rating.** A running, in-tier, fueled ward *is* the matching guard (usually **qi barrier**; Iron Wall may lean flesh; Vein Seal / soul-seals lean soul). Owner 2026-07-22 still holds: if it can handle the attack, it **keeps blocking** until **fuel** runs out — not a hit-counter, not a second HP bar. Integrity remains “are the lines still there.”
-2. **Do not invent a fourth “formation defense” number.** Avatar stance is already “hits test the outer barrier first, stance drops if it cracks” — a city-gate array is the same slot: a **pre-laid fake avatar / barrier layer**.
+1. **Ward primitive = a guard, not a rating.** A running, in-tier, fueled ward *is* the matching guard (usually **qi barrier**; Iron Wall may lean flesh; Vein Seal / soul-seals lean soul). In-band hits **keep blocking** until **fuel** runs out (use-scaled under assault). Integrity remains “are the lines still there.” Over-tier → strain / scatter, not a long HP grind. See [Assault energy](#assault-energy--not-a-third-hp-bar).
+2. **Do not invent `formationHp`.** Avatar stance is already “hits test the outer barrier first, stance drops if it cracks” — a city-gate array is the same slot: a **pre-laid fake avatar / barrier layer** reading the fuel tank.
 3. **Kill / trap / sever go through the hit pipeline.** `delivery: environment` (or `formation`). Nature + which **guard they test** come from the blueprint, not `G.path`. Crude grade → **stymie** (Circulation / Structure stress, no kill). Peerless in-band → threaten the path **seat** (Core / Structure / Spirit). This is the first mechanical home for “grade within tier.”
 4. **Frame break ≠ ward fail.** Structure→frame already says personal guard fails. A qi-barrier formation should not drop because someone’s ribs broke. A physical iron-wall that *is* flesh guard might.
 5. **F2.5 event soften is a placeholder.** Keep fixing event stone-loss so the mountain ward *does something now*, but label it as the civic/event face of a qi barrier. When enemy guards ship, rematerialize — do not grow `defenseRating`.
@@ -768,10 +795,10 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 - [ ] Cultivation methods P0–P2 for qi track before essence formations
 - [x] Hire outside masters — always OK (owner 2026-07-21)
 - [x] Formation grade realm-aligned (1st = QC band, 3rd = GC band); no peerless tier (owner 2026-07-21)
-- [x] Master grade caps layable formation grade + complexity; dao/law components for 6th+ (owner 2026-07-21)
+- [x] Master grade caps layable formation grade + complexity; dao/law components from **Seeking-band** (7th if idx-matched, 6th if squeezed) (owner 2026-07-21)
 - [ ] Owner OK: above-grade exception table (stacking rules for array +1, overcharge, stymie-only)
 - [ ] Owner OK: eight primitives (sink, channel, pool, seal, ward, condense, trap, sever)
-- [ ] Owner OK: master grade ladder (0–7) aligned to max layable formation grade
+- [ ] Owner OK: **7 vs 9** master/formation ranks (50/50 — 2026-09-26). Table in doc is 9 pending lock.
 - [x] Fuel required to run when active; no fuel = starved (owner 2026-07-22)
 - [x] Neglect = inscription integrity (fade/decay), **not** defensive hit-HP (owner 2026-07-22)
 - [x] Activation switch — laid ≠ running; arrays expensive while on (owner 2026-07-22)
@@ -789,6 +816,8 @@ Trying to do full 3–4 + Trace + hire + talismans + Iron Wall in one drop will 
 - **Standby cost:** true zero fuel when off, or a tiny “keep the eye warm” sip so arrays feel alive?
 - **Command talisman:** one-shot burn vs rechargeable seal; who can craft (master grade)?
 - **Standing orders:** can an Array Disciple auto-activate on raid alert, or always player confirm for grand defense?
+- **7 vs 9 ranks:** idx-matched 9 (*“8th-tier fights Manifestation”*) vs squeezed 7 vs title-only — owner 50/50
+- **Assault read:** confirm fuel-under-load + over-tier strain (no `formationHp`) when arrays exist
 - **Use-scaled fuel:** flat draw while active for F1, or already sip more when a ward actually blocks / gather runs?
 - **Defense ceiling:** express “what it can normally block” purely as formation tier/grade vs attacker realm, or also event tags?
 - **Integrity UI:** text state only vs map/SVG line fade (lines/nodes) — when does visual fade ship?
