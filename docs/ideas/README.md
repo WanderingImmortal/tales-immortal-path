@@ -118,6 +118,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Time model — lived journey + seclusion skips](time-model.md) | `designed` | Deferred priority; lived mode needs location/NPC density | — |
 | [Living world clock (continuous)](world-clock-continuous.md) | `building` (Phase 2) | — | [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) |
 | [QC cultivate on the living clock](qc-cultivate-excitement.md) | `designed` | Clock Phase 2 playtest | — |
+| [Qi cultivate — the sit you can see](qi-cultivate-session-feel.md) | `idea` (proposal) | Owner read vs passive floor + no-posture locks | — |
 | [Passive cultivation floor & focused sessions](passive-cultivation-floor.md) | `building` | Playtest tune (inferior bare → Peak QC) | — |
 | [Watershed realms & lifespan pacing](watershed-realms-lifespan-pacing.md) | `designed` | Chamber pacing tune pass | — |
 | [Spiritual roots — taxonomy v2](spiritual-roots-taxonomy-v2.md) | `building` | Later: height expansion after the nine-realm index bump | PR in progress |
