@@ -6,7 +6,7 @@
 | **Blocked on** | Owner design pass per watershed gate — **do not script blind** |
 | **Issue** | none yet |
 | **Chat / PR** | Design chat 2026-07-22; v1 [#62](https://github.com/WanderingImmortal/tales-immortal-path/pull/62); v2 QC→FE [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
-| **Updated** | 2026-07-22 |
+| **Updated** | 2026-09-27 (9-realm rows; link brainstorm PR #118) |
 
 ## Intent
 
@@ -14,7 +14,9 @@ One tribulation script per **major watershed**, not one generic deck with realm-
 
 **Rule:** If you cannot write the heaven's question yet, the gate's **cultivation journey** is not designed enough — park trib work and build that first.
 
-Engine + philosophy: [`tribulation-system-rework.md`](tribulation-system-rework.md). Limbo notes: [`tribulation-per-realm-limbo.md`](tribulation-per-realm-limbo.md).
+Engine + philosophy: [`tribulation-system-rework.md`](tribulation-system-rework.md). Limbo notes: [`tribulation-per-realm-limbo.md`](tribulation-per-realm-limbo.md). **Xianxia feel + per-gate trib sketches (QC→NS, soul layers, NS→DT stub):** [`tribulation-xianxia-feel-brainstorm.md`](tribulation-xianxia-feel-brainstorm.md) · [PR #118](https://github.com/WanderingImmortal/tales-immortal-path/pull/118).
+
+**Nine-realm ladder:** indices `0–8` per [`nine-realm-ladder.md`](nine-realm-ladder.md). Do **not** skip **NS → Deity Transformation (4)** when planning tribs — old 7-realm `ns_to_void` maps to `ns_to_dt` + `dt_to_void` when implemented.
 
 ---
 
@@ -23,11 +25,13 @@ Engine + philosophy: [`tribulation-system-rework.md`](tribulation-system-rework.
 | Transition | Heaven's question (draft / TBD) | Trib status | Journey blocked on |
 |------------|------------------------------|-------------|-------------------|
 | **QC → FE** | Can gathered qi settle into bedrock the ledger recognizes as Foundation? | **`building`** — v2 script (bedrock / compress / thunder) | Playtest [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
-| **FE → GC** | Does this nascent core belong in the ledger? | `idea` — generic pool only | [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md), nascent core + thin limbo |
-| **GC → NS** | TBD — soul birth / identity at watershed | `idea` | [`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md) |
-| **NS → Void** | TBD — dissolution of self at void's edge | `idea` | Nine-realm / void ladder depth |
-| **Void → Dao** | TBD — law vs self | `idea` | Owner cosmology pass |
-| **Dao → Immortal** | TBD — final audit / transcendence or erasure | `idea` | Post-immortal cosmology parked |
+| **FE → GC** | Can foundation collapse into a core without shattering? (alt: does nascent core belong?) | `designed` (brainstorm) — inward forge | [`qi-foundation-establishment-redesign.md`](qi-foundation-establishment-redesign.md) |
+| **GC → NS** | May this nascent vessel be forged — cradle well-made? | `designed` (brainstorm) — soul lightning | [`golden-core-cultivation-journey.md`](golden-core-cultivation-journey.md) |
+| **NS → DT** | May the jianghu name you a regional force without your presence shattering what you rule? | `idea` (stub) — presence audit | DT journey **not designed** — [`nine-realm-ladder.md`](nine-realm-ladder.md) |
+| **DT → VR** | TBD — void basin acquisition | `idea` | [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md) |
+| **VR → Dao Seeking** | TBD — glimpse + rulebook retaliation | `idea` | Dao seeking doc |
+| **Dao Seeking → Manifestation** | TBD | `idea` | [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md) |
+| **Manifestation → Immortal** | TBD — final audit / transcendence or erasure | `idea` | Post-immortal cosmology parked |
 
 **Fate rite tribulation** (repeatable theft) — separate mode; needs chronicle project. See [`root-rite-formations.md`](root-rite-formations.md). Not a breakthrough gate.
 

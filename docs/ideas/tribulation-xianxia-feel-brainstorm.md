@@ -5,8 +5,8 @@
 | **Status** | `designed` (brainstorm — owner review) |
 | **Blocked on** | Combat damage depth (for full tribulation combat); per-gate journey design |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent brainstorm, 2026-09-14 |
-| **Updated** | 2026-09-14 (owner: per-gate trib sketches QC / FE→GC / GC→NS) |
+| **Chat / PR** | Cloud agent brainstorm 2026-09-14 · [PR #118](https://github.com/WanderingImmortal/tales-immortal-path/pull/118) |
+| **Updated** | 2026-09-27 (9-realm trib ladder; first-3 status; NS→DT stub) |
 
 ## Intent
 
@@ -95,9 +95,22 @@ Prep is **optional depth**, not a wall. You can break through hasty; you pay in 
 |------------|---------------------|---------------|----------------------|------------------|
 | **QC → FE** | Qi settles into foundation | Unstable gathered qi | Bedrock test — can it hold? | Foundation variant / crack scar |
 | **FE → GC** | Initial Core Formation | Nascent core, unaccepted | Core-integrity lightning | Core grade + condition (cracked / intact) |
-| **GC → NS** | Soul birth / embryo | Something stirs behind the eyes | Identity fracture — heart demon | Soul imprint, embryo origin |
-| **NS → Void** | Dissolve boundaries | Self thinning | Void unmaking — hold center | Void tolerance, sense shift |
+| **GC → NS** | Nascent soul birth | Core cracking open | Soul lightning (outward emergence) | Nascent vessel permit + embryo origin |
+| **NS → DT** | Deity-scale presence | Shell strains to hold you | TBD — **presence / authority audit** (not organ forge) | **Transformation** claim — regional pressure |
+| **DT → VR** | Open void basin | TBD | Acquisition trib — see void cosmology | Void tolerance, passage |
 | **Later** | Per cosmology | Per gate | Dao heart, karmic, punishment | Law glimpse, heaven mark |
+
+**Nine-realm trib ladder (force direction — owner 2026-09-14):**
+
+```text
+QC→FE   scatter → order        (external lightning)
+FE→GC   order → denser         (inward collapse / forge)
+GC→NS   container → release    (soul lightning — hatch the nascent vessel)
+NS→DT   person → regional force (TBD — civic deity presence; see nine-realm-ladder)
+DT→VR   …                      (void acquisition — special case; early VR ≈ DT peak)
+```
+
+**Code migration (when 9 realms land):** split today’s `3_to_4` / `ns_to_void` into `ns_to_dt` and `dt_to_void`; shift void+ transitions up one idx (`tribulation.js` map, `TRIBULATION_TRANSITIONS`).
 
 **Per-gate differentiation toolkit** (mix 2–3 per gate — don't reuse the same combo):
 
@@ -162,7 +175,7 @@ Three gates, three **structural** relationships — not three lightning reskins:
 |------------|--------------|------------------|--------------------------|
 | **QC → FE** | Loose qi → solid foundation | **Lightning** (external) | Can gathered qi settle into bedrock the ledger recognizes? |
 | **FE → GC** | Foundation → golden core | **Foundation collapse / inward forge** (internal) | Can what you built collapse into a core without shattering? |
-| **GC → NS** | Core shell → nascent soul | **Soul lightning** (external, soul-frequency) | May what stirs inside the core be born — and is it still you? |
+| **GC → NS** | Core shell → nascent soul | **Soul lightning** (external, soul-frequency) | May this **nascent vessel** be forged — and is the cradle well-made? |
 
 ### QC → FE — Lightning tribulation
 
@@ -222,11 +235,39 @@ Already sketched in `TRIBULATION_TRANSITIONS.gc_to_ns` log line. Not heart-demon
 - “Chaotic soul” rejected as tacky — soul counterpart to chaos should feel **inward / sovereign**, not chaos-with-soul-paint.
 - Direction sketch: Chaos = unwritten **outside** taxonomy; soul apex = unwritable **inside** (what the ledger never indexed). Names TBD.
 
+### NS → DT — Deity Transformation (stub — brainstorm next)
+
+**Realm job (from [`nine-realm-ladder.md`](nine-realm-ladder.md)):** **civic-scale presence** — regional deity-presence, NPC defer, pressure radius (**Transformation** claim). Not more flight (NS already has Sky Travel). DT cultivation journey **not designed** yet (no substages).
+
+**Trib direction (chat 2026-09-27):** first trib that is less “forge a new organ” and more **heaven acknowledging you as regional weight on the map**. Candidate families: dao-heart (coherence at scale), karmic/jianghu weight, **presence audit** — not another lightning reskin.
+
+**Heaven's question (draft):** *May the jianghu name you a regional force — without your presence shattering what you rule?*
+
+**Prep (guess):** nascent soul maturity / soul mass, domain, jianghu standing, consolidation at NS peak — TBD when NS journey exists.
+
 ### Parked (owner will do later)
 
-NS → Void, Void → Dao, Dao → Immortal — not in this pass.
+DT → VR, VR → Dao Seeking, Dao Manifestation → Immortal — follow [`nine-realm-ladder.md`](nine-realm-ladder.md) + void/dao cosmology docs.
 
 If we can't write the heaven's question yet, **park that gate's tribulation** and design the cultivation journey first ([`tribulation-per-gate-backlog.md`](tribulation-per-gate-backlog.md) rule).
+
+---
+
+## First three tribs — design vs implementation (owner 2026-09-27)
+
+| Gate | Trib identity | Ready to **brainstorm** more? | Ready to **implement**? |
+|------|---------------|------------------------------|-------------------------|
+| **QC → FE** | Lightning / bedrock | Done enough | **Closest** — playtest v2 script |
+| **FE → GC** | Inward forge | Done enough | **No** — FE journey + scar pool + flow |
+| **GC → NS** | Soul lightning | Done enough | **No** — GC purify journey + scar pool |
+
+**Still loose before FE→GC / GC→NS code:**
+
+- FE→GC: **one rite vs two** (Initial Core Formation continuous vs form-then-trib); limbo label; scar pool; body-path skin; align heaven question (*collapse without shattering* vs backlog *core belongs*).
+- GC→NS: soul-path variant at gate; scar pool names; limbo label; optional GC “cradle prep” chamber fiction.
+- **Cross-cutting (all gates):** breakthrough popup → preview not draft; transcendence → imprint not 3-pick; trib preview UI.
+
+**Soul endgame (parked):** layered ladder — mortal soul track refines **vessel**; deep true-self apex **late**; endgame fork **soul sovereign inside ledger blind spot** vs **chaos unwritten outside** — not “chaotic soul”; no PoS/ED name rip.
 
 ---
 
