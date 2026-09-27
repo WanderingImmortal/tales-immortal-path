@@ -137,10 +137,80 @@ Same scene, same math, three scales of risk. Combat already tells the player to 
 
 **Qi deviation / backlash.** There is no deviation mechanic in the repo today and the locks lean against inventing punishment. If the owner wants risk, the only place it belongs is **forcing** a bottleneck — an opt-in gamble, never the default sit.
 
+## Build plan — what the player actually sees
+
+Four phases, each shippable alone. Order matters: bottlenecks must land **before** seclusion gets stronger, or seclusion eats the game.
+
+### Phase 1 — Bottlenecks
+
+**Today:** `G.qcBand.gatherProgress` accumulates units against `QC_BAND_THRESHOLDS` (mid 90, late 220, peak 320). `maybeAdvanceQcBand` fires a mini-breakthrough log. The climb is flat all the way up.
+
+**Change:** the last stretch of each band is a **wall**. Past roughly 85% of the span, *band progress* crawls (≈×0.15). Qi fill and density are untouched, so topping up before a fight still works — only the climb stalls.
+
+The wall names **one key**, chosen by the player's **weakest support multiplier** — diagnosis, not a dice roll:
+
+| Key | Named when | Cleared by |
+|-----|-----------|-----------|
+| Thin breath | `hasFormalCultivationMethod()` is false | Any real manual (Redwell pamphlet pool) |
+| Muddy qi | dwelling homeless / inn | Rent or own; or sit at a field site |
+| No array | residence has no cultivate formation | Lay Spirit Gathering (already built, F1a/F2b) |
+| Clogged channel | a meridian still shut | Meridian Soothing Pill (exists) or the meridian action |
+| Shallow well | store low or `qiExhausted` | Qi Restore / Qi Infusion Pill (exist) |
+
+If the player already has everything, **no wall** — prepared cultivators are not punished for being prepared.
+
+**What it looks like:**
+
+1. Band meter reads `✦ Early Qi Condensation · 74% → Mid`.
+2. At 85% the hint changes and a log lands: *"Your progress stalls at the edge of Mid — the breath is bare. A taught road would carry it further."*
+3. You can keep sitting. It creeps. Nothing is blocked.
+4. Or you buy the pamphlet and study it: *"Bare breath gives way to a taught road — the wall at Mid eases."*
+5. Normal pace resumes; the existing mini-breakthrough fires at the threshold.
+
+**Scope:** `qc-depth.js` plus the hint string in `getQcBandMeterSummary` (the meter and hint element already exist). State: `G.qcBand.wall = { stage, keyId, cleared }`. Existing saves only get a wall at the next crossing.
+
+**Knobs:** wall start fraction, crawl multiplier, one key per edge.
+
+### Phase 2 — Seclusion with stakes
+
+**Today:** `applySeclusionYearGains` runs `runCultivateSession({ extraMult: 0.22 })` per year — and **never calls `applyPassiveCultivationBandProgress`**. At QC that means thirty years in a grotto advances the band meter by **zero**. Long seclusion is currently both the weakest cultivation and, for a QC character, literally not cultivation. The band-progress call is arguably a bug fix to fold into Phase 1.
+
+**Change:**
+
+1. **Rate** — a seclusion year should be worth a year of focused work (roughly `getFocusedGatherUnits()` × 8–10 months, mild diminishing returns), not ×0.22.
+2. **Walls still apply** — seclusion cannot carry you past a key you do not hold. This is what stops it from eating the game, and it gives the emergence its best line: *"You sat eleven years. Seven were spent against a wall."*
+3. **The world moves** — replace the eight canned templates with beats from real state: unpaid rent, a debt, a rival's rank, an NPC's death, a quest gone cold. Three or four real sources in v1 is plenty.
+
+**What it looks like:** pick 20 years → the year counter runs → beats surface, one of them real (*"Year 6: your Redwell room went unpaid; the innkeeper let it go — to someone else"*) → highlight reel → you emerge Mid QC, older, into a board that changed without you.
+
+**Scope:** `seclusion-project.js`. Picker, `startTimePlayback`, and the reel are already built.
+
+### Phase 3 — Preparation forecast + one length dial
+
+**Forecast** — before the sit, a sentence, not a spreadsheet, built from the multiplier stack already in `getPassiveCultivationSupportMult` / `getChamberCultivateMult`:
+
+> Bare breath · rented room · no array. A month here moves the store a little.
+> **Biggest gain available:** a spirit-gathering array would roughly double it.
+
+Shown on the sit button and in the seclusion picker — so the choice lands where the money is.
+
+**Length dial** — one Cultivate verb, three lengths (a week, months, years) mapping to the chamber gather, `focused_cultivate`, and seclusion. Same scene, three scales of risk.
+
+### Phase 4 — The art (optional)
+
+Not necessary, and cheap if wanted. `.chamber-core` already has `--chamber-core-fill`, `--chamber-density-glow`, `--chamber-persist-scale` and four animation classes. A no-new-assets version adds three things:
+
+- a **method hue** variable from the method def (Burning Breath red, Flowing Tide blue),
+- a **breath period** driven by the gather multiplier — clean and slow when supported, stuttering when bare,
+- a **stall flicker** while inside a wall.
+
+Defer the expensive version (seated figure, per-condition breath paths, room dressing) until the loop earns it.
+
 ## Prerequisites
 
 - [ ] Owner: accept or reject this as the feel layer on top of passive + focused (no yield change in v1)
 - [ ] Owner: accept or reject the second-pass mechanics (bottlenecks, seclusion stakes, preparation forecast)
+- [ ] Owner: confirm phase order before any Issues are opened (one Issue per phase)
 - [ ] Living clock focused project still the time spine
 - [ ] Chamber stage + body silhouette available to share a seated pose and dantian landmark
 
