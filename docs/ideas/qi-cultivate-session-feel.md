@@ -88,15 +88,66 @@ Expand dantian, refine foundation, and condense core are not the daily loop. At 
 | QC is gather-and-store, not mist→liquid ([`qi-condensation-depth.md`](qi-condensation-depth.md)) | Kept. The picture is a store deepening, not condensation. |
 | One primary method ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)) | The method becomes the circulation you watch. |
 
+## Second pass — the feel layer is not enough on its own
+
+Review of everything above, 2026-09-27. The presentation holds up; on its own it does not answer the worry that started this ("a button gets spammed; anti-spam feels restrictive for no in-game reason; pure passive is not something you are *doing*").
+
+### Where the spam worry actually sits
+
+Time is **already** the anti-spam. Every Gather Qi burns a week of a finite lifespan, and the yield is time-bound. Clicking fast buys nothing.
+
+It feels spammy because it is the **dominant** move. Nothing in the sit ever says *stop, the answer is outside this room*. So the fix is not a cooldown and not an animation. It is that cultivation should **run out of road** on its own and point at the world.
+
+### Honest limits of the session view
+
+| Claim above | Problem |
+|-------------|---------|
+| "The sit is the fantasy" | A prettier bar is still a bar. The player gets one round of delight, then stops looking, and it is a toggle again — with the art budget spent. |
+| "Snags name their cause" | You *read* a label after deciding to sit. The decision already happened. |
+| "No yield change in v1" | Correct as a safety rail, but it leaves the loop with **zero decisions**. Postures are locked out (rightly), and nothing replaced them. |
+| Breath-picture matrix (bare / grade / mismatch / place / band) | Too much art up front. Ship method color, cycle length, one stall. Drop sect-hall ambience. |
+
+### Three mechanics that give the loop decisions — no posture picker, no new yield curve
+
+**1. Bottlenecks with a named key.** Approaching a band edge, progress decays to a crawl and the game says what is missing: a denser place, a pill, a better manual, a teaching, an unopened meridian. You can always grind through slowly (root stays the floor — no hard wall), but the efficient move is to **leave the room for a reason the fiction supplies**. This is the diegetic anti-spam. It is also exactly the existing lock "aids buy calendar back" made visible, and it finally gives pills the job [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) wants them to have. Xianxia progress is punctuated — stuck, seek, break — and today's bands arrive automatically instead.
+
+**2. Give seclusion its stakes back.** `seclusion-project.js` already has a year picker, time playback, and a highlight reel. But it runs `runCultivateSession({ extraMult: 0.22 })` — **long seclusion is currently the worst way to cultivate**, which is backwards for the genre. Sitting thirty years should be the strongest *and* the scariest: you emerge to a world that moved. Debts came due, a rival ranked up, the sect exam passed, the herb wilted, someone died. The machinery exists; it needs real world consequences instead of eight canned flavor lines. This is the single biggest feel win available and it is mostly wiring existing systems together.
+
+**3. Preparation is where the choice lives.** Before the sit: where (inn, courtyard with a formation, spirit site), with what (pill, stones), following what (manual), in what condition (injured, empty dantian). Show the forecast, then play the sit. The decision happens **before**, where the money is — so the no-posture lock stays intact and cultivation plugs into the Redwell economy and the unbuilt [`cultivation-sites-and-claims.md`](cultivation-sites-and-claims.md).
+
+### One act, one dial
+
+Resolves the open question below. Cultivation is a single verb with a length the player sets:
+
+| Length | Fiction | Existing hook |
+|--------|---------|---------------|
+| A week | Top up the dantian before a fight | chamber Gather Qi |
+| Months | Close the door and work | `focused_cultivate` project |
+| Years | Seclusion — the gamble | `seclusion-project.js` |
+
+Same scene, same math, three scales of risk. Combat already tells the player to gather; that is the short one earning its place.
+
+### Suggested order (inverts the slice list below)
+
+1. Bottlenecks — cheapest, changes behavior, supplies the in-game reason to stop.
+2. Seclusion stakes — reuses built machinery, biggest drama return.
+3. Session view — now worth the art, because there is something to watch *about*.
+
+### Deliberately not proposed
+
+**Qi deviation / backlash.** There is no deviation mechanic in the repo today and the locks lean against inventing punishment. If the owner wants risk, the only place it belongs is **forcing** a bottleneck — an opt-in gamble, never the default sit.
+
 ## Prerequisites
 
 - [ ] Owner: accept or reject this as the feel layer on top of passive + focused (no yield change in v1)
+- [ ] Owner: accept or reject the second-pass mechanics (bottlenecks, seclusion stakes, preparation forecast)
 - [ ] Living clock focused project still the time spine
 - [ ] Chamber stage + body silhouette available to share a seated pose and dantian landmark
 
 ## Open questions
 
-- Does "sit" replace the Gather Qi button entirely at QC, or does Gather Qi remain a short week-sized sit inside the chamber while the month-long close-the-door stays the quarters action? Proposal: one act, two durations (a week in the chamber, a month closed-door), same scene.
+- ~~Does "sit" replace the Gather Qi button at QC, or stay a separate chamber week?~~ Answered in the second pass: one act, one length dial (week / months / years).
+- If seclusion becomes the strongest cultivation, what stops it from eating the game? Likely answer: bottlenecks — you cannot sit past a wall you have no key for.
 - How literal should the breath path be before it becomes unreadable on a phone? Start with method color, cycle length, and leak/stall — not a labeled meridian diagram.
 - Sect hall "others cultivating" — ambient only, or skip until sect life can support it?
 
@@ -108,6 +159,7 @@ Expand dantian, refine foundation, and condense core are not the daily loop. At 
 - `index.html` / `style.css` — `#qiChamberOverlay`, `.chamber-core`, body silhouette in the body chamber
 - `cultivation-methods.js` — primary method, bare circulation, gather mult
 - QC band meter — `qc-depth.js` `renderChamberQcBandMeter`
+- `seclusion-project.js` — year picker, `startTimePlayback`, highlight reel, `applySeclusionYearGains` (the ×0.22 to revisit)
 
 ### Smallest slice if built later
 
