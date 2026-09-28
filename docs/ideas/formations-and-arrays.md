@@ -6,7 +6,7 @@
 | **Blocked on** | Combat wards/kills: enemy **guards** + hit pipeline ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116), [`stats-to-meters-rework.md`](stats-to-meters-rework.md)). Ranks 4+: nine-realm names in code (not extra ranks). Essence sites / rites / array-assist as before. |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (F1–F2b) · 2026-09-26 audit |
-| **Updated** | 2026-09-26 (audit: shipped vs gaps vs next slice) |
+| **Updated** | 2026-09-28 (avatar stand-in; stale PR pointers) |
 
 ## Intent
 
@@ -195,7 +195,7 @@ Finished formations are **recipes** of a few **primitives** — the “grammar�
 | **2nd** | Foundation Establishment | Residence/hall patterns; FE traps |
 | **3rd** | Core Formation (Golden Core) | Kill or hard-control vs GC **in pattern** |
 | **4th** | Nascent Soul | Sect-scale; NS traps (heavy prep) |
-| **5th** | Celestial Avatar | Regional arrays / “fake avatar” civic suppression |
+| **5th** | Celestial Avatar | Regional arrays. A great-sect gate can be a pre-laid civic stand-in for clash ([`celestial-avatar.md`](celestial-avatar.md)); laying one does not raise the player's avatar |
 | **6th** | Void Refinement | Passage-scale; void-qi nodes |
 | **7th** | Dao Seeking | **Dao / law components** required |
 | **8th** | Dao Manifestation | Worn-law nodes; array that *is* a law |
@@ -554,7 +554,7 @@ G.sect.residence.formations.slots = [
 
 F1–F2b is **on main**, not waiting on PR #61. The profession skeleton works: unread starter gather → Decipher → lay at courtyard / meditation chamber / defense array → fuel / switch / integrity → FI → Adept exam → Vein Seal. Catalog is four live patterns (`spirit_gathering`, `qi_stabilizer`, `iron_wall_ward`, `vein_seal_ward`).
 
-**Do not climb to arrays / guilds / rites next.** The existing loop does not pay off yet. Last three unmerged PRs (#128 lore, #127 spirit-path docs, #125 mobile feel) do not touch this system — clean lane.
+**Do not climb to arrays / guilds / rites next.** The existing loop does not pay off yet. The landed lore (nine-realm ladder, Celestial Avatar, spirit path) does not change this loop.
 
 #### Bugs / wrong feel (fix before new verbs)
 
@@ -602,7 +602,7 @@ Small, playable, no new profession rank:
 
 ### Nine-realm + combat coupling (2026-09-26)
 
-Owner is committing the **nine-realm** ladder ([`nine-realm-ladder.md`](nine-realm-ladder.md), idx 4 = **Celestial Avatar** on [#127](https://github.com/WanderingImmortal/tales-immortal-path/pull/127)). Damage depth ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)) and the **guards** redo ([`stats-to-meters-rework.md`](stats-to-meters-rework.md) on #127) land on the same lane as attack / ward formations.
+The **nine-realm** ladder is on main ([`nine-realm-ladder.md`](nine-realm-ladder.md); idx 4 = **Celestial Avatar**, [`celestial-avatar.md`](celestial-avatar.md)). Damage depth ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)) and the **guards** redo ([`stats-to-meters-rework.md`](stats-to-meters-rework.md)) land on the same lane as attack / ward formations.
 
 #### Rank count (7 vs 9) — owner 50/50
 
@@ -620,7 +620,7 @@ Seven ranks only felt natural because they were **1:1 with the old seven-realm p
 
 - Master **0–3** unchanged (QC / FE / GC). All shipped content.
 - Gate future exams on **named realm**, never `minRealmIdx === formationTier - 1` (Void moved 4 → 5).
-- Avatar / Manifestation still change **job** (fake-avatar civic arrays; worn-law nodes) — that work is the same whether those jobs are 5th+8th or squeezed into 5th+7th.
+- Avatar / Manifestation still change **job** (civic arrays clash can read as a pre-laid stand-in; worn-law nodes) — that work is the same whether those jobs are 5th+8th or squeezed into 5th+7th. The stand-in is not a second avatar and not the idx-4 realm.
 
 **When 9 realms land in code:** no `formations.js` change for F2.5. Audit SKU `reqRealm` if any Void+ stock used old idx 4 (none today).
 
@@ -647,7 +647,7 @@ Fuel **is** the reserve. A third “formation HP” would be the durability soup
 
 That matches the old defense lean: in-band attacks keep getting blocked until **fuel** dies; above-band is a **tier/grade exception**, not “chip the HP for 40 hits.”
 
-**Arrays:** one **shared fuel pool** (the array eye), sub-formations sip from it. Siege UI shows that tank + whether the attacker is in-band (drain) or over-band (strain). Avatar clash already treats gate arrays as fake avatars — the visible barrier layer is this same fuel/guard read, not a fourth meter.
+**Arrays:** one **shared fuel pool** (the array eye), sub-formations sip from it. Siege UI shows that tank + whether the attacker is in-band (drain) or over-band (strain). Avatar clash reads a great-sect or imperial gate as a pre-laid stand-in ([`celestial-avatar.md`](celestial-avatar.md)). The visible barrier is this same fuel/guard read. Laying the array does not raise the player's Celestial Avatar.
 
 **Do not add** a hit-counter or `formationHp` field. Grow **use-scaled fuel** + an over-tier strain exception when those arrays exist.
 
@@ -668,7 +668,7 @@ Live Iron Wall / Vein Seal are **not combat**. They add `defenseRating` into sec
 **Contract when combat-adjacent formations exist (F5 kill / talisman / gear, later arrays):**
 
 1. **Ward primitive = a guard, not a rating.** A running, in-tier, fueled ward *is* the matching guard (usually **qi barrier**; Iron Wall may lean flesh; Vein Seal / soul-seals lean soul). In-band hits **keep blocking** until **fuel** runs out (use-scaled under assault). Integrity remains “are the lines still there.” Over-tier → strain / scatter, not a long HP grind. See [Assault energy](#assault-energy--not-a-third-hp-bar).
-2. **Do not invent `formationHp`.** Avatar stance is already “hits test the outer barrier first, stance drops if it cracks” — a city-gate array is the same slot: a **pre-laid fake avatar / barrier layer** reading the fuel tank.
+2. **Do not invent `formationHp`.** The player's Raise Avatar stance tests its own outer barrier. A city-gate array is a separate pre-laid civic stand-in ([`celestial-avatar.md`](celestial-avatar.md)), fueled by this tank. It is not a second avatar system.
 3. **Kill / trap / sever go through the hit pipeline.** `delivery: environment` (or `formation`). Nature + which **guard they test** come from the blueprint, not `G.path`. Crude grade → **stymie** (Circulation / Structure stress, no kill). Peerless in-band → threaten the path **seat** (Core / Structure / Spirit). This is the first mechanical home for “grade within tier.”
 4. **Frame break ≠ ward fail.** Structure→frame already says personal guard fails. A qi-barrier formation should not drop because someone’s ribs broke. A physical iron-wall that *is* flesh guard might.
 5. **F2.5 event soften is a placeholder.** Keep fixing event stone-loss so the mountain ward *does something now*, but label it as the civic/event face of a qi barrier. When enemy guards ship, rematerialize — do not grow `defenseRating`.
@@ -680,7 +680,7 @@ Live Iron Wall / Vein Seal are **not combat**. They add `defenseRating` into sec
 | Commit nine-realm **docs** | Update this table only. Live code untouched. |
 | Nine-realm **in code** (idx shift) | Audit formation SKU `reqRealm` / future exam idx. Ranks 1–3 safe. |
 | Damage Phase A+B ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116)) | Do not write a second resolver. Future springs call `resolveCombatHit`. |
-| Guards on enemy sheets (#127 step 3) | **Contract** for combat wards. Cheapest “what does a ward look like” beat. |
+| Guards on enemy sheets ([`stats-to-meters-rework.md`](stats-to-meters-rework.md)) | **Contract** for combat wards. Cheapest “what does a ward look like” beat. |
 | F2.5 event-ward + courtyard math | Can ship **now** — event-only, no combat profiles. |
 | F5 gear / talisman / kill ground | **Blocked on** guards + the hit pipeline being the only path. |
 

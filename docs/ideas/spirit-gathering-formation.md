@@ -114,7 +114,7 @@ If those four sentences are not obvious in the residence UI, the pattern is not 
 
 ### Numbers (keep for first run)
 
-Do not retune +8% / fuel / integrity on the same pass as the stacking fix. First question is **readability**, not balance.
+Do not retune +8% / fuel / integrity on the first readability pass. The pin-stacking fix already landed ([#130](https://github.com/WanderingImmortal/tales-immortal-path/pull/130)). First question is **readability**, not balance.
 
 If after a season you cannot tell it is on without reading the status row, *then* bump (e.g. 12–15%) or make the log say the running name more often. That is a second pass.
 
@@ -130,7 +130,7 @@ Formations are **not** on the ⛩️ Courtyard hub. That room is disciples and s
 
 **Inner Court Room** is not a second map pin. It is the **name of residence level 1** (after Makeshift Shelter). The map node is always **🏠 Leader's Quarters**.
 
-On **main today**, the illustrated grounds map stacks pins on a phone — Quarters is easy to miss. Workaround: open 🏯 **Sect**, then hunt for the 🏠 pin **below** the courtyard pin (same column), or scroll the sheet and try again. Fix: [PR #130](https://github.com/WanderingImmortal/tales-immortal-path/pull/130) flattens the map to a list and adds a **Quarters** chip.
+Phone map: [PR #130](https://github.com/WanderingImmortal/tales-immortal-path/pull/130) flattened the grounds map to a list and added a **Quarters** chip.
 
 Path once you can tap it:
 
