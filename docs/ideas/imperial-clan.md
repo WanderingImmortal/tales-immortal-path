@@ -6,7 +6,7 @@
 | **Blocked on** | City name lock; phase-1 map nodes | four-sect charter detail |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23 |
-| **Updated** | 2026-07-23 |
+| **Updated** | 2026-09-28 |
 
 ## Intent
 
@@ -16,7 +16,7 @@ The **Tian Clan** (天氏) — remembered by that name alone; older names are lo
 
 **Not the same as:** post-mortal **Heavenly Court** ([`post-immortal-cosmology.md`](post-immortal-cosmology.md)) — cosmic accounting, not the mortal throne.
 
-Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`sect-faction-identities.md`](sect-faction-identities.md), [`nine-realm-ladder.md`](nine-realm-ladder.md) (Half-Step Immortal).
+Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`sect-faction-identities.md`](sect-faction-identities.md), [`nine-realm-ladder.md`](nine-realm-ladder.md) (Half-Step Immortal). Grand arrays: [`imperial-grand-arrays.md`](imperial-grand-arrays.md).
 
 ---
 
@@ -148,7 +148,7 @@ Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **char
 See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer capital workshop.
 
 - **Outer imperial city** — **Longcheng** (龙城) — continental hub: Celestial Market quarter, sect branch offices, associations, noble clans, Charter District.
-- **Inner Tianjing** (天京) — Tian Clan home grounds; 京 = royal capital; palace + sleeping founder seal.
+- **Inner Tianjing** (天京) — Tian Clan home grounds; 京 = royal capital; **Nine Dragons Array** (九龙镇京阵) on the ancestral ring; sleeping founder + seal in the underpalace heart node — [`imperial-grand-arrays.md`](imperial-grand-arrays.md).
 - **Outer heartlands** — wilderness buffer between sect peaks and the metropolis north.
 
 ---
