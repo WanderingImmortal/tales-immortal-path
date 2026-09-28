@@ -237,7 +237,7 @@ Regional knot as a real NPC, a sense that can tell snag from blessing, patron gr
 
 ## Open questions
 
-- **Is the snag the right cause?** The three rows are one suggestion. A single cause (only vacuum drains, for example) would be easier to explain and less like a list of excuses.
+- **Is karma settling the right cause?** The postings live in the fortune doc. If three kinds feel like a list of excuses, orphaned fortune alone would be easiest to explain.
 - **When may the player hear the true cause?** Proposal: rumor for a long time; a hermit or a record can say "snag" without a lecture. Full cosmology stays late.
 - **Does public humiliation do anything by itself?** Proposal: it only triggers a comeback if fortune can pay. Otherwise the person is merely embarrassed and thinner. Leave special "crack their destiny" actions out of v1.
 - **Can NPCs mistake Heavenly Luck for a knot?** Flavor only ("the well has two lucky ones this generation"). Mechanically the player remains a person with a trait.
