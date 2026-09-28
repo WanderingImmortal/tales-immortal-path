@@ -5,7 +5,7 @@
 | **Status** | `idea` |
 | **Blocked on** | [`realm-claims.md`](realm-claims.md) in play; [`immortal-world-layer.md`](immortal-world-layer.md) Court MVP; Mandate model in [`post-immortal-cosmology.md`](post-immortal-cosmology.md) if the lease is shown |
 | **Issue** | none yet |
-| **Chat / PR** | Design chat 2026-09-28 — no implementation |
+| **Chat / PR** | Design only — [PR #135](https://github.com/WanderingImmortal/tales-immortal-path/pull/135) |
 | **Updated** | 2026-09-28 |
 
 ## Intent
