@@ -3,10 +3,10 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` |
-| **Blocked on** | Owner world rules; possibly Nascent Soul+ when sense is common in fiction |
+| **Blocked on** | Owner world rules; **unlock answered** by [`spirit-path-full-design.md`](spirit-path-full-design.md) — Sense is the spirit path's day-one facet |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-07-18 |
+| **Updated** | 2026-09-25 (link to spirit path facets) |
 
 ## Intent
 

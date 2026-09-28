@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (partial — soul names and half-step powers still open; body names proposed) |
-| **Blocked on** | Soul names; half-step powers. Body names are a proposal, not a lock. Roots: index bump only — expansion is later. |
+| **Status** | `designed` (partial — which threshold abilities, and spirit names from idx 5 up, are still open) |
+| **Blocked on** | Spirit idx 5 name. Body names are a proposal, not a lock. Roots: index bump only — expansion is later. |
 | **Issue** | none yet |
-| **Chat / PR** | Owner leans 2026-09-25 — Seeking entry 10k; half-step is not a realm |
-| **Updated** | 2026-09-25 |
+| **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; threshold is a limited claim; spirit ending is the three god kinds |
+| **Updated** | 2026-09-28 |
 
 ## Intent
 
@@ -24,23 +24,43 @@ Expand the mortal qi ladder from **7 → 9 realms** (indices `0–8`). Early blo
 | 1 | Foundation Establishment | Unchanged |
 | 2 | Core Formation (Golden Core) | Unchanged — “major realm” watershed |
 | 3 | Nascent Soul | Unchanged — qi-path soul externalized; distinct from **soul refinement track** |
-| 4 | **Celestial Avatar** (owner lock 2026-09-28) | Was Deity Transformation. Visible image of a regional claim. Not soul-path vocabulary. System doc lands with the spirit-path draft. |
+| 4 | **Celestial Avatar** (owner lock 2026-09-28) | 法相 — the matured nascent soul stands up as a visible image over a region. Renamed off the 神 lane. System: [`celestial-avatar.md`](celestial-avatar.md) |
 | 5 | Void Refinement | Existing — shift index from `4` → `5` |
 | 6 | Dao Seeking | Existing — comprehend / pursue dao **before** manifestation |
 | 7 | Dao Manifestation | **New** — dao is worn / embodied, not merely studied |
 | 8 | Immortal Ascension | Mortal capstone; heavenly ceiling / chaos revelation |
 
+### Lane words (owner rule, 2026-09-25)
+
+Each path has one apex word; its vocabulary is **reserved** for that lane in realm names and titles.
+
+| Lane | Hanzi | Apex | Reserved words |
+|------|-------|------|----------------|
+| Qi | 仙 | Immortal Ascension | immortal, celestial, transcendent |
+| Body | 圣 | Saintly Flesh | saint, holy, sage |
+| Spirit | 神 | God | divine, deity, god, godhood |
+
+The spirit apex is **God**, in three kinds (Worshipped, Devouring, Personal). See [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md). That is not one realm name called Soul Deification.
+
+**Deity Transformation** (化神) was on the wrong lane and is retired. Qi idx 4 is **Celestial Avatar**. Live titles that still leak lanes: qi idx 3 *Soul Sovereign*, body *War God Incarnate*, *Vajra Immortal* (body titles go with the body rename anyway). **Nascent Soul stays** — 元婴 is literally “origin infant”; the English “soul” is a translation habit, it is the qi-born avatar, not the spirit lane.
+
 ### Idx 4 — Celestial Avatar (owner lock 2026-09-28)
 
-Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line given a form the world can see — a claim over a region — not “Soul Transformation.”
+Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line given a form the world can see — a claim over a region — not “Soul Transformation” (that name stays available for spirit idx 4).
 
-**Name:** **Celestial Avatar**. **Deity Transformation** (化神) is the retired lean. Divinity words stay on the spirit lane (神). The journey, training, and uses belong to the spirit-path draft's avatar doc; this ladder only locks the name.
+**Name:** **Celestial Avatar**. Hanzi open (法相境?). *Celestial Transformation* can stay as breakthrough event text. *Mortal Shedding* can stay as an oracle line. The system is [`celestial-avatar.md`](celestial-avatar.md).
 
 | Use | Label |
 |-----|-------|
 | Formal realm name | Celestial Avatar |
 | Short / sidebar | Avatar |
 | Retired | Deity Transformation · Deity Form · Spirit Form · 化神 |
+
+#### Why this beat (2026-09-26 survey, kept)
+
+What usually follows Nascent Soul in the genre is 化神, and authors show some mix of: the infant maturing and merging back, sense exploding to region scale, the soul leaving the body, a first touch of laws, and a **法相** — power standing up as a visible form.
+
+Against this ladder: out-of-body belongs to the spirit path. Domain is the Golden Core claim. Laws are Dao Seeking. Void is idx 5. What is left for qi idx 4 is the merge and the image, which are the same event. The matured nascent soul is turned outward. An idx 4 cultivator can stand as a figure over a town. That figure is the realm claim, not a second creature.
 
 ### Dao order (owner confirmed)
 
@@ -168,7 +188,7 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 3rd-tier capital lord | GC competent–peak | **400–500y** | **Same name when you return** after decades of cultivation |
 | 2nd-tier regional lord | NS | **1,000–1,500y** | Dynasty-scale; rumors and grudges span your whole GC climb |
 | Great sect elder (retired peak) | GC perfected | ~500y | Roster fixture; not a quest NPC — still there |
-| Sect patriarch / imperial minister | NS–DT | 1k–3k | Background power; chronicle entries, not mandatory scenes |
+| Sect patriarch / imperial minister | NS–Avatar | 1k–3k | Background power; chronicle entries, not mandatory scenes |
 | 1st-tier vault elder | VR (hidden) | **7.5k–10k** | Mythic; name on laws and ruins |
 | Fresh Seeker (no laws yet) | Seek | **10,000** | Same clock as a perfected Void elder |
 | Deep Seeker (laws, no wield) | Seek | **above 10k, under ~45k** (playtest) | Ancient scholar; not yet law-on-skin |
@@ -186,7 +206,7 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 1 | Anchor | Intent, probe sealed sites |
 | 2 | Domain | Light body (local), sect / forbidden |
 | 3 | Sovereignty | Sky travel (zones), soul sense |
-| 4 | Transformation | Celestial Avatar — presence in a region (not soul-path) |
+| 4 | Avatar | Celestial Avatar — regional presence made visible (法相) — [`celestial-avatar.md`](celestial-avatar.md) |
 | 5 | Passage | Blink / void skip |
 | 6 | Law (seek) | Dao panel, insight pursuit |
 | 7 | Law (wear) | Embody law; local imposition |
@@ -226,7 +246,31 @@ One dig, getting grander:
 
 **Inner Tempering** has a saturation limit (Late = full mortal frame). Diminishing returns only apply while filling it. Peak is optional and still mortal. Lifespan stays the 80-year cap. The physique you **build** is the vessel physique. Luck at birth is a **birth marrow** or, rarely, a physique seed. Spirit roots do not cap how far body refining can go. Manuals and materials do. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
 
-Soul names are a separate pass.
+## Spirit path names (proposal — not locked, 2026-09-25)
+
+Same naming rule as body: each realm is **the work** (what you’re doing) or **the change** (what you’re becoming). The ladder follows the spirit-sea idiom through soul birth. The ending is **God**, parallel to Immortal and Saint, in the three kinds from [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md). Full path design: [`spirit-path-full-design.md`](spirit-path-full-design.md).
+
+| Idx | Qi neighbor | Proposed spirit name | What the step is |
+|-----|-------------|----------------------|------------------|
+| 0 | Qi Condensation | **Sea Opening** | What you’re doing. Open the spirit sea (识海). |
+| 1 | Foundation Establishment | **Sea Stilling** *(owner lock 2026-09-26)* | What you’re doing. An opened sea churns with every thought; still it so it can hold anything. Sea **size** is the meter, not a realm. |
+| 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
+| 3 | Nascent Soul | **Soul Birth** *(owner lock 2026-09-26)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
+| 4 | Celestial Avatar | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
+| 5 | Void Refinement | **Selfless Refinement** *(name not locked)* | Working label only. Owner 2026-09-28: this rung may be the dissolve before the three god kinds. Do not treat the name as canon. |
+| 6 | Dao Seeking | **Divinity Seeking** *(owner lean)* | What you’re doing. Seek what makes a soul a god. |
+| 7 | Dao Manifestation | **Divine Soul** *(owner lean)* | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
+| 8 | Immortal Ascension | **Soul Deification** *(working)* | What you’ve become. God. The three kinds (Worshipped, Devouring, Personal) are the real ending, not this label by itself. |
+
+**Owner 2026-09-26:** idx 1 *Sea Stilling* and idx 3 *Soul Birth* are picked. **Owner 2026-09-28:** the path runs **parallel** to Immortal and Saint, and ends in the three god kinds. Idx 5 and the names above it stay a working set.
+
+**Avoided on purpose:** *Manifestation* as a spirit realm (collides with Dao Manifestation 显法); *Nascent Soul* (qi idx 3); *True Soul* (Paragon of Sin); *Void Soul* (owner: tacky).
+
+**Collision resolved the other way:** divinity stays on the spirit lane. Qi idx 4 is Celestial Avatar. **Enthroned Soul** (神位) is not a realm. It is the Worshipped God flavour in [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md), not a second system.
+
+**Swaps still on the table:** Soul Seed → Spirit Seed · Sea Stilling → Sea Settling · Selfless Refinement → Ego Refinement · Soul Transformation → Unbound Soul.
+
+**Maturity labels** in `SOUL_MATURITY_LABELS` (Hollow Nascent / Nascent Soul / Settled / Ascendant) must be renamed so “Nascent Soul” means only the qi realm.
 
 ## Implementation migration (when building)
 
@@ -235,7 +279,7 @@ Soul names are a separate pass.
 - `DAO_SEEKING_REALM_IDX`: `5` → `6`
 - Immortal is already “the last name on the list” in code. It stays correct if qi, body, and soul all grow to nine names together.
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock. Old saves store a realm number: anyone past Nascent Soul has to be shifted.
-- **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Soul names still deferred. All three paths still need nine labels when the ladder ships.
+- **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Spirit names: working set above. Idx 1 and 3 are picked. Idx 5 and up are not locked. All three paths still need nine labels when the ladder ships.
 - **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Celestial Avatar and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
 
 ## Links
@@ -247,7 +291,7 @@ Soul names are a separate pass.
 
 ## Open questions
 
-- [x] Idx 4 name — **Celestial Avatar** (owner lock 2026-09-28; was Deity Transformation). System doc is the spirit-path draft.
+- [x] Idx 4 name — **Celestial Avatar** (owner lock 2026-09-28; was Deity Transformation). Hanzi open. System doc: [`celestial-avatar.md`](celestial-avatar.md)
 - [x] Half-Step is not a realm — a second peak on Dao Manifestation. **Limited claim** on the next realm, permitted because the life still ends (owner 2026-09-28). Which abilities, still open.
 - [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02)
 - [x] VR breakthrough floor — **5,000** (owner aesthetic: half of 10k)
