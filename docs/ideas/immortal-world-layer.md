@@ -6,7 +6,7 @@
 | **Blocked on** | Mortal Immortal Ascension (`idx 8`); [`nine-realm-ladder.md`](nine-realm-ladder.md); legacy / Heavenly Court stub |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chats, 2026-07-18–21 |
-| **Updated** | 2026-07-21 |
+| **Updated** | 2026-09-28 |
 
 ## Intent
 
@@ -104,7 +104,7 @@ Long **Works** use the project + time-playback shell — see [`chronicle-and-pro
 ## Open questions
 
 - [ ] Court vs chaos revelation — same screen or branch?
-- [ ] Can ascendant **visit** mortal map as avatar?
+- [ ] Can ascendant **visit** mortal map as avatar? Cap if yes: one body, edicts pause — [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md)
 - [ ] Persist edicts across true reincarnation (legacy)?
 
 ## Implementation crumbs
@@ -114,3 +114,4 @@ Long **Works** use the project + time-playback shell — see [`chronicle-and-pro
 - `dao-taxonomy.js` — laws, Wuji
 - `factions-expand.js` — political reactions
 - `chaos-cultivation-path.md` — exceed heaven layer
+- [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md) — which xianxia 神通 map onto edicts / Works / Taboos, and which are refused

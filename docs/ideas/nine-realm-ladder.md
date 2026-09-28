@@ -68,7 +68,7 @@ It sits on **Dao Manifestation** (the last realm before ascension): past that re
 
 **Open:**
 
-- [ ] What Half-Step actually does (travel, law, or only a gate in the story)
+- [ ] What Half-Step actually does (travel, law, or only a gate in the story) — proposal: Lease-glimpse, one site or one day, in [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md)
 - [ ] Can you fail and drop back to ordinary peak?
 - [ ] What chronicles and NPCs call someone standing there
 

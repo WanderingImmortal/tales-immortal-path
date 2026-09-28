@@ -97,7 +97,7 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 
 ### Realm claims & ladder
 
-- [x] **Half-Step** is not a realm — a step above peak Dao Manifestation (owner 2026-09-25). Powers still open.
+- [x] **Half-Step** is not a realm — a step above peak Dao Manifestation (owner 2026-09-25). Powers still open — see [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md) (Lease-glimpse proposal, not locked).
 - [ ] Claims stored explicitly vs derived from table?
 - [ ] Soul names for nine realms. Body names are a proposal, not a lock ([`nine-realm-ladder.md`](nine-realm-ladder.md)). All three paths still need nine labels when the ladder ships.
 - [ ] GC combat **qi-lock** — v1 or v2?
