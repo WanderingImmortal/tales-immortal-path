@@ -5,7 +5,8 @@
 const UI_SETTINGS_KEY = 'wi_ui_settings_v1';
 
 const UI_SETTINGS_DEFAULTS = {
-    hoverTooltips: false
+    hoverTooltips: false,
+    phonePlaytestLayout: false
 };
 
 function loadUiSettings() {
@@ -38,6 +39,9 @@ function setUiSetting(key, value) {
     if (key === 'hoverTooltips' && typeof refreshHoverTooltips === 'function') {
         refreshHoverTooltips();
     }
+    if (key === 'phonePlaytestLayout' && typeof phonePlaytestMoveChrome === 'function') {
+        phonePlaytestMoveChrome();
+    }
 }
 
 function isHoverTooltipsEnabled() {
@@ -48,10 +52,12 @@ function initUiSettings() {
     const panel = document.getElementById('settingsPanel');
     const toggle = document.getElementById('btnSettingsToggle');
     const hoverCheck = document.getElementById('settingHoverTooltips');
+    const phoneCheck = document.getElementById('settingPhonePlaytestLayout');
     if (!panel || !toggle) return;
 
     const settings = loadUiSettings();
     if (hoverCheck) hoverCheck.checked = !!settings.hoverTooltips;
+    if (phoneCheck) phoneCheck.checked = !!settings.phonePlaytestLayout;
 
     toggle.addEventListener('click', () => {
         const open = panel.hidden;
@@ -62,4 +68,6 @@ function initUiSettings() {
     hoverCheck?.addEventListener('change', () => {
         setUiSetting('hoverTooltips', hoverCheck.checked);
     });
+
+    if (typeof initPhonePlaytestLayout === 'function') initPhonePlaytestLayout();
 }
