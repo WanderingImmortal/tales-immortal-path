@@ -6,7 +6,7 @@
 | **Blocked on** | Combat damage depth (for full tribulation combat); per-gate journey design |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent brainstorm 2026-09-14 · [PR #118](https://github.com/WanderingImmortal/tales-immortal-path/pull/118) |
-| **Updated** | 2026-09-27 (9-realm trib ladder; first-3 status; NS→DT stub) |
+| **Updated** | 2026-09-28 (NS → Celestial Avatar; soul ending is the three god kinds) |
 
 ## Intent
 
@@ -96,8 +96,8 @@ Prep is **optional depth**, not a wall. You can break through hasty; you pay in 
 | **QC → FE** | Qi settles into foundation | Unstable gathered qi | Bedrock test — can it hold? | Foundation variant / crack scar |
 | **FE → GC** | Initial Core Formation | Nascent core, unaccepted | Core-integrity lightning | Core grade + condition (cracked / intact) |
 | **GC → NS** | Nascent soul birth | Core cracking open | Soul lightning (outward emergence) | Nascent vessel permit + embryo origin |
-| **NS → DT** | Deity-scale presence | Shell strains to hold you | TBD — **presence / authority audit** (not organ forge) | **Transformation** claim — regional pressure |
-| **DT → VR** | Open void basin | TBD | Acquisition trib — see void cosmology | Void tolerance, passage |
+| **NS → Avatar** | Raise the Celestial Avatar | Shell strains to hold you | **Presence audit** (not organ forge) | **Avatar** claim — regional pressure |
+| **Avatar → VR** | Open void basin | TBD | Acquisition trib — see void cosmology | Void tolerance, passage |
 | **Later** | Per cosmology | Per gate | Dao heart, karmic, punishment | Law glimpse, heaven mark |
 
 **Nine-realm trib ladder (force direction — owner 2026-09-14):**
@@ -105,12 +105,12 @@ Prep is **optional depth**, not a wall. You can break through hasty; you pay in 
 ```text
 QC→FE   scatter → order        (external lightning)
 FE→GC   order → denser         (inward collapse / forge)
-GC→NS   container → release    (soul lightning — hatch the nascent vessel)
-NS→DT   person → regional force (TBD — civic deity presence; see nine-realm-ladder)
-DT→VR   …                      (void acquisition — special case; early VR ≈ DT peak)
+GC→NS   container → release    (soul lightning — hatch the qi nascent vessel)
+NS→Avatar  person → regional force (presence audit — Celestial Avatar)
+Avatar→VR  …                   (void acquisition — special case; early VR ≈ Avatar peak)
 ```
 
-**Code migration (when 9 realms land):** split today’s `3_to_4` / `ns_to_void` into `ns_to_dt` and `dt_to_void`; shift void+ transitions up one idx (`tribulation.js` map, `TRIBULATION_TRANSITIONS`).
+**Code migration (when 9 realms land):** split today’s `3_to_4` / `ns_to_void` into `ns_to_avatar` and `avatar_to_void`; shift void+ transitions up one idx (`tribulation.js` map, `TRIBULATION_TRANSITIONS`).
 
 **Per-gate differentiation toolkit** (mix 2–3 per gate — don't reuse the same combo):
 
@@ -198,7 +198,7 @@ Aligns with [`qi-foundation-establishment-redesign.md`](qi-foundation-establishm
 - **Failure:** core never forms (regression); **cracked core** (formed but damaged); rare **broken core** (wrong shape survived).
 - **Prep payoff:** foundation grade/nature echoes into core grade band; peak consolidate = cleaner collapse.
 
-**Soul path variant:** same gate, different auditor — heart demon of *what you're willing to destroy to advance* (not lightning, still inward).
+**Spirit-path skin of this qi gate (sketch):** a heart demon of *what you're willing to destroy to advance* (not lightning, still inward). That is not Spirit Soul Birth, which has its own gate at spirit index 3.
 
 ### GC → NS — Soul lightning
 
@@ -211,43 +211,37 @@ Already sketched in `TRIBULATION_TRANSITIONS.gc_to_ns` log line. Not heart-demon
 - **Heaven's question:** not "can you endure?" but "may this **nascent soul** be forged — and is it well-made?"
 - **Trial beats (draft):** hold the shell together until the nascent soul anchors · let the bolt crack you open (fast, risky) · reject the emergence (will test — wrong for most builds).
 - **Failure:** stillborn nascent soul (core intact, no NS path); **warped** / weakened nascent scars; core cracks but nascent survives (playable scar).
-- **Prep payoff:** late GC purify stage, core grade, will/spirit — affects whether the **vessel** is clean. Not “soul cultivation” prep — **cradle** prep.
+- **Prep payoff:** late GC purify stage, core grade, will/spirit — affects whether the **vessel** is clean. This is cradle prep for the **qi** infant. It is not the spirit path. Spirit **Soul Birth** is its own gate, a heart-demon trial at spirit index 3 — [`spirit-path-full-design.md`](spirit-path-full-design.md).
 
-### Soul layers (owner 2026-09-14 — Paragon of Sin–adjacent, not a rip)
+### Soul layers (updated 2026-09-28)
 
-**Nascent Soul ≠ the person's true self.** Common xianxia territory (each novel defines layers differently); PoS makes the split explicit and usable — good model to **echo**, not copy term-for-term.
+**Nascent Soul is the qi infant.** It is not the spirit path's soul. The spirit path is its own ladder from day one — [`spirit-path-full-design.md`](spirit-path-full-design.md).
 
-| Layer | Draft role | When it matters |
-|-------|------------|-----------------|
-| **Nascent Soul** (元婴) | Cultivated spiritual infant / second vessel — forged at GC→NS, refined after | Combat escape, possession, soul arts, domain — the **tool-body** qi path births |
-| **True Self** (name TBD — 本我 / anchor / root spirit) | The person underneath — reincarnation, identity, void dissolution | Always latent on qi path; heart demon and late realms touch *this*; not “trained” before NS |
-| **Soul track** (`spirit` refinement) | Refines relationship between nascent vessel and true self; soul mass | Parallel track — `soulEmbryoOrigin` already tags dantian vs vessel vs spirit birth |
+| Layer | Role | When it matters |
+|-------|------|-----------------|
+| **Nascent Soul** (元婴) | The qi infant hatched at GC→NS | This tribulation. Cradle quality, not spirit-path depth |
+| **Spirit path** | Sea from day one; **Soul Birth** at spirit index 3 | Its own heart-demon gate. Not a reskin of GC→NS |
+| **Godhood** | Parallel to Immortal and Saint | The three kinds in [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md): Worshipped, Devouring, Personal |
 
-**Why this helps GC→NS fairness:** qi players prep the **egg** (core quality, purify, will/spirit). Tribulation forges the **nascent soul** — not an exam on true-self depth they never had access to. True-self questions belong to heart demon, void, dao — later watersheds.
+**Why this helps GC→NS fairness:** a qi player preps the egg (core quality, purify). This bolt forges the qi infant. It does not examine the spirit sea.
 
-**Existing hooks:** `soulEmbryo`, `soulMass` (latent → crystallize at birth), `nine-realm-ladder.md` (“qi-path soul externalized; distinct from soul refinement track”).
+**Owner 2026-09-28:** godhood does not skip the immortal layer, and it is not a soul hiding in a ledger blind spot. Personal God takes the ego back. “Chaotic soul” stays rejected. Chaos remains the unwritten path outside this ladder.
 
-**Parked (owner 2026-09-14 — ethereal, no names locked):**
+Possession is not a Nascent Soul stance. [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md) refuses it as a player verb.
 
-- Nascent soul = per-life ledger **credential**, not true self; does not survive reincarnation.
-- True-self / deep soul cultivation = **high realm** (PoS / ED–adjacent *ideas* only — do not reuse Resonant Soul / Anima names; respect for source novels).
-- Soul path needs its **own endgame fork** — not “switch to Chaos.” Chaos doc already: spirit track **distinct** from Chaos Soul stages (`chaos-cultivation-path.md`).
-- “Chaotic soul” rejected as tacky — soul counterpart to chaos should feel **inward / sovereign**, not chaos-with-soul-paint.
-- Direction sketch: Chaos = unwritten **outside** taxonomy; soul apex = unwritable **inside** (what the ledger never indexed). Names TBD.
+### NS → Celestial Avatar
 
-### NS → DT — Deity Transformation (stub — brainstorm next)
+**Realm job:** the system in [`celestial-avatar.md`](celestial-avatar.md). Civic Press, Raise Avatar, a region claim. Not more flight (Nascent Soul already has Sky Travel). Not Deity Transformation.
 
-**Realm job (from [`nine-realm-ladder.md`](nine-realm-ladder.md)):** **civic-scale presence** — regional deity-presence, NPC defer, pressure radius (**Transformation** claim). Not more flight (NS already has Sky Travel). DT cultivation journey **not designed** yet (no substages).
-
-**Trib direction (chat 2026-09-27):** first trib that is less “forge a new organ” and more **heaven acknowledging you as regional weight on the map**. Candidate families: dao-heart (coherence at scale), karmic/jianghu weight, **presence audit** — not another lightning reskin.
+**Trib direction (chat 2026-09-27, name updated 2026-09-28):** the first tribulation that is less “forge a new organ” and more heaven acknowledging you as regional weight. A **presence audit**, not another lightning reskin.
 
 **Heaven's question (draft):** *May the jianghu name you a regional force — without your presence shattering what you rule?*
 
-**Prep (guess):** nascent soul maturity / soul mass, domain, jianghu standing, consolidation at NS peak — TBD when NS journey exists.
+**Prep:** the avatar is raised across the realm (nourish, fuse, radiate) per the avatar doc. Nascent-soul consolidation and domain are the cradle it stands on.
 
 ### Parked (owner will do later)
 
-DT → VR, VR → Dao Seeking, Dao Manifestation → Immortal — follow [`nine-realm-ladder.md`](nine-realm-ladder.md) + void/dao cosmology docs.
+Avatar → Void Refinement, Void Refinement → Dao Seeking, Dao Manifestation → Immortal — follow [`nine-realm-ladder.md`](nine-realm-ladder.md) + void/dao cosmology docs. Early Void Refinement is about Avatar peak until void qi is cultivated inside.
 
 If we can't write the heaven's question yet, **park that gate's tribulation** and design the cultivation journey first ([`tribulation-per-gate-backlog.md`](tribulation-per-gate-backlog.md) rule).
 
@@ -267,7 +261,7 @@ If we can't write the heaven's question yet, **park that gate's tribulation** an
 - GC→NS: soul-path variant at gate; scar pool names; limbo label; optional GC “cradle prep” chamber fiction.
 - **Cross-cutting (all gates):** breakthrough popup → preview not draft; transcendence → imprint not 3-pick; trib preview UI.
 
-**Soul endgame (parked):** layered ladder — mortal soul track refines **vessel**; deep true-self apex **late**; endgame fork **soul sovereign inside ledger blind spot** vs **chaos unwritten outside** — not “chaotic soul”; no PoS/ED name rip.
+**Soul endgame:** parallel to Immortal and Saint. Three god kinds — [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md). Not a ledger blind spot. Not “chaotic soul.”
 
 ---
 

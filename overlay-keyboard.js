@@ -57,8 +57,17 @@ const ESCAPE_OVERLAY_CLOSE_ORDER = [
     { id: 'alchemyChamberOverlay', close: () => typeof closeAlchemyChamber === 'function' && closeAlchemyChamber() },
     { id: 'forgeChamberOverlay', close: () => typeof closeForgeChamber === 'function' && closeForgeChamber() },
     { id: 'cultivationHubOverlay', close: () => typeof closeCultivationHub === 'function' && closeCultivationHub() },
-    { id: 'tutorialLogPopup', close: () => typeof closeTutorialLog === 'function' && closeTutorialLog() }
+    { id: 'tutorialLogPopup', close: () => typeof closeTutorialLog === 'function' && closeTutorialLog() },
+    {
+        id: 'phoneGroupSheet',
+        close: () => typeof closePhoneGroupSheet === 'function' && closePhoneGroupSheet()
+    }
 ];
+
+function isPhoneGroupSheetEscapeActive() {
+    const sheet = document.getElementById('phoneGroupSheet');
+    return !!sheet && !sheet.hidden;
+}
 
 function isEscapeOverlayBlocked() {
     const creation = document.getElementById('creation-screen');
@@ -89,13 +98,16 @@ function closeTopEscapeOverlay() {
     for (const entry of ESCAPE_OVERLAY_CLOSE_ORDER) {
         const el = document.getElementById(entry.id);
         if (!el) continue;
-        const active = entry.id === 'actionHelpPopover'
-            ? !el.hidden
-            : el.classList.contains('active');
+        const active = entry.id === 'phoneGroupSheet'
+            ? isPhoneGroupSheetEscapeActive()
+            : entry.id === 'actionHelpPopover'
+                ? !el.hidden
+                : el.classList.contains('active');
         if (!active) continue;
         if (ESCAPE_BLOCK_OVERLAY_IDS.has(entry.id)) return false;
         entry.close();
         if (typeof fullRender === 'function') fullRender();
+        if (typeof updatePhoneOverlayBack === 'function') updatePhoneOverlayBack();
         return true;
     }
     return false;
