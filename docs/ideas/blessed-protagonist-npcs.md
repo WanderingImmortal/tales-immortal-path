@@ -5,7 +5,7 @@
 | **Status** | `idea` |
 | **Blocked on** | Owner lock: in-world name, kill price, how many may live at once. A thin slice does not need the opportunity engine, situation threads, or the World Fortune meter. |
 | **Issue** | none yet |
-| **Chat / PR** | Design only — cloud agent, 2026-09-28 |
+| **Chat / PR** | Design only — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
 | **Updated** | 2026-09-28 |
 
 ## Intent

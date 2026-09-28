@@ -21,7 +21,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
 - **Higher-realm trib scripts** — [`tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md) · xianxia feel brainstorm [PR #118](https://github.com/WanderingImmortal/tales-immortal-path/pull/118)
 - **Immortal powers (tropes, scoped)** — [`immortal-powers-adaptation.md`](ideas/immortal-powers-adaptation.md)
-- **Blessed NPCs** (heaven's manuscript — prodigy foil, not demonic talents) — [`blessed-protagonist-npcs.md`](ideas/blessed-protagonist-npcs.md)
+- **Blessed NPCs** (heaven's manuscript — prodigy foil, separate from demonic talents) — [`blessed-protagonist-npcs.md`](ideas/blessed-protagonist-npcs.md) · [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139)
 - Formations Guild hubs / branch exams — [`creation-path-guilds.md`](ideas/creation-path-guilds.md)
 - Taiwu-grade NPC social (seats + rumors only for now) — living-board doc
 
