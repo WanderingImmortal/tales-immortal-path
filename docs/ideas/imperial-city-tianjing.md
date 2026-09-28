@@ -303,6 +303,7 @@ Massive houses — cadet branches, marriage lines, mortal retainers by the thous
 | District | Hook |
 |----------|------|
 | **Inner Gate** | Pei Yin (Inner Service) — favor / realm check |
+| **Ancestral ring** | **Nine Dragons Array** nodes (four wall mounts + heart); Array Ministry — [`imperial-grand-arrays.md`](imperial-grand-arrays.md) |
 | **Ministry ring** | Veins, Rites, War (ceremonial) |
 | **Regent courts** | Blood-branch plotting |
 | **Palace mount** | Emperor audiences (rare, high favor) |
