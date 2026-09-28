@@ -35,6 +35,7 @@
 | [`commerce-and-markets.md`](commerce-and-markets.md) | Sell at stalls, cargo/robbery, explore rework, disciple duties, trade dividends |
 | [`personal-residence.md`](personal-residence.md) | Rent → buy → hire; `G.dwelling` |
 | [`world-standing-and-property.md`](world-standing-and-property.md) | City gates, visibility, guards, estate on death |
+| [`jianghu-situation-threads.md`](jianghu-situation-threads.md) | Grievances, threads, dossier, face/backing (consequence layer) |
 | [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md) | **Vision:** sect ≠ only home; nomad/hermit/urban paths; reclaim tiers |
 
 ---
