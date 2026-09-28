@@ -335,7 +335,7 @@ Player can **feel** wrongness before the lecture:
 
 Fortune should move **slowly** — decades/centuries, not every cultivate click — or it feels like punishment spam.
 
-**Not personal fortune.** This meter is the age. A life can also carry a balance of its own — escapes, chances, a knot NPC — and that balance is [`personal-fortune.md`](personal-fortune.md). Spending or catching it does not move this meter. This meter does not add points to people. A mortal loan still gets repaid; World Fortune drops when an Immortal holds qi out of the cycle and keeps it.
+**Not personal fortune.** This meter is the state of the world: ambient qi, treasures, and windows anyone can contest. A person's luck is a separate balance, fed by karma — see [`personal-fortune.md`](personal-fortune.md). The two never convert.
 
 #### Phase 3 — The reveal (story beat)
 

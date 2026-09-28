@@ -3,10 +3,12 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` |
-| **Blocked on** | [`personal-fortune.md`](personal-fortune.md) locked (life-scale balance, separate from World Fortune). Then: in-world name, kill price, how many may live at once. |
+| **Blocked on** | [`personal-fortune.md`](personal-fortune.md) locked (karma, personal fortune, World Fortune). Then this doc gets revised to match. |
 | **Issue** | none yet |
 | **Chat / PR** | Design only — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
 | **Updated** | 2026-09-28 |
+
+> **Restart 2026-09-28.** The fortune model was rebuilt in [`personal-fortune.md`](personal-fortune.md). Heavenly Luck is out of it. Fortune now comes from nameless karma — mostly carried from past lives — not from postings of circulating qi. Sections below on postings, "the lump returns to the land," and Heavenly Luck are stale until this doc is revised. The escape, kill-line, and chance-race mechanics still stand.
 
 ## Intent
 

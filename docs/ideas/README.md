@@ -49,8 +49,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
 | [Jianghu organization types](jianghu-organization-types.md) | `designed` (taxonomy) | Dustbone sect + tribe identities | — |
 | [Jianghu situation threads](jianghu-situation-threads.md) | `designed` | Grudge interrupt v1; org backing read | — |
-| [Personal fortune, luck & karma](personal-fortune.md) | `idea` | Owner lock: three-way split + four bridge rules | — |
-| [Fortune knots — protagonist-shaped NPCs](blessed-protagonist-npcs.md) | `idea` | Personal fortune locked; then name, kill price | — |
+| [Karma, personal fortune & World Fortune](personal-fortune.md) | `idea` (restarted) | Owner lock: three definitions + bridge rule | — |
+| [Fortune knots — protagonist-shaped NPCs](blessed-protagonist-npcs.md) | `idea` (stale in parts) | Revise after the fortune doc locks | — |
 | [Demonic Talents — later touch-up](demonic-talents-touchup.md) | `idea` (parked, fine as shipped) | A dynamic pass, whenever | — |
 | [Disguise & public identity](disguise-and-public-identity.md) | `designed` | Identity resolver, sense channels, signature ledger | — |
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` (v1 hall lean locked) | Hall name + graft spine | — |
