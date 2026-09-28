@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` |
-| **Blocked on** | Owner lock: the snag as the cause, the in-world name, the kill price, how many may live at once. A thin slice does not need the opportunity engine, situation threads, or the World Fortune meter. |
+| **Blocked on** | [`personal-fortune.md`](personal-fortune.md) locked (life-scale balance, separate from World Fortune). Then: in-world name, kill price, how many may live at once. |
 | **Issue** | none yet |
 | **Chat / PR** | Design only — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
 | **Updated** | 2026-09-28 |
@@ -20,11 +20,13 @@ They exist to press a specific player fantasy: *I am the prodigy, the one chance
 
 They are unbelievably hard to kill **among peers**, and they **can** die. The deposit buys scenes. When it is spent, a sword works. Death returns whatever is left.
 
-Parents and neighbors: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (heaven is rules, death repays loans), [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortune — the same substance, immortal scale), [`jianghu-situation-threads.md`](jianghu-situation-threads.md) (the grudge after you cut someone important), [`procedural-zone-sect-ecology.md`](procedural-zone-sect-ecology.md) (sect `prodigy` slot = talent, not this), [`redwell-starter-city.md`](redwell-starter-city.md) (NPC "chance to ascend" parked — this is the named, tiny version).
+Parents and neighbors: [`personal-fortune.md`](personal-fortune.md) (the balance these NPCs are a high reading of — increase, decrease, and wielding live there), [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (heaven is rules, death repays loans), [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortune — the age, not this balance), [`jianghu-situation-threads.md`](jianghu-situation-threads.md) (the grudge after you cut someone important), [`procedural-zone-sect-ecology.md`](procedural-zone-sect-ecology.md) (sect `prodigy` slot = talent, not this), [`redwell-starter-city.md`](redwell-starter-city.md) (NPC "chance to ascend" parked — this is the named, tiny version).
 
 ## Why fortune catches on them
 
-**Suggestion, for an owner lock.** Fortune here is world-qi that is supposed to circulate. Death, veins, and ordinary lives move it. Sometimes a lump **snags**, the way a river snags on a rock. The rock did not win a contest. It was in the channel. Impartial is not the same as even: a river floods one bank.
+**The balance, the postings, the burn, and the death-return are defined in [`personal-fortune.md`](personal-fortune.md).** This section only says how a *high* balance looks on an NPC. If the two docs disagree about increase, decrease, or wielding, personal fortune wins.
+
+A knot is a tracked personal fortune, not a second currency and not a gift from a partial heaven. Circulation posted a lump onto this life. Impartial is not the same as even: a river floods one bank.
 
 Three snags are enough. Any one can produce the same NPC. v1 only needs the chronicle to be able to hint at one of them. The integer does not care which.
 
