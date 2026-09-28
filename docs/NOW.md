@@ -8,6 +8,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
 
 ## Next
+- **Spirit path** — parked design; abilities and the idx 5 name are still open — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md) · [`stats-to-meters-rework.md`](ideas/stats-to-meters-rework.md)
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
 - Loyalty meter for shady sects — **parked**
