@@ -2,7 +2,7 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-08-28
+**Updated:** 2026-09-28
 
 ## Focus
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
@@ -20,6 +20,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
 - **Higher-realm trib scripts** — [`tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md)
+- **Immortal powers (tropes, scoped)** — [`immortal-powers-adaptation.md`](ideas/immortal-powers-adaptation.md)
 - Formations Guild hubs / branch exams — [`creation-path-guilds.md`](ideas/creation-path-guilds.md)
 - Taiwu-grade NPC social (seats + rumors only for now) — living-board doc
 

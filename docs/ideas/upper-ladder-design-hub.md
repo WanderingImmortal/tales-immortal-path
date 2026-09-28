@@ -33,9 +33,9 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 
 ### Realms & claims
 
-- **Nine-realm ladder** — QC→FE→GC→NS→**DT**→VR→Seek→Manifest→Immortal (idx 0–8).
-- **Deity Transformation (idx 4)** — **contextual civic pressure** by settlement tier, not flat radius or more flight ([`city-tiers.md`](city-tiers.md)).
-- **VR (idx 5)** — **acquisition realm** only: breakthrough ≈ DT Peak until **void qi** / **void arts** cultivated inside.
+- **Nine-realm ladder** — QC→FE→GC→NS→**Celestial Avatar**→VR→Seek→Manifest→Immortal (idx 0–8).
+- **Celestial Avatar (idx 4)** — **contextual civic pressure** by settlement tier, not flat radius or more flight ([`city-tiers.md`](city-tiers.md), [`celestial-avatar.md`](celestial-avatar.md)).
+- **VR (idx 5)** — **acquisition realm** only: breakthrough ≈ Avatar Peak until **void qi** / **void arts** cultivated inside.
 - **Seeking (idx 6)** — **mandate at breakthrough** (lifespan + moderate power + board weight); library deepens over millennia — not empty at entry.
 - **Manifestation (idx 7)** — gate on **first wield**; one active worn law, **swappable with cost**.
 
@@ -97,7 +97,7 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 
 ### Realm claims & ladder
 
-- [x] **Half-Step** is not a realm — a step above peak Dao Manifestation (owner 2026-09-25). Powers still open.
+- [x] **Half-Step** is not a realm — a second peak with a **limited claim** on the next realm, permitted because the life still ends (owner 2026-09-28). Which abilities, still open. Not the immortal kit — [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md).
 - [ ] Claims stored explicitly vs derived from table?
 - [ ] Soul names for nine realms. Body names are a proposal, not a lock ([`nine-realm-ladder.md`](nine-realm-ladder.md)). All three paths still need nine labels when the ladder ships.
 - [ ] GC combat **qi-lock** — v1 or v2?
@@ -114,8 +114,8 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 
 ## Resolved this session
 
-- [x] DT idx 4 name — Deity Transformation
-- [x] DT pressure — contextual by civic tier
+- [x] Idx 4 name — Celestial Avatar (was Deity Transformation)
+- [x] Avatar pressure — contextual by civic tier
 - [x] Manifestation worn law — one active, swappable with cost
 - [x] VR early ≈ DT Peak — intentional acquisition realm
 - [x] Seeking must confer breakthrough weight — not VR-style empty entry

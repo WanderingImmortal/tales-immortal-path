@@ -95,7 +95,7 @@ Use these three names in chronicles and NPC text. Do not write "half-step toward
 
 **Open:**
 
-- [x] What a threshold state does → a **limited claim** on the next realm's abilities, permitted because the life still ends (owner 2026-09-28). Which abilities, still open.
+- [x] What a threshold state does → a **limited claim** on the next realm's abilities, permitted because the life still ends (owner 2026-09-28). Which abilities, still open. It is not the immortal kit — [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md).
 - [ ] Can you fail and drop back to ordinary peak?
 - [x] What chronicles and NPCs call someone standing there → Half-Step Immortal / Demi-Saint / Pseudo God (owner 2026-09-26)
 
