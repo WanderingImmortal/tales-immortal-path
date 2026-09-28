@@ -6,7 +6,7 @@
 | **Blocked on** | Gorge playable slice; intent wiring; body ward doc |
 | **Issue** | none yet |
 | **Chat / PR** | Design chat 2026-08-29 |
-| **Updated** | 2026-08-30 (seven archetypes + banner war) |
+| **Updated** | 2026-09-28 (Xue Lian; Tianjing clone was peak Dao Manifestation) |
 
 **Parent:** [`heavenly-demon-cult.md`](heavenly-demon-cult.md) · [`blood-sealing-gorge.md`](blood-sealing-gorge.md) · [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md)
 
@@ -14,7 +14,7 @@
 
 Park **who runs the cult above branch cells** — not the player join loop. Three layers of succession fiction (myth / admin / pit), **seven public disciples** competing for **Patriarch** (Mo Xuan's chair), and **two pit specimens** the founder keeps off the merit board.
 
-**Not heirs to the Heavenly Demon.** The stage mask is a **blood clone**; the pit holds the **founder**. Admin succession is real; god succession is theater.
+**Not heirs to the Heavenly Demon.** The stage mask is a **blood clone**; the pit holds the **founder**. Admin succession is real. Succession to that mask is theater: the Heavenly Demon is the cult's stage face, not a spirit-path God and not a seat a disciple inherits.
 
 ---
 
@@ -45,11 +45,11 @@ TRUTH →  Founder in pit + two specimens
 | **Founder** | Pit-Sleeper in **Demon Lord Pit** | Immortal (restricted); beyond-Immortal research; asks Mo Xuan for **fuel and silence** |
 | **Patriarch** | **Mo Xuan** (魔玄) | VR peak admin; first/best disciple; **not** pulpit face |
 | **Pulpit Demon** | Usually **Demon Blood Clone** | Oaths before cauldron statue; juniors think "successive Heavenly Demons" |
-| **Cauldron** | **Hong Lian** (红莲) — *not* Forgers Guild 洪炼 | NS peak; harvest formations; inner-court face |
+| **Cauldron** | **Xue Lian** (血莲) — *not* Forgers Guild Hong Lian (洪炼) | NS peak; harvest formations; inner-court face |
 
 Mo Xuan personality: cold **strategist**, worships **survival**, prefers gorge **works** over being remembered. Lets ambitious elders **devour each other** so nobody audits the gorge.
 
-Founder personality: devil's **ego**, older and **patient**; tested Half-Step with Tianjing **clone**; does not beg for empire.
+Founder personality: devil's **ego**, older and **patient**; at Tianjing the Blood Clone he spent was **peak Dao Manifestation** (owner 2026-09-28 — public Half-Step is the Tian founder's, later); does not beg for empire.
 
 ---
 
@@ -77,7 +77,7 @@ Founder personality: devil's **ego**, older and **patient**; tested Half-Step wi
 **No formal rank ladder** (#1–#7 power order). Mo Xuan parcels **revocable seals** and **access**; disciples hoard **banners** in the shadows.
 
 ```text
-SPINE (not for sale)     Mo Xuan · Hong Lian · withdrawal / array core
+SPINE (not for sale)     Mo Xuan · Xue Lian · withdrawal / array core
 COURT (late commits)     Major post-holders — visible; need major reason to flip
 CHAFF (banner fodder)    Retired plateau · menial posts · hermits · failed climbers
 LEGIONS (disciple-owned) Personal armies — stockpiled in dormancy; archetype-flavored
@@ -129,9 +129,9 @@ Charm is a **tool**, different per disciple — not a single envoy archetype.
 
 #### #7 knife-engineer (owner refine)
 
-**Mo Xuan Jr. on purpose** — closest disciple; learned **formations and arrays** (mouth traps, withdrawal geometry, patriarch court — **not** Hong Lian's cauldron lane) to suit the chair. **Filial** — wants to make master proud; goal is **to become Mo Xuan**.
+**Mo Xuan Jr. on purpose** — closest disciple; learned **formations and arrays** (mouth traps, withdrawal geometry, patriarch court — **not** Xue Lian's cauldron lane) to suit the chair. **Filial** — wants to make master proud; goal is **to become Mo Xuan**.
 
-| Split from Hong Lian | #7 knife |
+| Split from Xue Lian | #7 knife |
 |----------------------|----------|
 | Cauldron, pills, vein feed, foundry | Gorge **defense spine**, seal courts, mouth arrays |
 | Industrial blood | Patriarch **apprentice** + Mo Xuan's **enforcer** when banner wars cross lines |
@@ -292,7 +292,7 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 |------|---------|
 | **Ward life** | Raised **Blood Vessel Ward** — diversion squad, blood pills, bind-seal loyalty; **expendable** stock |
 | **Peculiarity** | After missions, **stronger and harder to hurt** — not higher qi; skin **bruised less**, breaks **healed wrong** |
-| **Report** | Ward **elder** (name TBD) flagged him after repeated survival; Hong Lian's desk logged **conversion anomaly** |
+| **Report** | Ward **elder** (name TBD) flagged him after repeated survival; Xue Lian's desk logged **conversion anomaly** |
 | **Transfer** | Pulled from ward → **pit** — founder experiment: *can devouring feed **body** as primary ladder?* |
 | **Now** | In pit **~20 years**; ward thinks he's **dead** or **pit-offered** |
 
@@ -304,7 +304,7 @@ Per [`devouring-intent.md`](devouring-intent.md): awakening normally needs **FE 
 | **Gender** | **Male** |
 | **Age** | **~50** chronological years; **apparent ~early 30s** (NS-tier body holds youth — not a boy, not weathered) |
 | **Qi realm** | **Foundation Establishment** (paper) — **vestigial**; dantian barely maintained; **not** a real threat on qi axis |
-| **Body track** | **Nascent Soul equivalent** (body idx **3**, Diamond Body tier) — founder-fed flesh ladder; **not** public NS soul |
+| **Body track** | **Diamond Body** (body idx **3**, live name; the body-ladder rename is still a proposal) — founder-fed flesh at Nascent Soul **power**; soul birth stays on the spirit path |
 | **Lifespan** | **NS-band cap** (~1k+ runway per [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) body/qi parity lean) — he's **~50 years into** a thousand-year clock; horror is **power vs years lived** |
 | **Path** | **Body-primary** — qi exists only because ward Canon **stuck**; fights, regen, and power are **all flesh** |
 | **Rank** | None — pit specimen; former ward **expendable** |
