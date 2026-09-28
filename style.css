@@ -8204,6 +8204,66 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
         border-radius: 10px;
         border: 1px solid var(--ink-border-strong);
     }
+
+    /* Illustrated sect pins sit on % coordinates — they stack on a phone sheet. */
+    .sect-map-scene {
+        aspect-ratio: auto;
+        min-height: 0;
+        overflow: visible;
+        box-shadow: none;
+    }
+
+    .sect-map-sky,
+    .sect-map-mountains,
+    .sect-map-mist,
+    .sect-map-ground,
+    .sect-map-paths {
+        display: none;
+    }
+
+    .sect-map-nodes {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 4px 0 8px;
+    }
+
+    .sect-map-node,
+    .sect-map-node.tier-hub {
+        position: static;
+        transform: none;
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .sect-map-node:hover {
+        transform: none;
+    }
+
+    .sect-map-node-label {
+        font-size: 11px;
+        max-width: none;
+    }
+
+    .sect-map-node-icon {
+        font-size: 20px;
+    }
+
+    .sect-formation-lay-btn,
+    .sect-formation-clear-btn,
+    .sect-formation-toggle-btn,
+    .sect-formation-fuel-btn,
+    .sect-formation-maintain-btn,
+    .sect-formation-decipher-btn,
+    .sect-formation-exam-btn {
+        width: 100%;
+        min-height: 44px;
+        box-sizing: border-box;
+    }
 }
 
 /* ----- LARGE SCREENS ----- */
@@ -12256,6 +12316,61 @@ body.phone-sheet-open {
     max-height: none;
     height: auto;
     overflow: visible;
+}
+
+.layout-phone-playtest .sect-map-scene {
+    aspect-ratio: auto;
+    min-height: 0;
+    overflow: visible;
+    box-shadow: none;
+}
+
+.layout-phone-playtest .sect-map-sky,
+.layout-phone-playtest .sect-map-mountains,
+.layout-phone-playtest .sect-map-mist,
+.layout-phone-playtest .sect-map-ground,
+.layout-phone-playtest .sect-map-paths {
+    display: none;
+}
+
+.layout-phone-playtest .sect-map-nodes {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 4px 0 8px;
+}
+
+.layout-phone-playtest .sect-map-node,
+.layout-phone-playtest .sect-map-node.tier-hub {
+    position: static;
+    transform: none;
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 10px 8px;
+    font-size: 12px;
+}
+
+.layout-phone-playtest .sect-map-node:hover {
+    transform: none;
+}
+
+.layout-phone-playtest .sect-map-node-label {
+    font-size: 11px;
+    max-width: none;
+}
+
+.layout-phone-playtest .sect-formation-lay-btn,
+.layout-phone-playtest .sect-formation-clear-btn,
+.layout-phone-playtest .sect-formation-toggle-btn,
+.layout-phone-playtest .sect-formation-fuel-btn,
+.layout-phone-playtest .sect-formation-maintain-btn,
+.layout-phone-playtest .sect-formation-decipher-btn,
+.layout-phone-playtest .sect-formation-exam-btn {
+    width: 100%;
+    min-height: 44px;
+    box-sizing: border-box;
 }
 
 @media (min-width: 901px) {

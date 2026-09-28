@@ -16,7 +16,7 @@ A **hidden orthodox heresy** — not "random evil bandits." The Heavenly Demon C
 
 **Not the same as:** Chaos Path's *Devourer* (Lu Feng — forced Chaos, cautionary tale). **Not the same as:** walking the Wicked Path (attitude). Cult membership is **doctrine + initiation**, not a corruption slider.
 
-Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) (massacres stain; being blood-aligned ≠ crime), [`technique-driven-cultivation.md`](technique-driven-cultivation.md) (`blood_fiend` nature).
+Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) (massacres stain; being blood-aligned ≠ crime), [`technique-driven-cultivation.md`](technique-driven-cultivation.md) (`blood_fiend` nature). **Inner court / pit:** [`heavenly-demon-cult-inner-court.md`](heavenly-demon-cult-inner-court.md). **Body sector:** [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md). **HQ layout:** [`blood-sealing-gorge.md`](blood-sealing-gorge.md).
 
 ## Design notes
 
@@ -75,7 +75,7 @@ Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 
 | Site | Role | Player (v1) |
 |------|------|-------------|
-| **Gullet Gorge** (咽谷) | **Main cult** — hidden HQ, outer barracks, inner halls, canon archive | Later zone; QC life **better** but still outer |
+| **Blood Sealing Gorge** (封血峡) — HQ lands ([`blood-sealing-gorge.md`](blood-sealing-gorge.md); was "Gullet Gorge", owner 2026-09-26) | **Main cult** — hidden HQ, outer barracks, inner halls, canon archive | Later zone; QC life **better** but still outer |
 | **Branch cells** | Redwell, Heartlands safehouses, forged merchants | **v1 contact** — envoy, pamphlet, cell tasks |
 | **Field** | Maw-Womb Shard ultra-rare | Spark treasure |
 

@@ -48,6 +48,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
 | [Jianghu organization types](jianghu-organization-types.md) | `designed` (taxonomy) | Dustbone sect + tribe identities | — |
+| [Jianghu situation threads](jianghu-situation-threads.md) | `designed` | Grudge interrupt v1; org backing read | — |
+| [Disguise & public identity](disguise-and-public-identity.md) | `designed` | Identity resolver, sense channels, signature ledger | — |
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` (v1 hall lean locked) | Hall name + graft spine | — |
 | [Dustbone lesser sects](dustbone-lesser-sects.md) | `building` (Well-Ring v1) | Playtest; loyalty parked | — |
 | [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `designed` (origins lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
@@ -79,7 +81,10 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
 | [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
-| [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite | — |
+| [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite; forbidden branch of spirit path | — |
+| [Spirit / Soul path — full third path](spirit-path-full-design.md) | `designed` (sea from day one; ending is the three god kinds) | Abilities and idx 5 name still open | — |
+| [Stats → meters rework (guards, natures, fifth system)](stats-to-meters-rework.md) | `designed` (change now) | none | — |
+| [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
 | [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `idea` (lean locked) | Inner Tempering leaned; later realms and a name lock still open | — |
 | [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
@@ -96,6 +101,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Personal residence](personal-residence.md) | `building` (QC minimal home) | Full ladder later | `cursor/qc-playtest-fixes` |
 | [World standing & property](world-standing-and-property.md) | `idea` (parked) | Residence buy | — |
 | [Sect vs personal anchor](sect-vs-personal-anchor.md) | `idea` (parked) | Residence | — |
+| [Tribulation & breakthrough — xianxia feel](tribulation-xianxia-feel-brainstorm.md) | `designed` (brainstorm) | Damage depth; per-gate journeys | — |
 | [Tribulation system rework](tribulation-system-rework.md) | `shipped` (v1) + v2 QC→FE building | Higher gates — see per-gate backlog | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-gate backlog](tribulation-per-gate-backlog.md) | `idea` (QC→FE `building`) | Owner design per watershed | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-per-gate-backlog | — |
@@ -113,6 +119,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Heavenly Demon Cult — FE Initiate life](heavenly-demon-cult-fe-initiate.md) | `designed` (v1) | FE chamber; damage rework (combat) | — |
 | [Heavenly Demon Cult — GC Reaver life](heavenly-demon-cult-gc-reaver.md) | `designed` (v1) | GC chamber; Taking intent; damage rework | — |
 | [Heavenly Demon Cult — branch cells](heavenly-demon-cult-branch-cells.md) | `idea` (parked) | Merit ledger; multi-cell math | — |
+| [Heavenly Demon Cult — inner court (seven + pit)](heavenly-demon-cult-inner-court.md) | `designed` | Gu Wei + Tuo Yan; seven archetypes locked | — |
+| [Heavenly Demon Cult — Blood Vessel Ward](heavenly-demon-cult-body-ward.md) | `designed` | Body sector vs Vajra Ridge | — |
 | [Blood Sealing Gorge](blood-sealing-gorge.md) | `designed` (v1) | Cult HQ layout; hidden map | — |
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
@@ -135,4 +143,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Local & world map split](local-world-map-split.md) | `building` (1–3) | — | [#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56) |
 | [Sect map unification](sect-map-unification.md) | `building` | — | [#57](https://github.com/WanderingImmortal/tales-immortal-path/pull/57) |
 | [Immortal world layer](immortal-world-layer.md) | `designed` (partial) | Mortal immortal ascension; Court stub | — |
+| [Immortal powers — trope adaptation](immortal-powers-adaptation.md) | `idea` | Realm claims in play; Court MVP; Mandate if the lease is shown | — |
 | [Upper celestial nine](upper-celestial-nine.md) | `idea` | Mortal nine + immortal Court MVP | — |
+| [Heaven's cycle, false immortality & the three apexes](heaven-cycle-and-apexes.md) | `idea` | Idx 5 spirit name; world qi sketch | — |
+| [Lore consistency review (2026-09)](lore-consistency-review-2026-09.md) | `idea` (checklist) | Owner calls per item | — |
+| [The Hollow Throne — shadow soul sect (Fengdu)](hollow-throne-sect.md) | `idea` | Hidden antagonist, not a player home sect | — |

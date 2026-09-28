@@ -2,12 +2,13 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-08-28
+**Updated:** 2026-09-28
 
 ## Focus
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
 
 ## Next
+- **Spirit path** — parked design; abilities and the idx 5 name are still open — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md) · [`stats-to-meters-rework.md`](ideas/stats-to-meters-rework.md)
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
 - Loyalty meter for shady sects — **parked**
@@ -18,7 +19,8 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
-- **Higher-realm trib scripts** — [`tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md)
+- **Higher-realm trib scripts** — [`tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md) · xianxia feel brainstorm [PR #118](https://github.com/WanderingImmortal/tales-immortal-path/pull/118)
+- **Immortal powers (tropes, scoped)** — [`immortal-powers-adaptation.md`](ideas/immortal-powers-adaptation.md)
 - Formations Guild hubs / branch exams — [`creation-path-guilds.md`](ideas/creation-path-guilds.md)
 - Taiwu-grade NPC social (seats + rumors only for now) — living-board doc
 

@@ -767,7 +767,7 @@ function resolveSectEventText(ev, ctx) {
 function rollSectEvent() {
     if (!isSectFounded()) return null;
     ensureSectExpansionState();
-    const stage = getSectStage();
+    const stage = getSectStageId();
     const powerCtx = getSectEventPowerContext();
     const pool = Object.values(SECT_EVENTS).filter(ev => {
         if (!meetsStageRequirement(ev.minStage)) return false;
