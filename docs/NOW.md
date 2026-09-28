@@ -19,7 +19,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Dustbone surroundings — [`dustbone-surroundings-later.md`](ideas/dustbone-surroundings-later.md)
 - Full personal residence ladder / hire — [`personal-residence.md`](ideas/personal-residence.md)
 - Full mortal life sim ladder — [`mortal-life-sim-cluster.md`](ideas/mortal-life-sim-cluster.md)
-- **Higher-realm trib scripts** — [`tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md)
+- **Higher-realm trib scripts** — [`tribulation-per-gate-backlog.md`](ideas/tribulation-per-gate-backlog.md) · xianxia feel brainstorm [PR #118](https://github.com/WanderingImmortal/tales-immortal-path/pull/118)
 - **Immortal powers (tropes, scoped)** — [`immortal-powers-adaptation.md`](ideas/immortal-powers-adaptation.md)
 - Formations Guild hubs / branch exams — [`creation-path-guilds.md`](ideas/creation-path-guilds.md)
 - Taiwu-grade NPC social (seats + rumors only for now) — living-board doc
