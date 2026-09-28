@@ -104,7 +104,7 @@ Long **Works** use the project + time-playback shell — see [`chronicle-and-pro
 ## Open questions
 
 - [ ] Court vs chaos revelation — same screen or branch?
-- [ ] Can ascendant **visit** mortal map as avatar? Cap if yes: one body, edicts pause — [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md)
+- [ ] Can an ascendant **visit** the mortal map in one body? Cap if yes: edicts pause while they walk — [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md). This is not the Celestial Avatar.
 - [ ] Persist edicts across true reincarnation (legacy)?
 
 ## Implementation crumbs

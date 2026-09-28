@@ -32,7 +32,8 @@ Author spine for the nameless being in Void Prison / Little Heaven: who he is, w
 | **Tone** | Not evil for its own sake; collateral world damage forces the seal |
 | **Power** | ~Half-Step **weight** on wrong track; lifespan inestimable |
 | **Kill** | Ledger death does not finalize — true-cycle coherence |
-| **Seal** | Void Seeker (then **Dao Manifestation**) + other DMs → Void Prison |
+| **Crime (public face)** | **Pale Name-stripping** of the Nameless Basin = what stepping onto true Samsara looked like from outside (owner merge 2026-09-26 — see § Motive) |
+| **Seal** | Void Seeker (then **Dao Manifestation**) + other DMs **capture**; Watch + Seeker **alone** build and hold the lock → Void Prison |
 | **Now** | Contained; ascent frozen; Seeker later Immortal / outer void |
 
 ### Timeline
@@ -53,6 +54,10 @@ Void Temple institutionalizes the lock. Binding is **older than Tian and the Dao
 - **Original (pre-Seal):** finish the dao/work already underway (**Completion**).
 - **Sovereignty / reclaim-from-Seal** bitterness only makes sense **after** law exists — optional flavor, not original path purpose.
 - Advancing true Samsara under heaven **scars the board** (wrong cycles, counties that will not die/live properly) — enough to justify containment.
+
+**One act, two views (owner merge 2026-09-26):** to run a true Samsara he had to take a region **out** of heaven's cycle — that removal **is** the **Pale Name-stripping** of the Nameless Basin ([`void-temple-sect.md`](void-temple-sect.md)). Souls **backed up** because he was caught **early, mid-Work** — his cycle was unfinished, so the basin's dead had nowhere to go. *His* case: Completion would let them flow again. *The Watch's* case: finishing proves the rite and it spreads until heaven's law is unenforceable.
+
+**Sealing (merged):** the Seeker convened Dao Manifestation cultivators — **individuals, not sects** (great sects did not exist yet) — to **capture** him. Only the Watch and the Seeker had void-gate craft to **build and hold** the prison, so custody has been Void's **alone** since.
 
 ### Seal foresight
 

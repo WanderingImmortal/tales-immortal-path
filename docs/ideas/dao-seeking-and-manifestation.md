@@ -72,7 +72,7 @@ Parked alternates from early session; superseded by Glimpse + Retaliation unless
 
 | Idx | Realm | Job |
 |-----|-------|-----|
-| 4 | Deity Transformation | **Civic-scale presence** |
+| 4 | Celestial Avatar | **Civic-scale presence** |
 | 5 | Void Refinement | **Acquire void** — geometry, void qi, passage |
 | 6 | Dao Seeking | **Acquire law-knowledge** — read, contemplate, merge |
 | 7 | Dao Manifestation | **Acquire embodiment** — wield, impose, refine wear |
@@ -140,7 +140,7 @@ Gameplay: `G.daoState` might track `pursuits: []` (opened) vs `comprehended: []`
 
 **Manifestation gate:** first **wield** of a law enters Dao Manifestation. Floor: even a **Lesser way-law** counts (e.g. Light Sword Dao). Big breakthrough bump on first wield — not on merely comprehending Greater in the library.
 
-**Half-Step / idx 8:** Manifestation depth and worn-law mastery feed tribulation / Court hooks; see [`nine-realm-ladder.md`](nine-realm-ladder.md).
+**Half-Step Immortal (second peak on Manifestation, idx 7 — not a realm):** Manifestation depth and worn-law mastery feed tribulation / Court hooks; see [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 ---
 

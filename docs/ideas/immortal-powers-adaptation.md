@@ -27,11 +27,13 @@ Novels do not wait for “Immortal” to get flashy. The famous list arrives in 
 | Qi / Foundation | Qi sense, elemental arts, a clumsy light body | You left mortality |
 | Golden Core | Sword-flight, a domain seed, divine sense measured in *li* | You occupy space |
 | Nascent Soul | Soul leaves the corpse, a life lamp, the first real **divine ability**, a weak clone | You are no longer one body |
-| Deity / Void | Law-seed, regional presence, teleport, the seed of a grotto | You touch the rules |
+| Celestial Avatar / Void | Regional presence is the Avatar. Blink is Passage. A grotto seed comes later | You touch the rules |
 | Dao / Mahayana | One law worn on the body; heaven starts keeping a file | You *are* a rule, locally |
 | Immortal and above | Grotto-heaven, immortal spells that ignore mortal arts, fate eyes, create life, time, unmake a region | You edit the board |
 
 “Immortal powers” in the owner’s question are that last row, plus the Nascent Soul row that readers remember as the moment combat stopped being techniques and became mythology.
+
+Our spirit-path 神通 are **not chosen yet**. This doc does not name them. Qi index 4 is the Celestial Avatar, not a deity realm.
 
 ### Why the raw list breaks this game
 
@@ -86,7 +88,7 @@ From [`realm-claims.md`](realm-claims.md):
 | 1 | Anchor | Rooted; intent; probe a seal |
 | 2 | Domain | Pressure, “my ground,” **Light Body** in-zone |
 | 3 | Sovereignty | Soul sense, light projection, **Sky Travel** between zones |
-| 4 | Transformation | Deity-presence; NPCs defer. Not a giant hitbox |
+| 4 | Avatar | Celestial Avatar — civic Press and a stance ([`celestial-avatar.md`](celestial-avatar.md)). Not granted again at Immortal as a bigger hitbox |
 | 5 | Passage | **Blink** between local nodes. Not map-wide teleport |
 | 6 | Law (seek) | Read laws. Script-sight of *pressure*, not spoilers |
 | 7 | Law (wear) | One worn law. Local imposition. Tribulation takes its color |
@@ -102,7 +104,7 @@ Spiritual sense stays the doc in [`spiritual-sense-cultivation-reading.md`](spir
 
 Fiction: sweep a province, pull out secrets, crush any weaker soul, wear their body.
 
-Adaptation: sense stays comparative. Soul force against a peer is a fight. Against a mortal it is the deference Golden Core and Deity Transformation already buy — they fold, stall, leak, and remember. They do not become puppets.
+Adaptation: sense stays comparative. Soul force against a peer is a fight. Against a mortal it is the deference Golden Core and Celestial Avatar already buy — they fold, stall, leak, and remember. They do not become puppets.
 
 **Possession is refused** as a player verb. It throws away the body, the path, and the seat you spent the life building. Demonic NPCs may do it as horror. A player who wants that fantasy is on a path that **ends** the current life, not a combat stance.
 
@@ -116,6 +118,7 @@ The sharpest action-economy break in the genre. Nine bodies cultivating is nine 
 | A combat double that exists for one exchange and dies with it | Flourish of the worn law. No loot, no seat, no seclusion |
 | **Incarnation visit** — one body walks the mortal map | Allowed only if the Court clock is the same clock. While you are in the street you are not also legislating. Open in the immortal-world doc; this is the cap if we say yes |
 | Life lamp / spare nascent | One prepared anchor, a Work, and you return **diminished** (realm notch or a Mandate spike). Not “I always have a spare” |
+| **Cult Blood Clone** | **NPC practice, not a player verb.** The Heavenly Demon keeps them. The one spent at Tianjing was **peak Dao Manifestation**, not a Half-Step (owner 2026-09-28). The player still does not get a second calendar |
 
 #### Grotto-heaven (洞天)
 
@@ -184,7 +187,7 @@ Ordered immortals **shape what is already there**: move a vein, ripen a field’
 
 #### Giant bodies, beast forms, “I become the mountain”
 
-Presentation of the worn law or the body path, inside one scene. Civic pressure does not scale with fictional height. Deity Transformation already makes a city defer. You do not gain a city-wide area attack because the prose said “a hundred zhang.”
+The hundred-foot figure is the **Celestial Avatar**, already the qi index 4 claim. Immortal does not add a larger hitbox on top of it. Civic Press and Raise Avatar stay that realm's verbs. Fictional height is not a zone-deletion attack.
 
 #### Sealing
 
@@ -204,11 +207,11 @@ A curse that auto-collapses a faction is refused. Friction is the curse — thin
 
 #### Mind control and charm
 
-**Refuse.** Conversation, loyalty, and seats are the social game. “They agree because you are heavy” is domain and deity presence: they still want things, and they plot after you leave. A compulsion art, if a demonic manual ever has one, needs backlash and a target who can be too strong to hold. It never means “the city is mine.”
+**Refuse.** Conversation, loyalty, and seats are the social game. “They agree because you are heavy” is domain and Celestial Avatar presence: they still want things, and they plot after you leave. A compulsion art, if a demonic manual ever has one, needs backlash and a target who can be too strong to hold. It never means “the city is mine.”
 
 #### Extra dantians, extra souls
 
-**Refuse** for the player. One chamber, one path, one worn law. A boss may have a second heart as a fight gimmick. The player does not get a second cultivation track by ascending.
+**Refuse** as something Ascension grants. Walking qi, body, and spirit together is the mortal tri-cultivation in [`stats-to-meters-rework.md`](stats-to-meters-rework.md). Becoming immortal does not add another dantian, another soul, or another worn law. A boss may have a second heart as a fight gimmick.
 
 #### Immortal combat arts
 
@@ -228,17 +231,13 @@ Not a new bar of spells. Four tiers, already named, now filled with the tropes t
 
 Ascent itself gives the **fork** (linger and legislate, or reincarnate), the end of mortal travel as the main loop, and the horrible quiet of the lease — borrowed stillness, effortless qi where the pipes are fat, thin qi in the backwater. That feeling is the first “power.” The toolkit opens after, with standing.
 
-### Half-Step — a glimpse, not the kit
+### Threshold states — a limited claim, not the kit
 
-[`nine-realm-ladder.md`](nine-realm-ladder.md) left Half-Step powers open. Half-Step is still Dao Manifestation. It should not grow a flight tier, a clone, or a pocket.
+**Owner 2026-09-28**, already in [`nine-realm-ladder.md`](nine-realm-ladder.md): Half-Step Immortal, Demi-Saint, and Pseudo God are a second peak. They hold a **limited claim** on the next realm's abilities. Heaven **permits** that claim because the life still ends.
 
-**Proposal: Lease-glimpse.**
+The lease-glimpse (one site or one day, and heaven answers as a punishment) is retired. A threshold is not the immortal kit. No new flight tier, no cultivating clone, no pocket, no Court verbs.
 
-You are far enough that heaven’s file has a blank line with your name. Once, at mortal scale, you may push the worn law **one step past** its normal imposition — a single site, or a single day of edict-like weather — and heaven answers in the same breath (attention, a scar on the tribulation you have not taken yet, a dream of ledger-threads). You learn that Ascension will **enroll** you. You do not receive Court verbs, free travel, or a second action.
-
-If that still feels like a mechanic smuggled in early, the fallback is smaller: Half-Step is only the gate and the omen. No new verb until the breakthrough. Travel and law stay at Manifestation peak.
-
-Either way, Half-Step is not a tenth realm and not a spell rank.
+Which abilities the claim covers is still open. Do not build them early.
 
 ### Chaos and True Immortal
 
@@ -257,11 +256,11 @@ Ascending on the ordered path does not unlock these. It unlocks the bill.
 - [ ] Mortal realm claims in play, so immortal verbs are not asked to also be flight and domain
 - [ ] Court / linger shell from the immortal-world layer
 - [ ] A visible Mandate (or an equivalent “this lifespan is leased”) before resurrection and grotto rules will read correctly
-- [ ] Half-Step proposal accepted or rejected by owner — do not build the glimpse early
+- [x] Threshold shape — limited claim, permitted because the life still ends (owner 2026-09-28). Which abilities, still open. Do not build them early.
 
 ## Open questions
 
-- [ ] Half-Step: **Lease-glimpse** (one site or one day, heaven answers), or story-gate only?
+- [x] Threshold shape is a limited claim, not a lease-glimpse (owner 2026-09-28). Which abilities it covers is still open.
 - [ ] Incarnation visit: one mortal body, and edicts pause while you walk — yes or no?
 - [ ] Soul lamp: one Work, one charge, diminished return — is “diminished” a realm notch, a Mandate spike, or a lost worn-law depth?
 - [ ] Taboo list at MVP: which **one** story is enough to teach the slot — scar a place, rewrite one fate, or raise one echo?

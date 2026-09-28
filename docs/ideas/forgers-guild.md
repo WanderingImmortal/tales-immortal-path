@@ -368,7 +368,7 @@ What he had:
 - **Patience** — outlast teachers who wanted shortcuts
 - **Honesty** — a reputation for poverty before a reputation for greatness
 
-His cultivation advanced **late and ugly** — not on a mountain, but in the gap between hammer strokes. **Dao Seeking** came when he finally **understood metal as law**, not just technique. He may be **half-step toward Manifestation** — the forge answers him in ways it shouldn’t for a “mere smith” — but he has **never** oriented that toward killing. He is proof the guild path is **work**, not heaven’s favor.
+His cultivation advanced **late and ugly** — not on a mountain, but in the gap between hammer strokes. **Dao Seeking** came when he finally **understood metal as law**, not just technique. He may be at **Peak Dao Seeking, pressing on Manifestation** — the forge answers him in ways it shouldn’t for a “mere smith” — but he has **never** oriented that toward killing. He is proof the guild path is **work**, not heaven’s favor.
 
 ### Forge Dao — what that even means *(sketch — owner 2026-08-27)*
 
