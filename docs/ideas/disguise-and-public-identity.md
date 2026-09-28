@@ -6,7 +6,7 @@
 | **Blocked on** | Identity resolver; [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md); public **signature ledger**; situation threads |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-09-23 |
-| **Updated** | 2026-09-23 (deep cover + signatures) |
+| **Updated** | 2026-09-28 (true self = public person) |
 
 **Sisters:** [`jianghu-situation-threads.md`](jianghu-situation-threads.md) · [`world-standing-and-property.md`](world-standing-and-property.md) · [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) · [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) · [`combat-damage-depth.md`](combat-damage-depth.md)
 
@@ -14,7 +14,7 @@
 
 When the MC has **no backing** and **hot debts**, novels lean on **layered disguise** — cheap face paint fools mortal guards; **bone-shifting** fools a cursory spirit sense on the face; only **deep cover** (new gear, no signature arts) survives experts who tie you to **that sword** or **that technique** you showed in public once.
 
-Disguise is **counterplay** to the dossier / threads: debts persist, but the world must **earn** the link between cover and true self.
+Disguise is **counterplay** to the dossier / threads: debts persist, but the world must **earn** the link between cover and true self. **True self** here is the public person (name, face, sect, dossier). The soul is the spirit path, a separate track.
 
 **Owner north star (2026-09-23):** Deep enough that disguise is a **commitment loop**, not a toggle — signature weapons and publicly displayed arts become liabilities until the player invests in bone arts, concealment, and a full alternate kit.
 
@@ -38,7 +38,7 @@ Disguise is **counterplay** to the dossier / threads: debts persist, but the wor
 
 | Layer | Role |
 |-------|------|
-| **True self** | Name, realm, sect, fame, dossier, **signature ledger** |
+| **True self** | The public person: name, realm, sect, fame, dossier, **signature ledger**. Jianghu identity, separate from the soul |
 | **Active cover** | Alias, displayed realm band, outfit, **which disguise layers are active** |
 | **Public record** | What jianghu believes about true self — updates on **reveal**, not on successful stealth |
 | **Scene belief** | What *this* observer thinks after scans + memory |

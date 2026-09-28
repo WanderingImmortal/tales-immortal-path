@@ -53,18 +53,18 @@ The zone is a **slope into the Scar**, not one biome. The Scar itself is **too g
 Heartlands margin
     └── Frost Gate (chilly edge — habitable)
     └── Vajra Ridge (body-refining monks — granite spine, **south**)
-    └── Yin Maiden Palace (yin sect — LAST habitable high peak; arrays at the ward line)
+    └── Yin Maiden Palace (yin sect — LAST habitable high peak; palace wards + guards on its cultivation grounds)
     └── Scar margin (killing band — trials, escorts, delves; no permanent halls)
     └── Sunless Scar apex (Mirror, absolute yin — uninhabitable; Frozen Abyss sink)
 ```
 
 | Band | Who lives here |
 |------|----------------|
-| **South → Moonfract** | Mortals, sects, caravans — **life** |
+| **South → Yin Maiden Palace** | Mortals, sects, caravans — **life** |
 | **Scar margin** | Short missions — witness tribulation, gather sunless mats, **retreat** |
-| **Scar apex** | **Nobody** — delvers only; yin palace **observes and wards**, does not **own** |
+| **Scar apex** | **Nobody** — delvers only; yin palace **observes**, does not **own** |
 
-- **Yin sect** sits on the **last peak before the Scar** — maintains **blizzard ward** so Bleed doesn’t creep south; **does not cultivate on the Mirror**
+- **The Bleed needs no guarding (owner 2026-09-26)** — it can't really be approached, and nobody worries it will be destroyed. The **Yin Maiden Palace** sits on the **last peak before the Scar** to **take advantage** of its closeness and their yin affinity. Guards and wards protect the palace's **cultivation resource**, not the continent. **Does not cultivate on the Mirror.**
 - **Player-facing south:** chilly border = **Bleed**, not weather
 - **Deep Scar:** landscape **reshaped** — wrong ice, standing dead silence. Mirror didn’t blast; **Bleed propagated**
 
@@ -122,12 +122,12 @@ Pre-sect era → Mirror emplaced or fractured
      ↓
 Dao Wars → northern powers bargain — **Vajra Ridge + Yin Maiden Palace** survive with homelands intact
      ↓
-Now → Bleed still runs; sects **hold the line** — **nobody owns the Scar apex**
+Now → Bleed still runs; sects **live off its edge** — **nobody owns the Scar apex**
 ```
 
 ## Zone lore line (replacement draft)
 
-> Far in the north the **Sunless Scar** still bleeds — where **yin runs supreme** and yang **inverts or dies**. The border is only chilly; the pole is **absolute yin**, and the land there was **reshaped by the Bleed**, not by war. Moonfract Palace wards the last safe peak; only fools and delvers cross into where the sun never rises.
+> Far in the north the **Sunless Scar** still bleeds — where **yin runs supreme** and yang **inverts or dies**. The border is only chilly; the pole is **absolute yin**, and the land there was **reshaped by the Bleed**, not by war. The Yin Maiden Palace keeps the last safe peak; only fools and delvers cross into where the sun never rises.
 
 ## Map / content implication
 
@@ -145,9 +145,9 @@ Now → Bleed still runs; sects **hold the line** — **nobody owns the Scar ape
 
 | Institution | Relationship to Scar |
 |-------------|----------------------|
-| **Moonfract / Yin Maiden Palace** | **Last habitable peak** — trains **peak Yin**; Scar is neighbor, not domain |
+| **Yin Maiden Palace** | **Last habitable peak** — trains **peak Yin**; Scar is neighbor and crucible, not domain or duty |
 | **Vajra Ridge** | **Southern spine** — monk body refiners; escorts through margin; flesh endures Bleed edge |
-| **Imperial bargain** | Don’t tamper with Mirror; **hold Bleed** from creeping south |
+| **Imperial bargain** | Don’t tamper with the Mirror. *(No "hold the Bleed" duty — owner 2026-09-26.)* |
 
 ## Gameplay hooks (later)
 

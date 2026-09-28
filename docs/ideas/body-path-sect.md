@@ -6,7 +6,7 @@
 | **Blocked on** | Body path depth pass (chamber, manuals, tribulation); lineage manual framework for body |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Da Chi war-patriarch spine — owner workshop) |
+| **Updated** | 2026-08-29 (continental presence map) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Body systems: [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md), [`soul-body-refining.md`](soul-body-refining.md). Qi sect peers: Heartlands four identity docs.
 
@@ -27,6 +27,24 @@ Add **one named great power** (or strong regional sect) whose **primary cultivat
 | Manuals | Deferred in manuals framework | Lineage manuals in progress |
 
 Every `FACTION_DEFINITIONS` entry is qi-leaning, trade, beast, or ascetic — **no “we forge the body” institution.**
+
+## Where body shows up (presence map — owner 2026-08-29)
+
+Address **before** painting the whole map. Every violent zone should imply **some** body presence; most factions are not body-primary.
+
+| Tier | Who | Body role |
+|------|-----|-----------|
+| **Great sect (body-primary)** | **Vajra Ridge** (Mad Monks) | Vessel Canon, escort, bell halls — [`body-path-sect.md`](body-path-sect.md) |
+| **Great sect (body-support)** | Sword (Heavenly Palm), Phoenix (flame tempering), Lotus, Void | Conditioning before main path |
+| **Apex cult (body-sector)** | Heavenly Demon — **Blood Vessel Ward** | Expendable fodder + blood-regen Reavers — [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md) |
+| **Tribes / martial** | Sunscar, grit labor, caravan muscle | Fighter physique; scrap tempering |
+| **Imperial / mercenary** | Dragon Guard, hired blades | Trained fighters; not always body **cultivators** |
+| **Rogues** | Bloodrift thugs, pit fighters | No lineage |
+| **Player** | Body path | Generic **Saintly Flesh** ladder — no sect required |
+
+**NPC tag sketch (future):** `body_primary` · `body_support` · `blood_vessel` · `meat_expended`
+
+**Phasing:** lore + rumors now; mechanics when body path ships. Do not block qi-first slices.
 
 ## Design principle
 
@@ -180,8 +198,9 @@ Ascetic temples are **slow** by design — years at bell, marrow grind, Vessel R
 | **Epithet** | **Mad Arhat** (疯罗汉) — jianghu; **Golden Body Arhat** (金身罗汉) on bell-hall wall |
 | **Title lane** | **Saint** (圣) — Saintly Flesh; registry does **not** call him immortal (仙) |
 | **Realm (war)** | **Indestructible Vajra** peak — top mortal body; **not yet Saint** during most of the war |
-| **Realm (now)** | **Saintly Flesh** — broke through **after** capitulation; then **retired** from patriarch duties to bell vault |
-| **Age** | ~300 years since Saint breakthrough; looked **unfinished** even as patriarch — flesh that won’t settle |
+| **Realm (now)** | **Saintly Flesh** — broke through in peacetime, **well after** capitulation (~midway through the ~3,000-year peace — owner 2026-09-26); then **retired** from patriarch duties to bell vault |
+| **Age** | ~1,500 years since Saint breakthrough *(working)*; looked **unfinished** even as patriarch — flesh that won’t settle |
+| **Why nobody stopped him** (owner) | No one held **blood feuds** with his monastery, and he was already a formidable fighter before ascending — no reason or appetite to raze or threaten it. Nobody knew the door to sainthood existed ([`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md)). |
 | **Look** | Bald, barrel-chested, rope belt, **bare feet on granite**; grin before the punch; knuckles like worn river stone |
 
 **Acts the fool — not an idiot.** Da Chi wears **Great Fool** (大痴) like a nickname the jianghu earned honestly: he laughs, he walks forward, he doesn’t perform cleverness. Under that:
@@ -290,7 +309,7 @@ Da Chi and Bell Luo **never** made **overt charter taboo** moves against the Hea
 **Sword vs fist (parked beats):**
 
 - Da Chi and **Sword peak elders** traded **border months** — not charter duels, **honor spars** that escalated when neither would yield ground.
-- Intrusion squads **stung Sword-affiliated** columns more than once — Sword Immortal **did not** leave the array for a fool; **Yun Jian** aged faster from the reports.
+- Intrusion squads **stung Sword-affiliated** columns more than once — the **Sword Ancestor** (not yet Immortal) **did not** leave the mountain for a fool; the patriarch of the day aged from the reports — and a young **Yun Jian** still remembers them.
 - Post-peace: **respectful rivalry** — “your line vs our fist”; Sword **noble**, Da Chi **gleeful**.
 
 **Phoenix vs mad monks:**

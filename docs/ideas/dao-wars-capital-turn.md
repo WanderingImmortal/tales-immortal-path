@@ -21,6 +21,8 @@
 
 **Design line:** *Militarily swift, politically messy.* One walk ended the coalition **as a fighting force**; **surrenders, purges, and charter** took seasons to years.
 
+> **Avatar layer (2026-09-26, not yet woven in):** war elders (idx 4, Celestial Avatar) stood their avatars over the siege lines; the walk made them **gutter out**, not shatter. Insert points per beat in [`celestial-avatar.md`](celestial-avatar.md) § Lore hooks. Polish pass pending.
+
 ---
 
 ## The siege of Tianjing (天京)

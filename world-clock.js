@@ -177,6 +177,16 @@ function clearWorldClockProject(silent) {
     if (!silent) renderWorldClockBar();
 }
 
+function cancelWorldClockProject(projectId, cancelLog) {
+    const project = getWorldClockProject();
+    if (!project || (projectId && project.id !== projectId)) return false;
+    clearWorldClockProject(true);
+    if (cancelLog && typeof addLog === 'function') addLog(cancelLog);
+    renderWorldClockBar();
+    if (typeof saveState === 'function') saveState();
+    return true;
+}
+
 function completeWorldClockProject() {
     ensureWorldClockState();
     const p = G.worldClock.project;
@@ -332,7 +342,25 @@ function renderWorldClockBar() {
     bar.classList.toggle('world-clock-busy', !!getWorldClockProject());
 
     const stance = getWorldClockStance();
-    document.getElementById('btnExplore')?.classList.toggle('action-stance-on', stance === 'explore');
+    const exploring = stance === 'explore';
+    const exploreBtn = document.getElementById('btnExplore');
+    if (exploreBtn) {
+        exploreBtn.classList.toggle('action-stance-on', exploring);
+        exploreBtn.textContent = exploring ? '🛑 Stop Exploring' : '🌿 Explore';
+        exploreBtn.title = exploring
+            ? 'Stop exploring (works while the calendar is paused)'
+            : 'Toggle forage stance — weekly finds while calendar runs';
+    }
+
+    const seekingFight = getWorldClockProject()?.id === 'fight_seek';
+    const fightBtn = document.getElementById('btnCombat');
+    if (fightBtn) {
+        fightBtn.classList.toggle('action-stance-on', seekingFight);
+        fightBtn.textContent = seekingFight ? '🛑 Stop Seeking' : '⚔️ Fight';
+        fightBtn.title = seekingFight
+            ? 'Stop seeking a fight (works while the calendar is paused)'
+            : '1 week seek · then battle';
+    }
 }
 
 function flushWorldClockWeek() {

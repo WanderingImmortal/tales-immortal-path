@@ -6,7 +6,7 @@
 | **Blocked on** | Nine-realm indices in code; sword dao taxonomy; tribulation + breakthrough numbers |
 | **Issue** | none yet |
 | **Chat / PR** | Dao system world-building ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)); realm-claims expansion 2026-08-02 |
-| **Updated** | 2026-08-02 |
+| **Updated** | 2026-09-25 |
 
 ## Intent
 
@@ -47,7 +47,7 @@ Manifest entry → identity (which law wears your name)
 
 | Gift | Purpose |
 |------|---------|
-| **Lifespan jump** | Moderate — e.g. **~12–15k** band entry (not 30k); buys millennia of pursuit |
+| **Lifespan** | Raised **to 10,000** if below that (owner 2026-09-25). Ties perfected Void. Years above 10,000 come from laws and are playtest. |
 | **Moderate power bump** | Not “still VR peak” — combat-relevant edge, not full wield |
 | **Board weight** | Capabilities matching office: law-sense, faction/heaven react, forbidden read, NPC deferral tier |
 | **Comprehension access** | Dao panel, contemplation, pursuits — **opened**, not **filled** |
@@ -72,7 +72,7 @@ Parked alternates from early session; superseded by Glimpse + Retaliation unless
 
 | Idx | Realm | Job |
 |-----|-------|-----|
-| 4 | Deity Transformation | **Civic-scale presence** |
+| 4 | Celestial Avatar | **Civic-scale presence** |
 | 5 | Void Refinement | **Acquire void** — geometry, void qi, passage |
 | 6 | Dao Seeking | **Acquire law-knowledge** — read, contemplate, merge |
 | 7 | Dao Manifestation | **Acquire embodiment** — wield, impose, refine wear |
@@ -140,7 +140,7 @@ Gameplay: `G.daoState` might track `pursuits: []` (opened) vs `comprehended: []`
 
 **Manifestation gate:** first **wield** of a law enters Dao Manifestation. Floor: even a **Lesser way-law** counts (e.g. Light Sword Dao). Big breakthrough bump on first wield — not on merely comprehending Greater in the library.
 
-**Half-Step / idx 8:** Manifestation depth and worn-law mastery feed tribulation / Court hooks; see [`nine-realm-ladder.md`](nine-realm-ladder.md).
+**Half-Step Immortal (second peak on Manifestation, idx 7 — not a realm):** Manifestation depth and worn-law mastery feed tribulation / Court hooks; see [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 ---
 
@@ -273,17 +273,17 @@ Tie to realm claim **Law (wear)**:
 
 ---
 
-## Lifespan (open — ties to watershed doc)
+## Lifespan (entry locked — law amounts are playtest)
 
 Dao Seeking is **comprehension**, not “my body stores another twenty millennia on breakthrough.” Lifespan should follow **what you understand and wield**, not realm label alone.
 
 | Beat | Lean |
 |------|------|
-| Enter Seeking | Modest extension over VR peak (~**12–15k** years — TBD) |
-| Comprehend / merge milestones | Climb toward **~30k** band — milestones **not designed yet** |
+| Enter Seeking | **10,000** (owner 2026-09-25). Ties perfected Void. Earlier Void is raised to this floor. |
+| Laws / depth | Playtest. Stay under the Manifestation jump. Try depth of a law before raw count. |
 | First **wield** (Manifestation) | **~45–50k** — the big immortal-adjacent contract |
 
-Deep Seekers who never wield can still be **15k–30k** ambient legends; **~50k** is for law-wearers. Full table: [`nine-realm-ladder.md`](nine-realm-ladder.md) — Dao Seeking lifespan (open).
+A Seeker with no laws yet shares a clock with a perfected Void elder. Seekers who never wield live above 10,000 and below the law-wearers. **~50k** is still for people who wear a law. Full table: [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
 ---
 

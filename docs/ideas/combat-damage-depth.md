@@ -30,6 +30,8 @@ Fights should change based on **what you hurt**, not only how big the HP number 
 
 People and beasts share the same four tracks (flavor names only). Each hit: normal HP damage + **stress** to the system matching the technique’s **wound nature**.
 
+> **Amendment (2026-09-25):** [`stats-to-meters-rework.md`](stats-to-meters-rework.md) adds a **fifth system — Spirit** (sea of consciousness / soul) and **seats** (each path’s cultivation lives in one system; breaking the seat = the cultivation-duel collapse). Core stays = dantian / beast core. Guards (flesh / barrier / soul) are mitigation *before* a hit lands; systems are what the landed hit stresses.
+
 **Player wounds:** out of scope for v1 (enemy-only). Later: mutual serious damage + morale.
 
 ### Wound natures (not limb targets)

@@ -309,6 +309,14 @@ function consignManual(techName) {
 
 function comprehendManual(techName) {
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
+    if (typeof getActionBlockReason === 'function') {
+        const actionBlock = getActionBlockReason();
+        if (actionBlock) {
+            addLog(`📜 ${actionBlock}`);
+            fullRender();
+            return false;
+        }
+    }
     const block = getComprehendBlockReason(template);
     if (block) {
         addLog(`📜 ${block}`);
@@ -317,7 +325,7 @@ function comprehendManual(techName) {
     }
     const months = getComprehendManualMonths(template);
     beginActionLog();
-    if (!advanceTime(months, `Comprehending ${techName}`)) {
+    if (!advanceTime(months, `Comprehending ${techName}`, { billMonths: true })) {
         cancelActionLog();
         fullRender();
         return false;

@@ -3,10 +3,10 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` |
-| **Blocked on** | Owner world rules; possibly Nascent Soul+ when sense is common in fiction |
+| **Blocked on** | Owner world rules; **unlock answered** by [`spirit-path-full-design.md`](spirit-path-full-design.md) — Sense is the spirit path's day-one facet |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent planning chat, 2026-07-18 |
-| **Updated** | 2026-09-23 |
+| **Updated** | 2026-09-28 (day-one spirit sense; face/bone disguise) |
 
 ## Intent
 
@@ -16,7 +16,7 @@ Cultivators should not automatically know another party's **true realm**, **core
 
 ### What might be readable (TBD)
 
-- Apparent realm band (rough: foundation / core / soul tier)
+- Apparent realm band (rough: foundation / core / nascent)
 - Core **integrity** (whole vs fractured vs false nascent)
 - Foundation variant / dao alignment (faint signature)
 - Concealment art, treasures, or higher realm masking lower readings
@@ -41,14 +41,14 @@ Cultivators should not automatically know another party's **true realm**, **core
 
 ### Spiritual sense (draft rules — owner decides)
 
-- Unlocked or strengthened at a realm (e.g. Nascent Soul) or via technique.
-- **Sense delta**: `readerEffective - targetEffective` → tier of detail (none / band / precise / flaw revealed).
+- **Unlock (owner 2026-09-28):** day one on the spirit path. Sense is that path's first facet ([`spirit-path-full-design.md`](spirit-path-full-design.md)). Exact divine abilities (神通), including thousand-li sense, stay unchosen sketches. Until one is locked, range and clarity stay inside the comparative limits here.
+- **Sense delta**: `readerEffective - targetEffective` → tier of detail (none / band / precise / flaw revealed). Stronger reader, clearer read. Weaker reader, vague or backlash.
 - Failure modes: backlash, false reading, offence taken (scanning without consent).
 - Does not replace story — some NPCs remain unreadable (treasure, higher realm, dao anomaly).
 
 ## Prerequisites
 
-- [ ] When in progression spiritual sense unlocks
+- [x] When in progression spiritual sense unlocks — day one on the spirit path (owner 2026-09-28). Later strengthening by realm or technique is still open.
 - [ ] Broken Core stat flags (`broken-core-cultivators.md`)
 - [ ] UI for sense results (tooltip vs log vs dedicated inspect action)
 

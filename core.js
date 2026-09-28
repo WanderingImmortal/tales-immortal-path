@@ -937,12 +937,15 @@ function formatActionTimeMeta(months, remainStr) {
     return `${formatDuration(months)} · Age ${formatYears(G.ageMonths)} · ${remainStr}`;
 }
 
-function advanceTime(months, activity) {
-    // Living calendar owns age while Play is requested — menus freeze ticks but not action month cost.
-    if (typeof isWorldClockPlayRequested === 'function' && isWorldClockPlayRequested()) {
-        months = 0;
-    } else if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
-        months = 0;
+function advanceTime(months, activity, options) {
+    const opts = options && typeof options === 'object' ? options : {};
+    // Living calendar owns age while Play is requested — passive ticks only; explicit actions pass billMonths.
+    if (!opts.billMonths) {
+        if (typeof isWorldClockPlayRequested === 'function' && isWorldClockPlayRequested()) {
+            months = 0;
+        } else if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
+            months = 0;
+        }
     }
     if (months <= 0) return true;
     if (G.gameOver) return false;
