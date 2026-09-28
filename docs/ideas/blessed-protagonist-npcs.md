@@ -26,15 +26,17 @@ Parents and neighbors: [`personal-fortune.md`](personal-fortune.md) (the balance
 
 **The balance, the postings, the burn, and the death-return are defined in [`personal-fortune.md`](personal-fortune.md).** This section only says how a *high* balance looks on an NPC. If the two docs disagree about increase, decrease, or wielding, personal fortune wins.
 
-A knot is a tracked personal fortune, not a second currency and not a gift from a partial heaven. Circulation posted a lump onto this life. Impartial is not the same as even: a river floods one bank.
+A knot is a tracked personal fortune, not a second currency and not a gift from a partial heaven. Karma settled a lump onto this life. Impartial is not the same as even: a river floods one bank.
 
-Three snags are enough. Any one can produce the same NPC. v1 only needs the chronicle to be able to hint at one of them. The integer does not care which.
+The postings are rule 1 in the fortune doc. How each looks from outside:
 
-| Snag | What happened | Why it looks like favor |
-|------|----------------|-------------------------|
-| **Natal posting** | A death, a broken vein, a sealed hoard, a parent who died with an open account. The cycle posts the balance onto the nearest open life — often a child born in that spot. | "Born under a lucky star." They inherited a deposit. |
-| **Deed settlement** | One act the rules treat as a sudden large repayment or withdrawal: killing something that was hoarding fortune, cracking a seal, walking out of a tribulation that should have taken the deposit back. | "Heaven rewarded their daring." Morality is not in the formula. A butcher and a saint can both snag. |
-| **Vacuum drain** | A place whose fortune has nowhere to go — ruined sect, stoppered vein, a sleeper's held pool leaking — dumps onto the most porous mortal nearby. Young, not yet knotted by oaths, sometimes a strange root. | "The sect's genius appeared from nowhere." They are a drainage ditch. |
+| Posting | What happened | Why it looks like favor |
+|---------|----------------|-------------------------|
+| **Inheritance** | A dying parent, master, or sect with an open account. The balance settles on whoever was tied to them. | "Born under a lucky star." "The old master chose them." |
+| **Settlement** | One act closed a large account at once: killing something that held fortune out of the cycle, breaking a seal, keeping an oath nobody else remembered. | "Heaven rewarded their daring." A butcher and a saint can both settle. |
+| **Orphaned fortune** | A ruin or leaking hoard with no tie left. It runs to the most open life nearby — no family, no sect, no oaths. | "The genius appeared from nowhere." The orphan protagonist. |
+
+Every scene the lump buys writes karma (rule 2). That is why a knot attracts young masters, hunters, and claimants. The trouble is not a separate mechanic.
 
 The protagonist *effects* are how a lump unwinds through a living person:
 
@@ -42,9 +44,9 @@ The protagonist *effects* are how a lump unwinds through a living person:
 - Keeping the vessel intact is one of those drips. Among peers, the lump can buy a single absurd escape so the rest of the deposit still has a life to unwind through. That is the "hard to kill." It is not protection of a favorite.
 - When the lump is gone, the escapes stop. A two-realm gap is larger than the drip can pay, so the escape is refused. Death always returns the remainder at once.
 
-Nobody is topping the deposit back up because they lived. A local knot of 3, spent once every few years, is a decade of uncanny luck and then an ordinary cultivator. A larger knot lasts longer because there is more to spend, not because heaven keeps choosing them. A new snag (another posting, another vacuum) can add fortune later. That is a new event, not a regen timer.
+Nobody is topping the deposit back up because they lived. A local knot of 3, spent once every few years, is a decade of uncanny luck and then an ordinary cultivator. A larger knot lasts longer because there is more to spend, not because heaven keeps choosing them. A new posting can add fortune later. That is a new event, not a regen timer.
 
-The player's **Heavenly Luck** trait is a different object: a small channel they paid for, breakthrough odds against thinner tribulation resistance. A fortune knot is an unpaid deposit that landed. Same substance, different size, different bill. The trait does not upgrade into a knot, and standing near a knot does not switch the trait off.
+The player's **Heavenly Luck** trait is grain, not a balance: it tilts breakthrough rolls every time and never buys a scene. A knot is a balance: it buys a few scenes and runs out. The trait does not upgrade into a knot, and standing near a knot does not switch the trait off.
 
 Mortals through Dao Manifestation do not have this explanation. They tell the novel. v1 chronicle should speak in **rumor voice** ("heaven favors that junior") and leave the snag as something a hermit, a record, or a much later tribulation can say more honestly. The player is allowed to believe the rumor for a long time.
 
@@ -227,7 +229,7 @@ Regional knot as a real NPC, a sense that can tell snag from blessing, patron gr
 
 ## Prerequisites
 
-- [ ] [`personal-fortune.md`](personal-fortune.md) locked — life-scale balance, blind burn only, no transfer on death, separate from World Fortune.
+- [ ] [`personal-fortune.md`](personal-fortune.md) locked — fortune / Heavenly Luck / karma split and the four bridge rules.
 - [ ] Owner lock on the name (proposal: fortune knot in the rules, Blessed only as gossip).
 - [ ] Owner lock on the kill price (proposal: fame, no alignment hit, one sharper tribulation only if the deposit was still thick).
 - [ ] Owner lock on concurrency (proposal: one local knot per zone, one regional knot on the whole map, age knot is rumor).

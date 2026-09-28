@@ -1,146 +1,192 @@
-# Personal fortune
+# Personal fortune, luck & karma
 
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` |
-| **Blocked on** | Owner lock on the delineation below. Fortune-knot NPCs wait on this. World Fortune's meter does not. |
+| **Blocked on** | Owner lock on the three-way split and the four bridge rules below. Fortune-knot NPCs wait on this. World Fortune's meter does not. |
 | **Issue** | none yet |
 | **Chat / PR** | Design only — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
 | **Updated** | 2026-09-28 |
 
 ## Intent
 
-Fortune in this world is one substance with two ledgers. **World Fortune** is the climate of the age: how freely qi is circulating at all. **Personal fortune** is the balance currently caught on one life. People gossip as if heaven were handing out favor. The rules are not. A life can be carrying a large balance in a harsh age, and a lush age can still be full of ordinary people.
+Gossip calls all of this "luck." The rules keep three things apart, plus the age they live in.
 
-Protagonist-shaped NPCs ([`blessed-protagonist-npcs.md`](blessed-protagonist-npcs.md)) are not a separate magic. They are lives whose personal fortune is high enough to track. This doc is the notion those NPCs need. It does not build them.
+| Word | One sentence |
+|------|--------------|
+| **Fortune** (气运) | What is caught on you. Finite. It spends itself to buy scenes that were not going to happen. |
+| **Heavenly Luck** | The grain of you. Constant. It tilts a roll that was already happening. It never buys a scene. |
+| **Karma** (因果) | Your ties to other lives. It does not spend. It decides where fortune lands, and who comes to collect. |
+| **World Fortune** | The climate of the age. Nobody carries it. |
 
-Parents: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (heaven is rules; death repays), [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortune meter).
+Heaven is impartial. None of these is favor. Fortune lands where karma settles. Heavenly Luck is the shape you were born in. Karma is the plain record of cause and effect. It does not care about virtue.
 
-## The two fortunes
+Protagonist-shaped NPCs ([`blessed-protagonist-npcs.md`](blessed-protagonist-npcs.md)) are lives with enough fortune to track. They wait on this doc. This doc does not build them.
+
+Parents: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (heaven is rules; death repays), [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortune), [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) (the three existing tracks karma must not duplicate), [`jianghu-situation-threads.md`](jianghu-situation-threads.md) (the incident ledger karma reads).
+
+## Fortune and Heavenly Luck — tilt versus reroll
+
+Heavenly Luck tilts the dice every time. Fortune is a few rerolls, and then they are gone.
+
+| | Heavenly Luck | Personal fortune |
+|--|----------------|------------------|
+| What it is | Grain: how circulation runs *through* you | Balance: how much has caught *on* you |
+| Amount | None. You were born with it or you were not. | A small integer, tracked only once it can buy a scene |
+| Runs out | Never | Yes. Every scene spends it. |
+| What it does | Tilts a roll already on the table: breakthrough odds, perfect breakthrough odds | Creates a scene that was not on the table: an escape, a chance, a comprehension |
+| Saves your life | Never | Once per point, among peers |
+| Its price | Tribulations audit you harder. More passes through you, so the accounting is louder. | Karma. Every scene it buys ties you to someone. |
+| Where it comes from | A creation trait | Posted where karma settles |
+
+The trait's numbers do not change: +15% breakthrough, +10% perfect breakthrough, −10% tribulation resistance. The fiction does. A breakthrough is a moment the cycle runs through you. Good grain means the ordinary current breaks your way a little. The tribulation is the audit of what ran through, so good grain gets a closer audit.
+
+Heavenly Luck does not add fortune. It does not make you a knot. A cultivator with the trait and no balance gets slightly better breakthroughs and still dies to a sword. A knot without the trait survives the sword once and still fails ordinary breakthroughs at ordinary rates.
+
+## Fortune and World Fortune
 
 | | Personal fortune | World Fortune |
 |--|------------------|----------------|
-| What it is | How much circulating fortune is caught on **one life** right now | How freely fortune is circulating in **the age** |
-| Who has it | A person. Almost everyone carries a trickle. A few carry a knot. | Nobody. The age has a climate. |
-| Scale | A life. A handful of points, if it is worth counting. | A slow global meter (sketched 0–100, moves over centuries). |
-| You and it | You carry it. Mostly it spends itself through your life. | You live in it. An Immortal's holding or release nudges it. |
-| Goes up | A snag posts a balance onto this life | Immortals release, or an age recovers. Not when a mortal gets lucky. |
-| Goes down | An event completes, someone burns it, or the life ends | Immortals hold qi out of the cycle. Not when a mortal spends a point. |
-| Death | The remainder returns to local circulation at once | A mortal's return is a drop. An Immortal's death is a flood. |
-| High means | This person survives peers strangely and walks into chances | A lush age: herbs, prodigies, less resistance at the gate |
-| Low means | Ordinary causality. A sword does what a sword does. | A harsher mortal age. Fewer prodigies. One person is not "unlucky" because the age is thin. |
+| Scale | One life | The age |
+| Goes up | Karma settles a balance onto this life | Immortals release what they hold, or an age recovers |
+| Goes down | Scenes spend it, or the life ends | Immortals hold qi out of the cycle and keep it |
+| Death | The remainder returns to the land at once | A mortal's return is a drop. An Immortal's death is a flood. |
 
-The line between them is repayment. Personal fortune is a loan **this life will give back**, by spending it in events or by dying. World Fortune drops when something **stops giving it back** and keeps growing on the hold — an Immortal dam. A mortal sitting on a knot is a pebble in the river. The life still ends.
+The line is repayment. Personal fortune is a loan this life will give back, through scenes or at death. World Fortune falls when something stops giving back — an Immortal dam. A mortal knot is a pebble. The life still ends.
 
-A harsh age can still have one loud personal knot. A lush age does not put a knot on every disciple. High World Fortune makes new catches a little more common. It does not add points to people each year.
+Neither moves the other directly. A harsh age can hold one loud knot. A lush age does not hand every disciple a balance. A lush age means more is circulating, so settlements post a little more often. It never drips points onto the living.
 
-## The third thing people will mix up
+## Karma — the ledger that steers
 
-**Heavenly Luck** (`heavenly_luck` in `TRAITS`) is a paid personal channel: better breakthrough odds, weaker tribulation resistance. It is not a fortune score. It does not add personal fortune, and a high personal fortune does not turn the trait on.
+Karma is the web of cause and effect between lives: who owes whom, and why. It is not a new meter. The game already records the facts. The situation-threads **incident ledger** (kills, spares, thefts, betrayals, oaths, public humiliations) is karma. Karma is that ledger read as ties.
 
-Gossip may call all three "luck." The systems stay separate.
+Two kinds of tie, matching the existing Karma Dao branches:
 
-| | Heavenly Luck | Personal fortune | World Fortune |
-|--|----------------|------------------|----------------|
-| Where it lives | A creation trait | A balance on a life, usually untracked | A hidden climate, revealed late |
-| What it touches | Your breakthrough math | Events around that life | The age: herbs, prodigy rates, gate resistance |
+- **Debt** — you owe. You killed their kin, took their claim, broke their oath.
+- **Grace** — you are owed. You saved them, paid their price, kept their secret.
 
-## How personal fortune exists
+Grace is not virtue points. Being owed is still a tie, and a tie can drag you into someone else's trouble. A saint is heavily tied. So is a butcher.
 
-It is a balance, not a blessing and not a stat bar on every character.
+**Where karma already lives**
 
-- **Untracked trickle.** Zero or one, implied. Ordinary causality, plus at most a coincidence the chronicle never bothers to simulate. Do not store a number on every villager.
-- **Tracked balance.** Worth a small integer only once it can buy a scene: a narrow escape, a chance, a comprehension. That threshold is what [`blessed-protagonist-npcs.md`](blessed-protagonist-npcs.md) calls a fortune knot. The integer is personal fortune. There is no second currency.
+| System | What it does with karma |
+|--------|-------------------------|
+| Situation threads | The jianghu collects: hunters, bounties, formal challenges. |
+| Karmic tribulation (stub) | The rules collect at a juncture: "what debts did you leave unpaid?" |
+| Karma Dao (Debt, Grace) | A cultivator comprehends the web. |
+| Karma Seer | Reads tendencies in it for lifespan. Never certainties. |
 
-The player starts as trickle unless play later posts a real balance onto them. Wearing a tracked balance is a later question. It is not required to define the notion, and it is not granted by the Heavenly Luck trait.
+**What karma is not.** The three existing tracks stay intact:
 
-Folk names ("blessed," "heaven's darling") describe the pattern. They invent a chooser the rules do not have.
+| Track | Question |
+|-------|----------|
+| Dao alignment | Who do you choose to be? Attitude, and how the jianghu reacts. |
+| Sacrilege | Which rule did you break? Heaven's rulebook. |
+| Corruption | How badly did you damage the cycle? Tearing the web itself, souls, reincarnation. |
+| **Karma** | Who are you tied to, and which way does each tie run? |
 
-## How it increases
+Ordinary killing writes karma. It is not sacrilege and not corruption. Severing ties at scale, or poisoning a place's web, is corruption, as that doc already says. Karma is the web. Corruption is damage to it.
 
-A point appears when circulation **posts** onto this life. Nothing mints fortune from nothing, and cultivation does not earn it.
+## The four bridge rules
 
-| Posting | What happened |
-|---------|----------------|
-| **Natal** | A death, a broken vein, a sealed hoard, a parent with an open account. The balance lands on the nearest open life, often a birth in that spot. |
-| **Deed** | One act settles a large account at once: killing a hoarder of fortune, cracking a seal, walking out of a tribulation that should have taken the deposit back. Virtue is not in the sum. |
-| **Vacuum** | Fortune in a place has nowhere to go — ruined sect, stoppered vein, a sleeper's pool leaking — and dumps onto the most porous mortal nearby. |
-| **Catch at a release** | An Immortal's death, a vein unsealed, a thick knot cut open. Most of the flood returns to the land. A porous person standing in it may catch a point. Often they catch nothing. Sometimes the flood kills them. |
+These are the only places fortune and karma touch.
 
-Staying alive does not add points. Winning fights does not add points. A high World Fortune does not drip points onto the living. A new posting is a new event.
+**1. Karma steers, fortune moves.** Fortune posts where a tie settles. That is the 缘 (affinity) of xianxia: "the treasure has affinity with you." Not favor. A tie ran there first.
 
-## How it decreases
+| Posting | The tie that settled |
+|---------|----------------------|
+| **Inheritance** | A dying parent, master, or sect with an open account. The balance settles onto whoever is tied to them: a child, the last disciple, the one who buried the patriarch. |
+| **Settlement** | One act closes a large account at once: killing something that held fortune out of the cycle, breaking a seal, keeping an old oath nobody else remembered. |
+| **Orphaned fortune** | A ruin, a stoppered vein, a leaking hoard, with no tie left. It settles on the **most open** life nearby — the one with the fewest ties. |
+| **Flood** | An Immortal's death, a vein unsealed, a thick knot cut open. Most returns to the land. Someone tied to the source may catch a point. Often nobody does. Sometimes the flood kills them. |
 
-| Spend | What happens to the balance |
-|-------|------------------------------|
-| **A scene completes** | Escape, chance, comprehension, a pressured comeback. The knot doc lists the scenes. Each one returns a point through a life. |
-| **A burn** | Someone forces a spend. See wielding. |
-| **A combing** | A rare rite pushes the balance back into the cycle. The rite-worker does not receive it. Later knowledge, not a starter art. |
-| **Death** | Whatever remains returns to local circulation at once. The killer does not gain the balance. A thick return is a splash: a leftover on the ground, a sharper tribulation once. A spent return is quiet. |
+The last row explains the orphan protagonist without a chooser. No family, no sect, no oaths: nothing holds them in place, so unclaimed fortune runs to them.
 
-Losing a race for a chance does not spend. The scene never completed, so the point is still caught.
+**2. Every scene fortune buys writes karma.** Nothing is free.
 
-The calendar does not tax it. Seclusion does not dissolve it. Seclusion delays scenes; coming out can offer a burst of them, because the balance is still sitting there. Cultivation, spirit stones, and reputation do not move the number.
+| Scene | The tie it writes |
+|-------|-------------------|
+| Narrow escape | Someone or something paid for it. You owe them: the senior who caught your sleeve, the beast that turned on its handler, the bystander who took the blow. |
+| Chance claimed | Someone else had a claim: the sect that sealed the cave, the disciple who was sent to fetch it. You owe them. |
+| Comprehension under pressure | The opponent whose defeat became your breakthrough is now tied to you. |
 
-## How it can be wielded
+This is why protagonists attract endless trouble. Each lucky hour offends a young master, orphans a claim, or leaves a debt. A knot that lives loudly ends up entangled everywhere. Nobody arranged that. It is cause and effect.
 
-Most of the time it is not wielded. The balance spends itself by completing events. The life is where the water caught, not the treasurer.
+**3. Fortune cannot settle karma.** Burning a point to escape a collector writes a fresh debt to whoever paid for the escape. Running on fortune deepens karma. Debts are settled by acts: compensation, service, a price paid, a party's death, or time for small ones.
 
-**What a person can do**
+**4. Death returns fortune. It does not return karma.** The balance goes back to the land. The ties stay with the living: kin, sect, and killer. The killer gets none of the fortune and all of the tie. Karma through reincarnation is parked for the soul path.
 
-| Act | Result |
-|-----|--------|
-| **Do nothing** | The balance sits. It adds no HP, no damage, no breakthrough percentage. |
-| **Live** | Scenes offer themselves and spend it. This is the knot NPC. |
-| **Refuse a scene** | Walk away from the cave. The point stays. Another scene will offer later. Refusing does not become a stored charge. |
-| **Burn** | Spend one or more so the next drip is a survival or a comprehension. You do not pick the narration, the item, or the enemy. A few people learn this on purpose. Anyone with a balance can burn without meaning to when a killing blow lands and an escape is still affordable. |
-| **Catch** | Stand in a release. Mostly nothing. Sometimes +1. Sometimes you die. Not a farm. |
-| **Comb** (later) | A work or a rite shoves someone else's balance back into the cycle. You do not inherit it. |
+## How fortune rises and falls
 
-**What nobody can do with it**
+**Rises** only by posting (rule 1). Cultivation does not earn it. Winning does not earn it. The calendar does not add it. Heavenly Luck does not add it.
 
-- Pay a merchant, buy a pill, or stock it as currency.
-- Add a flat combat stat, or aim a miss at a named enemy.
-- Take another life's balance by killing them.
-- Grant it to a disciple.
-- Raise World Fortune by spending a personal point. A mortal drip is local. The global meter does not tick.
-- Lower World Fortune by hoarding a mortal balance. The life still ends, so the loan is still good.
-- Hold a balance past death, or hold it so tightly it never spends and never returns. That hold is no longer personal fortune. It is a dam, and dams are World Fortune's problem. Mortals do not get this verb.
+**Falls** by:
 
-Burn is the only deliberate wield inside one life, and it is blind. If a proposal lets the player choose the outcome of a point, it has left this doc.
+- **A scene** — escape, chance, comprehension, a pressured comeback. The knot doc lists them.
+- **A burn** — see below.
+- **Death** — everything left returns at once. A thick return splashes: a leftover on the ground, one sharper tribulation for whoever cut it. A spent return is quiet.
 
-## What the player should be able to understand
+Losing a race for a chance does not spend. The scene never completed. Seclusion does not dissolve fortune. It delays scenes, and coming out can bring a burst of them.
 
-One paragraph, in the world's mouth once someone actually knows:
+## What can be done with it
 
-> The age has a tide. That tide is not yours. What catches on a person comes back through the life they live, or all at once when they die. You can waste it. You cannot aim it. You cannot keep it forever.
+Mostly, nothing. Fortune spends itself.
 
-Until that explanation exists in play, chronicle lines may keep saying heaven favored someone. That is gossip. The number underneath still follows this doc.
+| Verb | Who | Result |
+|------|-----|--------|
+| **Live** | Anyone with a balance | Scenes offer themselves and spend it |
+| **Refuse** | Anyone | Walk away from the cave. The point stays. Another scene offers later. |
+| **Burn** | Rarely on purpose; anyone by accident on a killing blow | Force the next drip to be a survival or a comprehension. You do not choose the story, the item, or the enemy. |
+| **Call in grace** | Anyone owed | A karma verb, not a fortune verb. Someone who owes you may show up. It spends the tie, not your fortune. |
+| **Repay** | Anyone who owes | Settle a debt by an act. It never touches fortune. |
+
+Fortune cannot be traded, aimed, stored as a stat, given to a disciple, taken by killing, or kept past death. Anything that holds it forever is a dam — World Fortune's problem, and not a mortal verb.
+
+Burn is the only deliberate way to use fortune, and it is blind. If a proposal lets someone choose what a point buys, it has left this doc.
+
+## In the world's mouth
+
+Once someone actually knows:
+
+> The age has a tide, and it is not yours. Some of it catches on a person where their ties settle. It pays for a few impossible hours, and every hour it pays for ties them to someone new. When they die, the tide takes it back. The ties stay behind.
+
+Until then, chronicle lines can say heaven favored someone. That is gossip.
+
+## The player
+
+- **Heavenly Luck** — as shipped. Only the fiction changes.
+- **Karma** — already accruing through the incident ledger whenever threads exist. The jianghu collects through situation threads. The rules collect at a karmic tribulation. The Seer reads it.
+- **Fortune** — an untracked trickle. A tracked balance on the player is a later decision. Knot NPCs come first.
 
 ## Where it is allowed to show up first
 
-1. **Language and rules, here.** No integer in the save until a consumer needs it.
-2. **Fortune-knot NPCs**, after this notion is locked. They are the first tracked balances. Their scenes are spends. Their deaths are returns.
-3. **A player balance**, only if a later design wants the player to catch or burn. Not part of the knot slice.
-4. **Combing rites, catch-at-a-release**, after someone is actually standing in an Immortal flood or a seal breaking. Those events are not starter content.
+1. **Language and rules, here.** No new fields in the save until a consumer needs them.
+2. **Karma as a reading of the incident ledger** when situation threads land. No second ledger.
+3. **Fortune-knot NPCs.** Postings via rule 1, a scene writes a tie via rule 2, death returns via rule 4.
+4. **Karmic tribulation content** reads open debts. Severity stays with sacrilege and corruption.
+5. **A player balance, floods, combing** — later.
 
-World Fortune stays on its own track in [`post-immortal-cosmology.md`](post-immortal-cosmology.md). Do not wire a personal point into that meter.
+Do not wire a personal point into World Fortune.
 
 ## Prerequisites
 
-- [ ] Owner lock: personal fortune is a life-scale balance; World Fortune is the age; Heavenly Luck is neither.
-- [ ] Owner lock: it does not tick with time, it does not transfer on death, and the only deliberate wield is a blind burn.
-- [ ] Fortune knots stay blocked until those two locks are in.
+- [ ] Owner lock: fortune is a finite balance, Heavenly Luck is grain, karma is ties, World Fortune is the age.
+- [ ] Owner lock: the four bridge rules.
+- [ ] Owner lock: karma reads the situation-threads incident ledger rather than becoming a new meter.
 
 ## Open questions
 
-- **Does the player ever see their own number?** Proposal: no, until a later slice where they have a tracked balance. Knots are visible by scenes, not by a shared UI.
-- **Who can burn on purpose?** Proposal: rare knowledge, not a Qi Condensation button. Unconscious burn on a killing blow is the knot escape rule, and it is enough for the first consumer.
-- **Combing.** Proposal: exists in the notion so fortune can be stripped without a murder, and stays unbuilt until a rite has a home.
-- **Seclusion burst.** Proposal: leaving a long seclusion with a thick balance offers scenes sooner. The number did not grow while they were inside.
+- **Does Heavenly Luck make postings more likely?** Lean no. Otherwise every Heavenly Luck player drifts into being a knot and the mountain collapses.
+- **Is "most open" the right tiebreak for orphaned fortune?** It explains orphans and wanderers well. It also means joining a sect makes you slightly less likely to catch strays. That may be a feature.
+- **Does grace ever help at a tribulation?** Suggestion: someone who owes you can stand guard, or offer a pill. They cannot take the lightning for you.
+- **Who can burn on purpose?** Rare knowledge, not a Qi Condensation button.
+- **Combing.** A rite that forces fortune back into the cycle without a murder. It stays in the notion, unbuilt.
+- **Rename the trait?** "Heavenly Luck" still reads as favor. The fiction is grain. Keep the name for now; revisit during a creation-screen pass.
 
 ## Implementation crumbs
 
-- No current `fortune` field on the player or on world NPCs. Do not overload `heavenly_luck`.
-- World Fortune is still a sketch in `post-immortal-cosmology.md` (global, slow, Immortal-driven). Keep the names distinct in UI if both are ever shown: climate versus a life.
-- Knot NPC spends, bands, and the kill line live in `blessed-protagonist-npcs.md`. If that doc disagrees with increase, decrease, or wielding, this doc wins.
+- `TRAITS` → `heavenly_luck` (`breakthroughPct`, `perfectBreakPct`, `tribulationResistPct` in `core.js`). No mechanical change.
+- Karma Dao `karma`, `karma_debt`, `karma_grace`; `performKarmaSeerReading` in `dao-taxonomy.js`; `KARMA_SEER_BALANCE` — existing karma surfaces.
+- `TRIBULATION_TYPES.karmic` — "Coming soon". Its content should read open debts.
+- `npcKillLog` / `recordWorldNpcKill` — the start of the incident ledger karma will read.
+- No `fortune` field exists yet. Do not overload `heavenly_luck`.

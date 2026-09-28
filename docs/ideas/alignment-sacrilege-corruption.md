@@ -32,6 +32,8 @@ Related: [`tribulation-system-rework.md`](tribulation-system-rework.md), [`root-
 - **Sacrilege** = *what forbidden things you did that the book records*.
 - **Corruption** = *how badly you damaged the cycle itself* — reincarnation, souls, karma.
 
+**Karma is not a fourth track here.** Karma is the web of ties between lives, read from the incident ledger; corruption is damage to that web. Karma's relation to personal fortune lives in [`personal-fortune.md`](personal-fortune.md).
+
 ---
 
 ### Dao alignment (keep — reframe)
