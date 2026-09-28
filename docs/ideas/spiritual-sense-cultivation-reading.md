@@ -57,7 +57,7 @@ Cultivators should not automatically know another party's **true realm**, **core
 - Can players hide Broken Core with concealment, or is it always detectable to strong enough sense?
 - Do sects legally require assessment on entry (forced read)?
 - Sense in combat only, or overworld action on NPCs?
-- Body/soul paths: read vessel / soul mass instead of core?
+- Body and spirit targets: a body-path read looks at the vessel; spirit-path sense is the day-one facet above. Exact divine abilities stay unchosen.
 
 ## Implementation crumbs
 
