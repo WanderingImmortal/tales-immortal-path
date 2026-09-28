@@ -6,7 +6,7 @@
 | **Blocked on** | none for courtyard test; chamber copy / hall stacking can wait |
 | **Issue** | none yet |
 | **Chat / PR** | 2026-09-26 formations audit — [PR #129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
-| **Updated** | 2026-09-26 |
+| **Updated** | 2026-09-28 (phone map fix landed in #130) |
 
 Engine: [`formations-and-arrays.md`](formations-and-arrays.md). This file is **one** blueprint filled in so the three axes (switch / fuel / integrity) can be felt. Do not add ranks, arrays, or other patterns until this card has been played.
 
