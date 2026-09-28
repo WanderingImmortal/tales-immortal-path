@@ -227,7 +227,7 @@ Regional knot as a real NPC, a sense that can tell snag from blessing, patron gr
 
 ## Prerequisites
 
-- [ ] Owner lock on the cause (proposal: a finite snag — natal posting, deed settlement, or vacuum drain — with no refill and no chooser).
+- [ ] [`personal-fortune.md`](personal-fortune.md) locked — life-scale balance, blind burn only, no transfer on death, separate from World Fortune.
 - [ ] Owner lock on the name (proposal: fortune knot in the rules, Blessed only as gossip).
 - [ ] Owner lock on the kill price (proposal: fame, no alignment hit, one sharper tribulation only if the deposit was still thick).
 - [ ] Owner lock on concurrency (proposal: one local knot per zone, one regional knot on the whole map, age knot is rumor).
