@@ -86,7 +86,7 @@ Per [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) —
 |------|------|----------------|-------|
 | **Sect spine** | **The Sword Immortal** (剑仙) | **Immortal** *(ascended post–Dao Wars)* | War name **Sword Ancestor** (剑祖); **peak DM** at Tianjing; true name **forgotten** after ascension |
 | **Patriarch** | **Yun Jian** (云鉴) | VR peak | “Cloud Mirror” — runs the mountain; rarely speaks for the Sword Immortal |
-| **War peak elder** | **Elder Iron Xu** (铁墟) | Deity Transformation *(9-realm)* / NS peak today | Leads enforcement; inner court |
+| **War peak elder** | **Elder Iron Xu** (铁墟) | Celestial Avatar *(9-realm)* / NS peak today | Leads enforcement; inner court |
 | **Discipline elder** | **Elder Sword Feng** (锋) | Nascent Soul | Player NPC at hall gate — trials, spars, rep |
 | **Longcheng envoy** | **Captain Wen Ning** (温宁) | Core Formation+ | Charter office; not the sect’s identity |
 

@@ -6,7 +6,7 @@
 | **Blocked on** | Spirit path design ([PR #127](https://github.com/WanderingImmortal/tales-immortal-path/pull/127)); Saint post-apex growth; world qi mechanic sketch |
 | **Issue** | none yet |
 | **Chat / PR** | Owner + cloud agent lore review, 2026-09-26 |
-| **Updated** | 2026-09-26 |
+| **Updated** | 2026-09-28 |
 
 ## Intent
 
@@ -22,7 +22,7 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 
 **Problem:** the Tian founder is one Immortal among several — the Sword Ancestor ascends after the peace, other sects gain Immortals, and the cult founder may be one too. Apex power alone doesn't explain the throne.
 
-**Founder (owner 2026-09-26):** first Half-Step in living memory at Tianjing, **later ascended to Immortal**; sleeps because he is **restrained** (knows the cost — see §2).
+**Founder (owner 2026-09-28):** first **public** Half-Step, at Tianjing, **later ascended to Immortal**; sleeps because he is **restrained** (knows the cost — see §2). Not the first ascension in history. The Void Seeker reached Immortal earlier without taking this public watershed.
 
 **Owner answer:**
 
@@ -30,7 +30,7 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 - During that gap the **Tian and rising noble houses centralised power and wealth**. The **top end is restrained** (rough parity between sects and the imperial clan); the **middle** grew powerful enough that overthrowing the order is a serious challenge.
 - Ancient grudges, new treaties, alliances — a mess. Stomping out any single great power gets harder. Most great powers **acquiesce on the surface** and **claim authority in their own area**.
 - **Noble houses** are survivors of the **Warring States era**, then through the **Dao Wars** (owner notes). **One** house could be a **puppet** — not all.
-- The Tian founder is the **first Half-Step in living memory** — not first ever.
+- The Tian founder is the **first public Half-Step** — not first ever, and not the only ancient Immortal. At Tianjing the Heavenly Demon was **not** Half-Step. The Blood Clone he spent there was **peak Dao Manifestation** (owner 2026-09-28).
 
 **Suggestions that fit:**
 
@@ -55,15 +55,16 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 | **Wealth was fragmented** *(owner)* | No pool large enough to push anyone through. |
 | **Anyone close became a target** *(suggestion)* | Same logic as the two-DM taboo break — a near-Half-Step invites a pre-emptive coalition. The Tianjing siege **is** that logic; Tian defences held "one beat too long." |
 | **War thins the world** *(suggestion)* | Damaged veins → more resistance at the gate (§2). |
-| **Body / soul thresholds** *(owner)* | Saint and God need their own Half-Step-equivalent states: a **second peak** that can partly use the next realm's abilities. Qi: **Half-Step Immortal**. Body: **Demi-Saint**. Soul: **Pseudo God**. Peak conditions, not realms — see [`nine-realm-ladder.md`](nine-realm-ladder.md). |
+| **Body / soul thresholds** *(owner 2026-09-28)* | Saint and God need their own threshold states: a **second peak** with a **limited claim** on the next realm's abilities. Heaven **permits** that claim because the life still ends. Qi: **Half-Step Immortal**. Body: **Demi-Saint**. Soul: **Pseudo God**. Peak conditions, not realms — see [`nine-realm-ladder.md`](nine-realm-ladder.md). |
 | **Da Chi — nobody knew the door existed** *(owner)* | The body path was thought to top out at Indestructible Vajra. Da Chi found Saintly Flesh through his Vessel Rule held through capitulation — and nobody was watching for it. Every later Saint **will** be watched. |
 | **Soul stigma** *(owner)* | Soul cultivation is always reviled or disquieting. Godhood may have been theorised, but stigma kept any soul sect from forming openly during the wars. *Suggestion:* invasive arts (soul search, possession) + touching heaven's jurisdiction over reincarnation. |
 
-### Void Temple and soul cultivation (owner 2026-09-26)
+### Void Temple and soul cultivation (owner 2026-09-28)
 
-- Void Temple is **not** a soul-aligned sect — it has a **department** that does soul cultivation, created **for a purpose**: proactively monitoring soul activity and keeping everything running tightly.
+- Void Temple is **not** a soul sect. One **department runs souls** — it administers the cycle and watches soul activity. That job does not make the rest of the sect soul-oriented.
 - Almost the whole sect is **fanatical** about its goals.
-- **No relation** to the Hollow Throne ([`hollow-throne-sect.md`](hollow-throne-sect.md)) — but the department is its natural hunter.
+- **No relation** to the Hollow Throne ([`hollow-throne-sect.md`](hollow-throne-sect.md)) — but the department is its natural hunter. The Hollow Throne is a hidden antagonist, not the sect a spirit-path player joins.
+- A sect built for the spirit path can be made **later**, when it is needed. Until then, do not treat the Void Temple or the Hollow Throne as that home.
 - Supersedes "Void Temple as natural home sect" for the spirit path (PR #127 wording).
 
 ---
@@ -152,14 +153,14 @@ Lane words (from PR #127): qi → 仙 **Immortal** · body → 圣 **Saint** · 
 
 - **Owner:** Gods interact with their souls at a fundamental level to sustain them and keep them **out of the reincarnation loop heaven adjudicates** — which is why divinity is so hard.
 - **Suggestion:** the soul is what heaven **judges** (karma, oaths, rebirth). A God's conflict is **authority**, not cost. The deification trial = heaven trying to **reclaim the soul while you live** (karma read at once, heart demons).
-- **Void Temple tension:** natural spirit-path home **and** guardian of the soul cycle.
+- **Void Temple:** its soul department runs the cycle and hunts soul threats. The sect itself is not a soul path, and it is not the spirit cultivator's home.
 - *Optional hook:* the **Void Prisoner** (reincarnation tampering) as what heaven fears a God becomes.
 
 **Three kinds of God:**
 
 | Kind | Sustained by | Note |
 |------|--------------|------|
-| **Worshipped God** | Freely given faith | Celestial Avatar echo → shrine. Open: is worship truly clean? |
+| **Worshipped God** | Freely given faith | A Celestial Avatar echo can become a **shrine and a story**. It does not keep acting as a second person. Open: is worship truly clean? |
 | **Devouring God** | Other souls | Forbidden branch — [`soul-body-refining.md`](soul-body-refining.md) |
 | **Personal God** *(owner)* | Self alone | Godhood for your own sake; **reclaiming your ego** to yourself and only your authority; no worship, no reaping. Costs the world almost nothing; hardest of all. Heaven sees you but has no right to judge — **not** grotto severance (being forgotten). |
 

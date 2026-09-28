@@ -27,7 +27,7 @@ The gorge is the cult’s **true homeland** — not a dungeon sticker on the Hea
 | **Guard ledges** *(was “watch shelves”)* | **Narrow rock balconies** on the cliff where a guard can watch the entrance from above. |
 | **Press-gang** | **Grab people by force** for the cult (as opposed to willing recruits). |
 | **Mist Veil** | An array that makes the gorge **hard to scout from far away** (haze, confused senses). |
-| **DT guard** | **Deity Transformation** cultivator — a very high realm ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)); only the most trusted rotate to the mouth. |
+| **Avatar guard** *(was “DT guard”)* | **Celestial Avatar** cultivator — a very high realm ([`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md)); only the most trusted rotate to the mouth. |
 | **Blood tax** | What the town pays the cult to be left alone — coin, blood essence, names of strangers, or **one body** when the collectors ask. |
 | **Great Cauldron** | The **real** vessel (镇教鼎) in a vault **beside the Demon Lord Pit**; a **large statue** in Cauldron Lanes faces it — oath and rumor, not the mass rites themselves. |
 | **Cauldron Lanes** | The **industrial district** below town — channels, pill foundry, drill yards, Great Cauldron **approach**; name is legacy, not “a lane of personal pots.” |
@@ -163,7 +163,7 @@ Mo Xuan’s mouth doctrine: **discourage, misdirect, identify, kill — in that 
 | | |
 |--|--|
 | **Headcount** | **One** guard on duty; **never more than two** on rotation |
-| **Rank** | **Deity Transformation** (DT) — peak inner-court level; only elders trusted with knock codes and array keys |
+| **Rank** | **Celestial Avatar** — peak inner-court level; only elders trusted with knock codes and array keys |
 | **Job** | Keep **blood knock** working, **Mist Veil** on low, stake field healthy; note anything that crosses the dry riverbed; **signal** the terrace if needed |
 | **Visibility** | From outside, the mouth looks **empty** — guards stay in the ribcage shadow, no armor flash, no shouting |
 | **Doctrine** | Mo Xuan: *“A guard who is seen is a guard who failed.”* |
@@ -232,7 +232,7 @@ Past the stake field, the gorge **widens** into a **half-bowl** carved from the 
 | **Sound** | Wind still **hums**; drills are **whisper-scale** now — no thousand-voice oaths |
 | **Smell** | Old iron; on drill days, **sweat and copper** |
 
-From the Heartlands road, a **figure on the cliff** at dusk fed the legend **“demon on the cliff”** — often a **DT guard** on drill, not the founder.
+From the Heartlands road, a **figure on the cliff** at dusk fed the legend **“demon on the cliff”** — often an **Avatar guard** on drill, not the founder.
 
 ### What happens here (dormant era)
 
@@ -612,7 +612,7 @@ You leave the **lower ladders** — town noise **cuts off**. The gorge **opens**
 | **Layout** | **Vault lip** and **pit chute** share a chamber — offerings **hit cauldron first**, then **what the founder needs** descends |
 | **Function** | **Founder** (**Immortal** — owner 2026-09-26) in seclusion; slow **devour** of failed merit + tribute; **beyond-Immortal** research *(deliberately vague until an upper world / post-Immortal shape exists — [`post-immortal-cosmology.md`](post-immortal-cosmology.md))* |
 | **Myth** | Outer court told **“next Heavenly Demon”** will **rise from the pit** — **ruse** |
-| **Hook** | P4: omen spike if he **stirs**; Half-Step suspicion **not** relevant until someone **wakes** him |
+| **Hook** | P4: omen spike if he **stirs**. He is an **Immortal** in the pit. At Tianjing he was not yet Half-Step; the clone he spent there was **peak Dao Manifestation** (owner 2026-09-28). |
 
 ### Array heart (封血大阵核)
 

@@ -10,7 +10,7 @@
 
 ## Intent
 
-The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder — first Half-Step, later **Immortal** — sleeps beneath the capital, restrained.
+The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder — first **public** Half-Step, later **Immortal** — sleeps beneath the capital, restrained.
 
 **Imperial public face:** five-clawed true dragon (五爪真龙) — *only* the Tian may bear it; usurpation is existential treason.
 
@@ -28,7 +28,7 @@ The **Dao Wars** (道战 — working name) — sects and rising powers tore the 
 
 ### The turn
 
-The **Tian Clan** produced the first cultivator to reach **Half-Step Immortal** — first to touch the gates of true immortality. The wars ended **swiftly** under that might. Not a century of siege; a demonstration that the board had a new ceiling.
+The **Tian Clan** produced the first **public** Half-Step Immortal — the first to touch the gates of true immortality where the jianghu could see it. The Void Seeker had already ascended, privately, to guard his lock. The wars ended **swiftly** under that public might. Not a century of siege; a demonstration that the board had a new ceiling.
 
 *(Older immortals among the top sects may remember the clan's **original name** and older sins. They do not dwell on it in public.)*
 
@@ -57,7 +57,7 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 ### Now
 
 - **Sleeping giant:** no open continental wars; scheming, charters, succession plots, buried deterrence.
-- **Founder** (first Half-Step in living memory; **ascended to Immortal** after the mandate — owner 2026-09-26) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
+- **Founder** (first **public** Half-Step; **ascended to Immortal** after the mandate — owner 2026-09-28) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
 - **Public myth:** the founder chose sleep so the realm could heal.
 - **Sect whisper:** the founder sleeps because acting openly accrues heaven's debt — wake them only if the mandate cracks.
 - **Truth (owner):** a **restrained Immortal** — he knows what immortality costs the world and sleeps to keep his draw low. See [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md).
@@ -68,7 +68,7 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 
 | Layer | Role |
 |-------|------|
-| **Buried founder** | Sleeping **Immortal** (was first Half-Step) — ultimate Tian deterrence; waking = continental crisis |
+| **Buried founder** | Sleeping **Immortal** (was the first public Half-Step) — ultimate Tian deterrence; waking = continental crisis |
 | **Imperial court** | Regents, blood branches, chancellors — **surface scheming** |
 | **Charter law** | Sect homelands + licensed rivalry; open conquest forbidden without imperial verdict |
 | **Sect arrays + immortals** | Each great sect **cannot be erased** by force alone — capitulated, never surrendered |
@@ -76,11 +76,11 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 
 **Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks waking the dragon *and* spending sect immortals against each other while the court watches.
 
-**Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founder is the first Half-Step **in living memory**. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
+**Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founder is the first **public** Half-Step. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
 
 ### The Heavenly Demon Cult — a managed threat (owner 2026-09-26)
 
-- The founder **knows** he did not truly kill the Heavenly Demon at Tianjing (only the Blood Clone) — [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md).
+- The founder **knows** he did not truly kill the Heavenly Demon at Tianjing (only the Blood Clone) — [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md). That clone was **peak Dao Manifestation**. The Heavenly Demon was **not** Half-Step then (owner 2026-09-28).
 - **Publicly** the throne states the cult is gone.
 - He believes it is a **managed threat**: the cult **never leaves its lands**; the throne **doesn't want to pick that fight**; everyone else **rests easy** with the cult "dead."
 - *Suggestion — extra reasons not to fight:* two apex beings clashing openly draws heaven's resistance on both; Blood Sealing Gorge is a natural seal that a war could break; admitting the cult lives reopens the mandate's founding story.

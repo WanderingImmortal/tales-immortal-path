@@ -24,26 +24,23 @@ Expand the mortal qi ladder from **7 → 9 realms** (indices `0–8`). Early blo
 | 1 | Foundation Establishment | Unchanged |
 | 2 | Core Formation (Golden Core) | Unchanged — “major realm” watershed |
 | 3 | Nascent Soul | Unchanged — qi-path soul externalized; distinct from **soul refinement track** |
-| 4 | **Deity Transformation** (owner lean) | 化神-equivalent; see naming note below — not soul-path vocabulary |
+| 4 | **Celestial Avatar** (owner lock 2026-09-28) | Was Deity Transformation. Visible image of a regional claim. Not soul-path vocabulary. System doc lands with the spirit-path draft. |
 | 5 | Void Refinement | Existing — shift index from `4` → `5` |
 | 6 | Dao Seeking | Existing — comprehend / pursue dao **before** manifestation |
 | 7 | Dao Manifestation | **New** — dao is worn / embodied, not merely studied |
 | 8 | Immortal Ascension | Mortal capstone; heavenly ceiling / chaos revelation |
 
-### Idx 4 — Deity Transformation (owner lean)
+### Idx 4 — Celestial Avatar (owner lock 2026-09-28)
 
-Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line stepping into deity-scale presence — not “Soul Transformation.”
+Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian / nascent** line given a form the world can see — a claim over a region — not “Soul Transformation.”
 
-**Preferred name:** **Deity Transformation** (化神). Owner note: can feel *too grand* for UI — that may be fine (it’s xianxia); use shorter copy where needed.
+**Name:** **Celestial Avatar**. **Deity Transformation** (化神) is the retired lean. Divinity words stay on the spirit lane (神). The journey, training, and uses belong to the spirit-path draft's avatar doc; this ladder only locks the name.
 
 | Use | Label |
 |-----|-------|
-| Formal realm name | Deity Transformation |
-| Short / sidebar | Deity Form · Spirit Form · 化神 |
-| Oracle / breakthrough | *“The mortal shell no longer contains you. You have become something the jianghu names with fear.”* |
-| NPC rumor | *“A deity-transcended cultivator passed through Dustbone.”* |
-
-**Alternates if tone shifts:** Spirit Transformation, Transcendent Form.
+| Formal realm name | Celestial Avatar |
+| Short / sidebar | Avatar |
+| Retired | Deity Transformation · Deity Form · Spirit Form · 化神 |
 
 ### Dao order (owner confirmed)
 
@@ -58,11 +55,11 @@ Soul path is its own refinement (`PATHS.soul`). Qi-path idx 4 is the **dantian /
 
 ## Half-Step Immortal (pseudo-state — not a realm)
 
-**Owner lean (2026-09-25):** Half-Step is a step above ordinary peak. It is not its own realm. Do not add a tenth index. What it grants is still open — leave it until that feels obvious.
+**Owner lean (2026-09-25, refined 2026-09-28):** Half-Step is a step above ordinary peak. It is not its own realm. Do not add a tenth index. What it grants is a limited claim on the next realm, not a new spell rank.
 
 It sits on **Dao Manifestation** (the last realm before ascension): past that realm’s normal peak, short of the Immortal Ascension breakthrough. Same family as Peak Golden Core — a condition on the character, not a new row on the ladder. While you are Half-Step, you are still a Manifestation cultivator. Immortal Ascension is the breakthrough that comes after.
 
-**Owner definition (2026-09-26):** a **threshold state** is a kind of **second peak** above the realm's normal peak. Standing there, you can **partially use abilities of the realm above** (those abilities are not designed yet). Each lane has its own name:
+**Owner definition (2026-09-28):** a **threshold state** is a **second peak** above the realm's normal peak. Standing there, you hold a **limited claim** on the next realm's abilities. Heaven **permits** that claim because the life still ends — the clock is what makes it allowed. The specific abilities are not designed yet. Each lane has its own name:
 
 | Lane | Threshold state | Sits on | Leads to |
 |------|-----------------|---------|----------|
@@ -78,7 +75,7 @@ Use these three names in chronicles and NPC text. Do not write "half-step toward
 
 **Open:**
 
-- [ ] What Half-Step actually does (travel, law, or only a gate in the story)
+- [x] What a threshold state does → a **limited claim** on the next realm's abilities, permitted because the life still ends (owner 2026-09-28). Which abilities, still open.
 - [ ] Can you fail and drop back to ordinary peak?
 - [x] What chronicles and NPCs call someone standing there → Half-Step Immortal / Demi-Saint / Pseudo God (owner 2026-09-26)
 
@@ -117,7 +114,7 @@ Grade changes **how fast** you move, not the **ceiling years** at a given peak q
 | 1 | Foundation Establishment | **120** | 120 | 120 | +40 |
 | 2 | Core Formation | **300** | **400** | **500** | +180 |
 | 3 | Nascent Soul | **1,000** | **1,250** | **1,500** | +700 |
-| 4 | Deity Transformation | **2,000** | **2,500** | **3,000** | +1,000 |
+| 4 | Celestial Avatar | **2,000** | **2,500** | **3,000** | +1,000 |
 | 5 | Void Refinement | **5,000** | **7,500** | **10,000** | +3,000 |
 | 6 | Dao Seeking | **10,000** | via laws (playtest) | via laws (playtest) | +0 if Void is already perfected |
 | 7 | Dao Manifestation | **~45,000** | **50,000** | **50,000** | TBD |
@@ -189,7 +186,7 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 1 | Anchor | Intent, probe sealed sites |
 | 2 | Domain | Light body (local), sect / forbidden |
 | 3 | Sovereignty | Sky travel (zones), soul sense |
-| 4 | Transformation | Deity-presence in a region (not soul-path) |
+| 4 | Transformation | Celestial Avatar — presence in a region (not soul-path) |
 | 5 | Passage | Blink / void skip |
 | 6 | Law (seek) | Dao panel, insight pursuit |
 | 7 | Law (wear) | Embody law; local imposition |
@@ -207,7 +204,7 @@ One dig, getting grander:
 | 1 | Foundation Establishment | **Vessel Establishment** | What you’re doing. Brace the body so the dig has something that can hold it. |
 | 2 | Core Formation | **Essence Pearl** | What you’ve become. The dig condenses into one precious thing inside you. The watershed. Vessel Rules can be sworn around here; they are not required to enter the realm. |
 | 3 | Nascent Soul | **Nascent Physique** | What you’re becoming. That pearl gives birth to a physique. A second body, not a soul. |
-| 4 | Deity Transformation | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
+| 4 | Celestial Avatar | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
 | 5 | Void Refinement | **Hollow Refinement** | What you’re doing. Dig past the physique into the empty place under it. Opening it is the door; strength is refined inside. |
 | 6 | Dao Seeking | **Origin Seeking** | What you’re doing. See play note below — the name can stay; the activity must not be a dao library. |
 | 7 | Dao Manifestation | **Origin Manifestation** | What you’re becoming. The origin is the flesh people meet. Same play note as Seeking. |
@@ -215,7 +212,7 @@ One dig, getting grander:
 
 **Naming rule (owner 2026-09-25):** a body realm name is either the work (what you’re doing) or the change (what you’re becoming).
 
-**Physique Transformation** is the lean at idx 4. Deity Physique still works as a title you hold; Transformation is the event, and it should feel like a new kind of body, the way Deity Transformation feels like a new kind of cultivator.
+**Physique Transformation** is the lean at idx 4. It should feel like a new kind of body, the way Celestial Avatar feels like a new kind of cultivator.
 
 **Origin Seeking / Origin Manifestation** sound like Dao Seeking with the noun swapped. That is acceptable only if the play is obviously not a law library. Dao at this height is witnessing signs, collecting laws, merging them, and later wearing one. Body at this height is one excavated source in the flesh. A swearer finds that the source is their Vessel Rule: the body gets narrower and more terrifying at what the oath allows. Someone who never swore is still digging out the source, and does not get interior peak. Neither one is browsing a second dao panel.
 
@@ -239,7 +236,7 @@ Soul names are a separate pass.
 - Immortal is already “the last name on the list” in code. It stays correct if qi, body, and soul all grow to nine names together.
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock. Old saves store a realm number: anyone past Nascent Soul has to be shifted.
 - **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Soul names still deferred. All three paths still need nine labels when the ladder ships.
-- **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Deity Transformation and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
+- **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Celestial Avatar and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
 
 ## Links
 
@@ -250,8 +247,8 @@ Soul names are a separate pass.
 
 ## Open questions
 
-- [x] Idx 4 name — **Deity Transformation** (lean; UI copy may shorten)
-- [x] Half-Step is not a realm — a step above peak Dao Manifestation. Powers still open (owner 2026-09-25)
+- [x] Idx 4 name — **Celestial Avatar** (owner lock 2026-09-28; was Deity Transformation). System doc is the spirit-path draft.
+- [x] Half-Step is not a realm — a second peak on Dao Manifestation. **Limited claim** on the next realm, permitted because the life still ends (owner 2026-09-28). Which abilities, still open.
 - [x] Lifespan philosophy — **xianxia scale**, nine-realm table (owner 2026-08-02)
 - [x] VR breakthrough floor — **5,000** (owner aesthetic: half of 10k)
 - [x] Dao Seeking entry — **10,000**, tying perfected Void (owner 2026-09-25). Law amounts are playtest.

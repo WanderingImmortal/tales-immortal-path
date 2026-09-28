@@ -72,7 +72,7 @@ Parked alternates from early session; superseded by Glimpse + Retaliation unless
 
 | Idx | Realm | Job |
 |-----|-------|-----|
-| 4 | Deity Transformation | **Civic-scale presence** |
+| 4 | Celestial Avatar | **Civic-scale presence** |
 | 5 | Void Refinement | **Acquire void** — geometry, void qi, passage |
 | 6 | Dao Seeking | **Acquire law-knowledge** — read, contemplate, merge |
 | 7 | Dao Manifestation | **Acquire embodiment** — wield, impose, refine wear |

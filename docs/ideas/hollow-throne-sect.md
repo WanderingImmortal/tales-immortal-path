@@ -6,15 +6,15 @@
 | **Blocked on** | Spirit path design ([PR #127](https://github.com/WanderingImmortal/tales-immortal-path/pull/127)); God kinds ([`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §3) |
 | **Issue** | none yet |
 | **Chat / PR** | Owner + cloud agent lore session, 2026-09-26 |
-| **Updated** | 2026-09-26 |
+| **Updated** | 2026-09-28 |
 
 **Label key:** **Owner** = owner said it in chat. **Suggestion** = agent proposal the owner has not rejected.
 
 ## Intent
 
-A heterodox **soul sect** turned grudge-bearing shadow power. Hunted near to extinction after the Dao Wars for the secrets it held, it now holds a city of its own. Its spine is **not** a restrained Immortal but an **active threat**: the **Emperor of Souls upon the Hollow Throne**, a **Pseudo God** who can use his power as he pleases.
+A heterodox **soul sect** turned grudge-bearing shadow power. Hunted near to extinction after the Dao Wars for the secrets it held, it now holds a city of its own. Its spine is the **Emperor of Souls upon the Hollow Throne**, a **Pseudo God**. His claim on godhood is **limited**, and heaven allows it because his life still ends. He is an active threat because he spends that claim, while restrained Immortals mostly do not.
 
-Gives the spirit path a world presence (PR #127 notes "no spirit sect") — reviled, hidden, dangerous.
+He is **not** the sect a spirit-path player joins. That sect can be made later. The Hollow Throne stays the hidden antagonist.
 
 ---
 
@@ -24,7 +24,7 @@ Gives the spirit path a world presence (PR #127 notes "no spirit sect") — revi
 |-------|-------|
 | **Sect** | **The Hollow Throne** *(working — the throne and the sect share the name)* |
 | **Leader** | **Emperor of Souls** upon the **Hollow Throne** *(owner)* |
-| **Realm** | **Pseudo God** — soul-path peak before deification (Half-Step equivalent) *(owner)* |
+| **Realm** | **Pseudo God** — soul-path threshold before godhood. Same rule as Half-Step Immortal: a limited claim on the next realm, permitted because the life still ends *(owner 2026-09-28)* |
 | **Seat** | **Fengdu** (丰都) — City of the Dead *(owner)* |
 | **Tone** | Twisted by the hunt: from heterodox sect → grudges against almost every world power; embraces **forbidden arts** for power *(owner)* |
 | **Relation to Void Temple** | **None** in origin *(owner)*. Void's soul department is its natural hunter. |
@@ -69,11 +69,13 @@ Soul cultivation was reviled, so no soul sect could stand openly. This one survi
 
 ## The Emperor of Souls
 
-### Why he can act *(suggestion)*
+### Why he can act *(owner 2026-09-28)*
 
-Apex beings are restrained (Immortals draw heaven's resistance; Saints are watched; Gods' souls are contested). A **Pseudo God** hasn't crossed — heaven holds nothing against him yet. He sits in the **gap in the deterrence system**: too strong for anything at Void Refinement or below, not worth an Immortal's provoking heaven, and the Tian founder sleeps.
+He has **not** crossed into Godhood, so he does not pay an Immortal's permanent bill. Heaven still permits a **limited claim** on the next realm's abilities, because the clock on his life is running. That is the same permission a Half-Step Immortal and a Demi-Saint get. It is not a blank check, and heaven has not forgotten him.
 
-**Mirror:** the Tian founder — a **restrained Immortal** who sleeps — versus the Emperor, **unrestrained** at the threshold, who acts.
+He can still move when Immortals will not. They draw heaven's resistance if they act in the open, Saints are watched, and the Tian founder sleeps. A Pseudo God spending a limited claim is a problem the middle of the world cannot answer, and the top of the world would rather not wake to answer.
+
+**Mirror:** the Tian founder is a **restrained Immortal** who sleeps. The Emperor is still mortal at the threshold, and he uses the room that sleep leaves.
 
 ### Arc — two paths lived, the third chosen *(owner)*
 
