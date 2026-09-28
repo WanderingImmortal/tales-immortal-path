@@ -49,7 +49,7 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 | **Heartlands** | **Yes — center** | Sword, Lotus, Void, Phoenix, Tian; kneeling, Gambit prehistory |
 | **Jade** | **Yes — maritime front** | Sea routes, island sects, piracy, drowned sites; **sea charter** = Dao Wars settlement |
 | **Frostbite** | **Margin, not march route** | Bleed + Scar = armies **don't cross**; **two great sect survivors** — Vajra Ridge (south spine, body monks) + Yin Maiden Palace (crown); isolation / recognition at settlement |
-| **Dustbone** | **Peripheral** | Caravan wars, fragment trade, **weak imperial reach**; Third Dynasty garrison may be **post-war extraction or late-war collapse**; tribes **local law** — Sandveil not a charter petitioner |
+| **Dustbone** | **Peripheral** | Caravan wars, fragment trade, **weak imperial reach**; Third Dynasty is **old history, before the wars**; the one wartime push was **rebuffed by the region**; tribes **local law** — Sandveil not a charter petitioner |
 | **Emberwild** | **Raid fringe** | Jungle **not worth heaven-debt** to conquer; **contained, not conquered**; beast tides, obsidian sites, Phoenix raiders at margins |
 
 ## Per zone — lore beats (draft)
@@ -73,7 +73,8 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 - **First / Second / Third** = **before Dao Wars** ([`dustbone-dynasties-entropy-lore.md`](dustbone-dynasties-entropy-lore.md)) — Third Cascade is **old history**.
 - Heartlands powers **already know**: empire-scale extraction **eats the basin**, not the extractor’s profit.
 - Dao Wars **here:** caravan wars, fragment smuggling, refugee pressure on Threshold — **not** another garrison empire.
-- **Player memory:** “They tried that in the Third. The sand remembered.”
+- **Wartime echo (owner 2026-09-26):** someone did try to garrison and extract during the wars. It never got near a cascade. A cascade collapses a **society**, not just an army, and the **whole Dustbone region** (tribes, Threshold, caravans) turned the attempt back quickly, because everyone there has a stake in never triggering a Fourth.
+- **Player memory:** “They tried that in the Third. The sand remembered — and so did we.”
 
 ### Emberwild — **contained fringe**
 
@@ -89,7 +90,8 @@ Phoenix doc: **innumerable** clans joined; **most are gone**. Heartlands four = 
 | **Secondary theater** | Jade sea, Phoenix border raids |
 | **Contracted** | Frost mercs, Dune Rider caravans under Lotus pay |
 | **Ecological buffer** | Scar, desert threshold, deep jungle |
-| **Collapsed during** | Dustbone Third, lesser flame schools Phoenix absorbed |
+| **Collapsed during** | Lesser flame schools Phoenix absorbed |
+| **Rebuffed** | Dustbone — wartime garrison push turned back by the region (Third collapsed long **before** the wars) |
 | **Post-war bargain only** | Yin Maiden isolation, Emberwild containment |
 
 Players in **outer zones at QC** should feel **Dao Wars echo** (charter, old grudges, veteran NPCs) without “why was my starter city a battlefield?”
@@ -111,7 +113,8 @@ Now → Phoenix Gambit (Heartlands politics)
 
 ## Open questions
 
-- [x] Third Dynasty — **before** Dao Wars (owner lean); exact age TBD
+- [x] Third Dynasty — **before** Dao Wars (owner lock 2026-09-26; sits inside the open-ended Warring States era, so the ~3,000-year peace is not stretched); exact age TBD
+- [ ] Who made the wartime Dustbone push, and what the region did to turn it back
 - [x] Yin Maiden Palace — **cold/calculating spine**; northern quell + small reaches + silence ledger (owner 2026-08-02)
 - [x] Northern southward reach — **many small incursions**, not one grand march (owner 2026-08-02)
 - [ ] **Silence-debt mid sects** — 2–3 survivors who still owe ([`silence-debt-mid-sects.md`](silence-debt-mid-sects.md))

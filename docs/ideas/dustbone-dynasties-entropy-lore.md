@@ -69,12 +69,12 @@ Authoritative record: **why Dustbone is a desert**, three **successive** dynasti
 ### Third — outsiders (**before the Dao Wars**)
 
 - **Continental / Heartlands-scale** garrison and extraction — **not** the Tian mandate (that comes later).
-- Predates the **Dao Wars** (道战 / “warring states” era) — owner lean 2026-08-02; exact age **TBD**.
+- Predates the **Dao Wars** — owner lean 2026-08-02, **locked 2026-09-26**. Falls somewhere in the long Warring States era, which has no fixed length, so it does not need the ~3,000-year peace stretched. Exact age **TBD**.
 - Learned from **Second rubble**, not First mystery — repeated the mistake: **administrative order at empire scale** in a basin with Law of Dust.
 - **Third Cascade** — fast singularity; garrison **gone**; iron-grit layer in the sand.
 - **Lesson for the Heartlands** (learned **a long while ago**): heavy extraction in Dustbone **triggers the desert, not tribute**. Charter-era regents still cite Third when Lotus wants another registry push in Threshold.
 
-*Dao Wars Dustbone role:* caravans, smuggling, refugees — **not** another imperial garrison. See [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
+*Dao Wars Dustbone role:* caravans, smuggling, refugees — **not** another imperial garrison. One power did try a wartime garrison; the **collective Dustbone region** rebuffed it quickly, long before it could threaten a cascade — a cascade collapses a whole society, and nobody in the basin will risk a Fourth (owner 2026-09-26). See [`dao-wars-outer-zones.md`](dao-wars-outer-zones.md).
 
 ---
 
