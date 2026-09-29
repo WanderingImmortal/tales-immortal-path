@@ -6,7 +6,7 @@
 | **Blocked on** | Owner lock on the three definitions and the one bridge rule. Protagonist NPCs wait on this. |
 | **Issue** | none yet |
 | **Chat / PR** | Design only — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
-| **Updated** | 2026-09-28 |
+| **Updated** | 2026-09-29 |
 
 ## Intent
 
@@ -41,7 +41,7 @@ Karma is not a morality score. A saint is heavily tied. So is a butcher. The exi
 | Corruption | How badly did you damage the cycle itself? |
 | **Karma** | Who is tied to you, which way, and how heavily? |
 
-No new meter. The situation-threads **incident ledger** (kills, spares, thefts, betrayals, oaths, humiliations) is the record. Karma is that record read as ties. Karma Dao (Debt, Grace), the Karma Seer, and the karmic tribulation stub are already the ways a cultivator reads it or the rules collect it.
+No new meter. The situation-threads **incident ledger** (kills, spares, thefts, betrayals, oaths, humiliations) is the record. Karma is that record read as ties. Karma Dao (Debt, Grace) and the karmic tribulation stub are existing hooks.
 
 ### Does karma persist through lifetimes?
 
@@ -50,7 +50,11 @@ No new meter. The situation-threads **incident ledger** (kills, spares, thefts, 
 - **A tie whose anchor still lives stays a tie.** Rare, and loud: the old enemy who recognizes your soul, the sect that still keeps your past life's oath. Xianxia's past-life reunion.
 - **A tie whose anchor is gone cannot come back as a person.** The creditor is dead, the lineage is ended, or you have forgotten them. It becomes **fortune**. See the bridge rule.
 
-This fits the existing Legacy split. A **Bitter Reincarnation** (you died) carries every open tie. A **True Reincarnation** (you shed your life willingly) could let you settle chosen ties first. That gives players a reason to put their affairs in order before leaving. Runs generate a new world today, so almost every carried tie loses its anchor. That is the common case anyway.
+A **Bitter Reincarnation** (you died) carries every open tie. That is the common case. Runs generate a new world today, so almost every carried tie loses its anchor anyway.
+
+**True Reincarnation — interaction wanted, shape unknown (owner 2026-09-29).** Today it is only offered at the Immortal Ascension gate, and it pays +2 legacy CP against Bitter's +1, plus one small carried echo. There is no real reason to choose it, so runs end Bitter. Karma should give it a reason. What that is stays open.
+
+Candidate worth weighing, not locked: the gate is already where the ascender draws on World Fortune. True Reincarnation is the only choice at that gate that *doesn't* take. Stepping back into the cycle instead of out of it could be the one act that repays willingly — settling open ties, carrying grace forward, leaving the world's fortune where it is.
 
 An Immortal never reincarnates. Their karma can never turn into a next life's fortune, so it accumulates. That is a natural reason immortal calamities get worse over time. Hook only.
 
@@ -93,11 +97,13 @@ It needs a tracked number only once it is large enough to cause scenes. Most liv
 - **Natural treasures.** How often herbs, ores, and beast cores of real grade appear.
 - **Windows.** Ancient caves open, sealed tombs crack, a lethal zone goes quiet for a season, a secret realm surfaces. These are public events with timers. Anyone who hears and moves can contest them.
 
-### Why an Immortal's birth drains it
+### Ascension draws on it (owner lean 2026-09-29)
 
-Everything in the world is on loan from the cycle, and death repays the loan. A cultivator of any realm still owes their qi, flesh, and soul back.
+**World Fortune is part of what an ascender draws from the world to immortalise themselves.** It is not a side effect. It is an ingredient.
 
-Ascension is declaring you will never repay. The world stops counting that life as returning and writes it off, like a lender writing off a debt. Forging the immortal body and lease also draws a heavy lump at the moment of ascension. So World Fortune drops when an Immortal is born, and drops further the greater the Immortal. Whether the drain also continues as they keep growing is an owner call. The heaven's-cycle doc already leans toward a slow ongoing hold.
+Everything in the world is on loan from the cycle, and death repays the loan. Ascension is the one act that takes and never repays: the ascender pulls a share of the world's fortune into the immortal body and lease, and that share leaves circulation for as long as they exist. A greater ascension draws more.
+
+So the drain happens at the moment of ascension, and the scale of the draw is part of what the ascension *is*. How the draw is sized (realm, path, what the ascender brings in, how thin the world already is) and whether anything keeps drawing afterward are later calls. A thin world has less to give, which fits the existing idea that gate resistance rises as World Fortune falls.
 
 ### How it is restored
 
@@ -137,16 +143,17 @@ The two never convert. Spending personal fortune does not drain the world. An Im
 
 ## Open questions
 
-- **Does True Reincarnation let you settle ties?** Suggestion: yes, a few chosen ones. Bitter carries everything.
-- **Can a player see their own fortune?** Suggestion: never as a number. A Seer reads a tendency: "thick," "thin," "the thread runs against you."
+- **What makes True Reincarnation worth choosing?** Open. See the karma section.
 - **Does fortune decay?** Suggestion: no. It is only spent. A lucky life that avoids risk keeps its luck.
-- **Is the immortal drain a lump, or a lump plus an ongoing hold?**
+- **How is the ascension draw sized, and does anything keep drawing afterward?**
+- **Whole concept expects touch-ups.** Seers, readouts, and how a player perceives any of this are deferred.
 - **Can ill fortune be cleansed?** Suggestion: only by settling it the long way, through spending. There are no purification pills for karma.
 
 ## Implementation crumbs
 
-- `legacy.js` — `triggerBitterReincarnation`, `triggerTrueReincarnation`, `pendingCarryPerk`. The cross-life karma hook.
+- `legacy.js` — `triggerBitterReincarnation`, `triggerTrueReincarnation` (offered only in the Immortal Ascension modal), `pendingCarryPerk`, `LEGACY_BONUS_CP` (bitter 1, true 2). The cross-life karma hook.
+- `LEGACY_CARRY_PERKS` → `echo_of_fortune` is +25 spirit stones. The name collides with this concept; rename when either system is touched.
 - `npcKillLog` / `recordWorldNpcKill` — the seed of the incident ledger.
-- Karma Dao ids `karma`, `karma_debt`, `karma_grace`; `performKarmaSeerReading`; `TRIBULATION_TYPES.karmic` (stub).
+- Karma Dao ids `karma`, `karma_debt`, `karma_grace`; `TRIBULATION_TYPES.karmic` (stub).
 - World Fortune meter sketch in `post-immortal-cosmology.md`. `world-scheduler.js` for windows.
 - `TRAITS` → `heavenly_luck` — out of this model; not yet removed.
