@@ -140,6 +140,7 @@ The two never convert. Spending personal fortune does not drain the world. An Im
 - [ ] Owner lock: the bridge rule (named karma → a person; nameless karma → fortune), and that fortune writes new named karma.
 - [ ] Owner lock: karma persists across lifetimes, and loses its names.
 - [ ] Owner call: delete or rename `heavenly_luck`.
+- [x] Owner lean: World Fortune is drawn as part of Ascension itself.
 
 ## Open questions
 
