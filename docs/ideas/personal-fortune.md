@@ -115,6 +115,42 @@ Already outlined in [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md):
 
 Restoring it lowers gate resistance for everyone, including rivals.
 
+### Departure upward (owner idea 2026-10-01 — not locked)
+
+**One rule covers death and departure: what belongs to this world stays in it.** Death returns qi, flesh, and soul to the cycle. Leaving for the upper realm returns whatever the Immortal drew from this world. Borrowed fortune cannot cross the gate, any more than a corpse can.
+
+This is the existing Mandate model in [`post-immortal-cosmology.md`](post-immortal-cosmology.md), given a place. A lower-realm Immortal lives on **Mandate** — borrowed world fortune. The true breakthrough upstairs converts it into **Self-Sustenance**, power that is actually theirs. That doc already says World Fortune only drains while Mandate is above zero.
+
+So: **draw to rise, outgrow the draw to leave.**
+
+| Step | World Fortune |
+|------|---------------|
+| Ascension | The Immortal draws a share and holds it. The world thins. |
+| Life as a lower Immortal | The share stays held while they remain. |
+| Conversion | They stop needing the borrowed share. |
+| Departure upward | The share falls back to this world where they leave — near their seat, grotto, or lineage. |
+| Staying forever (warden, restrained, stalled, devourer) | The share is never returned. This is the dam. |
+
+**What the rule explains without new parts**
+
+- **Forgotten Immortals.** People who went up long ago. Their names aged out of every register. The world they left was richer for their going.
+- **Golden ages.** A departure is a flood without a death. Several in one era is an age of plenty, remembered as myth.
+- **Legacies.** Returned fortune pools where they left, alongside whatever they left behind. Ancient immortal caves and inheritance grounds are World Fortune windows: public, contestable, and tied to someone history forgot.
+- **Why this age thins.** The Immortals known today are the ones who stay: the Void Seeker guards his lock, the Tian founder sleeps, the Jade Lotus Matriarch stalled, the cult founder devours. A world whose Immortals stop leaving is a world that only drains.
+- **Karma of the departed.** A departed Immortal's ties below lose their anchor, so the bridge rule turns them into nameless fortune for whoever was tied to them. A lineage of a forgotten Immortal can carry inexplicable luck. No new rule needed.
+
+**Not the same as grotto masters.** The ancients doc's severed grotto masters are forgotten for a different reason: they slipped off heaven's tracking but are still *here*. Many refused the lease, so they never drew. Departed and severed are both forgotten. Only the departed gave fortune back.
+
+**Not the outer void.** The Void Seeker's hunt beyond the firmament is still inside this world's books. He has not departed.
+
+**What this forces us to answer, so the rule stays consistent**
+
+1. **Must every departure be preceded by a draw?** Lean yes as the rule: Ascension as boarding pass. The cosmology's hidden "Door B" — walking up on your own power without a lease — can stay a rare exception that never drained anything.
+2. **Why don't today's Immortals leave?** If leaving is easy, World Fortune never declines and the thinning age makes no sense. Leaving must be hard or costly. Options to pick from: conversion is brutally hard (most stall); staying is a choice (duty, fear of what is upstairs, love of power below); the gate itself is narrower in a thin world. The Jade Lotus Matriarch is already written as stalled by "heaven's restrictions," which supports the first.
+3. **Is the return all at once, or gradual through conversion?** All at once on departure is easier to read and makes departures historic. Gradual makes conversion visible below, as a slow improvement around their seat.
+4. **Does the upper realm have its own fortune?** It has to, or arriving with only Self-Sustenance means nothing. Its economy is upstairs content and does not need defining now.
+5. **Can anyone come back down?** If yes, they arrive owning no lower fortune and must draw again — which keeps the rule intact.
+
 Still open from that doc: one global number, or regional values. Suggestion: one global number, expressed unevenly. Floods land where the Immortal died. Held qi pools near where Immortals sit.
 
 ## How personal fortune and World Fortune meet
@@ -141,6 +177,7 @@ The two never convert. Spending personal fortune does not drain the world. An Im
 - [ ] Owner lock: karma persists across lifetimes, and loses its names.
 - [ ] Owner call: delete or rename `heavenly_luck`.
 - [x] Owner lean: World Fortune is drawn as part of Ascension itself.
+- [ ] Owner call: departure upward returns the held share ("what belongs to this world stays in it"), and the five questions under *Departure upward*.
 
 ## Open questions
 

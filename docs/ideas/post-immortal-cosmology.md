@@ -111,6 +111,8 @@ Player who “ascends” normally gets Door A. True path is discoverable via for
 **3. Upper realm as the real test**  
 Ascension is **always** false immortality in the lower world — that’s the point of the reveal. “True Immortal” is not a rename of realm 6; it’s the **first real watershed upstairs** (or first of 2–3 sparse true realms). Lower Ascension = boarding pass. Upper breakthrough = you actually leave the airport. Siphon continues until you clear true watershed 1.
 
+**Departure link (owner idea 2026-10-01):** leaving for the upper realm returns the held Mandate share to the lower world — "what belongs to this world stays in it." Explains forgotten Immortals, golden ages, and inheritance grounds. Details and the questions it forces: [`personal-fortune.md`](personal-fortune.md) → *Departure upward*.
+
 **Recommendation:** **3 for story** (matches “Ascension isn’t the end”) + **1 for mechanics** (Mandate meter explains siphon clearly). **2** for a killer single reveal moment if you want one legendary choice.
 
 #### Tie to Chaos
