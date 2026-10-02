@@ -1,0 +1,42 @@
+---
+description: Block on owner yes when a change raises client/engine migration cost; no mandatory doc reads
+alwaysApply: true
+---
+
+# Client / migration guardrails (low token)
+
+**Goal:** Keep the sim portable (`G` + commands + resolvers). A future web map, Phaser view, or Godot client should replay the same state—not re-scrape the DOM.
+
+**Do not** read `docs/ideas/dao-combat-*` or other long design files unless the task is explicitly dao combat, combat spine, or client migration.
+
+## When to stop and ask (before implementing)
+
+If the user’s request (or your planned approach) would do any of the below:
+
+1. **Do not implement** the red-flag part yet.
+2. Reply with a short **Migration cost** block: what gets harder, lighter alternative, recommended path.
+3. **Wait for explicit owner approval** (e.g. “yes”, “proceed”, “go ahead”) before coding that approach.
+
+Exception: the owner **already accepted** that approach in the same thread after you showed the block—then proceed without asking again.
+
+**Combat spine note:** unified hit pipeline comes **before** dao-specific riders; dao hooks attach to `attackProfile` / `resolveHit`, not a separate damage path. That order is not a red flag—it is the preferred fix.
+
+| Red flag | Why it hurts later |
+|----------|-------------------|
+| New **HP/damage/status** paths that bypass a shared resolver | Dao/ATB/domains need one hit pipeline ([`combat-damage-depth.md`](../../docs/ideas/combat-damage-depth.md) — read **only** when touching combat damage) |
+| **`document.*` / DOM** in files that aren’t UI overlays (`ui.js`, chamber renderers, `combat.js` overlay open/close) | Rules glued to HTML ids |
+| **Save-only or UI-only flags** mixed into sim without living on `G` | Saves and headless sim break |
+| **Combat rules** embedded in button handlers with no `CombatState` / action object | Can’t replay or swap client |
+| New **real-time rAF loop** tied to rules (not pure animation) | Harder to step-sim and port |
+| **Irreversible** one-off save shape with no migrate on load | Trapped legacy |
+
+## Preferred patterns (no warning needed if you follow these)
+
+- Mutate **`G`** (or a named sub-object on `G`); `saveState()` stays JSON-friendly.
+- **Commands:** `{ type, ...payload }` → resolver → updated state → `fullRender()`.
+- **Combat:** toward `buildAttackProfile` → `resolveHit` (even if stubbed); log/chips from results.
+- **Presentation:** `ui.js` / overlay files render; sim functions return `{ success, message, stateDelta }`.
+
+## PR note (optional, one line)
+
+If the PR introduced a red flag the owner accepted, mention it under **Migration / tech debt** in the PR body—no essay.
