@@ -6,7 +6,7 @@
 | **Blocked on** | Owner lock on the three definitions and the one bridge rule. Protagonist NPCs wait on this. |
 | **Issue** | none yet |
 | **Chat / PR** | Design only — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
-| **Updated** | 2026-09-29 |
+| **Updated** | 2026-10-02 |
 
 ## Intent
 
@@ -109,7 +109,8 @@ So the drain happens at the moment of ascension, and the scale of the draw is pa
 
 Already outlined in [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md):
 
-- **Immortal death** — the flood, "the last dying gift."
+- **Departure upward** — the full wave. See below.
+- **Immortal death** — a lesser wave, then a long seep. See *Two waves* below. Still "the last dying gift."
 - **Voluntary release** — an Immortal gives back held qi at a personal cost.
 - **Healing the land** — formations, vein nurture, and root rites repair and reroute qi. Slow and costly. They restore flow. They do not create qi.
 
@@ -128,14 +129,34 @@ So: **draw to rise, outgrow the draw to leave.**
 | Ascension | The Immortal draws a share and holds it. The world thins. |
 | Life as a lower Immortal | The share stays held while they remain. |
 | Conversion | They stop needing the borrowed share. |
-| Departure upward | The share falls back to this world where they leave — near their seat, grotto, or lineage. |
+| Departure upward | The whole share leaves them at once and falls back to this world where they go — near their seat, grotto, or lineage. |
+| Death without departure | Part bursts out. The rest stays in the body and seeps out slowly. |
 | Staying forever (warden, restrained, stalled, devourer) | The share is never returned. This is the dam. |
+
+### Two waves (owner lean 2026-10-02)
+
+| Event | What returns | Shape |
+|-------|--------------|-------|
+| **Departure** | Everything held, at once | A full **fortune wave**. Nothing can follow them through the gate, so nothing stays behind. |
+| **Death** | A large burst, then the remainder over a long time | A **lesser wave**, then a **seep**. The body still holds what was refined into it. |
+
+**Refinement decides the split.** The more refined an Immortal's power, the tighter it clings to the body. A crude Immortal's death is mostly burst. A deeply refined one bursts less and seeps for ages. Total returned is the same either way. Only the timing differs.
+
+**Sacred ground.** A refined Immortal's corpse has been seeping into the land for millennia. The ground around it is rich, strange, and slow to deplete: thick qi, treasures that grow nowhere else, a place sects and beasts fight over without knowing why. It is a standing World Fortune window, not a timed one.
+
+This stays consistent with "no Immortal death is recorded yet" in [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md). Sacred grounds can exist without anyone knowing what is buried there. The first *recorded* death is still a world-shaking event.
+
+Hooks, not locked:
+
+- **Saint corpses** (body path) should cling longest of all. That fits Da Chi's flesh that "won't settle."
+- **Disturbing a corpse** — refining it, harvesting it, moving it — interrupts a return to the cycle. That reads as corruption under [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). A tempting crime, with an existing price.
+- **Killing an Immortal returns less, sooner, than letting them leave.** That is a real argument in-world for and against assassination.
 
 **What the rule explains without new parts**
 
 - **Forgotten Immortals.** People who went up long ago. Their names aged out of every register. The world they left was richer for their going.
-- **Golden ages.** A departure is a flood without a death. Several in one era is an age of plenty, remembered as myth.
-- **Legacies.** Returned fortune pools where they left, alongside whatever they left behind. Ancient immortal caves and inheritance grounds are World Fortune windows: public, contestable, and tied to someone history forgot.
+- **Golden ages.** A departure is a full wave. Several in one era is an age of plenty, remembered as myth.
+- **Legacies.** Returned fortune pools where they left, alongside whatever they left behind. Ancient immortal caves and inheritance grounds are World Fortune windows: public, contestable, and tied to someone history forgot. Sacred grounds are the death version of the same thing.
 - **Why this age thins.** The Immortals known today are the ones who stay: the Void Seeker guards his lock, the Tian founder sleeps, the Jade Lotus Matriarch stalled, the cult founder devours. A world whose Immortals stop leaving is a world that only drains.
 - **Karma of the departed.** A departed Immortal's ties below lose their anchor, so the bridge rule turns them into nameless fortune for whoever was tied to them. A lineage of a forgotten Immortal can carry inexplicable luck. No new rule needed.
 
@@ -146,12 +167,15 @@ So: **draw to rise, outgrow the draw to leave.**
 **What this forces us to answer, so the rule stays consistent**
 
 1. **Must every departure be preceded by a draw?** Lean yes as the rule: Ascension as boarding pass. The cosmology's hidden "Door B" — walking up on your own power without a lease — can stay a rare exception that never drained anything.
-2. **Why don't today's Immortals leave?** If leaving is easy, World Fortune never declines and the thinning age makes no sense. Leaving must be hard or costly. Options to pick from: conversion is brutally hard (most stall); staying is a choice (duty, fear of what is upstairs, love of power below); the gate itself is narrower in a thin world. The Jade Lotus Matriarch is already written as stalled by "heaven's restrictions," which supports the first.
-3. **Is the return all at once, or gradual through conversion?** All at once on departure is easier to read and makes departures historic. Gradual makes conversion visible below, as a slow improvement around their seat.
-4. **Does the upper realm have its own fortune?** It has to, or arriving with only Self-Sustenance means nothing. Its economy is upstairs content and does not need defining now.
-5. **Can anyone come back down?** If yes, they arrive owning no lower fortune and must draw again — which keeps the rule intact.
+2. **Why don't today's Immortals leave?** If leaving is easy, World Fortune never declines and the thinning age makes no sense. Owner is open to either answer (2026-10-02):
+   - **Incredibly hard.** Departure is one more breakthrough, and most Immortals stall below it. The Jade Lotus Matriarch is already written as stalled by "heaven's restrictions."
+   - **The method was lost.** This one has a built-in explanation: the only people who ever knew how to leave are the ones who left. Teachers of departure do not stay to teach. The lineages they left behind kept the luck and the caves, not the instructions.
+   - They combine without contradiction. It was always hard, and the knowledge thinned with every departure.
+3. **Is the return all at once?** Yes for departure (owner lean). Death is the split wave above.
+4. **Does the upper realm have its own fortune?** Deferred. No upper-realm design until the owner has a picture of it.
+5. **Can anyone come back down?** Owner lean: prohibitively hard; shape unknown. If it happens, they arrive owning no lower fortune and must draw again — which keeps the rule intact.
 
-Still open from that doc: one global number, or regional values. Suggestion: one global number, expressed unevenly. Floods land where the Immortal died. Held qi pools near where Immortals sit.
+Still open from that doc: one global number, or regional values. Suggestion: one global number, expressed unevenly. Waves land where the Immortal left or died. Sacred grounds seep where corpses lie. Held qi pools near where Immortals sit.
 
 ## How personal fortune and World Fortune meet
 
@@ -161,7 +185,7 @@ A tomb opening is a World Fortune event: public, contested, available to anyone 
 
 In a thin age, a fortunate person still has fortune, but there is less out there for it to land on. It shows more as survival and timely help than as treasure. In a rich age, an ordinary person can still gain a lot by being prepared and moving fast. The world is generous. It is not aimed at them.
 
-The two never convert. Spending personal fortune does not drain the world. An Immortal's flood does not raise anyone's personal fortune. It opens windows, and people with fortune tend to be standing in the right place.
+The two never convert. Spending personal fortune does not drain the world. An Immortal's wave does not raise anyone's personal fortune. It opens windows, and people with fortune tend to be standing in the right place.
 
 ## Where it shows up first
 
@@ -177,7 +201,8 @@ The two never convert. Spending personal fortune does not drain the world. An Im
 - [ ] Owner lock: karma persists across lifetimes, and loses its names.
 - [ ] Owner call: delete or rename `heavenly_luck`.
 - [x] Owner lean: World Fortune is drawn as part of Ascension itself.
-- [ ] Owner call: departure upward returns the held share ("what belongs to this world stays in it"), and the five questions under *Departure upward*.
+- [ ] Owner call: departure upward returns the held share ("what belongs to this world stays in it"), and the open questions under *Departure upward*.
+- [x] Owner lean: departure is a full wave; death is a lesser wave plus a seep, split by refinement.
 
 ## Open questions
 
