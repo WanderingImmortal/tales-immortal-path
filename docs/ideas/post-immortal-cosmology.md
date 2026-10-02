@@ -113,7 +113,7 @@ Ascension is **always** false immortality in the lower world — that’s the po
 
 **Departure link (owner idea 2026-10-01):** leaving for the upper realm returns the held Mandate share to the lower world — "what belongs to this world stays in it." Explains forgotten Immortals, golden ages, and inheritance grounds. Details and the questions it forces: [`personal-fortune.md`](personal-fortune.md) → *Departure upward*.
 
-**Fork sketch (2026-10-03, not locked):** Door A = heaven finishes refining the drawn share (Rule 7 keeps the books); Door B = you finish it yourself and release it; conversion upstairs is Door B postponed. [`qi-ascension-path.md`](qi-ascension-path.md).
+**Fork sketch (2026-10-02, not locked):** Door A = heaven finishes refining the drawn share (Rule 7 keeps the books); Door B = you finish it yourself and release it; conversion upstairs is Door B postponed. [`qi-ascension-path.md`](qi-ascension-path.md).
 
 **Recommendation:** **3 for story** (matches “Ascension isn’t the end”) + **1 for mechanics** (Mandate meter explains siphon clearly). **2** for a killer single reveal moment if you want one legendary choice.
 

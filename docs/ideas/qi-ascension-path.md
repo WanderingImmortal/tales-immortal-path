@@ -6,7 +6,7 @@
 | **Blocked on** | Owner calls below; World Fortune rules in [`personal-fortune.md`](personal-fortune.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Fortune & karma design chat — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
-| **Updated** | 2026-10-03 |
+| **Updated** | 2026-10-02 |
 
 ## Intent
 
@@ -48,14 +48,58 @@ Already defined in [`nine-realm-ladder.md`](nine-realm-ladder.md): a second peak
 
 **Suggestion: why heaven permits it.** Anything a Half-Step holds goes back to the world when they die, and they will die — the clock is still running. Heaven lets a mortal hold a loan it is certain to collect. That is the existing rule ("permitted because the life still ends") given a reason. It needs no new part.
 
-### How you get there
+### How you get there (premise reworked 2026-10-02 — under owner review)
 
-**Suggestion:** a law worn to Peak depth reaches the bottom of what it governs. Wear Fire to its floor and you find what fire rises from. That floor is World Fortune. Seeing it is the Half-Step breakthrough.
+**Retired:** "the end of a law is World Fortune." A law is a rule. World Fortune is a reserve. A rule does not end in a reserve, so that line mixed two kinds of thing and would have become a plot hole.
 
-This gives one answer to the open question in the Manifestation doc (*depth or breadth?*):
+**Replacement — laws say *how*, fortune is *what with*.**
 
-- **Depth gets you there.** One law at Peak is the way down.
-- **Breadth decides how much you can hold.** Each law you have comprehended is another way to grip. A narrow cultivator reaches the stock but holds little.
+A law is a rule in heaven's rulebook: how fire burns, how qi gathers, how a cut separates. Every time a law runs, it spends something: qi moves, heat is given off, matter changes. What it spends is the world's **produce**. The produce rises from the **stock**. That matches the existing rule that everything in the world is on loan from the cycle ([`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md)). The rule is the *how*. Fortune is what pays for it.
+
+Running a law spends produce, and produce renews from the stock, like a river fed by a lake. Only drawing on the stock itself thins the world. Manifestation cultivators do not drain World Fortune by fighting.
+
+**Each qi realm takes one more step into the rulebook:**
+
+| Realm | Relation to heaven's rules |
+|-------|----------------------------|
+| Peak Void Refinement | **Glimpses** the rules moving, from outside. Trespass, so heaven retaliates. |
+| Dao Seeking | **Reads** them. The library. |
+| Dao Manifestation | **Runs** one rule by their own will, in their own space. |
+| Half-Step | **Sees what the rules run on.** |
+| Immortal | **Draws on it.** |
+
+**Why Peak, and not earlier.** The existing depth names already describe heaven stepping back:
+
+- *Wielded:* a local skew on how heaven runs the law.
+- *Refined:* reliable imposition.
+- *Imposed:* space answers, and heaven reads your law.
+- *Peak:* within your space, you run the law as completely as heaven does.
+
+Below Peak, heaven is still doing most of the running, and you are leaning on its work. At Peak you are doing heaven's job in that space. From heaven's side of a rule, you can see what it is paid with. That is not the law's floor. It is heaven's seat, and the stock is visible from it.
+
+**Why reading is not enough.** Seeking tells you how fire behaves. Only running fire tells you what it costs. A Seeker with a vast library never sees the stock.
+
+**Your intuition, made specific.** "In tune with the world enough to sense it" is the right feel. The rule above says why it is the stock and not just world qi: Peak Manifesters already sense world qi, which is produce. What is new is seeing where the produce comes from.
+
+**Is it all laws? Yes.**
+
+- Every law runs on the same reserve, so any law worn to Peak gets there.
+- That keeps the Lesser-law lock ("a valid endgame identity"). A Light Sword specialist can become a Half-Step.
+- Greater and Lesser differ in **what you see through**, not *whether* you see:
+  - A Greater law runs across a wide span of the world, so it shows the stock widely and shallowly.
+  - A Lesser law is a narrow channel, so it shows a thin slice clearly.
+- The worn law also flavours the sense. A Fire Half-Step feels the stock as warmth under volcanic veins. A Sword Half-Step feels it as the places where things are held apart. This gives a gameplay difference: which sacred grounds and windows you notice first.
+
+**Depth and breadth** (the open question in the Manifestation doc):
+
+- **Depth gets you there.** You need one rule run completely.
+- **Breadth decides how much you can hold.** Your worn law lets you see the stock. Gripping it needs knowing how *other* rules draw on it. Each comprehended law in your library is another handhold. A narrow cultivator sees the stock clearly but holds little.
+
+**Consequences that fall out:**
+
+- **Swap your worn law and you lose the seat.** You are back to the rule heaven runs, until the new law reaches Peak. That is the first of the falling-back routes below.
+- **Hook (not locked):** a Karma Dao Half-Step sees the stock *and* the ties around it. The bridge rule (nameless karma becomes fortune) would be visible to them happening.
+- **Body and soul paths** reach their apex stock by other routes. Body Dao is an oath law worn in the flesh, not in space. Leave them for their own pass.
 
 ### Three steps inside the Half-Step (sketch)
 
@@ -132,6 +176,7 @@ The Demon does not draw from the open stock. Everything alive holds a little of 
 ## Prerequisites
 
 - [ ] Owner call: the Half-Step's claim is a hold on World Fortune, permitted because death returns it.
+- [ ] Owner call: the premise — laws say how, fortune is what with; Peak Manifestation runs a law from heaven's seat and sees what it is paid with. All laws qualify.
 - [ ] Owner call: depth gets you to Half-Step, breadth decides how much you hold.
 - [ ] Owner call: the fork is "heaven finishes the refining" vs "finish it yourself and let go."
 - [ ] Owner call: the Heavenly Demon refines fortune held by others, and it never settles.
