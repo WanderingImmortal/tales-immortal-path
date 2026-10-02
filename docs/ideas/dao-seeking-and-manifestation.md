@@ -221,6 +221,17 @@ Passives stack (comprehended)  Aura: others sense WHICH law
 
 Greater law = **bigger toolkit / higher ceiling**; tier climbs through **refinement and what you can do**, not equip tier alone.
 
+**Owner direction (2026-10-02) — to reconcile:** at the **same depth**, a Greater law grants **greater powers** than a Lesser one. A Greater law is **harder to take deep**. A Lesser law's focus is what makes its depth easier to reach. At Peak, a Greater law also gives a wider view of World Fortune ([`qi-ascension-path.md`](qi-ascension-path.md)).
+
+How it sits against what is above:
+
+- **Agrees:** "Greater = harder, bigger toolkit, higher ceiling"; "Peak specialist can outplay a Greater wearer who hasn't refined." That compares *different* depths, so it still holds.
+- **Rubs:**
+  - "Lesser is specialization, **not weakness**" and "Greater = **optional** breadth." Under the new direction, a Lesser law is weaker at equal depth. Its edge becomes **speed to depth**, not parity.
+  - "Specialist forever" stays valid, but now as a trade (earlier depth, earlier Half-Step) rather than an equal endpoint.
+- **Possible reconcile (suggestion):** Lesser is not weakness because depth outweighs tier. A Peak Lesser beats an Imposed Greater, and most Greater wearers never reach Peak in one life. Equal-depth Greater superiority only shows between the rare few who got there.
+- **Open:** the depth names say *Peak* is the "specialist ceiling." Does a Greater law share the same Peak, or have its own higher one?
+
 ---
 
 ## Intent vs Dao (separate tracks)

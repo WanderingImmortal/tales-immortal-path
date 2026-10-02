@@ -62,7 +62,7 @@ Running a law spends produce, and produce renews from the stock, like a river fe
 
 | Realm | Relation to heaven's rules |
 |-------|----------------------------|
-| Peak Void Refinement | **Glimpses** the rules moving, from outside. Trespass, so heaven retaliates. |
+| Peak Void Refinement | **Glimpses** the rules moving, from outside. Trespass: you have not yet earned the right to see them at that realm, so heaven retaliates. |
 | Dao Seeking | **Reads** them. The library. |
 | Dao Manifestation | **Runs** one rule by their own will, in their own space. |
 | Half-Step | **Sees what the rules run on.** |
@@ -77,6 +77,8 @@ Running a law spends produce, and produce renews from the stock, like a river fe
 
 Below Peak, heaven is still doing most of the running, and you are leaning on its work. At Peak you are doing heaven's job in that space. From heaven's side of a rule, you can see what it is paid with. That is not the law's floor. It is heaven's seat, and the stock is visible from it.
 
+**Why this sight is not punished when the VR glimpse is** (owner 2026-10-02): Peak VR is punished as trespass because a VR cultivator has not yet earned the right to see the rules. A Peak Manifester has earned the right to run one, through every Manifestation depth. *Owner will revisit the punishment framing — see the note in [`void-cosmology-and-refinement.md`](void-cosmology-and-refinement.md).*
+
 **Why reading is not enough.** Seeking tells you how fire behaves. Only running fire tells you what it costs. A Seeker with a vast library never sees the stock.
 
 **Your intuition, made specific.** "In tune with the world enough to sense it" is the right feel. The rule above says why it is the stock and not just world qi: Peak Manifesters already sense world qi, which is produce. What is new is seeing where the produce comes from.
@@ -84,10 +86,12 @@ Below Peak, heaven is still doing most of the running, and you are leaning on it
 **Is it all laws? Yes.**
 
 - Every law runs on the same reserve, so any law worn to Peak gets there.
-- That keeps the Lesser-law lock ("a valid endgame identity"). A Light Sword specialist can become a Half-Step.
-- Greater and Lesser differ in **what you see through**, not *whether* you see:
-  - A Greater law runs across a wide span of the world, so it shows the stock widely and shallowly.
-  - A Lesser law is a narrow channel, so it shows a thin slice clearly.
+- A Light Sword specialist can become a Half-Step.
+- **Greater vs Lesser (owner 2026-10-02):**
+  - A Greater law gives a **wider view** of World Fortune. What the wider view cashes out to is not decided.
+  - A Greater law is **harder to take to Peak**. A Lesser law's focus is what makes its depth easier to reach. So Greater wearers reach Half-Step later, and fewer of them.
+  - At the **same depth**, a Greater law grants **greater powers** than a Lesser one.
+  - This partly rubs against the Lesser/Greater lock in [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md). The tension is noted there for the owner to reconcile.
 - The worn law also flavours the sense. A Fire Half-Step feels the stock as warmth under volcanic veins. A Sword Half-Step feels it as the places where things are held apart. This gives a gameplay difference: which sacred grounds and windows you notice first.
 
 **Depth and breadth** (the open question in the Manifestation doc):
@@ -97,7 +101,7 @@ Below Peak, heaven is still doing most of the running, and you are leaning on it
 
 **Consequences that fall out:**
 
-- **Swap your worn law and you lose the seat.** You are back to the rule heaven runs, until the new law reaches Peak. That is the first of the falling-back routes below.
+- **Seeing the stock *is* being Half-Step** (owner 2026-10-02). The breakthrough is the first sight. There is no separate test after it.
 - **Hook (not locked):** a Karma Dao Half-Step sees the stock *and* the ties around it. The bridge rule (nameless karma becomes fortune) would be visible to them happening.
 - **Body and soul paths** reach their apex stock by other routes. Body Dao is an oath law worn in the flesh, not in space. Leave them for their own pass.
 
@@ -117,12 +121,15 @@ These are not sub-realms. They are what a Half-Step learns, in order.
 
 **A Tianjing hook (not locked).** The Tian founder was the first public Half-Step, and in the walk he hunted the Heavenly Demon's army first. A Half-Step can *sense* stolen fortune — it doesn't settle, so it looks wrong. He may have seen what they were before anyone told him.
 
-### Falling back
+### No falling back (owner 2026-10-02)
 
-Open in the ladder doc. **Suggestion:** yes, two ways.
+**Half-Step once met is Half-Step.** Once you have seen World Fortune, you are Half-Step for the rest of that life. Swapping or breaking the worn law does not undo it, and neither does an injury. Falling back would invite exploits: dropping state to dodge something, then re-climbing.
 
-- **Swap or break the worn law.** Depth got you there. Lose the depth and you lose the floor.
-- **Hold too much for too long.** A mortal who keeps the loan past what death would return is no longer a safe loan. Heaven stops permitting the claim. Backlash drops you to ordinary peak.
+The sight stays because it was earned once. You cannot unsee what the rules run on.
+
+**Still possible:** over-holding a gripped thread can bring backlash — wounds, lost years, heaven's notice. It is never demotion.
+
+**Open:** after a swap, does the wider or narrower view follow the newly worn law, or stay with the law you broke through on?
 
 ## Stage 3 — Ascension and the fork
 
@@ -180,7 +187,9 @@ The Demon does not draw from the open stock. Everything alive holds a little of 
 - [ ] Owner call: depth gets you to Half-Step, breadth decides how much you hold.
 - [ ] Owner call: the fork is "heaven finishes the refining" vs "finish it yourself and let go."
 - [ ] Owner call: the Heavenly Demon refines fortune held by others, and it never settles.
-- [ ] Owner call: falling back from Half-Step (swap/break the law, or over-holding).
+- [x] No falling back: seeing World Fortune is Half-Step, permanently for that life (owner 2026-10-02).
+- [x] Greater laws: wider view, harder to reach Peak, greater powers at the same depth (owner 2026-10-02). What the wider view cashes out to — open.
+- [ ] Owner revisit: the Peak VR trespass punishment ("not yet earned the right to see the rules").
 
 ## Implementation crumbs
 
