@@ -1,5 +1,5 @@
 ---
-description: Warn owner before changes that raise future client/engine migration cost; no mandatory doc reads
+description: Block on owner yes when a change raises client/engine migration cost; no mandatory doc reads
 alwaysApply: true
 ---
 
