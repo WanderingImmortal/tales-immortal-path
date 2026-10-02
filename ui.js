@@ -1078,6 +1078,11 @@ function renderEnemyCombatStatus() {
         const weakKeys = Object.entries(e.weakness).filter(([, mult]) => mult > 1).map(([k]) => k);
         if (weakKeys.length) chips.push(`<span class="enemy-status-chip weak-chip" title="Weak to ${weakKeys.join(', ')}">⚡ Weak: ${weakKeys.join('/')}</span>`);
     }
+    if (typeof getEnemyWoundStatusChips === 'function') {
+        getEnemyWoundStatusChips(e).forEach(chip => {
+            chips.push(`<span class="enemy-status-chip ${chip.cls}" title="${chip.title}">${chip.label}</span>`);
+        });
+    }
     row.innerHTML = chips.join('');
     row.style.display = chips.length ? 'flex' : 'none';
     if (tele) {
