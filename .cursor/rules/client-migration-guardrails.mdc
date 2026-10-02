@@ -9,9 +9,17 @@ alwaysApply: true
 
 **Do not** read `docs/ideas/dao-combat-*` or other long design files unless the task is explicitly dao combat, combat spine, or client migration.
 
-## When to warn the owner (before implementing)
+## When to stop and ask (before implementing)
 
-If the user’s request (or your planned approach) would do any of the below, **stop and add a short “Migration cost” block** in your reply: what gets harder, lighter alternative, whether to proceed anyway. Then implement only if the user confirms or the task already implies acceptance.
+If the user’s request (or your planned approach) would do any of the below:
+
+1. **Do not implement** the red-flag part yet.
+2. Reply with a short **Migration cost** block: what gets harder, lighter alternative, recommended path.
+3. **Wait for explicit owner approval** (e.g. “yes”, “proceed”, “go ahead”) before coding that approach.
+
+Exception: the owner **already accepted** that approach in the same thread after you showed the block—then proceed without asking again.
+
+**Combat spine note:** unified hit pipeline comes **before** dao-specific riders; dao hooks attach to `attackProfile` / `resolveHit`, not a separate damage path. That order is not a red flag—it is the preferred fix.
 
 | Red flag | Why it hurts later |
 |----------|-------------------|
