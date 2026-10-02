@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
-| **Blocked on** | Nine-realm indices in code; sword dao taxonomy; tribulation + breakthrough numbers |
+| **Status** | `designed` — **Dao laws under owner redo (2026-10-02)**; treat Lesser/Greater rules as unstable |
+| **Blocked on** | Owner's Dao-law redo; nine-realm indices in code; sword dao taxonomy; tribulation + breakthrough numbers |
 | **Issue** | none yet |
 | **Chat / PR** | Dao system world-building ([bc-e6d4167c](https://cursor.com/agents/bc-e6d4167c)); realm-claims expansion 2026-08-02 |
 | **Updated** | 2026-09-25 |

@@ -29,6 +29,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Taiwu-grade NPC social (seats + rumors only for now) — living-board doc
 
 ## Blocked
+- **Dao laws redo** — owner reworking Lesser/Greater/depth; qi ascension + Half-Step premise wait on it — [`dao-seeking-and-manifestation.md`](ideas/dao-seeking-and-manifestation.md) · [`qi-ascension-path.md`](ideas/qi-ascension-path.md)
 - Fate-rite tribulation waves (needs chronicle fate-rite project)
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 

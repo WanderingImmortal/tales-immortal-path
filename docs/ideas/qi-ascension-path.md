@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `idea` (sketch — nothing locked) |
-| **Blocked on** | Owner calls below; World Fortune rules in [`personal-fortune.md`](personal-fortune.md) |
+| **Blocked on** | Owner's Dao-law redo; owner calls below; World Fortune rules in [`personal-fortune.md`](personal-fortune.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Fortune & karma design chat — [PR #139](https://github.com/WanderingImmortal/tales-immortal-path/pull/139) |
 | **Updated** | 2026-10-02 |
