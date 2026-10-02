@@ -91,11 +91,26 @@ It needs a tracked number only once it is large enough to cause scenes. Most liv
 
 **The state of the world as it is.** Not anyone's luck.
 
-**What it affects:** things anyone can use.
+**"Immortal" in this section means any apex equivalent** — Immortal (qi), Saint (body), God (soul) — and "half-step" means the threshold states below them: Half-Step Immortal, Demi-Saint, Pseudo God ([`nine-realm-ladder.md`](nine-realm-ladder.md)). The details differ by path. The rule does not.
+
+### The stock and what it produces (owner refinement 2026-10-02)
+
+World Fortune is two layers. Keep them apart.
+
+| Layer | What it is | Who touches it |
+|-------|------------|----------------|
+| **The stock** | World Fortune itself. The deep reserve that the world's richness rises from. | **Only apex equivalents, and half-steps beginning to.** Refining it is part of what ascending *is*, so you cannot handle it before you are approaching that door. |
+| **What it produces** | Ambient qi, natural treasures, and windows. | **Everyone.** This is how the rest of the world feels World Fortune. |
+
+A Golden Core cultivator never touches World Fortune. They cultivate in qi that is thick or thin *because of it*, find herbs that grow or don't *because of it*, and race for tombs that open *because of it*.
+
+What the stock produces:
 
 - **Ambient qi.** How thick cultivation grounds are, and how fast veins recover.
 - **Natural treasures.** How often herbs, ores, and beast cores of real grade appear.
 - **Windows.** Ancient caves open, sealed tombs crack, a lethal zone goes quiet for a season, a secret realm surfaces. These are public events with timers. Anyone who hears and moves can contest them.
+
+**Half-steps start to touch it.** Each path's half-step is already defined as a limited claim on the next realm. Learning to sense and begin refining World Fortune fits there — practice for the draw. The refining process itself is not sketched yet.
 
 ### Ascension draws on it (owner lean 2026-09-29)
 
@@ -146,10 +161,24 @@ So: **draw to rise, outgrow the draw to leave.**
 
 This stays consistent with "no Immortal death is recorded yet" in [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md). Sacred grounds can exist without anyone knowing what is buried there. The first *recorded* death is still a world-shaking event.
 
+### Three gates on a corpse (owner 2026-10-02)
+
+Using an Immortal's corpse is not a crime. It is a ladder of requirements. Each gate is far harder than the last.
+
+| Gate | What you need | What you get |
+|------|----------------|--------------|
+| **1. Approach** | Enough realm to stand in the corpse's aura and pressure at all. It should crush most people well before they see it. | The sacred ground's *produce*: thick qi and the treasures growing in it. |
+| **2. Extract** | A much higher level to draw immortal qi, immortal blood, or flesh-material out of the body. | Rare materials. Those are the corpse's substance, not World Fortune. |
+| **3. Take the fortune** | An apex equivalent, or something near it. | The World Fortune still clinging to the body. |
+
+Gate 3 has a consequence built in. An Immortal who takes the clinging fortune holds it again, so the seep stops and the sacred ground fades for everyone else. That is not a crime. It is a dam rebuilt. Sects living off that ground have every reason to resist.
+
+The exact gates differ by path. A Saint's corpse is flesh-heavy and should be hardest to extract. A God's may leave little body at all.
+
 Hooks, not locked:
 
 - **Saint corpses** (body path) should cling longest of all. That fits Da Chi's flesh that "won't settle."
-- **Disturbing a corpse** — refining it, harvesting it, moving it — interrupts a return to the cycle. That reads as corruption under [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). A tempting crime, with an existing price.
+- **Half-steps could fuel their own ascension from a corpse** instead of drawing from the world at large. That makes sacred grounds the most contested places a would-be Immortal can reach.
 - **Killing an Immortal returns less, sooner, than letting them leave.** That is a real argument in-world for and against assassination.
 
 **What the rule explains without new parts**
@@ -203,6 +232,8 @@ The two never convert. Spending personal fortune does not drain the world. An Im
 - [x] Owner lean: World Fortune is drawn as part of Ascension itself.
 - [ ] Owner call: departure upward returns the held share ("what belongs to this world stays in it"), and the open questions under *Departure upward*.
 - [x] Owner lean: departure is a full wave; death is a lesser wave plus a seep, split by refinement.
+- [x] Owner lean: only apex equivalents (and half-steps beginning to) touch the World Fortune stock; everyone else touches what it produces. Corpses are gated by approach, extract, and take — not a crime.
+- [ ] Sketch: how an ascender refines World Fortune, per path.
 
 ## Open questions
 
