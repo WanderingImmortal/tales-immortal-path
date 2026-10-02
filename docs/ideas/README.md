@@ -138,6 +138,10 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Soul names; half-step powers. Body names proposed. Seeking entry 10k. | — |
 | [Realm claims](realm-claims.md) | `designed` (expanded) | Nine-realm ladder in code; owner tune idx 4/7 | — |
 | [Dao Seeking & Manifestation](dao-seeking-and-manifestation.md) | `designed` | Nine-realm idx 6–7; sword taxonomy | — |
+| [Dao combat & manifestation redesign — hub](dao-combat-and-manifestation-redesign-hub.md) | `designed` | v2 owner brainstorm; combat spine before code | — |
+| [Dao Manifestation model v2](dao-manifestation-model-v2.md) | `designed` | Owner sign-off vs v1 wear @ entry | — |
+| [Dao combat — target spine](dao-combat-target-spine.md) | `designed` | combat-damage-depth pipeline; ATB / geometry | — |
+| [Sunfire — lesser way reference](sunfire-lesser-dao-reference.md) | `designed` | Target combat F2/F3 | — |
 | [Void cosmology & Void Refinement](void-cosmology-and-refinement.md) | `designed` (partial) | Void qi / arts; VR→Seeking tribulation | — |
 | [World scale & travel](world-scale-and-travel.md) | `designed` | Local map; realm claims | — |
 | [Local & world map split](local-world-map-split.md) | `building` (1–3) | — | [#56](https://github.com/WanderingImmortal/tales-immortal-path/pull/56) |
