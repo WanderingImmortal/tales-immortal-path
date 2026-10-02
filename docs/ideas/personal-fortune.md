@@ -110,7 +110,7 @@ What the stock produces:
 - **Natural treasures.** How often herbs, ores, and beast cores of real grade appear.
 - **Windows.** Ancient caves open, sealed tombs crack, a lethal zone goes quiet for a season, a secret realm surfaces. These are public events with timers. Anyone who hears and moves can contest them.
 
-**Half-steps start to touch it.** Each path's half-step is already defined as a limited claim on the next realm. Learning to sense and begin refining World Fortune fits there — practice for the draw. The refining process itself is not sketched yet.
+**Half-steps start to touch it.** Each path's half-step is already defined as a limited claim on the next realm. Learning to sense and begin refining World Fortune fits there — practice for the draw. Qi-path sketch: [`qi-ascension-path.md`](qi-ascension-path.md).
 
 ### Ascension draws on it (owner lean 2026-09-29)
 
@@ -233,7 +233,7 @@ The two never convert. Spending personal fortune does not drain the world. An Im
 - [ ] Owner call: departure upward returns the held share ("what belongs to this world stays in it"), and the open questions under *Departure upward*.
 - [x] Owner lean: departure is a full wave; death is a lesser wave plus a seep, split by refinement.
 - [x] Owner lean: only apex equivalents (and half-steps beginning to) touch the World Fortune stock; everyone else touches what it produces. Corpses are gated by approach, extract, and take — not a crime.
-- [ ] Sketch: how an ascender refines World Fortune, per path.
+- [ ] Sketch: how an ascender refines World Fortune, per path. Qi path sketched in [`qi-ascension-path.md`](qi-ascension-path.md); body and soul not yet.
 
 ## Open questions
 
