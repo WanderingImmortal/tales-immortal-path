@@ -261,19 +261,23 @@ function buyPill(pillId) {
         fullRender();
         return;
     }
-    if (G.stones < item.price) {
-        addLog(`💎 Need ${item.price} Stones for ${pill.name}.`);
+    const priceMult = typeof getMarketPriceMult === 'function' ? getMarketPriceMult(zoneId)
+        : (typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1);
+    const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+    if (G.stones < finalPrice) {
+        addLog(`💎 Need ${finalPrice} Stones for ${pill.name}.`);
         fullRender();
         return;
     }
     beginActionLog();
     if (!advanceTime(0, `Purchasing ${pill.name}`)) { cancelActionLog(); fullRender(); return; }
-    G.stones -= item.price;
+    G.stones -= finalPrice;
     addPill(pillId, 1);
     if (zoneId === 'redwell' && typeof consumeRedwellMarketBuy === 'function') {
         consumeRedwellMarketBuy('pill', pillId);
     }
-    commitActionLog(`🏪 Purchased 1× ${pill.name} for ${item.price} Stones.`);
+    const priceNote = finalPrice < item.price ? ` (was ${item.price})` : (finalPrice > item.price ? ` (posted ${item.price})` : '');
+    commitActionLog(`🏪 Purchased 1× ${pill.name} for ${finalPrice} Stones${priceNote}.`);
     renderMerchantPopup();
     renderPillPopup();
     fullRender();
@@ -289,19 +293,21 @@ function buyRedwellStaple(stapleId) {
         fullRender();
         return;
     }
-    if ((G.stones || 0) < item.price) {
-        addLog(`💎 Need ${item.price} Stones for ${item.name}.`);
+    const priceMult = typeof getMarketPriceMult === 'function' ? getMarketPriceMult('redwell') : 1;
+    const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
+    if ((G.stones || 0) < finalPrice) {
+        addLog(`💎 Need ${finalPrice} Stones for ${item.name}.`);
         fullRender();
         return;
     }
-    G.stones -= item.price;
+    G.stones -= finalPrice;
     if (typeof consumeRedwellMarketBuy === 'function') consumeRedwellMarketBuy('staple', stapleId);
     // Flavor buy — slight HP or travel fluff
     if (stapleId === 'travel_ration') {
         G.hp = Math.min(typeof getMaxHp === 'function' ? getMaxHp() : (G.maxHp || 100), (G.hp || 0) + 2);
-        addLog(`🥖 Bought ${item.name} (−${item.price} Stones). A little less hungry.`);
+        addLog(`🥖 Bought ${item.name} (−${finalPrice} Stones). A little less hungry.`);
     } else {
-        addLog(`🔧 Bought ${item.name} (−${item.price} Stones). Useful on the quarry road.`);
+        addLog(`🔧 Bought ${item.name} (−${finalPrice} Stones). Useful on the quarry road.`);
     }
     if (typeof renderMerchantPopup === 'function') renderMerchantPopup();
     fullRender();
