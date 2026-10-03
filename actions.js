@@ -2,15 +2,16 @@
 // ACTIONS.JS — All button handlers
 // ============================================
 
-function actionBlocked() {
-    return !!getActionBlockReason();
+function actionBlocked(options) {
+    return !!getActionBlockReason(options);
 }
 
 /** Human-readable reason main-world actions cannot run, or null if ok. */
-function getActionBlockReason() {
+function getActionBlockReason(options) {
+    const opts = options || {};
     if (G.gameOver) return 'Your journey has ended.';
     if (G.inCombat) return 'You are still flagged as in combat — finish or clear the fight first.';
-    if (G.inQiChamber) return 'Leave the Qi Chamber first.';
+    if (!opts.allowQiChamber && G.inQiChamber) return 'Leave the Qi Chamber first.';
     if (G.inBodyChamber) return 'Leave the Body Chamber first.';
     if (G.inSoulChamber) return 'Leave the Soul Palace first.';
     if (G.inAlchemyChamber) return 'Leave the Alchemy Chamber first.';
