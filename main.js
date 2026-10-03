@@ -932,6 +932,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cbSkill').addEventListener('click', combatSkill);
     document.getElementById('cbFlee').addEventListener('click', combatFlee);
     document.getElementById('cbVoidStep').addEventListener('click', combatVoidStep);
+    document.getElementById('cbMoveN')?.addEventListener('click', () => {
+        if (typeof combatSpineMovePlayer === 'function') combatSpineMovePlayer(-1, 0);
+    });
+    document.getElementById('cbMoveS')?.addEventListener('click', () => {
+        if (typeof combatSpineMovePlayer === 'function') combatSpineMovePlayer(1, 0);
+    });
+    document.getElementById('cbMoveW')?.addEventListener('click', () => {
+        if (typeof combatSpineMovePlayer === 'function') combatSpineMovePlayer(0, -1);
+    });
+    document.getElementById('cbMoveE')?.addEventListener('click', () => {
+        if (typeof combatSpineMovePlayer === 'function') combatSpineMovePlayer(0, 1);
+    });
 
     // Breakthrough buttons
     document.getElementById('btBalanced').addEventListener('click', () => executeBreakthrough('balanced'));

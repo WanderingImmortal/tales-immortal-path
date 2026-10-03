@@ -975,11 +975,21 @@ function setCombatInputEnabled(enabled) {
         const btn = document.getElementById(id);
         if (btn) btn.disabled = !enabled;
     });
+    ['cbMoveN', 'cbMoveS', 'cbMoveW', 'cbMoveE'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.disabled = !enabled;
+    });
     const fleeBtn = document.getElementById('cbFlee');
     if (fleeBtn && fleeBtn.style.opacity !== '0.4') fleeBtn.disabled = !enabled;
     const hint = document.getElementById('combatPhaseHint');
     if (hint) {
-        hint.textContent = enabled ? '' : '⏳ Enemy turn…';
+        if (enabled) {
+            hint.textContent = '';
+        } else if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()) {
+            hint.textContent = G.combatSpine?.enemyActing ? '⏳ Enemy acts…' : '⏳ Action bar filling…';
+        } else {
+            hint.textContent = '⏳ Enemy turn…';
+        }
         hint.classList.toggle('active', !enabled);
     }
 }
@@ -1039,7 +1049,12 @@ function updateCombatUI() {
         }
     }
 
-    setCombatInputEnabled(G.combatPhase === 'player');
+    const canAct = typeof canPlayerAct === 'function' ? canPlayerAct() : G.combatPhase === 'player';
+    setCombatInputEnabled(canAct);
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()) {
+        if (typeof updateCombatSpineBars === 'function') updateCombatSpineBars();
+        if (typeof renderCombatSpineGrid === 'function') renderCombatSpineGrid();
+    }
     if (typeof updateFleeButton === 'function') updateFleeButton();
     if (typeof updateSecondaryCombatButton === 'function') updateSecondaryCombatButton();
     renderCombatBonusBar();
@@ -1077,6 +1092,10 @@ function renderEnemyCombatStatus() {
     if (e.weakness) {
         const weakKeys = Object.entries(e.weakness).filter(([, mult]) => mult > 1).map(([k]) => k);
         if (weakKeys.length) chips.push(`<span class="enemy-status-chip weak-chip" title="Weak to ${weakKeys.join(', ')}">⚡ Weak: ${weakKeys.join('/')}</span>`);
+    }
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()
+        && typeof getEnemySystemStressSummary === 'function') {
+        chips.push(`<span class="enemy-status-chip stress-chip" title="System stress (Flesh/Structure/Circulation/Core)">🎯 ${getEnemySystemStressSummary(e)}</span>`);
     }
     row.innerHTML = chips.join('');
     row.style.display = chips.length ? 'flex' : 'none';
@@ -2870,6 +2889,50 @@ function renderAlignmentPopup() {
 
     container.innerHTML = html;
     bindAlignmentPopupEvents(container);
+}
+
+function renderCombatSpineGrid() {
+    const panel = document.getElementById('combatGridPanel');
+    const movePad = document.getElementById('combatMovePad');
+    const atbPanel = document.getElementById('combatAtbPanel');
+    if (!panel || typeof isCombatSpineActive !== 'function' || !isCombatSpineActive()) {
+        if (panel) panel.innerHTML = '';
+        movePad?.classList.add('hidden');
+        atbPanel?.classList.add('hidden');
+        return;
+    }
+    movePad?.classList.remove('hidden');
+    atbPanel?.classList.remove('hidden');
+    const spine = G.combatSpine;
+    const { width, height, player, enemy } = spine;
+    let html = '<div class="combat-grid" style="--grid-size:' + width + '">';
+    for (let r = 0; r < height; r++) {
+        for (let c = 0; c < width; c++) {
+            const edge = r === 0 || c === 0 || r === height - 1 || c === width - 1;
+            let cls = 'combat-grid-cell';
+            if (edge) cls += ' edge-cell';
+            let inner = '';
+            if (player.r === r && player.c === c) inner = '🧘';
+            else if (enemy.r === r && enemy.c === c) inner = '👹';
+            spine.zones.forEach(z => {
+                if (typeof combatSpineCellInCore === 'function' && combatSpineCellInCore(z, r, c)) cls += ' zone-core';
+                else if (typeof combatSpineCellInPenumbra === 'function' && combatSpineCellInPenumbra(z, r, c)) cls += ' zone-pen';
+            });
+            html += `<div class="${cls}" data-r="${r}" data-c="${c}">${inner}</div>`;
+        }
+    }
+    html += '</div>';
+    panel.innerHTML = html;
+}
+
+function updateCombatSpineBars() {
+    if (typeof isCombatSpineActive !== 'function' || !isCombatSpineActive()) return;
+    const spine = G.combatSpine;
+    const max = typeof COMBAT_SPINE_BALANCE !== 'undefined' ? COMBAT_SPINE_BALANCE.atbMax : 100;
+    if (typeof setBarWidth === 'function') {
+        setBarWidth('combatAtbPlayerBar', spine.atb.player, max);
+        setBarWidth('combatAtbEnemyBar', spine.atb.enemy, max);
+    }
 }
 
 function bindAlignmentPopupEvents(container) {

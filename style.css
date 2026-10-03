@@ -5198,6 +5198,82 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     to { opacity: 1; }
 }
 
+.combat-atb-panel {
+    margin: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.combat-atb-panel.hidden {
+    display: none;
+}
+.combat-atb-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #a09080;
+}
+.combat-atb-row .combat-bar-track {
+    flex: 1;
+    height: 8px;
+}
+.combat-bar-fill.atb-player {
+    background: linear-gradient(90deg, #4ecdc4, #7ee8e0);
+}
+.combat-bar-fill.atb-enemy {
+    background: linear-gradient(90deg, #c06050, #e08070);
+}
+.combat-grid-panel {
+    margin: 8px 0;
+    overflow-x: auto;
+}
+.combat-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-size), minmax(22px, 1fr));
+    gap: 2px;
+    max-width: 100%;
+}
+.combat-grid-cell {
+    aspect-ratio: 1;
+    min-width: 22px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(40, 34, 28, 0.85);
+    border: 1px solid rgba(90, 78, 62, 0.5);
+    border-radius: 2px;
+}
+.combat-grid-cell.edge-cell {
+    background: rgba(60, 50, 40, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(180, 140, 80, 0.25);
+}
+.combat-grid-cell.zone-core {
+    background: rgba(120, 70, 30, 0.55);
+}
+.combat-grid-cell.zone-pen {
+    background: rgba(90, 60, 35, 0.35);
+}
+.combat-move-pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+.combat-move-pad.hidden {
+    display: none;
+}
+.combat-move-pad-mid {
+    display: flex;
+    gap: 24px;
+}
+.combat-btn.btn-move {
+    min-width: 44px;
+    padding: 6px 10px;
+}
+
 .combat-bar-fill.hp-fill.flash-hp {
     box-shadow: 0 0 14px rgba(208, 96, 80, 0.8);
     filter: brightness(1.2);
