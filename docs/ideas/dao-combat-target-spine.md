@@ -111,7 +111,7 @@ Not GC qi Domain ([`domain-system.md`](domain-system.md)) — **law legislation*
 
 ## Gap list (from Sunfire stress-test)
 
-1. Unified attack profile + sector stress
+1. Unified attack profile + sector stress — break **consequences**: [`combat-damage-depth.md`](combat-damage-depth.md) § Break consequences v1
 2. Status: Illuminated, Blind (stack not hard stunlock), domain membership
 3. Spatial layer (bands or grid)
 4. Movement as first-class action
