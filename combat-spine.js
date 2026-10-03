@@ -15,7 +15,17 @@ const COMBAT_SPINE_BALANCE = {
     coreBreakThreshold: 1.0,
     maxStructureBreaks: 2,
     penumbraGlareFrac: 0.25,
-    glareFillSlowPct: 8
+    glareFillSlowPct: 8,
+    circulationShakenFraction: 0.5,
+    circulationStressResetFraction: 0.5,
+    circulationFizzleChance: 0.3,
+    circulationQiWeightMult: 0.85
+};
+
+const COMBAT_BLEED_SEVERITY = {
+    nick: { perTickPctMaxHp: 0.015, label: 'nick' },
+    wound: { perTickPctMaxHp: 0.025, label: 'wound' },
+    gush: { perTickPctMaxHp: 0.04, label: 'gush' }
 };
 
 const COMBAT_WEAPON_REACH = {
@@ -82,6 +92,8 @@ function calcCombatSpineSpeed(forPlayer) {
         spd += Math.floor((G.agility || G.spirit || 0) * 0.15);
     } else if (G.enemy) {
         spd += Math.floor((G.enemy.dmg || 5) * 0.08);
+        ensureEnemyCombatSystems(G.enemy);
+        spd *= G.enemy.combatConsequences?.modifiers?.atbMult ?? 1;
     }
     return Math.max(8, Math.min(40, spd));
 }
@@ -151,6 +163,7 @@ function combatSpineRunSyncPulse() {
             combatSpineApplyZoneTick(zone);
         }
     });
+    combatSpineRunEnemyBleedHeartbeat();
 }
 
 function combatSpineApplyZoneTick(zone) {
@@ -326,7 +339,7 @@ function combatSpineEnemyAiStep() {
         spine.player.r, spine.player.c,
         spine.enemy.r, spine.enemy.c
     );
-    const reach = 1;
+    const reach = getEnemyMeleeReach(G.enemy);
     if (dist <= reach) {
         if (hasEnemyAbilityKit(G.enemy)) {
             enemyAbilityTurn(G.enemy);
@@ -348,14 +361,235 @@ function combatSpineEnemyAiStep() {
 
 // ----- Unified hit pipeline -----
 
+function ensureEnemyCombatConsequences(enemy) {
+    if (!enemy) return null;
+    if (!enemy.combatConsequences) {
+        enemy.combatConsequences = {
+            circulationStage: 0,
+            coreShaken: false,
+            structureSlots: [],
+            bleedInstances: [],
+            modifiers: { atbMult: 1, defendMult: 1, damageTakenMult: 1, healMult: 1 }
+        };
+    }
+    return enemy.combatConsequences;
+}
+
 function ensureEnemyCombatSystems(enemy) {
     if (!enemy) return;
     if (!enemy.systemStress) {
         enemy.systemStress = { flesh: 0, structure: 0, circulation: 0, core: 0 };
     }
     if (!enemy.systemBreaks) {
-        enemy.systemBreaks = { flesh: false, structureCount: 0, circulation: false, core: false };
+        enemy.systemBreaks = {
+            flesh: false,
+            structureCount: 0,
+            core: false,
+            circHalfLatched: false,
+            circPeakCount: 0
+        };
     }
+    ensureEnemyCombatConsequences(enemy);
+}
+
+function recomputeEnemyCombatModifiers(enemy) {
+    const cc = ensureEnemyCombatConsequences(enemy);
+    if (!cc) return;
+    cc.modifiers = { atbMult: 1, defendMult: 1, damageTakenMult: 1, healMult: 1 };
+    cc.structureSlots.forEach(slot => {
+        if (slot.slot === 'leg') cc.modifiers.atbMult *= 0.65;
+        if (slot.slot === 'frame') {
+            cc.modifiers.defendMult *= 0.5;
+            cc.modifiers.damageTakenMult *= 1.12;
+        }
+        if (slot.slot === 'arm') cc.modifiers.atbMult *= 0.92;
+    });
+    if (cc.coreShaken) cc.modifiers.damageTakenMult *= 1.15;
+    const bleeds = cc.bleedInstances || [];
+    if (bleeds.some(b => b.severity === 'gush')) cc.modifiers.healMult = 0.25;
+    else if (bleeds.some(b => b.severity === 'wound' || b.severity === 'gush')) cc.modifiers.healMult = 0.5;
+    if (G.combatSpine?.enabled && G.enemy === enemy) {
+        G.combatSpine.speed.enemy = calcCombatSpineSpeed(false);
+    }
+}
+
+function getEnemyDefendEffectivenessMult(enemy) {
+    ensureEnemyCombatSystems(enemy);
+    return enemy.combatConsequences?.modifiers?.defendMult ?? 1;
+}
+
+function getEnemyHealMult(enemy) {
+    ensureEnemyCombatSystems(enemy);
+    return enemy.combatConsequences?.modifiers?.healMult ?? 1;
+}
+
+function getEnemyDamageTakenMult(enemy) {
+    ensureEnemyCombatSystems(enemy);
+    return enemy.combatConsequences?.modifiers?.damageTakenMult ?? 1;
+}
+
+function addEnemyBleedInstance(enemy, severity, source) {
+    const def = COMBAT_BLEED_SEVERITY[severity] || COMBAT_BLEED_SEVERITY.nick;
+    const cc = ensureEnemyCombatConsequences(enemy);
+    cc.bleedInstances.push({
+        severity: def.label,
+        perTickPctMaxHp: def.perTickPctMaxHp,
+        source: source || 'unknown'
+    });
+    recomputeEnemyCombatModifiers(enemy);
+}
+
+function combatSpineRunEnemyBleedHeartbeat() {
+    if (!G.enemy || !isCombatSpineActive()) return;
+    const enemy = G.enemy;
+    const cc = ensureEnemyCombatConsequences(enemy);
+    const instances = cc.bleedInstances;
+    if (!instances || !instances.length) return;
+    const hpCap = Math.max(1, enemy.maxHp || enemy.hp || 1);
+    let total = 0;
+    instances.forEach(inst => {
+        total += Math.max(1, Math.floor(hpCap * (inst.perTickPctMaxHp || 0.01)));
+    });
+    if (total <= 0) return;
+    enemy.hp = Math.max(0, enemy.hp - total);
+    addCombatLog(`🩸 Bleeding wounds weep for ${total}.`, 'entry-hp');
+    if (enemy.hp <= 0 && typeof combatVictory === 'function') combatVictory(false);
+    else if (typeof updateCombatUI === 'function') updateCombatUI();
+}
+
+function pickStructureOutcomeSlot(enemy, profile) {
+    const taken = (enemy.combatConsequences?.structureSlots || []).map(s => s.slot);
+    const pool = ['arm', 'leg', 'frame'].filter(s => !taken.includes(s));
+    if (!pool.length) return null;
+    const tags = profile.tags || [];
+    const nature = profile.nature || 'slash';
+    const weights = {};
+    pool.forEach(s => { weights[s] = 1; });
+    if (tags.includes('sweep') || tags.includes('leg')) pool.forEach(s => { if (s === 'leg') weights[s] += 3; });
+    if (tags.includes('arm') || (nature === 'crush' && tags.includes('crush'))) pool.forEach(s => { if (s === 'arm') weights[s] += 2; });
+    if (tags.includes('frame') || nature === 'crush') pool.forEach(s => { if (s === 'frame') weights[s] += 2; });
+    if (pool.length === 3 && !tags.length) {
+        weights.frame = 4;
+        weights.leg = 3.5;
+        weights.arm = 2.5;
+    }
+    const bag = [];
+    pool.forEach(s => {
+        const w = Math.max(1, Math.floor(weights[s] || 1));
+        for (let i = 0; i < w; i++) bag.push(s);
+    });
+    return bag[Math.floor(Math.random() * bag.length)];
+}
+
+function applyStructureBreakConsequences(enemy, profile, out) {
+    const slot = pickStructureOutcomeSlot(enemy, profile);
+    if (!slot) return;
+    const cc = ensureEnemyCombatConsequences(enemy);
+    cc.structureSlots.push({ slot });
+    recomputeEnemyCombatModifiers(enemy);
+    if (slot === 'arm') {
+        addEnemyBleedInstance(enemy, 'gush', 'structure_arm');
+        out.logLines.push('🦴 Arm broken — blood pours freely.');
+    } else if (slot === 'leg') {
+        out.logLines.push('🦴 Leg ruined — they can barely keep pace.');
+    } else {
+        out.logLines.push('🦴 Frame cracked — their guard buckles.');
+    }
+}
+
+function applyFleshBreakConsequences(enemy, out) {
+    addEnemyBleedInstance(enemy, 'nick', 'flesh_break');
+    out.logLines.push('🩸 Flesh yields — bleeding.');
+}
+
+function applyCoreBreakConsequences(enemy, out) {
+    const cc = ensureEnemyCombatConsequences(enemy);
+    cc.coreShaken = true;
+    recomputeEnemyCombatModifiers(enemy);
+    out.logLines.push('💥 Core shaken — their foundation trembles.');
+}
+
+function advanceCirculationStage(enemy, out) {
+    const s = enemy.systemStress.circulation;
+    const thr = COMBAT_SPINE_BALANCE.circulationBreakThreshold;
+    const half = thr * COMBAT_SPINE_BALANCE.circulationShakenFraction;
+    const b = enemy.systemBreaks;
+    const cc = ensureEnemyCombatConsequences(enemy);
+
+    if (!b.circHalfLatched && s >= half) {
+        b.circHalfLatched = true;
+        if (cc.circulationStage < 1) {
+            cc.circulationStage = 1;
+            out.logLines.push('🌀 Meridians shake — techniques feel sticky.');
+        }
+    }
+    if (s >= thr) {
+        b.circPeakCount = (b.circPeakCount || 0) + 1;
+        if (cc.circulationStage < 2) {
+            cc.circulationStage = 2;
+            enemy.systemStress.circulation = thr * COMBAT_SPINE_BALANCE.circulationStressResetFraction;
+            out.logLines.push('🌀 Channels damaged — techniques falter.');
+        } else if (cc.circulationStage === 2) {
+            cc.circulationStage = 3;
+            enemy.systemStress.circulation = 0;
+            out.logLines.push('🌀 Circulation seized — qi arts fail.');
+        }
+        recomputeEnemyCombatModifiers(enemy);
+    }
+}
+
+function isEnemyAbilityQiFlavored(ability) {
+    if (!ability) return false;
+    const effect = ability.effect || {};
+    if (effect.spiritDamage || effect.applyPlayer?.spiritDamage) return true;
+    if (effect.stripShieldPct) return true;
+    if (effect.applyPlayer && (effect.applyPlayer.poisonTurns || effect.applyPlayer.skipPlayerTurn)) return true;
+    const tele = (ability.telegraph || ability.id || '').toLowerCase();
+    return /qi|soul|frost|venom|phantom|spirit|seal|hex|curse|wave|aura/.test(tele);
+}
+
+function isEnemyAbilityHeavy(ability) {
+    if (!ability) return false;
+    if (ability.combatKind === 'heavy' || ability.combatKind === 'twoHand') return true;
+    const effect = ability.effect || {};
+    return (effect.bonusDmgMult || 1) >= 1.2 && !effect.noDamage;
+}
+
+function enemyAbilityAllowedByCirculation(enemy, ability) {
+    ensureEnemyCombatSystems(enemy);
+    const stage = enemy.combatConsequences?.circulationStage || 0;
+    const qi = isEnemyAbilityQiFlavored(ability);
+    if (!qi) return { ok: true, weightMult: 1 };
+    if (stage >= 3) return { ok: false, reason: 'seized' };
+    if (stage >= 2 && Math.random() < COMBAT_SPINE_BALANCE.circulationFizzleChance) {
+        return { ok: false, reason: 'fizzle' };
+    }
+    return { ok: true, weightMult: stage >= 1 ? COMBAT_SPINE_BALANCE.circulationQiWeightMult : 1 };
+}
+
+function enemyAbilityBlockedByArmBreak(enemy, ability) {
+    ensureEnemyCombatSystems(enemy);
+    const armBroken = enemy.combatConsequences?.structureSlots?.some(s => s.slot === 'arm');
+    return armBroken && isEnemyAbilityHeavy(ability);
+}
+
+function getEnemyMeleeReach(enemy) {
+    let reach = 1;
+    const cc = enemy?.combatConsequences;
+    if (cc?.structureSlots?.some(s => s.slot === 'arm')) reach = Math.max(1, reach - 1);
+    return reach;
+}
+
+function buildAttackProfileFromEnemyStrike(hpDamage, opts) {
+    opts = opts || {};
+    const nature = opts.spiritDamage ? 'soul-cut' : 'crush';
+    return {
+        source: 'enemy',
+        hp: hpDamage,
+        nature,
+        stress: defaultStressForNature(nature),
+        tags: opts.fromTechnique ? ['technique'] : []
+    };
 }
 
 function defaultStressForNature(nature) {
@@ -402,54 +636,65 @@ function resolveCombatHit(profile, target, ctx) {
         breaks: [],
         logLines: []
     };
+    out.hpDamage = Math.floor(out.hpDamage * getEnemyDamageTakenMult(target));
     if (ctx.applyDefend && target.defending) {
         out.hpDamage = Math.floor(out.hpDamage * (ctx.defendMult != null ? ctx.defendMult : 0.45));
         target.defending = false;
     }
     const stress = profile.stress || defaultStressForNature(profile.nature);
     const totalW = Math.max(0.001, (stress.flesh || 0) + (stress.structure || 0) + (stress.circulation || 0) + (stress.core || 0));
-    const scale = out.hpDamage / 50;
+    let scale = out.hpDamage / 50;
+    const cc = target.combatConsequences;
+    if (cc?.coreShaken && (profile.nature === 'pierce' || profile.nature === 'execute' || (profile.tags || []).includes('execute'))) {
+        scale *= 1.25;
+    }
     ['flesh', 'structure', 'circulation', 'core'].forEach(key => {
         const add = ((stress[key] || 0) / totalW) * scale * 0.35;
         target.systemStress[key] = (target.systemStress[key] || 0) + add;
         out.stressApplied[key] = add;
     });
-    combatSpineCheckSystemBreaks(target, out);
+    combatSpineCheckSystemBreaks(target, profile, out);
+    advanceCirculationStage(target, out);
     return out;
 }
 
-function combatSpineCheckSystemBreaks(target, out) {
+function combatSpineCheckSystemBreaks(target, profile, out) {
     const s = target.systemStress;
     const b = target.systemBreaks;
     if (!b.flesh && s.flesh >= COMBAT_SPINE_BALANCE.fleshBreakThreshold) {
         b.flesh = true;
         out.breaks.push('flesh');
-        out.logLines.push('🩸 Flesh yields — bleeding.');
+        applyFleshBreakConsequences(target, out);
     }
     if (b.structureCount < COMBAT_SPINE_BALANCE.maxStructureBreaks
         && s.structure >= COMBAT_SPINE_BALANCE.structureBreakThreshold) {
         b.structureCount++;
         s.structure = 0;
         out.breaks.push('structure');
-        out.logLines.push('🦴 Structure cracks — their frame falters.');
-    }
-    if (!b.circulation && s.circulation >= COMBAT_SPINE_BALANCE.circulationBreakThreshold) {
-        b.circulation = true;
-        out.logLines.push('🌀 Meridians seize — circulation broken.');
+        applyStructureBreakConsequences(target, profile, out);
     }
     if (!b.core && s.core >= COMBAT_SPINE_BALANCE.coreBreakThreshold) {
         b.core = true;
-        out.logLines.push('💥 Core pressure — dantian stressed.');
+        out.breaks.push('core');
+        applyCoreBreakConsequences(target, out);
     }
 }
 
 function applyResolvedHitToEnemy(target, profile, ctx) {
+    ctx = ctx || {};
     if (typeof applyMirrorDamageToReflection === 'function') {
         profile = Object.assign({}, profile, { hp: applyMirrorDamageToReflection(profile.hp) });
+    }
+    if (target.defending && !ctx.applyDefend) {
+        ctx = Object.assign({}, ctx, {
+            applyDefend: true,
+            defendMult: (ctx.defendMult != null ? ctx.defendMult : 0.45) * getEnemyDefendEffectivenessMult(target)
+        });
     }
     const res = resolveCombatHit(profile, target, ctx);
     target.hp -= res.hpDamage;
     res.logLines.forEach(line => addCombatLog(line, 'entry-mod'));
+    if (typeof updateCombatUI === 'function') updateCombatUI();
     return res;
 }
 

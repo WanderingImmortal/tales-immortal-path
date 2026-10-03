@@ -407,7 +407,13 @@ function pickEnemyAbility(enemy) {
     pool.forEach(ab => {
         const cd = enemy.abilityCooldowns[ab.id] || 0;
         if (cd > 0) return;
-        const w = Math.max(1, ab.weight || 10);
+        if (typeof enemyAbilityBlockedByArmBreak === 'function' && enemyAbilityBlockedByArmBreak(enemy, ab)) return;
+        let w = Math.max(1, ab.weight || 10);
+        if (typeof enemyAbilityAllowedByCirculation === 'function') {
+            const circ = enemyAbilityAllowedByCirculation(enemy, ab);
+            if (!circ.ok) return;
+            if (circ.weightMult) w = Math.max(1, Math.floor(w * circ.weightMult));
+        }
         for (let i = 0; i < w; i++) weighted.push(ab);
     });
     if (!weighted.length) return null;
@@ -638,9 +644,15 @@ function executeEnemyAbility(enemy, ability) {
         addCombatLog(`⏳ ${stripEnemyDisplayPrefix(enemy.name)} gathers power...`, 'entry-mod');
     }
     if (effect.healSelfPct) {
-        const heal = Math.max(1, Math.floor(enemy.maxHp * effect.healSelfPct));
-        enemy.hp = Math.min(enemy.maxHp, enemy.hp + heal);
-        addCombatLog(`💚 ${stripEnemyDisplayPrefix(enemy.name)} recovers ${heal} HP!`, 'entry-mod');
+        let heal = Math.max(1, Math.floor(enemy.maxHp * effect.healSelfPct));
+        const healMult = typeof getEnemyHealMult === 'function' ? getEnemyHealMult(enemy) : 1;
+        heal = Math.max(0, Math.floor(heal * healMult));
+        if (heal > 0) {
+            enemy.hp = Math.min(enemy.maxHp, enemy.hp + heal);
+            addCombatLog(`💚 ${stripEnemyDisplayPrefix(enemy.name)} recovers ${heal} HP!`, 'entry-mod');
+        } else {
+            addCombatLog(`🩸 Wounds refuse to knit — healing fails.`, 'entry-mod');
+        }
     }
     if (effect.stripShieldPct && G.shield > 0) {
         const stripped = Math.max(1, Math.floor(G.shield * effect.stripShieldPct));
@@ -674,7 +686,17 @@ function executeEnemyAbility(enemy, ability) {
 function enemyAbilityTurn(enemy) {
     checkEnemyEnrage(enemy);
     tickEnemyAbilityCooldowns(enemy);
-    const ability = pickEnemyAbility(enemy);
+    let ability = pickEnemyAbility(enemy);
+    if (!ability && typeof enemyAbilityAllowedByCirculation === 'function') {
+        const pool = getEnemyActiveAbilities(enemy);
+        const circBlocked = pool.some(ab => {
+            const c = enemyAbilityAllowedByCirculation(enemy, ab);
+            return !c.ok && (c.reason === 'fizzle' || c.reason === 'seized');
+        });
+        if (circBlocked) {
+            addCombatLog(`🌀 Meridians stutter — ${stripEnemyDisplayPrefix(enemy.name)} falters.`, 'entry-mod');
+        }
+    }
     if (ability) {
         executeEnemyAbility(enemy, ability);
     } else {
@@ -915,6 +937,7 @@ function startCombat() {
         traits: enemyTemplate.traits
     };
     G.enemy = buildEnemyFromDef(def, enemyTemplate, { affixes });
+    if (typeof ensureEnemyCombatSystems === 'function') ensureEnemyCombatSystems(G.enemy);
     G.enemyMaxHp = G.enemy.hp;
     G.inCombat = true;
     G.defending = false;
@@ -1133,6 +1156,13 @@ function resolveEnemyStrike(enemyName, dmgAfterMods, opts) {
     breakdown.barrierAbsorbed = result.barrierAbsorbed || 0;
     breakdown.hpDamage = result.hpDamage || 0;
 
+    if (typeof buildAttackProfileFromEnemyStrike === 'function' && breakdown.hpDamage > 0) {
+        buildAttackProfileFromEnemyStrike(breakdown.hpDamage, {
+            spiritDamage: opts.spiritDamage,
+            fromTechnique: opts.fromTechnique
+        });
+    }
+
     logIncomingHit(breakdown);
     return breakdown;
 }
@@ -1309,6 +1339,9 @@ function combatAttack() {
     }
     if (G.enemy.defending) {
         let defendMult = typeof getBasicDefendDamageMult === 'function' ? getBasicDefendDamageMult() : 0.45;
+        if (typeof getEnemyDefendEffectivenessMult === 'function') {
+            defendMult *= getEnemyDefendEffectivenessMult(G.enemy);
+        }
         const pen = typeof getFoundationNatureArmorPenPct === 'function' ? getFoundationNatureArmorPenPct() : 0;
         if (pen > 0 && !intentFx.ignoreDefend) {
             defendMult = Math.min(1, defendMult + (1 - defendMult) * pen);
@@ -1583,6 +1616,9 @@ function combatUseTechnique(name) {
             addCombatLog(`🪞 Condensed soul force slips past part of their guard.`);
         } else {
             let defendMult = 0.45;
+            if (typeof getEnemyDefendEffectivenessMult === 'function') {
+                defendMult *= getEnemyDefendEffectivenessMult(G.enemy);
+            }
             const pen = typeof getFoundationNatureArmorPenPct === 'function' ? getFoundationNatureArmorPenPct() : 0;
             if (pen > 0) defendMult = Math.min(1, defendMult + (1 - defendMult) * pen);
             dmg = Math.floor(dmg * defendMult);

@@ -1093,9 +1093,20 @@ function renderEnemyCombatStatus() {
         const weakKeys = Object.entries(e.weakness).filter(([, mult]) => mult > 1).map(([k]) => k);
         if (weakKeys.length) chips.push(`<span class="enemy-status-chip weak-chip" title="Weak to ${weakKeys.join(', ')}">⚡ Weak: ${weakKeys.join('/')}</span>`);
     }
-    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()
-        && typeof getEnemySystemStressSummary === 'function') {
-        chips.push(`<span class="enemy-status-chip stress-chip" title="System stress (Flesh/Structure/Circulation/Core)">🎯 ${getEnemySystemStressSummary(e)}</span>`);
+    if (e.combatConsequences) {
+        const cc = e.combatConsequences;
+        if (cc.bleedInstances?.length) {
+            chips.push(`<span class="enemy-status-chip debuff-chip" title="Bleeding — damage on pulse">🩸 Bleeding (${cc.bleedInstances.length})</span>`);
+        }
+        cc.structureSlots?.forEach(s => {
+            const labels = { arm: 'Arm broken', leg: 'Leg ruined', frame: 'Frame cracked' };
+            chips.push(`<span class="enemy-status-chip debuff-chip">${labels[s.slot] || s.slot}</span>`);
+        });
+        const circLabels = ['', 'Shaken meridians', 'Damaged channels', 'Seized'];
+        if (cc.circulationStage > 0) {
+            chips.push(`<span class="enemy-status-chip debuff-chip" title="Circulation">🌀 ${circLabels[cc.circulationStage] || cc.circulationStage}</span>`);
+        }
+        if (cc.coreShaken) chips.push('<span class="enemy-status-chip debuff-chip" title="Foundation stressed">💥 Core shaken</span>');
     }
     row.innerHTML = chips.join('');
     row.style.display = chips.length ? 'flex' : 'none';
