@@ -194,6 +194,21 @@ function updateFleeButton() {
     const ctx = typeof isNpcCombat === 'function' && isNpcCombat() ? G.npcCombat : null;
     const chance = blocked ? 0 : getCombatFleeChance(ctx);
     const canAfford = G.combatResource >= cost;
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()
+        && !blocked && !(typeof isNpcCombat === 'function' && isNpcCombat())
+        && !(typeof isFactionHuntCombat === 'function' && isFactionHuntCombat())) {
+        const onEdge = typeof combatSpineIsEdgeCell === 'function'
+            && combatSpineIsEdgeCell(G.combatSpine.player.r, G.combatSpine.player.c);
+        btn.textContent = onEdge ? `🏃 Flee (${cost})` : '🏃 Flee (reach edge)';
+        btn.title = onEdge
+            ? `Instant escape over the wall (${cost} ${cfg.resource})`
+            : 'Move to any edge cell, then flee (instant on open courtyards)';
+        if (G.combatPhase === 'player' && btn.style.opacity !== '0.4') {
+            btn.disabled = !canAfford || !onEdge;
+            btn.style.opacity = canAfford && onEdge ? '' : '0.45';
+        }
+        return;
+    }
     if (blocked) {
         btn.textContent = '🏃 Flee';
         btn.title = blocked;
@@ -928,7 +943,10 @@ function startCombat() {
     setupCombatActions();
     G.combatPhase = 'player';
     clearCombatTurnTimer();
-    setCombatInputEnabled(true);
+    if (typeof initCombatSpineForFight === 'function') initCombatSpineForFight({ fleePolicy: 'open' });
+    else {
+        setCombatInputEnabled(true);
+    }
     updateCombatUI();
     document.getElementById('combatOverlay').classList.add('active');
 }
@@ -936,6 +954,7 @@ function startCombat() {
 function endCombat(exitCtx) {
     finalizeCombatQiDrain(exitCtx || {});
     clearCombatTurnTimer();
+    if (typeof teardownCombatSpine === 'function') teardownCombatSpine();
     G.combatPhase = 'player';
     G.inCombat = false;
     G.defending = false;
@@ -980,6 +999,7 @@ function clearOrphanedCombatState(opts) {
     const wasStuck = !!(G.inCombat || G.enemy || G.npcCombat || G.encounterCombat
         || G.tribulationCombat || G.storyCombat || G.ancientGuardianCombat);
     clearCombatTurnTimer();
+    if (typeof teardownCombatSpine === 'function') teardownCombatSpine();
     G.inCombat = false;
     G.combatPhase = 'player';
     G.defending = false;
@@ -1033,7 +1053,11 @@ function sanitizeOrphanedUiLocks(opts) {
 }
 
 function canPlayerAct() {
-    return G.inCombat && G.combatPhase === 'player' && G.enemy && !G.gameOver;
+    if (!G.inCombat || !G.enemy || G.gameOver) return false;
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()) {
+        return G.combatPhase === 'player' && G.combatSpine.playerReady;
+    }
+    return G.combatPhase === 'player';
 }
 
 function clearCombatTurnTimer() {
@@ -1044,6 +1068,10 @@ function clearCombatTurnTimer() {
 }
 
 function scheduleOpponentTurn() {
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()) {
+        if (typeof combatSpineAfterPlayerAction === 'function') combatSpineAfterPlayerAction();
+        return;
+    }
     G.combatPhase = 'enemy';
     setCombatInputEnabled(false);
     updateCombatUI();
@@ -1245,6 +1273,12 @@ function combatSpendRound() {
 
 function combatAttack() {
     if (!canPlayerAct()) return;
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()
+        && typeof combatSpineCanPlayerAttackEnemy === 'function'
+        && !combatSpineCanPlayerAttackEnemy()) {
+        addCombatLog(`📏 Out of reach — move within ${getCombatSpinePlayerReach()} cells to strike.`);
+        return;
+    }
     const cost = getBasicAttackCost();
     if (!spendCombatResource(cost, 'Attack')) return;
     if (!combatSpendRound()) return;
@@ -1290,9 +1324,19 @@ function combatAttack() {
 
     trackMirrorAction('attack');
     if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('attack')) return;
-    G.enemy.hp -= applyMirrorDamageToReflection(dmg);
+    if (typeof applyResolvedHitToEnemy === 'function') {
+        let profile = buildAttackProfileFromBasic(dmg);
+        applyResolvedHitToEnemy(G.enemy, profile, {});
+        dmg = profile.hp;
+    } else {
+        G.enemy.hp -= applyMirrorDamageToReflection(dmg);
+    }
     if (intentFx.extraDmg > 0) {
-        G.enemy.hp -= applyMirrorDamageToReflection(intentFx.extraDmg);
+        if (typeof applyResolvedHitToEnemy === 'function') {
+            applyResolvedHitToEnemy(G.enemy, buildAttackProfileFromBasic(intentFx.extraDmg), {});
+        } else {
+            G.enemy.hp -= applyMirrorDamageToReflection(intentFx.extraDmg);
+        }
         addCombatLog(`⚔️ Follow-up strike! ${intentFx.extraDmg} damage.`);
     }
     logBodyChamberLifeSteal(dmg + (intentFx.extraDmg || 0));
@@ -1456,6 +1500,12 @@ function combatUseTechnique(name) {
     if (!canPlayerAct()) return;
     const tech = getTechniqueByName(name);
     if (!tech) return;
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()
+        && typeof combatSpineCanPlayerAttackEnemy === 'function'
+        && !combatSpineCanPlayerAttackEnemy()) {
+        addCombatLog(`📏 Out of reach — move within ${getCombatSpinePlayerReach()} cells.`);
+        return;
+    }
 
     if (typeof tryDissipateTechnique === 'function') {
         const diss = tryDissipateTechnique(tech);
@@ -1548,7 +1598,11 @@ function combatUseTechnique(name) {
     }
     trackMirrorAction('technique');
     if (typeof trackSilenceCombatAction === 'function' && trackSilenceCombatAction('technique')) return;
-    G.enemy.hp -= dmg;
+    if (typeof applyResolvedHitToEnemy === 'function') {
+        applyResolvedHitToEnemy(G.enemy, buildAttackProfileFromTechnique(tech, dmg), {});
+    } else {
+        G.enemy.hp -= dmg;
+    }
     const tierLabel = TECHNIQUE_COMBAT_TIERS[getTechniqueCombatTier(tech)]?.label || result.tier;
     if (dmg > 0) {
         addCombatLog(`🌀 ${name} [${result.tier}]! ${dmg} damage!`);
@@ -1578,12 +1632,19 @@ function combatUseTechnique(name) {
 
 function combatFlee() {
     if (!canPlayerAct()) {
-        addCombatLog('⏳ Wait for your turn to act.');
+        addCombatLog('⏳ Wait for your action bar to fill.');
         return;
     }
     const blocked = isFleeBlocked();
     if (blocked) {
         addCombatLog(`🏃 ${blocked}`);
+        return;
+    }
+    if (typeof isCombatSpineActive === 'function' && isCombatSpineActive()
+        && !(typeof isNpcCombat === 'function' && isNpcCombat())
+        && !(typeof isStoryCombat === 'function' && isStoryCombat())
+        && !(typeof isFactionHuntCombat === 'function' && isFactionHuntCombat())) {
+        combatSpineAttemptFlee();
         return;
     }
     if (typeof isStoryCombat === 'function' && isStoryCombat()) {

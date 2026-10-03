@@ -1187,6 +1187,25 @@
 
                 <div id="combatHitSummary" class="combat-hit-summary" aria-live="polite"></div>
                 <div id="combatBonusBar" class="combat-bonus-bar"></div>
+                <div id="combatAtbPanel" class="combat-atb-panel hidden">
+                    <div class="combat-atb-row">
+                        <span>You</span>
+                        <div class="combat-bar-track"><div class="combat-bar-fill atb-player" id="combatAtbPlayerBar"></div></div>
+                    </div>
+                    <div class="combat-atb-row">
+                        <span>Foe</span>
+                        <div class="combat-bar-track"><div class="combat-bar-fill atb-enemy" id="combatAtbEnemyBar"></div></div>
+                    </div>
+                </div>
+                <div id="combatGridPanel" class="combat-grid-panel" aria-label="Courtyard grid"></div>
+                <div class="combat-move-pad hidden" id="combatMovePad">
+                    <button type="button" class="combat-btn btn-move" id="cbMoveN" title="Move north">▲</button>
+                    <div class="combat-move-pad-mid">
+                        <button type="button" class="combat-btn btn-move" id="cbMoveW" title="Move west">◀</button>
+                        <button type="button" class="combat-btn btn-move" id="cbMoveE" title="Move east">▶</button>
+                    </div>
+                    <button type="button" class="combat-btn btn-move" id="cbMoveS" title="Move south">▼</button>
+                </div>
                 <div id="combatPhaseHint" class="combat-phase-hint"></div>
 
                 <div class="combat-actions">
@@ -1493,7 +1512,8 @@
 <script src="time-playback.js?v=1"></script>
 <script src="world-clock.js?v=5"></script>
 <script src="seclusion-project.js?v=1"></script>
-<script src="combat.js?v=37"></script>
+<script src="combat-spine.js?v=1"></script>
+<script src="combat.js?v=38"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=2"></script>
 <script src="settings.js?v=2"></script>
