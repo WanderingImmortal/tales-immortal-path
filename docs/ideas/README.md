@@ -106,7 +106,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Tribulation — per-gate backlog](tribulation-per-gate-backlog.md) | `idea` (QC→FE `building`) | Owner design per watershed | [#63](https://github.com/WanderingImmortal/tales-immortal-path/pull/63) |
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-per-gate-backlog | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
-| [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` (parked) | Intent slice; Redwell first | — |
+| [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` | Break consequences v1 ready; intent slice later | — |
 | [Combat — anatomy & damage types](combat-anatomy-damage.md) | `idea` (parked) | Owner damage pass | — |
 | [Weapon Intent — cultivation loop](weapon-intent-cultivation.md) | `designed` (parked) | Redwell / starter slice | — |
 | [Weapon Intent — awakening redesign](weapon-intent-awakening.md) | `designed` (stub) | First catalyst items; FE slice | — |

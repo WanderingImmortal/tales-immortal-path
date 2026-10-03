@@ -6,8 +6,8 @@
 | **Blocked on** | [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) playable slice; Redwell first |
 | **Issue** | none yet |
 | **Chat / PR** | Combat damage depth planning — [PR #91](https://github.com/WanderingImmortal/tales-immortal-path/pull/91) |
-| **Updated** | 2026-08-01 |
-| **Design focus** | **Intent wielding** + **cultivation loop** — see [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) |
+| **Updated** | 2026-10-03 |
+| **Design focus** | **Break consequences v1** (combat spine Step A) · intent wielding — [`weapon-intent-cultivation.md`](weapon-intent-cultivation.md) |
 
 ## Intent
 
@@ -107,6 +107,126 @@ All combat-overlay modes share system/stress + break rules (Fight, explore, NPC 
 By default the player sees **obvious outer damage only** (dangling arm, ruined leg, heavy bleed, frame visibly broken) via log + status chips.
 
 Full system integrity (esp. Circulation / Core) is a **read** gated by **spiritual sense**, prior intel, or a mid-fight probe — see [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md). Not free HUD on every trash fight.
+
+### Break consequences v1 (contract)
+
+**Status:** `designed` — first implementation slice for grid / combat spine ([`combat-spine.js`](../../combat-spine.js) stress + break detection today; consequences not wired).
+
+**Scope:** enemy-only for v1. HP still wins the fight. All consequences **clear when combat ends** (no lasting enemy wounds yet). Player-side mirrors the same shapes later.
+
+**Prerequisite when coding:** enemy damaging actions should use the same `buildAttackProfile` → `resolveCombatHit` path as the player (parity rule).
+
+#### Where state lives
+
+Stress is **input**; ongoing fight effects are **output**. Keep them separate on the combatant (today `G.enemy`; later player too).
+
+| Bucket | Role |
+|--------|------|
+| `systemStress` | `{ flesh, structure, circulation, core }` — fills from attack profiles |
+| `systemBreaks` | One-way latches (flesh broken, core shaken, structure break count, …) |
+| `combatConsequences` | Active debuffs, DoT instances, circulation stage, structure slots, derived combat modifiers |
+
+Suggested `combatConsequences` shape (JSON-friendly):
+
+```text
+combatConsequences: {
+  circulationStage: 0 | 1 | 2 | 3,
+  coreShaken: boolean,
+  structureSlots: [ { slot: 'arm' | 'leg' | 'frame' } ],   // max 2 per fight
+  bleedInstances: [ { severity, perTickPctMaxHp, source } ], // see bleed heartbeat
+  modifiers: { atbMult, defendMult, damageTakenMult, healMult }  // cache OK if reproducible
+}
+```
+
+Do not fold bleed into `systemStress`.
+
+#### Bleed — one heartbeat, many wounds
+
+Bleed is **one kind of DoT** for v1: every active bleed source adds to the **same pulse**. On each **bleed heartbeat** (default **2s**, same cadence as combat spine sync pulses / domain ticks), **sum** all `bleedInstances` and apply **one** HP tick + one log line (e.g. “Bleeding wounds weep for X.”).
+
+**Fiction:** the pulse hits; every open cut weeps at once. Two broken arms applied in the same hit both count on that pulse — that is intentional burst from one catastrophic moment, not six unrelated toxins syncing.
+
+**Severity** (how much each instance adds per heartbeat):
+
+| Severity | Typical source | Role |
+|----------|----------------|------|
+| **nick** | Flesh system break (generic attrition) | light pressure |
+| **wound** | Strong flesh-leaning hit or technique rider | medium |
+| **gush** | Structure **arm** break (broken only in v1 — no sever) | heavy |
+
+New bleed adds an **instance** (do not merge into a single flat `%` like legacy player `combatStatus`).
+
+**Heal suppression:** while any instance with severity **wound** or **gush** is active, enemy self-heal (`healSelfPct` abilities, etc.) is reduced (e.g. halved; **gush** may block bonus heals — tune in implementation).
+
+**Spine vs legacy:** when `G.combatSpine.enabled`, enemy bleed uses this heartbeat model. Player poison/bleed on **`G.combatStatus`** may still tick on turn-start until unified; do not force player poisons onto the bleed heartbeat.
+
+#### Poison — later (not v1)
+
+Poison will be a **deeper, multi-type** system (families, inner/outer, system targets). Design lock from planning:
+
+- Poisons use **per-instance timers** from when applied (`nextTickAtMs`, `intervalMs` per variant) — **not** a global “all DoTs tick now” pulse.
+- Reason: five or six poisons on different systems must not all proc on one frame and instantly cripple; they should **stagger** naturally.
+- **Bleed** and **poison** share a future `dotInstances`-style engine, but **bleed = shared heartbeat**, **poison = independent schedules** + stack rules (`refresh` / `independent` / `intensity` per family). Spec poisons when authoring content; optional soft caps per tick if playtest shows spike damage.
+
+See **Inner / outer (poisons later)** below for tags.
+
+#### Circulation — staged ladder (not one off-switch)
+
+First circulation “break” must not shut off all qi/soul techniques immediately. Use a **one-way stage** on `circulationStage`:
+
+| Stage | Player-facing name | Effect (enemy v1) |
+|-------|-------------------|-------------------|
+| 0 | — | Normal |
+| 1 | **Shaken meridians** | Qi/soul/seal abilities feel sticky: higher cost or lower pick weight (~15%); optional small ATB variance |
+| 2 | **Damaged channels** | Those abilities often **fizzle** (~25–35%) or fall back to weak physical; seals/heals weakened |
+| 3 | **Seized circulation** | Qi/soul/seal abilities **cannot be chosen**; basics + body-tagged abilities only |
+
+**Advancement (recommended):**
+
+- **50%** of circulation break threshold (first latch) → stage **1**
+- **100%** threshold (first latch) → stage **2**; partial stress reset optional (same pacing idea as second structure break)
+- Stage **3** only if already stage **2** and circulation breaks again at **100%**, **or** a heavy circulation/finisher profile while at stage 2
+
+Target pacing: random trash often sees **stage 1 at most**; dedicated meridian builds reach **2**; **3** is finish / identity, not every needle hit.
+
+Log uses stage names, not a generic “circulation broken.”
+
+#### Structure — slots (broken only v1)
+
+Unchanged intent from **Structure outcomes** above: one integrity pool, **max 2 outcomes per fight**, biased slot pick (`arm` · `leg` · `frame`) from tipping hit tags/nature — not a limb aim menu.
+
+**v1 lock:** **broken** arm only (no sever / lasting limb loss preview).
+
+| Slot | Enemy effect |
+|------|----------------|
+| **Arm broken** | No `twoHand` / `heavy` abilities; melee reach −1 (min 1); add **gush** bleed instance |
+| **Leg** | `modifiers.atbMult` reduced (e.g. ×0.65) — chase, grid flee, enemy speed |
+| **Frame** | Weaker defend (`defendMult`); slightly more damage taken |
+
+#### Core — shaken foundation
+
+On first core break latch: `coreShaken: true`, modest **damage taken** increase, execute/pierce profiles get extra **core stress** on later hits (no re-break spam). No instant HP chunk. Morale / flee-or-stand deferred.
+
+#### Defend
+
+Frame break weakens **enemy** defend reduction via `defendMult`. Future **ignoresGuard** tags affect HP reduction, not structure stress routing (Sunfire imposed shape — see [`dao-combat-target-spine.md`](dao-combat-target-spine.md)).
+
+#### UI
+
+Log + chips for outer obvious wounds: Bleeding, Leg ruined, Arm broken, Frame cracked, Shaken meridians / Damaged channels / Seized, Core shaken. Full stress numbers sense-gated (see **UI / fog of war** above).
+
+#### Out of v1
+
+Player system breaks; mid-fight repair of enemy structure/circulation/core; severed limbs past fight end; morale tables; penetration/hardness; Spirit fifth system on breaks.
+
+#### Build Issue slice (when implementing)
+
+1. `combatConsequences` + apply on break from `resolveCombatHit`
+2. Bleed heartbeat + instances + heal suppression
+3. Circulation stages + ability filter
+4. Structure slots + modifiers
+5. Core shaken + chips/logs
+6. Enemy resolve parity
 
 ### Inner / outer (poisons later)
 
@@ -425,7 +545,7 @@ Techniques with `daoAffinity: ['fire', 'destruction']` pick eligible riders. New
 
 | Step | Ship |
 |------|------|
-| A | `resolveCombatHit` + enemy stress pools + breaks (systems doc above) |
+| A | `resolveCombatHit` + enemy stress pools + breaks + **consequences** — see **Break consequences v1 (contract)** |
 | B | Default `nature` / `stress` on `TECHNIQUE_POOL`; basics from weapon |
 | C | Intent **expression** merge; soften high-art weapon hard-fail |
 | D | Port intent arts to profile modifiers; techniques call merge |
