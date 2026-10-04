@@ -164,7 +164,9 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 
 ### Legend (myth vs fact — tune in content)
 
-**Common telling:** Before the mandate’s seal-cities, a **Half-Step** emissary drank with allies beneath the first **underpalace vein** and never stood again. No tribulation — only a smile, then breath like sleep. When the chamber was opened days later, the **core** was grey ash and the meridians sweet with rot. **Immortal's Rest** (仙眠): a poison said to kill the *promise* of ascension, not merely the body.
+**Common telling:** Before the mandate’s seal-cities, a **peak Manifestation** envoy (identity lost — never the Tian founder in any branch) drank with allies beneath the first **underpalace vein** and never stood again. No tribulation — only a smile, then breath like sleep. When the chamber was opened days later, the **core** was grey ash and the meridians sweet with rot. **Immortal's Rest** (仙眠): a poison said to kill the *promise* of ascension, not merely the body.
+
+**Lore guardrail (canon elsewhere):** the Tian founder was the first **public** Half-Step at Tianjing, **later ascended to Immortal**, and sleeps restrained under the capital today — see [`imperial-clan.md`](imperial-clan.md). This poison myth must **not** imply he is still Half-Step or that 仙眠 felled him.
 
 **Contradictions (game never picks one truth):**
 
