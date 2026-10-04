@@ -6,7 +6,7 @@
 | **Blocked on** | Unified affliction + alchemy tab slice; combat-damage **systems** optional for v1 (target tags only) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat — `cursor/poison-design-doc-80ac` |
-| **Updated** | 2026-10-04 |
+| **Updated** | 2026-10-05 |
 
 ## Intent
 
@@ -211,6 +211,18 @@ Anchors use **~100,000-year Warring States** + **~3,000-year Imperial Sky** ([`w
 
 ---
 
+### Who was Qing Meridian (青脉真人) — ancient layer
+
+**Scroll version (~55k y BP, Fragment hunts slice):** a **vein-calibrator** — peak-adjacent specialist who maps ley lines and **circulation stress** for war coalitions (not a sect patriarch, not an Immortal). A house (name deliberately lost / forged in guild copies) hired him to trace a rival’s array skirt; he **completed the map** and was found **asleep at the drafting table**, core ash-grey, meridians sweet — same motifs as 仙眠 later.
+
+**Why poison (if true):** he was about to **sell the same map to both sides** or expose a coalition member’s hidden vein-theft; killing with a blade would have been an act of war; **sleep without tribulation** discredits his readings as dao failure.
+
+**Guild use:** cite Qing to prove 仙眠 **predates** the Longcheng branch; skeptics say the scroll **post-dates** Qing and the name was inserted ~450y ago when they reconstructed the brew.
+
+**Game:** no quest asserts Qing lived; grotto/Archive read can add **slice** context only.
+
+---
+
 ### Who was Pei Wuxin — and why poison?
 
 **Guild ballad version:** **Pei Wuxin** (裴无醒), the **Meridian King** — rogue peak **Dao Manifestation** who humiliated three sect enforcement teams, then drank a truce cup and never woke.
@@ -301,6 +313,8 @@ Pei was **not** a wandering duelist. He was a **Meridian Inquisitor** (查脉使
 
 **Load split (sketch):** `circulationLoad` and `coreLoad` start ~30% / ~10% of applied total; each month of onset shifts toward **50/50** at full ramp. Optional mild **flesh** flag for log flavor only early. UI severity = **worst channel** + trend.
 
+**Dual-channel rules:** one affliction id, **one dominance** (95) for the whole toxin; stacking / feeding judged against **dominant affliction on either touched channel** — cannot feed 仙眠 with cheap blood poison on flesh while core load runs. Second 仙眠 application: same dominance band → partial load add to **both** channels.
+
 **Symptoms:**
 
 - **Circulation:** technique cost, qi regen suppression, weak generic detox.
@@ -340,6 +354,14 @@ One dose: **−50% load on both channels** + bypass passive cap **6 months**. Fu
 - Great power quest: “verify the nuke” — ends inconclusive or with a **single** vial MacGuffin (owner call).
 - Jade Lotus: theoretical ash-core notes only.
 - Assassins: song about the cup, invoice denies toxin.
+
+### Still open (仙眠-only — rest of system in [Open questions](#open-questions))
+
+- [ ] **Critical band on map:** steady HP loss vs escalating neglect while untreated
+- [ ] **Decoy formula:** exact mix that wastes keys / injures brewer (guild honeypot)
+- [ ] **Guild vault beat:** empty vs one vial vs bluff — owner call when content ships
+- [ ] **`life_death_catalyst`** item source (dao / trib / craft)
+- [ ] **Qing vs Pei** in UI recognition — show both names on full match or Pei-only for modern guild
 
 ---
 
