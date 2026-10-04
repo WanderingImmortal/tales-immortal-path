@@ -166,29 +166,81 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 | **Who brews** | Guild claims monopoly; player can match **recognition mix** if they obtain keys — proof is dangerous |
 | **Ancient victim** | **Qing Meridian** (~55k y BP) — vein-calibrator, coalition hire |
 | **Modern myth victim** | **Pei Wuxin** (~380 y BP) — Meridian Inquisitor, Longcheng audit |
-| **Truth in save** | **None by default** — optional later beat may prove stock / kill / decoy formula |
+| **Truth in save** | **None by default** — Qing/Pei real; 仙眠 in cup unproven; **no** attested Immortal kill |
+| **Deterrent today** | Core/circulation risk + scarce cure + **maybe** stock — not “we slayed 仙” |
 
 ### Design intent (mechanics)
 
-- **Not** a coded “instant immortal kill” — **believed** to end those who anchored life in a core. Still one HP bar; **Circulation + Core** both carry load from one affliction record.
-- **Insidious:** seeps flesh and bone in fiction; **onset** ramps inner load over months while early UI stays deceptively mild (**worsening** trend is mandatory).
-- **Extravagant:** ancient **fixed** formula (strict recognition); brew and cure both **project-tier** gates — not spammable.
-
-### Legend (owner direction — myth as weapon)
-
-**Immortal's Rest** is the Poison Guild’s **metaphorical nuke**: a name everyone whispers, a recipe no outsider has verified, a kill no court will sign in ink. Great powers **hesitate to stamp the guild out completely** because *what if one vial remains?* The guild cultivates that hesitation — whether or not the arsenal is real.
-
-**Owner lean on origin:** the **Poison Guild is ancient** — it grew across the **long Warring States** and traded with rising and falling factions for millennia. The **仙眠** name, deterrent story, and pharmacopeia lines are that old too. What is **modern (lean B)** is only the **latest working brew**: within the last few centuries the guild **reconstructed / reverse-engineered** the mix from scrap plus **current** reagents (marketing still says “underpalace” / “void”). Old org; refreshed nuke recipe.
-
-**Survival through the Dao Wars:** apex powers remember dealing with them ([`world-timeline-author-spine.md`](world-timeline-author-spine.md) — peak Manifestation lives are **long**). The guild stayed useful (toxins, antidotes, “accidents”) and **costly to erase** — *what if 仙眠 is real?* That rumor may have mattered as much as any single vial.
+- **Kill vs hamper:** **no confirmed Immortal kill** in canon the game asserts. On **true Immortals**, owner lean: **significant hamper** (core / circulation load, costly cleanse, charter-scale embarrassment, maybe centuries of weakened claim) — **lethal outcome left vague** until playtest / late content.
+- **Peak Manifestation** is the proven fear band; **Immortal** is the **rumor ceiling** the guild sells.
+- **Insidious onset**, dual channel, project-tier brew/cure — unchanged below.
 
 ---
 
-### “Immortal” in the name (before public ascensions)
+### Who did it kill? Were they real? (author working truth)
 
-**仙眠** does **not** require anyone to have **publicly** reached Immortal when the poison was named. Cultivation already had **Dao Manifestation** as a known peak; pharmacopeia, seal myth, and court astronomy used **仙** as the **word for the threshold above** — sleep without tribulation, death of the ascension promise. Whether anyone **had** or **could** reach it was disputed; the **category** was in the water. The Tian founder’s later **public** Half-Step / Immortal watershed ([`imperial-clan.md`](imperial-clan.md)) made that ladder **visible to the jianghu**; it did not invent the word.
+The **playable default** is: **no save flag** says who died or whether 仙眠 was in the cup. For writing and rumor tiers, use this **working** table (adjust in content, don’t hard-code one truth):
 
-Poison **grade 8–9** targets **peak Manifestation / pre-ascension** — “the kind of person legends say might touch 仙,” not a true restrained Immortal in their bed.
+| Figure | Real person? | Real 仙眠 kill? | What most powers **believe** today |
+|--------|----------------|-----------------|-----------------------------------|
+| **Qing Meridian** (~55k y BP) | **Probably** a real specialist class (vein-calibrators existed); **this name** may be guild brand on an anonymous corpse | **Unknown** — scroll describes the **syndrome** (ash core, sweet meridians) more reliably than the man | “The poison is **older than the mandate**” |
+| **Pei Wuxin** (~380 y BP) | **Probably** real audit; **disappearance** real; cause contested | **Unproven** — qi deviation, silence buyout, and 仙眠 are all plausible in fiction | “It **still happens** in living memory” (380y is **yesterday** to a 50k-year patriarch) |
+| **Any true Immortal** | N/A | **No attested case** in records players trust | “Even **仙** might not wake” — **hamper / scar**, not proven slay |
+
+**Nobody credible claims** the sleeping Tian founder was tested. Deterrence today is **not** “we killed an Immortal once” — it is “this toxin **eats the same anchors Immortals still use** (core, circulation), antidote is **almost as hard as the brew**, and the guild **might** still have a page.”
+
+**Why that deters **present-day** Immortals and half-steps:**
+
+- They already **fear core damage** more than HP ([`combat-damage-depth.md`](combat-damage-depth.md)) — 仙眠 hits both inner channels.
+- **Cleanse burden 98** + paired cure = a **project**, not a pill — public Immortal acting against the guild risks **visible weakness** or **centuries** tied to detox ([`immortal-powers-adaptation.md`](immortal-powers-adaptation.md) — authority with witnesses).
+- **Mutual deterrence:** wiping the guild might expose **noble invoice chains**; Assassins and Lotus both **lose** if the gray market collapses.
+- **Optional whisper (never confirmed):** a post-war sect Immortal **refused to chair a purge vote** after a sealed vial was shown — story only.
+
+Mechanics stay **grade 8–9** for data; **Immortal NPC** hooks = heavy debuff / plot malus, not `if (immortal) die`.
+
+---
+
+### How the story **shifted** (legend morph)
+
+| Phase | What changed |
+|-------|----------------|
+| **~55k y — scroll** | Clinical **syndrome name** tied to **Qing** (or placeholder “the calibrator”). No guild brand yet — a **pharmacopeia warning**. |
+| **~75k–5k y — trade era** | Syndicates **rename** the syndrome **仙眠**; sell **antidote anxiety**; “do not exterminate the mixers.” Victim becomes **parable**, details drop. |
+| **Dao War cascade** | Rumor **weaponized**: coalitions recall **near-purge aborted** when a negotiator mentioned the redacted formula. Qing and Pei **not yet one story**. |
+| **~450 y — reconstruction** | Guild **re-brews** with modern reagents; **unifies** scroll + assassin notes; **Pei** chosen as **relatable** modern face (auditor, not war god). |
+| **~380 y — Pei moment** | Ballads **merge** Pei + 仙眠; **Meridian King** fiction **replaces** boring job title for street spread. |
+| **Imperial Sky now** | **Redacted page** in Longcheng; **Immortal** is public category → name reads **louder** than at scroll time; **same** toxin, **stronger** marketing. |
+
+**Pattern:** body (**syndrome**) stays stable; **victim** and **title** get **upgraded** for each audience (scholars → Qing, jianghu → Pei, charter politics → “even 仙 sleeps”).
+
+---
+
+### How the **rumor spread** (and keeps spreading)
+
+**Not** one true broadcast — **layered** channels (unlock by fame, sense, gray rep):
+
+1. **Guild apparatus** — apprentice oath on Pei’s name; **empty vault** tour; price lists with **仙眠: inquiry only**; forged scraps **leaked on purpose**.
+2. **Assassin songs** — cup imagery, **deny** supplying toxin (credibility through false denial).
+3. **Sect archives** — Lotus: **ash-core slumber** theoretical; Sword: “purge is **not** worth the core risk” (internal minute, leaked).
+4. **Apex memory** — patriarchs who lived **Vein charter wars** remember **the sign**, not Pei; they **vouch** the guild is ancient; that **validates** the nuke without confirming stock.
+5. **Charter politics** — failed **young** Immortal or half-step **never** gets “guild extermination” on agenda; players hear *“the vote did not happen”* without minutes.
+6. **Player** — brew match → recognition line; **proof** is self-incriminating.
+
+**Weight test for “would Immortals **today** care?”** **Yes**, if you sell **core/circulation risk + political stain + maybe stock**, not **“we murdered 仙 once.”** The Pei refresh (**380y**) makes it **recent gossip** for long-lived apex; Qing makes it **deep time** for scholars — **two speeds**, one fear.
+
+---
+
+### Legend (myth as weapon — summary)
+
+**Immortal's Rest** is the Poison Guild’s **metaphorical nuke**: unverified recipe, unsigned kills, **hesitation to extirpate**. Ancient **org**; **~450y** **reconstructed** brew (modern reagents). See Qing / Pei sections below for victims.
+
+**Owner lean on origin:** guild **ancient** across Warring States; **lean B** = latest working mix is **reverse-engineered**, not that the guild is young.
+
+---
+
+### “Immortal” in the name
+
+**仙** predates public ascension — threshold **above Manifestation** in scrolls. Mandate-era Immortals made the ladder **visible**; the poison name **gained** deterrence, not new chemistry. On a **true Immortal**, treat as **hamper / costly cure / rumor**, not proven kill.
 
 ---
 
