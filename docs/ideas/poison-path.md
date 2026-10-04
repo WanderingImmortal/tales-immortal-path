@@ -164,10 +164,11 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 | **Channels** | Circulation + Core (one affliction, two loads) |
 | **Delivery** | Lore: **ingested** (truce cup, wine); combat: **ingest or coated wound** — not miasma cloud (owner lean) |
 | **Who brews** | Guild claims monopoly; player can match **recognition mix** if they obtain keys — proof is dangerous |
-| **Ancient victim** | **Qing Meridian** (~55k y BP) — vein-calibrator, coalition hire |
-| **Modern myth victim** | **Pei Wuxin** (~380 y BP) — Meridian Inquisitor, Longcheng audit |
-| **Truth in save** | **None by default** — Qing/Pei real; 仙眠 in cup unproven; **no** attested Immortal kill |
-| **Deterrent today** | Core/circulation risk + scarce cure + **maybe** stock — not “we slayed 仙” |
+| **Ancient victim (scroll)** | **Qing Meridian** (~55k y BP) — maybe real, maybe parable |
+| **Modern 仙眠 victim** | **None attested** — hazy disappearances **rumored** to be 仙眠; **no** named Pei tie (author) |
+| **Truth in save** | **None by default** — **no** confirmed 仙眠 deployment; **no** attested Immortal kill |
+| **Deterrent today** | **Unspent myth** + Qing depth + core/circulation **theory** + maybe stock |
+| **DM-tier menace (daily)** | **Poison dao** broadly — crafted grades, coats, jianghu legendaries — **not** 仙眠 |
 
 ### Design intent (mechanics)
 
@@ -294,6 +295,21 @@ Pei was **not** a wandering duelist. He was a **Meridian Inquisitor** (查脉使
 **Why poison (not a blade):** a Manifestation auditor’s **core and meridians are the evidence**. A public killing invites array retaliation; **仙眠** (or the **story** of it) discredits the man — “he drank, he slept, his dao was hollow.”
 
 **No tomb. No sworn witness.** Assassins may have provided the **room**, not the brew ([`imperial-city-tianjing.md`](imperial-city-tianjing.md) — separate org).
+
+**When is “Pei”?** **~380 years before present** — Imperial Sky, **not** the player’s month. For a peak-Manifestation patriarch (~50k-year life), that is **recent gossip**; for mortals it is **history class**.
+
+**Was he “peak DM”?** Yes — **peak Dao Manifestation** specialist, **not** Half-Step / **not** true Immortal. Ballads exaggerate him into a rogue “Meridian King.”
+
+**“Why waste 仙眠 on only a peak DM?” (deterrent logic)** — the **smart** Immortal objection; answers differ by layer:
+
+| Layer | Answer |
+|-------|--------|
+| **Guild street gospel** | They **did** use 仙眠; Pei **never woke**; the investigation **died** — outstanding **political** result, not wasted on tier. Message: *we will spend the name on **anyone** who threatens the ledger.* |
+| **Author lean (recommended)** | They **did not** expend real 仙眠 on Pei. Cup was **common toxin**, **qi sabotage**, or **theater**; syndrome **rebranded** when the formula was **reconstructed ~450y** ago. **Nuke stays unused** in verified memory — scarier for Immortals who ask “is the vial **still** full?” |
+| **Skeptic in-world** | Pei’s tier **proves** propaganda — if the guild had a true Immortal-killer they’d **hint**, not **spend**, on an auditor. |
+| **Believer in-world** | You **never know** if the vial was spent; **empty vault** might mean used on Pei **or** bluff. |
+
+**Player-facing:** do **not** imply the guild casually burns 仙眠 on sub-Immortal targets unless a quest **proves** it. Default fear = **stock + Qing depth + Pei attribution**, not “they routinely waste the nuke.”
 
 ---
 
