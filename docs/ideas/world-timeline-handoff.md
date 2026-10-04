@@ -59,8 +59,9 @@ Establish **when** major setting beats happened relative to each other (Seal →
 
 ### Poison Guild / 仙眠
 
-- [~] **Qing Meridian** (青脉真人) — pharmacopeia victim **~5,500y** Warring States ([`poison-path.md`](poison-path.md))
-- [~] **Guild charter** ~**1,100y**; **formula reconstructed** ~**450y**; **Pei Wuxin** myth ~**380y** (author lean B — guild younger than toxin text)
+- [~] **Guild precursors** mid **Warring States** (~**8–10k+ y**); **Qing Meridian** scroll ~**6.5k y** ([`poison-path.md`](poison-path.md))
+- [~] **仙眠 deterrent rumor** through Warring States → **Dao Wars**; Longcheng **branch** ~**1.1k y** (not guild founding)
+- [~] **Latest brew reconstruction** ~**450y** (modern reagents); **Pei Wuxin** myth refresh ~**380y**
 
 ### Memory / who remembers
 

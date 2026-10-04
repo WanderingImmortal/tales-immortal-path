@@ -166,24 +166,36 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 
 **Immortal's Rest** is the Poison Guild’s **metaphorical nuke**: a name everyone whispers, a recipe no outsider has verified, a kill no court will sign in ink. Great powers **hesitate to stamp the guild out completely** because *what if one vial remains?* The guild cultivates that hesitation — whether or not the arsenal is real.
 
-**Owner lean on origin (A vs B):** the **name and pharmacopeia text** are old; the **Poison Guild as today’s org is not**. They **found, reconstructed, and possibly reverse-engineered** 仙眠 within the last few centuries using **modern reagents** (guild marketing calls them “underpalace” / “void” — see formula notes). **A** (guild ancient as the toxin) stays a rumor layer; **B** is the working author truth unless play proves otherwise.
+**Owner lean on origin:** the **Poison Guild is ancient** — it grew across the **long Warring States** and traded with rising and falling factions for millennia. The **仙眠** name, deterrent story, and pharmacopeia lines are that old too. What is **modern (lean B)** is only the **latest working brew**: within the last few centuries the guild **reconstructed / reverse-engineered** the mix from scrap plus **current** reagents (marketing still says “underpalace” / “void”). Old org; refreshed nuke recipe.
+
+**Survival through the Dao Wars:** apex powers remember dealing with them ([`world-timeline-author-spine.md`](world-timeline-author-spine.md) — peak Manifestation lives are **long**). The guild stayed useful (toxins, antidotes, “accidents”) and **costly to erase** — *what if 仙眠 is real?* That rumor may have mattered as much as any single vial.
+
+---
+
+### “Immortal” in the name (before public ascensions)
+
+**仙眠** does **not** require anyone to have **publicly** reached Immortal when the poison was named. Cultivation already had **Dao Manifestation** as a known peak; pharmacopeia, seal myth, and court astronomy used **仙** as the **word for the threshold above** — sleep without tribulation, death of the ascension promise. Whether anyone **had** or **could** reach it was disputed; the **category** was in the water. The Tian founder’s later **public** Half-Step / Immortal watershed ([`imperial-clan.md`](imperial-clan.md)) made that ladder **visible to the jianghu**; it did not invent the word.
+
+Poison **grade 8–9** targets **peak Manifestation / pre-ascension** — “the kind of person legends say might touch 仙,” not a true restrained Immortal in their bed.
 
 ---
 
 ### Timeline (author spine — [`world-timeline-author-spine.md`](world-timeline-author-spine.md))
 
-Working anchors; tune dates when the calendar exists.
+Working anchors; Warring States **duration** intentionally vague (millennia). Tune when the calendar exists.
 
 | When | Beat |
 |------|------|
-| **~5,500 years before present** (late **Warring States**) | A pharmacopeia fragment describes **仙眠** and a victim the text calls **Qing Meridian** (青脉真人) — a **vein-calibrator** poisoned after a war coalition hired him to map enemy ley lines. House unknown; toxin maybe never named 仙眠 in that scroll. |
-| **~3,000 years ago** | **Dao Wars** end; mandate begins. No solid evidence the guild existed under this name. |
-| **~1,100 years ago** (early **Imperial Sky**, Longcheng swelling) | **Poison syndicate** consolidates into the recognizable **Poison Guild** (gray undercity + “consulting” shops). |
-| **~450 years ago** | Guild **reconstructs** the 仙眠 formula from (i) Warring States scrap, (ii) confiscated assassin notes, (iii) **modern** material substitutions — first internal claim of a successful brew; **not** verified outside the guild. |
-| **~380 years ago** (guild date) | **Pei Wuxin** incident — see below. Becomes public myth; deterrent effect useful to guild **whether or not** 仙眠 was in the cup. |
-| **Present** | Player era — ~3,000 years since Dao Wars; Tian founder **Immortal**, sleeping ([`imperial-clan.md`](imperial-clan.md)). |
+| **~8,000–10,000+ years before present** (mid **Warring States**) | **Poison trade confederacies** already cross faction lines — precursors to the guild name; toxins and antidotes as strategic goods. |
+| **~6,500 years before present** (still **Warring States**) | Pharmacopeia fragment records **仙眠** and **Qing Meridian** (青脉真人) — vein-calibrator poisoned after mapping ley lines for a coalition. One documented apex death; guild claims lineage to this scroll. |
+| **Warring States → Dao War cascade** | Guild **trades with many sides**; **仙眠 rumor** spreads as “do not annihilate the poisoners.” Some ancient apex NPCs **personally remember** dealings from this era. |
+| **~3,000 years ago** | **Dao Wars** end; mandate begins. Guild survives charter politics — gray utility, noble clients, Assassins overlap ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)). |
+| **~1,100 years ago** | **Longcheng branch** gains today’s storefront / redacted-page theater — **not** the guild’s birth. |
+| **~450 years ago** | **Latest reconstruction** of brewable 仙眠: ancient text + assassin notes + **modern material substitutions** (lean B). Internal claim of success; still unverified outside. |
+| **~380 years ago** | **Pei Wuxin** incident — **recent myth refresh** in Longcheng ballads (see below). |
+| **Present** | ~3,000 years since Dao Wars; Tian founder **Immortal**, sleeping. |
 
-**If the ancient victim was real:** it was **Qing Meridian**, not Pei — Pei is later embroidery or a deliberate rename to hide a modern murder.
+**If the ancient victim was real:** **Qing Meridian**, not Pei. Pei is Imperial Sky embroidery, cover story, or PR — not Warring States history.
 
 ---
 
