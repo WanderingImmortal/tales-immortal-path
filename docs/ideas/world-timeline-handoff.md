@@ -57,6 +57,11 @@ Establish **when** major setting beats happened relative to each other (Seal →
 - [ ] **Archive Oath** (Void) — **after** capital outcome clear
 - [ ] **Lotus** never assaulted Tian — what they did **same years** elsewhere
 
+### Poison Guild / 仙眠
+
+- [~] **Qing Meridian** (青脉真人) — pharmacopeia victim **~5,500y** Warring States ([`poison-path.md`](poison-path.md))
+- [~] **Guild charter** ~**1,100y**; **formula reconstructed** ~**450y**; **Pei Wuxin** myth ~**380y** (author lean B — guild younger than toxin text)
+
 ### Memory / who remembers
 
 - [ ] **QC/GC** “cult dead” — how many **generations** since Withdrawal?

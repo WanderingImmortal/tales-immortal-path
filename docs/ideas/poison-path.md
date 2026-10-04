@@ -164,33 +164,75 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 
 ### Legend (owner direction — myth as weapon)
 
-**Immortal's Rest** is the Poison Guild’s **metaphorical nuke**: a name everyone whispers, a recipe no outsider has verified, a kill no court will sign in ink. Great powers ** hesitate to stamp the guild out completely** because *what if one vial remains?* The guild cultivates that hesitation — whether or not the arsenal is real.
+**Immortal's Rest** is the Poison Guild’s **metaphorical nuke**: a name everyone whispers, a recipe no outsider has verified, a kill no court will sign in ink. Great powers **hesitate to stamp the guild out completely** because *what if one vial remains?* The guild cultivates that hesitation — whether or not the arsenal is real.
 
-**The figure (invented — may never have lived):** **Pei Wuxin** (裴无醒 — “Pei who never woke”), called in ballads the **Meridian King**. Stories place him at **peak Dao Manifestation**, half a step from the stories men tell about immortals — a lone apex who humiliated three sect enforcement teams and then accepted a “truce cup” from the guild. He slept mid-sentence; they say his core went to grey ash and his meridians tasted of honey. **No tomb. No witness under oath.** Only guild pamphlets and assassin songs.
+**Owner lean on origin (A vs B):** the **name and pharmacopeia text** are old; the **Poison Guild as today’s org is not**. They **found, reconstructed, and possibly reverse-engineered** 仙眠 within the last few centuries using **modern reagents** (guild marketing calls them “underpalace” / “void” — see formula notes). **A** (guild ancient as the toxin) stays a rumor layer; **B** is the working author truth unless play proves otherwise.
 
-**Three layers (game never picks one):**
+---
+
+### Timeline (author spine — [`world-timeline-author-spine.md`](world-timeline-author-spine.md))
+
+Working anchors; tune dates when the calendar exists.
+
+| When | Beat |
+|------|------|
+| **~5,500 years before present** (late **Warring States**) | A pharmacopeia fragment describes **仙眠** and a victim the text calls **Qing Meridian** (青脉真人) — a **vein-calibrator** poisoned after a war coalition hired him to map enemy ley lines. House unknown; toxin maybe never named 仙眠 in that scroll. |
+| **~3,000 years ago** | **Dao Wars** end; mandate begins. No solid evidence the guild existed under this name. |
+| **~1,100 years ago** (early **Imperial Sky**, Longcheng swelling) | **Poison syndicate** consolidates into the recognizable **Poison Guild** (gray undercity + “consulting” shops). |
+| **~450 years ago** | Guild **reconstructs** the 仙眠 formula from (i) Warring States scrap, (ii) confiscated assassin notes, (iii) **modern** material substitutions — first internal claim of a successful brew; **not** verified outside the guild. |
+| **~380 years ago** (guild date) | **Pei Wuxin** incident — see below. Becomes public myth; deterrent effect useful to guild **whether or not** 仙眠 was in the cup. |
+| **Present** | Player era — ~3,000 years since Dao Wars; Tian founder **Immortal**, sleeping ([`imperial-clan.md`](imperial-clan.md)). |
+
+**If the ancient victim was real:** it was **Qing Meridian**, not Pei — Pei is later embroidery or a deliberate rename to hide a modern murder.
+
+---
+
+### Who was Pei Wuxin — and why poison?
+
+**Guild ballad version:** **Pei Wuxin** (裴无醒), the **Meridian King** — rogue peak **Dao Manifestation** who humiliated three sect enforcement teams, then drank a truce cup and never woke.
+
+**Author working identity ( richer — use for quests/rumors ):**
+Pei was **not** a wandering duelist. He was a **Meridian Inquisitor** (查脉使): a rare peak-Manifestation **specialist** who reads circulation and core stress for courts and sects — hired **~380 years ago** by a coalition of minor halls to investigate **linked deaths** in Longcheng’s gray toxin trade (before the guild had a respectable storefront).
+
+**Why he was poisoned (motive — guild internal truth vs public):**
+
+| Tell | Story |
+|------|--------|
+| **Guild gospel** | Pei demanded they drink with him under witness to prove innocence; they “reluctantly” honored the rite — 仙眠 was mercy. |
+| **Author lean** | Leadership could not allow a **credible apex auditor** to publish vein-proofs tying batches to noble clients. The cup was **premeditated** — truce theater. Death or qi deviation, same outcome for the investigation. |
+| **Skeptic** | Pei died of **forced breakthrough failure** during a raid; the guild retroactively sold 仙眠 after reconstructing the formula decades earlier. |
+| **Fabrication** | Pei existed but **walked away**; “never woke” is metaphor for bought silence. |
+
+**Why poison (not a blade):** a Manifestation auditor’s **core and meridians are the evidence**. A public killing invites array retaliation; **仙眠** (or the **story** of it) discredits the man — “he drank, he slept, his dao was hollow.”
+
+**No tomb. No sworn witness.** Assassins may have provided the **room**, not the brew ([`imperial-city-tianjing.md`](imperial-city-tianjing.md) — separate org).
+
+---
+
+### Three layers (game never picks one)
 
 | Layer | Tell |
 |-------|------|
-| **Guild gospel** | Pei Wuxin died to 仙眠; the formula survives; the redacted page is mercy for the continent. |
-| **Skeptic scroll** | Pei is a composite — deeds borrowed from dead brawlers; he died of qi deviation; the guild rebranded the corpse. |
-| **Fabrication thesis** | There was no Pei; the ancient recipe is real but **never successfully brewed** in the current era; empty vials and forged ledgers are enough. |
+| **Guild gospel** | Pei died to 仙眠; ancient formula; redacted page = mercy. |
+| **Skeptic scroll** | Pei composite; Qing Meridian was the real ancient death; guild **reverse-engineered** modern 仙眠. |
+| **Fabrication thesis** | No Pei; empty vials; formula incomplete honeypot; fear alone deters extermination. |
 
-**What players / NPCs genuinely do not know (unless content later proves it in play):**
+**What players / NPCs genuinely do not know (unless content proves it):**
 
 - Whether the guild **holds** a working batch today.
-- Whether 仙眠 **ever** killed anyone at apex tier (Pei or otherwise).
-- Whether the “ancient” formula in the doc is **complete** or a guild honeypot missing one reagent.
+- Whether 仙眠 **ever** killed Qing, Pei, or anyone at apex tier.
+- Whether the published canonical mix is **complete** or a decoy.
 
-**Design payoff:** rumor gates, forged pages, and one optional late-game truth beat — not a lore quiz with a single correct answer in the codex.
+**Design payoff:** deterrent fiction + optional proof in play — not a codex with one truth flag by default.
 
-**Lore guardrail:** do **not** tie Pei, 仙眠, or the guild nuke story to the **Tian founder** (first public Half-Step at Tianjing, **Immortal now**, sleeping — [`imperial-clan.md`](imperial-clan.md)). Imperial deterrence and guild deterrence are separate fears.
+**Lore guardrail:** do **not** tie Pei, Qing, or 仙眠 to the **Tian founder** (first public Half-Step at Tianjing, **Immortal now**, sleeping).
 
-**Contradictions to seed in play:**
+**Contradictions to seed:**
 
-- Lotus archives list **ash-core slumber** as a **theoretical** failure mode — no named victim.
-- Assassins invoice “consulting” for Pei’s last night — **denies** supplying the toxin.
-- A stolen scrap might match the canonical mix — or might be a **decoy** mix that kills brewers.
+- Lotus: **ash-core slumber** theoretical — no Pei, maybe footnote on Qing.
+- Assassins: invoice for “Pei’s night,” deny toxin.
+- Stolen scrap: real mix vs brew-killer decoy.
+- Void Temple Archive: Warring States pharmacopeia **exists** — does not mention the Poison Guild by name.
 
 ### Names
 
@@ -204,16 +246,16 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 
 ### Canonical formula (recognition)
 
-**Ancient recipe** — strict match; not emergent from starter herbs.
+**Recognized mix** — strict match for legend recognition; **author truth (B):** largely **modern substitutions** for extinct Warring States reagents. Emergent crafting can hit the same profile if the resolver agrees.
 
 | Reagent | Count | Notes |
 |---------|-------|-------|
-| `underpalace_vein_shard` | 1 | **Key** — guild claims pre-mandate origin; may be mislabelled ore |
+| `underpalace_vein_shard` | 1 | **Key (guild label)** — likely **`redvein_chip` + `sun_stone`** or similar modern pair in implementation |
 | `bone_marrow_resin` | 2 | Flesh → bone seep (`alchemy-data.js`) |
 | `soul_mist` | 2 | Binds inward |
 | `foundation_root` | 1 | Core lean |
 | `blood_crystal` | 1 | Blood gate before core |
-| `void_ash` | 1 | **Key** — void / tribulation-adjacent drop (TBD item) |
+| `void_ash` | 1 | **Key** — lab/tribulation-adjacent **modern** trace; ancient text said “post-seal ash” (TBD item) |
 
 **Recognition:** both keys present + ≥85% mix match. Brew UI: *“The cauldron stills as if ashamed. This profile matches 仙眠 — Immortal's Rest.”*
 
