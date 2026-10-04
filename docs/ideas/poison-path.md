@@ -162,19 +162,35 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 - **Insidious:** seeps flesh and bone in fiction; **onset** ramps inner load over months while early UI stays deceptively mild (**worsening** trend is mandatory).
 - **Extravagant:** ancient **fixed** formula (strict recognition); brew and cure both **project-tier** gates — not spammable.
 
-### Legend (myth vs fact — tune in content)
+### Legend (owner direction — myth as weapon)
 
-**Common telling:** Before the mandate’s seal-cities, a **peak Manifestation** envoy (identity lost — never the Tian founder in any branch) drank with allies beneath the first **underpalace vein** and never stood again. No tribulation — only a smile, then breath like sleep. When the chamber was opened days later, the **core** was grey ash and the meridians sweet with rot. **Immortal's Rest** (仙眠): a poison said to kill the *promise* of ascension, not merely the body.
+**Immortal's Rest** is the Poison Guild’s **metaphorical nuke**: a name everyone whispers, a recipe no outsider has verified, a kill no court will sign in ink. Great powers ** hesitate to stamp the guild out completely** because *what if one vial remains?* The guild cultivates that hesitation — whether or not the arsenal is real.
 
-**Lore guardrail (canon elsewhere):** the Tian founder was the first **public** Half-Step at Tianjing, **later ascended to Immortal**, and sleeps restrained under the capital today — see [`imperial-clan.md`](imperial-clan.md). This poison myth must **not** imply he is still Half-Step or that 仙眠 felled him.
+**The figure (invented — may never have lived):** **Pei Wuxin** (裴无醒 — “Pei who never woke”), called in ballads the **Meridian King**. Stories place him at **peak Dao Manifestation**, half a step from the stories men tell about immortals — a lone apex who humiliated three sect enforcement teams and then accepted a “truce cup” from the guild. He slept mid-sentence; they say his core went to grey ash and his meridians tasted of honey. **No tomb. No witness under oath.** Only guild pamphlets and assassin songs.
 
-**Contradictions (game never picks one truth):**
+**Three layers (game never picks one):**
 
-- Some chronicles say the victim was already **core-cracked** from a failed law merge; the cup was fear turned legend.
-- Others claim **one** antidote was ever brewed — a Jade Lotus patriarch died holding the rest — and the **Assassins** never held the toxin, only the vessel.
-- Poison Guild ledgers show a **redacted page** numbered for 仙眠; apprentices hear the page was never blank, only **stripped**.
+| Layer | Tell |
+|-------|------|
+| **Guild gospel** | Pei Wuxin died to 仙眠; the formula survives; the redacted page is mercy for the continent. |
+| **Skeptic scroll** | Pei is a composite — deeds borrowed from dead brawlers; he died of qi deviation; the guild rebranded the corpse. |
+| **Fabrication thesis** | There was no Pei; the ancient recipe is real but **never successfully brewed** in the current era; empty vials and forged ledgers are enough. |
 
-**Last “recorded” use:** Sources disagree (**Dao Wars** vs **Warring States**); victim may have been immortal-adjacent or a mortal scapegoat in prophecy’s clothes. Unlock competing rumors via fame, spiritual sense, or Tianjing/underpalace reads — no quest asserts fact.
+**What players / NPCs genuinely do not know (unless content later proves it in play):**
+
+- Whether the guild **holds** a working batch today.
+- Whether 仙眠 **ever** killed anyone at apex tier (Pei or otherwise).
+- Whether the “ancient” formula in the doc is **complete** or a guild honeypot missing one reagent.
+
+**Design payoff:** rumor gates, forged pages, and one optional late-game truth beat — not a lore quiz with a single correct answer in the codex.
+
+**Lore guardrail:** do **not** tie Pei, 仙眠, or the guild nuke story to the **Tian founder** (first public Half-Step at Tianjing, **Immortal now**, sleeping — [`imperial-clan.md`](imperial-clan.md)). Imperial deterrence and guild deterrence are separate fears.
+
+**Contradictions to seed in play:**
+
+- Lotus archives list **ash-core slumber** as a **theoretical** failure mode — no named victim.
+- Assassins invoice “consulting” for Pei’s last night — **denies** supplying the toxin.
+- A stolen scrap might match the canonical mix — or might be a **decoy** mix that kills brewers.
 
 ### Names
 
@@ -183,8 +199,8 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 | Common | Immortal's Rest |
 | Hanzi | 仙眠 |
 | Poetic | Sleep without tribulation |
-| Guild | The redacted page |
-| Lotus archives | Ash-core slumber (purifier warning) |
+| Guild | The redacted page · Pei’s cup |
+| Lotus archives | Ash-core slumber (theoretical — no named victim) |
 
 ### Canonical formula (recognition)
 
@@ -192,7 +208,7 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 
 | Reagent | Count | Notes |
 |---------|-------|-------|
-| `underpalace_vein_shard` | 1 | **Key** — Tianjing / pre-mandate pharmacopeia fiction |
+| `underpalace_vein_shard` | 1 | **Key** — guild claims pre-mandate origin; may be mislabelled ore |
 | `bone_marrow_resin` | 2 | Flesh → bone seep (`alchemy-data.js`) |
 | `soul_mist` | 2 | Binds inward |
 | `foundation_root` | 1 | Core lean |
@@ -212,7 +228,7 @@ Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / 
 | Lethality | **Moderately high** | Steady at severe+; not burst-per-tick |
 | Stickiness | **0.12** | Extremely sticky (× passive clear) |
 | Passive clear **cap** | **≥ 40** per affected channel until specific cure | Trapped in severe band |
-| Poison grade | **8–9** (Manifestation / half-step) | Realm bonus on clear; core channel stays cruel |
+| Poison grade | **8–9** (peak Manifestation / pre-ascension) | Targets apex **below** true Immortal; realm bonus on clear; core channel stays cruel |
 | Cleanse burden | **98** | Generic antidote ~ useless |
 | **Onset** | **3–6 months** | Load migrates to circulation/core |
 
@@ -248,14 +264,15 @@ One dose: **−50% load on both channels** + bypass passive cap **6 months**. Fu
 2. **High resist, low grade:** fooled early; cap holds severe.
 3. **High realm:** circulation eases somewhat; **core** load still sticky.
 4. **Dominance:** street venom cannot feed; second 仙眠 partial extend only.
-5. **Lore:** three mutually exclusive rumor strings; no canonical truth flag.
+5. **Lore:** guild gospel vs skeptic vs fabrication — no `truthFlags.peiWasReal` in save by default.
 
 ### Content hooks (later)
 
-- Underpalace pharmacopeia fragment (formula unlock).
-- Poison Guild forgery / redacted page.
-- Jade Lotus “we failed once” archive.
-- Assassins deny stock — cup-trap set piece only.
+- Poison Guild: redacted page tour, **empty vault** rumor, apprentice oath on Pei’s name.
+- Forged formula scrap (decoy brew kills / wastes keys).
+- Great power quest: “verify the nuke” — ends inconclusive or with a **single** vial MacGuffin (owner call).
+- Jade Lotus: theoretical ash-core notes only.
+- Assassins: song about the cup, invoice denies toxin.
 
 ---
 
