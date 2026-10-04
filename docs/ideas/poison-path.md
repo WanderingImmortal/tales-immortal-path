@@ -18,7 +18,7 @@ Related: [`combat-damage-depth.md`](combat-damage-depth.md) (inner/outer systems
 
 ## Core model: poison load (not fuel)
 
-- **Poisoned?** Load &gt; 0 on a **channel** (blood/flesh, structure, circulation, core — same vocabulary as combat systems).
+- **Poisoned?** Load &gt; 0 on a **channel** (blood/flesh, structure, circulation, core — same vocabulary as combat systems). Apex toxins may bind **multiple channels** in one affliction (see Immortal's Rest).
 - **How bad?** **Severity bands** derived from load: lightly → moderately → severely → critically.
 - **Each tick** (combat exchange or world month): apply **symptoms at current severity** (HP, debuffs, map pressure). Load is **not** “spent per hit” like ammo.
 - **Big dose** = start high on the bar and **stay** harmful longer as load clears — not “more toxin = bigger damage every tick.”
@@ -152,81 +152,114 @@ Today `combat.js` uses `poisonTurns` / `poisonDmgPct` on `combatStatus` (fight-o
 
 ---
 
-## Legendary exemplar (playtest) — **Ledger Bind** (紫簿断脉)
+## Legendary exemplar (playtest) — **Immortal's Rest** (仙眠)
 
-Use this to stress-test recognition, stickiness, specific cure, grade, and Longcheng fiction before building many legendaries.
+Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / stickiness / cleanse burden**, myth-heavy recognition. Jianghu-tier legendaries (e.g. Ledger Bind) reuse the same template at lower power later.
 
-### Legend (why it’s famous)
+### Design intent (mechanics)
 
-During early **Longcheng** consolidation, a minister opened the **salt ledgers** and tied three noble houses to smuggled venom shipments. He died at his desk — no wound, face purple, meridians like ink. The **Poison Guild** denies the brew; the **Assassins** invoice says “consulting.” Three attempts to copy the antidote from a stolen scrap **failed** until someone used **heart-root from the same swamp hour** as the poison batch. The story is the product; the stats are still resolved from the mix.
+- **Not** a coded “instant immortal kill” — **believed** to end those who anchored life in a core. Still one HP bar; **Circulation + Core** both carry load from one affliction record.
+- **Insidious:** seeps flesh and bone in fiction; **onset** ramps inner load over months while early UI stays deceptively mild (**worsening** trend is mandatory).
+- **Extravagant:** ancient **fixed** formula (strict recognition); brew and cure both **project-tier** gates — not spammable.
+
+### Legend (myth vs fact — tune in content)
+
+**Common telling:** Before the mandate’s seal-cities, a **Half-Step** emissary drank with allies beneath the first **underpalace vein** and never stood again. No tribulation — only a smile, then breath like sleep. When the chamber was opened days later, the **core** was grey ash and the meridians sweet with rot. **Immortal's Rest** (仙眠): a poison said to kill the *promise* of ascension, not merely the body.
+
+**Contradictions (game never picks one truth):**
+
+- Some chronicles say the victim was already **core-cracked** from a failed law merge; the cup was fear turned legend.
+- Others claim **one** antidote was ever brewed — a Jade Lotus patriarch died holding the rest — and the **Assassins** never held the toxin, only the vessel.
+- Poison Guild ledgers show a **redacted page** numbered for 仙眠; apprentices hear the page was never blank, only **stripped**.
+
+**Last “recorded” use:** Sources disagree (**Dao Wars** vs **Warring States**); victim may have been immortal-adjacent or a mortal scapegoat in prophecy’s clothes. Unlock competing rumors via fame, spiritual sense, or Tianjing/underpalace reads — no quest asserts fact.
 
 ### Names
 
 | Context | Name |
 |---------|------|
-| Common | Ledger Bind |
-| Hanzi | 紫簿断脉 |
-| Guild alias | “Closing entry” |
-| Assassin sheet | Purple ledger |
+| Common | Immortal's Rest |
+| Hanzi | 仙眠 |
+| Poetic | Sleep without tribulation |
+| Guild | The redacted page |
+| Lotus archives | Ash-core slumber (purifier warning) |
 
 ### Canonical formula (recognition)
 
-Match when mix contains (tolerance ±1 count on minors):
+**Ancient recipe** — strict match; not emergent from starter herbs.
 
 | Reagent | Count | Notes |
 |---------|-------|-------|
-| `venomroot_heart` | 1 | **Key reagent** — future field rare from Venomroot Swamp |
-| `venom_gland` | 2 | Existing beast drop (`data.js` jungle loot) |
-| `blood_crystal` | 1 | `alchemy-data.js` |
-| `marrow_thistle` | 1 | Stabilizer / blood lean |
-| `seep_dew` | 2 | Carrier |
+| `underpalace_vein_shard` | 1 | **Key** — Tianjing / pre-mandate pharmacopeia fiction |
+| `bone_marrow_resin` | 2 | Flesh → bone seep (`alchemy-data.js`) |
+| `soul_mist` | 2 | Binds inward |
+| `foundation_root` | 1 | Core lean |
+| `blood_crystal` | 1 | Blood gate before core |
+| `void_ash` | 1 | **Key** — void / tribulation-adjacent drop (TBD item) |
 
-**Recognition:** ≥90% ingredient match + must include `venomroot_heart`. Whisper in brew UI: *“The profile matches the minister’s curse — 紫簿断脉.”*
+**Recognition:** both keys present + ≥85% mix match. Brew UI: *“The cauldron stills as if ashamed. This profile matches 仙眠 — Immortal's Rest.”*
 
 ### Resolved profile (target numbers — tune in playtest)
 
 | Field | Value | Test intent |
 |-------|-------|-------------|
-| Target channel | **Circulation** (inner-lean) | Qi techniques tax; not “outer poison chip” only |
-| Toxicity | 78 | Beats ~50 resist; gradient still matters |
-| Dominance | 72 | Same-band top-ups partial; gutter venom cannot feed |
-| Typical load (one successful coat/hit) | 55–70 | Starts **severe**, hits **critical** if untreated + reapply |
-| Lethality | High moderate | Steady HP pressure at severe+, not spike-per-tick |
-| Stickiness | 0.35 | Passive clear crawls |
-| Passive clear **cap** | Load ≥ 25 until specific cure | “You never feel safe at lightly poisoned” without cure |
-| Poison grade | 2 (QC / early FE band) | Higher realm gets bonus passive clear; mortals in danger |
-| Cleanse burden | 85 | Generic antidote: −15% load once; second dose weak |
-| Onset | 0 (immediate) | Playtest clarity first |
+| **Channels** | **Circulation + Core** (one affliction, two loads) | Qi tax + core / breakthrough vulnerability |
+| Toxicity | **92** | Very high |
+| Dominance | **95** | Apex; cheap toxins cannot feed |
+| Initial load (one hit / coat) | **40–55** total inner | Insidious — not critical day one |
+| Lethality | **Moderately high** | Steady at severe+; not burst-per-tick |
+| Stickiness | **0.12** | Extremely sticky (× passive clear) |
+| Passive clear **cap** | **≥ 40** per affected channel until specific cure | Trapped in severe band |
+| Poison grade | **8–9** (Manifestation / half-step) | Realm bonus on clear; core channel stays cruel |
+| Cleanse burden | **98** | Generic antidote ~ useless |
+| **Onset** | **3–6 months** | Load migrates to circulation/core |
 
-### Specific cure — **Same-hour heart antidote**
+**Load split (sketch):** `circulationLoad` and `coreLoad` start ~30% / ~10% of applied total; each month of onset shifts toward **50/50** at full ramp. Optional mild **flesh** flag for log flavor only early. UI severity = **worst channel** + trend.
+
+**Symptoms:**
+
+- **Circulation:** technique cost, qi regen suppression, weak generic detox.
+- **Core:** consolidation / breakthrough malus; tribulation-prep flags; “core hum” logs.
+
+### Specific cure — **Wake the Core draught**
+
+Hard to craft as the poison itself. Partial help must not trivialize cap.
 
 | Reagent | Count |
 |---------|-------|
-| `venomroot_heart` | 1 | **Must be “paired”** — same harvest tag as poison batch OR fresh within 1 world month of brew (design fiction) |
-| `dawn_dew` | 2 | |
-| `foundation_root` | 1 | |
+| `void_ash` | 1 | **Paired** to poison batch (same fiction as other legendary pairs) |
+| `foundation_root` | 2 | |
+| `lotus_dew` | 1 | Jade Lotus purifier line — [`jade-lotus-sect.md`](jade-lotus-sect.md) |
+| `life_death_catalyst` | 1 | **Key** — Cycle / Life / Death content (TBD item) |
 
-Brew in Toxins tab or buy for absurd price from Poison Guild branch (future). One use: **−60% load** or bypass passive cap for 12 months. Without heart: generic pills hit cleanse burden wall.
+One dose: **−50% load on both channels** + bypass passive cap **6 months**. Full clear needs **two** doses or one dose plus costly seclusion / Lotus rite.
 
 ### Player-facing warnings
 
-- On apply: banner — *Circulation toxin — severe — passive clearance insufficient at your resist.*
-- Map: dedicated affliction row; travel confirm at critical.
-- Treat like a cold → load stays above cap → **lethal months** (per owner call).
+- Early: *“Something sweet lingers — lightly poisoned (**worsening**).”*
+- Mid onset: dual-channel row, severity climbing.
+- Critical map travel: lethal confirm.
 
 ### Playtest scenarios
 
-1. **Mortal baseline resist (~8):** get hit once → load ~60 → verify passive barely drops; active qi detox required to avoid critical within N months.
-2. **Body-refined resist (~35):** same hit → longer runway; still hits passive cap without cure.
-3. **Realm above grade 2:** bonus clear; poison still sticky — should not trivialize.
-4. **Same dominance feed:** second Ledger Bind partial load; **cheap venom gland brew** does not extend.
-5. **Recognition:** match formula → lore line + guild rumor flag (content stub).
+1. **QC victim:** onset still reaches critical if ignored.
+2. **High resist, low grade:** fooled early; cap holds severe.
+3. **High realm:** circulation eases somewhat; **core** load still sticky.
+4. **Dominance:** street venom cannot feed; second 仙眠 partial extend only.
+5. **Lore:** three mutually exclusive rumor strings; no canonical truth flag.
 
 ### Content hooks (later)
 
-- Longcheng gray layer: forged ledger rumor, sealed guild antidote room.
-- Jade Lotus purification line contrast (not a full counter without heart).
-- Assassins quest references “closing entry.”
+- Underpalace pharmacopeia fragment (formula unlock).
+- Poison Guild forgery / redacted page.
+- Jade Lotus “we failed once” archive.
+- Assassins deny stock — cup-trap set piece only.
+
+---
+
+## Secondary exemplar (jianghu tier) — **Ledger Bind** (紫簿断脉)
+
+Longcheng minister; **circulation-only**; paired `venomroot_heart` cure. Better **first code milestone** before dual-channel 仙眠. Sketch: grade 2, toxicity ~78, dominance ~72, stickiness 0.35, cleanse burden 85 — detail in chat / future Issue.
 
 ---
 
@@ -234,6 +267,7 @@ Brew in Toxins tab or buy for absurd price from Poison Guild branch (future). On
 
 | Id | Name | Role |
 |----|------|------|
-| `legendary_ledger_bind` | Ledger Bind (紫簿断脉) | First full legendary — stickiness + specific cure + recognition |
+| `legendary_immortals_rest` | Immortal's Rest (仙眠) | Apex playtest — dual channel, onset, myth |
+| `legendary_ledger_bind` | Ledger Bind (紫簿断脉) | Jianghu tier — single channel, simpler cure |
 
 Add rows here as more legendaries are designed.
