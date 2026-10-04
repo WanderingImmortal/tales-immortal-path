@@ -182,18 +182,18 @@ Poison **grade 8–9** targets **peak Manifestation / pre-ascension** — “the
 
 ### Timeline (author spine — [`world-timeline-author-spine.md`](world-timeline-author-spine.md))
 
-Working anchors; Warring States **duration** intentionally vague (millennia). Tune when the calendar exists.
+Anchors use **~50,000-year Warring States** + **~3,000-year Imperial Sky** ([`world-timeline-author-spine.md`](world-timeline-author-spine.md) owner lean 2026-10-04). Tune when the calendar exists.
 
-| When | Beat |
+| When (before present) | Beat |
 |------|------|
-| **~8,000–10,000+ years before present** (mid **Warring States**) | **Poison trade confederacies** already cross faction lines — precursors to the guild name; toxins and antidotes as strategic goods. |
-| **~6,500 years before present** (still **Warring States**) | Pharmacopeia fragment records **仙眠** and **Qing Meridian** (青脉真人) — vein-calibrator poisoned after mapping ley lines for a coalition. One documented apex death; guild claims lineage to this scroll. |
-| **Warring States → Dao War cascade** | Guild **trades with many sides**; **仙眠 rumor** spreads as “do not annihilate the poisoners.” Some ancient apex NPCs **personally remember** dealings from this era. |
-| **~3,000 years ago** | **Dao Wars** end; mandate begins. Guild survives charter politics — gray utility, noble clients, Assassins overlap ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)). |
-| **~1,100 years ago** | **Longcheng branch** gains today’s storefront / redacted-page theater — **not** the guild’s birth. |
-| **~450 years ago** | **Latest reconstruction** of brewable 仙眠: ancient text + assassin notes + **modern material substitutions** (lean B). Internal claim of success; still unverified outside. |
-| **~380 years ago** | **Pei Wuxin** incident — **recent myth refresh** in Longcheng ballads (see below). |
-| **Present** | ~3,000 years since Dao Wars; Tian founder **Immortal**, sleeping. |
+| **~40,000–45,000 years** (mid **Warring States**) | **Poison trade confederacies** cross faction lines — precursors to the guild name; toxins and antidotes as strategic goods. |
+| **~44,000 years** | Pharmacopeia fragment records **仙眠** and **Qing Meridian** (青脉真人) — vein-calibrator poisoned after mapping ley lines. Guild claims lineage to this scroll. |
+| **Most of the 50k era → Dao cascade** | Guild **trades with many sides**; **仙眠 rumor** helps deter total extermination. Peak-Manifestation NPCs alive today can **personally remember** deals from tens of thousands of years ago. |
+| **~3,000 years ago** | **Dao Wars** end; mandate begins. Guild survives charter politics ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)). |
+| **~1,100 years ago** | **Longcheng branch** storefront / redacted-page theater — not guild founding. |
+| **~450 years ago** | **Latest reconstruction** of brewable 仙眠 (modern reagents — lean B). |
+| **~380 years ago** | **Pei Wuxin** — Longcheng **myth refresh** (see below). |
+| **Present** | Young peace; Tian founder **Immortal**, sleeping. |
 
 **If the ancient victim was real:** **Qing Meridian**, not Pei. Pei is Imperial Sky embroidery, cover story, or PR — not Warring States history.
 
@@ -204,7 +204,7 @@ Working anchors; Warring States **duration** intentionally vague (millennia). Tu
 **Guild ballad version:** **Pei Wuxin** (裴无醒), the **Meridian King** — rogue peak **Dao Manifestation** who humiliated three sect enforcement teams, then drank a truce cup and never woke.
 
 **Author working identity ( richer — use for quests/rumors ):**
-Pei was **not** a wandering duelist. He was a **Meridian Inquisitor** (查脉使): a rare peak-Manifestation **specialist** who reads circulation and core stress for courts and sects — hired **~380 years ago** by a coalition of minor halls to investigate **linked deaths** in Longcheng’s gray toxin trade (before the guild had a respectable storefront).
+Pei was **not** a wandering duelist. He was a **Meridian Inquisitor** (查脉使): a rare peak-Manifestation **specialist** who reads circulation and core stress for courts and sects — hired **~380 years ago** by a coalition of minor halls to investigate **linked deaths** in Longcheng’s gray toxin trade (the **ancient guild’s** local branch, already centuries old).
 
 **Why he was poisoned (motive — guild internal truth vs public):**
 
@@ -226,7 +226,7 @@ Pei was **not** a wandering duelist. He was a **Meridian Inquisitor** (查脉使
 | Layer | Tell |
 |-------|------|
 | **Guild gospel** | Pei died to 仙眠; ancient formula; redacted page = mercy. |
-| **Skeptic scroll** | Pei composite; Qing Meridian was the real ancient death; guild **reverse-engineered** modern 仙眠. |
+| **Skeptic scroll** | Pei composite; Qing Meridian was the real ancient death; **~450y** reconstruction swapped extinct reagents for modern ones. |
 | **Fabrication thesis** | No Pei; empty vials; formula incomplete honeypot; fear alone deters extermination. |
 
 **What players / NPCs genuinely do not know (unless content proves it):**
@@ -244,7 +244,8 @@ Pei was **not** a wandering duelist. He was a **Meridian Inquisitor** (查脉使
 - Lotus: **ash-core slumber** theoretical — no Pei, maybe footnote on Qing.
 - Assassins: invoice for “Pei’s night,” deny toxin.
 - Stolen scrap: real mix vs brew-killer decoy.
-- Void Temple Archive: Warring States pharmacopeia **exists** — does not mention the Poison Guild by name.
+- Void Temple Archive: Warring States pharmacopeia **exists** — may use older guild sigils, not today’s Longcheng trade name.
+- Ancient patriarch NPC: *“We bought antidote from the same sign in the western vein wars.”*
 
 ### Names
 

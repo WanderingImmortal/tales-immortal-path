@@ -6,7 +6,7 @@
 | **Blocked on** | Owner PC sketches (prisoner origin, disciples, lifespans); mechanics pass for DM / Immortal fights |
 | **Issue** | none yet |
 | **Chat / PR** | Owner + cloud agent brainstorm, 2026-07-29 · PR **#92** |
-| **Updated** | 2026-07-29 |
+| **Updated** | 2026-10-04 |
 
 ## Intent
 
