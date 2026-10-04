@@ -53,6 +53,36 @@ Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated event
 - At DM tier, **kindness is a luxury** — predators take what they can but **aren’t idiots** about mutual destruction.
 - **Rollback attempts** may have happened mid–Dao War cascade; **failed** — sitting out meant being disarmed while rivals allied for multi-DM math.
 
+**Duration (owner lean 2026-10-04):**
+
+| Era | Order-of-magnitude length | Notes |
+|-----|---------------------------|--------|
+| **Warring States** | **~50,000 years** *(alt. ~100,000 if you want more geological depth)* | “Long grind” is literal — room for ancient guilds, dead maps, repeated soft caps |
+| **Dao War Era** | **~500–3,000 years** | Escalation cascade — **fast** compared to Warring States |
+| **Imperial Sky** (so far) | **~3,000 years** | Young peace on an old continent |
+
+**Working stack (50k lean, before present):**
+
+```text
+~55,000 y ─── Warring States begins (slides out of early heaven)
+     …       sub-eras, sect births/deaths, deterrence politics
+ ~5,000 y ─── Dao War cascade starts (taboo break)
+ ~3,000 y ─── Dao Wars end → mandate / Imperial Sky
+     0 ─── present (game default)
+```
+
+**Soft cap thesis (why it lasted):** reaching **Dao Manifestation** is scarce and slow ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) — peak lives on the order of **~45,000–50,000 years**). At the **known ceiling**, **Immortal (仙)** is mostly **theory** — the next rung in scrolls and omen lore, not a roster of public ascenders. Politics becomes: serve as an underling in a mountain with an array, **found** and defend a new peak, blood feuds, assassinations of **young** talents before they mature. Apex fights **rarely** leave home arrays → decades-long cold wars, not continental rewrites. That equilibrium is a **soft power cap** — until someone breaks it.
+
+**Breaking the cap → Dao Wars:** a faction believes the taboo can be bent (two peak DMs in one house, preemption, alliance math). Field deployment cascades; alliances flip; the **map changes quickly** relative to fifty millennia of grind. Same trigger family as the **two-DM strike** lean below — now framed as end-of-era, not day one of DM history.
+
+**Author tools for 50k+ years (avoid “one mush era”):**
+
+- **Sub-eras** inside Warring States (names TBD — e.g. vein wars, fragment hunts, array age) — only apex/long-lived NPCs bridge them cleanly.
+- **Mortal history compresses** — QC textbooks teach “many dynasties”; only Void Archive / grotto / array libraries keep fine detail.
+- **A living peak Manifestation can span most of the Warring States** if they reached the peak early — rare, useful for NPCs who remember the Poison Guild’s sign from age 20,000.
+
+**100k-year alt:** same structure, more dead civilizations and forgery; ensure **early heaven** (Void prison, Seal) still feels **older**, not younger, than Warring States start.
+
 **Trigger (owner lean — WW1-shaped, not cosmic):**
 
 - First house with **two DM cultivators at once** (rare) feels safe to **strike** — breaks informal taboo.
