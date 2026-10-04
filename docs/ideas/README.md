@@ -107,6 +107,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Tribulation — per-realm identity & limbo states](tribulation-per-realm-limbo.md) | `idea` | See tribulation-per-gate-backlog | — |
 | [Broken Core cultivators](broken-core-cultivators.md) | `idea` | Tribulation outcomes; NPC tier | — |
 | [Combat — damage depth (systems)](combat-damage-depth.md) | `designed` | Break consequences v1 ready; intent slice later | — |
+| [Poison path — load, crafting, legendaries](poison-path.md) | `designed` | Alchemy toxins tab; affliction model | — |
 | [Combat — anatomy & damage types](combat-anatomy-damage.md) | `idea` (parked) | Owner damage pass | — |
 | [Weapon Intent — cultivation loop](weapon-intent-cultivation.md) | `designed` (parked) | Redwell / starter slice | — |
 | [Weapon Intent — awakening redesign](weapon-intent-awakening.md) | `designed` (stub) | First catalyst items; FE slice | — |
