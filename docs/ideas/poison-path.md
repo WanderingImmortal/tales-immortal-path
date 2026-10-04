@@ -156,6 +156,18 @@ Today `combat.js` uses `poisonTurns` / `poisonDmgPct` on `combatStatus` (fight-o
 
 Primary stress test: **dual-channel** load, **insidious onset**, apex **grade / stickiness / cleanse burden**, myth-heavy recognition. Jianghu-tier legendaries (e.g. Ledger Bind) reuse the same template at lower power later.
 
+### At a glance (spec sheet)
+
+| | |
+|--|--|
+| **Role** | Poison Guild **deterrent myth** + apex mechanical test |
+| **Channels** | Circulation + Core (one affliction, two loads) |
+| **Delivery** | Lore: **ingested** (truce cup, wine); combat: **ingest or coated wound** — not miasma cloud (owner lean) |
+| **Who brews** | Guild claims monopoly; player can match **recognition mix** if they obtain keys — proof is dangerous |
+| **Ancient victim** | **Qing Meridian** (~55k y BP) — vein-calibrator, coalition hire |
+| **Modern myth victim** | **Pei Wuxin** (~380 y BP) — Meridian Inquisitor, Longcheng audit |
+| **Truth in save** | **None by default** — optional later beat may prove stock / kill / decoy formula |
+
 ### Design intent (mechanics)
 
 - **Not** a coded “instant immortal kill” — **believed** to end those who anchored life in a core. Still one HP bar; **Circulation + Core** both carry load from one affliction record.
