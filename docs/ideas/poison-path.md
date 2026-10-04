@@ -182,13 +182,13 @@ Poison **grade 8–9** targets **peak Manifestation / pre-ascension** — “the
 
 ### Timeline (author spine — [`world-timeline-author-spine.md`](world-timeline-author-spine.md))
 
-Anchors use **~50,000-year Warring States** + **~3,000-year Imperial Sky** ([`world-timeline-author-spine.md`](world-timeline-author-spine.md) owner lean 2026-10-04). Tune when the calendar exists.
+Anchors use **~100,000-year Warring States** + **~3,000-year Imperial Sky** ([`world-timeline-author-spine.md`](world-timeline-author-spine.md) owner lean 2026-10-04). Tune when the calendar exists.
 
 | When (before present) | Beat |
 |------|------|
-| **~40,000–45,000 years** (mid **Warring States**) | **Poison trade confederacies** cross faction lines — precursors to the guild name; toxins and antidotes as strategic goods. |
-| **~44,000 years** | Pharmacopeia fragment records **仙眠** and **Qing Meridian** (青脉真人) — vein-calibrator poisoned after mapping ley lines. Guild claims lineage to this scroll. |
-| **Most of the 50k era → Dao cascade** | Guild **trades with many sides**; **仙眠 rumor** helps deter total extermination. Peak-Manifestation NPCs alive today can **personally remember** deals from tens of thousands of years ago. |
+| **~75,000–85,000 years** (**Vein charter wars** slice) | **Poison trade confederacies** cross faction lines — precursors to the guild name. |
+| **~55,000 years** (**Fragment hunts** slice) | Pharmacopeia fragment records **仙眠** and **Qing Meridian** (青脉真人). Guild claims lineage to this scroll. |
+| **Most of the 100k era → Dao cascade** | Guild trades all sides; **仙眠 rumor** deters extermination. Ancient apex NPCs may remember **one slice**, not the whole era. |
 | **~3,000 years ago** | **Dao Wars** end; mandate begins. Guild survives charter politics ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)). |
 | **~1,100 years ago** | **Longcheng branch** storefront / redacted-page theater — not guild founding. |
 | **~450 years ago** | **Latest reconstruction** of brewable 仙眠 (modern reagents — lean B). |
