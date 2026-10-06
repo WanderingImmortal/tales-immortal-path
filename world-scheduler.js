@@ -156,6 +156,9 @@ function initWorldSchedulerRegistries() {
     registerWorldTick('worldNpcs', (delta) => {
         if (typeof tickWorldNpcGrowth === 'function') tickWorldNpcGrowth(delta);
     }, 40);
+    registerWorldTick('civicSeats', (delta) => {
+        if (typeof tickCivicSeats === 'function') tickCivicSeats(delta);
+    }, 45);
     registerWorldTick('sect', (delta) => {
         if (typeof tickSectSystems === 'function') tickSectSystems(delta);
     }, 50);
