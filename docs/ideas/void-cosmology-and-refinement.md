@@ -152,6 +152,8 @@ Heaven does not hand out library cards. **Glimpsing** the law-layer is **trespas
 
 Copy lean: *“This is not a test. You trespassed. Be ready or do not look.”*
 
+**Owner note (2026-10-02) — revisit later:** the trespass is that a VR cultivator **has not yet earned the right** to see the rules at that realm. Surviving is what earns it. That is what separates it from Peak Dao Manifestation seeing World Fortune without punishment ([`qi-ascension-path.md`](qi-ascension-path.md)). Owner will come back to the full punishment design. Check against "heaven strikes because you looked" above, and the **Fail → regression** row.
+
 ### Void Temple’s role (owner lock 2026-08-02)
 
 Void Temple ≠ shortcut past retaliation. They **cultivate void more directly and efficiently** than generic jianghu VR paths.
