@@ -2043,7 +2043,22 @@ const STAT_GUIDE = {
     foundation: {
         label: 'Foundation',
         emoji: '🏛️',
-        desc: 'Your cultivation base is rated Crude → Firm → Unshakable → Peerless — a quality grade, not a number. Stronger foundation improves breakthrough odds, max Qi, Qi density, meridian success, tribulation survival, technique power, and perfect-breakthrough chances. Raise it by gathering and expanding in the Qi chamber, opening meridians, sealing realms at peak, refining foundation (sacrificing a technique), and special events. Cracks weaken your grade until healed.'
+        desc: 'Your cultivation base is rated Crude → Firm → Unshakable → Peerless — a quality grade, not a number. Stronger foundation improves breakthrough odds, max Qi, Qi density, meridian success, tribulation survival, technique power, and perfect-breakthrough chances. Raise it by gathering and expanding in the Qi chamber, opening meridians, sealing realms at peak, refining foundation in the chamber, and special events. Cracks weaken your grade until healed.'
+    },
+    cultivationRoot: {
+        label: 'Root (pillar)',
+        emoji: '🌱',
+        desc: 'Bedrock density of your cultivation base — grows from gathering Qi, expanding the dantian, and density milestones. Not the same as your birth spiritual root.'
+    },
+    cultivationFlow: {
+        label: 'Flow (pillar)',
+        emoji: '☯️',
+        desc: 'Meridian circulation strength — grows from opening meridians, refining foundation in the chamber, and some realm seals.'
+    },
+    cultivationStability: {
+        label: 'Stability (pillar)',
+        emoji: '🏛️',
+        desc: 'How well your realm is cemented — grows mainly from Seal Dantian and consolidation at peak.'
     },
     lifespan: { label: 'Lifespan', emoji: '🕯️', desc: 'Years you may live before your soul scatters. Cultivation extends it; running out ends the journey unless you transcend.' },
     stones: { label: 'Spirit Stones', emoji: '💎', desc: 'Currency of cultivators. Buy techniques, pills, and gear at markets; pay for sect and crafting costs.' },
@@ -6454,7 +6469,7 @@ const QI_BALANCE = {
 // Balance (phase 5): chamber replaces Cultivate on Qi path.
 //   Gather ≈6× faster than legacy Cultivate per time on density (1 wk vs 6 mo) with lighter Qi fill.
 //   Expand ≈ consolidation-scale capacity bumps, stone-gated + cooldown-limited.
-//   Perfect Foundation = premium +2 foundation burst; technique sacrifice + 3 mo CD.
+//   Perfect Foundation = premium Flow burst; stone cost + 3 mo CD.
 //   Condense Core = fast-track to Core Formation vs 24 mo Break, but peak + roll + tribulation tax.
 
 const CHAMBER_BALANCE = {
@@ -6501,8 +6516,8 @@ const CULTIVATION_ACTION_GUIDE = {
     refineFoundation: {
         label: 'Refine Foundation',
         emoji: '🪨',
-        flavor: 'Burn a technique into bedrock — anchor your Flow.',
-        desc: 'Chamber grind between realm seals — separate from Seal Dantian capstones. Sacrifice a spare technique to strengthen the Flow (meridian) pillar. Requires stones and recovery time.'
+        flavor: 'Temper meridian flow into bedrock.',
+        desc: 'Chamber grind between realm seals — separate from Seal Dantian capstones. Strengthens the Flow (meridian) pillar. Costs spirit stones and recovery time.'
     },
     condenseCore: {
         label: 'Condense Core',
@@ -7086,7 +7101,6 @@ const CONSOLIDATION_BY_REALM = {
         peak: { qiFillRatio: 0.88, minQiDensity: 3.0, minTotalStats: 42, minMeridians: 3 },
         months: 7,
         stones: 20,
-        sacrificeTechnique: true,
         foundationGain: 10,
         maxQiGain: 10,
         qiDensityGain: 0.7,
