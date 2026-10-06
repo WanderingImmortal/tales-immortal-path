@@ -15,8 +15,9 @@ function ensureForgeState() {
             knownLegendaryRecipes: [],
             selectedRecipe: null,
             selectedLegendary: null,
-            activeTab: 'standard',
-            atSect: false
+            activeTab: 'mundane',
+            atSect: false,
+            compose: null
         };
     }
     if (!G.forge.knownRecipes) G.forge.knownRecipes = [];
@@ -335,10 +336,10 @@ function craftGear(recipeId, options) {
         if (idx >= 0) G.legendaryMaterials.splice(idx, 1);
     }
 
-    // Phase B: forged gear is always Common until Phase C grade rolls.
+    const forgeGrade = typeof rollForgeComposeGrade === 'function' ? rollForgeComposeGrade() : getDefaultGearGrade('forge');
     const uid = createGearInstance(defId, {
         noAffix: options.noAffix,
-        grade: getDefaultGearGrade('forge'),
+        grade: forgeGrade,
         source: 'forge'
     });
     const inst = getGearInstance(uid);

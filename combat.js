@@ -110,6 +110,10 @@ function getTechniqueCombatCost(tech) {
 }
 
 function getWeaponBasicAttackBonus() {
+    if (typeof getWeaponFlatDamage === 'function') {
+        const flat = getWeaponFlatDamage();
+        if (flat > 0) return flat + Math.floor((G.realmIdx || 0) * 1.5);
+    }
     if (typeof getEquippedInstance !== 'function' || typeof getInstanceDef !== 'function') return 0;
     const def = getInstanceDef(getEquippedInstance('weapon'));
     if (!def) return 0;
@@ -900,6 +904,9 @@ function calcCombatTechniqueDamage(tech) {
     }
     if (typeof getFoundationNatureCombatMods === 'function') {
         dmg = Math.max(1, Math.floor(dmg * (getFoundationNatureCombatMods(tech).dmgMult || 1)));
+    }
+    if (typeof getWeaponFlatDamage === 'function') {
+        dmg = Math.max(1, dmg + getWeaponFlatDamage());
     }
     return dmg;
 }

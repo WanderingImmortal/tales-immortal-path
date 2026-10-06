@@ -2206,10 +2206,11 @@ function renderInventoryPopup() {
         html += `<div class="inventory-section-title sticky-section">🎒 Gear Bag <span class="section-badge">${bagUids.length}</span></div>`;
         html += bagUids.map(uid => {
             const inst = getGearInstance(uid);
-            const def = getInstanceDef(inst);
+            const def = typeof getEffectiveGearDef === 'function' ? getEffectiveGearDef(inst) : getInstanceDef(inst);
             if (!def) return '';
+            const slot = typeof getGearSlotForInstance === 'function' ? getGearSlotForInstance(inst) : def.slot;
             const res = formatGearResonanceLine(def);
-            const compare = compareGearStats(uid, def.slot);
+            const compare = compareGearStats(uid, slot);
             const compareHtml = formatCompareHtml(compare);
             const repairCost = getRepairCost(inst);
             const gradeChip = typeof formatGearGradeChipHtml === 'function'
@@ -2741,6 +2742,24 @@ function renderMerchantPopup() {
         }).join('');
     }
 
+    const matStock = typeof MERCHANT_MATERIAL_STOCK !== 'undefined' ? MERCHANT_MATERIAL_STOCK[zoneId] : null;
+    if (matStock?.length) {
+        html += `<div class="tech-group-header" style="margin-top:12px;">⛏️ Forge materials</div>`;
+        html += matStock.map(item => {
+            const mat = CRAFT_MATERIALS[item.matId];
+            if (!mat) return '';
+            const locked = item.reqRealm != null && G.realmIdx < item.reqRealm;
+            const canBuy = !locked && G.stones >= item.price;
+            const realmName = PATHS[G.path].realms[item.reqRealm] || `Realm ${item.reqRealm + 1}`;
+            const status = (locked ? `Need ${realmName}` : `${item.price} Stones · +${item.qty || 1}`)
+                + (canBuy ? ' · Click to buy' : '');
+            return `<div class="popup-item merchant-row${canBuy ? ' can-buy' : ''}" data-buy-mat="${item.matId}" style="${canBuy ? 'cursor:pointer;' : 'opacity:0.65;'}">
+                <div class="name">${mat.emoji} ${mat.name}</div>
+                <div class="desc">Forge material · ${status}</div>
+            </div>`;
+        }).join('');
+    }
+
     const gearStock = MERCHANT_GEAR_STOCK?.[zoneId];
     if (gearStock?.length) {
         html += `<div class="tech-group-header" style="margin-top:12px;">⚔️ Gear</div>`;
@@ -2788,6 +2807,14 @@ function renderMerchantPopup() {
     list.querySelectorAll('[data-buy-staple]').forEach(row => {
         row.addEventListener('click', function() {
             if (typeof buyRedwellStaple === 'function') buyRedwellStaple(this.dataset.buyStaple);
+        });
+    });
+    list.querySelectorAll('[data-buy-mat]').forEach(row => {
+        row.addEventListener('click', function() {
+            const result = buyMerchantMaterial(this.dataset.buyMat);
+            if (result.message) logTimedResult(result);
+            renderMerchantPopup();
+            fullRender();
         });
     });
     list.querySelectorAll('[data-buy-gear]').forEach(row => {

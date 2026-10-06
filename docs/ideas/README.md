@@ -28,6 +28,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Formations & arrays](formations-and-arrays.md) | `building` (F2b shipped; next = feel) | Event-ward placeholder; combat wards wait on guards | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) · [#129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
 | [Spirit Gathering — first playtest pattern](spirit-gathering-formation.md) | `designed` | Courtyard test; stacking fix when coding | [#129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
 | [Forging — equipment tiers & grades](forging-equipment-tiers.md) | `building` (Phase B) | Phase C rolls next; nine-realm for G | `cursor/forge-phase-b-grades` |
+| [Forge compose — Mundane slice](forge-compose-mundane-slice.md) | `building` | Playtest bands / UX | `cursor/forge-compose-mundane-ab43` |
 | [Forge — affix temperaments (parked)](forge-temperaments-idea.md) | `idea` | Quench shipped; owner call | — |
 | [Creation-path guilds](creation-path-guilds.md) | `designed` (parked) | HQ city; branch exam max (4 vs 5) | — |
 | [Forgers Guild — spine](forgers-guild.md) | `designed` *(owner sign-off 2026-08-28)* | Implementation — [PR #114](https://github.com/WanderingImmortal/tales-immortal-path/pull/114) | — |
