@@ -3,6 +3,7 @@
 // ============================================
 
 const GEAR_STAT_LABELS = {
+    flatDmg: 'Weapon damage',
     dmgPct: 'Damage',
     defenseBonus: 'Defense',
     maxQiBonus: 'Max Qi',
@@ -39,7 +40,7 @@ function getGearGradeDef(gradeId) {
     return table?.common || { id: 'common', name: 'Common', hanzi: '中品', statMult: 1, durMult: 1, sellMult: 1, color: '#9a9a8a' };
 }
 
-/** Phase B: merchant / forge / starter / migrate → common. Loot tables arrive later. */
+/** Phase B: merchant / starter / migrate → common. Forge grade rolls in crafting / compose. */
 function getDefaultGearGrade(source) {
     return 'common';
 }
@@ -97,6 +98,25 @@ function rollGearAffixes(tier, noAffix) {
     return picked;
 }
 
+function getEffectiveGearDef(inst) {
+    const def = getInstanceDef(inst);
+    if (!def || !inst?.compose) return def;
+    return {
+        ...def,
+        name: inst.compose.displayName || def.name,
+        emoji: inst.compose.emoji || def.emoji,
+        slot: inst.compose.slot || def.slot,
+        weaponType: inst.compose.weaponType != null ? inst.compose.weaponType : def.weaponType,
+        tier: inst.compose.gearTier != null ? inst.compose.gearTier : def.tier,
+        gearTierLabel: inst.compose.gearTierLabel || def.gearTierLabel
+    };
+}
+
+function getGearSlotForInstance(inst) {
+    const eff = getEffectiveGearDef(inst);
+    return eff?.slot || null;
+}
+
 function createGearInstance(defId, options) {
     options = options || {};
     ensureGearState();
@@ -122,6 +142,7 @@ function createGearInstance(defId, options) {
         durability: options.durability != null ? options.durability : maxDur,
         maxDurability: maxDur
     };
+    if (options.compose) inst.compose = { ...options.compose };
     G.gearInstances[uid] = inst;
     if (!options.skipBag) G.gearBag.push(uid);
     return uid;
@@ -275,7 +296,11 @@ function sumInstanceStats(inst, includeResonance) {
     const gradeMult = getGearGradeMult(inst);
     const martialMult = durMult * gradeMult;
     // Grade scales metal quality (base + affixes). Resonance is path fit — no grade mult in Phase B.
-    mergeStatBlock(stats, def.stats, martialMult);
+    if (inst.compose?.martialBase) {
+        mergeStatBlock(stats, inst.compose.martialBase, martialMult);
+    } else {
+        mergeStatBlock(stats, def.stats, martialMult);
+    }
     (inst.affixes || []).forEach(affId => {
         mergeStatBlock(stats, GEAR_AFFIXES[affId]?.stats, martialMult);
     });
@@ -341,9 +366,17 @@ function formatGearBonusPanelHtml() {
     return `<div class="gear-bonus-panel"><div class="gear-bonus-title">⚔️ Gear Bonuses (equipped)</div>${rows.join('')}</div>`;
 }
 
+function getWeaponFlatDamage() {
+    const inst = getEquippedInstance('weapon');
+    if (!inst) return 0;
+    const stats = sumInstanceStats(inst, false);
+    return Math.max(0, Math.floor(stats.flatDmg || 0));
+}
+
 function getGearBonuses() {
     ensureGearState();
     const b = {
+        flatDmg: 0,
         dmgPct: 0,
         defenseBonus: 0,
         maxQiBonus: 0,
@@ -380,7 +413,7 @@ function getGearDaoSpeedMult() {
 
 function getWeaponTechniqueSynergyMult(tech) {
     const inst = getEquippedInstance('weapon');
-    const def = getInstanceDef(inst);
+    const def = getEffectiveGearDef(inst);
     if (!def?.weaponType || !tech?.weaponType) return 1;
     if (def.weaponType === tech.weaponType) return 1.12;
     if (tech.weaponType === 'fist') return 1.05;
@@ -439,7 +472,7 @@ function formatDurabilityLine(inst) {
 }
 
 function formatInstanceBaseName(inst) {
-    const def = getInstanceDef(inst);
+    const def = getEffectiveGearDef(inst);
     if (!def) return 'Unknown';
     const aff = formatAffixLine(inst);
     return aff ? `${def.name} (${aff})` : def.name;
@@ -465,8 +498,8 @@ function formatStatDelta(val, key) {
 function compareGearStats(candidateUid, slot) {
     const cand = getGearInstance(candidateUid);
     if (!cand) return [];
-    const def = getInstanceDef(cand);
-    if (!def || def.slot !== slot) return [];
+    const def = getEffectiveGearDef(cand);
+    if (!def || getGearSlotForInstance(cand) !== slot) return [];
     const candStats = sumInstanceStats(cand);
     const eqInst = getEquippedInstance(slot);
     const eqStats = eqInst ? sumInstanceStats(eqInst) : {};
@@ -512,13 +545,14 @@ function equipGear(uidOrDefId) {
         uid = G.gearBag[idx];
         inst = getGearInstance(uid);
     }
-    const def = getInstanceDef(inst);
+    const def = getEffectiveGearDef(inst);
     if (!def) return { success: false, message: 'Unknown gear.' };
     if (!G.gearBag.includes(uid) && !GEAR_SLOT_IDS.some(s => G.equipment[s] === uid)) {
         return { success: false, message: 'You do not carry that item.' };
     }
 
-    const slot = def.slot;
+    const slot = getGearSlotForInstance(inst);
+    if (!slot) return { success: false, message: 'Cannot equip this item.' };
     if (G.equipment[slot] && G.equipment[slot] !== uid) {
         G.gearBag.push(G.equipment[slot]);
     }
@@ -594,15 +628,42 @@ function repairGear(uid, options) {
 
 function grantStarterGear() {
     ensureGearState();
-    const starterId = PATH_STARTER_GEAR[G.path] || 'leather_vest';
-    addGearToInventory(starterId, 1, { noAffix: true, grade: getDefaultGearGrade('starter'), source: 'starter' });
-    addGearToInventory('travel_sandals', 1, { noAffix: true, grade: getDefaultGearGrade('starter'), source: 'starter' });
+    addGearToInventory('mortal_chipped_sword', 1, { noAffix: true, grade: getDefaultGearGrade('starter'), source: 'starter' });
+    addGearToInventory('mortal_thread_robe', 1, { noAffix: true, grade: getDefaultGearGrade('starter'), source: 'starter' });
     addCraftMaterial('iron_ore', 3);
     addCraftMaterial('leather_scrap', 2);
     addCraftMaterial('spirit_herb', 2);
     addCraftMaterial('silk_thread', 2);
-    const starterUid = G.gearBag.find(uid => G.gearInstances[uid]?.defId === starterId);
-    if (starterUid) equipGear(starterUid);
+    addCraftMaterial('heartwood_splint', 1);
+    addCraftMaterial('spirit_crystal', 1);
+    const swordUid = G.gearBag.find(uid => G.gearInstances[uid]?.defId === 'mortal_chipped_sword');
+    const robeUid = G.gearBag.find(uid => G.gearInstances[uid]?.defId === 'mortal_thread_robe');
+    if (swordUid) equipGear(swordUid);
+    if (robeUid) equipGear(robeUid);
+}
+
+function buyMerchantMaterial(matId) {
+    const zoneId = typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || currentZone);
+    const stock = typeof MERCHANT_MATERIAL_STOCK !== 'undefined' ? MERCHANT_MATERIAL_STOCK[zoneId] : null;
+    if (!stock) return { success: false, message: 'No materials sold here.' };
+    const item = stock.find(s => s.matId === matId);
+    if (!item) return { success: false, message: 'Not sold here.' };
+    const mat = CRAFT_MATERIALS[matId];
+    if (!mat) return { success: false, message: 'Unknown material.' };
+    if (item.reqRealm != null && G.realmIdx < item.reqRealm) {
+        return { success: false, message: 'Your realm is too low.' };
+    }
+    if (G.stones < item.price) return { success: false, message: `Need ${item.price} Stones.` };
+    beginActionLog();
+    if (!advanceTime(0, `Purchasing ${mat.name}`)) {
+        cancelActionLog();
+        return { success: false, message: 'Your lifespan ends...' };
+    }
+    G.stones -= item.price;
+    addCraftMaterial(matId, item.qty || 1);
+    const msg = `🏪 Purchased ${item.qty || 1}× ${mat.emoji} ${mat.name} for ${item.price} Stones.`;
+    commitActionLog(msg);
+    return { success: true, message: msg, logged: true };
 }
 
 function buyMerchantGear(gearId) {

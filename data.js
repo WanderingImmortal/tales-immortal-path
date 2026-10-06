@@ -8580,6 +8580,8 @@ const GEAR_SLOT_LABELS = {
 const CRAFT_MATERIALS = {
     iron_ore: { id: 'iron_ore', name: 'Iron Ore', tier: 'common', emoji: '⛏️' },
     leather_scrap: { id: 'leather_scrap', name: 'Leather Scrap', tier: 'common', emoji: '🟤' },
+    heartwood_splint: { id: 'heartwood_splint', name: 'Heartwood Splint', tier: 'common', emoji: '🪵' },
+    spirit_crystal: { id: 'spirit_crystal', name: 'Spirit Crystal', tier: 'common', emoji: '💎' },
     spirit_herb: { id: 'spirit_herb', name: 'Spirit Herb', tier: 'common', emoji: '🌿' },
     silk_thread: { id: 'silk_thread', name: 'Silk Thread', tier: 'common', emoji: '🧵' },
     frost_essence: { id: 'frost_essence', name: 'Frost Essence', tier: 'uncommon', emoji: '❄️' },
@@ -8593,8 +8595,8 @@ const CRAFT_MATERIALS = {
 
 const EXPLORE_CRAFT_MATERIAL_MAP = {
     'Sand Silk': 'silk_thread',
-    'Sun Stone': 'iron_ore',
-    'Dust Root': 'spirit_herb',
+    'Sun Stone': 'spirit_crystal',
+    'Dust Root': 'heartwood_splint',
     'Frost Core': 'frost_essence',
     'Ice Herb': 'spirit_herb',
     'Glacial Shard': 'glacial_shard',
@@ -8617,6 +8619,21 @@ const PATH_STARTER_GEAR = {
 };
 
 const GEAR_ITEMS = {
+    mortal_chipped_sword: {
+        id: 'mortal_chipped_sword', name: 'Chipped Short Sword', slot: 'weapon', tier: 0, gearTierLabel: 'mortal', treasureType: 'weapon', weaponType: 'sword', emoji: '🗡️',
+        desc: 'Mortal steel — better than bare hands, far below a cultivator\'s forge.',
+        stats: { flatDmg: 1 }
+    },
+    mortal_thread_robe: {
+        id: 'mortal_thread_robe', name: 'Threadbare Robe', slot: 'chestplate', tier: 0, gearTierLabel: 'mortal', treasureType: 'armor', emoji: '👘',
+        desc: 'Ordinary cloth. A real forge piece will replace this quickly.',
+        stats: { defenseBonus: 1, maxHpBonus: 3 }
+    },
+    composed_mundane_gear: {
+        id: 'composed_mundane_gear', name: 'Forged gear', slot: 'weapon', tier: 1, gearTierLabel: 'mundane', treasureType: 'weapon', emoji: '⚔️',
+        desc: 'Mundane-tier gear shaped at the anvil from core and auxiliary materials.',
+        stats: {}
+    },
     rusty_qi_blade: {
         id: 'rusty_qi_blade', name: 'Rusty Qi Blade', slot: 'weapon', tier: 1, treasureType: 'weapon', weaponType: 'sword', gearSet: 'wandering_disciple', emoji: '🗡️',
         desc: 'A crude blade that channels ambient qi.',
@@ -8774,12 +8791,6 @@ const GEAR_ITEMS = {
 };
 
 const GEAR_CRAFT_RECIPES = {
-    rusty_qi_blade: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 8, materials: { iron_ore: 2, leather_scrap: 1 } },
-    leather_vest: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 6, materials: { leather_scrap: 3, silk_thread: 1 } },
-    cloth_headwrap: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 4, materials: { silk_thread: 2, spirit_herb: 1 } },
-    jade_pendant: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 2, stones: 10, materials: { spirit_herb: 2, jade_inlay: 1 } },
-    copper_band: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 6, materials: { iron_ore: 1, spirit_herb: 1 } },
-    travel_sandals: { tier: 1, minSkill: 'apprentice', unlockByDefault: true, months: 1, stones: 5, materials: { leather_scrap: 2, silk_thread: 1 } },
     frostbite_saber: { tier: 2, minSkill: 'journeyman', unlockByDefault: false, months: 4, stones: 25, materials: { iron_ore: 2, frost_essence: 2, demon_core: 1, glacial_shard: 1 } },
     spirit_weave_armor: { tier: 2, minSkill: 'journeyman', unlockByDefault: false, months: 4, stones: 30, materials: { silk_thread: 3, frost_essence: 2, demon_core: 1, leather_scrap: 2 } },
     dao_insight_amulet: { tier: 3, minSkill: 'artisan', unlockByDefault: false, months: 6, stones: 60, materials: { jade_inlay: 2, glacial_shard: 2, demon_core: 2, phoenix_ash: 1 } }
@@ -8860,20 +8871,29 @@ const LEGENDARY_GEAR_RECIPES = {
 };
 
 const MERCHANT_GEAR_STOCK = {
-    heartlands: [
-        { gearId: 'rusty_qi_blade', price: 18, reqRealm: 0 },
-        { gearId: 'leather_vest', price: 15, reqRealm: 0 },
-        { gearId: 'cloth_headwrap', price: 10, reqRealm: 0 },
-        { gearId: 'jade_pendant', price: 22, reqRealm: 0 },
-        { gearId: 'copper_band', price: 14, reqRealm: 0 },
-        { gearId: 'travel_sandals', price: 12, reqRealm: 0 }
-    ],
     jade: [
-        { gearId: 'rusty_qi_blade', price: 16, reqRealm: 0 },
-        { gearId: 'leather_vest', price: 14, reqRealm: 0 },
-        { gearId: 'jade_pendant', price: 20, reqRealm: 0 },
         { gearId: 'frostbite_saber', price: 55, reqRealm: 1 },
         { gearId: 'spirit_weave_armor', price: 65, reqRealm: 1 }
+    ]
+};
+
+const MERCHANT_MATERIAL_STOCK = {
+    heartlands: [
+        { matId: 'iron_ore', price: 4, qty: 1 },
+        { matId: 'leather_scrap', price: 3, qty: 1 },
+        { matId: 'heartwood_splint', price: 4, qty: 1 },
+        { matId: 'spirit_crystal', price: 5, qty: 1 },
+        { matId: 'silk_thread', price: 3, qty: 1 },
+        { matId: 'spirit_herb', price: 3, qty: 1 }
+    ],
+    jade: [
+        { matId: 'iron_ore', price: 3, qty: 1 },
+        { matId: 'leather_scrap', price: 3, qty: 1 },
+        { matId: 'heartwood_splint', price: 4, qty: 1 },
+        { matId: 'spirit_crystal', price: 5, qty: 1 },
+        { matId: 'silk_thread', price: 2, qty: 1 },
+        { matId: 'spirit_herb', price: 2, qty: 1 },
+        { matId: 'frost_essence', price: 12, qty: 1, reqRealm: 1 }
     ]
 };
 

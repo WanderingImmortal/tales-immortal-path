@@ -202,8 +202,9 @@ function combatSpineChebyshevDist(r1, c1, r2, c2) {
 
 function getCombatSpinePlayerReach() {
     let wt = 'fist';
-    if (typeof getEquippedInstance === 'function' && typeof getInstanceDef === 'function') {
-        const def = getInstanceDef(getEquippedInstance('weapon'));
+    if (typeof getEquippedInstance === 'function') {
+        const inst = getEquippedInstance('weapon');
+        const def = typeof getEffectiveGearDef === 'function' ? getEffectiveGearDef(inst) : getInstanceDef(inst);
         if (def && def.weaponType) wt = def.weaponType;
     }
     if (G.path === 'soul') return 2;

@@ -16,7 +16,9 @@ function openForgeChamber(options) {
     G.inForgeChamber = true;
     if (options.atSect) G.forge.atSect = true;
     if (options.tab) G.forge.activeTab = options.tab;
-    if (!G.forge.selectedRecipe && G.forge.activeTab !== 'repair' && G.forge.activeTab !== 'legendary') {
+    if (typeof ensureForgeComposeState === 'function') ensureForgeComposeState();
+    if (!G.forge.activeTab) G.forge.activeTab = 'mundane';
+    if (!G.forge.selectedRecipe && G.forge.activeTab === 'standard') {
         const recipes = getCraftableRecipes();
         if (recipes.length) G.forge.selectedRecipe = recipes[0].id;
     }
@@ -159,8 +161,8 @@ function renderForgeTabBar() {
     if (!el) return;
     ensureForgeState();
     const tab = G.forge.activeTab || 'standard';
-    el.innerHTML = ['standard', 'legendary', 'repair'].map(t => {
-        const labels = { standard: '⚔️ Standard', legendary: '🏆 Legendary', repair: '🔧 Repair' };
+    el.innerHTML = ['mundane', 'standard', 'legendary', 'repair'].map(t => {
+        const labels = { mundane: '🪨 Mundane', standard: '⚔️ Standard', legendary: '🏆 Legendary', repair: '🔧 Repair' };
         return `<button type="button" class="forge-tab-btn${tab === t ? ' active' : ''}" data-forge-tab="${t}">${labels[t]}</button>`;
     }).join('');
     el.querySelectorAll('[data-forge-tab]').forEach(btn => {
@@ -179,6 +181,11 @@ function renderForgeRecipeList() {
 
     if (tab === 'repair') {
         el.innerHTML = '<p class="forge-muted">Select an item below to repair worn gear.</p>';
+        return;
+    }
+
+    if (tab === 'mundane') {
+        renderForgeMundaneSelectors(el);
         return;
     }
 
@@ -237,7 +244,11 @@ function renderForgeRecipeDetail() {
     }
     if (forgeBtn) forgeBtn.style.display = '';
 
-    const tab = G.forge.activeTab || 'standard';
+    const tab = G.forge.activeTab || 'mundane';
+    if (tab === 'mundane') {
+        renderForgeMundaneDetail(el, forgeBtn);
+        return;
+    }
     const legendary = tab === 'legendary';
     const recipeId = legendary ? G.forge.selectedLegendary : G.forge.selectedRecipe;
     const recipe = legendary ? LEGENDARY_GEAR_RECIPES[recipeId] : GEAR_CRAFT_RECIPES[recipeId];
@@ -363,6 +374,127 @@ function renderForgeSectToggle() {
     });
 }
 
+function renderForgeMundaneSelectors(el) {
+    ensureForgeComposeState();
+    const compose = G.forge.compose;
+    const patterns = listMundaneForgePatterns();
+    const cores = listValidCoresForPattern(compose.patternId);
+    if (!cores.find(c => c.id === compose.coreMatId) && cores.length) {
+        compose.coreMatId = cores[0].id;
+    }
+
+    const patternHtml = patterns.map(p => {
+        const sel = compose.patternId === p.id ? ' selected' : '';
+        return `<button type="button" class="forge-recipe-btn${sel}" data-forge-pattern="${p.id}">
+            <span class="forge-recipe-emoji">${p.emoji}</span>
+            <span class="forge-recipe-info"><span class="forge-recipe-name">${p.label}</span></span>
+        </button>`;
+    }).join('');
+
+    const coreHtml = cores.map(c => {
+        const sel = compose.coreMatId === c.id ? ' selected' : '';
+        const mat = CRAFT_MATERIALS[c.id];
+        return `<button type="button" class="forge-recipe-btn${sel}" data-forge-core="${c.id}">
+            <span class="forge-recipe-emoji">${mat?.emoji || '◆'}</span>
+            <span class="forge-recipe-info"><span class="forge-recipe-name">${c.label}</span><span class="forge-recipe-meta">${c.family}</span></span>
+        </button>`;
+    }).join('');
+
+    const auxList = listValidAuxMaterials();
+    const maxAux = FORGE_COMPOSE_BALANCE.maxAuxSlots || 2;
+    const auxHtml = auxList.map(a => {
+        const idx = compose.auxMatIds.indexOf(a.id);
+        const sel = idx >= 0 ? ' selected' : '';
+        const mat = CRAFT_MATERIALS[a.id];
+        return `<button type="button" class="forge-recipe-btn${sel}" data-forge-aux="${a.id}">
+            <span class="forge-recipe-emoji">${mat?.emoji || '◆'}</span>
+            <span class="forge-recipe-info"><span class="forge-recipe-name">${mat?.name || a.id}</span></span>
+        </button>`;
+    }).join('');
+
+    el.innerHTML = `
+        <p class="forge-muted">Mundane tier — pattern, core material, optional aux (up to ${maxAux}). Core-only forges are weaker.</p>
+        <h4 class="forge-section-sub">Pattern</h4>
+        <div class="forge-recipe-list-inner">${patternHtml}</div>
+        <h4 class="forge-section-sub">Core</h4>
+        <div class="forge-recipe-list-inner">${coreHtml || '<p class="forge-muted">No valid core.</p>'}</div>
+        <h4 class="forge-section-sub">Auxiliary</h4>
+        <div class="forge-recipe-list-inner">${auxHtml}</div>
+    `;
+
+    el.querySelectorAll('[data-forge-pattern]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            compose.patternId = btn.dataset.forgePattern;
+            const valid = listValidCoresForPattern(compose.patternId);
+            if (!valid.find(c => c.id === compose.coreMatId) && valid.length) compose.coreMatId = valid[0].id;
+            renderForgeChamberUI();
+        });
+    });
+    el.querySelectorAll('[data-forge-core]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            compose.coreMatId = btn.dataset.forgeCore;
+            renderForgeChamberUI();
+        });
+    });
+    el.querySelectorAll('[data-forge-aux]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.dataset.forgeAux;
+            const i = compose.auxMatIds.indexOf(id);
+            if (i >= 0) compose.auxMatIds.splice(i, 1);
+            else if (compose.auxMatIds.length < maxAux) compose.auxMatIds.push(id);
+            renderForgeChamberUI();
+        });
+    });
+}
+
+function renderForgeMundaneDetail(el, forgeBtn) {
+    ensureForgeComposeState();
+    const { patternId, coreMatId, auxMatIds } = G.forge.compose;
+    const preview = previewMundaneCompose(patternId, coreMatId, auxMatIds);
+    const check = canCraftMundaneCompose(patternId, coreMatId, auxMatIds);
+    const months = check.months != null ? check.months : FORGE_COMPOSE_BALANCE.mundaneMonths;
+    const stones = check.stones != null ? check.stones : FORGE_COMPOSE_BALANCE.mundaneStones;
+
+    if (!preview.ok) {
+        el.innerHTML = `<p class="forge-detail-block">${preview.reason}</p>`;
+        if (forgeBtn) forgeBtn.disabled = true;
+        return;
+    }
+
+    const realmLabel = getForgeRealmGateLabel(getForgeTierMinRealm(1));
+    const statLine = formatMundanePreviewStats(preview.previewStats);
+    const coreOnlyNote = !auxMatIds.length
+        ? `<p class="forge-detail-block">No aux selected — stats ×${FORGE_COMPOSE_BALANCE.coreOnlyStatMult} (core only).</p>`
+        : '';
+
+    el.innerHTML = `
+        <div class="forge-detail-header">
+            <span class="forge-detail-emoji">${preview.pattern.emoji}</span>
+            <div>
+                <h3 class="forge-detail-name">${preview.displayName}</h3>
+                <p class="forge-detail-tier">Mundane · Tier 1 · ${realmLabel}</p>
+            </div>
+        </div>
+        <p class="forge-detail-stats"><strong>Preview (Common band):</strong> ${statLine}</p>
+        <p class="forge-detail-grade"><strong>Grade:</strong> Rolled on forge (Inferior–Supreme)</p>
+        ${coreOnlyNote}
+        <div class="forge-detail-stats">
+            <span>Time: <strong>${months} mo</strong></span>
+            <span>Cost: <strong>${stones} stones</strong></span>
+        </div>
+        <div class="forge-detail-materials">
+            <strong>Materials:</strong>
+            <p>${formatMundaneForgeMaterialCostLine(coreMatId, auxMatIds)}</p>
+        </div>
+        ${!check.ok ? `<p class="forge-detail-block">${check.reason}</p>` : ''}
+    `;
+
+    if (forgeBtn) {
+        forgeBtn.disabled = forgeChamberBlocked() || !check.ok;
+        forgeBtn.textContent = `🔨 Forge Mundane (${months} mo)`;
+    }
+}
+
 function renderForgeChamberUI() {
     if (!G.inForgeChamber) return;
     ensureForgeState();
@@ -383,7 +515,10 @@ function initForgeChamberEvents() {
         const tab = G.forge.activeTab || 'standard';
         if (tab === 'repair') return;
         triggerForgeAnim('striking');
-        if (tab === 'legendary' && G.forge.selectedLegendary) {
+        if (tab === 'mundane') {
+            const opts = G.forge.atSect && G.sect ? { atSect: true } : {};
+            craftMundaneCompose(opts);
+        } else if (tab === 'legendary' && G.forge.selectedLegendary) {
             craftLegendaryGear(G.forge.selectedLegendary);
         } else if (G.forge.selectedRecipe) {
             const opts = G.forge.atSect && G.sect ? { atSect: true } : {};
