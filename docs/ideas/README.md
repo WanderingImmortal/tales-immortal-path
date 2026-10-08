@@ -40,6 +40,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [City tiers](city-tiers.md) | `designed` | Settlement rename / profiles | — |
 | [Civic seats generator](civic-seats-generator.md) | `building` (v1 Redwell) | Other cities / capital kit later | `cursor/civic-seats-generator-design` |
 | [Enemy tier scaling (places & pockets)](enemy-tier-scaling.md) | `designed` | Location profiles; field pools; [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147) interim | — |
+| [Public strength → encounters](public-strength-encounter-selection.md) | `designed` | Dossier API; offer pipeline; thread mesh | — |
 | [Explore — field gathering](explore-field-gathering.md) | `designed` (field triangle) | Site tables; enemy pools | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
 | [Dustbone starter gameplay (hub)](dustbone-starter-gameplay.md) | `designed` (index) | Child slices | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) · [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | [Dustbone living board](dustbone-living-board.md) | `designed` | Redwell v1 | [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |

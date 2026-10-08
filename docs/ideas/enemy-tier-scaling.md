@@ -181,14 +181,11 @@ encounterProfile:
 
 **Fringe** (`redwell_fringe` or same node + `urban_fringe` tag): same human QC table; slightly higher `rateMult`; still **no FE** randoms.
 
-### Player mirror (later)
+### Player mirror → **public dossier**
 
-As **your** `qcBand.stage` rises in Redwell:
+Redwell QC weights describe **attackers**. Whether you’re attacked at all — and whether the pool includes “nobodies” vs “peak rivals” — comes from **`getPlayerKnownRealmBand()` / `getPlayerKnownQcStage()`** and **respect** math, not raw `G.qcBand` alone.
 
-- Fewer **early/mid** randos pick a fight (respect / fear `rateMult`).
-- **Peak** players might only see trouble from **named** grudges or tournament — not anonymous muggings.
-
-Not required for first implementation; document so pacing matches fantasy.
+Full mesh: [`public-strength-encounter-selection.md`](public-strength-encounter-selection.md).
 
 ### What stays scripted
 

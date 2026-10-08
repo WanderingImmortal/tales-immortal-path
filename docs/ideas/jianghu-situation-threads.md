@@ -36,6 +36,8 @@ This is **not** a replacement for authored story arcs (`STORY_ARCS`). It is the 
 
 **Verdict:** You have **inputs** (relationship stats, kills, personalities, scheduler, quest log mirror) and **outputs** (combat, log lines, faction shifts). What’s missing is a **middle layer**: normalized **incidents**, **threads**, and **escalation packs** — plus rules for **who cares** (ties).
 
+**Encounter mesh:** thread beats (proxy, hunter, interrupt) should plug into the same **offer pipeline** as random street fights — [`public-strength-encounter-selection.md`](public-strength-encounter-selection.md). Today `startCombat()` ignores all of this.
+
 ---
 
 ## Design — one engine, three layers
