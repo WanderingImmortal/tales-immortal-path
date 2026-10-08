@@ -1007,7 +1007,9 @@ function startCombat() {
     }
     const cfg = getCombatConfig();
     const affixNote = affixes.length ? ` [${affixes.map(id => ENEMY_AFFIXES[id]?.label || id).join(', ')}]` : '';
-    addCombatLog(`⚔️ A ${G.enemy.name} appears!${affixNote} (${G.enemy.hp} HP, ${G.enemy.dmg} dmg)`);
+    const tierRow = typeof getEnemyTierBaseline === 'function' ? getEnemyTierBaseline(G.enemy.combatTier ?? 0) : null;
+    const tierNote = tierRow?.label ? ` · ${tierRow.label}` : '';
+    addCombatLog(`⚔️ A ${G.enemy.name} appears!${affixNote} (${G.enemy.hp} HP, ${G.enemy.dmg} dmg${tierNote})`);
     if (isCombatQiLinked()) {
         const pool = getQiLinkedCombatStartPool();
         addCombatLog(`🌬️ Breath ${G.combatResource}/${G.maxCombatResource} drawn from dantian (${pool.currentQi}/${pool.maxQi} Qi).`);
