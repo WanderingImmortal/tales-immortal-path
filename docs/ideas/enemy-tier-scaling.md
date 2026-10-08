@@ -6,7 +6,7 @@
 | **Blocked on** | Location encounter profiles on `WORLD_LOCATIONS`; field-site pools ([`explore-field-gathering.md`](explore-field-gathering.md)) |
 | **Issue** | none yet |
 | **Chat / PR** | Design pass 2026-10-08 · prototype zone bands [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147) (to be superseded) |
-| **Updated** | 2026-10-08 |
+| **Updated** | 2026-10-08 (Redwell street QC bands) |
 
 ## Intent
 
@@ -81,8 +81,8 @@ Pockets are how you get **granularity without splitting the whole zone**: most o
 
 | Place type | Typical anchor | Kind bias | Encounter rate |
 |------------|----------------|-----------|----------------|
-| **Urban core** | city `streetAnchor` | human-heavy, few beasts | low |
-| **Urban fringe** (outside walls, night roads) | anchor + 0..1 | beasts + bandits | medium |
+| **Urban core** | city `streetAnchor` | **human-only (v1)** — see Redwell | low |
+| **Urban fringe** (outside walls, night roads) | anchor + 0..1 | human-first; beasts on field routes later | medium |
 | **Field site (edge)** | site safe band | site pool | medium |
 | **Field site (deep)** | site wild/deadly | site pool + elites | higher |
 | **Route** | interpolate endpoints or min(ambient) | mixed | low–medium |
@@ -122,8 +122,8 @@ Civic context: Redwell **4th-tier** city; Threshold **1st-tier** capital ([`city
 
 | Place | Profile type | anchor | min–max | Notes |
 |-------|----------------|--------|---------|--------|
-| **Redwell** (market, inn, seats) | urban_core | 0 | 0–1 | Avg ~QC trouble; beasts rare (event/chronicle) |
-| **Redwell fringe** (well road at night) | urban_fringe | 0.5 | 0–1 | Saltbrush things, robbers |
+| **Redwell** (market, inn, seats) | urban_core | 0 | 0–0* | **Human-only** street brawl — QC band table below |
+| **Redwell fringe** (well road at night) | urban_fringe | 0 | 0–0* | Human robbers/outers; still no random FE |
 | **Dewcatch Scrub** edge | field safe | 0 | 0–0 | Site pool: viper, stalker ([`explore-field-gathering.md`](explore-field-gathering.md)) |
 | **Dewcatch** deep | field wild | 0.5 | 0–1 | Elite: Dew-Catch Wight (pinned tier) |
 | **Ironscar Quarry** shallow | field safe/wild | 0 | 0–1 | Claim-jumpers, lizards |
@@ -134,6 +134,76 @@ Civic context: Redwell **4th-tier** city; Threshold **1st-tier** capital ([`city
 | **Open desert** (no location) | ambient | 0 | 0–1 | Generic beasts / corrupted wanderers, skew low |
 
 **Invincibility moment:** Core Formation cultivator in Dewcatch edge should **one-shot** tier-0 commons and see **fewer** rolls (`rateMult`), not inflated HP.
+
+\* Redwell urban **tierMax = 0** (still in Qi Condensation) until we add FE **scripted** content — not “0–1” with Foundation randos in alleys.
+
+---
+
+## Redwell — street brawl (reference slice)
+
+**Pilot city** for place-first profiles. Aligns with QC bands in [`qc-depth.js`](../../qc-depth.js) (`early` / `mid` / `late` / `peak`) and civic tone in [`redwell-starter-city.md`](redwell-starter-city.md).
+
+### Kind lock (for now)
+
+- **Redwell urban_core + urban_fringe:** `kindWeights = { human: 1 }`.
+- **Beasts in cities** (beast cities, pets, escaped mounts) — **parked**; fields/ambient/pockets stay where beasts belong.
+- Dewcatch / Ironscar / open desert keep beast pools when those profiles ship.
+
+### Social ladder → who you fight in a random street brawl
+
+In a **4th-tier** town whose **civic apex** is mid–late FE, the **street** is still a QC pond. Power looks like **recognition**, not HP inflation:
+
+| QC stage | Redwell social read | In random street brawl pool? | Weight (target) | Combat note |
+|----------|---------------------|------------------------------|-----------------|-------------|
+| **Early** | Nobody; fair game | Yes | **~40%** | Weakest QC baseline within tier 0 |
+| **Mid** | Locals, interchangeable | Yes | **~40%** | Standard tier-0 baseline |
+| **Late** | Names at the tavern; people think twice | Yes, uncommon | **~15%** | Slightly tougher tier-0 stat band |
+| **Peak** | Known and **respected**; room made | Rare | **~5%** | Top tier-0 band; often needs provocation flag later |
+| **Foundation+** | **People of importance** — power in town | **No** (random) | **0%** | Master Liang, lord, seat-holders: NPCs, jobs, tournament, grudges — not explore fodder |
+
+**Foundation Establishment and above** in Redwell are not “alley trash.” Early FE like Well-Ring Master Liang is **scripted weight** (sense lines already in `qc-depth.js`), not a `pickEnemyTemplate` roll.
+
+### Profile sketch (`redwell` location)
+
+```yaml
+encounterProfile:
+  tags: [urban_core]
+  kindWeights: { human: 1 }
+  realmCap: 0                    # Qi Condensation only for random street
+  qcStageWeights:                # only when tier 0
+    early: 40
+    mid: 40
+    late: 15
+    peak: 5
+  rateMult: 0.6                  # lower than scrub — fights are social, not constant
+  poolId: redwell_street_humans  # dedicated names: drunk outer, gambler, pamphlet thief, …
+```
+
+**Fringe** (`redwell_fringe` or same node + `urban_fringe` tag): same human QC table; slightly higher `rateMult`; still **no FE** randoms.
+
+### Player mirror (later)
+
+As **your** `qcBand.stage` rises in Redwell:
+
+- Fewer **early/mid** randos pick a fight (respect / fear `rateMult`).
+- **Peak** players might only see trouble from **named** grudges or tournament — not anonymous muggings.
+
+Not required for first implementation; document so pacing matches fantasy.
+
+### What stays scripted
+
+| Content | Tier / stage | Channel |
+|---------|----------------|---------|
+| Well-Ring registration beef | QC–early FE | job / NPC |
+| Yearly promotion tournament | QC peaks | event |
+| City Lord / seat holders | mid–late FE | sense, audience, chronicle |
+| Field elites (Wight, Pit Brute) | pinned | place pocket, not street |
+
+### Open (Redwell-only)
+
+- Peak QC random 5%: keep or move entirely to **grudge / duel accept**?
+- One “disrespectful outsider” FE template for **Threshold visitors** in market — scripted only?
+- When player is **FE**, is Redwell random combat **off** entirely in core?
 
 ---
 
@@ -197,7 +267,7 @@ Combat **ATB tempo** should eventually key off **tier baseline**, not post-scali
 
 1. **Travel encounters:** roll from **origin**, **destination**, **route table**, or worst-of?  
 2. **Sub-tier granularity:** do we need QC early/late split before adding tier 1, or are place pools enough?  
-3. **City law:** hard-zero beasts in `urban_core`, or 1% “escaped beast” event?  
+3. **City beasts:** parked — beast cities / pets later; Redwell v1 **human-only**.  
 4. **Dynamic pockets:** faction war / chronicle raises `anchorTier` for a node temporarily?  
 5. **Hidden subzones** ([`ancients.js`](../../ancients.js) pattern): inherit parent ambient or own pocket profile?  
 6. **PR [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147):** merge as interim fallback, or hold until location profiles land?
