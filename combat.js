@@ -318,32 +318,65 @@ function estimateTypicalHitDamage() {
     return Math.max(basic, bestTech);
 }
 
-function pickEnemyTemplate() {
-    const zoneId = typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || 'dustbone');
-    let eligible = ENEMIES.filter(e => (e.minRealm || 0) <= G.realmIdx);
-    if (!eligible.length) eligible = ENEMIES;
-    const zoneMatches = eligible.filter(e => e.zones && e.zones.includes(zoneId));
-    const pool = zoneMatches.length && Math.random() < 0.65 ? zoneMatches : eligible;
-    const weighted = [];
-    pool.forEach(e => {
-        const weight = 1 + (e.minRealm || 0);
-        for (let i = 0; i < weight; i++) weighted.push(e);
-    });
-    return weighted[Math.floor(Math.random() * weighted.length)];
+function getEnemyDefTier(template) {
+    if (!template) return 0;
+    if (template.tier != null) return template.tier;
+    return template.minRealm || 0;
 }
 
-function rollGenericEnemyAffixes() {
+function getEnemyTierBaseline(tier) {
+    const rows = ENEMY_TIER_BALANCE?.tiers || [];
+    const row = rows[tier] || rows[0] || { hp: 50, dmg: 6, label: 'Unknown' };
+    return { hp: row.hp, dmg: row.dmg, label: row.label, beastGrade: row.beastGrade };
+}
+
+function getZoneEncounterTierRange(zoneId) {
+    const zone = (typeof ZONES !== 'undefined' && ZONES[zoneId]) ? ZONES[zoneId] : null;
+    if (zone && zone.encounterTierMin != null) {
+        const min = Math.max(0, zone.encounterTierMin);
+        const max = Math.max(min, zone.encounterTierMax != null ? zone.encounterTierMax : min);
+        return { min, max };
+    }
+    const max = zone && zone.dangerRealm != null ? zone.dangerRealm : 0;
+    const min = Math.max(0, max - 1);
+    return { min, max };
+}
+
+function rollZoneEncounterTier(zoneId) {
+    const { min, max } = getZoneEncounterTierRange(zoneId);
+    if (min >= max) return min;
+    const roll = Math.random();
+    if (roll < 0.55) return min;
+    if (roll < 0.85) return Math.min(max, min + 1);
+    return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+function pickEnemyTemplate() {
     const zoneId = typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || 'dustbone');
-    const maxAffixes = G.realmIdx >= 5 ? 2 : 1;
-    let count = Math.random() < (0.35 + G.realmIdx * 0.06) ? 1 : 0;
-    if (G.realmIdx >= 4 && Math.random() < 0.25) count = Math.min(maxAffixes, count + 1);
+    const targetTier = rollZoneEncounterTier(zoneId);
+    const zoneMatches = ENEMIES.filter(e => e.zones && e.zones.includes(zoneId));
+    let pool = zoneMatches.filter(e => getEnemyDefTier(e) === targetTier);
+    if (!pool.length) pool = zoneMatches.filter(e => getEnemyDefTier(e) <= targetTier);
+    if (!pool.length) pool = zoneMatches;
+    if (!pool.length) pool = ENEMIES.filter(e => getEnemyDefTier(e) === targetTier);
+    if (!pool.length) pool = ENEMIES.slice();
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function rollGenericEnemyAffixes(template) {
+    const zoneId = typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || 'dustbone');
+    const enemyTier = getEnemyDefTier(template);
+    const zoneMaxTier = getZoneEncounterTierRange(zoneId).max;
+    const maxAffixes = zoneMaxTier >= 5 ? 2 : 1;
+    let count = Math.random() < (0.35 + zoneMaxTier * 0.06) ? 1 : 0;
+    if (zoneMaxTier >= 4 && Math.random() < 0.25) count = Math.min(maxAffixes, count + 1);
     const picked = [];
     for (let i = 0; i < count; i++) {
         const weighted = [];
         Object.keys(ENEMY_AFFIXES || {}).forEach(id => {
             const a = ENEMY_AFFIXES[id];
             if (!a) return;
-            if (a.minRealm != null && G.realmIdx < a.minRealm) return;
+            if (a.minRealm != null && enemyTier < a.minRealm) return;
             let w = 10;
             if (a.zones && a.zones.includes(zoneId)) w += 25;
             for (let j = 0; j < w; j++) weighted.push(id);
@@ -524,6 +557,7 @@ function applyEnemyElementModifier(dmg, element) {
 
 function buildEnemyFromDef(def, template, options = {}) {
     const calcCtx = options.calcContext || { context: 'normal' };
+    if (calcCtx.tier == null) calcCtx.tier = getEnemyDefTier(template);
     let hp = calcEnemyHp(template, calcCtx);
     let dmg = calcEnemyDamage(template, calcCtx);
     hp = Math.floor(hp * (def.hpMult || 1));
@@ -547,6 +581,8 @@ function buildEnemyFromDef(def, template, options = {}) {
         maxHp: hp,
         dmg,
         originalDmg: dmg,
+        combatTier: calcCtx.tier,
+        combatKind: template?.kind || 'unknown',
         intimidateTurns: 0,
         skipTurns: 0,
         slowTurns: 0,
@@ -760,6 +796,12 @@ function calcCrucibleEnemyHp(template, wave) {
     return Math.max(typicalHit * 3, Math.min(hp, cap));
 }
 
+function applyEnemyTierVariance(value, variancePct) {
+    if (!variancePct) return value;
+    const jitter = 1 + (Math.random() * 2 - 1) * variancePct;
+    return Math.max(1, Math.floor(value * jitter));
+}
+
 function calcEnemyHp(template, options = {}) {
     const b = COMBAT_BALANCE;
     const ctx = options.context || 'normal';
@@ -769,35 +811,39 @@ function calcEnemyHp(template, options = {}) {
         return calcCrucibleEnemyHp(template, wave);
     }
 
-    const power = getPlayerOffensivePower();
-    const typicalHit = estimateTypicalHitDamage();
-
-    let hp = template.hp;
-    hp += Math.floor(G.maxHp * b.enemyHpFromPlayerMax);
-    hp += Math.floor(power * b.enemyHpFromPlayerPower);
-    hp = Math.max(hp, typicalHit * b.enemyMinHits);
-
-    return hp;
+    const tier = options.tier != null ? options.tier : getEnemyDefTier(template);
+    const baseline = getEnemyTierBaseline(tier);
+    const ref = ENEMY_TIER_BALANCE?.reference || { hp: 50, dmg: 6 };
+    const shapeHp = (template?.hp || ref.hp) / ref.hp;
+    let hp = Math.floor(baseline.hp * shapeHp);
+    hp = applyEnemyTierVariance(hp, b.enemyTierHpVariance);
+    return Math.max(1, hp);
 }
 
 function calcEnemyDamage(template, options = {}) {
     const b = COMBAT_BALANCE;
     const ctx = options.context || 'normal';
     const wave = options.wave || 1;
-    const power = getPlayerOffensivePower();
-    const realm = G.realmIdx;
-
-    let dmg = template.dmg + realm * b.enemyDmgPerRealm;
-    dmg += Math.floor(G.maxHp * b.enemyDmgFromPlayerMax);
-    dmg += Math.floor(power * b.enemyDmgFromPlayerPower);
 
     if (ctx === 'crucible') {
+        const power = getPlayerOffensivePower();
+        const realm = G.realmIdx;
+        let dmg = template.dmg + realm * b.enemyDmgPerRealm;
+        dmg += Math.floor(G.maxHp * 0.028);
+        dmg += Math.floor(power * 0.10);
         dmg += (wave - 1) * FORBIDDEN_BALANCE.crucibleDmgPerWave;
         dmg = Math.floor(dmg * FORBIDDEN_BALANCE.crucibleDmgMult);
         const pct = FORBIDDEN_BALANCE.crucibleMaxDmgPctPerHit || 0.09;
         dmg = Math.min(dmg, Math.max(5, Math.floor(G.maxHp * pct)));
+        return Math.max(3, dmg);
     }
 
+    const tier = options.tier != null ? options.tier : getEnemyDefTier(template);
+    const baseline = getEnemyTierBaseline(tier);
+    const ref = ENEMY_TIER_BALANCE?.reference || { hp: 50, dmg: 6 };
+    const shapeDmg = (template?.dmg || ref.dmg) / ref.dmg;
+    let dmg = Math.floor(baseline.dmg * shapeDmg);
+    dmg = applyEnemyTierVariance(dmg, b.enemyTierDmgVariance);
     return Math.max(3, dmg);
 }
 
@@ -931,7 +977,7 @@ function startCombat() {
     if (G.inCombat) return;
     initCombatStatus();
     const enemyTemplate = pickEnemyTemplate();
-    const affixes = rollGenericEnemyAffixes();
+    const affixes = rollGenericEnemyAffixes(enemyTemplate);
     const def = {
         name: enemyTemplate.name,
         hpMult: 1,

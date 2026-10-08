@@ -1495,20 +1495,34 @@ const PILL_LOOT_WEIGHTS = [
     { id: "foundation_stabilizing", weight: 8 }
 ];
 
+// Enemy combat tiers (0 = earliest cultivation). Zone encounter tables pick tier first; stats scale from baseline × template shape.
+const ENEMY_TIER_BALANCE = {
+    reference: { hp: 50, dmg: 6 },
+    tiers: [
+        { id: 0, label: 'Qi Condensation', beastGrade: '1st-order', hp: 42, dmg: 5 },
+        { id: 1, label: 'Foundation Establishment', beastGrade: '2nd-order', hp: 62, dmg: 7 },
+        { id: 2, label: 'Core Formation', beastGrade: '3rd-order', hp: 88, dmg: 10 },
+        { id: 3, label: 'Nascent Soul', beastGrade: '4th-order', hp: 118, dmg: 13 },
+        { id: 4, label: 'Soul Transformation', beastGrade: '5th-order', hp: 152, dmg: 16 },
+        { id: 5, label: 'Void Refinement', beastGrade: '6th-order', hp: 190, dmg: 20 },
+        { id: 6, label: 'Immortal Ascension', beastGrade: '7th-order', hp: 235, dmg: 24 }
+    ]
+};
+
 const ENEMIES = [
-    { name: "Feral Spirit Wolf", hp: 35, dmg: 4, minRealm: 0, zones: ['frostbite', 'emberwild'], element: 'wind',
+    { name: "Feral Spirit Wolf", hp: 35, dmg: 4, tier: 0, kind: 'beast', minRealm: 0, zones: ['frostbite', 'emberwild'], element: 'wind',
         abilities: [
             { id: 'snap', weight: 50, telegraph: 'The wolf bares frost-caked fangs.', effect: { bonusDmgMult: 1.1 } },
             { id: 'circle', weight: 30, effect: { selfDefend: true, bonusDmgMult: 0.7, log: 'It circles, waiting for an opening.' } },
             { id: 'lunge', weight: 20, cooldown: 2, effect: { bonusDmgMult: 1.35, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.025 } } }
         ] },
-    { name: "Corrupted Cultivator", hp: 50, dmg: 6, minRealm: 0, zones: ['dustbone', 'heartlands'], element: 'neutral',
+    { name: "Corrupted Cultivator", hp: 50, dmg: 6, tier: 0, kind: 'human', minRealm: 0, zones: ['dustbone', 'heartlands'], element: 'neutral',
         abilities: [
             { id: 'dark_pulse', weight: 45, telegraph: 'Corrupted qi gathers in their palm.', effect: { bonusDmgMult: 1.15 } },
             { id: 'guard', weight: 35, effect: { selfDefend: true, log: 'They raise a sloppy barrier.' } },
             { id: 'drain', weight: 20, cooldown: 3, effect: { bonusDmgMult: 0.9, applyPlayer: { slowResourceRegen: 1 } } }
         ] },
-    { name: "Demon Beast", hp: 65, dmg: 7, minRealm: 1, zones: ['emberwild', 'dustbone'], element: 'fire',
+    { name: "Demon Beast", hp: 65, dmg: 7, tier: 1, kind: 'beast', minRealm: 1, zones: ['emberwild', 'dustbone'], element: 'fire',
         enrageThreshold: 0.4,
         abilities: [
             { id: 'claw', weight: 50, effect: { bonusDmgMult: 1.1 } },
@@ -1519,25 +1533,25 @@ const ENEMIES = [
             { id: 'rampage', weight: 60, effect: { bonusDmgMult: 1.4, extraHits: 1 } },
             { id: 'frenzy_claw', weight: 40, effect: { bonusDmgMult: 1.55 } }
         ] },
-    { name: "Shadow Assassin", hp: 45, dmg: 8, minRealm: 1, zones: ['jade', 'heartlands'], element: 'wind',
+    { name: "Shadow Assassin", hp: 45, dmg: 8, tier: 1, kind: 'human', minRealm: 1, zones: ['jade', 'heartlands'], element: 'wind',
         abilities: [
             { id: 'stab', weight: 45, effect: { bonusDmgMult: 1.2 } },
             { id: 'smoke', weight: 30, effect: { selfDefend: true, log: 'Smoke obscures their form.' } },
             { id: 'vitals', weight: 25, cooldown: 2, telegraph: 'A blade seeks your meridians.', effect: { bonusDmgMult: 1.35, applyPlayer: { bleedTurns: 2, bleedDmgPct: 0.035 } } }
         ] },
-    { name: "Heavenly Tribulation Phantom", hp: 80, dmg: 9, minRealm: 2, zones: ['heartlands', 'frostbite'], element: 'soul',
+    { name: "Heavenly Tribulation Phantom", hp: 80, dmg: 9, tier: 2, kind: 'spirit', minRealm: 2, zones: ['heartlands', 'frostbite'], element: 'soul',
         abilities: [
             { id: 'spirit_bolt', weight: 40, telegraph: 'Heavenly wrath condenses.', effect: { bonusDmgMult: 1.1, applyPlayer: { spiritDamage: true } } },
             { id: 'phase', weight: 35, effect: { selfDefend: true, noDamage: true, log: 'The phantom flickers out of reach.' } },
             { id: 'tribulation_strike', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.4, applyPlayer: { spiritDamage: true } } }
         ] },
-    { name: "Nascent Soul Raider", hp: 110, dmg: 12, minRealm: 3, zones: ['jade', 'dustbone'], element: 'soul',
+    { name: "Nascent Soul Raider", hp: 110, dmg: 12, tier: 3, kind: 'human', minRealm: 3, zones: ['jade', 'dustbone'], element: 'soul',
         abilities: [
             { id: 'soul_rend', weight: 45, effect: { bonusDmgMult: 1.15, applyPlayer: { spiritDamage: true } } },
             { id: 'barrier', weight: 30, effect: { selfDefend: true } },
             { id: 'harvest', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.25, stealStones: { min: 3, max: 8, chance: 0.6 } } }
         ] },
-    { name: "Void Horror", hp: 140, dmg: 15, minRealm: 4, zones: ['emberwild', 'frostbite'], element: 'neutral',
+    { name: "Void Horror", hp: 140, dmg: 15, tier: 4, kind: 'spirit', minRealm: 4, zones: ['emberwild', 'frostbite'], element: 'neutral',
         enrageThreshold: 0.35,
         abilities: [
             { id: 'void_lash', weight: 50, effect: { bonusDmgMult: 1.15 } },
@@ -1547,13 +1561,13 @@ const ENEMIES = [
         enrageAbilities: [
             { id: 'void_maw', weight: 100, effect: { bonusDmgMult: 1.5, applyPlayer: { skipPlayerTurn: 1 } } }
         ] },
-    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, minRealm: 5, zones: ['heartlands'], element: 'neutral',
+    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, tier: 5, kind: 'human', minRealm: 5, zones: ['heartlands'], element: 'neutral',
         abilities: [
             { id: 'counter_stance', weight: 35, effect: { selfDefend: true, log: 'Your nemesis reads your intent.' } },
             { id: 'dao_slash', weight: 40, telegraph: 'A blade of pure conviction falls.', effect: { bonusDmgMult: 1.2 } },
             { id: 'breakthrough', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.4, applyPlayer: { slowResourceRegen: 2 } } }
         ] },
-    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, minRealm: 6, zones: ['heartlands', 'jade'], element: 'neutral',
+    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, tier: 6, kind: 'human', minRealm: 6, zones: ['heartlands', 'jade'], element: 'neutral',
         enrageThreshold: 0.3,
         abilities: [
             { id: 'sentinel_strike', weight: 40, effect: { bonusDmgMult: 1.15 } },
@@ -1588,16 +1602,18 @@ const ENEMY_AFFIXES = {
         desc: 'Commands lesser strikes alongside its own.' }
 };
 
-// Combat pacing — enemies scale with YOUR power so fights stay relevant at every realm
+// Combat pacing — random encounters use ENEMY_TIER_BALANCE + zone tier bands (see combat.js). Crucible still scales on player durability.
 const COMBAT_BALANCE = {
     realmPowerBonus: 4,
+    enemyTierHpVariance: 0.06,
+    enemyTierDmgVariance: 0.05,
     enemyHpPerRealm: 0,
-    enemyHpFromPlayerMax: 0.55,
-    enemyHpFromPlayerPower: 1.8,
-    enemyMinHits: 4,
-    enemyDmgPerRealm: 3,
-    enemyDmgFromPlayerMax: 0.028,
-    enemyDmgFromPlayerPower: 0.10,
+    enemyHpFromPlayerMax: 0,
+    enemyHpFromPlayerPower: 0,
+    enemyMinHits: 0,
+    enemyDmgPerRealm: 0,
+    enemyDmgFromPlayerMax: 0,
+    enemyDmgFromPlayerPower: 0,
     basicAttackScale: 0.55,
     basicAttackScaleQi: 0.85,
     basicAttackScaleBody: 0.78,
