@@ -57,6 +57,7 @@ Named for the well’s sand-brick ring — civic and dull on purpose (the people
 | **Combat lean** | Street practical — Well-Road Guard vibe, grit palms; not sword lineage |
 | **Point (design)** | QC join ladder + town density: missions, rival, obligations, dirty choices — **sits on top of** job → field → brew → cultivate, does not replace it |
 | **Recruitment** | **Stone “registration” fee** (crooked sash deposit) — no trial required; later reads as a scam |
+| **Sash (encounters)** | **Not realm** — local `respectMult` + low **backing** weight; hide sash for deep cover — [`public-strength-encounter-selection.md`](public-strength-encounter-selection.md) § Well-Ring |
 | **Rival** | One named outer who climbs on merit *(name TBD — see faces)* |
 | **Scheme?** | **Yes — in the shadows by default.** Public: helpful lodge. Private: ledger with the lord. They open blades only when cornered (open war risks exposing the partnership). |
 

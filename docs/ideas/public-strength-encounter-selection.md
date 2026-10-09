@@ -6,7 +6,7 @@
 | **Blocked on** | Identity / dossier API ([`disguise-and-public-identity.md`](disguise-and-public-identity.md)); situation thread runtime ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)) |
 | **Issue** | none yet |
 | **Chat / PR** | design mesh 2026-10-08 |
-| **Updated** | 2026-10-08 |
+| **Updated** | 2026-10-09 (fame facets, cover in combat, Well-Ring sash) |
 
 **Sisters:** [`enemy-tier-scaling.md`](enemy-tier-scaling.md) (place tiers & Redwell QC pools) · [`jianghu-situation-threads.md`](jianghu-situation-threads.md) (appetite & proxy sends) · [`disguise-and-public-identity.md`](disguise-and-public-identity.md) (known vs true) · [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) (grudge interrupts) · [`world-standing-and-property.md`](world-standing-and-property.md) (visibility / wealth) · [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) (peeling cover)
 
@@ -29,7 +29,7 @@ This doc **meshes** scattered plans and code hooks into one pipeline. It does no
 | **impression / trust** | `npc-converse.js` | Per-NPC relationship | **Partial** — schemer/grudge **betrayal** setup only |
 | **npc-betrayal ambush** | `npc-betrayal.js` | Named NPC strikes when `intent=pending` + **low HP/Qi** | **Named** only; chance not fame-aware |
 | **npcKillLog** | combat kill recording | Last ~30 kills | **No** scheduler follow-up in code (threads doc assumes it) |
-| **Fight / fight_seek** | `actions.js`, `world-clock.js` | Player seeks fight → `startCombat()` | **Random template** — ignores public strength |
+| **Fight / fight_seek** | `actions.js`, `world-clock.js` | Player seeks fight → `startCombat()` | **Random template** — ignores public strength; **replacing** with bounty board (other agent) — not spec’d here |
 | **Place tier design** | [`enemy-tier-scaling.md`](enemy-tier-scaling.md) | Where + tier pool | **Place only** — “player mirror” marked **later** |
 | **Situation threads (design)** | [`jianghu-situation-threads.md`](jianghu-situation-threads.md) | Appetite, `getPlayerKnownRealmBand()`, proxy at **known+1** | **Not implemented** |
 | **Disguise / ledger (design)** | [`disguise-and-public-identity.md`](disguise-and-public-identity.md) | Known vs true, signatures | **Not implemented** (`resolvePublicIdentity` missing) |
@@ -71,8 +71,10 @@ Consolidate “what the world plans around” under e.g. `G.publicDossier` (name
 |-------|---------|-------------------|
 | **`knownRealmBand`** | Integer 0–6 or QC sub-band | Start = true band; drops if deep cover |
 | **`knownQcStage`** | `early`/`mid`/`late`/`peak` when band=0 | Default from `G.qcBand.stage` when **public** |
-| **`fame`** | Already `G.fame` — jianghu visibility | Keep global |
-| **`localRenown`** | Per-zone optional (Redwell tournament, Well-Ring) | `{}` by zoneId |
+| **`fame`** | Scalar `G.fame` today — UI tier only | Migrate toward **facets** (below) |
+| **`fameFacets`** | What you’re known **for** — drives challenge *why* and open vs shadow | `[]` or map by facet id |
+| **`localRenown`** | Per-zone optional (Redwell tournament, Well-Ring board rank) | `{}` by zoneId |
+| **`affiliationTags`** | Visible institutions (e.g. `well_ring_outer`) | From join state / robe |
 | **`sectRolePublic`** | outer / inner / … on robe | From sect join |
 | **`signatureHeat`** | Ledger aggregate — see disguise doc | `[]` / score |
 | **`lastPublicFightAt`** | Months | For “recently humiliated them” threads |
@@ -157,6 +159,117 @@ Without these, dossier stays frozen at true band and concealment never matters.
 
 ---
 
+## Fame is not one number (facets)
+
+Scalar **`G.fame`** stays useful for UI bands (`getFameLevel`) and coarse gates (recruits, market). **Encounter logic** should read **`fameFacets`** — each entry is “the jianghu repeats this story about you.”
+
+### Facet shape (concept)
+
+| Field | Purpose |
+|-------|---------|
+| `id` | e.g. `duelist`, `demon_slayer`, `pill_guild_friend`, `public_humiliator`, `thief`, `well_ring_board`, `sect_enemy`, `mercy`, … |
+| `heat` | 0–100 — how loud this story is **right now** |
+| `zoneSpread` | `local` · `zone` · `continent` |
+| `sinceMonths` | Decay / stale rumors |
+| `linkedOrgId` / `linkedNpcUid` | Optional — ties to **grudge threads** |
+
+**API:** `addFameFacet(id, delta, { zoneId, incidentId, public: true })` — combat wins, tournament, thread beats, jobs. Scalar fame can remain `sum(facets)` or separate “visibility” — owner call later.
+
+### How facets change **offers** (not just rate)
+
+Same high visibility, different behavior:
+
+| Facet (hot) | Typical challenger | Modality lean | Tie-in |
+|-------------|-------------------|---------------|--------|
+| **`duelist` / tournament** | Fame-seekers, outer disciples | **Open** — letter, public challenge, board post | Bounty board (future) |
+| **`demon_slayer` / beast_hunter`** | Beast hunters, jealous rivals | Open in field; less in city core | Place kind weights |
+| **`public_humiliator`** (you shamed someone) | Victim’s house | **Shadow** first — thread [`jianghu-situation-threads.md`](jianghu-situation-threads.md) | Incident → thread, not random |
+| **`thief` / `robber`** | Victims, law, schemers | Ambush, trap | Face irrelevant |
+| **`well_ring_champion`** | Rival outers, outsiders testing the sash | Open **inside** lodge; muted **outside** (backing) | Well-Ring § below |
+| **`villainy` / `corruption`** | Righteous, bounty hunters | Mixed — “justice” open, profit shadow | Alignment / seats |
+| **`mercy` / `spared_heir`** | Spared NPC’s family | Gratitude **or** grudge thread | `spare` incident |
+
+**Rule:** `rollEncounterOffer` checks **threads + facets** before anonymous street pool. Hot **`public_humiliator`** toward org X → **no random punk**; org thread picks **modality** (open duel vs poison) per appetite in threads doc.
+
+**Open vs shadow:** challenger runs appetite + **facet fit** — proud duelist wants open if you’re famed for prowess; schemer house uses shadow if beating you openly would look ugly ([`jianghu-situation-threads.md`](jianghu-situation-threads.md) fight appetite).
+
+---
+
+## Hiding power — combat must not auto-blow cover
+
+**Gap today:** once combat starts, nothing stops full techniques / true damage band → logically **every fight reveals** you. That kills disguise fantasy.
+
+### Design: **display commitment** per fight
+
+At combat open (or in loadout before):
+
+| Mode | Fiction | Rules |
+|------|---------|--------|
+| **Full reveal** | No pretense | Normal techniques, true band readable after first exchange |
+| **Restrained** | “QC outer playing along” | Cap damage band to **≤ known band**; grey **signature** arts; generic or masked weapon |
+| **Mortal façade** | Non-cultivator / weak cover | Basic strikes only; fleeing is valid win |
+
+**Restrained win:** enemy defeated or fled without **slip** → no `knownRealmBand` bump; optional **witness** roll for “something felt off.”
+
+**Slip conditions (examples):**
+
+- Used banned signature technique (hard reveal → ledger + incident).
+- Damage single hit **> cover band ceiling** (panic flare).
+- Enemy **survives** and escapes (partial rumor — “stronger than they looked”).
+- **Deep probe** mid-fight (rare beat — elder watching).
+
+**Flee:** [`combat-spine.js`](../../combat-spine.js) flee already costs fame in places — under cover, fleeing can **preserve** band at cost of facet `coward` locally (small heat) vs full reveal.
+
+**UI:** deep cover checklist ([`disguise-and-public-identity.md`](disguise-and-public-identity.md)) + combat banner “Fighting restrained — signatures disabled.”
+
+**Aftermath:** `resolveCombatRecognition({ witnesses, mode, slip })` → updates **signatures**, **known band**, **facets** (`duelist` if public spectacular win), spawns **incidents** for threads.
+
+---
+
+## Well-Ring sash (Redwell backing — not realm)
+
+The sash is **institutional identity**, not cultivation tier. Master Liang is **early FE**; outers are **QC**. The lord nods at the **sash**, not your dantian.
+
+### What exists in code (v1)
+
+- `G.wellRing.member`, `merit`, board rank vs rival **Wei Shun**, missions, tournament flag — [`qc-depth.js`](../../qc-depth.js).
+- Lord / glimpse lines: sash → brief recognition; outsider → ignored.
+- Outsider **job** lean: non-members lose fat escort legs to lodge.
+
+### Encounter / respect design (to wire)
+
+| Effect | Mechanism | Notes |
+|--------|-----------|--------|
+| **Local random brawl ↓** | `respectMult` × ~0.65 for `affiliationTags: well_ring_outer` in Redwell **urban_core** | “That’s Liang’s disciple” — not fear of your realm |
+| **Fringe / field** | Weaker sash bonus | Beasts don’t care; human bandits **partial** hesitation |
+| **Wrong challenger type** | Outsiders / drunk **foreign** QC may **increase** test fights (sash as target) | Optional `outsider_test` facet |
+| **Named rival** | **Wei Shun** / board — **thread or tournament**, not `pickEnemyTemplate` | Lodge politics |
+| **Backing read** | [`jianghu-situation-threads.md`](jianghu-situation-threads.md) `effectiveBacking`: Tier-I hall × **outer** role | Beating you **openly** may trigger **master inquiry** beat at **merit ≥ 3** — not instant apex fight |
+| **Low merit outer** | Disposable — **less** protection; more “discipline from seniors” beats | merit 0–1 |
+| **High merit** | Locals avoid starting trouble; lord “quiet road” thanks | ties to `maybeRedwellCityLordGlimpse` |
+| **Deep cover** | **Remove / hide sash** → lose lodge protection; gain anonymity | Trade: missions locked, lord treats as outsider |
+| **Dirty missions** | `wr_sealed_pouch` etc. → **`shady` facet heat** locally | More **shadow** trouble, not more random QC brawls |
+
+**Does not change `knownRealmBand`.** Can still show as **`affiliationTags`** on dossier even when band is concealed — unless player hides sash (deep cover).
+
+**Future:** inner sash / early FE peer → different role weight; player-founded lodge duplicates pattern at lower apex.
+
+Detail lodge fiction: [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md).
+
+---
+
+## Player-initiated combat (Fight → bounty board)
+
+**Parked here.** Current **Fight / fight_seek** random opponent is a stub. Replacement **bounty / challenge board** is sketched in another agent — that flow should:
+
+- Post **open** challenges using **facets** (duelist fame helps).
+- Pull **thread** responses (house answers your post).
+- Respect **place** tier bands for wilderness bounties.
+
+Do not spec the board UI in this doc; encounter **offer pipeline** stays the same for **world-initiated** fights.
+
+---
+
 ## Build order (recommended mesh)
 
 1. **`G.publicDossier` stub** + `getPlayerKnownRealmBand()` = true band (identity slice A wedge).
@@ -164,17 +277,20 @@ Without these, dossier stays frozen at true band and concealment never matters.
 3. **Place profiles** + `redwell_street_humans` pool ([`enemy-tier-scaling.md`](enemy-tier-scaling.md)).
 4. **Incidents + one thread template** (personal grudge → single hunter spawn) — [`jianghu-situation-threads.md`](jianghu-situation-threads.md).
 5. **Grudge interrupt** reads active thread beat instead of ad hoc picker — [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md).
-6. **Concealment** alters known band; proxies use known — disguise B/C.
+6. **Restrained combat mode** + `resolveCombatRecognition` — disguise combat slice.
+7. **Fame facets** + `addFameFacet` on incidents; threads consume facet ids.
+8. **Well-Ring** `affiliationTags` on respect table (Redwell).
+9. **Concealment** alters known band; proxies use known — disguise B/C.
 
 ---
 
 ## Open questions
 
-1. **Fight button:** always random tier from place, or “seek match at known band”?
-2. **Fame alone:** high fame + low band — do randos **challenge** you (fame seekers) or **avoid** (fear wrong target)?
-3. **Redwell Well-Ring sash:** mechanical respect bump without changing realm band?
-4. **Negative fame / reviled:** more ambushes even if band low?
-5. **Single dossier vs per-faction** known band (clan thinks QC, street thinks peak)?
+1. Scalar **`G.fame`** = sum of facets, or separate “visibility” stat?
+2. **Per-faction known band** (clan thinks QC, Well-Ring knows your merit, street thinks peak)?
+3. **Sash hidden:** can you still take lodge missions incognito?
+4. **Restrained fight:** auto-enable under deep cover, or always player toggle?
+5. **Coward facet** from fleeing under cover — worth it vs reveal?
 
 ---
 
