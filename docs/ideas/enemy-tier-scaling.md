@@ -6,7 +6,7 @@
 | **Blocked on** | Location encounter profiles on `WORLD_LOCATIONS`; field-site pools ([`explore-field-gathering.md`](explore-field-gathering.md)) |
 | **Issue** | none yet |
 | **Chat / PR** | Design pass 2026-10-08 · prototype zone bands [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147) (to be superseded) |
-| **Updated** | 2026-10-08 (Redwell street QC bands) |
+| **Updated** | 2026-10-11 (owner deferrals; PR #147 decision note) |
 
 ## Intent
 
@@ -262,12 +262,60 @@ Combat **ATB tempo** should eventually key off **tier baseline**, not post-scali
 
 ## Open questions
 
-1. **Travel encounters:** roll from **origin**, **destination**, **route table**, or worst-of?  
-2. **Sub-tier granularity:** do we need QC early/late split before adding tier 1, or are place pools enough?  
-3. **City beasts:** parked — beast cities / pets later; Redwell v1 **human-only**.  
-4. **Dynamic pockets:** faction war / chronicle raises `anchorTier` for a node temporarily?  
-5. **Hidden subzones** ([`ancients.js`](../../ancients.js) pattern): inherit parent ambient or own pocket profile?  
-6. **PR [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147):** merge as interim fallback, or hold until location profiles land?
+### Owner locks (2026-10-11)
+
+| # | Topic | Decision |
+|---|--------|----------|
+| 1 | **Travel encounters** | **Defer.** Expect later tie-in to **ambient enemy level** + **world fortune** — not in scaling v1. |
+| 2 | **Sub-tier vs pools** | **Pools + qcStageWeights enough for v1.** Note: optional separate stat bands per QC stage within tier 0 — **later**. |
+| 3 | **Hidden subzones** | **Later** — inherit vs own pocket profile; keep in doc only. |
+| 4 | **Dynamic pockets** | **Later** — chronicle / faction war bumping anchor tier. |
+| — | **Redwell peak 5% / FE off / Threshold visitor / pools / scripted audit / ATB / stomp rate** | **Parked** — owner working through separately; see § Redwell open + prerequisites. |
+| — | **City beasts** | Still **parked**; Redwell v1 human-only. |
+
+### PR [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147) — merge now or wait? (decision pending)
+
+See **§ PR #147 — interim vs wait** below. Branch mixes **code** (zone tier bands + tier baselines) with **design docs**; can merge docs-only on main anytime regardless.
+
+---
+
+## PR #147 — interim vs wait (elaboration)
+
+**What #147 already changes in code**
+
+| Piece | Permanent? | Interim / wrong grain? |
+|-------|------------|-------------------------|
+| **`calcEnemyHp` / `calcEnemyDamage`** for normal fights | **Yes** — tier baseline × template shape, **no** player Qi density / power / min-hits floor | Crucible still player-linked (intended) |
+| **`ENEMY_TIER_BALANCE` + `tier`/`kind` on templates** | **Yes** — data model for place-first work | — |
+| **`pickEnemyTemplate` + `ZONES.encounterTierMin/Max`** | **Replace later** — whole-zone roll (e.g. all Dustbone 0–1) | Too coarse vs Redwell vs Dewcatch; not the target design |
+
+So #147 is really **two commits in one PR**: (A) **stat formula fix** — keep; (B) **who spawns where** — zone stub until `resolveEncounterProfile`.
+
+**Option A — Merge #147 as interim**
+
+- **Pros:** Main stops **gather-spam HP inflation** immediately; playtests get stable ~tier HP; (A) does not need reverting when location profiles land — only swap picker.
+- **Cons:** Until profiles ship, **everywhere in Dustbone** shares one band — Redwell street and open sand feel the same tier roll; may **mis-train** playtesters (“zone = tier”); you maintain a draft PR or fast follow-up branch.
+
+**Option B — Hold until location profiles (Redwell + field sites minimum)**
+
+- **Pros:** One narrative: place profiles + pools + picker ship together; first playtest of new scaling matches design doc table.
+- **Cons:** **Main unchanged** until that slice is done — spam-gather → fat enemies remains on `main`; larger single PR; need enough `WORLD_LOCATIONS` data before any merge.
+
+**Option C — Split (often the sweet spot)**
+
+1. **Merge stat layer only** on `main`: tier baselines, remove player-power scaling, `buildEnemyFromDef` tier context — **keep old picker** or trivial “template tier only” until profiles exist.  
+2. **Follow-up PR:** `encounterProfile` on locations, `resolveEncounterProfile`, Redwell + field `poolId`s, deprecate zone min/max.
+
+Same fix for playtest **HP**, without committing to zone-wide spawn fiction.
+
+**Option D — Merge #147 whole, accept zone stub**
+
+- Treat zone bands as **intentional v0.5** with UI/log note “wilderness tier band — locations coming.”
+- Fast second PR replaces picker only; docs already say zone is fallback.
+
+**Recommendation lean (for owner call):** **C** if you want `main` fixed quickly without wrong-place feel; **B** if Redwell profiles are days away and you’d rather one merge; **D** if playtesters are told “zones are placeholder.”
+
+**Not blocked on:** travel (#1), sub-tier stats (#2), subzones (#3), dynamic pockets (#4), or public dossier — those layer on after place picker works.
 
 ---
 
