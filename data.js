@@ -1503,8 +1503,8 @@ const ENEMY_TIER_BALANCE = {
         { id: 1, label: 'Foundation Establishment', beastGrade: '2nd-order', hp: 62, dmg: 7 },
         { id: 2, label: 'Core Formation', beastGrade: '3rd-order', hp: 88, dmg: 10 },
         { id: 3, label: 'Nascent Soul', beastGrade: '4th-order', hp: 118, dmg: 13 },
-        { id: 4, label: 'Soul Transformation', beastGrade: '5th-order', hp: 152, dmg: 16 },
-        { id: 5, label: 'Void Refinement', beastGrade: '6th-order', hp: 190, dmg: 20 },
+        { id: 4, label: 'Void Refinement', beastGrade: '5th-order', hp: 152, dmg: 16 },
+        { id: 5, label: 'Dao Seeking', beastGrade: '6th-order', hp: 190, dmg: 20 },
         { id: 6, label: 'Immortal Ascension', beastGrade: '7th-order', hp: 235, dmg: 24 }
     ]
 };

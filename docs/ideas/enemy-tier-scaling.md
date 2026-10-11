@@ -20,11 +20,18 @@ Cross-links: [`city-tiers.md`](city-tiers.md) (civic ladder) · [`redwell-starte
 
 ## Core concepts
 
-### 1. Combat tier (unchanged axis)
+### 1. Combat tier = `realmIdx` (7 today · 9 when ladder lands)
 
-Numeric **tier 0–6** ≈ player `realmIdx` / standard realm names. Used for **HP/dmg baselines** and sense readouts.
+| Layer | Count | Notes |
+|-------|-------|--------|
+| **Shipped in code** | **7** realms per path (`realmIdx` **0–6**) — see `PATHS.*.realms` in `data.js` | Enemy **`combatTier`** = this index, not a separate 0–6 mini-game |
+| **Designed, not migrated** | **9** mortal realms (`realmIdx` **0–8**) — [`nine-realm-ladder.md`](nine-realm-ladder.md) | Inserts **Celestial Avatar** at 4, shifts Void → 5, adds **Dao Manifestation** at 7, Ascension at 8 |
 
-Optional later: **sub-band** within a tier (early QC vs late QC) as `tier + fraction` or separate `threatBand` — not required for v2 if pools are place-specific.
+**v1 enemy scaling:** use **7 tier rows** aligned with **current** qi-path names (baseline HP/dmg). When the nine-realm index bump ships, extend `ENEMY_TIER_BALANCE.tiers` to **9 rows** and re-pin templates — do not maintain a parallel “tier 0–6” that diverges from `realmIdx`.
+
+**Beast “grades”** (1st-order …) are **flavor** on the same index — optional separate baselines per `kind` later.
+
+Optional later: **QC sub-band** (early/mid/late/peak) as pool weights only — not extra realm indices.
 
 ### 2. Civic tier ≠ street combat tier
 
@@ -57,15 +64,21 @@ Suggested fields (design names):
 
 Stats still come from **tier baselines × template shape**, not player farm stats (see [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147) direction).
 
-### 4. Ambient stratum ( “everywhere else” )
+### 4. Zone bands (v1 — ship now)
 
-When the player is **in the zone** but not in a named place (or on a generic explore/travel hook):
+**Owner lock (2026-10-11):** Use **`encounterTierMin` / `encounterTierMax`** on each `ZONES` entry as the **zone ambient band** for random wilderness / generic hooks until location profiles replace the picker. Travel-specific rolls stay **deferred** (future: ambient level + world fortune).
 
-- Use the zone’s **`ambientProfile`**: wide, boring band — e.g. Dustbone ambient **0–1**, skew low.
-- Weaker than **pockets**, milder than **city cores** (less law, more beasts).
-- This is the “rough danger level of the sands,” not Redwell’s alleys.
+| Zone | `encounterTierMin`–`max` | `dangerRealm` (guide) | Feel |
+|------|---------------------------|------------------------|------|
+| **dustbone** | 0–1 | 0 | Starter sands + low FE fringe |
+| **jade** | 0–1 | 0 | Coastal early |
+| **frostbite** | 1–2 | 1 | Hard cold |
+| **emberwild** | 1–2 | 1 | Mid jungle |
+| **heartlands** | 2–6 | 3 | Wide high band (caps at **current** top idx 6 until 9-realm) |
 
-Zones keep **`dangerRealm`** / guide text for **“above your station”** warnings; ambient profile is the mechanical default for shapeless wilderness.
+Roll inside band (skew low), then pick template with matching **`tier`**. **Location profiles** override this table when `currentLocation` has `encounterProfile` — zone band is **fallback** only.
+
+Zones keep **`dangerRealm`** for UI “above your station” warnings (typical cultivator strength), separate from encounter tier roll.
 
 ### 5. Danger pockets
 
@@ -273,9 +286,11 @@ Combat **ATB tempo** should eventually key off **tier baseline**, not post-scali
 | — | **Redwell peak 5% / FE off / Threshold visitor / pools / scripted audit / ATB / stomp rate** | **Parked** — owner working through separately; see § Redwell open + prerequisites. |
 | — | **City beasts** | Still **parked**; Redwell v1 human-only. |
 
-### PR [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147) — merge now or wait? (decision pending)
+### PR [#147](https://github.com/WanderingImmortal/tales-immortal-path/pull/147)
 
-See **§ PR #147 — interim vs wait** below. Branch mixes **code** (zone tier bands + tier baselines) with **design docs**; can merge docs-only on main anytime regardless.
+**Owner lock (2026-10-11):** **Ship zone bands + tier baselines** (#147 stat layer + zone table above). Location profiles are **next**; they **override** zone bands, not replace tier math.
+
+See **§ PR #147 — interim vs wait** for split history; decision = **merge whole PR**, zone bands = v1 ambient.
 
 ---
 
