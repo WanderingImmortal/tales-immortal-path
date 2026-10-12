@@ -6,7 +6,7 @@
 | **Blocked on** | More rule defs; sect-assigned rules |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Crowned stage name locked — 冠律) |
+| **Updated** | 2026-10-12 (swear gate migration lean — upper body path) |
 
 **Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
 
@@ -45,6 +45,8 @@ Writers: [`law-taxonomy.md`](law-taxonomy.md) **embodied dao** = Law. This doc =
 | Qi / soul focus | **No** — different interior peak tracks |
 
 **Design intent:** Vessel Rules are **body-path identity depth**, not a hard gate to **start** body cultivation. Like Weapon Intent for qi — you can play without, but **serious** body endgame expects an oath.
+
+**Swear gate migration (owner lean 2026-10-12):** code today gates at **vessel idx 2** (`swearGate.vesselRealmIdx: 2`). Target: **idx 5–6 band** when Runeforging / Source Furnace ship — late power, not mid-path parlor trick. See [`nine-realm-ladder.md`](nine-realm-ladder.md) § Runeforging.
 
 **Vajra Ridge fiction:** outer court **discipline** without sworn apex oath; **inner court** swears one rule for life (sect assigns or trial chooses — open).
 
