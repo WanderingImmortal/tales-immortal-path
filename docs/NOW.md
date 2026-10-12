@@ -2,13 +2,14 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-10-02
+**Updated:** 2026-10-12
 
 ## Focus
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
 
 ## Next
-- **Spirit path** — parked design; abilities and the idx 5 name are still open — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md) · [`stats-to-meters-rework.md`](ideas/stats-to-meters-rework.md)
+- **Spirit track** — soul embryo policy, idx 5+ names, chamber loop — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md) · body upper ladder **designed** in [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md) (2026-10-12)
+- **Nine-realm code (fat slice)** — when queued: migration + body PT→Inner Source — same ladder doc § Owner locks
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
 - Loyalty meter for shady sects — **parked**

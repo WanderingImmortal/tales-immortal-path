@@ -6,7 +6,7 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (stat facade, per-track foundation, guards, fifth system) — build order below |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-09-25 (`cursor/spirit-path-stats-design-docs-39a3`) |
-| **Updated** | 2026-09-28 |
+| **Updated** | 2026-10-12 |
 
 **Code today:** [`cultivation-tracks.js`](../../cultivation-tracks.js) (three tracks, soul embryo gate), [`soul-chamber.js`](../../soul-chamber.js) (palace layers), [`soul-mass.js`](../../soul-mass.js) (Soul Mass, mitigation, condensation school), `PATHS.soul` + `SOUL_*` tables in [`data.js`](../../data.js).
 
@@ -44,7 +44,7 @@ Fix = fill empty slots top-down. **Not** "add more layers."
 
 ### What exists and is a keeper
 
-- **Soul birth at tier 4 on any track** (`SOUL_EMBRYO_REALM_IDX = 3`) — everyone gets a soul; spirit-neglect penalty via conversion rate (55% / 75% / 100%).
+- **Soul birth at tier 4 on any track** (`SOUL_EMBRYO_REALM_IDX = 3`) — **code today**; owner policy changing (see § Soul embryo policy below).
 - **Soul Mass** as one number gating `soul_condensation` techniques, soul mitigation, intimidation pressure.
 - **`soul_condensation` technique school** — spirit damage bypasses physique, bonus vs weak interiors, Soul Search reads NPCs. This *is* the combat identity; surface it.
 - **Focus** resource + Intimidate verb.
@@ -63,6 +63,18 @@ Fix = fill empty slots top-down. **Not** "add more layers."
 ---
 
 ## Design notes
+
+### Soul embryo policy (owner lean 2026-10-12)
+
+**Problem:** Auto-awaken from **dantian or vessel** at idx 3 duplicates **Soul Birth** on the spirit track and ties body/qi to Soul Palace without choosing spirit.
+
+**Target when spirit/combat ships:**
+
+1. **Remove** cross-track auto-awaken **or** restrict **`tryAwakenSoulEmbryo`** to **spirit track** idx 3+ only.
+2. **Soul Mass / soul techniques** = **spirit-path** progression (optional dabble can stay thin — [`stats-to-meters-rework.md`](stats-to-meters-rework.md)).
+3. **Body vs soul:** minimal realm lifeforce resist; **treasures** (wards, dharma-style gear) primary vs soul arts; **Martial Intent** stagger/press — [`body-martial-intent.md`](body-martial-intent.md). Qi **Weapon Intent** keeps high-tier soul-cut.
+
+**Next spirit-track design pass:** idx 5+ names, chamber loop, embryo migration — [`nine-realm-ladder.md`](nine-realm-ladder.md) owner locks 2026-10-12.
 
 ### Vocabulary (lock first)
 

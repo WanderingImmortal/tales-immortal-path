@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (partial — which threshold abilities, and spirit names from idx 5 up, are still open) |
-| **Blocked on** | Spirit idx 5 name. Body names are a proposal, not a lock. Roots: index bump only — expansion is later. |
+| **Status** | `designed` (partial — spirit idx 5+ names; half-step abilities; nine-realm **code** not shipped) |
+| **Blocked on** | Spirit idx 5+ names; soul-embryo policy → spirit track (see [`spirit-path-full-design.md`](spirit-path-full-design.md)). Roots: index bump only at ladder ship. |
 | **Issue** | none yet |
-| **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; threshold is a limited claim; spirit ending is the three god kinds |
-| **Updated** | 2026-09-28 |
+| **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; **2026-10-12** — body upper ladder + Inner Source (X/Y/Z), runes, Source Furnace — cloud design chat |
+| **Updated** | 2026-10-12 |
 
 ## Intent
 
@@ -15,6 +15,14 @@ Expand the mortal qi ladder from **7 → 9 realms** (indices `0–8`). Early blo
 **Upper celestial nine** is a separate ladder later (mirror structure, different plane).
 
 **Half-Step Immortal** is a **peak / consolidation state** before true Immortal Ascension — not necessarily its own realm index (stub below).
+
+## Owner locks (2026-10-12) — body path + implementation scope
+
+- **Phase 1 implementation scope (owner):** **Fat slice** — nine-realm index migration **plus** upper-realm gameplay (not ladder-only renames). Body fat includes PT → runes → Source Furnace → Inner Source loops when built.
+- **Three-path policy:** All **nine** names on qi, body, and soul ship together in `PATHS` when the ladder lands in code.
+- **Body idx 0–8 names (owner lock 2026-10-12):** see § Body path names below. **Retired on body:** Hollow Refinement, Origin Seeking, Origin Manifestation (void/dao parallels — wrong lane vocabulary).
+- **Soul embryo (owner lean 2026-10-12):** shared auto-awaken from dantian/vessel at idx 3 is **deprecated** — remove or restrict to **spirit track only** when spirit/combat pass ships. Body ladder does **not** depend on embryo. See [`spirit-path-full-design.md`](spirit-path-full-design.md) § Soul embryo policy.
+- **Body vs soul combat (owner lean 2026-10-12):** minimal **realm / dense lifeforce** soul resist; **treasures** (wards, dharma-style gear) as primary counter to soul arts; **Martial Intent** = tempo / stagger / press — **not** soul HP damage (qi Weapon Intent keeps soul-cut at high investment). [`body-martial-intent.md`](body-martial-intent.md).
 
 ## Mortal ladder (draft)
 
@@ -212,39 +220,59 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 | 7 | Law (wear) | Embody law; local imposition |
 | 8 | Transcendence | Above mortal map; immortal fork |
 
-## Body path names (proposal — not locked, 2026-09-25)
+## Body path names (owner lock 2026-10-12 — idx 0–3 lean, idx 4–8 locked)
 
-The live list (Bronze Skin through Indestructible Vajra) ranks materials. It does not match the weight of the qi steps, and it has no room for the two new realms. Owner ask: rework all nine. Power is excavated from inside the body. **Saintly Flesh** stays the end (Saint, parallel to Immortal).
+The live list (Bronze Skin through Indestructible Vajra) ranks materials. Replace with nine names when the ladder ships. **Saintly Flesh** stays the apex (Saint / 圣, parallel to Immortal / God).
 
-One dig, getting grander:
+**Through-line:** excavate mortal flesh → **Essence Pearl** seed → **Nascent Physique** born → **Physique Transformation** → **Runeforging** → **Source Furnace** → craft **Inner Source** → **Saintly Flesh**. Power is **made and installed**, not dao-comprehended. **Body lane does not use void/hollow vocabulary** at idx 5 — same **index** as qi Void Refinement, different fantasy.
 
-| Idx | Qi neighbor | Proposed body name | What the step is |
-|-----|-------------|--------------------|------------------|
-| 0 | Qi Condensation | **Inner Tempering** | What you’re doing. Start digging power out of your own flesh. |
-| 1 | Foundation Establishment | **Vessel Establishment** | What you’re doing. Brace the body so the dig has something that can hold it. |
-| 2 | Core Formation | **Essence Pearl** | What you’ve become. The dig condenses into one precious thing inside you. The watershed. Vessel Rules can be sworn around here; they are not required to enter the realm. |
-| 3 | Nascent Soul | **Nascent Physique** | What you’re becoming. That pearl gives birth to a physique. A second body, not a soul. |
-| 4 | Celestial Avatar | **Physique Transformation** | What you’re becoming. The physique changes into something that is no longer the person who started. Owner lean 2026-09-25. |
-| 5 | Void Refinement | **Hollow Refinement** | What you’re doing. Dig past the physique into the empty place under it. Opening it is the door; strength is refined inside. |
-| 6 | Dao Seeking | **Origin Seeking** | What you’re doing. See play note below — the name can stay; the activity must not be a dao library. |
-| 7 | Dao Manifestation | **Origin Manifestation** | What you’re becoming. The origin is the flesh people meet. Same play note as Seeking. |
-| 8 | Immortal Ascension | **Saintly Flesh** | Locked. What you’ve become. Saint, not immortal. |
+| Idx | Qi neighbor | Body realm | What the step is |
+|-----|-------------|------------|------------------|
+| 0 | Qi Condensation | **Inner Tempering** | Dig power out of flesh (soaks, saturation). Chamber. |
+| 1 | Foundation Establishment | **Vessel Establishment** | Brace the frame to hold more. |
+| 2 | Core Formation | **Essence Pearl** | Watershed: one condensed kernel inside — **future Inner Source engine (X)** seed (“recipe memory”). |
+| 3 | Nascent Soul | **Nascent Physique** | Pearl **hatches** into **vessel physique** (built recipe, human-scale). Chamber dig **ends**. Not soul. |
+| 4 | Celestial Avatar | **Physique Transformation** | **Metamorphosis** — new **kind** of flesh (forge-grade stock). Sets **body line** (ice/poison/steel…), **forge budget**, rune affinities (**Y** prep). **Feel** = Avatar-tier jump in scope, not a longer chamber bar. |
+| 5 | Void Refinement | **Runeforging** | **Forge runes** on the transformed body — materials + **body-art recipes** (majors) + material filings (minors). Permanent **physical capability**, not batteries. Cap by **forge load / PT budget**, not head/chest slots. |
+| 6 | Dao Seeking | **Source Furnace** *(working name)* | **Preamble** to Inner Source: open/prepare **one inner hearth** (smith’s cavity — **not** qi void). Qualify for installation. |
+| 7 | Dao Manifestation | **Inner Source** | **Craft/install** the generative core; refine in-basin. See § Inner Source composition (X/Y/Z). |
+| 8 | Immortal Ascension | **Saintly Flesh** | **Sanctify** the installed source. |
 
-**Naming rule (owner 2026-09-25):** a body realm name is either the work (what you’re doing) or the change (what you’re becoming).
+### Nascent Physique vs Physique Transformation
 
-**Physique Transformation** is the lean at idx 4. It should feel like a new kind of body, the way Celestial Avatar feels like a new kind of cultivator.
+| | **Nascent Physique (3)** | **Physique Transformation (4)** |
+|--|--------------------------|----------------------------------|
+| Job | **Birth** of the vessel physique the soaks **made** | **Category change** — war-elder / non-human-scale **medium** for runes |
+| Chamber | Finishes here | Work leaves layer screen |
+| Locks | **Recipe** of the built body | **Line**, budget, rune families |
 
-**Origin Seeking / Origin Manifestation** sound like Dao Seeking with the noun swapped. That is acceptable only if the play is obviously not a law library. Dao at this height is witnessing signs, collecting laws, merging them, and later wearing one. Body at this height is one excavated source in the flesh. A swearer finds that the source is their Vessel Rule: the body gets narrower and more terrifying at what the oath allows. Someone who never swore is still digging out the source, and does not get interior peak. Neither one is browsing a second dao panel.
+### Runeforging (idx 5)
 
-**Vessel Rules are not a realm.** They already open around the Essence Pearl band (swear gate leans vessel idx 2), which is mid-path, and they are how a dedicated body cultivator specializes. Most temperers never swear. Interior peak and the road to Saint want the oath completed. Naming a realm after the rule would force that oath on everyone who wants the step. The divergence lives in the oath, not in the nine shared names.
+- Runes are **made**, not comprehended. **Major** keystones: recipes from **body arts** cultivated (soft linearity — pick order among unlocked arts). **Minor** filings: material tables within PT line.
+- **No dead runes** — failed forge must not waste a seat (scar / weaker variant / time — tune at implement).
+- **Physique Transformation** determines **what** runes you can forge (element/line), not meridian graphs.
+- **Martial Intent** feeds forge options / late expression; see [`body-martial-intent.md`](body-martial-intent.md).
+- **Vessel Rules (owner lean 2026-10-12):** move swear gate to **upper path (idx 5–6 band)** — late power / interior peak, **not** required to reach Inner Source. Oath **modifies** payoff; does not define source **type**. Code today swears at idx 2 — migration when body fat ships.
 
-**Swaps still on the table:** Essence Pearl → Marrow Pearl, or Inner Seed. Origin → Source, if origin sounds too cosmic. If the Seeking / Manifestation verbs still feel like a reskin after the play split, change the verbs and keep the journey: **Origin Tempering** (the work) and **Origin Flesh** (what you become).
+### Inner Source composition (X / Y / Z) — owner lock 2026-10-12
 
-**Indestructible Vajra** leaves the generic ladder. **Golden Body Arhat** stays a Vajra Ridge nickname for someone at Saintly Flesh, not a realm.
+**Inner Source** = **Essence Pearl in engine phase** — same object as idx 2, new job. Runes **stay on the body**; they do not merge into the source.
 
-**Chamber (lean 2026-09-25):** the live body chamber is the mortal dig for realms 0–3 only, one screen, milestones along it. Later realms change the work on that finished body. They do not each inherit a layer. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
+| Layer | From journey | Controls |
+|-------|--------------|----------|
+| **X — Engine** | Essence Pearl (recipe, consolidation) | Output rhythm, depth curve, recovery under load |
+| **Y — Expression** | Physique Transformation line | Element / presence / how power **shows** |
+| **Z — Affordances** | **Major** runes (modules); minors **tune** | Source-backed **verbs** — not a dao library |
 
-**Inner Tempering** has a saturation limit (Late = full mortal frame). Diminishing returns only apply while filling it. Peak is optional and still mortal. Lifespan stays the 80-year cap. The physique you **build** is the vessel physique. Luck at birth is a **birth marrow** or, rarely, a physique seed. Spirit roots do not cap how far body refining can go. Manuals and materials do. See [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
+**Install recipe (idx 7 breakthrough):** pearl **kernel** + **Source Furnace** seat + **sovereign quench** (material act) + **template** from PT line + major keystones. UI/copy: three headers (Engine / Expression / Modules) — avoid one blended stat blob.
+
+### Naming rule (unchanged)
+
+A body realm name is either the **work** or the **change**. **Indestructible Vajra** leaves the generic ladder. **Golden Body Arhat** = Vajra Ridge nickname at Saintly Flesh, not a realm.
+
+**Swaps still on table (idx 0–2 only):** Essence Pearl → Marrow Pearl / Inner Seed.
+
+**Chamber:** mortal dig **0–3** only — [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md).
 
 ## Spirit path names (proposal — not locked, 2026-09-25)
 
@@ -255,7 +283,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 | 0 | Qi Condensation | **Sea Opening** | What you’re doing. Open the spirit sea (识海). |
 | 1 | Foundation Establishment | **Sea Stilling** *(owner lock 2026-09-26)* | What you’re doing. An opened sea churns with every thought; still it so it can hold anything. Sea **size** is the meter, not a realm. |
 | 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
-| 3 | Nascent Soul | **Soul Birth** *(owner lock 2026-09-26)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
+| 3 | Nascent Soul | **Soul Birth** *(owner lock 2026-09-26)* | What you’re becoming. The seed hatches; the soul exists. **Target:** spirit-track **Soul Birth** at idx 3 — **not** auto-embryo from dantian/vessel (see owner locks 2026-10-12). |
 | 4 | Celestial Avatar | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
 | 5 | Void Refinement | **Selfless Refinement** *(name not locked)* | Working label only. Owner 2026-09-28: this rung may be the dissolve before the three god kinds. Do not treat the name as canon. |
 | 6 | Dao Seeking | **Divinity Seeking** *(owner lean)* | What you’re doing. Seek what makes a soul a god. |
@@ -279,7 +307,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 - `DAO_SEEKING_REALM_IDX`: `5` → `6`
 - Immortal is already “the last name on the list” in code. It stays correct if qi, body, and soul all grow to nine names together.
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock. Old saves store a realm number: anyone past Nascent Soul has to be shifted.
-- **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Spirit names: working set above. Idx 1 and 3 are picked. Idx 5 and up are not locked. All three paths still need nine labels when the ladder ships.
+- **Body names:** **idx 4–8 locked 2026-10-12** (PT, Runeforging, Source Furnace, Inner Source, Saintly Flesh). Idx 0–3 = lean above. **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Spirit: idx 1 & 3 picked; **idx 5+ open**.
 - **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Celestial Avatar and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
 
 ## Links
@@ -300,3 +328,6 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 - [ ] Dao Seeking — which law beats add years (playtest; try depth before count)
 - [ ] Does idx 7 Dao Manifestation gate immortal-layer legislation preview?  
 - [ ] Upper celestial nine names — mirror this list or fresh set?
+- [x] Body path upper ladder (runes, Source Furnace, Inner Source X/Y/Z) — owner lock 2026-10-12 (this doc § Body path names)
+- [ ] Body runeforge: major/minor counts, reforge rules, idx 6 furnace trib copy
+- [ ] Soul embryo — remove or spirit-only ([`spirit-path-full-design.md`](spirit-path-full-design.md))
