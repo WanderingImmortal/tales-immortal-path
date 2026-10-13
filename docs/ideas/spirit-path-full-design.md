@@ -6,11 +6,11 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (stat facade, per-track foundation, guards, fifth system) — build order below |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-09-25 (`cursor/spirit-path-stats-design-docs-39a3`) |
-| **Updated** | 2026-09-28 |
+| **Updated** | 2026-10-13 |
 
 **Code today:** [`cultivation-tracks.js`](../../cultivation-tracks.js) (three tracks, soul embryo gate), [`soul-chamber.js`](../../soul-chamber.js) (palace layers), [`soul-mass.js`](../../soul-mass.js) (Soul Mass, mitigation, condensation school), `PATHS.soul` + `SOUL_*` tables in [`data.js`](../../data.js).
 
-Related: [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) (sense = early spirit content), [`soul-body-refining.md`](soul-body-refining.md) (forbidden branch), [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (three god kinds), [`void-temple-sect.md`](void-temple-sect.md) (a department runs souls; the sect is not a soul sect), [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) (milestone lean to mirror), [`combat-damage-depth.md`](combat-damage-depth.md) (Spirit as fifth system).
+Related: [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) (sense = early spirit content), [`soul-root-dao.md`](soul-root-dao.md) (five branches, ladder unlocks, inherited benchmarks), [`soul-body-refining.md`](soul-body-refining.md) (forbidden branch), [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (three god kinds), [`void-temple-sect.md`](void-temple-sect.md) (a department runs souls; the sect is not a soul sect), [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) (milestone lean to mirror), [`combat-damage-depth.md`](combat-damage-depth.md) (Spirit as fifth system).
 
 ---
 
@@ -36,7 +36,7 @@ A walkable path in this game fills ~8 slots. Body was a fight because it was bui
 | Ladder + breakthrough feel | full | milestones lean | two real gates; 3→6 chain free |
 | Combat resource + verb | Breath, shield | Stamina, endure | Focus, Intimidate (exists, unloved) |
 | Technique school | many | martial arts | `soul_condensation` (exists, decent) |
-| Identity system | Weapon Intent | Martial Intent + Vessel Rules | none |
+| Identity system | Weapon Intent | Martial Intent + Vessel Rules | Root Dao branches + seated statute (designed — [`soul-root-dao.md`](soul-root-dao.md)) |
 | World presence | every sect | Vajra Ridge (designed) | none |
 | A price | tribulation lightning | pain, oath breach | none |
 

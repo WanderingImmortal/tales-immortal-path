@@ -84,6 +84,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite; forbidden branch of spirit path | — |
 | [Spirit / Soul path — full third path](spirit-path-full-design.md) | `designed` (sea from day one; ending is the three god kinds) | Abilities and idx 5 name still open | — |
+| [Soul Root Dao — branches & inherited skills](soul-root-dao.md) | `designed` | Guards / nine-realm ship | — |
 | [Stats → meters rework (guards, natures, fifth system)](stats-to-meters-rework.md) | `designed` (change now) | none | — |
 | [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |

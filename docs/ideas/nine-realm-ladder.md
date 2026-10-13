@@ -6,7 +6,7 @@
 | **Blocked on** | Spirit idx 5 name. Body names are a proposal, not a lock. Roots: index bump only — expansion is later. |
 | **Issue** | none yet |
 | **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; threshold is a limited claim; spirit ending is the three god kinds |
-| **Updated** | 2026-09-28 |
+| **Updated** | 2026-10-13 |
 
 ## Intent
 
@@ -257,7 +257,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 | 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
 | 3 | Nascent Soul | **Soul Birth** *(owner lock 2026-09-26)* | What you’re becoming. The seed hatches; the soul exists. Lines up with the shared soul-birth gate (`SOUL_EMBRYO_REALM_IDX = 3`). |
 | 4 | Celestial Avatar | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
-| 5 | Void Refinement | **Selfless Refinement** *(name not locked)* | Working label only. Owner 2026-09-28: this rung may be the dissolve before the three god kinds. Do not treat the name as canon. |
+| 5 | Void Refinement | **Ego Refinement** *(lean 2026-10-13)* | Strip false attachment before godhood. Owner 2026-09-28: dissolve rung before the three god kinds. Swap still open: *Selfless Refinement*. |
 | 6 | Dao Seeking | **Divinity Seeking** *(owner lean)* | What you’re doing. Seek what makes a soul a god. |
 | 7 | Dao Manifestation | **Divine Soul** *(owner lean)* | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
 | 8 | Immortal Ascension | **Soul Deification** *(working)* | What you’ve become. God. The three kinds (Worshipped, Devouring, Personal) are the real ending, not this label by itself. |
@@ -272,6 +272,19 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 
 **Maturity labels** in `SOUL_MATURITY_LABELS` (Hollow Nascent / Nascent Soul / Settled / Ascendant) must be renamed so “Nascent Soul” means only the qi realm.
 
+### Soul Root branches — unlock on spirit idx (2026-10-13)
+
+Full ladder jobs, inherited skill stubs, and power benchmarks: [`soul-root-dao.md`](soul-root-dao.md).
+
+| Spirit idx | Realm (short) | Branch opens | Notes |
+|------------|---------------|--------------|-------|
+| 1 | Sea Stilling | **Illusion** | First purview; pre-birth inward kit |
+| 2 | Soul Seed | **Memory** | Surface read → Soul Search @3 |
+| 3 | Soul Birth | **Karma** | Pick **primary** branch for late statute (lean) |
+| 4 | Soul Transformation | **Fate** | Out-of-body rung; thread / nudge fantasy |
+| 5 | Ego Refinement | **True Self** | Personal God runway |
+| 6–7 | Divinity Seeking → Divine Soul | *(committed branch)* | Clauses + **seated statute** — not a sixth branch |
+
 ## Implementation migration (when building)
 
 - `PATHS.*.realms` — add 2 names; shift indices 4+
@@ -281,6 +294,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock. Old saves store a realm number: anyone past Nascent Soul has to be shifted.
 - **Body names:** proposal above is not locked. Top stays **Saintly Flesh** (圣体境); person shorthand **Saint** / **Saints** — **圣** lane, not 仙 immortal — see [`body-path-sect.md`](body-path-sect.md). **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Spirit names: working set above. Idx 1 and 3 are picked. Idx 5 and up are not locked. All three paths still need nine labels when the ladder ships.
 - **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Celestial Avatar and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
+- **Soul Root Dao branches (2026-10-13):** unlock stagger + inherited benchmarks — [`soul-root-dao.md`](soul-root-dao.md) (spirit track realm idx, not spiritual roots v2).
 
 ## Links
 
