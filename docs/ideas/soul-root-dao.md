@@ -6,13 +6,15 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
-| **Updated** | 2026-10-13 |
+| **Updated** | 2026-10-13 (Illusion branch pass) |
 
 ## Intent
 
 **Root Dao (根道)** is the spirit lane’s **purview layer** — exactly **five** branches, not the same shelf as Art Great Daos (Sword, Poison, …). A spirit-primary cultivator **walks one or two branches** to idx 6–7, earns **lesser → greater inherited expressions** as realms rise, and uses **manuals** as stylized applications (see § Skill sources).
 
 This doc ties **nine-realm spirit names** ([`nine-realm-ladder.md`](nine-realm-ladder.md)) to **when branches open** and **how strong inherited skills should feel** vs generic `soul_condensation` ([`spirit-path-full-design.md`](spirit-path-full-design.md)).
+
+**Inherited skills:** formal **expression tiers** (below) — you **gain more arts over the ladder**, not just two and done. **Greater** means **second tier of the same branch**, not “better version of the first skill only.”
 
 **Five branches (locked for now):** Karma · Fate · Memory · Illusion · **True Self** (真我 — Personal God home; not “Ego Dao” in UI).
 
@@ -40,23 +42,73 @@ Same rule as body: each name is **the work** or **the change**. Qi neighbor is f
 
 ---
 
+## Inherited expression tiers (all branches)
+
+| Tier | Code tag | When (typical) | What it is |
+|------|----------|----------------|------------|
+| **Lesser** | `lesser` | Branch **unlock** realm | First **innate** art for that purview — readable, low Focus, defines early fantasy |
+| **Greater** | `greater` | **+1 spirit idx** after unlock (or peak of that rung) | Second innate — new verb or combo hook, **Suppression-band** power if damage |
+| **Supreme** | `supreme` | **Idx 5–6**, **primary branch only** (lean) | Genre peak for that purview — expensive, strain, cooldown; **not** basin kit |
+| **Statute** | `statute` | **Idx 7** Divine Soul, primary branch | Worn soul-law — passive + one triggered clause; Manifestation analog |
+
+Manuals add **variants** and set bonuses at any tier; they do **not** replace supreme/statute slots.
+
+**Dabblers:** lesser only, or greater one idx late — no supreme/statute ([§ Dabblers](#dabblers-and-qi-cross-access)).
+
+---
+
 ## Branch unlock stagger
 
 Branches unlock on **spirit track realm idx**, not qi realm. Dabblers on another primary track do **not** get the full innate ladder (see § Dabblers).
 
 | Spirit idx | Realm (short) | Branch unlocked | Lesser inherited (auto) | Greater inherited (auto) |
 |------------|---------------|-----------------|-------------------------|----------------------------|
-| **1** | Sea Stilling | **Illusion** | **Veil Glimpse** — cheap misdirection / soft accuracy debuff | @ **2** **Mirror Fleck** — short phantom, breaks on hit |
+| **1** | Sea Stilling | **Illusion** | **Misdirecting Gaze** — debuff **one foe** (see § Illusion) | @ **2** **Hollow Double** — **self** decoy echo |
 | **2** | Soul Seed | **Memory** | **Surface Read** — combat probe lite; explore lie hint | @ **3** **Soul Search** *(canon migrate)* — full utility read |
 | **3** | Soul Birth | **Karma** | **Weight Sense** — see debt/alignment tint; tiny damage amp vs stained foes | @ **4** **Ledger Mark** — mark for follow-up soul arts |
 | **4** | Soul Transformation | **Fate** | **Thread Glimpse** — see next intent / telegraph one action | @ **5** **Nudge** — small action-order or proc bias *(not hard stun)* |
 | **5** | Ego Refinement | **True Self** | **Self Anchor** — resist possession / illusion peel | @ **6** **Name Bound** — declare self; buff vs identity attacks |
-| **6** | Divinity Seeking | *(no sixth branch)* | **Greater tier-2** for committed branches + **clause draft** UI | Peak branch kit before statute |
-| **7** | Divine Soul | — | **Seated statute** (one primary branch) | Pseudo God peak abilities |
+| **6** | Divinity Seeking | *(no sixth branch)* | **Supreme** for **primary** branch + clause draft | Peak kit before statute |
+| **7** | Divine Soul | — | **Statute** (primary branch) | Pseudo God peak abilities |
 
 **Commit rule (lean):** at **Soul Birth (idx 3)** pick **one primary Root branch** for idx 7 statute; optional **secondary** at idx 5 with reduced greater-cap. Changing branch = rare rite (same family as meridian-wash — [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)).
 
-**High-tier-only branches (curve, not absence):** Karma and Fate **lessers are info/control**; their **greater** skills carry damage and fight swing. Illusion and Memory **lessers are strong in QC–FE band**. True Self is **mostly idx 5+**.
+**High-tier-only branch *curves* (not absence):** Karma and Fate **lessers are info/setup**; payoffs land on greater/supreme. Illusion **lesser/greater are survival control** in QC–GC; **“illusion becomes real”** is **supreme + statute**, never lesser. Memory **lessers are strong in QC–FE band**. True Self is **mostly idx 5+**.
+
+---
+
+## Branch focus — Illusion (幻)
+
+**Fantasy:** you do not out-tank; you **spoof what the enemy thinks is true** — first about **you**, then about **the field**. Xianxia endgame: **假作真** — a lie heavy enough to **bite**; that belongs at **supreme/statute**, not Sea Stilling.
+
+### Targeting rule (UI)
+
+Every inherited illusion art names **who is affected**:
+
+| Target tag | Means |
+|------------|--------|
+| **Foe** | One enemy spirit / mind — debuff or mis-aim |
+| **Self** | Your soul presentation — decoy, misread profile, guard fudge |
+| **Field** | Zone illusion — supreme+ only in v1 (costly, short) |
+
+### Innate ladder (Illusion-primary; others cap at greater unless secondary commit)
+
+| Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
+|------|------------|----------------|--------|-----------------|------------|
+| **Lesser** | 1 | **Misdirecting Gaze** | **Foe** | Apply **Misread** (1 stack): their **next single-target** hostile action vs you has a strong **miss / wrong-target** chance; optional tiny spirit chip if it misfires. **No self-buff fluff** — you are attacking *their* perception. | ~0–0.5× Lash damage; **C** focus; loses vs high Will, clarity gear, Memory read |
+| **Greater** | 2 | **Hollow Double** | **Self** | Spawn a **decoy echo** tied to you for 1–2 turns: **first hit** that would land on you **strikes the echo** instead (then echo pops). You may **step** (flee bias) or cast one **light** soul art at −Focus. Clear fantasy: they cut the wrong body. | No “vague fleck”; echo has **one HP layer** on spirit guard, not a second character |
+| **Supreme** | 5–6 *(primary)* | **Weight of the Unreal** | **Field** *(one tile / one foe)* | Short window: chosen **illusion is treated as real** for **one rule** — e.g. phantom wall **blocks one path**, phantom wound **deals real spirit damage once**, or fake ally **draws one enemy turn**. Heavy Focus + **strain**; cooldown. | **Not** full dao Manifestation; one **clause-like** beat, telegraphed |
+| **Statute** | 7 | **The Lie Holds** *(working)* | Passive + trigger | Illusions you cast **don’t collapse on first contact** — one **extra beat** of credibility (decoy takes 2 hits, Misread lasts 2 actions, etc.). Primary Illusion **identity** — still countered by True Self / treasures. | Identity system power, not +damage |
+
+**Name swaps open:** Misdirecting Gaze → **Mind Snare**, **False Opening**; Hollow Double → **Soul Afterimage**, **Borrowed Body**.
+
+### Why this fits squishy early spirit
+
+Idx 1–2 you **kite**: Misdirecting Gaze on the scariest striker, Hollow Double when focused. Damage still comes from **generic** Soul Lash / manuals until GC+. Branch does **not** give basin burst.
+
+### Manuals (Illusion)
+
+Sect scrolls = **styles** ( longer Misread, echo that explodes, multi-foe haze ) — same tiers, tagged `rootBranch: illusion`.
 
 ---
 
@@ -102,8 +154,10 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 
 | Branch | Lesser (unlock idx) | D | C | I | S | Notes |
 |--------|---------------------|---|---|---|---|-------|
-| **Illusion** | Veil Glimpse @1 | ● | ●●● | ● | — | Wins trades via miss / wrong target; loses vs high Will / clarity treasures |
-| **Illusion** | Mirror Fleck @2 | ●● | ●● | — | — | Greater = small punish window |
+| **Illusion** | Misdirecting Gaze @1 | ● | ●●● | — | — | **Foe** Misread — survival debuff |
+| **Illusion** | Hollow Double @2 | — | ●●● | — | ● | **Self** decoy — one hit soak |
+| **Illusion** | Weight of the Unreal @5–6 | ●● | ●●● | — | — | **Field** one real bite — supreme only |
+| **Illusion** | The Lie Holds @7 | — | ●●● | — | ●● | Statute — extra credibility beat |
 | **Memory** | Surface Read @2 | — | ● | ●●● | — | Explore + combat probe; weaker than full Search |
 | **Memory** | Soul Search @3 | — | ●● | ●●●● | — | **Benchmark utility** — migrate existing technique here |
 | **Karma** | Weight Sense @3 | ● | ● | ●●● | — | Damage amp only vs **stained / oath-broken** — PvE skew |
@@ -125,7 +179,7 @@ Spirit-primary vs comparable Nascent qi foe:
 
 - **Generic:** Soul Lash + Spirit Suppression (mass permitting) — ~18 Focus, spirit guard pressure.
 - **Memory path:** Surface Read → Soul Search (after greater) — lower damage, wins if foe has hidden intent or lie gate.
-- **Illusion + Memory dabble:** Veil Glimpse → Soul Lash — one miss chance + steady damage.
+- **Illusion + Memory dabble:** Misdirecting Gaze → Soul Lash — Misread then damage while foe is wrong-footed.
 
 Design check: **branchless spirit** still playable via generics; **one committed branch** feels like a **class fantasy** at idx 3+.
 
@@ -143,7 +197,7 @@ Design check: **branchless spirit** still playable via generics; **one committed
 
 ## Links to implement (later)
 
-- Tag techniques: `rootBranch`, `expressionTier` (`lesser` | `greater` | `manual`).
+- Tag techniques: `rootBranch`, `expressionTier` (`lesser` | `greater` | `supreme` | `statute`), `illusionTarget` (`foe` | `self` | `field`).
 - Grant inherited on `spiritTrackRealmIdx` milestone + `G.soulRoot.primary`.
 - Move **Soul Search** grant from flat pool to **Memory greater @3** (keep generic probe pamphlet as weaker variant or remove duplicate).
 - idx 6–7: **soul clause + seated statute** data model — parallel [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md), not Art Great Dao merge.
@@ -156,6 +210,8 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [ ] Secondary branch — allowed for all or True Self / Karma locked pairs?
 - [ ] Soul Birth **primary pick** — idx 3 breakthrough UI vs idx 1 first branch auto then respec?
 - [ ] Exact Focus costs / cooldowns for inherited skills (playtest after guards ship)
+- [x] Illusion lesser/greater names + targets (owner chat 2026-10-13) — Misdirecting Gaze, Hollow Double; real-illusion at supreme/statute
+- [ ] Illusion supreme wording — **Weight of the Unreal** vs **Manifest False Step**
 - [ ] Root Dao subsection in `law-taxonomy.md` (stack position vs Great Dao)
 
 ## Implementation crumbs
