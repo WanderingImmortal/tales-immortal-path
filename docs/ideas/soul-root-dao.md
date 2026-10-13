@@ -6,7 +6,7 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
-| **Updated** | 2026-10-13 (crude inherit vs arts; branch apex fiction) |
+| **Updated** | 2026-10-13 (Karma branch pass; crude inherit vs arts) |
 
 ## Intent
 
@@ -188,18 +188,13 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 
 ### Karma (因果) — *织业杀机*
 
-**Peak fiction:** weave **karma threads** so targets **organically** move against each other — old debts wake, cousins “remember” blood feuds, guards look the other way — **no single mind-control button**; the world **finds reasons**.
+**Peak fiction:** weave **karma threads** so people **organically** ruin each other — blood feuds wake, cousins “remember,” guards look away — **not** mind control; the world **finds reasons**. Full design: [§ Karma branch](#branch-focus--karma-因果).
 
-| Tier | Expression (stubs — detail on Karma pass) |
-|------|---------------------------------------------|
-| **Lesser / greater** | Weight Sense, Ledger Mark — stain read, setup mark |
-| **Crude supreme inherit** | **Thread Weave** *(working)* — weak link, low proc, high waste |
-| **Statute** | **Debts Come Due** *(working)* — seat + passive coupling on marks |
-| **Apex arts (manual)** | e.g. **Blood Debt Orchestration** — organic feud cascade (chronicle) |
-
-**Other manuals:** Feud Wake, stain amplify — focused karma routing.
-
-**Counters:** merit temples, karma purification, imperial charter, counter-weave by peer Karma walker.
+| Tier | Expression |
+|------|------------|
+| **Crude inherit** | Weight Sense, Ledger Mark, Thread Weave — read / mark / weak link |
+| **Statute** | **Debts Come Due** — seat; marks **couple** over time |
+| **Apex arts (manual)** | **Blood Debt Orchestration** — situation-thread cascade |
 
 ---
 
@@ -281,7 +276,7 @@ Branches unlock on **spirit track realm idx**, not qi realm. Dabblers on another
 |------------|---------------|-----------------|-------------------------|----------------------------|
 | **1** | Sea Stilling | **Illusion** | **Misdirecting Gaze** — debuff **one foe** (see § Illusion) | @ **2** **Hollow Double** — **self** decoy echo |
 | **2** | Soul Seed | **Memory** | **Surface Inscription** — **foe** surface read (see § Memory) | @ **3** **Soul Search** — deep read *(canon migrate)* |
-| **3** | Soul Birth | **Karma** | **Weight Sense** — see debt/alignment tint; tiny damage amp vs stained foes | @ **4** **Ledger Mark** — mark for follow-up soul arts |
+| **3** | Soul Birth | **Karma** | **Weight Sense** — crude debt/stain read (§ Karma) | @ **4** **Ledger Mark** — crude coupling mark |
 | **4** | Soul Transformation | **Fate** | **Thread Glimpse** — see next intent / telegraph one action | @ **5** **Nudge** — small action-order or proc bias *(not hard stun)* |
 | **5** | Ego Refinement | **True Self** | **Self Anchor** — resist possession / illusion peel | @ **6** **Name Bound** — declare self; buff vs identity attacks |
 | **6** | Divinity Seeking | *(no sixth branch)* | **Crude supreme** for **primary** branch + clause draft UI | Apex **arts** still manual |
@@ -384,6 +379,103 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 
 ---
 
+## Branch focus — Karma (因果)
+
+**Fantasy:** Karma is **cause and effect between people** — what you did, what they owe, what the jianghu remembers. A Karma walker **does not invent guilt from nothing**; they **tighten threads that already exist** (or that **you** earned by marking/staining). OP in fiction = **everyone kills everyone** at a whisper; **playable** = **ledger-backed**, **delayed**, **escapable** consequences ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)).
+
+### Not the same as qi **Karma Dao**
+
+| | **Root Karma (spirit)** | **Karma Dao (qi Seeking)** |
+|--|-------------------------|----------------------------|
+| Shelf | Soul Root branch — [`soul-root-dao.md`](soul-root-dao.md) | Art Great Dao — [`data.js`](../../data.js) `karma`, `karma_debt`, `karma_grace` |
+| Job | **Manipulate couplings** between actors (incidents → threads) | **Comprehend** consequence; seer hints, alignment read, tribulation insight |
+| Code today | *(not shipped)* | `hasKarmaDaoAccess()`, `performKarmaSeerReading()` in [`dao-taxonomy.js`](../../dao-taxonomy.js) |
+| Dual walker | Spirit statute + qi Karma fragments = reader **and** weaver — tune stain |
+
+**Dao alignment** ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) = philosophy / NPC reactions — **not** heaven’s ledger. **Corruption / sacrilege** = abusing cycle. Karma arts **read and tug** interpersonal **incidents**; forcing blood on the **clean** adds **corruption** on the **walker**, not “karma points on victim.”
+
+### Balance core (owner 2026-10-13)
+
+**Rule:** Karma power scales with **real recorded cause**, not caster level alone.
+
+| Principle | Implementation lean |
+|-----------|---------------------|
+| **No thread from vacuum** | Weave / feud wake needs **incident**, **mark**, **existing grudge**, **alignment stain**, or **quest fact** on target |
+| **Organic, not dominate** | Outcomes = **situation-thread beats** (rumor, ambush, denunciation, duel challenge) — not “target attacks ally this turn” in combat UI |
+| **Delayed** | Marks **charge**; apex arts **schedule** beats via [`world-scheduler.js`](../../world-scheduler.js) spine |
+| **Escapable** | Merit, apology, mediator NPC, cutting mark, killing weaver mid-rite |
+| **Boomerang** | Forcing feud between innocents → **corruption** + Void Temple attention; misfire if target **True Self** / charter protected |
+| **Combat role** | **Setup and punish the stained** — small damage amp vs **oath-broken / marked** foes; not a second damage school |
+
+```text
+  INCIDENT (kill, betray, public slight) ── already in chronicle / npc graph
+       │
+  CRUDE READ (Weight Sense) ── see debt / stain / “feud latent”
+       │
+  MARK (Ledger Mark) ── couple target to thread engine (weak crude / strong art)
+       │
+  WEAVE (manual apex) ── link A↔B if BOTH have hooks; proc escalation pack
+       │
+  BEAT ── hunter, bounty, cousin letter, sect grudge (jianghu engine)
+```
+
+### Targeting rule (UI)
+
+| Target tag | Means |
+|------------|--------|
+| **Subject** | One NPC or foe — read or mark |
+| **Pair** | Two subjects — weave **only if** each has ledger hook |
+| **Thread** | Active situation id — amplify stage, not create from zero |
+
+### Crude inherit ladder (Karma-primary)
+
+| Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
+|------|------------|----------------|--------|-----------------|------------|
+| **Lesser** | 3 | **Weight Sense** | **Subject** | **Crude read:** tint **debt / stain / latent feud** (alignment band, recent incident flag, “blood owed” hint). Combat: tiny spirit damage **only if** target already **stained/marked**. | *Manual e.g. **Scales of Debt** — precise read + UI detail* |
+| **Greater** | 4 | **Ledger Mark** | **Subject** | **Crude mark:** tag one **Karma Mark** — next **organic** hostile beat vs them **slightly** favored; your karma arts get **+effect** on mark. Fails or weak on **clean + high merit**. | *Manual e.g. **Red Ledger Seal** — stable mark, longer coupling* |
+| **Supreme** | 5–6 *(primary)* | **Thread Weave** | **Pair** | **Crude link:** if **both** have hooks, **low chance** to spawn **one** weak thread beat (rumor or insult chain). High Focus waste. | *Apex manual **Blood Debt Orchestration** — multi-stage feud cascade* |
+| **Statute** | 7 | **Debts Come Due** | Seat | Marks **deepen** over months; comprehend apex karma arts; passive: marked subjects **attract** incident echoes (not mind control). | Enables orchestration arts |
+
+**Name swaps open:** Weight Sense → **Debt Tint**, **Owed Breath**; Ledger Mark → **Coupling Seal**.
+
+### Manuals (Karma)
+
+**Focused:** stain amplify on marked, feud wake on **family with existing kill log**, merit-bypass never.
+
+**Jianghu / apex (manual only):**
+
+| Art (working) | Needs | Effect sketch |
+|---------------|-------|----------------|
+| **Feud Wake** | Mark + family tie to `npcKillLog` / incident | Surface **latent** grudge thread — one escalation pack |
+| **Blood Debt Orchestration** | Statute seat + supreme crude + **both** parties hooked | Schedule **chain** (son → uncle → bounty) — [`jianghu-situation-threads.md`](jianghu-situation-threads.md) |
+| **Stain Amplify** | Mark + target already negative alignment / sacrilege | Next **their** bad choice weighted — still **their** choice |
+
+**Forbidden lean:** arts that **fabricate** guilt with no incident → **sacrilege** on cast, not “free kill button.”
+
+### Combat vs jianghu (Karma tilt)
+
+| Context | Karma primary feels |
+|---------|---------------------|
+| **Duel** | Mark setup → generic soul damage **finisher** on stained foe; weave ** useless** without pre-story |
+| **Basin** | After betrayal quest — **Feud Wake** manual → hunters months later |
+| **Late** | Orchestration + statute — **clan** pressure without entering combat |
+
+### Counters
+
+Merit temples, karma purification rites, imperial charter, peer Karma **sever mark**, True Self anchor (mark slips), killing weaver before beat fires.
+
+### Hooks to wire (implementation later)
+
+| System | Use |
+|--------|-----|
+| `alignment` / quest `alignmentShift` | Weight Sense input |
+| `npcKillLog`, grudge tiers, `declare_grudge` | Feud wake eligibility |
+| Situation **incidents → threads** | Weave output |
+| `G.corruptionLevel` / sacrilege | Abuse tax on weaver |
+| Qi **Karma Dao** | Optional **read bonus** on Weight Sense — not required |
+
+---
+
 ## Skill sources (three layers)
 
 | Layer | Source | Examples |
@@ -434,8 +526,10 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 | **Memory** | Soul Search @3 | — | ●● | ●●●● | — | **Foe deep** — migrate existing technique |
 | **Memory** | Vault Unsealing @5–6 | — | ● | ●●●● | — | **Sealed layer** — supreme only |
 | **Memory** | The Record Endures @7 | — | ●● | ●●● | — | **Known** mark / pierce hook |
-| **Karma** | Weight Sense @3 | ● | ● | ●●● | — | Damage amp only vs **stained / oath-broken** — PvE skew |
-| **Karma** | Ledger Mark @4 | ●● | ●●● | ●● | — | Setup for branch manuals + greater karma arts |
+| **Karma** | Weight Sense @3 | ● | ● | ●●● | — | **Subject** read — damage only vs stained |
+| **Karma** | Ledger Mark @4 | ● | ●● | ●● | — | **Mark** — thread setup |
+| **Karma** | Thread Weave @5–6 | — | ●● | ●● | — | **Pair** link — crude, low proc |
+| **Karma** | Debts Come Due @7 | — | ●●● | — | — | Seat — mark deepening |
 | **Fate** | Thread Glimpse @4 | — | ●● | ●●● | — | Telegraphed counter-play; weak in multi-enemy without greater |
 | **Fate** | Nudge @5 | — | ●●● | ●● | — | **No hard skip-turn** at lesser/greater — bias proc / order |
 | **True Self** | Self Anchor @5 | — | ●● | — | ●●●● | Anti-possession; PvP vs illusion/memory |
@@ -496,7 +590,9 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [ ] True Self apex — pick A/B/C or hybrid ([§ True Self](#true-self-真我--open))
 - [ ] Karma/Fate supreme/statute names — Thread Weave, Debts Come Due, Fortune Shear, Omen Crown
 - [ ] `context: combat | jianghu | forbidden` on technique templates + shelf UI
-- [ ] Karma/Fate jianghu manuals — design with branch pass
+- [x] Karma branch — ledger-backed weave, vs qi Karma Dao (owner 2026-10-13)
+- [ ] Karma manual names / escalation packs — wire to situation threads
+- [ ] Fate branch — next pass
 - [ ] Root Dao subsection in `law-taxonomy.md` (stack position vs Great Dao)
 
 ## Implementation crumbs
