@@ -527,7 +527,7 @@ Merit temples, purification (**re-tie** or restore faint edges), charter, peer K
 | `grudgeLevel` / `heat` on threads | Reinforce target |
 | `npcKillLog`, sect grudge | Blood edge strength |
 | `G.corruptionLevel` / sacrilege | Abuse tax on weaver |
-| Qi **Karma Dao** | Optional **read bonus** on Weight Sense — not required |
+| Qi **Karma Dao** | Optional **read bonus** on Thread Sense — not required |
 
 ---
 
