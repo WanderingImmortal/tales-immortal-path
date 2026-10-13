@@ -6,7 +6,7 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
-| **Updated** | 2026-10-13 (Illusion + Memory branch passes) |
+| **Updated** | 2026-10-13 (society menace frame; Illusion + Memory passes) |
 
 ## Intent
 
@@ -17,6 +17,82 @@ This doc ties **nine-realm spirit names** ([`nine-realm-ladder.md`](nine-realm-l
 **Inherited skills:** formal **expression tiers** (below) — you **gain more arts over the ladder**, not just two and done. **Greater** means **second tier of the same branch**, not “better version of the first skill only.”
 
 **Five branches (locked for now):** Karma · Fate · Memory · Illusion · **True Self** (真我 — Personal God home; not “Ego Dao” in UI).
+
+**Parity (owner 2026-10-13):** spirit is **not** mainly “win the duel.” People fear soul cultivators because of **jianghu and chronicle** power — intel, reputation poison, delayed threads on **karma / fate / clan** — more than raw fight DPS. Combat innates stay **bounded**; the **scariest** tools are **manual-gated** (and forbidden arts **stain**). See § Society menace.
+
+---
+
+## Society menace vs combat kit
+
+### Fantasy (why NPCs flinch)
+
+| Fear | Branch home | When it shows |
+|------|-------------|----------------|
+| “They **know** what I hid” | **Memory** | Reads, ledger marks, tribunal confession |
+| “I can’t trust my **eyes** or witnesses” | **Illusion** | False presence, forged scene *(manual)* |
+| “Old debts / blood feuds might **wake**” | **Karma** | Thread tug, feud recall, stain amplification *(upper + manuals)* |
+| “Our clan’s **luck** could turn” | **Fate** | Nudge outcomes, omen, marriage/exam bias *(upper + manuals)* |
+| “They could **own** a piece of me” | **Forbidden** manuals | Possession, soul-binding — not baseline innates |
+
+Threat tone: **insidious** — unknowable **future** harm, not only HP today. Fits [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) soul stigma and Void Temple watching soul tampering.
+
+### Two channels (design rule)
+
+```text
+  INNATE (lesser → greater → supreme/statute)
+       │  Readable in combat + light social (lie hint, Known mark, Misread)
+       │  Numbers = playtest later — keep fight fair vs qi/body at same idx
+       ▼
+  MANUALS (jianghu pool)
+       │  Sect / black market / forbidden scrolls
+       │  Confession extract, false witness, feud wake, fate pin on clan…
+       ▼
+  FORBIDDEN (stain + sacrilege lean)
+       Possession, soul slaves, cycle tampering — [`soul-body-refining.md`](soul-body-refining.md), [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
+```
+
+**Do not** put possession / soul slavery on the **inherited ladder** without owner lock — genre-correct as **opt-in evil** with ledger cost.
+
+### Branch → society vector (preview for Karma / Fate)
+
+| Branch | Combat innates (bounded) | Jianghu / chronicle (mostly **manuals**) | Statute fantasy |
+|--------|--------------------------|------------------------------------------|-----------------|
+| Illusion | Misread, decoy | False witness, borrowed face, “you were there” | Lie Holds — credibility |
+| Memory | Surface read, Soul Search | Extract confession, copy witness memory, blackmail packet | Record Endures — **Known** |
+| Karma | Weight sense, mark | Wake blood feud thread, amplify stain on a name | *(TBD)* — debts answer |
+| Fate | Glimpse, nudge | Clan omens, exam/luck pin, marriage thread | *(TBD)* — fate wears thin |
+| True Self | Anchor, Name Bound | “You cannot unmake me” in politics | Personal God runway |
+
+Karma/Fate **supreme** should skew **chronicle / situation threads** ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)) more than fight finishers — design when those branches are detailed.
+
+### Memory & Illusion — adjust innates?
+
+**Owner lean:** **keep current combat innates** (Misdirecting Gaze, Hollow Double, Surface Inscription, Soul Search). **Add** explicit **jianghu hooks** on existing tiers + **manual catalog stubs** — no rewrite required.
+
+| Art | Combat (unchanged) | **+ Society hook** |
+|-----|-------------------|---------------------|
+| Surface Inscription | Telegraph / one hidden buff | Dialogue **lie hint**; NPC **unease** flag if spirit path known |
+| Soul Search | Deep probe in fight | Explore **secrets**; elders **refuse private audience** reputation |
+| Misdirecting Gaze | Misread next hit | **Not** overworld identity forge — that stays **manual** |
+| Hollow Double | One-hit decoy | — |
+| The Record Endures | — | **Known** mark drives recognition / grudges / cannot “forget” you |
+| The Lie Holds | — | Illusions in **social scenes** (if any) get extra beat — manual-heavy |
+
+**Manual examples (balance gate — not granted free):**
+
+| Manual tag | Branch | Effect sketch | Risk |
+|------------|--------|---------------|------|
+| `memory_jianghu` | Memory | **Confession Seal** — long rite, target reveals one quest truth | Tribulation / witness |
+| `memory_jianghu` | Memory | **Witness Rubbing** — copy what they saw (not invent) | Evidence chain |
+| `illusion_jianghu` | Illusion | **False Presence** — you were seen at X (illusion, not Memory) | Countered by Memory reader |
+| `karma_forbidden` | Karma | **Feud Wake** — surface old blood debt thread on a family | Stain lean |
+| `fate_forbidden` | Fate | **Clan Omen Pin** — bias one upcoming situation roll | Heaven notice at threshold |
+
+Generic `soul_condensation` stays **fight dialect**; **jianghu** scrolls use separate shelf tag or `context: combat | jianghu | forbidden` so UI doesn’t mix “Soul Lash” with “Soul Bind.”
+
+### Player-facing tone
+
+Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the banquet — the duel might be even, but your secrets aren’t.”* Combat parity stays real; **opt into** menace by pursuing manuals and primary Karma/Fate.
 
 ---
 
@@ -108,7 +184,9 @@ Idx 1–2 you **kite**: Misdirecting Gaze on the scariest striker, Hollow Double
 
 ### Manuals (Illusion)
 
-Sect scrolls = **styles** ( longer Misread, echo that explodes, multi-foe haze ) — same tiers, tagged `rootBranch: illusion`.
+**Combat styles:** longer Misread, echo that explodes, multi-foe haze — `rootBranch: illusion`, `context: combat`.
+
+**Jianghu styles (manual only):** **False Presence**, **Borrowed Witness**, crowd **Haze** — forge *scene*, not deep memory (Memory lane). Gated by sect/black market; higher tier than innates.
 
 ---
 
@@ -148,7 +226,9 @@ Out of combat: surface = **lie hint / aura tell**; deep = dialogue and explore g
 
 ### Manuals (Memory)
 
-Palace scripture, tribunal “confession” styles, memory-palace sets — **deeper read**, **multi-foe surface**, or **mark duration** — tagged `rootBranch: memory`. Generic **Probe** pamphlet (if kept) = weaker than Surface Inscription or teaches non-Memory dabblers a **one-charge** read.
+**Combat / read styles:** deeper read, multi-foe surface, longer **Known** — `rootBranch: memory`, `context: combat`.
+
+**Jianghu styles (manual only):** **Confession Seal**, **Witness Rubbing**, **Blackmail Packet** (truth extracted, not fabricated) — primary source of “soul cultivators are terrifying at the tea house” fantasy. Generic **Probe** pamphlet (if kept) = weaker than Surface Inscription or one-charge dabble for non-Memory.
 
 ### Disguise interaction (lean)
 
@@ -167,8 +247,8 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | Layer | Source | Examples |
 |-------|--------|----------|
 | **Generic condensation** | Manuals, market, sect | Soul Lash, Spectral Shield — [`data.js`](../../data.js) `soul_condensation` pool |
-| **Root inherited** | Branch unlock + realm | Table above — always on hotbar / innate list |
-| **Manual applications** | Comprehend scrolls tagged `rootBranch` | Sect styles, sets, forbidden variants — bump grade or add combo, not replace purview |
+| **Root inherited** | Branch unlock + realm | Table above — combat + **light** social; not possession / clan fate |
+| **Manual applications** | Comprehend scrolls tagged `rootBranch` + `context` | **Jianghu** menace, forbidden bind — main balance gate ([§ Society menace](#society-menace-vs-combat-kit)) |
 
 Manuals **without** the branch unlock: stash, weak cross-cast, or fail comprehend — same dabble ethic as qi reading a soul pamphlet.
 
@@ -219,7 +299,9 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 | **True Self** | Self Anchor @5 | — | ●● | — | ●●●● | Anti-possession; PvP vs illusion/memory |
 | **True Self** | Name Bound @6 | ●● | ●● | — | ●●● | Personal God runway — ego intact under soul stress |
 
-**Parity rule:** at idx 3–4, a **primary spirit** with two branch greaters + generic kit ≈ **one qi specialist’s** signature combo (not full dao library). Spirit wins **information and guard bypass**; loses **raw throughput vs body**, **sustain vs qi**.
+**Parity rule (combat):** at idx 3–4, a **primary spirit** with two branch greaters + generic kit ≈ **one qi specialist’s** signature combo (not full dao library). Spirit wins **information and guard bypass**; loses **raw throughput vs body**, **sustain vs qi**.
+
+**Parity rule (jianghu):** with manuals + upper Karma/Fate, spirit wins **delayed, chronicle-level** pressure — not auto-win fights. NPC fear and situation-thread leverage are the **identity payoff**.
 
 **Body / treasure counter:** minimal realm lifeforce soul resist; **wards and dharma gear** blunt branch info (Memory/Karma reads); Martial Intent **tempo only** ([`nine-realm-ladder.md`](nine-realm-ladder.md) owner lean).
 
@@ -266,6 +348,9 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [ ] Illusion supreme wording — **Weight of the Unreal** vs **Manifest False Step**
 - [x] Memory lesser/greater/supreme/statute (owner chat 2026-10-13) — Surface Inscription, Soul Search, Vault Unsealing, The Record Endures
 - [ ] Soul Search vs **bone-shifting** — supreme only or greater partial (disguise doc)
+- [x] Society menace frame — innates bounded; jianghu/forbidden via manuals (owner 2026-10-13)
+- [ ] `context: combat | jianghu | forbidden` on technique templates + shelf UI
+- [ ] Karma/Fate jianghu manuals — design with branch pass
 - [ ] Root Dao subsection in `law-taxonomy.md` (stack position vs Great Dao)
 
 ## Implementation crumbs
