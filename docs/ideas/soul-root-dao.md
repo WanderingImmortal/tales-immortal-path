@@ -6,19 +6,55 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
-| **Updated** | 2026-10-13 (branch apex fiction; society menace; Illusion + Memory) |
+| **Updated** | 2026-10-13 (crude inherit vs arts; branch apex fiction) |
 
 ## Intent
 
-**Root Dao (根道)** is the spirit lane’s **purview layer** — exactly **five** branches, not the same shelf as Art Great Daos (Sword, Poison, …). A spirit-primary cultivator **walks one or two branches** to idx 6–7, earns **lesser → greater inherited expressions** as realms rise, and uses **manuals** as stylized applications (see § Skill sources).
+**Root Dao (根道)** is the spirit lane’s **purview layer** — exactly **five** branches, not the same shelf as Art Great Daos (Sword, Poison, …). A spirit-primary cultivator **walks one or two branches** to idx 6–7.
+
+**Owner lock (2026-10-13):** **Inheritance** = **common, crude grasp** of the branch — you *have* the power but route it **roughly** (waste Focus, bleed scope, unfocused). **Manuals (arts)** = **condensed routing** — how to converge that power into effective illusions, reads, thread-weaves, etc. The **most devastating** expressions of each branch are **art-gated**, not free on the inherit ladder. See § Crude inherit vs art.
 
 This doc ties **nine-realm spirit names** ([`nine-realm-ladder.md`](nine-realm-ladder.md)) to **when branches open** and **how strong inherited skills should feel** vs generic `soul_condensation` ([`spirit-path-full-design.md`](spirit-path-full-design.md)).
 
-**Inherited skills:** formal **expression tiers** (below) — you **gain more arts over the ladder**, not just two and done. **Greater** means **second tier of the same branch**, not “better version of the first skill only.”
+**Inherited skills:** formal **expression tiers** (below) — more **crude slots** over the ladder, not polished peak kits. **Greater** = second crude grasp tier, not a finished sect art.
 
 **Five branches (locked for now):** Karma · Fate · Memory · Illusion · **True Self** (真我 — Personal God home; not “Ego Dao” in UI).
 
-**Parity (owner 2026-10-13):** spirit is **not** mainly “win the duel.” People fear soul cultivators because of **jianghu and chronicle** power — and because **each Root Dao at its pinnacle** is a worthy xianxia threat on its own ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13)). Lower **innates** stay fight-fair; **supreme + statute** (primary branch) deliver peak menace — **constrained in systems**, unlimited in **fiction**. Manuals spread **styles** and softer mid-tier access; worst acts still **stain**. See § Society menace.
+**Parity (owner 2026-10-13):** spirit is **not** mainly “win the duel.” People fear soul cultivators who **studied the wrong scrolls** — each Root Dao at its pinnacle is a worthy threat ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13)), but players reach that through **arts**, not inherit alone. Crude inherit stays **fight-fair**; **focused + devastating** = manuals. See § Society menace.
+
+---
+
+## Crude inherit vs art (owner lock 2026-10-13)
+
+### Fiction
+
+Root Dao gives **raw purview** — like **light**. Without an art, a soul cultivator **splashes** it: misread leaks, reads snag only surface, illusions cost double and flicker. An **art (manual)** is a **lens**: same light, **converged** — precise target, proper duration, real bite. For **AoE** or **chronicle** effects, the art is a **pattern** (array, scripture chapter) that routes power across many threads without treating each as a separate sniper shot — still “focused,” but **spread by design**, not by accident.
+
+### What inheritance grants
+
+| Grant | Meaning |
+|-------|---------|
+| **Branch unlock** | You may **comprehend** arts of that `rootBranch` |
+| **Lesser / greater / supreme inherit** | **Crude** techniques — playable, identity-clear, **inefficient** |
+| **Statute (idx 7)** | **Worn soul-law** — passive routing, credibility, **comprehend tier** unlock; **not** the apex devastation button |
+
+Crude markers (implementation leans — tune in playtest): **+Focus cost**, **−duration / −chance**, **narrower or random side-effect**, **strain on supreme crude**.
+
+### What manuals grant
+
+| Manual band | Meaning |
+|-------------|---------|
+| **Common–rare arts** | **Focused** versions of lesser/greater themes (replace or upgrade crude on shelf) |
+| **High / forbidden arts** | **Devastating** branch expressions ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13)) — puppet format, thread massacre, fortune shear, heart-demon manifest |
+| **Sets & lineage** | Same lens, **grade** bumps (peerless = tightest beam) |
+
+**Comprehend gates (lean):** need branch unlock + inherit tier ≥ manual tier (e.g. apex art requires supreme crude or statute seat).
+
+### Why both exist
+
+- **Inherit:** no scroll runner is helpless; branch fantasy readable from realm 1.
+- **Manual:** reason to join sects, rob tombs, pursue jianghu — **power efficiency and horror** live here.
+- **Balance:** devastators are **loot/commitment** gated; crude keeps basin PvE honest.
 
 ---
 
@@ -41,26 +77,22 @@ Threat tone: **insidious** — unknowable **future** harm, not only HP today. Fi
 ### Two channels (design rule)
 
 ```text
-  INNATE lesser → greater
-       │  Tilt per branch (Illusion/Memory skew early; Karma/Fate skew late)
-       │  Combat-fair band + light social
+  INHERIT (crude grasp) ──► branch unlock + rough lesser → greater → supreme
+       │                      fight-fair, wasteful, unfocused
        ▼
-  INNATE supreme → statute (PRIMARY branch)
-       │  **Branch apex fiction** — peak menace ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13))
-       │  Hard caps: scope, cost, strain, counters, chronicle hooks
+  ARTS (manuals) ──► focused routing at each band + DEVASTATING apex scrolls
+       │                      comprehend gates; sect / black market / tomb
        ▼
-  MANUALS
-       │  Variants, sect styles, **earlier/weaker** expressions of apex themes
+  STATUTE (idx 7) ──► soul-law seat — boosts arts of primary branch; passive clause
        ▼
-  STAIN / SACRILEGE (worst acts)
-       Full puppeting, mass fate-break, cycle tampering — ledger + tribulation — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
+  STAIN / SACRILEGE ──► worst arts + mass use — ledger — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 ```
 
-**Owner lock (2026-10-13):** apex horror is **on the branch**, not only black-scroll flavor — but **implementation** never gives a menu “delete empire” button; it gives **bounded clauses** that *feel* like the fiction.
+**Owner lock (2026-10-13):** apex **fiction** belongs to each branch; apex **gameplay** is **art-gated** ([§ Crude inherit vs art](#crude-inherit-vs-art-owner-lock-2026-10-13)). Bounded clauses, not menu wipe.
 
 ### Branch → menace vector (summary)
 
-Full peak fiction: [§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13). Innates **tilt** toward combat vs chronicle by branch; **supreme/statute** always expresses apex for **primary** walkers.
+Full peak fiction: [§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13). Crude inherit **tilts** by branch; **focused / devastating** = manuals + statute as **enabler**.
 
 | Branch | Early inherit tilt | Peak menace (fiction) |
 |--------|-------------------|------------------------|
@@ -103,7 +135,7 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 
 ## Branch apex fiction (owner lock 2026-10-13)
 
-**Rule:** anything taken to the **pinnacle** of a Root Dao is a **worthy threat** — xianxia scale. Game expresses that through **supreme + seated statute** (primary branch), not through basin lesser skills. **Balance** = constraints below, not weak fiction.
+**Rule:** anything taken to the **pinnacle** of a Root Dao is a **worthy threat** — xianxia scale. **Fiction** lives here; **playable devastation** is **`manual` apex arts** (primary branch + statute seat helps). **Crude supreme inherit** = you can **attempt** a weak, costly echo of the theme — not the sect-killing art. **Balance** = constraints below + art rarity, not weak lore.
 
 ### Shared constraints (how peak stays playable)
 
@@ -115,7 +147,8 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 | **Counters** | Equal-realm **True Self**, Memory reader, clarity wards, Void Temple attention, tribulation |
 | **Chronicle** | Empire/sect fall = **situation-thread cascade** ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)), not one click |
 | **Stain** | Mass puppeting, forced mass killing, cycle tampering → **sacrilege** escalates future gates |
-| **Manuals** | Softer or partial versions **before** supreme; apex inherit still **best** expression for primary |
+| **Manuals** | **Required** for focused power; **only** source of **devastating** apex arts |
+| **Crude inherit** | Baseline only — never outperforms a matched-grade art on same theme |
 
 **Inheritance tilt:** Illusion & Memory peak **can** include terrifying **combat-real** outcomes; Karma & Fate peak skew **jianghu / institution**; True Self TBD but likely **anti-domination** + godhood runway.
 
@@ -127,9 +160,10 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 
 | Tier | Expression |
 |------|------------|
-| **Supreme** | **Weight of the Unreal** — one imagined form, **one real rule**, short window (evolved from current stub) |
-| **Statute** | **The Lie Holds** — your illusions gain **legal weight**: they fail slower, resist first dispel, can **stack one clause** (e.g. declared hazard persists N beats / one scene flag) |
-| **Manuals** | False witness, crowd haze — **partial** realification before supreme |
+| **Crude supreme inherit** | **Weight of the Unreal** — fuzzy form, **one weak real rule**, high waste |
+| **Statute** | **The Lie Holds** — **seat**: illusions **hold longer**; **comprehend** high illusion arts; passive credibility |
+| **Apex arts (manual)** | e.g. **Heart-Demon Manifestation** — **think it, it bites** (focused, strain, cooldown) |
+| **Other manuals** | Snare scriptures, false witness, multi-foe haze — focused lesser/greater |
 
 **Counters:** Memory **truth read**, True Self anchor, “too absurd for realm” hard cap, strain if form exceeds mass/realm budget.
 
@@ -141,9 +175,10 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 
 | Tier | Expression |
 |------|------------|
-| **Supreme** | **Vault Unsealing** — pull/seal one **deep layer** (identity, oath, technique memory) |
-| **Statute** | **The Record Endures** → apex lean **Life Ledger**: successful deep work leaves **editable Record** — long rite **Format** puppet (obedience flags, not combat bot in basin) |
-| **Manuals** | Confession, witness copy — **read/edit surface** without full statute |
+| **Crude supreme inherit** | **Vault Unsealing** — one **sealed layer** pull, costly, often incomplete |
+| **Statute** | **The Record Endures** / **Life Ledger** seat — **Known** mark; enables **comprehend** memory apex arts |
+| **Apex arts (manual)** | e.g. **Life Format Scripture** — puppet / rewrite (rite, stain, contest) |
+| **Other manuals** | Confession seal, witness rubbing — focused reads/edits |
 
 **Constraints (mandatory):** **time + rite**, target will/True Self contest, **heavy stain** on full puppet, Void Temple / heaven notice, **reversible** only at extreme cost (genre rare). **Not** instant turn-1 dominate in duel — **chronicle horror**.
 
@@ -158,10 +193,11 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 | Tier | Expression (stubs — detail on Karma pass) |
 |------|---------------------------------------------|
 | **Lesser / greater** | Weight Sense, Ledger Mark — stain read, setup mark |
-| **Supreme** | **Thread Weave** *(working)* — link 2–N marked parties; situation engine raises **feud / betrayal / accident** proc |
-| **Statute** | **Debts Come Due** *(working)* — passive: marked names **accumulate** karmic coupling; one **Invoke** per season forces a **thread event** (duel, raid, denunciation) |
+| **Crude supreme inherit** | **Thread Weave** *(working)* — weak link, low proc, high waste |
+| **Statute** | **Debts Come Due** *(working)* — seat + passive coupling on marks |
+| **Apex arts (manual)** | e.g. **Blood Debt Orchestration** — organic feud cascade (chronicle) |
 
-**Manuals:** Feud Wake, amplify stain on a house — weaker weave.
+**Other manuals:** Feud Wake, stain amplify — focused karma routing.
 
 **Counters:** merit temples, karma purification, imperial charter, counter-weave by peer Karma walker.
 
@@ -174,10 +210,11 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 | Tier | Expression (stubs — detail on Fate pass) |
 |------|------------------------------------------|
 | **Lesser / greater** | Thread Glimpse, Nudge — telegraph, small bias |
-| **Supreme** | **Fortune Shear** *(working)* — one **institution or zone** loses a **luck band** for a season; threads spawn (exodus, coup rumor, resource fail) |
-| **Statute** | **Omen Crown** *(working)* — worn fate: passive bad luck for enemies **in claim**; active **Pin** one **situation thread** toward collapse |
+| **Crude supreme inherit** | **Fortune Shear** *(working)* — minor luck dip, one thread nudge |
+| **Statute** | **Omen Crown** *(working)* — seat; omen passives in claim |
+| **Apex arts (manual)** | e.g. **Sect Fortune Collapse** — institution cascade (chronicle) |
 
-**Manuals:** Clan omen pin, marriage thread — local bias before supreme.
+**Other manuals:** Clan omen pin, marriage thread — focused fate bias.
 
 **Counters:** fate-rite tribulation, heavenly luck treasures, Immortal-level counter-fate (late).
 
@@ -195,7 +232,7 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 
 **Lean:** True Self apex = **the threat that you cannot own, rewrite, or doom** — counterweight to Memory/Fate/Karma horror; offensive godhood lives in **Devouring / Worshipped** kinds ([`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md)).
 
-Innates **Self Anchor / Name Bound** stay **anti-domination**; statute name **TBD** when owner picks.
+Innates **Self Anchor / Name Bound** stay **crude anti-domination**; focused True Self arts **TBD**; statute name **TBD** when owner picks.
 
 ---
 
@@ -225,12 +262,12 @@ Same rule as body: each name is **the work** or **the change**. Qi neighbor is f
 
 | Tier | Code tag | When (typical) | What it is |
 |------|----------|----------------|------------|
-| **Lesser** | `lesser` | Branch **unlock** realm | First **innate** art for that purview — readable, low Focus, defines early fantasy |
-| **Greater** | `greater` | **+1 spirit idx** after unlock (or peak of that rung) | Second innate — new verb or combo hook, **Suppression-band** power if damage |
-| **Supreme** | `supreme` | **Idx 5–6**, **primary branch only** (lean) | Genre peak for that purview — expensive, strain, cooldown; **not** basin kit |
-| **Statute** | `statute` | **Idx 7** Divine Soul, primary branch | Worn soul-law — passive + one triggered clause; Manifestation analog |
+| **Lesser** | `lesser` | Branch **unlock** realm | First **crude** grasp — readable, **inefficient** |
+| **Greater** | `greater` | **+1 spirit idx** after unlock | Second **crude** grasp — new verb, still wasteful vs a manual |
+| **Supreme** | `supreme` | **Idx 5–6**, **primary branch only** (lean) | **Crude** apex *attempt* — theme visible, **not** devastating |
+| **Statute** | `statute` | **Idx 7** Divine Soul, primary branch | **Seat** — passive law, art comprehend boost; Manifestation analog |
 
-Manuals add **variants** and set bonuses at any tier; they do **not** replace supreme/statute slots.
+**Manuals** (`expressionTier` on scroll: `focused` | `apex` | …) supply **effective** and **devastating** routing; may **replace** crude on kit bar when learned.
 
 **Dabblers:** lesser only, or greater one idx late — no supreme/statute ([§ Dabblers](#dabblers-and-qi-cross-access)).
 
@@ -247,7 +284,7 @@ Branches unlock on **spirit track realm idx**, not qi realm. Dabblers on another
 | **3** | Soul Birth | **Karma** | **Weight Sense** — see debt/alignment tint; tiny damage amp vs stained foes | @ **4** **Ledger Mark** — mark for follow-up soul arts |
 | **4** | Soul Transformation | **Fate** | **Thread Glimpse** — see next intent / telegraph one action | @ **5** **Nudge** — small action-order or proc bias *(not hard stun)* |
 | **5** | Ego Refinement | **True Self** | **Self Anchor** — resist possession / illusion peel | @ **6** **Name Bound** — declare self; buff vs identity attacks |
-| **6** | Divinity Seeking | *(no sixth branch)* | **Supreme** for **primary** branch + clause draft | Peak kit before statute |
+| **6** | Divinity Seeking | *(no sixth branch)* | **Crude supreme** for **primary** branch + clause draft UI | Apex **arts** still manual |
 | **7** | Divine Soul | — | **Statute** (primary branch) | Pseudo God peak abilities |
 
 **Commit rule (lean):** at **Soul Birth (idx 3)** pick **one primary Root branch** for idx 7 statute; optional **secondary** at idx 5 with reduced greater-cap. Changing branch = rare rite (same family as meridian-wash — [`cultivation-manuals-framework.md`](cultivation-manuals-framework.md)).
@@ -270,14 +307,16 @@ Every inherited illusion art names **who is affected**:
 | **Self** | Your soul presentation — decoy, misread profile, guard fudge |
 | **Field** | Zone illusion — supreme+ only in v1 (costly, short) |
 
-### Innate ladder (Illusion-primary; others cap at greater unless secondary commit)
+### Crude inherit ladder (Illusion-primary)
+
+All rows = **unfocused** usage unless player learns a matching **art**. Example focused manual in *italics*.
 
 | Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
 |------|------------|----------------|--------|-----------------|------------|
-| **Lesser** | 1 | **Misdirecting Gaze** | **Foe** | Apply **Misread** (1 stack): their **next single-target** hostile action vs you has a strong **miss / wrong-target** chance; optional tiny spirit chip if it misfires. **No self-buff fluff** — you are attacking *their* perception. | ~0–0.5× Lash damage; **C** focus; loses vs high Will, clarity gear, Memory read |
-| **Greater** | 2 | **Hollow Double** | **Self** | Spawn a **decoy echo** tied to you for 1–2 turns: **first hit** that would land on you **strikes the echo** instead (then echo pops). You may **step** (flee bias) or cast one **light** soul art at −Focus. Clear fantasy: they cut the wrong body. | No “vague fleck”; echo has **one HP layer** on spirit guard, not a second character |
-| **Supreme** | 5–6 *(primary)* | **Weight of the Unreal** | **Field** *(one tile / one foe)* | **Apex step:** one **held-in-mind** form, **one real rule** (damage, block, hazard) — short window. Precursor to full “think it, it bites.” Heavy Focus + **strain**; cooldown. | See [§ Illusion apex](#illusion-幻--假作真) |
-| **Statute** | 7 | **The Lie Holds** *(working)* | Passive + trigger | Declared illusions gain **legal weight** — persist, resist first break, **one clause** active. Primary Illusion **identity**. | Peak **假作真** — countered by True Self / Memory truth |
+| **Lesser** | 1 | **Misdirecting Gaze** | **Foe** | **Crude Misread:** scattershot — next hostile action vs you **may** miss; extra Focus vs a focused snare art. | *Manual e.g. **Empty-Eye Snare** — tight single-target Misread* |
+| **Greater** | 2 | **Hollow Double** | **Self** | **Crude decoy:** flickering echo, **one** hit soak, high leak cost. | *Manual e.g. **Soul Afterimage Art** — stable decoy + step* |
+| **Supreme** | 5–6 *(primary)* | **Weight of the Unreal** | **Field** | **Crude realification:** vague form, one **weak** real rule, heavy waste. | *Apex manual e.g. **Heart-Demon Manifestation** — think it, it bites* |
+| **Statute** | 7 | **The Lie Holds** | Seat | Credibility + comprehend high illusion arts; **not** a free apex cast. | See [§ Illusion apex](#illusion-幻--假作真) |
 
 **Name swaps open:** Misdirecting Gaze → **Mind Snare**, **False Opening**; Hollow Double → **Soul Afterimage**, **Borrowed Body**.
 
@@ -287,9 +326,9 @@ Idx 1–2 you **kite**: Misdirecting Gaze on the scariest striker, Hollow Double
 
 ### Manuals (Illusion)
 
-**Combat styles:** longer Misread, echo that explodes, multi-foe haze — `rootBranch: illusion`, `context: combat`.
+**Focused combat/jianghu:** replace or upgrade crude slots — `rootBranch: illusion`, tier ≤ inherit tier to comprehend.
 
-**Jianghu styles (manual only):** **False Presence**, **Borrowed Witness**, crowd **Haze** — forge *scene*, not deep memory (Memory lane). Gated by sect/black market; higher tier than innates.
+**Apex / devastating (manual only):** **Heart-Demon Manifestation**, **False Presence** (scene-as-real in jianghu), spread-pattern haze scriptures — require supreme crude or statute seat.
 
 ---
 
@@ -309,14 +348,14 @@ Idx 1–2 you **kite**: Misdirecting Gaze on the scariest striker, Hollow Double
 
 Out of combat: surface = **lie hint / aura tell**; deep = dialogue and explore gates ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md), [`disguise-and-public-identity.md`](disguise-and-public-identity.md)).
 
-### Innate ladder (Memory-primary)
+### Crude inherit ladder (Memory-primary)
 
 | Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
 |------|------------|----------------|--------|-----------------|------------|
-| **Lesser** | 2 | **Surface Inscription** | **Foe (surface)** | Read the **top layer** of one mind: in combat → reveal **one** of: telegraphed next attack category, **one hidden buff/debuff**, or weak-spirit tell; in talk/explore → **lie hint** (not full truth). **Zero damage.** | **I** king at GC band; does **not** bypass bone-shifting or deep wards |
-| **Greater** | 3 | **Soul Search** | **Foe (deep)** | **Existing game art** — deep probe in combat; hidden truths when exploring or speaking. Grant via Memory branch, not flat pool. Pierces **cosmetic / shallow** disguise; **bone layer** may still need supreme or specialist manual (open — link disguise doc). | Benchmark **utility** — [`data.js`](../../data.js); numbers = playtest later |
-| **Supreme** | 5–6 *(primary)* | **Vault Unsealing** | **Foe (deep)** or **Record** | Force **one sealed layer** — identity, oath, technique memory. Strain + backlash if target ≥ your spirit realm. | Step toward [§ Memory apex](#memory-忆--改忆塑命) |
-| **Statute** | 7 | **The Record Endures** → **Life Ledger** *(apex lean)* | Passive + long rite | **Known** mark + **editable Record** on deep-read victims; **Format** rite → puppet obedience (stain, time, contest). | Peak **改忆** — not instant duel dominate |
+| **Lesser** | 2 | **Surface Inscription** | **Foe (surface)** | **Crude read** — snag **one** shallow tell or lie hint; may **fail partial** vs wards. | *Manual e.g. **Recent Trace Scripture** — reliable surface read* |
+| **Greater** | 3 | **Soul Search** | **Foe (deep)** | **Crude deep probe** — grant via Memory branch (migrate from flat pool). Noisier / costlier than focused search art. | *Manual e.g. **Palace of Mirrors Search** — full utility* |
+| **Supreme** | 5–6 *(primary)* | **Vault Unsealing** | **Record** | **Crude** seal pull — incomplete layers, backlash. | *Apex manual e.g. **Life Format Scripture** — puppet / rewrite* |
+| **Statute** | 7 | **The Record Endures** / **Life Ledger** | Seat | **Known** mark; enables apex memory **comprehend**; no free Format. | [§ Memory apex](#memory-忆--改忆塑命) |
 
 **Name swaps open:** Surface Inscription → **Recent Trace**, **Shallow Recall**; Vault Unsealing → **Depth Recall**, **Seal Break**.
 
@@ -329,9 +368,9 @@ Out of combat: surface = **lie hint / aura tell**; deep = dialogue and explore g
 
 ### Manuals (Memory)
 
-**Combat / read styles:** deeper read, multi-foe surface, longer **Known** — `rootBranch: memory`, `context: combat`.
+**Focused:** confession seal, witness rubbing, multi-foe surface — upgrade crude slots.
 
-**Jianghu styles (manual only):** **Confession Seal**, **Witness Rubbing**, **Blackmail Packet** (truth extracted, not fabricated) — primary source of “soul cultivators are terrifying at the tea house” fantasy. Generic **Probe** pamphlet (if kept) = weaker than Surface Inscription or one-charge dabble for non-Memory.
+**Apex / devastating (manual only):** **Life Format Scripture**, deep identity rewrite — stain, rite, statute seat + supreme crude gate. Generic **Probe** pamphlet (if kept) = dabble, worse than Memory crude.
 
 ### Disguise interaction (lean)
 
@@ -350,8 +389,8 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | Layer | Source | Examples |
 |-------|--------|----------|
 | **Generic condensation** | Manuals, market, sect | Soul Lash, Spectral Shield — [`data.js`](../../data.js) `soul_condensation` pool |
-| **Root inherited** | Branch unlock + realm | Lesser/greater tilt; **supreme/statute = branch apex** ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13)) |
-| **Manual applications** | Comprehend scrolls tagged `rootBranch` + `context` | Styles + **partial** apex themes before supreme; extra stain on worst ([§ Society menace](#society-menace-vs-combat-kit)) |
+| **Root inherited** | Branch unlock + realm | **Crude grasp** only ([§ Crude inherit vs art](#crude-inherit-vs-art-owner-lock-2026-10-13)) |
+| **Manual applications** | Comprehend scrolls tagged `rootBranch` + tier | **Focused** routing + **devastating apex arts** ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13)) |
 
 Manuals **without** the branch unlock: stash, weak cross-cast, or fail comprehend — same dabble ethic as qi reading a soul pamphlet.
 
@@ -379,7 +418,7 @@ Benchmark against **live** generic arts (tune at implement; numbers are **relati
 | **QC basin** | 0–1 | FE qi peers | Illusion lesser ≈ **0.8× Soul Lash** damage but adds **control**; no heavy soul burst |
 | **GC / NS** | 2–3 | Core / Nascent qi | Memory greater (**Soul Search**) = **best-in-slot utility**; Karma lesser = **zero-damage** info |
 | **Upper mortal** | 4–5 | Avatar / Void qi | Fate + Karma greater = **Suppression-tier** with **setup**; True Self = **defensive identity** |
-| **Seeking / Manifest** | 6–7 | Dao peers | **Branch apex** statute — chronicle/clause power (like worn dao), not +50% Soul Rend |
+| **Seeking / Manifest** | 6–7 | Dao peers | Statute **seat** + apex **manuals** — chronicle power when scrolls owned |
 
 ### Branch benchmark matrix (inherited only)
 
@@ -434,7 +473,7 @@ Design check: **branchless spirit** still playable via generics; **one committed
 
 ## Links to implement (later)
 
-- Tag techniques: `rootBranch`, `expressionTier` (`lesser` | `greater` | `supreme` | `statute`), `mindTarget` (`foe_surface` | `foe_deep` | `self` | `field` | `record`).
+- Tag techniques: `rootBranch`, `expressionTier` (`lesser` | `greater` | `supreme` | `statute` for crude inherit; `focused` | `apex` for manuals), `routing` (`crude` | `art`), `mindTarget` (…).
 - Grant inherited on `spiritTrackRealmIdx` milestone + `G.soulRoot.primary`.
 - Move **Soul Search** grant from flat pool to **Memory greater @3** (keep generic probe pamphlet as weaker variant or remove duplicate).
 - idx 6–7: **soul clause + seated statute** data model — parallel [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md), not Art Great Dao merge.
@@ -453,6 +492,7 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [ ] Soul Search vs **bone-shifting** — supreme only or greater partial (disguise doc)
 - [x] Society menace frame — innates bounded; manuals = partial/variants (owner 2026-10-13)
 - [x] Branch apex fiction — five peak threats + shared constraints (owner 2026-10-13)
+- [x] Crude inherit vs art — devastating apex manual-gated (owner 2026-10-13)
 - [ ] True Self apex — pick A/B/C or hybrid ([§ True Self](#true-self-真我--open))
 - [ ] Karma/Fate supreme/statute names — Thread Weave, Debts Come Due, Fortune Shear, Omen Crown
 - [ ] `context: combat | jianghu | forbidden` on technique templates + shelf UI
