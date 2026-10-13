@@ -192,7 +192,7 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 
 | Tier | Expression |
 |------|------------|
-| **Crude inherit** | Weight Sense, Ledger Mark, Thread Weave — read / mark / weak link |
+| **Crude inherit** | Thread Sense, Crude Reinforce, Thread Fracture — see / tighten / loosen |
 | **Statute** | **Debts Come Due** — seat; marks **couple** over time |
 | **Apex arts (manual)** | **Blood Debt Orchestration** — situation-thread cascade |
 
@@ -276,7 +276,7 @@ Branches unlock on **spirit track realm idx**, not qi realm. Dabblers on another
 |------------|---------------|-----------------|-------------------------|----------------------------|
 | **1** | Sea Stilling | **Illusion** | **Misdirecting Gaze** — debuff **one foe** (see § Illusion) | @ **2** **Hollow Double** — **self** decoy echo |
 | **2** | Soul Seed | **Memory** | **Surface Inscription** — **foe** surface read (see § Memory) | @ **3** **Soul Search** — deep read *(canon migrate)* |
-| **3** | Soul Birth | **Karma** | **Weight Sense** — crude debt/stain read (§ Karma) | @ **4** **Ledger Mark** — crude coupling mark |
+| **3** | Soul Birth | **Karma** | **Thread Sense** (§ Karma) | @ **4** **Crude Reinforce** |
 | **4** | Soul Transformation | **Fate** | **Thread Glimpse** — see next intent / telegraph one action | @ **5** **Nudge** — small action-order or proc bias *(not hard stun)* |
 | **5** | Ego Refinement | **True Self** | **Self Anchor** — resist possession / illusion peel | @ **6** **Name Bound** — declare self; buff vs identity attacks |
 | **6** | Divinity Seeking | *(no sixth branch)* | **Crude supreme** for **primary** branch + clause draft UI | Apex **arts** still manual |
@@ -381,7 +381,7 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 
 ## Branch focus — Karma (因果)
 
-**Fantasy:** Karma is **cause and effect between people** — what you did, what they owe, what the jianghu remembers. A Karma walker **does not invent guilt from nothing**; they **tighten threads that already exist** (or that **you** earned by marking/staining). OP in fiction = **everyone kills everyone** at a whisper; **playable** = **ledger-backed**, **delayed**, **escapable** consequences ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)).
+**Fantasy:** Karma is **invisible thread** between people — debts, favors, blood, sect, marriage. Walkers **see**, **reinforce**, or **sever** couplings; they do not usually **spawn** a thick thread from nothing (help someone → **real** incident → **then** reinforce). OP fiction = everyone’s threads tug at once; **playable** = tiered sight, capped reinforce, delayed beats ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)).
 
 ### Not the same as qi **Karma Dao**
 
@@ -400,7 +400,7 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 
 | Principle | Implementation lean |
 |-----------|---------------------|
-| **No thread from vacuum** | Weave / feud wake needs **incident**, **mark**, **existing grudge**, **alignment stain**, or **quest fact** on target |
+| **No thick thread from vacuum** | **Reinforce** needs an **existing edge** (any tier) or **fresh incident** you caused; **sever** cuts what’s there |
 | **Organic, not dominate** | Outcomes = **situation-thread beats** (rumor, ambush, denunciation, duel challenge) — not “target attacks ally this turn” in combat UI |
 | **Delayed** | Marks **charge**; apex arts **schedule** beats via [`world-scheduler.js`](../../world-scheduler.js) spine |
 | **Escapable** | Merit, apology, mediator NPC, cutting mark, killing weaver mid-rite |
@@ -408,35 +408,88 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | **Combat role** | **Setup and punish the stained** — small damage amp vs **oath-broken / marked** foes; not a second damage school |
 
 ```text
-  INCIDENT (kill, betray, public slight) ── already in chronicle / npc graph
+  INCIDENT ── creates / strengthens an edge (gameplay: help, betray, kill → incident ledger)
        │
-  CRUDE READ (Weight Sense) ── see debt / stain / “feud latent”
+  THREAD SENSE ── see edges (tiered; usually strongest-first)
        │
-  MARK (Ledger Mark) ── couple target to thread engine (weak crude / strong art)
+  REINFORCE ── +heat / +grudgeLevel / ally “linger” bias on THAT edge
        │
-  WEAVE (manual apex) ── link A↔B if BOTH have hooks; proc escalation pack
+  SEVER (late, manual-heavy) ── cut edges → isolation, weak retaliation web
        │
-  BEAT ── hunter, bounty, cousin letter, sect grudge (jianghu engine)
+  BEAT ── situation-thread engine (organic, not dominate)
 ```
+
+### Thread model (design data — aligns with situation threads)
+
+A **karma thread** is an **edge** in the social graph (not necessarily a full active `situationThread` yet):
+
+| Field (lean) | Purpose |
+|--------------|---------|
+| `a`, `b` | Two uids (person↔person, person↔org, org↔org) |
+| `kind` | `debt` · `grudge` · `favor` · `blood` · `oath` · `sect` · `marriage` · `patron` |
+| **Strength** | 1–5 — derived from incident **severity**, age, repetition, public witness |
+| **Heat** | 0–100 — volatility inside strength (reinforce adds heat; time decays) |
+| `situationThreadId` | Optional — once edge escalates to active pack |
+
+**Creating ties:** normal play (**help, save, gift, oath**) writes **incidents** → edges appear. Karma **reinforce** amplifies; **raw “create thread”** arts (if any) only mint **strength-1 faint** edges that still need reinforcement / real deeds — otherwise duplicate “just be nice.”
+
+### Thread sight — all threads or strongest? (owner lean 2026-10-13)
+
+**Not all at once** on crude inherit — avoids UI soup and keeps progression.
+
+| Viewer tier | Crude inherit shows | Focused manual shows |
+|-------------|---------------------|----------------------|
+| **Lesser @3** | **Strongest 1** edge on subject + **count** of others (“+3 fainter threads”) |
+| **Greater @4** | **Top 3** by strength; **kind** label (grudge/debt/favor); counterparty **silhouette** if not met |
+| **Supreme crude** | Top 5 + **pair** edges between two subjects you select |
+| **Art (manual)** | Full list above strength floor; **counterparty name**; org threads |
+
+**Strength bands (UI colour / copy):**
+
+| Band | Strength | Player reads |
+|------|----------|--------------|
+| **Faint** | 1 | “Something connects you” |
+| **Clear** | 2 | Kind known (debt, favor, …) |
+| **Strong** | 3–4 | Counterparty identifiable; feud tier visible |
+| **Binding** | 5 | Clan/blood/oath — hard to sever |
+
+Out of combat: sense on NPC in converse/explore. In combat: sense on foe shows **strongest hostile edge** only (who they’re fighting **for**, blood link hint).
+
+### Verbs: reinforce · sever · (rare) faint-bind
+
+| Verb | Crude inherit | Focused manual | Apex manual |
+|------|---------------|----------------|-------------|
+| **Reinforce** | **Greater @4** — wasteful | **Red Ledger**, **Grudge Needle** | **Blood Debt Orchestration** (multi-party) |
+| **Sever** | — | **Thread Shears** (one edge, strength ≤3) | **Solitary Verdict** (network cut — isolation) |
+| **Faint-bind** | — | optional — strength-1 only | almost never on inherit |
+
+**Reinforce examples (your sketches):**
+
+- **Ally:** talented elder passing through → reinforce **favor** edge → bias **linger** / offer teach beat (not slave — **appetite** check in thread engine).
+- **Enemy indirect:** two rivals in same room → reinforce **mutual grudge** edge → **+heat** / **grudgeLevel** on existing thread — feud tier rises **without you entering combat**.
+
+**Sever (late menace):** cut **protector / clan / ally** edges on target → retaliation **organizes slower** (assassination window). **Not** delete all consequences — **severed** sides may still act if incidents remain. Heavy **corruption** if severing merit-oath edges on innocents. Counter: peer Karma re-tie, temple rite.
 
 ### Targeting rule (UI)
 
 | Target tag | Means |
 |------------|--------|
-| **Subject** | One NPC or foe — read or mark |
-| **Pair** | Two subjects — weave **only if** each has ledger hook |
-| **Thread** | Active situation id — amplify stage, not create from zero |
+| **Subject** | See threads anchored on this person |
+| **Edge** | One **a↔b** pair you sensed — reinforce or sever |
+| **Pair (scan)** | Compare edges **between** two others (indirect feud play) |
 
 ### Crude inherit ladder (Karma-primary)
 
 | Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
 |------|------------|----------------|--------|-----------------|------------|
-| **Lesser** | 3 | **Weight Sense** | **Subject** | **Crude read:** tint **debt / stain / latent feud** (alignment band, recent incident flag, “blood owed” hint). Combat: tiny spirit damage **only if** target already **stained/marked**. | *Manual e.g. **Scales of Debt** — precise read + UI detail* |
-| **Greater** | 4 | **Ledger Mark** | **Subject** | **Crude mark:** tag one **Karma Mark** — next **organic** hostile beat vs them **slightly** favored; your karma arts get **+effect** on mark. Fails or weak on **clean + high merit**. | *Manual e.g. **Red Ledger Seal** — stable mark, longer coupling* |
-| **Supreme** | 5–6 *(primary)* | **Thread Weave** | **Pair** | **Crude link:** if **both** have hooks, **low chance** to spawn **one** weak thread beat (rumor or insult chain). High Focus waste. | *Apex manual **Blood Debt Orchestration** — multi-stage feud cascade* |
-| **Statute** | 7 | **Debts Come Due** | Seat | Marks **deepen** over months; comprehend apex karma arts; passive: marked subjects **attract** incident echoes (not mind control). | Enables orchestration arts |
+| **Lesser** | 3 | **Thread Sense** | **Subject** | **Crude sight:** **strongest 1** edge + hidden count; combat: chip vs **Strong+ hostile** edge only. | *Manual **Scales of Debt** — more edges, names* |
+| **Greater** | 4 | **Crude Reinforce** | **Edge** | **+heat** on **one** sensed edge (max strength 3 crude cap); ally **linger** or grudge **+heat**. High waste; **no** new edge. | *Manual **Red Ledger Seal** — higher cap, pair target* |
+| **Supreme** | 5–6 *(primary)* | **Thread Fracture** *(working)* | **Edge** | **Crude sever:** weaken **one** edge (strength −1 or heat dump); backlash if strength 4+. | *Apex **Solitary Verdict** / **Orchestration*** |
+| **Statute** | 7 | **Debts Come Due** | Seat | Reinforce **holds longer**; sever **costs less** on marked edges; comprehend apex karma arts. | Passive coupling — not free sever spam |
 
-**Name swaps open:** Weight Sense → **Debt Tint**, **Owed Breath**; Ledger Mark → **Coupling Seal**.
+**Retired names:** Weight Sense → **Thread Sense**; Ledger Mark → folded into **Reinforce** (mark = reinforce ally/grudge setup).
+
+**Name swaps open:** Crude Reinforce → **Tighten Thread**; Thread Fracture → **Loosen Thread**.
 
 ### Manuals (Karma)
 
@@ -446,9 +499,11 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 
 | Art (working) | Needs | Effect sketch |
 |---------------|-------|----------------|
-| **Feud Wake** | Mark + family tie to `npcKillLog` / incident | Surface **latent** grudge thread — one escalation pack |
-| **Blood Debt Orchestration** | Statute seat + supreme crude + **both** parties hooked | Schedule **chain** (son → uncle → bounty) — [`jianghu-situation-threads.md`](jianghu-situation-threads.md) |
-| **Stain Amplify** | Mark + target already negative alignment / sacrilege | Next **their** bad choice weighted — still **their** choice |
+| **Feud Wake** | Existing **blood/grudge** edge ≥ Clear | Promote edge → active **situationThread** pack |
+| **Blood Debt Orchestration** | Two **Strong+** edges on shared graph | Multi-stage feud cascade |
+| **Thread Shears** | Edge strength ≤ 3 | Clean **sever** one coupling |
+| **Solitary Verdict** | Statute + apex | Sever **many** edges on one subject — isolation fantasy |
+| **Grudge Needle** | Reinforce mutual edge between third parties | **+heat** both ways — feud tier climb |
 
 **Forbidden lean:** arts that **fabricate** guilt with no incident → **sacrilege** on cast, not “free kill button.”
 
@@ -456,21 +511,21 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 
 | Context | Karma primary feels |
 |---------|---------------------|
-| **Duel** | Mark setup → generic soul damage **finisher** on stained foe; weave ** useless** without pre-story |
+| **Duel** | Thread Sense → finisher vs **Strong** hostile edge; reinforce ** useless** without pre-read |
 | **Basin** | After betrayal quest — **Feud Wake** manual → hunters months later |
 | **Late** | Orchestration + statute — **clan** pressure without entering combat |
 
 ### Counters
 
-Merit temples, karma purification rites, imperial charter, peer Karma **sever mark**, True Self anchor (mark slips), killing weaver before beat fires.
+Merit temples, purification (**re-tie** or restore faint edges), charter, peer Karma **counter-reinforce**, True Self (sever fails), time decay on unreinforced heat.
 
 ### Hooks to wire (implementation later)
 
 | System | Use |
 |--------|-----|
-| `alignment` / quest `alignmentShift` | Weight Sense input |
-| `npcKillLog`, grudge tiers, `declare_grudge` | Feud wake eligibility |
-| Situation **incidents → threads** | Weave output |
+| Incidents → **edges** → `situationThreads` | Thread model spine |
+| `grudgeLevel` / `heat` on threads | Reinforce target |
+| `npcKillLog`, sect grudge | Blood edge strength |
 | `G.corruptionLevel` / sacrilege | Abuse tax on weaver |
 | Qi **Karma Dao** | Optional **read bonus** on Weight Sense — not required |
 
@@ -526,10 +581,10 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 | **Memory** | Soul Search @3 | — | ●● | ●●●● | — | **Foe deep** — migrate existing technique |
 | **Memory** | Vault Unsealing @5–6 | — | ● | ●●●● | — | **Sealed layer** — supreme only |
 | **Memory** | The Record Endures @7 | — | ●● | ●●● | — | **Known** mark / pierce hook |
-| **Karma** | Weight Sense @3 | ● | ● | ●●● | — | **Subject** read — damage only vs stained |
-| **Karma** | Ledger Mark @4 | ● | ●● | ●● | — | **Mark** — thread setup |
-| **Karma** | Thread Weave @5–6 | — | ●● | ●● | — | **Pair** link — crude, low proc |
-| **Karma** | Debts Come Due @7 | — | ●●● | — | — | Seat — mark deepening |
+| **Karma** | Thread Sense @3 | — | ● | ●●● | — | Strongest edge + count |
+| **Karma** | Crude Reinforce @4 | — | ●● | ●● | — | **+heat** on one edge |
+| **Karma** | Thread Fracture @5–6 | — | ●● | ●● | — | Crude **sever** |
+| **Karma** | Debts Come Due @7 | — | ●●● | — | — | Seat — reinforce/sever efficiency |
 | **Fate** | Thread Glimpse @4 | — | ●● | ●●● | — | Telegraphed counter-play; weak in multi-enemy without greater |
 | **Fate** | Nudge @5 | — | ●●● | ●● | — | **No hard skip-turn** at lesser/greater — bias proc / order |
 | **True Self** | Self Anchor @5 | — | ●● | — | ●●●● | Anti-possession; PvP vs illusion/memory |
@@ -590,7 +645,8 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [ ] True Self apex — pick A/B/C or hybrid ([§ True Self](#true-self-真我--open))
 - [ ] Karma/Fate supreme/statute names — Thread Weave, Debts Come Due, Fortune Shear, Omen Crown
 - [ ] `context: combat | jianghu | forbidden` on technique templates + shelf UI
-- [x] Karma branch — ledger-backed weave, vs qi Karma Dao (owner 2026-10-13)
+- [x] Karma branch — thread sense / reinforce / sever, vs qi Karma Dao (owner 2026-10-13)
+- [ ] Karma **edge** save shape vs `situationThreads` only — implement choice
 - [ ] Karma manual names / escalation packs — wire to situation threads
 - [ ] Fate branch — next pass
 - [ ] Root Dao subsection in `law-taxonomy.md` (stack position vs Great Dao)
