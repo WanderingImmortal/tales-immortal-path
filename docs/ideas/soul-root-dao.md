@@ -6,7 +6,7 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
-| **Updated** | 2026-10-13 (society menace frame; Illusion + Memory passes) |
+| **Updated** | 2026-10-13 (branch apex fiction; society menace; Illusion + Memory) |
 
 ## Intent
 
@@ -18,7 +18,7 @@ This doc ties **nine-realm spirit names** ([`nine-realm-ladder.md`](nine-realm-l
 
 **Five branches (locked for now):** Karma · Fate · Memory · Illusion · **True Self** (真我 — Personal God home; not “Ego Dao” in UI).
 
-**Parity (owner 2026-10-13):** spirit is **not** mainly “win the duel.” People fear soul cultivators because of **jianghu and chronicle** power — intel, reputation poison, delayed threads on **karma / fate / clan** — more than raw fight DPS. Combat innates stay **bounded**; the **scariest** tools are **manual-gated** (and forbidden arts **stain**). See § Society menace.
+**Parity (owner 2026-10-13):** spirit is **not** mainly “win the duel.” People fear soul cultivators because of **jianghu and chronicle** power — and because **each Root Dao at its pinnacle** is a worthy xianxia threat on its own ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13)). Lower **innates** stay fight-fair; **supreme + statute** (primary branch) deliver peak menace — **constrained in systems**, unlimited in **fiction**. Manuals spread **styles** and softer mid-tier access; worst acts still **stain**. See § Society menace.
 
 ---
 
@@ -32,38 +32,43 @@ This doc ties **nine-realm spirit names** ([`nine-realm-ladder.md`](nine-realm-l
 | “I can’t trust my **eyes** or witnesses” | **Illusion** | False presence, forged scene *(manual)* |
 | “Old debts / blood feuds might **wake**” | **Karma** | Thread tug, feud recall, stain amplification *(upper + manuals)* |
 | “Our clan’s **luck** could turn” | **Fate** | Nudge outcomes, omen, marriage/exam bias *(upper + manuals)* |
-| “They could **own** a piece of me” | **Forbidden** manuals | Possession, soul-binding — not baseline innates |
+| “They could **remake** or **bind** me” | **Memory** apex *(+ stain)* | Life-format / puppet — not idx 2 innates |
+| “Blood washes blood **by itself**” | **Karma** apex | Thread-weave feuds |
+| “The **sect’s luck** died” | **Fate** apex | Area / institution fortune collapse |
 
 Threat tone: **insidious** — unknowable **future** harm, not only HP today. Fits [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) soul stigma and Void Temple watching soul tampering.
 
 ### Two channels (design rule)
 
 ```text
-  INNATE (lesser → greater → supreme/statute)
-       │  Readable in combat + light social (lie hint, Known mark, Misread)
-       │  Numbers = playtest later — keep fight fair vs qi/body at same idx
+  INNATE lesser → greater
+       │  Tilt per branch (Illusion/Memory skew early; Karma/Fate skew late)
+       │  Combat-fair band + light social
        ▼
-  MANUALS (jianghu pool)
-       │  Sect / black market / forbidden scrolls
-       │  Confession extract, false witness, feud wake, fate pin on clan…
+  INNATE supreme → statute (PRIMARY branch)
+       │  **Branch apex fiction** — peak menace ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13))
+       │  Hard caps: scope, cost, strain, counters, chronicle hooks
        ▼
-  FORBIDDEN (stain + sacrilege lean)
-       Possession, soul slaves, cycle tampering — [`soul-body-refining.md`](soul-body-refining.md), [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
+  MANUALS
+       │  Variants, sect styles, **earlier/weaker** expressions of apex themes
+       ▼
+  STAIN / SACRILEGE (worst acts)
+       Full puppeting, mass fate-break, cycle tampering — ledger + tribulation — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 ```
 
-**Do not** put possession / soul slavery on the **inherited ladder** without owner lock — genre-correct as **opt-in evil** with ledger cost.
+**Owner lock (2026-10-13):** apex horror is **on the branch**, not only black-scroll flavor — but **implementation** never gives a menu “delete empire” button; it gives **bounded clauses** that *feel* like the fiction.
 
-### Branch → society vector (preview for Karma / Fate)
+### Branch → menace vector (summary)
 
-| Branch | Combat innates (bounded) | Jianghu / chronicle (mostly **manuals**) | Statute fantasy |
-|--------|--------------------------|------------------------------------------|-----------------|
-| Illusion | Misread, decoy | False witness, borrowed face, “you were there” | Lie Holds — credibility |
-| Memory | Surface read, Soul Search | Extract confession, copy witness memory, blackmail packet | Record Endures — **Known** |
-| Karma | Weight sense, mark | Wake blood feud thread, amplify stain on a name | *(TBD)* — debts answer |
-| Fate | Glimpse, nudge | Clan omens, exam/luck pin, marriage thread | *(TBD)* — fate wears thin |
-| True Self | Anchor, Name Bound | “You cannot unmake me” in politics | Personal God runway |
+Full peak fiction: [§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13). Innates **tilt** toward combat vs chronicle by branch; **supreme/statute** always expresses apex for **primary** walkers.
 
-Karma/Fate **supreme** should skew **chronicle / situation threads** ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)) more than fight finishers — design when those branches are detailed.
+| Branch | Early inherit tilt | Peak menace (fiction) |
+|--------|-------------------|------------------------|
+| Illusion | Combat control | **Thought → real** strike / hazard |
+| Memory | Intel, reads | **Life rewrite → puppet** |
+| Karma | Stain, marks | **Organic bloodshed** via thread weave |
+| Fate | Telegraph, nudge | **Sect / empire fall** via fortune collapse |
+| True Self | Defense | *(open)* — likely **un-ownable self**, Personal God |
 
 ### Memory & Illusion — adjust innates?
 
@@ -92,7 +97,105 @@ Generic `soul_condensation` stays **fight dialect**; **jianghu** scrolls use sep
 
 ### Player-facing tone
 
-Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the banquet — the duel might be even, but your secrets aren’t.”* Combat parity stays real; **opt into** menace by pursuing manuals and primary Karma/Fate.
+Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the banquet — the duel might be even, but your secrets aren’t.”* At **idx 7**, rumors name the branch: *“He wears the Lie as law.”* / *“She edits lives like scrolls.”*
+
+---
+
+## Branch apex fiction (owner lock 2026-10-13)
+
+**Rule:** anything taken to the **pinnacle** of a Root Dao is a **worthy threat** — xianxia scale. Game expresses that through **supreme + seated statute** (primary branch), not through basin lesser skills. **Balance** = constraints below, not weak fiction.
+
+### Shared constraints (how peak stays playable)
+
+| Lever | Use |
+|-------|-----|
+| **Scope** | One foe, one scene, one clan thread, one “real rule” at a time — no instant map wipe |
+| **Cost** | Focus drain, **soul strain**, lifespan, rare materials, months-long rite for worst outcomes |
+| **Telegraph** | NPCs and UI show **omen** / **Known** / **thread tug** before payoff lands |
+| **Counters** | Equal-realm **True Self**, Memory reader, clarity wards, Void Temple attention, tribulation |
+| **Chronicle** | Empire/sect fall = **situation-thread cascade** ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)), not one click |
+| **Stain** | Mass puppeting, forced mass killing, cycle tampering → **sacrilege** escalates future gates |
+| **Manuals** | Softer or partial versions **before** supreme; apex inherit still **best** expression for primary |
+
+**Inheritance tilt:** Illusion & Memory peak **can** include terrifying **combat-real** outcomes; Karma & Fate peak skew **jianghu / institution**; True Self TBD but likely **anti-domination** + godhood runway.
+
+---
+
+### Illusion (幻) — *假作真*
+
+**Peak fiction:** an illusionist at the summit can make **real**, for purposes of harming you, **essentially anything they can hold in mind** — weapon, terrain, beast, calamity — not cartoon omnipotence: **one declared form**, **one bounded law** (“this bite counts,” “this wall blocks”).
+
+| Tier | Expression |
+|------|------------|
+| **Supreme** | **Weight of the Unreal** — one imagined form, **one real rule**, short window (evolved from current stub) |
+| **Statute** | **The Lie Holds** — your illusions gain **legal weight**: they fail slower, resist first dispel, can **stack one clause** (e.g. declared hazard persists N beats / one scene flag) |
+| **Manuals** | False witness, crowd haze — **partial** realification before supreme |
+
+**Counters:** Memory **truth read**, True Self anchor, “too absurd for realm” hard cap, strain if form exceeds mass/realm budget.
+
+---
+
+### Memory (忆) — *改忆塑命*
+
+**Peak fiction:** a memory dao apex can **rewrite the narrative of a life** — format identity, loyalties, remembered oaths — until the person is a **perfectly obedient puppet** (genre: soul formatting / 夺忆).
+
+| Tier | Expression |
+|------|------------|
+| **Supreme** | **Vault Unsealing** — pull/seal one **deep layer** (identity, oath, technique memory) |
+| **Statute** | **The Record Endures** → apex lean **Life Ledger**: successful deep work leaves **editable Record** — long rite **Format** puppet (obedience flags, not combat bot in basin) |
+| **Manuals** | Confession, witness copy — **read/edit surface** without full statute |
+
+**Constraints (mandatory):** **time + rite**, target will/True Self contest, **heavy stain** on full puppet, Void Temple / heaven notice, **reversible** only at extreme cost (genre rare). **Not** instant turn-1 dominate in duel — **chronicle horror**.
+
+**Counters:** True Self primary, supreme anchor, grotto wards, killing the formatter mid-rite.
+
+---
+
+### Karma (因果) — *织业杀机*
+
+**Peak fiction:** weave **karma threads** so targets **organically** move against each other — old debts wake, cousins “remember” blood feuds, guards look the other way — **no single mind-control button**; the world **finds reasons**.
+
+| Tier | Expression (stubs — detail on Karma pass) |
+|------|---------------------------------------------|
+| **Lesser / greater** | Weight Sense, Ledger Mark — stain read, setup mark |
+| **Supreme** | **Thread Weave** *(working)* — link 2–N marked parties; situation engine raises **feud / betrayal / accident** proc |
+| **Statute** | **Debts Come Due** *(working)* — passive: marked names **accumulate** karmic coupling; one **Invoke** per season forces a **thread event** (duel, raid, denunciation) |
+
+**Manuals:** Feud Wake, amplify stain on a house — weaker weave.
+
+**Counters:** merit temples, karma purification, imperial charter, counter-weave by peer Karma walker.
+
+---
+
+### Fate (命) — *气数倾覆*
+
+**Peak fiction:** manipulate **fortune of place and institution** — sect examination luck, vein yield, patron attention — until **empires or sects fall** “naturally” (misfortune cascade).
+
+| Tier | Expression (stubs — detail on Fate pass) |
+|------|------------------------------------------|
+| **Lesser / greater** | Thread Glimpse, Nudge — telegraph, small bias |
+| **Supreme** | **Fortune Shear** *(working)* — one **institution or zone** loses a **luck band** for a season; threads spawn (exodus, coup rumor, resource fail) |
+| **Statute** | **Omen Crown** *(working)* — worn fate: passive bad luck for enemies **in claim**; active **Pin** one **situation thread** toward collapse |
+
+**Manuals:** Clan omen pin, marriage thread — local bias before supreme.
+
+**Counters:** fate-rite tribulation, heavenly luck treasures, Immortal-level counter-fate (late).
+
+---
+
+### True Self (真我) — *open*
+
+**Peak fiction (owner):** still **TBD**. Design space — **not** a copy of other branches’ offensive apex:
+
+| Direction | Menace type | Fits Personal God |
+|-----------|-------------|-------------------|
+| **A — Sovereign self** | Cannot be formatted, fated against, or illusion-erased; **you lose** by failing to break them | Reclaim ego from heaven’s cycle |
+| **B — Name as law** | Speaking **true name** binds oaths reality-wide | Enthroned / worshipped contrast |
+| **C — Mirror apex** | Reflects apex attack back once (defensive pinnacle) | Less jianghu menace, more duel |
+
+**Lean:** True Self apex = **the threat that you cannot own, rewrite, or doom** — counterweight to Memory/Fate/Karma horror; offensive godhood lives in **Devouring / Worshipped** kinds ([`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md)).
+
+Innates **Self Anchor / Name Bound** stay **anti-domination**; statute name **TBD** when owner picks.
 
 ---
 
@@ -173,8 +276,8 @@ Every inherited illusion art names **who is affected**:
 |------|------------|----------------|--------|-----------------|------------|
 | **Lesser** | 1 | **Misdirecting Gaze** | **Foe** | Apply **Misread** (1 stack): their **next single-target** hostile action vs you has a strong **miss / wrong-target** chance; optional tiny spirit chip if it misfires. **No self-buff fluff** — you are attacking *their* perception. | ~0–0.5× Lash damage; **C** focus; loses vs high Will, clarity gear, Memory read |
 | **Greater** | 2 | **Hollow Double** | **Self** | Spawn a **decoy echo** tied to you for 1–2 turns: **first hit** that would land on you **strikes the echo** instead (then echo pops). You may **step** (flee bias) or cast one **light** soul art at −Focus. Clear fantasy: they cut the wrong body. | No “vague fleck”; echo has **one HP layer** on spirit guard, not a second character |
-| **Supreme** | 5–6 *(primary)* | **Weight of the Unreal** | **Field** *(one tile / one foe)* | Short window: chosen **illusion is treated as real** for **one rule** — e.g. phantom wall **blocks one path**, phantom wound **deals real spirit damage once**, or fake ally **draws one enemy turn**. Heavy Focus + **strain**; cooldown. | **Not** full dao Manifestation; one **clause-like** beat, telegraphed |
-| **Statute** | 7 | **The Lie Holds** *(working)* | Passive + trigger | Illusions you cast **don’t collapse on first contact** — one **extra beat** of credibility (decoy takes 2 hits, Misread lasts 2 actions, etc.). Primary Illusion **identity** — still countered by True Self / treasures. | Identity system power, not +damage |
+| **Supreme** | 5–6 *(primary)* | **Weight of the Unreal** | **Field** *(one tile / one foe)* | **Apex step:** one **held-in-mind** form, **one real rule** (damage, block, hazard) — short window. Precursor to full “think it, it bites.” Heavy Focus + **strain**; cooldown. | See [§ Illusion apex](#illusion-幻--假作真) |
+| **Statute** | 7 | **The Lie Holds** *(working)* | Passive + trigger | Declared illusions gain **legal weight** — persist, resist first break, **one clause** active. Primary Illusion **identity**. | Peak **假作真** — countered by True Self / Memory truth |
 
 **Name swaps open:** Misdirecting Gaze → **Mind Snare**, **False Opening**; Hollow Double → **Soul Afterimage**, **Borrowed Body**.
 
@@ -212,8 +315,8 @@ Out of combat: surface = **lie hint / aura tell**; deep = dialogue and explore g
 |------|------------|----------------|--------|-----------------|------------|
 | **Lesser** | 2 | **Surface Inscription** | **Foe (surface)** | Read the **top layer** of one mind: in combat → reveal **one** of: telegraphed next attack category, **one hidden buff/debuff**, or weak-spirit tell; in talk/explore → **lie hint** (not full truth). **Zero damage.** | **I** king at GC band; does **not** bypass bone-shifting or deep wards |
 | **Greater** | 3 | **Soul Search** | **Foe (deep)** | **Existing game art** — deep probe in combat; hidden truths when exploring or speaking. Grant via Memory branch, not flat pool. Pierces **cosmetic / shallow** disguise; **bone layer** may still need supreme or specialist manual (open — link disguise doc). | Benchmark **utility** — [`data.js`](../../data.js); numbers = playtest later |
-| **Supreme** | 5–6 *(primary)* | **Vault Unsealing** | **Foe (deep)** or **Record** | Force **one sealed layer** once per long cooldown: e.g. **true identity fragment**, **signature technique** they used in public, **quest/clue** shard in PvE. **No** implanting false memory (Illusion lane). Strain + backlash if target ≥ your spirit realm. | Genre “dig the past” — **not** basin |
-| **Statute** | 7 | **The Record Endures** *(working)* | Passive + hook | Minds you **successfully deep-read** gain persistent **Known** mark (recognition / jianghu ledger): harder to vanish from your story; optional **+1 ward pierce** on marked targets only. Countered by True Self anchor, void-temple grade wards. | Identity / investigation power |
+| **Supreme** | 5–6 *(primary)* | **Vault Unsealing** | **Foe (deep)** or **Record** | Force **one sealed layer** — identity, oath, technique memory. Strain + backlash if target ≥ your spirit realm. | Step toward [§ Memory apex](#memory-忆--改忆塑命) |
+| **Statute** | 7 | **The Record Endures** → **Life Ledger** *(apex lean)* | Passive + long rite | **Known** mark + **editable Record** on deep-read victims; **Format** rite → puppet obedience (stain, time, contest). | Peak **改忆** — not instant duel dominate |
 
 **Name swaps open:** Surface Inscription → **Recent Trace**, **Shallow Recall**; Vault Unsealing → **Depth Recall**, **Seal Break**.
 
@@ -247,8 +350,8 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | Layer | Source | Examples |
 |-------|--------|----------|
 | **Generic condensation** | Manuals, market, sect | Soul Lash, Spectral Shield — [`data.js`](../../data.js) `soul_condensation` pool |
-| **Root inherited** | Branch unlock + realm | Table above — combat + **light** social; not possession / clan fate |
-| **Manual applications** | Comprehend scrolls tagged `rootBranch` + `context` | **Jianghu** menace, forbidden bind — main balance gate ([§ Society menace](#society-menace-vs-combat-kit)) |
+| **Root inherited** | Branch unlock + realm | Lesser/greater tilt; **supreme/statute = branch apex** ([§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026-10-13)) |
+| **Manual applications** | Comprehend scrolls tagged `rootBranch` + `context` | Styles + **partial** apex themes before supreme; extra stain on worst ([§ Society menace](#society-menace-vs-combat-kit)) |
 
 Manuals **without** the branch unlock: stash, weak cross-cast, or fail comprehend — same dabble ethic as qi reading a soul pamphlet.
 
@@ -276,7 +379,7 @@ Benchmark against **live** generic arts (tune at implement; numbers are **relati
 | **QC basin** | 0–1 | FE qi peers | Illusion lesser ≈ **0.8× Soul Lash** damage but adds **control**; no heavy soul burst |
 | **GC / NS** | 2–3 | Core / Nascent qi | Memory greater (**Soul Search**) = **best-in-slot utility**; Karma lesser = **zero-damage** info |
 | **Upper mortal** | 4–5 | Avatar / Void qi | Fate + Karma greater = **Suppression-tier** with **setup**; True Self = **defensive identity** |
-| **Seeking / Manifest** | 6–7 | Dao peers | Clause + statute = **identity system** power (like vessel rules / worn dao), not +50% Soul Rend |
+| **Seeking / Manifest** | 6–7 | Dao peers | **Branch apex** statute — chronicle/clause power (like worn dao), not +50% Soul Rend |
 
 ### Branch benchmark matrix (inherited only)
 
@@ -348,7 +451,10 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [ ] Illusion supreme wording — **Weight of the Unreal** vs **Manifest False Step**
 - [x] Memory lesser/greater/supreme/statute (owner chat 2026-10-13) — Surface Inscription, Soul Search, Vault Unsealing, The Record Endures
 - [ ] Soul Search vs **bone-shifting** — supreme only or greater partial (disguise doc)
-- [x] Society menace frame — innates bounded; jianghu/forbidden via manuals (owner 2026-10-13)
+- [x] Society menace frame — innates bounded; manuals = partial/variants (owner 2026-10-13)
+- [x] Branch apex fiction — five peak threats + shared constraints (owner 2026-10-13)
+- [ ] True Self apex — pick A/B/C or hybrid ([§ True Self](#true-self-真我--open))
+- [ ] Karma/Fate supreme/statute names — Thread Weave, Debts Come Due, Fortune Shear, Omen Crown
 - [ ] `context: combat | jianghu | forbidden` on technique templates + shelf UI
 - [ ] Karma/Fate jianghu manuals — design with branch pass
 - [ ] Root Dao subsection in `law-taxonomy.md` (stack position vs Great Dao)
