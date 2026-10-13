@@ -383,6 +383,46 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 
 **Fantasy:** Karma is **invisible thread** between people — debts, favors, blood, sect, marriage. Walkers **see**, **reinforce**, or **sever** couplings; they do not usually **spawn** a thick thread from nothing (help someone → **real** incident → **then** reinforce). OP fiction = everyone’s threads tug at once; **playable** = tiered sight, capped reinforce, delayed beats ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)).
 
+### Xianxia primer (what Karma Dao *is* in genre — not locked to one novel)
+
+| Idea (EN) | Hanzi / vibe | In stories often means |
+|-----------|--------------|------------------------|
+| **Cause & effect** | 因果 | Deeds link to outcomes; delay is normal |
+| **Karmic force / burden** | 业力 | Weight on the soul — tribulation, heart demons, “can’t break through” |
+| **Retribution** | 报应 | The ledger **pays out** — sometimes as injury, scandal, lightning |
+| **Merit & sin** | 功德 / 罪业 | Counterweights — temples, merit treasures |
+| **Connection** | 缘 | Who is **tied** to whom — marriage, master, blood feud |
+
+**Root Karma (spirit)** in this game = **touch the ledger and the ties** — not qi-path “comprehend Karma Dao for stats.” Combat fantasy is rarely a fireball; it is **“your own evil returned”** and **“the thread you ignored snaps.”** Jianghu fantasy is **reinforce / sever / orchestrate** ties.
+
+### Why bother vs “just help them normally”?
+
+| Normal social play | Karma branch |
+|--------------------|--------------|
+| Help → one **incident**, 1× heat | **Reinforce** same edge → **2× heat** without a new quest |
+| Must **build relationship** first | **Sense** hidden edges (who already owes who) |
+| Useless on **enemies** and **passing strangers** | **Retribution** / feud reinforce on **hostile** graph |
+| Peers see **public** actions | Walker reads **metaphysical** record (stain, oath, latent feud) |
+| Elder ignores you because **realm** | Ledger **doesn’t respect realm** for *read*; merit wards **do** |
+
+**Cross-realm (owner need @ Soul Birth):** Karma arts key off **target’s record & edges**, not `realmIdx` gap. A idx-3 soul can **sense** a idx-5 elder’s **Binding** blood oath; **Retribution** hurts if elder is **stained** (oath-breaker, sacrilege, heavy negative alignment history) — **not** because you out-cultivate them. **Clean / high-merit** higher-realm targets **resist** (0 or chip). Fantasy: you weaponize **their** 业力, not your fist.
+
+### Combat — one direct attack (owner 2026-10-13)
+
+**Retribution Echo** (报应回响) — the **one** inherit combat verb (crude @ greater; focused manual upgrades).
+
+| | |
+|--|--|
+| **Fantasy** | You **invoke settlement** — their ledger flares; spirit damage is **their karma biting them** |
+| **Scales from** | Target **stain**: broken oaths, negative alignment band, sacrilege flags, **heat** on grudge/blood edges, corruption — **not** from your Soul Mass alone |
+| **Vs higher realm** | Works when **record is heavy**; **immune-ish** when clean + merit |
+| **Crude** | Low coefficient, high Focus, “wasted” routing — like other crude inherits |
+| **Manual** | **Debt Collection Scripture**, **Karmic Verdict** — tighter beam, better coefficient |
+
+**Not** generic soul lash: tagged `karma_retribution`, no benefit vs innocent civilians (story + combat rule).
+
+**Utility kit (beyond sense / reinforce / sever):** thread sight · reinforce ally/enemy edges · sever isolation · retribution strike · manual feud wake · apex orchestration · (qi Karma Dao synergy) seer-quality **hints** if dual path.
+
 ### Not the same as qi **Karma Dao**
 
 | | **Root Karma (spirit)** | **Karma Dao (qi Seeking)** |
@@ -405,7 +445,7 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | **Delayed** | Marks **charge**; apex arts **schedule** beats via [`world-scheduler.js`](../../world-scheduler.js) spine |
 | **Escapable** | Merit, apology, mediator NPC, cutting mark, killing weaver mid-rite |
 | **Boomerang** | Forcing feud between innocents → **corruption** + Void Temple attention; misfire if target **True Self** / charter protected |
-| **Combat role** | **Setup and punish the stained** — small damage amp vs **oath-broken / marked** foes; not a second damage school |
+| **Combat role** | **Retribution Echo** vs stained foes; sense/reinforce **setup** jianghu — not a general DPS school |
 
 ```text
   INCIDENT ── creates / strengthens an edge (gameplay: help, betray, kill → incident ledger)
@@ -484,6 +524,7 @@ Out of combat: sense on NPC in converse/explore. In combat: sense on foe shows *
 |------|------------|----------------|--------|-----------------|------------|
 | **Lesser** | 3 | **Thread Sense** | **Subject** | **Crude sight:** **strongest 1** edge + hidden count; combat: chip vs **Strong+ hostile** edge only. | *Manual **Scales of Debt** — more edges, names* |
 | **Greater** | 4 | **Crude Reinforce** | **Edge** | **+heat** on **one** sensed edge (max strength 3 crude cap); ally **linger** or grudge **+heat**. High waste; **no** new edge. | *Manual **Red Ledger Seal** — higher cap, pair target* |
+| *(same idx band)* | 4 | **Retribution Echo** | **Foe** | **Crude invoke:** spirit damage ∝ target **stain/heat**; **works upward** if record heavy; **whiff** vs clean merit. Second greater slot or toggle on Reinforce — **pick at implement**. | *Manual **Karmic Verdict** — focused retribution* |
 | **Supreme** | 5–6 *(primary)* | **Thread Fracture** *(working)* | **Edge** | **Crude sever:** weaken **one** edge (strength −1 or heat dump); backlash if strength 4+. | *Apex **Solitary Verdict** / **Orchestration*** |
 | **Statute** | 7 | **Debts Come Due** | Seat | Reinforce **holds longer**; sever **costs less** on marked edges; comprehend apex karma arts. | Passive coupling — not free sever spam |
 
@@ -528,6 +569,20 @@ Merit temples, purification (**re-tie** or restore faint edges), charter, peer K
 | `npcKillLog`, sect grudge | Blood edge strength |
 | `G.corruptionLevel` / sacrilege | Abuse tax on weaver |
 | Qi **Karma Dao** | Optional **read bonus** on Thread Sense — not required |
+
+### Layout alternatives (owner not locked — 2026-10-13)
+
+If thread-weave feels **too vague or too much infra** before situation threads ship:
+
+| Option | Change | Pros | Cons |
+|--------|--------|------|------|
+| **A — Keep five branches** | Thread model + Retribution + delayed jianghu | Full spooky identity | Needs edge/thread engine |
+| **B — Delay Karma unlock** | Karma @ **idx 4–5** (Transformation / Ego) not Soul Birth | Peers exist; less “why not help” | Later fantasy |
+| **C — Slim Karma** | Combat = **Retribution only** + sense; **defer** reinforce/sever to manuals only until threads v1 | Smaller v1 slice | Less peak menace early |
+| **D — Merge social weave → Fate** | Karma = **ledger + retribution + merit**; Fate = **luck & institution** threads | Clear split | Fate gets bigger |
+| **E — Drop as Root branch** | Karma only as **qi Karma Dao** + generic soul; spirit gets 4 branches | Less design load | Loses soul-karma identity |
+
+**Recommendation (agent lean):** **A + C for v1 ship** — Thread Sense + **Retribution Echo** + one reinforce manual; sever/orchestration when `situationThreads` exists. **Keep Soul Birth unlock** if Retribution is the “why” (hit upward when stained).
 
 ---
 
@@ -583,6 +638,7 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 | **Memory** | The Record Endures @7 | — | ●● | ●●● | — | **Known** mark / pierce hook |
 | **Karma** | Thread Sense @3 | — | ● | ●●● | — | Strongest edge + count |
 | **Karma** | Crude Reinforce @4 | — | ●● | ●● | — | **+heat** on one edge |
+| **Karma** | Retribution Echo @4 | ●● | ● | ● | — | Damage ∝ **their** stain — upward if dirty |
 | **Karma** | Thread Fracture @5–6 | — | ●● | ●● | — | Crude **sever** |
 | **Karma** | Debts Come Due @7 | — | ●●● | — | — | Seat — reinforce/sever efficiency |
 | **Fate** | Thread Glimpse @4 | — | ●● | ●●● | — | Telegraphed counter-play; weak in multi-enemy without greater |
