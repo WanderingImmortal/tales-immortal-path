@@ -20,7 +20,7 @@ Spirit is a **full third path** a player can walk from creation and wield **comp
 
 **Fantasy sentence (owner lean):** Qi gathers the world into a core. Body tempers the flesh into a weapon. **Spirit makes the self the weapon** — you fight with perception, will, and presence, and your soul is both your sword and your only shield.
 
-**Jianghu menace (owner 2026-10-13):** fear of soul cultivators is often **not** duel dominance but **intel, binding, and fate/karma threads** — insidious future harm. Combat stays fair; scary tools **manual-gated** — [`soul-root-dao.md`](soul-root-dao.md) § Society menace.
+**Jianghu menace (owner 2026-10-13):** fear of soul cultivators is often **not** duel dominance but **intel, binding, and fate/karma threads** — and each Root Dao at **supreme/statute** is a pinnacle threat in its own lane. Combat innates stay fair; apex is **constrained**, not nerfed in fiction — [`soul-root-dao.md`](soul-root-dao.md) § Branch apex fiction.
 
 **End goal (owner):** **deification** — the soul path's equivalent of saints / immortals is **becoming a god**: the self itself ascends, not a core or a vessel.
 
