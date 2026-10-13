@@ -279,7 +279,7 @@ Full ladder jobs, inherited skill stubs, and power benchmarks: [`soul-root-dao.m
 | Spirit idx | Realm (short) | Branch opens | Notes |
 |------------|---------------|--------------|-------|
 | 1 | Sea Stilling | **Illusion** | First purview; **Misdirecting Gaze** (foe Misread) — see [`soul-root-dao.md`](soul-root-dao.md) § Illusion |
-| 2 | Soul Seed | **Memory** | Surface read → Soul Search @3 |
+| 2 | Soul Seed | **Memory** | **Surface Inscription** @2 → **Soul Search** @3 — [`soul-root-dao.md`](soul-root-dao.md) § Memory |
 | 3 | Soul Birth | **Karma** | Pick **primary** branch for late statute (lean) |
 | 4 | Soul Transformation | **Fate** | Out-of-body rung; thread / nudge fantasy |
 | 5 | Ego Refinement | **True Self** | Personal God runway |

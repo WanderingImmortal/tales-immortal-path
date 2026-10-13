@@ -6,7 +6,7 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
-| **Updated** | 2026-10-13 (Illusion branch pass) |
+| **Updated** | 2026-10-13 (Illusion + Memory branch passes) |
 
 ## Intent
 
@@ -64,7 +64,7 @@ Branches unlock on **spirit track realm idx**, not qi realm. Dabblers on another
 | Spirit idx | Realm (short) | Branch unlocked | Lesser inherited (auto) | Greater inherited (auto) |
 |------------|---------------|-----------------|-------------------------|----------------------------|
 | **1** | Sea Stilling | **Illusion** | **Misdirecting Gaze** — debuff **one foe** (see § Illusion) | @ **2** **Hollow Double** — **self** decoy echo |
-| **2** | Soul Seed | **Memory** | **Surface Read** — combat probe lite; explore lie hint | @ **3** **Soul Search** *(canon migrate)* — full utility read |
+| **2** | Soul Seed | **Memory** | **Surface Inscription** — **foe** surface read (see § Memory) | @ **3** **Soul Search** — deep read *(canon migrate)* |
 | **3** | Soul Birth | **Karma** | **Weight Sense** — see debt/alignment tint; tiny damage amp vs stained foes | @ **4** **Ledger Mark** — mark for follow-up soul arts |
 | **4** | Soul Transformation | **Fate** | **Thread Glimpse** — see next intent / telegraph one action | @ **5** **Nudge** — small action-order or proc bias *(not hard stun)* |
 | **5** | Ego Refinement | **True Self** | **Self Anchor** — resist possession / illusion peel | @ **6** **Name Bound** — declare self; buff vs identity attacks |
@@ -109,6 +109,56 @@ Idx 1–2 you **kite**: Misdirecting Gaze on the scariest striker, Hollow Double
 ### Manuals (Illusion)
 
 Sect scrolls = **styles** ( longer Misread, echo that explodes, multi-foe haze ) — same tiers, tagged `rootBranch: illusion`.
+
+---
+
+## Branch focus — Memory (忆)
+
+**Fantasy:** Memory does **not** paint lies (Illusion) — it **reads what was inscribed**: recent intent, hidden loadout, sealed past. Pre-birth **Soul Seed** is the sea **condensing a trace**; Memory unlocks there because recall becomes a **weapon**.
+
+**Vs Illusion:** Illusion edits **presentation**; Memory extracts **record**. Illusion supreme makes a fake **bite once**; Memory supreme **pulls a sealed truth** (identity, technique signature, quest shard).
+
+### Targeting rule (UI)
+
+| Target tag | Means |
+|------------|--------|
+| **Foe (surface)** | One enemy — **recent / shallow** layer only |
+| **Foe (deep)** | One enemy or NPC — **full Soul Search** depth |
+| **Record** | A **marked** mind or chronicle hook — supreme+ (pull sealed layer) |
+
+Out of combat: surface = **lie hint / aura tell**; deep = dialogue and explore gates ([`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md), [`disguise-and-public-identity.md`](disguise-and-public-identity.md)).
+
+### Innate ladder (Memory-primary)
+
+| Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
+|------|------------|----------------|--------|-----------------|------------|
+| **Lesser** | 2 | **Surface Inscription** | **Foe (surface)** | Read the **top layer** of one mind: in combat → reveal **one** of: telegraphed next attack category, **one hidden buff/debuff**, or weak-spirit tell; in talk/explore → **lie hint** (not full truth). **Zero damage.** | **I** king at GC band; does **not** bypass bone-shifting or deep wards |
+| **Greater** | 3 | **Soul Search** | **Foe (deep)** | **Existing game art** — deep probe in combat; hidden truths when exploring or speaking. Grant via Memory branch, not flat pool. Pierces **cosmetic / shallow** disguise; **bone layer** may still need supreme or specialist manual (open — link disguise doc). | Benchmark **utility** — [`data.js`](../../data.js); numbers = playtest later |
+| **Supreme** | 5–6 *(primary)* | **Vault Unsealing** | **Foe (deep)** or **Record** | Force **one sealed layer** once per long cooldown: e.g. **true identity fragment**, **signature technique** they used in public, **quest/clue** shard in PvE. **No** implanting false memory (Illusion lane). Strain + backlash if target ≥ your spirit realm. | Genre “dig the past” — **not** basin |
+| **Statute** | 7 | **The Record Endures** *(working)* | Passive + hook | Minds you **successfully deep-read** gain persistent **Known** mark (recognition / jianghu ledger): harder to vanish from your story; optional **+1 ward pierce** on marked targets only. Countered by True Self anchor, void-temple grade wards. | Identity / investigation power |
+
+**Name swaps open:** Surface Inscription → **Recent Trace**, **Shallow Recall**; Vault Unsealing → **Depth Recall**, **Seal Break**.
+
+### Pairing with Illusion (idx 1–3 dabble)
+
+| Combo | Role |
+|-------|------|
+| **Misdirecting Gaze → Surface Inscription** | They mis-aim while you **read** whether they had a hidden opener |
+| **Soul Search after fight** | Intel path — less burst, wins **lie / hidden intent** gates |
+
+### Manuals (Memory)
+
+Palace scripture, tribunal “confession” styles, memory-palace sets — **deeper read**, **multi-foe surface**, or **mark duration** — tagged `rootBranch: memory`. Generic **Probe** pamphlet (if kept) = weaker than Surface Inscription or teaches non-Memory dabblers a **one-charge** read.
+
+### Disguise interaction (lean)
+
+| Layer | Surface Inscription | Soul Search | Vault Unsealing |
+|-------|---------------------|-------------|-----------------|
+| Makeup / face | Often | Yes | — |
+| Bone-shift | No | **Lean: no** (needs supreme/manual) | **Lean: yes** one layer |
+| Signature arts / ledger | Hint only | Partial match | **Signature pull** |
+
+Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) implements `resolveRecognition`.
 
 ---
 
@@ -158,8 +208,10 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 | **Illusion** | Hollow Double @2 | — | ●●● | — | ● | **Self** decoy — one hit soak |
 | **Illusion** | Weight of the Unreal @5–6 | ●● | ●●● | — | — | **Field** one real bite — supreme only |
 | **Illusion** | The Lie Holds @7 | — | ●●● | — | ●● | Statute — extra credibility beat |
-| **Memory** | Surface Read @2 | — | ● | ●●● | — | Explore + combat probe; weaker than full Search |
-| **Memory** | Soul Search @3 | — | ●● | ●●●● | — | **Benchmark utility** — migrate existing technique here |
+| **Memory** | Surface Inscription @2 | — | ● | ●●● | — | **Foe surface** — telegraph / lie hint |
+| **Memory** | Soul Search @3 | — | ●● | ●●●● | — | **Foe deep** — migrate existing technique |
+| **Memory** | Vault Unsealing @5–6 | — | ● | ●●●● | — | **Sealed layer** — supreme only |
+| **Memory** | The Record Endures @7 | — | ●● | ●●● | — | **Known** mark / pierce hook |
 | **Karma** | Weight Sense @3 | ● | ● | ●●● | — | Damage amp only vs **stained / oath-broken** — PvE skew |
 | **Karma** | Ledger Mark @4 | ●● | ●●● | ●● | — | Setup for branch manuals + greater karma arts |
 | **Fate** | Thread Glimpse @4 | — | ●● | ●●● | — | Telegraphed counter-play; weak in multi-enemy without greater |
@@ -178,7 +230,7 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 Spirit-primary vs comparable Nascent qi foe:
 
 - **Generic:** Soul Lash + Spirit Suppression (mass permitting) — ~18 Focus, spirit guard pressure.
-- **Memory path:** Surface Read → Soul Search (after greater) — lower damage, wins if foe has hidden intent or lie gate.
+- **Memory path:** Surface Inscription → Soul Search — lower damage, wins **hidden intent / lie / disguise** gates.
 - **Illusion + Memory dabble:** Misdirecting Gaze → Soul Lash — Misread then damage while foe is wrong-footed.
 
 Design check: **branchless spirit** still playable via generics; **one committed branch** feels like a **class fantasy** at idx 3+.
@@ -197,7 +249,7 @@ Design check: **branchless spirit** still playable via generics; **one committed
 
 ## Links to implement (later)
 
-- Tag techniques: `rootBranch`, `expressionTier` (`lesser` | `greater` | `supreme` | `statute`), `illusionTarget` (`foe` | `self` | `field`).
+- Tag techniques: `rootBranch`, `expressionTier` (`lesser` | `greater` | `supreme` | `statute`), `mindTarget` (`foe_surface` | `foe_deep` | `self` | `field` | `record`).
 - Grant inherited on `spiritTrackRealmIdx` milestone + `G.soulRoot.primary`.
 - Move **Soul Search** grant from flat pool to **Memory greater @3** (keep generic probe pamphlet as weaker variant or remove duplicate).
 - idx 6–7: **soul clause + seated statute** data model — parallel [`dao-seeking-and-manifestation.md`](dao-seeking-and-manifestation.md), not Art Great Dao merge.
@@ -212,6 +264,8 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [ ] Exact Focus costs / cooldowns for inherited skills (playtest after guards ship)
 - [x] Illusion lesser/greater names + targets (owner chat 2026-10-13) — Misdirecting Gaze, Hollow Double; real-illusion at supreme/statute
 - [ ] Illusion supreme wording — **Weight of the Unreal** vs **Manifest False Step**
+- [x] Memory lesser/greater/supreme/statute (owner chat 2026-10-13) — Surface Inscription, Soul Search, Vault Unsealing, The Record Endures
+- [ ] Soul Search vs **bone-shifting** — supreme only or greater partial (disguise doc)
 - [ ] Root Dao subsection in `law-taxonomy.md` (stack position vs Great Dao)
 
 ## Implementation crumbs
