@@ -93,7 +93,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
 | [Body Martial Intent (武意)](body-martial-intent.md) | `idea` | Body chamber; intent split | — |
 | [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
-| [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
+| [Alignment, NHK & corruption transform](alignment-sacrilege-corruption.md) · [transform stub](corruption-transform.md) | `designed` / `idea` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
 | [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `designed` (Pinwright + strata lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [Settlement lore](settlement-lore.md) | `idea` (parked) | Dustbone lore | — |

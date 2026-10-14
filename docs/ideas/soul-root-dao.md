@@ -85,7 +85,7 @@ Threat tone: **insidious** — unknowable **future** harm, not only HP today. Fi
        ▼
   STATUTE (idx 7) ──► soul-law seat — boosts arts of primary branch; passive clause
        ▼
-  STAIN / SACRILEGE ──► worst arts + mass use — ledger — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
+  NHK THREADS ──► worst arts + mass use — heavenly ledger — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)
 ```
 
 **Owner lock (2026-10-13):** apex **fiction** belongs to each branch; apex **gameplay** is **art-gated** ([§ Crude inherit vs art](#crude-inherit-vs-art-owner-lock-2026-10-13)). Bounded clauses, not menu wipe.
@@ -146,7 +146,7 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 | **Telegraph** | NPCs and UI show **omen** / **Known** / **thread tug** before payoff lands |
 | **Counters** | Equal-realm **True Self**, Memory reader, clarity wards, Void Temple attention, tribulation |
 | **Chronicle** | Empire/sect fall = **situation-thread cascade** ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)), not one click |
-| **Stain** | Mass puppeting, forced mass killing, cycle tampering → **sacrilege** escalates future gates |
+| **Stain** | Mass puppeting, forced mass killing, cycle tampering → **NHK threads** strengthen; transform corruption **TBD** ([`corruption-transform.md`](corruption-transform.md)) |
 | **Manuals** | **Required** for focused power; **only** source of **devastating** apex arts |
 | **Crude inherit** | Baseline only — never outperforms a matched-grade art on same theme |
 
@@ -412,15 +412,15 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | Layer | Hanzi (UI lean) | What it tracks | Tied to |
 |-------|-----------------|----------------|---------|
 | **Interpersonal** | 人缘 / 私业 | Edges between people — debt, grudge, favor, blood | Incidents, [`jianghu-situation-threads.md`](jianghu-situation-threads.md) |
-| **Heavenly** | 天业 / 天道账 | **Rulebook** weight — **sacrilege entries** vs **corruption stain** (different debuffs / trib themes — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) § Player-facing effects) | same |
+| **Heavenly** | 天业 / 天道账 | **Negative Heavenly Karma** — typed **threads** vs rulebook ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) § NHK) | same |
 
-**Same branch, two readings:** Thread Sense shows **interpersonal** edges by default; **Heavenly** tint (separate colour) when target has **sacrilege / corruption** — not the same as “rebellious alignment.”
+**Same branch, two readings:** Thread Sense shows **interpersonal** edges by default; **Heavenly** tint when target has **NHK threads** (count / strongest type) — not the same as “rebellious alignment.” **Transform corruption** is a **different** sense colour when that track exists.
 
-| | Interpersonal | Heavenly |
-|--|---------------|----------|
-| **Reinforce / sever** | Primary verb | **Cannot sever** heavenly — only time, rites, tribulation |
-| **Retribution fuel** | Grudge heat, betrayal vs *you*, broken oaths to people | Sacrilege stack, corruption — **high yield but capped** vs apex |
-| **Risk to walker** | Social blowback (feud) | **Heaven notice** if spammed; adds corruption if fabricate |
+| | Interpersonal | Heavenly (NHK) |
+|--|---------------|----------------|
+| **Reinforce / sever** | Primary verb | **Cannot sever** NHK on others — only time, rites, tribulation; **can** work own NHK (late Root fantasy) |
+| **Retribution fuel** | Grudge heat, betrayal vs *you*, broken oaths to people | **Thread strength sum** by type — **high yield but capped** vs apex |
+| **Risk to walker** | Social blowback (feud) | **`forced_settlement`** thread on spam; **`forbidden_art`** if fabricate guilt |
 
 Evil playthrough: often **heavy interpersonal + heavenly** — retribution **hurts more** (fuel) but target gets **partial resist** from **Karmic Hardening** (below), not immunity.
 
@@ -446,7 +446,7 @@ Idx 4 = **mid spirit run** — enough chronicle to have stains; avoids basin “
 
 #### Interface authority (seer trope — owner 2026-10-14)
 
-Heaven **logs** stain; it **settles at junctures** (breakthrough, breach tribulation) — see [`tribulation-system-rework.md`](tribulation-system-rework.md), [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). **Retribution** is a cultivator **forcing an early line-item** on someone’s record — *making the book answer now* — not the same as heaven’s full audit.
+Heaven **only reaches you at gates** (junctures); between gates **NHK threads accumulate** — see [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). **Retribution** is a **karmic cultivator** **forcing settlement outside a gate** — *making the book answer now* — not heaven’s full tribulation script. **Cost:** caster gains **`forced_settlement`** NHK (cooldown / efficiency drop until cleansed).
 
 | Idea | Meaning |
 |------|---------|
@@ -470,17 +470,17 @@ settlement = raw × sigmoid(interface) × mitigate          // interface ≪ 0 �
 | **Heavenly Demon / apex** | Extreme fuel, but **interface** still required — young karma walker **cannot** pull book on apex without realm + manual + setup |
 | **minChip** | Failed interface still **omen** / 0 damage — seer “can’t see fate” fantasy |
 
-**Heavenly fuel** weights **sacrilege + corruption noticed** higher than interpersonal grudge — retribution is the art that **presents heavenly 天业** for immediate settlement.
+**Heavenly fuel** weights **NHK thread strengths** (by `type`) higher than interpersonal grudge — retribution is the art that **presents heavenly 天业** for immediate settlement. Strong **`gate_theft`** vs **`cycle_tamper`** may skew debuff flavour (implementation optional).
 
 #### Why hasn’t heaven killed them already?
 
 | Fact | Fiction |
 |------|---------|
-| Heaven **is not petty** | No smite on every rob; **acts at junctures** |
-| Stain **accumulates** | Sacrilege/corruption **logged**; tribulation **amplifies** later |
-| **Between junctures** | Evil Immortal walks free — **ledger open**, settlement **deferred** |
-| **Retribution** | Walker with **interface** invokes **early settlement** — one combat-scale **line item**, not full tribulation script |
-| **Overuse** | Spamming heavenly retribution **stains the walker** (corruption/sacrilege lean) — heaven **notices you** too |
+| Heaven **is not petty** | No smite on every rob; **acts at junctures** (gates) |
+| Threads **accumulate** | Repeat sins **strengthen same NHK type**; new violation **entangles** |
+| **Between junctures** | Evil Immortal walks free — **book open**, settlement **deferred** |
+| **Retribution** | Walker with **interface** invokes **early settlement** — one combat-scale **line item**; adds caster **`forced_settlement`** thread |
+| **Overuse** | High **`forced_settlement`** → heavenly retribution **less efficient** until cleanse — *you spoke heaven’s voice where it may not reach* |
 
 So heavy stain = **eligible** for payback; retribution = **who can force the book to speak mid-chapter**.
 
@@ -514,15 +514,15 @@ Stack **additively then cap ~85%** — resist, not negate; multiple weak sources
 | Code today | *(not shipped)* | `hasKarmaDaoAccess()`, `performKarmaSeerReading()` in [`dao-taxonomy.js`](../../dao-taxonomy.js) |
 | Dual walker | Spirit statute + qi Karma fragments = reader **and** weaver — tune stain |
 
-**Three tracks recap** (heavenly karma fuel — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)):
+**Three tracks recap** ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)):
 
 | Track | What | Heaven enforces? |
 |-------|------|------------------|
 | **Dao alignment** | Jianghu philosophy (harmony ↔ rebellious) | **No** — NPCs, markets, `reqAlignment` |
-| **Sacrilege** | Discrete **rulebook violations** (fate theft success, forbidden arts, some oaths) | **At junctures** — harsher tribulation |
-| **Corruption** | **Cycle stain** (soul steal, reincarnation tamper, major karmic harm) | **Logs** → threshold **noticed** → **amplify next juncture** only |
+| **Negative Heavenly Karma** | **Threads** — rulebook violations (`gate_theft`, `forbidden_art`, …) | **At junctures**; karma cultivators **force early** |
+| **Corruption (transform)** | **Becoming** — mutation / monster path | **TBD** — [`corruption-transform.md`](corruption-transform.md) |
 
-Karma **Retribution** (heavenly fuel) = **early settlement invoke**, not tribulation replacement. Abuse → **corruption on walker**.
+Karma **Retribution** (heavenly fuel) = **early settlement invoke**, not tribulation replacement. Abuse → caster **`forced_settlement`** NHK thread.
 
 ### Balance core (owner 2026-10-13)
 
@@ -534,7 +534,7 @@ Karma **Retribution** (heavenly fuel) = **early settlement invoke**, not tribula
 | **Organic, not dominate** | Outcomes = **situation-thread beats** (rumor, ambush, denunciation, duel challenge) — not “target attacks ally this turn” in combat UI |
 | **Delayed** | Marks **charge**; apex arts **schedule** beats via [`world-scheduler.js`](../../world-scheduler.js) spine |
 | **Escapable** | Merit, apology, mediator NPC, cutting mark, killing weaver mid-rite |
-| **Boomerang** | Forcing feud between innocents → **corruption** + Void Temple attention; misfire if target **True Self** / charter protected |
+| **Boomerang** | Forcing feud between innocents → **NHK** (`forbidden_art` / fabricate lean) + Void Temple attention; misfire if target **True Self** / charter protected |
 | **Combat role** | **Retribution Echo** vs stained foes; sense/reinforce **setup** jianghu — not a general DPS school |
 
 ```text
@@ -598,7 +598,7 @@ Out of combat: sense on NPC in converse/explore. In combat: sense on foe shows *
 - **Ally:** talented elder passing through → reinforce **favor** edge → bias **linger** / offer teach beat (not slave — **appetite** check in thread engine).
 - **Enemy indirect:** two rivals in same room → reinforce **mutual grudge** edge → **+heat** / **grudgeLevel** on existing thread — feud tier rises **without you entering combat**.
 
-**Sever (late menace):** cut **protector / clan / ally** edges on target → retaliation **organizes slower** (assassination window). **Not** delete all consequences — **severed** sides may still act if incidents remain. Heavy **corruption** if severing merit-oath edges on innocents. Counter: peer Karma re-tie, temple rite.
+**Sever (late menace):** cut **protector / clan / ally** edges on target → retaliation **organizes slower** (assassination window). **Not** delete all consequences — **severed** sides may still act if incidents remain. Heavy **NHK** if severing merit-oath edges on innocents. Counter: peer Karma re-tie, temple rite.
 
 ### Targeting rule (UI)
 
@@ -636,7 +636,7 @@ Out of combat: sense on NPC in converse/explore. In combat: sense on foe shows *
 | **Solitary Verdict** | Statute + apex | Sever **many** edges on one subject — isolation fantasy |
 | **Grudge Needle** | Reinforce mutual edge between third parties | **+heat** both ways — feud tier climb |
 
-**Forbidden lean:** arts that **fabricate** guilt with no incident → **sacrilege** on cast, not “free kill button.”
+**Forbidden lean:** arts that **fabricate** guilt with no incident → **NHK on caster** (`forbidden_art` / oath-break lean), not “free kill button.”
 
 ### Combat vs jianghu (Karma tilt)
 
@@ -657,7 +657,7 @@ Merit temples, purification (**re-tie** or restore faint edges), charter, peer K
 | Incidents → **edges** → `situationThreads` | Thread model spine |
 | `grudgeLevel` / `heat` on threads | Reinforce target |
 | `npcKillLog`, sect grudge | Blood edge strength |
-| `G.corruptionLevel` / sacrilege | Abuse tax on weaver |
+| `G.nhkThreads` (incl. `forced_settlement` on caster) | Abuse tax on weaver |
 | Qi **Karma Dao** | Optional **read bonus** on Thread Sense — not required |
 
 ### Layout alternatives (owner not locked — 2026-10-13)
@@ -675,7 +675,7 @@ If thread-weave feels **too vague or too much infra** before situation threads s
 **Recommendation (agent lean):** **A + C for v1 ship** — Thread Sense @3; **Retribution @4** + reinforce; one manual; sever/orchestration when threads exist. **Two-layer karma** in UI from day one (interpersonal + heavenly tint).
 
 - [ ] Retribution interface curve + boss `retributionFloor` — playtest constants
-- [ ] Link `heavenTheftCount`, sacrilege ledger, `corruptionNoticed` → heavenly fuel weights
+- [ ] Link `nhkThreads[]` (migrate from `heavenTheftCount`, interim `corruptionNoticed`) → heavenly fuel weights
 - [ ] Karmic Hardening — auto on stain threshold vs treasure-only
 
 ---

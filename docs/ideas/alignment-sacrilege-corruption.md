@@ -1,36 +1,94 @@
-# Alignment, sacrilege & corruption (three tracks)
+# Alignment, heavenly karma & corruption (tracks)
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (owner direction 2026-07-22) |
-| **Blocked on** | Tribulation rework; corruption content hooks |
+| **Status** | `designed` — **NHK rework** owner 2026-10-14 supersedes sacrilege-as-separate-meter for heaven rulebook |
+| **Blocked on** | Tribulation rework; NHK save shape; corruption transform design |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent design chat, 2026-07-22 |
+| **Chat / PR** | 2026-07-22 initial; **2026-10-14** Negative Heavenly Karma threads |
 | **Updated** | 2026-10-14 |
 
 ## Intent
 
-Three **separate** tracks — not one muddy "morality score." Heaven (the cosmic accountant) only enforces **sacrilege** and **corruption threshold** at **junctures**. **Dao alignment** is how you walk in the jianghu — philosophy and reputation, not the rulebook.
+**Dao alignment** = jianghu philosophy (NPCs, markets). **Negative Heavenly Karma (NHK)** = **threads** tied to heaven’s rulebook — one unified heavenly ledger, not two parallel “sacrilege + corruption stain” meters for the same jurisdiction. **Corruption** (rework) = **transformative taint** — you become something else — **different system**, not heavenly fuel.
 
-Related: [`tribulation-system-rework.md`](tribulation-system-rework.md), [`root-rite-formations.md`](root-rite-formations.md).
+Related: [`tribulation-system-rework.md`](tribulation-system-rework.md), [`soul-root-dao.md`](soul-root-dao.md), [`root-rite-formations.md`](root-rite-formations.md).
 
 ---
 
-## Design notes
+## Owner rework — Negative Heavenly Karma (NHK) (2026-10-14)
 
-### The three tracks
+**UI term:** **Negative Heavenly Karma** (avoid “sacrilege” in player copy). Internal: `negativeHeavenlyKarma` / `nhkThreads[]`.
 
-| Track | What it is | Example sources | When heaven cares |
-|-------|------------|-----------------|-------------------|
-| **Dao alignment** | Cultivator **philosophy** — harmony ↔ rebellious *attitude* | Help innocents, sect doctrine, walk your path, "I don't need the world" | **Not directly** — affects NPCs, markets, techniques, soul-path flavour |
-| **Sacrilege** | Discrete **rulebook violations** (ledger entries) | Successful fate theft, forbidden arts, certain oath-breaking | **Junctures** — harsher breakthrough / fate-rite tribulation |
-| **Corruption** | **Stain** from tampering with cosmic cycles | Soul stealing, refining that disrupts reincarnation, major harm to karmic cycles/ties | **Accrues silently**; heaven **notices** past a threshold but **acts at next juncture** |
+### Core rule: heaven only at **gates**
 
-**Layman:**
+Heaven **does not** enforce mid-walk except through **junctures** (breakthrough, breach tribulation, registered gate events). Between gates the book **accumulates threads** — visible to karma cultivators, not a lightning bolt every month.
 
-- **Alignment** = *who you choose to be* ("I'll take what I need" rebellious vs harmonious sect disciple).
-- **Sacrilege** = *what forbidden things you did that the book records*.
-- **Corruption** = *how badly you damaged the cycle itself* — reincarnation, souls, karma.
+**Exception (player agency):** a **karmic cultivator** can **force settlement** (Retribution) — that is **not** heaven acting; it is a mortal/interface invoking the ledger **outside a gate**. Fiction cost: the walker gains **their own NHK thread** — *“heaven does not reach here; you spoke in its voice.”*
+
+### Thread model (replaces sacrilege entries + corruption bar for heaven)
+
+Each **NHK thread** = one class of violation against heaven’s rulebook:
+
+| Field (lean) | Purpose |
+|--------------|---------|
+| `type` | `gate_theft` · `forbidden_art` · `heaven_oath_break` · `forced_settlement` · … |
+| `strength` | 1–5 — grows when **same class** repeated |
+| `heat` | 0–100 — volatility; karma **reinforce** on heavenly threads (future) |
+| `entangled` | count of active types — more types → closer to forced action |
+
+**Repeat action** → **same thread strengthens** (not a second confusing meter). **New violation class** → **new thread entangled**.
+
+**Heaven forced to act when:**
+
+1. **Juncture** — you knock on a gate; tribulation reads **sum(strength) + entanglement**; or  
+2. **Karmic cultivator** — Retribution / apex art **settles early** on **you** (target) or you settle on them; or  
+3. *(Future)* world event at threshold — rare.
+
+**Migration from code today:** `heavenTheftCount` → **`gate_theft` thread strength**; `corruptionLevel` / `corruptionNoticed` for **cycle** violations → **fold into NHK thread types** (e.g. `cycle_tamper`) until **Corruption transform** ships — then **move** soul-cycle acts to transform track and **remove** from NHK (see below).
+
+### Retribution cooldown (owner sidenote)
+
+Each **forced settlement** (Retribution with heavenly fuel):
+
+- Adds or strengthens walker’s **`forced_settlement`** NHK thread  
+- Acts as **soft cooldown** on spam — next heavenly retribution **less efficient** until cleansed  
+- **Cleanse:** time, rite, manual, peer — karmic cultivator can **sever/reinforce own** NHK (Root Karma fantasy)
+
+### What counts (unchanged jurisdiction pin)
+
+See § Heaven’s jurisdiction below — only **rulebook** acts create **NHK threads**. Jianghu murder/feud → **alignment + interpersonal karma** only.
+
+---
+
+## Corruption — rework (separate system, parked)
+
+**Not** heavenly karma. **Corruption** = **transformative taint** — the cultivator **turns into** or **toward** something (demon physiology, soul-refine mutation, loss of human claim on reincarnation).
+
+| | **NHK** | **Corruption (new)** |
+|--|---------|---------------------|
+| Question | *What did you do to the rulebook?* | *What are you **becoming**?* |
+| Shape | **Threads** (many, typed) | **Stages / mutation** (few, body-soul identity) |
+| Enforcement | Junctures + karma settlers | Transformation content, tribulation **flavour**, maybe unique endings |
+| Cleansing | Atonement, sever thread | Harder — may be **irreversible** past stage |
+
+**Parked hooks:** [`soul-body-refining.md`](soul-body-refining.md), evil physique **acts** (not embrace). Retire **`corruptionLevel` game-over** and **tribulation `corruptionNoticed` mult** when transform track replaces cycle stain — map old “cycle tamper” to **NHK `cycle_tamper` thread** interim.
+
+**Open:** one doc `corruption-transform.md` when mechanics exist.
+
+---
+
+## Design notes (legacy + alignment)
+
+### The three tracks (target state)
+
+| Track | What it is | When it “acts” |
+|-------|------------|----------------|
+| **Dao alignment** | Philosophy — harmony ↔ rebellious | NPCs, markets — **not heaven** |
+| **Negative Heavenly Karma** | **Threads** vs heaven’s rulebook | **Junctures**; **karmic cultivators** force early settlement |
+| **Corruption (transform)** | **Becoming** — mutation / monster path | Story, chamber, irreversible stages — **TBD** |
+
+**Deprecated framing:** separate **Sacrilege** + **Corruption stain** as two heavenly fuels — merged into **NHK threads** for one player-readable heavenly ledger.
 
 ---
 
@@ -54,90 +112,70 @@ Heaven (the accountant) cares about **rules it owns**, not mortal morality. **Ji
 5. **Forbidden heaven-touching art** — mastered or used (explicit id list)
 6. **Heaven-registered oath broken** — content-flagged only
 
-Everything else → **alignment** and/or **interpersonal karma threads**, not sacrilege/corruption unless a row above applies.
+Everything else → **alignment** and/or **interpersonal karma threads**, not **NHK** unless a row above applies.
 
 ---
 
-### Sacrilege vs corruption — why two (not duplicate “evil meter”)
+### Player-facing — Negative Heavenly Karma (owner 2026-10-14)
 
-They answer **different questions** on the same jurisdiction:
+**One heavenly ledger for the player:** a list of **threads** (typed violations), each with **strength** (repeat the same sin → same thread grows). More **distinct types** → **entangled** → heaven’s hand is heavier at the next **gate**. No second “cycle stain bar” in the same panel — that was the confusing duplicate.
 
-| | **Sacrilege** | **Corruption** |
-|--|---------------|----------------|
-| **Question** | *Which rules did you break, how often?* | *How much damage did that do to the cycle?* |
-| **Shape** | **Discrete entries** (rap sheet) | **Accumulating stain** (0…threshold) |
-| **Analog** | Indictments — fate theft #2, forbidden art X | Pollution — the reincarnation pipe is clogged |
-| **Typical source** | **Gate fraud**, successful theft, flagged forbidden use | **Soul cycle harm** — bind, refine, trap, mass sever |
-| **UI feel** | “Ledger: 3 entries” | “Cycle stain: 72 / 100 — **noticed**” |
-| **At juncture** | Multiplier from **entry count + type** | Multiplier if **threshold noticed** |
-
-**One act, both:** soul-into-body refining → **sacrilege entry** (“forbidden soul refine”) **+** large **corruption** bump. Fate theft success → **sacrilege/theft count** **+** small or zero corruption (you cheated the **gate**, didn’t necessarily gum the **cycle**).
-
-**Not sacrilege or corruption:**
-
-- Walk wicked path, rob merchant, kill rival cultivator → **alignment** + **incidents** for Karma threads
-- Fail fate rite → indifference (no entry)
-
-**Merge option (if two tracks still feel samey in UI):** one **`heavenLedger[]`** where each entry has `{ type, corruptionPoints }`; **sacrilege** = entry list, **corruption** = sum(points). Same save, two views — tribulation reads both.
-
-**Karma Retribution (spirit Root):** **Heavenly fuel** reads **corruption + sacrilege-derived weight** — see [`soul-root-dao.md`](soul-root-dao.md) § two karma layers.
-
----
-
-### Player-facing effects — why keep both? (owner 2026-10-14)
-
-Same jurisdiction, **different symptoms** on **you** and **different fuel shape** on **enemies you retribute**. Not only “+damage.”
+**Corruption (transform track)** is **not** on this panel — see [§ Corruption — rework](#corruption--rework-separate-system-parked) and [`corruption-transform.md`](corruption-transform.md).
 
 #### What exists in code today (honest)
 
-| Signal | Where it hits |
-|--------|----------------|
-| `heavenTheftCount` | Breakthrough tribulation **severity × (1 + 0.25 × thefts)** — [`tribulation.js`](../../tribulation.js) |
-| `corruptionNoticed` | Breakthrough tribulation **× ~1.35**; trib UI may list **“Cycle stain”** |
-| `corruptionLevel` | Threshold → `corruptionNoticed`; alignment actions with `requireCorruption`; pills/log copy |
+| Signal | NHK migration lean | Where it hits today |
+|--------|-------------------|---------------------|
+| `heavenTheftCount` | **`gate_theft`** thread strength | Breakthrough tribulation **× (1 + 0.25 × thefts)** — [`tribulation.js`](../../tribulation.js) |
+| `corruptionLevel` / `corruptionNoticed` | **`cycle_tamper`** (interim) → later **transform track only** | Trib **× ~1.35** when noticed; alignment UI bar |
 
-Full **`sacrilegeLedger[]`** beyond theft count is **design** — not fully shipped.
+Ship target: `G.nhkThreads[]` replaces theft count + heavenly slice of corruption for tribulation and Karma fuel.
 
-#### How it could manifest (designed — by profile)
+#### Four play profiles (threads, not two meters)
 
-Think **four sketches** of *you* before Karma fuel:
+| Your profile | Dominant NHK threads | **Feel** |
+|--------------|----------------------|----------|
+| **Gate thief** | `gate_theft` strong, few others | Junctures = **audit / credential** scripts; seers: *fate marked by theft*; jianghu may still trust you. |
+| **Soul butcher** | `cycle_tamper` / `forbidden_art` (interim: high cycle_tamper strength) | Junctures = **cycle / heart-demon** waves; omens *the cycle remembers*; Karma sense shows **heavy heavenly tint**. |
+| **Karmic abuser** | `forced_settlement` on **you** | You **spoke heaven’s voice outside a gate** — retribution **efficiency drops** until you cleanse that thread (rite, time, peer Karma). |
+| **Full stack** | Many types, high strength + entanglement | Worst juncture multiplier; **rich Retribution fuel** for enemies; qualified karma walkers = nightmare. |
+| **Clean book** | *(none or faint)* | Tribulation = skill check; heavenly retribution **whiffs**; interpersonal karma only. |
 
-| Your profile | Sacrilege | Corruption | **What it should feel like in play** |
-|--------------|-----------|------------|--------------------------------------|
-| **Gate thief** | High (many thefts / entries) | Low | Breakthroughs = **audit / lightning / “heaven remembers theft”** scripts; fate-rites draw **theft tribulation**; qi **Karma Dao** seer hints skew **fortune/credential**; jianghu may **not** know — you’re a cosmic cheat, not a known demon. **Void Temple soul hunters** minimal. |
-| **Soul butcher** | Low (never stole fate) | High (noticed stain) | Breakthroughs = **soul / heart-demon / cycle** flavour waves (when scripted); omens **“The cycle remembers”**; future: **soul-department** attention, ghost-field aggro, regions with cycle sensitivity. **Merit formations** uneasy. Jianghu may still like you if alignment good. |
-| **Full villain** | High | High | Worst **juncture** stack; both trib multipliers; Karma walkers **terrified to retribute you** (fuel) but **qualified ones one-shot fantasy**; both Void audit + soul hunt fiction. |
-| **Clean cosmic record** | Low | Low | Tribulation = realm skill only; heavenly retribution **whiffs**; interpersonal karma only. |
+#### Between junctures
 
-**On you (ongoing, between junctures):**
+Heaven **does not** smite monthly. Threads **sit in the book** — karma cultivators **see** them; ordinary NPCs may not. **Repeat** the same violation class → **one thread strengthens** (player copy: *Negative Heavenly Karma: Gate Theft deepens*).
 
-| Track | High means (manifestation ideas) |
-|-------|----------------------------------|
-| **Sacrilege** | Log/chronicle **entries**; breakthrough **debt to heaven** theme; harder **merit-at-gate** fiction; NPC **seers** “can’t read your fate” vs “your fate is **marked by theft**” (different copy). |
-| **Corruption** | **Stain bar** + `corruptionNoticed`; spirit cultivation **strain** lean; **Purifying elixir** value; soul-path **chamber** events; enemies with Karma sense see **heavenly tint**. |
+#### Karma Retribution — fuel and backlash
 
-**Karma arts — not one “fuel number”:**
+| | Target | Caster (walker) |
+|--|--------|-----------------|
+| **Fuel** | Sum of **NHK thread strengths** (+ interpersonal edges) — typed threads can skew **debuff tag** (e.g. `gate_theft` → audit whiplash on Core/Circulation) | — |
+| **Backlash** | — | Each **forced settlement** adds/strengthens caster’s **`forced_settlement`** thread — *heaven’s rule: no direct reach except gates; you bridged anyway* |
+| **Cooldown fantasy** | — | Spam → **`forced_settlement`** high → next heavenly retributions **less efficient** until sever/atone (Root Karma cleanse verbs) |
+| **Fabricated guilt** | Weak or fails resist check | **`forbidden_art`** or **`heaven_oath_break`** thread on caster if art lies to the book |
 
-| Target’s record | Retribution / sense lean |
-|-----------------|---------------------------|
-| High **sacrilege** (entries) | **Settlement of fraud** — spirit damage + **Circulation/Core** “audit whiplash” debuff; copy: *ledger of theft settles* |
-| High **corruption** (stain) | **Settlement of cycle** — spirit damage + **Spirit system** stress; copy: *the cycle clawed back* |
-| High **interpersonal** only | Weaker heavenly component; **feud / betrayal** fuel dominates |
+See [`soul-root-dao.md`](soul-root-dao.md) § Retribution Echo for **interface** scaling.
 
-**When enemies use Karma on evil-you:** high corruption → they interface **天业**; high sacrilege → they invoke **rule breach** flavor — same art, **different readout and debuff tag** (implementation optional but sells the split).
+#### Cleansing NHK (not transform)
 
-**Cleansing (different fantasy):**
-
-| Track | Cleanse path (design) |
-|-------|------------------------|
-| Sacrilege | **Heaven-facing atonement** rite (rare); cannot clear with “public apology” |
-| Corruption | **Purifying elixir** (high tier), cycle rite, stop tampering + time; **not** alignment shift |
+| Path | Clears |
+|------|--------|
+| **Heaven-facing atonement** (rare rite @ juncture-adjacent) | Specific thread types — partial |
+| **Stop repeating** + time | **Heat** decay on threads; strength may cap |
+| **Karmic cultivator** (self or peer) | **Sever / reinforce own** NHK — spirit Root fantasy |
+| **Public apology** | **Interpersonal** only — **not** NHK |
 
 #### One-line player guide
 
-- **Sacrilege** = *heaven will audit you harder at the gate* (you cheated the **rules of ascent**).
-- **Corruption** = *the **soul cycle** is sick because of you* (breakthrough gets **cycle stain** multiplier; soul-themed consequences).
-- **Karma fuel** = enemies (or you) **cash in** those two different debts **early** in combat — if the walker’s **interface** is strong enough.
+- **Negative Heavenly Karma** = *threads tied to heaven’s rulebook* — repeat sins **twist the same thread**; many threads **entangle** until the **next gate** (or a karma walker **forces settlement**).
+- **Forced retribution** = powerful, but costs **`forced_settlement`** on **you** — a cooldown on speaking heaven’s voice mid-walk.
+- **Corruption** (future) = *what you are **becoming*** — separate from the heavenly ledger.
+
+---
+
+### Legacy note — sacrilege vs corruption split (2026-07, superseded 2026-10-14)
+
+Pre-NHK design used **Sacrilege** (discrete entries) + **Corruption** (cycle stain bar) as two heavenly fuels. Owner found them **same flavour, two UIs**. **Merged into NHK threads** for heaven; **cycle “stain”** migrates to **transform corruption** when that doc ships. Implementation crumbs below still name old fields until migration lands.
 
 ---
 
@@ -166,9 +204,9 @@ Think **four sketches** of *you* before Karma fuel:
 
 ---
 
-### Sacrilege (ledger entries)
+### Sacrilege (ledger entries) — **legacy → NHK `type`**
 
-Discrete flags or counter — **entries**, not a smooth -100…+100 bar.
+Discrete flags or counter — **entries**, not a smooth -100…+100 bar. **Target:** each entry class → one **NHK thread `type`** with **strength**.
 
 | Violation | Ledger? |
 |-----------|---------|
@@ -178,13 +216,13 @@ Discrete flags or counter — **entries**, not a smooth -100…+100 bar.
 | Rebellious alignment actions (rob, intimidate) | **No** — alignment only unless act also breaks cosmic rule |
 | Failed fate rite | **No** |
 
-Stacks with corruption for **juncture severity**; settled at breakthrough or breach tribulation.
+Stacks with other NHK threads for **juncture severity**; settled at breakthrough or breach tribulation.
 
 ---
 
-### Corruption (cycle tampering — owner 2026-07-22)
+### Corruption (cycle tampering — owner 2026-07-22) — **legacy → NHK interim + transform**
 
-**Not an alignment thing.** Corruption always felt out of place glued to the alignment panel — it belongs on the **rulebook / cycle** axis.
+**Not an alignment thing.** **Heavenly cycle tamper** → **`cycle_tamper` NHK thread** until [`corruption-transform.md`](corruption-transform.md) owns **mutation** fiction; then remove cycle acts from NHK and use **transform stages** instead.
 
 **What adds corruption (sketch):**
 
@@ -217,9 +255,12 @@ G.corruptionNoticed = false; // flip when threshold breached — foreshadow next
 ```text
 Breakthrough tribulation severity =
   base(realm, path)
-  × sacrilegeMultiplier(heavenTheftCount + ledger entries)
-  × corruptionMultiplier(if corruptionNoticed)
+  × nhkMultiplier( sum(thread.strength), entangledTypes, maxHeat )
+  × transformCorruptionMult( optional — when corruption-transform ships )
   × threatScore(peak, perfected)
+
+// Interim until nhkThreads[] ships:
+//   nhkMultiplier ≈ theftMult(heavenTheftCount) × noticedMult(corruptionNoticed)
 ```
 
 **Alignment** does not multiply qi lightning severity (owner confirmed). Soul heart-demon **flavour** may still reference alignment (rebellious sees different mirror).
@@ -308,15 +349,15 @@ function addCycleStain(amount, reason) {
 - [ ] Tribulation: `getCorruptionJunctureMult()` amplify when `corruptionNoticed`
 - [ ] Stop corruption ↔ alignment drift (`applyCorruptionAlignmentDrift`, `corruptionBlockHarmony`)
 - [ ] Remove `maybeHeavenlyAlignmentEvent` monthly bless/punish
-- [ ] `sacrilegeLedger[]` or extend `heavenLedger` beyond theft
+- [ ] `G.nhkThreads[]` + tribulation + Karma heavenly fuel; deprecate theft count / heavenly corruption bar
 - [ ] Corruption sources wired to soul/refining content (when those systems exist)
 - [ ] UI: corruption separate from alignment panel (deferred)
 
 ## Open questions
 
-- [ ] **Forbidden art id list** — which techniques add sacrilege on first use vs mastery only
+- [ ] **Forbidden art id list** — which techniques add **`forbidden_art`** NHK on first use vs mastery only
 - [ ] **Heaven-registered oath** — which story oaths count (sect vs mandate rite)
-- [ ] **Merge vs dual meters** — owner preference after Karma pass (ledger-only vs stain bar)
+- [x] **Single heavenly meter** — **NHK threads** (owner 2026-10-14); no sacrilege+corruption dual fuel
 - [ ] Evil physique: **no stain on embrace**; stain from documented acts when body path ships
 - [ ] Heaven-facing atonement: separate rare rite (design TBD) — not public atonement
 - [ ] Purifying elixir: tier gate + recipe; only premier stain cleanse for most of game
