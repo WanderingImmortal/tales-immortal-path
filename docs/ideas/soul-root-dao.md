@@ -412,7 +412,7 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | Layer | Hanzi (UI lean) | What it tracks | Tied to |
 |-------|-----------------|----------------|---------|
 | **Interpersonal** | 人缘 / 私业 | Edges between people — debt, grudge, favor, blood | Incidents, [`jianghu-situation-threads.md`](jianghu-situation-threads.md) |
-| **Heavenly** | 天业 / 天道账 | **Rulebook** weight on a **soul** — sacrilege entries, cycle corruption, forbidden acts | [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) |
+| **Heavenly** | 天业 / 天道账 | **Rulebook** weight — **sacrilege entries** vs **corruption stain** (different debuffs / trib themes — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) § Player-facing effects) | same |
 
 **Same branch, two readings:** Thread Sense shows **interpersonal** edges by default; **Heavenly** tint (separate colour) when target has **sacrilege / corruption** — not the same as “rebellious alignment.”
 

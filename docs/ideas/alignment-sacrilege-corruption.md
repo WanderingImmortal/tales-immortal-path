@@ -84,6 +84,63 @@ They answer **different questions** on the same jurisdiction:
 
 ---
 
+### Player-facing effects — why keep both? (owner 2026-10-14)
+
+Same jurisdiction, **different symptoms** on **you** and **different fuel shape** on **enemies you retribute**. Not only “+damage.”
+
+#### What exists in code today (honest)
+
+| Signal | Where it hits |
+|--------|----------------|
+| `heavenTheftCount` | Breakthrough tribulation **severity × (1 + 0.25 × thefts)** — [`tribulation.js`](../../tribulation.js) |
+| `corruptionNoticed` | Breakthrough tribulation **× ~1.35**; trib UI may list **“Cycle stain”** |
+| `corruptionLevel` | Threshold → `corruptionNoticed`; alignment actions with `requireCorruption`; pills/log copy |
+
+Full **`sacrilegeLedger[]`** beyond theft count is **design** — not fully shipped.
+
+#### How it could manifest (designed — by profile)
+
+Think **four sketches** of *you* before Karma fuel:
+
+| Your profile | Sacrilege | Corruption | **What it should feel like in play** |
+|--------------|-----------|------------|--------------------------------------|
+| **Gate thief** | High (many thefts / entries) | Low | Breakthroughs = **audit / lightning / “heaven remembers theft”** scripts; fate-rites draw **theft tribulation**; qi **Karma Dao** seer hints skew **fortune/credential**; jianghu may **not** know — you’re a cosmic cheat, not a known demon. **Void Temple soul hunters** minimal. |
+| **Soul butcher** | Low (never stole fate) | High (noticed stain) | Breakthroughs = **soul / heart-demon / cycle** flavour waves (when scripted); omens **“The cycle remembers”**; future: **soul-department** attention, ghost-field aggro, regions with cycle sensitivity. **Merit formations** uneasy. Jianghu may still like you if alignment good. |
+| **Full villain** | High | High | Worst **juncture** stack; both trib multipliers; Karma walkers **terrified to retribute you** (fuel) but **qualified ones one-shot fantasy**; both Void audit + soul hunt fiction. |
+| **Clean cosmic record** | Low | Low | Tribulation = realm skill only; heavenly retribution **whiffs**; interpersonal karma only. |
+
+**On you (ongoing, between junctures):**
+
+| Track | High means (manifestation ideas) |
+|-------|----------------------------------|
+| **Sacrilege** | Log/chronicle **entries**; breakthrough **debt to heaven** theme; harder **merit-at-gate** fiction; NPC **seers** “can’t read your fate” vs “your fate is **marked by theft**” (different copy). |
+| **Corruption** | **Stain bar** + `corruptionNoticed`; spirit cultivation **strain** lean; **Purifying elixir** value; soul-path **chamber** events; enemies with Karma sense see **heavenly tint**. |
+
+**Karma arts — not one “fuel number”:**
+
+| Target’s record | Retribution / sense lean |
+|-----------------|---------------------------|
+| High **sacrilege** (entries) | **Settlement of fraud** — spirit damage + **Circulation/Core** “audit whiplash” debuff; copy: *ledger of theft settles* |
+| High **corruption** (stain) | **Settlement of cycle** — spirit damage + **Spirit system** stress; copy: *the cycle clawed back* |
+| High **interpersonal** only | Weaker heavenly component; **feud / betrayal** fuel dominates |
+
+**When enemies use Karma on evil-you:** high corruption → they interface **天业**; high sacrilege → they invoke **rule breach** flavor — same art, **different readout and debuff tag** (implementation optional but sells the split).
+
+**Cleansing (different fantasy):**
+
+| Track | Cleanse path (design) |
+|-------|------------------------|
+| Sacrilege | **Heaven-facing atonement** rite (rare); cannot clear with “public apology” |
+| Corruption | **Purifying elixir** (high tier), cycle rite, stop tampering + time; **not** alignment shift |
+
+#### One-line player guide
+
+- **Sacrilege** = *heaven will audit you harder at the gate* (you cheated the **rules of ascent**).
+- **Corruption** = *the **soul cycle** is sick because of you* (breakthrough gets **cycle stain** multiplier; soul-themed consequences).
+- **Karma fuel** = enemies (or you) **cash in** those two different debts **early** in combat — if the walker’s **interface** is strong enough.
+
+---
+
 ### Dao alignment (keep — reframe)
 
 **Rebellious** is not "evil" or "corrupt." It is an **attitude**: *I don't need the world — I'll take what I need.* Self-reliant, predatory, dismissive of mandate and sect niceties. Jianghu reacts; heaven does not smite you monthly for it.
