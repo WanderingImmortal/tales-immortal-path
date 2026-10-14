@@ -238,6 +238,10 @@ Before adding a Fate art or inherit:
 
 ---
 
+## Play sketches (grounding tests)
+
+- [`fate-read-and-knot-sketch.md`](fate-read-and-knot-sketch.md) — **self vs other** read UX + **Misfortune Knot** delayed mark
+
 ## Related docs
 
 - [`soul-root-dao.md`](soul-root-dao.md) — Fate inherit ladder, fortune stream fields

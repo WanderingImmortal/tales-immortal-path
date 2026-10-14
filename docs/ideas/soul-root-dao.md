@@ -275,7 +275,7 @@ Branches unlock on **spirit track realm idx**, not qi realm. Dabblers on another
 | **1** | Sea Stilling | **Illusion** | **Misdirecting Gaze** — debuff **one foe** (see § Illusion) | @ **2** **Hollow Double** — **self** decoy echo |
 | **2** | Soul Seed | **Memory** | **Surface Inscription** — **foe** surface read (see § Memory) | @ **3** **Soul Search** — deep read *(canon migrate)* |
 | **3** | Soul Birth | **Karma** | **Thread Sense** (§ Karma) | @ **4** **Crude Reinforce** + **Retribution Echo** |
-| **4** | Soul Transformation | **Fate** | **Thread Glimpse** — see next intent / telegraph one action | @ **5** **Nudge** — small action-order or proc bias *(not hard stun)* |
+| **4** | Soul Transformation | **Fate** | **Thread Glimpse** — read self or other (see grounding § reads) | @ **5** **Nudge** + **Misfortune Knot** — instant bias + **delayed** outline mark |
 | **5** | Ego Refinement | **True Self** | **Self Anchor** — resist possession / illusion peel | @ **6** **Name Bound** — declare self; buff vs identity attacks |
 | **6** | Divinity Seeking | *(no sixth branch)* | **Crude supreme** for **primary** branch + clause draft UI | Apex **arts** still manual |
 | **7** | Divine Soul | — | **Statute** (primary branch) | Pseudo God peak abilities |
@@ -756,6 +756,7 @@ Out of combat: Glimpse on NPC = **mood of their luck** (hire? betray?); institut
 |------|------------|----------------|--------|-----------------|------------|
 | **Lesser** | 4 | **Thread Glimpse** | **Foe (personal)** | **Crude tendency read** — **imminent** hostile line (next committed action **class**), not plot prophecy; may **fail partial** or **false branch** vs wards / realm. | *Manual e.g. **Omen Eye** — tighter imminent read + institutional hint* |
 | **Greater** | 5 | **Nudge** | **Foe or self** | **Crude bias** — small **action-order**, proc, or flee threshold shift; **no skip-turn**, **no hard stun**. Wasteful vs focused nudge art. | *Manual e.g. **Turn of Qi** — tighter bias band* |
+| **Greater** | 5 | **Misfortune Knot** | **Foe or anchor** | **Crude delayed mark** — tie to target’s **next outline decision**; when beat fires, **misfortune branch** weighted (+ combat slip / chronicle beat). **No instant damage.** | *Manual e.g. **Red Pin Omen** — longer carry, stronger weight* |
 | **Supreme** | 5–6 *(primary)* | **Fortune Shear** | **Anchor** | **Crude** — one anchor **−1 momentum band** for one beat; costly, may backfire omen on self. | *Apex manual **Sect Fortune Collapse** — multi-stage org cascade* |
 | **Statute** | 7 | **Omen Crown** | Seat | Passive **omen** in claim; **comprehend** fate apex; **not** free collapse cast. | [§ Fate apex](#fate-命--气数倾覆) |
 
@@ -897,7 +898,8 @@ Ratings vs generic at **same idx** and similar Focus cost: **D** damage · **C**
 | **Karma** | Thread Fracture @5–6 | — | ●● | ●● | — | Crude **sever** |
 | **Karma** | Debts Come Due @7 | — | ●●● | — | — | Seat — reinforce/sever efficiency |
 | **Fate** | Thread Glimpse @4 | — | ●● | ●●● | — | Telegraphed counter-play; weak in multi-enemy without greater |
-| **Fate** | Nudge @5 | — | ●●● | ●● | — | **No hard skip-turn** at lesser/greater — bias proc / order |
+| **Fate** | Nudge @5 | — | ●●● | ●● | — | **No hard skip-turn** — bias proc / order |
+| **Fate** | Misfortune Knot @5 | — | ●● | ●● | ● | **Delayed** mark — harm via later beat, not instant HP |
 | **True Self** | Self Anchor @5 | — | ●● | — | ●●●● | Anti-possession; PvP vs illusion/memory |
 | **True Self** | Name Bound @6 | ●● | ●● | — | ●●● | Personal God runway — ego intact under soul stress |
 
