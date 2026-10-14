@@ -14,6 +14,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Loyalty meter for shady sects — **parked**
 
 ## Parked (return later)
+- **Soul Root Karma + Fate branches (implement)** — design on [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); wait for situation-thread / living jianghu spine. **Illusion + Memory** first when spirit ladder ships.
 - **Dao combat & Manifestation v2** — design hub for agent slices — [`dao-combat-and-manifestation-redesign-hub.md`](ideas/dao-combat-and-manifestation-redesign-hub.md) (combat spine before dao code)
 - **Forgers Guild + Furnaceheart** — design locked [`forgers-guild.md`](ideas/forgers-guild.md) · [PR #114](https://github.com/WanderingImmortal/tales-immortal-path/pull/114); build when forge phases / map ready
 - Field bosses / Survey-Delve UI — [`explore-field-gathering.md`](ideas/explore-field-gathering.md)

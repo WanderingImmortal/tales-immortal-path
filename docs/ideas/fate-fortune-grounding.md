@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `designed` — owner direction 2026-10-14; **read before** Fate branch mechanics |
-| **Blocked on** | none (concept lock); spirit Fate implement after this + [`soul-root-dao.md`](soul-root-dao.md) § Fate |
+| **Blocked on** | **Living world** — `fateOutline`, decision stubs, scheduler/chronicle payoffs ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)); owner 2026-10-14: **design done, implement not ready** |
 | **Issue** | none yet |
 | **Chat / PR** | Spirit Root design · [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149) |
 | **Updated** | 2026-10-14 (unwritten-book metaphor) |

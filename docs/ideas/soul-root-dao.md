@@ -4,6 +4,7 @@
 |-------|-------|
 | **Status** | `designed` (ladder + unlock stagger + benchmark stubs — not implementation) |
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
+| **Implement order (owner 2026-10-14)** | **Ship first:** Illusion + Memory (combat/utility self-contained). **Park until living world:** **Karma + Fate** — need incident→edge / outline→scheduler payoff ([`jianghu-situation-threads.md`](jianghu-situation-threads.md), breathing NPC chronicle). **True Self** — mostly defensive; can follow Illusion/Memory or track Karma/Fate. |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
 | **Updated** | 2026-10-14 (Fate branch pass; Karma NHK sync) |
