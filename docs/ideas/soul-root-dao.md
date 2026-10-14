@@ -514,7 +514,15 @@ Stack **additively then cap ~85%** — resist, not negate; multiple weak sources
 | Code today | *(not shipped)* | `hasKarmaDaoAccess()`, `performKarmaSeerReading()` in [`dao-taxonomy.js`](../../dao-taxonomy.js) |
 | Dual walker | Spirit statute + qi Karma fragments = reader **and** weaver — tune stain |
 
-**Dao alignment** ([`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)) = philosophy / NPC reactions — **not** heaven’s ledger. **Corruption / sacrilege** = abusing cycle. Karma arts **read and tug** interpersonal **incidents**; forcing blood on the **clean** adds **corruption** on the **walker**, not “karma points on victim.”
+**Three tracks recap** (heavenly karma fuel — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md)):
+
+| Track | What | Heaven enforces? |
+|-------|------|------------------|
+| **Dao alignment** | Jianghu philosophy (harmony ↔ rebellious) | **No** — NPCs, markets, `reqAlignment` |
+| **Sacrilege** | Discrete **rulebook violations** (fate theft success, forbidden arts, some oaths) | **At junctures** — harsher tribulation |
+| **Corruption** | **Cycle stain** (soul steal, reincarnation tamper, major karmic harm) | **Logs** → threshold **noticed** → **amplify next juncture** only |
+
+Karma **Retribution** (heavenly fuel) = **early settlement invoke**, not tribulation replacement. Abuse → **corruption on walker**.
 
 ### Balance core (owner 2026-10-13)
 
