@@ -2,18 +2,20 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-10-02
+**Updated:** 2026-10-14
 
 ## Focus
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
 
 ## Next
-- **Spirit path** — parked design; abilities and the idx 5 name are still open — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md) · [`stats-to-meters-rework.md`](ideas/stats-to-meters-rework.md)
+- **Nine-realm ladder (design north star)** — ship as scaffold · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md) · code migration still TODO
+- **Spirit path** — Soul Root on [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); implement **Illusion/Memory** first; Karma/Fate parked
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
 - Loyalty meter for shady sects — **parked**
 
 ## Parked (return later)
+- **Soul Root Karma + Fate branches (implement)** — design on [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); wait for situation-thread / living jianghu spine. **Illusion + Memory** first when spirit ladder ships.
 - **Dao combat & Manifestation v2** — design hub for agent slices — [`dao-combat-and-manifestation-redesign-hub.md`](ideas/dao-combat-and-manifestation-redesign-hub.md) (combat spine before dao code)
 - **Forgers Guild + Furnaceheart** — design locked [`forgers-guild.md`](ideas/forgers-guild.md) · [PR #114](https://github.com/WanderingImmortal/tales-immortal-path/pull/114); build when forge phases / map ready
 - Field bosses / Survey-Delve UI — [`explore-field-gathering.md`](ideas/explore-field-gathering.md)
