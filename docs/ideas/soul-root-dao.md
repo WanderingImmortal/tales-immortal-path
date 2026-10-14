@@ -444,25 +444,45 @@ Idx 4 = **mid spirit run** — enough chronicle to have stains; avoids basin “
 | **Fantasy** | Invoke **settlement** — their ledger flares; damage is **their** karma paying out |
 | **Fuel** | `interpersonalStain` + `heavenlyStain` scores (see scaling) — **zero** vs clean innocents |
 
-#### Scaling & caps (no one-shot Immortal / Heavenly Demon)
+#### Interface authority (seer trope — owner 2026-10-14)
 
-Use **smooth** realm damping, not “+1 realm = immune.”
+Heaven **logs** stain; it **settles at junctures** (breakthrough, breach tribulation) — see [`tribulation-system-rework.md`](tribulation-system-rework.md), [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md). **Retribution** is a cultivator **forcing an early line-item** on someone’s record — *making the book answer now* — not the same as heaven’s full audit.
+
+| Idea | Meaning |
+|------|---------|
+| **Weak interface** | Idx-3 sense **fails partial** on idx-7+; retribution **whiffs or chips** |
+| **Matched interface** | Similar spirit realm + art grade → normal settlement |
+| **Strong interface** | Higher walker + focused manual on **heavy heavenly stain** → **can** one-shot **if** fuel exceeds resist — genre “karma explosion,” not default |
+
+**Evil cultivator nightmare:** pick a fight with someone who can **read your heavenly ledger** and **pull the trigger** — you built the fuel, they choose the moment.
 
 ```text
+interface = f(casterSpiritIdx, artGrade, statuteSeat) − g(targetSpiritIdx, merit, karmicHardening)
 raw = baseCoeff × (interpersonalFuel + heavenlyFuel) × artGrade
-damp = 1 / (1 + max(0, ΔspiritRealm) × k)     // Δ = targetIdx − casterIdx
-mitigate = 1 − targetRetributionResist           // 0..0.85 cap — never full negate
-damage = clamp(raw × damp × mitigate, minChip, maxCap)
+mitigate = 1 − targetRetributionResist                    // partial stack, cap ~85%
+settlement = raw × sigmoid(interface) × mitigate          // interface ≪ 0 → chip; ≫ 0 + huge fuel → kill possible
 ```
 
 | Rule | Lean |
 |------|------|
-| **maxCap** | **Min** of: % target **spirit guard** max (e.g. 25–40% at crude), % target spirit HP, **absolute floor** by boss tier |
-| **Boss tiers** | `retributionBudget` on legends (Heavenly Demon, Immortals) — **heavy chip or debuff**, not delete |
-| **Δrealm large** | damp → small; **heavy stain still matters** — chip + **Circulation/spirit system stress**, not skip-turn kill |
-| **minChip** | If any fuel & resist < cap, **always** at least **nuisance** unless `retributionImmune` flag (rare story) |
+| **No idx-3 immortal delete** | `interface` deeply negative until mid spirit + art |
+| **One-shot allowed** | When **interface ≥ 0**, heavenly fuel huge, resist capped — **possible** (boss `retributionFloor` HP still applies for named legends if needed) |
+| **Heavenly Demon / apex** | Extreme fuel, but **interface** still required — young karma walker **cannot** pull book on apex without realm + manual + setup |
+| **minChip** | Failed interface still **omen** / 0 damage — seer “can’t see fate” fantasy |
 
-**Heavenly fuel:** high on sacrilege villains — still **hard-capped** by damp + boss budget so “evil immortal” = **scary tick**, not delete button.
+**Heavenly fuel** weights **sacrilege + corruption noticed** higher than interpersonal grudge — retribution is the art that **presents heavenly 天业** for immediate settlement.
+
+#### Why hasn’t heaven killed them already?
+
+| Fact | Fiction |
+|------|---------|
+| Heaven **is not petty** | No smite on every rob; **acts at junctures** |
+| Stain **accumulates** | Sacrilege/corruption **logged**; tribulation **amplifies** later |
+| **Between junctures** | Evil Immortal walks free — **ledger open**, settlement **deferred** |
+| **Retribution** | Walker with **interface** invokes **early settlement** — one combat-scale **line item**, not full tribulation script |
+| **Overuse** | Spamming heavenly retribution **stains the walker** (corruption/sacrilege lean) — heaven **notices you** too |
+
+So heavy stain = **eligible** for payback; retribution = **who can force the book to speak mid-chapter**.
 
 #### Resist (partial — evil target fantasy)
 
@@ -646,7 +666,8 @@ If thread-weave feels **too vague or too much infra** before situation threads s
 
 **Recommendation (agent lean):** **A + C for v1 ship** — Thread Sense @3; **Retribution @4** + reinforce; one manual; sever/orchestration when threads exist. **Two-layer karma** in UI from day one (interpersonal + heavenly tint).
 
-- [ ] Retribution `k`, maxCap %, boss `retributionBudget` — playtest constants
+- [ ] Retribution interface curve + boss `retributionFloor` — playtest constants
+- [ ] Link `heavenTheftCount`, sacrilege ledger, `corruptionNoticed` → heavenly fuel weights
 - [ ] Karmic Hardening — auto on stain threshold vs treasure-only
 
 ---
