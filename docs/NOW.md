@@ -2,13 +2,13 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-10-13
+**Updated:** 2026-10-14
 
 ## Focus
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
 
 ## Next
-- **Spirit path** — nine-realm ladder + Soul Root unlocks + inherited benchmarks — [`soul-root-dao.md`](ideas/soul-root-dao.md) · [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md)
+- **Spirit path** — Soul Root branches (Illusion/Memory/Karma/**Fate** designed; **True Self** open) — [`soul-root-dao.md`](ideas/soul-root-dao.md) · PR [#149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149)
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
 - Loyalty meter for shady sects — **parked**
