@@ -59,7 +59,7 @@ Alternatives to explore when designing FE:
 |---------|-----------|
 | `chamberCondenseCore` at `realmIdx === 1` | Move/rename — FE exit is “form initial core” + tribulation, not “condense core” |
 | `chamberPerfectFoundation` technique sacrifice | Rework or remove unless lore supports it |
-| `CONSOLIDATION_BY_REALM[2].sacrificeTechnique` | Rework when GC seal is designed |
+| `CONSOLIDATION_BY_REALM[2].sacrificeTechnique` | **Removed** — technique sacrifice belongs in chamber GC grind, not Seal Dantian capstone |
 | Seal Dantian at FE | Likely stays — “completing the foundation”; **P2** stamps foundation **nature** + locks cultivation path here on the *current* action — when this redesign lands, call the same stamp helper at the new seal beat ([`technique-driven-cultivation.md`](technique-driven-cultivation.md)) |
 
 ### P2 note (2026-07-22)

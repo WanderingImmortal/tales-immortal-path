@@ -127,37 +127,60 @@ function playtestFillQiHealHp() {
 /** Mirrors breakthrough success stat bumps without consolidate/tribulation requirements. */
 function applyPlaytestRealmAdvance(style) {
     const s = style || 'balanced';
-    G.realmIdx++;
+    const track = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
+    const cur = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : (G.realmIdx ?? 0);
+    const pathKey = typeof getTrackPathKey === 'function' ? getTrackPathKey(track) : (G.path || 'qi');
+    const max = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx(pathKey) : 8;
+    if (cur >= max) return false;
+
+    const newIdx = cur + 1;
+    if (typeof setTrackRealmIdx === 'function') setTrackRealmIdx(track, newIdx);
+    else G.realmIdx = newIdx;
+    if (typeof syncLegacyPathShims === 'function') syncLegacyPathShims();
+
     G.breakAttempts = 0;
     G.realmPeakGrindBoost = 0;
-    G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(G.realmIdx / 2);
-    G.qi = getMaxQi();
-    clampCurrentQi();
+    if (track === 'dantian') {
+        G.maxQiBonus = (G.maxQiBonus || 0) + QI_BALANCE.breakthroughMaxQi + Math.floor(newIdx / 2);
+        G.qi = getMaxQi();
+        clampCurrentQi();
+    }
     const boost = 3 + Math.floor(Math.random() * 6) + (s === 'power' ? 3 : 0) + (s === 'wisdom' ? 2 : 0);
-    G.vitality += Math.floor(boost / 2) + (s === 'power' ? 2 : 0);
-    G.spirit += Math.floor(boost / 3) + (s === 'wisdom' ? 3 : 0);
-    G.will += Math.floor(boost / 3) + (s === 'wisdom' ? 2 : 0);
-    G.maxHp += 10 + G.realmIdx * 2 + (s === 'power' ? 5 : 0);
+    if (track === 'dantian' || track === 'vessel') {
+        G.vitality += Math.floor(boost / 2) + (s === 'power' ? 2 : 0);
+    }
+    if (track === 'dantian' || track === 'spirit') {
+        G.spirit += Math.floor(boost / 3) + (s === 'wisdom' ? 3 : 0);
+        G.will += Math.floor(boost / 3) + (s === 'wisdom' ? 2 : 0);
+    }
+    if (track === 'vessel') {
+        G.vitality += Math.floor(boost / 2) + (s === 'power' ? 3 : 0);
+        G.maxHp += 12 + newIdx * 3 + (s === 'power' ? 5 : 0);
+    } else {
+        G.maxHp += 10 + newIdx * 2 + (s === 'power' ? 5 : 0);
+    }
     applyVitalityToMaxHp();
     G.hp = G.maxHp;
-    if (typeof addFame === 'function') addFame(5 + G.realmIdx);
-    else G.fame += 5 + G.realmIdx;
-    const sealTier = typeof getConsolidationTier === 'function' ? getConsolidationTier(G.realmIdx - 1) : 'peak';
+    if (typeof addFame === 'function') addFame(5 + newIdx);
+    else G.fame += 5 + newIdx;
+    const sealTier = typeof getConsolidationTier === 'function' ? getConsolidationTier(newIdx - 1) : 'peak';
     extendLifespanOnBreakthrough(sealTier);
     if (typeof updateShield === 'function') updateShield();
+    if (typeof tryAwakenSoulEmbryo === 'function' && newIdx >= SOUL_EMBRYO_REALM_IDX) {
+        tryAwakenSoulEmbryo(track);
+    }
+    return true;
 }
 
 function playtestGrantRealm() {
     if (typeof G === 'undefined' || !G) return;
-    const next = typeof getNextRealm === 'function' ? getNextRealm() : null;
-    if (next === 'MAX') {
-        if (typeof setPlaytestStatus === 'function') setPlaytestStatus('Already at peak realm.', true);
-        return;
-    }
     const prevUnlocks = typeof captureActionUnlockSnapshot === 'function'
         ? captureActionUnlockSnapshot()
         : null;
-    applyPlaytestRealmAdvance('balanced');
+    if (!applyPlaytestRealmAdvance('balanced')) {
+        if (typeof setPlaytestStatus === 'function') setPlaytestStatus('Already at peak realm.', true);
+        return;
+    }
     const realm = typeof getRealm === 'function' ? getRealm() : `realm ${G.realmIdx}`;
     if (typeof addLog === 'function') {
         addLog(`⚗️ [Playtest] Realm advanced to ${realm} (no tribulation triggered).`);
