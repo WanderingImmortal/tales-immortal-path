@@ -72,7 +72,7 @@ const ctx = {
     G: {},
     PATHS: { qi: { realms: ['a', 'b', 'c', 'd', 'e'] }, body: { realms: ['a', 'b', 'c', 'd', 'e'] }, soul: { realms: ['a', 'b', 'c', 'd', 'e'] } },
     clamp: (n, lo, hi) => Math.max(lo, Math.min(hi, n)),
-    getMaxCultivationRealmIdx: () => 6,
+    getMaxCultivationRealmIdx: () => 8,
     console,
     SOUL_EMBRYO_AWAKEN_MESSAGES: {},
     SOUL_EMBRYO_ORIGIN_PERKS: {},

@@ -174,7 +174,7 @@ function getNpcDispositionLabel(npcId) {
 }
 
 function getNpcRealmName(realmIdx) {
-    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 6;
+    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
     const idx = clamp(realmIdx, 0, cap);
     return PATHS[G.path].realms[idx] || PATHS[G.path].realms[cap] || 'Transcendent';
 }

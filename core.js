@@ -868,12 +868,12 @@ function formatPhysiqueEffectDesc(p) {
 }
 
 function getDaoFragmentReqRealm(fragment) {
-    if (!fragment) return typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5;
-    return fragment.reqRealm ?? (typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5);
+    if (!fragment) return typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 6;
+    return fragment.reqRealm ?? (typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 6);
 }
 
 function getDaoSeekingRealmLabel() {
-    const idx = typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5;
+    const idx = typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 6;
     const path = PATHS[G.path] || PATHS.qi;
     return path.realms[idx] || 'Dao Seeking';
 }
@@ -1092,6 +1092,7 @@ function loadState() {
             G.lastTranscendenceCue = null;
             if (typeof migrateSaveToCultivationTracks === 'function') migrateSaveToCultivationTracks();
             else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
+            if (typeof migrateNineRealmLadder === 'function') migrateNineRealmLadder();
             // Soul Mass after track/embryo migration so latent↔active split sees correct soul birth state.
             if (typeof ensureSoulMassState === 'function') ensureSoulMassState();
             if (typeof migrateConsolidationState === 'function') migrateConsolidationState();

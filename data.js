@@ -2,11 +2,14 @@
 // DATA.JS — All static game data
 // ============================================
 
+/** Highest mortal `realmIdx` on PATHS.* (nine-realm ladder). */
+const MAX_MORTAL_REALM_IDX = 8;
+
 const PATHS = {
     qi: {
         name: "Qi Cultivation",
-        realms: ["Qi Condensation", "Foundation Establishment", "Core Formation", "Nascent Soul", "Void Refinement", "Dao Seeking", "Immortal Ascension"],
-        titles: ["Mortal Aspirant", "Earthbound Immortal", "Golden Core Disciple", "Soul Sovereign", "Void Walker", "Dao Seeker", "Transcendent One"],
+        realms: ["Qi Condensation", "Foundation Establishment", "Core Formation", "Nascent Soul", "Celestial Avatar", "Void Refinement", "Dao Seeking", "Dao Manifestation", "Immortal Ascension"],
+        titles: ["Mortal Aspirant", "Earthbound Immortal", "Golden Core Disciple", "Soul Sovereign", "Celestial Avatar", "Void Walker", "Dao Seeker", "Law Manifest", "Transcendent One"],
         capstone: {
             button: "🏛️ Seal Dantian",
             settledAction: "Seal Dantian",
@@ -21,15 +24,17 @@ const PATHS = {
             "The cosmos unfolds before you. You are but a speck, yet you contain infinite potential...",
             "Your dantian pulses with energy. The heavens themselves seem to lean in...",
             "A golden light fills your vision. You feel the weight of a thousand years...",
+            "A figure of you stands over the land — the heavens measure your claim...",
             "The fabric of reality grows thin. You see the threads of fate...",
             "The Dao whispers its secrets. You are so close to understanding...",
+            "A law settles on your shoulders like a second skin...",
             "The gates of heaven open. You stand at the threshold of immortality..."
         ]
     },
     body: {
         name: "Body Cultivation",
-        realms: ["Bronze Skin", "Iron Bones", "Jade Marrow", "Diamond Body", "Sage Flesh", "War God Physique", "Indestructible Vajra"],
-        titles: ["Flesh Tempered", "Bone Forged", "Marrow Refined", "Diamond Shell", "Sage Vessel", "War God Incarnate", "Vajra Immortal"],
+        realms: ["Inner Tempering", "Vessel Establishment", "Essence Pearl", "Nascent Physique", "Physique Transformation", "Runeforging", "Source Furnace", "Inner Source", "Saintly Flesh"],
+        titles: ["Flesh Tempered", "Vessel Braced", "Pearl Bearer", "Physique Born", "Forge Physique", "Rune Smith", "Furnace Adept", "Source Sovereign", "Saint Vessel"],
         capstone: {
             button: "🔥 Temper the Vessel",
             settledAction: "Temper the Vessel",
@@ -44,15 +49,17 @@ const PATHS = {
             "Blood boils in your veins. Every cell screams, then sings, then transforms...",
             "You feel each muscle fiber tear and reknit. Pain is the path...",
             "Your skin hardens to iron, then jade, then diamond...",
-            "Flesh and bone become one. You are no longer human...",
-            "The very air bends around your form. You are a force of nature...",
-            "Your body becomes indestructible. The heavens themselves cannot break you..."
+            "A pearl of essence condenses in the furnace of your flesh...",
+            "The vessel physique stands complete — flesh made to hold what comes next...",
+            "Runes bite into transformed flesh — capability forged, not borrowed...",
+            "An inner hearth opens; the generative core waits to be installed...",
+            "Saintly flesh sanctifies the source. The heavens cannot break you..."
         ]
     },
     soul: {
         name: "Soul Cultivation",
-        realms: ["Awakened Spirit", "Manifestation", "Spirit Confluence", "Soul Integration", "Transcendence", "Dao Heart", "Eternal Spirit"],
-        titles: ["Spirit Awakened", "Soul Manifest", "Confluent Spirit", "Soul Integrator", "Transcendent Soul", "Heart of Dao", "Eternal Sage"],
+        realms: ["Sea Opening", "Sea Stilling", "Soul Seed", "Soul Birth", "Soul Transformation", "Ego Refinement", "Divinity Seeking", "Divine Soul", "Soul Deification"],
+        titles: ["Sea Opener", "Still Sea", "Seed Bearer", "Born Soul", "Unbound Soul", "Selfless Soul", "Divinity Seeker", "Divine Soul", "Enthroned God"],
         capstone: {
             button: "✨ Anchor the Soul",
             settledAction: "Anchor the Soul",
@@ -63,13 +70,15 @@ const PATHS = {
         },
         base: { qi: 5, vitality: 5, spirit: 10, will: 8, hp: 80 },
         visions: [
-            "Your consciousness expands beyond your flesh. You see the threads of fate...",
-            "The world grows dim as your inner light blazes...",
-            "You touch the minds of those around you. Their thoughts are as clear as your own...",
-            "Your soul shatters and reforms, each piece more brilliant than the last...",
-            "You see past, present, and future as one. Time loses meaning...",
-            "The Dao calls to you. You answer not with your voice, but with your very being...",
-            "You become one with the eternal. Immortality is not a gift — it is a choice..."
+            "Your consciousness expands — the spirit sea opens...",
+            "The sea stills. Thought no longer capsizes the depths...",
+            "A seed of soul condenses in the quiet...",
+            "The seed hatches — you exist as soul, not hope...",
+            "The soul steps free of the shell — perception without flesh...",
+            "Attachment burns away before godhood...",
+            "You seek what makes a soul divine...",
+            "The soul's nature turns divine; enthronement still waits...",
+            "Deification — the three god kinds await your choice..."
         ]
     }
 };
@@ -255,7 +264,7 @@ const SPIRIT_ROOT_COMPOSITIONS = [
         name: 'Single',
         cpCost: 4,
         elementCount: 1,
-        innateCeilingRealmIdx: 4,
+        innateCeilingRealmIdx: 5,
         heightLabel: 'Void Horizon',
         compositionSpeedMult: 1.05,
         notes: 'One pure element — focused, highest classical ceiling.',
@@ -330,9 +339,11 @@ const SPIRIT_INNATE_HEIGHT_LABELS = {
     1: 'Foundation Shore',
     2: 'Golden Core Gate',
     3: 'Nascent Soul Bridge',
-    4: 'Void Horizon',
-    5: 'Dao Threshold',
-    6: 'Immortal Firmament'
+    4: 'Celestial Claim',
+    5: 'Void Horizon',
+    6: 'Dao Threshold',
+    7: 'Manifestation Firmament',
+    8: 'Immortal Firmament'
 };
 
 // Legacy v1 presets — used only for save migration (see migrateSpiritRootV1 in talent.js).
@@ -379,7 +390,7 @@ const TALENT_GRADES = [
         cultivateSpeedMult: 1.00,
         breakthroughBonus: 0,
         coreCondenseMult: 1.00,
-        naturalRealmCap: 6,
+        naturalRealmCap: 8,
         notes: 'Standard protagonist baseline.',
         coreFeasibility: 'Natural path to high realms'
     },
@@ -390,7 +401,7 @@ const TALENT_GRADES = [
         cultivateSpeedMult: 1.20,
         breakthroughBonus: 5,
         coreCondenseMult: 1.10,
-        naturalRealmCap: 6,
+        naturalRealmCap: 8,
         requiresUnlock: 'mutantRoot',
         canBuyWithoutUnlock: true,
         notes: 'Rare spiritual mutation.',
@@ -403,7 +414,7 @@ const TALENT_GRADES = [
         cultivateSpeedMult: 1.35,
         breakthroughBonus: 10,
         coreCondenseMult: 1.15,
-        naturalRealmCap: 6,
+        naturalRealmCap: 8,
         requiresUnlock: 'heavenlyRoot',
         notes: 'Heaven-blessed aptitude.',
         coreFeasibility: 'Destined for the peak'
@@ -1116,9 +1127,11 @@ const CULTIVATION_TIERS = {
     foundation:   { reqRealm: 1, emoji: '🏛️', damageBand: [12, 17], costBase: 6 },
     core:         { reqRealm: 2, emoji: '🔮', damageBand: [16, 23], costBase: 8 },
     nascent:      { reqRealm: 3, emoji: '✨', damageBand: [21, 30], costBase: 10 },
-    void:         { reqRealm: 4, emoji: '🌌', damageBand: [27, 36], costBase: 12 },
-    dao_seeking:  { reqRealm: 5, emoji: '☯️', damageBand: [33, 44], costBase: 14 },
-    immortal:     { reqRealm: 6, emoji: '👑', damageBand: [40, 52], costBase: 16 }
+    avatar:       { reqRealm: 4, emoji: '🌠', damageBand: [24, 33], costBase: 11 },
+    void:         { reqRealm: 5, emoji: '🌌', damageBand: [27, 36], costBase: 12 },
+    dao_seeking:  { reqRealm: 6, emoji: '☯️', damageBand: [33, 44], costBase: 14 },
+    manifestation:{ reqRealm: 7, emoji: '⚖️', damageBand: [37, 48], costBase: 15 },
+    immortal:     { reqRealm: 8, emoji: '👑', damageBand: [40, 52], costBase: 16 }
 };
 
 const CULTIVATION_TIER_ORDER = ['mortal', 'condensation', 'foundation', 'core', 'nascent', 'void', 'dao_seeking', 'immortal'];
@@ -1537,7 +1550,7 @@ const ENEMIES = [
             { id: 'barrier', weight: 30, effect: { selfDefend: true } },
             { id: 'harvest', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.25, stealStones: { min: 3, max: 8, chance: 0.6 } } }
         ] },
-    { name: "Void Horror", hp: 140, dmg: 15, minRealm: 4, zones: ['emberwild', 'frostbite'], element: 'neutral',
+    { name: "Void Horror", hp: 140, dmg: 15, minRealm: 5, zones: ['emberwild', 'frostbite'], element: 'neutral',
         enrageThreshold: 0.35,
         abilities: [
             { id: 'void_lash', weight: 50, effect: { bonusDmgMult: 1.15 } },
@@ -1547,13 +1560,13 @@ const ENEMIES = [
         enrageAbilities: [
             { id: 'void_maw', weight: 100, effect: { bonusDmgMult: 1.5, applyPlayer: { skipPlayerTurn: 1 } } }
         ] },
-    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, minRealm: 5, zones: ['heartlands'], element: 'neutral',
+    { name: "Dao Seeker's Nemesis", hp: 170, dmg: 18, minRealm: 6, zones: ['heartlands'], element: 'neutral',
         abilities: [
             { id: 'counter_stance', weight: 35, effect: { selfDefend: true, log: 'Your nemesis reads your intent.' } },
             { id: 'dao_slash', weight: 40, telegraph: 'A blade of pure conviction falls.', effect: { bonusDmgMult: 1.2 } },
             { id: 'breakthrough', weight: 25, cooldown: 3, effect: { bonusDmgMult: 1.4, applyPlayer: { slowResourceRegen: 2 } } }
         ] },
-    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, minRealm: 6, zones: ['heartlands', 'jade'], element: 'neutral',
+    { name: "Immortal Realm Sentinel", hp: 200, dmg: 22, minRealm: 8, zones: ['heartlands', 'jade'], element: 'neutral',
         enrageThreshold: 0.3,
         abilities: [
             { id: 'sentinel_strike', weight: 40, effect: { bonusDmgMult: 1.15 } },
@@ -1631,7 +1644,7 @@ const COMBAT_QI_LINK = {
 };
 
 /** Minimum realm to find or comprehend Dao fragments (Dao Seeking). */
-const DAO_SEEKING_REALM_IDX = 5;
+const DAO_SEEKING_REALM_IDX = 6;
 
 const TRAINABLE_PHYSIQUES = [
     { id: 'iron_body', name: "Iron Body", pro: "+5 Vitality", con: "-2 Spirit", type: "trainable",
@@ -1683,7 +1696,7 @@ const DAO_TAXONOMY = {
     wuji: {
         id: 'wuji', name: 'Wuji', tier: 'primordial', emoji: '☯️',
         desc: 'The undifferentiated Dao — all laws return here.',
-        reqRealm: 6, reqFundamentals: 2,
+        reqRealm: 8, reqFundamentals: 2,
         effects: { daoComprehensionPct: 10, allElementMult: 1.08 }
     },
 
@@ -1758,20 +1771,20 @@ const DAO_LEGACY_FRAGMENT_MAP = {
 };
 
 const DAO_FRAGMENT_POOL = [
-    { name: 'Ember Insight', daoId: 'lesser_fire', type: 'lesser', reqRealm: 5 },
-    { name: 'Tide Insight', daoId: 'lesser_water', type: 'lesser', reqRealm: 5 },
-    { name: 'Gale Insight', daoId: 'lesser_wind', type: 'lesser', reqRealm: 5 },
-    { name: 'Stone Insight', daoId: 'lesser_earth', type: 'lesser', reqRealm: 5 },
-    { name: 'Thunder Insight', daoId: 'lesser_lightning', type: 'lesser', reqRealm: 5 },
-    { name: 'Ashen Cycle Fragment', daoId: 'lesser_ashen', type: 'lesser', reqRealm: 5, forbiddenClear: 'ashen_garden' },
-    { name: 'Prime Insight: Yin', daoId: 'yin', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
-    { name: 'Prime Insight: Yang', daoId: 'yang', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
-    { name: 'Prime Insight: Space', daoId: 'space', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
-    { name: 'Prime Insight: Time', daoId: 'time', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
-    { name: 'Prime Insight: Life', daoId: 'life', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
-    { name: 'Prime Insight: Death', daoId: 'death', type: 'greater', reqRealm: 6, requiresGreaterCount: 2 },
-    { name: 'Karma Thread: Debt', daoId: 'karma_debt', type: 'greater', reqRealm: 6, requiresFundamental: 0 },
-    { name: 'Karma Thread: Grace', daoId: 'karma_grace', type: 'greater', reqRealm: 6, requiresFundamental: 0 }
+    { name: 'Ember Insight', daoId: 'lesser_fire', type: 'lesser', reqRealm: 6 },
+    { name: 'Tide Insight', daoId: 'lesser_water', type: 'lesser', reqRealm: 6 },
+    { name: 'Gale Insight', daoId: 'lesser_wind', type: 'lesser', reqRealm: 6 },
+    { name: 'Stone Insight', daoId: 'lesser_earth', type: 'lesser', reqRealm: 6 },
+    { name: 'Thunder Insight', daoId: 'lesser_lightning', type: 'lesser', reqRealm: 6 },
+    { name: 'Ashen Cycle Fragment', daoId: 'lesser_ashen', type: 'lesser', reqRealm: 6, forbiddenClear: 'ashen_garden' },
+    { name: 'Prime Insight: Yin', daoId: 'yin', type: 'greater', reqRealm: 8, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Yang', daoId: 'yang', type: 'greater', reqRealm: 8, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Space', daoId: 'space', type: 'greater', reqRealm: 8, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Time', daoId: 'time', type: 'greater', reqRealm: 8, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Life', daoId: 'life', type: 'greater', reqRealm: 8, requiresGreaterCount: 2 },
+    { name: 'Prime Insight: Death', daoId: 'death', type: 'greater', reqRealm: 8, requiresGreaterCount: 2 },
+    { name: 'Karma Thread: Debt', daoId: 'karma_debt', type: 'greater', reqRealm: 8, requiresFundamental: 0 },
+    { name: 'Karma Thread: Grace', daoId: 'karma_grace', type: 'greater', reqRealm: 8, requiresFundamental: 0 }
 ];
 
 const DAO_COMPREHENSION_BALANCE = {
@@ -2243,7 +2256,7 @@ const NPCS = {
             { id: 'wei_herb_frost', type: 'inventory', items: ['Ice Herb', 'Ice Herb'], price: 22, label: 'Twin Frost Herbs', desc: 'Cold qi medicine from the wastes.' },
             { id: 'wei_herb_dust', type: 'inventory', items: ['Dust Root', 'Sun Stone'], price: 20, label: 'Desert Reagent Pack', desc: 'Dustbone curios for alchemists.' },
             { id: 'wei_material_shard', type: 'legendary_material', item: 'Glacial Shard', price: 75, reqRealm: 1, label: 'Glacial Shard', desc: 'Refinable legendary material.' },
-            { id: 'wei_dao_frag', type: 'dao_fragment', price: 95, reqRealm: 5, label: 'Sealed Dao Fragment', desc: 'A false Dao insight in jade seals.' },
+            { id: 'wei_dao_frag', type: 'dao_fragment', price: 95, reqRealm: 6, label: 'Sealed Dao Fragment', desc: 'A false Dao insight in jade seals.' },
             { id: 'wei_pill_foundation', type: 'pill', pillId: 'foundation_stabilizing', qty: 1, price: 165, reqRealm: 2, label: 'Foundation Stabilizing Pill', desc: 'Premium breakthrough prep — rare even in the Heartlands.' },
             { id: 'wei_pill_scar', type: 'pill', pillId: 'scar_salve', qty: 1, price: 420, reqRealm: 3, oneTime: true, label: 'Scar-Salve Pill', desc: 'Legendary elixir that dissolves a tribulation scar.' },
             { id: 'wei_artifact_insight', type: 'inventory', items: ['Dao Insight Fragment'], price: 240, reqRealm: 3, oneTime: true, label: 'Dao Insight Fragment', desc: 'Profound understanding sealed in jade — refiners pay fortunes.' },
@@ -3033,8 +3046,8 @@ const NPC_ROLES = {
         emoji: '👴',
         occupation: 'Sect elder',
         startRealmMin: 3,
-        startRealmMax: 4,
-        maxRealm: 5,
+        startRealmMax: 5,
+        maxRealm: 6,
         growthRate: 0.35,
         breakthroughChance: 0.2,
         lifespanUsesRealm: true
@@ -3729,7 +3742,7 @@ const TUTORIAL_ORDER = [
 // ===== TIME & LIFESPAN =====
 const STARTING_AGE_YEARS = 16;
 // Max lifespan in years at each cultivation realm (index = realmIdx)
-const LIFESPAN_BY_REALM = [80, 120, 200, 400, 800, 2000, 99999];
+const LIFESPAN_BY_REALM = [80, 120, 300, 1000, 2000, 5000, 10000, 45000, 99999];
 
 // Months spent per action — forces meaningful choices, not button spam
 const ACTION_MONTHS = {
@@ -3990,7 +4003,7 @@ const ACTION_UNLOCKS = {
         hint: 'Reach a major realm (any refinement) — found a sect.'
     },
     dao: {
-        minRealm: typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 5,
+        minRealm: typeof DAO_SEEKING_REALM_IDX !== 'undefined' ? DAO_SEEKING_REALM_IDX : 6,
         hint: 'Dao Seeking — pursue fragments.'
     },
     recruit: {
@@ -6409,9 +6422,11 @@ const CULTIVATION_BASE_BALANCE = {
         1: { root: 28, flow: 28, stability: 24 },
         2: { root: 36, flow: 36, stability: 32 },
         3: { root: 44, flow: 44, stability: 40 },
-        4: { root: 52, flow: 52, stability: 48 },
-        5: { root: 60, flow: 60, stability: 56 },
-        6: { root: 72, flow: 72, stability: 68 }
+        4: { root: 50, flow: 50, stability: 46 },
+        5: { root: 52, flow: 52, stability: 48 },
+        6: { root: 60, flow: 60, stability: 56 },
+        7: { root: 66, flow: 66, stability: 62 },
+        8: { root: 72, flow: 72, stability: 68 }
     },
     pillarGrants: {
         gatherQiRoot: 0.25,
@@ -7116,6 +7131,22 @@ const CONSOLIDATION_BY_REALM = {
         }
     },
     4: {
+        peakLabel: "Peak Celestial Avatar",
+        peak: { qiFillRatio: 0.89, minQiDensity: 4.2, minTotalStats: 62, minMeridians: 6 },
+        months: 11,
+        stones: 40,
+        foundationGain: 14,
+        maxQiGain: 14,
+        qiDensityGain: 0.95,
+        flavor: "Your avatar stands — the region recognizes your shape.",
+        perfect: {
+            extraStones: 20,
+            bonusFoundation: 4,
+            permanent: { breakthrough: 5, techniqueDmgPct: 0.04 },
+            flavor: "The image and the cultivator move as one will."
+        }
+    },
+    5: {
         peakLabel: "Peak Void Refinement",
         peak: { qiFillRatio: 0.90, minQiDensity: 4.6, minTotalStats: 70, minMeridians: 7 },
         months: 12,
@@ -7132,7 +7163,7 @@ const CONSOLIDATION_BY_REALM = {
             flavor: "You refined not just the void, but yourself."
         }
     },
-    5: {
+    6: {
         peakLabel: "Peak Dao Seeking",
         peak: { qiFillRatio: 0.90, minQiDensity: 5.4, minTotalStats: 85, minMeridians: 9 },
         months: 15,
@@ -7147,6 +7178,39 @@ const CONSOLIDATION_BY_REALM = {
             bonusFoundation: 5,
             permanent: { breakthrough: 8, allStatsPct: 0.05 },
             flavor: "Insight and foundation became indistinguishable."
+        }
+    },
+    7: {
+        peakLabel: "Peak Dao Manifestation",
+        peak: { qiFillRatio: 0.91, minQiDensity: 5.8, minTotalStats: 92, minMeridians: 10 },
+        months: 16,
+        stones: 120,
+        daoFragment: true,
+        foundationGain: 20,
+        maxQiGain: 20,
+        qiDensityGain: 1.3,
+        flavor: "A law is worn — local reality bends to your cultivation.",
+        perfect: {
+            extraStones: 50,
+            bonusFoundation: 6,
+            permanent: { breakthrough: 9, allStatsPct: 0.06 },
+            flavor: "Manifestation and self are indistinguishable."
+        }
+    },
+    8: {
+        peakLabel: "Peak Immortal Ascension",
+        peak: { qiFillRatio: 0.92, minQiDensity: 6.2, minTotalStats: 100, minMeridians: 11 },
+        months: 18,
+        stones: 150,
+        foundationGain: 22,
+        maxQiGain: 22,
+        qiDensityGain: 1.4,
+        flavor: "Mortal limits fall away — only the ascension remains.",
+        perfect: {
+            extraStones: 60,
+            bonusFoundation: 6,
+            permanent: { breakthrough: 10, allStatsPct: 0.08 },
+            flavor: "Heaven has nothing left to withhold."
         }
     }
 };
@@ -9123,15 +9187,36 @@ const TRIBULATION_TRANSITIONS = {
         label: 'Golden Core → Nascent Soul',
         logLine: 'The soul stirs within the core — lightning tests whether it may emerge.'
     },
-    ns_to_void: {
-        id: 'ns_to_void',
-        label: 'Nascent Soul → Void Refinement',
-        logLine: 'Identity thins at the void\'s edge — the sky seeks what remains of you.'
+    ns_to_avatar: {
+        id: 'ns_to_avatar',
+        label: 'Nascent Soul → Celestial Avatar',
+        logLine: 'The nascent soul stands up — heaven asks whether the region will bear your image.'
+    },
+    avatar_to_void: {
+        id: 'avatar_to_void',
+        label: 'Celestial Avatar → Void Refinement',
+        logLine: 'The image thins at the void\'s edge — identity and emptiness trade places.'
     },
     void_to_dao: {
         id: 'void_to_dao',
         label: 'Void Refinement → Dao Seeking',
         logLine: 'Law and self collide — heaven audits your claim to the next watershed.'
+    },
+    dao_to_manifestation: {
+        id: 'dao_to_manifestation',
+        label: 'Dao Seeking → Dao Manifestation',
+        logLine: 'Comprehension must become embodiment — the ledger tests whether you can wear a law.'
+    },
+    manifestation_to_immortal: {
+        id: 'manifestation_to_immortal',
+        label: 'Dao Manifestation → Immortal Ascension',
+        logLine: 'The final audit — transcendence or erasure under the lightning.'
+    },
+    /** @deprecated legacy ids — kept for old save trib state */
+    ns_to_void: {
+        id: 'ns_to_void',
+        label: 'Nascent Soul → Void Refinement',
+        logLine: 'Identity thins at the void\'s edge — the sky seeks what remains of you.'
     },
     dao_to_immortal: {
         id: 'dao_to_immortal',
@@ -9518,7 +9603,7 @@ const TRANSCENDENCE_BALANCE = {
     foundationStabilizePerfectCap: 18,
     minBreakChanceForPerfect: 30,
     minRealm: 1,
-    maxRealm: 6,
+    maxRealm: 8,
     offerCount: 3
 };
 

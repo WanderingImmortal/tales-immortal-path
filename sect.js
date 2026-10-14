@@ -755,7 +755,7 @@ function generateWorldSect(options) {
     const stage = options.stage || pickWorldSectStageId();
     const doctrine = options.doctrine || pickRandomSectDoctrineId();
     const relationship = options.relationship || pickWeightedWorldRelationship();
-    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 6;
+    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
     const championRealm = clamp(
         G.realmIdx + (relationship === 'hostile' && Math.random() < 0.45 ? 1 : 0),
         0,

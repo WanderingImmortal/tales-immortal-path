@@ -97,6 +97,66 @@ function migrateSaveToCultivationTracks() {
     G._cultivationTracksMigrated = true;
 }
 
+/** Map saved realmIdx from the old 7-name ladder to nine-realm indices (insert @4 and @7). */
+function remapRealmIdxSevenToNine(oldIdx) {
+    const n = Number(oldIdx);
+    if (!Number.isFinite(n) || n < 0) return 0;
+    if (n < 4) return n;
+    if (n <= 5) return n + 1;
+    if (n === 6) return 8;
+    return n;
+}
+
+function remapConsolidationKeys(consolidation) {
+    if (!consolidation || typeof consolidation !== 'object') return consolidation;
+    const next = {};
+    Object.keys(consolidation).forEach(k => {
+        const i = parseInt(k, 10);
+        const nk = Number.isNaN(i) ? k : String(remapRealmIdxSevenToNine(i));
+        next[nk] = consolidation[k];
+    });
+    return next;
+}
+
+function migrateNpcRealmIdx(npc) {
+    if (!npc || npc.realmIdx == null) return;
+    if (npc.realmIdx >= 4) npc.realmIdx = remapRealmIdxSevenToNine(npc.realmIdx);
+}
+
+function migrateNineRealmLadder() {
+    if (G._nineRealmLadderMigrated) return;
+    ensureCultivationTracksState();
+    CULTIVATION_TRACKS.forEach(track => {
+        const t = G.cultivation[track];
+        if (!t) return;
+        if (t.realmIdx != null && t.realmIdx >= 4) {
+            t.realmIdx = remapRealmIdxSevenToNine(t.realmIdx);
+        }
+        if (t.consolidation) t.consolidation = remapConsolidationKeys(t.consolidation);
+    });
+    if (G.realmIdx != null && G.realmIdx >= 4) {
+        G.realmIdx = remapRealmIdxSevenToNine(G.realmIdx);
+    }
+    if (G.realmConsolidation) {
+        G.realmConsolidation = remapConsolidationKeys(G.realmConsolidation);
+        syncConsolidationToFocusTrack();
+    }
+    if (G.talent) {
+        if (G.talent.innateCeilingRealmIdx >= 4 && G.talent.innateCeilingRealmIdx <= 6) {
+            G.talent.innateCeilingRealmIdx = remapRealmIdxSevenToNine(G.talent.innateCeilingRealmIdx);
+        }
+        if (G.talent.naturalRealmCap >= 4 && G.talent.naturalRealmCap <= 6) {
+            G.talent.naturalRealmCap = remapRealmIdxSevenToNine(G.talent.naturalRealmCap);
+        }
+    }
+    (G.worldNpcs || []).forEach(migrateNpcRealmIdx);
+    (G.ambientNpcs || []).forEach(migrateNpcRealmIdx);
+    (G.npcs || []).forEach(migrateNpcRealmIdx);
+    syncLegacyPathShims();
+    syncRealmConsolidationFromFocusTrack();
+    G._nineRealmLadderMigrated = true;
+}
+
 function syncRealmConsolidationFromFocusTrack() {
     const track = getFocusTrack();
     if (G.cultivation?.[track]?.consolidation) {

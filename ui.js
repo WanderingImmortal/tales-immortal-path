@@ -602,7 +602,8 @@ function renderCultivatorVisual() {
     if (!container) return;
 
     const path = G.path || 'qi';
-    const realm = Math.min(6, Math.max(0, G.realmIdx || 0));
+    const realmCap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
+    const realm = Math.min(realmCap, Math.max(0, G.realmIdx || 0));
     const style = CULTIVATOR_VISUAL[path] || CULTIVATOR_VISUAL.qi;
     const fx = getCultivatorRealmEffects(path, realm, style);
     const pose = getCultivatorPose(path, realm, style);

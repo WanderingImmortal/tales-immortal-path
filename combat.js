@@ -334,9 +334,9 @@ function pickEnemyTemplate() {
 
 function rollGenericEnemyAffixes() {
     const zoneId = typeof getActiveZoneId === 'function' ? getActiveZoneId() : (G.currentZone || 'dustbone');
-    const maxAffixes = G.realmIdx >= 5 ? 2 : 1;
+    const maxAffixes = G.realmIdx >= 6 ? 2 : 1;
     let count = Math.random() < (0.35 + G.realmIdx * 0.06) ? 1 : 0;
-    if (G.realmIdx >= 4 && Math.random() < 0.25) count = Math.min(maxAffixes, count + 1);
+    if (G.realmIdx >= 5 && Math.random() < 0.25) count = Math.min(maxAffixes, count + 1);
     const picked = [];
     for (let i = 0; i < count; i++) {
         const weighted = [];
