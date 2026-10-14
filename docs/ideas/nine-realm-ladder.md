@@ -280,7 +280,7 @@ Full ladder jobs, inherited skill stubs, and power benchmarks: [`soul-root-dao.m
 |------------|---------------|--------------|-------|
 | 1 | Sea Stilling | **Illusion** | First purview; **Misdirecting Gaze** (foe Misread) — see [`soul-root-dao.md`](soul-root-dao.md) § Illusion |
 | 2 | Soul Seed | **Memory** | **Surface Inscription** @2 → **Soul Search** @3 — [`soul-root-dao.md`](soul-root-dao.md) § Memory |
-| 3 | Soul Birth | **Karma** | **Thread Sense** @3 → **Crude Reinforce** @4 — [`soul-root-dao.md`](soul-root-dao.md) § Karma |
+| 3 | Soul Birth | **Karma** | **Thread Sense** @3 → **Reinforce + Retribution** @4 — [`soul-root-dao.md`](soul-root-dao.md) § Karma |
 | 4 | Soul Transformation | **Fate** | Out-of-body rung; thread / nudge fantasy |
 | 5 | Ego Refinement | **True Self** | Personal God runway |
 | 6–7 | Divinity Seeking → Divine Soul | *(committed branch)* | Clauses + **seated statute** — not a sixth branch |

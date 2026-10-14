@@ -276,7 +276,7 @@ Branches unlock on **spirit track realm idx**, not qi realm. Dabblers on another
 |------------|---------------|-----------------|-------------------------|----------------------------|
 | **1** | Sea Stilling | **Illusion** | **Misdirecting Gaze** — debuff **one foe** (see § Illusion) | @ **2** **Hollow Double** — **self** decoy echo |
 | **2** | Soul Seed | **Memory** | **Surface Inscription** — **foe** surface read (see § Memory) | @ **3** **Soul Search** — deep read *(canon migrate)* |
-| **3** | Soul Birth | **Karma** | **Thread Sense** (§ Karma) | @ **4** **Crude Reinforce** |
+| **3** | Soul Birth | **Karma** | **Thread Sense** (§ Karma) | @ **4** **Crude Reinforce** + **Retribution Echo** |
 | **4** | Soul Transformation | **Fate** | **Thread Glimpse** — see next intent / telegraph one action | @ **5** **Nudge** — small action-order or proc bias *(not hard stun)* |
 | **5** | Ego Refinement | **True Self** | **Self Anchor** — resist possession / illusion peel | @ **6** **Name Bound** — declare self; buff vs identity attacks |
 | **6** | Divinity Seeking | *(no sixth branch)* | **Crude supreme** for **primary** branch + clause draft UI | Apex **arts** still manual |
@@ -405,21 +405,83 @@ Tune when [`disguise-and-public-identity.md`](disguise-and-public-identity.md) i
 | Peers see **public** actions | Walker reads **metaphysical** record (stain, oath, latent feud) |
 | Elder ignores you because **realm** | Ledger **doesn’t respect realm** for *read*; merit wards **do** |
 
-**Cross-realm (owner need @ Soul Birth):** Karma arts key off **target’s record & edges**, not `realmIdx` gap. A idx-3 soul can **sense** a idx-5 elder’s **Binding** blood oath; **Retribution** hurts if elder is **stained** (oath-breaker, sacrilege, heavy negative alignment history) — **not** because you out-cultivate them. **Clean / high-merit** higher-realm targets **resist** (0 or chip). Fantasy: you weaponize **their** 业力, not your fist.
+**Cross-realm reads @ Soul Birth:** Thread Sense keys off **record & edges**, not `realmIdx` — idx-3 can **see** a higher realm’s **Binding** oath. **Retribution** unlocks **later** (below) and never ignores **resist stack**.
 
-### Combat — one direct attack (owner 2026-10-13)
+### Two karma layers (owner 2026-10-13)
 
-**Retribution Echo** (报应回响) — the **one** inherit combat verb (crude @ greater; focused manual upgrades).
+| Layer | Hanzi (UI lean) | What it tracks | Tied to |
+|-------|-----------------|----------------|---------|
+| **Interpersonal** | 人缘 / 私业 | Edges between people — debt, grudge, favor, blood | Incidents, [`jianghu-situation-threads.md`](jianghu-situation-threads.md) |
+| **Heavenly** | 天业 / 天道账 | **Rulebook** weight on a **soul** — sacrilege entries, cycle corruption, forbidden acts | [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) |
+
+**Same branch, two readings:** Thread Sense shows **interpersonal** edges by default; **Heavenly** tint (separate colour) when target has **sacrilege / corruption** — not the same as “rebellious alignment.”
+
+| | Interpersonal | Heavenly |
+|--|---------------|----------|
+| **Reinforce / sever** | Primary verb | **Cannot sever** heavenly — only time, rites, tribulation |
+| **Retribution fuel** | Grudge heat, betrayal vs *you*, broken oaths to people | Sacrilege stack, corruption — **high yield but capped** vs apex |
+| **Risk to walker** | Social blowback (feud) | **Heaven notice** if spammed; adds corruption if fabricate |
+
+Evil playthrough: often **heavy interpersonal + heavenly** — retribution **hurts more** (fuel) but target gets **partial resist** from **Karmic Hardening** (below), not immunity.
+
+### Combat — Retribution Echo (mid-run unlock)
+
+**Role:** one attack so Karma-primary isn’t helpless; **main kit** stays generic soul condensation + other branches. **Utility** is the playthrough identity.
+
+**Unlock (owner lean 2026-10-13):** **not @ Soul Birth.**
+
+| Spirit idx | Karma inherit |
+|------------|---------------|
+| **3** Soul Birth | **Thread Sense** only |
+| **4** Soul Transformation | **Crude Reinforce** + **Retribution Echo** |
+
+Idx 4 = **mid spirit run** — enough chronicle to have stains; avoids basin “weird retribution on random bandits.” Focused **Karmic Verdict** manual can still be **earlier loot** with **higher Focus waste** until idx 4 crude unlocks.
+
+**Retribution Echo** (报应回响)
 
 | | |
 |--|--|
-| **Fantasy** | You **invoke settlement** — their ledger flares; spirit damage is **their karma biting them** |
-| **Scales from** | Target **stain**: broken oaths, negative alignment band, sacrilege flags, **heat** on grudge/blood edges, corruption — **not** from your Soul Mass alone |
-| **Vs higher realm** | Works when **record is heavy**; **immune-ish** when clean + merit |
-| **Crude** | Low coefficient, high Focus, “wasted” routing — like other crude inherits |
-| **Manual** | **Debt Collection Scripture**, **Karmic Verdict** — tighter beam, better coefficient |
+| **Fantasy** | Invoke **settlement** — their ledger flares; damage is **their** karma paying out |
+| **Fuel** | `interpersonalStain` + `heavenlyStain` scores (see scaling) — **zero** vs clean innocents |
 
-**Not** generic soul lash: tagged `karma_retribution`, no benefit vs innocent civilians (story + combat rule).
+#### Scaling & caps (no one-shot Immortal / Heavenly Demon)
+
+Use **smooth** realm damping, not “+1 realm = immune.”
+
+```text
+raw = baseCoeff × (interpersonalFuel + heavenlyFuel) × artGrade
+damp = 1 / (1 + max(0, ΔspiritRealm) × k)     // Δ = targetIdx − casterIdx
+mitigate = 1 − targetRetributionResist           // 0..0.85 cap — never full negate
+damage = clamp(raw × damp × mitigate, minChip, maxCap)
+```
+
+| Rule | Lean |
+|------|------|
+| **maxCap** | **Min** of: % target **spirit guard** max (e.g. 25–40% at crude), % target spirit HP, **absolute floor** by boss tier |
+| **Boss tiers** | `retributionBudget` on legends (Heavenly Demon, Immortals) — **heavy chip or debuff**, not delete |
+| **Δrealm large** | damp → small; **heavy stain still matters** — chip + **Circulation/spirit system stress**, not skip-turn kill |
+| **minChip** | If any fuel & resist < cap, **always** at least **nuisance** unless `retributionImmune` flag (rare story) |
+
+**Heavenly fuel:** high on sacrilege villains — still **hard-capped** by damp + boss budget so “evil immortal” = **scary tick**, not delete button.
+
+#### Resist (partial — evil target fantasy)
+
+Stack **additively then cap ~85%** — resist, not negate; multiple weak sources beat one silver bullet.
+
+| Source | Effect |
+|--------|--------|
+| **Merit / grace** treasures | −10..25% |
+| **Realm depth** | continuous damp (above) |
+| **Karmic Hardening** | passive on **heavy heavenly + interpersonal** stain — “skin calloused by own ledger” −20..40% |
+| **Sect / charter wards** | −15% in home territory |
+| **Treasure** `retributionWard` | −10..20% |
+| **True Self anchor** | −10% identity layer |
+
+**No single item → 100%.** Full negate only `retributionImmune` (tribulation phase, cutscene).
+
+**Manual** upgrades: **Debt Collection Scripture**, **Karmic Verdict** — better coeff, slightly higher cap, **not** bypass boss budget.
+
+**Tag:** `karma_retribution` — not soul lash.
 
 **Utility kit (beyond sense / reinforce / sever):** thread sight · reinforce ally/enemy edges · sever isolation · retribution strike · manual feud wake · apex orchestration · (qi Karma Dao synergy) seer-quality **hints** if dual path.
 
@@ -524,7 +586,7 @@ Out of combat: sense on NPC in converse/explore. In combat: sense on foe shows *
 |------|------------|----------------|--------|-----------------|------------|
 | **Lesser** | 3 | **Thread Sense** | **Subject** | **Crude sight:** **strongest 1** edge + hidden count; combat: chip vs **Strong+ hostile** edge only. | *Manual **Scales of Debt** — more edges, names* |
 | **Greater** | 4 | **Crude Reinforce** | **Edge** | **+heat** on **one** sensed edge (max strength 3 crude cap); ally **linger** or grudge **+heat**. High waste; **no** new edge. | *Manual **Red Ledger Seal** — higher cap, pair target* |
-| *(same idx band)* | 4 | **Retribution Echo** | **Foe** | **Crude invoke:** spirit damage ∝ target **stain/heat**; **works upward** if record heavy; **whiff** vs clean merit. Second greater slot or toggle on Reinforce — **pick at implement**. | *Manual **Karmic Verdict** — focused retribution* |
+| **Greater** | 4 | **Retribution Echo** | **Foe** | **Mid-run unlock.** Damage ∝ interpersonal + **heavenly** fuel; **damp + resist** stack; boss **budget**. Whiff vs clean. | *Manual **Karmic Verdict** — earlier loot ok w/ waste* |
 | **Supreme** | 5–6 *(primary)* | **Thread Fracture** *(working)* | **Edge** | **Crude sever:** weaken **one** edge (strength −1 or heat dump); backlash if strength 4+. | *Apex **Solitary Verdict** / **Orchestration*** |
 | **Statute** | 7 | **Debts Come Due** | Seat | Reinforce **holds longer**; sever **costs less** on marked edges; comprehend apex karma arts. | Passive coupling — not free sever spam |
 
@@ -582,7 +644,10 @@ If thread-weave feels **too vague or too much infra** before situation threads s
 | **D — Merge social weave → Fate** | Karma = **ledger + retribution + merit**; Fate = **luck & institution** threads | Clear split | Fate gets bigger |
 | **E — Drop as Root branch** | Karma only as **qi Karma Dao** + generic soul; spirit gets 4 branches | Less design load | Loses soul-karma identity |
 
-**Recommendation (agent lean):** **A + C for v1 ship** — Thread Sense + **Retribution Echo** + one reinforce manual; sever/orchestration when `situationThreads` exists. **Keep Soul Birth unlock** if Retribution is the “why” (hit upward when stained).
+**Recommendation (agent lean):** **A + C for v1 ship** — Thread Sense @3; **Retribution @4** + reinforce; one manual; sever/orchestration when threads exist. **Two-layer karma** in UI from day one (interpersonal + heavenly tint).
+
+- [ ] Retribution `k`, maxCap %, boss `retributionBudget` — playtest constants
+- [ ] Karmic Hardening — auto on stain threshold vs treasure-only
 
 ---
 
