@@ -2,11 +2,35 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (partial — spirit idx 5+ names; half-step abilities; nine-realm **code** not shipped) |
-| **Blocked on** | Spirit idx 5+ names; soul-embryo policy → spirit track (see [`spirit-path-full-design.md`](spirit-path-full-design.md)). Roots: index bump only at ladder ship. |
+| **Status** | `designed` — **north-star ready** for sketching future work (owner 2026-10-14); code migration still separate |
+| **Blocked on** | **Code ship:** `PATHS.*` 9 names, save shift, audit `reqRealm`. **Not blocking design:** spirit idx 5+ polish, Half-Step ability kit, body idx 0–2 name swaps |
 | **Issue** | none yet |
-| **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; **2026-10-12** — body upper ladder + Inner Source (X/Y/Z), runes, Source Furnace — cloud design chat |
-| **Updated** | 2026-10-12 |
+| **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; Soul Root [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); body upper ladder [PR #148](https://github.com/WanderingImmortal/tales-immortal-path/pull/148) |
+| **Updated** | 2026-10-14 |
+
+## Design ship readiness (owner 2026-10-14)
+
+**Question:** Can we treat nine realms as the scaffold everything else sketches against?
+
+**Yes — for design.** Use **spirit track / qi `realmIdx` 0–8** in new docs, tribulation plans, NPC tiers, and chronicle. **No — for one code PR** until migration runs (today: **7** qi names in [`data.js`](../../data.js); missing **Celestial Avatar** @4 and **Dao Manifestation** @7).
+
+| Layer | Verdict | Notes |
+|-------|---------|--------|
+| **Qi ladder 0–8** | **Ship (lock)** | Names, order, dao sequence, [`realm-claims.md`](realm-claims.md), idx 4 [`celestial-avatar.md`](celestial-avatar.md) |
+| **Lifespan table** | **Ship (lean)** | Manifestation / Seeking law bumps **playtest** — fine to tune in code |
+| **Half-Step / Pseudo God** | **Ship (names)** | Ability kits **open** — does not block idx sketch |
+| **Body 9 names** | **Ship (lock)** | idx **4–8 locked** 2026-10-12; idx **0–3 lean** — § Body path names + owner locks |
+| **Spirit 9 names** | **Sketch** | idx **1, 3 locked**; idx **5+ lean** — safe to cite **idx** |
+| **Soul Root five branches** | **Designed, phased** | **Illusion + Memory** first when spirit ships; **Karma + Fate** after living world ([`soul-root-dao.md`](soul-root-dao.md)) |
+| **Spiritual roots v2 height** | **Later** | Ladder change = **index bump** only first ([`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md)) |
+
+**Do not block on:** Fate/Karma implement, True Self apex pick, body idx 0–2 rename swaps (Marrow Pearl / Inner Seed), upper celestial nine.
+
+**Do before code land:** save migration rule (+2 shift for idx≥4), one pass on `reqRealm` / market / tribulation tiers, update [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) for nine entries.
+
+**Hub rule for new features:** tag content with **`realmIdx`** (and path if not qi), not legacy “realm 4 = Void” muscle memory.
+
+---
 
 ## Intent
 
@@ -285,7 +309,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 | 2 | Core Formation | **Soul Seed** | What you’ve become. The still sea condenses one bright thing. The watershed. |
 | 3 | Nascent Soul | **Soul Birth** *(owner lock 2026-09-26)* | What you’re becoming. The seed hatches; the soul exists. **Target:** spirit-track **Soul Birth** at idx 3 — **not** auto-embryo from dantian/vessel (see owner locks 2026-10-12). |
 | 4 | Celestial Avatar | **Soul Transformation** | What you’re becoming. The soul is no longer bound to the shell — it can leave and act (出窍 / 阳神 flavour). Vocabulary deliberately kept off the qi ladder for this use. |
-| 5 | Void Refinement | **Selfless Refinement** *(name not locked)* | Working label only. Owner 2026-09-28: this rung may be the dissolve before the three god kinds. Do not treat the name as canon. |
+| 5 | Void Refinement | **Ego Refinement** *(lean 2026-10-13)* | Strip false attachment before godhood. Owner 2026-09-28: dissolve rung before the three god kinds. Swap still open: *Selfless Refinement*. |
 | 6 | Dao Seeking | **Divinity Seeking** *(owner lean)* | What you’re doing. Seek what makes a soul a god. |
 | 7 | Dao Manifestation | **Divine Soul** *(owner lean)* | What you’re becoming. The soul is divine in nature; not yet seated as a god. |
 | 8 | Immortal Ascension | **Soul Deification** *(working)* | What you’ve become. God. The three kinds (Worshipped, Devouring, Personal) are the real ending, not this label by itself. |
@@ -300,6 +324,19 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 
 **Maturity labels** in `SOUL_MATURITY_LABELS` (Hollow Nascent / Nascent Soul / Settled / Ascendant) must be renamed so “Nascent Soul” means only the qi realm.
 
+### Soul Root branches — unlock on spirit idx (2026-10-13)
+
+Full ladder jobs, inherited skill stubs, and power benchmarks: [`soul-root-dao.md`](soul-root-dao.md).
+
+| Spirit idx | Realm (short) | Branch opens | Notes |
+|------------|---------------|--------------|-------|
+| 1 | Sea Stilling | **Illusion** | First purview; **Misdirecting Gaze** (foe Misread) — see [`soul-root-dao.md`](soul-root-dao.md) § Illusion |
+| 2 | Soul Seed | **Memory** | **Surface Inscription** @2 → **Soul Search** @3 — [`soul-root-dao.md`](soul-root-dao.md) § Memory |
+| 3 | Soul Birth | **Karma** | **Thread Sense** @3 → **Reinforce + Retribution** @4 — [`soul-root-dao.md`](soul-root-dao.md) § Karma |
+| 4 | Soul Transformation | **Fate** | Out-of-body rung; thread / nudge fantasy |
+| 5 | Ego Refinement | **True Self** | Personal God runway |
+| 6–7 | Divinity Seeking → Divine Soul | *(committed branch)* | Clauses + **seated statute** — not a sixth branch |
+
 ## Implementation migration (when building)
 
 - `PATHS.*.realms` — add 2 names; shift indices 4+
@@ -309,6 +346,7 @@ Same naming rule as body: each realm is **the work** (what you’re doing) or **
 - Audit `reqRealm`, `minRealm`, tribulation tiers, enemies, market stock. Old saves store a realm number: anyone past Nascent Soul has to be shifted.
 - **Body names:** **idx 4–8 locked 2026-10-12** (PT, Runeforging, Source Furnace, Inner Source, Saintly Flesh). Idx 0–3 = lean above. **Golden Body Arhat** (金身罗汉) is **Vajra Ridge only**. Spirit: idx 1 & 3 picked; **idx 5+ open**.
 - **Spirit roots (owner 2026-09-25):** bump existing ceiling numbers so they still mean the same realm (Void Horizon stays Void, which moves from index 4 to 5). Do not redesign roots in the ladder change. What a root is allowed to reach once Celestial Avatar and Dao Manifestation exist is a later pass — see [`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md).
+- **Soul Root Dao branches (2026-10-13):** unlock stagger + inherited benchmarks — [`soul-root-dao.md`](soul-root-dao.md) (spirit track realm idx, not spiritual roots v2).
 
 ## Links
 

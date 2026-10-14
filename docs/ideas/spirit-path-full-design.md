@@ -5,12 +5,12 @@
 | **Status** | `designed` (owner direction locked 2026-09-25; names + numbers still open) |
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (stat facade, per-track foundation, guards, fifth system) — build order below |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent design chat, 2026-09-25 (`cursor/spirit-path-stats-design-docs-39a3`) |
-| **Updated** | 2026-10-12 |
+| **Chat / PR** | Cloud agent 2026-09-25; Soul Root [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); embryo policy 2026-10-12 |
+| **Updated** | 2026-10-14 |
 
 **Code today:** [`cultivation-tracks.js`](../../cultivation-tracks.js) (three tracks, soul embryo gate), [`soul-chamber.js`](../../soul-chamber.js) (palace layers), [`soul-mass.js`](../../soul-mass.js) (Soul Mass, mitigation, condensation school), `PATHS.soul` + `SOUL_*` tables in [`data.js`](../../data.js).
 
-Related: [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) (sense = early spirit content), [`soul-body-refining.md`](soul-body-refining.md) (forbidden branch), [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (three god kinds), [`void-temple-sect.md`](void-temple-sect.md) (a department runs souls; the sect is not a soul sect), [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) (milestone lean to mirror), [`combat-damage-depth.md`](combat-damage-depth.md) (Spirit as fifth system).
+Related: [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-reading.md) (sense = early spirit content), [`soul-root-dao.md`](soul-root-dao.md) (five branches, ladder unlocks, inherited benchmarks), [`soul-body-refining.md`](soul-body-refining.md) (forbidden branch), [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) (three god kinds), [`void-temple-sect.md`](void-temple-sect.md) (a department runs souls; the sect is not a soul sect), [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) (milestone lean to mirror), [`combat-damage-depth.md`](combat-damage-depth.md) (Spirit as fifth system).
 
 ---
 
@@ -19,6 +19,8 @@ Related: [`spiritual-sense-cultivation-reading.md`](spiritual-sense-cultivation-
 Spirit is a **full third path** a player can walk from creation and wield **comparable power** to qi and body — the xianxia soul cultivator, not a stat-bonus side chamber. Everyone has a spirit; those who cultivate it walk this road.
 
 **Fantasy sentence (owner lean):** Qi gathers the world into a core. Body tempers the flesh into a weapon. **Spirit makes the self the weapon** — you fight with perception, will, and presence, and your soul is both your sword and your only shield.
+
+**Jianghu menace (owner 2026-10-13):** fear comes from **arts** that route Root Dao power — inherit is **crude**; devastating apex is **manual-gated**. [`soul-root-dao.md`](soul-root-dao.md) § Crude inherit vs art.
 
 **End goal (owner):** **deification** — the soul path's equivalent of saints / immortals is **becoming a god**: the self itself ascends, not a core or a vessel.
 
@@ -36,7 +38,7 @@ A walkable path in this game fills ~8 slots. Body was a fight because it was bui
 | Ladder + breakthrough feel | full | milestones lean | two real gates; 3→6 chain free |
 | Combat resource + verb | Breath, shield | Stamina, endure | Focus, Intimidate (exists, unloved) |
 | Technique school | many | martial arts | `soul_condensation` (exists, decent) |
-| Identity system | Weapon Intent | Martial Intent + Vessel Rules | none |
+| Identity system | Weapon Intent | Martial Intent + Vessel Rules | Root Dao branches + seated statute (designed — [`soul-root-dao.md`](soul-root-dao.md)) |
 | World presence | every sect | Vajra Ridge (designed) | none |
 | A price | tribulation lightning | pain, oath breach | none |
 

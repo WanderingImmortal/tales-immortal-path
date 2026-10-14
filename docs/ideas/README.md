@@ -84,6 +84,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite; forbidden branch of spirit path | — |
 | [Spirit / Soul path — full third path](spirit-path-full-design.md) | `designed` (sea from day one; ending is the three god kinds) | Abilities and idx 5 name still open | — |
+| [Soul Root Dao — branches & inherited skills](soul-root-dao.md) | `designed` | Guards / nine-realm ship | — |
+| [Fate & fortune — grounding](fate-fortune-grounding.md) · [read + knot sketch](fate-read-and-knot-sketch.md) | `designed` | Spirit Fate implement | [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149) |
 | [Stats → meters rework (guards, natures, fifth system)](stats-to-meters-rework.md) | `designed` (change now) | none | — |
 | [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
@@ -92,7 +94,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
 | [Body Martial Intent (武意)](body-martial-intent.md) | `designed` | Press/stagger vs soul; implement track split | — |
 | [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
-| [Alignment, sacrilege & corruption](alignment-sacrilege-corruption.md) | `designed` | Tribulation v1 (partial) | — |
+| [Alignment, NHK & corruption transform](alignment-sacrilege-corruption.md) · [transform stub](corruption-transform.md) | `designed` / `idea` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
 | [Dustbone dynasties & Law of Dust](dustbone-dynasties-entropy-lore.md) | `designed` (Pinwright + strata lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [Settlement lore](settlement-lore.md) | `idea` (parked) | Dustbone lore | — |
@@ -136,7 +138,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` (**parked**) | Realm depth pass; Immortal Ascension beat | — |
 | [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` (**parked**) | Realm depth pass; Immortal climax | — |
 | [Upper ladder design hub](upper-ladder-design-hub.md) | `designed` (partial) | Nine-realm code; void qi; tribulation | — |
-| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Body idx 4–8 locked; soul idx 5+; nine-realm code; soul embryo | — |
+| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (north-star) | Nine-realm code; soul idx 5+; soul embryo | [PR #148](https://github.com/WanderingImmortal/tales-immortal-path/pull/148) |
 | [Realm claims](realm-claims.md) | `designed` (expanded) | Nine-realm ladder in code; owner tune idx 4/7 | — |
 | [Dao Seeking & Manifestation](dao-seeking-and-manifestation.md) | `designed` | Nine-realm idx 6–7; sword taxonomy | — |
 | [Dao combat & manifestation redesign — hub](dao-combat-and-manifestation-redesign-hub.md) | `designed` | v2 owner brainstorm; combat spine before code | — |
