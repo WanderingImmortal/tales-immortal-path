@@ -6,7 +6,7 @@
 | **Blocked on** | Tribulation rework; corruption content hooks |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent design chat, 2026-07-22 |
-| **Updated** | 2026-07-22 |
+| **Updated** | 2026-10-14 |
 
 ## Intent
 
@@ -31,6 +31,56 @@ Related: [`tribulation-system-rework.md`](tribulation-system-rework.md), [`root-
 - **Alignment** = *who you choose to be* ("I'll take what I need" rebellious vs harmonious sect disciple).
 - **Sacrilege** = *what forbidden things you did that the book records*.
 - **Corruption** = *how badly you damaged the cycle itself* — reincarnation, souls, karma.
+
+---
+
+### Heaven’s jurisdiction — what counts (owner lean 2026-10-14)
+
+Heaven (the accountant) cares about **rules it owns**, not mortal morality. **Jianghu evil** (robbery, murder, feud) is **alignment + interpersonal karma** unless the act also **breaks cosmic jurisdiction**.
+
+| In heaven’s book | Usually **not** heaven alone |
+|------------------|------------------------------|
+| **Realm / root / lifespan gates** — false credentials, fate theft, skipping watershed lawfully | Ordinary murder, banditry, sect war (unless oath registered *to heaven*) |
+| **Soul cycle** — reincarnation, passage, what may bind or harvest souls | Rebellious attitude, “evil” physique without acts |
+| **Registered oaths** — vows sworn *to the mandate* (rare rites), not every sect promise | Broken business contract, insult |
+| **Forbidden arts** — list TBD: techniques that **touch cycle or gates** without permission | Generic demonic cultivation that only hurts mortals |
+
+**Pin list (implement gradually):**
+
+1. **Successful fate / root theft** (existing `heavenTheftCount`)
+2. **Soul bind / steal / refine** outside permitted framework ([`soul-body-refining.md`](soul-body-refining.md))
+3. **Reincarnation trap / redirect / annihilate** soul from cycle
+4. **Mass cycle poison** — grotto/refine that corrupts local reincarnation (regional, rare)
+5. **Forbidden heaven-touching art** — mastered or used (explicit id list)
+6. **Heaven-registered oath broken** — content-flagged only
+
+Everything else → **alignment** and/or **interpersonal karma threads**, not sacrilege/corruption unless a row above applies.
+
+---
+
+### Sacrilege vs corruption — why two (not duplicate “evil meter”)
+
+They answer **different questions** on the same jurisdiction:
+
+| | **Sacrilege** | **Corruption** |
+|--|---------------|----------------|
+| **Question** | *Which rules did you break, how often?* | *How much damage did that do to the cycle?* |
+| **Shape** | **Discrete entries** (rap sheet) | **Accumulating stain** (0…threshold) |
+| **Analog** | Indictments — fate theft #2, forbidden art X | Pollution — the reincarnation pipe is clogged |
+| **Typical source** | **Gate fraud**, successful theft, flagged forbidden use | **Soul cycle harm** — bind, refine, trap, mass sever |
+| **UI feel** | “Ledger: 3 entries” | “Cycle stain: 72 / 100 — **noticed**” |
+| **At juncture** | Multiplier from **entry count + type** | Multiplier if **threshold noticed** |
+
+**One act, both:** soul-into-body refining → **sacrilege entry** (“forbidden soul refine”) **+** large **corruption** bump. Fate theft success → **sacrilege/theft count** **+** small or zero corruption (you cheated the **gate**, didn’t necessarily gum the **cycle**).
+
+**Not sacrilege or corruption:**
+
+- Walk wicked path, rob merchant, kill rival cultivator → **alignment** + **incidents** for Karma threads
+- Fail fate rite → indifference (no entry)
+
+**Merge option (if two tracks still feel samey in UI):** one **`heavenLedger[]`** where each entry has `{ type, corruptionPoints }`; **sacrilege** = entry list, **corruption** = sum(points). Same save, two views — tribulation reads both.
+
+**Karma Retribution (spirit Root):** **Heavenly fuel** reads **corruption + sacrilege-derived weight** — see [`soul-root-dao.md`](soul-root-dao.md) § two karma layers.
 
 ---
 
@@ -67,7 +117,7 @@ Discrete flags or counter — **entries**, not a smooth -100…+100 bar.
 |-----------|---------|
 | Successful fate theft (basin / composition rite) | Yes — `heavenTheftCount` |
 | Forbidden technique mastered / used | Yes (TBD which) |
-| Certain kills or broken oaths | Yes (content-defined) |
+| **Heaven-registered** oath broken; kills that **explicitly** violate cycle law (TBD list) | Yes — not every kill |
 | Rebellious alignment actions (rob, intimidate) | **No** — alignment only unless act also breaks cosmic rule |
 | Failed fate rite | **No** |
 
@@ -207,6 +257,9 @@ function addCycleStain(amount, reason) {
 
 ## Open questions
 
+- [ ] **Forbidden art id list** — which techniques add sacrilege on first use vs mastery only
+- [ ] **Heaven-registered oath** — which story oaths count (sect vs mandate rite)
+- [ ] **Merge vs dual meters** — owner preference after Karma pass (ledger-only vs stain bar)
 - [ ] Evil physique: **no stain on embrace**; stain from documented acts when body path ships
 - [ ] Heaven-facing atonement: separate rare rite (design TBD) — not public atonement
 - [ ] Purifying elixir: tier gate + recipe; only premier stain cleanse for most of game
