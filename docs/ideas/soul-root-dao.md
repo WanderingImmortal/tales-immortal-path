@@ -680,7 +680,9 @@ If thread-weave feels **too vague or too much infra** before situation threads s
 
 ## Branch focus — Fate (命)
 
-**Fantasy:** Fate is **where luck is going** — not *who owes whom* (Karma). Walkers ** glimpse** the next bend in someone’s **气数**, then **nudge** proc order, exam outcomes, vein mood, marriage auspice. Peak fiction = **sect or empire fortune collapses** as a chronicle cascade — everyone still “chooses,” but the **board is tilted**.
+**Grounding (read first):** [`fate-fortune-grounding.md`](fate-fortune-grounding.md) — what Fate **is / is not** in xianxia and in this game (**tendency & roll bias**, not prophecy or Time Dao).
+
+**Fantasy:** Fate is **where luck is going** — not *who owes whom* (Karma). Walkers read **tendency** on **fortune streams** (personal **运**, institutional **气数**), then **nudge** proc order, exam rolls, vein mood, marriage auspice. **Not** “see the future script.” Peak fiction = **sect fortune collapses** as a chronicle cascade — everyone still chooses; the **board is tilted**.
 
 ### Karma vs Fate — one breath (owner 2026-10-14)
 
@@ -751,7 +753,7 @@ Out of combat: Glimpse on NPC = **mood of their luck** (hire? betray?); institut
 
 | Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
 |------|------------|----------------|--------|-----------------|------------|
-| **Lesser** | 4 | **Thread Glimpse** | **Foe (personal)** | **Crude telegraph** — see **next** hostile action category or **one** telegraphed icon; may **fail partial** vs clarity wards / higher realm. | *Manual e.g. **Omen Eye** — reliable telegraph + institutional hint* |
+| **Lesser** | 4 | **Thread Glimpse** | **Foe (personal)** | **Crude tendency read** — **imminent** hostile line (next committed action **class**), not plot prophecy; may **fail partial** or **false branch** vs wards / realm. | *Manual e.g. **Omen Eye** — tighter imminent read + institutional hint* |
 | **Greater** | 5 | **Nudge** | **Foe or self** | **Crude bias** — small **action-order**, proc, or flee threshold shift; **no skip-turn**, **no hard stun**. Wasteful vs focused nudge art. | *Manual e.g. **Turn of Qi** — tighter bias band* |
 | **Supreme** | 5–6 *(primary)* | **Fortune Shear** | **Anchor** | **Crude** — one anchor **−1 momentum band** for one beat; costly, may backfire omen on self. | *Apex manual **Sect Fortune Collapse** — multi-stage org cascade* |
 | **Statute** | 7 | **Omen Crown** | Seat | Passive **omen** in claim; **comprehend** fate apex; **not** free collapse cast. | [§ Fate apex](#fate-命--气数倾覆) |
