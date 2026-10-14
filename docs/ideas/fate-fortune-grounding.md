@@ -6,13 +6,76 @@
 | **Blocked on** | none (concept lock); spirit Fate implement after this + [`soul-root-dao.md`](soul-root-dao.md) § Fate |
 | **Issue** | none yet |
 | **Chat / PR** | Spirit Root design · [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149) |
-| **Updated** | 2026-10-14 |
+| **Updated** | 2026-10-14 (unwritten-book metaphor) |
 
 ## Intent
 
 Xianxia uses **命**, **气数**, **运势**, **天机**, divination, and “counter-heaven” in **different ways** — sometimes incompatible in the same novel. Before we wire **Spirit Root Fate (命)**, we need one **game definition** so Fate is not “see the future” (too strong, wrong shelf) and not a duplicate of **Karma**, **Time Dao**, or **fate rite theft**.
 
 **Player-facing one-liner (lean):** Fate walkers **read which way luck is leaning** and **tilt the board** — they do **not** receive a spoiler script of tomorrow.
+
+---
+
+## Owner core metaphor — the unwritten book (2026-10-14)
+
+**Fiction:** Fate is a **soft plan** — like a **summary for a book not yet written**. A life, a sect’s century, or a scheduled event (exam, war season) has a **rough timeline**: likely beats, likely order, **branches** where the story could go. Most people and institutions **drift along the plan** without thinking about it — luck feels “natural.”
+
+**Not a prison:** The plan is **not** a fixed script. Pages are still blank; only **shape and pressure** exist until choices and rolls **write** them. That leaves room for **defying fate** — characters or events that **break the outline** in **good or bad** ways (the genre’s 逆天 / 改命 / “wrong hero at wrong time”).
+
+### Sim translation (implementation-friendly)
+
+| Metaphor | Data / behaviour (lean) |
+|----------|-------------------------|
+| **Book summary** | **`fateOutline`** on an **anchor** — ordered **beat stubs** (phase tags, time windows, **branch weights**, not prose) |
+| **Unwritten pages** | Beats stay **stubs** until an incident + roll **realizes** one branch; chronicle gets the actual text |
+| **Following the plan** | Default NPC behaviour + rolls **prefer** the highest-weight branch when **deviation** is low |
+| **Fortune stream** | **`momentum`** on the anchor — which branches of the outline are **running hot** (see [`soul-root-dao.md`](soul-root-dao.md) § Fate) |
+| **Reading (Glimpse)** | See **current chapter heading** — beat **category** + tendency (“misfortune branch warming”), **not** the full book |
+| **Nudging** | **Reweight** upcoming branches at the **next decision point** — tilt, don’t author new chapters |
+| **Defying fate** | **`deviation`** rises when actions **contradict** the active beat; high deviation → **off-plan** chronicle tags, different unlocks, heaven/sect attention |
+| **Hard pins (rare)** | A few beats ** resist** nudge (mandate junctures, lifespan ceiling, registered tribulation) — **design list later**, not the default |
+
+```text
+  OUTLINE (soft plan, many branches)
+       │
+       ├─► default walk ──► “on plan” life / sect era
+       │
+       ├─► Fate nudge ──► branch weights shift (still not guaranteed)
+       │
+       └─► defiance ──► deviation ↑ ──► “against the plan” (hero or disaster)
+              ▲
+              │  causes: will, player choice, Karma severing assumed ties,
+              │           True Self, chaos, fate rite on self, another walker’s shear
+```
+
+**Why this is not prophecy gameplay:** The **engine** may hold an outline for pacing and proc bias; the **player** sees **omens, chapter headings, and skewed dice** — same as “tendency,” not a quest spoiler. Two cultivators with Fate sense might disagree (partial read, false branch).
+
+**Why this is not Time Dao:** Defying fate **does not rewind** or **skip months** — it **chooses a different branch** going **forward** on the same clock ([`time-model.md`](time-model.md)).
+
+### Defying fate — sources (cool characters & events)
+
+| Source | Off-plan flavour |
+|--------|------------------|
+| **Player choices** | Refuse the “obvious” marriage, spare the rival the outline wanted dead |
+| **High will / True Self** | Harder to **read**; easier to **hold** a line the plan didn’t expect |
+| **Karma** | Sever or reinforce **edges the outline assumed** — feud wakes where the plan had peace |
+| **Memory / Illusion** | “Wrong” memories or witnesses — outline’s social beats misfire |
+| **Fate rite (self)** | **Rip a page** in *your* heaven-facing outline (basin/composition) — **`gate_theft` NHK**, not casual |
+| **Another Fate walker** | **Shear** org luck — sect’s planned golden era **skids** |
+| **Chaos / rare roots** | Innate **deviation** bias — born slightly off the board’s default |
+| **Bad defiance** | Villain breaks auspice; disaster **outside** the plan still **writes** into chronicle |
+
+NPC flavour tags (future): **`fateDefiant`**, **`planFollower`** — not moral; a defiant hero and a defiant calamity both exist.
+
+### Spirit Root Fate’s job in this model
+
+Fate cultivators are **editors of tendency**, not authors of the whole novel:
+
+- **Read** which branch the outline is **leaning toward** (personal or institutional).
+- **Nudge** weights at the next stub — exam, patron, duel proc.
+- **Shear / apex** — institutional **chapter collapse** (misfortune **pack**), still not “delete NPC from save.”
+
+**Counter-fate fantasy stays playable:** True Self and merit ** resist** being **read and nudged**; defiance **costs** something (attention, deviation backlash, NHK if you forge mandate).
 
 ---
 
@@ -23,7 +86,7 @@ Authors mix these; our job is to **assign lanes** so systems do not collide.
 | Lane (EN) | Hanzi / tropes | What it usually means in fiction | **This game — owner lane** |
 |-----------|----------------|----------------------------------|----------------------------|
 | **Moral ledger** | 因果 · 业力 · 报应 | Deeds link to payback; delay is normal | **Karma** (Root + qi Karma Dao hints) — [`soul-root-dao.md`](soul-root-dao.md) § Karma; **NHK** for heaven rulebook — [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) |
-| **Personal destiny** | 命 · 命格 · 八字 | Birth chart, lifespan cap, “this life’s trajectory” | **Spiritual roots + watershed pacing** — [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md); **not** editable by Fate Root except **bias rolls**, not rewrite chart |
+| **Personal destiny** | 命 · 命格 · 八字 | Birth chart, lifespan cap, “this life’s trajectory” | **Soft `fateOutline` per anchor** + roots/lifespan caps — [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md); **defiance** via deviation, not menu rewrite |
 | **Luck / fortune** | 气数 · 运势 · 福缘 | Rising/falling luck of person, house, dynasty | **Spirit Root Fate** — **fortune streams** on anchors |
 | **Omen / divination** | 兆 · 谶 · 卜 · 天机 | Signs, hexagrams, “heaven’s secret hint” | **Omens** everywhere at low power; **Fate Root** reads **tendency**; **full 天机** = high realm / mandate / Seeking pressure read — not idx-4 spoiler |
 | **Stealing / patching fate** | 改命 · 偷天换日 · 换命 | Break basin ceiling, swap composition, cheat registry | **Fate rite** chronicle — [`root-rite-formations.md`](root-rite-formations.md) → **`gate_theft` NHK** — **not** Spirit Fate nudge |
@@ -37,10 +100,11 @@ Authors mix these; our job is to **assign lanes** so systems do not collide.
 
 ## Spirit Root Fate (命) — game definition
 
-**Fate Root** is **fortune mechanics on anchors**:
+**Fate Root** is **fortune mechanics on anchors**, sitting on top of the **unwritten-book outline** (above):
 
 - **Anchor** — a person (personal **运**), org, zone, or scheduled **event slot** (exam, marriage, vein season).
-- **Fortune stream** — **momentum** (luck rising/falling), **volatility** (how easy to nudge), optional **situationBias** on the next procedural roll.
+- **Fate outline** — **soft plan** (beat stubs + branch weights); most walk it; **deviation** tracks off-plan drama.
+- **Fortune stream** — **momentum** (which branches run hot), **volatility** (how easy to nudge), optional **situationBias** on the next procedural roll.
 - **Verbs (crude inherit):** **read tendency** → **nudge** → (supreme) **shear** one band → (statute) **omen seat** in claim.
 - **Payoff shape:** NPCs still choose; **dice and schedules** skew — [`jianghu-situation-threads.md`](jianghu-situation-threads.md), [`world-scheduler.js`](../../world-scheduler.js).
 
@@ -156,12 +220,16 @@ Before adding a Fate art or inherit:
 2. Does it **move time** or grant **extra actions via freeze**? → **Time Dao** or reject.
 3. Does it **settle moral debt** for damage? → **Karma**.
 4. Does it **patch your root against heaven**? → **Fate rite** + NHK.
-5. Does it only **tilt momentum / telegraph imminent line / bias next thread roll**? → **Fate Root** ✓
+5. Does it only **tilt momentum / reweight outline branches / telegraph imminent line**? → **Fate Root** ✓
+6. Does it **permanently rewrite** someone’s whole life script without rite/taboo cost? → **Reject** or **Memory / Taboo**
 
 ---
 
 ## Open questions
 
+- [ ] **`fateOutline` beat schema** — minimal tags vs authored packs per NPC archetype
+- [ ] **Deviation** — visible stat, hidden, or chronicle-only (“Off the plan”)?
+- [ ] **Hard-pinned beats** — which junctures ignore nudge (list with tribulation + mandate)
 - [ ] **Hanzi in UI** — show **运** vs **气数** on inspect panel, or one “Fortune” bar with tooltip?
 - [ ] **Dao Seeking** fate-flavoured laws — comprehend bonus to **read** only, or also **nudge** (stacking risk)?
 - [ ] **Thread Glimpse** final name — keep or rename to drop “thread” (Karma collision)?

@@ -680,9 +680,9 @@ If thread-weave feels **too vague or too much infra** before situation threads s
 
 ## Branch focus — Fate (命)
 
-**Grounding (read first):** [`fate-fortune-grounding.md`](fate-fortune-grounding.md) — what Fate **is / is not** in xianxia and in this game (**tendency & roll bias**, not prophecy or Time Dao).
+**Grounding (read first):** [`fate-fortune-grounding.md`](fate-fortune-grounding.md) — **unwritten-book** soft plan + **defying fate**; tendency & roll bias, not prophecy or Time Dao.
 
-**Fantasy:** Fate is **where luck is going** — not *who owes whom* (Karma). Walkers read **tendency** on **fortune streams** (personal **运**, institutional **气数**), then **nudge** proc order, exam rolls, vein mood, marriage auspice. **Not** “see the future script.” Peak fiction = **sect fortune collapses** as a chronicle cascade — everyone still chooses; the **board is tilted**.
+**Fantasy:** Each anchor has a **rough outline** (life, sect era, event) — mostly unwritten until choices land. Walkers read **which chapter is leaning**, **nudge** branch weights, sometimes **shear** institutional luck. **Defiance** (hero or disaster) = **off-plan deviation**, not rewind. Not *who owes whom* (Karma). Peak fiction = **sect fortune collapses** — planned golden era **skids** into chronicle misfortune pack.
 
 ### Karma vs Fate — one breath (owner 2026-10-14)
 
@@ -725,14 +725,15 @@ If thread-weave feels **too vague or too much infra** before situation threads s
 
 ### Fortune stream model (design data — parallel Karma edges, different shape)
 
-A **fortune stream** attaches to an **anchor**, not a **pair** of people:
+A **fortune stream** attaches to an **anchor**, not a **pair** of people. Underneath (same anchor) sits a soft **`fateOutline`** — beat stubs + branch weights; see grounding doc.
 
 | Field (lean) | Purpose |
 |--------------|---------|
 | `anchorId` | `uid` · `orgId` · `zoneId` · `eventSlotId` (exam, marriage, vein) |
-| `momentum` | −5…+5 — **falling ↔ rising** luck (not moral stain) |
+| `momentum` | −5…+5 — which outline branches run **hot** (not moral stain) |
 | `volatility` | 0–100 — how cheaply **Nudge** moves it this month |
-| `lastOmen` | Copy hook for chronicle / UI |
+| `deviation` | 0… — how **off-plan** the anchor is (defying fate — good or bad) |
+| `lastOmen` | Copy hook for chronicle / UI (“chapter heading”) |
 | `situationBias` | Optional — next thread-engine **roll** shift when institutional |
 
 **Creating streams:** worldgen + chronicle (**sect founded**, **vein opened**); incidents (**public scandal** dips org momentum). Fate **nudge** adjusts; **does not** mint a thick institutional stream from vacuum — need an **anchor** (even faint: “this passing merchant caravan”).
