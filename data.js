@@ -7101,7 +7101,6 @@ const CONSOLIDATION_BY_REALM = {
         peak: { qiFillRatio: 0.88, minQiDensity: 3.0, minTotalStats: 42, minMeridians: 3 },
         months: 7,
         stones: 20,
-        sacrificeTechnique: true,
         foundationGain: 10,
         maxQiGain: 10,
         qiDensityGain: 0.7,
