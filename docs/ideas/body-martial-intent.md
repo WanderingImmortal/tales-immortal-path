@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` (owner brainstorm — 2026-08-02) |
-| **Blocked on** | Body chamber depth; intent track split |
+| **Status** | `designed` (combat feel locked 2026-10-12; not implemented) |
+| **Blocked on** | Body chamber depth; `INTENT_TRACK_BY_PATH.body`; combat tempo hooks |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent design chat, 2026-08-02 |
-| **Updated** | 2026-08-02 (Rule Adherence distinct from Intent) |
+| **Chat / PR** | Cloud agent 2026-08-02; **2026-10-12** — press/stagger vs soul — cloud chat |
+| **Updated** | 2026-10-12 |
 
 Parent: [`body-path-sect.md`](body-path-sect.md), [`body-chamber-anatomy-rebuild.md`](body-chamber-anatomy-rebuild.md). Qi lane: Weapon Intent (`intent.js`). Oaths: [`vessel-rules.js`](../../vessel-rules.js).
 
@@ -17,7 +17,7 @@ Body refining needs an equivalent to qi **Weapon Intent** — but **not** the sa
 | Concept | What it is | Xianxia feel |
 |---------|------------|--------------|
 | **Weapon Intent** (器意 / 兵意) | Will channeled through an **external weapon category** via **qi** | Meditate the sword, staff, spear — **tool + qi** |
-| **Martial Intent** (武意) | **Bodily** enlightenment of **using the fist** | Not “meditating on fists” — **realization through impact** — knuckles, marrow, stance |
+| **Martial Intent** (武意) | **Physique presence** — enlightenment through **impact**; ambient **weight** (压境) | Not qi through a tool — **Press Domain**, marrow shock, stagger — not soul-cut |
 | **Elemental / ethereal intent** *(future)* | Qi shaping **fire, lightning, void** etc. | Natural **qi-path** gate — not weapon taxonomy |
 
 **Owner lock:** **Martial Intent = fist / unarmed only.** If it’s a **weapon** (staff, sword), it stays **Weapon Intent** on the **qi** track — even for monks who carry a staff.
@@ -102,9 +102,22 @@ Mirror Weapon Intent **mechanics**, body-flavored **names**:
 | 60 | Temper |
 | 100 | Press Domain (压境) |
 
+## Combat vs soul cultivators (owner lock 2026-10-12)
+
+**UI label:** **Martial Intent** (武意) — not “Body Intent.”
+
+| Qi Weapon Intent (high) | Martial Intent (body) |
+|-------------------------|------------------------|
+| Can **cut / wound** soul (intent bridge) | **Shake / stagger** — tempo war, not `spiritDamage` |
+| Meditate + tool category | **Press Domain** — ambient pressure; **concussive** hits → `slowTurns` / `skipTurns` / Focus strain on soul targets |
+
+**Not** primary soul mitigation (that stays **minimal realm lifeforce + treasures**). MI is **spice** so body mains can **deny clean soul casts** without a spirit alt. Tune caps so stagger does not hard-lock bosses.
+
+**Feed-forward:** MI shapes **Runeforging** options; optional synergy with **Vessel Rules** (contest on close) — [`vessel-rules-design.md`](vessel-rules-design.md).
+
 ## Open questions
 
-- [ ] UI label: **Martial Intent** vs **Body Intent** vs **Unarmed Intent**
+- [x] UI label — **Martial Intent** (owner 2026-10-12)
 - [ ] Technique field: `martialReq` vs shared `intentReq` with path branch
 - [ ] Body staff arts — **no intent gate** vs optional Staff Weapon Intent for hybrid monks
 - [ ] Elemental intent system — separate from weapon intent when designed

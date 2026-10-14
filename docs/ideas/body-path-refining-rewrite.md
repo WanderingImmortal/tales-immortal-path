@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` (owner lean locked 2026-08-05; full design still open) |
-| **Blocked on** | Anatomy Phase 1–2 can proceed; full rewrite design after that |
+| **Status** | `designed` (idx 0–3 lean + idx 4–8 locked in [`nine-realm-ladder.md`](nine-realm-ladder.md) 2026-10-12) |
+| **Blocked on** | Anatomy Phase 1–2 can proceed; **implementation** blocked on nine-realm code + body fat slice |
 | **Issue** | none yet |
-| **Chat / PR** | Body chamber triage 2026-08-05 |
-| **Updated** | 2026-09-25 |
+| **Chat / PR** | Body chamber triage 2026-08-05; **2026-10-12** body upper ladder design — cloud chat |
+| **Updated** | 2026-10-12 |
 
 ## Intent
 
@@ -47,12 +47,12 @@ Later realms do not add layers. They change the work done to the body you alread
 
 | Idx | Realm | Work |
 |-----|--------|------|
-| 0–3 | Inner Tempering → Nascent Physique | The current chamber, one continuous refinement. Milestones rename you. Heaven does not need a tribulation at every layer. |
-| 4 | Physique Transformation | Change the finished mortal body. Same figure, new kind of flesh. Not new organs. |
-| 5 | Hollow Refinement | Open an empty place inside that body and refine power there. Early on you are not past a transformed physique until the hollow fills. |
-| 6 | Origin Seeking | One source in the flesh. A sworn rule becomes that source. No oath means a slower dig, and no interior peak. Not a dao library. |
-| 7 | Origin Manifestation | That source becomes the flesh people meet. |
-| 8 | Saintly Flesh | Sanctify. The end. |
+| 0–3 | Inner Tempering → Nascent Physique | The current chamber, one continuous refinement. Milestones rename you. **Nascent Physique** = vessel physique **born** from pearl recipe (chamber ends). |
+| 4 | Physique Transformation | **Metamorphosis** — forge-grade body; sets line, rune budget, affinities. Not void/hollow. |
+| 5 | Runeforging | Forge **runes** (materials + body-art major recipes + minor filings). Permanent capabilities. |
+| 6 | Source Furnace | Prepare **inner hearth** for Inner Source installation (preamble). |
+| 7 | Inner Source | **Craft/install** generative core (pearl kernel + furnace + quench + template). Refine X/Y/Z — see nine-realm ladder. |
+| 8 | Saintly Flesh | Sanctify the source. |
 
 The “three clicks, +1%” gimmick is a depth problem **inside** the mortal dig. Solve it there later (quality, materials, the figure actually changing). Do not solve it by inventing layers for the saint path.
 

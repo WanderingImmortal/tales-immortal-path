@@ -99,7 +99,7 @@ Single index for the **2026-08-02 upper-ladder design session** — realm claims
 
 - [x] **Half-Step** is not a realm — a second peak with a **limited claim** on the next realm, permitted because the life still ends (owner 2026-09-28). Which abilities, still open. Not the immortal kit — [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md).
 - [ ] Claims stored explicitly vs derived from table?
-- [ ] Soul names for nine realms. Body names are a proposal, not a lock ([`nine-realm-ladder.md`](nine-realm-ladder.md)). All three paths still need nine labels when the ladder ships.
+- [ ] Soul names for nine realms (idx 5+ open). **Body idx 4–8 locked 2026-10-12** — PT, Runeforging, Source Furnace, Inner Source ([`nine-realm-ladder.md`](nine-realm-ladder.md)).
 - [ ] GC combat **qi-lock** — v1 or v2?
 - [ ] Manifestation gate **immortal legislation** preview?
 - [ ] Upper celestial nine — mirror mortal nine or fresh names?

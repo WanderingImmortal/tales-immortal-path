@@ -89,10 +89,10 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Stats → meters rework (guards, natures, fifth system)](stats-to-meters-rework.md) | `designed` (change now) | none | — |
 | [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
-| [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `idea` (lean locked) | Inner Tempering leaned; later realms and a name lock still open | — |
+| [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `designed` | Upper ladder locked 2026-10-12 (runes, Source Furnace, Inner Source) | — |
 | [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
 | [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
-| [Body Martial Intent (武意)](body-martial-intent.md) | `idea` | Body chamber; intent split | — |
+| [Body Martial Intent (武意)](body-martial-intent.md) | `designed` | Press/stagger vs soul; implement track split | — |
 | [Body-path great sect (Vajra Ridge)](body-path-sect.md) | `idea` | Body path depth; manuals | — |
 | [Alignment, NHK & corruption transform](alignment-sacrilege-corruption.md) · [transform stub](corruption-transform.md) | `designed` / `idea` | Tribulation v1 (partial) | — |
 | **Mortal life sim cluster (hub)** | [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md) | — | — |
@@ -138,7 +138,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Chaos cultivation path (endgame)](chaos-cultivation-path.md) | `idea` (**parked**) | Realm depth pass; Immortal Ascension beat | — |
 | [Post-immortal cosmology (upper / Court / Chaos)](post-immortal-cosmology.md) | `idea` (**parked**) | Realm depth pass; Immortal climax | — |
 | [Upper ladder design hub](upper-ladder-design-hub.md) | `designed` (partial) | Nine-realm code; void qi; tribulation | — |
-| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (partial) | Soul names; half-step powers. Body names proposed. Seeking entry 10k. | — |
+| [Nine-realm mortal ladder](nine-realm-ladder.md) | `designed` (north-star) | Nine-realm code; soul idx 5+; soul embryo | [PR #148](https://github.com/WanderingImmortal/tales-immortal-path/pull/148) |
 | [Realm claims](realm-claims.md) | `designed` (expanded) | Nine-realm ladder in code; owner tune idx 4/7 | — |
 | [Dao Seeking & Manifestation](dao-seeking-and-manifestation.md) | `designed` | Nine-realm idx 6–7; sword taxonomy | — |
 | [Dao combat & manifestation redesign — hub](dao-combat-and-manifestation-redesign-hub.md) | `designed` | v2 owner brainstorm; combat spine before code | — |
