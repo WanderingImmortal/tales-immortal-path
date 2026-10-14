@@ -156,7 +156,7 @@ function pickNpcCombatTemplate(realmIdx) {
 }
 
 function calcNpcRealmBaselineStats(realmIdx, template) {
-    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 6;
+    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
     const r = clamp(realmIdx, 0, cap);
     const hp = template.hp + r * 22 + Math.floor(template.hp * r * 0.12);
     const dmg = template.dmg + r * 3 + Math.floor(template.dmg * r * 0.06);
@@ -165,7 +165,7 @@ function calcNpcRealmBaselineStats(realmIdx, template) {
 
 function calcNpcCombatStats(npc, type) {
     const b = NPC_COMBAT_BALANCE;
-    const realmCap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 6;
+    const realmCap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
     const effectiveRealm = clamp(npc.realmIdx, 0, realmCap);
     const template = pickNpcCombatTemplate(effectiveRealm);
     let { hp, dmg } = calcNpcRealmBaselineStats(effectiveRealm, template);

@@ -17,7 +17,7 @@ function addConverseFlag(npc, flag) {
     ensureBetrayalNpcFields(npc);
     if (npc.converseFlags.includes(flag)) return;
     npc.converseFlags.push(flag);
-    const cap = 6;
+    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
     while (npc.converseFlags.length > cap) npc.converseFlags.shift();
 }
 

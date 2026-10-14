@@ -883,7 +883,7 @@ function applyExploreYield(opts) {
             addLog(`💢 The harsh environment wounds you. -${dmg} HP.`);
         }
     }
-    if (fullOuting && zone.difficulty === "extreme" && G.realmIdx < 4) {
+    if (fullOuting && zone.difficulty === "extreme" && G.realmIdx < 5) {
         addLog(`⚠️ The Heavenly Heartlands are dangerous for your level. Stay vigilant.`);
     }
     if (fullOuting) {
@@ -1323,7 +1323,7 @@ function getWorldNpcsInZone(zoneId) {
 }
 
 function getWorldNpcMaxRealm(npc) {
-    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 6;
+    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
     let max;
     if (npc.isDemonicTalent) {

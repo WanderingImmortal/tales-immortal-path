@@ -20,8 +20,9 @@ function getFoundationCrackCount() {
 
 function getCultivationPillarCaps(realmIdx) {
     const caps = CULTIVATION_BASE_BALANCE.pillarCapsByRealm;
-    const idx = Math.min(realmIdx ?? G.realmIdx, 6);
-    return caps[idx] || caps[6];
+    const maxIdx = typeof MAX_MORTAL_REALM_IDX !== 'undefined' ? MAX_MORTAL_REALM_IDX : 8;
+    const idx = Math.min(realmIdx ?? G.realmIdx, maxIdx);
+    return caps[idx] || caps[maxIdx] || caps[8] || caps[6];
 }
 
 function getCultivationPillarValue(pillar) {

@@ -61,9 +61,11 @@ function resolveBreakthroughTransitionId(fromIdx, toIdx) {
         '0_to_1': 'qc_to_fe',
         '1_to_2': 'fe_to_gc',
         '2_to_3': 'gc_to_ns',
-        '3_to_4': 'ns_to_void',
-        '4_to_5': 'void_to_dao',
-        '5_to_6': 'dao_to_immortal'
+        '3_to_4': 'ns_to_avatar',
+        '4_to_5': 'avatar_to_void',
+        '5_to_6': 'void_to_dao',
+        '6_to_7': 'dao_to_manifestation',
+        '7_to_8': 'manifestation_to_immortal'
     };
     return map[key] || `realm_${fromIdx}_to_${toIdx}`;
 }

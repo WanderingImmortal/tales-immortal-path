@@ -48,7 +48,8 @@ function computeSpiritRootProfile(compositionId, gradeId, deviantId, basinBonus)
     const deviant = deviantId ? SPIRIT_ROOT_DEVIANT_BY_ID?.[deviantId] : null;
     const bonus = basinBonus || 0;
     const innateCeilingRealmIdx = comp.innateCeilingRealmIdx;
-    const naturalRealmCap = Math.min(6, innateCeilingRealmIdx + bonus);
+    const maxCap = typeof MAX_MORTAL_REALM_IDX !== 'undefined' ? MAX_MORTAL_REALM_IDX : 8;
+    const naturalRealmCap = Math.min(maxCap, innateCeilingRealmIdx + bonus);
     let cultivateSpeedMult = (comp.compositionSpeedMult || 1) * (grade.cultivateSpeedMult || 1);
     let breakthroughBonus = grade.breakthroughBonus || 0;
     let coreCondenseMult = grade.coreCondenseMult || 1;
