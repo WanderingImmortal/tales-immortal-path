@@ -36,6 +36,8 @@ This is **not** a replacement for authored story arcs (`STORY_ARCS`). It is the 
 
 **Verdict:** You have **inputs** (relationship stats, kills, personalities, scheduler, quest log mirror) and **outputs** (combat, log lines, faction shifts). What’s missing is a **middle layer**: normalized **incidents**, **threads**, and **escalation packs** — plus rules for **who cares** (ties).
 
+**Encounter mesh:** thread beats (proxy, hunter, interrupt) should plug into the same **offer pipeline** as random street fights — [`public-strength-encounter-selection.md`](public-strength-encounter-selection.md). Today `startCombat()` ignores all of this.
+
 ---
 
 ## Design — one engine, three layers
@@ -132,7 +134,7 @@ Both run **after** an incident exists; they do not replace personal grudges (`gr
 |--------|------------------------|-------|
 | **Realm band (known)** | Dossier / cover / last public fight — **not** true realm by default | [`disguise-and-public-identity.md`](disguise-and-public-identity.md) |
 | **Realm band (true)** | `G.realmIdx` | Used after peel, deep probe, or you **reveal** in fight |
-| **Fame / renown** | `G.fame`, sect renown tiers | Jianghu **visibility**, not only power |
+| **Fame / renown** | `G.fame` today → **`fameFacets`** (what you’re known for) | Drives **why** they challenge + open vs shadow — [`public-strength-encounter-selection.md`](public-strength-encounter-selection.md) |
 | **Recent deeds** | Incidents ledger, kill log | “You humiliated us *last week*” vs ancient slight |
 | **Sect role** | Outer · registered · inner · core · elder · named heir — see **Backing layers** | Outer disciple ≠ patriarch’s closed-door pupil |
 | **Backing** | Org tier × role weight + patron link ([`jianghu-organization-types.md`](jianghu-organization-types.md)) | Great sect **name** vs **who you are inside it** |

@@ -133,9 +133,31 @@ Rewards patient players; punishes “mask on, same god sword”.
 | Mortal guard | Sight |
 | Cultivator checkpoint | Sight + face/bone scan |
 | Thread beat (hunter) | Ledger + prior meeting + scan |
-| Public combat | **Auto-add/update signatures**; cover break incident |
+| Public combat | **Only if not restrained** — see combat commitment below |
 | Appraisal array | Deep probe — bone shift may not enough without realm mimic |
 | Personal enemy | All of the above + memory bonus |
+
+---
+
+## Combat without blowing cover (owner lock 2026-10-09)
+
+**Problem:** If every fight applies full technique power, concealment dies the first time someone shoves you in an alley.
+
+**Fix:** Combat runs in a **display commitment** mode ([`public-strength-encounter-selection.md`](public-strength-encounter-selection.md) § restrained fight):
+
+| Mode | Signatures | Band read after fight |
+|------|------------|------------------------|
+| Full | Allowed | Update ledger / known band from exchange |
+| Restrained | Banned or capped | Win without slip → **no** band bump; optional “felt wrong” rumor |
+| Slip | Player broke rules | `cover_break` incident + signature add |
+
+**Deep cover** defaults to restrained + generic weapon; UI warns before enabling a signature art.
+
+**Witnesses:** public market fight vs empty scrub changes **zoneSpread** of any reveal incident.
+
+**Flee** preserves cover more often than losing while flaring true power — may add minor **`coward`** facet locally.
+
+Recognition resolver runs at **combat end**, not combat start — so being attacked does not auto-reveal until the exchange proves otherwise.
 
 ---
 

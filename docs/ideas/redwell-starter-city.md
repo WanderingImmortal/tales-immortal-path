@@ -10,7 +10,11 @@
 
 **Zone vision:** [`dustbone-living-board.md`](dustbone-living-board.md)  
 **Hub:** [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md)  
-**Related:** [`personal-residence.md`](personal-residence.md) · [`explore-field-gathering.md`](explore-field-gathering.md) · [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md) · [`work-and-professions.md`](work-and-professions.md) · [`commerce-and-markets.md`](commerce-and-markets.md)
+**Related:** [`personal-residence.md`](personal-residence.md) · [`explore-field-gathering.md`](explore-field-gathering.md) · [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md) · [`work-and-professions.md`](work-and-professions.md) · [`commerce-and-markets.md`](commerce-and-markets.md) · [`enemy-tier-scaling.md`](enemy-tier-scaling.md) (Redwell street QC bands)
+
+### Street combat (design)
+
+Random **in-town** fights are **human-only** for now: mostly **early/mid QC** nobodies; **late** QC uncommon; **peak** QC rare (known/respected). **FE+** are town power — Master Liang, lord, seats — **not** alley spawn tables ([`enemy-tier-scaling.md`](enemy-tier-scaling.md) § Redwell).
 
 ## Intent
 
