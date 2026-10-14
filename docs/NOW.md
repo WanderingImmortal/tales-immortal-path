@@ -8,7 +8,8 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
 
 ## Next
-- **Spirit path** — Soul Root branches (Illusion/Memory/Karma/**Fate** designed; **True Self** open) — [`soul-root-dao.md`](ideas/soul-root-dao.md) · PR [#149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149)
+- **Nine-realm ladder (design north star)** — ship as scaffold · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md) · code migration still TODO
+- **Spirit path** — Soul Root on [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); implement **Illusion/Memory** first; Karma/Fate parked
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
 - Loyalty meter for shady sects — **parked**

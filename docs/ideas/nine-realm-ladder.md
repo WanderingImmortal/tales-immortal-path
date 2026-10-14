@@ -2,11 +2,35 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (partial — which threshold abilities, and spirit names from idx 5 up, are still open) |
-| **Blocked on** | Spirit idx 5 name. Body names are a proposal, not a lock. Roots: index bump only — expansion is later. |
+| **Status** | `designed` — **north-star ready** for sketching future work (owner 2026-10-14); code migration still separate |
+| **Blocked on** | **Code ship:** `PATHS.*` 9 names, save shift, audit `reqRealm`. **Not blocking design:** body name lock, spirit idx 5+ polish, Half-Step ability kit |
 | **Issue** | none yet |
-| **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; threshold is a limited claim; spirit ending is the three god kinds |
-| **Updated** | 2026-10-13 |
+| **Chat / PR** | Owner 2026-09-28 — Celestial Avatar; Soul Root depth [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149) |
+| **Updated** | 2026-10-14 |
+
+## Design ship readiness (owner 2026-10-14)
+
+**Question:** Can we treat nine realms as the scaffold everything else sketches against?
+
+**Yes — for design.** Use **spirit track / qi `realmIdx` 0–8** in new docs, tribulation plans, NPC tiers, and chronicle. **No — for one code PR** until migration runs (today: **7** qi names in [`data.js`](../../data.js); missing **Celestial Avatar** @4 and **Dao Manifestation** @7).
+
+| Layer | Verdict | Notes |
+|-------|---------|--------|
+| **Qi ladder 0–8** | **Ship (lock)** | Names, order, dao sequence, [`realm-claims.md`](realm-claims.md), idx 4 [`celestial-avatar.md`](celestial-avatar.md) |
+| **Lifespan table** | **Ship (lean)** | Manifestation / Seeking law bumps **playtest** — fine to tune in code |
+| **Half-Step / Pseudo God** | **Ship (names)** | Ability kits **open** — does not block idx sketch |
+| **Body 9 names** | **Sketch** | Proposal table below — safe to cite **idx**, names may swap |
+| **Spirit 9 names** | **Sketch** | idx **1, 3 locked**; idx **5+ lean** — safe to cite **idx** |
+| **Soul Root five branches** | **Designed, phased** | **Illusion + Memory** first when spirit ships; **Karma + Fate** after living world ([`soul-root-dao.md`](soul-root-dao.md)) |
+| **Spiritual roots v2 height** | **Later** | Ladder change = **index bump** only first ([`spiritual-roots-taxonomy-v2.md`](spiritual-roots-taxonomy-v2.md)) |
+
+**Do not block on:** Fate/Karma implement, True Self apex pick, body rename poetry, upper celestial nine.
+
+**Do before code land:** save migration rule (+2 shift for idx≥4), one pass on `reqRealm` / market / tribulation tiers, update [`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) for nine entries.
+
+**Hub rule for new features:** tag content with **`realmIdx`** (and path if not qi), not legacy “realm 4 = Void” muscle memory.
+
+---
 
 ## Intent
 
