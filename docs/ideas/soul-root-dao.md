@@ -6,7 +6,7 @@
 | **Blocked on** | [`stats-to-meters-rework.md`](stats-to-meters-rework.md) (guards, Focus); nine-realm `PATHS.soul` ship; Root Dao row in [`law-taxonomy.md`](law-taxonomy.md) |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud design chat 2026-10-13 — spirit ladder + branch benchmarking |
-| **Updated** | 2026-10-13 (Karma branch pass; crude inherit vs arts) |
+| **Updated** | 2026-10-14 (Fate branch pass; Karma NHK sync) |
 
 ## Intent
 
@@ -123,13 +123,13 @@ Full peak fiction: [§ Branch apex fiction](#branch-apex-fiction-owner-lock-2026
 | `memory_jianghu` | Memory | **Witness Rubbing** — copy what they saw (not invent) | Evidence chain |
 | `illusion_jianghu` | Illusion | **False Presence** — you were seen at X (illusion, not Memory) | Countered by Memory reader |
 | `karma_forbidden` | Karma | **Feud Wake** — surface old blood debt thread on a family | Stain lean |
-| `fate_forbidden` | Fate | **Clan Omen Pin** — bias one upcoming situation roll | Heaven notice at threshold |
+| `fate_forbidden` | Fate | **Clan Omen Pin** — bias one upcoming situation roll on **org anchor** | NHK lean if forged as **mandate** omen |
 
 Generic `soul_condensation` stays **fight dialect**; **jianghu** scrolls use separate shelf tag or `context: combat | jianghu | forbidden` so UI doesn’t mix “Soul Lash” with “Soul Bind.”
 
 ### Player-facing tone
 
-Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the banquet — the duel might be even, but your secrets aren’t.”* At **idx 7**, rumors name the branch: *“He wears the Lie as law.”* / *“She edits lives like scrolls.”*
+Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the banquet — the duel might be even, but your secrets aren’t.”* Fate walkers: *“Our clan’s luck turned after they visited.”* At **idx 7**, rumors name the branch: *“He wears the Lie as law.”* / *“She edits lives like scrolls.”* / *“The sect’s fortune died in his shadow.”*
 
 ---
 
@@ -200,18 +200,16 @@ Sect pamphlets and rumors: *“Don’t draw a soul cultivator’s gaze at the ba
 
 ### Fate (命) — *气数倾覆*
 
-**Peak fiction:** manipulate **fortune of place and institution** — sect examination luck, vein yield, patron attention — until **empires or sects fall** “naturally” (misfortune cascade).
+**Peak fiction:** tilt **luck streams** on **people, sects, and places** until institutions fail “naturally” — empty exam halls, dry veins, patron silence — not mind control. Full design: [§ Fate branch](#branch-focus--fate-命).
 
-| Tier | Expression (stubs — detail on Fate pass) |
-|------|------------------------------------------|
-| **Lesser / greater** | Thread Glimpse, Nudge — telegraph, small bias |
-| **Crude supreme inherit** | **Fortune Shear** *(working)* — minor luck dip, one thread nudge |
-| **Statute** | **Omen Crown** *(working)* — seat; omen passives in claim |
-| **Apex arts (manual)** | e.g. **Sect Fortune Collapse** — institution cascade (chronicle) |
+| Tier | Expression |
+|------|------------|
+| **Crude inherit** | **Thread Glimpse**, **Nudge** — read momentum, small bias |
+| **Crude supreme** | **Fortune Shear** — one anchor dips one band |
+| **Statute** | **Omen Crown** — seat; claim omens + comprehend fate apex |
+| **Apex arts (manual)** | e.g. **Sect Fortune Collapse** — institution chronicle cascade |
 
-**Other manuals:** Clan omen pin, marriage thread — focused fate bias.
-
-**Counters:** fate-rite tribulation, heavenly luck treasures, Immortal-level counter-fate (late).
+**Counters:** merit / luck treasures, counter-fate at high realm, True Self (identity less “readable” as fortune), **not** the same as **fate-rite theft** ([`root-rite-formations.md`](root-rite-formations.md) → NHK `gate_theft`).
 
 ---
 
@@ -680,6 +678,166 @@ If thread-weave feels **too vague or too much infra** before situation threads s
 
 ---
 
+## Branch focus — Fate (命)
+
+**Fantasy:** Fate is **where luck is going** — not *who owes whom* (Karma). Walkers ** glimpse** the next bend in someone’s **气数**, then **nudge** proc order, exam outcomes, vein mood, marriage auspice. Peak fiction = **sect or empire fortune collapses** as a chronicle cascade — everyone still “chooses,” but the **board is tilted**.
+
+### Karma vs Fate — one breath (owner 2026-10-14)
+
+| | **Karma (因果)** | **Fate (命)** |
+|--|------------------|---------------|
+| **Metaphor** | **Threads between people** — debt, blood, oath | **Streams on anchors** — person, org, zone, event slot |
+| **Question** | *Who is tied to whom?* | *Which way is luck flowing?* |
+| **You…** | Sense / reinforce / sever **edges**; **Retribution** settles **ledger** | Glimpse / nudge **momentum**; apex **shears** institution luck |
+| **Menace** | Feuds wake, blood pays blood | *“The sect’s luck died”* — exams fail, patrons vanish |
+| **Combat** | **Retribution Echo** (damage ∝ stain) | **Glimpse + Nudge** — telegraph & bias, **not** a second retribution |
+| **Heaven** | **NHK** on rulebook + `forced_settlement` on abuse | Small nudges **logged lightly**; **forge mandate omens** / mass tilt → NHK (`forbidden_art` / `mandate_tamper` lean) |
+
+**Not Fate Root:** **Fate rite** (basin theft, composition purification) = qi/chronicle **stealing from the gate** → [`root-rite-formations.md`](root-rite-formations.md), **`gate_theft` NHK** — not “nudge clan exam.” Spirit Fate ** bends ambient fortune**; fate rite ** patches your credential** against heaven.
+
+### Xianxia primer (气数 — not locked to one novel)
+
+| Idea (EN) | Hanzi / vibe | In stories often means |
+|-----------|--------------|------------------------|
+| **Fate / destiny** | 命 | Life trajectory — sometimes fixed, sometimes negotiable |
+| **Fortune / luck** | 气数 · 运势 | Rising/falling **luck** of person, house, dynasty |
+| **Omen** | 兆 · 谶 | Signs before a turn — birds, dreams, calamity hints |
+| **Counter-fate** | 改命 · 逆天 | Stealing or rewriting — **fate rite** lane vs **Root nudge** lane |
+
+**Root Fate (spirit)** = **read and tilt streams** on **anchors** — weaker than heaven’s mandate, stronger than “be nice at the banquet.”
+
+### Two fortune layers
+
+| Layer | Hanzi (UI lean) | What it tracks | Tied to |
+|-------|-----------------|----------------|---------|
+| **Personal** | 运 | One **person** or **foe** — next intent telegraph, proc bias, flee mood | Combat + converse |
+| **Institutional** | 气数 | **Org / zone / event slot** — sect exam season, vein, marriage auspice, patron attention | Chronicle, [`jianghu-situation-threads.md`](jianghu-situation-threads.md) roll hooks |
+
+**Same branch, two readings:** **Thread Glimpse** defaults to **personal** (combat telegraph); focused manuals open **institutional** anchors (clan, sect hall, mine).
+
+| | Personal | Institutional |
+|--|----------|-----------------|
+| **Crude inherit** | Glimpse, Nudge | Glimpse shows **omen colour** only (“this clan’s stream runs cold”) |
+| **Manuals** | Tight telegraph, duel bias | **Clan Omen Pin**, exam bias, vein dowser |
+| **Apex** | — (stay bounded) | **Sect Fortune Collapse** — staged misfortune pack |
+
+### Fortune stream model (design data — parallel Karma edges, different shape)
+
+A **fortune stream** attaches to an **anchor**, not a **pair** of people:
+
+| Field (lean) | Purpose |
+|--------------|---------|
+| `anchorId` | `uid` · `orgId` · `zoneId` · `eventSlotId` (exam, marriage, vein) |
+| `momentum` | −5…+5 — **falling ↔ rising** luck (not moral stain) |
+| `volatility` | 0–100 — how cheaply **Nudge** moves it this month |
+| `lastOmen` | Copy hook for chronicle / UI |
+| `situationBias` | Optional — next thread-engine **roll** shift when institutional |
+
+**Creating streams:** worldgen + chronicle (**sect founded**, **vein opened**); incidents (**public scandal** dips org momentum). Fate **nudge** adjusts; **does not** mint a thick institutional stream from vacuum — need an **anchor** (even faint: “this passing merchant caravan”).
+
+**Vs Karma edge:** Karma **A↔B** grudge needs incidents between two actors. Fate **sect luck** can exist **without** you hating the elder — the **org** is the anchor.
+
+### Targeting rule (UI)
+
+| Target tag | Means |
+|------------|--------|
+| **Foe (personal)** | One enemy — **next hostile intent** telegraph (combat) |
+| **Self** | Your **proc / order** bias this turn — crude Nudge only on self |
+| **Anchor (institutional)** | Org, zone, or scheduled event — **manual + rite** heavy; crude shows **omen** only |
+
+Out of combat: Glimpse on NPC = **mood of their luck** (hire? betray?); institutional manuals = project/chronicle beats.
+
+### Crude inherit ladder (Fate-primary)
+
+| Tier | Spirit idx | Name (working) | Target | Effect (design) | Power note |
+|------|------------|----------------|--------|-----------------|------------|
+| **Lesser** | 4 | **Thread Glimpse** | **Foe (personal)** | **Crude telegraph** — see **next** hostile action category or **one** telegraphed icon; may **fail partial** vs clarity wards / higher realm. | *Manual e.g. **Omen Eye** — reliable telegraph + institutional hint* |
+| **Greater** | 5 | **Nudge** | **Foe or self** | **Crude bias** — small **action-order**, proc, or flee threshold shift; **no skip-turn**, **no hard stun**. Wasteful vs focused nudge art. | *Manual e.g. **Turn of Qi** — tighter bias band* |
+| **Supreme** | 5–6 *(primary)* | **Fortune Shear** | **Anchor** | **Crude** — one anchor **−1 momentum band** for one beat; costly, may backfire omen on self. | *Apex manual **Sect Fortune Collapse** — multi-stage org cascade* |
+| **Statute** | 7 | **Omen Crown** | Seat | Passive **omen** in claim; **comprehend** fate apex; **not** free collapse cast. | [§ Fate apex](#fate-命--气数倾覆) |
+
+**Name swaps open:** Thread Glimpse → **Fortune Line**, **Omen Read**; Nudge → **Luck Tilt**, **Breath of Misfortune**; Fortune Shear → **Stream Cut**.
+
+### Why idx 4–5 (Soul Transformation band)
+
+Fate unlocks when the soul **acts outside the shell** — you touch **world** luck, not only inward sea. **Lesser = read**; **greater = tilt**. Payoffs stay **setup-heavy** until manuals + supreme; same curve as Karma (info early, chronicle horror late).
+
+### Combat identity (no Retribution twin)
+
+| Context | Fate primary feels |
+|---------|-------------------|
+| **Duel** | Glimpse → **counter** the telegraphed line; Nudge → **steal proc** or **bad day** on foe — **lower burst** than Illusion/Memory |
+| **Multi-enemy** | Glimpse **one** telegraph; institutional arts **off-combat** |
+| **Vs Karma-primary** | Karma wants **pre-built stain/edges**; Fate wants **momentum read** — complementary duo, not duplicate |
+
+**Design rule:** Fate **does not** deal damage scaling on “evil ledger” (that is Karma **Retribution**). Optional supreme **Fortune Shear** might add **indirect** pressure (foe **drops guard** when momentum crashes) — tune later.
+
+### Jianghu & chronicle
+
+| Play | Fate verb |
+|------|-----------|
+| Before sect exam | Manual **Exam Bias** — nudge **eventSlot** roll (rival fails, not “you win by menu”) |
+| Clan marriage talk | **Auspice Thread** — tilt **both families’** momentum (manual) |
+| Rival sect | **Clan Omen Pin** — next **situation-thread** beat on org skews negative |
+| Late game | **Sect Fortune Collapse** — pack of beats: donors leave, inner discord, failed breakthroughs **scheduled** |
+
+Outcomes stay **`situationThreads` / scheduler** — Fate **biases rolls**, rarely **dominates** NPC will ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)).
+
+### Manuals (Fate)
+
+| Art (working) | Needs | Effect sketch |
+|---------------|-------|----------------|
+| **Omen Eye** | Lesser crude | Reliable Glimpse + faint org colour |
+| **Turn of Qi** | Greater crude | Stronger Nudge band, one extra proc category |
+| **Clan Omen Pin** | Org anchor exists | Bias **one** upcoming org-linked roll |
+| **Exam Bias Scripture** | Registered exam event slot | Institutional momentum dip on rival house |
+| **Vein Dowser’s Reverse** | Zone anchor (mine) | Yield / accident **omen** chain (chronicle) |
+| **Auspice Thread** | Two org/family anchors | Marriage / alliance luck tilt |
+| **Sect Fortune Collapse** | Supreme + statute lean | Multi-beat org misfortune cascade |
+
+**Forbidden lean:** arts that **forge heaven’s mandate** (fake celestial edict, false tribulation omen) → **NHK** on caster — not “free exam win.”
+
+### NHK & heaven (light touch)
+
+| Act | NHK lean |
+|-----|----------|
+| Personal Glimpse / Nudge in duel | **None** — accountant doesn’t care about proc order |
+| Clan Omen Pin, exam bias | **Low** — **log** only at spam threshold (optional `fate_tamper` heat) |
+| Fake mandate omen, empire-scale collapse art | **`forbidden_art`** / **`mandate_tamper`** — same family as Karma fabricate |
+
+Heaven still **acts at gates**; Fate **does not** replace tribulation — it **schedules bad seasons** for institutions.
+
+### Counters
+
+| Counter | Beats |
+|---------|--------|
+| **Merit / luck treasures** | Damp nudge success; restore momentum |
+| **Merit formations** (sect) | Institutional anchor **volatility** down |
+| **Memory reader** | Sees **your** nudge intent (not same as Karma thread read) |
+| **True Self** | Personal stream **harder to read** — Glimpse partial |
+| **High realm counter-fate** | Immortal-tier “luck locks” on org anchors (late) |
+| **Time** | Momentum **mean-reverts** if unreinforced |
+
+### Hooks to wire (implementation later)
+
+| System | Use |
+|--------|-----|
+| `fortuneStreams[]` on anchors | Momentum + volatility |
+| Situation-thread **roll** hooks | Institutional nudge |
+| Combat **telegraph** pipeline | Thread Glimpse |
+| `G.nhkThreads` | Forged-omen abuse only (shared with Karma) |
+| Fate rite / `heavenTheftCount` | **Separate** — gate theft, not spirit Fate branch |
+
+### Layout note (vs Karma option D)
+
+Owner **kept five branches**: Karma = **couplings + retribution**; Fate = **luck streams + omens**. Do **not** merge social weave into Fate — reduces head-scratching.
+
+- [ ] Glimpse vs existing combat telegraph systems — single pipeline?
+- [ ] Institutional anchor registry — org vs zone vs eventSlot ids
+- [ ] Fortune Shear backfire omen — self momentum dip table
+
+---
+
 ## Skill sources (three layers)
 
 | Layer | Source | Examples |
@@ -798,7 +956,8 @@ Design check: **branchless spirit** still playable via generics; **one committed
 - [x] Karma branch — thread sense / reinforce / sever, vs qi Karma Dao (owner 2026-10-13)
 - [ ] Karma **edge** save shape vs `situationThreads` only — implement choice
 - [ ] Karma manual names / escalation packs — wire to situation threads
-- [ ] Fate branch — next pass
+- [x] Fate branch — fortune streams vs Karma edges (owner 2026-10-14)
+- [ ] Fate **anchor** save shape + link to situation-thread **roll bias** hooks
 - [ ] Root Dao subsection in `law-taxonomy.md` (stack position vs Great Dao)
 
 ## Implementation crumbs
