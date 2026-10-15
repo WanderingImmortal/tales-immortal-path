@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-10-15
 
 ## Focus
-- **Body vessel spine 0–3** — chamber peaks → seal → break (+ trib) · idx 4+ stub · [`body-path-refining-rewrite.md`](ideas/body-path-refining-rewrite.md)
+- **Body chamber ↔ realm mapping** — owner review [`body-vessel-chamber-spine.md`](ideas/body-vessel-chamber-spine.md) · spine UX hint shipped
 
 ## Next
 - **Nine-realm ladder** — qi spine shipped · **body 0–3 spine** in progress · upper body (runes/source) + spirit birth gate · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)

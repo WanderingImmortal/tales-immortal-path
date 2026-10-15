@@ -90,6 +90,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
 | [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `designed` | Upper ladder locked 2026-10-12 (runes, Source Furnace, Inner Source) | — |
+| [Body chamber ↔ vessel spine 0–3](body-vessel-chamber-spine.md) | `designed` | Owner gate table / soft-lock policy | [PR #154](https://github.com/WanderingImmortal/tales-immortal-path/pull/154) |
 | [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
 | [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
 | [Body Martial Intent (武意)](body-martial-intent.md) | `designed` | Press/stagger vs soul; implement track split | — |
