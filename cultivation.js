@@ -33,7 +33,9 @@ function setBreakthroughTrack(track) {
 function showBreakthroughBlockFeedback(message) {
     const text = message || 'Break Through is not available yet.';
     if (typeof addLog === 'function') addLog(`🚫 ${text}`);
+    if (typeof showActionBlockBanner === 'function') showActionBlockBanner(text, true);
     if (typeof showConsolidateFeedback === 'function') showConsolidateFeedback(text, true);
+    if (typeof fullRender === 'function') fullRender();
 }
 
 function openBreakthrough(track) {
@@ -56,6 +58,7 @@ function openSpiritBreakthrough() {
 }
 
 function openTrackBreakthrough(track) {
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
     if (G.gameOver) return;
     if (G.inCombat) {
         if (typeof addLog === 'function') addLog('⚔️ You cannot break through mid-fight.');

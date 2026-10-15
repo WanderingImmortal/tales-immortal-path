@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (idx 0–3 lean + idx 4–8 locked in [`nine-realm-ladder.md`](nine-realm-ladder.md) 2026-10-12) |
-| **Blocked on** | Anatomy Phase 1–2 can proceed; **implementation** blocked on nine-realm code + body fat slice |
+| **Status** | `designed` (idx 0–3 lean + idx 4–8 locked in [`nine-realm-ladder.md`](nine-realm-ladder.md) 2026-10-12) · **vessel spine 0–3 shipped** (chamber gate + seal + break) |
+| **Blocked on** | **Soaking/saturation slice** — next gameplay pass to replace click-grind pacing in mortal dig |
 | **Issue** | none yet |
 | **Chat / PR** | Body chamber triage 2026-08-05; **2026-10-12** body upper ladder design — cloud chat |
 | **Updated** | 2026-10-12 |
