@@ -1019,7 +1019,12 @@ function applySuccessorStats(disciple) {
     const role = disciple?.role || 'acolyte';
     const mult = SECT_LEGACY.statMult[role] || 0.6;
     const drop = SECT_LEGACY.leaderRealmDrop[role] ?? 2;
-    G.realmIdx = Math.max(0, G.realmIdx - drop);
+    const track = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
+    const prevIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : (G.realmIdx ?? 0);
+    const nextIdx = Math.max(0, prevIdx - drop);
+    if (typeof setTrackRealmIdx === 'function') setTrackRealmIdx(track, nextIdx);
+    else G.realmIdx = nextIdx;
+    if (typeof syncLegacyPathShims === 'function') syncLegacyPathShims();
 
     const path = PATHS[G.path] || PATHS.qi;
     const base = path.base;

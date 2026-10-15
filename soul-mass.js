@@ -27,7 +27,7 @@ function ensureSoulMassState() {
     migrateLegacySoulMassIfNeeded();
     syncSoulMassTier();
     if (G.soulMass.soulMaturity == null && typeof hasSoulEmbryo === 'function' && hasSoulEmbryo()) {
-        G.soulMass.soulMaturity = computeSoulMaturityFromMass(getSoulMass());
+        G.soulMass.soulMaturity = computeSoulMaturityFromMass(G.soulMass.mass || 0);
     }
 }
 
@@ -94,7 +94,7 @@ function getSoulMaturity() {
     ensureSoulMassState();
     if (!hasActiveSoulMass()) return null;
     if (!G.soulMass.soulMaturity) {
-        G.soulMass.soulMaturity = computeSoulMaturityFromMass(getSoulMass());
+        G.soulMass.soulMaturity = computeSoulMaturityFromMass(G.soulMass.mass || 0);
     }
     return G.soulMass.soulMaturity;
 }

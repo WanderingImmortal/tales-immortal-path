@@ -164,11 +164,18 @@ function isRealmConsolidated(realmIdx) {
     return !!(G.realmConsolidation[realmIdx]?.done);
 }
 
+function getFocusRealmIdxForConsolidation() {
+    if (typeof getFocusTrack === 'function' && typeof getTrackRealmIdx === 'function') {
+        return getTrackRealmIdx(getFocusTrack());
+    }
+    return G.realmIdx ?? 0;
+}
+
 function canBreakthroughToNextRealm() {
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
         return typeof hasQcBandBreakthroughReady === 'function' && hasQcBandBreakthroughReady();
     }
-    return isRealmConsolidated(G.realmIdx);
+    return isRealmConsolidated(getFocusRealmIdxForConsolidation());
 }
 
 function canSealAtCurrentProgress() {
