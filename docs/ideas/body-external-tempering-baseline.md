@@ -130,7 +130,7 @@ Salve doses: 4    Fatigue: 22
 Hint: Both skin and flesh must harden before the shell can seal.
 ```
 
-Bones/organs/blood/meridians/nerves tabs show **🔒 Inner work — brace through first.**
+Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.** (Meridians tab is **qi path only** — remove from body chamber when migrated; [`body-path-no-meridians.md`](body-path-no-meridians.md).)
 
 ## What we are not building in v1
 

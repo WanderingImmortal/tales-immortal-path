@@ -237,7 +237,7 @@ Four realms, **four verbs**, one chamber screen until Nascent Physique ends the 
 | 0 | **External Tempering** | Salve, apply/grind, drills | Skin + flesh |
 | 1 | **Inner Tempering** | Interior soak / steep | Bones + organs |
 | 2 | **Essence Pearl** | Condense | Blood + nerves (capstone; extra nerve polish optional) |
-| 3 | **Nascent Physique** | Hatch + channel | Meridians |
+| 3 | **Nascent Physique** | Hatch + integrate physique | Recipe lock — **no meridians** ([`body-path-no-meridians.md`](body-path-no-meridians.md)) |
 
 **External baseline (playable spec):** [`body-external-tempering-baseline.md`](body-external-tempering-baseline.md). **Inner soak** design is the next doc slice (reuse saturation bands from § Inner Tempering — saturation below for **idx 1**, not idx 0).
 

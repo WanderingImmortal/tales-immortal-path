@@ -94,6 +94,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [External Tempering — ideal depth](body-external-tempering-depth.md) | `designed` | v1 baseline; regional strain | — |
 | [World cultivation parity (NPCs, flat gains, lifespan)](world-cultivation-parity.md) | `designed` | Watershed pacing pass; NPC sim | — |
 | [Body stat layers — additive (skin/flesh/bone/organ)](body-stat-layers-additive.md) | `designed` | External v1; combat derivation | — |
+| [Body path — meridians qi-only (lock)](body-path-no-meridians.md) | `designed` | Body chamber / spine migration | — |
 | [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
 | [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
 | [Body Martial Intent (武意)](body-martial-intent.md) | `designed` | Press/stagger vs soul; implement track split | — |
