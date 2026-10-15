@@ -419,15 +419,101 @@ function getBodyLayerProgress(layerId) {
     return G.bodyChamber.layerProgress[layerId] || 0;
 }
 
+function getVesselRealmSpineDef(vesselIdx) {
+    const idx = vesselIdx == null
+        ? (typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0))
+        : vesselIdx;
+    return typeof BODY_VESSEL_REALM_SPINE !== 'undefined' ? BODY_VESSEL_REALM_SPINE[idx] : null;
+}
+
+/** Realm progress for vessel track 0–3 from body chamber layers; idx 4+ stub until upper loops ship. */
+function getBodyVesselRealmProgressPct(vesselIdx) {
+    const idx = vesselIdx == null
+        ? (typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0))
+        : vesselIdx;
+    if (idx > 3) {
+        let pct = 80;
+        if (typeof isRealmConsolidated === 'function' && isRealmConsolidated(idx)) pct = 100;
+        if (G.realmPeakGrindBoost) {
+            pct = Math.min(100, pct + G.realmPeakGrindBoost);
+        }
+        return Math.min(typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100, pct);
+    }
+    const spine = getVesselRealmSpineDef(idx);
+    if (!spine?.layers?.length) return 0;
+    let sum = 0;
+    spine.layers.forEach(layerId => {
+        sum += getBodyLayerProgress(layerId);
+    });
+    let pct = Math.round(sum / spine.layers.length);
+    if (spine.requireNervesRefined && !isBodyNervesRefined()) {
+        pct = Math.min(pct, (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100) - 1);
+    }
+    if (G.realmPeakGrindBoost) {
+        pct = Math.min(
+            typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100,
+            pct + G.realmPeakGrindBoost
+        );
+    }
+    return pct;
+}
+
 function getBodyRealmProgressPct() {
+    if (typeof getBodyVesselRealmProgressPct === 'function') {
+        return getBodyVesselRealmProgressPct();
+    }
     if (typeof BODY_CHAMBER_LAYER_ORDER === 'undefined') return 0;
     return getChamberLayerPathProgressPct(BODY_CHAMBER_LAYER_ORDER, getBodyLayerProgress);
 }
 
+function isBodyVesselSpinePeakComplete(vesselIdx) {
+    const peakPct = typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100;
+    return getBodyVesselRealmProgressPct(vesselIdx) >= peakPct;
+}
+
+function getVesselTrackBreakthroughBlockReason() {
+    const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
+    const max = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx('body') : 8;
+    if (idx >= max) return 'Vessel cultivation is already at the mortal peak.';
+    if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
+        return typeof getConsolidationBlockReason === 'function'
+            ? getConsolidationBlockReason()
+            : 'Seal the current vessel realm before breaking through.';
+    }
+    if (idx <= 3 && !isBodyVesselSpinePeakComplete(idx)) {
+        const spine = getVesselRealmSpineDef(idx);
+        const pct = getBodyVesselRealmProgressPct(idx);
+        const layers = (spine?.layers || []).map(id => {
+            const p = Math.round(getBodyLayerProgress(id));
+            return `${BODY_CHAMBER_LAYERS[id]?.label || id} ${p}%`;
+        }).join(', ');
+        let extra = spine?.requireNervesRefined && !isBodyNervesRefined() ? ' Refine the Nerve Sea (Nerves tab, once).' : '';
+        return `Body chamber not at peak (${pct}% — need ${typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100}%): ${layers}.${extra}`;
+    }
+    if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(idx + 1)) {
+        return typeof getTalentRealmCapMessage === 'function' ? getTalentRealmCapMessage() : 'Root ceiling blocks this realm.';
+    }
+    const spine = getVesselRealmSpineDef(idx);
+    return spine?.breakthroughHint || 'Continue body refinement in the chamber.';
+}
+
+function canVesselTrackBreakthrough() {
+    const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
+    const max = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx('body') : 8;
+    if (idx >= max) return false;
+    if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) return false;
+    if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(idx + 1)) return false;
+    if (idx <= 3) return isBodyVesselSpinePeakComplete(idx);
+    return getBodyVesselRealmProgressPct(idx) >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100);
+}
+
 function applyBodyPeakGrindBoost(boost) {
     ensureBodyChamberState();
-    const realmLayerIdx = Math.min(G.realmIdx, BODY_CHAMBER_LAYER_ORDER.length - 1);
-    const layerId = BODY_CHAMBER_LAYER_ORDER[realmLayerIdx];
+    const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
+    const spine = getVesselRealmSpineDef(idx);
+    const layerId = spine?.layers?.length
+        ? spine.layers[spine.layers.length - 1]
+        : BODY_CHAMBER_LAYER_ORDER[Math.min(idx, BODY_CHAMBER_LAYER_ORDER.length - 1)];
     const current = getBodyLayerProgress(layerId);
     G.bodyChamber.layerProgress[layerId] = Math.min(100, current + (boost || 20));
 }
@@ -549,6 +635,9 @@ function bodyChamberActionBlocked() {
 function openBodyChamber() {
     if (bodyChamberActionBlocked()) return;
     ensureBodyChamberState();
+    if (typeof setFocusTrack === 'function' && typeof getFocusTrack === 'function' && getFocusTrack() !== 'vessel') {
+        setFocusTrack('vessel');
+    }
     G.inBodyChamber = true;
     document.getElementById('bodyChamberOverlay')?.classList.add('active');
     if (!isBodyLayerUnlocked(G.bodyChamber.activeTab)) {
@@ -1591,7 +1680,11 @@ function renderBodyChamberUI() {
         if (b.qiRegenPct) parts.push(`🌬️ ${b.qiRegenPct}% Qi regen`);
         if (b.lifeStealPct) parts.push(`🩸 ${b.lifeStealPct}% steal`);
         if (b.bloodDmgPct) parts.push(`🐉 ${b.bloodDmgPct}% blood`);
-        summary.textContent = parts.length ? parts.join(' · ') : 'No body refinements yet.';
+        const vesselRealm = typeof getVesselRealm === 'function' ? getVesselRealm() : '';
+        const vesselPct = typeof getBodyVesselRealmProgressPct === 'function' ? getBodyVesselRealmProgressPct() : 0;
+        const vesselBit = vesselRealm ? `💪 ${vesselRealm} · ${vesselPct}% vessel peak` : '';
+        const merged = [vesselBit, ...parts].filter(Boolean);
+        summary.textContent = merged.length ? merged.join(' · ') : 'No body refinements yet.';
     }
 }
 

@@ -6628,6 +6628,31 @@ const VESSEL_RULES = {
 
 const BODY_CHAMBER_LAYER_ORDER = ['skin', 'flesh', 'bones', 'organs', 'blood', 'meridians', 'nerves'];
 
+/** Vessel track idx 0–3: chamber layers that must hit peak before breakthrough (mortal dig spine). */
+const BODY_VESSEL_REALM_SPINE = {
+    0: {
+        layers: ['skin'],
+        peakLabel: 'Skin tempered to saturation',
+        breakthroughHint: 'Temper Skin to 100%, seal Inner Tempering, then Break Through to Vessel Establishment.'
+    },
+    1: {
+        layers: ['flesh', 'bones'],
+        peakLabel: 'Flesh and bone braced at peak',
+        breakthroughHint: 'Peak Flesh and Bones, seal Vessel Establishment, then break through toward Essence Pearl.'
+    },
+    2: {
+        layers: ['organs', 'blood'],
+        peakLabel: 'Organs and blood ready to condense',
+        breakthroughHint: 'Peak Organs and Blood, seal Essence Pearl, then break through toward Nascent Physique.'
+    },
+    3: {
+        layers: ['meridians'],
+        requireNervesRefined: true,
+        peakLabel: 'Meridians peaked and Nerve Sea refined',
+        breakthroughHint: 'Peak Meridians, refine the Nerve Sea once, seal Nascent Physique, then break through (upper vessel loops ship later).'
+    }
+};
+
 const BODY_CHAMBER_LAYERS = {
     skin: { id: 'skin', label: 'Skin', emoji: '🛡️', unlockPrevPct: 0, color: '#c9a87c' },
     flesh: { id: 'flesh', label: 'Flesh', emoji: '💪', unlockPrevPct: 50, color: '#b87878' },
