@@ -172,6 +172,10 @@ Two **Late** externals: one is a **clean, balanced, peak-bound** caravan guard; 
 | Both layers 80/100% | Coverage rules + milestones |
 | — | Waterfall / lightning **ordeals** |
 
+## Parked (owner 2026-10-15)
+
+**Weighted vest / load training as stat “builds”.** Wear heavy load during external refine (or travel?) → **speed / evasion penalty now**; adaptation on removal or after a training block → **persistent speed or burst tag** (not raw +10 to a stat — prefer physique chips or combat tags). Same family as stone vest, chained weights, quarry yard. Opens **build diversity** (iron hands + slow tank vs light corded flesh) but needs **fine tuning** so load isn’t free power or mandatory meta. **Do not implement** until external v1 + tag/combat read exist; revisit with combat spine.
+
 ## Open questions
 
 - Head/neck inclusion — many manuals ignore; skip v1 depth?  
