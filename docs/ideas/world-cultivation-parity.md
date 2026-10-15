@@ -30,7 +30,7 @@ Combine **flat deltas** with **build identity** (grain, scars, region coverage) 
 
 ### Excavation, diminishing returns, breakthrough (owner lean 2026-10-15)
 
-Body path: **many trainable axes** in one basin (speed, durability, strike, …); **60 years** can make you **top-tier on one axis** at idx 0 or **competent all-round**. Diminishing returns = **asymptotic zone** (“legendary mortal”), not zero — UI shows **years-to-next-tick**. **Breakthrough** must **raise ceilings** and **retain most specialist investment** (seal/brace sets retention %); idx 1 **multiplies** grain, does not reset. Avoid waste feeling: crossing is **better for new layers + life**, not **strictly better DPS** that obsoletes palms. Detail: [`body-external-tempering-depth.md`](body-external-tempering-depth.md) § Excavation.
+Body path: **many trainable axes**; **additive layers** per region (skin, flesh, bone, …) — idx 1 adds **new +1 terms** (e.g. bone_palm), not multiply old skin/flesh (qi may differ). **Tier-II materials** shift the mountain tail for exterior layers during Inner. Organs: narrow **coefficients** on recovery/tolerance. Detail: [`body-stat-layers-additive.md`](body-stat-layers-additive.md), [`body-external-tempering-depth.md`](body-external-tempering-depth.md) § Excavation.
 
 ### Everyone cultivates (sim parity)
 

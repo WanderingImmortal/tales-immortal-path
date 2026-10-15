@@ -203,22 +203,23 @@ Flat stat bumps per axis are OK when **years** are the cost ([`world-cultivation
 
 **Diminishing returns:** not “pointless” — **asymptotic**. UI should show **years-to-next-tick** so a 60-year palm monk *chose* zone 2 on one axis, not got tricked.
 
-**When breakthrough is clearly better:** crossing adds **(a)** lifespan runway, **(b)** **new excavation layers** (inner soak, bone, pearl), **(c)** **higher per-axis ceilings**, **(d)** **multipliers** on what you already built — not a wipe.
+**When breakthrough is clearly better:** crossing adds **(a)** lifespan runway, **(b)** **new layers to train** (bone, organ), **(c)** **tier-II material access** for exterior (optional re-grind), **(d)** new **addends** in combat math — not a wipe. Body lean is **+1 +1** per layer, not multiply old stats (see [`body-stat-layers-additive.md`](body-stat-layers-additive.md)).
 
 ### Carry-forward (so the next realm isn’t “your life was a lie”)
 
 | Fear | Answer |
 |------|--------|
-| “I spent 60y on palms; Inner trivializes it” | **Palms stay a tag + retained stat %**; Inner adds **structure under the weapon**, not replace it |
-| “Generalist wasted breadth” | Breadth → **brace quality**, **balanced seal**, fewer scar failures |
-| “Should’ve broken at Late” | **Late break** = faster life clock, lower retention % on extreme specialist peaks; **Peak break** = retain more |
+| “I spent 60y on palms; Inner trivializes it” | **skin_palm + flesh_palm stay**; Inner adds **bone_palm** (and organ regulation) as **new terms** |
+| “Generalist wasted breadth” | Breadth → **brace quality**, tier-II eligibility everywhere, fewer scar failures |
+| “Should’ve broken at Late” | **Late break** = less time for Inner addends; **Peak break** = more runway for bone + tier-II |
 
-**Lean rules:**
+**Lean rules:** full stack in [`body-stat-layers-additive.md`](body-stat-layers-additive.md). Summary:
 
-1. **Retention:** on 0→1 break, keep **70–100%** of external axis progress (seal tier + brace method set the band). Never 0% if design promises excavation.
-2. **Amplification:** idx 1 **multiplies** specialist grain (iron palms + braced bones = monster), doesn’t reset palms to generic FE body.
-3. **New ceiling:** post-break, palm axis can enter **productive zone again** on a **higher cap** — the 60y wasn’t waste; it was **foundation for the next hoard layer**.
-4. **Relative power:** compare to **NPCs at same idx**; a Late external specialist can **dominate** mortals and trade with FE qi; idx 1 opens **Foundation-parity** threats, not “you’re now a qi cultivator’s punching bag.”
+1. **Retention:** tier-I adaptation % and grains **frozen forward** on break (seal/brace tune edge cases only).
+2. **Addition:** idx 1 palm strike uses **skin + flesh + bone + …** — deeper palms = train **bones in the palm**, not buff old numbers by ×1.2.
+3. **Tail shift:** further **skin** work in Inner uses **higher-tier** materials / grade track — not endless tier-I hide paste.
+4. **Organs:** mostly **coefficients** on recovery/tolerance/stress budget, not limb strike addends.
+5. **Relative power:** compare to **NPCs at same idx**; Late external specialist still matters until peers Inner.
 
 **Crossing vs grinding (decision prompt):**
 

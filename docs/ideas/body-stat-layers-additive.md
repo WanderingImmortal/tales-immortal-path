@@ -1,0 +1,104 @@
+# Body path — additive stat layers (External → Inner)
+
+| Field | Value |
+|-------|-------|
+| **Status** | `designed` (principle — tune formulas at implement) |
+| **Blocked on** | External v1; combat stat derivation |
+| **Issue** | none yet |
+| **Chat / PR** | Carry-forward without multiplication — 2026-10-15 |
+| **Updated** | 2026-10-15 |
+
+## Intent
+
+Body cultivation **excavates** different **physical layers** over time. Gains are mostly **additive** (+skin + flesh + bone + … per region/axis), not **multipliers** stacked on one number (qi path *may* use mult-style foundation — body lean is different). Effort **carries over**; idx 1 **adds new terms** to the same palm (or torso), it does not rewrite the old term.
+
+Related: [`body-external-tempering-depth.md`](body-external-tempering-depth.md) § Excavation, [`nine-realm-ladder.md`](nine-realm-ladder.md) idx 0–1.
+
+## Layer stack (lean)
+
+Each **region** (e.g. palm, forearm, torso) accumulates contributions from **layers** unlocked by realm idx:
+
+| Layer | Unlocked @ | Trained by (baseline) | Contributes (examples) |
+|-------|------------|----------------------|-------------------------|
+| **Skin** | External (0) | Paste, drills, environment | Cut resist, surface hardness |
+| **Flesh** | External (0) | Paste, load, impact | Strike mass, shock soak |
+| **Bone** | Inner (1) | Soak, setting, load | Rigidity, weight behind blow |
+| **Organ** | Inner (1) | Interior soak, breath | **Regulation** — see below |
+
+**Palm strike (example formula lean):**
+
+```text
+palm_strike = f( skin_palm, flesh_palm, bone_palm, organ_terms… )
+```
+
+Each term is its **own** grind with its **own** mountain tail. Inner palm work = **bone_palm** climbing from 0 — **+1 +1** next to existing skin/flesh, not `1.2 × (skin+flesh)`.
+
+**Qi contrast (non-gospel):** dantian density / foundation might **scale** outputs; body **adds limbs and layers** to the hoard.
+
+## Organs — not limbs (lean)
+
+Organs are **weirder**: not a map pin like “palm bone.” Treat as **whole-body regulators** (small set: heart/lung, liver/gut, kidney/core — names TBD, not anatomy sim).
+
+| Organ role | Mechanic lean | Not |
+|------------|---------------|-----|
+| **Heart / lung** | Recovery rate, fatigue clear, “second wind” | +1 sword damage |
+| **Liver / gut** | Poison/toxin ceiling, salve toxicity tolerance | Regional strike |
+| **Kidney / core** (metaphor) | Stress budget, soak duration | Duplicate flesh bar |
+
+**Coefficients (narrow use):** organs may **multiply recovery or tolerance** (1.0 → 1.15), not strike damage — keeps “palms are additive, guts are chemistry.”
+
+Optional: organ **gates** bone efficiency (“without lung soak, bone_palm gains at 50%”) — prerequisite, not hidden mult on damage.
+
+## Mountain tail **shifts** — tier access, not “more same skin”
+
+Problem: training **more skin during Inner** feels wrong if it’s the same hide-grit loop.
+
+**Lean: two axes per exterior layer**
+
+| Axis | Meaning |
+|------|---------|
+| **Adaptation %** | How trained this layer/region is (0–100 within **current material tier**) |
+| **Material tier** | What grain the body can **hold** without rejection |
+
+@ **External Late**, you hit **tier-I ceiling** on adaptation (mountain tail on hide/salve).
+
+@ **Inner break**, the frame can **accept tier-II inputs** (jade-blood paste, marrow wash, etc.). You *may* continue **skin** training, but sessions consume **higher-tier** materials and advance **grade** (Iron Palm → Jade Palm **label**) or a separate **refinement grade** track — not infinite +1 from tier-I paste.
+
+So the tail **shifts**: new curve, new asymptote, **gated by wealth + inner stability**, optional side investment vs rushing bone_palm on the same region.
+
+**Player read:** “My palms were maxed for **mortal hide**; now I’m **re-facing** them with **inner-grade salve**” — not “I’m still grinding Bronze Skin bar.”
+
+## Region + layer matrix (idx 1 palm example)
+
+| | Skin | Flesh | Bone | Organ |
+|--|------|-------|------|-------|
+| **External** | ✓ train | ✓ train | locked | locked |
+| **Inner** | tier-II optional | tier-II optional | ✓ **palm bone** train | whole-body soak |
+
+Specialist: 60y external → high skin_palm + flesh_palm. Inner: 20y bone_palm + ignore tier-II skin → monster open-hand. Generalist: tier-II pass on all regions, lower bone peaks.
+
+## Carry-forward (no waste)
+
+| On break 0→1 | |
+|--------------|--|
+| **Keep** | All tier-I adaptation % and grains (skin_palm, flesh_palm, tags, scars) |
+| **Unlock** | bone_*, organ regulators, tier-II **eligibility** |
+| **Do not** | Reset skin to 0; multiply old into new |
+
+**Dedicated years** remain in the **first addends**; new realm adds **new addends** (and optional **new tier** on exterior).
+
+## When to break vs keep grinding (unchanged intent)
+
+- **Break:** new addend families (bone, organ), lifespan, tier-II **access**, higher **idx** parity.
+- **Stay @ External tail:** legendary mortal on tier-I only — valid PvP niche until rivals Inner.
+
+## Open questions
+
+- Combat: expose full decomposition in UI or one “Palm: crushing” chip?
+- Tier names: material (iron/jade) vs realm (External/Inner grade)?
+- Pearl idx 2: does blood add another **addend** or **upgrade tier** on all prior?
+
+## Prerequisites
+
+- [ ] Derive combat stats from layer map on `G.bodyChamber` (or physique object)
+- [ ] Inner Tempering soak doc (idx 1 verbs)
