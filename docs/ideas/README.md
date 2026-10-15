@@ -89,7 +89,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Stats → meters rework (guards, natures, fifth system)](stats-to-meters-rework.md) | `designed` (change now) | none | — |
 | [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
-| [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `designed` | Upper ladder locked 2026-10-12 (runes, Source Furnace, Inner Source) | — |
+| [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `designed` | External/Inner split; upper ladder locked 2026-10-12 | — |
+| [External Tempering — baseline method (v1)](body-external-tempering-baseline.md) | `designed` | Material drops; chamber action refactor | — |
 | [Vessel Rules design](vessel-rules-design.md) | `idea` | More rule defs; Body Dao lock | — |
 | [Body Dao cosmology (stub)](body-dao-design.md) | `idea` | Hanzi; Saint vs Manifestation | — |
 | [Body Martial Intent (武意)](body-martial-intent.md) | `designed` | Press/stagger vs soul; implement track split | — |

@@ -6,7 +6,7 @@
 | **Blocked on** | Anatomy Phase 1–2 can proceed; **implementation** blocked on nine-realm code + body fat slice |
 | **Issue** | none yet |
 | **Chat / PR** | Body chamber triage 2026-08-05; **2026-10-12** body upper ladder design — cloud chat |
-| **Updated** | 2026-10-12 |
+| **Updated** | 2026-10-15 |
 
 ## Intent
 
@@ -228,6 +228,19 @@ Once that accident is written down, a normal body fed the same way should be abl
 
 Fodder are expendable because they are sealed, untaught, and sent to die. Not because a short root caps the body.
 
+### Mortal dig topology (owner lock 2026-10-15)
+
+Four realms, **four verbs**, one chamber screen until Nascent Physique ends the dig. Ladder table: [`nine-realm-ladder.md`](nine-realm-ladder.md).
+
+| Idx | Realm | Mechanic | Layers |
+|-----|--------|----------|--------|
+| 0 | **External Tempering** | Salve, apply/grind, drills | Skin + flesh |
+| 1 | **Inner Tempering** | Interior soak / steep | Bones + organs |
+| 2 | **Essence Pearl** | Condense | Blood + nerves (capstone; extra nerve polish optional) |
+| 3 | **Nascent Physique** | Hatch + channel | Meridians |
+
+**External baseline (playable spec):** [`body-external-tempering-baseline.md`](body-external-tempering-baseline.md). **Inner soak** design is the next doc slice (reuse saturation bands from § Inner Tempering — saturation below for **idx 1**, not idx 0).
+
 ## Prerequisites
 
 - [x] Owner lean: milestones for power parity, not qi-style realm breakthroughs
@@ -239,7 +252,7 @@ Fodder are expendable because they are sealed, untaught, and sent to die. Not be
 
 - Does every milestone need a tribulation, or only watershed steps?
 - ACS-style “temper organ X with material Y” recipes?
-- Realm names: **rename** (owner 2026-09-25). Live material ladder does not match qi grandeur. Proposal, not locked: [`nine-realm-ladder.md`](nine-realm-ladder.md) — Inner Tempering through Saintly Flesh.
+- Idx 0–3 names locked 2026-10-15 in [`nine-realm-ladder.md`](nine-realm-ladder.md) (External / Inner / Pearl / Nascent Physique).
 - Cult ward and Pit Two (PR #115) still use Bronze / Diamond Body and “ate wrong” as the climb. Retell is parked above. Apply it on that branch when someone next edits Tuo Yan. Not this PR.
 
 ## Implementation crumbs
