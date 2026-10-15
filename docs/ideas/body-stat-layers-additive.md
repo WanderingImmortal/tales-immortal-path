@@ -6,7 +6,7 @@
 | **Blocked on** | External v1; combat stat derivation |
 | **Issue** | none yet |
 | **Chat / PR** | Carry-forward without multiplication — 2026-10-15 |
-| **Updated** | 2026-10-15 |
+| **Updated** | 2026-10-15 (weave evolution chain) |
 
 ## Intent
 
@@ -112,11 +112,44 @@ Specialist: 60y external → high skin_palm + flesh_palm. Inner: 20y bone_palm +
 - **Break:** new addend families (bone, organ), lifespan, tier-II **access**, higher **idx** parity.
 - **Stay @ External tail:** legendary mortal on tier-I only — valid PvP niche until rivals Inner.
 
+## Weave evolution — same pattern, higher watersheds (owner lean 2026-10-15)
+
+Shorthand (“next realm lets you refine skin again”) is **tacky in UI**; **weave evolution** is the real rule: each major break changes **what the body can hold and circulate**, which **reopens productive grind** on older layers at a **new material tier** — not a reset, not a hidden × stat.
+
+**Template (every body watershed):**
+
+1. **Diegetic change** — what new structure or economy exists after break?
+2. **Compatibility bump** — which material tier / layer family unlocks?
+3. **Optional re-face** — older layers may climb a **new tail** (wealth + time sink).
+4. **New addends** — new layer or system (bone, pearl, meridian, rune budget, …).
+
+| Break → | Weave name (flavor) | What’s **different** (one line) | Compatibility / re-face |
+|---------|---------------------|----------------------------------|-------------------------|
+| **0 → 1** External → Inner | **Vessel weave** | Interior anchor + organ metabolism | Tier-II on skin/flesh; **bone/organ** addends |
+| **1 → 2** Inner → Essence Pearl | **Kernel weave** | Blood and nerve recipe **condense** toward one pearl | Tier-III inputs on blood/pearl track; optional re-face bone/flesh at pearl-grade |
+| **2 → 3** Inner → **Nascent Physique** *(owner lean: maybe here)* | **Born physique** | Recipe **locks** into a named body; meridians **channel** the kernel | **Either:** last mortal-tier re-face pass **or** stop re-facing here — see below |
+| **3 → 4** Nascent → **Physique Transformation** *(owner lean: or here)* | **Forge-grade stock** | **Category change** — body becomes medium for runes / line | **New material class** (forge reagents); re-open **all prior layers** at transformation-tier (optional side grind) |
+| **4+** | Runeforging, Source, … | Rune seats, inner hearth, source install | Line-specific; not “skin bar again” unless line demands it |
+
+**Owner split (pick one primary “full stack re-open” moment):**
+
+| Option | Pros | Cons |
+|--------|------|------|
+| **Nascent Physique (3)** | Still on chamber figure; “hatch” feels like everything clicks into one body | Risk: overlaps pearl’s job |
+| **Physique Transformation (4)** | Clear **metamorphosis**; mortal dig clearly ended | Later; long wait for “refine skin again” |
+
+**Lean:** smaller **compatibility bumps** at **1 and 2** (targeted re-face + new addends); **big “prior layers may re-face at top material tier”** at **Physique Transformation (4)** — Nascent (3) focuses on **hatch + meridians**, not another full skin slog unless player chases perfect seal.
+
+**Player-facing pattern (repeat forever):** *“This material demands a {pearl / forged / sourced} body — your current weave sheds it.”* Same muscle as tier-II @ Inner.
+
+**Not every break must re-open everything** — avoids infinite mandatory back-grind. Optional **legendary** re-face at PT for min-maxers; main path = new layer only.
+
 ## Open questions
 
 - Combat: expose full decomposition in UI or one “Palm: crushing” chip?
 - Tier names: material (iron/jade) vs realm (External/Inner grade)?
 - Pearl idx 2: does blood add another **addend** or **upgrade tier** on all prior?
+- **Lock:** full-stack re-open @ Nascent (3) vs Physique Transformation (4) — table above leans **4**.
 
 ## Prerequisites
 
