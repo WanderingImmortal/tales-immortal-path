@@ -507,6 +507,64 @@ function canVesselTrackBreakthrough() {
     return getBodyVesselRealmProgressPct(idx) >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100);
 }
 
+/** UI + logs: clarify gate layers vs tab progress ahead of vessel realm. */
+function getBodyVesselSpineStatus() {
+    const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
+    const realmName = typeof getVesselRealm === 'function' ? getVesselRealm() : `Realm ${idx}`;
+    const spine = getVesselRealmSpineDef(idx);
+    const peakPct = typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100;
+    const gatePct = getBodyVesselRealmProgressPct(idx);
+    const gateLayers = spine?.layers || [];
+    const layerParts = gateLayers.map(id => {
+        const label = typeof BODY_CHAMBER_LAYERS !== 'undefined' ? BODY_CHAMBER_LAYERS[id]?.label : id;
+        return `${label || id} ${Math.round(getBodyLayerProgress(id))}%`;
+    });
+    const consolidated = typeof isRealmConsolidated === 'function' && isRealmConsolidated(idx);
+    const nervesOk = !spine?.requireNervesRefined || isBodyNervesRefined();
+    const atPeak = gatePct >= peakPct && nervesOk;
+    let nextStep = 'Raise the gate layers below to 100% for this vessel step.';
+    if (idx > 3) {
+        nextStep = 'Upper vessel work (runes, inner source) ships later — consolidate and break with stub meter.';
+    } else if (atPeak && !consolidated) {
+        nextStep = 'Gate ready — close chamber, Consolidate (Temper the Vessel), then Break Through. The realm name updates on breakthrough, not when tabs hit 100%.';
+    } else if (consolidated && typeof canVesselTrackBreakthrough === 'function' && canVesselTrackBreakthrough()) {
+        nextStep = 'Realm sealed — use Break Through on the vessel track.';
+    } else if (consolidated && !atPeak) {
+        nextStep = 'Sealed below peak — finish gate layers (and Nerve Sea if required) before breaking through.';
+    } else if (spine?.requireNervesRefined && !isBodyNervesRefined()) {
+        nextStep = 'Peak Meridians, then refine the Nerve Sea once (Nerves tab).';
+    }
+    return { idx, realmName, gatePct, peakPct, gateLayers, layerParts, atPeak, consolidated, nextStep, spine };
+}
+
+function formatBodyVesselSpineHintText() {
+    const s = getBodyVesselSpineStatus();
+    const gateLine = s.gateLayers.length
+        ? `Gate for ${s.realmName} (${s.gatePct}%): ${s.layerParts.join(' · ')}.`
+        : `${s.realmName} — ${s.gatePct}%`;
+    const ahead = 'Other tabs can run ahead; Marrow / Bloodline / Orbit are optional.';
+    return `${gateLine} ${ahead} ${s.nextStep}`;
+}
+
+function renderBodyChamberSpineHint() {
+    const el = document.getElementById('bodyChamberSpineHint');
+    if (!el || typeof formatBodyVesselSpineHintText !== 'function') return;
+    el.textContent = formatBodyVesselSpineHintText();
+}
+
+function maybeNotifyBodySpinePeakReady() {
+    const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : 0;
+    if (idx > 3) return;
+    if (!isBodyVesselSpinePeakComplete(idx)) return;
+    if (!G._bodySpinePeakNotified) G._bodySpinePeakNotified = {};
+    if (G._bodySpinePeakNotified[idx]) return;
+    G._bodySpinePeakNotified[idx] = true;
+    const name = typeof getVesselRealm === 'function' ? getVesselRealm() : 'Vessel';
+    if (typeof addLog === 'function') {
+        addLog(`💪 ${name} breakthrough gate at peak — Consolidate (Temper the Vessel), then Break Through to advance the vessel realm.`);
+    }
+}
+
 function applyBodyPeakGrindBoost(boost) {
     ensureBodyChamberState();
     const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
@@ -1661,6 +1719,7 @@ function renderBodyChamberUI() {
     renderBodyChamberTabs();
     renderBodyChamberActions();
     renderBodySilhouette();
+    if (typeof renderBodyChamberSpineHint === 'function') renderBodyChamberSpineHint();
     const summary = document.getElementById('bodyChamberBonusSummary');
     if (summary) {
         const b = getBodyChamberBonuses();
@@ -1680,11 +1739,8 @@ function renderBodyChamberUI() {
         if (b.qiRegenPct) parts.push(`🌬️ ${b.qiRegenPct}% Qi regen`);
         if (b.lifeStealPct) parts.push(`🩸 ${b.lifeStealPct}% steal`);
         if (b.bloodDmgPct) parts.push(`🐉 ${b.bloodDmgPct}% blood`);
-        const vesselRealm = typeof getVesselRealm === 'function' ? getVesselRealm() : '';
-        const vesselPct = typeof getBodyVesselRealmProgressPct === 'function' ? getBodyVesselRealmProgressPct() : 0;
-        const vesselBit = vesselRealm ? `💪 ${vesselRealm} · ${vesselPct}% vessel peak` : '';
-        const merged = [vesselBit, ...parts].filter(Boolean);
-        summary.textContent = merged.length ? merged.join(' · ') : 'No body refinements yet.';
+        const merged = parts.filter(Boolean);
+        summary.textContent = merged.length ? merged.join(' · ') : 'Bonuses appear as you refine.';
     }
 }
 
@@ -1762,6 +1818,7 @@ function runBodyChamberAction(layerId, actionId) {
     if (action.sub === 'marrow') G.bodyChamber.subUnlocked.marrow = true;
     if (action.sub === 'bloodline') G.bodyChamber.subUnlocked.bloodline = true;
     if (action.sub === 'microcosmic') G.bodyChamber.subUnlocked.microcosmic = true;
+    if (typeof maybeNotifyBodySpinePeakReady === 'function') maybeNotifyBodySpinePeakReady();
     if (action.once && layerId === 'nerves') {
         msg += ' ⚡ The Nerve Sea is refined — your body cultivation reaches its apex!';
         const fameGain = (typeof BODY_CHAMBER_BALANCE !== 'undefined' ? BODY_CHAMBER_BALANCE.nervesFame : null) || 5;
