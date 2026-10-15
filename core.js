@@ -1040,6 +1040,7 @@ function initLifespan() {
 // ===== SAVE / LOAD =====
 function saveState() {
     G.currentZone = currentZone;
+    if (typeof prepareGameStateForSave === 'function') prepareGameStateForSave();
     try { localStorage.setItem('xianxia_save', JSON.stringify(G)); } catch(e) {}
 }
 
@@ -1101,6 +1102,7 @@ function loadState() {
             if (typeof migrateSaveToCultivationTracks === 'function') migrateSaveToCultivationTracks();
             else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
             if (typeof migrateNineRealmLadder === 'function') migrateNineRealmLadder();
+            if (typeof repairCultivationRealmSync === 'function') repairCultivationRealmSync();
             if (typeof clearStuckChamberOverlayFlags === 'function') clearStuckChamberOverlayFlags();
             // Soul Mass after track/embryo migration so latent↔active split sees correct soul birth state.
             if (typeof ensureSoulMassState === 'function') ensureSoulMassState();

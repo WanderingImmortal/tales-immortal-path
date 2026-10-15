@@ -127,7 +127,8 @@ function migrateNpcRealmIdx(npc) {
 const MORTAL_LADDER_SAVE_VERSION = 9;
 
 function migrateNineRealmLadder() {
-    if (G.mortalLadderVersion >= MORTAL_LADDER_SAVE_VERSION || G._nineRealmLadderMigrated) {
+    const ladderVersion = Number(G.mortalLadderVersion) || 0;
+    if (ladderVersion >= MORTAL_LADDER_SAVE_VERSION || G._nineRealmLadderMigrated) {
         G.mortalLadderVersion = MORTAL_LADDER_SAVE_VERSION;
         G._nineRealmLadderMigrated = true;
         return;
@@ -183,6 +184,27 @@ function syncLegacyPathShims() {
     const track = getFocusTrack();
     G.path = TRACK_TO_LEGACY_PATH[track] || 'qi';
     G.realmIdx = G.cultivation[track]?.realmIdx ?? 0;
+}
+
+/** Before save / after load: focus track is source of truth; heal legacy-only realmIdx drift. */
+function repairCultivationRealmSync() {
+    ensureCultivationTracksState();
+    const track = getFocusTrack();
+    const trackIdx = getTrackRealmIdx(track);
+    const legacyIdx = Number.isFinite(G.realmIdx) ? G.realmIdx : 0;
+    if (legacyIdx > trackIdx) {
+        setTrackRealmIdx(track, legacyIdx);
+    } else {
+        syncLegacyPathShims();
+    }
+    syncRealmConsolidationFromFocusTrack();
+}
+
+function prepareGameStateForSave() {
+    if (typeof syncConsolidationToFocusTrack === 'function') syncConsolidationToFocusTrack();
+    repairCultivationRealmSync();
+    G.mortalLadderVersion = MORTAL_LADDER_SAVE_VERSION;
+    G._nineRealmLadderMigrated = true;
 }
 
 function getFocusTrack() {
