@@ -28,6 +28,10 @@ The player is **not** the script’s chosen one. They are a **drop in a moving w
 
 Combine **flat deltas** with **build identity** (grain, scars, region coverage) so two +speed bodies still fight differently.
 
+### Excavation, diminishing returns, breakthrough (owner lean 2026-10-15)
+
+Body path: **many trainable axes** in one basin (speed, durability, strike, …); **60 years** can make you **top-tier on one axis** at idx 0 or **competent all-round**. Diminishing returns = **asymptotic zone** (“legendary mortal”), not zero — UI shows **years-to-next-tick**. **Breakthrough** must **raise ceilings** and **retain most specialist investment** (seal/brace sets retention %); idx 1 **multiplies** grain, does not reset. Avoid waste feeling: crossing is **better for new layers + life**, not **strictly better DPS** that obsoletes palms. Detail: [`body-external-tempering-depth.md`](body-external-tempering-depth.md) § Excavation.
+
 ### Everyone cultivates (sim parity)
 
 **Rule:** If the player can do it, **NPCs can do it** — same manuals (where lore allows), same material costs, same month actions, same failure modes. No player-only cultivation flags on `G` without an NPC equivalent on their state object.

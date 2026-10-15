@@ -172,6 +172,69 @@ Two **Late** externals: one is a **clean, balanced, peak-bound** caravan guard; 
 | Both layers 80/100% | Coverage rules + milestones |
 | — | Waterfall / lightning **ordeals** |
 
+## Excavation — many treasures, one basin (owner lean 2026-10-15)
+
+Genre line (paraphrase): **the body is a hoard of treasure waiting to be excavated.** External Tempering is not one progress bar — it is **many axes** the player can spend **decades** on, limited by **wealth** (materials, sites, manuals) and **dedication** (calendar).
+
+### Trainable axes (ideal — same rules for NPCs)
+
+Examples at idx 0 (skin + flesh only — no “fake” bone stats):
+
+| Axis | Trained by (examples) | Specialist fantasy |
+|------|------------------------|---------------------|
+| **Speed / evasion** | Load vest, spring drills, light grain | Fastest mortal in the county |
+| **Durability / soak** | Iron sand, hide grain, impact volume | Walk through knives |
+| **Strike / weight** | Palm post, corded flesh | One-hit caravan ender |
+| **Grip / wrestle** | Torso load, sinew baths | Cannot be peeled off |
+| **Tolerance** | Heat/cold/poison external washes | Environment survival |
+| **Recovery** | Fine salves, repair discipline | Back tomorrow |
+
+**Generalist:** spread decades → **good at everything a bit**, tops none. **Specialist:** palms-only → **fearsome in range**, softer elsewhere. Both valid; NPCs and rivals occupy the same space.
+
+Flat stat bumps per axis are OK when **years** are the cost ([`world-cultivation-parity.md`](world-cultivation-parity.md)).
+
+### Three zones inside one realm (avoid “waste” and “never break”)
+
+| Zone | Feel | Mechanic (lean) |
+|------|------|-----------------|
+| **1 — Productive** | Every season matters | Steep part of curve; clear gains |
+| **2 — Asymptotic (“legendary mortal”)** | Dedication still pays, barely | Same idx; years for tiny gains; **peer respect**, not new realm |
+| **3 — Misaligned grind** | Should not happen if UX honest | Chasing axis **already at idx ceiling** without breakthrough |
+
+**Diminishing returns:** not “pointless” — **asymptotic**. UI should show **years-to-next-tick** so a 60-year palm monk *chose* zone 2 on one axis, not got tricked.
+
+**When breakthrough is clearly better:** crossing adds **(a)** lifespan runway, **(b)** **new excavation layers** (inner soak, bone, pearl), **(c)** **higher per-axis ceilings**, **(d)** **multipliers** on what you already built — not a wipe.
+
+### Carry-forward (so the next realm isn’t “your life was a lie”)
+
+| Fear | Answer |
+|------|--------|
+| “I spent 60y on palms; Inner trivializes it” | **Palms stay a tag + retained stat %**; Inner adds **structure under the weapon**, not replace it |
+| “Generalist wasted breadth” | Breadth → **brace quality**, **balanced seal**, fewer scar failures |
+| “Should’ve broken at Late” | **Late break** = faster life clock, lower retention % on extreme specialist peaks; **Peak break** = retain more |
+
+**Lean rules:**
+
+1. **Retention:** on 0→1 break, keep **70–100%** of external axis progress (seal tier + brace method set the band). Never 0% if design promises excavation.
+2. **Amplification:** idx 1 **multiplies** specialist grain (iron palms + braced bones = monster), doesn’t reset palms to generic FE body.
+3. **New ceiling:** post-break, palm axis can enter **productive zone again** on a **higher cap** — the 60y wasn’t waste; it was **foundation for the next hoard layer**.
+4. **Relative power:** compare to **NPCs at same idx**; a Late external specialist can **dominate** mortals and trade with FE qi; idx 1 opens **Foundation-parity** threats, not “you’re now a qi cultivator’s punching bag.”
+
+**Crossing vs grinding (decision prompt):**
+
+- **Break now:** new basin, time left in life, inner verbs unlock, ceilings rise.
+- **Stay grinding:** push one axis toward **legendary mortal** (zone 2) — worth it for **duel king** runs; wrong for **reach Inner before 80** runs.
+
+Same pattern as QC: Late enough to leave; Peak optional. External adds **which axis** you perfect, not only one bar.
+
+### Wealth vs dedication
+
+| | Wealth | Dedication |
+|--|--------|------------|
+| Buys | Materials, sites, manuals, fine salve | Calendar months |
+| Without other | Fast **noisy** grain, scars | Slow **clean** grain |
+| NPC parity | Rich idle young master vs poor palm monk | Both on world clock |
+
 ## Parked (owner 2026-10-15)
 
 **Weighted vest / load training as stat “builds”.** Wear heavy load during external refine (or travel?) → **speed / evasion penalty now**; adaptation after load-months → **small permanent speed** (flat stat OK under long basin pacing — see [`world-cultivation-parity.md`](world-cultivation-parity.md)). Same family as stone vest, chained weights, quarry yard. Opens **build diversity** but needs **fine tuning** vs salve-grind months. **Do not implement** until external v1; revisit with combat spine + NPC parity.
