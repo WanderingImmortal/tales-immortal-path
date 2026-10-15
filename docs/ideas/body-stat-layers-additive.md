@@ -49,6 +49,26 @@ Organs are **weirder**: not a map pin like “palm bone.” Treat as **whole-bod
 
 Optional: organ **gates** bone efficiency (“without lung soak, bone_palm gains at 50%”) — prerequisite, not hidden mult on damage.
 
+## Why Inner can refine skin/flesh **past** External (not “because breakthrough”)
+
+Players may not read this paragraph; they **will** notice if tier-II paste works with **no** explanation. One rule should drive **rejection @ External**, **brace flavor**, and **tier-II unlock @ Inner**.
+
+**Lean (owner 2026-10-15):**
+
+| @ External | @ Inner (after brace + break) |
+|------------|-------------------------------|
+| Essence **deposited** in skin/flesh like **dye in cloth** — holds tier-I grain, **leaks or sloughs** tier-II | **Interior frame online**: bone lattice + organ regulators **anchor** exterior grain; essence can **circulate and bind** |
+| Harsh inputs **reject** (fever, shedding, scar) — body has no **metabolism** for them | Organs **process** fierce baths; waste routes exist |
+| Mortal **weave** — material compatibility table tier-I only | **Vessel weave** — same palms, **different biology**; tier-II table unlocks |
+
+The breakthrough is not a **+1 level** button — it is **mini-evolution**: lifespan band, interior economy, compatibility. You are not the same being; you are the same **person** with a **deeper hold**.
+
+**Pedantic one-liner for UI/tooltips:** *“Tier-II salves require an anchored frame — temper the interior first, or the flesh sheds what it cannot keep.”*
+
+**Cheap answers to avoid:** “realm idx incremented”; “game said so”; multiplier on stats.
+
+**Qi rhyme (non-gospel):** QC stores qi in a **mortal basin**; FE is a **different kind of hold**. Body rhyme: External is **deposit**; Inner is **deposit + circulation under brace**.
+
 ## Mountain tail **shifts** — tier access, not “more same skin”
 
 Problem: training **more skin during Inner** feels wrong if it’s the same hide-grit loop.
