@@ -72,7 +72,12 @@ function openTrackBreakthrough(track) {
         fullRender();
         return;
     }
-    if (track !== 'spirit' && typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
+    if (track === 'vessel' && typeof canVesselTrackBreakthrough === 'function' && !canVesselTrackBreakthrough()) {
+        addLog(`🚫 ${getVesselTrackBreakthroughBlockReason()}`);
+        fullRender();
+        return;
+    }
+    if (track !== 'spirit' && track !== 'vessel' && typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
         addLog(`🚫 ${getConsolidationBlockReason()}`);
         fullRender();
         return;
@@ -281,7 +286,12 @@ function executeTrackBreakthroughCore(style, track) {
             fullRender();
             return;
         }
-    } else if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
+    } else if (track === 'vessel' && typeof canVesselTrackBreakthrough === 'function' && !canVesselTrackBreakthrough()) {
+        addLog(`🚫 ${getVesselTrackBreakthroughBlockReason()}`);
+        closeBreakthrough();
+        fullRender();
+        return;
+    } else if (track !== 'vessel' && typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
         addLog(`🚫 ${getConsolidationBlockReason()}`);
         closeBreakthrough();
         fullRender();
@@ -374,6 +384,9 @@ function executeTrackBreakthroughCore(style, track) {
         if (typeof tryAwakenSoulEmbryo === 'function' && newIdx >= SOUL_EMBRYO_REALM_IDX) {
             tryAwakenSoulEmbryo(track);
         }
+        if (track === 'vessel' && newIdx === 4) {
+            addLog('🏛️ Mortal body dig complete — Physique Transformation and runeforging arrive in a later pass.');
+        }
         if (track === 'spirit' && typeof markSpiritTrackConsolidated === 'function') {
             markSpiritTrackConsolidated(newIdx);
         }
@@ -389,7 +402,7 @@ function executeTrackBreakthroughCore(style, track) {
             if (typeof fullRender === 'function') fullRender();
             return;
         }
-        if (track === 'dantian' && shouldTriggerTribulation()) {
+        if ((track === 'dantian' || track === 'vessel') && shouldTriggerTribulation()) {
             const tribOpts = {
                 breakStyle: style,
                 context: 'breakthrough',

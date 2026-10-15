@@ -86,7 +86,9 @@ function getRealmProgressPct() {
     if (!def) return isRealmConsolidated(G.realmIdx) ? 100 : 0;
 
     let pct;
-    if (G.path === 'body' && typeof getBodyRealmProgressPct === 'function') {
+    if (G.path === 'body' && typeof getBodyVesselRealmProgressPct === 'function') {
+        pct = getBodyVesselRealmProgressPct(getFocusRealmIdxForConsolidation());
+    } else if (G.path === 'body' && typeof getBodyRealmProgressPct === 'function') {
         pct = getBodyRealmProgressPct();
     } else if (G.path === 'soul' && typeof getSpiritTrackProgressPct === 'function') {
         pct = getSpiritTrackProgressPct();

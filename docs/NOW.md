@@ -2,13 +2,13 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-10-14
+**Updated:** 2026-10-15
 
 ## Focus
-- Civic seats v1 — shared engine + Redwell migrate (`cursor/civic-seats-generator-design`)
+- **Body vessel spine 0–3** — chamber peaks → seal → break (+ trib) · idx 4+ stub · [`body-path-refining-rewrite.md`](ideas/body-path-refining-rewrite.md)
 
 ## Next
-- **Nine-realm ladder** — **PATHS + migration in code** · upper body/spirit gameplay loops still TODO · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)
+- **Nine-realm ladder** — qi spine shipped · **body 0–3 spine** in progress · upper body (runes/source) + spirit birth gate · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)
 - **Spirit path** — Soul Root merged [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); implement **Illusion/Memory** first; soul embryo policy + idx 5+ names — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md)
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
