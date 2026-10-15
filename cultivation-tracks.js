@@ -123,8 +123,15 @@ function migrateNpcRealmIdx(npc) {
     if (npc.realmIdx >= 4) npc.realmIdx = remapRealmIdxSevenToNine(npc.realmIdx);
 }
 
+/** Saves at or above this version already use nine-realm indices — skip legacy remap. */
+const MORTAL_LADDER_SAVE_VERSION = 9;
+
 function migrateNineRealmLadder() {
-    if (G._nineRealmLadderMigrated) return;
+    if (G.mortalLadderVersion >= MORTAL_LADDER_SAVE_VERSION || G._nineRealmLadderMigrated) {
+        G.mortalLadderVersion = MORTAL_LADDER_SAVE_VERSION;
+        G._nineRealmLadderMigrated = true;
+        return;
+    }
     ensureCultivationTracksState();
     CULTIVATION_TRACKS.forEach(track => {
         const t = G.cultivation[track];
@@ -154,6 +161,7 @@ function migrateNineRealmLadder() {
     (G.npcs || []).forEach(migrateNpcRealmIdx);
     syncLegacyPathShims();
     syncRealmConsolidationFromFocusTrack();
+    G.mortalLadderVersion = MORTAL_LADDER_SAVE_VERSION;
     G._nineRealmLadderMigrated = true;
 }
 

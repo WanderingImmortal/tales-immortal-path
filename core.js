@@ -253,9 +253,17 @@ function getRealm(track) {
         const band = getQcBandLabel();
         if (band) return band;
     }
-    if (typeof getTrackRealmName === 'function' && track) return getTrackRealmName(track);
-    if (typeof getFocusTrack === 'function') return getTrackRealmName(getFocusTrack());
-    return PATHS[G.path].realms[G.realmIdx] || "MAX";
+    if (typeof getTrackRealmName === 'function' && t) return getTrackRealmName(t);
+    if (typeof getTrackRealmName === 'function' && typeof getFocusTrack === 'function') {
+        return getTrackRealmName(getFocusTrack());
+    }
+    const idx = typeof getTrackRealmIdx === 'function' && typeof getFocusTrack === 'function'
+        ? getTrackRealmIdx(getFocusTrack())
+        : (G.realmIdx ?? 0);
+    const pathKey = typeof getTrackPathKey === 'function' && typeof getFocusTrack === 'function'
+        ? getTrackPathKey(getFocusTrack())
+        : (G.path || 'qi');
+    return PATHS[pathKey]?.realms[idx] || PATHS[G.path]?.realms[G.realmIdx] || 'MAX';
 }
 function getTitle(track) {
     if (typeof getTrackTitle === 'function' && track) return getTrackTitle(track);
@@ -1093,6 +1101,7 @@ function loadState() {
             if (typeof migrateSaveToCultivationTracks === 'function') migrateSaveToCultivationTracks();
             else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
             if (typeof migrateNineRealmLadder === 'function') migrateNineRealmLadder();
+            if (typeof clearStuckChamberOverlayFlags === 'function') clearStuckChamberOverlayFlags();
             // Soul Mass after track/embryo migration so latent↔active split sees correct soul birth state.
             if (typeof ensureSoulMassState === 'function') ensureSoulMassState();
             if (typeof migrateConsolidationState === 'function') migrateConsolidationState();

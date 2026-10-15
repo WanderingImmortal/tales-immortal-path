@@ -113,6 +113,16 @@ function playtestGrantFoundation(amount) {
     playtestAfterGrant(`+${gained || amount} Foundation (now ${effective}).`);
 }
 
+function clearStuckChamberOverlayFlags() {
+    if (!G) return;
+    G.inQiChamber = false;
+    G.inBodyChamber = false;
+    G.inSoulChamber = false;
+    G.inAlchemyChamber = false;
+    G.inForgeChamber = false;
+    G.inCultivationHub = false;
+}
+
 function playtestFillQiHealHp() {
     if (typeof G === 'undefined' || !G) return;
     if (typeof getMaxQi === 'function') G.qi = getMaxQi();
@@ -169,6 +179,11 @@ function applyPlaytestRealmAdvance(style) {
     if (typeof tryAwakenSoulEmbryo === 'function' && newIdx >= SOUL_EMBRYO_REALM_IDX) {
         tryAwakenSoulEmbryo(track);
     }
+    if (typeof MORTAL_LADDER_SAVE_VERSION !== 'undefined') {
+        G.mortalLadderVersion = MORTAL_LADDER_SAVE_VERSION;
+        G._nineRealmLadderMigrated = true;
+    }
+    clearStuckChamberOverlayFlags();
     return true;
 }
 
