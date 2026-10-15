@@ -174,7 +174,7 @@ Two **Late** externals: one is a **clean, balanced, peak-bound** caravan guard; 
 
 ## Parked (owner 2026-10-15)
 
-**Weighted vest / load training as stat “builds”.** Wear heavy load during external refine (or travel?) → **speed / evasion penalty now**; adaptation on removal or after a training block → **persistent speed or burst tag** (not raw +10 to a stat — prefer physique chips or combat tags). Same family as stone vest, chained weights, quarry yard. Opens **build diversity** (iron hands + slow tank vs light corded flesh) but needs **fine tuning** so load isn’t free power or mandatory meta. **Do not implement** until external v1 + tag/combat read exist; revisit with combat spine.
+**Weighted vest / load training as stat “builds”.** Wear heavy load during external refine (or travel?) → **speed / evasion penalty now**; adaptation after load-months → **small permanent speed** (flat stat OK under long basin pacing — see [`world-cultivation-parity.md`](world-cultivation-parity.md)). Same family as stone vest, chained weights, quarry yard. Opens **build diversity** but needs **fine tuning** vs salve-grind months. **Do not implement** until external v1; revisit with combat spine + NPC parity.
 
 ## Open questions
 
