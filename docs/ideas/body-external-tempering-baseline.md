@@ -14,7 +14,7 @@
 
 Inner soaking, bones, organs, pearl, and nerves live in later docs — this file is **only** the default External method.
 
-Parent hub: [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) · Ladder: [`nine-realm-ladder.md`](nine-realm-ladder.md).
+Parent hub: [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md) · Ladder: [`nine-realm-ladder.md`](nine-realm-ladder.md). **Ideal depth:** [`body-external-tempering-depth.md`](body-external-tempering-depth.md).
 
 ## Fantasy anchor (xianxia, not qi)
 
