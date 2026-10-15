@@ -705,6 +705,8 @@ function setupCreation(refreshOnly) {
         G.affinities = null;
         G.fiveElementCycleIdx = 0;
         G.realmIdx = 0;
+        G.mortalLadderVersion = typeof MORTAL_LADDER_SAVE_VERSION !== 'undefined' ? MORTAL_LADDER_SAVE_VERSION : 9;
+        G._nineRealmLadderMigrated = true;
         if (typeof ensureCultivationTracksState === 'function') {
             ensureCultivationTracksState();
             CULTIVATION_TRACKS.forEach(t => { G.cultivation[t].realmIdx = 0; });

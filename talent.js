@@ -193,9 +193,12 @@ function getTalentCoreCondenseMult() {
 
 function getNaturalRealmCap() {
     ensureTalentState();
-    if (G.talentCapBypassed) return 6;
+    if (G.talentCapBypassed) {
+        return typeof MAX_MORTAL_REALM_IDX !== 'undefined' ? MAX_MORTAL_REALM_IDX : 8;
+    }
     const def = getTalentDef();
-    return def?.naturalRealmCap ?? 6;
+    const fallbackMax = typeof MAX_MORTAL_REALM_IDX !== 'undefined' ? MAX_MORTAL_REALM_IDX : 8;
+    return def?.naturalRealmCap ?? fallbackMax;
 }
 
 function isRealmBlockedByTalent(targetRealmIdx) {

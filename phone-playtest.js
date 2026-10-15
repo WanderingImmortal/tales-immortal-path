@@ -149,10 +149,14 @@ function syncPhonePlaytestHeader() {
     if (!nameEl || !realmEl || !ageEl) return;
 
     const cultivator = document.getElementById('sceneCultivator');
-    const realm = document.getElementById('realmDisplay');
     const age = document.getElementById('ageDisplay');
     nameEl.textContent = cultivator?.textContent?.trim() || G?.name || '—';
-    realmEl.textContent = realm?.textContent?.trim() || '—';
+    if (typeof getRealm === 'function') {
+        const label = getRealm();
+        realmEl.textContent = label + (G?.perfectCultivation ? ' 🌟' : '');
+    } else {
+        realmEl.textContent = document.getElementById('realmDisplay')?.textContent?.trim() || '—';
+    }
     ageEl.textContent = age?.textContent?.trim() || '—';
 }
 
