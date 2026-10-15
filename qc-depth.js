@@ -1741,7 +1741,16 @@ function applyQcProgressiveActionUi() {
         if (breakBtn) {
             breakBtn.classList.remove('action-locked');
             breakBtn.disabled = false;
-            breakBtn.title = breakBtn.dataset.defaultTitle || '';
+            let title = breakBtn.dataset.defaultTitle || '';
+            if (G.path === 'body' && typeof canVesselTrackBreakthrough === 'function') {
+                if (canVesselTrackBreakthrough()) {
+                    title = 'Vessel track ready — choose a breakthrough posture.';
+                } else if (typeof getVesselTrackBreakthroughBlockReason === 'function') {
+                    breakBtn.classList.add('action-locked');
+                    title = getVesselTrackBreakthroughBlockReason();
+                }
+            }
+            breakBtn.title = title;
         }
     }
 }
