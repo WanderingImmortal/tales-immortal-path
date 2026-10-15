@@ -241,6 +241,8 @@ Four realms, **four verbs**, one chamber screen until Nascent Physique ends the 
 
 **External baseline (playable spec):** [`body-external-tempering-baseline.md`](body-external-tempering-baseline.md). **Inner soak** design is the next doc slice (reuse saturation bands from § Inner Tempering — saturation below for **idx 1**, not idx 0).
 
+**Weave evolution:** each watershed upgrades what the body can **hold** — older layers may **re-face** at higher material tiers ([`body-stat-layers-additive.md`](body-stat-layers-additive.md) § Weave evolution). Lean: smaller bumps @ 1–2; big optional full-stack re-open @ **Physique Transformation (4)**.
+
 ## Prerequisites
 
 - [x] Owner lean: milestones for power parity, not qi-style realm breakthroughs
