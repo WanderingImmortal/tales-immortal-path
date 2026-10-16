@@ -30,7 +30,7 @@ Live repo may still show:
 - `BODY_VESSEL_REALM_SPINE[3].layers: ['meridians']` + `requireNervesRefined` in `data.js`
 - Body actions that set `G.meridians[index]` from chamber clicks
 
-Treat as **legacy misplaced qi mechanic** until a migration Issue removes or moves meridians to **qi chamber / main meridian action only**. New body docs and Issues must **not** add body progression on meridians.
+Treat as **legacy misplaced qi mechanic** until migration (**owner 2026-10-16:** remove from body path — not hide-only). Meridians live on **qi meridian action / qi chamber** when implemented. New body docs and Issues must **not** add body progression on meridians.
 
 ## Related
 

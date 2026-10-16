@@ -6,7 +6,7 @@
 | **Blocked on** | Material IDs in explore/hunt; body chamber action refactor |
 | **Issue** | none yet |
 | **Chat / PR** | External/Inner split design — 2026-10-15 |
-| **Updated** | 2026-10-15 |
+| **Updated** | 2026-10-16 |
 
 ## Intent
 
@@ -148,10 +148,48 @@ Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.**
 - Replace idx 0 spine gate: **skin + flesh** peak, not skin-only (migration note for [`BODY_VESSEL_REALM_SPINE`](../../data.js) when coding)
 - Consolidation copy @ idx 0: **Seal the Shell** / brace break copy
 
+## v1 build locks (owner 2026-10-16)
+
+| # | Decision |
+|---|----------|
+| 1 | **Replace** idx 0 chamber clicks with salve / apply / drills — no parallel old loop. |
+| 2 | **Yes** — `External Tempering` @ idx 0, `Inner Tempering` @ idx 1; spine **0 = skin + flesh**. |
+| 3 | **Materials:** repurpose **`leather_scrap`** (hide), **`spirit_herb`** or **`heartwood_splint`** (grit/base); add **`beast_blood`** (common) for binder — one new id is clearer than overloading `demon_core`. Wire Dustbone hunt/explore drops. |
+| 4 | **Progress model** — see § Breakthrough vs training axes below. |
+| 5 | *(was bands)* Simple **% + floors** for v1; QC-style bands when pacing pass lands. |
+| 6 | **Trib** — reuse current break pipeline; redo trib scripts later. |
+| 7 | **Merge [PR #156](https://github.com/WanderingImmortal/tales-immortal-path/pull/156)** (vessel track + break feedback) **to `main` before** the external implementation branch, or rebase external onto it — avoids conflicting edits in `cultivation.js` / `body-chamber.js` and keeps break testable while external ships. |
+| 8 | **Meridians:** do not merely hide — **remove meridian layer from body path** (tab, spine gate, chamber→`G.meridians`). Qi meridians stay on **`btnMeridian` / qi systems** later ([`body-path-no-meridians.md`](body-path-no-meridians.md)). Silhouette art can move to qi chamber in a follow-up. |
+
+## Breakthrough vs training axes (owner 2026-10-16)
+
+**Problem:** If “training = raising part stats,” what sums into **breakthrough** vs **combat build**?
+
+**v1 slice (simple):**
+
+| Track | Feeds seal / break meter? | Feeds combat? |
+|-------|---------------------------|---------------|
+| **Skin %** | Yes | Yes (derived later) |
+| **Flesh %** | Yes | Yes |
+| **Specialist axes** (speed, durability, …) | **No** — depth pass / v1.1 | Yes |
+
+**Realm progress (consolidation UI):** `round((skin + flesh) / 2)`.
+
+**Floors (general refinement):**
+
+- **Settled / seal:** `min(skin, flesh) ≥ 80` **and** average ≥ 80.
+- **Break Through allowed:** same as seal + consolidated (existing spine).
+- **Peak optional:** both **100** — harsher brace/trib, not required to leave.
+
+**Specialist grind (future):** maxing speed via vest/drills does **not** substitute for flesh/skin floors — you can be the fastest mortal and still **must** bring both layers to Settled to break. Extra axis grind is **zone 2** on that axis (combat edge, “legendary mortal”), not breakthrough bar.
+
+**Diminishing returns:** per-layer gain curve flattens after ~80 (Settled band); breaking becomes attractive because **new basin + tier-II access** beats zone-2 tier-I tail — not because progress hits hard zero.
+
+**When axes ship:** breakthrough meter stays **general-only**; optional cap e.g. “single axis cannot contribute more than X% to break” if any axis is wired into meter by mistake.
+
 ## Open questions (narrow)
 
 - Exact month costs vs living clock playback — match other chamber actions first.
-- Strict **both 100%** vs average-only Late — playtest after first slice.
 - Prep in chamber vs at dwelling forge bench — chamber-only for v1.
 
 ## Prerequisites
