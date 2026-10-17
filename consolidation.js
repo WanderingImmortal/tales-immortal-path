@@ -37,8 +37,23 @@ function getConsolidationDef(realmIdx) {
     return CONSOLIDATION_BY_REALM[realmIdx] || null;
 }
 
-function getPathCapstone() {
-    return PATHS[G.path]?.capstone || PATHS.qi.capstone;
+function getPathCapstone(realmIdx) {
+    const cap = PATHS[G.path]?.capstone || PATHS.qi.capstone;
+    const idx = realmIdx ?? (typeof getFocusRealmIdxForConsolidation === 'function'
+        ? getFocusRealmIdxForConsolidation()
+        : (G.realmIdx ?? 0));
+    if (G.path === 'body' && idx === 0) {
+        return {
+            ...cap,
+            button: '🏛️ Seal the Shell',
+            settledAction: 'Seal the Shell',
+            peakAction: 'Harden Shell to Peak',
+            meterLabel: 'Exterior Progress',
+            settledFlavor: 'The shell holds — skin and flesh tempered enough to brace inward.',
+            peakFlavor: 'Skin and flesh peak together — the exterior sings under the fist.'
+        };
+    }
+    return cap;
 }
 
 function getStatTotal() {
@@ -183,6 +198,13 @@ function canBreakthroughToNextRealm() {
 function canSealAtCurrentProgress() {
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) return false;
     if (isRealmConsolidated(G.realmIdx)) return false;
+    if (G.path === 'body' && typeof isBodyVesselSpineSettledComplete === 'function'
+        && typeof getBodyVesselSettledFloorBlockReason === 'function') {
+        const focusIdx = typeof getFocusRealmIdxForConsolidation === 'function'
+            ? getFocusRealmIdxForConsolidation()
+            : G.realmIdx;
+        if (getBodyVesselSettledFloorBlockReason(focusIdx)) return false;
+    }
     const tier = getRealmProgressTierFromPct();
     return tier === 'settled' || tier === 'peak';
 }
@@ -200,6 +222,12 @@ function getConsolidationBlockReason() {
     if (!def) return 'Consolidation not available at this realm.';
     const pct = getRealmProgressPct();
     const capstone = getPathCapstone();
+    if (G.path === 'body' && typeof getBodyVesselSettledFloorBlockReason === 'function') {
+        const floor = getBodyVesselSettledFloorBlockReason(
+            typeof getFocusRealmIdxForConsolidation === 'function' ? getFocusRealmIdxForConsolidation() : G.realmIdx
+        );
+        if (floor) return floor;
+    }
     if (pct < REALM_PROGRESS_TIERS.settledPct) {
         return `${pct}% realm progress — reach ${REALM_PROGRESS_TIERS.settledPct}% (Settled) via cultivation chambers, then ${capstone.settledAction}.`;
     }
