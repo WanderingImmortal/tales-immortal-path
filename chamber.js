@@ -83,8 +83,6 @@ function getChamberPerfectFoundationBlockReason() {
     const cfg = CHAMBER_BALANCE.perfectFoundation;
     if (isChamberOnCooldown('perfectFoundation')) return 'Your foundation is still settling from the last perfection.';
     if ((G.stones || 0) < cfg.stones) return `Need ${cfg.stones} Spirit Stones (have ${G.stones || 0}).`;
-    if (!G.techniques?.length) return 'Need at least one technique to sacrifice.';
-    if (G.techniques.length <= 1) return 'You cannot sacrifice your only technique.';
     return null;
 }
 
@@ -183,7 +181,6 @@ function formatChamberFoundationStats() {
     const cd = formatChamberCooldown(G.chamberCooldowns.perfectFoundation);
     return [
         `+${cfg.foundationGain} Flow (meridian pillar)`,
-        'Sacrifice 1 technique (need a spare)',
         `${cfg.weeks} weeks · ${cfg.stones} spirit stones`,
         `Cooldown: ${cfg.cooldownMonths} months${cd}`
     ];
@@ -372,6 +369,18 @@ function renderChamberUI() {
         if (typeof setHoverTooltip === 'function') setHoverTooltip(coreBtn, block || guide?.desc || '');
         if (condenseFlavor) condenseFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
+    const sealBtn = document.getElementById('chamberSealDantian');
+    const sealWrap = document.querySelector('.chamber-action-wrap-seal');
+    const sealBlock = typeof getChamberSealDantianBlockReason === 'function' ? getChamberSealDantianBlockReason() : null;
+    const sealGuide = getChamberActionGuide('sealDantian');
+    const sealFlavor = document.getElementById('chamberSealFlavor');
+    const hideSeal = sealBlock && (sealBlock.includes('already sealed') || sealBlock.includes('No seal at Qi'));
+    if (sealWrap) sealWrap.hidden = !!hideSeal;
+    if (sealBtn) {
+        sealBtn.disabled = chamberActionBlocked() || !!sealBlock;
+        if (typeof setHoverTooltip === 'function') setHoverTooltip(sealBtn, sealBlock || sealGuide?.desc || '');
+        if (sealFlavor) sealFlavor.textContent = sealBlock ? '' : (sealGuide?.flavor || '');
+    }
     if (typeof applyQcChamberVerbVisibility === 'function') applyQcChamberVerbVisibility();
 }
 
@@ -455,10 +464,10 @@ function chamberPerfectFoundation() {
         renderChamberUI();
         return;
     }
-    showChamberTechPicker(executeChamberPerfectFoundation);
+    executeChamberPerfectFoundation();
 }
 
-function executeChamberPerfectFoundation(techName) {
+function executeChamberPerfectFoundation() {
     if (chamberActionBlocked()) return;
     const block = getChamberPerfectFoundationBlockReason();
     if (block) {
@@ -466,22 +475,16 @@ function executeChamberPerfectFoundation(techName) {
         renderChamberUI();
         return;
     }
-    if (!techName || !G.techniques.some(t => t.name === techName)) {
-        addLog('🪨 Technique not found.');
-        return;
-    }
     ensureChamberState();
     const cfg = CHAMBER_BALANCE.perfectFoundation;
     const beforeFlow = typeof getCultivationPillarValue === 'function' ? getCultivationPillarValue('flow') : 0;
     beginActionLog();
-    if (!advanceChamberWeeks(cfg.weeks, 'Perfecting foundation in the chamber')) {
+    if (!advanceChamberWeeks(cfg.weeks, 'Refining foundation in the chamber')) {
         cancelActionLog();
         renderChamberUI();
         return;
     }
     G.stones -= cfg.stones;
-    const idx = G.techniques.findIndex(t => t.name === techName);
-    const sacrificed = G.techniques.splice(idx, 1)[0];
     const flowGain = typeof grantPerfectFoundationFlow === 'function'
         ? grantPerfectFoundationFlow()
         : grantCultivationPillar('flow', cfg.foundationGain);
@@ -489,9 +492,39 @@ function executeChamberPerfectFoundation(techName) {
     clampCurrentQi();
     G.chamberCooldowns.perfectFoundation = G.ageMonths + cfg.cooldownMonths;
     triggerChamberAnim('foundation');
-    commitActionLog(`🪨 You burn ${sacrificed.name} into bedrock foundation. ${formatPillarGrant('flow', flowGain)} (${beforeFlow} → ${getCultivationPillarValue('flow')}), −${cfg.stones} Stones.`);
+    commitActionLog(`🪨 You temper meridian flow into bedrock foundation. ${formatPillarGrant('flow', flowGain)} (${beforeFlow} → ${getCultivationPillarValue('flow')}), −${cfg.stones} Stones.`);
     renderChamberUI();
     fullRender();
+}
+
+function getChamberSealDantianBlockReason() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
+        return 'No seal at Qi Condensation — break through to Foundation first.';
+    }
+    const def = typeof getConsolidationDef === 'function' ? getConsolidationDef(G.realmIdx) : null;
+    if (!def) return `No seal rite for ${getRealm()}.`;
+    if (typeof isRealmConsolidated === 'function' && isRealmConsolidated(G.realmIdx)) {
+        return `You have already sealed ${getRealm()}.`;
+    }
+    if (typeof getActionBlockReason === 'function') {
+        const block = getActionBlockReason({ allowQiChamber: true });
+        if (block) return block;
+    }
+    return null;
+}
+
+function chamberSealDantian() {
+    if (chamberActionBlocked()) return;
+    const block = getChamberSealDantianBlockReason();
+    if (block) {
+        addLog(`🏛️ ${block}`);
+        renderChamberUI();
+        return;
+    }
+    if (typeof showConsolidateFeedback === 'function') showConsolidateFeedback('');
+    if (typeof renderConsolidatePopup === 'function') renderConsolidatePopup();
+    document.getElementById('consolidatePopup')?.classList.add('active');
+    if (typeof triggerTutorial === 'function') triggerTutorial('first_consolidation');
 }
 
 function applyChamberCoreFormationAdvance() {
@@ -608,6 +641,11 @@ function initChamberActionHelp() {
         getBlock: getChamberPerfectFoundationBlockReason,
         getStats: formatChamberFoundationStats
     });
+    bindChamberActionHelp('chamberSealHelp', {
+        title: `${g('sealDantian')?.emoji || ''} ${g('sealDantian')?.label || 'Seal Dantian'}`.trim(),
+        desc: g('sealDantian')?.desc,
+        getBlock: getChamberSealDantianBlockReason
+    });
     bindChamberActionHelp('chamberCondenseHelp', {
         title: `${g('condenseCore')?.emoji || ''} ${g('condenseCore')?.label || 'Condense Core'}`.trim(),
         desc: g('condenseCore')?.desc,
@@ -621,6 +659,7 @@ function initChamberEvents() {
     document.getElementById('chamberReturn')?.addEventListener('click', closeQiChamber);
     document.getElementById('chamberExpandDantian')?.addEventListener('click', chamberExpandDantian);
     document.getElementById('chamberPerfectFoundation')?.addEventListener('click', chamberPerfectFoundation);
+    document.getElementById('chamberSealDantian')?.addEventListener('click', chamberSealDantian);
     document.getElementById('chamberTechPickerCancel')?.addEventListener('click', hideChamberTechPicker);
     document.getElementById('chamberCondenseCore')?.addEventListener('click', chamberCondenseCore);
     initChamberActionHelp();
