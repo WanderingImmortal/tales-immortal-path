@@ -196,7 +196,7 @@ Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.**
 
 ## Prerequisites
 
-- [ ] Owner sign-off on this doc
-- [ ] GitHub Issue: “External Tempering v1 — salve + apply + drills”
-- [ ] Material drops on Dustbone hunt table
-- [ ] Retire **Vessel Establishment** realm string @ idx 1 in `PATHS.body` when Inner ships
+- [x] Owner sign-off on this doc
+- [x] External v1 implement (chat queue — no Issue)
+- [x] Material drops + `beast_blood` id
+- [x] `External Tempering` / `Inner Tempering` @ idx 0–1 in `PATHS.body`
