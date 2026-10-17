@@ -228,42 +228,20 @@ Once that accident is written down, a normal body fed the same way should be abl
 
 Fodder are expendable because they are sealed, untaught, and sent to die. Not because a short root caps the body.
 
-### Baseline default path (v1 — owner lean 2026-10-15)
+### Mortal dig topology (owner lock 2026-10-15)
 
-**Goal:** one boring, shippable ladder so systems run before lineage manuals, poisons, and limb targeting explode scope.
+Four realms, **four verbs**, one chamber screen until Nascent Physique ends the dig. Ladder table: [`nine-realm-ladder.md`](nine-realm-ladder.md).
 
-**Naming (idx 0):** **External Tempering** fits the first door better than “Inner” if the only *required* work is skin-facing soak (hide, grit, limb baths). Keep **Inner Tempering** as optional umbrella copy for “mortal dig 0–3” in docs, or retire it on the ladder row for idx 0 only — swap is already on the table in [`nine-realm-ladder.md`](nine-realm-ladder.md) for idx 0–2.
+| Idx | Realm | Mechanic | Layers |
+|-----|--------|----------|--------|
+| 0 | **External Tempering** | Salve, apply/grind, drills | Skin + flesh |
+| 1 | **Inner Tempering** | Interior soak / steep | Bones + organs |
+| 2 | **Essence Pearl** | Condense | Blood + nerves (capstone; extra nerve polish optional) |
+| 3 | **Nascent Physique** | Hatch + integrate physique | Recipe lock — **no meridians** ([`body-path-no-meridians.md`](body-path-no-meridians.md)) |
 
-**Do not repeat the idx 0 soak loop at every realm.** Saturation is the **signature of realm 0**. Later realms reuse the *chamber screen* and material costs, but each idx gets a **different primary verb** and breakthrough act (already locked: brace → pearl → physique birth → …).
+**External baseline (playable spec):** [`body-external-tempering-baseline.md`](body-external-tempering-baseline.md). **Inner soak** design is the next doc slice (reuse saturation bands from § Inner Tempering — saturation below for **idx 1**, not idx 0).
 
-| Idx | Realm (lean) | Player fantasy vs qi | Primary work (baseline) | Breakthrough act |
-|-----|----------------|----------------------|-------------------------|------------------|
-| **0** | **External Tempering** (lean name) | Qi **draws in** ambient qi and **stores** it; body **draws from** baths and **embeds** nature in flesh until the cup is full | **Soak / saturate** — limb or whole body; bands Early→Late auto; variety + repeat penalty | **Brace** (Stillness first) → Vessel Establishment |
-| **1** | Vessel Establishment | Qi **seals the dantian**; body **locks structure** so flesh stops leaking | **Temper / load / set** — flesh + bones as architecture (weights, setting, integration), not “fill mortal cup again” | Seal + break → Essence Pearl |
-| **2** | Essence Pearl | Qi **forms a core**; body **condenses recipe memory** to one kernel | **Refine / condense** — organs + blood as chemistry; pearl forms | Seal + break → Nascent Physique |
-| **3** | Nascent Physique | Qi **nascent soul**; body **hatches** the built recipe into a named physique | **Channel / nerve capstone** — meridians + one nerve-sea pass; chamber dig **ends** | Seal + break → Physique Transformation (later slice) |
-
-**Soak depth rule (baseline):** idx 0 soaks reach **skin and shallow meat**, not organs or marrow (see table in § What the player does). “Reach the interior” on the **next** realm is **temper/integrate under brace**, not the same saturation meter with a new label.
-
-**Qi vs body — how it should *feel* distinct**
-
-| | Qi path | Body path (baseline) |
-|--|---------|----------------------|
-| **Resource** | Ambient qi, time, pills into dantian | **Materials** → baths; stockpiling matters |
-| **Session** | Cultivate = draw + compress | Soak/temper = **steep + wait** (clock), then harvest essence into flesh |
-| **Progress** | Dantian fill, density, QC bands | **Saturation / structure / kernel / hatch** — different meter per idx, same *seal → break → trib* spine |
-| **Risk** | Deviation, cracked foundation | Rejection (fever, scar), lopsided grain, wasted batch |
-| **Peak optional** | Peak QC store | Peak soak density before brace — harsher establishment |
-
-**v1 content scope (one manual, one town)**
-
-- Manual: **common Stillness brace** only (heat/weight/manuals later).
-- Materials: **Dustbone triangle** — beast hide scrap, beast blood, field grit/herb (one brew tier).
-- UI: whole-body soak first; limb soak optional v1.1.
-- Chamber tabs: still the **figure map**, but idx 0 gate = **skin saturation** only (matches shipped spine); idx 1+ gates follow spine layers (flesh+bones, etc.) with **different actions** when implemented.
-- Lineages (Nine Dragons, Thousand Poisons, …) **replace baths and projects**, not the four-row topology above.
-
-**Complexity later:** nature stacks, limb targets, two grains clashing, birth marrow bias — all plug into the same idx projects once baseline runs.
+**Weave evolution:** each watershed upgrades what the body can **hold** — older layers may **re-face** at higher material tiers ([`body-stat-layers-additive.md`](body-stat-layers-additive.md) § Weave evolution). Lean: smaller bumps @ 1–2; big optional full-stack re-open @ **Physique Transformation (4)**.
 
 ## Prerequisites
 
@@ -276,8 +254,8 @@ Fodder are expendable because they are sealed, untaught, and sent to die. Not be
 
 - Does every milestone need a tribulation, or only watershed steps?
 - ACS-style “temper organ X with material Y” recipes?
-- Realm names: idx **0** lean **External Tempering** vs ladder **Inner Tempering** — pick one for UI when soaking ships ([`nine-realm-ladder.md`](nine-realm-ladder.md) idx 0–2 swaps still open).
-- Exact idx 1 **temper/load** actions (reuse chamber clicks vs dedicated “yard load” world action) — decide at first implementation Issue.
+- Idx 0–3 names locked 2026-10-15 in [`nine-realm-ladder.md`](nine-realm-ladder.md) (External / Inner / Pearl / Nascent Physique).
+- Inner Tempering **soak vat** UX — next design slice before idx 1 code.
 - Cult ward and Pit Two (PR #115) still use Bronze / Diamond Body and “ate wrong” as the climb. Retell is parked above. Apply it on that branch when someone next edits Tuo Yan. Not this PR.
 
 ## Implementation crumbs

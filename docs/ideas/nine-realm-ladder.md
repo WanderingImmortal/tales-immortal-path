@@ -248,14 +248,14 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 
 The live list (Bronze Skin through Indestructible Vajra) ranks materials. Replace with nine names when the ladder ships. **Saintly Flesh** stays the apex (Saint / 圣, parallel to Immortal / God).
 
-**Through-line:** excavate mortal flesh → **Essence Pearl** seed → **Nascent Physique** born → **Physique Transformation** → **Runeforging** → **Source Furnace** → craft **Inner Source** → **Saintly Flesh**. Power is **made and installed**, not dao-comprehended. **Body lane does not use void/hollow vocabulary** at idx 5 — same **index** as qi Void Refinement, different fantasy.
+**Through-line:** **external shell** → **inner soak** → **Essence Pearl** seed → **Nascent Physique** born → **Physique Transformation** → **Runeforging** → **Source Furnace** → craft **Inner Source** → **Saintly Flesh**. Power is **made and installed**, not dao-comprehended. **Body lane does not use void/hollow vocabulary** at idx 5 — same **index** as qi Void Refinement, different fantasy.
 
 | Idx | Qi neighbor | Body realm | What the step is |
 |-----|-------------|------------|------------------|
-| 0 | Qi Condensation | **Inner Tempering** | Dig power out of flesh (soaks, saturation). Chamber. |
-| 1 | Foundation Establishment | **Vessel Establishment** | Brace the frame to hold more. |
-| 2 | Core Formation | **Essence Pearl** | Watershed: one condensed kernel inside — **future Inner Source engine (X)** seed (“recipe memory”). |
-| 3 | Nascent Soul | **Nascent Physique** | Pearl **hatches** into **vessel physique** (built recipe, human-scale). Chamber dig **ends**. Not soul. |
+| 0 | Qi Condensation | **External Tempering** | **Skin + flesh** — external refine (salve, grind, drills). Not interior soak. See [`body-external-tempering-baseline.md`](body-external-tempering-baseline.md). |
+| 1 | Foundation Establishment | **Inner Tempering** | **Bones + organs** — interior **soak / steep** under a braced shell. Break **into** this step = **brace** act (Stillness v1); **Vessel Establishment** retires as a realm **name**. |
+| 2 | Core Formation | **Essence Pearl** | **Blood + nerves** (nerve capstone required; extra nerve polish optional) → **condense** one kernel — **future Inner Source engine (X)** seed (“recipe memory”). |
+| 3 | Nascent Soul | **Nascent Physique** | Pearl **hatches** into named **vessel physique**; integrate / lock recipe. Chamber dig **ends**. **No meridians** (qi-only — [`body-path-no-meridians.md`](body-path-no-meridians.md)). Not soul. |
 | 4 | Celestial Avatar | **Physique Transformation** | **Metamorphosis** — new **kind** of flesh (forge-grade stock). Sets **body line** (ice/poison/steel…), **forge budget**, rune affinities (**Y** prep). **Feel** = Avatar-tier jump in scope, not a longer chamber bar. |
 | 5 | Void Refinement | **Runeforging** | **Forge runes** on the transformed body — materials + **body-art recipes** (majors) + material filings (minors). Permanent **physical capability**, not batteries. Cap by **forge load / PT budget**, not head/chest slots. |
 | 6 | Dao Seeking | **Source Furnace** *(working name)* | **Preamble** to Inner Source: open/prepare **one inner hearth** (smith’s cavity — **not** qi void). Qualify for installation. |
