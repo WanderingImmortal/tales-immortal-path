@@ -80,6 +80,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [World timeline — author spine](world-timeline-author-spine.md) | `idea` | Eras, Warring States, sites; owner PC for prisoner | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
+| [Imperial grand arrays — Tianjing stack](imperial-grand-arrays.md) | `designed` (Nine Dragons inner lock) | Longcheng lattice; underpalace name | — |
 | [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite; forbidden branch of spirit path | — |
