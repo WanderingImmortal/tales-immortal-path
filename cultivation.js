@@ -30,8 +30,26 @@ function setBreakthroughTrack(track) {
         : (track || 'dantian');
 }
 
+function showBreakthroughBlockFeedback(message) {
+    const text = message || 'Break Through is not available yet.';
+    if (typeof addLog === 'function') addLog(`🚫 ${text}`);
+    if (typeof showActionBlockBanner === 'function') showActionBlockBanner(text, true);
+    if (typeof showConsolidateFeedback === 'function') showConsolidateFeedback(text, true);
+    if (typeof fullRender === 'function') fullRender();
+}
+
 function openBreakthrough(track) {
-    const t = track || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    if (typeof getActionBlockReason === 'function') {
+        const block = getActionBlockReason();
+        if (block) {
+            showBreakthroughBlockFeedback(block);
+            return;
+        }
+    }
+    const t = typeof resolveBreakthroughTrack === 'function'
+        ? resolveBreakthroughTrack(track)
+        : (track || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian'));
     openTrackBreakthrough(t);
 }
 
@@ -40,6 +58,7 @@ function openSpiritBreakthrough() {
 }
 
 function openTrackBreakthrough(track) {
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
     if (G.gameOver) return;
     if (G.inCombat) {
         if (typeof addLog === 'function') addLog('⚔️ You cannot break through mid-fight.');
@@ -68,17 +87,17 @@ function openTrackBreakthrough(track) {
         return;
     }
     if (track === 'spirit' && typeof canSpiritTrackBreakthrough === 'function' && !canSpiritTrackBreakthrough()) {
-        addLog(`🚫 ${getSpiritTrackBreakthroughBlockReason()}`);
+        showBreakthroughBlockFeedback(getSpiritTrackBreakthroughBlockReason());
         fullRender();
         return;
     }
     if (track === 'vessel' && typeof canVesselTrackBreakthrough === 'function' && !canVesselTrackBreakthrough()) {
-        addLog(`🚫 ${getVesselTrackBreakthroughBlockReason()}`);
+        showBreakthroughBlockFeedback(getVesselTrackBreakthroughBlockReason());
         fullRender();
         return;
     }
     if (track !== 'spirit' && track !== 'vessel' && typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
-        addLog(`🚫 ${getConsolidationBlockReason()}`);
+        showBreakthroughBlockFeedback(getConsolidationBlockReason());
         fullRender();
         return;
     }
@@ -236,6 +255,7 @@ function closeBreakthrough() {
 }
 
 function executeBreakthrough(style) {
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
     if (G._breakthroughResolving) {
         if (typeof addLog === 'function') addLog('🌀 Breakthrough still resolving — wait for the roll or close the popup.');
         return;
@@ -244,7 +264,10 @@ function executeBreakthrough(style) {
         if (typeof addLog === 'function') addLog('⚡ Finish (or fail) the heavenly tribulation before another breakthrough.');
         return;
     }
-    executeTrackBreakthrough(style, getBreakthroughTrack());
+    const track = typeof resolveBreakthroughTrack === 'function'
+        ? resolveBreakthroughTrack(getBreakthroughTrack())
+        : getBreakthroughTrack();
+    executeTrackBreakthrough(style, track);
 }
 
 function resetBreakthroughPopupState() {

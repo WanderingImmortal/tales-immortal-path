@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (idx 0–3 lean + idx 4–8 locked in [`nine-realm-ladder.md`](nine-realm-ladder.md) 2026-10-12) |
-| **Blocked on** | Anatomy Phase 1–2 can proceed; **implementation** blocked on nine-realm code + body fat slice |
+| **Status** | `designed` (idx 0–3 lean + idx 4–8 locked in [`nine-realm-ladder.md`](nine-realm-ladder.md) 2026-10-12) · **vessel spine 0–3 shipped** (chamber gate + seal + break) |
+| **Blocked on** | **Soaking/saturation slice** — next gameplay pass to replace click-grind pacing in mortal dig |
 | **Issue** | none yet |
 | **Chat / PR** | Body chamber triage 2026-08-05; **2026-10-12** body upper ladder design — cloud chat |
-| **Updated** | 2026-10-12 |
+| **Updated** | 2026-10-15 |
 
 ## Intent
 
@@ -228,6 +228,43 @@ Once that accident is written down, a normal body fed the same way should be abl
 
 Fodder are expendable because they are sealed, untaught, and sent to die. Not because a short root caps the body.
 
+### Baseline default path (v1 — owner lean 2026-10-15)
+
+**Goal:** one boring, shippable ladder so systems run before lineage manuals, poisons, and limb targeting explode scope.
+
+**Naming (idx 0):** **External Tempering** fits the first door better than “Inner” if the only *required* work is skin-facing soak (hide, grit, limb baths). Keep **Inner Tempering** as optional umbrella copy for “mortal dig 0–3” in docs, or retire it on the ladder row for idx 0 only — swap is already on the table in [`nine-realm-ladder.md`](nine-realm-ladder.md) for idx 0–2.
+
+**Do not repeat the idx 0 soak loop at every realm.** Saturation is the **signature of realm 0**. Later realms reuse the *chamber screen* and material costs, but each idx gets a **different primary verb** and breakthrough act (already locked: brace → pearl → physique birth → …).
+
+| Idx | Realm (lean) | Player fantasy vs qi | Primary work (baseline) | Breakthrough act |
+|-----|----------------|----------------------|-------------------------|------------------|
+| **0** | **External Tempering** (lean name) | Qi **draws in** ambient qi and **stores** it; body **draws from** baths and **embeds** nature in flesh until the cup is full | **Soak / saturate** — limb or whole body; bands Early→Late auto; variety + repeat penalty | **Brace** (Stillness first) → Vessel Establishment |
+| **1** | Vessel Establishment | Qi **seals the dantian**; body **locks structure** so flesh stops leaking | **Temper / load / set** — flesh + bones as architecture (weights, setting, integration), not “fill mortal cup again” | Seal + break → Essence Pearl |
+| **2** | Essence Pearl | Qi **forms a core**; body **condenses recipe memory** to one kernel | **Refine / condense** — organs + blood as chemistry; pearl forms | Seal + break → Nascent Physique |
+| **3** | Nascent Physique | Qi **nascent soul**; body **hatches** the built recipe into a named physique | **Channel / nerve capstone** — meridians + one nerve-sea pass; chamber dig **ends** | Seal + break → Physique Transformation (later slice) |
+
+**Soak depth rule (baseline):** idx 0 soaks reach **skin and shallow meat**, not organs or marrow (see table in § What the player does). “Reach the interior” on the **next** realm is **temper/integrate under brace**, not the same saturation meter with a new label.
+
+**Qi vs body — how it should *feel* distinct**
+
+| | Qi path | Body path (baseline) |
+|--|---------|----------------------|
+| **Resource** | Ambient qi, time, pills into dantian | **Materials** → baths; stockpiling matters |
+| **Session** | Cultivate = draw + compress | Soak/temper = **steep + wait** (clock), then harvest essence into flesh |
+| **Progress** | Dantian fill, density, QC bands | **Saturation / structure / kernel / hatch** — different meter per idx, same *seal → break → trib* spine |
+| **Risk** | Deviation, cracked foundation | Rejection (fever, scar), lopsided grain, wasted batch |
+| **Peak optional** | Peak QC store | Peak soak density before brace — harsher establishment |
+
+**v1 content scope (one manual, one town)**
+
+- Manual: **common Stillness brace** only (heat/weight/manuals later).
+- Materials: **Dustbone triangle** — beast hide scrap, beast blood, field grit/herb (one brew tier).
+- UI: whole-body soak first; limb soak optional v1.1.
+- Chamber tabs: still the **figure map**, but idx 0 gate = **skin saturation** only (matches shipped spine); idx 1+ gates follow spine layers (flesh+bones, etc.) with **different actions** when implemented.
+- Lineages (Nine Dragons, Thousand Poisons, …) **replace baths and projects**, not the four-row topology above.
+
+**Complexity later:** nature stacks, limb targets, two grains clashing, birth marrow bias — all plug into the same idx projects once baseline runs.
+
 ## Prerequisites
 
 - [x] Owner lean: milestones for power parity, not qi-style realm breakthroughs
@@ -239,7 +276,8 @@ Fodder are expendable because they are sealed, untaught, and sent to die. Not be
 
 - Does every milestone need a tribulation, or only watershed steps?
 - ACS-style “temper organ X with material Y” recipes?
-- Realm names: **rename** (owner 2026-09-25). Live material ladder does not match qi grandeur. Proposal, not locked: [`nine-realm-ladder.md`](nine-realm-ladder.md) — Inner Tempering through Saintly Flesh.
+- Realm names: idx **0** lean **External Tempering** vs ladder **Inner Tempering** — pick one for UI when soaking ships ([`nine-realm-ladder.md`](nine-realm-ladder.md) idx 0–2 swaps still open).
+- Exact idx 1 **temper/load** actions (reuse chamber clicks vs dedicated “yard load” world action) — decide at first implementation Issue.
 - Cult ward and Pit Two (PR #115) still use Bronze / Diamond Body and “ate wrong” as the climb. Retell is parked above. Apply it on that branch when someone next edits Tuo Yan. Not this PR.
 
 ## Implementation crumbs

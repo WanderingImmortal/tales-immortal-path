@@ -442,6 +442,7 @@ function executeConsolidation(opts) {
     const sacrificeTechName = opts.sacrificeTechnique || null;
 
     showConsolidateFeedback('');
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
 
     if (actionBlocked()) return failConsolidation('Cannot consolidate right now.');
     if (isRealmConsolidated(G.realmIdx)) return failConsolidation('This realm is already consolidated.');
@@ -536,6 +537,7 @@ function executeConsolidation(opts) {
 }
 
 function actionConsolidate() {
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
         addLog('🏛️ There is no Seal at Qi Condensation — gather to Late, then Break Through.');
         fullRender();

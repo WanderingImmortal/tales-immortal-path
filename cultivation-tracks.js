@@ -207,6 +207,31 @@ function prepareGameStateForSave() {
     G._nineRealmLadderMigrated = true;
 }
 
+function getPathDefaultFocusTrack() {
+    const legacy = G.path || 'qi';
+    if (legacy === 'body') return 'vessel';
+    if (legacy === 'soul') return 'spirit';
+    return 'dantian';
+}
+
+/** Body/soul mains: seal and break use the matching refinement track, not a stale focus. */
+function ensurePathFocusTrack() {
+    if (!G.cultivation && typeof ensureCultivationTracksState === 'function') {
+        ensureCultivationTracksState();
+    }
+    const want = getPathDefaultFocusTrack();
+    if (typeof getFocusTrack === 'function' && getFocusTrack() !== want) {
+        if (typeof setFocusTrack === 'function') setFocusTrack(want);
+    } else if (typeof syncLegacyPathShims === 'function') {
+        syncLegacyPathShims();
+    }
+}
+
+function resolveBreakthroughTrack(explicitTrack) {
+    if (explicitTrack) return normalizeCultivationTrackId(explicitTrack);
+    return getPathDefaultFocusTrack();
+}
+
 function getFocusTrack() {
     if (G.cultivation?.focusTrack) return normalizeCultivationTrackId(G.cultivation.focusTrack);
     return normalizeCultivationTrackId(LEGACY_PATH_TO_TRACK[G.path] || G.path || 'dantian');
