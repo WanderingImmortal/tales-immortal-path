@@ -177,6 +177,8 @@ See [`soul-root-dao.md`](soul-root-dao.md) § Retribution Echo for **interface**
 
 Pre-NHK design used **Sacrilege** (discrete entries) + **Corruption** (cycle stain bar) as two heavenly fuels. Owner found them **same flavour, two UIs**. **Merged into NHK threads** for heaven; **cycle “stain”** migrates to **transform corruption** when that doc ships. Implementation crumbs below still name old fields until migration lands.
 
+**Karma is not a fourth track here.** Karma is the web of ties between lives, read from the incident ledger; corruption is damage to that web. Karma's relation to personal fortune lives in [`personal-fortune.md`](personal-fortune.md).
+
 ---
 
 ### Dao alignment (keep — reframe)

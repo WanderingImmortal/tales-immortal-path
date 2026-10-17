@@ -107,7 +107,7 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 
 ### Immortal death — "the last dying gift"
 
-**Owner:** an Immortal's death floods the world with qi. Non-immortals see it as the **last dying gift** to the world; Immortals know it is repayment. **No Immortal death is recorded yet.** *Suggestion:* the first recorded one is a world-shaking event — atonement, assassination, or the player's doing.
+**Owner:** an Immortal's death floods the world with qi. Non-immortals see it as the **last dying gift** to the world; Immortals know it is repayment. **No Immortal death is recorded yet.** *Refined 2026-10-02:* death is a lesser wave plus a long seep from the corpse (more refined power clings longer); departure upward is the full wave. Unrecognised sacred grounds can sit on old corpses; using one is gated by realm, not forbidden — see [`personal-fortune.md`](personal-fortune.md) → *Two waves* and *Three gates on a corpse*. *Suggestion:* the first recorded one is a world-shaking event — atonement, assassination, or the player's doing.
 
 ### Returning / raising world qi
 
