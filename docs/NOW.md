@@ -1,11 +1,11 @@
 # Now
 
-Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
+Glanceable focus for humans and agents. Keep this short — details live in `docs/ideas/`; **build queue in chat** (owner preference — no GitHub Issues required).
 
 **Updated:** 2026-10-17
 
 ## Focus
-- **External Tempering v1** — design docs landing ([#157](https://github.com/WanderingImmortal/tales-immortal-path/pull/157)) · next: Issue + implement salve/grind/drills · [`body-external-tempering-baseline.md`](ideas/body-external-tempering-baseline.md)
+- **External Tempering v1** — design on `main` ([#157](https://github.com/WanderingImmortal/tales-immortal-path/pull/157) merged) · **next: implement** salve/grind/drills per [`body-external-tempering-baseline.md`](ideas/body-external-tempering-baseline.md) (queue in chat)
 
 ## Next
 - **Inner Tempering soak doc** — idx 1 interior vats (after external v1 or parallel)

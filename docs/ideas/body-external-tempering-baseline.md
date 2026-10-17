@@ -2,9 +2,9 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (baseline slice — implement after Issue) |
+| **Status** | `designed` — ready to implement |
 | **Blocked on** | Material IDs in explore/hunt; body chamber action refactor |
-| **Issue** | none yet |
+| **Issue** | none (build queue in chat) |
 | **Chat / PR** | External/Inner split design — 2026-10-15 |
 | **Updated** | 2026-10-16 |
 
@@ -196,7 +196,7 @@ Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.**
 
 ## Prerequisites
 
-- [ ] Owner sign-off on this doc
-- [ ] GitHub Issue: “External Tempering v1 — salve + apply + drills”
+- [x] Owner sign-off on this doc (merged with #157)
+- [ ] **Implement v1** — spec in this file; track in agent chat
 - [ ] Material drops on Dustbone hunt table
 - [ ] Retire **Vessel Establishment** realm string @ idx 1 in `PATHS.body` when Inner ships
