@@ -606,7 +606,8 @@ function buyCultivationMethod(methodId) {
         fullRender();
         return;
     }
-    const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    const priceMult = typeof getMarketPriceMult === 'function' ? getMarketPriceMult(zoneId)
+        : (typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1);
     const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
     if (G.stones < finalPrice) {
         addLog(`💎 Need ${finalPrice} Stones for ${method.name}. You have ${G.stones}.`);
@@ -654,7 +655,8 @@ function buyFormationManual(formationId) {
         fullRender();
         return;
     }
-    const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    const priceMult = typeof getMarketPriceMult === 'function' ? getMarketPriceMult(zoneId)
+        : (typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1);
     const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
     if (G.stones < finalPrice) {
         addLog(`💎 Need ${finalPrice} Stones for ${def.name}. You have ${G.stones}.`);
@@ -703,7 +705,8 @@ function buyTechnique(techName) {
         fullRender();
         return;
     }
-    const priceMult = typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1;
+    const priceMult = typeof getMarketPriceMult === 'function' ? getMarketPriceMult(zoneId)
+        : (typeof getFactionMarketPriceMult === 'function' ? getFactionMarketPriceMult(zoneId) : 1);
     const finalPrice = Math.max(1, Math.floor(item.price * priceMult));
     if (G.stones < finalPrice) {
         addLog(`💎 Need ${finalPrice} Stones for ${techName}. You have ${G.stones}.`);
