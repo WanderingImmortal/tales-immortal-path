@@ -26,6 +26,31 @@ function getActionBlockReason() {
     return null;
 }
 
+let _actionBlockBannerTimer = null;
+
+/** Visible on the main actions panel (phone playtest) — not only the log or seal popup. */
+function showActionBlockBanner(message, isError) {
+    const text = (message || '').trim();
+    if (!text) return;
+    const el = document.getElementById('actionBlockBanner');
+    if (el) {
+        el.textContent = text;
+        el.hidden = false;
+        el.className = 'action-block-banner' + (isError !== false ? ' action-block-banner-error' : ' action-block-banner-ok');
+        if (_actionBlockBannerTimer) clearTimeout(_actionBlockBannerTimer);
+        _actionBlockBannerTimer = setTimeout(() => {
+            if (el.textContent === text) {
+                el.textContent = '';
+                el.hidden = true;
+            }
+        }, 9000);
+    }
+    const logPanel = document.getElementById('logPanel');
+    if (logPanel && typeof logPanel.scrollIntoView === 'function') {
+        logPanel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+}
+
 // ----- CULTIVATE -----
 function runCultivateSession(options) {
     const opts = options || {};

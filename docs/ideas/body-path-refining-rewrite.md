@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (idx 0–3 lean + idx 4–8 locked in [`nine-realm-ladder.md`](nine-realm-ladder.md) 2026-10-12) |
-| **Blocked on** | Anatomy Phase 1–2 can proceed; **implementation** blocked on nine-realm code + body fat slice |
+| **Status** | `designed` (idx 0–3 lean + idx 4–8 locked in [`nine-realm-ladder.md`](nine-realm-ladder.md) 2026-10-12) · **vessel spine 0–3 shipped** (chamber gate + seal + break) |
+| **Blocked on** | **Soaking/saturation slice** — next gameplay pass to replace click-grind pacing in mortal dig |
 | **Issue** | none yet |
 | **Chat / PR** | Body chamber triage 2026-08-05; **2026-10-12** body upper ladder design — cloud chat |
 | **Updated** | 2026-10-15 |
@@ -255,6 +255,7 @@ Four realms, **four verbs**, one chamber screen until Nascent Physique ends the 
 - Does every milestone need a tribulation, or only watershed steps?
 - ACS-style “temper organ X with material Y” recipes?
 - Idx 0–3 names locked 2026-10-15 in [`nine-realm-ladder.md`](nine-realm-ladder.md) (External / Inner / Pearl / Nascent Physique).
+- Inner Tempering **soak vat** UX — next design slice before idx 1 code.
 - Cult ward and Pit Two (PR #115) still use Bronze / Diamond Body and “ate wrong” as the climb. Retell is parked above. Apply it on that branch when someone next edits Tuo Yan. Not this PR.
 
 ## Implementation crumbs

@@ -1741,7 +1741,19 @@ function applyQcProgressiveActionUi() {
         if (breakBtn) {
             breakBtn.classList.remove('action-locked');
             breakBtn.disabled = false;
-            breakBtn.title = breakBtn.dataset.defaultTitle || '';
+            let title = breakBtn.dataset.defaultTitle || '';
+            if (G.path === 'body' && typeof canVesselTrackBreakthrough === 'function') {
+                const vesselReady = canVesselTrackBreakthrough();
+                if (vesselReady) {
+                    title = 'Vessel track ready — choose a breakthrough posture.';
+                } else if (typeof getVesselTrackBreakthroughBlockReason === 'function') {
+                    breakBtn.classList.add('action-locked');
+                    title = getVesselTrackBreakthroughBlockReason();
+                }
+                // Stay clickable so taps show the block banner (phone playtest).
+                breakBtn.disabled = false;
+            }
+            breakBtn.title = title;
         }
     }
 }

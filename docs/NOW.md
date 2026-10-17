@@ -2,14 +2,14 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-10-15
+**Updated:** 2026-10-17
 
 ## Focus
-- **External Tempering baseline** — design locked · next: Issue + implement salve/grind/drills · [`body-external-tempering-baseline.md`](ideas/body-external-tempering-baseline.md)
+- **External Tempering v1** — design docs landing ([#157](https://github.com/WanderingImmortal/tales-immortal-path/pull/157)) · next: Issue + implement salve/grind/drills · [`body-external-tempering-baseline.md`](ideas/body-external-tempering-baseline.md)
 
 ## Next
 - **Inner Tempering soak doc** — idx 1 interior vats (after external v1 or parallel)
-- **Nine-realm ladder** — body idx 0–3 names updated · upper body (runes/source) + spirit birth gate · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)
+- **Nine-realm ladder** — body idx 0–3 names in docs · code/spine still legacy until external v1 · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)
 - **Spirit path** — Soul Root merged [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); implement **Illusion/Memory** first; soul embryo policy + idx 5+ names — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md)
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
@@ -33,6 +33,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - Chaos Path + post-immortal cosmology — **parked** until realm ladder has depth
 
 ## Recently shipped
+- Body Break Through vessel track + block banner ([#156](https://github.com/WanderingImmortal/tales-immortal-path/pull/156))
 - Dustbone field sites + QC alchemy close-loop ([#97](https://github.com/WanderingImmortal/tales-immortal-path/pull/97))
 - Redwell starter city ([#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90))
 - Dustbone starter gameplay hub + QC alchemy designs ([#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89))
