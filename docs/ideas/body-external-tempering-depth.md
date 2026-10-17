@@ -31,7 +31,7 @@ Apply stress (drill / environment / salve-burn)
 | **Stress** | Choose method, target, intensity | Over-strain → injury, wasted batch, scar |
 | **Strain** | Meter(s) you must respect | Training while overcooked → malus, no gain |
 | **Repair** | Months, salve, recuperate, sleep | Cheap salve “works” but poisons or wastes grain |
-| **Adaptation** | Log milestone, figure tint, combat tag | Lopsided parts → fine for Late, bad for perfect seal |
+| **Adaptation** | Log milestone, figure tint, **stat bump** | Lopsided parts → fine for Late, bad for perfect seal |
 
 Strain is **not** HP (combat HP stays separate). It is **training load** — like fatigue in the baseline doc, but **per region** and tied to **repair quality**.
 
@@ -138,15 +138,11 @@ Same **idx 0** on the ladder; world reads **how** you filled the cup.
 | **Brace quality** | Hasty seal | Peak seal + Stillness |
 | **Efficiency** | Many months, burnt batches | Fewer months, tight stress/repair |
 
-**Combat / world expression (ideal):** derive from **tags**, not `realmIdx` alone:
+**Combat / world expression (ideal):** derive from **stats + grain + coverage**, not `realmIdx` alone. **No threshold “build tags”** — train **base stats** (speed, strike, durability, …); if your speed stat outpaces local brackets, you **win foot chases** and NPCs **eventually** call you fast (rumor/seat/dossier hooks), provided rivals didn’t take the same route.
 
-- `ext_band`: early | mid | late | peak  
-- `ext_grain`: iron | spring | heat | …  
-- `ext_shape`: balanced | specialist_arms | …  
-- `ext_scar`: clean | marked | mutilated  
-- `ext_ordeal`: none | waterfall | lightning  
+Still useful **derived labels** for dev/debug (balanced vs specialist_arms) — not player-facing unlocks.
 
-Two **Late** externals: one is a **clean, balanced, peak-bound** caravan guard; another is **late band but iron-hand specialist, scarred, mid flesh elsewhere** — loses in grappling, wins in a single strike. Same travel tier, different fights.
+Two **Late** externals: one **balanced** stats; another **high palm strike, lower torso durability** — same realm idx, different stat sheet and fights.
 
 **Qi parity note:** idx still gates travel danger and “can touch Foundation-equivalent.” **Within** idx 0, NPCs say “late exterior” vs “early exterior,” not “realm 0.7.”
 

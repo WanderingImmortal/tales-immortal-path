@@ -28,10 +28,12 @@ Each **region** (e.g. palm, forearm, torso) accumulates contributions from **lay
 **Palm strike (example formula lean):**
 
 ```text
-palm_strike = f( skin_palm, flesh_palm, bone_palm, organ_terms… )
+palm_strike = f( skin_palm, flesh_palm, bone_palm, organ_terms…, trained_strike_stat… )
 ```
 
-Each term is its **own** grind with its **own** mountain tail. Inner palm work = **bone_palm** climbing from 0 — **+1 +1** next to existing skin/flesh, not `1.2 × (skin+flesh)`.
+Layer progress feeds **base stats** (and derived combat values). Specialist drills/vest raise **speed**, **palm force**, etc. as **numbers** — reputation follows stats in the world, not tag unlocks.
+
+Each layer term is its **own** grind with its **own** mountain tail. Inner palm work = **bone_palm** climbing from 0 — **+1 +1** next to existing skin/flesh, not `1.2 × (skin+flesh)`.
 
 **Qi contrast (non-gospel):** dantian density / foundation might **scale** outputs; body **adds limbs and layers** to the hoard.
 

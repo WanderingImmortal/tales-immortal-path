@@ -26,7 +26,7 @@ The player is **not** the script’s chosen one. They are a **drop in a moving w
 
 **Example (parked):** heavy vest → **speed penalty while worn**; after enough load-months → **small permanent speed** (or vitality / carry). Not broken if vest months **compete** with salve-grind months inside an **80-year External basin**. Fine-tune later; see [`body-external-tempering-depth.md`](body-external-tempering-depth.md) § Parked.
 
-Combine **flat deltas** with **build identity** (grain, scars, region coverage) so two +speed bodies still fight differently.
+**Body specialist stats** (speed, palm force, etc.) are **flat numbers on state** — not unlock tags. Reputation (“known as the fast cultivator”) emerges from **world read of your stats + deeds** (NPC scripts, rumors, sense), not a “Speedster” achievement flag. Combine stats with **grain, scars, region coverage** so two fast builds still differ.
 
 ### Excavation, diminishing returns, breakthrough (owner lean 2026-10-15)
 

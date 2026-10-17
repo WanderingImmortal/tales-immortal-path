@@ -167,11 +167,13 @@ Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.**
 
 **v1 slice (simple):**
 
-| Track | Feeds seal / break meter? | Feeds combat? |
-|-------|---------------------------|---------------|
-| **Skin %** | Yes | Yes (derived later) |
+| Track | Feeds seal / break meter? | Feeds power? |
+|-------|---------------------------|--------------|
+| **Skin %** | Yes | Yes (layer + derived stats) |
 | **Flesh %** | Yes | Yes |
-| **Specialist axes** (speed, durability, …) | **No** — depth pass / v1.1 | Yes |
+| **Specialist training** (speed, palm strike, durability, …) | **No** — depth / v1.1 | **Yes — raises base stats** on `G` (or body stat object), same as qi training raising qi/vitality |
+
+**Not threshold “tags”:** there is no unlock like “Speedster tag at 50 speed.” You train **speed** (or palm force, etc.) as **numeric stats**; in combat you **outpace** rivals who didn’t specialize; **rumors / NPC copy / chronicle** gradually reflect “the fast one” from **observed stats + deeds**, not a badge slot.
 
 **Realm progress (consolidation UI):** `round((skin + flesh) / 2)`.
 
@@ -181,7 +183,7 @@ Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.**
 - **Break Through allowed:** same as seal + consolidated (existing spine).
 - **Peak optional:** both **100** — harsher brace/trib, not required to leave.
 
-**Specialist grind (future):** maxing speed via vest/drills does **not** substitute for flesh/skin floors — you can be the fastest mortal and still **must** bring both layers to Settled to break. Extra axis grind is **zone 2** on that axis (combat edge, “legendary mortal”), not breakthrough bar.
+**Specialist grind (future):** maxing **speed stat** via vest/drills does **not** substitute for flesh/skin floors — you can be faster than most enemies and still **must** bring both layers to Settled to break. Extra stat grind is **zone 2** on that stat (you keep getting faster; enemies on the same path can catch up), not breakthrough bar.
 
 **Diminishing returns:** per-layer gain curve flattens after ~80 (Settled band); breaking becomes attractive because **new basin + tier-II access** beats zone-2 tier-I tail — not because progress hits hard zero.
 
