@@ -1,20 +1,28 @@
-# Worldly Law Bearers (unseated Manifestation wanderers)
+# Worldly Law Bearers (unseated Manifestation)
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (roster + first bearer locked; second bearer draft) |
-| **Blocked on** | Combat spine F3 + `G.daoState` depth before random events |
+| **Status** | `designed` (roster + Gu locked; hermit #2 draft) |
+| **Blocked on** | Combat spine F3 + `G.daoState` depth before encounters |
 | **Issue** | none yet |
 | **Chat / PR** | Owner creative pass 2026-10-21 — Gu Dusheng + org Weight/Span |
 | **Updated** | 2026-10-21 |
 
 ## Intent
 
-**Worldly Law Bearers** are **Dao Manifestation** cultivators who **wear a law** but **do not sit on a charter mountain** — unseated, wandering, or “missing” while institutions bluff. Jianghu lumps them into one ** rumor category** (headcount fuzzy); they are **not** a faction.
+**Worldly Law Bearers** are **Dao Manifestation** cultivators who **wear a law** but **do not sit on a charter mountain** — **unseated**. Jianghu lumps them into one ** rumor category** (headcount fuzzy); they are **not** a faction.
 
-**Use for:** inn fear-marketing, random encounter NPCs, chronicle prose, [`disguise-and-public-identity.md`](disguise-and-public-identity.md) legend tells.
+They are **not all wanderers**. Three **modes** (same Weight/Span logic, different play hooks):
 
-**Not:** throne / great sect / noble house ladders — see [`jianghu-organization-types.md`](jianghu-organization-types.md) **Weight** + **Span**.
+| Mode | Anchor | Encounter lean |
+|------|--------|----------------|
+| **Wanderer** | None — road, pass, inn | Random **travel / field** meet |
+| **Hermit** | Cave, tower, ruin — **Pin** span | Player **visits** the site |
+| **Circuit** | 2–3 seasonal anchors (optional) | Time-of-year **pilgrimage** rumor |
+
+**Use for:** fear-marketing, optional NPCs, chronicle, [`disguise-and-public-identity.md`](disguise-and-public-identity.md) legend tells.
+
+**Not:** throne / great sect / noble house — see [`jianghu-organization-types.md`](jianghu-organization-types.md) **Weight** + **Span**. Hermit **≠** sect hermitage (no outer court); see [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md).
 
 ## Org axes (locked labels)
 
@@ -26,7 +34,7 @@
 
 **Span cap:** low **Weight** orgs cannot **sustain** high **Span** without bluff, patron branch, or collapse story.
 
-Below **Hall** weight: **gangs** (帮会), not sects/clans.
+Below **Hall** weight: **gangs** (帮会 *bānghuì*), not sects/clans.
 
 ## Law combat (pointer)
 
@@ -36,24 +44,25 @@ Dao is **world rules** locally enforced. Fights = **shape + fill** + **depth**, 
 - **Fill** — qi / combat resource per beat and domain tick.
 - **Contest** — geometry + tags + `effectiveLegislation = f(depth, fill, …)`.
 
-Parked law designs (flesh later): **Severance**, **Line Debt**, **Verdict of Stillness**, **Settlement**, **Flow**, **Separation** — see hub [`dao-combat-and-manifestation-redesign-hub.md`](dao-combat-and-manifestation-redesign-hub.md).
+Parked law designs (flesh later): **Severance**, **Line Debt**, **Verdict of Stillness**, **Settlement**, **Flow**, **Separation**, **Decay**, **Unposted Name** — hub [`dao-combat-and-manifestation-redesign-hub.md`](dao-combat-and-manifestation-redesign-hub.md).
 
 ## Index — bearers
 
-| # | Doc | Law (lean) | Jianghu fear name |
-|---|-----|------------|-------------------|
-| 1 | [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) | **Decay** (枯败道 *Kū Bài Dào*) | **笑朽老魔** *Xiào Xiǔ Lǎo Mó* — Smiling Wither Old Demon |
-| 2 | [`worldly-law-bearer-su-zhaoheng.md`](worldly-law-bearer-su-zhaoheng.md) | **Threshold** (门槛道 *Ménkǎn Dào*) | **拒线魔** *Jù Xiàn Mó* — Line-Deny Demon (draft) |
+| # | Mode | Doc | Law (lean) | Jianghu fear name |
+|---|------|-----|------------|-------------------|
+| 1 | Wanderer | [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) | **Decay** (枯败道 *Kū Bài Dào*) | **笑朽老魔** *Xiào Xiǔ Lǎo Mó* — Smiling Wither Old Demon |
+| 2 | Hermit | [`worldly-law-bearer-ye-qinting.md`](worldly-law-bearer-ye-qinting.md) | **Unposted Name** (未籍道 *Wèi Jí Dào*) | **断籍老魔** *Duàn Jí Lǎo Mó* — Registry-Break Old Demon (draft) |
 
-## Random event pattern (shared)
+## Encounter patterns
 
-- **Trigger:** unprofitable kindness, low clout help, refusal of cruelty, overheard clan name, etc.
-- **Beat:** brief travel/field scene; **no party join**.
-- **Boon:** small — insight hint, mending, one tribulation shave, rumor site.
-- **Repeat:** rare; remembers **character**, not stats.
+**Wanderer (Gu):** trigger on road — kindness, clan name, etc.; brief scene; no party join.
+
+**Hermit (Ye):** rumor of **neutral tower**; **visit**; optional **overnight**; Registry hunter pressure if hiding fugitive.
+
+**Shared:** rare repeat; remembers **choices**, not raw stats.
 
 ## Open questions
 
-- [ ] Fixed jianghu count name (五镇 vs uncounted)?
-- [ ] Second bearer tone lock vs Gu contrast
-- [ ] Promote to Issue when first `lawBearerEncounter` ships
+- [ ] Jianghu bucket name (五镇 vs uncounted)?
+- [ ] Third bearer — circuit or urban unseated?
+- [ ] Issue when first `lawBearerEncounter` / `hermitSiteVisit` ships
