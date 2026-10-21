@@ -50,6 +50,9 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
 | [Jianghu organization types](jianghu-organization-types.md) | `designed` (taxonomy) | Dustbone sect + tribe identities | — |
 | [Jianghu situation threads](jianghu-situation-threads.md) | `designed` | Grudge interrupt v1; org backing read | — |
+| [Worldly Law Bearers (hub)](worldly-law-bearers.md) | `designed` | Combat random events; decay/threshold refs | — |
+| [Law Bearer — Gu Dusheng (Smiling Wither)](worldly-law-bearer-gu-dusheng.md) | `designed` | Encounter hook | — |
+| [Law Bearer — Su Zhaoheng (Line-Deny) draft](worldly-law-bearer-su-zhaoheng.md) | `idea` | Owner tone / zone | — |
 | [Disguise & public identity](disguise-and-public-identity.md) | `designed` | Identity resolver, sense channels, signature ledger | — |
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` (v1 hall lean locked) | Hall name + graft spine | — |
 | [Dustbone lesser sects](dustbone-lesser-sects.md) | `building` (Well-Ring v1) | Playtest; loyalty parked | — |

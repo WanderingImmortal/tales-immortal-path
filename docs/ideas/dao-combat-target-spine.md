@@ -95,7 +95,7 @@ Not GC qi Domain ([`domain-system.md`](domain-system.md)) — **law legislation*
 | **Holder** | Usually embodied primary; qi drain to hold/expand |
 | **Volume** | Rules apply inside (see per-dao doc) |
 | **Tick** | Periodic sector/status effects |
-| **Contest** | Peer law, array anchor, dampen — interaction tags |
+| **Contest** | Peer law, array anchor, dampen — interaction tags; **no dao RPS chart** — `effectiveLegislation = f(depth, fill, geometry, tags)` ([`worldly-law-bearers.md`](worldly-law-bearers.md)) |
 | **Move** | Optional slow drift with holder (high mastery) |
 
 ## Foundation tiers (implementation staging)
