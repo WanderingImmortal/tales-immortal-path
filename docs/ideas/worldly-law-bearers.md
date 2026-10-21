@@ -26,7 +26,7 @@ See [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md) — personal anch
 
 ## Law combat
 
-**Depth** + **fill** + contest — [`worldly-law-bearers.md`](worldly-law-bearers.md) · [`dao-combat-target-spine.md`](dao-combat-target-spine.md).
+**Depth** + **fill** + contest — [`dao-combat-target-spine.md`](dao-combat-target-spine.md).
 
 ## Index — bearers
 
