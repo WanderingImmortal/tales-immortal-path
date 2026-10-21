@@ -55,7 +55,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Law Bearer — Pei Xian (Traceless Beggar)](worldly-law-bearer-pei-xian.md) | `designed` | Petty-theft encounter | — |
 | [Traceless Great Dao (path sketch)](traceless-great-dao.md) | `idea` | DAO_TAXONOMY | — |
 | [Law Bearer — Fu Yanxi (Play-Grave)](worldly-law-bearer-fu-yanxi.md) | `designed` | Open-outcome encounter TBD | — |
-| [Fu Yanxi — Great Dao options](fu-yanxi-great-dao-options.md) | `idea` | owner pick | — |
+| [Blade Great Dao (path sketch)](blade-great-dao.md) | `idea` | Fu techniques | — |
+| [Fu Yanxi — dao pick notes](fu-yanxi-great-dao-options.md) | `idea` | 刀道 lean | — |
 | [Field Law Great Dao (path sketch)](field-law-great-dao.md) | `idea` | parked | — |
 | [Open Outcome Great Dao (path sketch)](open-outcome-great-dao.md) | `idea` | parked | — |
 | [Unstand-Down Great Dao (path sketch)](unstand-down-great-dao.md) | `idea` | parked v2 | — |

@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (character lock — **dao TBD**) |
-| **Blocked on** | Great Dao pick — [`fu-yanxi-great-dao-options.md`](fu-yanxi-great-dao-options.md) |
+| **Status** | `designed` (character + **刀道 lean**) |
+| **Blocked on** | Blade technique names — [`blade-great-dao.md`](blade-great-dao.md) |
 | **Issue** | none yet |
 | **Chat / PR** | [`worldly-law-bearers.md`](worldly-law-bearers.md) — bearer #3 |
 | **Updated** | 2026-10-21 |
@@ -12,7 +12,7 @@
 
 ## One line
 
-**Peak Dao Manifestation** — **傅演戏** *Fù Yǎnxì* — **洪炉佣团** *Hónglú Mercenary Corps* survivor; fought up **wild, extreme, unreasonable**; **friends dead long ago**; cart + **their jokes** + **his pain**; **戏坟老魔** *Play-Grave Old Demon*; **worn Great Dao not locked** (person may be enough).
+**Peak Dao Manifestation** — **傅演戏** *Fù Yǎnxì* — **洪炉佣团** survivor; **刀** captain; **friends dead long ago**; cart + jokes + pain; wears **Blade Great Dao** (**刀道**) — player-facing **saber law**; **戏坟老魔** *Play-Grave Old Demon*.
 
 ---
 
@@ -22,7 +22,7 @@
 |-------|---------|
 | **Life** | Tea in broken **胜** cups, teeth-coin tips, bows, cousin/extra banter — **inside jokes**, not puzzle clues |
 | **Story** | Mess kid → captain → corps annihilated (**years ago**) → wander |
-| **Power** | **TBD** — **world-legislation** Great Dao only (see options v2); not merc **oath/contract** stack |
+| **Power** | **刀道** Blade Great Dao — [`blade-great-dao.md`](blade-great-dao.md); habits **≠** path |
 
 **Insane dao:** **optional**; **狂** on **character** first. Dao = **one legible rule** when chosen.
 
