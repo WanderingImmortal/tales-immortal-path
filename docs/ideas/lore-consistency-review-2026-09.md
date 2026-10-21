@@ -54,6 +54,8 @@ Findings from a full read of `docs/ideas/` plus in-game text. Tick items off as 
 
 ## Other suggestions from the review
 
+Park creative figures in [`jianghu-legends-and-renown.md`](jianghu-legends-and-renown.md) until promoted.
+
 - **Silent Week** — yearly Heartlands observance; capital bells stop (echo of the Seven Days)
 - **Garden-walk heart demons** — old Phoenix / Sword elders; heart-demon tribulation replays the walk
 - **Out-of-time grotto master** — sealed before the mandate; doesn't know the Tian exist
