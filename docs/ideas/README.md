@@ -43,6 +43,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Dustbone starter gameplay (hub)](dustbone-starter-gameplay.md) | `designed` (index) | Child slices | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) · [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | [Dustbone living board](dustbone-living-board.md) | `designed` | Redwell v1 | [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | [Redwell starter city](redwell-starter-city.md) | `building` | Pamphlet pool; field loot polish | [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
+| [Redwell first-run gameplay loop](redwell-first-run-gameplay-loop.md) | `designed` | Economy playtest; threads + cultivate interrupts | — |
+| [Redwell town cast](redwell-town-cast.md) | `designed` | Converse/trust; job rep; favor packs | — |
 | [QC technique pamphlet pool](qc-technique-pamphlet-pool.md) | `shipped` (v1) | Playtest redraw; rare slots later | `cursor/qc-pamphlet-pool` |
 | [Dustbone QC alchemy](dustbone-qc-alchemy.md) | `designed` (names locked) | Field drops; cultivate buffs | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Redwell starter slice | — || [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |

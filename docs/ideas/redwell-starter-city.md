@@ -215,13 +215,19 @@ Xianxia world rule (owner 2026-08-06): **opportunities are not player-only.** Se
 
 Owner 2026-08-06: **Well-Ring Lodge** locked — dirty partners (lord mid–late FE + early-FE master + warden). ~25–40 outers. Player may found their own lodge at **early FE** (Peak FE expands) — soft cut/squeeze first, not instant war. Design: [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md) · [`player-organization-paths.md`](player-organization-paths.md). “Redwell City Lord” fine until interactions. Not cosmic corruption.
 
+### Town cast (people, not only offices)
+
+**~12–20 named roles** — friends, rivals, specialty employers; favors without fetch-quest spam. Detail: [`redwell-town-cast.md`](redwell-town-cast.md). Civic **seats** stay the authority layer ([`civic-seats-generator.md`](civic-seats-generator.md)).
+
 ### Explicitly not Redwell v1
 
-NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlands patronage, residence cultivate %, Taiwu-grade NPC social, multiple in-town halls.
+NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlands patronage, residence cultivate %, **Taiwu-grade full social sim** (marry/feud all NPCs), multiple in-town halls.
 
 ### Success feel
 
 > Inn → job or bounty → bazaar balm/QC pamphlet/pill → Ironscar or scrub → brew → cultivate. Join Well-Ring or stay hermit. At early FE, buy the sand-brick courtyard — still at home. By mid FE the well feels small; leave when opportunity pulls, or take the town and linger. Come back in 200 years — new innkeep, same seat. Still nobody in Threshold.
+
+**Macro loop (Taiwu rhythm, not Taiwu sim):** [`redwell-first-run-gameplay-loop.md`](redwell-first-run-gameplay-loop.md) — three clocks, parallel tracks, first-run acts, fight cadence.
 
 ## Suggested build chunks (implementable)
 
