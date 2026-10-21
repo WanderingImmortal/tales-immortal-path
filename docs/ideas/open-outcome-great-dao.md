@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` — v3 path sketch; Fu Yanxi wears it |
+| **Status** | `idea` — **parked** (owner: robbed win feel, too flowery) |
 | **Blocked on** | `DAO_TAXONOMY`; F3 domain contest hook |
 | **Issue** | none yet |
 | **Chat / PR** | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) |

@@ -36,15 +36,15 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 |---|------|-----|----------|-----------|
 | 1 | Wanderer | [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) | **Decay** 枯败道 | **笑朽老魔** *Smiling Wither Old Demon* |
 | 2 | Wanderer | [`worldly-law-bearer-pei-xian.md`](worldly-law-bearer-pei-xian.md) | **Traceless** 无迹大道 | **无迹老魔** *Traceless Old Demon* |
-| 3 | Wanderer | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) | **Open Outcome** 未结局大道 | **戏坟老魔** *Play-Grave Old Demon* |
+| 3 | Wanderer | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) | **Field Law** 军律大道 | **戏坟老魔** *Play-Grave Old Demon* |
 
-**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`open-outcome-great-dao.md`](open-outcome-great-dao.md) · [`unstand-down-great-dao.md`](unstand-down-great-dao.md) *(parked v2)* · [`remnant-plot-great-dao.md`](remnant-plot-great-dao.md) *(parked)*
+**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`field-law-great-dao.md`](field-law-great-dao.md) · [`open-outcome-great-dao.md`](open-outcome-great-dao.md) *(parked)* · [`unstand-down-great-dao.md`](unstand-down-great-dao.md) *(parked)*
 
 **Dropped draft:** Red Fence hermit (Ge Hongli) — too “neutral inn” for #3 strange slot; [`enclosure-great-dao.md`](enclosure-great-dao.md) remains for future NPC/ward-maker.
 
 ## Design note — “insane” dao (owner pass)
 
-《帝霸》**狂祖** / Insane Ancestor: **狂** = **unrestrained at civilization scale** (anti-heaven, **道源**, lineage founder), **not** random antics. Fu v2 (**未收兵** muster) skews **broken soldier** — too small for **Law** wanderer. Prefer: **legible rule + outrageous protocol + investigate props**; see Fu doc ED table.
+《帝霸》**狂祖** / Insane Ancestor: **狂** = **unrestrained at civilization scale** (anti-heaven, **道源**, lineage founder), **not** random antics. Fu: **狂** = **extreme field law in peacetime** (**军律大道**), not **疯** or “wins don’t land.” See Fu doc.
 
 ## Open questions
 
