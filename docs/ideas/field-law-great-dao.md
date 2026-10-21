@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` — v4 path sketch; Fu Yanxi wears it |
+| **Status** | `idea` — **parked** (not on Fu; name/ROE bundle felt off) |
 | **Blocked on** | `DAO_TAXONOMY`; encounter ROE beats |
 | **Issue** | none yet |
 | **Chat / PR** | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) |

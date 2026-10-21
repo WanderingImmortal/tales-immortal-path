@@ -36,9 +36,9 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 |---|------|-----|----------|-----------|
 | 1 | Wanderer | [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) | **Decay** 枯败道 | **笑朽老魔** *Smiling Wither Old Demon* |
 | 2 | Wanderer | [`worldly-law-bearer-pei-xian.md`](worldly-law-bearer-pei-xian.md) | **Traceless** 无迹大道 | **无迹老魔** *Traceless Old Demon* |
-| 3 | Wanderer | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) | **Field Law** 军律大道 | **戏坟老魔** *Play-Grave Old Demon* |
+| 3 | Wanderer | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) | **TBD** — [`fu-yanxi-great-dao-options.md`](fu-yanxi-great-dao-options.md) | **戏坟老魔** *Play-Grave Old Demon* |
 
-**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`field-law-great-dao.md`](field-law-great-dao.md) · [`open-outcome-great-dao.md`](open-outcome-great-dao.md) *(parked)* · [`unstand-down-great-dao.md`](unstand-down-great-dao.md) *(parked)*
+**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`fu-yanxi-great-dao-options.md`](fu-yanxi-great-dao-options.md) · [`field-law-great-dao.md`](field-law-great-dao.md) *(parked)*
 
 **Dropped draft:** Red Fence hermit (Ge Hongli) — too “neutral inn” for #3 strange slot; [`enclosure-great-dao.md`](enclosure-great-dao.md) remains for future NPC/ward-maker.
 
