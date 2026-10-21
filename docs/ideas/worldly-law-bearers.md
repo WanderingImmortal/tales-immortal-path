@@ -44,7 +44,7 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 
 ## Design note — “insane” dao (owner pass)
 
-《帝霸》**狂祖** / Insane Ancestor: **狂** = **unrestrained at civilization scale** (anti-heaven, **道源**, lineage founder), **not** random antics. Fu: **狂** = **extreme field law in peacetime** (**军律大道**), not **疯** or “wins don’t land.” See Fu doc.
+《帝霸》**狂祖** / Insane Ancestor: **狂** = **unrestrained at civilization scale** (anti-heaven, **道源**, lineage founder), **not** random antics. Fu: **merc corps** past; **habits ≠ law**; **狂** = camp rules in peacetime (**军律大道**). See Fu doc.
 
 ## Open questions
 

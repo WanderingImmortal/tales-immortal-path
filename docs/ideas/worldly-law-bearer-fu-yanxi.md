@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v4 — field law / grounded wild) |
-| **Blocked on** | Articles-of-war encounter; `DAO_TAXONOMY` |
+| **Status** | `designed` (v5 — merc past, habits ≠ law) |
+| **Blocked on** | Corps name lock; optional friend names |
 | **Issue** | none yet |
 | **Chat / PR** | [`worldly-law-bearers.md`](worldly-law-bearers.md) — bearer #3 |
 | **Updated** | 2026-10-21 |
@@ -12,90 +12,97 @@
 
 ## One line
 
-**Peak Dao Manifestation** — **傅演戏** *Fù Yǎnxì* — wears **Field Law** (**军律大道**): *only the field’s law counts*; **Dao War herald** who **never left the rules of the battlefield**; **extreme and out of norm in peacetime**, **not** mentally “insane”; **戏坟老魔** *Play-Grave Old Demon*.
+**Peak Dao Manifestation** — **傅演戏** *Fù Yǎnxì* — ex **mercenary corps** captain, **friends dead for ages**; still walks with the **mess cart** and **camp habits** that mean nothing to strangers; wears **Field Law** (**军律大道**) — *only the field’s law counts* — **extreme in peacetime**, **coherent**, not **疯**; **戏坟老魔** *Play-Grave Old Demon*.
 
 ---
 
-## Wild vs “insane” (owner lock)
+## Design lock — three layers (don’t fuse)
 
-| Word | Use |
-|------|-----|
-| **疯** *fēng* | Avoid — sounds like broken mind / random |
-| **狂** *kuáng* | **Extreme**, **unreasonable**, **off the norm** — but **one codex**, predictable |
-| **This bearer** | Applies **war ROE** on **markets, pilgrim roads, inns** — that’s the horror/comedy |
+| Layer | What it is | Player |
+|-------|------------|--------|
+| **Life** | Odd habits, cart junk, **inside jokes with dead brothers** | Optional **human** curiosity — who was **老黄**? |
+| **Power** | **Field Law** — camp/field ROE enforced in volume | **Fair** — cheap shots hurt; normal wins stand |
+| **Story** | Merc rise → peak → annihilation → wander | Chronicle / dialogue, not puzzle mechanics |
 
-He is **coherent**. Peace is what **doesn’t register**.
-
----
-
-## Vibe
-
-**Grounded wild:** a **child-faced old herald** (DM-held) who treats every meeting like **a lane on a front line**.
-
-- **Polite**, **loud**, **procedural** — wrong context, not wrong logic.
-- You feel **judged**, not **gaslit**. Wins **count**; **how you took them** might **matter** if you enter his lane.
-- **Investigate** his cart → **which unit’s articles** — then you can **speak his language** and walk away clean.
-
-**Not:** flowery “unsettled reality,” robbed quest completion, theatre meta.
-
-**Jianghu:** “Don’t draw near **戏坟** if you just **ambushed** someone” — not “your victory was fake.”
+**Owner pass:** antics **do not need** to explain the dao. Toasting in **broken 胜 cups** is **“we always died anyway”** gallows humor — not a **law symptom**.
 
 ---
 
-## What power **looks** like
+## How he got to peak DM (lifespan-safe)
 
-### Rule
+He **did not** grow up alone through the whole Dao War to Manifestation.
 
-*Only the **field’s law** counts.* — [`field-law-great-dao.md`](field-law-great-dao.md)
+| Phase | Sketch |
+|-------|--------|
+| **Youth** | Orphan / stray taken into **洪炉佣团** *Hónglú Mercenary Corps* — **mess wagon kid**, then **blade**. |
+| **Middle war** | Corps takes **contracts** all sides ( ugly work ). He rises: **reliable**, **loud**, **remembers camp law** better than officers. |
+| **Peak** | **Captain** (working title) when corps is **feared but not charter** — breakthrough to **Dao Manifestation** on a **bad contract** (hold line / escort / slaughter — pick one later). **Field Law** fits a man who **lived** by **deal + camp rules**, not sect scripture. |
+| **Fall** | **Years ago** — ambush, employer betrayal, or **both**; corps ** wiped**; he **wasn’t** with the main column (or crawled out). **Brothers gone** — grief **old**, not fresh. |
+| **Now** | Wanders; **young face** (frozen at Manifestation or always looked young — TBD); **gravel voice**; cart is **shrine + home**, not stage. |
 
-### Embodied (plain)
+**No clan.** **No bluff** like Gu. **Weight Law**, **span Local**.
 
-His Manifestation **does not rewrite outcomes**. It **enforces a dead army’s articles** in a bubble:
+---
 
-- Want to fight? **Declare** (word, gesture, distance) — or your opener is **coward’s law**.
-- Want loot? **Quarter** first — or it’s **desecration**.
-- Want to talk? **Parley posture** — hands visible, step count.
-- **Dead** on the road get **enemy honors** if they died standing; **bow** is **code**, not necromancy.
-- **Tea in 胜 cup** — unit **always toasted before the march** that wiped them; **teeth tip** — **paymaster** paid the dead through the mouth so ghosts wouldn’t **desert** (regimental superstition — investigate).
+## Wild (狂) — not insane (疯)
 
-**Visual:** mess cart **洪炉台** *Hónglú Tái* (wrong paint); lists are **callsign rosters**, one line **wrong** (clue); empty cage = **dispatch bird** never returned.
+**Extreme · unreasonable · off-norm:** he still runs interactions like **camp + contract lane** — declare, don’t desecrate your own dead, parley means **hands up** — on a **tea stall road** because **peace never retrained him**.
+
+Predictable. **Not** random. **Not** every quirk is ROE.
+
+---
+
+## Habits & antics (life layer)
+
+**Flavor first.** Some **investigate** to **names and faces**, not to **fix a magic roster**.
+
+| Habit | Likely truth (soft) |
+|-------|---------------------|
+| **Toast in chipped cups marked 胜** | Corps joke before **every** hard job — “victory early, in case we don’t get it late.” |
+| **Pay / tip with teeth** (coin in mouth) | **老黄** *Old Huang* or another brother — stupid dare that **stuck**. |
+| **Bow to road corpses** | Sometimes **respect**, sometimes **drunk habit**, sometimes talking to **nobody there** — player can **misread** |
+| **Calls strangers cousin / extra** | Merc **roll-call banter** — “you’re not on the sheet” |
+| **Empty birdcage** | Pet / messenger joke; or **never replaced** after someone died |
+| **Cart 洪炉台** | Corps nickname — **mis-painted** on purpose once, never fixed |
+| **Gu / Pei nicknames** | **His** labels — they need not know him |
+
+**戏坟** *Play-Grave* — jianghu sees a man **acting like the war’s still camp** around graves and markets.
+
+---
+
+## Power — Field Law (separate doc)
+
+See [`field-law-great-dao.md`](field-law-great-dao.md).
+
+**Rule:** *Only the **field’s law** counts.*
+
+- **Does not** invalidate quest wins or rewrite saves.
+- Near him / in domain: **conduct** matters — ambush, corpse loot, fake parley → **earned** pushback.
+- **Combat:** normal end; **undeclared** opener **punished**, honorable trade **respected**.
 
 ---
 
 ## What it **plays** like
 
-### Road (fair to player)
-
-| You do | Result |
-|--------|--------|
-| **Ignore** him | Insult by **article number**, wrong callsign on list, leaves |
-| **Investigate** → learn unit | Dialogue options; know **three rules** for safe passage |
-| **Break field law** near him (ambush, corpse loot, false parley) | **Consequence** — fight, fine, chronicle grudge — **earned**, not stolen win |
-| **Follow code** (declare, quarter, salute dead) | Small boon, clue, or neutral pass |
-| **Fix roster line** | He **stands down** for **you** — rare respect |
-
-**No** “your last quest didn’t land.” **Yes** “you **violated article nine** in my sight.”
-
-### Combat (if it happens)
-
-- **Legible tags:** Declare · Quarter · Parley · Desecration · Requisition.
-- **He hits hard** when you **break articles** inside volume; **holds back** on **honorable** exchange.
-- **End condition normal** — HP, flee, surrender. Domain makes **cheap shots bad**, not **victory invalid**.
+- **Meet:** odd scene — tea, teeth-coin tip **offered** (accept/decline = **flavor**, not stat trap unless owner adds light rep later).
+- **Talk:** he may **misread** you as merc hire — not a lore quiz.
+- **Investigate cart (optional):** **letters, dice, names scratched on cups** → **brother stories**, side chronicle — **not** required to “solve” him.
+- **Fight (rare):** **Field Law** tags — player-readable.
+- **Walk away:** always valid.
 
 ---
 
 ## Personality
 
-- **Cheerful drill** — quotes **articles** like scripture.
-- **Was:** **merit herald / pay clerk** for a named formation (TBD); Manifestation when the unit **died** but **articles** **didn’t**.
-- **No clan** — walks with cart + roster.
-- **Gu** “cousin rot” / **Pei** “brother thief” — **callsigns**, not friendship.
+- **Cheerful**, ** loud**, **loyal to ghosts** — jokes that **aren’t funny** to outsiders.
+- **Not** stupid; **not** asking you to decode him to earn basic respect.
+- **Bored** by charter politics; **understands** money and **contracts**.
 
 ---
 
 ## Mode — **Wanderer**
 
-Cart anchor, **Local** rumor.
+Mess cart **洪炉台**, **Local** rumor.
 
 ---
 
@@ -104,31 +111,18 @@ Cart anchor, **Local** rumor.
 | Role | Hanzi | Pinyin | English |
 |------|-------|--------|---------|
 | Birth name | **傅演戏** | *Fù Yǎnxì* | **Fu Yanxi** |
+| Corps era | **傅台** | *Fù Tái* | **Fu of the Platform** (mess-cart callsign) |
 | Daoist | **军律子** | *Jūnlǜzǐ* | **Field-Law Child** |
-| Whisper | **戏尸** | *Xì Shī* | **Play-Corpse** (plays **war** on corpses) |
 | Epithet | **戏坟老魔** | *Xì Fén Lǎo Mó* | **Play-Grave Old Demon** |
-| Cart | **洪炉台** | *Hónglú Tái* | mislabeled mess cart |
-
----
-
-## Weight / span
-
-| Field | Value |
-|-------|-------|
-| **weight** | **Law** |
-| **span** | **Local** |
 
 ---
 
 ## Open questions
 
-- [ ] Unit name + 3–5 **numbered articles** (flavor + encounter)
-- [ ] How hard **undeclared attack** penalty (F1 chip vs F3 only)
-
-## Parked paths
-
-[`open-outcome-great-dao.md`](open-outcome-great-dao.md) · [`unstand-down-great-dao.md`](unstand-down-great-dao.md)
+- [ ] **Final contract** that broke the corps (encounter seed)
+- [ ] 2–3 **dead brother** names (inside jokes)
+- [ ] Young face — Manifestation freeze vs natural
 
 ## Links
 
-- #1 Gu · #2 Pei — hub [`worldly-law-bearers.md`](worldly-law-bearers.md)
+- #1 Gu · #2 Pei — [`worldly-law-bearers.md`](worldly-law-bearers.md)

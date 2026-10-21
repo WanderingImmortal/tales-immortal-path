@@ -16,6 +16,8 @@
 
 **Player fairness:** does **not** steal earned wins. It **judges conduct** and **punishes violations**; obey the code → respect / passage / clue.
 
+**Not tied to Fu’s habits:** toast/teeth/bow are **life layer** ([`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md)) — brother jokes, grief ticks — **not** domain symptoms.
+
 ## Rule sentence
 
 *Only the **field’s law** counts.*
