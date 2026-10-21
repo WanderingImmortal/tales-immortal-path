@@ -117,6 +117,20 @@ See [`unstand-down-great-dao.md`](unstand-down-great-dao.md).
 - [ ] **Which formation** on the roll (owner pick)?
 - [ ] How strong **stale victory** debuff near him (light vs narrative-only v1)
 - [ ] Zone: Dustbone supply roads vs Heartlands retreat trails
+- [ ] **v2 risk (owner):** reads as **broken isolated soldier**, not **Law-weight wanderer** — needs **狂-scale** law, not clerical muster (see hub ED note)
+
+## Reference — 《帝霸》狂祖 / “Insane Ancestor” (external)
+
+English **Insane** = **狂** *kuáng* (wild / unrestrained), not **疯** *fēng* (random crazy).
+
+| ED does | ED does **not** |
+|---------|------------------|
+| **狂** = founder tier (**Supreme Giant**), fought **老天**, opened **道源**, founded **狂庭道统** (仙统-scale) | Make “insane” = wacky dialogue or unreadable powers |
+| **Institution** carries name: Insane Scripture, Insane Sword Dao, royal court at **道源** | Every disciple acts “mad” |
+| Person under **枯石院** is **coherent** — shared dao with Li Qiye, goals, memory | PTSD loop as the whole character |
+| **Scale audacity** (e.g. paid sum → named ocean, sunder maelstrom) | Esoteric meta-plot forcing |
+
+**Glean for Fu:** keep **investigate rituals** (teeth, cups, corpses); law should read **powerhouse** — e.g. **nothing in his field is allowed to stay “closed/settled”** (contest hook), not army paperwork. Personality = **one wrong cosmology**, manners = **leftover war protocol**, not village clerk.
 
 ## Links
 

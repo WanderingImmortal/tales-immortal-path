@@ -42,6 +42,10 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 
 **Dropped draft:** Red Fence hermit (Ge Hongli) — too “neutral inn” for #3 strange slot; [`enclosure-great-dao.md`](enclosure-great-dao.md) remains for future NPC/ward-maker.
 
+## Design note — “insane” dao (owner pass)
+
+《帝霸》**狂祖** / Insane Ancestor: **狂** = **unrestrained at civilization scale** (anti-heaven, **道源**, lineage founder), **not** random antics. Fu v2 (**未收兵** muster) skews **broken soldier** — too small for **Law** wanderer. Prefer: **legible rule + outrageous protocol + investigate props**; see Fu doc ED table.
+
 ## Open questions
 
 - [ ] Fourth bearer — true **Pin** hermit stranger than Ge?
