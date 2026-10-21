@@ -36,25 +36,41 @@
 
 Merc **fit:** he spent life where these rules are **already true** (battle lines, camps, mass fights); Manifestation = he **wears** one of them at peak. **Habits stay life layer.**
 
-### 1 — **Killing Weather Great Dao** (杀机大道)
+### 1 — **Killing Weather Great Dao** (杀机大道) — **parked**
 
 | | |
 |--|--|
 | **Rule** | *Where killing runs long, **killing gathers**.* |
-| **Heaven read** | **杀机** *shā jī* — lethal intent **condenses** like weather; old battlefields **stay sharp** |
-| **Fu** | Corps life in **saturated** violence; he **carries a front’s climate** on the road |
-| **Play** | Volume: **opening violence cheaper**, **fake peace** unstable; leave the cell — normal. **Not** “your win invalid” |
-| **Vs Gu** | Gu **settles** form (decay); this **thickens** intent to harm |
+| **Owner read** | **Cool name**, weak **play-as-world-rule** on a **mobile** bearer — tends to read as **mood debuff**, not heaven physics (works better as **fixed battlefield geography** or axis residue). |
 
-### 2 — **Attrition Great Dao** (磨损大道)
+---
+
+### 2 — **Battle Grind Great Dao** (战磨大道) — **owner lean**
+
+**Renamed from 磨损 “attrition”** — same battlefield theme, clearer **not-Decay**.
 
 | | |
 |--|--|
-| **Rule** | *Sustained **contention** **wears** what it touches.* |
-| **Heaven read** | Long struggle **erodes** gear, arrays, **Circulation** — war **thermodynamics** |
-| **Fu** | Sieges, merc **hold-the-line** jobs; Manifestation on a **grind** contract |
-| **Play** | Domain tick → **sector wear** / renewal tax; **Dampen** / break holder relieves |
-| **Vs Gu** | Overlap tone — Gu **fast decay**; Attrition **needs ongoing fight** to bite |
+| **Hanzi · pinyin · English** | **战磨大道** *Zhàn Mó Dà Dào* — **Battle Grind Great Dao** |
+| **Rule** | *While **force opposes force**, **both sides pay**.* |
+| **Heaven read** | Reality **taxes mutual violence** — not time-rot, **exchange-cost** physics (siege, shield wall, merc **hold the gate**). |
+| **Embodying** | He doesn’t “be attrition” — he **legislates the grind**: stand in his volume and **every contested beat** costs **Circulation / Structure** (**both** parties unless you break contact). |
+| **Fu** | Rose by **outlasting**; corps died when someone **outspent** them; he Manifested mid-**grind**. |
+
+**Vs Gu Decay** ([`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md)):
+
+| | **Gu — 枯败 Decay** | **Fu — 战磨 Battle Grind** |
+|--|---------------------|----------------------------|
+| **Rule** | Form **returns** faster | **Opposed force** **taxes** each beat |
+| **Idle camp** | Gear **still** rots | **No tax** until **contention** |
+| **Feel** | Swamp, pass, **settling** | Shield line, **clinch**, **siege hour six** |
+| **Winner logic** | Field **ends** things | **Last wallet standing** |
+| **Combat tag** | **Consume** renewal | **Per-exchange** sector drip; **break contact** stops tick |
+| **Gu now** | Kind, **withholds** field | Fu **still brings** the grind on the road |
+
+**Play sketch:** Fu **doesn’t one-shot** — he **extends** until you’re empty or **disengage**. Player **reads** it: “every parry here hurts **me too**” — fair, not stolen wins. **Dampen** / flee / burst **outside** small radius.
+
+**Risk if still Decay-colored:** if domain is **passive DoT**, it **collapses** into Gu — rule must **require mutual opposition** (attack/defend/contest edge), not ambient rot.
 
 ### 3 — **Contested Ground Great Dao** (争地大道)
 
@@ -96,8 +112,8 @@ Peak Manifestation on existing **战道 / 杀伐 / 剑道** teachable path — *
 
 | # | Heaven rulebook? | Merc biography | Player-fair |
 |---|------------------|----------------|-------------|
-| 1 Killing Weather | ★★★★ | ★★★★ | ★★★ |
-| 2 Attrition | ★★★★ | ★★★★ | ★★★ |
+| 1 Killing Weather | parked | — | — |
+| 2 Battle Grind | ★★★★ | ★★★★★ | ★★★★ |
 | 3 Contested Ground | ★★★★ | ★★★ | ★★ (tuning) |
 | 4 Edge Propagation | ★★★★ | ★★★ | ★★★ |
 | 5 Discharge | ★★★★ | ★★★★★ | ★★★ |
@@ -105,4 +121,8 @@ Peak Manifestation on existing **战道 / 杀伐 / 剑道** teachable path — *
 
 ## Pick
 
-- [ ] 1 · 2 · 3 · 4 · 5 · 6 · hybrid · defer dao
+- [ ] 2 Battle Grind · 3 · 4 · 5 · 6 · hybrid · defer dao
+
+### 2b — if Grind still feels too Decay-adjacent
+
+**压势大道** *Suppression Pressure* — *Crowding **compresses** circulation* (density / **overwhelm**, not **wear**). Same merc, different **player read**: “can’t **breathe** technique here.”
