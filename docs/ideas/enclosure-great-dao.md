@@ -5,7 +5,7 @@
 | **Status** | `idea` — path sketch; Ge Hongli wears it |
 | **Blocked on** | `DAO_TAXONOMY`; domain contest examples |
 | **Issue** | none yet |
-| **Chat / PR** | [`worldly-law-bearer-ge-hongli.md`](worldly-law-bearer-ge-hongli.md) |
+| **Chat / PR** | parked — was Ge Hongli draft |
 | **Updated** | 2026-10-21 |
 
 ## Intent
@@ -18,7 +18,7 @@
 
 ## Who walks it
 
-- Hermits, ward-makers, neutral-ground hosts — **Ge Hongli** [`worldly-law-bearer-ge-hongli.md`](worldly-law-bearer-ge-hongli.md)
+- Hermits, ward-makers, neutral-ground hosts — **future** NPCs (Red Fence Ge draft dropped)
 - Overlaps **fiction** with basin **statutes** ([`law-taxonomy.md`](law-taxonomy.md)) — enclosure is **portable**, **personal**, not Pinwright-scale
 
 ## Lesser ways (examples)

@@ -109,4 +109,5 @@
 ## Links
 
 - Bearer #1: [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md)
-- Parked: Registry hermit (Ye) — **dropped**
+- Bearer #3: [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) — calls Pei “brother thief” uninvited
+- Hub: [`worldly-law-bearers.md`](worldly-law-bearers.md)
