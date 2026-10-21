@@ -1,9 +1,9 @@
-# Worldly Law Bearer — Fu Yanxi (Play-Grave Director)
+# Worldly Law Bearer — Fu Yanxi (Play-Grave Herald)
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (lore lock — replaces Red Fence hermit draft) |
-| **Blocked on** | Encounter “role” UI; cart/stage map asset |
+| **Status** | `designed` (lore lock — v2: concrete law, not theatre meta) |
+| **Blocked on** | Roll-fix encounter; `DAO_TAXONOMY` row |
 | **Issue** | none yet |
 | **Chat / PR** | [`worldly-law-bearers.md`](worldly-law-bearers.md) — bearer #3 |
 | **Updated** | 2026-10-21 |
@@ -12,28 +12,29 @@
 
 ## One line
 
-**Peak Dao Manifestation** **Remnant Plot** wearer — **傅演戏** *Fù Yǎnxì* — **walking leftover from the Dao War era**: child-faced, ancient-voiced, **cart-mounted stage**; forces **unfinished stories** to **play out** near him; **戏坟老魔** *Play-Grave Old Demon* to survivors; **outrageous**, **unchained**, **not** evil for sport.
+**Peak Dao Manifestation** **Unstand-Down** wearer — **傅演戏** *Fù Yǎnxì* — **insane wanderer** from the **Dao War** tail: still **living like the array is up**; child face, ancient voice; **戏坟老魔** *Play-Grave Old Demon*; outrageous **rituals** you can **investigate**, not vague “story powers.”
 
 ---
 
-## Why “strange” (design intent)
+## Owner note — “insane” without esoteric dao
 
-Bearers are **monsters of an old board** — no charter, no clan bluff, **nothing** to keep them polite. #3 is **theatre, unfinished war plots, and bad manners** — not a neutral inn.
+| Avoid | Prefer |
+|-------|--------|
+| Random wacky lines | **One broken belief:** the war **never stood down** |
+| Meta “play out the plot” | **One rule:** *The array has **not** been dismissed.* |
+| Stage / Role UI | **Props + rolls + customs** — player **fixes the muster** or **walks away** |
 
-| Gu | Pei | **Fu** |
-|----|-----|--------|
-| Kind + rot past | Beggar + traceless play | **Director** + **narrative coercion** |
-| Wanders | Wanders | **Circuit** — finds **you** at fairs and **bad bends** |
+**What “insane dao” means here:** not chaos — a **real Great Dao** **snapped onto the wrong world-state**. Same tier as **Decay** or **Traceless**: **one sentence**, **visible symptoms**, **counters**. His **manners** are **army habits** repeated forever; his **power** is **stale victory** and **wrong muster lines**.
 
 ---
 
-## Mode — **Circuit** (weird mobility)
+## Mode — **Wanderer**
 
 | | |
 |--|--|
-| **Anchor** | **Stage cart** **洪炉台** *Hónglú Tái* — **Crimson Furnace Platform** (misnamed — it’s wood and lacquer) |
-| **Span** | **Pin** on cart; **Local** legend (“the stage **was** here yesterday”) |
-| **Player** | Road/festival meet — **Role** offer; accept → one-act; refuse → insult poem, no chase |
+| **Anchor** | **Broken supply cart** (not a stage) — **洪炉台** *Hónglú Tái* mislabel: **officers’ mess** cart from a dead unit |
+| **Span** | **Local** rumor — “the victory herald was on **this** road” |
+| **Player** | Road meet — **talk, investigate props**, optional **correct one name** on his roll; no chase if ignored |
 
 ---
 
@@ -41,46 +42,58 @@ Bearers are **monsters of an old board** — no charter, no clan bluff, **nothin
 
 | Role | Hanzi | Pinyin | English |
 |------|-------|--------|---------|
-| Birth name | **傅演戏** | *Fù Yǎnxì* | **Fu Yanxi** — *fù* tutor/master; *yǎn* perform; *xì* play/drama |
-| Daoist | **未定子** | *Wèidìngzǐ* | **Unfinished Child** |
-| Mask / billing | **戏尸** | *Xì Shī* | **Play-Corpse** (what peasants whisper) |
+| Birth name | **傅演戏** | *Fù Yǎnxì* | **Fu Yanxi** — *fù* clerk/tutor; *yǎn* perform; *xì* play (ironic: he **performs** the war still on) |
+| Daoist | **未收子** | *Wèishōuzǐ* | **Unstand-Down Child** |
+| Peasant whisper | **戏尸** | *Xì Shī* | **Play-Corpse** — acts like corpses are **on duty** |
 | Enemy epithet | **戏坟老魔** | *Xì Fén Lǎo Mó* | **Play-Grave Old Demon** |
-| Cart | **洪炉台** | *Hónglú Tái* | **Crimson Furnace Platform** (misnomer) |
+| Cart | **洪炉台** | *Hónglú Tái* | **Crimson Furnace Platform** — **wrong name** painted on (was **siege artillery** slang; cart is **wood + mess kit**) |
 
 ---
 
-## Appearance & behavior (outrageous sketch)
+## Appearance & behavior (investigate-first)
 
-- **Face:** **Ten-year-old** (chosen, DM-held); **voice:** gravel **three thousand years**.
-- **Props:** Empty **birdcage**; stack of **wrong** playbills (names **misprinted**); tea served in ** chipped cups labeled “victory”**.
-- **Manners:** **Bows to corpses** on the road; tips **in teeth** (small stones); calls strangers **“cousin”** or **“extra”**.
-- **To other bearers (unilateral):** may call **Gu** “cousin rot,” **Pei** “brother thief” — **they need not know him** (oddball network seed).
-- **Not** a killer for sport: **stories** must **finish**; violence is **bad improv** to him.
+Keep the **hooks**; drop **theatre director** framing.
+
+| Behavior | Investigation lead |
+|----------|-------------------|
+| **Bows to corpses** | Treats them as **rank still holding** — find **which unit** saluted like this |
+| **Tips in teeth** (pebbles/coins) | **Dead-pay** — mouth is **proxy for the roll**; regiment **custom** |
+| **Tea in chipped cups labeled “胜”** *shèng* victory | **Officers’ mess**; same toast since **one named siege** |
+| **Stacks of lists** (not playbills) — **names one row wrong** | **Muster / merit roll**; PC can **cross-check chronicle** |
+| **Empty birdcage** | **Dispatch cage** — stand-down **never delivered** |
+| Calls strangers **“cousin”** / **“extra”** | Muster slang — **cousin** = same roll; **extra** = not on sheet, might **fill a blank** |
+| **Gu** “cousin rot,” **Pei** “brother thief” (unilateral) | He **slots everyone into the army** — oddball network seed |
+
+**Not** a killer for sport: he **reports**, **salutes**, ** pays the dead** — killing without **order on the roll** is **out of character** (bad improv **removed** — now **AWOL**).
 
 ---
 
-## Personality
+## Personality (writable “insane”)
 
-- **Cheerful**, **unhinged polite**, **bored** with peace — **Dao War** left half the continent’s **plots** **unresolved**; he ** wears** that scar.
-- **No clan** — troupe **dead** at Tianjing margins; he **alone** **Manifested** when a **general’s curse** and a **script** **merged** mid-retreat (fiction).
-- **Friends later:** **Pei** might steal from his cart; **Gu** might sit through one act once; **Ge** (dropped) **n/a**
+- **Cheerful**, **ceremonial**, **cannot update** — peace is **dismissed array** he never received.
+- **Before snap:** **victory herald** / **merit clerk** for a **named formation** (TBD) — last order he heard: **“hold the win.”**
+- **Manifestation:** stand-down edict **arrived as ash**; law **locked** on **un-dismissed**.
+- **No clan** — unit **dead**; he **walks** with the **roll** and **mess cart**.
+- **Friends later:** **Pei** steals from cart (**mess kit**); **Gu** might **quiet one corpse** once; neither must **know** him.
 
 ---
 
-## Law — **Remnant Plot Great Dao** (残编大道 *Cán Biān Dà Dào*)
+## Law — **Unstand-Down Great Dao** (未收兵大道 *Wèi Shōu Bīng Dà Dào*)
 
-See [`remnant-plot-great-dao.md`](remnant-plot-great-dao.md).
+See [`unstand-down-great-dao.md`](unstand-down-great-dao.md).
 
-**Rule sentence:** *What was left unfinished must **play out**.*
+**Rule sentence:** *The array has **not** been dismissed.*
 
 | Player sees | Meaning |
 |-------------|---------|
-| **Role** card / dialogue | One scene — vendetta pause, confession, fake wedding, **absurd** but **bounded** |
-| **Accept** | Small **boon** or **scar** tied to scene (not random loot) |
-| **Refuse** | He **claps**, **writes your name wrong** on a bill, **moves on** |
-| **Combat nearby** | Grudges **spark** faster; **situation-thread** hooks **weighted** in patch |
+| Corpses **honored**, living **mis-ranked** | His field still uses **war muster** |
+| **Wrong name** on list | **One line** fixable — reward = he **leaves** / chronicle clue |
+| Your **recent win** feels **unsettled** | **Stale victory** bleed — light mechanical hook later |
+| **Grudge / rematch** threads **stir** | “Fight **not closed**” — situation-thread weight, not forced script |
 
-**Weight:** **Law** — peak Manifestation. **Others** could walk **残编** — Fu is **the** jianghu name for it.
+**Weight:** **Law** — peak Manifestation. **Others** could walk **未收兵** — Fu is the jianghu name.
+
+**Combat (later):** contest reads as **“has this fight ended?”** — depth/fill per [`dao-combat-target-spine.md`](dao-combat-target-spine.md); not a separate damage type.
 
 ---
 
@@ -89,21 +102,21 @@ See [`remnant-plot-great-dao.md`](remnant-plot-great-dao.md).
 | Field | Value |
 |-------|-------|
 | **weight** | **Law** |
-| **span** | **Pin** (cart) + **circuit** rumor |
+| **span** | **Local** wanderer |
 
 ---
 
 ## Game hooks (TBD)
 
-- Festival **side stage** event
-- **Unfinished quest** forced **coda** (optional — owner approval)
-- **Chronicle:** “Play-Grave passed through”
+- **Investigation:** identify regiment + siege from cups / roll watermark
+- **Fix one name** → bearer moves on; wrong fix → insult, no hard fail
+- **Chronicle:** “Play-Grave herald passed through”
 
 ## Open questions
 
-- [ ] How absurd is too absurd for tone?
-- [ ] Permanent scars vs reversible scene outcomes
-- [ ] Zone: follows Dustbone fairs vs Heartlands pilgrim roads
+- [ ] **Which formation** on the roll (owner pick)?
+- [ ] How strong **stale victory** debuff near him (light vs narrative-only v1)
+- [ ] Zone: Dustbone supply roads vs Heartlands retreat trails
 
 ## Links
 

@@ -54,8 +54,9 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Law Bearer — Gu Dusheng (Smiling Wither)](worldly-law-bearer-gu-dusheng.md) | `designed` | Encounter hook | — |
 | [Law Bearer — Pei Xian (Traceless Beggar)](worldly-law-bearer-pei-xian.md) | `designed` | Petty-theft encounter | — |
 | [Traceless Great Dao (path sketch)](traceless-great-dao.md) | `idea` | DAO_TAXONOMY | — |
-| [Law Bearer — Fu Yanxi (Play-Grave Director)](worldly-law-bearer-fu-yanxi.md) | `designed` | Role encounter TBD | — |
-| [Remnant Plot Great Dao (path sketch)](remnant-plot-great-dao.md) | `idea` | DAO_TAXONOMY | — |
+| [Law Bearer — Fu Yanxi (Play-Grave Herald)](worldly-law-bearer-fu-yanxi.md) | `designed` | Roll-fix investigate TBD | — |
+| [Unstand-Down Great Dao (path sketch)](unstand-down-great-dao.md) | `idea` | DAO_TAXONOMY | — |
+| [Remnant Plot Great Dao (path sketch)](remnant-plot-great-dao.md) | `idea` | parked | — |
 | [Enclosure Great Dao (path sketch)](enclosure-great-dao.md) | `idea` | parked — ward-makers | — |
 | [Disguise & public identity](disguise-and-public-identity.md) | `designed` | Identity resolver, sense channels, signature ledger | — |
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` (v1 hall lean locked) | Hall name + graft spine | — |

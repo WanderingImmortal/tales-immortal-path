@@ -18,7 +18,7 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 |------|---------|------|
 | **Wanderer** | Road / market | Travel meet |
 | **Hermit** | Fixed site (**Pin**) | Visit *(open slot)* |
-| **Circuit** | Stage cart / seasonal | **Fu** — festival & road |
+| **Circuit** | Stage cart / seasonal | *(open — Fu moved to wanderer)* |
 
 **Friends:** oddball cast **later** — Fu names Gu/Pei uninvited; Pei steals props; etc.
 
@@ -36,9 +36,9 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 |---|------|-----|----------|-----------|
 | 1 | Wanderer | [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) | **Decay** 枯败道 | **笑朽老魔** *Smiling Wither Old Demon* |
 | 2 | Wanderer | [`worldly-law-bearer-pei-xian.md`](worldly-law-bearer-pei-xian.md) | **Traceless** 无迹大道 | **无迹老魔** *Traceless Old Demon* |
-| 3 | Circuit | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) | **Remnant Plot** 残编大道 | **戏坟老魔** *Play-Grave Old Demon* |
+| 3 | Wanderer | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) | **Unstand-Down** 未收兵大道 | **戏坟老魔** *Play-Grave Old Demon* |
 
-**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`remnant-plot-great-dao.md`](remnant-plot-great-dao.md)
+**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`unstand-down-great-dao.md`](unstand-down-great-dao.md) · [`remnant-plot-great-dao.md`](remnant-plot-great-dao.md) *(parked)*
 
 **Dropped draft:** Red Fence hermit (Ge Hongli) — too “neutral inn” for #3 strange slot; [`enclosure-great-dao.md`](enclosure-great-dao.md) remains for future NPC/ward-maker.
 
@@ -46,4 +46,4 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 
 - [ ] Fourth bearer — true **Pin** hermit stranger than Ge?
 - [ ] Shared oddball friends doc
-- [ ] Issue: encounters + Fu **Role** beat
+- [ ] Issue: encounters + Fu **roll-fix** investigate beat
