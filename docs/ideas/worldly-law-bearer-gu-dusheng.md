@@ -100,4 +100,5 @@ Mid **peak Dao Manifestation** decay specialist who **young-faced** the Dao Wars
 ## Links
 
 - Dao Wars lesser clans row: [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)
-- Parked esoteric laws: [`worldly-law-bearers.md`](worldly-law-bearers.md)
+- Fellow bearers: [`worldly-law-bearer-pei-xian.md`](worldly-law-bearer-pei-xian.md) · [`worldly-law-bearer-ge-hongli.md`](worldly-law-bearer-ge-hongli.md)
+- Hub: [`worldly-law-bearers.md`](worldly-law-bearers.md)

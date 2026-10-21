@@ -95,9 +95,14 @@
 
 ---
 
+## Friends / game (parked)
+
+- **Oddball friends** — design later (not Gu; not charter peers).
+- **Theft loop** — clue/recover/chase **TBD** when encounter pipeline exists.
+
 ## Open questions
 
-- [ ] [`traceless-great-dao.md`](traceless-great-dao.md) stub — sects, lesser ways, counters
+- [ ] [`traceless-great-dao.md`](traceless-great-dao.md) — sects, lesser ways, counters
 - [ ] Theft: hard fail vs **Fate** read for “fair game” items only
 - [ ] First zone: Dustbone fringe vs Heartlands market
 

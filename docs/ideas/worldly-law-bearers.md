@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (Gu + Pei locked; roster open) |
+| **Status** | `designed` (three bearers locked at lore sketch) |
 | **Blocked on** | Combat spine F3 + encounter hooks |
 | **Issue** | none yet |
 | **Chat / PR** | Owner creative pass 2026-10-21 |
@@ -14,11 +14,11 @@
 
 | Mode | English | Hook |
 |------|---------|------|
-| **Wanderer** | Road / market | Travel meet, random kindness or mischief |
-| **Hermit** | One site (**Pin** span) | Visit location (future bearers) |
-| **Circuit** | Seasonal stops | Pilgrimage rumors |
+| **Wanderer** | Road / market | Travel meet |
+| **Hermit** | One site (**Pin** span) | **Visit** vale / tower |
+| **Circuit** | Seasonal stops | *(open for future)* |
 
-See [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md) — personal anchor without sect HQ.
+**Friends:** oddball networks **between** bearers — **later** (e.g. Pei ↔ Ge spoon gag).
 
 ## Org axes
 
@@ -28,16 +28,18 @@ See [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md) — personal anch
 
 **Depth** + **fill** + contest — [`dao-combat-target-spine.md`](dao-combat-target-spine.md).
 
-## Index — bearers
+## Index — bearers (batch 1)
 
 | # | Mode | Doc | Worn law | Fear name |
 |---|------|-----|----------|-----------|
-| 1 | Wanderer | [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) | **Decay** 枯败道 | **笑朽老魔** *Smiling Wither Old Demon* |
-| 2 | Wanderer | [`worldly-law-bearer-pei-xian.md`](worldly-law-bearer-pei-xian.md) | **Traceless Great Dao** 无迹大道 | **无迹老魔** *Traceless Old Demon* |
+| 1 | Wanderer | [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) | **Decay** 枯败道 | **笑朽老魔** *Xiào Xiǔ Lǎo Mó* |
+| 2 | Wanderer | [`worldly-law-bearer-pei-xian.md`](worldly-law-bearer-pei-xian.md) | **Traceless** 无迹大道 | **无迹老魔** *Wú Jì Lǎo Mó* |
+| 3 | Hermit | [`worldly-law-bearer-ge-hongli.md`](worldly-law-bearer-ge-hongli.md) | **Enclosure** 囿道 | **洪篱魔** *Hónglí Mó* |
 
-**Great Dao reference:** [`traceless-great-dao.md`](traceless-great-dao.md)
+**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`enclosure-great-dao.md`](enclosure-great-dao.md)
 
 ## Open questions
 
-- [ ] Third bearer — hermit or circuit?
-- [ ] Issue: `lawBearerEncounter`, petty-theft clue pipeline
+- [ ] Fourth+ bearers — circuit pilgrim?
+- [ ] Shared **oddball friends** doc when cast firms up
+- [ ] Issue: `lawBearerEncounter`, `hermitSiteVisit`, Pei theft TBD
