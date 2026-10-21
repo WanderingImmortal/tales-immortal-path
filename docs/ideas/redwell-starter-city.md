@@ -223,6 +223,8 @@ NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlan
 
 > Inn → job or bounty → bazaar balm/QC pamphlet/pill → Ironscar or scrub → brew → cultivate. Join Well-Ring or stay hermit. At early FE, buy the sand-brick courtyard — still at home. By mid FE the well feels small; leave when opportunity pulls, or take the town and linger. Come back in 200 years — new innkeep, same seat. Still nobody in Threshold.
 
+**Macro loop (Taiwu rhythm, not Taiwu sim):** [`redwell-first-run-gameplay-loop.md`](redwell-first-run-gameplay-loop.md) — three clocks, parallel tracks, first-run acts, fight cadence.
+
 ## Suggested build chunks (implementable)
 
 1. `WORLD_LOCATIONS.redwell` + map node + **spawn default** here; Threshold remains capital node  
