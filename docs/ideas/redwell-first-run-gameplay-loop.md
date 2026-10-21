@@ -8,11 +8,13 @@
 | **Chat / PR** | Cloud agent design chat 2026-10-22 |
 | **Updated** | 2026-10-22 |
 
-**Sisters:** [`redwell-starter-city.md`](redwell-starter-city.md) · [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) · [`qi-condensation-depth.md`](qi-condensation-depth.md) · [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) · [`jianghu-situation-threads.md`](jianghu-situation-threads.md) · [`explore-field-gathering.md`](explore-field-gathering.md) · [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md)
+**Sisters:** [`redwell-starter-city.md`](redwell-starter-city.md) · [`redwell-town-cast.md`](redwell-town-cast.md) · [`dustbone-starter-gameplay.md`](dustbone-starter-gameplay.md) · [`qi-condensation-depth.md`](qi-condensation-depth.md) · [`qc-cultivate-excitement.md`](qc-cultivate-excitement.md) · [`jianghu-situation-threads.md`](jianghu-situation-threads.md) · [`explore-field-gathering.md`](explore-field-gathering.md) · [`dustbone-qc-alchemy.md`](dustbone-qc-alchemy.md) · [`world-cultivation-parity.md`](world-cultivation-parity.md)
 
 ## Intent
 
-The **first run** should spend a **meaningful slice of lifespan** in Redwell — rent, jobs, bribes/fees, field risk, limited bazaar — without feeling like a tutorial corridor **or** a speedrun to Foundation. Target feel: **Scroll of Taiwu**’s early decades — you stay **weak relative to the pond** for a long time, but **fights, materials, relationships, and small civic wins** compound so the struggle feels **earned**, not empty waiting on a qi bar.
+The **first run** should spend a **meaningful slice of lifespan** in Redwell — living there while **root, talent, poverty, and a short life** compound against slow QC progress — without feeling like a tutorial corridor **or** a speedrun to Foundation. **Creation points / legacy** exist to soften later runs; the first life stays harsh ([`world-cultivation-parity.md`](world-cultivation-parity.md)). Target feel: **Scroll of Taiwu**’s early decades — you stay **weak relative to the pond** for a long time, but **fights, materials, relationships, and small civic wins** compound so the struggle feels **earned**, not empty waiting on a qi bar.
+
+**People:** recognizable town cast — friends, rivals, specialty employers — [`redwell-town-cast.md`](redwell-town-cast.md).
 
 This doc is the **macro loop + pacing philosophy**. Inventory of places/systems stays in [`redwell-starter-city.md`](redwell-starter-city.md).
 
@@ -24,10 +26,11 @@ This doc is the **macro loop + pacing philosophy**. Inventory of places/systems 
 
 | Pull | Anti-pattern |
 |------|----------------|
-| **Lifespan is currency** — starter town should **cost** years (shelter, fees, bad deals) | Infinite free rest + explore stone lottery → no life sim |
+| **Life is the budget** — **inferior root + poor start + normal lifespan** mean QC years consume most of your life; money sinks (rent, pills, fees) **amplify** poverty, they don’t define the tragedy | “Redwell is hard” as a zone debuff |
 | **Realm progress is slow** — inferior root Late QC ~40–44, Peak ~45–50 ([`qi-condensation-depth.md`](qi-condensation-depth.md)) | One lucky break skips QC in a season |
-| **Weeks must matter** — job month, rent, shelf restock, seat turnover | AFK cultivate-only with nothing else to do |
+| **Weeks must matter** — job month, rent, shelf restock, seat turnover, **cast favors** | AFK cultivate-only with nothing else to do |
 | **Leave is pull, not push** — Redwell stays valid; diminishing returns mid FE | Script exile at band X |
+| **Later runs breathe** — CP/legacy improve starting luck, not “skip QC” | First-run balance patched away because rerun is easy |
 
 ---
 
@@ -106,12 +109,14 @@ Taiwu early fights are **scary** but **learnable**. Redwell v1 cadence:
 
 ## Relationships — lite graph, heavy consequences
 
-Without Taiwu social sim, relationships are **few faces, deep hooks**:
+Without Taiwu social sim, relationships are **few faces, deep hooks** — see [`redwell-town-cast.md`](redwell-town-cast.md):
 
+- **~12–20 named cast** beside civic seats — roles you recognize (foreman, porter rival, lodge outer, tavern regular).
+- **Friends / enemies** via converse — favors (not quest-board chains), cold job denial, chronicle memory.
+- **Specialty jobs** — rep/tags unlock “they know what you’re good at” offers ([`work-and-professions.md`](work-and-professions.md)).
 - **Seats** age and turn over — innkeep remembers rent trouble; warden remembers bounty style ([`civic-seats-generator.md`](civic-seats-generator.md)).
 - **Well-Ring** — join ladder, dirty partners; loyalty vs hermit is a **run identity** ([`dustbone-lesser-sects.md`](dustbone-lesser-sects.md)).
 - **Threads** — one good grudge chain beats ten fetch quests ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)).
-- **Tavern rumor** — points at seats, caravans, rare lord fate — not a relationship meter for every NPC.
 
 ---
 
@@ -129,9 +134,9 @@ Acts are **feel targets** for content density — not gates.
 
 ---
 
-## Sinks that burn lifespan (starter town tax)
+## Sinks that amplify poverty (Redwell prices, not Redwell curse)
 
-Bundle small cuts so **money = concentrated order** ([`world-standing-and-property.md`](world-standing-and-property.md)) without death-spiral:
+Money pressure **matters most when you’re already poor and slow** — inferior root means fewer cultivate weeks per year; rent and pills then **hurt**. Bundle small cuts so **money = concentrated order** ([`world-standing-and-property.md`](world-standing-and-property.md)) without death-spiral:
 
 - Inn rent (monthly)
 - Healing after fields
@@ -154,6 +159,7 @@ When playtest says “boring” or “too fast,” tune in this order:
 4. **Interrupt rate** — grudge/bandit often enough to matter, not every cultivate week.
 5. **Pamphlet pool redraw** — envy and build diversity ([`qc-technique-pamphlet-pool.md`](qc-technique-pamphlet-pool.md)).
 6. **Situation threads v1** — one escalation pack end-to-end.
+7. **Town cast v1** — converse + 3 favor templates + one specialty job tag ([`redwell-town-cast.md`](redwell-town-cast.md)).
 
 Do **not** fix boredom by speeding QC bands or inflating explore stones.
 

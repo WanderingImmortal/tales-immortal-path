@@ -215,9 +215,13 @@ Xianxia world rule (owner 2026-08-06): **opportunities are not player-only.** Se
 
 Owner 2026-08-06: **Well-Ring Lodge** locked — dirty partners (lord mid–late FE + early-FE master + warden). ~25–40 outers. Player may found their own lodge at **early FE** (Peak FE expands) — soft cut/squeeze first, not instant war. Design: [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md) · [`player-organization-paths.md`](player-organization-paths.md). “Redwell City Lord” fine until interactions. Not cosmic corruption.
 
+### Town cast (people, not only offices)
+
+**~12–20 named roles** — friends, rivals, specialty employers; favors without fetch-quest spam. Detail: [`redwell-town-cast.md`](redwell-town-cast.md). Civic **seats** stay the authority layer ([`civic-seats-generator.md`](civic-seats-generator.md)).
+
 ### Explicitly not Redwell v1
 
-NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlands patronage, residence cultivate %, Taiwu-grade NPC social, multiple in-town halls.
+NS flyovers, mid city, full tribe camps, Su wage board, dense Registry, Heartlands patronage, residence cultivate %, **Taiwu-grade full social sim** (marry/feud all NPCs), multiple in-town halls.
 
 ### Success feel
 
