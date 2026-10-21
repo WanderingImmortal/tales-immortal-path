@@ -52,7 +52,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Jianghu situation threads](jianghu-situation-threads.md) | `designed` | Grudge interrupt v1; org backing read | — |
 | [Worldly Law Bearers (hub)](worldly-law-bearers.md) | `designed` | Combat random events; decay/threshold refs | — |
 | [Law Bearer — Gu Dusheng (Smiling Wither)](worldly-law-bearer-gu-dusheng.md) | `designed` | Encounter hook | — |
-| [Law Bearer — Ye Qinting (Registry Hermit) draft](worldly-law-bearer-ye-qinting.md) | `idea` | Tower site pin | — |
+| [Law Bearer — Pei Xian (Traceless Beggar)](worldly-law-bearer-pei-xian.md) | `designed` | Petty-theft encounter | — |
+| [Traceless Great Dao (path sketch)](traceless-great-dao.md) | `idea` | DAO_TAXONOMY | — |
 | [Disguise & public identity](disguise-and-public-identity.md) | `designed` | Identity resolver, sense channels, signature ledger | — |
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` (v1 hall lean locked) | Hall name + graft spine | — |
 | [Dustbone lesser sects](dustbone-lesser-sects.md) | `building` (Well-Ring v1) | Playtest; loyalty parked | — |
