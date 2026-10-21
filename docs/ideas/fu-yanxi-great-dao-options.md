@@ -8,100 +8,101 @@
 | **Chat / PR** | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) |
 | **Updated** | 2026-10-21 |
 
-## Character lock (independent of dao)
+## Character lock (dao separate)
 
-**洪炉佣团** survivor — fought up **wild / extreme / unreasonable**; **friends dead long ago**; cart + **inside jokes** + pain. **Dao does not need to be “insane.”** **狂** lives in **the man**; Great Dao should be **one clear sentence** + combat legibility ([`law-taxonomy.md`](law-taxonomy.md)).
-
-**Parked on Fu:** [`field-law-great-dao.md`](field-law-great-dao.md) (name/ROE bundle felt off).
+**洪炉佣团** survivor — **wild person**, dead friends’ jokes, cart, pain. **Great Dao** = **world rule he Manifested**, not merc **charter** on his shoulder.
 
 ---
 
-## Option A — **Blood Price Great Dao** (血价大道)
+## Owner pushback — oath-flavored vs heaven rulebook
+
+**You’re mostly right.** Options like **blood price / contract / debt transfer** read as **things a man imposes** (Body Dao **witnesses** those — [`body-dao-design.md`](body-dao-design.md); charter **Basin** — [`law-taxonomy.md`](law-taxonomy.md)), not **physics the setting already had** that he **finished walking**.
+
+| Stack | Feel | Example |
+|-------|------|---------|
+| **Axis / scar** | Geography nobody owns | Sunless Scar — yin **wins there** |
+| **Great Dao → Manifestation** | **Path comprehension** becomes **embodied legislation** | Gu: *form **returns** faster here* |
+| **Oath / vessel rule / contract** | **You swore** / employer terms | **Not** the heavens rulebook |
+
+**Good rule sentence test:** Would a sect manuscript say “we **walk** this because reality **already leans** this way” — not “I **bind you** to pay.”
+
+**Traceless** passes: *what is not traced **cannot be held*** — metaphysical **world** property, not a promise.
+
+**Parked oath-flavored set (v1 options A/B/E/D):** useful for **Vessel Rules** or **employer betrayal story**, **not** Fu’s Great Dao row.
+
+---
+
+## World-legislation options (v2)
+
+Merc **fit:** he spent life where these rules are **already true** (battle lines, camps, mass fights); Manifestation = he **wears** one of them at peak. **Habits stay life layer.**
+
+### 1 — **Killing Weather Great Dao** (杀机大道)
 
 | | |
 |--|--|
-| **Hanzi · pinyin · English** | **血价大道** *Xuè Jià Dà Dào* — **Blood Price Great Dao** |
-| **Rule** | *Nothing is yours until **blood** has been **paid**.* |
-| **Why Fu** | Merc rise: every rank, tool, meal **cost** someone blood; he **believes** the ledger |
-| **Power read** | Requisition isn’t “law”—it’s **price**. Looting without fighting **reads wrong** near him |
-| **Combat lean** | **Consume** / opening trade: full shape after **you’ve bled** (sector stress on self ok); punishes **free** damage |
-| **Risk** | Feels punitive if tuned wrong — keep **NPC-only** or **opt-in** duel |
+| **Rule** | *Where killing runs long, **killing gathers**.* |
+| **Heaven read** | **杀机** *shā jī* — lethal intent **condenses** like weather; old battlefields **stay sharp** |
+| **Fu** | Corps life in **saturated** violence; he **carries a front’s climate** on the road |
+| **Play** | Volume: **opening violence cheaper**, **fake peace** unstable; leave the cell — normal. **Not** “your win invalid” |
+| **Vs Gu** | Gu **settles** form (decay); this **thickens** intent to harm |
 
----
-
-## Option B — **Contract Great Dao** (契刀大道)
+### 2 — **Attrition Great Dao** (磨损大道)
 
 | | |
 |--|--|
-| **Hanzi · pinyin · English** | **契刀大道** *Qì Dāo Dà Dào* — **Contract Blade Great Dao** (契 *qì* contract + 刀 blade) |
-| **Rule** | *What is **agreed** binds until **done** or **broken**.* |
-| **Why Fu** | Merc life = **terms**; betrayal of corps = **broken contract** that made him wander |
-| **Power read** | Hates **double-dealers**; respects **explicit** hire / challenge |
-| **Combat lean** | Bonus vs **oath-breakers**; **parley** beats matter if tagged; not “article numbers” |
-| **Risk** | Overlap with future **Body/Oath** paths — keep merc-flavored |
+| **Rule** | *Sustained **contention** **wears** what it touches.* |
+| **Heaven read** | Long struggle **erodes** gear, arrays, **Circulation** — war **thermodynamics** |
+| **Fu** | Sieges, merc **hold-the-line** jobs; Manifestation on a **grind** contract |
+| **Play** | Domain tick → **sector wear** / renewal tax; **Dampen** / break holder relieves |
+| **Vs Gu** | Overlap tone — Gu **fast decay**; Attrition **needs ongoing fight** to bite |
 
----
-
-## Option C — **Last Cohort Great Dao** (末伙大道)
+### 3 — **Contested Ground Great Dao** (争地大道)
 
 | | |
 |--|--|
-| **Hanzi · pinyin · English** | **末伙大道** *Mò Huǒ Dà Dào* — **Last Cohort Great Dao** (*huǒ* 伙 = band / crew) |
-| **Rule** | *The **empty seat** still **draws**.* |
-| **Why Fu** | Only survivor; power from **who isn’t there** — **not** ghost soldiers (avoid flowery) |
-| **Power read** | Mood: he talks to **absent** brothers; fight: **brief** surges when “**third lance** would’ve flanked here” |
-| **Combat lean** | **Position / geometry** buffs when alone or outnumbered; weak in **crowd** charade |
-| **Risk** | Easy to get sentimental — keep **mechanics thin**, **dialogue** heavy |
+| **Rule** | *Ground under **contest** **cannot hold** stillness.* |
+| **Heaven read** | **Disputed** space rejects truce-physics — not “you broke oath”, **place** won’t calm |
+| **Fu** | Never left **contested** life; applies **dispute** to a tea stall because he **doesn’t feel** stillness |
+| **Play** | Rest / meditate / **Hold** actions **weak** inside; reposition out |
+| **Risk** | Can annoy player — keep **NPC radius** small or **opt-in** fight |
 
----
-
-## Option D — **All-In Great Dao** (尽狂大道)
+### 4 — **Edge Propagation Great Dao** (刃势大道)
 
 | | |
 |--|--|
-| **Hanzi · pinyin · English** | **尽狂大道** *Jìn Kuáng Dà Dào* — **All-In / Exhaust-the-Wild Great Dao** |
-| **Rule** | *What is **held back** does not **land**.* |
-| **Why Fu** | “Insane” **fighting** — never half-step; **person + dao** both **extreme** |
-| **Power read** | No polite spar; **full fill** or waste; **unreasonable** to sect duelists |
-| **Combat lean** | High ceiling, **empty** after commit; **Dampen** / **Stillness** counters |
-| **Risk** | Must not deny **player** wins — he fights **all-in**, not “your win invalid” |
+| **Rule** | ***Cutting** **propagates** along what is joined.* |
+| **Heaven read** | Blade-line **runs** armor seams, formation links — **geometry of sharp** |
+| **Fu** | Merc **blade captain**; less “oath”, more **what swords do in the world** at DM depth |
+| **Play** | **Sever**-adjacent; **Structure** chain; counters **Anchor** |
+| **Note** | Near **Sword Dao** lane — may be **peak Sword** variant not new row |
 
----
-
-## Option E — **Debt Transfer Great Dao** (债转大道)
+### 5 — **Discharge Great Dao** (泄煞大道)
 
 | | |
 |--|--|
-| **Hanzi · pinyin · English** | **债转大道** *Zhài Zhuǎn Dà Dào* — **Debt Transfer Great Dao** |
-| **Rule** | *Debt is **never** forgiven — only **moved**.* |
-| **Why Fu** | Employer **sold** the corps; he **carries** dead friends’ **unpaid** |
-| **Power read** | Curses **brokers**; may **shift** consequence onto **who owes** |
-| **Combat lean** | **Reflect** / tag **liable** target; chronicle hook for betrayers |
-| **Risk** | Can feel abstract — tie to **named** corp betrayal only |
+| **Rule** | *Accumulated **lethal surplus** **must** express.* |
+| **Heaven read** | Violence **stores**; reality **vents** (classic **煞** *shà* pressure — **not** fate ledger) |
+| **Fu** | **Extreme** fighter — corps piled **surplus**; he **vented** into Manifestation |
+| **Play** | Holder **must** spend fill on **lethal shape** or **backlash**; **person** all-in, **rule** is **physics** |
+| **Vs “insane dao”** | **狂** in **behavior**; dao is **pressure vessel** |
+
+### 6 — **No new row (F)**
+
+Peak Manifestation on existing **战道 / 杀伐 / 剑道** teachable path — **world rule** wording lives in that path’s doc later. **Person** carries merc color.
 
 ---
 
-## Option F — **No new Great Dao** (person carries 狂)
+## Compare
 
-| | |
-|--|--|
-| **Idea** | Peak **Manifestation** on an **existing war path** — e.g. **杀伐** *slaughter-way* peak, **刀** line, or **体** oath — **no** bespoke Great Dao row yet |
-| **Why** | Jianghu name **戏坟老魔**; habits = **life**; power = **generic terrifying merc DM** until a dao earns a doc |
-| **Tradeoff** | Less **distinct** in taxonomy; **fastest** to ship lore |
+| # | Heaven rulebook? | Merc biography | Player-fair |
+|---|------------------|----------------|-------------|
+| 1 Killing Weather | ★★★★ | ★★★★ | ★★★ |
+| 2 Attrition | ★★★★ | ★★★★ | ★★★ |
+| 3 Contested Ground | ★★★★ | ★★★ | ★★ (tuning) |
+| 4 Edge Propagation | ★★★★ | ★★★ | ★★★ |
+| 5 Discharge | ★★★★ | ★★★★★ | ★★★ |
+| 6 Existing path | ★★★ | ★★ | ★★★★ |
 
----
+## Pick
 
-## Compare (quick)
-
-| Option | Merc fit | Distinct from Gu decay / Pei traceless | “Insane dao” needed? |
-|--------|----------|----------------------------------------|----------------------|
-| A Blood Price | ★★★ | ★★ | No |
-| B Contract | ★★★ | ★★★ | No |
-| C Last Cohort | ★★★★ | ★★★ | No |
-| D All-In | ★★★★ | ★★ | **狂 in dao name only** |
-| E Debt Transfer | ★★ | ★★★ | No |
-| F None | ★★ | ★ | No |
-
-## Owner pick
-
-- [ ] A · B · C · D · E · F · mix · other Hanzi theme
+- [ ] 1 · 2 · 3 · 4 · 5 · 6 · hybrid · defer dao

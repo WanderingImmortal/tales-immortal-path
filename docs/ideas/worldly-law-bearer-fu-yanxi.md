@@ -22,7 +22,7 @@
 |-------|---------|
 | **Life** | Tea in broken **胜** cups, teeth-coin tips, bows, cousin/extra banter — **inside jokes**, not puzzle clues |
 | **Story** | Mess kid → captain → corps annihilated (**years ago**) → wander |
-| **Power** | **TBD** — see [`fu-yanxi-great-dao-options.md`](fu-yanxi-great-dao-options.md). **Not** [`field-law-great-dao.md`](field-law-great-dao.md) on Fu unless revived |
+| **Power** | **TBD** — **world-legislation** Great Dao only (see options v2); not merc **oath/contract** stack |
 
 **Insane dao:** **optional**; **狂** on **character** first. Dao = **one legible rule** when chosen.
 
