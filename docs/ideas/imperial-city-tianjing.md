@@ -303,6 +303,7 @@ Massive houses — cadet branches, marriage lines, mortal retainers by the thous
 | District | Hook |
 |----------|------|
 | **Inner Gate** | Pei Yin (Inner Service) — favor / realm check |
+| **Ancestral ring** | **Nine Dragons Array** nodes (four wall mounts + heart); Array Ministry — [`imperial-grand-arrays.md`](imperial-grand-arrays.md) |
 | **Ministry ring** | Veins, Rites, War (ceremonial) |
 | **Regent courts** | Blood-branch plotting |
 | **Palace mount** | Emperor audiences (rare, high favor) |
@@ -312,7 +313,7 @@ Massive houses — cadet branches, marriage lines, mortal retainers by the thous
 
 ### 3. Underpalace — Sleeping Seal (endgame)
 
-- Founder Half-Step burial / seal array
+- **Nine Dragons Array** heart node (ninth anchor) + **restrained Immortal founder** + imperial seal — [`imperial-grand-arrays.md`](imperial-grand-arrays.md)
 - Tie to `heartlands_root`, `celestial_observatory`
 - Stirring the seal = continental calamity Chekhov's gun
 
@@ -326,7 +327,7 @@ Sect power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-s
 |------|---------|
 | **Emperor** | **Tian Xu** (天煦) — *middle-aged in appearance*, young by immortal standards (~200 mortal years, looks 40). **Void Refinement peak** — same public tier as a great sect patriarch (idx `4` today; idx `5` after nine-realm ladder ships). Composes edicts, holds audiences; not a child puppet, not the founder. Ancient Tian ancestors and the buried founder sit above him — same pyramid as the sects. |
 | **Regent Council** | Still schemes — emperor is capable, so regents compete for **influence**, not regency. Hardliners want him to break sects; pragmatists want balance. |
-| **Founder** | Sealed under Tianjing — ultimate deterrence |
+| **Founder** | Sealed under Tianjing (heart of **Nine Dragons Array**) — sleeping **Immortal** — ultimate deterrence |
 
 **Why this works:**
 - Emperor can be a **real NPC** at sect-leader power without breaking the board
