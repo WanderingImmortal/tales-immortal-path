@@ -6,13 +6,15 @@
 | **Blocked on** | Owner PC sketches (prisoner origin, disciples, lifespans); mechanics pass for DM / Immortal fights |
 | **Issue** | none yet |
 | **Chat / PR** | Owner + cloud agent brainstorm, 2026-07-29 · PR **#92** |
-| **Updated** | 2026-07-29 |
+| **Updated** | 2026-10-04 |
 
 ## Intent
 
 **Private backstory spine** — order of eras, why the world looks like it does, what **not** to contradict while writing. **Not** a calendar tool, **not** player-facing chronicle (that may come later).
 
-Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated events checklist). Cosmology guardrails: [`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md).
+**Player fantasy (owner 2026-10-04):** you drop into a **relatively stable patch** (Imperial Sky) of a **chaotic deep history** and try to matter. **Weight** = buried layers; **dig** (chronicle, grottos, sense, rumors, forged scrolls) to recover truth — xianxia-coded, not a timeline tutorial at game start.
+
+Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated events checklist). Cosmology guardrails: [`cosmology-ancients-taxonomy.md`](cosmology-ancients-taxonomy.md). Discovery loop: [`chronicle-and-projects.md`](chronicle-and-projects.md).
 
 **Do not** invent prisoner / disciple origin or site specifics here — owner sketches on PC are source of truth when synced.
 
@@ -23,9 +25,9 @@ Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated event
 ```text
 [ Myth ] Primordial disorder → Seal → heaven’s law online
        ↓
-[ Early heaven ] Mortal history under this heaven (kingdoms, Void prison, ancient danger pins) — NOT “Chaos Era”
+[ Early heaven ] **Deep time** — Void prison, danger pins, kingdoms risen and forgotten — NOT “Chaos Era”
        ↓
-[ Warring States Era ] Long grind — controlled wars; DM mostly homeland deterrence
+[ Warring States Era ] **~100,000-year** grind (sub-eras inside) — controlled wars; DM homeland deterrence
        ↓
 [ Dao War Era ] Short — taboo broken; DM deployed on the field; laws scar the map
        ↓
@@ -52,6 +54,56 @@ Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated event
 - **Controlled wars:** apex **defend homelands**; everyone knows DM-on-field **wrecks** the board (MAD). Lower realms do most of the bleeding.
 - At DM tier, **kindness is a luxury** — predators take what they can but **aren’t idiots** about mutual destruction.
 - **Rollback attempts** may have happened mid–Dao War cascade; **failed** — sitting out meant being disarmed while rivals allied for multi-DM math.
+
+**Duration (owner lean 2026-10-04):**
+
+| Era | Order-of-magnitude length | Notes |
+|-----|---------------------------|--------|
+| **Early heaven** | **≫ Warring States** *(push back as far as needed; author table often **100k–500k+** before WS start)* | Void prison, Seal aftermath, pins — **ancient must feel ancient and forgotten** when peak lives are ~50k |
+| **Warring States** | **~100,000 years** | **Era** = long stretch; contains **slices** / **moments** (below) |
+| **Dao War Era** | **~500–3,000 years** | Escalation cascade — **fast** compared to Warring States |
+| **Imperial Sky** (so far) | **~3,000 years** | Stable patch players live in; charter peace |
+
+**Working stack (100k lean, years before present):**
+
+```text
+~105,000 y ─── Warring States begins (slides out of early heaven)
+      …       sub-eras / slices (see below)
+  ~5,000 y ─── Dao War cascade starts (taboo break)
+  ~3,000 y ─── Dao Wars end → mandate / Imperial Sky
+      0 ─── present (game default)
+```
+
+### Terminology — era · slice · moment
+
+| Term | Meaning |
+|------|---------|
+| **Era** | A **long** chapter of history — tens of thousands of years minimum for Warring States. The word should carry weight. |
+| **Slice** (sub-era) | A **named stretch inside** an era — thousands to tens of thousands of years (e.g. “Vein Wars,” “Array Consolidation”). Author / chronicle use; mortals may only know a legend name. |
+| **Moment** | A **bounded event** inside a slice — a war, a poisoning, a sect’s fall (years to centuries). Quest and rumor scale. |
+
+**Warring States slices (starter list — expand in [`world-timeline-handoff.md`](world-timeline-handoff.md)):**
+
+| Slice (draft name) | Rough placement (BP) | Notes |
+|--------------------|----------------------|--------|
+| **First array age** | ~90k–105k | Homeland geometry becomes MAD backbone |
+| **Vein charter wars** | ~70k–85k | Coalitions over ley lines; poison trade normalizes |
+| **Fragment hunts** | ~50k–65k | Breakthrough-path scarcity; young-talent assassinations peak |
+| **Late deterrence** | ~10k–5k | Soft cap creaks; two-DM math; pre-cascade tension |
+| **Dao War cascade** | ~5k–3k | Taboo break → mandate (overlap with Dao War **era** label) |
+
+Dates are **author anchors** until a mortal calendar exists. Cross-link faction births to slices when writing, not to “year 47,812.”
+
+**Soft cap thesis (why it lasted):** reaching **Dao Manifestation** is scarce and slow ([`watershed-realms-lifespan-pacing.md`](watershed-realms-lifespan-pacing.md) — peak lives on the order of **~45,000–50,000 years**). At the **known ceiling**, **Immortal (仙)** is mostly **theory** — the next rung in scrolls and omen lore, not a roster of public ascenders. Politics becomes: serve as an underling in a mountain with an array, **found** and defend a new peak, blood feuds, assassinations of **young** talents before they mature. Apex fights **rarely** leave home arrays → decades-long cold wars, not continental rewrites. That equilibrium is a **soft power cap** — until someone breaks it.
+
+**Breaking the cap → Dao Wars:** a faction believes the taboo can be bent (two peak DMs in one house, preemption, alliance math). Field deployment cascades; alliances flip; the **map changes quickly** relative to fifty millennia of grind. Same trigger family as the **two-DM strike** lean below — now framed as end-of-era, not day one of DM history.
+
+**Author tools for 50k+ years (avoid “one mush era”):**
+
+- **Sub-eras** inside Warring States (names TBD — e.g. vein wars, fragment hunts, array age) — only apex/long-lived NPCs bridge them cleanly.
+- **Mortal history compresses** — QC textbooks teach “many dynasties”; only Void Archive / grotto / array libraries keep fine detail.
+- **A living peak Manifestation can span much of an era** if they reached the peak early — rare; most **personal** memory is one or two **slices**, not full 100k.
+- **Buried history:** most slices leave **ruins, wrong names, guild forgeries**; truth is discoverable, not taught in QC pamphlets.
 
 **Trigger (owner lean — WW1-shaped, not cosmic):**
 
