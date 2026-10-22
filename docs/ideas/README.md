@@ -50,6 +50,18 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
 | [Jianghu organization types](jianghu-organization-types.md) | `designed` (taxonomy) | Dustbone sect + tribe identities | — |
 | [Jianghu situation threads](jianghu-situation-threads.md) | `designed` | Grudge interrupt v1; org backing read | — |
+| [Worldly Law Bearers (hub)](worldly-law-bearers.md) | `designed` | Combat random events; decay/threshold refs | — |
+| [Law Bearer — Gu Dusheng (Smiling Wither)](worldly-law-bearer-gu-dusheng.md) | `designed` | Encounter hook | — |
+| [Law Bearer — Pei Xian (Traceless Beggar)](worldly-law-bearer-pei-xian.md) | `designed` | Petty-theft encounter | — |
+| [Traceless Great Dao (path sketch)](traceless-great-dao.md) | `idea` | DAO_TAXONOMY | — |
+| [Law Bearer — Fu Yanxi (Play-Grave)](worldly-law-bearer-fu-yanxi.md) | `designed` | Open-outcome encounter TBD | — |
+| [Blade Great Dao (path sketch)](blade-great-dao.md) | `idea` | Fu techniques | — |
+| [Fu Yanxi — dao pick notes](fu-yanxi-great-dao-options.md) | `idea` | 刀道 lean | — |
+| [Field Law Great Dao (path sketch)](field-law-great-dao.md) | `idea` | parked | — |
+| [Open Outcome Great Dao (path sketch)](open-outcome-great-dao.md) | `idea` | parked | — |
+| [Unstand-Down Great Dao (path sketch)](unstand-down-great-dao.md) | `idea` | parked v2 | — |
+| [Remnant Plot Great Dao (path sketch)](remnant-plot-great-dao.md) | `idea` | parked | — |
+| [Enclosure Great Dao (path sketch)](enclosure-great-dao.md) | `idea` | parked — ward-makers | — |
 | [Disguise & public identity](disguise-and-public-identity.md) | `designed` | Identity resolver, sense channels, signature ledger | — |
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` (v1 hall lean locked) | Hall name + graft spine | — |
 | [Dustbone lesser sects](dustbone-lesser-sects.md) | `building` (Well-Ring v1) | Playtest; loyalty parked | — |

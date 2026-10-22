@@ -6,7 +6,7 @@
 | **Blocked on** | none for taxonomy; Dustbone sect identities blocked on owner pass |
 | **Issue** | none yet |
 | **Chat / PR** | design chat 2026-07-31 · [`cursor/qc-density-org-stubs-ae81`](../../) |
-| **Updated** | 2026-07-31 |
+| **Updated** | 2026-10-21 |
 
 **Sister:** [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) (realm ladder / who can fight whom) · [`sect-faction-identities.md`](sect-faction-identities.md) (named powers) · [`city-tiers.md`](city-tiers.md) (civic ladder)
 
@@ -55,19 +55,48 @@ Realm pyramid lives in [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-
 
 Sandveil Tribunal tribes = **high unity, camp-scale deployment**, spine deterrence — not mass disciple recruitment. See [`sandveil-tribunal-cultures.md`](sandveil-tribunal-cultures.md).
 
-### Organizational strength tiers (draft)
+### Weight vs Span (do not call both “tier”)
+
+Two axes — see [`worldly-law-bearers.md`](worldly-law-bearers.md) for wanderer examples.
+
+| Term | Measures | Question |
+|------|----------|----------|
+| **Weight** | Org **apex band** (FE → Immortal) | How heavy on the cultivation board? |
+| **Span** | **Reach** (logistics) | How far can it deploy and hold? |
+| **Civic grade** | City lord band | [`city-tiers.md`](city-tiers.md) — separate from org Weight |
+
+**Below Hall Weight:** **gangs** (帮会 *bānghuì*), not clans/sects.
+
+**Span cap (lean):** low Weight cannot **sustain** high Span unless **bluff**, **patron branch**, or **collapse** story. Example: [`worldly-law-bearer-gu-dusheng.md`](worldly-law-bearer-gu-dusheng.md) — public **Law** bluff, vault **Seek**, **Local** span.
+
+#### Weight bands (apex — draft)
+
+| Weight | Idx lean | Sect fiction (examples) |
+|--------|----------|-------------------------|
+| **Hall** | 1 FE | 武馆 *wǔguǎn* hall, dojo |
+| **Gate** | 2 GC | 小宗 *xiǎo zōng* minor sect |
+| **Court** | 3 NS | 宗 *zōng* sect |
+| **Crown** | 4 Avatar | 宫 *gōng* city-facing peak |
+| **Depth** | 5 VR | 主峰 *zhǔfēng* patriarch mountain |
+| **Seek** | 6 DS | 古宗 *gǔ zōng* vault elder peak |
+| **Law** | 7 DM | 圣地 *shèngdì* / charter-scale law-wearer |
+| **Apex** | 8 Immortal+ | **Deterrence** asset (not rank-and-file count) |
+
+Store **`weightPublic`** and **`weightVault`** when bluff or hidden card differs.
+
+#### Span bands (reach — was “org tier O–IV”)
 
 Use for **influence reach** and **event conscription pool** — not 1:1 with realm.
 
-| Tier | Label | Deploy (fiction) | Examples |
+| Span | Label | Deploy (fiction) | Examples |
 |------|-------|------------------|----------|
-| **O** | Outpost | Squad – platoon | Redwell warden guard, well crew |
-| **I** | Local | Company – few hundred | Lesser sect hall, clan compound |
-| **II** | Regional | Thousands + logistics | Mid-city garrison, strong lesser sect |
-| **III** | Basin | Army + arrays | Great sect branch, Threshold coalition |
-| **IV** | Hegemon | Multi-zone mobilization | Heartlands great sect, imperial clan |
+| **Pin** | Outpost | Squad – platoon | Redwell warden guard, well crew |
+| **Local** | Local | Company – few hundred | Lesser sect hall, clan compound |
+| **Regional** | Regional | Thousands + logistics | Mid-city garrison, strong lesser sect |
+| **Basin** | Basin | Army + arrays | Great sect branch, Threshold coalition |
+| **Hegemon** | Hegemon | Multi-zone mobilization | Heartlands great sect, imperial clan |
 
-**Apex offset:** Tier I org + NS spine ≈ can **punch** at Tier III in one battle; cannot **hold** Tier III territory without collapsing logistics.
+**Apex offset:** Local span + NS spine ≈ can **punch** at Basin span in one battle; cannot **hold** Basin territory without collapsing logistics.
 
 ### Recruitment spectrum
 
@@ -104,9 +133,10 @@ Creation-path **guilds** (alchemy, forging, formations) = **charter institutions
 ```markdown
 ### [Name]
 
-- **Type:** great sect · lesser sect · school · guild · clan · tribe · civic
-- **Org tier (I–IV):** deployment / influence reach
-- **Apex (realm):** public face + hidden card
+- **Type:** great sect · lesser sect · school · guild · clan · tribe · civic · gang
+- **Weight:** Hall … Law · Apex (`weightPublic` / `weightVault`)
+- **Span:** Pin … Hegemon
+- **Civic grade:** if seated in a city — optional
 - **Unity:** high blood · medium hall · low factional sect
 - **Recruitment:** …
 - **Sphere:** where they actually matter on the map
