@@ -2,6 +2,8 @@
 
 Fleshed-out designs that are **not fully shipped** yet. Markdown holds the vision; GitHub Issues hold the build queue.
 
+**Rawer than this folder:** [`docs/ram/`](../ram/) — scratch inbox, not canon until promoted here.
+
 ## How to use
 
 1. Copy `_template.md` → `<short-kebab-topic>.md`
