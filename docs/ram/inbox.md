@@ -22,6 +22,24 @@ Chronological scratch. **Not canon** — see [`README.md`](README.md).
 
 **Open:** Does fold affect **only self+target line**, **sector**, or **holder’s legislation volume**? Counter = hold the gap open (array anchor? time dao lag?).
 
+### Space Dao — spatial danger on seed + use costs (owner dump)
+
+**Acquisition / finish (law seed):** Space dao should carry **spatial danger** tied to **getting** or **completing** the law seed — not a free insight. Fantasy: comprehending space means **mis-stepping** has consequences (wrong fold, severed anchor, trapped in compressed pocket, “lost a step” on the grid, bleed into void-adjacent scar, etc.). *Details TBD.*
+
+**On use (ongoing):** Probably **more than qi** alone — owner unsure yet. Possibilities to park (not picks):
+
+| Cost axis | Sketch |
+|-----------|--------|
+| **Spatial debt** | Each fold leaves a **wrinkle** — enemy or environment can exploit until you “iron” it (time, meditation, array) |
+| **Anchor strain** | You must keep **two points** defined; overuse blurs *where you are* (mis-target, friendly fire, tribulation lean) |
+| **Body / meridian** | Space compression stresses vessel — pairs with body path or injury |
+| **Tempo** | Fold costs **readiness** hard (ties AP/time ram above) |
+| **Risk roll** | Low chance **catastrophic misfold** scales with depth or haste |
+
+**Lean:** danger is **thematic** for Space — topology mistakes hurt differently than “ran out of mana.”
+
+**Open:** Is danger front-loaded at **seed finish** (one big tribulation/scar) vs **per manifest**? Both?
+
 ### Combat tempo — AP vs time cost (owner dump)
 
 **Problem to solve:** In fights with **movement**, **attacks**, and **quick defends** against a **telegraphed big hit**, something has to budget *when* you can do each — otherwise it’s all or nothing per turn.
