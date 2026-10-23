@@ -61,3 +61,28 @@ Chronological scratch. **Not canon** — see [`README.md`](README.md).
 **Not designing here:** exact numbers, grid turn order, PvE only vs PvP.
 
 **Cross-links (existing crumbs):** [`dao-combat-target-spine.md`](../ideas/dao-combat-target-spine.md) already leans **ATB + action costs** (fill rate, windup); hub phase 2 = ATB + action costs before range/movement. *Ram explores AP as alternative or layer — reconcile on promote.*
+
+---
+
+## 2026-10-24 — Dustbone / heaven timeline (lore ram)
+
+### Pinwright × pre-heaven prisoner × Third Dynasty (owner dump)
+
+**Possible lore update (not locked):**
+
+- **Pinwright (First Dynasty)** **before** (or alongside?) the **pre-heaven prisoner** — and **helped alleviate** him somehow. *Intent:* softens the “Pinwright = chaos path poster child” read — he’s **local Dustbone history** + **mortal-scale legend (D)**, not the full chaos curriculum, but this beat gives **moral/geopolitical texture** without making him Category C (Void prisoner).
+
+- **Third Dynasty** probably needs to sit **after the heaven patch** (whatever the in-world name — rulebook update / Seal / ledger fix). Timeline: patch event → mass death → later dynasty layer.
+
+- **Patch casualties:** people **died during the patch** itself (not all “slow cascade” — acute heaven retune?). **Some survivors** scavenged **ruins**, learned **fragments of old ways**, and carried **traditions *against* order** forward — sects, tribes, heresies. **Ambiguous:** readers/NPCs disagree whether those carriers were **wrong** (sacrilege, chaos-touched) or **right** (honest resistance to a cruel retune). *No owner pick yet.*
+
+**Tension with current docs (reconcile on promote):**
+
+| Crumb | Today | Ram nudge |
+|-------|--------|-----------|
+| Pinwright | Pre-peak chaos walker; authored basin statute; chaos path = separate endgame | Help to prisoner ≠ “he’s chaos path PC bait” |
+| Three dynasties | [`dustbone-dynasties-entropy-lore.md`](../ideas/dustbone-dynasties-entropy-lore.md) strata | Third after **patch**, not only “after Second Cascade” |
+| Void prisoner | Pre-heaven cultivator; one peer — [`void-prisoner.md`](../ideas/void-prisoner.md) | Pinwright **interaction** undefined in canon |
+| Timeline spine | [`world-timeline-author-spine.md`](../ideas/world-timeline-author-spine.md) `idea` | Owner PC still source for prisoner/disciple — **this ram feeds that pass** |
+
+**Open:** What did Pinwright actually *do* for the prisoner (pin a scar? share half-legislation? Dust oath)? Does “against order” mean **chaos path**, **pre-Ledger sympathy**, or **anti-imperial charter** only?
