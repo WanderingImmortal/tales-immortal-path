@@ -86,3 +86,32 @@ Chronological scratch. **Not canon** — see [`README.md`](README.md).
 | Timeline spine | [`world-timeline-author-spine.md`](../ideas/world-timeline-author-spine.md) `idea` | Owner PC still source for prisoner/disciple — **this ram feeds that pass** |
 
 **Open:** What did Pinwright actually *do* for the prisoner (pin a scar? share half-legislation? Dust oath)? Does “against order” mean **chaos path**, **pre-Ledger sympathy**, or **anti-imperial charter** only?
+
+---
+
+## 2026-10-28 — Legends & hidden qi (lore / sense ram)
+
+### The Smiling Reaper (owner dump)
+
+**Possible legendary cultivator** — name working: **The Smiling Reaper** (death path; *distinct* from Law Bearer **笑朽** Gu Dusheng “Smiling Wither” — reconcile naming if both stay).
+
+| Beat | Sketch |
+|------|--------|
+| **Era** | **Dao Wars survivor** — old enough to be walking myth, not charter politics |
+| **Infamy** | At some point either **largest single-person massacre** on record *or* **devastated a whole region** badly enough the scar **lasts to present day** — owner **either/or**, not both locked |
+| **Path** | **Death cultivator** — worn law / lineage TBD (Life-Death branch? dedicated death dao? basin stain?) |
+| **Tone** | “Smiling” = manners, joke, courtesy over slaughter — horror contrast (jianghu rumor tier) |
+
+**Not designing:** realm peak, alive vs remnant, encounter tier, relation to Heavenly Demon / Dustbone / blood gorge.
+
+**Cross-links:** Dao Wars docs ([`dao-wars-capital-turn.md`](../ideas/dao-wars-capital-turn.md), outer zones); worldly bearers = **unseated DM** wanderers — Reaper might be **legend tier above** or **historical** (dead stain only). *Ram only.*
+
+### Hidden qi types — law seed to see (owner dump)
+
+**Rule sketch:** Some qi flavors (e.g. **death qi**) are **not visible** to normal perception / qi-sense until you **comprehend the appropriate law seed** (or related pursuit — death, cycle, soul branch, etc.).
+
+**Feel:** orthodox disciples read “empty” or “wrong element”; death walkers see **second layer** on battlefields, ruins, Reaper-era scars. Ties **Dao Seeking** law-sense to **horror discovery**, not stat check alone.
+
+**Open:** Which types hidden (death only vs void-adjacent vs karma)? Does QC **Perception** ever hint “something’s wrong” without seed? PvE fairness if enemy uses hidden qi before player has seed.
+
+**Cross-links:** [`realm-claims.md`](../ideas/realm-claims.md) law-sense @ Seeking; Cycle/Life-Death in `DAO_TAXONOMY`; [`combat-damage-depth.md`](../ideas/combat-damage-depth.md) damage types — *promote together if mechanic is global.*
