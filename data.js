@@ -6656,6 +6656,10 @@ const BODY_VESSEL_REALM_SPINE = {
 
 /** External Tempering @ vessel idx 0 — salve / apply / drills (see body-external-tempering-baseline.md). */
 const BODY_EXTERNAL_TEMpering_BALANCE = {
+    /** Playtest slice: skip stash mats for mix; salve dose spend still applies. Flip false when hunt loop is ready. */
+    freeMixMaterials: true,
+    /** First body-chamber open @ External idx 0 when freeMixMaterials — jump-start the loop. */
+    playtestStarterSalveDoses: 6,
     salveCap: 12,
     mixOutput: 3,
     mixCost: { leather_scrap: 1, beast_blood: 1, spirit_herb: 1 },

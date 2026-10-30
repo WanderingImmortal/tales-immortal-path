@@ -418,6 +418,26 @@ function getBodyExternalBalance() {
     return typeof BODY_EXTERNAL_TEMpering_BALANCE !== 'undefined' ? BODY_EXTERNAL_TEMpering_BALANCE : null;
 }
 
+function isExternalMixMaterialsFree() {
+    const bal = getBodyExternalBalance();
+    if (bal?.freeMixMaterials) return true;
+    return typeof isPlaytestMode === 'function' && isPlaytestMode()
+        && typeof getPlaytestOption === 'function' && getPlaytestOption('freeExternalMix');
+}
+
+function ensureExternalSalvePlaytestStarter() {
+    if (!isExternalTemperingVesselRealm()) return;
+    const bal = getBodyExternalBalance();
+    if (!bal?.freeMixMaterials && !isExternalMixMaterialsFree()) return;
+    ensureBodyChamberState();
+    if (G.bodyChamber._externalSalveStarterGranted) return;
+    const starter = bal.playtestStarterSalveDoses || 0;
+    if (starter > 0 && getBodyExternalSalveDoses() < starter) {
+        G.bodyChamber.salveDoses = Math.min(bal.salveCap, starter);
+    }
+    G.bodyChamber._externalSalveStarterGranted = true;
+}
+
 function isExternalTemperingLayerTab(layerId) {
     return layerId === 'skin' || layerId === 'flesh';
 }
@@ -736,6 +756,7 @@ function bodyChamberActionBlocked() {
 function openBodyChamber() {
     if (bodyChamberActionBlocked()) return;
     ensureBodyChamberState();
+    ensureExternalSalvePlaytestStarter();
     if (typeof setFocusTrack === 'function' && typeof getFocusTrack === 'function' && getFocusTrack() !== 'vessel') {
         setFocusTrack('vessel');
     }
@@ -1496,9 +1517,12 @@ function renderExternalTemperingActions(panel, tab, def) {
     const realmName = typeof getVesselRealm === 'function' ? getVesselRealm() : 'External Tempering';
     const skinPct = Math.round(getBodyLayerProgress('skin'));
     const fleshPct = Math.round(getBodyLayerProgress('flesh'));
+    const freeMix = isExternalMixMaterialsFree();
     head.innerHTML = `<h3>${def?.emoji || '💪'} ${realmName}</h3>`
         + `<p class="body-chamber-tab-desc">Skin ${skinPct}% · Flesh ${fleshPct}% · `
-        + `Salve ${getBodyExternalSalveDoses()} · Fatigue ${Math.round(getBodyExternalFatigue())}</p>`;
+        + `Salve ${getBodyExternalSalveDoses()} · Fatigue ${Math.round(getBodyExternalFatigue())}`
+        + (freeMix ? ' · <span class="body-chamber-playtest-tag">Mix: no mats (playtest)</span>' : '')
+        + `</p>`;
     panel.appendChild(head);
     if (!isExternalTemperingLayerTab(tab)) {
         const stub = document.createElement('p');
@@ -1573,11 +1597,13 @@ function getMixExternalSalveBlockReason() {
     if (getBodyExternalSalveDoses() >= bal.salveCap) {
         return `Salve stock full (${bal.salveCap} doses). Use or hunt more materials.`;
     }
-    for (const [matId, qty] of Object.entries(bal.mixCost || {})) {
-        const have = typeof getMaterialCount === 'function' ? getMaterialCount(matId) : 0;
-        if (have < qty) {
-            const mat = typeof CRAFT_MATERIALS !== 'undefined' ? CRAFT_MATERIALS[matId] : null;
-            return `Need ${qty} ${mat?.name || matId} (have ${have}). Hunt beasts or gather herbs.`;
+    if (!isExternalMixMaterialsFree()) {
+        for (const [matId, qty] of Object.entries(bal.mixCost || {})) {
+            const have = typeof getMaterialCount === 'function' ? getMaterialCount(matId) : 0;
+            if (have < qty) {
+                const mat = typeof CRAFT_MATERIALS !== 'undefined' ? CRAFT_MATERIALS[matId] : null;
+                return `Need ${qty} ${mat?.name || matId} (have ${have}). Hunt beasts or gather herbs.`;
+            }
         }
     }
     return null;
@@ -1621,14 +1647,17 @@ function runMixExternalSalve() {
         renderBodyChamberUI();
         return;
     }
-    if (typeof removeCraftMaterials !== 'function' || !removeCraftMaterials(bal.mixCost)) {
-        cancelActionLog();
-        addLog('💪 Required materials missing — brew fails.');
-        renderBodyChamberUI();
-        return;
+    if (!isExternalMixMaterialsFree()) {
+        if (typeof removeCraftMaterials !== 'function' || !removeCraftMaterials(bal.mixCost)) {
+            cancelActionLog();
+            addLog('💪 Required materials missing — brew fails.');
+            renderBodyChamberUI();
+            return;
+        }
     }
     G.bodyChamber.salveDoses = Math.min(bal.salveCap, getBodyExternalSalveDoses() + bal.mixOutput);
-    commitActionLog(`💪 You knead hide, beast blood, and grit resin into ${bal.mixOutput} salve doses (${G.bodyChamber.salveDoses} ready).`);
+    const freeNote = isExternalMixMaterialsFree() ? ' (materials waived — playtest)' : '';
+    commitActionLog(`💪 You knead hide, beast blood, and grit resin into ${bal.mixOutput} salve doses (${G.bodyChamber.salveDoses} ready).${freeNote}`);
     renderBodyChamberUI();
     fullRender();
 }
