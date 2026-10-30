@@ -67,6 +67,16 @@ const BODY_LAYER_TAB_DESC = {
 
 const BODY_EXTERNAL_INNER_LOCK_MSG = '🔒 Inner work — brace through the shell first.';
 
+/** Realm capstone / break actions shown inside the body chamber (not generic Break). */
+const BODY_VESSEL_REALM_CHAMBER_ACTIONS = {
+    0: {
+        sealLabel: 'Seal the Shell',
+        breakLabel: 'Brace the Frame',
+        breakEmoji: '🧵',
+        breakHint: 'Stillness and wrappings — cross from External into Inner Tempering.'
+    }
+};
+
 /** Shared anatomical landmarks — every overlay layer should agree with these. */
 const BODY_LANDMARKS = {
     centreX: 104,
@@ -577,10 +587,10 @@ function getVesselTrackBreakthroughBlockReason() {
     const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
     const max = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx('body') : 8;
     if (idx >= max) return 'Vessel cultivation is already at the mortal peak.';
-    if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) {
+    if (typeof isTrackRealmConsolidated === 'function' && !isTrackRealmConsolidated('vessel', idx)) {
         return typeof getConsolidationBlockReason === 'function'
             ? getConsolidationBlockReason()
-            : 'Seal the current vessel realm before breaking through.';
+            : 'Seal the Shell (consolidate) before you brace through.';
     }
     if (idx <= 3 && !isBodyVesselSpineSettledComplete(idx)) {
         const floor = getBodyVesselSettledFloorBlockReason(idx);
@@ -605,7 +615,7 @@ function canVesselTrackBreakthrough() {
     const idx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
     const max = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx('body') : 8;
     if (idx >= max) return false;
-    if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) return false;
+    if (typeof isTrackRealmConsolidated === 'function' && !isTrackRealmConsolidated('vessel', idx)) return false;
     if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(idx + 1)) return false;
     if (idx <= 3) return isBodyVesselSpineSettledComplete(idx);
     return getBodyVesselRealmProgressPct(idx) >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100);
@@ -1537,11 +1547,11 @@ function renderExternalTemperingActions(panel, tab, def) {
     panel.appendChild(hint);
     appendExternalTemperingButton(panel, {
         id: 'apply',
-        label: 'Apply & grind',
+        label: 'Salve & work in',
         emoji: '🧴',
         layerId: tab,
         getBlock: () => getApplyExternalSalveBlockReason(tab),
-        desc: 'Spend salve and months smearing paste into the active layer.',
+        desc: 'Tempering salve — spend a dose and months working it into the active layer.',
         meta: bal ? `${bal.applySalveCost} dose · ~${Math.round(bal.applyWeeks / 4 * 10) / 10} mo` : '',
         onClick: () => runApplyExternalSalve(tab)
     });
@@ -1572,6 +1582,72 @@ function renderExternalTemperingActions(panel, tab, def) {
         meta: bal ? `→ ${bal.mixOutput} doses` : '',
         onClick: () => runMixExternalSalve()
     });
+    renderBodyChamberRealmSteps(panel);
+}
+
+function showBodyChamberBlockFeedback(message, isError) {
+    const text = (message || '').trim();
+    if (!text) return;
+    addLog(`${isError !== false ? '🚫' : '💪'} ${text}`);
+    const el = document.getElementById('bodyChamberBlockBanner');
+    if (el) {
+        el.textContent = text;
+        el.hidden = false;
+        el.className = 'body-chamber-block-banner' + (isError !== false ? ' body-chamber-block-banner-error' : '');
+    }
+}
+
+function renderBodyChamberRealmSteps(panel) {
+    if (!isExternalTemperingVesselRealm()) return;
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    const idx = getVesselTrackRealmIdxForChamber();
+    const def = BODY_VESSEL_REALM_CHAMBER_ACTIONS[idx];
+    if (!def) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'body-chamber-realm-steps';
+
+    const head = document.createElement('div');
+    head.className = 'body-chamber-sub-head';
+    head.textContent = 'Realm step';
+    wrap.appendChild(head);
+
+    const sealed = typeof isTrackRealmConsolidated === 'function' && isTrackRealmConsolidated('vessel', idx);
+    const canSeal = typeof canSealAtCurrentProgress === 'function' && canSealAtCurrentProgress();
+    const canBreak = typeof canVesselTrackBreakthrough === 'function' && canVesselTrackBreakthrough();
+
+    if (!sealed) {
+        const sealBtn = document.createElement('button');
+        sealBtn.type = 'button';
+        sealBtn.className = 'body-chamber-action-btn body-chamber-realm-step-btn';
+        sealBtn.disabled = bodyChamberActionBlocked() || !canSeal;
+        sealBtn.innerHTML = `<span class="body-action-label">🏛️ ${def.sealLabel}</span>`
+            + `<span class="body-action-meta">${canSeal ? 'Settled exterior — lock gains before the brace' : (typeof getConsolidationBlockReason === 'function' ? getConsolidationBlockReason() : 'Reach Settled on both layers')}</span>`;
+        sealBtn.addEventListener('click', () => {
+            if (typeof actionConsolidate === 'function') actionConsolidate();
+            renderBodyChamberUI();
+        });
+        wrap.appendChild(sealBtn);
+    } else {
+        const done = document.createElement('p');
+        done.className = 'body-chamber-sub-hint';
+        done.textContent = `✓ ${def.sealLabel} complete — you may ${def.breakLabel.toLowerCase()}.`;
+        wrap.appendChild(done);
+    }
+
+    const breakBtn = document.createElement('button');
+    breakBtn.type = 'button';
+    breakBtn.className = 'body-chamber-action-btn body-chamber-realm-step-btn';
+    breakBtn.disabled = bodyChamberActionBlocked();
+    breakBtn.innerHTML = `<span class="body-action-label">${def.breakEmoji} ${def.breakLabel}</span>`
+        + `<span class="body-action-meta">${canBreak ? def.breakHint : (typeof getVesselTrackBreakthroughBlockReason === 'function' ? getVesselTrackBreakthroughBlockReason() : 'Not ready')}</span>`;
+    breakBtn.addEventListener('click', () => {
+        if (typeof openBreakthrough === 'function') openBreakthrough('vessel');
+        renderBodyChamberUI();
+    });
+    wrap.appendChild(breakBtn);
+
+    panel.appendChild(wrap);
 }
 
 function appendExternalTemperingButton(panel, opts) {

@@ -825,7 +825,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof actionLookAround === 'function') actionLookAround();
     });
     document.getElementById('btnSearch').addEventListener('click', actionSearch);
-    document.getElementById('btnBreakthrough').addEventListener('click', openBreakthrough);
+    document.getElementById('btnBreakthrough').addEventListener('click', () => openBreakthrough());
     document.getElementById('btnPill').addEventListener('click', actionPill);
     document.getElementById('btnRecuperate').addEventListener('click', actionRecuperate);
     document.getElementById('btnRecruit').addEventListener('click', actionRecruit);

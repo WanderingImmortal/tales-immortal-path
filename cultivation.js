@@ -33,32 +33,42 @@ function setBreakthroughTrack(track) {
 function showBreakthroughBlockFeedback(message) {
     const text = message || 'Break Through is not available yet.';
     if (typeof addLog === 'function') addLog(`🚫 ${text}`);
-    if (typeof showActionBlockBanner === 'function') showActionBlockBanner(text, true);
+    if (G.inBodyChamber && typeof showBodyChamberBlockFeedback === 'function') {
+        showBodyChamberBlockFeedback(text, true);
+    } else if (typeof showActionBlockBanner === 'function') showActionBlockBanner(text, true);
     if (typeof showConsolidateFeedback === 'function') showConsolidateFeedback(text, true);
     if (typeof fullRender === 'function') fullRender();
 }
 
 function openBreakthrough(track) {
     if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    const t = typeof resolveBreakthroughTrack === 'function'
+        ? resolveBreakthroughTrack(track)
+        : (typeof coerceBreakthroughTrackArg === 'function'
+            ? coerceBreakthroughTrackArg(track)
+            : null) || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');
+    const chamberOpts = {};
+    if (t === 'vessel') chamberOpts.allowBodyChamber = true;
+    if (t === 'spirit') chamberOpts.allowSoulChamber = true;
     if (typeof getActionBlockReason === 'function') {
-        const block = getActionBlockReason();
+        const block = getActionBlockReason(chamberOpts);
         if (block) {
             showBreakthroughBlockFeedback(block);
             return;
         }
     }
-    const t = typeof resolveBreakthroughTrack === 'function'
-        ? resolveBreakthroughTrack(track)
-        : (track || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian'));
-    openTrackBreakthrough(t);
+    openTrackBreakthrough(t, chamberOpts);
 }
 
 function openSpiritBreakthrough() {
     openTrackBreakthrough('spirit');
 }
 
-function openTrackBreakthrough(track) {
+function openTrackBreakthrough(track, chamberOpts) {
     if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    track = typeof resolveBreakthroughTrack === 'function'
+        ? resolveBreakthroughTrack(track)
+        : track;
     if (G.gameOver) return;
     if (G.inCombat) {
         if (typeof addLog === 'function') addLog('⚔️ You cannot break through mid-fight.');
