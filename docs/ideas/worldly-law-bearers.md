@@ -38,7 +38,7 @@ They are **walking leftovers** of the **Dao War era** — **nothing** chains the
 | 2 | Wanderer | [`worldly-law-bearer-pei-xian.md`](worldly-law-bearer-pei-xian.md) | **Traceless** 无迹大道 | **无迹老魔** *Traceless Old Demon* |
 | 3 | Wanderer | [`worldly-law-bearer-fu-yanxi.md`](worldly-law-bearer-fu-yanxi.md) | **Blade** 刀道 | **戏坟老魔** *Play-Grave Old Demon* |
 
-**Great Dao sketches:** [`traceless-great-dao.md`](traceless-great-dao.md) · [`blade-great-dao.md`](blade-great-dao.md) · [`fu-yanxi-great-dao-options.md`](fu-yanxi-great-dao-options.md)
+**Great Dao sketches:** [`great-dao-path-sketches.md`](great-dao-path-sketches.md) (index — active + parked)
 
 **Dropped draft:** Red Fence hermit (Ge Hongli) — too “neutral inn” for #3 strange slot; [`enclosure-great-dao.md`](enclosure-great-dao.md) remains for future NPC/ward-maker.
 

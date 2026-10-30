@@ -16,7 +16,20 @@ A **hidden orthodox heresy** — not "random evil bandits." The Heavenly Demon C
 
 **Not the same as:** Chaos Path's *Devourer* (Lu Feng — forced Chaos, cautionary tale). **Not the same as:** walking the Wicked Path (attitude). Cult membership is **doctrine + initiation**, not a corruption slider.
 
-Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) (massacres stain; being blood-aligned ≠ crime), [`technique-driven-cultivation.md`](technique-driven-cultivation.md) (`blood_fiend` nature). **Inner court / pit:** [`heavenly-demon-cult-inner-court.md`](heavenly-demon-cult-inner-court.md). **Body sector:** [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md). **HQ layout:** [`blood-sealing-gorge.md`](blood-sealing-gorge.md).
+Sister: [`alignment-sacrilege-corruption.md`](alignment-sacrilege-corruption.md) (massacres stain; being blood-aligned ≠ crime), [`technique-driven-cultivation.md`](technique-driven-cultivation.md) (`blood_fiend` nature).
+
+## Doc map (cluster)
+
+| Doc | Scope |
+|-----|--------|
+| [`devouring-intent.md`](devouring-intent.md) · [`devouring-law.md`](devouring-law.md) | Crown intent + law |
+| [`heavenly-demon-cult-life.md`](heavenly-demon-cult-life.md) | Life ladder template (ranks, merit, quarters) |
+| [`heavenly-demon-cult-fe-initiate.md`](heavenly-demon-cult-fe-initiate.md) | FE Initiate posting |
+| [`heavenly-demon-cult-gc-reaver.md`](heavenly-demon-cult-gc-reaver.md) | GC Reaver posting |
+| [`heavenly-demon-cult-inner-court.md`](heavenly-demon-cult-inner-court.md) | Seven archetypes + pit |
+| [`heavenly-demon-cult-body-ward.md`](heavenly-demon-cult-body-ward.md) | Blood Vessel Ward vs Vajra Ridge |
+| [`blood-sealing-gorge.md`](blood-sealing-gorge.md) | HQ lands layout |
+| [`heavenly-demon-cult-branch-cells.md`](heavenly-demon-cult-branch-cells.md) | Branch cell anatomy *(parked)* |
 
 ## Design notes
 
