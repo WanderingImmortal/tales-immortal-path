@@ -11,7 +11,8 @@ const PLAYTEST_OPTION_DEFAULTS = {
     freeConsolidate: false,
     fastTime: false,
     autoPassTribulation: false,
-    freeActionGates: false
+    freeActionGates: false,
+    freeExternalMix: false
 };
 
 const PLAYTEST_STONE_MULT = 3;

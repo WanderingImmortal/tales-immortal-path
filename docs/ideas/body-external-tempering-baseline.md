@@ -189,6 +189,16 @@ Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.**
 
 **When axes ship:** breakthrough meter stays **general-only**; optional cap e.g. “single axis cannot contribute more than X% to break” if any axis is wired into meter by mistake.
 
+## Playtest slice (owner 2026-10-31)
+
+- **`BODY_EXTERNAL_TEMpering_BALANCE.freeMixMaterials: true`** — mix salve without consuming stash mats; **dose spend on Apply / optional drill** stays on so the salve loop is testable.
+- **`playtestStarterSalveDoses`** — small starter stock on first chamber open @ idx 0.
+- Re-enable **`mixCost`** when hunt pacing feels good; playtest toggle **`freeExternalMix`** mirrors free mix when the global flag is off.
+
+## Parked design (chat only — file later)
+
+Not yet separate idea files: **residence prep hub** (bench/post at home), **residence portfolio + RR + landlord** (`G.residence.properties`). See agent chat 2026-10-21; promote to `docs/ideas/` when implementing housing slice.
+
 ## Open questions (narrow)
 
 - Exact month costs vs living clock playback — match other chamber actions first.
@@ -196,7 +206,7 @@ Bones/organs/blood/nerves tabs show **🔒 Inner work — brace through first.**
 
 ## Prerequisites
 
-- [ ] Owner sign-off on this doc
-- [ ] GitHub Issue: “External Tempering v1 — salve + apply + drills”
-- [ ] Material drops on Dustbone hunt table
-- [ ] Retire **Vessel Establishment** realm string @ idx 1 in `PATHS.body` when Inner ships
+- [x] Owner sign-off on this doc
+- [x] External v1 implement (chat queue — no Issue)
+- [x] Material drops + `beast_blood` id
+- [x] `External Tempering` / `Inner Tempering` @ idx 0–1 in `PATHS.body`

@@ -60,8 +60,12 @@ const BODY_SUB_HINTS = {
 
 const BODY_LAYER_TAB_DESC = {
     meridians: 'Circuit the twelve primary channels. The first refinement of each opens that meridian in your body.',
-    nerves: 'The final gate. Refine the Nerve Sea once — lightning reflexes and spirit perception, never to be repeated.'
+    nerves: 'The final gate. Refine the Nerve Sea once — lightning reflexes and spirit perception, never to be repeated.',
+    skin: 'External Tempering — smear salve and grind the paste into the hide until it holds.',
+    flesh: 'External Tempering — work the meat beneath until it binds to the hardened shell.'
 };
+
+const BODY_EXTERNAL_INNER_LOCK_MSG = '🔒 Inner work — brace through the shell first.';
 
 /** Shared anatomical landmarks — every overlay layer should agree with these. */
 const BODY_LANDMARKS = {
@@ -388,6 +392,104 @@ function ensureBodyChamberState() {
     });
     if (G.bodyChamber.nervesRefined) G.bodyChamber.layerProgress.nerves = 100;
     if (G.bodyChamber.nervesRefined == null) G.bodyChamber.nervesRefined = false;
+    if (G.bodyChamber.salveDoses == null) G.bodyChamber.salveDoses = 0;
+    if (G.bodyChamber.externalFatigue == null) G.bodyChamber.externalFatigue = 0;
+}
+
+function isBodyPathChamber() {
+    return G.path === 'body';
+}
+
+function getBodyChamberTabOrder() {
+    const order = typeof BODY_CHAMBER_LAYER_ORDER !== 'undefined' ? BODY_CHAMBER_LAYER_ORDER : [];
+    if (!isBodyPathChamber()) return order;
+    return order.filter(id => id !== 'meridians');
+}
+
+function getVesselTrackRealmIdxForChamber() {
+    return typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('vessel') : (G.realmIdx ?? 0);
+}
+
+function isExternalTemperingVesselRealm() {
+    return isBodyPathChamber() && getVesselTrackRealmIdxForChamber() === 0;
+}
+
+function getBodyExternalBalance() {
+    return typeof BODY_EXTERNAL_TEMpering_BALANCE !== 'undefined' ? BODY_EXTERNAL_TEMpering_BALANCE : null;
+}
+
+function isExternalMixMaterialsFree() {
+    const bal = getBodyExternalBalance();
+    if (bal?.freeMixMaterials) return true;
+    return typeof isPlaytestMode === 'function' && isPlaytestMode()
+        && typeof getPlaytestOption === 'function' && getPlaytestOption('freeExternalMix');
+}
+
+function ensureExternalSalvePlaytestStarter() {
+    if (!isExternalTemperingVesselRealm()) return;
+    const bal = getBodyExternalBalance();
+    if (!bal?.freeMixMaterials && !isExternalMixMaterialsFree()) return;
+    ensureBodyChamberState();
+    if (G.bodyChamber._externalSalveStarterGranted) return;
+    const starter = bal.playtestStarterSalveDoses || 0;
+    if (starter > 0 && getBodyExternalSalveDoses() < starter) {
+        G.bodyChamber.salveDoses = Math.min(bal.salveCap, starter);
+    }
+    G.bodyChamber._externalSalveStarterGranted = true;
+}
+
+function isExternalTemperingLayerTab(layerId) {
+    return layerId === 'skin' || layerId === 'flesh';
+}
+
+function getBodyExternalSalveDoses() {
+    ensureBodyChamberState();
+    return G.bodyChamber.salveDoses || 0;
+}
+
+function getBodyExternalFatigue() {
+    ensureBodyChamberState();
+    return G.bodyChamber.externalFatigue || 0;
+}
+
+function addBodyExternalFatigue(delta) {
+    ensureBodyChamberState();
+    G.bodyChamber.externalFatigue = Math.min(100, Math.max(0, (G.bodyChamber.externalFatigue || 0) + (delta || 0)));
+}
+
+function getBodyExternalApplyGain(layerId) {
+    const bal = getBodyExternalBalance();
+    if (!bal) return 10;
+    let gain = layerId === 'skin' ? bal.applyProgressSkin : bal.applyProgressFlesh;
+    const pct = getBodyLayerProgress(layerId);
+    if (pct >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.settledPct : 80)) {
+        gain *= bal.postSettledGainMult || 0.45;
+    }
+    if (getBodyExternalFatigue() >= (bal.highFatigueThreshold || 60)) {
+        gain *= bal.highFatigueGainMult || 0.7;
+    }
+    return Math.max(1, Math.round(gain));
+}
+
+function getBodyVesselSettledFloorBlockReason(vesselIdx) {
+    const idx = vesselIdx == null ? getVesselTrackRealmIdxForChamber() : vesselIdx;
+    const settled = typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.settledPct : 80;
+    const spine = getVesselRealmSpineDef(idx);
+    if (!spine?.layers?.length) return null;
+    const low = spine.layers.filter(id => getBodyLayerProgress(id) < settled);
+    if (!low.length) return null;
+    const parts = spine.layers.map(id => {
+        const label = BODY_CHAMBER_LAYERS[id]?.label || id;
+        return `${label} ${Math.round(getBodyLayerProgress(id))}%`;
+    }).join(', ');
+    if (idx === 0) {
+        return `Both skin and flesh must reach ${settled}% to seal the shell (${parts}).`;
+    }
+    return `Each spine layer must reach ${settled}% (${parts}).`;
+}
+
+function isBodyVesselSpineSettledComplete(vesselIdx) {
+    return !getBodyVesselSettledFloorBlockReason(vesselIdx);
 }
 
 function isBodyNervesRefined() {
@@ -480,7 +582,9 @@ function getVesselTrackBreakthroughBlockReason() {
             ? getConsolidationBlockReason()
             : 'Seal the current vessel realm before breaking through.';
     }
-    if (idx <= 3 && !isBodyVesselSpinePeakComplete(idx)) {
+    if (idx <= 3 && !isBodyVesselSpineSettledComplete(idx)) {
+        const floor = getBodyVesselSettledFloorBlockReason(idx);
+        if (floor) return floor;
         const spine = getVesselRealmSpineDef(idx);
         const pct = getBodyVesselRealmProgressPct(idx);
         const layers = (spine?.layers || []).map(id => {
@@ -488,7 +592,7 @@ function getVesselTrackBreakthroughBlockReason() {
             return `${BODY_CHAMBER_LAYERS[id]?.label || id} ${p}%`;
         }).join(', ');
         let extra = spine?.requireNervesRefined && !isBodyNervesRefined() ? ' Refine the Nerve Sea (Nerves tab, once).' : '';
-        return `Body chamber not at peak (${pct}% — need ${typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100}%): ${layers}.${extra}`;
+        return `Body chamber not ready (${pct}%): ${layers}.${extra}`;
     }
     if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(idx + 1)) {
         return typeof getTalentRealmCapMessage === 'function' ? getTalentRealmCapMessage() : 'Root ceiling blocks this realm.';
@@ -503,7 +607,7 @@ function canVesselTrackBreakthrough() {
     if (idx >= max) return false;
     if (typeof canBreakthroughToNextRealm === 'function' && !canBreakthroughToNextRealm()) return false;
     if (typeof isRealmBlockedByTalent === 'function' && isRealmBlockedByTalent(idx + 1)) return false;
-    if (idx <= 3) return isBodyVesselSpinePeakComplete(idx);
+    if (idx <= 3) return isBodyVesselSpineSettledComplete(idx);
     return getBodyVesselRealmProgressPct(idx) >= (typeof REALM_PROGRESS_TIERS !== 'undefined' ? REALM_PROGRESS_TIERS.peakPct : 100);
 }
 
@@ -526,9 +630,25 @@ function getBodyLayerPrevId(layerId) {
 function isBodyLayerUnlocked(layerId) {
     const def = BODY_CHAMBER_LAYERS[layerId];
     if (!def) return false;
+    if (isExternalTemperingVesselRealm()) {
+        return isExternalTemperingLayerTab(layerId);
+    }
+    if (isBodyPathChamber() && layerId === 'meridians') return false;
     const prev = getBodyLayerPrevId(layerId);
     if (!prev) return true;
     return getBodyLayerProgress(prev) >= (def.unlockPrevPct || 50);
+}
+
+function getBodyLayerUnlockTitle(layerId) {
+    if (isExternalTemperingVesselRealm() && !isExternalTemperingLayerTab(layerId)) {
+        return BODY_EXTERNAL_INNER_LOCK_MSG;
+    }
+    if (isBodyPathChamber() && layerId === 'meridians') {
+        return 'Meridian work belongs on the qi path — not the flesh chamber.';
+    }
+    const def = BODY_CHAMBER_LAYERS[layerId];
+    const prev = getBodyLayerPrevId(layerId);
+    return `Unlock at ${def?.unlockPrevPct || 50}% of ${BODY_CHAMBER_LAYERS[prev]?.label || 'previous layer'}`;
 }
 
 function getBodyLayerActionCount(layerId, actionId) {
@@ -609,6 +729,7 @@ function isBodyMeridianOpen(index) {
 }
 
 function openBodyChamberMeridian(index) {
+    if (isBodyPathChamber()) return false;
     if (!G.meridians) G.meridians = Array(13).fill(false);
     if (G.meridians[index]) return false;
     G.meridians[index] = true;
@@ -635,6 +756,7 @@ function bodyChamberActionBlocked() {
 function openBodyChamber() {
     if (bodyChamberActionBlocked()) return;
     ensureBodyChamberState();
+    ensureExternalSalvePlaytestStarter();
     if (typeof setFocusTrack === 'function' && typeof getFocusTrack === 'function' && getFocusTrack() !== 'vessel') {
         setFocusTrack('vessel');
     }
@@ -1316,7 +1438,7 @@ function renderBodyChamberTabs() {
     const nav = document.getElementById('bodyChamberTabs');
     if (!nav) return;
     nav.replaceChildren();
-    BODY_CHAMBER_LAYER_ORDER.forEach(layerId => {
+    getBodyChamberTabOrder().forEach(layerId => {
         const def = BODY_CHAMBER_LAYERS[layerId];
         const unlocked = isBodyLayerUnlocked(layerId);
         const progress = layerId === 'nerves' && isBodyNervesRefined()
@@ -1330,7 +1452,7 @@ function renderBodyChamberTabs() {
         btn.innerHTML = `${def.emoji} ${def.label}<span class="body-tab-pct">${unlocked ? progress + '%' : '🔒'}</span>`;
         btn.title = unlocked
             ? `${def.label}: ${progress}% refined`
-            : `Unlock at ${def.unlockPrevPct}% of ${BODY_CHAMBER_LAYERS[getBodyLayerPrevId(layerId)]?.label || 'previous layer'}`;
+            : getBodyLayerUnlockTitle(layerId);
         btn.addEventListener('click', () => setBodyChamberTab(layerId));
         nav.appendChild(btn);
     });
@@ -1343,6 +1465,10 @@ function renderBodyChamberActions() {
     const def = BODY_CHAMBER_LAYERS[tab];
     const actions = BODY_CHAMBER_ACTIONS[tab];
     panel.replaceChildren();
+    if (isExternalTemperingVesselRealm()) {
+        renderExternalTemperingActions(panel, tab, def);
+        return;
+    }
     const head = document.createElement('div');
     head.className = 'body-chamber-tab-head';
     head.innerHTML = `<h3>${def.emoji} ${def.label}</h3><p class="body-chamber-tab-desc">${BODY_LAYER_TAB_DESC[tab] || 'Refine this layer of your physical form.'}</p>`;
@@ -1382,6 +1508,226 @@ function renderBodyChamberActions() {
         panel.appendChild(subHead);
         unlockedSubs.forEach(action => appendBodyActionButton(panel, tab, action, true));
     }
+}
+
+function renderExternalTemperingActions(panel, tab, def) {
+    const bal = getBodyExternalBalance();
+    const head = document.createElement('div');
+    head.className = 'body-chamber-tab-head';
+    const realmName = typeof getVesselRealm === 'function' ? getVesselRealm() : 'External Tempering';
+    const skinPct = Math.round(getBodyLayerProgress('skin'));
+    const fleshPct = Math.round(getBodyLayerProgress('flesh'));
+    const freeMix = isExternalMixMaterialsFree();
+    head.innerHTML = `<h3>${def?.emoji || '💪'} ${realmName}</h3>`
+        + `<p class="body-chamber-tab-desc">Skin ${skinPct}% · Flesh ${fleshPct}% · `
+        + `Salve ${getBodyExternalSalveDoses()} · Fatigue ${Math.round(getBodyExternalFatigue())}`
+        + (freeMix ? ' · <span class="body-chamber-playtest-tag">Mix: no mats (playtest)</span>' : '')
+        + `</p>`;
+    panel.appendChild(head);
+    if (!isExternalTemperingLayerTab(tab)) {
+        const stub = document.createElement('p');
+        stub.className = 'body-chamber-stub';
+        stub.textContent = BODY_EXTERNAL_INNER_LOCK_MSG;
+        panel.appendChild(stub);
+        return;
+    }
+    const hint = document.createElement('p');
+    hint.className = 'body-chamber-sub-hint';
+    hint.textContent = 'Both skin and flesh must harden before the shell can seal.';
+    panel.appendChild(hint);
+    appendExternalTemperingButton(panel, {
+        id: 'apply',
+        label: 'Apply & grind',
+        emoji: '🧴',
+        layerId: tab,
+        getBlock: () => getApplyExternalSalveBlockReason(tab),
+        desc: 'Spend salve and months smearing paste into the active layer.',
+        meta: bal ? `${bal.applySalveCost} dose · ~${Math.round(bal.applyWeeks / 4 * 10) / 10} mo` : '',
+        onClick: () => runApplyExternalSalve(tab)
+    });
+    appendExternalTemperingButton(panel, {
+        id: 'drills',
+        label: 'Temper drills',
+        emoji: '👊',
+        getBlock: () => null,
+        desc: 'Whole-body striking drills — slower progress, builds fatigue.',
+        meta: bal ? `~${Math.round(bal.drillWeeks / 4 * 10) / 10} mo · both layers` : '',
+        onClick: () => runExternalTemperDrills(false)
+    });
+    appendExternalTemperingButton(panel, {
+        id: 'drillsSalve',
+        label: 'Temper drills (with salve)',
+        emoji: '🔥',
+        getBlock: () => getExternalDrillSalveBlockReason(),
+        desc: 'Optional salve during drills for a modest boost.',
+        meta: bal ? `+1 dose · ~${Math.round(bal.drillWeeks / 4 * 10) / 10} mo` : '',
+        onClick: () => runExternalTemperDrills(true)
+    });
+    appendExternalTemperingButton(panel, {
+        id: 'mix',
+        label: 'Mix salve',
+        emoji: '⚗️',
+        getBlock: () => getMixExternalSalveBlockReason(),
+        desc: 'Hide, beast blood, and field grit resin into doses for Apply.',
+        meta: bal ? `→ ${bal.mixOutput} doses` : '',
+        onClick: () => runMixExternalSalve()
+    });
+}
+
+function appendExternalTemperingButton(panel, opts) {
+    const wrap = document.createElement('div');
+    wrap.className = 'action-card-wrap body-chamber-action-wrap';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'body-chamber-action-btn';
+    btn.dataset.externalAction = opts.id;
+    const block = opts.getBlock ? opts.getBlock() : null;
+    btn.disabled = bodyChamberActionBlocked() || !!block;
+    btn.innerHTML = `<span class="body-action-label">${opts.emoji} ${opts.label}</span>`
+        + `<span class="body-action-meta body-action-flavor">${block || opts.meta || opts.desc}</span>`;
+    btn.title = block || opts.desc;
+    btn.addEventListener('click', opts.onClick);
+    wrap.appendChild(btn);
+    panel.appendChild(wrap);
+}
+
+function getMixExternalSalveBlockReason() {
+    const bal = getBodyExternalBalance();
+    if (!bal) return 'External refinement unavailable.';
+    if (getBodyExternalSalveDoses() >= bal.salveCap) {
+        return `Salve stock full (${bal.salveCap} doses). Use or hunt more materials.`;
+    }
+    if (!isExternalMixMaterialsFree()) {
+        for (const [matId, qty] of Object.entries(bal.mixCost || {})) {
+            const have = typeof getMaterialCount === 'function' ? getMaterialCount(matId) : 0;
+            if (have < qty) {
+                const mat = typeof CRAFT_MATERIALS !== 'undefined' ? CRAFT_MATERIALS[matId] : null;
+                return `Need ${qty} ${mat?.name || matId} (have ${have}). Hunt beasts or gather herbs.`;
+            }
+        }
+    }
+    return null;
+}
+
+function getApplyExternalSalveBlockReason(layerId) {
+    if (!isExternalTemperingLayerTab(layerId)) return 'Select Skin or Flesh tab.';
+    const bal = getBodyExternalBalance();
+    if (!bal) return 'External refinement unavailable.';
+    if (getBodyExternalSalveDoses() < bal.applySalveCost) {
+        return `Need ${bal.applySalveCost} salve dose (have ${getBodyExternalSalveDoses()}). Mix salve first.`;
+    }
+    if (getBodyLayerProgress(layerId) >= 100) {
+        return `${BODY_CHAMBER_LAYERS[layerId]?.label || layerId} already at peak.`;
+    }
+    return null;
+}
+
+function getExternalDrillSalveBlockReason() {
+    const bal = getBodyExternalBalance();
+    if (!bal?.drillSalveOptional) return 'Unavailable.';
+    if (getBodyExternalSalveDoses() < bal.drillSalveOptional) {
+        return `Need ${bal.drillSalveOptional} salve dose for boosted drills.`;
+    }
+    return null;
+}
+
+function runMixExternalSalve() {
+    if (bodyChamberActionBlocked()) return;
+    const block = getMixExternalSalveBlockReason();
+    if (block) {
+        addLog(`💪 ${block}`);
+        renderBodyChamberUI();
+        return;
+    }
+    const bal = getBodyExternalBalance();
+    ensureBodyChamberState();
+    beginActionLog();
+    if (!advanceChamberWeeks(bal.mixWeeks, 'Mix external salve')) {
+        cancelActionLog();
+        renderBodyChamberUI();
+        return;
+    }
+    if (!isExternalMixMaterialsFree()) {
+        if (typeof removeCraftMaterials !== 'function' || !removeCraftMaterials(bal.mixCost)) {
+            cancelActionLog();
+            addLog('💪 Required materials missing — brew fails.');
+            renderBodyChamberUI();
+            return;
+        }
+    }
+    G.bodyChamber.salveDoses = Math.min(bal.salveCap, getBodyExternalSalveDoses() + bal.mixOutput);
+    const freeNote = isExternalMixMaterialsFree() ? ' (materials waived — playtest)' : '';
+    commitActionLog(`💪 You knead hide, beast blood, and grit resin into ${bal.mixOutput} salve doses (${G.bodyChamber.salveDoses} ready).${freeNote}`);
+    renderBodyChamberUI();
+    fullRender();
+}
+
+function runApplyExternalSalve(layerId) {
+    if (bodyChamberActionBlocked()) return;
+    const block = getApplyExternalSalveBlockReason(layerId);
+    if (block) {
+        addLog(`💪 ${block}`);
+        renderBodyChamberUI();
+        return;
+    }
+    const bal = getBodyExternalBalance();
+    ensureBodyChamberState();
+    beginActionLog();
+    if (!advanceChamberWeeks(bal.applyWeeks, `Apply salve — ${BODY_CHAMBER_LAYERS[layerId].label}`)) {
+        cancelActionLog();
+        renderBodyChamberUI();
+        return;
+    }
+    G.bodyChamber.salveDoses -= bal.applySalveCost;
+    const gain = getBodyExternalApplyGain(layerId);
+    G.bodyChamber.layerProgress[layerId] = Math.min(100, getBodyLayerProgress(layerId) + gain);
+    addBodyExternalFatigue(bal.applyFatigue || 0);
+    const layerPct = Math.round(G.bodyChamber.layerProgress[layerId]);
+    const bonus = layerId === 'skin'
+        ? { physicalDefensePct: 1 }
+        : { physicalDamagePct: 1 };
+    applyBodyChamberBonusDelta(bonus);
+    triggerBodySilhouettePulse(layerId, 'apply');
+    commitActionLog(`💪 Salve ground into ${BODY_CHAMBER_LAYERS[layerId].label} (+${gain}%, now ${layerPct}%). Fatigue ${Math.round(getBodyExternalFatigue())}.`);
+    renderBodyChamberUI();
+    fullRender();
+}
+
+function runExternalTemperDrills(withSalve) {
+    if (bodyChamberActionBlocked()) return;
+    if (withSalve) {
+        const block = getExternalDrillSalveBlockReason();
+        if (block) {
+            addLog(`💪 ${block}`);
+            renderBodyChamberUI();
+            return;
+        }
+    }
+    const bal = getBodyExternalBalance();
+    ensureBodyChamberState();
+    beginActionLog();
+    if (!advanceChamberWeeks(bal.drillWeeks, 'Temper drills')) {
+        cancelActionLog();
+        renderBodyChamberUI();
+        return;
+    }
+    if (withSalve) G.bodyChamber.salveDoses -= bal.drillSalveOptional;
+    let gain = bal.drillProgressBoth || 6;
+    if (withSalve) gain += 2;
+    ['skin', 'flesh'].forEach(id => {
+        G.bodyChamber.layerProgress[id] = Math.min(100, getBodyLayerProgress(id) + gain);
+    });
+    addBodyExternalFatigue(bal.drillFatigue || 0);
+    const minLayer = Math.min(getBodyLayerProgress('skin'), getBodyLayerProgress('flesh'));
+    let scarNote = '';
+    if (minLayer < (bal.scarRiskLayerPct || 40) && getBodyExternalFatigue() >= (bal.scarRiskFatigue || 55)) {
+        G.foundationCracks = (G.foundationCracks || 0) + 1;
+        scarNote = ' A reckless drill leaves a shallow scar (−foundation stability).';
+    }
+    commitActionLog(`💪 Temper drills complete — skin ${Math.round(getBodyLayerProgress('skin'))}%, `
+        + `flesh ${Math.round(getBodyLayerProgress('flesh'))}%. Fatigue ${Math.round(getBodyExternalFatigue())}.${scarNote}`);
+    renderBodyChamberUI();
+    fullRender();
 }
 
 function appendBodyActionButton(panel, layerId, action, isSub) {
@@ -1690,6 +2036,8 @@ function renderBodyChamberUI() {
 
 function runBodyChamberAction(layerId, actionId) {
     if (bodyChamberActionBlocked()) return;
+    if (isExternalTemperingVesselRealm() && isExternalTemperingLayerTab(layerId)) return;
+    if (isBodyPathChamber() && layerId === 'meridians') return;
     if (!isBodyLayerUnlocked(layerId)) return;
     const actions = BODY_CHAMBER_ACTIONS[layerId];
     const action = actions?.find(a => a.id === actionId);

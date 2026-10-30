@@ -5,11 +5,11 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-10-17
 
 ## Focus
-- **External Tempering v1** — design docs landing ([#157](https://github.com/WanderingImmortal/tales-immortal-path/pull/157)) · next: Issue + implement salve/grind/drills · [`body-external-tempering-baseline.md`](ideas/body-external-tempering-baseline.md)
+- **External Tempering v1 playtest** — salve / apply / drills in body chamber · PR in flight · [`body-external-tempering-baseline.md`](ideas/body-external-tempering-baseline.md)
 
 ## Next
-- **Inner Tempering soak doc** — idx 1 interior vats (after external v1 or parallel)
-- **Nine-realm ladder** — body idx 0–3 names in docs · code/spine still legacy until external v1 · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)
+- **Inner Tempering soak doc + idx 1 mechanics** — interior vats after external playtest
+- **Nine-realm ladder** — body idx 2+ spine/meridian cleanup · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)
 - **Spirit path** — Soul Root merged [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149); implement **Illusion/Memory** first; soul embryo policy + idx 5+ names — [`spirit-path-full-design.md`](ideas/spirit-path-full-design.md)
 - Economy feel · Threshold thin visit · more Redwell spice as it comes
 - Wire other Dustbone towns onto civic seats (same kit)
