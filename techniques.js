@@ -339,7 +339,20 @@ function comprehendManual(techName) {
     removeManualFromShelf(techName, 1);
     const track = getTechniqueTrackLabel(template);
     const tierLabel = getCultivationTierLabel(getTechniqueCultivationTierId(template), template.path);
-    commitActionLog(`📜 ${track} art comprehended: ${techName}! (${tierLabel}, ${months} mo)`);
+    let pinNote = '';
+    if (typeof isCombatUsableTechnique === 'function' && isCombatUsableTechnique(template)
+        && typeof toggleCombatTechLoadout === 'function' && typeof isTechInCombatLoadout === 'function'
+        && !isTechInCombatLoadout(techName)) {
+        const pinResult = toggleCombatTechLoadout(techName);
+        if (pinResult.ok && pinResult.pinned) {
+            pinNote = ' Pinned to your combat loadout.';
+            if (!G._combatPinHintShown) {
+                G._combatPinHintShown = true;
+                pinNote += ' Open Techs outside fights to change pins.';
+            }
+        }
+    }
+    commitActionLog(`📜 ${track} art comprehended: ${techName}! (${tierLabel}, ${months} mo)${pinNote}`);
     fullRender();
     return true;
 }

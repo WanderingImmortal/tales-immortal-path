@@ -428,7 +428,7 @@ function getBreakthroughTierComparison() {
 }
 
 function executePeakGrind() {
-    if (actionBlocked()) return failConsolidation('Cannot grind right now.');
+    if (actionBlocked({ allowQiChamber: true })) return failConsolidation('Cannot grind right now.');
     if (isRealmConsolidated(G.realmIdx)) return failConsolidation('This realm is already sealed.');
     const grind = getPeakGrindEstimate();
     if (!grind.canGrind) return failConsolidation('Reach Settled (80%) before peak grind.');
@@ -472,7 +472,7 @@ function executeConsolidation(opts) {
     showConsolidateFeedback('');
     if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
 
-    if (actionBlocked()) return failConsolidation('Cannot consolidate right now.');
+    if (actionBlocked({ allowQiChamber: true })) return failConsolidation('Cannot consolidate right now.');
     if (isRealmConsolidated(G.realmIdx)) return failConsolidation('This realm is already consolidated.');
 
     const def = getConsolidationDef(G.realmIdx);
@@ -571,7 +571,7 @@ function actionConsolidate() {
         fullRender();
         return;
     }
-    if (actionBlocked()) return;
+    if (actionBlocked({ allowQiChamber: true })) return;
     const def = getConsolidationDef(G.realmIdx);
     if (!def) {
         addLog(`🏛️ No consolidation rite exists for ${getRealm()}.`);
