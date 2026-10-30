@@ -33,8 +33,8 @@ const PATHS = {
     },
     body: {
         name: "Body Cultivation",
-        realms: ["Inner Tempering", "Vessel Establishment", "Essence Pearl", "Nascent Physique", "Physique Transformation", "Runeforging", "Source Furnace", "Inner Source", "Saintly Flesh"],
-        titles: ["Flesh Tempered", "Vessel Braced", "Pearl Bearer", "Physique Born", "Forge Physique", "Rune Smith", "Furnace Adept", "Source Sovereign", "Saint Vessel"],
+        realms: ["External Tempering", "Inner Tempering", "Essence Pearl", "Nascent Physique", "Physique Transformation", "Runeforging", "Source Furnace", "Inner Source", "Saintly Flesh"],
+        titles: ["Shell Tempered", "Inner Braced", "Pearl Bearer", "Physique Born", "Forge Physique", "Rune Smith", "Furnace Adept", "Source Sovereign", "Saint Vessel"],
         capstone: {
             button: "🔥 Temper the Vessel",
             settledAction: "Temper the Vessel",
@@ -3856,6 +3856,7 @@ const TRAVEL_KIT_BALANCE = {
         spirit_herb: 0.1,
         iron_ore: 0.15,
         leather_scrap: 0.12,
+        beast_blood: 0.1,
         silk_thread: 0.08,
         jade_inlay: 0.25,
         demon_core: 0.3,
@@ -6631,14 +6632,14 @@ const BODY_CHAMBER_LAYER_ORDER = ['skin', 'flesh', 'bones', 'organs', 'blood', '
 /** Vessel track idx 0–3: chamber layers that must hit peak before breakthrough (mortal dig spine). */
 const BODY_VESSEL_REALM_SPINE = {
     0: {
-        layers: ['skin'],
-        peakLabel: 'Skin tempered to saturation',
-        breakthroughHint: 'Temper Skin to 100%, seal Inner Tempering, then Break Through to Vessel Establishment.'
+        layers: ['skin', 'flesh'],
+        peakLabel: 'Exterior tempered to saturation',
+        breakthroughHint: 'Harden skin and flesh to Settled (80%+ each), Seal the Shell, brace, then Break Through into Inner Tempering.'
     },
     1: {
         layers: ['flesh', 'bones'],
         peakLabel: 'Flesh and bone braced at peak',
-        breakthroughHint: 'Peak Flesh and Bones, seal Vessel Establishment, then break through toward Essence Pearl.'
+        breakthroughHint: 'Peak Flesh and Bones, seal Inner Tempering, then break through toward Essence Pearl.'
     },
     2: {
         layers: ['organs', 'blood'],
@@ -6646,11 +6647,33 @@ const BODY_VESSEL_REALM_SPINE = {
         breakthroughHint: 'Peak Organs and Blood, seal Essence Pearl, then break through toward Nascent Physique.'
     },
     3: {
-        layers: ['meridians'],
+        layers: ['nerves'],
         requireNervesRefined: true,
-        peakLabel: 'Meridians peaked and Nerve Sea refined',
-        breakthroughHint: 'Peak Meridians, refine the Nerve Sea once, seal Nascent Physique, then break through (upper vessel loops ship later).'
+        peakLabel: 'Nerve Sea refined at peak',
+        breakthroughHint: 'Refine the Nerve Sea once, seal Nascent Physique, then break through (upper vessel loops ship later).'
     }
+};
+
+/** External Tempering @ vessel idx 0 — salve / apply / drills (see body-external-tempering-baseline.md). */
+const BODY_EXTERNAL_TEMpering_BALANCE = {
+    salveCap: 12,
+    mixOutput: 3,
+    mixCost: { leather_scrap: 1, beast_blood: 1, spirit_herb: 1 },
+    mixWeeks: 2,
+    applyWeeks: 6,
+    applySalveCost: 1,
+    applyProgressSkin: 14,
+    applyProgressFlesh: 14,
+    applyFatigue: 8,
+    drillWeeks: 10,
+    drillSalveOptional: 1,
+    drillProgressBoth: 6,
+    drillFatigue: 18,
+    postSettledGainMult: 0.45,
+    highFatigueThreshold: 60,
+    highFatigueGainMult: 0.7,
+    scarRiskLayerPct: 40,
+    scarRiskFatigue: 55
 };
 
 const BODY_CHAMBER_LAYERS = {
@@ -8375,7 +8398,7 @@ const ENCOUNTER_ENEMIES = {
         enrageAbilities: [
             { id: "pack_frenzy", weight: 100, effect: { bonusDmgMult: 1.35, extraHits: 1, applyPlayer: { bleedTurns: 3, bleedDmgPct: 0.035 } } }
         ],
-        loot: { materials: { leather_scrap: 2, frost_essence: 1 }, chance: 0.7 }
+        loot: { materials: { leather_scrap: 2, beast_blood: 1, frost_essence: 1 }, chance: 0.7 }
     },
     sand_serpent: {
         name: "Sand Serpent", template: "Demon Beast", hpMult: 1.05, dmgMult: 1.05,
@@ -8385,7 +8408,7 @@ const ENCOUNTER_ENEMIES = {
             { id: "venom_fang", weight: 40, telegraph: "Venom drips from its fangs.", effect: { bonusDmgMult: 1.3, applyPlayer: { poisonTurns: 2, poisonDmgPct: 0.04 } } },
             { id: "constrict", weight: 30, cooldown: 3, effect: { bonusDmgMult: 0.85, applyPlayer: { slowResourceRegen: 1, bleedTurns: 1, bleedDmgPct: 0.025 } } }
         ],
-        loot: { materials: { leather_scrap: 1, silk_thread: 1 }, chance: 0.6 }
+        loot: { materials: { leather_scrap: 1, beast_blood: 1, silk_thread: 1 }, chance: 0.65 }
     },
     tournament_rival: {
         name: "Tournament Rival", template: "Corrupted Cultivator", hpMult: 1.0, dmgMult: 1.1,
@@ -8443,7 +8466,7 @@ const ENCOUNTER_ENEMIES = {
         enrageAbilities: [
             { id: "tide_frenzy", weight: 100, telegraph: "The beast tide reaches fever pitch!", effect: { bonusDmgMult: 1.35, extraHits: 2 } }
         ],
-        loot: { materials: { demon_core: 1, leather_scrap: 2 }, chance: 0.65 }
+        loot: { materials: { demon_core: 1, leather_scrap: 2, beast_blood: 1 }, chance: 0.7 }
     },
     ashvein_guardian_beast: {
         name: "Ashvein Warden Beast", template: "Demon Beast", hpMult: 1.4, dmgMult: 1.18, emoji: '🐲',
@@ -8668,6 +8691,7 @@ const GEAR_SLOT_LABELS = {
 const CRAFT_MATERIALS = {
     iron_ore: { id: 'iron_ore', name: 'Iron Ore', tier: 'common', emoji: '⛏️' },
     leather_scrap: { id: 'leather_scrap', name: 'Leather Scrap', tier: 'common', emoji: '🟤' },
+    beast_blood: { id: 'beast_blood', name: 'Beast Blood', tier: 'common', emoji: '🩸' },
     heartwood_splint: { id: 'heartwood_splint', name: 'Heartwood Splint', tier: 'common', emoji: '🪵' },
     spirit_crystal: { id: 'spirit_crystal', name: 'Spirit Crystal', tier: 'common', emoji: '💎' },
     spirit_herb: { id: 'spirit_herb', name: 'Spirit Herb', tier: 'common', emoji: '🌿' },
@@ -8972,7 +8996,8 @@ const MERCHANT_MATERIAL_STOCK = {
         { matId: 'heartwood_splint', price: 4, qty: 1 },
         { matId: 'spirit_crystal', price: 5, qty: 1 },
         { matId: 'silk_thread', price: 3, qty: 1 },
-        { matId: 'spirit_herb', price: 3, qty: 1 }
+        { matId: 'spirit_herb', price: 3, qty: 1 },
+        { matId: 'beast_blood', price: 4, qty: 1 }
     ],
     jade: [
         { matId: 'iron_ore', price: 3, qty: 1 },
