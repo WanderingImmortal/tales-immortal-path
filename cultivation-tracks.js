@@ -227,9 +227,24 @@ function ensurePathFocusTrack() {
     }
 }
 
+function coerceBreakthroughTrackArg(track) {
+    if (typeof track !== 'string') return null;
+    return normalizeCultivationTrackId(track);
+}
+
 function resolveBreakthroughTrack(explicitTrack) {
-    if (explicitTrack) return normalizeCultivationTrackId(explicitTrack);
+    const coerced = coerceBreakthroughTrackArg(explicitTrack);
+    if (coerced) return coerced;
     return getPathDefaultFocusTrack();
+}
+
+function isTrackRealmConsolidated(track, realmIdx) {
+    ensureCultivationTracksState();
+    track = normalizeCultivationTrackId(track);
+    const idx = realmIdx == null ? getTrackRealmIdx(track) : realmIdx;
+    const cons = G.cultivation[track]?.consolidation;
+    if (!cons) return false;
+    return !!(cons[idx]?.done || cons[String(idx)]?.done);
 }
 
 function getFocusTrack() {

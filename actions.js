@@ -7,12 +7,12 @@ function actionBlocked() {
 }
 
 /** Human-readable reason main-world actions cannot run, or null if ok. */
-function getActionBlockReason() {
+function getActionBlockReason(options) {
     if (G.gameOver) return 'Your journey has ended.';
     if (G.inCombat) return 'You are still flagged as in combat — finish or clear the fight first.';
     if (G.inQiChamber) return 'Leave the Qi Chamber first.';
-    if (G.inBodyChamber) return 'Leave the Body Chamber first.';
-    if (G.inSoulChamber) return 'Leave the Soul Palace first.';
+    if (G.inBodyChamber && !options?.allowBodyChamber) return 'Leave the Body Chamber first — or use Seal / Brace here.';
+    if (G.inSoulChamber && !options?.allowSoulChamber) return 'Leave the Soul Palace first.';
     if (G.inAlchemyChamber) return 'Leave the Alchemy Chamber first.';
     if (G.inForgeChamber) return 'Leave the Forge Chamber first.';
     if (G.inCultivationHub) return 'Leave the Cultivation Hub first.';
