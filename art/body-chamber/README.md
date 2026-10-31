@@ -10,11 +10,25 @@ Drop your generated **PNG** here. **Black figure on white** (like a typical gene
 
 ## Quick steps (no Inkscape)
 
-1. Save / copy your mobile image as **`reference.png`** in this folder.
-2. From repo root (needs `npm install potrace jimp` once — see script header):
+1. Save / copy your image as **`reference.png`** in this folder.
+2. From repo root:
    ```bash
+   npm install
    node scripts/trace-body-silhouette-reference.js
+   node scripts/apply-body-silhouette-shell.js
    ```
-3. Open a PR or paste `sil-shell-path.txt` in chat — an agent runs `sync` and wires `#sil-shell` into `index.html`.
+3. Hard refresh in-game. The repo ships a traced shell when `reference.png` is committed (see `index.html` `#sil-shell`).
 
-The game keeps **click regions** on simplified parts; the **visible** outline can be your traced shell.
+The game keeps **click regions** on simplified `sil-*` parts; the **visible** outline is `#sil-shell`.
+
+## In-game layer viewing (with traced shell)
+
+- **Base figure:** dark `#sil-shell` (+ part paths hidden under CSS when shell is present).
+- **Skin tab:** rim **sheen** on `#sil-shell` (not a solid tan overlay). Other tabs get a faint ambient sheen if skin progress &gt; ~4%.
+- **Ghost unlocked layers:** checkbox under the figure — inactive unlocked overlays (bones, flesh, …) at low opacity behind the active tab.
+
+Implementation: `body-chamber.js` (`renderBodySkinUnified`, `getBodyLayerViewState`), `style.css` (`.body-sil-skin-sheen-mode`, `.body-sil-overlay-ghost`).
+
+## Regenerate after a new PNG
+
+Re-run the two `node scripts/…` commands above and commit updated `sil-shell-path.txt` + `index.html` path `d` (or let `apply-body-silhouette-shell.js` patch `index.html`).
