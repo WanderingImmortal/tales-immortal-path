@@ -232,7 +232,7 @@ const BODY_BONE_AXIAL_DEFS = [
 ];
 
 // Viewer-left bones; each is emitted twice (`-l` / `-r`) via mirrorBoneD.
-// Limb axes match Phase 1 silhouette capsules: arm (76,44)→(66,76)→(58,104); leg (93,112)→(90,151)→(92,190).
+// Limb axes follow sil-* parts: arm (75.5,44.5)→(63,76)→(58,103)→hand to ~y 127; leg unchanged until leg pass.
 const BODY_BONE_SIDE_DEFS = [
     { id: 'marrow-ilium', action: 'marrow', kind: 'marrow', d: boneOvalD(93.8, 95.8, 2.6, 3.2) },
     { id: 'marrow-femur-head', action: 'marrow', kind: 'marrow', d: boneOvalD(93, 112, 1.4, 1.3) },
@@ -244,13 +244,13 @@ const BODY_BONE_SIDE_DEFS = [
     { id: 'clavicle', action: 'arms', kind: 'bone', d: 'M 101.8,38.5 C 97,37.2 90,37.8 84,39.5 C 79,41 76.5,42.8 75.5,44.5' },
     { id: 'scapula', action: 'arms', kind: 'fine', d: 'M 88,38.5 Q 82,40 78,44.5 Q 76,49 76.5,54 Q 77,58.5 79.5,61 Q 83,62.5 86.5,59 Q 89,54 90,48 Q 90.5,43 88,38.5' },
     { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(75.5, 44.5, 2.4, 2.1) },
-    { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 76,45.5 C 73.2,54 69.2,65 66,75.5' },
-    { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 63.4,76.8 L 68.6,75.2' },
-    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 67.4,77.4 C 64.4,86 61.4,94.6 59.2,102.6' },
-    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 64.8,78 C 62.2,86 59.6,94.6 57.8,102.4' },
-    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 55.8,102.2 C 57.6,101.4 59.8,101.6 60.6,103 C 61.3,104.3 60.8,105.8 59.4,106.4 C 57.6,107 55.6,106.4 55,105 C 54.6,103.9 55.1,102.7 55.8,102.2 Z' },
-    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 56.2,106.2 L 54.4,112 M 57.2,106.4 L 56,112.4 M 58.2,106.4 L 57.8,112.6 M 59,106 L 59.6,112 M 55.4,105.4 L 53.2,110' },
-    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 54.6,112.5 L 54.2,116 M 54.2,116.6 L 54,118.8 M 56.2,112.8 L 55.9,116.4 M 55.9,117 L 55.8,119.4 M 58,113 L 58,116.4 M 58,117 L 58.1,119.2 M 59.8,112.4 L 60.2,115.2 M 60.2,115.8 L 60.4,117.6 M 53.4,110.4 L 52.8,112.6 M 52.8,113.2 L 52.6,115.2' },
+    { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 74.8,46.2 C 71.2,54 66.8,64 63.2,74.8' },
+    { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 62.4,77.4 L 67.2,75.6' },
+    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 64.8,77.2 C 63.2,86 61.2,94 59.5,102.2' },
+    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 62.2,77.8 C 60.2,86 58.2,94 56.8,102' },
+    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 58.8,102.6 C 60.4,102 62,102.8 61.8,104.4 C 61.6,105.8 60.4,106.6 59,106.2 C 57.8,105.8 57.4,104.4 58,103.2 C 58.4,102.6 58.8,102.6 Z' },
+    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 58.6,106.2 L 56.8,112.5 M 59.6,106.4 L 58.4,113.5 M 60.6,106.2 L 60.2,114 M 61.2,105.8 L 61.6,112.8 M 57.2,105.4 L 55,110.5' },
+    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 56.4,112.8 L 55.8,116.2 M 55.6,116.8 L 55.2,118.5 M 58.2,113.6 L 57.8,116.8 M 57.6,117.4 L 57.5,119.2 M 60,114.2 L 59.8,117.2 M 59.7,117.8 L 59.8,119.5 M 61.4,112.9 L 61.6,115.8 M 61.7,116.4 L 61.9,118.2 M 54.8,110.6 L 54,112.8 M 53.8,113.4 L 53.4,115.2' },
     { id: 'ilium', action: 'legs', kind: 'plate', d: 'M 100.8,90.4 C 97,88.2 92.4,88.8 90.2,92.4 C 89,94.6 89.2,97.4 90.6,100.2 C 91.8,103 93.6,105.2 95.8,106.4 C 95.6,103 96.2,99.6 97.8,96.6 C 99.4,94 100.6,92.4 100.8,90.4 Z' },
     { id: 'obturator', action: 'legs', kind: 'fine', d: 'M 95,110 C 97.4,111 99.6,111.6 101.2,112 C 101.4,113.6 101.4,115 101,116 C 98.4,116.2 96,115 94.6,113 C 93.6,111.8 93.8,110.4 95,110 Z' },
     { id: 'acetabulum', action: 'legs', kind: 'fine', d: 'M 91,110 C 91.6,107.8 94,107 96,108.2' },
@@ -273,7 +273,7 @@ const BODY_BONE_DEFS = [
         { ...def, id: `bone-${def.id}-r`, d: mirrorBoneD(def.d) }
     ])
 ];
-const BODY_BONE_LAYOUT_VERSION = '5';
+const BODY_BONE_LAYOUT_VERSION = '6';
 const BODY_BONE_BY_ID = new Map(BODY_BONE_DEFS.map(b => [b.id, b]));
 const BODY_BONE_ACTION_PARTS = BODY_BONE_DEFS.reduce((acc, b) => {
     const key = `bones:${b.action}`;
