@@ -246,11 +246,11 @@ const BODY_BONE_SIDE_DEFS = [
     { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(76, 44, 2.3, 2.2) },
     { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 76,45.5 C 73.2,54 69.2,65 66,75.5' },
     { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 63.4,76.8 L 68.6,75.2' },
-    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 67.2,77.2 C 64,86 60.8,95 58.8,103.2' },
-    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 64.6,77.8 C 61.8,86.2 59,95.2 57.2,103' },
+    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 67.4,77.4 C 64.4,86 61.4,94.6 59.2,102.6' },
+    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 64.8,78 C 62.2,86 59.6,94.6 57.8,102.4' },
     { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 55.8,102.2 C 57.6,101.4 59.8,101.6 60.6,103 C 61.3,104.3 60.8,105.8 59.4,106.4 C 57.6,107 55.6,106.4 55,105 C 54.6,103.9 55.1,102.7 55.8,102.2 Z' },
     { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 56.2,106.2 L 54.4,112 M 57.2,106.4 L 56,112.4 M 58.2,106.4 L 57.8,112.6 M 59,106 L 59.6,112 M 55.4,105.4 L 53.2,110' },
-    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 54.4,112.5 L 53.8,116.2 M 53.8,116.8 L 53.6,119.2 M 56,112.8 L 55.6,116.6 M 55.6,117.2 L 55.5,119.8 M 57.8,113 L 57.8,116.6 M 57.8,117.2 L 57.9,119.6 M 59.6,112.4 L 60,115.4 M 60,116 L 60.2,118 M 53.2,110.4 L 52.4,113 M 52.4,113.6 L 52,115.8' },
+    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 54.6,112.5 L 54.2,116 M 54.2,116.6 L 54,118.8 M 56.2,112.8 L 55.9,116.4 M 55.9,117 L 55.8,119.4 M 58,113 L 58,116.4 M 58,117 L 58.1,119.2 M 59.8,112.4 L 60.2,115.2 M 60.2,115.8 L 60.4,117.6 M 53.4,110.4 L 52.8,112.6 M 52.8,113.2 L 52.6,115.2' },
     { id: 'ilium', action: 'legs', kind: 'plate', d: 'M 100.8,90.4 C 97,88.2 92.4,88.8 90.2,92.4 C 89,94.6 89.2,97.4 90.6,100.2 C 91.8,103 93.6,105.2 95.8,106.4 C 95.6,103 96.2,99.6 97.8,96.6 C 99.4,94 100.6,92.4 100.8,90.4 Z' },
     { id: 'obturator', action: 'legs', kind: 'fine', d: 'M 95,110 C 97.4,111 99.6,111.6 101.2,112 C 101.4,113.6 101.4,115 101,116 C 98.4,116.2 96,115 94.6,113 C 93.6,111.8 93.8,110.4 95,110 Z' },
     { id: 'acetabulum', action: 'legs', kind: 'fine', d: 'M 91,110 C 91.6,107.8 94,107 96,108.2' },
@@ -261,9 +261,9 @@ const BODY_BONE_SIDE_DEFS = [
     { id: 'tibia-plateau', action: 'legs', kind: 'fine', d: 'M 87.2,154.2 L 93.2,154.2' },
     { id: 'tibia', action: 'legs', kind: 'heavy', d: 'M 90.6,154.6 C 91.2,165 91.6,177 92,189.2' },
     { id: 'fibula', action: 'legs', kind: 'fine', d: 'M 87.4,155.6 C 88,166 89,177.5 90.2,188.4' },
-    { id: 'tarsals', action: 'feet', kind: 'fine', d: 'M 90.2,190.6 C 92.4,190.2 94.4,191.2 94.8,193.2 C 95.2,195 94.4,196.4 92.6,196.8 C 90.6,197.2 89,196.4 88.6,194.6 C 88.3,192.8 88.6,191 90.2,190.6 Z' },
-    { id: 'metatarsals', action: 'feet', kind: 'fine', d: 'M 90.4,196.4 L 88,201 M 91.4,196.8 L 89.8,201.4 M 92.3,197 L 91.6,201.8 M 93.2,196.8 L 93.6,201.6 M 94,196.2 L 95.8,200.8' },
-    { id: 'toes', action: 'feet', kind: 'fine', d: 'M 88,201.4 L 87.2,203.2 M 89.8,202 L 89.4,204 M 91.6,202.4 L 91.4,204.4 M 93.6,202.2 L 94,204 M 95.8,201.4 L 96.8,203' }
+    { id: 'tarsals', action: 'feet', kind: 'fine', d: 'M 90.4,190.8 C 92.4,190.4 94.2,191.2 94.6,193 C 95,194.6 94.2,195.8 92.6,196.2 C 90.8,196.6 89.4,195.8 89.2,194.2 C 89,192.6 89.2,191.2 90.4,190.8 Z' },
+    { id: 'metatarsals', action: 'feet', kind: 'fine', d: 'M 90.6,196.2 L 88.4,200.4 M 91.6,196.6 L 90.2,200.8 M 92.5,196.8 L 91.8,201.2 M 93.4,196.6 L 93.8,201 M 94.2,196 L 95.6,200.2' },
+    { id: 'toes', action: 'feet', kind: 'fine', d: 'M 88.4,201 L 87.8,202.6 M 90.2,201.6 L 89.8,203.4 M 91.8,202 L 91.6,203.8 M 93.6,201.8 L 94,203.4 M 95.6,201 L 96.4,202.6' }
 ];
 
 const BODY_BONE_DEFS = [
@@ -273,7 +273,7 @@ const BODY_BONE_DEFS = [
         { ...def, id: `bone-${def.id}-r`, d: mirrorBoneD(def.d) }
     ])
 ];
-const BODY_BONE_LAYOUT_VERSION = '3';
+const BODY_BONE_LAYOUT_VERSION = '4';
 const BODY_BONE_BY_ID = new Map(BODY_BONE_DEFS.map(b => [b.id, b]));
 const BODY_BONE_ACTION_PARTS = BODY_BONE_DEFS.reduce((acc, b) => {
     const key = `bones:${b.action}`;

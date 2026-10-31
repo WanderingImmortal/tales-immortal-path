@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Phase 2) |
+| **Status** | `shipped` (Phase 1–2 + playtest polish) · Phase 3 parked |
 | **Blocked on** | none |
 | **Issue** | none yet |
-| **Chat / PR** | Skeleton [PR #80](https://github.com/WanderingImmortal/tales-immortal-path/pull/80) · Phase 1 [PR #104](https://github.com/WanderingImmortal/tales-immortal-path/pull/104) · Phase 2 `cursor/body-silhouette-p2` |
-| **Updated** | 2026-08-05 |
+| **Chat / PR** | Skeleton [PR #80](https://github.com/WanderingImmortal/tales-immortal-path/pull/80) · Phase 1 [PR #104](https://github.com/WanderingImmortal/tales-immortal-path/pull/104) · Phase 2 [PR #105](https://github.com/WanderingImmortal/tales-immortal-path/pull/105) · polish `cursor/body-silhouette-polish-0d8d` |
+| **Updated** | 2026-10-31 |
 
 ## Intent
 
@@ -20,7 +20,7 @@ Phase 1 rebuilds the silhouette so the layers have somewhere accurate to live. P
 
 **Bones (shipped, PR #80).** 111 paths, anatomically placed, fitted to the current silhouette and mirrored about x = 104. Skull, 22 vertebrae + sacrum + coccyx, 12 rib pairs + sternum + costal margin, shoulder girdle, paired forearm/lower-leg bones, hands, pelvis, feet, and marrow at the real red-marrow sites. This layer is the reference for everything else.
 
-**Everything else is misplaced.** Flesh, organs, blood, nerves and the meridian stars were authored for a wider, arms-out figure and are largely drawn outside the body, where the silhouette mask throws them away. Numbers in Phase 2.
+**Phase 2 re-fit (PR #105)** moved flesh, organs, blood, nerves, and meridian stars inside the part silhouette. **Playtest polish** adds joint overlap patches, base stroke bleed, `--bone-glow`, and fine-bone nudges — Phase 3 xianxia visuals still parked.
 
 ---
 
@@ -197,7 +197,7 @@ Bone patterns (骨纹) — faint etched runes on femur/humerus/skull above ~85% 
 - [x] Phase 2 layer re-fits (bones → flesh → organs → blood → nerves → meridians; stars masked) — `cursor/body-silhouette-p2`
 - [ ] Phase 3a/3b (independent of Phase 2; only needs bones, which are shipped) — parked vs [`body-path-refining-rewrite.md`](body-path-refining-rewrite.md)
 - [ ] Phase 3c after meridians are re-fitted
-- [ ] Visual polish after playtest (shoulder seams, bone glow near edges)
+- [x] Visual polish after playtest (joint patches, shoulder seams, `--bone-glow`, fine-bone nudges) — `cursor/body-silhouette-polish-0d8d`
 
 ## Owner locks (2026-08-05)
 

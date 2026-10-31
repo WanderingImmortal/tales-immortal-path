@@ -100,7 +100,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Fate & fortune — grounding](fate-fortune-grounding.md) · [read + knot sketch](fate-read-and-knot-sketch.md) | `designed` | Spirit Fate implement | [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149) |
 | [Stats → meters rework (guards, natures, fifth system)](stats-to-meters-rework.md) | `designed` (change now) | none | — |
 | [Celestial Avatar (法相) — qi idx 4 realm + system](celestial-avatar.md) | `designed` (direction locked) | Nine-realm in code; GC domain; civic tiers | — |
-| [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `building` (P2) | Playtest polish; Phase 3 parked | `cursor/body-silhouette-p2` |
+| [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `shipped` (polish) | Phase 3 xianxia layer parked | `cursor/body-silhouette-polish-0d8d` |
 | [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `designed` | External/Inner split; upper ladder locked 2026-10-12 | — |
 | [External Tempering — baseline method (v1)](body-external-tempering-baseline.md) | `designed` | Material drops; chamber action refactor | — |
 | [External Tempering — ideal depth](body-external-tempering-depth.md) | `designed` | v1 baseline; regional strain | — |

@@ -9570,8 +9570,15 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 
 .body-sil-base-shape {
     fill: #1e1e1e;
-    stroke: none;
-    opacity: 0.85;
+    stroke: #1e1e1e;
+    stroke-width: 0.75;
+    paint-order: stroke fill;
+    opacity: 0.88;
+}
+
+.body-sil-joint-patch {
+    stroke-width: 0.5;
+    opacity: 0.9;
 }
 
 .body-sil-overlays {
@@ -9834,6 +9841,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 }
 
 /* Bones overlay */
+.body-sil-overlay-bones {
+    --bone-glow: 1;
+}
+
 .body-sil-overlay-bones .body-sil-bone {
     fill: none;
     stroke: color-mix(in srgb, var(--body-layer-color) 50%, #a8a4a0);
@@ -9843,11 +9854,11 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 }
 
 /* Ribs, fingers and joint detail need a finer line than the long bones. */
-.body-sil-overlay-bones .body-sil-bone-fine { --bone-weight: 0.4; }
-.body-sil-overlay-bones .body-sil-bone-tick { --bone-weight: 0.55; }
-.body-sil-overlay-bones .body-sil-bone-plate { --bone-weight: 0.5; }
-.body-sil-overlay-bones .body-sil-bone-bone { --bone-weight: 0.8; }
-.body-sil-overlay-bones .body-sil-bone-heavy { --bone-weight: 1.05; }
+.body-sil-overlay-bones .body-sil-bone-fine { --bone-weight: 0.4; --bone-glow: 0.32; }
+.body-sil-overlay-bones .body-sil-bone-tick { --bone-weight: 0.55; --bone-glow: 0.45; }
+.body-sil-overlay-bones .body-sil-bone-plate { --bone-weight: 0.5; --bone-glow: 0.55; }
+.body-sil-overlay-bones .body-sil-bone-bone { --bone-weight: 0.8; --bone-glow: 0.72; }
+.body-sil-overlay-bones .body-sil-bone-heavy { --bone-weight: 1.05; --bone-glow: 0.85; }
 
 .body-sil-overlay-bones .body-sil-bone-plate.lit {
     fill: color-mix(in srgb, var(--body-layer-color) calc(var(--part-fill, 0) * 16%), transparent);
@@ -9855,13 +9866,13 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 
 .body-sil-overlay-bones.body-sil-overlay-active .body-sil-bone.lit {
     stroke: color-mix(in srgb, var(--body-layer-color) calc(50% + var(--part-fill, 0) * 50%), #d8d4d0);
-    filter: drop-shadow(0 0 calc(2px + var(--part-fill, 0) * 5px) var(--body-layer-color));
+    filter: drop-shadow(0 0 calc((2px + var(--part-fill, 0) * 5px) * var(--bone-glow, 1)) var(--body-layer-color));
 }
 
 .body-sil-overlay-bones.body-sil-overlay-active .body-sil-bone.complete {
     stroke: var(--body-layer-color);
     stroke-width: calc((1.4 + var(--part-fill, 0) * 0.8) * var(--bone-weight, 1));
-    filter: drop-shadow(0 0 calc(4px + var(--part-fill, 0) * 7px) var(--body-layer-color));
+    filter: drop-shadow(0 0 calc((4px + var(--part-fill, 0) * 7px) * var(--bone-glow, 1)) var(--body-layer-color));
 }
 
 .body-sil-overlay-bones .body-sil-bone-marrow {

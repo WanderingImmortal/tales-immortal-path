@@ -788,6 +788,7 @@
                     <svg class="body-silhouette-svg" viewBox="0 0 206.326 206.326" role="img" aria-label="Interactive body cultivation silhouette">
                         <defs>
                             <!-- Phase 1 part silhouette — docs/ideas/body-chamber-anatomy-rebuild.md; regenerate via scripts/build-body-silhouette-parts.js -->
+
                             <path id="sil-head" d="M 104,0.3 C 110.19,0.3 115.2,5.76 115.2,12.5 C 115.2,19.24 110.19,24.7 104,24.7 C 97.81,24.7 92.8,19.24 92.8,12.5 C 92.8,5.76 97.81,0.3 104,0.3 Z"/>
                             <path id="sil-neck" d="M 98.8,23 L 109.2,23 L 110.4,36 L 97.6,36 Z"/>
                             <path id="sil-spine" d="M 100.5,28 L 107.5,28 L 107.5,108 L 100.5,108 Z"/>
@@ -804,6 +805,19 @@
                             <path id="sil-shin-r" d="M 110.61,150.62 L 108.61,189.62 A 7.4,7.4 0 0 1 123.39,190.38 L 125.39,151.38 A 7.4,7.4 0 0 1 110.61,150.62 Z"/>
                             <path id="sil-foot-l" d="M 90,194.2 C 95.25,194.2 99.5,196.8 99.5,200 C 99.5,203.2 95.25,205.8 90,205.8 C 84.75,205.8 80.5,203.2 80.5,200 C 80.5,196.8 84.75,194.2 90,194.2 Z"/>
                             <path id="sil-foot-r" d="M 118,194.2 C 123.25,194.2 127.5,196.8 127.5,200 C 127.5,203.2 123.25,205.8 118,205.8 C 112.75,205.8 108.5,203.2 108.5,200 C 108.5,196.8 112.75,194.2 118,194.2 Z"/>
+                            <path id="sil-patch-shoulder-l" d="M 80.5,38.7 C 84.48,38.7 87.7,41.3 87.7,44.5 C 87.7,47.7 84.48,50.3 80.5,50.3 C 76.52,50.3 73.3,47.7 73.3,44.5 C 73.3,41.3 76.52,38.7 80.5,38.7 Z"/>
+                            <path id="sil-patch-shoulder-r" d="M 127.5,38.7 C 131.48,38.7 134.7,41.3 134.7,44.5 C 134.7,47.7 131.48,50.3 127.5,50.3 C 123.52,50.3 120.3,47.7 120.3,44.5 C 120.3,41.3 123.52,38.7 127.5,38.7 Z"/>
+                            <path id="sil-patch-elbow-l" d="M 66,69.5 C 70.09,69.5 73.4,72.63 73.4,76.5 C 73.4,80.37 70.09,83.5 66,83.5 C 61.91,83.5 58.6,80.37 58.6,76.5 C 58.6,72.63 61.91,69.5 66,69.5 Z"/>
+                            <path id="sil-patch-elbow-r" d="M 142,69.5 C 146.09,69.5 149.4,72.63 149.4,76.5 C 149.4,80.37 146.09,83.5 142,83.5 C 137.91,83.5 134.6,80.37 134.6,76.5 C 134.6,72.63 137.91,69.5 142,69.5 Z"/>
+                            <path id="sil-patch-wrist-l" d="M 59,98.3 C 62.76,98.3 65.8,101.08 65.8,104.5 C 65.8,107.92 62.76,110.7 59,110.7 C 55.24,110.7 52.2,107.92 52.2,104.5 C 52.2,101.08 55.24,98.3 59,98.3 Z"/>
+                            <path id="sil-patch-wrist-r" d="M 149,98.3 C 152.76,98.3 155.8,101.08 155.8,104.5 C 155.8,107.92 152.76,110.7 149,110.7 C 145.24,110.7 142.2,107.92 142.2,104.5 C 142.2,101.08 145.24,98.3 149,98.3 Z"/>
+                            <path id="sil-patch-hip-l" d="M 92.5,106.3 C 97.75,106.3 102,109.08 102,112.5 C 102,115.92 97.75,118.7 92.5,118.7 C 87.25,118.7 83,115.92 83,112.5 C 83,109.08 87.25,106.3 92.5,106.3 Z"/>
+                            <path id="sil-patch-hip-r" d="M 115.5,106.3 C 120.75,106.3 125,109.08 125,112.5 C 125,115.92 120.75,118.7 115.5,118.7 C 110.25,118.7 106,115.92 106,112.5 C 106,109.08 110.25,106.3 115.5,106.3 Z"/>
+                            <path id="sil-patch-knee-l" d="M 91,144 C 95.53,144 99.2,147.22 99.2,151.2 C 99.2,155.18 95.53,158.4 91,158.4 C 86.47,158.4 82.8,155.18 82.8,151.2 C 82.8,147.22 86.47,144 91,144 Z"/>
+                            <path id="sil-patch-knee-r" d="M 117,144 C 121.53,144 125.2,147.22 125.2,151.2 C 125.2,155.18 121.53,158.4 117,158.4 C 112.47,158.4 108.8,155.18 108.8,151.2 C 108.8,147.22 112.47,144 117,144 Z"/>
+                            <path id="sil-patch-ankle-l" d="M 92,184.5 C 96.2,184.5 99.6,187.19 99.6,190.5 C 99.6,193.81 96.2,196.5 92,196.5 C 87.8,196.5 84.4,193.81 84.4,190.5 C 84.4,187.19 87.8,184.5 92,184.5 Z"/>
+                            <path id="sil-patch-ankle-r" d="M 116,184.5 C 120.2,184.5 123.6,187.19 123.6,190.5 C 123.6,193.81 120.2,196.5 116,196.5 C 111.8,196.5 108.4,193.81 108.4,190.5 C 108.4,187.19 111.8,184.5 116,184.5 Z"/>
+                            <path id="sil-patch-pelvis" d="M 104,106 C 110.35,106 115.5,108.46 115.5,111.5 C 115.5,114.54 110.35,117 104,117 C 97.65,117 92.5,114.54 92.5,111.5 C 92.5,108.46 97.65,106 104,106 Z"/>
                             <mask id="body-mask-silhouette-only" maskUnits="userSpaceOnUse" x="0" y="0" width="206.326" height="206.326">
                                 <rect width="206.326" height="206.326" fill="black"/>
                                 <use href="#sil-head" fill="white"/>
@@ -821,6 +835,19 @@
                                 <use href="#sil-shin-r" fill="white"/>
                                 <use href="#sil-foot-l" fill="white"/>
                                 <use href="#sil-foot-r" fill="white"/>
+                                <use href="#sil-patch-shoulder-l" fill="white"/>
+                                <use href="#sil-patch-shoulder-r" fill="white"/>
+                                <use href="#sil-patch-elbow-l" fill="white"/>
+                                <use href="#sil-patch-elbow-r" fill="white"/>
+                                <use href="#sil-patch-wrist-l" fill="white"/>
+                                <use href="#sil-patch-wrist-r" fill="white"/>
+                                <use href="#sil-patch-hip-l" fill="white"/>
+                                <use href="#sil-patch-hip-r" fill="white"/>
+                                <use href="#sil-patch-knee-l" fill="white"/>
+                                <use href="#sil-patch-knee-r" fill="white"/>
+                                <use href="#sil-patch-ankle-l" fill="white"/>
+                                <use href="#sil-patch-ankle-r" fill="white"/>
+                                <use href="#sil-patch-pelvis" fill="white"/>
                             </mask>
                         </defs>
                         <g class="body-sil-base" aria-hidden="true">
@@ -839,7 +866,20 @@
                             <use href="#sil-shin-r" class="body-sil-base-shape"/>
                             <use href="#sil-foot-l" class="body-sil-base-shape"/>
                             <use href="#sil-foot-r" class="body-sil-base-shape"/>
-                        </g>
+                            <use href="#sil-patch-shoulder-l" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-shoulder-r" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-elbow-l" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-elbow-r" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-wrist-l" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-wrist-r" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-hip-l" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-hip-r" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-knee-l" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-knee-r" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-ankle-l" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-ankle-r" class="body-sil-base-shape body-sil-joint-patch"/>
+                            <use href="#sil-patch-pelvis" class="body-sil-base-shape body-sil-joint-patch"/>
+                                                                                                                                                                                                                                                                                                                                                                                                    </g>
                         <g class="body-sil-regions">
                             <g class="body-sil-region" id="foot-l" data-region="foot-l" role="button" tabindex="0" aria-label="Left foot">
                                 <use href="#sil-foot-l" class="body-sil-shape"/>
@@ -908,6 +948,19 @@
                                 <use href="#sil-shin-r" class="body-sil-skin-full"/>
                                 <use href="#sil-foot-l" class="body-sil-skin-full"/>
                                 <use href="#sil-foot-r" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-shoulder-l" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-shoulder-r" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-elbow-l" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-elbow-r" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-wrist-l" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-wrist-r" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-hip-l" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-hip-r" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-knee-l" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-knee-r" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-ankle-l" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-ankle-r" class="body-sil-skin-full"/>
+                                <use href="#sil-patch-pelvis" class="body-sil-skin-full"/>
                             </g>
                             <g class="body-sil-overlay body-sil-overlay-flesh" data-layer="flesh" id="bodySilFleshMuscles" mask="url(#body-mask-silhouette-only)"></g>
                             <g class="body-sil-overlay body-sil-overlay-bones" data-layer="bones" id="bodySilBones" mask="url(#body-mask-silhouette-only)"></g>
