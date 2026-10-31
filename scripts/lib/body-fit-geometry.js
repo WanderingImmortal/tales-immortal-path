@@ -4,6 +4,8 @@ function tokenizePath(d) {
     return d.match(/[A-Za-z]|-?\d*\.?\d+(?:e[-+]?\d+)?/gi) || [];
 }
 
+const LINE_STEP = 0.25;
+
 function flattenPath(d, samplesPerCurve = 8) {
     const tokens = tokenizePath(d);
     let i = 0;
@@ -12,6 +14,12 @@ function flattenPath(d, samplesPerCurve = 8) {
     const pts = [];
     const readNum = () => parseFloat(tokens[i++]);
     const push = (x, y) => { pts.push([x, y]); cx = x; cy = y; };
+    // Straight segments are subdivided so clearance checks cannot skip over a notch between endpoints.
+    const lineTo = (x, y) => {
+        const x0 = cx, y0 = cy;
+        const n = Math.max(1, Math.ceil(Math.hypot(x - x0, y - y0) / LINE_STEP));
+        for (let s = 1; s <= n; s++) push(x0 + (x - x0) * s / n, y0 + (y - y0) * s / n);
+    };
     const cubic = (x0, y0, x1, y1, x2, y2, x, y) => {
         for (let s = 1; s <= samplesPerCurve; s++) {
             const t = s / samplesPerCurve, u = 1 - t;
@@ -35,12 +43,12 @@ function flattenPath(d, samplesPerCurve = 8) {
 
         if (cmd === 'M') { push(readNum(), readNum()); sx = cx; sy = cy; cmd = 'L'; }
         else if (cmd === 'm') { push(cx + readNum(), cy + readNum()); sx = cx; sy = cy; cmd = 'l'; }
-        else if (cmd === 'L') push(readNum(), readNum());
-        else if (cmd === 'l') push(cx + readNum(), cy + readNum());
-        else if (cmd === 'H') push(readNum(), cy);
-        else if (cmd === 'h') push(cx + readNum(), cy);
-        else if (cmd === 'V') push(cx, readNum());
-        else if (cmd === 'v') push(cx, cy + readNum());
+        else if (cmd === 'L') lineTo(readNum(), readNum());
+        else if (cmd === 'l') lineTo(cx + readNum(), cy + readNum());
+        else if (cmd === 'H') lineTo(readNum(), cy);
+        else if (cmd === 'h') lineTo(cx + readNum(), cy);
+        else if (cmd === 'V') lineTo(cx, readNum());
+        else if (cmd === 'v') lineTo(cx, cy + readNum());
         else if (cmd === 'C') {
             const x0 = cx, y0 = cy;
             cubic(x0, y0, readNum(), readNum(), readNum(), readNum(), readNum(), readNum());
@@ -54,7 +62,7 @@ function flattenPath(d, samplesPerCurve = 8) {
             const x0 = cx, y0 = cy;
             quad(x0, y0, x0 + readNum(), y0 + readNum(), x0 + readNum(), y0 + readNum());
         } else if (cmd === 'Z' || cmd === 'z') {
-            push(sx, sy);
+            lineTo(sx, sy);
         } else {
             i++;
         }

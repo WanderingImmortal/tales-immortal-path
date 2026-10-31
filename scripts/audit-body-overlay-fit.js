@@ -8,7 +8,9 @@
  *  3. No legacy subtractive body-mask-* region masks
  *  4. Every real bone path (BODY_BONE_DEFS, both sides) is well-formed and sits inside #sil-shell
  *     with enough depth for its lit stroke (per-kind clearance) — FAILS the audit
- *  5. Joint anchor bones (humeral head, elbow, wrist, hip, knee, ankle) land inside their sil-patch
+ *  5. Chunks: every bone's `action` is a real Bones action in data.js (so refining one action only
+ *     lights its own bones) and every action owns at least one bone
+ *  6. Joint anchor bones (humeral head, elbow, wrist, hip, knee, ankle) land inside their sil-patch
  *  (sil-* capsule parts vs shell is still a warning only)
  */
 'use strict';
@@ -155,7 +157,26 @@ if (!offenders.length) {
     fail(`${offenders.length} bone(s) outside / too close to #sil-shell — re-fit (node scripts/fit-body-bones-to-shell.js, node scripts/render-body-bone-fit.js)`);
 }
 
-// —— 5. Joint anchors land inside their patch ——
+// —— 5. Refinement chunks ——
+const dataJs = fs.readFileSync(path.join(root, 'data.js'), 'utf8');
+const actionsBlock = dataJs.match(/const BODY_CHAMBER_ACTIONS\s*=\s*\{[\s\S]*?\n\};/)?.[0] || '';
+const bonesBlock = actionsBlock.match(/\n    bones:\s*\[([\s\S]*?)\n    \]/)?.[1] || '';
+const boneActionIds = [...bonesBlock.matchAll(/\{ id: '([a-z]+)'/g)].map(m => m[1]);
+const chunkBones = {};
+for (const b of BODY_BONE_DEFS) (chunkBones[b.action] = chunkBones[b.action] || []).push(b.id);
+if (!boneActionIds.length) {
+    fail('could not read bones actions from data.js BODY_CHAMBER_ACTIONS');
+} else {
+    const unknown = Object.keys(chunkBones).filter(a => !boneActionIds.includes(a));
+    const empty = boneActionIds.filter(a => !chunkBones[a]);
+    if (unknown.length) fail(`bone defs use unknown action(s): ${unknown.join(', ')}`);
+    if (empty.length) fail(`bones action(s) with no bone paths: ${empty.join(', ')}`);
+    if (!unknown.length && !empty.length) {
+        ok('refinement chunks: ' + boneActionIds.map(a => `${a}=${chunkBones[a].length}`).join(' '));
+    }
+}
+
+// —— 6. Joint anchors land inside their patch ——
 const JOINT_ANCHORS = [
     ['humerus-head', 'shoulder'], ['elbow', 'elbow'], ['carpals', 'wrist'],
     ['femur-head', 'hip'], ['patella', 'knee'], ['tarsals', 'ankle']
