@@ -20,10 +20,8 @@ const SOLE = 205;
 
 function loadDeps() {
     try {
-        return {
-            Jimp: require('jimp'),
-            potrace: require('potrace')
-        };
+        const { Jimp } = require('jimp');
+        return { Jimp, potrace: require('potrace') };
     } catch (e) {
         console.error('Missing deps. From repo root run: npm install potrace jimp');
         process.exit(1);
@@ -70,11 +68,11 @@ async function main() {
     }
     const { Jimp, potrace } = loadDeps();
     const img = await Jimp.read(refPath);
-    img.grayscale().contrast(0.4);
-    const buf = await img.getBufferAsync(Jimp.MIME_PNG);
+    img.greyscale().contrast(0.55).normalize();
+    const buf = await img.getBuffer('image/png');
 
     const traced = await new Promise((resolve, reject) => {
-        potrace.trace(buf, { turdSize: 2, optTolerance: 0.4, color: 'black', background: 'transparent' }, (err, svg) => {
+        potrace.trace(buf, { turdSize: 4, optTolerance: 0.65, color: 'black', background: 'transparent' }, (err, svg) => {
             if (err) reject(err);
             else resolve(svg);
         });

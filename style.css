@@ -9582,7 +9582,7 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 }
 
 /* Traced reference shell (art/body-chamber/reference.png) replaces part fills */
-.body-sil-base:has(.body-sil-shell) .body-sil-base-shape:not(.body-sil-shell):not(.body-sil-joint-patch) {
+.body-sil-base:has(.body-sil-shell) .body-sil-base-shape:not(.body-sil-shell) {
     opacity: 0;
 }
 
@@ -9591,6 +9591,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     stroke-width: 0.75;
     paint-order: stroke fill;
     opacity: 0.92;
+}
+
+.body-sil-skin-unified:has(.body-sil-skin-shell) .body-sil-skin-full:not(.body-sil-skin-shell) {
+    opacity: 0;
 }
 
 .body-sil-overlays {

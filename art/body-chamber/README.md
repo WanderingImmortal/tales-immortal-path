@@ -1,6 +1,6 @@
 # Body chamber silhouette reference
 
-Drop your generated **PNG** here (black figure on white, or white on black — the script auto-detects).
+Drop your generated **PNG** here. **Black figure on white** (like a typical generator export) works best — no editing required. The script greys/contrast-normalizes and traces automatically.
 
 | File | Purpose |
 |------|---------|

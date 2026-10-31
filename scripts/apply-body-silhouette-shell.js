@@ -43,5 +43,15 @@ if (!html.includes(maskInsert)) {
     );
 }
 
+const skinShell = '<use href="#sil-shell" class="body-sil-skin-full body-sil-skin-shell"/>';
+if (!html.includes(skinShell)) {
+    html = html.replace(
+        '<g class="body-sil-skin-unified" id="bodySilSkinUnified">',
+        `<g class="body-sil-skin-unified" id="bodySilSkinUnified">\n                                ${skinShell}`
+    );
+}
+
+html = html.replace(/\s+<\/g>\s*(\n\s*<g class="body-sil-regions">)/, '\n                        </g>$1');
+
 fs.writeFileSync(htmlPath, html);
-console.log('Applied #sil-shell to index.html — add CSS to hide .body-sil-part-fill if needed');
+console.log('Applied #sil-shell to index.html');
