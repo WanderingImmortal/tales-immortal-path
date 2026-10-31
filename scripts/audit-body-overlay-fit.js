@@ -269,6 +269,28 @@ for (const m of boneLiterals) {
 const MARGIN = 1.2;
 const STROKE_HALF = 0.6;
 const threshold = STROKE_HALF + MARGIN;
+
+const partOffenders = [];
+for (const id of PART_IDS) {
+    const d = partPaths[id];
+    if (!d || !shellPoly) continue;
+    const samples = flattenPath(d, 6);
+    let worst = Infinity;
+    for (const [x, y] of samples) {
+        const clr = signedClearance(x, y);
+        if (clr < worst) worst = clr;
+    }
+    if (worst < threshold) {
+        partOffenders.push({ id, clearance: +worst.toFixed(2) });
+    }
+}
+if (partOffenders.length) {
+    console.log(`\nPart vs shell (${partOffenders.length} under margin — re-run clip script):`);
+    partOffenders.slice(0, 8).forEach(o => console.log(`  - ${o.id}: ${o.clearance}`));
+} else if (shellPoly) {
+    ok('sampled sil-* parts inside #sil-shell margin');
+}
+
 const offenders = [];
 
 for (const bone of bones) {

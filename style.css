@@ -10110,6 +10110,14 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     pointer-events: fill;
 }
 
+.body-sil-region use.body-sil-hit {
+    fill: transparent;
+    stroke: none;
+    pointer-events: fill;
+    opacity: 1;
+    filter: none;
+}
+
 .body-sil-shape-pulse {
     animation: body-sil-shape-pulse 0.85s ease-out;
 }
