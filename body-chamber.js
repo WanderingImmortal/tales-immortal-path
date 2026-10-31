@@ -256,11 +256,11 @@ const BODY_BONE_SIDE_DEFS = [
     { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(77, 45, 2.3, 2.0) },
     { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 76.2,45.8 C 73.5,53 70.5,63 68.2,74.5' },
     { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 66.2,76.8 L 70.2,75.2' },
-    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 67.8,75.5 C 66.5,84 65,92 63.2,101.5' },
-    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 65.5,76.2 C 63.8,85 61.8,93 59.8,101.2' },
-    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 59.2,103 C 60.8,102.4 62.2,103.2 62,104.6 C 61.8,106 60.6,106.8 59.2,106.4 C 58,106 57.6,104.6 58.2,103.4 C 58.6,102.8 59.2,103 Z' },
-    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 57.8,106.2 L 51.2,113.5 M 58.8,106.4 L 52.5,114 M 59.8,106.2 L 54,115 M 60.5,105.8 L 56,113 M 56.5,105.2 L 53.5,109' },
-    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 51,113.8 L 49.2,117.5 M 49,118.2 L 48.2,120.5 M 52.8,114.2 L 51,118 M 50.8,118.5 L 50.2,121 M 54.2,115.2 L 53,119 M 52.8,119.5 L 52.5,122 M 55.8,113.2 L 55.5,116.8 M 55.4,117.4 L 55.2,119.8 M 53.2,109.4 L 52.2,111.8 M 52,112.4 L 51.5,114' },
+    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 68.0,75.6 C 66.8,84 65.4,92 63.8,101.6' },
+    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 66.0,76.4 C 64.2,85 62.4,93 60.6,101.4' },
+    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 60.4,103.2 C 61.8,102.6 63.0,103.4 62.8,104.8 C 62.6,106.2 61.4,107.0 60.0,106.6 C 58.8,106.2 58.4,104.8 59.0,103.6 C 59.4,103.0 60.4,103.2 Z' },
+    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 58.4,106.2 L 52.8,112.8 M 59.4,106.4 L 55.8,113.8 M 60.2,106.2 L 57.4,114.2 M 60.8,105.8 L 59.6,113.2 M 57.6,105.4 L 56.4,109.2' },
+    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 52.8,112.8 L 51.4,116.2 L 50.2,119.2 M 49.8,119.8 L 49.2,122.2 M 55.8,113.8 L 54.8,117.2 L 54.0,120.0 M 54.2,120.6 L 53.8,123.0 M 57.4,114.2 L 56.8,117.6 L 56.4,120.4 M 56.6,121.0 L 56.4,123.2 M 59.6,113.2 L 59.2,116.6 L 58.8,119.0 M 58.8,119.6 L 58.8,121.8 M 56.4,109.2 L 55.6,111.4 L 55.0,113.4' },
     { id: 'ilium', action: 'legs', kind: 'plate', d: 'M 100.8,90.4 C 97,88.2 92.4,88.8 90.2,92.4 C 89,94.6 89.2,97.4 90.6,100.2 C 91.8,103 93.6,105.2 95.8,106.4 C 95.6,103 96.2,99.6 97.8,96.6 C 99.4,94 100.6,92.4 100.8,90.4 Z' },
     { id: 'obturator', action: 'legs', kind: 'fine', d: 'M 95,110 C 97.4,111 99.6,111.6 101.2,112 C 101.4,113.6 101.4,115 101,116 C 98.4,116.2 96,115 94.6,113 C 93.6,111.8 93.8,110.4 95,110 Z' },
     { id: 'acetabulum', action: 'legs', kind: 'fine', d: 'M 91,110 C 91.6,107.8 94,107 96,108.2' },
@@ -283,7 +283,7 @@ const BODY_BONE_DEFS = [
         { ...def, id: `bone-${def.id}-r`, d: mirrorBoneD(def.d) }
     ])
 ];
-const BODY_BONE_LAYOUT_VERSION = '7';
+const BODY_BONE_LAYOUT_VERSION = '8';
 const BODY_BONE_BY_ID = new Map(BODY_BONE_DEFS.map(b => [b.id, b]));
 const BODY_BONE_ACTION_PARTS = BODY_BONE_DEFS.reduce((acc, b) => {
     const key = `bones:${b.action}`;
