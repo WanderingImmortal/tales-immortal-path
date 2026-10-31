@@ -211,7 +211,11 @@ function distToPolyEdge(x, y, poly) {
     return min;
 }
 
-const polys = Object.values(partPaths).map(d => flattenPath(d));
+const shellMatch = html.match(/id="sil-shell"\s+d="([^"]+)"/);
+const shellPoly = shellMatch ? flattenPath(shellMatch[1], 4) : null;
+const polys = shellPoly ? [shellPoly] : Object.values(partPaths).map(d => flattenPath(d));
+if (shellPoly) ok('bone fit uses traced #sil-shell (visible silhouette)');
+else ok('bone fit uses sil-* part union (fallback)');
 
 function insideSilhouette(x, y) {
     for (const poly of polys) {
