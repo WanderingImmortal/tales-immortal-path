@@ -1575,6 +1575,7 @@ function renderExternalTemperingActions(panel, tab, def) {
         stub.className = 'body-chamber-stub';
         stub.textContent = BODY_EXTERNAL_INNER_LOCK_MSG;
         panel.appendChild(stub);
+        renderBodyChamberRealmSteps(panel);
         return;
     }
     const hint = document.createElement('p');
