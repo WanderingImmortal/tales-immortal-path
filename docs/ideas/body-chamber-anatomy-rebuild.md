@@ -231,3 +231,11 @@ Bone patterns (骨纹) — faint etched runes on femur/humerus/skull above ~85% 
 3. `node scripts/apply-body-silhouette-shell.js` — wires `#sil-shell` as visible outline; click regions keep part paths.
 
 See `art/body-chamber/README.md`.
+
+## Layer viewing — skin sheen + ghost overlays (2026-10-31)
+
+**Skin:** `#sil-shell` (or part paths) uses **rim sheen** on the Skin tab; faint ambient sheen on other tabs when skin % &gt; ~4%. Does not block structure tabs.
+
+**Ghost layers:** optional checkbox — unlocked inactive overlays at ~16–22% opacity (`G.bodyChamber.ghostLayers`).
+
+**Depends on:** shell v2 / `#sil-shell` on `main` (merged PR #167). Tab solo view unchanged when ghost is off.

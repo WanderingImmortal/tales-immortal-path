@@ -9714,9 +9714,58 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     transition: opacity 0.45s ease, fill 0.4s ease, filter 0.35s ease;
 }
 
-.body-sil-skin-complete .body-sil-skin-full {
-    opacity: calc(0.14 + var(--skin-fill) * 0.86);
-    filter: drop-shadow(0 0 calc(2px + var(--skin-fill) * 4px) color-mix(in srgb, var(--skin-color) 60%, transparent));
+/* Skin tab: rim sheen instead of opaque shell (see traced #sil-shell or part paths) */
+.body-sil-skin-sheen-mode .body-sil-skin-unified .body-sil-skin-shell,
+.body-sil-skin-sheen-mode .body-sil-skin-unified .body-sil-skin-full {
+    fill: color-mix(in srgb, var(--skin-color) calc(12% + var(--skin-fill) * 22%), transparent);
+    stroke: color-mix(in srgb, var(--skin-color) 70%, white);
+    stroke-width: calc(0.25 + var(--skin-fill) * 0.85);
+    paint-order: stroke fill;
+    opacity: calc(0.42 + var(--skin-fill) * 0.48);
+    filter: drop-shadow(0 0 calc(1px + var(--skin-fill) * 4px) color-mix(in srgb, var(--skin-color) 45%, transparent));
+}
+
+.body-sil-skin-ambient .body-sil-skin-unified .body-sil-skin-shell,
+.body-sil-skin-ambient .body-sil-skin-unified .body-sil-skin-full {
+    fill: color-mix(in srgb, var(--skin-color) calc(var(--skin-raw) * 14%), transparent);
+    stroke: color-mix(in srgb, var(--skin-color) 55%, white);
+    stroke-width: calc(0.15 + var(--skin-raw) * 0.35);
+    opacity: calc(0.12 + var(--skin-raw) * 0.2);
+    filter: drop-shadow(0 0 calc(1px + var(--skin-raw) * 2px) color-mix(in srgb, var(--skin-color) 35%, transparent));
+}
+
+.body-sil-skin-complete.body-sil-skin-sheen-mode .body-sil-skin-unified .body-sil-skin-shell,
+.body-sil-skin-complete.body-sil-skin-sheen-mode .body-sil-skin-unified .body-sil-skin-full {
+    filter: drop-shadow(0 0 calc(2px + var(--skin-fill) * 6px) color-mix(in srgb, var(--skin-color) 55%, transparent));
+}
+
+.body-sil-overlay-ghost {
+    opacity: 0.16;
+    pointer-events: none;
+}
+
+.body-sil-overlay-ghost.body-sil-overlay-unlocked {
+    opacity: 0.2;
+}
+
+.body-sil-overlay-ghost.body-sil-overlay-bones,
+.body-sil-overlay-ghost.body-sil-overlay-flesh {
+    opacity: 0.22;
+}
+
+.body-chamber-ghost-layers {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 4px 4px;
+    font-size: 12px;
+    color: #a09080;
+    cursor: pointer;
+    user-select: none;
+}
+
+.body-chamber-ghost-layers input {
+    accent-color: #c9a87c;
 }
 
 .body-sil-skin-full.body-sil-shape-pulse {
