@@ -9945,6 +9945,24 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     filter: drop-shadow(0 0 calc((4px + var(--part-fill, 0) * 7px) * var(--bone-glow, 1)) var(--body-layer-color));
 }
 
+/* Traced skeleton art: filled bone shapes, lit per refinement chunk (Bones action). */
+.body-sil-overlay-bones .body-sil-bone-art {
+    --bone-weight: 0.16;
+    --bone-glow: 0.7;
+    fill: color-mix(in srgb, var(--body-layer-color) 38%, #cfcac4);
+    fill-opacity: calc(0.18 + var(--part-fill, 0) * 0.78);
+    stroke-width: calc((0.15 + var(--part-fill, 0) * 0.25));
+    stroke-linejoin: round;
+}
+
+.body-sil-overlay-bones.body-sil-overlay-active .body-sil-bone-art.lit {
+    fill: color-mix(in srgb, var(--body-layer-color) calc(20% + var(--part-fill, 0) * 30%), #e6e2dc);
+}
+
+.body-sil-overlay-bones.body-sil-overlay-active .body-sil-bone-art.complete {
+    stroke-width: 0.4;
+}
+
 .body-sil-overlay-bones .body-sil-bone-marrow {
     fill: color-mix(in srgb, #c04040 calc(var(--part-fill, 0) * 70%), transparent);
     stroke: #e06060;

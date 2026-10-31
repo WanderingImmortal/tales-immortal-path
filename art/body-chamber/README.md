@@ -33,12 +33,15 @@ Implementation: `body-chamber.js` (`renderBodySkinUnified`, `getBodyLayerViewSta
 
 Re-run the two `node scripts/…` commands above and commit updated `sil-shell-path.txt` + `index.html` path `d` (or let `apply-body-silhouette-shell.js` patch `index.html`).
 
-## Bone overlay vs shell
+## Skeleton (bones overlay)
 
-After re-tracing the shell, refit and verify bones:
+`skeleton-reference.png` is a generated skeleton drawn over the same silhouette as `reference.png`. It is traced into one filled path per refinement chunk (skull, spine, ribs, arms, hands, legs, feet) plus a procedural marrow core, written to `body-skeleton-art.js`.
 
 ```bash
-node scripts/fit-body-bones-to-shell.js --write   # arm + hand from shell midlines
-node scripts/render-body-bone-fit.js              # /tmp/fit/bone-fit.png (red = outside, amber = too close)
-node scripts/audit-body-overlay-fit.js            # gate
+npm install
+node scripts/trace-body-skeleton-reference.js --debug   # /tmp/fit/chunks-debug.png = chunk colour map
+node scripts/audit-body-overlay-fit.js                  # skeleton must sit inside #sil-shell
+node scripts/write-body-bone-preview.js /tmp/p.html --fill=hands:1 --default=0.2   # real CSS preview
 ```
+
+Chunk membership is decided by region rules in `chunkAt()` in the trace script (game coordinates). Hands and feet get their own small re-registration to the shell. Bump the `?v=` on `body-skeleton-art.js` and `body-chamber.js` in `index.html` whenever you regenerate.
