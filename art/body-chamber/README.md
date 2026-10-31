@@ -32,3 +32,13 @@ Implementation: `body-chamber.js` (`renderBodySkinUnified`, `getBodyLayerViewSta
 ## Regenerate after a new PNG
 
 Re-run the two `node scripts/…` commands above and commit updated `sil-shell-path.txt` + `index.html` path `d` (or let `apply-body-silhouette-shell.js` patch `index.html`).
+
+## Bone overlay vs shell
+
+After re-tracing the shell, refit and verify bones:
+
+```bash
+node scripts/fit-body-bones-to-shell.js --write   # arm + hand from shell midlines
+node scripts/render-body-bone-fit.js              # /tmp/fit/bone-fit.png (red = outside, amber = too close)
+node scripts/audit-body-overlay-fit.js            # gate
+```
