@@ -571,7 +571,16 @@ function actionConsolidate() {
         fullRender();
         return;
     }
-    if (actionBlocked()) return;
+    const chamberOpts = (G.path === 'body' && G.inBodyChamber) ? { allowBodyChamber: true } : undefined;
+    const block = typeof getActionBlockReason === 'function'
+        ? getActionBlockReason(chamberOpts)
+        : (actionBlocked() ? 'Cannot act right now.' : null);
+    if (block) {
+        addLog(`🔒 ${block}`);
+        if (typeof showActionBlockBanner === 'function') showActionBlockBanner(block, true);
+        fullRender();
+        return;
+    }
     const def = getConsolidationDef(G.realmIdx);
     if (!def) {
         addLog(`🏛️ No consolidation rite exists for ${getRealm()}.`);

@@ -10272,6 +10272,26 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     padding: 16px 0;
 }
 
+.body-chamber-block-banner {
+    font-size: 13px;
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: rgba(40, 32, 24, 0.85);
+    color: var(--ink-text-muted);
+}
+
+.body-chamber-block-banner-error {
+    border: 1px solid rgba(180, 80, 60, 0.45);
+    color: #e8c4b8;
+}
+
+.body-chamber-realm-steps {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--ink-border);
+}
+
 .body-chamber-actions {
     display: flex;
     flex-direction: column;
