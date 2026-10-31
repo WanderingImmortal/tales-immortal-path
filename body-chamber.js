@@ -394,6 +394,20 @@ function ensureBodyChamberState() {
     if (G.bodyChamber.nervesRefined == null) G.bodyChamber.nervesRefined = false;
     if (G.bodyChamber.salveDoses == null) G.bodyChamber.salveDoses = 0;
     if (G.bodyChamber.externalFatigue == null) G.bodyChamber.externalFatigue = 0;
+    if (G.bodyChamber.ghostLayers == null) G.bodyChamber.ghostLayers = false;
+}
+
+function isBodyGhostLayersOn() {
+    ensureBodyChamberState();
+    return !!G.bodyChamber.ghostLayers;
+}
+
+/** @returns {{ visible: boolean, active: boolean, ghost: boolean }} */
+function getBodyLayerViewState(layerId) {
+    if (!isBodyLayerUnlocked(layerId)) return { visible: false, active: false, ghost: false };
+    const active = isBodyTabActive(layerId);
+    const ghost = isBodyGhostLayersOn() && !active;
+    return { visible: active || ghost, active, ghost };
 }
 
 function isBodyPathChamber() {
@@ -828,7 +842,7 @@ function getBodyRegionRevealFill(regionId) {
 
 function getBodySkinVisualFill() {
     const raw = getBodyLayerProgress('skin') / 100;
-    return Math.min(0.52, 0.06 + raw * 0.4);
+    return Math.min(1, 0.12 + raw * 0.88);
 }
 
 function getBodyRegionDominantLayer(regionId) {
@@ -1018,7 +1032,7 @@ function getBodyActionFill(layerId, actionId) {
 function applyBodyLayerOverlayState(group, layerId) {
     if (!group) return;
     const unlocked = isBodyLayerUnlocked(layerId);
-    const active = isBodyTabActive(layerId);
+    const view = getBodyLayerViewState(layerId);
     const progress = layerId === 'nerves' && isBodyNervesRefined()
         ? 100
         : getBodyLayerProgress(layerId);
@@ -1027,10 +1041,12 @@ function applyBodyLayerOverlayState(group, layerId) {
     group.style.setProperty('--body-layer-fill', glow.toFixed(2));
     group.style.setProperty('--body-layer-color', def?.color || '#c9a87c');
     group.classList.toggle('body-sil-overlay-unlocked', unlocked);
-    group.classList.toggle('body-sil-overlay-active', active);
+    group.classList.toggle('body-sil-overlay-active', view.active);
+    group.classList.toggle('body-sil-overlay-ghost', view.ghost);
     group.classList.toggle('body-sil-overlay-mid', progress >= 50);
     group.classList.toggle('body-sil-overlay-complete', progress >= 100);
-    group.hidden = !unlocked || !active;
+    group.hidden = !view.visible;
+    group.style.opacity = '';
 }
 
 function setBodyOverlayPartState(el, fill, active) {
@@ -1046,38 +1062,34 @@ function renderBodySkinUnified() {
     const group = document.getElementById('bodySilSkinUnified');
     const wrap = document.getElementById('bodySilhouetteWrap');
     if (!group || !wrap) return;
+    const unlocked = isBodyLayerUnlocked('skin');
     const onSkinTab = isBodyTabActive('skin');
     const skinRaw = getBodyLayerProgress('skin') / 100;
     const visualFill = getBodySkinVisualFill();
     const color = BODY_CHAMBER_LAYERS.skin?.color || '#c9a87c';
     wrap.classList.toggle('body-sil-tab-skin', onSkinTab);
+    wrap.classList.toggle('body-sil-skin-sheen-mode', onSkinTab && unlocked);
+    wrap.classList.toggle('body-sil-skin-ambient', unlocked && !onSkinTab && skinRaw > 0.04);
     wrap.classList.toggle('body-sil-skin-complete', skinRaw >= 0.99);
     group.style.setProperty('--skin-fill', visualFill.toFixed(2));
     group.style.setProperty('--skin-raw', skinRaw.toFixed(2));
     group.style.setProperty('--skin-color', color);
-    group.hidden = !isBodyLayerUnlocked('skin') || !onSkinTab;
+    const showSheen = unlocked && (onSkinTab || skinRaw > 0.04);
+    group.hidden = !showSheen;
 }
 
 function renderBodyMuscleOverlay() {
     const group = document.getElementById('bodySilFleshMuscles');
     if (!group) return;
     const unlocked = isBodyLayerUnlocked('flesh');
-    const progress = getBodyLayerProgress('flesh');
-    const def = BODY_CHAMBER_LAYERS.flesh;
-    const layerFill = Math.min(1, progress / 100);
-    const active = G.bodyChamber?.activeTab === 'flesh';
-    group.style.setProperty('--body-layer-fill', layerFill.toFixed(2));
-    group.style.setProperty('--body-layer-color', def?.color || '#b87878');
-    group.classList.toggle('body-sil-overlay-unlocked', unlocked);
-    group.classList.toggle('body-sil-overlay-active', active);
-    group.classList.toggle('body-sil-overlay-mid', progress >= 50);
-    group.classList.toggle('body-sil-overlay-complete', progress >= 100);
     const tendonFill = getBodyTendonFill();
     const tendonsMaxed = isBodyTendonsMaxed();
     group.classList.toggle('body-sil-tendons-started', tendonFill >= 0.1);
     group.classList.toggle('body-sil-tendons-refined', tendonsMaxed || tendonFill >= 0.95);
-    group.hidden = !unlocked || !isBodyTabActive('flesh');
-    group.style.opacity = unlocked && isBodyTabActive('flesh') ? '1' : '0';
+    applyBodyLayerOverlayState(group, 'flesh');
+    if (!unlocked) return;
+    const view = getBodyLayerViewState('flesh');
+    const active = view.active;
     if (group.dataset.muscleLayout !== BODY_MUSCLE_LAYOUT_VERSION) {
         group.replaceChildren();
         group.dataset.muscleLayout = BODY_MUSCLE_LAYOUT_VERSION;
@@ -1098,6 +1110,7 @@ function renderBodyMuscleOverlay() {
         });
         group.dataset.built = '1';
     }
+    if (!view.visible) return;
     group.querySelectorAll('.body-sil-muscle, .body-sil-tendon').forEach(el => {
         const muscleId = el.getAttribute('data-muscle-id');
         const muscleDef = BODY_MUSCLE_DEFS.find(m => m.id === muscleId);
@@ -1111,12 +1124,12 @@ function renderBodyMuscleOverlay() {
             el.classList.toggle('complete', fill >= 0.75);
             el.classList.toggle('refined', tendonsMaxed || fill >= 0.95);
             el.classList.toggle('guide', active && fill < 0.1);
-            el.style.visibility = fill < 0.05 && !active ? 'hidden' : 'visible';
+            el.style.visibility = fill < 0.05 && !view.visible ? 'hidden' : 'visible';
             return;
         }
         const fill = getBodyMuscleFill(muscleDef);
         el.style.setProperty('--muscle-fill', fill.toFixed(2));
-        const showBase = active || fill >= 0.12;
+        const showBase = view.active || view.ghost || fill >= 0.12;
         el.classList.toggle('lit', showBase);
         el.classList.toggle('mid', fill >= 0.45);
         el.classList.toggle('complete', fill >= 0.85);
@@ -1127,8 +1140,9 @@ function renderBodyBoneOverlay() {
     const group = document.getElementById('bodySilBones');
     if (!group) return;
     applyBodyLayerOverlayState(group, 'bones');
-    if (!isBodyTabActive('bones')) return;
-    const active = true;
+    if (!isBodyLayerUnlocked('bones')) return;
+    const view = getBodyLayerViewState('bones');
+    const active = view.active;
     if (group.dataset.boneLayout !== BODY_BONE_LAYOUT_VERSION) {
         group.replaceChildren();
         BODY_BONE_DEFS.forEach(b => {
@@ -1146,13 +1160,14 @@ function renderBodyBoneOverlay() {
         });
         group.dataset.boneLayout = BODY_BONE_LAYOUT_VERSION;
     }
+    if (!view.visible) return;
     group.querySelectorAll('.body-sil-bone').forEach(el => {
         const boneDef = BODY_BONE_BY_ID.get(el.getAttribute('data-bone-id'));
         if (!boneDef) return;
         const fill = getBodyActionFill('bones', boneDef.action);
-        setBodyOverlayPartState(el, fill, active);
+        setBodyOverlayPartState(el, fill, view.active || view.ghost);
         if (boneDef.kind === 'marrow') {
-            el.style.visibility = fill < 0.1 ? 'hidden' : 'visible';
+            el.style.visibility = fill < 0.1 && !view.ghost ? 'hidden' : 'visible';
         }
     });
 }
@@ -1161,8 +1176,9 @@ function renderBodyOrganOverlay() {
     const group = document.getElementById('bodySilOrgans');
     if (!group) return;
     applyBodyLayerOverlayState(group, 'organs');
-    if (!isBodyTabActive('organs')) return;
-    const active = true;
+    if (!isBodyLayerUnlocked('organs')) return;
+    const view = getBodyLayerViewState('organs');
+    const active = view.active;
     if (group.dataset.organLayout !== BODY_ORGAN_LAYOUT_VERSION) {
         group.replaceChildren();
         BODY_ORGAN_DEFS.forEach(o => {
@@ -1184,11 +1200,12 @@ function renderBodyOrganOverlay() {
         });
         group.dataset.organLayout = BODY_ORGAN_LAYOUT_VERSION;
     }
+    if (!view.visible) return;
     group.querySelectorAll('.body-sil-organ').forEach(el => {
         const organId = el.getAttribute('data-organ-id');
         const organDef = BODY_ORGAN_DEFS.find(o => o.id === organId);
         if (!organDef) return;
-        setBodyOverlayPartState(el, getBodyActionFill('organs', organDef.action), active);
+        setBodyOverlayPartState(el, getBodyActionFill('organs', organDef.action), view.active || view.ghost);
     });
 }
 
@@ -1196,8 +1213,9 @@ function renderBodyBloodOverlay() {
     const group = document.getElementById('bodySilBlood');
     if (!group) return;
     applyBodyLayerOverlayState(group, 'blood');
-    if (!isBodyTabActive('blood')) return;
-    const active = true;
+    if (!isBodyLayerUnlocked('blood')) return;
+    const view = getBodyLayerViewState('blood');
+    const active = view.active;
     if (group.dataset.bloodLayout !== BODY_BLOOD_LAYOUT_VERSION) {
         group.replaceChildren();
         BODY_BLOOD_DEFS.forEach(b => {
@@ -1223,12 +1241,13 @@ function renderBodyBloodOverlay() {
         });
         group.dataset.bloodLayout = BODY_BLOOD_LAYOUT_VERSION;
     }
+    if (!view.visible) return;
     group.querySelectorAll('.body-sil-blood').forEach(el => {
         const bloodId = el.getAttribute('data-blood-id');
         const bloodDef = BODY_BLOOD_DEFS.find(b => b.id === bloodId);
         if (!bloodDef) return;
         const fill = getBodyActionFill('blood', bloodDef.action);
-        setBodyOverlayPartState(el, fill, active);
+        setBodyOverlayPartState(el, fill, view.active || view.ghost);
         if (bloodDef.kind === 'blood-glow' && bloodDef.action === 'bloodline') {
             el.style.visibility = getBodyLayerActionCount('blood', 'bloodline') > 0 ? 'visible' : 'hidden';
         }
@@ -1238,12 +1257,10 @@ function renderBodyBloodOverlay() {
 function renderBodyMeridianChannels() {
     const group = document.getElementById('bodySilMeridianChannels');
     if (!group) return;
-    if (!isBodyTabActive('meridians')) {
-        group.hidden = true;
-        return;
-    }
-    group.hidden = !isBodyLayerUnlocked('meridians');
-    if (group.hidden) return;
+    const view = getBodyLayerViewState('meridians');
+    group.hidden = !view.visible;
+    group.classList.toggle('body-sil-overlay-ghost', view.ghost);
+    if (!isBodyLayerUnlocked('meridians') || !view.visible) return;
     const cx = BODY_LANDMARKS.centreX;
     if (group.dataset.meridianLayout !== BODY_MERIDIAN_LAYOUT_VERSION) {
         group.replaceChildren();
@@ -1288,7 +1305,8 @@ function renderBodyNerveOverlay() {
     const refined = isBodyNervesRefined();
     applyBodyLayerOverlayState(group, 'nerves');
     group.classList.toggle('body-sil-nerves-refined', refined);
-    if (!isBodyTabActive('nerves')) return;
+    if (!isBodyLayerUnlocked('nerves')) return;
+    const view = getBodyLayerViewState('nerves');
     if (group.dataset.nerveLayout !== BODY_NERVE_LAYOUT_VERSION) {
         group.replaceChildren();
         BODY_NERVE_DEFS.forEach(n => {
@@ -1303,6 +1321,7 @@ function renderBodyNerveOverlay() {
         });
         group.dataset.nerveLayout = BODY_NERVE_LAYOUT_VERSION;
     }
+    if (!view.visible) return;
     const fill = refined ? 1 : getBodyLayerProgress('nerves') / 100;
     group.querySelectorAll('.body-sil-nerve-line').forEach(el => {
         el.style.setProperty('--part-fill', fill.toFixed(2));
@@ -1405,14 +1424,30 @@ function hideBodySilTooltip() {
     if (tip) tip.hidden = true;
 }
 
+function renderBodySilhouetteViewControls() {
+    const input = document.getElementById('bodyChamberGhostLayers');
+    if (!input) return;
+    ensureBodyChamberState();
+    input.checked = !!G.bodyChamber.ghostLayers;
+    if (input.dataset.bound) return;
+    input.dataset.bound = '1';
+    input.addEventListener('change', () => {
+        ensureBodyChamberState();
+        G.bodyChamber.ghostLayers = input.checked;
+        renderBodySilhouette();
+    });
+}
+
 function renderBodySilhouette() {
     const active = getBodyActiveTab();
     const wrap = document.getElementById('bodySilhouetteWrap');
     if (wrap) {
         wrap.dataset.activeLayer = active;
         wrap.classList.add('body-sil-isolated');
+        wrap.classList.toggle('body-sil-ghost-layers', isBodyGhostLayersOn());
         BODY_CHAMBER_LAYER_ORDER.forEach(id => wrap.classList.toggle(`body-sil-tab-${id}`, id === active));
     }
+    renderBodySilhouetteViewControls();
     document.querySelectorAll('.body-sil-region').forEach(el => {
         const regionId = el.dataset.region;
         const reg = BODY_SILHOUETTE_REGIONS[regionId];
