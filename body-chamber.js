@@ -188,18 +188,18 @@ function vertebraDefs(prefix, count, topY, step, halfTop, halfBottom) {
 // sy/ey: vertebral and sternal ends (anterior rib ends sit lower than their vertebra).
 // lat: half-width at the widest point of the arc. ex: how far the front end stops from the centre line.
 const BODY_RIB_SPEC = [
-    { sy: 36.8, lat: 10.6, ex: 2.0, ey: 40.4 },
-    { sy: 40.0, lat: 12.6, ex: 2.2, ey: 44.6 },
-    { sy: 43.4, lat: 13.8, ex: 2.3, ey: 48.8 },
-    { sy: 46.8, lat: 14.4, ex: 2.3, ey: 53.2 },
-    { sy: 50.2, lat: 14.7, ex: 2.3, ey: 57.6 },
-    { sy: 53.6, lat: 14.8, ex: 2.2, ey: 61.8 },
-    { sy: 57.0, lat: 14.6, ex: 2.0, ey: 65.8 },
-    { sy: 60.4, lat: 14.2, ex: 4.7, ey: 70.8 },
-    { sy: 63.8, lat: 13.6, ex: 7.4, ey: 73.4 },
-    { sy: 67.2, lat: 12.6, ex: 10.4, ey: 75.8 },
-    { sy: 70.4, lat: 11.2, ex: 11.2, ey: 77.8, floating: true },
-    { sy: 73.4, lat: 8.6, ex: 8.6, ey: 79.4, floating: true }
+    { sy: 37.0, lat: 10.2, ex: 2.1, ey: 40.6 },
+    { sy: 40.2, lat: 12.4, ex: 2.2, ey: 44.8 },
+    { sy: 43.6, lat: 13.6, ex: 2.3, ey: 49.0 },
+    { sy: 47.0, lat: 14.2, ex: 2.3, ey: 53.4 },
+    { sy: 50.4, lat: 14.7, ex: 2.3, ey: 57.8 },
+    { sy: 53.8, lat: 14.8, ex: 2.2, ey: 62.0 },
+    { sy: 57.2, lat: 14.5, ex: 2.0, ey: 66.0 },
+    { sy: 60.6, lat: 13.8, ex: 4.8, ey: 71.0 },
+    { sy: 64.0, lat: 13.0, ex: 7.6, ey: 73.8 },
+    { sy: 67.4, lat: 12.0, ex: 10.6, ey: 76.0 },
+    { sy: 70.6, lat: 10.6, ex: 10.6, ey: 78.0, floating: true },
+    { sy: 73.6, lat: 8.2, ex: 8.2, ey: 79.6, floating: true }
 ];
 
 function ribDefs() {
@@ -219,16 +219,16 @@ function ribDefs() {
 
 // Bones that straddle the centre line. Marrow is listed first so bone outlines stay legible on top of it.
 const BODY_BONE_AXIAL_DEFS = [
-    { id: 'marrow-spine', action: 'marrow', kind: 'marrow', d: 'M 103.2,40.4 C 103.8,39.9 104.6,39.9 105.2,40.4 C 105.6,56 105.8,74 105.2,89.6 C 104.6,90.2 103.8,90.2 103.2,89.6 C 102.6,74 102.8,56 103.2,40.4 Z' },
-    { id: 'skull-cranium', action: 'skull', kind: 'plate', d: 'M 104,2.9 C 108.8,2.9 112.3,6.7 112.3,11.6 C 112.3,14.1 111.8,15.9 110.8,17.3 C 110.4,18.7 109.6,19.7 108.2,20.2 L 99.8,20.2 C 98.4,19.7 97.6,18.7 97.2,17.3 C 96.2,15.9 95.7,14.1 95.7,11.6 C 95.7,6.7 99.2,2.9 104,2.9 Z' },
-    { id: 'skull-nasal', action: 'skull', kind: 'fine', d: 'M 104,15 L 102.4,18.3 L 105.6,18.3 Z' },
-    { id: 'skull-jaw', action: 'skull', kind: 'fine', d: 'M 98.2,15.4 L 98.6,19.4 C 99,21.3 100.6,22.7 104,22.7 C 107.4,22.7 109,21.3 109.4,19.4 L 109.8,15.4' },
+    { id: 'marrow-spine', action: 'marrow', kind: 'marrow', d: 'M 103.0,40.4 C 103.5,39.7 104.5,39.7 105.0,40.4 C 105.4,56 105.5,73 105.0,89.2 C 104.5,89.9 103.5,89.9 103.0,89.2 C 102.5,73 102.6,56 103.0,40.4 Z' },
+    { id: 'skull-cranium', action: 'skull', kind: 'plate', d: 'M 104,1.8 C 110.2,1.8 114.2,6.2 114.5,12.6 C 114.8,18.5 110.8,23.2 104,23.6 C 97.2,23.2 93.2,18.5 93.5,12.6 C 93.8,6.2 97.8,1.8 104,1.8 Z' },
+    { id: 'skull-nasal', action: 'skull', kind: 'fine', d: 'M 104,14.2 L 102.6,17.8 L 105.4,17.8 Z' },
+    { id: 'skull-jaw', action: 'skull', kind: 'fine', d: 'M 97.5,16.5 C 97.8,20.5 100,23.2 104,23.4 C 108,23.2 110.2,20.5 110.5,16.5' },
     ...vertebraDefs('cervical', 5, 24.6, 2.1, 2.1, 2.7),
     ...vertebraDefs('thoracic', 12, 37.2, 3.3, 3.1, 4.3),
     ...vertebraDefs('lumbar', 5, 77.2, 3.4, 4.7, 5.4),
     { id: 'sacrum', action: 'spine', kind: 'plate', d: 'M 98.8,92.2 C 101.2,91.4 106.8,91.4 109.2,92.2 C 108.6,98.6 107,104.4 104,109 C 101,104.4 99.4,98.6 98.8,92.2 Z' },
     { id: 'coccyx', action: 'spine', kind: 'fine', d: 'M 104,109.2 C 103.4,110.6 103.6,112 104.4,112.8' },
-    { id: 'sternum', action: 'ribs', kind: 'plate', d: 'M 101.3,38.4 C 102.6,38 105.4,38 106.7,38.4 L 106.4,46 C 106,52.4 105.5,58.4 105.1,63.6 L 104,67.6 L 102.9,63.6 C 102.5,58.4 102,52.4 101.6,46 Z' }
+    { id: 'sternum', action: 'ribs', kind: 'plate', d: 'M 101.0,38.4 C 102.4,37.8 105.6,37.8 107.0,38.4 L 106.6,46.5 C 106.2,53 105.6,59.5 105.2,64.5 L 104,67.6 L 102.8,64.5 C 102.4,59.5 101.8,53 101.4,46.5 Z' }
 ];
 
 // Viewer-left bones; each is emitted twice (`-l` / `-r`) via mirrorBoneD.
@@ -236,14 +236,14 @@ const BODY_BONE_AXIAL_DEFS = [
 const BODY_BONE_SIDE_DEFS = [
     { id: 'marrow-ilium', action: 'marrow', kind: 'marrow', d: boneOvalD(93.8, 95.8, 2.6, 3.2) },
     { id: 'marrow-femur-head', action: 'marrow', kind: 'marrow', d: boneOvalD(93, 112, 1.4, 1.3) },
-    { id: 'marrow-humerus-head', action: 'marrow', kind: 'marrow', d: boneOvalD(76, 44, 1.3, 1.2) },
-    { id: 'skull-orbit', action: 'skull', kind: 'fine', d: boneOvalD(99.8, 12.4, 3, 2.6) },
-    { id: 'skull-cheek', action: 'skull', kind: 'fine', d: 'M 96.6,14.6 C 98.2,16.1 99.8,16.6 101.4,16.6' },
+    { id: 'marrow-humerus-head', action: 'marrow', kind: 'marrow', d: boneOvalD(75.5, 44.5, 1.2, 1.1) },
+    { id: 'skull-orbit', action: 'skull', kind: 'fine', d: boneOvalD(100.2, 12.8, 2.8, 2.4) },
+    { id: 'skull-cheek', action: 'skull', kind: 'fine', d: 'M 96.8,15 C 98.4,16.8 100.2,17.4 101.8,17.2' },
     ...ribDefs(),
-    { id: 'costal-margin', action: 'ribs', kind: 'fine', d: 'M 103.4,66.8 C 101,69.4 97.6,72.6 93.6,75.8' },
-    { id: 'clavicle', action: 'arms', kind: 'bone', d: 'M 102.2,38.2 C 96,36.8 86,38.2 78,42.5' },
-    { id: 'scapula', action: 'arms', kind: 'fine', d: 'M 82,40 C 78,42 76,46 76.5,52 C 77,56 79,58.5 82,60' },
-    { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(76, 44, 2.3, 2.2) },
+    { id: 'costal-margin', action: 'ribs', kind: 'fine', d: 'M 103.8,66.5 C 101.2,69.5 97.5,73 93.2,76.2' },
+    { id: 'clavicle', action: 'arms', kind: 'bone', d: 'M 101.8,38.5 C 97,37.2 90,37.8 84,39.5 C 79,41 76.5,42.8 75.5,44.5' },
+    { id: 'scapula', action: 'arms', kind: 'fine', d: 'M 88,38.5 Q 82,40 78,44.5 Q 76,49 76.5,54 Q 77,58.5 79.5,61 Q 83,62.5 86.5,59 Q 89,54 90,48 Q 90.5,43 88,38.5' },
+    { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(75.5, 44.5, 2.4, 2.1) },
     { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 76,45.5 C 73.2,54 69.2,65 66,75.5' },
     { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 63.4,76.8 L 68.6,75.2' },
     { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 67.4,77.4 C 64.4,86 61.4,94.6 59.2,102.6' },
@@ -273,7 +273,7 @@ const BODY_BONE_DEFS = [
         { ...def, id: `bone-${def.id}-r`, d: mirrorBoneD(def.d) }
     ])
 ];
-const BODY_BONE_LAYOUT_VERSION = '4';
+const BODY_BONE_LAYOUT_VERSION = '5';
 const BODY_BONE_BY_ID = new Map(BODY_BONE_DEFS.map(b => [b.id, b]));
 const BODY_BONE_ACTION_PARTS = BODY_BONE_DEFS.reduce((acc, b) => {
     const key = `bones:${b.action}`;
