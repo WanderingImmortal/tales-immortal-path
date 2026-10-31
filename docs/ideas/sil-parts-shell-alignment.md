@@ -8,6 +8,8 @@
 | **Chat / PR** | arm/hand bone fit thread · [#175](https://github.com/WanderingImmortal/tales-immortal-path/pull/175) (overlay mask → shell only) |
 | **Updated** | 2026-11-01 |
 
+> **Update:** bone overlay is now traced from `art/body-chamber/skeleton-reference.png` (`scripts/trace-body-skeleton-reference.js` → `body-skeleton-art.js`); hand-tuned bone coordinates are gone. Other overlays (muscle/organ) still use this approach.
+
 ## Intent
 
 Players see **`#sil-shell`** (traced outline). **`sil-upper-arm-*` / `sil-hand-*`** are separate procedural capsules from `scripts/build-body-silhouette-parts.js`. They were meant to tile into one figure, but they **extend past** the shell — so anything tuned or masked against “parts” disagrees with what you see. Goal: **one coherent silhouette** — parts should **fill the shell interior** per region (or be derived from the shell), not rough outer approximations.
