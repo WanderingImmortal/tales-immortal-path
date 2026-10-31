@@ -189,11 +189,14 @@ function ensureQcDepthState() {
     }
 }
 
+/** True only when the player is working the dantian @ QC — not body/soul @ idx 0 on another track. */
 function isQiCondensationRealm() {
-    const idx = typeof getTrackRealmIdx === 'function'
-        ? getTrackRealmIdx('dantian')
-        : (G.realmIdx || 0);
-    return idx === 0;
+    if (typeof getFocusTrack === 'function') {
+        if (getFocusTrack() !== 'dantian') return false;
+        return typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('dantian') === 0 : (G.realmIdx || 0) === 0;
+    }
+    if (G.path === 'body' || G.path === 'soul') return false;
+    return (G.realmIdx || 0) === 0;
 }
 
 /** Root-aware gather units toward Mid/Late/Peak (inferior ≈ slower). */

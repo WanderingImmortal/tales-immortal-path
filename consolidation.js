@@ -189,6 +189,15 @@ function getFocusRealmIdxForConsolidation() {
 }
 
 function canBreakthroughToNextRealm() {
+    if (typeof getFocusTrack === 'function' && typeof isTrackRealmConsolidated === 'function') {
+        const focus = getFocusTrack();
+        if (focus === 'vessel' || focus === 'spirit') {
+            return isTrackRealmConsolidated(focus, getTrackRealmIdx(focus));
+        }
+    }
+    if (G.path === 'body' && typeof isTrackRealmConsolidated === 'function') {
+        return isTrackRealmConsolidated('vessel', getFocusRealmIdxForConsolidation());
+    }
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
         return typeof hasQcBandBreakthroughReady === 'function' && hasQcBandBreakthroughReady();
     }
@@ -211,6 +220,10 @@ function canSealAtCurrentProgress() {
 
 function getConsolidationBlockReason() {
     if (canBreakthroughToNextRealm()) return null;
+    if (G.path === 'body' && typeof getBodyVesselSettledFloorBlockReason === 'function') {
+        const floor = getBodyVesselSettledFloorBlockReason(getFocusRealmIdxForConsolidation());
+        if (floor) return floor;
+    }
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
         const stage = typeof getQcBandStage === 'function' ? getQcBandStage() : 'early';
         if (stage === 'early' || stage === 'mid') {
