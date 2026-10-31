@@ -242,25 +242,26 @@ const BODY_BONE_AXIAL_DEFS = [
 ];
 
 // Viewer-left bones; each is emitted twice (`-l` / `-r`) via mirrorBoneD.
-// Limb axes follow sil-* part midlines: upper ~(76,46)→(68,75), forearm ~(67,76)→(60,102), hand centroid ~(56,111).
+// Limb axes: sil-patch joints (81,44)→(67,76)→(59.5,103); hand bones inside traced #sil-shell (scripts/generate-limb-bone-paths.js).
 const BODY_BONE_SIDE_DEFS = [
     { id: 'marrow-ilium', action: 'marrow', kind: 'marrow', d: boneOvalD(93.8, 95.8, 2.6, 3.2) },
     { id: 'marrow-femur-head', action: 'marrow', kind: 'marrow', d: boneOvalD(93, 112, 1.4, 1.3) },
-    { id: 'marrow-humerus-head', action: 'marrow', kind: 'marrow', d: boneOvalD(77, 45, 1.2, 1.1) },
+    { id: 'marrow-humerus-head', action: 'marrow', kind: 'marrow', d: boneOvalD(81, 44, 1.2, 1.1) },
     { id: 'skull-orbit', action: 'skull', kind: 'fine', d: boneOvalD(100.2, 12.8, 2.8, 2.4) },
     { id: 'skull-cheek', action: 'skull', kind: 'fine', d: 'M 96.8,15 C 98.4,16.8 100.2,17.4 101.8,17.2' },
     ...ribDefs(),
     { id: 'costal-margin', action: 'ribs', kind: 'fine', d: 'M 103.8,66.5 C 101.2,69.5 97.5,73 93.2,76.2' },
-    { id: 'clavicle', action: 'arms', kind: 'bone', d: 'M 101.8,38.5 C 97,37.2 90,37.8 84,39.5 C 79,41 77.2,43 77,45' },
-    { id: 'scapula', action: 'arms', kind: 'fine', d: 'M 88,38.5 Q 82,40 78,44.5 Q 76,49 76.5,54 Q 77,58.5 79.5,61 Q 83,62.5 86.5,59 Q 89,54 90,48 Q 90.5,43 88,38.5' },
-    { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(77, 45, 2.3, 2.0) },
-    { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 76.2,45.8 C 73.5,53 70.5,63 68.2,74.5' },
-    { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 66.2,76.8 L 70.2,75.2' },
-    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 68.0,75.6 C 66.8,84 65.4,92 63.8,101.6' },
-    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 66.0,76.4 C 64.2,85 62.4,93 60.6,101.4' },
-    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 60.4,103.2 C 61.8,102.6 63.0,103.4 62.8,104.8 C 62.6,106.2 61.4,107.0 60.0,106.6 C 58.8,106.2 58.4,104.8 59.0,103.6 C 59.4,103.0 60.4,103.2 Z' },
-    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 58.4,106.2 L 52.8,112.8 M 59.4,106.4 L 55.8,113.8 M 60.2,106.2 L 57.4,114.2 M 60.8,105.8 L 59.6,113.2 M 57.6,105.4 L 56.4,109.2' },
-    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 52.8,112.8 L 51.4,116.2 L 50.2,119.2 M 49.8,119.8 L 49.2,122.2 M 55.8,113.8 L 54.8,117.2 L 54.0,120.0 M 54.2,120.6 L 53.8,123.0 M 57.4,114.2 L 56.8,117.6 L 56.4,120.4 M 56.6,121.0 L 56.4,123.2 M 59.6,113.2 L 59.2,116.6 L 58.8,119.0 M 58.8,119.6 L 58.8,121.8 M 56.4,109.2 L 55.6,111.4 L 55.0,113.4' },
+    // Arm/hand: joint anchors = sil-patch shoulder/elbow/wrist; fingers fit inside #sil-shell (see scripts/generate-limb-bone-paths.js).
+    { id: 'clavicle', action: 'arms', kind: 'bone', d: 'M 101.8,38.5 C 97,37.2 90,37.8 84,39.5 C 79,41 78.5,43 81,45' },
+    { id: 'scapula', action: 'arms', kind: 'fine', d: 'M 92,38.5 Q 86,40 82,44 Q 80,49 80.5,54 Q 81,58.5 83.5,61 Q 87,62.5 90.5,59 Q 93,54 94,48 Q 94.5,43 92,38.5' },
+    { id: 'humerus-head', action: 'arms', kind: 'bone', d: boneOvalD(81, 44, 2.3, 2.0) },
+    { id: 'humerus', action: 'arms', kind: 'heavy', d: 'M 81,44.5 C 77,52 70,64 67,75.5' },
+    { id: 'elbow', action: 'arms', kind: 'fine', d: 'M 65.5,76.8 L 69.5,75.2' },
+    { id: 'ulna', action: 'arms', kind: 'bone', d: 'M 68,76 C 66.5,85 63,94 62,101.6' },
+    { id: 'radius', action: 'arms', kind: 'bone', d: 'M 66,76.5 C 64,85 59,94 58.5,101.4' },
+    { id: 'carpals', action: 'hands', kind: 'fine', d: 'M 58.6,103.2 C 60.1,102.4 61.7,103.2 61.5,104.6 C 61.3,106 59.9,106.8 58.6,106.4 C 57.3,106 56.9,104.6 57.5,103.4 C 57.9,102.8 58.6,103.2 Z' },
+    { id: 'metacarpals', action: 'hands', kind: 'fine', d: 'M 58.3,106.4 L 52.5,110.5 M 59.1,106.6 L 54.5,111.8 M 59.8,106.4 L 56.5,112.2 M 60.2,106.1 L 58.2,112.5 M 57.0,105.4 L 55.2,109.5' },
+    { id: 'phalanges', action: 'hands', kind: 'fine', d: 'M 52.5,110.5 L 51.2,112 L 50.0,113.2 M 54.5,111.8 L 53.6,112.8 L 52.8,113.6 M 56.5,112.2 L 55.8,113 L 55.2,113.6 M 58.2,112.5 L 57.6,113.1 L 57.0,113.6 M 55.2,109.5 L 54.5,110.5 L 53.8,111.2' },
     { id: 'ilium', action: 'legs', kind: 'plate', d: 'M 100.8,90.4 C 97,88.2 92.4,88.8 90.2,92.4 C 89,94.6 89.2,97.4 90.6,100.2 C 91.8,103 93.6,105.2 95.8,106.4 C 95.6,103 96.2,99.6 97.8,96.6 C 99.4,94 100.6,92.4 100.8,90.4 Z' },
     { id: 'obturator', action: 'legs', kind: 'fine', d: 'M 95,110 C 97.4,111 99.6,111.6 101.2,112 C 101.4,113.6 101.4,115 101,116 C 98.4,116.2 96,115 94.6,113 C 93.6,111.8 93.8,110.4 95,110 Z' },
     { id: 'acetabulum', action: 'legs', kind: 'fine', d: 'M 91,110 C 91.6,107.8 94,107 96,108.2' },
@@ -283,7 +284,7 @@ const BODY_BONE_DEFS = [
         { ...def, id: `bone-${def.id}-r`, d: mirrorBoneD(def.d) }
     ])
 ];
-const BODY_BONE_LAYOUT_VERSION = '8';
+const BODY_BONE_LAYOUT_VERSION = '9';
 const BODY_BONE_BY_ID = new Map(BODY_BONE_DEFS.map(b => [b.id, b]));
 const BODY_BONE_ACTION_PARTS = BODY_BONE_DEFS.reduce((acc, b) => {
     const key = `bones:${b.action}`;
