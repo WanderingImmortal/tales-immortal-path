@@ -1,8 +1,9 @@
 /**
- * Intersect each sil-* part polygon with #sil-shell — parts become subsets of the visible trace.
+ * Sync sil-* parts with #sil-shell:
+ *   - sil-*     = smooth parametric capsules (display, region tint)
+ *   - sil-*-hit = polygon clip ∩ shell (pointer targets only)
  *
- * Run: node scripts/clip-silhouette-parts-to-shell.js
- * Write: node scripts/clip-silhouette-parts-to-shell.js --write
+ * Run: node scripts/clip-silhouette-parts-to-shell.js --write
  */
 'use strict';
 
@@ -10,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const { intersection } = require('polygon-clipping');
 const { flattenPath, polygonToPathD, cleanRing, pointInPoly } = require('./lib/body-sil-path-utils');
-const { parts: GENERATED, ORDER, PATCH_IDS } = require('./build-body-silhouette-parts.js');
+const { parts: GENERATED, ORDER } = require('./build-body-silhouette-parts.js');
 
 const root = path.join(__dirname, '..');
 const htmlPath = path.join(root, 'index.html');
@@ -50,11 +51,9 @@ function largestRing(multi) {
 function clipPartToShell(shellRing, partD) {
     const partRing = ringFromPath(partD);
     if (partRing.length < 4) return null;
-    const shellPoly = [shellRing];
-    const partPoly = [partRing];
     let result;
     try {
-        result = intersection(shellPoly, partPoly);
+        result = intersection([shellRing], [partRing]);
     } catch (e) {
         console.error('clip failed:', e.message);
         return null;
@@ -73,6 +72,19 @@ function simplifyShellRing(ring, maxPts = 800) {
     return cleanRing(out, true);
 }
 
+function escapeRegex(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function upsertPath(html, id, d) {
+    const re = new RegExp(`<path\\s+id="${escapeRegex(id)}"\\s+d="[^"]+"\\s*/>`);
+    const line = `<path id="${id}" d="${d}"/>`;
+    if (re.test(html)) return html.replace(re, line);
+    const anchor = html.indexOf('<path id="sil-patch-shoulder-l"');
+    if (anchor === -1) throw new Error('insert anchor sil-patch-shoulder-l not found');
+    return html.slice(0, anchor) + `                            ${line}\n` + html.slice(anchor);
+}
+
 function main() {
     const write = process.argv.includes('--write');
     let html = fs.readFileSync(htmlPath, 'utf8');
@@ -85,45 +97,22 @@ function main() {
     const shellRing = simplifyShellRing(ringFromPath(shellD, 4), 900);
     console.log(`Shell ring: ${shellRing.length} vertices`);
 
-    const clipped = {};
-    let changed = 0;
-    let failed = 0;
-
     for (const id of CLIP_PART_IDS) {
-        const sourceD = readPathD(html, id) || GENERATED[id];
-        if (!sourceD) {
-            console.warn('skip (no path):', id);
+        const smoothD = GENERATED[id];
+        if (!smoothD) {
+            console.warn('skip (no generator path):', id);
             continue;
         }
-        const outD = clipPartToShell(shellRing, sourceD);
-        if (!outD) {
-            console.warn('WARN empty clip:', id);
-            failed++;
-            clipped[id] = sourceD;
-            continue;
-        }
-        clipped[id] = outD;
-        if (outD !== sourceD) changed++;
-        const samples = ringFromPath(outD, 8);
-        let outside = 0;
-        samples.forEach(([x, y]) => { if (!pointInPoly(x, y, shellRing)) outside++; });
-        console.log(`${id}: ${samples.length} pts, outside shell sample: ${outside}`);
+        const hitD = clipPartToShell(shellRing, smoothD) || smoothD;
+        console.log(`${id}: smooth capsule + hit clip (${hitD.length} chars)`);
+        if (!write) continue;
+        html = upsertPath(html, id, smoothD);
+        html = upsertPath(html, `${id}-hit`, hitD);
     }
-
-    console.log(`\nClipped ${CLIP_PART_IDS.length} parts (${changed} changed, ${failed} empty/fallback)`);
 
     if (!write) {
-        console.log('\nPass --write to patch index.html path d attributes.');
+        console.log('\nPass --write to restore smooth sil-* and write sil-*-hit clip paths.');
         return;
-    }
-
-    for (const [id, d] of Object.entries(clipped)) {
-        const re = new RegExp(`(<path\\s+id="${id}"\\s+d=")([^"]+)(")`, 'm');
-        if (!re.test(html)) {
-            console.warn('path id not in html:', id);
-            continue;
-        }
-        html = html.replace(re, `$1${d}$3`);
     }
 
     fs.writeFileSync(htmlPath, html, 'utf8');

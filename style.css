@@ -9581,6 +9581,11 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     opacity: 0.9;
 }
 
+/* Seam patches are for legacy part-only silhouette — hide when traced shell is shown */
+.body-sil-base:has(.body-sil-shell) .body-sil-joint-patch {
+    opacity: 0;
+}
+
 /* Traced reference shell (art/body-chamber/reference.png) replaces part fills */
 .body-sil-base:has(.body-sil-shell) .body-sil-base-shape:not(.body-sil-shell) {
     opacity: 0;
