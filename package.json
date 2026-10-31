@@ -1,0 +1,9 @@
+{
+  "name": "tales-immortal-path",
+  "private": true,
+  "description": "Optional dev deps for art pipeline scripts only",
+  "devDependencies": {
+    "jimp": "^1.6.0",
+    "potrace": "^2.1.8"
+  }
+}
