@@ -93,6 +93,23 @@ Optional v1.1: **quality** tag on blood (same day vs old) — skip until baselin
 - **Recuperate** (main world) clears fatigue over months; chamber **Rub down** clears less but doesn’t cost a full recuperate action (optional v1.1).
 - At high fatigue, Apply gains are reduced (soft push to rest).
 
+### Overstrain & body harm (owner direction 2026-10-31)
+
+**Intent:** Pace External Tempering with **recovery windows**, not only longer months per click. High fatigue should risk **recoverable harm** (pain, micro-tears, foundation stress) so grinding non-stop is worse than spacing sessions — and **wealth** buys faster recovery (salves, residence, hire), not a skip of the realm job.
+
+| Band | Feel | Mechanics (target) |
+|------|------|---------------------|
+| **Low fatigue** | Normal training | Full apply/drill gains |
+| **High fatigue** | Sore, hot, brittle | Reduced gains (v1); optional **overstrain** ticks |
+| **Overstrain** | “You tore something” | Small **harm stack** — e.g. `foundationCracks`, short **injury** debuff, or layer progress **pause** until rub-down / recuperate / recovery salve |
+| **Reckless** | Genre “走火入魔” lite for flesh | Drill + high fatigue + weak layers → **scar** (existing idx 0 hook); **never death** @ idx 0 |
+
+**Why body is less popular than qi (fiction):** qi often looks like quiet sitting and pill support; external work is **painful, messy, smelly**, downtime-visible (limping, wrapped hands), and **cannot** be done infinitely in a month — cultivators with money compress **downtime**, not the need to stress the shell. NPCs default to qi stories; body specialists are “the hard way” or mercenary/practical types.
+
+**Rich faster (fair):** better **recovery** (recovery salve, physician hire, rest bonus at home), not higher breakthrough % from being rich. Poor = same peak potential, more calendar between bursts.
+
+**Anti-punishment:** harm must **telegraph** before it lands; recovery always available (recuperate, rub-down, later recovery salve); harm **heals** — no permanent brick @ idx 0 except optional cosmetic scar/flavor.
+
 ## Progress model
 
 | Meter | Rule |
