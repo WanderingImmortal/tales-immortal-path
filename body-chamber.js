@@ -435,7 +435,7 @@ function getVesselTrackRealmIdxForChamber() {
 }
 
 function isExternalTemperingVesselRealm() {
-    return isBodyPathChamber() && getVesselTrackRealmIdxForChamber() === 0;
+    return getVesselTrackRealmIdxForChamber() === 0;
 }
 
 function getBodyExternalBalance() {
@@ -1553,6 +1553,7 @@ function renderBodyChamberActions() {
         panel.appendChild(subHead);
         unlockedSubs.forEach(action => appendBodyActionButton(panel, tab, action, true));
     }
+    renderBodyChamberRealmSteps(panel);
 }
 
 function renderExternalTemperingActions(panel, tab, def) {
@@ -1574,6 +1575,7 @@ function renderExternalTemperingActions(panel, tab, def) {
         stub.className = 'body-chamber-stub';
         stub.textContent = BODY_EXTERNAL_INNER_LOCK_MSG;
         panel.appendChild(stub);
+        renderBodyChamberRealmSteps(panel);
         return;
     }
     const hint = document.createElement('p');
@@ -1633,56 +1635,9 @@ function showBodyChamberBlockFeedback(message, isError) {
 }
 
 function renderBodyChamberRealmSteps(panel) {
-    if (!isExternalTemperingVesselRealm()) return;
-    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
-    const idx = getVesselTrackRealmIdxForChamber();
-    const def = BODY_VESSEL_REALM_CHAMBER_ACTIONS[idx];
-    if (!def) return;
-
-    const wrap = document.createElement('div');
-    wrap.className = 'body-chamber-realm-steps';
-
-    const head = document.createElement('div');
-    head.className = 'body-chamber-sub-head';
-    head.textContent = 'Realm step';
-    wrap.appendChild(head);
-
-    const sealed = typeof isTrackRealmConsolidated === 'function' && isTrackRealmConsolidated('vessel', idx);
-    const canSeal = typeof canSealAtCurrentProgress === 'function' && canSealAtCurrentProgress();
-    const canBreak = typeof canVesselTrackBreakthrough === 'function' && canVesselTrackBreakthrough();
-
-    if (!sealed) {
-        const sealBtn = document.createElement('button');
-        sealBtn.type = 'button';
-        sealBtn.className = 'body-chamber-action-btn body-chamber-realm-step-btn';
-        sealBtn.disabled = bodyChamberActionBlocked() || !canSeal;
-        sealBtn.innerHTML = `<span class="body-action-label">🏛️ ${def.sealLabel}</span>`
-            + `<span class="body-action-meta">${canSeal ? 'Settled exterior — lock gains before the brace' : (typeof getConsolidationBlockReason === 'function' ? getConsolidationBlockReason() : 'Reach Settled on both layers')}</span>`;
-        sealBtn.addEventListener('click', () => {
-            if (typeof actionConsolidate === 'function') actionConsolidate();
-            renderBodyChamberUI();
-        });
-        wrap.appendChild(sealBtn);
-    } else {
-        const done = document.createElement('p');
-        done.className = 'body-chamber-sub-hint';
-        done.textContent = `✓ ${def.sealLabel} complete — you may ${def.breakLabel.toLowerCase()}.`;
-        wrap.appendChild(done);
+    if (typeof renderChamberTrackRealmSteps === 'function') {
+        renderChamberTrackRealmSteps(panel, 'vessel');
     }
-
-    const breakBtn = document.createElement('button');
-    breakBtn.type = 'button';
-    breakBtn.className = 'body-chamber-action-btn body-chamber-realm-step-btn';
-    breakBtn.disabled = bodyChamberActionBlocked();
-    breakBtn.innerHTML = `<span class="body-action-label">${def.breakEmoji} ${def.breakLabel}</span>`
-        + `<span class="body-action-meta">${canBreak ? def.breakHint : (typeof getVesselTrackBreakthroughBlockReason === 'function' ? getVesselTrackBreakthroughBlockReason() : 'Not ready')}</span>`;
-    breakBtn.addEventListener('click', () => {
-        if (typeof openBreakthrough === 'function') openBreakthrough('vessel');
-        renderBodyChamberUI();
-    });
-    wrap.appendChild(breakBtn);
-
-    panel.appendChild(wrap);
 }
 
 function appendExternalTemperingButton(panel, opts) {

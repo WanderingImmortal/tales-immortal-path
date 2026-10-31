@@ -181,6 +181,22 @@ function isRealmConsolidated(realmIdx) {
     return !!(G.realmConsolidation[realmIdx]?.done);
 }
 
+function syncFocusForConsolidationAction() {
+    const chamberTrack = typeof getActiveChamberTrack === 'function' ? getActiveChamberTrack() : null;
+    if (chamberTrack && typeof syncFocusToCultivationTrack === 'function') {
+        syncFocusToCultivationTrack(chamberTrack);
+        return;
+    }
+    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+}
+
+function getChamberConsolidateAllowOpts() {
+    if (G.inBodyChamber) return { allowBodyChamber: true };
+    if (G.inSoulChamber) return { allowSoulChamber: true };
+    if (G.inQiChamber) return { allowQiChamber: true };
+    return undefined;
+}
+
 function getFocusRealmIdxForConsolidation() {
     if (typeof getFocusTrack === 'function' && typeof getTrackRealmIdx === 'function') {
         return getTrackRealmIdx(getFocusTrack());
@@ -189,6 +205,15 @@ function getFocusRealmIdxForConsolidation() {
 }
 
 function canBreakthroughToNextRealm() {
+    if (typeof getFocusTrack === 'function' && typeof isTrackRealmConsolidated === 'function') {
+        const focus = getFocusTrack();
+        if (focus === 'vessel' || focus === 'spirit') {
+            return isTrackRealmConsolidated(focus, getTrackRealmIdx(focus));
+        }
+    }
+    if (G.path === 'body' && typeof isTrackRealmConsolidated === 'function') {
+        return isTrackRealmConsolidated('vessel', getFocusRealmIdxForConsolidation());
+    }
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
         return typeof hasQcBandBreakthroughReady === 'function' && hasQcBandBreakthroughReady();
     }
@@ -211,6 +236,10 @@ function canSealAtCurrentProgress() {
 
 function getConsolidationBlockReason() {
     if (canBreakthroughToNextRealm()) return null;
+    if (G.path === 'body' && typeof getBodyVesselSettledFloorBlockReason === 'function') {
+        const floor = getBodyVesselSettledFloorBlockReason(getFocusRealmIdxForConsolidation());
+        if (floor) return floor;
+    }
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
         const stage = typeof getQcBandStage === 'function' ? getQcBandStage() : 'early';
         if (stage === 'early' || stage === 'mid') {
@@ -470,7 +499,7 @@ function executeConsolidation(opts) {
     const sacrificeTechName = opts.sacrificeTechnique || null;
 
     showConsolidateFeedback('');
-    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    syncFocusForConsolidationAction();
 
     if (actionBlocked()) return failConsolidation('Cannot consolidate right now.');
     if (isRealmConsolidated(G.realmIdx)) return failConsolidation('This realm is already consolidated.');
@@ -565,13 +594,15 @@ function executeConsolidation(opts) {
 }
 
 function actionConsolidate() {
-    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    syncFocusForConsolidationAction();
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()) {
         addLog('🏛️ There is no Seal at Qi Condensation — gather to Late, then Break Through.');
         fullRender();
         return;
     }
-    const chamberOpts = (G.path === 'body' && G.inBodyChamber) ? { allowBodyChamber: true } : undefined;
+    const chamberOpts = typeof getChamberConsolidateAllowOpts === 'function'
+        ? getChamberConsolidateAllowOpts()
+        : undefined;
     const block = typeof getActionBlockReason === 'function'
         ? getActionBlockReason(chamberOpts)
         : (actionBlocked() ? 'Cannot act right now.' : null);

@@ -189,11 +189,14 @@ function ensureQcDepthState() {
     }
 }
 
+/** True only when the player is working the dantian @ QC — not body/soul @ idx 0 on another track. */
 function isQiCondensationRealm() {
-    const idx = typeof getTrackRealmIdx === 'function'
-        ? getTrackRealmIdx('dantian')
-        : (G.realmIdx || 0);
-    return idx === 0;
+    if (typeof getFocusTrack === 'function') {
+        if (getFocusTrack() !== 'dantian') return false;
+        return typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('dantian') === 0 : (G.realmIdx || 0) === 0;
+    }
+    if (G.path === 'body' || G.path === 'soul') return false;
+    return (G.realmIdx || 0) === 0;
 }
 
 /** Root-aware gather units toward Mid/Late/Peak (inferior ≈ slower). */
@@ -1690,10 +1693,11 @@ function applyQcProgressiveActionUi() {
     // (distance policy may still require them hidden at early FE).
     const qc = typeof isQiCondensationRealm === 'function' && isQiCondensationRealm();
     document.documentElement.classList.toggle('at-qi-condensation', !!qc);
+    const inCultivationChamber = !!(G.inQiChamber || G.inBodyChamber || G.inSoulChamber);
 
     const sealBtn = document.getElementById('btnConsolidate');
     const sealHelp = document.getElementById('helpConsolidate');
-    setActionButtonHidden(sealBtn, qc);
+    setActionButtonHidden(sealBtn, qc || inCultivationChamber);
     if (sealHelp) {
         sealHelp.hidden = !!qc;
         if (qc) sealHelp.style.setProperty('display', 'none', 'important');
@@ -1713,7 +1717,11 @@ function applyQcProgressiveActionUi() {
 
     const breakBtn = document.getElementById('btnBreakthrough');
     const breakWrap = breakBtn?.closest('.action-with-help');
-    if (qc) {
+    if (inCultivationChamber && breakWrap) {
+        breakWrap.hidden = true;
+        breakWrap.classList.add('action-realm-hidden');
+        breakWrap.style.setProperty('display', 'none', 'important');
+    } else if (qc) {
         const stage = getQcBandStage();
         const showBreak = stage === 'mid' || stage === 'late' || stage === 'peak';
         if (breakWrap) {
@@ -1735,21 +1743,25 @@ function applyQcProgressiveActionUi() {
             }
         }
     } else if (breakWrap) {
-        const bodyVesselInChamber = G.path === 'body';
-        breakWrap.hidden = bodyVesselInChamber;
-        breakWrap.classList.toggle('action-realm-hidden', bodyVesselInChamber);
-        if (bodyVesselInChamber) {
-            breakWrap.style.setProperty('display', 'none', 'important');
-        } else {
-            breakWrap.classList.remove('action-realm-hidden');
-            breakWrap.style.removeProperty('display');
-        }
-        if (breakBtn && !bodyVesselInChamber) {
+        breakWrap.hidden = false;
+        breakWrap.classList.remove('action-realm-hidden');
+        breakWrap.style.removeProperty('display');
+        if (breakBtn) {
             breakBtn.classList.remove('action-locked');
             breakBtn.disabled = false;
-            let title = breakBtn.dataset.defaultTitle || '';
-            breakBtn.title = title;
+            breakBtn.title = breakBtn.dataset.defaultTitle || '';
         }
+    }
+
+    const sealWrap = sealBtn?.closest('.action-with-help');
+    if (inCultivationChamber && sealWrap) {
+        sealWrap.hidden = true;
+        sealWrap.classList.add('action-realm-hidden');
+        sealWrap.style.setProperty('display', 'none', 'important');
+    } else if (sealWrap && !qc) {
+        sealWrap.hidden = false;
+        sealWrap.classList.remove('action-realm-hidden');
+        sealWrap.style.removeProperty('display');
     }
 }
 
