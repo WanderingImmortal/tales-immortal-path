@@ -46,6 +46,9 @@ parts['sil-head'] = ellipse(CX, 12.5, 11.2, 12.2);
 parts['sil-neck'] =
     `M ${CX - 5.2},23 L ${CX + 5.2},23 L ${CX + 6.4},36 L ${CX - 6.4},36 Z`;
 
+parts['sil-spine'] =
+    `M ${CX - 3.5},28 L ${CX + 3.5},28 L ${CX + 3.5},108 L ${CX - 3.5},108 Z`;
+
 // Torso — crotch notch at centreX 104
 parts['sil-torso'] =
     `M ${CX},36 ` +
@@ -75,14 +78,39 @@ parts['sil-thigh-r'] = capsule(115, 112, 118, 151, 9.2);
 parts['sil-shin-r'] = capsule(118, 151, 116, 190, 7.4);
 parts['sil-foot-r'] = ellipse(118, 200, 9.5, 5.8);
 
+/** Overlap discs at limb joins — hide capsule seams (playtest polish). Not separate hover regions. */
+const PATCH_IDS = [
+    'sil-patch-shoulder-l', 'sil-patch-shoulder-r',
+    'sil-patch-elbow-l', 'sil-patch-elbow-r',
+    'sil-patch-wrist-l', 'sil-patch-wrist-r',
+    'sil-patch-hip-l', 'sil-patch-hip-r',
+    'sil-patch-knee-l', 'sil-patch-knee-r',
+    'sil-patch-ankle-l', 'sil-patch-ankle-r',
+    'sil-patch-pelvis'
+];
+parts['sil-patch-shoulder-l'] = ellipse(80.5, 44.5, 7.2, 5.8);
+parts['sil-patch-shoulder-r'] = ellipse(127.5, 44.5, 7.2, 5.8);
+parts['sil-patch-elbow-l'] = ellipse(66, 76.5, 7.4, 7);
+parts['sil-patch-elbow-r'] = ellipse(142, 76.5, 7.4, 7);
+parts['sil-patch-wrist-l'] = ellipse(59, 104.5, 6.8, 6.2);
+parts['sil-patch-wrist-r'] = ellipse(149, 104.5, 6.8, 6.2);
+parts['sil-patch-hip-l'] = ellipse(92.5, 112.5, 9.5, 6.2);
+parts['sil-patch-hip-r'] = ellipse(115.5, 112.5, 9.5, 6.2);
+parts['sil-patch-knee-l'] = ellipse(91, 151.2, 8.2, 7.2);
+parts['sil-patch-knee-r'] = ellipse(117, 151.2, 8.2, 7.2);
+parts['sil-patch-ankle-l'] = ellipse(92, 190.5, 7.6, 6);
+parts['sil-patch-ankle-r'] = ellipse(116, 190.5, 7.6, 6);
+parts['sil-patch-pelvis'] = ellipse(CX, 111.5, 11.5, 5.5);
+
 const ORDER = [
-    'sil-head', 'sil-neck', 'sil-torso',
+    'sil-head', 'sil-neck', 'sil-spine', 'sil-torso',
     'sil-upper-arm-l', 'sil-upper-arm-r',
     'sil-forearm-l', 'sil-forearm-r',
     'sil-hand-l', 'sil-hand-r',
     'sil-thigh-l', 'sil-thigh-r',
     'sil-shin-l', 'sil-shin-r',
-    'sil-foot-l', 'sil-foot-r'
+    'sil-foot-l', 'sil-foot-r',
+    ...PATCH_IDS
 ];
 
 const REGION_PARTS = {
@@ -99,7 +127,7 @@ const REGION_PARTS = {
     'foot-r': ['sil-foot-r']
 };
 
-module.exports = { parts, ORDER, REGION_PARTS, CX };
+module.exports = { parts, ORDER, REGION_PARTS, PATCH_IDS, CX };
 
 if (require.main === module) {
     const html = ORDER.map(id => `                            <path id="${id}" d="${parts[id]}"/>`).join('\n');
