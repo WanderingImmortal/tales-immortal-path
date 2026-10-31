@@ -1,6 +1,9 @@
 /**
- * Phase 1 body silhouette — generate sil-* part path `d` strings.
- * Run: node scripts/build-body-silhouette-parts.js
+ * Phase 1 body silhouette — generate sil-* part path `d` strings (parametric capsules).
+ * After editing params here, run:
+ *   node scripts/clip-silhouette-parts-to-shell.js --write
+ * to intersect parts with #sil-shell and patch index.html (authoritative in game).
+ * Run: node scripts/build-body-silhouette-parts.js  (stdout only)
  */
 'use strict';
 

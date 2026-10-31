@@ -4,6 +4,7 @@
   "description": "Optional dev deps for art pipeline scripts only",
   "devDependencies": {
     "jimp": "^1.6.0",
+    "polygon-clipping": "^0.15.7",
     "potrace": "^2.1.8"
   }
 }

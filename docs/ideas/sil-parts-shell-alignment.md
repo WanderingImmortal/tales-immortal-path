@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` |
+| **Status** | `building` |
 | **Blocked on** | none for a fit script; full shell split is optional polish |
 | **Issue** | none yet |
 | **Chat / PR** | arm/hand bone fit thread · [#175](https://github.com/WanderingImmortal/tales-immortal-path/pull/175) (overlay mask → shell only) |
