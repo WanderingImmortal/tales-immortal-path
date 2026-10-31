@@ -434,22 +434,12 @@ function renderSoulChamberActions() {
     trackHead.innerHTML = `<p class="soul-track-realm">Spirit track: <strong>${spiritRealm}</strong>${nextSpirit ? ` → ${nextSpirit}` : ''}</p>`;
     panel.appendChild(trackHead);
 
-    const breakWrap = document.createElement('div');
-    breakWrap.className = 'soul-spirit-breakthrough-wrap';
-    const breakBtn = document.createElement('button');
-    breakBtn.type = 'button';
-    breakBtn.className = 'soul-spirit-breakthrough-btn';
-    const canBreak = typeof canSpiritTrackBreakthrough === 'function' && canSpiritTrackBreakthrough();
-    breakBtn.disabled = soulChamberActionBlocked() || !canBreak || !nextSpirit;
-    breakBtn.textContent = canBreak && nextSpirit ? `🌀 Spirit Breakthrough → ${nextSpirit}` : '🌀 Spirit Breakthrough';
-    breakBtn.title = typeof getSpiritTrackBreakthroughBlockReason === 'function'
-        ? (getSpiritTrackBreakthroughBlockReason() || 'Attempt spirit realm breakthrough')
-        : '';
-    breakBtn.addEventListener('click', () => {
-        if (typeof openSpiritBreakthrough === 'function') openSpiritBreakthrough();
-    });
-    breakWrap.appendChild(breakBtn);
-    panel.appendChild(breakWrap);
+    const realmStepsHost = document.createElement('div');
+    realmStepsHost.className = 'soul-chamber-realm-steps-host';
+    if (typeof renderChamberTrackRealmSteps === 'function') {
+        renderChamberTrackRealmSteps(realmStepsHost, 'spirit');
+    }
+    panel.appendChild(realmStepsHost);
 
     if (tab === 'prelude') {
         const head = document.createElement('div');

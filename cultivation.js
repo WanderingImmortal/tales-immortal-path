@@ -41,15 +41,21 @@ function showBreakthroughBlockFeedback(message) {
 }
 
 function openBreakthrough(track) {
-    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    const explicit = typeof coerceBreakthroughTrackArg === 'function'
+        ? coerceBreakthroughTrackArg(track)
+        : null;
+    if (explicit && typeof syncFocusToCultivationTrack === 'function') {
+        syncFocusToCultivationTrack(explicit);
+    } else if (typeof ensurePathFocusTrack === 'function') {
+        ensurePathFocusTrack();
+    }
     const t = typeof resolveBreakthroughTrack === 'function'
         ? resolveBreakthroughTrack(track)
-        : (typeof coerceBreakthroughTrackArg === 'function'
-            ? coerceBreakthroughTrackArg(track)
-            : null) || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');
+        : explicit || (typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian');
     const chamberOpts = {};
     if (t === 'vessel') chamberOpts.allowBodyChamber = true;
     if (t === 'spirit') chamberOpts.allowSoulChamber = true;
+    if (t === 'dantian') chamberOpts.allowQiChamber = true;
     if (typeof getActionBlockReason === 'function') {
         const block = getActionBlockReason(chamberOpts);
         if (block) {
@@ -65,7 +71,14 @@ function openSpiritBreakthrough() {
 }
 
 function openTrackBreakthrough(track, chamberOpts) {
-    if (typeof ensurePathFocusTrack === 'function') ensurePathFocusTrack();
+    const explicit = typeof coerceBreakthroughTrackArg === 'function'
+        ? coerceBreakthroughTrackArg(track)
+        : null;
+    if (explicit && typeof syncFocusToCultivationTrack === 'function') {
+        syncFocusToCultivationTrack(explicit);
+    } else if (typeof ensurePathFocusTrack === 'function') {
+        ensurePathFocusTrack();
+    }
     track = typeof resolveBreakthroughTrack === 'function'
         ? resolveBreakthroughTrack(track)
         : track;

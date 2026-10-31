@@ -544,10 +544,9 @@ function setupCreation(refreshOnly) {
             if (getCreationValidationHint()) return;
             const name = document.getElementById('nameInput').value.trim() || 'Wandering Immortal';
             G.name = name;
-            const emphasis = creationState.selectedEmphasis || 'dantian';
             if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
-            if (typeof setFocusTrack === 'function') setFocusTrack(emphasis);
-            else G.path = typeof TRACK_TO_LEGACY_PATH !== 'undefined' ? TRACK_TO_LEGACY_PATH[emphasis] : 'qi';
+            if (typeof setFocusTrack === 'function') setFocusTrack('dantian');
+            else G.path = 'qi';
             G.talent = buildSpiritRoot({
                 composition: creationState.selectedComposition,
                 grade: creationState.selectedGrade,
@@ -712,7 +711,7 @@ function setupCreation(refreshOnly) {
             CULTIVATION_TRACKS.forEach(t => { G.cultivation[t].realmIdx = 0; });
             G.cultivation.soulEmbryo = false;
             G.cultivation.soulEmbryoOrigin = null;
-            G.cultivation.focusTrack = emphasis;
+            G.cultivation.focusTrack = 'dantian';
             if (typeof syncLegacyPathShims === 'function') syncLegacyPathShims();
         }
         currentZone = 'dustbone';
@@ -731,11 +730,10 @@ function setupCreation(refreshOnly) {
         if (typeof applyPlayerTraitStartingEffects === 'function') applyPlayerTraitStartingEffects();
         updateShield();
         addLog(`🌟 Welcome, ${G.name}. You begin as a wandering cultivator — all three roads lie open.`);
-        const emphasisLabels = { dantian: 'Dantian', vessel: 'Vessel', spirit: 'Spirit' };
         const elementNote = G.talent.elements?.length
             ? ` (${formatSpiritRootElements(G.talent.elements)})`
             : (G.talent.element ? ` (${G.talent.element})` : '');
-        addLog(`🧘 Starting emphasis: ${emphasisLabels[emphasis] || emphasis} — 🌱 ${G.talent.name}${elementNote} · ${G.talent.innateHeightLabel || '—'}`);
+        addLog(`🧘 Three Refinements — open the Cultivation Hub when you are ready to refine dantian, vessel, or spirit. 🌱 ${G.talent.name}${elementNote} · ${G.talent.innateHeightLabel || '—'}`);
         if (G.traits.length) {
             addLog(`🎭 Traits: ${G.traits.map(t => `${t.emoji || ''} ${t.name}`).join(', ')}`);
         }

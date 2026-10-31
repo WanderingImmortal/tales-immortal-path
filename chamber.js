@@ -373,6 +373,21 @@ function renderChamberUI() {
         if (condenseFlavor) condenseFlavor.textContent = block ? '' : (guide?.flavor || '');
     }
     if (typeof applyQcChamberVerbVisibility === 'function') applyQcChamberVerbVisibility();
+
+    const actionsCol = document.querySelector('#qiChamberOverlay .chamber-actions');
+    if (actionsCol) {
+        let stepsHost = document.getElementById('qiChamberRealmSteps');
+        if (!stepsHost) {
+            stepsHost = document.createElement('div');
+            stepsHost.id = 'qiChamberRealmSteps';
+            stepsHost.className = 'qi-chamber-realm-steps-host';
+            actionsCol.insertBefore(stepsHost, actionsCol.firstChild);
+        }
+        stepsHost.replaceChildren();
+        if (typeof renderChamberTrackRealmSteps === 'function') {
+            renderChamberTrackRealmSteps(stepsHost, 'dantian');
+        }
+    }
 }
 
 function chamberGatherQi() {

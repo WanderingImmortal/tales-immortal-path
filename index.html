@@ -52,7 +52,7 @@
                 <label for="nameInput">Your Name</label>
                 <input type="text" id="nameInput" placeholder="Wandering Immortal" maxlength="32" />
             </div>
-            <div class="creation-section">
+            <div class="creation-section" id="creationEmphasisSection" hidden aria-hidden="true">
                 <div class="creation-label">Where will you begin? <span class="creation-sublabel">(starting emphasis — not a class lock)</span></div>
                 <div id="emphasisOptions" class="creation-options path-grid">
                     <button type="button" class="popup-item path-card selected" data-emphasis="dantian">
@@ -701,7 +701,7 @@
         <header class="cultivation-hub-header">
             <h2 class="cultivation-hub-title">🧘 Three Refinements</h2>
             <p class="cultivation-hub-subtitle">Every cultivator walks dantian, vessel, and spirit. Choose where to refine yourself today.</p>
-            <p class="cultivation-hub-path-note">Current emphasis: <span id="cultivationHubPrimaryPath">—</span></p>
+            <p class="cultivation-hub-path-note">Current focus track: <span id="cultivationHubPrimaryPath">—</span></p>
         </header>
         <div class="cultivation-hub-choices">
             <button type="button" class="cultivation-hub-card" id="cultivationHubQi">
@@ -1541,6 +1541,7 @@
 <script src="actions.js?v=41"></script>
 <script src="chamber.js?v=13"></script>
 <script src="body-chamber.js?v=26"></script>
+<script src="cultivation-chamber-steps.js?v=1"></script>
 <script src="vessel-rules.js?v=3"></script>
 <script src="physique-cultivation.js?v=3"></script>
 <script src="soul-chamber.js?v=5"></script>
