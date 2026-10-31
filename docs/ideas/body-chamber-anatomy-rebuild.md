@@ -219,3 +219,15 @@ Bone patterns (骨纹) — faint etched runes on femur/humerus/skull above ~85% 
 - **Pitfall already hit once:** `.body-sil-overlay path:not(.body-sil-muscle):not(.body-sil-tendon):not(.body-sil-nerve-line):not(.body-sil-bone)` sets `fill: var(--body-layer-color)` and beats both the per-layer rules and the `fill="none"` attribute set in JS. Any new overlay kind that must stay unfilled has to be excluded there too.
 - **Mirroring:** `mirrorBoneD()` in `body-chamber.js` reflects an absolute-coordinate path about the centre line. Reuse it for muscles/vessels/nerves so the two halves cannot drift apart — author the viewer-left side only.
 - Cheap verification: run the audit script and read the numbers. Only take screenshots at the very end, and screenshot the `.body-silhouette-svg` element from a small standalone preview page — loading the full game page into a browser tool dumps an enormous accessibility snapshot.
+
+## Shell v2 — human shape without drawing (2026-10-31)
+
+**Authored parts:** `build-body-silhouette-parts.js` v2 — tapered limbs, mitten hands, foot blocks (no circle nubs).
+
+**Your image generator PNG (no Inkscape):**
+
+1. Save as `art/body-chamber/reference.png`
+2. `npm install` then `node scripts/trace-body-silhouette-reference.js`
+3. `node scripts/apply-body-silhouette-shell.js` — wires `#sil-shell` as visible outline; click regions keep part paths.
+
+See `art/body-chamber/README.md`.
