@@ -6,13 +6,19 @@
  *  1. sil-* part paths exist in index.html
  *  2. BODY_LANDMARKS + centreX === 104
  *  3. No legacy subtractive body-mask-* region masks
- *  4. Sampled bone path points sit inside the silhouette union (clearance)
+ *  4. Every real bone path (BODY_BONE_DEFS, both sides) is well-formed and sits inside #sil-shell
+ *     with enough depth for its lit stroke (per-kind clearance) — FAILS the audit
+ *  5. Joint anchor bones (humeral head, elbow, wrist, hip, knee, ankle) land inside their sil-patch
+ *  (sil-* capsule parts vs shell is still a warning only)
  */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { flattenPath, pointInPoly, signedClearance } = require('./lib/body-fit-geometry');
+const { loadBodyBoneDefs } = require('./lib/body-bone-defs');
+const { requiredClearance } = require('./lib/body-bone-clearance');
 
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
@@ -84,246 +90,92 @@ if (!lmMatch) {
     }
 }
 
-// —— 4. Flatten path → polygon samples, point-in-polygon ——
-function tokenizePath(d) {
-    return d.match(/[A-Za-z]|-?\d*\.?\d+(?:e[-+]?\d+)?/gi) || [];
-}
-
-function flattenPath(d, samplesPerCurve = 8) {
-    const tokens = tokenizePath(d);
-    let i = 0;
-    let cmd = '';
-    let cx = 0, cy = 0, sx = 0, sy = 0;
-    const pts = [];
-
-    function readNum() { return parseFloat(tokens[i++]); }
-    function push(x, y) { pts.push([x, y]); cx = x; cy = y; }
-
-    while (i < tokens.length) {
-        const t = tokens[i];
-        if (/[A-Za-z]/.test(t)) { cmd = t; i++; }
-        else if (!cmd) { i++; continue; }
-
-        if (cmd === 'M') {
-            push(readNum(), readNum());
-            sx = cx; sy = cy;
-            cmd = 'L';
-        } else if (cmd === 'm') {
-            push(cx + readNum(), cy + readNum());
-            sx = cx; sy = cy;
-            cmd = 'l';
-        } else if (cmd === 'L') {
-            push(readNum(), readNum());
-        } else if (cmd === 'l') {
-            push(cx + readNum(), cy + readNum());
-        } else if (cmd === 'H') {
-            push(readNum(), cy);
-        } else if (cmd === 'h') {
-            push(cx + readNum(), cy);
-        } else if (cmd === 'V') {
-            push(cx, readNum());
-        } else if (cmd === 'v') {
-            push(cx, cy + readNum());
-        } else if (cmd === 'C') {
-            const x1 = readNum(), y1 = readNum(), x2 = readNum(), y2 = readNum(), x = readNum(), y = readNum();
-            for (let s = 1; s <= samplesPerCurve; s++) {
-                const t = s / samplesPerCurve;
-                const u = 1 - t;
-                push(
-                    u * u * u * cx + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x,
-                    u * u * u * cy + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y
-                );
-            }
-        } else if (cmd === 'c') {
-            const x1 = cx + readNum(), y1 = cy + readNum();
-            const x2 = cx + readNum(), y2 = cy + readNum();
-            const x = cx + readNum(), y = cy + readNum();
-            const x0 = cx, y0 = cy;
-            for (let s = 1; s <= samplesPerCurve; s++) {
-                const t = s / samplesPerCurve;
-                const u = 1 - t;
-                push(
-                    u * u * u * x0 + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x,
-                    u * u * u * y0 + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y
-                );
-            }
-        } else if (cmd === 'Q') {
-            const x1 = readNum(), y1 = readNum(), x = readNum(), y = readNum();
-            for (let s = 1; s <= samplesPerCurve; s++) {
-                const t = s / samplesPerCurve;
-                const u = 1 - t;
-                push(u * u * cx + 2 * u * t * x1 + t * t * x, u * u * cy + 2 * u * t * y1 + t * t * y);
-            }
-        } else if (cmd === 'q') {
-            const x1 = cx + readNum(), y1 = cy + readNum();
-            const x = cx + readNum(), y = cy + readNum();
-            const x0 = cx, y0 = cy;
-            for (let s = 1; s <= samplesPerCurve; s++) {
-                const t = s / samplesPerCurve;
-                const u = 1 - t;
-                push(u * u * x0 + 2 * u * t * x1 + t * t * x, u * u * y0 + 2 * u * t * y1 + t * t * y);
-            }
-        } else if (cmd === 'A' || cmd === 'a') {
-            // Approximate arc as endpoint only (good enough for stadium capsules)
-            const rx = readNum(), ry = readNum();
-            readNum(); readNum(); readNum(); // rot, large, sweep
-            const x = cmd === 'A' ? readNum() : cx + readNum();
-            const y = cmd === 'A' ? readNum() : cy + readNum();
-            void rx; void ry;
-            push(x, y);
-        } else if (cmd === 'Z' || cmd === 'z') {
-            push(sx, sy);
-        } else {
-            // Unknown — skip one number to avoid infinite loop
-            i++;
-        }
-    }
-    return pts;
-}
-
-function pointInPoly(x, y, poly) {
-    let inside = false;
-    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-        const xi = poly[i][0], yi = poly[i][1];
-        const xj = poly[j][0], yj = poly[j][1];
-        const intersect = ((yi > y) !== (yj > y)) &&
-            (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-12) + xi);
-        if (intersect) inside = !inside;
-    }
-    return inside;
-}
-
-function distToPolyEdge(x, y, poly) {
-    let min = Infinity;
-    for (let i = 0; i < poly.length; i++) {
-        const a = poly[i];
-        const b = poly[(i + 1) % poly.length];
-        const dx = b[0] - a[0];
-        const dy = b[1] - a[1];
-        const len2 = dx * dx + dy * dy || 1;
-        let t = ((x - a[0]) * dx + (y - a[1]) * dy) / len2;
-        t = Math.max(0, Math.min(1, t));
-        const px = a[0] + t * dx;
-        const py = a[1] + t * dy;
-        const d = Math.hypot(x - px, y - py);
-        if (d < min) min = d;
-    }
-    return min;
-}
-
+// —— 4. Bone fit vs #sil-shell ——
 const shellMatch = html.match(/id="sil-shell"\s+d="([^"]+)"/);
-const shellPoly = shellMatch ? flattenPath(shellMatch[1], 4) : null;
-const polys = shellPoly ? [shellPoly] : Object.values(partPaths).map(d => flattenPath(d));
-if (shellPoly) ok('bone fit uses traced #sil-shell (visible silhouette)');
-else ok('bone fit uses sil-* part union (fallback)');
-
-function insideSilhouette(x, y) {
-    for (const poly of polys) {
-        if (poly.length >= 3 && pointInPoly(x, y, poly)) return true;
-    }
-    return false;
+const shellPoly = shellMatch ? flattenPath(shellMatch[1], 6) : null;
+if (!shellPoly) {
+    fail('missing #sil-shell path in index.html');
+} else {
+    ok('bone fit uses traced #sil-shell (visible silhouette)');
 }
 
-function signedClearance(x, y) {
-    let best = -Infinity;
-    let inside = false;
-    for (const poly of polys) {
-        if (poly.length < 3) continue;
-        const inn = pointInPoly(x, y, poly);
-        const d = distToPolyEdge(x, y, poly);
-        if (inn) {
-            inside = true;
-            if (d > best) best = d;
-        } else if (!inside) {
-            const neg = -d;
-            if (neg > best || best === -Infinity) best = neg;
-        }
-    }
-    if (inside && best === -Infinity) return 0;
-    return best;
+const patchPolys = {};
+for (const m of html.matchAll(/<path id="(sil-patch-[^"]+)" d="([^"]+)"/g)) {
+    patchPolys[m[1]] = flattenPath(m[2], 8);
 }
 
-// Sample literal bone `d:` strings from axial + side defs (mirrored copies included).
-function mirrorBoneD(d) {
-    let axis = 0;
-    return (d.match(/[A-Za-z]|-?\d*\.?\d+/g) || []).map(token => {
-        if (/[A-Za-z]/.test(token)) { axis = 0; return token; }
-        const n = parseFloat(token);
-        return (axis++ % 2 === 0) ? +(2 * 104 - n).toFixed(2) : n;
-    }).join(' ');
-}
-
-const boneBlock = bodyJs.slice(
-    bodyJs.indexOf('const BODY_BONE_AXIAL_DEFS'),
-    bodyJs.indexOf('const BODY_BONE_LAYOUT_VERSION')
-);
-const boneLiterals = [...boneBlock.matchAll(/id:\s*'([^']+)'[\s\S]*?d:\s*'([^']+)'/g)];
-const bones = [];
-for (const m of boneLiterals) {
-    bones.push({ id: m[1], d: m[2] });
-    // Side defs are mirrored for -r; axial are not — mirror all literals as a second sample.
-    // Harmless double-check for axial (symmetric-ish).
-    bones.push({ id: m[1] + '-mirror', d: mirrorBoneD(m[2]) });
-}
-
-const MARGIN = 1.2;
-const STROKE_HALF = 0.6;
-const threshold = STROKE_HALF + MARGIN;
+const { BODY_BONE_DEFS } = loadBodyBoneDefs();
 
 const partOffenders = [];
 for (const id of PART_IDS) {
     const d = partPaths[id];
     if (!d || !shellPoly) continue;
-    const samples = flattenPath(d, 6);
     let worst = Infinity;
-    for (const [x, y] of samples) {
-        const clr = signedClearance(x, y);
-        if (clr < worst) worst = clr;
+    for (const [x, y] of flattenPath(d, 6)) {
+        worst = Math.min(worst, signedClearance(x, y, [shellPoly]));
     }
-    if (worst < threshold) {
-        partOffenders.push({ id, clearance: +worst.toFixed(2) });
-    }
+    if (worst < 1.8) partOffenders.push({ id, clearance: +worst.toFixed(2) });
 }
 if (partOffenders.length) {
-    console.log(`\nPart vs shell (${partOffenders.length} under margin — re-run clip script):`);
+    console.log(`\nPart vs shell (${partOffenders.length} under margin — warn only; parts are hit regions, not display):`);
     partOffenders.slice(0, 8).forEach(o => console.log(`  - ${o.id}: ${o.clearance}`));
 } else if (shellPoly) {
     ok('sampled sil-* parts inside #sil-shell margin');
 }
 
 const offenders = [];
-
-for (const bone of bones) {
-    const samples = flattenPath(bone.d, 4);
-    let worst = Infinity;
-    let worstPt = null;
-    for (const [x, y] of samples) {
-        const clr = signedClearance(x, y);
-        if (clr < worst) {
-            worst = clr;
-            worstPt = [x, y];
+let measured = 0;
+if (shellPoly) {
+    for (const bone of BODY_BONE_DEFS) {
+        const pts = flattenPath(bone.d, 8);
+        if (!pts.length || pts.some(([x, y]) => !Number.isFinite(x) || !Number.isFinite(y))) {
+            fail(`${bone.id}: malformed path d (NaN / truncated segment)`);
+            continue;
+        }
+        measured++;
+        const need = requiredClearance(bone.kind);
+        let worst = Infinity;
+        let worstPt = null;
+        for (const [x, y] of pts) {
+            const clr = signedClearance(x, y, [shellPoly]);
+            if (clr < worst) { worst = clr; worstPt = [x, y]; }
+        }
+        if (worst < need) {
+            offenders.push({ id: bone.id, clearance: +worst.toFixed(2), need, at: `(${worstPt[0].toFixed(1)},${worstPt[1].toFixed(1)})` });
         }
     }
-    if (worst < threshold) {
-        offenders.push({
-            id: bone.id,
-            clearance: +worst.toFixed(2),
-            at: worstPt ? `(${worstPt[0].toFixed(1)},${worstPt[1].toFixed(1)})` : '?'
-        });
-    }
 }
 
-offenders.sort((a, b) => a.clearance - b.clearance);
-console.log(`\nBone fit vs new silhouette (threshold clearance ${threshold}; ${bones.length} path samples):`);
+console.log(`\nBone fit vs #sil-shell (${measured} bone paths, per-kind lit-stroke clearance):`);
 if (!offenders.length) {
-    ok('all sampled bones clear silhouette margin');
+    ok('all bones inside #sil-shell with stroke clearance');
 } else {
-    console.log(`  ${offenders.length} sample(s) under margin (Phase 1 warn — re-fit in Phase 2):`);
-    offenders.slice(0, 12).forEach(o => {
-        console.log(`  - ${o.id}: clearance ${o.clearance} at ${o.at}`);
-    });
-    console.log('WARN: bone clearance under margin (not failing Phase 1)');
+    offenders.sort((a, b) => a.clearance - b.clearance);
+    offenders.slice(0, 16).forEach(o => console.log(`  - ${o.id}: clearance ${o.clearance} < ${o.need} at ${o.at}`));
+    fail(`${offenders.length} bone(s) outside / too close to #sil-shell — re-fit (node scripts/fit-body-bones-to-shell.js, node scripts/render-body-bone-fit.js)`);
 }
+
+// —— 5. Joint anchors land inside their patch ——
+const JOINT_ANCHORS = [
+    ['humerus-head', 'shoulder'], ['elbow', 'elbow'], ['carpals', 'wrist'],
+    ['femur-head', 'hip'], ['patella', 'knee'], ['tarsals', 'ankle']
+];
+let jointBad = 0;
+for (const [boneId, joint] of JOINT_ANCHORS) {
+    for (const side of ['l', 'r']) {
+        const bone = BODY_BONE_DEFS.find(b => b.id === `bone-${boneId}-${side}`);
+        const patch = patchPolys[`sil-patch-${joint}-${side}`];
+        if (!bone || !patch) { fail(`joint anchor ${boneId}-${side} / patch ${joint}-${side} missing`); jointBad++; continue; }
+        const pts = flattenPath(bone.d, 8);
+        const cx = pts.reduce((s, p) => s + p[0], 0) / pts.length;
+        const cy = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+        if (!pointInPoly(cx, cy, patch)) {
+            fail(`${bone.id} centre (${cx.toFixed(1)},${cy.toFixed(1)}) is outside sil-patch-${joint}-${side}`);
+            jointBad++;
+        }
+    }
+}
+if (!jointBad) ok('joint anchor bones sit inside their sil-patch discs');
 
 console.log('');
 if (failed) {
