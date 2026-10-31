@@ -27,7 +27,7 @@ The game keeps **click regions** on simplified `sil-*` parts; the **visible** ou
 - **Skin tab:** rim **sheen** on `#sil-shell` (not a solid tan overlay). Other tabs get a faint ambient sheen if skin progress &gt; ~4%.
 - **Ghost unlocked layers:** checkbox under the figure — inactive unlocked overlays (bones, flesh, …) at low opacity behind the active tab.
 
-Implementation: `body-chamber.js` (`renderBodySkinUnified`, `getBodyLayerViewState`), `style.css` (`.body-sil-skin-sheen-mode`, `.body-sil-overlay-ghost`).
+Implementation: `body-chamber.js` (`renderBodySkinUnified`, `getBodyLayerViewState`), `style.css` (`.body-sil-skin-sheen-mode`, `.body-sil-overlay-ghost`). Skin sheen ships in PR #168 on top of `#sil-shell` from #167.
 
 ## Regenerate after a new PNG
 
