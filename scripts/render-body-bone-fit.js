@@ -1,6 +1,8 @@
 /**
  * Render the body bone overlay over #sil-shell + joint patches and colour bones by clearance.
- * Run: node scripts/render-body-bone-fit.js [out.svg] [--view=x,y,w,h] [--only=bone-id,...]
+ * Run: node scripts/render-body-bone-fit.js [out.svg] [--view=x,y,w,h] [--only=bone-id,...] [--refine=hands]
+ * --refine=<chunk> draws that chunk (bone `action`) fully refined and every other chunk dim,
+ * to preview that a refinement action only changes its own bones.
  * PNG is written next to the SVG via headless Chrome when available.
  */
 'use strict';
@@ -17,6 +19,7 @@ const args = process.argv.slice(2);
 const flag = name => (args.find(a => a.startsWith(`--${name}=`)) || '').slice(name.length + 3);
 const view = flag('view') ? flag('view').split(',').map(Number) : [0, 0, 208, 208];
 const only = flag('only') ? flag('only').split(',') : null;
+const refine = flag('refine') || null;
 const out = args.find(a => !a.startsWith('--')) || '/tmp/fit/bone-fit.svg';
 
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
@@ -51,15 +54,19 @@ function gridLines() {
 
 const strokeScale = Math.max(0.35, view[2] / 208 * 1.6);
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${view.join(' ')}" width="1040" height="1040">
+<defs><filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${0.5 * strokeScale}" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
 <rect x="${view[0]}" y="${view[1]}" width="${view[2]}" height="${view[3]}" fill="#12100e"/>
 <path d="${shellD}" fill="#2a2724" stroke="#6a625a" stroke-width="${0.3 * strokeScale}"/>
 ${patches.map(p => `<path d="${p.d}" fill="#3a3430" stroke="#8a6a3a" stroke-width="${0.2 * strokeScale}"/>`).join('\n')}
 ${gridLines()}
 ${bones.map(b => {
-    const col = b.clr < 0 ? '#ff2020' : b.clr < b.need ? '#ffb020' : '#d8d4d0';
+    let col = b.clr < 0 ? '#ff2020' : b.clr < b.need ? '#ffb020' : '#d8d4d0';
+    if (refine && b.clr >= b.need) col = b.action === refine ? '#f2efe9' : '#5a5650';
     const fill = b.kind === 'marrow' ? 'rgba(192,64,64,.5)' : 'none';
     const sw = (WEIGHT[b.kind] ?? 0.8) * 1.4 * strokeScale;
-    return `<path d="${b.d}" fill="${fill}" stroke="${col}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const dim = refine && b.action !== refine ? 0.7 : 1;
+    const glow = refine && b.action === refine ? ' filter="url(#glow)"' : '';
+    return `<path d="${b.d}" data-chunk="${b.action}" fill="${fill}" stroke="${col}" stroke-width="${sw * dim}" stroke-linecap="round" stroke-linejoin="round"${glow}/>`;
 }).join('\n')}
 </svg>`;
 fs.mkdirSync(path.dirname(out), { recursive: true });

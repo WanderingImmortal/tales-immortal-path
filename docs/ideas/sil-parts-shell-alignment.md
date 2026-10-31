@@ -65,7 +65,10 @@ Bones are no longer masked-to-fit — every `BODY_BONE_DEFS` path is **authored 
 - `node scripts/fit-body-bones-to-shell.js --write` — arm + hand paths from shell scanline midlines (re-run after re-tracing the shell)
 - `node scripts/render-body-bone-fit.js [out.svg] [--view=x,y,w,h]` — PNG preview, bones coloured by clearance
 - `node scripts/audit-body-overlay-fit.js` — **fails** if any bone is malformed, outside the shell, or too close for its lit stroke; checks joint anchors sit inside their `sil-patch-*` disc
-- Skull, scapula, sacrum, leg shafts and feet are hand-authored literals in `body-chamber.js`; same audit gates them
+- Hands are per-digit defs (`finger-thumb` … `finger-pinky`) in a generated `<fit:hand>` block; feet are per-toe literals (`toe-big` … `toe-5`, big toe longest, little toe shortest)
+- Skull, scapula, sacrum and leg shafts are hand-authored literals in `body-chamber.js`; same audit gates them
+- **Refinement chunks** = each bone def's `action` (hands, arms, legs, feet, ribs, spine, skull, marrow). Fill is per action, so refining hands only lights hand bones; the audit fails on unknown or empty chunks. Preview one chunk with `render-body-bone-fit.js --refine=hands`
+- Audit densifies straight segments (earlier it only checked line endpoints)
 
 Known gap: muscle / nerve / blood overlays still hug the old arm edge (e.g. `nerve-arm-*`, `blood-arm-*`) — same scanline approach applies.
 
