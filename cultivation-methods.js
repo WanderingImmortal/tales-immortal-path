@@ -430,7 +430,7 @@ function comprehendCultivationMethod(methodId) {
     }
     const months = getComprehendMethodMonths(method);
     beginActionLog();
-    if (!advanceTime(months, `Studying ${method.name}`, { billMonths: true })) {
+    if (!advanceTime(months, `Studying ${method.name}`)) {
         cancelActionLog();
         fullRender();
         return false;

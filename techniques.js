@@ -325,7 +325,7 @@ function comprehendManual(techName) {
     }
     const months = getComprehendManualMonths(template);
     beginActionLog();
-    if (!advanceTime(months, `Comprehending ${techName}`, { billMonths: true })) {
+    if (!advanceTime(months, `Comprehending ${techName}`)) {
         cancelActionLog();
         fullRender();
         return false;
