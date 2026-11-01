@@ -78,8 +78,12 @@ function track(name, fn) {
 global.addLog = () => {};
 global.fullRender = () => {};
 global.advanceTime = () => true;
+global.getEffectiveRealmTier = () => global.G.realmIdx || 0;
+global.getGateRealmTier = () => global.G.realmIdx || 0;
+global.formatGateRealmRequirement = (minRealm) => `realm ${minRealm + 1}`;
+global.PATHS = global.PATHS || { qi: { realms: ['A', 'B', 'Core Formation', 'Nascent Soul'] } };
 global.actionBlocked = () => false;
-global.escapeAttr = (s) => String(s);
+global.escapeAttr = (s) => String(s || '').replace(/"/g, '&quot;');
 global.escapeSectAttr = (s) => String(s);
 
 // Load data constants via eval of relevant sections only — use pre-set globals from data.js keys

@@ -979,7 +979,9 @@ function advanceTime(months, activity, options) {
     if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
     if (typeof tickDwellingRent === 'function') tickDwellingRent();
     if (typeof tickWellRingCalendar === 'function') tickWellRingCalendar();
-    if (typeof tickPassiveCultivationForMonths === 'function') tickPassiveCultivationForMonths(months);
+    if (!opts.skipPassiveCirculation && typeof tickPassiveCultivationForMonths === 'function') {
+        tickPassiveCultivationForMonths(months);
+    }
     if (deferLogs) G._deferringLogs = false;
     const remaining = getYearsRemaining();
     const remainStr = isImmortal() ? 'immortal' : `${remaining}y left`;

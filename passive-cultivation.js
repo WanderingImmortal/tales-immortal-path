@@ -231,7 +231,7 @@ function actionFocusedCultivate() {
         return;
     }
     if (typeof beginActionLog === 'function') beginActionLog();
-    if (typeof advanceTime === 'function' && !advanceTime(months, 'Focused cultivation')) {
+    if (typeof advanceTime === 'function' && !advanceTime(months, 'Focused cultivation', { skipPassiveCirculation: true })) {
         if (typeof cancelActionLog === 'function') cancelActionLog();
         if (typeof fullRender === 'function') fullRender();
         return;

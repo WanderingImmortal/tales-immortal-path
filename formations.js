@@ -738,7 +738,7 @@ function actionResidenceCultivate() {
     }
     beginActionLog();
     const months = typeof getFocusedCultivateMonths === 'function' ? getFocusedCultivateMonths() : ACTION_MONTHS.cultivate;
-    if (!advanceTime(months, 'Cultivating at your quarters')) {
+    if (!advanceTime(months, 'Cultivating at your quarters', { skipPassiveCirculation: true })) {
         cancelActionLog();
         fullRender();
         return;

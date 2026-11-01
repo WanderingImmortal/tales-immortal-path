@@ -40,6 +40,10 @@ One authoritative world timeline (`G.ageMonths`); active play, routines, and sec
 | Timed project | Calendar weeks until `endsAtMonths`; completion handler **does not** re-bill |
 | Seclusion playback | `advanceTimeQuiet` per year (unchanged this stage) |
 
+### Passive circulation vs dedicated cultivation (Stage 1 patch)
+
+`tickPassiveCultivationForMonths` on every billed `advanceTime` was **pre-existing when paused** (ambient nights during time jumps). PR #183 extended billed jumps to Play-on paths; **`skipPassiveCirculation`** avoids stacking passive batches on the same span as an explicit qi session (chamber gather, focused month, breakthrough seclusion, quarters cultivate). Travel, jobs, and other non-session actions still batch passive as before.
+
 ### Deliberately unchanged (Stage 1)
 
 - Cultivation yield multipliers, seclusion `extraMult`, NPC `tickWorldNpcGrowth` rates
