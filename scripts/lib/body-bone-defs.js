@@ -1,5 +1,5 @@
 /**
- * Load the real BODY_BONE_DEFS (axial + mirrored side defs) from body-chamber.js
+ * Load the real BODY_BONE_DEFS (traced skeleton chunks) from body-chamber.js + body-skeleton-art.js
  * without a DOM, so audits/renders see the same geometry the game draws.
  */
 'use strict';
@@ -12,11 +12,11 @@ const root = path.join(__dirname, '..', '..');
 
 function loadBodyBoneDefs() {
     const src = fs.readFileSync(path.join(root, 'body-chamber.js'), 'utf8');
-    const lm = src.match(/const BODY_LANDMARKS\s*=\s*\{[\s\S]*?\n\};/)[0];
-    const startIdx = src.indexOf('const BODY_SKELETON_CENTER_X');
-    const endIdx = src.indexOf('const BODY_BONE_BY_ID');
+    const art = fs.readFileSync(path.join(root, 'body-skeleton-art.js'), 'utf8');
+    const startIdx = src.indexOf('const BODY_BONE_CHUNK_ORDER');
+    const endIdx = src.indexOf('const BODY_BONE_LAYOUT_VERSION');
     if (startIdx < 0 || endIdx < 0) throw new Error('bone def block not found in body-chamber.js');
-    const code = `${lm}\n${src.slice(startIdx, endIdx)}\n;({ BODY_BONE_DEFS, BODY_BONE_SIDE_DEFS, BODY_BONE_AXIAL_DEFS, BODY_LANDMARKS })`;
+    const code = `${art}\n${src.slice(startIdx, endIdx)}\n;({ BODY_BONE_DEFS, BODY_BONE_CHUNK_ORDER, BODY_SKELETON_ART })`;
     return vm.runInNewContext(code);
 }
 

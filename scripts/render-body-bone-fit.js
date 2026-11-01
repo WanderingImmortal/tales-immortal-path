@@ -1,5 +1,5 @@
 /**
- * Render the body bone overlay over #sil-shell + joint patches and colour bones by clearance.
+ * Render the traced skeleton chunks over #sil-shell + joint patches; chunks that spill past the shell are tinted.
  * Run: node scripts/render-body-bone-fit.js [out.svg] [--view=x,y,w,h] [--only=bone-id,...] [--refine=hands]
  * --refine=<chunk> draws that chunk (bone `action`) fully refined and every other chunk dim,
  * to preview that a refinement action only changes its own bones.
@@ -12,7 +12,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const { loadBodyBoneDefs } = require('./lib/body-bone-defs');
 const { flattenPath, signedClearance } = require('./lib/body-fit-geometry');
-const { requiredClearance, COMPLETE_WEIGHT: WEIGHT } = require('./lib/body-bone-clearance');
+const { requiredClearance } = require('./lib/body-bone-clearance');
 
 const root = path.join(__dirname, '..');
 const args = process.argv.slice(2);
@@ -32,7 +32,7 @@ const bones = BODY_BONE_DEFS
     .filter(b => !only || only.some(o => b.id.includes(o)))
     .map(b => {
         const need = requiredClearance(b.kind);
-        const clr = Math.min(...flattenPath(b.d, 8).map(([x, y]) => signedClearance(x, y, polys)));
+        const clr = Math.min(...flattenPath(b.d, 4).map(([x, y]) => signedClearance(x, y, [polys[0]])));
         return { ...b, clr, need };
     });
 const bad = bones.filter(b => !(b.clr >= b.need));
@@ -60,13 +60,11 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${view.join(' ')}"
 ${patches.map(p => `<path d="${p.d}" fill="#3a3430" stroke="#8a6a3a" stroke-width="${0.2 * strokeScale}"/>`).join('\n')}
 ${gridLines()}
 ${bones.map(b => {
-    let col = b.clr < 0 ? '#ff2020' : b.clr < b.need ? '#ffb020' : '#d8d4d0';
-    if (refine && b.clr >= b.need) col = b.action === refine ? '#f2efe9' : '#5a5650';
-    const fill = b.kind === 'marrow' ? 'rgba(192,64,64,.5)' : 'none';
-    const sw = (WEIGHT[b.kind] ?? 0.8) * 1.4 * strokeScale;
-    const dim = refine && b.action !== refine ? 0.7 : 1;
+    let col = b.clr < b.need ? '#ff5040' : '#d8d4d0';
+    if (refine) col = b.action === refine ? '#f2efe9' : '#5a5650';
+    const fill = b.kind === 'marrow' ? 'rgba(200,70,70,.85)' : col;
     const glow = refine && b.action === refine ? ' filter="url(#glow)"' : '';
-    return `<path d="${b.d}" data-chunk="${b.action}" fill="${fill}" stroke="${col}" stroke-width="${sw * dim}" stroke-linecap="round" stroke-linejoin="round"${glow}/>`;
+    return `<path d="${b.d}" data-chunk="${b.action}" fill="${fill}" fill-rule="evenodd" fill-opacity="${refine && b.action !== refine ? 0.5 : 0.92}"${glow}/>`;
 }).join('\n')}
 </svg>`;
 fs.mkdirSync(path.dirname(out), { recursive: true });

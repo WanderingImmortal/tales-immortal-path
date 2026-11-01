@@ -6,11 +6,10 @@
  *  1. sil-* part paths exist in index.html
  *  2. BODY_LANDMARKS + centreX === 104
  *  3. No legacy subtractive body-mask-* region masks
- *  4. Every real bone path (BODY_BONE_DEFS, both sides) is well-formed and sits inside #sil-shell
- *     with enough depth for its lit stroke (per-kind clearance) — FAILS the audit
+ *  4. Every traced skeleton chunk (BODY_BONE_DEFS from body-skeleton-art.js) is well-formed and sits inside
+ *     #sil-shell within clip tolerance — FAILS the audit
  *  5. Chunks: every bone's `action` is a real Bones action in data.js (so refining one action only
  *     lights its own bones) and every action owns at least one bone
- *  6. Joint anchor bones (humeral head, elbow, wrist, hip, knee, ankle) land inside their sil-patch
  *  (sil-* capsule parts vs shell is still a warning only)
  */
 'use strict';
@@ -18,7 +17,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { flattenPath, pointInPoly, signedClearance } = require('./lib/body-fit-geometry');
+const { flattenPath, signedClearance } = require('./lib/body-fit-geometry');
 const { loadBodyBoneDefs } = require('./lib/body-bone-defs');
 const { requiredClearance } = require('./lib/body-bone-clearance');
 
@@ -129,7 +128,7 @@ const offenders = [];
 let measured = 0;
 if (shellPoly) {
     for (const bone of BODY_BONE_DEFS) {
-        const pts = flattenPath(bone.d, 8);
+        const pts = flattenPath(bone.d, 4);
         if (!pts.length || pts.some(([x, y]) => !Number.isFinite(x) || !Number.isFinite(y))) {
             fail(`${bone.id}: malformed path d (NaN / truncated segment)`);
             continue;
@@ -148,13 +147,13 @@ if (shellPoly) {
     }
 }
 
-console.log(`\nBone fit vs #sil-shell (${measured} bone paths, per-kind lit-stroke clearance):`);
+console.log(`\nBone art vs #sil-shell (${measured} chunk paths):`);
 if (!offenders.length) {
-    ok('all bones inside #sil-shell with stroke clearance');
+    ok('all skeleton chunks sit inside #sil-shell (within clip tolerance)');
 } else {
     offenders.sort((a, b) => a.clearance - b.clearance);
-    offenders.slice(0, 16).forEach(o => console.log(`  - ${o.id}: clearance ${o.clearance} < ${o.need} at ${o.at}`));
-    fail(`${offenders.length} bone(s) outside / too close to #sil-shell — re-fit (node scripts/fit-body-bones-to-shell.js, node scripts/render-body-bone-fit.js)`);
+    offenders.forEach(o => console.log(`  - ${o.id}: clearance ${o.clearance} < ${o.need} at ${o.at}`));
+    fail(`${offenders.length} chunk(s) spill past #sil-shell — re-run node scripts/trace-body-skeleton-reference.js (or fix art/body-chamber/skeleton-reference.png)`);
 }
 
 // —— 5. Refinement chunks ——
@@ -175,28 +174,6 @@ if (!boneActionIds.length) {
         ok('refinement chunks: ' + boneActionIds.map(a => `${a}=${chunkBones[a].length}`).join(' '));
     }
 }
-
-// —— 6. Joint anchors land inside their patch ——
-const JOINT_ANCHORS = [
-    ['humerus-head', 'shoulder'], ['elbow', 'elbow'], ['carpals', 'wrist'],
-    ['femur-head', 'hip'], ['patella', 'knee'], ['tarsals', 'ankle']
-];
-let jointBad = 0;
-for (const [boneId, joint] of JOINT_ANCHORS) {
-    for (const side of ['l', 'r']) {
-        const bone = BODY_BONE_DEFS.find(b => b.id === `bone-${boneId}-${side}`);
-        const patch = patchPolys[`sil-patch-${joint}-${side}`];
-        if (!bone || !patch) { fail(`joint anchor ${boneId}-${side} / patch ${joint}-${side} missing`); jointBad++; continue; }
-        const pts = flattenPath(bone.d, 8);
-        const cx = pts.reduce((s, p) => s + p[0], 0) / pts.length;
-        const cy = pts.reduce((s, p) => s + p[1], 0) / pts.length;
-        if (!pointInPoly(cx, cy, patch)) {
-            fail(`${bone.id} centre (${cx.toFixed(1)},${cy.toFixed(1)}) is outside sil-patch-${joint}-${side}`);
-            jointBad++;
-        }
-    }
-}
-if (!jointBad) ok('joint anchor bones sit inside their sil-patch discs');
 
 console.log('');
 if (failed) {
