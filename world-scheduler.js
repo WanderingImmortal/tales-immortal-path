@@ -94,7 +94,7 @@ function fireWorldEvent(ev) {
     const handler = WORLD_EVENT_HANDLERS[ev.type];
     if (!handler) return;
     const prevAge = G.ageMonths;
-    G.ageMonths = ev.at;
+    if (Math.abs(G.ageMonths - ev.at) > 1e-6) G.ageMonths = ev.at;
     try {
         handler(ev.payload || {}, ev);
     } catch (err) {
@@ -104,13 +104,40 @@ function fireWorldEvent(ev) {
     }
 }
 
+/** Run registered world ticks for [fromMonths, toMonths] (age should already equal toMonths). */
+function runWorldTicks(fromMonths, toMonths, context) {
+    const delta = toMonths - fromMonths;
+    if (delta <= 0) return;
+    WORLD_TICKS.sort((a, b) => a.priority - b.priority).forEach(tick => {
+        tick.fn(delta, fromMonths, toMonths, context || {});
+    });
+}
+
+function pullScheduledEventsAfter(cursorMonths, endMonths) {
+    ensureWorldSchedulerState();
+    return G.worldSchedule
+        .filter(e => e.at > cursorMonths + 1e-9 && e.at <= endMonths + 1e-9)
+        .sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
+}
+
+function fireScheduledEventsAtBoundary(cursorMonths, boundaryMonths) {
+    const atBoundary = G.worldSchedule.filter(
+        e => e.at > cursorMonths + 1e-9 && Math.abs(e.at - boundaryMonths) < 1e-6
+    );
+    if (!atBoundary.length) return;
+    atBoundary.sort((a, b) => a.id.localeCompare(b.id));
+    G.worldSchedule = G.worldSchedule.filter(e => !atBoundary.some(f => f.id === e.id));
+    G.ageMonths = boundaryMonths;
+    for (const ev of atBoundary) fireWorldEvent(ev);
+}
+
+/** Fire due schedule events in (from, to] without advancing world ticks (legacy helper). */
 function flushWorldSchedule(fromMonths, toMonths) {
     ensureWorldSchedulerState();
     if (toMonths <= fromMonths) return;
     const due = G.worldSchedule.filter(e => e.at > fromMonths && e.at <= toMonths);
-    const keep = G.worldSchedule.filter(e => e.at <= fromMonths || e.at > toMonths);
+    G.worldSchedule = G.worldSchedule.filter(e => e.at <= fromMonths || e.at > toMonths);
     due.sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
-    G.worldSchedule = keep;
     for (const ev of due) fireWorldEvent(ev);
 }
 
@@ -172,12 +199,23 @@ function processWorldTime(fromMonths, toMonths, context) {
     ensureWorldSchedulerState();
     migrateWorldScheduleFromLegacy();
     beginWorldChronicleBatch();
-    flushWorldSchedule(fromMonths, toMonths);
-    G.ageMonths = toMonths;
-    const delta = toMonths - fromMonths;
-    WORLD_TICKS.sort((a, b) => a.priority - b.priority).forEach(tick => {
-        tick.fn(delta, fromMonths, toMonths, context || {});
-    });
+    context = context || {};
+    let cursor = fromMonths;
+    const end = toMonths;
+    while (cursor < end - 1e-9) {
+        const due = pullScheduledEventsAfter(cursor, end);
+        const segmentEnd = due.length ? due[0].at : end;
+        if (segmentEnd > cursor + 1e-9) {
+            runWorldTicks(cursor, segmentEnd, context);
+            G.ageMonths = segmentEnd;
+        }
+        fireScheduledEventsAtBoundary(cursor, segmentEnd);
+        cursor = segmentEnd;
+    }
+    if (cursor < end - 1e-9) {
+        runWorldTicks(cursor, end, context);
+    }
+    G.ageMonths = end;
     return endWorldChronicleBatch();
 }
 

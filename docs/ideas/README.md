@@ -147,6 +147,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Spiritual sense & reading cultivation](spiritual-sense-cultivation-reading.md) | `idea` | Sense unlock realm; world rules | — |
 | [Chronicle, projects & time playback](chronicle-and-projects.md) | `building` (P1) | — | [#59](https://github.com/WanderingImmortal/tales-immortal-path/pull/59) |
 | [Time model — lived journey + seclusion skips](time-model.md) | `designed` | Deferred priority; lived mode needs location/NPC density | — |
+| [Time, pacing & cultivation architecture](time-pacing-cultivation-architecture.md) | `building` (Stage 2 world sim) | Stage 3 cultivation / routines | — |
 | [Living world clock (continuous)](world-clock-continuous.md) | `building` (Phase 2) | — | [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) |
 | [QC cultivate on the living clock](qc-cultivate-excitement.md) | `designed` | Clock Phase 2 playtest | — |
 | [Passive cultivation floor & focused sessions](passive-cultivation-floor.md) | `building` | Playtest tune (inferior bare → Peak QC) | — |

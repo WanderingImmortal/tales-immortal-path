@@ -2,70 +2,94 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Stage 1 time billing shipped) |
-| **Blocked on** | Owner review → Issue for cultivation activity profiles (Stage 2) |
+| **Status** | `building` (Stage 2 world sim shipped) |
+| **Blocked on** | Stage 3 player cultivation profiles / seclusion parity |
 | **Issue** | none yet |
-| **Chat / PR** | Stage 1 PR (time billing) · original review Nov 2026 |
+| **Chat / PR** | Stage 1 PR #183 · Stage 2 world sim PR |
 | **Updated** | 2026-11-01 |
 
 ## Intent
 
-One authoritative world timeline (`G.ageMonths`); active play, routines, and seclusion share `processWorldTime`. Cultivation balance changes are staged separately from billing fixes.
+One authoritative world timeline (`G.ageMonths`); active play, routines, and seclusion share `processWorldTime`. Cultivation balance changes are staged separately from billing and world-sim fixes.
 
 ---
 
-## Stage 1 — Consistent time billing (implemented)
+## Stage 1 — Consistent time billing (shipped, PR #183)
 
-### Rule
-
-**Action duration does not depend on Play/Pause.** Pausing stops automatic week flushes only.
-
-### Code
+**Rule:** Action duration does not depend on Play/Pause. Pausing stops automatic week flushes only.
 
 | Piece | Role |
 |-------|------|
-| `advance-time-rules.js` | Pure helpers: `resolveBillableAdvanceMonths`, `shouldPauseLivingClockForPlayerAdvance` |
-| `core.js` `advanceTime` | Always bills resolved months; pauses living calendar on player advances with `months > 0` |
-| `passive-cultivation.js` | `tickPassiveCultivationForMonths` runs for all billed `advanceTime` jumps (removed live skip) |
-| `world-clock.js` | `spendActionMonths` delegates to `advanceTime` (removed `instantWhileLive`) |
-| `scripts/audit-time-billing.js` | Node audit for billing contracts |
+| `advance-time-rules.js` | `resolveBillableAdvanceMonths`, `shouldPauseLivingClockForPlayerAdvance` |
+| `core.js` `advanceTime` | Bills months; pauses living calendar on player advances; `skipPassiveCirculation` for dedicated qi sessions |
+| `scripts/audit-time-billing.js` | Billing regression audit |
 
-### Billing model
+See git history for full billing model and passive-batch notes.
 
-| Kind | Who advances age |
-|------|------------------|
-| Instant (`months === 0` or `opts.free`) | No age change |
-| Player action (`advanceTime`, default `timeSource: 'player'`) | Billed months via `processWorldTime`; **pauses** living calendar first |
-| Living calendar week | `advanceTimeQuiet` in `flushWorldClockWeek` (unchanged) |
-| Timed project | Calendar weeks until `endsAtMonths`; completion handler **does not** re-bill |
-| Seclusion playback | `advanceTimeQuiet` per year (unchanged this stage) |
+---
 
-### Passive circulation vs dedicated cultivation (Stage 1 patch)
+## Stage 2 — World simulation consistency (shipped)
 
-`tickPassiveCultivationForMonths` on every billed `advanceTime` was **pre-existing when paused** (ambient nights during time jumps). PR #183 extended billed jumps to Play-on paths; **`skipPassiveCirculation`** avoids stacking passive batches on the same span as an explicit qi session (chamber gather, focused month, breakthrough seclusion, quarters cultivate). Travel, jobs, and other non-session actions still batch passive as before.
+### Processing order (after Stage 2)
 
-### Deliberately unchanged (Stage 1)
+`processWorldTime(from, to)` in `world-scheduler.js`:
 
-- Cultivation yield multipliers, seclusion `extraMult`, NPC `tickWorldNpcGrowth` rates
-- `ACTION_MONTHS` values
-- Live-only **project** UX for travel / jobs / focused cultivate (same total duration as paused `advanceTime`)
-- Chamber overlays still allow calendar ticks **when Play is on and no billed action**; each billed chamber week pauses Play (anti double-count)
+1. Walk the interval in **segments** bounded by the next scheduled event in `(cursor, to]`, or `to` if none.
+2. For each segment `[cursor, segmentEnd]`: run **`runWorldTicks`** (all `WORLD_TICKS` with that delta), set `G.ageMonths = segmentEnd`.
+3. **Fire** all schedule events with `at === segmentEnd` (removed from `G.worldSchedule`), with world state already advanced to that date.
+4. Repeat until `cursor === to`.
 
-### Known follow-ups (later stages)
+`advanceTime` / `advanceTimeQuiet` still call `processWorldTime` once per billed span; seclusion playback uses the same spine per year step.
 
-- Routines (`G.worldClock.routine`)
-- Seclusion real interrupts via `worldSchedule`
-- `applyCultivationActivity` profile consolidation
-- Fractional social costs when paused (`time-model.md`)
+`flushWorldSchedule(from, to)` remains a **legacy events-only** helper (no ticks) for callers that only need to fire handlers.
+
+### Confirmed issues fixed
+
+| Issue | Was | Fix |
+|-------|-----|-----|
+| **Schedule vs ticks order** | All due events fired, then one full-interval tick with `from→to` | Segment at event boundaries; ticks before events at each boundary |
+| **NPC lifespan vs long skip** | Full `monthsPassed` applied to age/growth before death check | `effectiveMonths = min(monthsPassed, lifespan - age)`; progression credited for effective alive time, then death |
+
+### Intentional abstractions (unchanged)
+
+- **Aggregate NPC cultivation** — `growthProgress += effectiveMonths * rate` with random breakthrough rolls; not stepwise day sim. Large skips may differ **stochastically** from many small skips (same expected class, not identical rolls).
+- **Ambient NPCs** — skipped in `tickWorldNpcGrowth` (`state === 'ambient'`).
+- **`tickNpcWorld`** — stub; no per-NPC detail sim.
+- **Sect / faction / quest ticks** — still receive one `delta` per segment (or full span if no events); no new micro-routines.
+- **Relationship decay** — aggregate `monthsPassed * decayPerMonth` per segment (acceptable approximation).
+
+### Large skips & performance
+
+- Segmentation adds one tick pass per **scheduled event** in the interval, not per month/week.
+- `scripts/audit-world-sim.js` **Test F** samples 1 / 10 / 100 year jumps with ~80 NPCs + growth tick (see CI/pre-pr output for ms).
+- No per-NPC per-week loops for the whole population.
+
+### Remaining limitations
+
+- Events that **mutate** progression rules mid-span do not automatically subdivide ticks beyond schedule boundaries (no new event types added this stage).
+- **`fireWorldEvent`** still restores `G.ageMonths` after handlers when handlers temporarily adjust age (legacy); handlers should rely on world state at `ev.at` after segment ticks.
+- **Stochastic** systems (NPC breakthrough rolls, ambient refresh chances) may differ between one large jump and many small jumps.
+- **Player cultivation** during seclusion vs active play — Stage 3; Stage 2 tests world/NPC age and deterministic tick sums only.
 
 ### Tests
 
 ```bash
+node scripts/audit-world-sim.js   # schedule order, NPC lifespan, stepped vs batch ticks, perf sample
 node scripts/audit-time-billing.js
 ```
 
+Both are run from `scripts/pre-pr-check.sh`.
+
 ---
 
-## Pre–Stage 1 reference (architecture review)
+## Stage 3+ (not started)
 
-See git history / PR #182 for full Phase 1–4 review (current vs recommended architecture, risks, test matrix). Stage 2+ items there remain valid; billing zeroing called out in that doc is **removed** as of Stage 1.
+- Cultivation activity profiles / seclusion world parity (player rewards)
+- Routines on living clock
+- Fractional social `ACTION_MONTHS` when paused
+
+---
+
+## Pre–Stage 1 reference
+
+See PR #182 / git history for original architecture review and risks matrix.
