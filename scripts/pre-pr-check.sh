@@ -7,6 +7,7 @@ cd "$root"
 echo "=== Pre-PR recursion audits ==="
 node scripts/audit-ensure-sync-recursion.js
 node scripts/audit-storage-recursion.js
+node scripts/audit-time-billing.js
 echo ""
 echo "=== Body overlay fit audit ==="
 node scripts/audit-body-overlay-fit.js

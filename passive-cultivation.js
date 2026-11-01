@@ -161,7 +161,6 @@ function tickPassiveCultivationWeek() {
 function tickPassiveCultivationForMonths(months) {
     const m = Number(months) || 0;
     if (m <= 0 || !canRunPassiveCultivation()) return;
-    if (typeof isWorldClockLive === 'function' && isWorldClockLive()) return;
     const weeks = Math.max(1, Math.round(m * (typeof WORLD_CLOCK_WEEK_MONTHS !== 'undefined' ? 1 / WORLD_CLOCK_WEEK_MONTHS : 4)));
     for (let i = 0; i < weeks; i++) tickPassiveCultivationWeek();
 }
@@ -232,7 +231,7 @@ function actionFocusedCultivate() {
         return;
     }
     if (typeof beginActionLog === 'function') beginActionLog();
-    if (typeof advanceTime === 'function' && !advanceTime(months, 'Focused cultivation')) {
+    if (typeof advanceTime === 'function' && !advanceTime(months, 'Focused cultivation', { skipPassiveCirculation: true })) {
         if (typeof cancelActionLog === 'function') cancelActionLog();
         if (typeof fullRender === 'function') fullRender();
         return;

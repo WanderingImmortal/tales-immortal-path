@@ -37,8 +37,9 @@ function chamberWeeksToMonths(weeks) {
     return weeks / (b.weeksPerMonth || 4);
 }
 
-function advanceChamberWeeks(weeks, activity) {
-    return advanceTime(chamberWeeksToMonths(weeks), activity);
+function advanceChamberWeeks(weeks, activity, advanceOpts) {
+    const opts = Object.assign({ skipPassiveCirculation: true }, advanceOpts || {});
+    return advanceTime(chamberWeeksToMonths(weeks), activity, opts);
 }
 
 function getChamberCultivateMult() {

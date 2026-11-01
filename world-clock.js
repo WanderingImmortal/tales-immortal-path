@@ -473,13 +473,11 @@ function resetWorldClockForGameStart() {
 
 /**
  * Spend action months — or skip for free/instant actions.
- * opts.free: always 0 cost
- * opts.instantWhileLive: 0 cost while calendar is live
+ * opts.free: always 0 cost (instant interactions)
  */
 function spendActionMonths(months, activity, opts) {
     opts = opts || {};
-    let m = Number(months) || 0;
-    if (opts.free) m = 0;
-    else if (opts.instantWhileLive && typeof isWorldClockLive === 'function' && isWorldClockLive()) m = 0;
-    return typeof advanceTime === 'function' ? advanceTime(m, activity) : true;
+    return typeof advanceTime === 'function'
+        ? advanceTime(months, activity, opts)
+        : true;
 }

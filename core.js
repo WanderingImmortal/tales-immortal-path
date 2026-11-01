@@ -947,16 +947,16 @@ function formatActionTimeMeta(months, remainStr) {
 
 function advanceTime(months, activity, options) {
     const opts = options && typeof options === 'object' ? options : {};
-    // Living calendar owns age while Play is requested — passive ticks only; explicit actions pass billMonths.
-    if (!opts.billMonths) {
-        if (typeof isWorldClockPlayRequested === 'function' && isWorldClockPlayRequested()) {
-            months = 0;
-        } else if (typeof isWorldClockLive === 'function' && isWorldClockLive()) {
-            months = 0;
-        }
-    }
+    months = typeof resolveBillableAdvanceMonths === 'function'
+        ? resolveBillableAdvanceMonths(months, opts)
+        : (Number(months) || 0);
     if (months <= 0) return true;
     if (G.gameOver) return false;
+    if (typeof shouldPauseLivingClockForPlayerAdvance === 'function'
+        && shouldPauseLivingClockForPlayerAdvance(months, opts)
+        && typeof setWorldClockPaused === 'function') {
+        setWorldClockPaused(true);
+    }
     if (typeof applyPlaytestTimeMonths === 'function') {
         months = applyPlaytestTimeMonths(months);
     }
@@ -979,7 +979,9 @@ function advanceTime(months, activity, options) {
     if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
     if (typeof tickDwellingRent === 'function') tickDwellingRent();
     if (typeof tickWellRingCalendar === 'function') tickWellRingCalendar();
-    if (typeof tickPassiveCultivationForMonths === 'function') tickPassiveCultivationForMonths(months);
+    if (!opts.skipPassiveCirculation && typeof tickPassiveCultivationForMonths === 'function') {
+        tickPassiveCultivationForMonths(months);
+    }
     if (deferLogs) G._deferringLogs = false;
     const remaining = getYearsRemaining();
     const remainStr = isImmortal() ? 'immortal' : `${remaining}y left`;

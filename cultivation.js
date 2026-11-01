@@ -352,7 +352,7 @@ function executeTrackBreakthroughCore(style, track) {
     }
     beginActionLog();
     const seclusionMonths = getBreakthroughSeclusionMonths(realmIdx);
-    if (!advanceTime(seclusionMonths, `${getTrackRealmName(track)} breakthrough seclusion`)) {
+    if (!advanceTime(seclusionMonths, `${getTrackRealmName(track)} breakthrough seclusion`, { skipPassiveCirculation: true })) {
         cancelActionLog();
         addLog('🚫 Breakthrough seclusion could not begin (time / lifespan blocked).');
         closeBreakthrough();

@@ -6,6 +6,7 @@ Write-Host '=== Pre-PR recursion audits ==='
 node scripts/audit-ensure-sync-recursion.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/audit-storage-recursion.js
+node scripts/audit-time-billing.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host ''
 Write-Host '=== Body overlay fit audit ==='
