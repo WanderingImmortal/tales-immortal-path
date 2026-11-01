@@ -1368,43 +1368,51 @@ function tickWorldNpcGrowth(monthsPassed) {
     G.worldNpcs.forEach(npc => {
         if (!npc.alive) return;
         if (npc.state === 'ambient') return;
-        npc.ageMonths += monthsPassed;
-        if (npc.ageMonths >= getWorldNpcLifespanMonths(npc)) {
-            killWorldNpc(npc, 'old age');
+        const lifespanMonths = getWorldNpcLifespanMonths(npc);
+        const aliveMonths = Math.max(0, lifespanMonths - npc.ageMonths);
+        const effectiveMonths = Math.min(monthsPassed, aliveMonths);
+        if (effectiveMonths <= 0) {
+            if (npc.ageMonths >= lifespanMonths) killWorldNpc(npc, 'old age');
             return;
         }
+        npc.ageMonths += effectiveMonths;
+        const atLifespanEnd = npc.ageMonths >= lifespanMonths;
         if (!canWorldNpcGrow(npc)) {
             if (npc.isDemonicTalent && !npc.demonicMet) {
                 const threatCap = getWorldNpcThreatCap();
                 npc.demonicThreat = Math.min(
                     threatCap,
-                    (npc.demonicThreat || 0) + Math.floor(monthsPassed / 12) * NPC_ECOSYSTEM.demonicThreatPerGrowth
+                    (npc.demonicThreat || 0) + Math.floor(effectiveMonths / 12) * NPC_ECOSYSTEM.demonicThreatPerGrowth
                 );
             }
             clampWorldNpcProgress(npc);
-            return;
-        }
-        const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
-        const rate = npc.growthRate || role.growthRate || 1;
-        npc.growthProgress += monthsPassed * rate;
-        while (npc.growthProgress >= base && canWorldNpcGrow(npc)) {
-            npc.growthProgress -= base;
-            if (Math.random() < (role.breakthroughChance || 0.25)) {
-                const prev = npc.realmIdx;
-                npc.realmIdx = Math.min(npc.realmIdx + 1, getWorldNpcMaxRealm(npc));
-                if (npc.isDemonicTalent && !npc.demonicMet) {
-                    const threatCap = getWorldNpcThreatCap();
-                    npc.demonicThreat = Math.min(
-                        threatCap,
-                        (npc.demonicThreat || 0) + NPC_ECOSYSTEM.demonicThreatPerGrowth
-                    );
-                    if (npc.demonicThreat >= NPC_ECOSYSTEM.demonicThreatLogThreshold && prev < npc.realmIdx) {
-                        maybeLogDemonicThreat(npc);
+        } else {
+            const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
+            const rate = npc.growthRate || role.growthRate || 1;
+            npc.growthProgress += effectiveMonths * rate;
+            while (npc.growthProgress >= base && canWorldNpcGrow(npc)) {
+                npc.growthProgress -= base;
+                if (Math.random() < (role.breakthroughChance || 0.25)) {
+                    const prev = npc.realmIdx;
+                    npc.realmIdx = Math.min(npc.realmIdx + 1, getWorldNpcMaxRealm(npc));
+                    if (npc.isDemonicTalent && !npc.demonicMet) {
+                        const threatCap = getWorldNpcThreatCap();
+                        npc.demonicThreat = Math.min(
+                            threatCap,
+                            (npc.demonicThreat || 0) + NPC_ECOSYSTEM.demonicThreatPerGrowth
+                        );
+                        if (npc.demonicThreat >= NPC_ECOSYSTEM.demonicThreatLogThreshold && prev < npc.realmIdx) {
+                            maybeLogDemonicThreat(npc);
+                        }
                     }
                 }
             }
+            clampWorldNpcProgress(npc);
         }
-        clampWorldNpcProgress(npc);
+        if (atLifespanEnd) {
+            killWorldNpc(npc, 'old age');
+            return;
+        }
         tickWorldNpcWander(npc);
     });
 }
