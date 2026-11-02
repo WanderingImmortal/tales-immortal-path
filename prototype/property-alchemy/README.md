@@ -10,6 +10,8 @@ Experimental emergent alchemy model — **not wired into the live game**.
 | `harness.js` | Demonstration scenarios (emergent behaviour) |
 | `index.js` | Single export surface |
 
-**Run tests:** `node scripts/test-property-alchemy.js`
+**Run tests:** `node scripts/test-property-alchemy.js` · `node scripts/test-property-alchemy-audit.js`
 
-**Design doc:** [`docs/ideas/property-based-alchemy-prototype.md`](../../docs/ideas/property-based-alchemy-prototype.md)
+**Stress audit:** `node scripts/stress-test-property-alchemy.js` · trace: `node scripts/explain-property-alchemy-refinement.js '<json>'`
+
+**Design doc:** [`docs/ideas/property-based-alchemy-prototype.md`](../../docs/ideas/property-based-alchemy-prototype.md) · [`docs/ideas/property-based-alchemy-stress-audit.md`](../../docs/ideas/property-based-alchemy-stress-audit.md)

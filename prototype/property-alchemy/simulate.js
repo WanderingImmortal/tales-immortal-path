@@ -136,7 +136,32 @@ function seededNoise(seed, salt) {
  * @property {HeatProfile} heat
  * @property {IntroductionOrder} [introductionOrder]
  * @property {number} [seed] — optional; only affects minor impurity scatter (±3%)
+ * @property {boolean} [trace] — developer diagnostics; does not affect outcomes
  */
+
+/**
+ * @param {object[]|null} trace
+ * @param {string} kind
+ * @param {string} message
+ * @param {object} [data]
+ */
+function emitTrace(trace, kind, message, data) {
+    if (!trace) return;
+    trace.push({
+        kind,
+        message,
+        ...(data ? { data } : {})
+    });
+}
+
+/**
+ * @param {object} result
+ */
+function stripTraceFromResult(result) {
+    if (!result || !result.trace) return result;
+    const { trace, ...rest } = result;
+    return rest;
+}
 
 /**
  * @param {RefinementInput} input
@@ -146,11 +171,26 @@ function simulateRefinement(input) {
     const heat = HEAT_VALUES[heatKey] ?? HEAT_VALUES.medium;
     const order = input.introductionOrder || 'simultaneous';
     const seed = input.seed ?? 0;
+    const trace = input.trace ? [] : null;
 
     const loads = (input.reagents || []).map(r => loadFromReagent(r.reagentId, r.qty));
     if (!loads.length) throw new Error('At least one reagent required');
 
+    emitTrace(trace, 'refinement_start', 'Refinement started with shared property rules.', {
+        heat: heatKey,
+        heatValue: heat,
+        introductionOrder: order,
+        seed,
+        reagentCount: loads.length
+    });
+
     const phases = partitionByIntroduction(loads, order);
+    emitTrace(trace, 'phases_partitioned', phases.length === 1
+        ? 'All reagents introduced in one phase (simultaneous or single-pole mix).'
+        : `Split into ${phases.length} introduction phases (${order}).`, {
+        phaseCount: phases.length,
+        order
+    });
 
     /** @type {object} */
     const cauldron = {
@@ -169,10 +209,25 @@ function simulateRefinement(input) {
     let peakInstability = 0;
 
     phases.forEach((phaseLoads, phaseIndex) => {
+        emitTrace(trace, 'phase_begin', `Phase ${phaseIndex} — adding ${phaseLoads.length} reagent load(s).`, {
+            phase: phaseIndex
+        });
+
         const beforeYin = cauldron.yin;
         const beforeYang = cauldron.yang;
 
-        phaseLoads.forEach(load => mergeLoad(cauldron, load));
+        phaseLoads.forEach(load => {
+            mergeLoad(cauldron, load);
+            emitTrace(trace, 'reagent_introduced', `Added ${load.qty}× ${load.reagentId}.`, {
+                reagentId: load.reagentId,
+                qty: load.qty,
+                spirit: round1(load.spirit),
+                yin: round1(load.yin),
+                yang: round1(load.yang),
+                volatility: round1(load.volatility),
+                stability: round1(load.stability)
+            });
+        });
 
         const clash = polarityImbalance(cauldron.yin, cauldron.yang);
         const newCharge = polarityImbalance(
@@ -195,6 +250,37 @@ function simulateRefinement(input) {
         cauldron.instability += stepNet;
         peakInstability = Math.max(peakInstability, cauldron.instability);
 
+        if (stepNet > 0.5) {
+            emitTrace(trace, 'destabilisation', 'Net strain exceeded damping this phase.', {
+                stepStrain: round3(stepStrain),
+                stepDamp: round3(stepDamp),
+                polarityStrain: round3(polarityStrain),
+                shockStrain: round3(shockStrain),
+                thermalDrive: round3(thermalDrive)
+            });
+        } else {
+            emitTrace(trace, 'stabilisation', 'Damping met or exceeded strain this phase.', {
+                stepDamp: round3(stepDamp),
+                stepStrain: round3(stepStrain)
+            });
+        }
+        if (introductionShock > 0.1) {
+            emitTrace(trace, 'introduction_shock', 'Later-phase reagents clashed with cauldron polarity.', {
+                introductionShock: round3(introductionShock)
+            });
+        }
+        if (thermalDrive > 5) {
+            emitTrace(trace, 'thermal_pressure', 'Heat amplified volatility in the mixture.', {
+                thermalDrive: round3(thermalDrive),
+                heat
+            });
+        }
+
+        emitTrace(trace, 'instability_update', 'Running instability total updated.', {
+            peakInstability: round3(peakInstability),
+            instabilityAfter: round3(cauldron.instability)
+        });
+
         phaseLog.push({
             phase: phaseIndex,
             polarityImbalance: round3(clash),
@@ -207,11 +293,26 @@ function simulateRefinement(input) {
     });
 
     let impurity = cauldron.impurity;
+    const impurityBeforeScrub = impurity;
     const purifyWork = cauldron.affinities.purify * heat * (heat < 0.55 ? 0.14 : 0.05);
     impurity = Math.max(0, impurity - purifyWork);
+    if (purifyWork > 0) {
+        emitTrace(trace, 'purify_scrub', heat < 0.55
+            ? 'Gentle heat let purifying affinity strip impurities.'
+            : 'Purifying affinity removed some impurities (reduced efficiency at this heat).', {
+            removed: round3(impurityBeforeScrub - impurity),
+            purifyAffinity: round1(cauldron.affinities.purify)
+        });
+    }
 
     const impurityNoise = 1 + (seededNoise(seed, 1) - 0.5) * 0.06;
     impurity *= impurityNoise;
+    if (seed !== 0 || impurityNoise !== 1) {
+        emitTrace(trace, 'impurity_noise', 'Seeded scatter applied to final impurity load.', {
+            seed,
+            multiplier: round3(impurityNoise)
+        });
+    }
 
     const impurityRatio = impurity / Math.max(1, cauldron.spirit);
     const spiritPotency = cauldron.spirit * Math.max(0.2, 1 - impurityRatio * 0.65);
@@ -236,6 +337,12 @@ function simulateRefinement(input) {
     else if (peakInstability > 8.5) outcome = OUTCOME.FAILED;
     else if (peakInstability > 4.2) outcome = OUTCOME.UNSTABLE_SALVAGE;
 
+    emitTrace(trace, 'outcome_threshold', 'Outcome band selected from peak instability.', {
+        peakInstability: round3(peakInstability),
+        outcome,
+        thresholds: { unstable: 4.2, failed: 8.5, rupture: 16 }
+    });
+
     const success = outcome === OUTCOME.REFINED || outcome === OUTCOME.UNSTABLE_SALVAGE;
 
     if (outcome === OUTCOME.RUPTURE || outcome === OUTCOME.FAILED) {
@@ -243,13 +350,26 @@ function simulateRefinement(input) {
         productEffects.heat *= 0.2;
         productEffects.marrow *= 0.15;
         productEffects.toxicity += 2 + peakInstability * 0.3;
+        emitTrace(trace, 'product_collapse', 'Failure rupture collapsed medicinal yields; toxicity retained.', {
+            toxicity: round1(productEffects.toxicity)
+        });
     } else if (outcome === OUTCOME.UNSTABLE_SALVAGE) {
         const salvage = 0.55 + Math.max(0, stabilityMargin) * 0.04;
         productEffects.qi *= salvage;
         productEffects.heat *= salvage;
         productEffects.marrow *= salvage;
         productEffects.toxicity += 0.8;
+        emitTrace(trace, 'unstable_salvage', 'Cracked pill — partial potency salvaged.', {
+            salvageFactor: round3(salvage)
+        });
     }
+
+    emitTrace(trace, 'product_finalized', 'Product vector scaled from affinities and effective spirit.', {
+        dominantAffinity: dominantKey(productEffects),
+        effects: productEffects,
+        impurityRatio: round3(impurityRatio),
+        spiritPotency: round1(spiritPotency)
+    });
 
     const dominantAffinity = dominantKey(productEffects);
     const diagnostics = buildDiagnostics({
@@ -262,7 +382,7 @@ function simulateRefinement(input) {
         cauldron
     });
 
-    return {
+    const result = {
         input: {
             reagents: input.reagents,
             heat: heatKey,
@@ -291,6 +411,8 @@ function simulateRefinement(input) {
         diagnostics,
         observations: diagnostics.playerObservations
     };
+    if (trace) result.trace = trace;
+    return result;
 }
 
 /**
@@ -381,5 +503,7 @@ module.exports = {
     simulateRefinement,
     similarEffectProfile,
     loadFromReagent,
-    polarityImbalance
+    polarityImbalance,
+    stripTraceFromResult,
+    emitTrace
 };
