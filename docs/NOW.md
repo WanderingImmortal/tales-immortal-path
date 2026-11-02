@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-03
 
 ## Focus
-- **Time / cultivation Stage 3E** — Qi purity → Qi technique cost efficiency (PR pending) · [`qi-purity-technique-stage3e.md`](ideas/qi-purity-technique-stage3e.md)
+- **Time / cultivation Stage 3E** — Qi purity → Qi technique cost efficiency ([#189](https://github.com/WanderingImmortal/tales-immortal-path/pull/189)) · [`qi-purity-technique-stage3e.md`](ideas/qi-purity-technique-stage3e.md)
 
 ## Next
 - **Inner Tempering soak doc + idx 1 mechanics** — interior vats after external playtest
