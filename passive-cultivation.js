@@ -90,18 +90,31 @@ function getFocusedCultivationSupportMult(extraMult) {
 
 function getPassiveGatherUnits() {
     const b = PASSIVE_CULTIVATION_BALANCE;
-    return Math.max(0.02, b.passiveBaseUnitsPerWeek * getPassiveCultivationSupportMult());
+    return Math.max(0, b.passiveBaseUnitsPerWeek * getPassiveCultivationSupportMult());
 }
 
 function getFocusedGatherUnits(extraMult) {
     const b = PASSIVE_CULTIVATION_BALANCE;
     const support = getPassiveCultivationSupportMult() * (extraMult || 1);
-    return Math.max(0.5, b.focusedUnitsPerMonth * support * (b.focusedWeeksEquivalent / 4));
+    return Math.max(0, b.focusedUnitsPerMonth * support * (b.focusedWeeksEquivalent / 4));
 }
 
 /** One chamber Gather Qi week ≈ one focused week. */
 function getChamberGatherProgressUnits() {
-    return Math.max(0.35, getFocusedGatherUnits() / 4);
+    return Math.max(0, getFocusedGatherUnits() / 4);
+}
+
+/** One calendar year of dedicated seclusion — same band credit as 12 focused months. */
+function getSeclusionYearGatherUnits() {
+    return 12 * getFocusedGatherUnits();
+}
+
+function applySeclusionYearBandProgress() {
+    if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()
+        && typeof applyQcGatherBandProgress === 'function') {
+        const units = getSeclusionYearGatherUnits();
+        if (units > 0) applyQcGatherBandProgress(units);
+    }
 }
 
 function canRunPassiveCultivation() {

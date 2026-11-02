@@ -77,6 +77,9 @@ function applySeclusionYearGains() {
             logPrefix: 'Seclusion',
             silent: true
         });
+        if (typeof applySeclusionYearBandProgress === 'function') {
+            applySeclusionYearBandProgress();
+        }
     } finally {
         G._deferringLogs = prevDefer;
         G._quietTime = false;
