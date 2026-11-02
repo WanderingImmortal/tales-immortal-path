@@ -10,6 +10,7 @@ node scripts/audit-storage-recursion.js
 node scripts/audit-time-billing.js
 node scripts/audit-world-sim.js
 node scripts/audit-cultivation-progression.js
+node scripts/audit-qi-density-recovery.js
 echo ""
 echo "=== Body overlay fit audit ==="
 node scripts/audit-body-overlay-fit.js

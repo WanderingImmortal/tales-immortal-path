@@ -64,7 +64,14 @@ function loadCultivationRuntime() {
         cultivateDensityMax: 0.32,
         cultivateFillRatio: 0.18,
         perfectConsolidateDensityBonus: 0.15,
-        perfectConsolidateMaxQiBonus: 3
+        perfectConsolidateMaxQiBonus: 3,
+        qiReplenishDensityRef: 1,
+        qiReplenishCostExponent: 1.35,
+        qiCompressionMinFill: 0.72,
+        qiCompressionFillThreshold: 0.82,
+        qiCompressionDifficultyRef: 1,
+        qiCompressionDifficultyExponent: 1.5,
+        qiCompressionDifficultyFloor: 0.08
     };
     global.CHAMBER_BALANCE = {
         weeksPerMonth: 4,
@@ -117,8 +124,10 @@ function loadCultivationRuntime() {
     };
     global.clampCurrentQi = () => {};
     global.getQiDensity = () => (global.G.qiDensity || 0) + global.QI_BALANCE.densityBase;
+    global.getQiFillRatio = () => (global.G.qi || 0) / Math.max(1, global.getMaxQi());
 
     vm.runInThisContext(fs.readFileSync(path.join(root, 'talent.js'), 'utf8'), { filename: 'talent.js' });
+    vm.runInThisContext(fs.readFileSync(path.join(root, 'qi-density.js'), 'utf8'), { filename: 'qi-density.js' });
     vm.runInThisContext(fs.readFileSync(path.join(root, 'passive-cultivation.js'), 'utf8'), { filename: 'passive-cultivation.js' });
     vm.runInThisContext(fs.readFileSync(path.join(root, 'seclusion-project.js'), 'utf8'), { filename: 'seclusion-project.js' });
 
@@ -304,10 +313,18 @@ function simulateUntilMilestone(lifestyle, gradeId, milestone) {
     const stepChamberWeek = () => {
         const cultMult = typeof getCombinedCultivateMult === 'function' ? getCombinedCultivateMult() : 1;
         const cfg = CHAMBER_BALANCE.gatherQi;
-        const densGainRaw = cfg.densityGainMin + 0.5 * (cfg.densityGainMax - cfg.densityGainMin);
-        G.qiDensity = (G.qiDensity || 0) + Math.round(densGainRaw * cultMult * 100) / 100;
-        const fillGain = Math.max(1, Math.floor(getMaxQi() * cfg.fillRatio * cultMult));
-        G.qi = Math.min(getMaxQi(), (G.qi || 0) + fillGain);
+        const sessionGains = typeof computeQiCultivationSessionGains === 'function'
+            ? computeQiCultivationSessionGains({
+                cultMult,
+                scale: 1,
+                densityMin: cfg.densityGainMin,
+                densityMax: cfg.densityGainMax,
+                fillRatio: cfg.fillRatio,
+                densityRoll: 0.5
+            })
+            : { densGain: 0, fillGain: 1 };
+        if (sessionGains.densGain) G.qiDensity = (G.qiDensity || 0) + sessionGains.densGain;
+        G.qi = Math.min(getMaxQi(), (G.qi || 0) + sessionGains.fillGain);
         applyQcGatherBandProgress(getChamberGatherProgressUnits());
         G.ageMonths += 0.25;
     };
