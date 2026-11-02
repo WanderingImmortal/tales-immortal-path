@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Stage 3B consistency shipped) |
+| **Status** | `building` (Stage 3C density/recovery shipped) |
 | **Blocked on** | Optional pacing tune (passive-only QC bands) after owner review |
 | **Issue** | none yet |
-| **Chat / PR** | Stage 1 PR #183 · Stage 2 PR #184 · Stage 3A audit doc |
+| **Chat / PR** | Stage 1 PR #183 · Stage 2 PR #184 · Stage 3A audit · Stage 3C PR #187 |
 | **Updated** | 2026-11-02 |
 
 ## Intent
@@ -131,7 +131,28 @@ Peak remains optional; `hasQcBandBreakthroughReady()` at Late unchanged.
 
 ---
 
-## Stage 3+ (after 3B)
+## Stage 3C — Qi density persistence & recovery cost (shipped)
+
+**Goal:** Treat `G.qiDensity` as the **established** compression bonus (persists through spend/depletion). Refilling the dantian at high **total** density (`getQiDensity()`) costs more effort; raising density further requires a mostly-full dantian and gets progressively harder.
+
+| Piece | Role |
+|-------|------|
+| `G.qiDensity` | Established bonus (saved); not reduced when `G.qi` drops |
+| `getQiDensity()` | Display/combat density = realm/foundation base + bonus + gear |
+| `qi-density.js` | `getQiReplenishEffortMult`, `getQiCompressionDifficultyMult`, `computeQiCultivationSessionGains` |
+| `runCultivateSession` / `chamberGatherQi` | Refill ÷ replenish mult; compression only when fill ≥72% (full blend ≥82%) |
+| `QI_BALANCE` | `qiReplenishCostExponent`, compression fill thresholds |
+| Pills | Instant refill via `applyQiReplenishAmount` (density still raises via pill’s own refinement line) |
+
+**Regression harness:** `node scripts/audit-qi-density-recovery.js` (also in `pre-pr-check.sh`).
+
+**Audit (pre-change behaviour):** Every cultivate/gather tick added density **and** refill regardless of dantian fill; high-density cultivators refilled at the same calendar rate as low-density; depletion did not clear bonus but recovery did not cost extra.
+
+**Unresolved / future:** Dedicated compression action; technique-specific absorption/refinement/compression weights; `getScarQiRegenMult()` still multiplies **display** density (legacy); meridian pill flat +Qi bypasses density cost (small amounts).
+
+---
+
+## Stage 3+ (after 3C)
 
 - Routines on living clock
 - Fractional social `ACTION_MONTHS` when paused

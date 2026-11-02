@@ -1354,7 +1354,10 @@ const PILL_TYPES = {
         apply() {
             const boost = 4 + Math.floor(Math.random() * 7) + G.realmIdx;
             G.qiDensity = (G.qiDensity || 0) + Math.round(boost * 0.06 * 10) / 10;
-            G.qi = Math.min(getMaxQi(), G.qi + Math.floor(getMaxQi() * 0.25));
+            const pillFill = typeof applyQiReplenishAmount === 'function'
+                ? applyQiReplenishAmount(Math.floor(getMaxQi() * 0.25))
+                : Math.floor(getMaxQi() * 0.25);
+            G.qi = Math.min(getMaxQi(), G.qi + pillFill);
             clampCurrentQi();
             G.vitality += Math.floor(boost / 3);
             G.spirit += Math.floor(boost / 4);
@@ -6463,7 +6466,16 @@ const QI_BALANCE = {
     cultivateDensityMax: 0.32,
     cultivateFillRatio: 0.18,
     perfectConsolidateDensityBonus: 0.15,
-    perfectConsolidateMaxQiBonus: 3
+    perfectConsolidateMaxQiBonus: 3,
+    /** Refill cost scales as (density / ref) ^ exponent — harsh at high established density. */
+    qiReplenishDensityRef: 1,
+    qiReplenishCostExponent: 1.35,
+    /** Compression toward higher density only when dantian is mostly full. */
+    qiCompressionMinFill: 0.72,
+    qiCompressionFillThreshold: 0.82,
+    qiCompressionDifficultyRef: 1,
+    qiCompressionDifficultyExponent: 1.5,
+    qiCompressionDifficultyFloor: 0.08
 };
 
 // ===== QI CULTIVATION CHAMBER =====

@@ -64,13 +64,22 @@ function runCultivateSession(options) {
     const methodMult = typeof getCultivationMethodGatherMult === 'function' ? getCultivationMethodGatherMult() : 1;
     const extraMult = opts.extraMult || 1;
     const cultMult = sectMult * factionMult * traitMult * talentMult * legacyMult * methodMult * extraMult;
-    const densGainRaw = b.cultivateDensityMin + Math.random() * (b.cultivateDensityMax - b.cultivateDensityMin);
-    const densGain = Math.round(densGainRaw * cultMult * scale * 100) / 100;
-    G.qiDensity = (G.qiDensity || 0) + densGain;
-    const fillGainRaw = getMaxQi() * b.cultivateFillRatio * cultMult * scale;
-    const fillGain = scale < 1
-        ? Math.max(0, Math.round(fillGainRaw))
-        : Math.max(1, Math.floor(fillGainRaw));
+    const qiRegMult = typeof getBodyChamberQiRegenMult === 'function' ? getBodyChamberQiRegenMult() : 1;
+    const sessionGains = typeof computeQiCultivationSessionGains === 'function'
+        ? computeQiCultivationSessionGains({
+            cultMult,
+            scale,
+            densityMin: b.cultivateDensityMin,
+            densityMax: b.cultivateDensityMax,
+            fillRatio: b.cultivateFillRatio,
+            qiRegMult
+        })
+        : null;
+    const densGain = sessionGains ? sessionGains.densGain : 0;
+    const fillGain = sessionGains
+        ? sessionGains.fillGain
+        : Math.max(1, Math.floor(getMaxQi() * b.cultivateFillRatio * cultMult * scale));
+    if (densGain) G.qiDensity = (G.qiDensity || 0) + densGain;
     G.qi = Math.min(getMaxQi(), G.qi + fillGain);
     clampCurrentQi();
     const statGainBase = 1 + Math.floor((typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx) / 2);
@@ -146,7 +155,10 @@ function runCultivateSession(options) {
             G.sectPassiveIncome = (G.sectPassiveIncome || 0) + tradeIncome;
         }
     }
-    let cultMsg = `${opts.logPrefix || '🧘 You refine your Qi'}. +${densGain.toFixed(2)} Density, dantian +${fillGain}/${getMaxQi()}, +${statGain} secondary stats.`;
+    const densNote = densGain > 0
+        ? `+${densGain.toFixed(2)} Density, `
+        : (sessionGains && sessionGains.compressionBlend <= 0 ? 'refill only (dantian low), ' : '');
+    let cultMsg = `${opts.logPrefix || '🧘 You refine your Qi'}. ${densNote}dantian +${fillGain}/${getMaxQi()}, +${statGain} secondary stats.`;
     if (opts.silent || opts.quiet) {
         return cultMsg;
     }

@@ -157,12 +157,15 @@ function getChamberActionGuide(key) {
 function formatChamberGatherStats() {
     const g = CHAMBER_BALANCE.gatherQi;
     const cultMult = getChamberCultivateMult();
-    const minD = (g.densityGainMin * cultMult).toFixed(2);
-    const maxD = (g.densityGainMax * cultMult).toFixed(2);
-    const fillPct = Math.round(g.fillRatio * 100 * cultMult);
+    const compressMult = typeof getQiCompressionDifficultyMult === 'function' ? getQiCompressionDifficultyMult() : 1;
+    const compressBlend = typeof getQiCompressionSessionBlend === 'function' ? getQiCompressionSessionBlend() : 1;
+    const minD = (g.densityGainMin * cultMult * compressMult * compressBlend).toFixed(2);
+    const maxD = (g.densityGainMax * cultMult * compressMult * compressBlend).toFixed(2);
+    const replenishMult = typeof getQiReplenishEffortMult === 'function' ? getQiReplenishEffortMult() : 1;
+    const fillPct = Math.round((g.fillRatio * 100 * cultMult) / replenishMult);
     return [
-        `+${minD}–${maxD} Qi Density`,
-        `Refill ~${fillPct}% of max Qi`,
+        compressBlend > 0 ? `+${minD}–${maxD} Qi Density (when dantian ≥82% full)` : 'Density compression when dantian ≥72% full',
+        `Refill ~${fillPct}% of max Qi${replenishMult > 1.05 ? ' (high density slows refill)' : ''}`,
         '+Root (slow); density milestones grant bonus Root',
         `${g.weeks} week${g.weeks === 1 ? '' : 's'}`
     ];
@@ -404,10 +407,19 @@ function chamberGatherQi() {
     }
     const cultMult = getChamberCultivateMult();
     const qiRegMult = typeof getBodyChamberQiRegenMult === 'function' ? getBodyChamberQiRegenMult() : 1;
-    const densGainRaw = cfg.densityGainMin + Math.random() * (cfg.densityGainMax - cfg.densityGainMin);
-    const densGain = Math.round(densGainRaw * cultMult * 100) / 100;
-    G.qiDensity = (G.qiDensity || 0) + densGain;
-    const fillGain = Math.max(1, Math.floor(getMaxQi() * cfg.fillRatio * cultMult * qiRegMult));
+    const sessionGains = typeof computeQiCultivationSessionGains === 'function'
+        ? computeQiCultivationSessionGains({
+            cultMult,
+            scale: 1,
+            densityMin: cfg.densityGainMin,
+            densityMax: cfg.densityGainMax,
+            fillRatio: cfg.fillRatio,
+            qiRegMult
+        })
+        : null;
+    const densGain = sessionGains ? sessionGains.densGain : 0;
+    const fillGain = sessionGains ? sessionGains.fillGain : Math.max(1, Math.floor(getMaxQi() * cfg.fillRatio * cultMult * qiRegMult));
+    if (densGain) G.qiDensity = (G.qiDensity || 0) + densGain;
     G.qi = Math.min(getMaxQi(), (G.qi || 0) + fillGain);
     clampCurrentQi();
     if (G.qiExhausted && G.qi > 0) G.qiExhausted = false;
@@ -423,7 +435,10 @@ function chamberGatherQi() {
         ? checkCultivationDensityMilestones() : 0;
     triggerChamberAnim('gather');
     const total = getQiDensity();
-    let msg = `🌬️ You draw heaven's breath into your dantian. +${densGain.toFixed(2)} Density (${total.toFixed(2)} total), dantian +${fillGain}.`;
+    const densPart = densGain > 0
+        ? `+${densGain.toFixed(2)} Density (${total.toFixed(2)} total), `
+        : (sessionGains && sessionGains.compressionBlend <= 0 ? 'refill only — compress when dantian is fuller, ' : '');
+    let msg = `🌬️ You draw heaven's breath into your dantian. ${densPart}dantian +${fillGain}.`;
     if (rootGain) msg += ` ${formatPillarGrant('root', rootGain)}.`;
     if (milestoneGain) msg += ` ${formatPillarGrant('root', milestoneGain)} (density milestone).`;
     if (cultMult > 1.05) msg += ` (×${cultMult.toFixed(2)} cultivation bonus)`;
