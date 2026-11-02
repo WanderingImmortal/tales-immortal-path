@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-02
 
 ## Focus
-- **Time / cultivation Stage 3B** — owner decisions on QC gather floor + seclusion bands · audit [`cultivation-progression-audit-stage3a.md`](ideas/cultivation-progression-audit-stage3a.md)
+- **Time / cultivation Stage 3C** — Qi density persistence + recovery cost (PR #187) · architecture [`time-pacing-cultivation-architecture.md`](ideas/time-pacing-cultivation-architecture.md)
 
 ## Next
 - **Inner Tempering soak doc + idx 1 mechanics** — interior vats after external playtest
