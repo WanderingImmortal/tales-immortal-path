@@ -16,4 +16,6 @@ Experimental emergent alchemy model — **not wired into the live game**.
 
 **Compare models:** `node scripts/compare-thermal-model.js`
 
+**Dev laboratory (browser):** `node scripts/serve-alchemy-lab.js` → http://127.0.0.1:4173/prototype/property-alchemy/lab/index.html · [`docs/ideas/property-alchemy-dev-laboratory.md`](../../docs/ideas/property-alchemy-dev-laboratory.md)
+
 **Design doc:** [`docs/ideas/property-based-alchemy-prototype.md`](../../docs/ideas/property-based-alchemy-prototype.md) · [`docs/ideas/property-based-alchemy-stress-audit.md`](../../docs/ideas/property-based-alchemy-stress-audit.md) · [`docs/ideas/property-based-alchemy-thermal-activation.md`](../../docs/ideas/property-based-alchemy-thermal-activation.md)
