@@ -2051,7 +2051,7 @@ const VITALITY_HP_RATIO = { qi: 0.5, body: 1.2, soul: 0.35 };
 const STAT_GUIDE = {
     qi: { label: 'Qi', emoji: '⚡', desc: 'Spiritual energy in your dantian. Spent on travel, techniques, and breakthroughs. Cultivate to refill toward your max.' },
     qiDensity: { label: 'Qi Density', emoji: '💧', desc: 'Concentration of power in your dantian Qi. Persists when reserves drop; high density makes refilling slower.' },
-    qiPurity: { label: 'Qi Purity', emoji: '✨', desc: 'Refinement quality of your Qi — not the same as density. Builds when you compress a full dantian; cycle stain lowers effective purity.' },
+    qiPurity: { label: 'Qi Purity', emoji: '✨', desc: 'Refinement quality of your Qi — not density. Builds when you compress a nearly-full dantian; lowers Qi technique costs. Cycle stain lowers effective purity.' },
     vitality: { label: 'Vitality', emoji: '❤️', desc: 'Physical resilience. Raises max HP (especially for body cultivators) and helps survive combat and tribulations.' },
     spirit: { label: 'Spirit', emoji: '🧠', desc: 'Mental acuity and perception. Improves explore loot, dao comprehension, and some technique effects.' },
     will: { label: 'Will', emoji: '💪', desc: 'Determination and inner strength. Helps resist demonic influence, mental attacks, and tribulation pressure.' },
@@ -6489,7 +6489,13 @@ const QI_PURITY_BALANCE = {
     cultivatePurityMax: 0.11,
     refinementDifficultyRef: 1,
     refinementDifficultyExponent: 1.45,
-    refinementDifficultyFloor: 0.12
+    refinementDifficultyFloor: 0.12,
+    /** Purity refines only when the dantian is nearly full (stricter than density compression). */
+    purityCompressionFillThreshold: 0.88,
+    /** Qi-path technique cost: up to ~18% reduction at high established purity (not damage). */
+    techniqueCostPurityRef: 1,
+    techniqueCostMaxReduction: 0.18,
+    techniqueCostPurityExponent: 0.55
 };
 
 /** QC → Foundation Establishment: pillar grant from preparation (not break chance). */

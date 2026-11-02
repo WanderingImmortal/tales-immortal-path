@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Stage 3D purity/FE foundation shipped) |
+| **Status** | `building` (Stage 3E purity technique cost shipped) |
 | **Blocked on** | Optional pacing tune (passive-only QC bands) after owner review |
 | **Issue** | none yet |
-| **Chat / PR** | Stage 1 PR #183 · Stage 2 PR #184 · Stage 3A audit · Stage 3C PR #187 · Stage 3D PR #188 |
+| **Chat / PR** | … · Stage 3D PR #188 · Stage 3E purity technique cost |
 | **Updated** | 2026-11-02 |
 
 ## Intent
@@ -169,7 +169,21 @@ Detail: [`qi-purity-foundation-stage3d.md`](./qi-purity-foundation-stage3d.md)
 
 ---
 
-## Stage 3+ (after 3D)
+## Stage 3E — Purity → Qi technique cost (shipped)
+
+**Goal:** Purity improves **Qi manipulation efficiency** (technique cost), not damage or free resources.
+
+| Piece | Role |
+|-------|------|
+| `getQiPurityTechniqueCostMult` | Up to ~18% Qi technique cost reduction; spirit techniques exempt |
+| `getTechniqueCombatCost` / `getTechCost` | Single integration point |
+| `purityCompressionFillThreshold` | Purity refines at ≥88% fill (density from ~72%) |
+
+**Audit:** `node scripts/audit-qi-purity-technique.js` · [`qi-purity-technique-stage3e.md`](./qi-purity-technique-stage3e.md)
+
+---
+
+## Stage 3+ (after 3E)
 
 - Routines on living clock
 - Fractional social `ACTION_MONTHS` when paused

@@ -106,6 +106,9 @@ function getTechniqueCombatCost(tech) {
     if (typeof getFoundationNatureCombatMods === 'function') {
         cost = Math.floor(cost * (getFoundationNatureCombatMods(tech).techCostMult || 1));
     }
+    if (typeof getQiPurityTechniqueCostMult === 'function') {
+        cost = Math.floor(cost * getQiPurityTechniqueCostMult(tech));
+    }
     return Math.max(1, cost);
 }
 
