@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Stage 3A audit complete) |
-| **Blocked on** | Owner decisions in Stage 3A §6 before 3B balance implementation |
+| **Status** | `building` (Stage 3B consistency shipped) |
+| **Blocked on** | Optional pacing tune (passive-only QC bands) after owner review |
 | **Issue** | none yet |
 | **Chat / PR** | Stage 1 PR #183 · Stage 2 PR #184 · Stage 3A audit doc |
 | **Updated** | 2026-11-02 |
@@ -106,9 +106,28 @@ Both are run from `scripts/pre-pr-check.sh`.
 
 Run measurements: `node scripts/audit-cultivation-progression.js`
 
-### Stage 3B (not started — needs owner approval)
+### Stage 3B — Cultivation progression consistency (shipped)
 
-See audit doc §5–§6: floor rule, seclusion band policy, pacing anchors, then optional `CULTIVATION_ACTIVITY_PROFILES` + NPC calibration.
+**Goal:** Fix mechanical incoherence without broad rebalance.
+
+| Change | File |
+|--------|------|
+| Remove per-tick `max(0.5, …)` on QC band apply; keep fractional units | `qc-depth.js` `applyQcGatherBandProgress`, `getQcGatherProgressUnits` |
+| Remove artificial floors on passive/focused/chamber gather unit getters | `passive-cultivation.js` |
+| Seclusion year: `applySeclusionYearBandProgress()` = 12× monthly focused gather units + existing quiet density session | `passive-cultivation.js`, `seclusion-project.js` |
+
+**Regression harness:** `scripts/audit-cultivation-progression.js` (fractional progress, tick parity, focused &gt; passive, seclusion bands, Late FE gate, no Qi regression).
+
+**After fix (pentamixed · bare breath · homeless):**
+
+| Path | Months to **Late** (inferior) | Notes |
+|------|------------------------------|--------|
+| Focused | ~155 (~29y) | FE band gate |
+| Seclusion | ~156 (~29y) | Yearly steps; same band/year as 12 focused months |
+| Chamber | ~155 | + density side path |
+| Passive only | Lifespan-limited | ~30 gather units in 64y — meaningful floor, not FE via bands alone |
+
+Peak remains optional; `hasQcBandBreakthroughReady()` at Late unchanged.
 
 ---
 

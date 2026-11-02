@@ -175,11 +175,16 @@ function maybeAdvanceQcBand() {
     return advanced;
 }
 
+function isQcAtPeakBand() {
+    return getQcBandStage() === 'peak';
+}
+
 function applyQcGatherBandProgress(amount) {
     if (!isQiCondensationRealm()) return null;
     ensureQcDepthState();
     const base = amount != null ? amount : 0;
-    const gain = Math.max(0.5, Number(base) || 0);
+    const gain = Math.max(0, Number(base) || 0);
+    if (gain <= 0) return null;
     G.qcBand.gatherProgress = (G.qcBand.gatherProgress || 0) + gain;
     return maybeAdvanceQcBand();
 }
@@ -234,6 +239,31 @@ function stageReached(thresholdKey) {
     const cur = G.qcBand.stage || 'early';
     const target = thresholdKey === 'mid' ? 'mid' : thresholdKey === 'late' ? 'late' : 'peak';
     return order.indexOf(cur) >= order.indexOf(target);
+}
+
+function progressOverCalendarMonths(lifestyle, gradeId, months) {
+    freshPlayer(gradeId);
+    const restoreRandom = installDeterministicRandom();
+    let elapsed = 0;
+    while (elapsed < months && G.ageMonths < G.lifespanMonths) {
+        if (lifestyle === 'passive') {
+            tickPassiveCultivationWeek();
+            G.ageMonths += 0.25;
+            elapsed += 0.25;
+        } else if (lifestyle === 'focused') {
+            runFocusedCultivateSession({});
+            G.ageMonths += 1;
+            elapsed += 1;
+        } else if (lifestyle === 'seclusion') {
+            applySeclusionYearGains();
+            G.ageMonths += 12;
+            elapsed += 12;
+        } else {
+            break;
+        }
+    }
+    restoreRandom();
+    return G.qcBand.gatherProgress || 0;
 }
 
 function simulateSeclusionYears(gradeId, years) {
@@ -322,7 +352,7 @@ function unitsPerMonth(lifestyle, gradeId) {
     if (lifestyle === 'passive') return getPassiveGatherUnits() * 4;
     if (lifestyle === 'focused') return getFocusedGatherUnits();
     if (lifestyle === 'chamber') return getChamberGatherProgressUnits() * 4;
-    if (lifestyle === 'seclusion') return 0;
+    if (lifestyle === 'seclusion') return getSeclusionYearGatherUnits() / 12;
     return 0;
 }
 
@@ -395,8 +425,68 @@ loadCultivationRuntime();
     else ok('passive batch (12mo) matches 48 weekly ticks');
 }
 
+// --- Stage 3B regression: fractional gather progress ---
+{
+    freshPlayer('common');
+    for (let i = 0; i < 10; i++) applyQcGatherBandProgress(0.08);
+    const prog = G.qcBand.gatherProgress || 0;
+    if (Math.abs(prog - 0.8) > 1e-9) fail(`fractional gather expected 0.8, got ${prog}`);
+    else ok('fractional gather progress retained (10×0.08)');
+}
+
+// --- No inflation: many small ticks vs one lump ---
+{
+    freshPlayer('common');
+    for (let i = 0; i < 100; i++) applyQcGatherBandProgress(0.08);
+    const many = G.qcBand.gatherProgress;
+    freshPlayer('common');
+    applyQcGatherBandProgress(8);
+    const lump = G.qcBand.gatherProgress;
+    if (Math.abs(many - lump) > 1e-6) fail(`tick inflation many=${many} lump=${lump}`);
+    else ok('equivalent gather total independent of tick count');
+}
+
+// --- Focused beats passive over same calendar span ---
+{
+    const passive12 = progressOverCalendarMonths('passive', 'inferior', 12);
+    const focused12 = progressOverCalendarMonths('focused', 'inferior', 12);
+    if (focused12 <= passive12) fail(`focused ${focused12} should exceed passive ${passive12} over 12mo`);
+    else ok('focused cultivation outperforms passive over 12 months (inferior)');
+}
+
+// --- Seclusion advances bands; beats passive over one year ---
+{
+    const passive12 = progressOverCalendarMonths('passive', 'inferior', 12);
+    const seclusion12 = progressOverCalendarMonths('seclusion', 'inferior', 12);
+    if (seclusion12 <= 0) fail('seclusion year should advance QC gather progress');
+    else if (seclusion12 <= passive12) fail(`seclusion ${seclusion12} should beat passive ${passive12} over 12mo`);
+    else ok('seclusion year band progress beats passive year (inferior)');
+}
+
+// --- Late FE gate without Peak ---
+{
+    freshPlayer('common');
+    G.qcBand.stage = 'late';
+    G.qcBand.gatherProgress = 220;
+    if (!hasQcBandBreakthroughReady()) fail('Late band should allow FE readiness');
+    if (isQcAtPeakBand()) fail('Late should not count as Peak');
+    else ok('Foundation band gate: Late ready, Peak optional');
+}
+
+// --- Qi expenditure does not regress QC stage or gather total ---
+{
+    freshPlayer('common');
+    G.qcBand.stage = 'late';
+    G.qcBand.gatherProgress = 250;
+    G.qi = 10;
+    G.qi = 0;
+    if (G.qcBand.stage !== 'late' || G.qcBand.gatherProgress !== 250) {
+        fail('spending Qi must not regress QC band stage or gather progress');
+    } else ok('Qi expenditure does not regress QC bands');
+}
+
 // --- Measure progression table ---
-console.log('\n=== Stage 3A baseline scenario ===');
+console.log('\n=== Stage 3B progression scenario (post-consistency fix) ===');
 console.log('pentamixed composition · bare breath · homeless · no sect/faction/formations · QC realm 0 · start age 16 · lifespan 80y\n');
 
 const lifestyles = ['passive', 'focused', 'chamber', 'seclusion'];
@@ -409,22 +499,24 @@ for (const g of GRADES) {
     console.log(`${g}\t${row.join('\t')}`);
 }
 
-console.log('\n--- Months to QC milestones (band gather; seclusion band N/A) ---');
+console.log('\n--- Months to QC milestones (band gather) ---');
 for (const milestone of milestones) {
     console.log(`\n>> ${milestone.toUpperCase()} (threshold ${THRESHOLDS[milestone]} units)`);
     console.log('grade\tlifestyle\tmonths\tage\tyears_left\tstage\tfe_eligible\tdensity');
-    for (const g of GRADES) {
+    for (const g of ['inferior', 'common', 'superior']) {
         for (const life of lifestyles) {
-            if (life === 'seclusion') {
-                continue;
-            }
-            const r = simulateUntilMilestone(life, g, milestone);
-            console.log(`${g}\t${life}\t${r.monthsSimulated.toFixed(1)}\t${r.ageYears}\t${r.yearsLeft}\t${r.stage}\t${r.feEligible}\t${r.qiDensity}`);
+            const r = life === 'seclusion'
+                ? simulateUntilMilestone('seclusion', g, milestone)
+                : simulateUntilMilestone(life, g, milestone);
+            const mo = life === 'seclusion' && !r.hit && r.monthsSimulated >= MAX_SIM_MONTHS - 1
+                ? '—'
+                : r.monthsSimulated.toFixed(1);
+            console.log(`${g}\t${life}\t${mo}\t${r.ageYears}\t${r.yearsLeft}\t${r.stage}\t${r.feEligible}\t${r.qiDensity}`);
         }
     }
 }
 
-console.log('\n--- Seclusion (no QC band progress): qi density after N years ---');
+console.log('\n--- Seclusion: band + density after N years ---');
 console.log('grade\tyears\tage\tyears_left\tgather\tstage\tdensity\tfe_eligible');
 for (const g of GRADES) {
     for (const years of [10, 20, 40]) {
@@ -442,7 +534,8 @@ console.log('\n--- Relative efficiency vs passive (inferior, units/month) ---');
     console.log(`passive baseline: ${passiveU.toFixed(4)} units/mo`);
     console.log(`focused: ${focusedU.toFixed(4)} (${(focusedU / passiveU).toFixed(2)}×)`);
     console.log(`chamber gather: ${chamberU.toFixed(4)} (${(chamberU / passiveU).toFixed(2)}× passive)`);
-    console.log(`seclusion: 0 band units/mo; qi session uses extraMult 0.22 only (no yieldScale)`);
+    const seclusionU = getSeclusionYearGatherUnits() / 12;
+    console.log(`seclusion band: ${seclusionU.toFixed(4)}/mo (${(seclusionU / passiveU).toFixed(2)}× passive) + quiet density session/year`);
 }
 
 console.log('\n--- NPC wanderer vs player passive (inferior, 480 mo / 40y alive time) ---');
@@ -461,11 +554,12 @@ console.log('\n--- Formula notes (audit) ---');
 console.log('- Passive: band += getPassiveGatherUnits()/wk; qi += runCultivateSession(yieldScale=0.055×support)');
 console.log('- Focused: band += getFocusedGatherUnits(); qi += runCultivateSession(yieldScale=0.82×focusedSupport); advanceTime skips passive batch');
 console.log('- Chamber: band += getChamberGatherProgressUnits() (= focusedUnits/4); separate CHAMBER_BALANCE density/fill');
-console.log('- Seclusion: runCultivateSession(extraMult=0.22) per year only — no applyQcGatherBandProgress');
+console.log('- Seclusion: applySeclusionYearBandProgress (12× focused gather units) + runCultivateSession(extraMult=0.22)');
+console.log('- Band apply: fractional units only (no per-tick 0.5 floor)');
 console.log('- Spirit root: getTalentGatherMult delegates to getTalentCultivateMult when talent.js loaded (grade × composition speed)');
 
 if (failed) {
     console.error(`\n${failed} check(s) failed.`);
     process.exit(1);
 }
-console.log('\nCultivation progression audit complete (measurement only).');
+console.log('\nCultivation progression audit complete.');

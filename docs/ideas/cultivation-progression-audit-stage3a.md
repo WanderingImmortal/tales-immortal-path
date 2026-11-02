@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (measurement complete; no balance changes) |
-| **Blocked on** | Owner decisions in §6 before Stage 3B |
+| **Status** | `shipped` (Stage 3B consistency — see architecture doc) |
+| **Blocked on** | Optional passive pacing tune if owner wants band progress while working/traveling |
 | **Harness** | `scripts/audit-cultivation-progression.js` |
 | **Architecture hub** | [`time-pacing-cultivation-architecture.md`](./time-pacing-cultivation-architecture.md) |
 | **Updated** | 2026-11-02 |
@@ -162,13 +162,14 @@ Background NPCs use cheap aggregation; parity with player **QC depth is not atte
 3. **Seclusion role:** full QC progression, partial, or density-only?
 4. **Should passive weekly density** remain negligible at bare breath, or should density and bands scale together?
 
-### Stage 3B incremental plan (implementation — not started)
+### Stage 3B (shipped)
 
-1. Fix measurement regressions: harness asserts expected **nominal** rates once floor decision landed.
-2. Introduce `CULTIVATION_ACTIVITY_PROFILES` (read-only config) mirroring audit table — no yield changes until approved.
-3. Align seclusion year hook with chosen band policy.
-4. Optional: NPC `growthProgress` scaling factor derived from harness “equivalent units/month” table.
-5. Re-run full audit + update this doc; only then tune `PASSIVE_CULTIVATION_BALANCE` / thresholds if owner approves.
+1. Removed QC band `max(0.5, …)` floor; fractional units preserved.
+2. Removed gather-unit floors on passive/focused/chamber getters (except `Math.max(0, …)`).
+3. Seclusion applies `getSeclusionYearGatherUnits()` (= 12× focused month) via `applySeclusionYearBandProgress`.
+4. Harness extended with Stage 3B regression assertions.
+
+**Remaining balance (not fixed in 3B):** bare-breath **passive-only** band progress is far below dedicated paths and does not reach Mid within mortal lifespan — intentional tradeoff unless `passiveBaseUnitsPerWeek` or thresholds are tuned later. NPC parity unchanged.
 
 ---
 

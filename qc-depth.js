@@ -213,7 +213,7 @@ function getQcGatherProgressUnits() {
     if (typeof getCultivationMethodGatherMult === 'function') {
         units *= Math.max(0.85, getCultivationMethodGatherMult());
     }
-    return Math.max(0.5, units);
+    return Math.max(0, units);
 }
 
 function getQcBandStage() {
@@ -247,7 +247,8 @@ function applyQcGatherBandProgress(amount) {
     if (!isQiCondensationRealm()) return null;
     ensureQcDepthState();
     const base = amount != null ? amount : getQcGatherProgressUnits();
-    const gain = Math.max(0.5, Number(base) || getQcGatherProgressUnits());
+    const gain = Math.max(0, Number(base) || 0);
+    if (gain <= 0) return null;
     G.qcBand.gatherProgress = (G.qcBand.gatherProgress || 0) + gain;
     return maybeAdvanceQcBand();
 }
