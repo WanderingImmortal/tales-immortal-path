@@ -9,6 +9,7 @@ node scripts/audit-ensure-sync-recursion.js
 node scripts/audit-storage-recursion.js
 node scripts/audit-time-billing.js
 node scripts/audit-world-sim.js
+node scripts/audit-cultivation-progression.js
 echo ""
 echo "=== Body overlay fit audit ==="
 node scripts/audit-body-overlay-fit.js

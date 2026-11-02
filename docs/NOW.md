@@ -2,10 +2,10 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-10-17
+**Updated:** 2026-11-02
 
 ## Focus
-- **External Tempering v1 playtest** — salve / apply / drills in body chamber · PR in flight · [`body-external-tempering-baseline.md`](ideas/body-external-tempering-baseline.md)
+- **Time / cultivation Stage 3B** — owner decisions on QC gather floor + seclusion bands · audit [`cultivation-progression-audit-stage3a.md`](ideas/cultivation-progression-audit-stage3a.md)
 
 ## Next
 - **Inner Tempering soak doc + idx 1 mechanics** — interior vats after external playtest
