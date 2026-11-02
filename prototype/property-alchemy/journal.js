@@ -33,6 +33,7 @@ function recordExperiment(journal, input, result, meta = {}) {
         reagents: input.reagents.map(r => ({ ...r })),
         conditions: {
             heat: input.heat,
+            heatStages: input.heatStages || null,
             introductionOrder: input.introductionOrder || 'simultaneous',
             seed: input.seed ?? 0
         },
@@ -41,11 +42,14 @@ function recordExperiment(journal, input, result, meta = {}) {
             peakInstability: result.peakInstability,
             observations: result.observations
         },
+        process: result.process || { outcome: result.outcome },
+        material: result.material || null,
         product: {
             effects: result.product.effects,
             dominantAffinity: result.product.dominantAffinity,
             potency: result.product.potency,
-            grade: result.product.grade
+            grade: result.product.grade,
+            suitability: result.product.suitability || null
         },
         outcome: result.outcome,
         success: result.success,
