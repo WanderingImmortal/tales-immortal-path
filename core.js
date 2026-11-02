@@ -793,6 +793,15 @@ function getTechCost(tech) {
     if (typeof getTechniqueIntentMatch === 'function') {
         cost *= getTechniqueIntentMatch(tech).costMult;
     }
+    if (typeof getTechniqueAffinityCostMult === 'function') {
+        cost *= getTechniqueAffinityCostMult(tech);
+    }
+    if (typeof getTechniqueSetCostMult === 'function') {
+        cost *= getTechniqueSetCostMult(tech);
+    }
+    if (typeof getQiPurityTechniqueCostMult === 'function') {
+        cost *= getQiPurityTechniqueCostMult(tech);
+    }
     return Math.max(1, Math.round(cost));
 }
 

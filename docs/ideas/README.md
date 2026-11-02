@@ -149,7 +149,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Time model — lived journey + seclusion skips](time-model.md) | `designed` | Deferred priority; lived mode needs location/NPC density | — |
 | [Time, pacing & cultivation architecture](time-pacing-cultivation-architecture.md) | `building` (Stage 3C density/recovery) | Optional passive-only QC tune | PR #187 |
 | [Qi density recovery (Stage 3C audit)](qi-density-recovery-stage3c.md) | `shipped` | Technique compression split; scar/density display fix | PR #187 |
-| [Qi purity & FE foundation (Stage 3D)](qi-purity-foundation-stage3d.md) | `shipped` | Purity in combat/techniques; GC foundation grades | PR #188 |
+| [Qi purity & FE foundation (Stage 3D)](qi-purity-foundation-stage3d.md) | `shipped` | QC→FE foundation grant; compression purity | PR #188 |
+| [Qi purity technique efficiency (Stage 3E)](qi-purity-technique-stage3e.md) | `building` | Purity lowers Qi technique cost; stricter refine gate | — |
 | [Cultivation progression audit — Stage 3A](cultivation-progression-audit-stage3a.md) | `designed` | Owner approval §6 before rebalance | — |
 | [Living world clock (continuous)](world-clock-continuous.md) | `building` (Phase 2) | — | [#86](https://github.com/WanderingImmortal/tales-immortal-path/pull/86) |
 | [QC cultivate on the living clock](qc-cultivate-excitement.md) | `designed` | Clock Phase 2 playtest | — |

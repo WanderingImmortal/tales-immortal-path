@@ -2,10 +2,10 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-11-02
+**Updated:** 2026-11-03
 
 ## Focus
-- **Time / cultivation Stage 3D** — Qi purity + QC→FE foundation grant (PR #188) · [`time-pacing-cultivation-architecture.md`](ideas/time-pacing-cultivation-architecture.md)
+- **Time / cultivation Stage 3E** — Qi purity → Qi technique cost efficiency (PR pending) · [`qi-purity-technique-stage3e.md`](ideas/qi-purity-technique-stage3e.md)
 
 ## Next
 - **Inner Tempering soak doc + idx 1 mechanics** — interior vats after external playtest
