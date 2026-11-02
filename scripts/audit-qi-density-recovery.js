@@ -99,28 +99,52 @@ function runCultivateSession(options) {
     vm.runInThisContext(actionsStub, { filename: 'actions-stub.js' });
 }
 
-function simulateRefillWeeks(startBonus, startQiPct) {
-    G.qiDensity = startBonus;
+function getChamberRefillGain(lockedBonus) {
+    G.qiDensity = lockedBonus;
+    const cfg = CHAMBER_BALANCE.gatherQi;
+    return computeQiCultivationSessionGains({
+        cultMult: 1,
+        scale: 1,
+        densityMin: cfg.densityGainMin,
+        densityMax: cfg.densityGainMax,
+        fillRatio: cfg.fillRatio,
+        densityRoll: 0.5
+    }).fillGain;
+}
+
+/**
+ * Simulate weekly chamber gather from startQiPct → 100%.
+ * @param {number} establishedBonus G.qiDensity locked for the run (refill-only measurement)
+ */
+function simulateRefillWeeks(establishedBonus, startQiPct) {
+    G.qiDensity = establishedBonus;
     G.qi = Math.floor(getMaxQi() * startQiPct);
     clampCurrentQi();
     const cap = getMaxQi();
+    const fillPerWeek = getChamberRefillGain(establishedBonus);
+    const fillRaw = (cap * CHAMBER_BALANCE.gatherQi.fillRatio) / getQiReplenishEffortMult();
+    const hitMinFloor = fillPerWeek <= 1 && fillRaw < 1;
     let weeks = 0;
     const maxWeeks = 50000;
     while (G.qi < cap && weeks < maxWeeks) {
-        const cfg = CHAMBER_BALANCE.gatherQi;
-        const sessionGains = computeQiCultivationSessionGains({
-            cultMult: 1,
-            scale: 1,
-            densityMin: cfg.densityGainMin,
-            densityMax: cfg.densityGainMax,
-            fillRatio: cfg.fillRatio,
-            densityRoll: 0.5
-        });
-        if (sessionGains.densGain) G.qiDensity = (G.qiDensity || 0) + sessionGains.densGain;
-        G.qi = Math.min(cap, G.qi + sessionGains.fillGain);
+        G.qi = Math.min(cap, G.qi + fillPerWeek);
         weeks += 1;
     }
-    return weeks;
+    const completed = G.qi >= cap;
+    const theoreticalWeeks = Math.ceil(cap / Math.max(fillRaw, 1e-6));
+    return {
+        weeks,
+        completed,
+        cappedByLimit: !completed && weeks >= maxWeeks,
+        fillPerWeek,
+        fillRaw: Math.round(fillRaw * 1000) / 1000,
+        theoreticalWeeks,
+        hitMinFloor
+    };
+}
+
+function totalDensityFromBonus(bonus) {
+    return Math.round((QI_BALANCE.densityBase + bonus) * 100) / 100;
 }
 
 function main() {
@@ -144,7 +168,7 @@ function main() {
 
     G.qi = getMaxQi();
     const bonusFull = G.qiDensity;
-    const gFull = runCultivateSession({ yieldScale: 1, cultMult: 1 });
+    runCultivateSession({ yieldScale: 1, cultMult: 1 });
     if (G.qiDensity <= bonusFull) fail('full dantian session should raise density when compressing');
     else ok('compression raises density when dantian is full');
 
@@ -168,6 +192,16 @@ function main() {
     if (!(highRefill < lowRefill)) fail('higher density should reduce per-session refill');
     else ok('higher-density qi costs more effort to replenish');
 
+    G.qiDensity = 1;
+    G.qi = getMaxQi();
+    const loopStart = G.qiDensity;
+    for (let i = 0; i < 40; i++) {
+        G.qi = Math.max(1, Math.floor(getMaxQi() * 0.35));
+        runCultivateSession({ yieldScale: 1, cultMult: 1 });
+    }
+    if (G.qiDensity > loopStart + 0.02) fail('spend/refill loop below compression threshold raised density');
+    else ok('repeated spend + low-fill replenish does not rapidly increase density');
+
     G.qiDensity = 0;
     G.qi = Math.floor(getMaxQi() * 0.5);
     const midBonus = G.qiDensity;
@@ -178,31 +212,57 @@ function main() {
     if (G.qiDensity > midBonus + 0.05) fail('ordinary low-fill recovery loop raised density');
     else ok('ordinary recovery does not spam density increases');
 
+    G.qi = 0;
+    G.qiDensity = 2.5;
+    const persistBonus = G.qiDensity;
+    runCultivateSession({ yieldScale: 1, cultMult: 1 });
+    if (G.qiDensity !== persistBonus) fail('established bonus changed after full depletion recovery');
+    else ok('density persists after complete depletion and recovery');
+
     if (G.qcBand) G.qcBand.stage = 'mid';
     runCultivateSession({ yieldScale: 1, cultMult: 1 });
     if (G.qcBand.stage !== 'mid') fail('cultivation session regressed qc band stage');
     else ok('qi expenditure / recovery does not regress cultivation stage');
 
+    G.qiDensity = 0;
     const mult1 = getQiReplenishEffortMult();
     G.qiDensity = 2;
     const mult2 = getQiReplenishEffortMult();
     if (!(mult2 > mult1)) fail('replenish effort mult should rise with density');
     else ok('technique modifiers path intact (replenish mult scales with density)');
 
-    console.log('\n--- Recovery measurements (chamber gather, 0% → 100% qi, expanded dantian) ---');
-    G.maxQiBonus = 40;
-    const scenarios = [
-        { label: 'bonus+0 (total~1)', bonus: 0 },
-        { label: 'bonus+1 (total~2)', bonus: 1 },
-        { label: 'bonus+2 (total~3)', bonus: 2 },
-        { label: 'bonus+4 (total~5)', bonus: 4 }
-    ];
-    console.log('scenario\tweeks\treplenishMult');
-    scenarios.forEach(s => {
-        G.qiDensity = s.bonus;
+    console.log('\n--- Recovery measurements (chamber gather, 0% → 100%) ---');
+    console.log('Note: no 50-week test cap (limit is 50000). Equal weeks at high density usually means min 1 Qi/week floor.');
+    G.maxQiBonus = 490;
+    const cap = getMaxQi();
+    const densityTargets = [1, 2, 3, 5, 10];
+    console.log(`dantianCap=${cap}\ttotalDensity\treplenishMult\tfillRaw/wk\tfillActual/wk\tminFloor\tweeks\tcompleted\tcapped`);
+    densityTargets.forEach(total => {
+        const bonus = total - QI_BALANCE.densityBase;
+        G.qiDensity = bonus;
         const mult = getQiReplenishEffortMult();
-        const weeks = simulateRefillWeeks(s.bonus, 0);
-        console.log(`${s.label}\t${weeks}\t${mult.toFixed(2)}`);
+        const r = simulateRefillWeeks(bonus, 0);
+        console.log([
+            cap,
+            total.toFixed(2),
+            mult.toFixed(2),
+            r.fillRaw,
+            r.fillPerWeek,
+            r.hitMinFloor ? 'yes' : 'no',
+            r.weeks,
+            r.completed ? 'yes' : 'no',
+            r.cappedByLimit ? 'yes' : 'no'
+        ].join('\t'));
+        if (!r.completed) fail(`recovery sim did not reach 100% at density ${total} (weeks=${r.weeks})`);
+    });
+    G.maxQiBonus = 0;
+
+    console.log('\n--- Small dantian (cap=50) — shows min-fill floor collapsing distinct times ---');
+    G.maxQiBonus = 40;
+    [3, 5].forEach(total => {
+        const bonus = total - 1;
+        const r = simulateRefillWeeks(bonus, 0);
+        console.log(`total~${total}\tweeks=${r.weeks}\tfill/wk=${r.fillPerWeek}\tminFloor=${r.hitMinFloor}\tcompleted=${r.completed}`);
     });
     G.maxQiBonus = 0;
 
@@ -213,7 +273,22 @@ function main() {
     G.qiDensity = 3;
     const pillHigh = applyQiReplenishAmount(pillBase);
     if (!(pillHigh < pillLow)) fail('spirit pill refill should respect density cost');
-    else ok('pill instant refill respects density cost (no free bypass)');
+    else ok('spirit gathering pill refill respects density cost (no free bypass)');
+
+    console.log('\n--- Recovery bypass inventory (report only; intentional power stays) ---');
+    const bypassNotes = [
+        'qi_restore pill — sets G.qi = getMaxQi() (full bypass; premium item)',
+        'meridian_soothing — flat +4+realmIdx Qi (no density cost)',
+        'foundation_stabilizing — flat +3 Qi (no density cost)',
+        'consolidation / seal — often G.qi = getMaxQi() (capstone refill)',
+        'combat end-of-turn — getCombatResourceRegenGain() adds flat Qi/Breath (no density cost)',
+        'Meridian Flow / technique refunds — combat-local, not cultivation recovery',
+        'spirit_gathering pill — refill via applyQiReplenishAmount; density line separate',
+        'QC store pills (Driftburst…) — band progress in QC; %Qi fallback without density cost',
+        'Body chamber +2 Qi, meridian open +3 — small flat grants',
+        'world effects / tribulation — assorted flat +/- Qi'
+    ];
+    bypassNotes.forEach(line => console.log(`· ${line}`));
 
     console.log('\n--- Audit summary ---');
     if (failed) {

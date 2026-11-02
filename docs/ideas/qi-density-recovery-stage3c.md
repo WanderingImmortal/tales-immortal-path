@@ -40,7 +40,9 @@ Run:
 node scripts/audit-qi-density-recovery.js
 ```
 
-The script prints chamber-gather **weeks to refill 0→100%** at several established bonuses (inferior root, bare mult=1).
+The harness simulates **chamber gather** from 0→100% with **established bonus locked** (no compression creep during the run). There is **no 50-week cutoff** (`maxWeeks = 50000`).
+
+When **3× and 5×** both showed **50 weeks** on a **cap=50** dantian, that was **completed recovery**: per-session refill uses `Math.max(1, floor(fillRaw))`, so once `fillRaw < 1` every density ≥~3× gets **1 Qi/week** → `weeks = cap`. Use the script’s **cap=500** table for differentiated times, or read `fillRaw/wk` vs `fillActual/wk` and `minFloor`.
 
 ## Future extensions (out of scope)
 
