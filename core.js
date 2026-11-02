@@ -8,6 +8,7 @@ let G = {
     realmIdx: 0,
     qi: 10,
     qiDensity: 0,
+    qiPurity: 0,
     maxQiBonus: 0,
     vitality: 4,
     spirit: 5,
@@ -393,6 +394,7 @@ function migrateQiSystem() {
         G.maxQiBonus = 0;
     }
     if (G.qiDensity == null) G.qiDensity = 0;
+    if (G.qiPurity == null) G.qiPurity = 0;
     if (G.maxQiBonus == null) G.maxQiBonus = 0;
     clampCurrentQi();
     G._qiMigrated = true;

@@ -11,6 +11,7 @@ node scripts/audit-time-billing.js
 node scripts/audit-world-sim.js
 node scripts/audit-cultivation-progression.js
 node scripts/audit-qi-density-recovery.js
+node scripts/audit-qi-purity-foundation.js
 echo ""
 echo "=== Body overlay fit audit ==="
 node scripts/audit-body-overlay-fit.js

@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Stage 3C density/recovery shipped) |
+| **Status** | `building` (Stage 3D purity/FE foundation shipped) |
 | **Blocked on** | Optional pacing tune (passive-only QC bands) after owner review |
 | **Issue** | none yet |
-| **Chat / PR** | Stage 1 PR #183 · Stage 2 PR #184 · Stage 3A audit · Stage 3C PR #187 |
+| **Chat / PR** | Stage 1 PR #183 · Stage 2 PR #184 · Stage 3A audit · Stage 3C PR #187 · Stage 3D PR #188 |
 | **Updated** | 2026-11-02 |
 
 ## Intent
@@ -152,7 +152,24 @@ Peak remains optional; `hasQcBandBreakthroughReady()` at Late unchanged.
 
 ---
 
-## Stage 3+ (after 3C)
+## Stage 3D — Qi purity & FE foundation quality (shipped)
+
+**Goal:** Separate **purity** (refinement) from **density** (concentration); make QC→FE **success** deposit preparation into persistent **foundation pillars** without mandating Peak.
+
+| Piece | Role |
+|-------|------|
+| `G.qiPurity` / `getQiPurity()` | Refinement bonus; compression-gated; stain reduces effective purity |
+| `qi-purity.js` | Session purity gain alongside density (PR #187 gates) |
+| `QC_FE_FOUNDATION_CROSSING` | Weights for band, density, purity, seal, method |
+| `applyQcFeFoundationPillarGrant` | Called on QC→FE break success (`cultivation.js`) |
+
+**Audit:** `node scripts/audit-qi-purity-foundation.js`
+
+Detail: [`qi-purity-foundation-stage3d.md`](./qi-purity-foundation-stage3d.md)
+
+---
+
+## Stage 3+ (after 3D)
 
 - Routines on living clock
 - Fractional social `ACTION_MONTHS` when paused

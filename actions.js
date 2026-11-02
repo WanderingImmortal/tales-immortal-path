@@ -79,7 +79,12 @@ function runCultivateSession(options) {
     const fillGain = sessionGains
         ? sessionGains.fillGain
         : Math.max(1, Math.floor(getMaxQi() * b.cultivateFillRatio * cultMult * scale));
+    if (sessionGains && typeof computeQiPuritySessionGain === 'function') {
+        computeQiPuritySessionGain(sessionGains, { cultMult, scale });
+    }
+    const purityGain = sessionGains ? sessionGains.purityGain : 0;
     if (densGain) G.qiDensity = (G.qiDensity || 0) + densGain;
+    if (purityGain) G.qiPurity = (G.qiPurity || 0) + purityGain;
     G.qi = Math.min(getMaxQi(), G.qi + fillGain);
     clampCurrentQi();
     const statGainBase = 1 + Math.floor((typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx) / 2);
