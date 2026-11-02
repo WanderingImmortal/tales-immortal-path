@@ -8,6 +8,7 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/audit-storage-recursion.js
 node scripts/audit-time-billing.js
 node scripts/audit-world-sim.js
+node scripts/audit-cultivation-progression.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host ''
 Write-Host '=== Body overlay fit audit ==='
