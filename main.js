@@ -579,6 +579,7 @@ function setupCreation(refreshOnly) {
             ? NEUTRAL_STARTING_BASE
             : PATHS.qi.base;
         G.qiDensity = 0;
+        G.qiPurity = 0;
         G.maxQiBonus = Math.max(0, (base.qi || 10) - QI_BALANCE.maxQiBase);
         G.vitality = base.vitality;
         G.spirit = base.spirit;

@@ -140,6 +140,8 @@ function renderStatus() {
     document.getElementById('qiStat').textContent = G.qi + '/' + getMaxQi() + (G.qiExhausted ? ' ⚠️' : '');
     const densEl = document.getElementById('qiDensityStat');
     if (densEl) densEl.textContent = getQiDensity().toFixed(2);
+    const purityEl = document.getElementById('qiPurityStat');
+    if (purityEl && typeof getQiPurity === 'function') purityEl.textContent = getQiPurity().toFixed(2);
     document.getElementById('vitStat').textContent = G.vitality;
     document.getElementById('spiStat').textContent = G.spirit;
     document.getElementById('wilStat').textContent = G.will;

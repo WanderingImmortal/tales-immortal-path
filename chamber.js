@@ -419,7 +419,12 @@ function chamberGatherQi() {
         : null;
     const densGain = sessionGains ? sessionGains.densGain : 0;
     const fillGain = sessionGains ? sessionGains.fillGain : Math.max(1, Math.floor(getMaxQi() * cfg.fillRatio * cultMult * qiRegMult));
+    if (sessionGains && typeof computeQiPuritySessionGain === 'function') {
+        computeQiPuritySessionGain(sessionGains, { cultMult, scale: 1 });
+    }
+    const purityGain = sessionGains ? sessionGains.purityGain : 0;
     if (densGain) G.qiDensity = (G.qiDensity || 0) + densGain;
+    if (purityGain) G.qiPurity = (G.qiPurity || 0) + purityGain;
     G.qi = Math.min(getMaxQi(), (G.qi || 0) + fillGain);
     clampCurrentQi();
     if (G.qiExhausted && G.qi > 0) G.qiExhausted = false;

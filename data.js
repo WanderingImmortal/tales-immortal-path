@@ -2050,7 +2050,8 @@ const VITALITY_HP_RATIO = { qi: 0.5, body: 1.2, soul: 0.35 };
 // Sidebar stat explanations (tooltips + stat guide popup)
 const STAT_GUIDE = {
     qi: { label: 'Qi', emoji: '⚡', desc: 'Spiritual energy in your dantian. Spent on travel, techniques, and breakthroughs. Cultivate to refill toward your max.' },
-    qiDensity: { label: 'Qi Density', emoji: '💧', desc: 'How refined your Qi is. Higher density boosts technique power and is required for consolidation peaks.' },
+    qiDensity: { label: 'Qi Density', emoji: '💧', desc: 'Concentration of power in your dantian Qi. Persists when reserves drop; high density makes refilling slower.' },
+    qiPurity: { label: 'Qi Purity', emoji: '✨', desc: 'Refinement quality of your Qi — not the same as density. Builds when you compress a full dantian; cycle stain lowers effective purity.' },
     vitality: { label: 'Vitality', emoji: '❤️', desc: 'Physical resilience. Raises max HP (especially for body cultivators) and helps survive combat and tribulations.' },
     spirit: { label: 'Spirit', emoji: '🧠', desc: 'Mental acuity and perception. Improves explore loot, dao comprehension, and some technique effects.' },
     will: { label: 'Will', emoji: '💪', desc: 'Determination and inner strength. Helps resist demonic influence, mental attacks, and tribulation pressure.' },
@@ -6476,6 +6477,37 @@ const QI_BALANCE = {
     qiCompressionDifficultyRef: 1,
     qiCompressionDifficultyExponent: 1.5,
     qiCompressionDifficultyFloor: 0.08
+};
+
+// ===== QI PURITY (refinement quality — not density) =====
+
+const QI_PURITY_BALANCE = {
+    purityBase: 0.5,
+    purityFloor: 0.25,
+    maxCorruptionStain: 0.45,
+    cultivatePurityMin: 0.04,
+    cultivatePurityMax: 0.11,
+    refinementDifficultyRef: 1,
+    refinementDifficultyExponent: 1.45,
+    refinementDifficultyFloor: 0.12
+};
+
+/** QC → Foundation Establishment: pillar grant from preparation (not break chance). */
+const QC_FE_FOUNDATION_CROSSING = {
+    stageWeight: { early: 0, mid: 0.15, late: 1, peak: 1.25 },
+    densityWeight: 0.22,
+    densityBonusCap: 4,
+    purityWeight: 0.18,
+    purityBonusCap: 2.5,
+    sealTierWeight: { settled: 0.12, peak: 0.22, perfect: 0.28 },
+    methodGradeWeight: { crude: 0, common: 0.06, superior: 0.1, peerless: 0.14 },
+    basePillars: { root: 1, flow: 0.5, stability: 2 },
+    pillarScale: { root: 3.5, flow: 2.2, stability: 5.5 },
+    styleMod: {
+        balanced: { root: 1, flow: 1, stability: 1 },
+        power: { root: 0.85, flow: 0.75, stability: 1.2 },
+        wisdom: { root: 0.9, flow: 1.25, stability: 0.95 }
+    }
 };
 
 // ===== QI CULTIVATION CHAMBER =====

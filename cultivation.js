@@ -395,6 +395,9 @@ function executeTrackBreakthroughCore(style, track) {
         if (qcCrossing && typeof applyQcBreakthroughEntryBonuses === 'function') {
             applyQcBreakthroughEntryBonuses(style);
         }
+        if (qcCrossing && typeof applyQcFeFoundationPillarGrant === 'function') {
+            applyQcFeFoundationPillarGrant(style);
+        }
         const boost = 3 + Math.floor(Math.random() * 6) + (style === 'power' ? 3 : 0) + (style === 'wisdom' ? 2 : 0);
         if (track === 'dantian' || track === 'vessel') {
             G.vitality += Math.floor(boost / 2) + (style === 'power' ? 2 : 0);
