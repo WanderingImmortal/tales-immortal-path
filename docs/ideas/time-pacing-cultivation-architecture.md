@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Stage 2 world sim shipped) |
-| **Blocked on** | Stage 3 player cultivation profiles / seclusion parity |
+| **Status** | `building` (Stage 3A audit complete) |
+| **Blocked on** | Owner decisions in Stage 3A §6 before 3B balance implementation |
 | **Issue** | none yet |
-| **Chat / PR** | Stage 1 PR #183 · Stage 2 world sim PR |
-| **Updated** | 2026-11-01 |
+| **Chat / PR** | Stage 1 PR #183 · Stage 2 PR #184 · Stage 3A audit doc |
+| **Updated** | 2026-11-02 |
 
 ## Intent
 
@@ -82,9 +82,38 @@ Both are run from `scripts/pre-pr-check.sh`.
 
 ---
 
-## Stage 3+ (not started)
+## Stage 3A — Cultivation progression audit (measurement only)
 
-- Cultivation activity profiles / seclusion world parity (player rewards)
+**Deliverables:** [`cultivation-progression-audit-stage3a.md`](./cultivation-progression-audit-stage3a.md) · `scripts/audit-cultivation-progression.js`
+
+### Summary findings
+
+| Topic | Result |
+|-------|--------|
+| **Harness** | Deterministic Node sim using real `passive-cultivation`, `runCultivateSession`, seclusion year hook, QC band rules |
+| **Seclusion** | No QC band progress; ~0.22× cultivate mult per year — **not** competitive with passive/focused/chamber for realm bands |
+| **Focused vs passive** | Nominal ~18× units/month (inferior), but **`applyQcGatherBandProgress` `max(0.5, …)` per weekly passive tick** makes passive/chamber **faster to Mid/Late/Peak** for inferior/common |
+| **Chamber** | Same band months as passive when floor dominates; **much higher density** than bare passive |
+| **Batch vs step** | Passive batch matches weekly ticks |
+| **NPC** | Aggregate `growthProgress`/120mo rolls — **no QC bands**, no root parity |
+
+### Measured baseline (pentamixed · bare breath · homeless · age 16)
+
+| Milestone | Inferior passive (mo / age) | Inferior focused | Notes |
+|-----------|----------------------------|------------------|-------|
+| Late (FE band gate) | 110 / ~25y | 155 / ~29y | ~54y lifespan left at Late (passive) |
+| Peak | 160 / ~29y | 225 / ~35y | Design anchor ~50–60y FE **not** matched at current floor + thresholds |
+
+Run measurements: `node scripts/audit-cultivation-progression.js`
+
+### Stage 3B (not started — needs owner approval)
+
+See audit doc §5–§6: floor rule, seclusion band policy, pacing anchors, then optional `CULTIVATION_ACTIVITY_PROFILES` + NPC calibration.
+
+---
+
+## Stage 3+ (after 3B)
+
 - Routines on living clock
 - Fractional social `ACTION_MONTHS` when paused
 
