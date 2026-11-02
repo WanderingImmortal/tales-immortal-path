@@ -46,6 +46,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Redwell starter city](redwell-starter-city.md) | `building` | Pamphlet pool; field loot polish | [#90](https://github.com/WanderingImmortal/tales-immortal-path/pull/90) |
 | [QC technique pamphlet pool](qc-technique-pamphlet-pool.md) | `shipped` (v1) | Playtest redraw; rare slots later | `cursor/qc-pamphlet-pool` |
 | [Dustbone QC alchemy](dustbone-qc-alchemy.md) | `designed` (names locked) | Field drops; cultivate buffs | [#89](https://github.com/WanderingImmortal/tales-immortal-path/pull/89) |
+| [Property-based alchemy prototype](property-based-alchemy-prototype.md) | `building` | Owner review; live bridge | `cursor/property-alchemy-prototype-002d` |
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Redwell starter slice | — || [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
 | [Domain — realm claim & qi pressure](domain-system.md) | `designed` (brainstorm) | GC journey; realm claims | — |
