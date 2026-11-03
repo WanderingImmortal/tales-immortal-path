@@ -161,7 +161,7 @@ function generateLesserSects(options) {
     const usedNames = new Set(
         (catalog.blockedNames || []).map(normalizeNameKey)
     );
-    const usedHq = new Set();
+    const usedHq = new Set(options.reservedHqIds || []);
     const sects = [];
     let seq = 0;
 

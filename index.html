@@ -1433,18 +1433,25 @@
 
 <div class="popup-overlay" id="mapPopup">
     <div class="popup-box map-popup-box">
-        <h2>🗺️ Azure Sky Continent</h2>
+        <h2>🗺️ World Map</h2>
         <div class="map-popup-intro">
-            Click a region to travel — roads are open; places above your station can kill you. Walk places on the local map. <span id="currentZoneDisplay">Current: Unknown</span>
+            World → continent → region → local places. Roads stay open; danger still applies. <span id="currentZoneDisplay">Current: Unknown</span>
         </div>
         <div class="map-tabs" role="tablist" aria-label="Map layers">
-            <button type="button" class="map-tab-btn active" id="mapTabWorld" data-map-tab="world" role="tab" aria-selected="true">🗺️ World</button>
+            <button type="button" class="map-tab-btn active" id="mapTabWorld" data-map-tab="world" role="tab" aria-selected="true">🌍 World</button>
+            <button type="button" class="map-tab-btn" id="mapTabContinent" data-map-tab="continent" role="tab" aria-selected="false">🌏 Region</button>
             <button type="button" class="map-tab-btn" id="mapTabLocal" data-map-tab="local" role="tab" aria-selected="false">📍 Local</button>
             <button type="button" class="map-tab-btn" id="mapTabSect" data-map-tab="sect" role="tab" aria-selected="false">🏯 Sect</button>
         </div>
-        <div id="mapWorldPanel" class="map-tab-panel" role="tabpanel">
+        <div id="mapWorldPanel" class="map-tab-panel map-geo-panel" role="tabpanel">
             <div id="continentMap" class="continent-map-wrap"></div>
             <div id="zoneInfo" class="zone-info-panel">
+                Tap a continent to continue.
+            </div>
+        </div>
+        <div id="mapContinentPanel" class="map-tab-panel map-geo-panel" role="tabpanel" hidden>
+            <div id="continentMapInner" class="continent-map-wrap"></div>
+            <div id="zoneInfoContinent" class="zone-info-panel">
                 Tap a region to learn more.
             </div>
         </div>
@@ -1525,8 +1532,12 @@
 <script src="cultivation.js?v=23"></script>
 <script src="intent.js?v=7"></script>
 <script src="tribulation.js?v=17"></script>
-<script src="locations.js?v=3"></script>
-<script src="world.js?v=34"></script>
+<script src="locations.js?v=4"></script>
+<script src="world-geography.js?v=1"></script>
+<script src="world.js?v=35"></script>
+<script src="sandbox/lesser-sects/lesser-sects-bundle.js"></script>
+<script src="procedural-lesser-sects.js?v=1"></script>
+<script src="world-population.js?v=1"></script>
 <script src="ambient-npcs.js?v=1"></script>
 <script src="npc-converse.js?v=2"></script>
 <script src="npc-betrayal.js?v=1"></script>

@@ -4025,6 +4025,41 @@ const WORLD_TIME_BALANCE = {
     chronicleSummaryMax: 3
 };
 
+// ===== WORLD GEOGRAPHY — World → Continent → Region (zone) → Local place =====
+/** Region ids match ZONES keys. Dustbone Continent holds the Dustbone Desert region (zone id `dustbone`). */
+const WORLD_GEOGRAPHY = {
+    version: 1,
+    worldId: 'mortal_realm',
+    worldName: 'Mortal Realm',
+    continents: {
+        azure_sky: {
+            id: 'azure_sky',
+            name: 'Azure Sky Continent',
+            emoji: '🌏',
+            regionIds: ['frostbite', 'heartlands', 'jade', 'emberwild'],
+            blurb: 'Heartlands sect politics, jade tides, frost spine, and emberwild green.'
+        },
+        dustbone_continent: {
+            id: 'dustbone_continent',
+            name: 'Dustbone Continent',
+            emoji: '🦴',
+            regionIds: ['dustbone'],
+            blurb: 'Sandveil tribes, Registry capitals, and starter roads under the Law of Dust.'
+        }
+    },
+    regionContinent: {
+        frostbite: 'azure_sky',
+        heartlands: 'azure_sky',
+        jade: 'azure_sky',
+        emberwild: 'azure_sky',
+        dustbone: 'dustbone_continent'
+    },
+    /** Optional display override when region name differs from continent branding. */
+    regionTitles: {
+        dustbone: 'Dustbone Desert'
+    }
+};
+
 // ===== WORLD LOCATIONS — cities, markets, sect halls within zones =====
 const ZONE_MAP_LAYOUT = {
     frostbite: { cx: 50, cy: 14, rx: 14, ry: 9 },
@@ -4039,23 +4074,45 @@ const ZONE_LOCAL_LAYOUT = {
     dustbone: {
         theme: 'desert',
         nodes: {
-            redwell: { x: 32, y: 62, layer: 2 },
-            ironscar_quarry: { x: 48, y: 78, layer: 1 },
-            dewcatch_scrub: { x: 18, y: 74, layer: 1 },
-            bonehollow_caverns: { x: 42, y: 88, layer: 1 },
-            bone_crossroads: { x: 58, y: 38, layer: 2 },
-            miraj_waystation: { x: 28, y: 36, layer: 1 },
-            sunscar_camp: { x: 82, y: 28, layer: 1 },
-            ashen_shrine: { x: 72, y: 72, layer: 1 }
+            redwell: { x: 34, y: 68, layer: 2 },
+            brine_well_hamlet: { x: 12, y: 58, layer: 1 },
+            salt_bloom_flats: { x: 8, y: 82, layer: 1 },
+            dewcatch_scrub: { x: 22, y: 78, layer: 1 },
+            ironscar_quarry: { x: 46, y: 84, layer: 1 },
+            bonehollow_caverns: { x: 38, y: 92, layer: 1 },
+            whisper_marsh: { x: 14, y: 92, layer: 1 },
+            scorpion_flats: { x: 52, y: 96, layer: 1 },
+            windcut_ridge: { x: 62, y: 88, layer: 1 },
+            copper_vein_cut: { x: 72, y: 82, layer: 1 },
+            red_dune_pass: { x: 48, y: 52, layer: 1 },
+            pilgrims_rest_stop: { x: 38, y: 44, layer: 1 },
+            bone_crossroads: { x: 58, y: 32, layer: 2 },
+            miraj_waystation: { x: 26, y: 34, layer: 1 },
+            sand_river_ford: { x: 18, y: 42, layer: 1 },
+            fallen_pylon_ruins: { x: 78, y: 48, layer: 1 },
+            sunscar_camp: { x: 88, y: 24, layer: 1 },
+            ashen_shrine: { x: 76, y: 68, layer: 1 }
         },
         paths: [
+            { from: 'brine_well_hamlet', to: 'redwell' },
+            { from: 'salt_bloom_flats', to: 'brine_well_hamlet' },
             { from: 'dewcatch_scrub', to: 'redwell' },
+            { from: 'whisper_marsh', to: 'salt_bloom_flats' },
             { from: 'ironscar_quarry', to: 'redwell' },
-            { from: 'bonehollow_caverns', to: 'redwell' },
-            { from: 'redwell', to: 'bone_crossroads' },
+            { from: 'bonehollow_caverns', to: 'ironscar_quarry' },
+            { from: 'scorpion_flats', to: 'bonehollow_caverns' },
+            { from: 'windcut_ridge', to: 'scorpion_flats' },
+            { from: 'copper_vein_cut', to: 'windcut_ridge' },
+            { from: 'redwell', to: 'red_dune_pass' },
+            { from: 'red_dune_pass', to: 'pilgrims_rest_stop' },
+            { from: 'pilgrims_rest_stop', to: 'sand_river_ford' },
+            { from: 'sand_river_ford', to: 'miraj_waystation' },
             { from: 'miraj_waystation', to: 'bone_crossroads' },
+            { from: 'red_dune_pass', to: 'bone_crossroads' },
+            { from: 'fallen_pylon_ruins', to: 'bone_crossroads' },
             { from: 'sunscar_camp', to: 'bone_crossroads' },
-            { from: 'ashen_shrine', to: 'bone_crossroads' }
+            { from: 'ashen_shrine', to: 'bone_crossroads' },
+            { from: 'ashen_shrine', to: 'fallen_pylon_ruins' }
         ]
     },
     frostbite: {
@@ -4185,6 +4242,96 @@ const WORLD_LOCATIONS = {
         description: 'Black flame never dies on the altar stones — omens are bought and sold here.',
         factionNpcId: 'faction_ashen_seer',
         tags: ['Ashen Priests', 'Omens']
+    },
+    brine_well_hamlet: {
+        id: 'brine_well_hamlet', parentZone: 'dustbone', type: 'city',
+        name: 'Brine-Well Hamlet', emoji: '🏘️',
+        description: 'A string of mud-brick homes around a bitter well — herders and salt traders.',
+        lore: 'Too small for Registry pins. Still large enough to gossip about every caravan that passes.',
+        tags: ['Village', 'Rumors'],
+        resources: ['salt', 'forage'],
+        resourceProfile: { primary: 'forage', abundance: 'low' },
+        regionId: 'dustbone'
+    },
+    salt_bloom_flats: {
+        id: 'salt_bloom_flats', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Salt Bloom Flats', emoji: '🌸',
+        description: 'Pink crusted salt and dawn-bloom herbs — long day-trips from Redwell or the hamlet.',
+        lore: 'Harvesters mark safe paths with bone stakes. Sand serpents ignore the stakes.',
+        tags: ['Explore', 'Herbs', 'Field'],
+        resources: ['herbs', 'salt'],
+        resourceProfile: { primary: 'herbs', abundance: 'moderate' },
+        regionId: 'dustbone'
+    },
+    whisper_marsh: {
+        id: 'whisper_marsh', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Whisper Marsh', emoji: '🫧',
+        description: 'Seep-water reeds and glowcap at the scrub edge — quiet, then not.',
+        tags: ['Explore', 'Herbs', 'Beasts'],
+        resources: ['herbs', 'beast'],
+        resourceProfile: { primary: 'herbs', abundance: 'moderate' },
+        regionId: 'dustbone'
+    },
+    scorpion_flats: {
+        id: 'scorpion_flats', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Scorpion Flats', emoji: '🦂',
+        description: 'Heat-shimmer pans where carapace beasts sun themselves on third-dynasty tile.',
+        tags: ['Explore', 'Beasts', 'Field'],
+        resources: ['beast', 'bone'],
+        resourceProfile: { primary: 'beast', abundance: 'moderate' },
+        regionId: 'dustbone'
+    },
+    windcut_ridge: {
+        id: 'windcut_ridge', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Windcut Ridge', emoji: '⛰️',
+        description: 'A knife-edge ridge where wandering cultivators drill breath against the gale.',
+        lore: 'No charter hall — just wind, stone, and occasional pennants of tiny schools.',
+        tags: ['Explore', 'Cultivation'],
+        resources: ['qi_wind'],
+        resourceProfile: { primary: 'qi_wind', abundance: 'low' },
+        regionId: 'dustbone'
+    },
+    copper_vein_cut: {
+        id: 'copper_vein_cut', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Copper Vein Cut', emoji: '🪨',
+        description: 'An exposed copper seam — pick work for hire, ore for the patient.',
+        tags: ['Explore', 'Metals', 'Mine'],
+        resources: ['copper', 'iron'],
+        resourceProfile: { primary: 'copper', abundance: 'moderate' },
+        regionId: 'dustbone'
+    },
+    red_dune_pass: {
+        id: 'red_dune_pass', parentZone: 'dustbone', type: 'outpost',
+        name: 'Red Dune Pass', emoji: '🚩',
+        description: 'A flagged pass where Redwell traffic meets the road toward Threshold.',
+        tags: ['Road', 'Rumors'],
+        resources: ['trade'],
+        regionId: 'dustbone'
+    },
+    pilgrims_rest_stop: {
+        id: 'pilgrims_rest_stop', parentZone: 'dustbone', type: 'outpost',
+        name: 'Pilgrim\'s Rest Stop', emoji: '🛖',
+        description: 'Canvas awnings, tea bricks, and a board of who owes whom for water.',
+        tags: ['Road', 'Supplies'],
+        resources: ['trade', 'forage'],
+        regionId: 'dustbone'
+    },
+    sand_river_ford: {
+        id: 'sand_river_ford', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Sand-River Ford', emoji: '🌊',
+        description: 'A seasonal wash — fordable after dusk when the miraj beetles swarm.',
+        tags: ['Explore', 'Road'],
+        resources: ['water'],
+        regionId: 'dustbone'
+    },
+    fallen_pylon_ruins: {
+        id: 'fallen_pylon_ruins', parentZone: 'dustbone', type: 'wilderness',
+        name: 'Fallen Pylon Ruins', emoji: '🏛️',
+        description: 'Third-dynasty pylons tilted like broken teeth — scavengers and cultists both visit.',
+        tags: ['Explore', 'Ruins', 'Field'],
+        resources: ['relic', 'bone'],
+        resourceProfile: { primary: 'relic', abundance: 'sparse' },
+        regionId: 'dustbone'
     },
     outer_heartlands: {
         id: 'outer_heartlands', parentZone: 'heartlands', type: 'wilderness', isDefault: true,

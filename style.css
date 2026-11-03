@@ -7674,12 +7674,16 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     margin: 0 18px 10px;
     border-bottom: 1px solid var(--ink-border);
     padding-bottom: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
 }
 
 .map-tab-btn {
     font-family: inherit;
     font-size: 13px;
-    padding: 6px 14px;
+    min-height: 44px;
+    padding: 8px 12px;
     border-radius: 6px 6px 0 0;
     border: 1px solid transparent;
     border-bottom: none;
@@ -8036,6 +8040,121 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 .local-map-detail-empty {
     color: var(--ink-text-faint);
     font-size: 12px;
+}
+
+.geo-breadcrumb {
+    font-size: 11px;
+    color: var(--ink-text-muted);
+    margin: 4px 18px 8px;
+    line-height: 1.5;
+    flex-wrap: wrap;
+}
+
+.geo-sep {
+    margin: 0 4px;
+    opacity: 0.6;
+}
+
+.geo-crumb--here {
+    color: var(--ink-text);
+    font-weight: 600;
+}
+
+.world-geo-overview {
+    padding: 0 12px 12px;
+}
+
+.world-geo-intro {
+    font-size: 13px;
+    color: var(--ink-text-muted);
+    margin: 0 0 10px;
+}
+
+.world-geo-continent-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.world-geo-continent-card {
+    text-align: left;
+    min-height: 48px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--ink-border);
+    background: var(--ink-paper-raised);
+    color: var(--ink-text);
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.world-geo-continent-card.is-here {
+    border-color: #8aba6a;
+    box-shadow: 0 0 0 1px rgba(138, 186, 106, 0.35);
+}
+
+.world-geo-continent-emoji {
+    font-size: 22px;
+    margin-right: 8px;
+}
+
+.world-geo-continent-name {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.world-geo-continent-meta {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-text-muted);
+    margin-top: 4px;
+}
+
+.world-geo-continent-blurb {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-text-faint);
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.continent-map-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px 8px;
+}
+
+.continent-map-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.local-lesser-sect-panel {
+    margin: 10px 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #5a4a30;
+    background: rgba(40, 32, 20, 0.35);
+    font-size: 13px;
+}
+
+.local-lesser-sect-meta {
+    font-size: 12px;
+    color: var(--ink-text-muted);
+    margin-top: 4px;
+}
+
+.local-map-node.has-lesser-sect .local-map-node-icon::after {
+    content: '🏯';
+    font-size: 10px;
+    margin-left: 2px;
+}
+
+.local-map-resources {
+    font-size: 12px;
+    color: var(--ink-text-muted);
+    margin: 6px 0;
 }
 
 .local-map-preview-banner {

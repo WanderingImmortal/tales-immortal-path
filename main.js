@@ -685,7 +685,10 @@ function setupCreation(refreshOnly) {
         G.npcState = null;
         G.worldNpcs = [];
         G.world = {
-            lesserSects: { version: 1, seed: null, generatedAtMonths: 0, sects: [] }
+            lesserSects: { version: 1, seed: null, generatedAtMonths: 0, sects: [] },
+            geography: { version: 1, populationSeed: null, initialized: false },
+            generatedLocations: { byId: {} },
+            locationMeta: {}
         };
         G.nextDemonicEmergenceMonths = null;
         G.worldSchedule = [];
@@ -787,6 +790,7 @@ function initGame() {
     if (typeof ensureFactionState === 'function') ensureFactionState();
     if (typeof ensureNpcState === 'function') ensureNpcState();
     if (typeof seedWorldNpcsIfEmpty === 'function') seedWorldNpcsIfEmpty();
+    if (typeof migrateWorldPopulationForExistingSave === 'function') migrateWorldPopulationForExistingSave();
     if (typeof tickNpcWorld === 'function') tickNpcWorld(0);
     if (typeof bindTutorialEvents === 'function') bindTutorialEvents();
     if (typeof ensureChamberState === 'function') ensureChamberState();

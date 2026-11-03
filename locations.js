@@ -28,16 +28,27 @@ function ensureLocationState() {
 }
 
 function getLocationDef(locationId) {
+    if (typeof getGeneratedLocationDef === 'function') {
+        const gen = getGeneratedLocationDef(locationId);
+        if (gen) return gen;
+    }
     return WORLD_LOCATIONS[locationId] || null;
 }
 
 function getLocationsInZone(zoneId) {
-    return Object.values(WORLD_LOCATIONS)
-        .filter(loc => loc.parentZone === zoneId)
-        .sort((a, b) => {
-            const order = { market: 0, city: 1, outpost: 2, sect_hq: 3, wilderness: 4 };
-            return (order[a.type] ?? 5) - (order[b.type] ?? 5) || a.name.localeCompare(b.name);
-        });
+    const authored = Object.values(WORLD_LOCATIONS).filter(loc => loc.parentZone === zoneId);
+    const generated = G?.world?.generatedLocations?.byId
+        ? Object.values(G.world.generatedLocations.byId).filter(loc => loc.parentZone === zoneId)
+        : [];
+    const byId = new Map();
+    authored.forEach(loc => byId.set(loc.id, loc));
+    generated.forEach(loc => {
+        if (!byId.has(loc.id)) byId.set(loc.id, loc);
+    });
+    return [...byId.values()].sort((a, b) => {
+        const order = { market: 0, city: 1, outpost: 2, sect_hq: 3, wilderness: 4 };
+        return (order[a.type] ?? 5) - (order[b.type] ?? 5) || a.name.localeCompare(b.name);
+    });
 }
 
 function getDefaultLocationForZone(zoneId) {
@@ -204,10 +215,13 @@ function renderLocalMapHeaderHtml(zoneId, preview) {
     const hereLine = curLoc
         ? `Current: ${curLoc.emoji} ${escapeHtml(curLoc.name)}`
         : (preview ? 'Preview — not in this region' : 'Current: —');
+    const breadcrumb = typeof getGeographyBreadcrumbHtml === 'function' ? getGeographyBreadcrumbHtml(zoneId) : '';
+    const regionTitle = typeof getRegionDisplayName === 'function' ? getRegionDisplayName(zoneId) : zone.name;
     return `<div class="local-map-header-row">
-        <div class="local-map-title">📍 ${zone.emoji} ${escapeHtml(zone.name)} — Local Map</div>
-        <button type="button" class="local-map-world-btn" data-map-tab="world">← World</button>
+        <div class="local-map-title">📍 ${zone.emoji} ${escapeHtml(regionTitle)} — Local</div>
+        <button type="button" class="local-map-world-btn" data-map-tab="continent">← Region</button>
     </div>
+    ${breadcrumb}
     <div class="local-map-current">${hereLine}</div>`;
 }
 
@@ -245,10 +259,11 @@ function renderLocalMapSceneHtml(zoneId, preview) {
         const realmName = locked
             ? (PATHS[G.path]?.realms[loc.minRealm] || `Realm ${(loc.minRealm || 0) + 1}`)
             : '';
+        const hasLesser = typeof getLesserSectAtLocation === 'function' && getLesserSectAtLocation(locId);
         const title = locked
             ? `${loc.name} — Requires ${realmName}`
-            : `${loc.name} · ${LOCATION_TYPE_LABELS[loc.type] || loc.type}`;
-        html += `<button type="button" class="local-map-node ${typeClass}${isHere ? ' is-here' : ''}${isSelected ? ' is-selected' : ''}${locked ? ' is-locked' : ''}"
+            : `${loc.name} · ${LOCATION_TYPE_LABELS[loc.type] || loc.type}${hasLesser ? ' · Lesser sect HQ' : ''}`;
+        html += `<button type="button" class="local-map-node ${typeClass}${isHere ? ' is-here' : ''}${isSelected ? ' is-selected' : ''}${locked ? ' is-locked' : ''}${hasLesser ? ' has-lesser-sect' : ''}"
             data-local-location="${locId}"
             style="left:${pos.x}%;top:${pos.y}%;z-index:${pos.layer || 1}"
             title="${escapeHtml(title)}">
@@ -313,10 +328,29 @@ function renderLocalLocationDetailHtml(zoneId, locationId, preview) {
         ? `<div class="local-map-preview-banner">Travel to ${zone?.emoji || ''} ${escapeHtml(zone?.name || 'this region')} first to walk here.</div>`
         : '';
 
+    let lesserSectBlock = '';
+    if (typeof getLesserSectAtLocation === 'function') {
+        const lsect = getLesserSectAtLocation(loc.id);
+        if (lsect) {
+            const members = lsect.members?.length || lsect.memberNpcUids?.length || 0;
+            lesserSectBlock = `<div class="local-lesser-sect-panel">
+                <strong>🏯 Lesser sect:</strong> ${escapeHtml(lsect.name)}
+                <div class="local-lesser-sect-meta">${escapeHtml(lsect.focusLabel || lsect.focus || '')} · ${members} members · ${escapeHtml(lsect.doctrine || '')}</div>
+            </div>`;
+        }
+    }
+
+    let resourceLine = '';
+    if (loc.resources?.length) {
+        resourceLine = `<div class="local-map-resources">Resources: ${loc.resources.map(r => escapeHtml(r)).join(', ')}</div>`;
+    }
+
     return `${previewBanner}
         <div class="zone-location-head">${loc.emoji} <strong>${escapeHtml(loc.name)}</strong> <span class="zone-location-type">${typeLabel}</span></div>
         <div class="zone-location-desc">${escapeHtml(loc.description)}</div>
         ${loc.lore ? `<div class="zone-guide-lore">${escapeHtml(loc.lore)}</div>` : ''}
+        ${resourceLine}
+        ${lesserSectBlock}
         ${tags ? `<div class="zone-guide-tags">${tags}</div>` : ''}
         ${action}`;
 }
@@ -343,8 +377,9 @@ function mountLocalMap() {
     sceneEl.innerHTML = renderLocalMapSceneHtml(zoneId, preview);
     detailEl.innerHTML = renderLocalLocationDetailHtml(zoneId, mapPopupUi.selectedLocationId, preview);
 
-    headerEl.querySelector('[data-map-tab="world"]')?.addEventListener('click', () => {
-        if (typeof setMapPopupTab === 'function') setMapPopupTab('world');
+    headerEl.querySelector('[data-map-tab="continent"]')?.addEventListener('click', () => {
+        const contId = typeof getContinentIdForRegion === 'function' ? getContinentIdForRegion(zoneId) : null;
+        if (typeof setMapPopupTab === 'function') setMapPopupTab('continent', { continentId: contId || mapPopupUi.continentId });
     });
 
     sceneEl.querySelectorAll('[data-local-location]').forEach(btn => {

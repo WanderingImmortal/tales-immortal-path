@@ -272,7 +272,7 @@ var LesserSectGen = (() => {
         const usedNames = new Set(
           (catalog.blockedNames || []).map(normalizeNameKey)
         );
-        const usedHq = /* @__PURE__ */ new Set();
+        const usedHq = new Set(options.reservedHqIds || []);
         const sects = [];
         let seq = 0;
         zones.forEach((zoneId) => {
