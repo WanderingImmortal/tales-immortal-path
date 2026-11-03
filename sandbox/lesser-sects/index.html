@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Lesser Sect Generator Lab</title>
+  <link rel="stylesheet" href="lab.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="top-bar">
+      <h1>🏯 Lesser sect generator</h1>
+      <a href="../../index.html">← Main game</a>
+    </header>
+
+    <section class="controls" aria-label="Generation controls">
+      <div class="control-row">
+        <label for="seedInput">Seed</label>
+        <input id="seedInput" type="text" inputmode="numeric" value="12345" autocomplete="off" />
+      </div>
+      <div class="control-row">
+        <label for="perZoneInput">Per zone</label>
+        <input id="perZoneInput" type="number" min="1" max="5" value="2" />
+        <label for="monthsInput">Advance months</label>
+        <input id="monthsInput" type="number" min="1" max="120" value="12" />
+      </div>
+      <div class="control-row">
+        <button type="button" id="btnGenerate" class="btn primary">Generate (replace)</button>
+        <button type="button" id="btnMergeSeed" class="btn">Add from seed (merge)</button>
+        <button type="button" id="btnAdvance" class="btn">Advance time</button>
+      </div>
+      <div class="control-row">
+        <button type="button" id="btnSave" class="btn">Save lab state</button>
+        <button type="button" id="btnLoad" class="btn">Load lab state</button>
+        <button type="button" id="btnValidate" class="btn">Validate</button>
+      </div>
+    </section>
+
+    <div class="layout">
+      <div class="sect-list-pane">
+        <div class="pane-title">Generated sects</div>
+        <ul id="sectList" class="sect-list" aria-label="Sect list"></ul>
+      </div>
+      <div id="detailPane" class="detail-pane" aria-live="polite">
+        <p class="empty-hint">Select a sect to inspect members and culture.</p>
+      </div>
+    </div>
+
+    <p id="statusLine" class="status-line">Ready.</p>
+  </div>
+
+  <script src="../../data.js"></script>
+  <script src="lesser-sects-bundle.js"></script>
+  <script src="../../procedural-lesser-sects.js"></script>
+  <script src="lab.js"></script>
+</body>
+</html>

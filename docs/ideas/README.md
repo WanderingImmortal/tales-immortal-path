@@ -75,6 +75,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [World events — layered battlefield](world-events-layered-battlefield.md) | `idea` | Mid city; org tiers | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Procedural zone sect ecology](procedural-zone-sect-ecology.md) | `designed` (owner: hard line A) | Size taxonomy; zone density | — |
+| [Procedural sect generation audit](procedural-sect-generation-audit.md) | `building` | Zone ecology sim | `cursor/procedural-sect-gen-a1c3` |
 | [Player organization paths](player-organization-paths.md) | `designed` (hall at early FE) | Site selection; affiliation pilot | — |
 | [Cultivation sites & claims](cultivation-sites-and-claims.md) | `designed` | Map nodes; `CULTIVATION_SITES` data | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
