@@ -47,7 +47,7 @@ Rumors had run for years: the Tian bred a **genius** at **peak Dao Manifestation
 
 **The two apexes (pre-walk):** Tian founder and **Sword Ancestor** both **peak Dao Manifestation** — the board’s ceiling **before** Half-Step existed. Chroniclers still argue whether the Sword Ancestor could have **killed** the genius **during** breakthrough if the inner defenses had failed one hour sooner.
 
-**Tian defenses held one beat too long** — long enough for the genius to **finish** Half-Step **inside** Tianjing’s cordon. Tian myth: **dragon’s patience**. Coalition myth: **curse of overconfidence**.
+**Tian defenses held one beat too long** — the **Nine Dragons Array** (九龙镇京阵) on the ancestral grounds **partitioned** the coalition and **guttered** raised Avatars on the siege line ([`imperial-grand-arrays.md`](imperial-grand-arrays.md)) — long enough for the genius to **finish** Half-Step **inside** Tianjing’s cordon. Tian myth: **dragon’s patience**. Coalition myth: **curse of overconfidence**.
 
 ---
 
