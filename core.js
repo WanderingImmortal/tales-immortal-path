@@ -1159,6 +1159,7 @@ function loadState() {
             if (typeof migrateForgeForExistingSave === 'function') migrateForgeForExistingSave();
             if (typeof ensureSectState === 'function') ensureSectState();
             if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
+            if (typeof migrateLesserSectsForExistingSave === 'function') migrateLesserSectsForExistingSave();
             if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
             if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();
             if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();

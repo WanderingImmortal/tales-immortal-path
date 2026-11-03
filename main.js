@@ -684,6 +684,9 @@ function setupCreation(refreshOnly) {
         G.pendingAlignmentFriction = null;
         G.npcState = null;
         G.worldNpcs = [];
+        G.world = {
+            lesserSects: { version: 1, seed: null, generatedAtMonths: 0, sects: [] }
+        };
         G.nextDemonicEmergenceMonths = null;
         G.worldSchedule = [];
         G.worldChronicle = [];
