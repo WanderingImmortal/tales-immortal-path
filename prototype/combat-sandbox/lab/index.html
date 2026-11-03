@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Combat Reaction Sandbox — Dev</title>
+  <link rel="stylesheet" href="lab.css" />
+</head>
+<body>
+  <header>
+    <h1>Combat Reaction Sandbox</h1>
+    <p>Experimental prototype only — <code>prototype/combat-sandbox</code>. Does not use production <code>combat.js</code> or save data.</p>
+  </header>
+
+  <div class="layout">
+    <section class="panel" aria-label="Controls">
+      <h2>Simulation</h2>
+      <div class="row">
+        <button type="button" id="btnPause" class="primary">Resume</button>
+        <button type="button" id="btnStep">Step 1 tick</button>
+        <button type="button" id="btnReset">Reset fight</button>
+      </div>
+      <label for="speedRange">Speed ×<span id="speedVal">1</span></label>
+      <input type="range" id="speedRange" min="0.25" max="3" step="0.25" value="1" />
+      <label><input type="checkbox" id="autoPause" checked /> Auto-pause on reaction decisions</label>
+
+      <h2>Presets</h2>
+      <div class="row">
+        <select id="presetSelect"></select>
+        <button type="button" id="loadPreset">Load preset</button>
+      </div>
+
+      <h2>Player parameters</h2>
+      <label>Move speed <span id="pMoveVal"></span></label>
+      <input type="range" id="pMove" min="2" max="10" step="0.2" />
+      <label>Reaction latency (s) <span id="pLatVal"></span></label>
+      <input type="range" id="pLat" min="0.05" max="0.45" step="0.01" />
+      <label>Martial skill <span id="pSkillVal"></span></label>
+      <input type="range" id="pSkill" min="0.2" max="1" step="0.02" />
+      <label>Defense <span id="pDefVal"></span></label>
+      <input type="range" id="pDef" min="0.2" max="1" step="0.02" />
+
+      <h2>Opponent parameters</h2>
+      <label>Move speed <span id="oMoveVal"></span></label>
+      <input type="range" id="oMove" min="2" max="12" step="0.2" />
+      <label>Reaction latency (s) <span id="oLatVal"></span></label>
+      <input type="range" id="oLat" min="0.03" max="0.45" step="0.01" />
+
+      <h2>Player commands</h2>
+      <p style="font-size:0.85rem;color:var(--muted)">Click arena to move. Attacks face the opponent.</p>
+      <div class="row">
+        <button type="button" data-attack="quick">Quick</button>
+        <button type="button" data-attack="heavy">Heavy</button>
+        <button type="button" data-attack="thrust">Thrust</button>
+        <button type="button" id="btnCancel">Cancel prep</button>
+      </div>
+
+      <div id="decisionPanel" class="decision-banner hidden">
+        <div id="decisionText"></div>
+        <div class="row" style="margin-top:0.5rem">
+          <button type="button" data-react="evade">Evade</button>
+          <button type="button" data-react="block">Block</button>
+          <button type="button" data-react="parry">Parry</button>
+          <button type="button" data-react="counter">Counter</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage-wrap">
+      <canvas id="arena" width="540" height="540" aria-label="Arena"></canvas>
+      <div id="statusLine" style="font-size:0.9rem;color:var(--muted)"></div>
+      <div id="combatLog" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <script src="../dist/lab-bundle.js"></script>
+  <script src="lab.js"></script>
+</body>
+</html>

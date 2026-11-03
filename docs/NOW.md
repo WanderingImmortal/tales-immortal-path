@@ -8,6 +8,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 - **Time / cultivation Stage 3E** — Qi purity → Qi technique cost efficiency ([#189](https://github.com/WanderingImmortal/tales-immortal-path/pull/189)) · [`qi-purity-technique-stage3e.md`](ideas/qi-purity-technique-stage3e.md)
 
 ## Next
+- **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap
 - **First-realm baseline** — code audit landed in [`first-realm-baseline-audit.md`](first-realm-baseline-audit.md); top follow-up: Sea Opening combat slice
 - **Inner Tempering soak doc + idx 1 mechanics** — interior vats after external playtest
 - **Nine-realm ladder** — body idx 2+ spine/meridian cleanup · [`nine-realm-ladder.md`](ideas/nine-realm-ladder.md)
