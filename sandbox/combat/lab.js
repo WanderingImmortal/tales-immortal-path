@@ -3,15 +3,35 @@
 
 const canvas = document.getElementById('arena');
 const ctx = canvas.getContext('2d');
+const viewport = document.getElementById('viewport');
 const logEl = document.getElementById('combatLog');
 const statusEl = document.getElementById('statusLine');
 const decisionPanel = document.getElementById('decisionPanel');
 const decisionText = document.getElementById('decisionText');
 
 let sim = CombatSandbox.createSimulation({ seed: 42, preset: CombatSandbox.getPreset('equal') });
-let raf = null;
 let lastFrame = 0;
 let accum = 0;
+
+let viewScale = 1;
+let viewPanX = 0;
+let viewPanY = 0;
+let pinchStartDist = null;
+let pinchStartScale = 1;
+let lastTapTime = 0;
+
+function dist2d(x1, y1, x2, y2) {
+    return Math.hypot(x2 - x1, y2 - y1);
+}
+
+function applyCanvasTransform() {
+    canvas.style.transform = `translate(${viewPanX}px, ${viewPanY}px) scale(${viewScale})`;
+}
+
+function clampView() {
+    viewScale = Math.max(0.75, Math.min(2.5, viewScale));
+    applyCanvasTransform();
+}
 
 function scaleX(x) {
     return (x / CombatSandbox.ARENA.width) * canvas.width;
@@ -20,9 +40,41 @@ function scaleY(y) {
     return (y / CombatSandbox.ARENA.height) * canvas.height;
 }
 
+function clientToWorld(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    const px = ((clientX - rect.left) / rect.width) * canvas.width;
+    const py = ((clientY - rect.top) / rect.height) * canvas.height;
+    return {
+        wx: (px / canvas.width) * CombatSandbox.ARENA.width,
+        wy: (py / canvas.height) * CombatSandbox.ARENA.height
+    };
+}
+
+function handleArenaTap(wx, wy) {
+    const player = sim.fighterById('player');
+    const opponent = sim.fighterById('opponent');
+    if (!player || !opponent) return;
+
+    const tapOnOpponent = dist2d(wx, wy, opponent.x, opponent.y)
+        <= CombatSandbox.ARENA.bodyRadius * 2.8;
+
+    if (tapOnOpponent) {
+        const angle = Math.atan2(opponent.y - player.y, opponent.x - player.x);
+        const standOff = 1.15;
+        const tx = opponent.x - Math.cos(angle) * standOff;
+        const ty = opponent.y - Math.sin(angle) * standOff;
+        player.facing = angle;
+        sim.queuePlayerMove(tx, ty);
+        sim.pushLog('Target: opponent — closing to engagement range.', { tap: 'target' });
+    } else {
+        sim.queuePlayerMove(wx, wy);
+    }
+}
+
 function drawArena() {
     const W = canvas.width;
     const H = canvas.height;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = '#0e0c12';
     ctx.fillRect(0, 0, W, H);
     ctx.strokeStyle = '#2a2430';
@@ -53,19 +105,20 @@ function drawFighter(f) {
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fill();
     ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 2;
     ctx.stroke();
 
     ctx.strokeStyle = f.role === 'player' ? '#a8fff8' : '#ffc0a8';
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.lineTo(x + Math.cos(f.facing) * r * 2.2, y + Math.sin(f.facing) * r * 2.2);
+    ctx.lineTo(x + Math.cos(f.facing) * r * 2.4, y + Math.sin(f.facing) * r * 2.4);
     ctx.stroke();
 
     const a = f.action;
     if (a.type === 'attack' && (a.phase === 'prep' || a.phase === 'exec')) {
         const atk = CombatSandbox.ATTACKS[a.kind];
-        ctx.fillStyle = a.phase === 'prep' ? 'rgba(200,168,64,0.15)' : 'rgba(255,80,80,0.22)';
+        ctx.fillStyle = a.phase === 'prep' ? 'rgba(200,168,64,0.22)' : 'rgba(255,80,80,0.28)';
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.arc(x, y, scaleX(atk.reach), f.facing - atk.halfAngleRad, f.facing + atk.halfAngleRad);
@@ -74,21 +127,24 @@ function drawFighter(f) {
     }
 
     ctx.fillStyle = '#e8e4dc';
-    ctx.font = '11px monospace';
-    const label = `${f.role} ${a.type}${a.kind ? ':' + a.kind : ''} ${a.phase}`;
-    ctx.fillText(label, x - 40, y - r - 4);
-    ctx.fillText(`HP ${f.hp}`, x - 18, y + r + 12);
+    ctx.font = 'bold 13px system-ui,sans-serif';
+    ctx.fillText(f.role === 'player' ? 'You' : 'Foe', x - 14, y - r - 6);
+    ctx.font = '12px system-ui,sans-serif';
+    ctx.fillText(`HP ${f.hp}`, x - 16, y + r + 14);
+    if (a.type !== 'idle') {
+        ctx.fillText(`${a.type}${a.kind ? ' ' + a.kind : ''} · ${a.phase}`, x - 36, y + r + 28);
+    }
 }
 
 function refreshLog() {
-    logEl.textContent = sim.state.log.slice(-40).map(l => `[${l.t.toFixed(2)}] ${l.text}`).join('\n');
+    logEl.textContent = sim.state.log.slice(-50).map(l => `[${l.t.toFixed(2)}] ${l.text}`).join('\n');
     logEl.scrollTop = logEl.scrollHeight;
 }
 
 function refreshStatus() {
     const s = sim.state;
-    let txt = `t=${s.time.toFixed(2)}s · ${s.paused ? 'PAUSED (' + (s.pauseReason || '') + ')' : 'running'} · speed×${s.speedMult}`;
-    if (s.winner) txt += ` · WINNER: ${s.winner}`;
+    let txt = `${s.paused ? 'Paused' : 'Running'} · ${s.time.toFixed(1)}s · speed×${s.speedMult.toFixed(2)}`;
+    if (s.winner) txt += s.winner === 'player' ? ' · You win' : ' · Opponent wins';
     statusEl.textContent = txt;
 }
 
@@ -97,11 +153,14 @@ function refreshDecisionUI() {
     if (pd && sim.state.paused) {
         decisionPanel.classList.remove('hidden');
         const atk = CombatSandbox.ATTACKS[pd.attackKind];
-        decisionText.textContent = `Incoming ${atk.label}. React ready after latency (~${pd.reactReadyAt.toFixed(2)}s). Hit ~${pd.hitAt.toFixed(2)}s.`;
+        const tHit = (pd.hitAt - sim.state.time).toFixed(2);
+        decisionText.textContent = `Incoming ${atk.label}. About ${tHit}s to impact — pick a reaction.`;
     } else {
         decisionPanel.classList.add('hidden');
     }
-    document.getElementById('btnPause').textContent = sim.state.paused ? 'Resume' : 'Pause';
+    const btn = document.getElementById('btnPause');
+    if (sim.state.winner) btn.textContent = 'Fight over — Reset';
+    else btn.textContent = sim.state.paused ? 'Resume' : 'Pause';
 }
 
 function syncSlidersFromSim() {
@@ -117,15 +176,19 @@ function syncSlidersFromSim() {
 
 function setSlider(id, labelId, val) {
     const el = document.getElementById(id);
+    if (!el) return;
     el.value = String(val);
-    document.getElementById(labelId).textContent = Number(val).toFixed(2);
+    const lab = document.getElementById(labelId);
+    if (lab) lab.textContent = Number(val).toFixed(2);
 }
 
 function bindSlider(id, labelId, apply) {
     const el = document.getElementById(id);
+    if (!el) return;
     el.addEventListener('input', () => {
         const v = parseFloat(el.value);
-        document.getElementById(labelId).textContent = v.toFixed(2);
+        const lab = document.getElementById(labelId);
+        if (lab) lab.textContent = v.toFixed(2);
         apply(v);
     });
 }
@@ -146,7 +209,7 @@ function tickLoop(now) {
     refreshLog();
     refreshStatus();
     refreshDecisionUI();
-    raf = requestAnimationFrame(tickLoop);
+    requestAnimationFrame(tickLoop);
 }
 
 function loadPresetId(id) {
@@ -157,6 +220,7 @@ function loadPresetId(id) {
         opponentParams: { ...preset.opponent },
         autoPauseOnDecision: document.getElementById('autoPause').checked
     });
+    sim.setPaused('start');
     syncSlidersFromSim();
     refreshLog();
 }
@@ -172,23 +236,73 @@ function initPresets() {
     document.getElementById('loadPreset').addEventListener('click', () => loadPresetId(sel.value));
 }
 
-canvas.addEventListener('click', ev => {
-    const rect = canvas.getBoundingClientRect();
-    const px = ((ev.clientX - rect.left) / rect.width) * canvas.width;
-    const py = ((ev.clientY - rect.top) / rect.height) * canvas.height;
-    const wx = (px / canvas.width) * CombatSandbox.ARENA.width;
-    const wy = (py / canvas.height) * CombatSandbox.ARENA.height;
-    sim.queuePlayerMove(wx, wy);
+function onPointerUp(clientX, clientY) {
+    const now = Date.now();
+    if (now - lastTapTime < 350) return;
+    lastTapTime = now;
+    const { wx, wy } = clientToWorld(clientX, clientY);
+    handleArenaTap(wx, wy);
+}
+
+viewport.addEventListener('pointerup', ev => {
+    if (ev.pointerType === 'touch') return;
+    if (ev.button !== 0) return;
+    if (pinchStartDist != null) return;
+    onPointerUp(ev.clientX, ev.clientY);
+});
+
+viewport.addEventListener('touchstart', ev => {
+    if (ev.touches.length === 2) {
+        pinchStartDist = dist2d(
+            ev.touches[0].clientX, ev.touches[0].clientY,
+            ev.touches[1].clientX, ev.touches[1].clientY
+        );
+        pinchStartScale = viewScale;
+    }
+}, { passive: true });
+
+viewport.addEventListener('touchmove', ev => {
+    if (ev.touches.length === 2 && pinchStartDist) {
+        ev.preventDefault();
+        const d = dist2d(
+            ev.touches[0].clientX, ev.touches[0].clientY,
+            ev.touches[1].clientX, ev.touches[1].clientY
+        );
+        viewScale = pinchStartScale * (d / pinchStartDist);
+        clampView();
+    }
+}, { passive: false });
+
+viewport.addEventListener('touchend', ev => {
+    if (ev.touches.length < 2) pinchStartDist = null;
+    if (ev.changedTouches.length === 1 && ev.touches.length === 0) {
+        const t = ev.changedTouches[0];
+        onPointerUp(t.clientX, t.clientY);
+    }
+}, { passive: true });
+
+document.getElementById('zoomIn').addEventListener('click', () => {
+    viewScale *= 1.15;
+    clampView();
+});
+document.getElementById('zoomOut').addEventListener('click', () => {
+    viewScale /= 1.15;
+    clampView();
+});
+document.getElementById('zoomReset').addEventListener('click', () => {
+    viewScale = 1;
+    viewPanX = 0;
+    viewPanY = 0;
+    clampView();
 });
 
 document.getElementById('btnPause').addEventListener('click', () => {
+    if (sim.state.winner) {
+        document.getElementById('btnReset').click();
+        return;
+    }
     if (sim.state.paused) sim.setRunning();
     else sim.setPaused('manual');
-});
-
-document.getElementById('btnStep').addEventListener('click', () => {
-    CombatSandbox.tickOpponentAi(sim);
-    sim.stepOneTick();
 });
 
 document.getElementById('btnReset').addEventListener('click', () => {
@@ -201,6 +315,7 @@ document.getElementById('btnReset').addEventListener('click', () => {
         autoPauseOnDecision: document.getElementById('autoPause').checked
     });
     sim.setPaused('start');
+    refreshLog();
 });
 
 document.getElementById('speedRange').addEventListener('input', ev => {
@@ -213,11 +328,15 @@ document.getElementById('autoPause').addEventListener('change', ev => {
 });
 
 document.querySelectorAll('[data-attack]').forEach(btn => {
-    btn.addEventListener('click', () => sim.queuePlayerAttack(btn.getAttribute('data-attack')));
+    btn.addEventListener('click', () => {
+        sim.queuePlayerAttack(btn.getAttribute('data-attack'));
+    });
 });
 
 document.querySelectorAll('[data-react]').forEach(btn => {
-    btn.addEventListener('click', () => sim.queuePlayerReaction(btn.getAttribute('data-react')));
+    btn.addEventListener('click', () => {
+        sim.queuePlayerReaction(btn.getAttribute('data-react'));
+    });
 });
 
 document.getElementById('btnCancel').addEventListener('click', () => sim.cancelPlayerAttack());
@@ -232,5 +351,7 @@ bindSlider('oLat', 'oLatVal', v => { sim.fighterById('opponent').params.reaction
 initPresets();
 syncSlidersFromSim();
 sim.setPaused('start');
+sim.state.autoPauseOnDecision = true;
 refreshLog();
-raf = requestAnimationFrame(tickLoop);
+clampView();
+requestAnimationFrame(tickLoop);

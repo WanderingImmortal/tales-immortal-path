@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Combat Reaction Sandbox</title>
+  <link rel="stylesheet" href="lab.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="top-bar">
+      <h1>⚔️ Reaction Combat Sandbox</h1>
+      <a href="../../index.html">← Main game</a>
+    </header>
+
+    <section class="arena-section" aria-label="Combat arena">
+      <p class="arena-hint">Tap open ground to move · tap the opponent to close in · pinch or use +/− to zoom</p>
+      <div id="viewport" class="viewport">
+        <canvas id="arena" width="540" height="540" aria-label="Arena"></canvas>
+        <div class="zoom-controls" aria-label="Zoom">
+          <button type="button" id="zoomOut" aria-label="Zoom out">−</button>
+          <button type="button" id="zoomReset" aria-label="Reset zoom">100%</button>
+          <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
+        </div>
+      </div>
+      <p id="statusLine"></p>
+    </section>
+
+    <section class="action-dock" aria-label="Combat actions">
+      <div id="decisionPanel" class="decision-banner hidden">
+        <div id="decisionText">Incoming attack — choose a reaction.</div>
+        <div class="react-grid">
+          <button type="button" class="btn-action react" data-react="evade">Evade</button>
+          <button type="button" class="btn-action react" data-react="block">Block</button>
+          <button type="button" class="btn-action react" data-react="parry">Parry</button>
+          <button type="button" class="btn-action react" data-react="counter">Counter</button>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button type="button" class="btn-action" data-attack="quick">Quick Strike</button>
+        <button type="button" class="btn-action" data-attack="heavy">Heavy Strike</button>
+        <button type="button" class="btn-action" data-attack="thrust">Thrust</button>
+      </div>
+      <div class="action-row secondary">
+        <button type="button" id="btnPause" class="btn-action primary">Start / Resume</button>
+        <button type="button" id="btnReset" class="btn-action">Reset fight</button>
+      </div>
+      <div class="action-row secondary">
+        <button type="button" id="btnCancel" class="btn-action danger">Cancel prep</button>
+      </div>
+    </section>
+
+    <details class="advanced" id="detailsTuning">
+      <summary>Simulation speed &amp; presets</summary>
+      <div class="advanced-body">
+        <label for="speedRange">Speed × <span id="speedVal">1</span></label>
+        <input type="range" id="speedRange" min="0.25" max="3" step="0.25" value="1" />
+        <label><input type="checkbox" id="autoPause" checked /> Auto-pause on reaction decisions</label>
+        <div class="row">
+          <select id="presetSelect" aria-label="Preset"></select>
+          <button type="button" id="loadPreset" class="btn-action">Load preset</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="advanced" id="detailsParams">
+      <summary>Player &amp; opponent tuning</summary>
+      <div class="advanced-body">
+        <strong>Player</strong>
+        <label>Move speed <span id="pMoveVal"></span></label>
+        <input type="range" id="pMove" min="2" max="10" step="0.2" />
+        <label>Reaction latency (s) <span id="pLatVal"></span></label>
+        <input type="range" id="pLat" min="0.05" max="0.45" step="0.01" />
+        <label>Martial skill <span id="pSkillVal"></span></label>
+        <input type="range" id="pSkill" min="0.2" max="1" step="0.02" />
+        <label>Defense <span id="pDefVal"></span></label>
+        <input type="range" id="pDef" min="0.2" max="1" step="0.02" />
+        <strong>Opponent</strong>
+        <label>Move speed <span id="oMoveVal"></span></label>
+        <input type="range" id="oMove" min="2" max="12" step="0.2" />
+        <label>Reaction latency (s) <span id="oLatVal"></span></label>
+        <input type="range" id="oLat" min="0.03" max="0.45" step="0.01" />
+      </div>
+    </details>
+
+    <details class="advanced" id="detailsLog">
+      <summary>Combat log</summary>
+      <div class="advanced-body">
+        <div id="combatLog" aria-live="polite"></div>
+      </div>
+    </details>
+  </div>
+
+  <script src="combat-sandbox-bundle.js"></script>
+  <script src="lab.js"></script>
+</body>
+</html>

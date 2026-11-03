@@ -1,0 +1,231 @@
+:root {
+    --bg: #121018;
+    --panel: #1c1824;
+    --text: #e8e4dc;
+    --muted: #9a9088;
+    --accent: #c8a840;
+    --player: #4ecdc4;
+    --enemy: #e07050;
+    --grid: #2a2430;
+    --touch-min: 48px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.top-bar {
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--grid);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.top-bar h1 {
+    font-size: 1rem;
+    margin: 0;
+    flex: 1 1 auto;
+    font-weight: 600;
+}
+
+.top-bar a {
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.arena-section {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.75rem 0;
+    position: relative;
+}
+
+.arena-hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 0 0 0.35rem;
+}
+
+.viewport {
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+    border: 1px solid var(--grid);
+    border-radius: 8px;
+    background: #0e0c12;
+    aspect-ratio: 1;
+    max-height: min(52vh, 420px);
+    width: 100%;
+}
+
+.viewport canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+}
+
+.zoom-controls {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+}
+
+.zoom-controls button {
+    min-width: var(--touch-min);
+    min-height: 36px;
+    font-size: 1.1rem;
+    padding: 0 10px;
+}
+
+#statusLine {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0.35rem 0 0;
+    min-height: 1.2em;
+}
+
+.action-dock {
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid var(--grid);
+    background: #16121c;
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+}
+
+.action-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.action-row.secondary {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.btn-action {
+    min-height: var(--touch-min);
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #3a3448;
+    background: #2a2438;
+    color: var(--text);
+}
+
+.btn-action.primary {
+    background: #2a4840;
+    border-color: #4a6860;
+}
+
+.btn-action.danger {
+    background: #4a2830;
+    border-color: #6a4048;
+}
+
+.btn-action.react {
+    background: #3a3048;
+    border-color: #5a4870;
+}
+
+.decision-banner {
+    background: #3a2830;
+    border: 1px solid #6a4858;
+    padding: 0.65rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.decision-banner.hidden { display: none; }
+
+.react-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+details.advanced {
+    margin: 0.5rem 0.75rem 1rem;
+    border: 1px solid var(--grid);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+details.advanced summary {
+    padding: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    min-height: var(--touch-min);
+    display: flex;
+    align-items: center;
+}
+
+details.advanced summary::-webkit-details-marker { display: none; }
+
+.advanced-body {
+    padding: 0 0.75rem 0.75rem;
+    border-top: 1px solid var(--grid);
+}
+
+.advanced-body label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.65rem;
+}
+
+.advanced-body input[type="range"],
+.advanced-body select {
+    width: 100%;
+    min-height: 36px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0.35rem 0;
+}
+
+#combatLog {
+    font-family: ui-monospace, monospace;
+    font-size: 0.72rem;
+    max-height: 180px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    background: #0e0c12;
+    border-radius: 6px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 900px) {
+    .app { max-width: 960px; }
+    .viewport { max-height: 480px; }
+}

@@ -20,12 +20,20 @@ Playtest whether **player-chosen techniques, movement, timing, commitment, and r
 - **Detection:** simple telegraph when opponent enters attack prep; undetected strikes do not offer reaction UI.
 - **Impossible defense:** UI may offer a reaction even when physics cannot complete it; log explains *detected but too slow* vs *failed attempt* vs *success*.
 
+## Mobile playtest (v1)
+
+- Route: **`/sandbox/combat/`** — touch targets, tap move / tap opponent to close, pinch/+− zoom.
+- Arena stays visible above action dock; tuning and log live in `<details>` panels.
+- Auto-pause on reaction decisions (default on).
+- Linked from main app playtest dev tools; no character creation required.
+- Bundle committed at `sandbox/combat/combat-sandbox-bundle.js` for Netlify/static preview.
+
 ## Limitations (v1)
 
 - No spirit implements, domains, anatomy targeting, or equipment.
 - AI is heuristic, not production NPC combat.
 - Parry/counter windows are tuned for feel, not final balance.
-- Browser lab requires one-time esbuild bundle (`npx esbuild` via script).
+- Re-run `node scripts/bundle-combat-sandbox-lab.js` after sim edits.
 
 ## Integration considerations (if promoted later)
 

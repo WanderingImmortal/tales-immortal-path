@@ -13,14 +13,11 @@ Isolated prototype for **continuous-position, reaction-based** tactical combat. 
 
 **Run tests:** `node scripts/test-combat-sandbox.js`
 
-**Dev laboratory (browser):**
+**Play (mobile-first, static deploy):**
 
-```bash
-node scripts/serve-combat-sandbox-lab.js
-```
+- Deployed path: **`/sandbox/combat/`** (also linked from main game → Playtest → Dev tools)
+- Local: `node scripts/serve-combat-sandbox-lab.js` → http://127.0.0.1:4174/sandbox/combat/
 
-Open: http://127.0.0.1:4174/prototype/combat-sandbox/lab/index.html
-
-(Rebuild bundle after sim changes: `node scripts/bundle-combat-sandbox-lab.js`)
+Rebuild sim bundle after logic changes: `node scripts/bundle-combat-sandbox-lab.js` (writes `sandbox/combat/combat-sandbox-bundle.js`).
 
 **Design notes:** [`docs/ideas/combat-reaction-sandbox-prototype.md`](../../docs/ideas/combat-reaction-sandbox-prototype.md)

@@ -140,6 +140,11 @@ assert(cancelSim.fighterById('player').action.phase === 'recovery', 'cancel duri
 // Presets load
 assert(sandbox.listPresets().length >= 4, 'matchup presets exported');
 
+const deployIndex = path.join(__dirname, '..', 'sandbox', 'combat', 'index.html');
+const deployBundle = path.join(__dirname, '..', 'sandbox', 'combat', 'combat-sandbox-bundle.js');
+assert(fs.existsSync(deployIndex), 'deploy route sandbox/combat/index.html exists');
+assert(fs.existsSync(deployBundle), 'committed combat-sandbox-bundle.js for static deploy');
+
 if (failed) {
     console.error(`\n${failed} test(s) failed`);
     process.exit(1);
