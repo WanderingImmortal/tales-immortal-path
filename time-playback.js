@@ -36,23 +36,29 @@ function advanceTimeQuiet(months, activity) {
     if (G.forbiddenLifespanMult && G.forbiddenLifespanMult > 1 && months >= 1) {
         months = Math.max(1, Math.floor(months / G.forbiddenLifespanMult));
     }
-    const fromMonths = G.ageMonths;
-    const toMonths = fromMonths + months;
     const prevDefer = G._deferringLogs;
-    G._deferringLogs = true;
-    G._quietTime = true;
-    try {
-        if (typeof processWorldTime === 'function') {
-            processWorldTime(fromMonths, toMonths, { activity, months, quiet: true });
-        } else {
-            G.ageMonths = toMonths;
+    const runSlice = (stepMonths) => {
+        const fromMonths = G.ageMonths;
+        const toMonths = fromMonths + stepMonths;
+        G._deferringLogs = true;
+        G._quietTime = true;
+        try {
+            if (typeof processWorldTime === 'function') {
+                processWorldTime(fromMonths, toMonths, { activity, months: stepMonths, quiet: true });
+            } else {
+                G.ageMonths = toMonths;
+            }
+            if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(stepMonths);
+        } finally {
+            G._deferringLogs = prevDefer;
+            G._quietTime = false;
         }
-        if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
-    } finally {
-        G._deferringLogs = prevDefer;
-        G._quietTime = false;
-    }
-    if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
+        if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
+        if (G.gameOver) return false;
+        return true;
+    };
+    if (typeof advanceMonthsInActivitySlices === 'function') advanceMonthsInActivitySlices(months, runSlice);
+    else runSlice(months);
     if (!isImmortal() && G.ageMonths >= G.lifespanMonths) {
         if (typeof trySectLeaderSuccessionOnDeath === 'function' && trySectLeaderSuccessionOnDeath()) {
             return true;

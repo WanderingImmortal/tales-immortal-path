@@ -2,10 +2,10 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-11-04
+**Updated:** 2026-11-05
 
 ## Focus
-- **Time & NPC consistency** — shared clock, NPC-backed lesser-sect capability · [`time-npc-state-consistency.md`](ideas/time-npc-state-consistency.md) · `cursor/time-npc-consistency`
+- **Player activity routines** — one committed session and one repeatable cultivation routine on the living calendar · [`player-activity-routines.md`](ideas/player-activity-routines.md) · `cursor/player-activity-routines`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

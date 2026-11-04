@@ -974,28 +974,36 @@ function advanceTime(months, activity, options) {
     if (G.forbiddenLifespanMult && G.forbiddenLifespanMult > 1 && months >= 1) {
         months = Math.max(1, Math.floor(months / G.forbiddenLifespanMult));
     }
-    const fromMonths = G.ageMonths;
-    const toMonths = fromMonths + months;
+    const billedMonths = months;
     const deferLogs = !!G._actionLog;
     if (deferLogs) G._deferringLogs = true;
     let chronicleBatch = [];
-    if (typeof processWorldTime === 'function') {
-        chronicleBatch = processWorldTime(fromMonths, toMonths, { activity, months }) || [];
-    } else {
-        if (typeof processWorldTimeLegacy === 'function') {
-            chronicleBatch = processWorldTimeLegacy(fromMonths, toMonths) || [];
+    const runSlice = (stepMonths) => {
+        const fromMonths = G.ageMonths;
+        const toMonths = fromMonths + stepMonths;
+        if (typeof processWorldTime === 'function') {
+            const batch = processWorldTime(fromMonths, toMonths, { activity, months: stepMonths }) || [];
+            chronicleBatch = chronicleBatch.concat(batch);
+        } else {
+            if (typeof processWorldTimeLegacy === 'function') {
+                const batch = processWorldTimeLegacy(fromMonths, toMonths) || [];
+                chronicleBatch = chronicleBatch.concat(batch);
+            }
+            G.ageMonths = toMonths;
         }
-        G.ageMonths = toMonths;
-    }
-    if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
-    if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
-    if (!opts.skipPassiveCirculation && typeof tickPassiveCultivationForMonths === 'function') {
-        tickPassiveCultivationForMonths(months);
-    }
+        if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(stepMonths);
+        if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
+        if (!opts.skipPassiveCirculation && typeof tickPassiveCultivationForMonths === 'function') {
+            tickPassiveCultivationForMonths(stepMonths);
+        }
+        return true;
+    };
+    if (typeof advanceMonthsInActivitySlices === 'function') advanceMonthsInActivitySlices(months, runSlice);
+    else runSlice(months);
     if (deferLogs) G._deferringLogs = false;
     const remaining = getYearsRemaining();
     const remainStr = isImmortal() ? 'immortal' : `${remaining}y left`;
-    const timeMeta = formatActionTimeMeta(months, remainStr);
+    const timeMeta = formatActionTimeMeta(billedMonths, remainStr);
     const worldMeta = typeof formatWorldChronicleLine === 'function'
         ? formatWorldChronicleLine(chronicleBatch)
         : '';
@@ -1148,6 +1156,7 @@ function loadState() {
             if (!G.worldSchedule) G.worldSchedule = [];
             if (!G.worldChronicle) G.worldChronicle = [];
             if (typeof ensureWorldClockState === 'function') ensureWorldClockState();
+            if (typeof ensurePlayerActivityState === 'function') ensurePlayerActivityState();
             if (typeof migrateWorldScheduleFromLegacy === 'function') migrateWorldScheduleFromLegacy();
             if (typeof ensureNpcQuestState === 'function') ensureNpcQuestState();
             if (typeof ensureStoryQuestState === 'function') ensureStoryQuestState();
@@ -1199,6 +1208,11 @@ function loadState() {
             ensurePillStock();
             applyVitalityToMaxHp();
             ensureForbiddenState();
+            try {
+                if (typeof catchUpPlayerActivity === 'function') catchUpPlayerActivity();
+            } catch (activityErr) {
+                console.error('player activity catch-up failed', activityErr);
+            }
             DAO_FRAGMENT_POOL.filter(f => f.forbiddenClear).forEach(f => {
                 if (G.daoState?.fragments?.includes(f.name) && !getGroundProgress(f.forbiddenClear).cleared) {
                     G.daoState.fragments = G.daoState.fragments.filter(d => d !== f.name);

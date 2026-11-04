@@ -101,15 +101,21 @@ function getWorldClockStance() {
 /** Lock reason while a timed project (transit / job / seek) is running. */
 function getWorldClockBusyReason() {
     const p = getWorldClockProject();
-    if (!p) return null;
-    if (p.kind === 'transit') return `You are traveling — ${p.label || 'on the road'}.`;
-    if (p.kind === 'job') return `You are working — ${p.label || 'on a job'}.`;
-    if (p.kind === 'seek') return `You are seeking a fight.`;
-    return `You are busy — ${p.label || 'occupied'}.`;
+    if (p) {
+        if (p.kind === 'transit') return `You are traveling — ${p.label || 'on the road'}.`;
+        if (p.kind === 'job') return `You are working — ${p.label || 'on a job'}.`;
+        if (p.kind === 'seek') return `You are seeking a fight.`;
+        return `You are busy — ${p.label || 'occupied'}.`;
+    }
+    const activity = typeof getPlayerActivity === 'function' ? getPlayerActivity() : null;
+    if (activity) return `${activity.label} is in progress — cancel it on the calendar bar first.`;
+    return null;
 }
 
 function getWorldClockActivityLabel() {
     ensureWorldClockState();
+    const activity = typeof getPlayerActivity === 'function' ? getPlayerActivity() : null;
+    if (activity?.label) return activity.label;
     const p = G.worldClock.project;
     if (p?.label) return p.label;
     const s = G.worldClock.stance;
@@ -325,6 +331,7 @@ function renderWorldClockBar() {
     }
 
     if (ageEl) ageEl.textContent = formatWorldClockAge(G.ageMonths);
+    if (typeof renderPlayerActivityPanel === 'function') renderPlayerActivityPanel();
     if (actEl) {
         const label = getWorldClockActivityLabel();
         actEl.textContent = label || '';
@@ -455,6 +462,7 @@ function initWorldClockUi() {
     });
 
     startWorldClockLoop();
+    if (typeof initPlayerActivityUi === 'function') initPlayerActivityUi();
     renderWorldClockBar();
 }
 
