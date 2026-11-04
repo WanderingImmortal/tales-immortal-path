@@ -78,6 +78,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Procedural sect generation audit](procedural-sect-generation-audit.md) | `building` | Zone ecology sim | PR #196 |
 | [Living world geography audit](living-world-geography-audit.md) | `building` | Zone ecology; procedural locations | PR #197 |
 | [Sect foundations & power audit](sect-foundations-power-audit.md) | `building` | Ecology sim; intel network | `cursor/sect-foundations-a1c3` |
+| [Time and NPC state consistency](time-npc-state-consistency.md) | `building` | Routines and sect ecology wait on this | `cursor/time-npc-consistency` |
 | [Player organization paths](player-organization-paths.md) | `designed` (hall at early FE) | Site selection; affiliation pilot | — |
 | [Cultivation sites & claims](cultivation-sites-and-claims.md) | `designed` | Map nodes; `CULTIVATION_SITES` data | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |

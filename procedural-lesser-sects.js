@@ -114,6 +114,8 @@ function registerLesserSectNpcsOnWorld(state) {
     if (typeof G === 'undefined' || !state?.sects) return;
     if (!G.worldNpcs) G.worldNpcs = [];
     const existing = new Set(G.worldNpcs.map(n => n.uid));
+    // Membership identity stays on sect.members. Mutable life (realm, age, death, zone)
+    // is authoritative on G.worldNpcs and resolved by uid when capability is derived.
     state.sects.forEach(sect => {
         (sect.members || []).forEach(m => {
             if (existing.has(m.uid)) return;
@@ -186,6 +188,7 @@ function validateGameLesserSects() {
     return api.validateLesserSectState(G.world.lesserSects, buildLesserSectCatalogFromGame());
 }
 
+/** Prototype helper only. Do not call from the world scheduler — that would age roster snapshots separately from G.worldNpcs. */
 function advanceGameLesserSectsTimeOnly(months) {
     const api = getLesserSectGeneratorApi();
     if (!api?.advanceLesserSectsTimeOnly) return;

@@ -988,8 +988,7 @@ function advanceTime(months, activity, options) {
         G.ageMonths = toMonths;
     }
     if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(months);
-    if (typeof tickDwellingRent === 'function') tickDwellingRent();
-    if (typeof tickWellRingCalendar === 'function') tickWellRingCalendar();
+    if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
     if (!opts.skipPassiveCirculation && typeof tickPassiveCultivationForMonths === 'function') {
         tickPassiveCultivationForMonths(months);
     }
@@ -1020,6 +1019,12 @@ function advanceTime(months, activity, options) {
         return false;
     }
     return true;
+}
+
+/** Rent and lodge-board upkeep. Same elapsed months, every time-advance entry point. */
+function applySharedCalendarObligations() {
+    if (typeof tickDwellingRent === 'function') tickDwellingRent();
+    if (typeof tickWellRingCalendar === 'function') tickWellRingCalendar();
 }
 
 function extendLifespanOnBreakthrough(tier) {
