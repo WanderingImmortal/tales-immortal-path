@@ -91,6 +91,13 @@ function ensureDustboneLesserSectPopulation() {
     });
     G.world.lesserSects = state;
     if (typeof registerLesserSectNpcsOnWorld === 'function') registerLesserSectNpcsOnWorld(state);
+    if (typeof migrateOrganizationProfilesForExistingSave === 'function') {
+        migrateOrganizationProfilesForExistingSave();
+    } else if (typeof enrichLesserSectOrganization === 'function') {
+        G.world.lesserSects.sects = state.sects.map(sect =>
+            enrichLesserSectOrganization(sect, buildOrganizationContextForSect(sect))
+        );
+    }
     registerLesserSectLocationMeta(state);
     G.world.geography.initialized = true;
 }

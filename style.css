@@ -8145,6 +8145,38 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     margin-top: 4px;
 }
 
+.local-org-public-panel {
+    margin-top: 10px;
+}
+
+.local-org-public-list {
+    margin: 8px 0 0;
+    padding-left: 1.1rem;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.local-org-public-list li {
+    margin-bottom: 4px;
+}
+
+.local-org-disclaimer {
+    font-size: 11px;
+    color: var(--ink-text-faint);
+    margin: 8px 0 0;
+    line-height: 1.35;
+}
+
+.local-map-detail {
+    max-height: min(42vh, 360px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.local-map-node {
+    touch-action: manipulation;
+}
+
 .local-map-node.has-lesser-sect .local-map-node-icon::after {
     content: '🏯';
     font-size: 10px;

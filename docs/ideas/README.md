@@ -76,7 +76,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
 | [Procedural zone sect ecology](procedural-zone-sect-ecology.md) | `designed` (owner: hard line A) | Size taxonomy; zone density | — |
 | [Procedural sect generation audit](procedural-sect-generation-audit.md) | `building` | Zone ecology sim | PR #196 |
-| [Living world geography audit](living-world-geography-audit.md) | `building` | Zone ecology; procedural locations | `cursor/living-world-geography-a1c3` |
+| [Living world geography audit](living-world-geography-audit.md) | `building` | Zone ecology; procedural locations | PR #197 |
+| [Sect foundations & power audit](sect-foundations-power-audit.md) | `building` | Ecology sim; intel network | `cursor/sect-foundations-a1c3` |
 | [Player organization paths](player-organization-paths.md) | `designed` (hall at early FE) | Site selection; affiliation pilot | — |
 | [Cultivation sites & claims](cultivation-sites-and-claims.md) | `designed` | Map nodes; `CULTIVATION_SITES` data | — |
 | [Celestial Sword Sect](celestial-sword-sect.md) | `designed` (v2) | Lineage manual; Longcheng NPC | — |
