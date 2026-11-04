@@ -5,7 +5,7 @@
 | **Status** | `building` |
 | **Blocked on** | none |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/time-npc-consistency` |
+| **Chat / PR** | [PR #199](https://github.com/WanderingImmortal/tales-immortal-path/pull/199) · `cursor/time-npc-consistency` |
 | **Updated** | 2026-11-04 |
 
 ## Intent
