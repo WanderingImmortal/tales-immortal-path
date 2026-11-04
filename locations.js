@@ -332,11 +332,15 @@ function renderLocalLocationDetailHtml(zoneId, locationId, preview) {
     if (typeof getLesserSectAtLocation === 'function') {
         const lsect = getLesserSectAtLocation(loc.id);
         if (lsect) {
-            const members = lsect.members?.length || lsect.memberNpcUids?.length || 0;
-            lesserSectBlock = `<div class="local-lesser-sect-panel">
-                <strong>🏯 Lesser sect:</strong> ${escapeHtml(lsect.name)}
-                <div class="local-lesser-sect-meta">${escapeHtml(lsect.focusLabel || lsect.focus || '')} · ${members} members · ${escapeHtml(lsect.doctrine || '')}</div>
-            </div>`;
+            if (typeof renderPublicOrganizationHtml === 'function') {
+                lesserSectBlock = renderPublicOrganizationHtml(lsect);
+            } else {
+                const members = lsect.members?.length || lsect.memberNpcUids?.length || 0;
+                lesserSectBlock = `<div class="local-lesser-sect-panel">
+                    <strong>🏯 Lesser sect:</strong> ${escapeHtml(lsect.name)}
+                    <div class="local-lesser-sect-meta">${escapeHtml(lsect.focusLabel || lsect.focus || '')} · ${members} members</div>
+                </div>`;
+            }
         }
     }
 
@@ -355,11 +359,24 @@ function renderLocalLocationDetailHtml(zoneId, locationId, preview) {
         ${action}`;
 }
 
+function selectLocalMapLocation(locationId) {
+    if (!locationId || typeof mapPopupUi === 'undefined') return;
+    mapPopupUi.selectedLocationId = locationId;
+    mountLocalMap();
+    requestAnimationFrame(() => {
+        const detailEl = document.getElementById('localMapDetail');
+        detailEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+}
+
 function mountLocalMap() {
     const headerEl = document.getElementById('localMapHeader');
     const sceneEl = document.getElementById('localMapScene');
     const detailEl = document.getElementById('localMapDetail');
     if (!headerEl || !sceneEl || !detailEl || typeof mapPopupUi === 'undefined') return;
+
+    if (typeof ensureWorldPopulation === 'function') ensureWorldPopulation();
+    if (typeof migrateOrganizationProfilesForExistingSave === 'function') migrateOrganizationProfilesForExistingSave();
 
     const zoneId = mapPopupUi.localZoneId || (typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone));
     mapPopupUi.localZoneId = zoneId;
@@ -383,9 +400,9 @@ function mountLocalMap() {
     });
 
     sceneEl.querySelectorAll('[data-local-location]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            mapPopupUi.selectedLocationId = this.dataset.localLocation;
-            mountLocalMap();
+        btn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            selectLocalMapLocation(this.dataset.localLocation);
         });
     });
 
