@@ -5,7 +5,7 @@
 | **Status** | `building` |
 | **Blocked on** | none |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/player-activity-routines` |
+| **Chat / PR** | [PR #200](https://github.com/WanderingImmortal/tales-immortal-path/pull/200) · `cursor/player-activity-routines` |
 | **Updated** | 2026-11-05 |
 
 ## Intent
