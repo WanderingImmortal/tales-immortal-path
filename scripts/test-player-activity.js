@@ -201,6 +201,46 @@ function boot() {
     assert(ctx.G.playerActivity == null && ctx.awards.n === 0, 'a save with no activity stays idle');
 }
 
+// Activity and a clock project cannot both run.
+{
+    const ctx = boot();
+    ctx.G.worldClock.project = {
+        id: 'travel',
+        kind: 'transit',
+        label: 'Traveling',
+        endsAtMonths: 8
+    };
+    ctx.getWorldClockProject = () => ctx.G.worldClock.project;
+    ctx.getWorldClockBusyReason = () => (ctx.G.worldClock.project ? 'You are traveling.' : null);
+    assert(ctx.startCultivationRoutine() === false, 'a clock project blocks starting a cultivation routine');
+    assert(!ctx.getPlayerActivity(), 'no activity is armed while traveling');
+}
+
+// Catch-up cap: each due session once; remainder kept; reload continues without duplicates.
+{
+    const ctx = boot();
+    ctx.G.dwelling.mode = 'owned';
+    ctx.startCultivationRoutine();
+    ctx.G.ageMonths = 100;
+    ctx.catchUpPlayerActivity();
+    assert(ctx.awards.n === 48, 'catch-up awards at most 48 overdue sessions per pass');
+    assert(ctx.getPlayerActivity() && ctx.getPlayerActivity().nextSessionAtMonths === 49, 'remaining overdue progress is preserved');
+    const snap = JSON.parse(JSON.stringify(ctx.G.playerActivity));
+    ctx.catchUpPlayerActivity();
+    assert(ctx.awards.n === 96, 'a second catch-up continues remaining dues without repeating the first 48');
+    const again = boot();
+    again.G.dwelling.mode = 'owned';
+    again.G.ageMonths = 100;
+    again.G.playerActivity = snap;
+    again.catchUpPlayerActivity();
+    assert(again.awards.n === 48, 'reloading the mid-catch-up save continues the remainder once');
+    const next = again.G.playerActivity.nextSessionAtMonths;
+    again.catchUpPlayerActivity();
+    assert(again.awards.n === 52 && again.G.playerActivity.nextSessionAtMonths === next + 4, 'a third pass finishes the last dues once');
+    again.catchUpPlayerActivity();
+    assert(again.awards.n === 52, 'catch-up after all dues are paid awards nothing more');
+}
+
 // 9. No activity: one slice. Seclusion entry still calls quiet advance.
 {
     const ctx = boot();

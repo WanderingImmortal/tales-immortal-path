@@ -65,6 +65,14 @@ function beginPlayerActivity(spec) {
         if (typeof addLog === 'function') addLog(`🔒 Already ${getPlayerActivity().label}. Cancel it first.`);
         return false;
     }
+    // Clock projects (travel / jobs / seek) share the same living calendar — do not run both.
+    if (typeof getWorldClockProject === 'function' && getWorldClockProject()) {
+        const busy = typeof getWorldClockBusyReason === 'function'
+            ? getWorldClockBusyReason()
+            : 'You are already busy on the calendar.';
+        if (typeof addLog === 'function') addLog(`🔒 ${busy}`);
+        return false;
+    }
     const stop = playerActivityStopReason(null);
     if (stop) {
         if (typeof addLog === 'function') addLog(`🔒 ${stop.message}`);

@@ -161,6 +161,10 @@ function startWorldClockProject(spec) {
         if (typeof addLog === 'function') addLog(`🔒 ${getWorldClockBusyReason()}`);
         return false;
     }
+    if (typeof getPlayerActivity === 'function' && getPlayerActivity()) {
+        if (typeof addLog === 'function') addLog(`🔒 ${getWorldClockBusyReason()}`);
+        return false;
+    }
     const duration = Math.max(WORLD_CLOCK_WEEK_MONTHS, Number(spec.durationMonths) || WORLD_CLOCK_WEEK_MONTHS);
     clearWorldClockStance(true);
     G.worldClock.project = {
