@@ -9,6 +9,7 @@ node scripts/audit-ensure-sync-recursion.js
 node scripts/audit-storage-recursion.js
 node scripts/audit-time-billing.js
 node scripts/audit-world-sim.js
+node scripts/test-time-npc-consistency.js
 node scripts/audit-cultivation-progression.js
 node scripts/audit-qi-density-recovery.js
 node scripts/audit-qi-purity-foundation.js

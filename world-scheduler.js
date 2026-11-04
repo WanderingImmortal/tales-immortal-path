@@ -104,7 +104,18 @@ function fireWorldEvent(ev) {
     }
 }
 
-/** Run registered world ticks for [fromMonths, toMonths] (age should already equal toMonths). */
+/**
+ * Run registered world ticks for [fromMonths, toMonths].
+ * Caller sets G.ageMonths to toMonths first so deadline-style ticks see the segment end.
+ *
+ * Future player routines should not add a second clock. Bill time with advanceTime
+ * (a player decision) or advanceTimeQuiet (playback). Both call processWorldTime, which
+ * segments on G.worldSchedule, then applySharedCalendarObligations (rent, lodge board).
+ * Activity-specific gains stay on the caller: passive weeks, focused sessions, seclusion years.
+ * Playback speed is the world-clock timer or the seclusion timer — not another simulation clock.
+ * To interrupt a large advance, scheduleWorldEvent at the completion month; world-clock
+ * projects still finish on the week loop when endsAtMonths has passed.
+ */
 function runWorldTicks(fromMonths, toMonths, context) {
     const delta = toMonths - fromMonths;
     if (delta <= 0) return;
@@ -206,13 +217,14 @@ function processWorldTime(fromMonths, toMonths, context) {
         const due = pullScheduledEventsAfter(cursor, end);
         const segmentEnd = due.length ? due[0].at : end;
         if (segmentEnd > cursor + 1e-9) {
-            runWorldTicks(cursor, segmentEnd, context);
             G.ageMonths = segmentEnd;
+            runWorldTicks(cursor, segmentEnd, context);
         }
         fireScheduledEventsAtBoundary(cursor, segmentEnd);
         cursor = segmentEnd;
     }
     if (cursor < end - 1e-9) {
+        G.ageMonths = end;
         runWorldTicks(cursor, end, context);
     }
     G.ageMonths = end;

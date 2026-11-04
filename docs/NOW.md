@@ -2,10 +2,10 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-11-03
+**Updated:** 2026-11-04
 
 ## Focus
-- **Time / cultivation Stage 3E** — Qi purity → Qi technique cost efficiency ([#189](https://github.com/WanderingImmortal/tales-immortal-path/pull/189)) · [`qi-purity-technique-stage3e.md`](ideas/qi-purity-technique-stage3e.md)
+- **Time & NPC consistency** — shared clock, NPC-backed lesser-sect capability · [`time-npc-state-consistency.md`](ideas/time-npc-state-consistency.md) · `cursor/time-npc-consistency`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

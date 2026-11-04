@@ -52,6 +52,7 @@ function advanceTimeQuiet(months, activity) {
         G._deferringLogs = prevDefer;
         G._quietTime = false;
     }
+    if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
     if (!isImmortal() && G.ageMonths >= G.lifespanMonths) {
         if (typeof trySectLeaderSuccessionOnDeath === 'function' && trySectLeaderSuccessionOnDeath()) {
             return true;

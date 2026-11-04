@@ -1236,20 +1236,28 @@ function tickWellRingCalendar() {
     const wr = G.wellRing;
     if (!wr.member) return;
     const now = G.ageMonths || 0;
-    const month = now;
     const year = Math.floor(now / 12);
+    const mark = typeof calendarMonthSteps === 'function'
+        ? calendarMonthSteps(wr.lastBoardMonth, now)
+        : { steps: 0, nextMark: Math.floor(now), uninitialized: wr.lastBoardMonth !== Math.floor(now) };
 
-    if (wr.lastBoardMonth !== month) {
-        wr.lastBoardMonth = month;
-        // Soft rival climb
-        if (Math.random() < 0.45) wr.rivalMerit = (wr.rivalMerit || 0) + 1;
-        // Idle decay if no mission for 18+ months
-        if (wr.lastMissionMonth && now - wr.lastMissionMonth >= 18) {
-            wr.merit = Math.max(0, (wr.merit || 0) - 1);
+    let steps = mark.steps;
+    if (mark.uninitialized) steps = 1;
+    if (steps > 0) {
+        const origin = mark.uninitialized ? mark.nextMark - 1 : Math.floor(Number(wr.lastBoardMonth));
+        for (let i = 0; i < steps; i++) {
+            if (Math.random() < 0.45) wr.rivalMerit = (wr.rivalMerit || 0) + 1;
+            const monthAt = origin + i + 1;
+            if (wr.lastMissionMonth && monthAt - wr.lastMissionMonth >= 18) {
+                wr.merit = Math.max(0, (wr.merit || 0) - 1);
+            }
         }
-        if (Math.random() < 0.35) {
+        wr.lastBoardMonth = mark.nextMark;
+        if (steps === 1 && Math.random() < 0.35) {
             const rank = getWellRingPlayerRank();
             addLog(`💧 Well-Ring monthly board: you sit ${rank}${rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th'} — Wei Shun at ${wr.rivalMerit} merit.`);
+        } else if (steps > 1) {
+            addLog(`💧 Well-Ring board over ${steps} months — Wei Shun at ${wr.rivalMerit} merit.`);
         }
     }
 

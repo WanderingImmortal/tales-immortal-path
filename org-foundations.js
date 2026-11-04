@@ -201,19 +201,44 @@ function derivePoliticalStanding(sect, context) {
     };
 }
 
+function resolveOrganizationMembers(sect, context) {
+    const roster = (sect && sect.members) || [];
+    const npcs = context && context.worldNpcs;
+    if (!Array.isArray(npcs)) return roster.map(m => ({ ...m }));
+    const byUid = new Map();
+    npcs.forEach(n => {
+        if (n && n.uid) byUid.set(n.uid, n);
+    });
+    return roster.map(m => {
+        const npc = byUid.get(m.uid);
+        if (!npc) return { ...m };
+        return {
+            ...m,
+            name: npc.name != null ? npc.name : m.name,
+            realmIdx: npc.realmIdx != null ? npc.realmIdx : (m.realmIdx ?? 0),
+            ageMonths: npc.ageMonths != null ? npc.ageMonths : m.ageMonths,
+            zone: npc.zone != null ? npc.zone : m.zone,
+            alive: npc.alive !== false
+        };
+    });
+}
+
 function deriveOrganizationProfile(sect, context) {
     context = context || {};
     if (!sect) return null;
 
-    const members = sect.members || [];
+    const resolved = resolveOrganizationMembers(sect, context);
+    const members = resolved.filter(m => m.alive !== false);
+    const view = Object.assign({}, sect, { members });
+
     const apexRealmIdx = getApexRealmIdx(members);
     const locationDef = context.locationDef || null;
     const facilityTier = context.facilityTier ?? facilityTierFromLocation(locationDef);
     const worldAgeMonths = context.worldAgeMonths ?? 0;
     const ageMonths = Math.max(0, worldAgeMonths - (sect.foundedAtMonths ?? 0));
 
-    const orgKind = deriveOrgKind(sect, { locationDef });
-    const institutionalMaturity = deriveInstitutionalMaturity(sect, {
+    const orgKind = deriveOrgKind(view, { locationDef });
+    const institutionalMaturity = deriveInstitutionalMaturity(view, {
         worldAgeMonths,
         facilityTier
     });
@@ -237,18 +262,18 @@ function deriveOrganizationProfile(sect, context) {
             : null
     };
 
-    const inheritances = deriveInheritances(sect, {
+    const inheritances = deriveInheritances(view, {
         zoneLeaderRealmCap: context.zoneLeaderRealmCap
     });
 
-    const growthConstraints = deriveGrowthConstraints(sect, {
+    const growthConstraints = deriveGrowthConstraints(view, {
         institutionalMaturity,
         orgKind,
         locationDef,
         zoneLeaderRealmCap: context.zoneLeaderRealmCap
     });
 
-    const standing = derivePoliticalStanding(sect, {
+    const standing = derivePoliticalStanding(view, {
         capability,
         foundation,
         institutionalMaturity
@@ -307,7 +332,8 @@ function buildOrganizationContextForSect(sect) {
     return {
         locationDef,
         zoneLeaderRealmCap: zoneCap,
-        worldAgeMonths: typeof G !== 'undefined' ? (G.ageMonths || 0) : 0
+        worldAgeMonths: typeof G !== 'undefined' ? (G.ageMonths || 0) : 0,
+        worldNpcs: (typeof G !== 'undefined' && Array.isArray(G.worldNpcs)) ? G.worldNpcs : null
     };
 }
 
@@ -333,17 +359,27 @@ function enrichAllLesserSectOrganizations(state) {
     };
 }
 
-function getPublicOrganizationBrief(sect) {
+function getPublicOrganizationBrief(sect, context) {
     if (!sect) return null;
-    const org = sect.organization;
+    if (!context && typeof buildOrganizationContextForSect === 'function') {
+        context = buildOrganizationContextForSect(sect);
+    }
+    context = context || {};
+    const org = Array.isArray(context.worldNpcs)
+        ? deriveOrganizationProfile(sect, context)
+        : (sect.organization || deriveOrganizationProfile(sect, context));
     if (!org) return null;
 
-    const leader = sect.members?.find(m => m.uid === sect.leaderNpcUid);
+    const resolved = resolveOrganizationMembers(sect, context);
+    const leader = resolved.find(m => m.uid === sect.leaderNpcUid);
     const leaderName = leader?.name || 'Unknown leader';
+    const leaderDead = !!(leader && leader.alive === false);
     const leaderRealm = leader?.realmIdx ?? org.capability?.apexRealmIdx ?? 0;
-    const realmLabel = typeof PATHS !== 'undefined' && G?.path
-        ? (PATHS[G.path]?.realms[leaderRealm] || `Realm ${leaderRealm + 1}`)
-        : `Realm idx ${leaderRealm}`;
+    const realmLabel = leaderDead
+        ? 'deceased'
+        : (typeof PATHS !== 'undefined' && G?.path
+            ? (PATHS[G.path]?.realms[leaderRealm] || `Realm ${leaderRealm + 1}`)
+            : `Realm idx ${leaderRealm}`);
 
     const publicMethods = (org.inheritances?.public || []).map(a => a.label).join('; ');
 
@@ -389,6 +425,7 @@ if (typeof module !== 'undefined' && module.exports) {
         deriveOrganizationProfile,
         deriveOrganizationAfterMemberLoss,
         enrichLesserSectOrganization,
+        resolveOrganizationMembers,
         canAscendOrganization,
         applyExceptionalGrowthRelief,
         getPublicOrganizationBrief,

@@ -1034,28 +1034,34 @@ function tickWorldSectGrowth(monthsPassed) {
 
     getWorldSects().forEach(s => {
         if (s.defeated) return;
-        const elapsed = (G.ageMonths || 0) - (s.lastGrowthMonths || s.spawnedAtMonths || 0);
-        if (elapsed < b.growthIntervalMonths) return;
+        const interval = b.growthIntervalMonths;
+        const origin = s.lastGrowthMonths != null ? s.lastGrowthMonths : (s.spawnedAtMonths || 0);
+        const caught = typeof catchUpIntervalMarks === 'function'
+            ? catchUpIntervalMarks(origin, G.ageMonths || 0, interval, 800)
+            : { steps: 0, nextMark: origin };
+        if (!caught.steps) return;
 
-        s.renown = Math.min(
-            renownCap,
-            (s.renown || 0) + b.renownGrowthMin + Math.floor(Math.random() * (b.renownGrowthMax - b.renownGrowthMin + 1))
-        );
-        if (typeof isWorldSectSanctioned === 'function' && isWorldSectSanctioned(s)) {
-            s.renown = Math.max(3, (s.renown || 0) - 1);
-        }
-
-        const playerStageOrder = SECT_STAGES[getSectStageId()]?.order || 2;
-        const sectOrder = SECT_STAGES[s.stage]?.order || 1;
-        if (sectOrder < playerStageOrder && Math.random() < 0.22) {
-            const stages = Object.values(SECT_STAGES).filter(st => st.order > sectOrder && st.order <= playerStageOrder);
-            if (stages.length) {
-                s.stage = stages[Math.floor(Math.random() * stages.length)].id;
+        for (let step = 0; step < caught.steps; step++) {
+            s.renown = Math.min(
+                renownCap,
+                (s.renown || 0) + b.renownGrowthMin + Math.floor(Math.random() * (b.renownGrowthMax - b.renownGrowthMin + 1))
+            );
+            if (typeof isWorldSectSanctioned === 'function' && isWorldSectSanctioned(s)) {
+                s.renown = Math.max(3, (s.renown || 0) - 1);
             }
-        }
 
-        s.power = Math.min(powerCap, calcWorldSectPower(s));
-        s.lastGrowthMonths = G.ageMonths || 0;
+            const playerStageOrder = SECT_STAGES[getSectStageId()]?.order || 2;
+            const sectOrder = SECT_STAGES[s.stage]?.order || 1;
+            if (sectOrder < playerStageOrder && Math.random() < 0.22) {
+                const stages = Object.values(SECT_STAGES).filter(st => st.order > sectOrder && st.order <= playerStageOrder);
+                if (stages.length) {
+                    s.stage = stages[Math.floor(Math.random() * stages.length)].id;
+                }
+            }
+
+            s.power = Math.min(powerCap, calcWorldSectPower(s));
+        }
+        s.lastGrowthMonths = caught.nextMark;
     });
     syncLegacyRivalsFromWorldSects();
 }
