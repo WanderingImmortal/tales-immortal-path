@@ -72,7 +72,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [QC sect join ladder](qc-sect-join-ladder.md) | `idea` (v1 hall lean locked) | Hall name + graft spine | — |
 | [Dustbone lesser sects](dustbone-lesser-sects.md) | `building` (Well-Ring v1) | Playtest; loyalty parked | — |
 | [NPC agency — Well-Ring Phase A](npc-agency-well-ring.md) | `building` (Phase A cast shipped) | Phase C incidents | [PR #201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201) |
-| [NPC agency — foundations & ties](npc-agency-foundations-ties.md) | `building` (Phase B) | Phase C incidents / beliefs | `cursor/npc-foundations-ties` |
+| [NPC agency — foundations & ties](npc-agency-foundations-ties.md) | `building` (Phase B shipped) | Phase C incidents / beliefs | [PR #202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) |
+| [NPC personality consistency](npc-personality-consistency.md) | `building` | none | `cursor/npc-personality-consistency` |
 | [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `designed` (origins lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [World events — layered battlefield](world-events-layered-battlefield.md) | `idea` | Mid city; org tiers | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |

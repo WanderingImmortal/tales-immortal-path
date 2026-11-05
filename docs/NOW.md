@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-05
 
 ## Focus
-- **NPC foundations & sparse ties (Phase B)** — authored Liang foundation + `G.npcTies` · [`npc-agency-foundations-ties.md`](ideas/npc-agency-foundations-ties.md) · `cursor/npc-foundations-ties`
+- **NPC personality consistency** — live traits as authority; Liang `careful`+`loyal` · [`npc-personality-consistency.md`](ideas/npc-personality-consistency.md) · `cursor/npc-personality-consistency`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

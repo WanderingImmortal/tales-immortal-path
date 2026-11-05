@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Phase B) |
+| **Status** | `building` (Phase B shipped; personality sync in #203) |
 | **Blocked on** | Phase C incidents / beliefs |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/npc-foundations-ties` |
+| **Chat / PR** | [PR #202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) · consistency [`npc-personality-consistency.md`](npc-personality-consistency.md) |
 | **Updated** | 2026-11-05 |
 
 **Hub:** [`npc-agency-well-ring.md`](npc-agency-well-ring.md) · [`jianghu-situation-threads.md`](jianghu-situation-threads.md)
@@ -18,7 +18,7 @@ Stable character foundations (values, ambitions, convictions, attachments) plus 
 
 ### Foundation (authored catalog or procedural blob)
 
-- `personalities[]` — **reuse** `NPC_PERSONALITY_IDS` (not a second trait system)
+- `personalities[]` — catalogue **defaults** only; effective traits = live `npc.personalities` / story defs ([`npc-personality-consistency.md`](npc-personality-consistency.md))
 - `values[{ id, weight 0–1 }]`
 - `ambitions[{ id, priority 0–1 }]`
 - `convictions[{ id, strength 0–1 }]`

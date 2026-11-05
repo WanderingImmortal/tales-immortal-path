@@ -1,6 +1,22 @@
-// NPC character foundations — stable disposition / motivations (NPC agency Phase B).
+// NPC character foundations — stable disposition / motivations (NPC agency Phase B+).
 // Reuses existing NPC_PERSONALITY_* trait ids. Does not replace them or drift on ticks.
-// Authored catalog is source of truth for named faces; procedural blobs are generated once.
+//
+// === Precedence (PR #203) ===
+// Personality (effective):
+//   World NPCs  → live npc.personalities (gameplay authority for converse/duel/betrayal)
+//   Story NPCs  → NPCS[id].personalities (canonical authored source)
+//   Empty world → authored defaults (if any), else procedural roll via ensureNpcPersonalities
+// Authored catalogue personalities[] are DEFAULTS / narrative docs only — not a competing live set.
+// Values / ambitions / convictions / attachments remain independent authored (or procedural) layers.
+//
+// Layers for future agency (no chooser here):
+//   Personality  — interaction style / coarse tendencies (not automatic decisions)
+//   Values       — what they care about
+//   Ambitions    — what they seek
+//   Convictions  — principles that bias choices
+//   Attachments  — important places/institutions/people as personal stakes
+//   Social ties  — G.npcTies relationships between actors (asymmetric feelings)
+// Example: loyal ≠ unconditional obedience; careful ≠ refusing every risk.
 
 const NPC_FOUNDATION_VERSION = 1;
 
@@ -27,16 +43,28 @@ const NPC_FOUNDATION_AMBITION_IDS = [
     'recognition'
 ];
 
+/** Master Liang target traits (PR #203). Pragmatism lives in values/convictions, not `cunning`. */
+const MASTER_LIANG_PERSONALITIES = ['careful', 'loyal'];
+
+/**
+ * Exact legacy default sets recognised for narrow migration (order-insensitive).
+ * Unrecognised combinations are preserved (may be intentional).
+ */
+const MASTER_LIANG_LEGACY_PERSONALITY_SETS = [
+    ['cunning', 'wise'],   // PR #201 cast default
+    ['cunning', 'loyal']   // PR #202 interim default
+];
+
 /**
  * Authored foundations keyed by stable actor id (world uid or story npc id).
- * personalities[] reuse NPC_PERSONALITY_IDS — tendencies, not a second trait system.
+ * personalities[] here are defaults only — effective traits come from live NPC / story def.
  */
 const NPC_CHARACTER_FOUNDATIONS = {
     wr_master_liang: {
         id: 'wr_master_liang',
         name: 'Master Liang',
         source: 'authored',
-        personalities: ['cunning', 'loyal'],
+        personalities: MASTER_LIANG_PERSONALITIES.slice(),
         values: [
             { id: 'lodge_legacy', weight: 0.92 },
             { id: 'personal_security', weight: 0.86 },
@@ -59,7 +87,7 @@ const NPC_CHARACTER_FOUNDATIONS = {
         lore: {
             foundedWellRing: true,
             realmBand: 'early_fe',
-            // Lore only — do not wire into cultivation/combat quality systems in Phase B.
+            // Lore only — do not wire into cultivation/combat quality systems.
             foundationQualityNote:
                 'Somewhat better Foundation Establishment foundation than Redwell\'s mid-FE city lord; meaningful locally, ordinary by wider jianghu standards.'
         }
@@ -87,7 +115,9 @@ function resolveNpcActorId(npcOrId) {
 
 function findNpcForFoundation(npcOrId) {
     if (!npcOrId) return null;
-    if (typeof npcOrId === 'object' && (npcOrId.uid || npcOrId.personalities)) return npcOrId;
+    if (typeof npcOrId === 'object' && (npcOrId.uid || npcOrId.id || npcOrId.personalities || npcOrId._story)) {
+        return npcOrId;
+    }
     const id = resolveNpcActorId(npcOrId);
     if (!id) return null;
     if (typeof findWorldNpcRecordByUid === 'function') {
@@ -96,9 +126,87 @@ function findNpcForFoundation(npcOrId) {
     }
     if (typeof getNpcDef === 'function') {
         const def = getNpcDef(id);
-        if (def) return { id, uid: id, personalities: def.personalities || [], role: def.role || null, _story: true };
+        if (def) {
+            return {
+                id,
+                uid: id,
+                personalities: def.personalities ? def.personalities.slice() : [],
+                role: def.role || null,
+                _story: true
+            };
+        }
     }
     return null;
+}
+
+function personalitySetKey(list) {
+    return (list || []).slice().map(String).sort().join('|');
+}
+
+function personalitySetsEqual(a, b) {
+    return personalitySetKey(a) === personalitySetKey(b);
+}
+
+function isRecognisedMasterLiangLegacyPersonalities(list) {
+    if (!list || !list.length) return false;
+    return MASTER_LIANG_LEGACY_PERSONALITY_SETS.some(legacy => personalitySetsEqual(list, legacy));
+}
+
+/**
+ * Effective personalities for gameplay + foundation consumers.
+ * World: live npc.personalities. Story: NPCS def. Empty authored world: catalogue defaults.
+ */
+function getEffectiveNpcPersonalities(npcOrId) {
+    const npc = findNpcForFoundation(npcOrId);
+    if (!npc) {
+        const id = resolveNpcActorId(npcOrId);
+        const authored = id ? NPC_CHARACTER_FOUNDATIONS[id] : null;
+        return authored?.personalities ? authored.personalities.slice() : [];
+    }
+    if (npc._story) {
+        return (npc.personalities || []).slice();
+    }
+    if (npc.personalities?.length) {
+        return npc.personalities.slice();
+    }
+    const actorId = resolveNpcActorId(npc);
+    const authored = actorId ? NPC_CHARACTER_FOUNDATIONS[actorId] : null;
+    if (authored?.personalities?.length) return authored.personalities.slice();
+    if (typeof ensureNpcPersonalities === 'function') {
+        return ensureNpcPersonalities(npc).slice();
+    }
+    return [];
+}
+
+/**
+ * Narrow migrate for known Master Liang cast defaults → careful, loyal.
+ * Does not touch cultivation, age, zone, merit, ties, or unrecognised personality arrays.
+ */
+function migrateMasterLiangPersonalities() {
+    const npc = typeof findWorldNpcRecordByUid === 'function'
+        ? findWorldNpcRecordByUid('wr_master_liang')
+        : null;
+    if (!npc) return { migrated: false, reason: 'missing' };
+
+    if (personalitySetsEqual(npc.personalities, MASTER_LIANG_PERSONALITIES)) {
+        npc.personalitySync = 'liang_careful_loyal_v203';
+        return { migrated: false, reason: 'already_current' };
+    }
+
+    if (!npc.personalities?.length) {
+        npc.personalities = MASTER_LIANG_PERSONALITIES.slice();
+        npc.personalitySync = 'liang_careful_loyal_v203';
+        return { migrated: true, reason: 'empty_filled' };
+    }
+
+    if (isRecognisedMasterLiangLegacyPersonalities(npc.personalities)) {
+        npc.personalities = MASTER_LIANG_PERSONALITIES.slice();
+        npc.personalitySync = 'liang_careful_loyal_v203';
+        return { migrated: true, reason: 'legacy_default' };
+    }
+
+    // Unrecognised / possibly intentional — preserve.
+    return { migrated: false, reason: 'preserved_unrecognised' };
 }
 
 /** Soft personality → value/ambition hints for lightweight procedural foundations. */
@@ -174,7 +282,6 @@ function mapPersonalitiesToFoundationHints(personalities) {
     if (!values.length) addValue('personal_security', 0.4);
     if (!ambitions.length) addAmbition('survive', 0.35);
 
-    // Cap procedural ambition lists — no biography dumps.
     return {
         values: values.slice(0, 4),
         ambitions: ambitions.slice(0, 2),
@@ -183,9 +290,7 @@ function mapPersonalitiesToFoundationHints(personalities) {
 }
 
 function buildProceduralFoundation(npc) {
-    const personalities = (npc.personalities && npc.personalities.length)
-        ? npc.personalities.slice()
-        : (typeof ensureNpcPersonalities === 'function' ? ensureNpcPersonalities(npc).slice() : []);
+    const personalities = getEffectiveNpcPersonalities(npc);
     const hints = mapPersonalitiesToFoundationHints(personalities);
     return {
         version: NPC_FOUNDATION_VERSION,
@@ -200,8 +305,22 @@ function buildProceduralFoundation(npc) {
 }
 
 /**
- * Attach a stable foundation marker to an NPC without rewriting personalities.
- * Authored: foundationRef only. Procedural: foundation blob once.
+ * Keep procedural foundation.personalities mirror aligned with live traits without
+ * rerolling established values/ambitions/convictions (save-safe compatibility).
+ */
+function syncProceduralFoundationPersonalityMirror(npc) {
+    if (!npc?.foundation || npc.foundation.source === 'authored') return;
+    const live = getEffectiveNpcPersonalities(npc);
+    if (!live.length) return;
+    if (!personalitySetsEqual(npc.foundation.personalities, live)) {
+        npc.foundation.personalities = live.slice();
+        // Values/ambitions/convictions intentionally left alone — do not regenerate on load/tick.
+    }
+}
+
+/**
+ * Attach a stable foundation marker to an NPC without rewriting personalities
+ * (except empty → authored defaults). Procedural: foundation blob once from final traits.
  */
 function ensureNpcCharacterFoundation(npcOrId) {
     const npc = findNpcForFoundation(npcOrId);
@@ -212,46 +331,76 @@ function ensureNpcCharacterFoundation(npcOrId) {
     if (authored) {
         npc.foundationRef = authored.id;
         npc.foundationSource = 'authored';
-        // Do not overwrite existing personalities (no retroactive reroll).
         if (!npc.personalities?.length && authored.personalities?.length) {
             npc.personalities = authored.personalities.slice();
         }
         return getNpcCharacterFoundation(npc);
     }
 
+    if (npc._story) {
+        return getNpcCharacterFoundation(npc);
+    }
+
     if (npc.state === 'ambient' && npc.unnamed) {
-        // Ambient unnamed strangers stay foundation-light until promoted.
         return null;
     }
 
-    if (!npc.foundation || npc.foundation.version !== NPC_FOUNDATION_VERSION) {
-        if (!npc.foundation) {
-            npc.foundation = buildProceduralFoundation(npc);
-        } else if (npc.foundation.version !== NPC_FOUNDATION_VERSION) {
-            // Soft migrate shape; keep existing arrays if present.
-            npc.foundation.version = NPC_FOUNDATION_VERSION;
-            if (!npc.foundation.source) npc.foundation.source = 'procedural';
-            if (!Array.isArray(npc.foundation.values)) npc.foundation.values = [];
-            if (!Array.isArray(npc.foundation.ambitions)) npc.foundation.ambitions = [];
-            if (!Array.isArray(npc.foundation.convictions)) npc.foundation.convictions = [];
-            if (!Array.isArray(npc.foundation.attachments)) npc.foundation.attachments = [];
-        }
+    if (!npc.foundation) {
+        npc.foundation = buildProceduralFoundation(npc);
+    } else if (npc.foundation.version !== NPC_FOUNDATION_VERSION) {
+        npc.foundation.version = NPC_FOUNDATION_VERSION;
+        if (!npc.foundation.source) npc.foundation.source = 'procedural';
+        if (!Array.isArray(npc.foundation.values)) npc.foundation.values = [];
+        if (!Array.isArray(npc.foundation.ambitions)) npc.foundation.ambitions = [];
+        if (!Array.isArray(npc.foundation.convictions)) npc.foundation.convictions = [];
+        if (!Array.isArray(npc.foundation.attachments)) npc.foundation.attachments = [];
+        syncProceduralFoundationPersonalityMirror(npc);
+    } else {
+        syncProceduralFoundationPersonalityMirror(npc);
     }
     npc.foundationSource = 'procedural';
     return getNpcCharacterFoundation(npc);
 }
 
+/**
+ * Resolved foundation for consumers. Authored motivations from catalogue;
+ * personalities always match effective live/story traits.
+ */
 function getNpcCharacterFoundation(npcOrId) {
-    const actorId = resolveNpcActorId(npcOrId);
-    const authored = actorId ? getAuthoredCharacterFoundation(actorId) : null;
-    if (authored) return authored;
-
     const npc = findNpcForFoundation(npcOrId);
+    const actorId = resolveNpcActorId(npcOrId) || resolveNpcActorId(npc);
+    const authoredDef = actorId ? NPC_CHARACTER_FOUNDATIONS[actorId] : null;
+
+    if (authoredDef) {
+        const out = cloneNpcFoundation(authoredDef);
+        out.personalities = getEffectiveNpcPersonalities(npc || actorId);
+        return out;
+    }
+
     if (!npc) return null;
     if (npc.foundationRef && NPC_CHARACTER_FOUNDATIONS[npc.foundationRef]) {
-        return getAuthoredCharacterFoundation(npc.foundationRef);
+        const out = cloneNpcFoundation(NPC_CHARACTER_FOUNDATIONS[npc.foundationRef]);
+        out.personalities = getEffectiveNpcPersonalities(npc);
+        return out;
     }
-    if (npc.foundation) return cloneNpcFoundation(npc.foundation);
+    // Story NPCs without an authored foundation entry: personalities from NPCS def only.
+    if (npc._story) {
+        return {
+            version: NPC_FOUNDATION_VERSION,
+            id: npc.id || actorId,
+            source: 'story',
+            personalities: getEffectiveNpcPersonalities(npc),
+            values: [],
+            ambitions: [],
+            convictions: [],
+            attachments: []
+        };
+    }
+    if (npc.foundation) {
+        const out = cloneNpcFoundation(npc.foundation);
+        out.personalities = getEffectiveNpcPersonalities(npc);
+        return out;
+    }
     return ensureNpcCharacterFoundation(npc);
 }
 
@@ -277,6 +426,7 @@ function getNpcFoundationAttachments(npcOrId) {
 
 function ensureAllWorldNpcFoundations() {
     if (!G.worldNpcs) return;
+    migrateMasterLiangPersonalities();
     G.worldNpcs.forEach(npc => {
         if (!npc || npc.alive === false) return;
         if (npc.state === 'ambient' && npc.unnamed) return;
@@ -285,5 +435,6 @@ function ensureAllWorldNpcFoundations() {
 }
 
 function migrateNpcFoundationsForExistingSave() {
+    migrateMasterLiangPersonalities();
     ensureAllWorldNpcFoundations();
 }

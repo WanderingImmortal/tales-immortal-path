@@ -18,8 +18,8 @@ const WELL_RING_CAST = {
         realmIdx: 1,
         ageMonths: 48 * 12,
         growthRate: 0.35,
-        // Aligns with authored foundation in npc-foundations.js (Phase B). Existing saves keep prior traits.
-        personalities: ['cunning', 'loyal'],
+        // PR #203: careful + loyal. Pragmatism lives in authored values/convictions, not cunning.
+        personalities: ['careful', 'loyal'],
         occupation: 'Well-Ring hall master'
     },
     rival: {
@@ -250,6 +250,7 @@ function ensureWellRingLodgeCast() {
     });
 
     syncWellRingRivalMerit();
+    if (typeof migrateMasterLiangPersonalities === 'function') migrateMasterLiangPersonalities();
     if (typeof ensureNpcCharacterFoundation === 'function') {
         createdOrFound.forEach(npc => ensureNpcCharacterFoundation(npc));
     }
