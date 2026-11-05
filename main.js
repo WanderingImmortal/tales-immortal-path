@@ -705,6 +705,9 @@ function setupCreation(refreshOnly) {
         G.npcDecisions = null;
         G.npcSituationThreads = null;
         G.npcSituationOutcomes = null;
+        G.npcAmbitions = null;
+        G.npcGoals = null;
+        G.npcGoalAttempts = null;
         G.storyCombat = null;
         G.sectQuests = null;
         G.worldEventQuests = null;

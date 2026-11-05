@@ -142,6 +142,9 @@ let G = {
     npcDecisions: null,
     npcSituationThreads: null,
     npcSituationOutcomes: null,
+    npcAmbitions: null,
+    npcGoals: null,
+    npcGoalAttempts: null,
     storyCombat: null,
     sectQuests: null,
     worldEventQuests: null,
@@ -1168,12 +1171,16 @@ function loadState() {
             if (typeof migrateNpcIncidentsForExistingSave === 'function') migrateNpcIncidentsForExistingSave();
             if (typeof migrateNpcDecisionsForExistingSave === 'function') migrateNpcDecisionsForExistingSave();
             if (typeof migrateNpcSituationsForExistingSave === 'function') migrateNpcSituationsForExistingSave();
+            if (typeof migrateNpcAmbitionsForExistingSave === 'function') migrateNpcAmbitionsForExistingSave();
             if (G.npcIncidents == null) G.npcIncidents = null;
             if (G.npcObservations == null) G.npcObservations = null;
             if (G.npcBeliefs == null) G.npcBeliefs = null;
             if (G.npcDecisions == null) G.npcDecisions = null;
             if (G.npcSituationThreads == null) G.npcSituationThreads = null;
             if (G.npcSituationOutcomes == null) G.npcSituationOutcomes = null;
+            if (G.npcAmbitions == null) G.npcAmbitions = null;
+            if (G.npcGoals == null) G.npcGoals = null;
+            if (G.npcGoalAttempts == null) G.npcGoalAttempts = null;
             if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
                 scheduleNextDemonicEmergence();
             }
