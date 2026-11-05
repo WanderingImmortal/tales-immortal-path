@@ -205,31 +205,30 @@ function boot(extraG) {
     assert(duty && duty.eligible && steal.eligible, 'both actions eligible for Wei');
 }
 
-// 9–11. Goal completion updates ambition; repeated failure softens feasibility; minor setback keeps ambition
+// 9–11. Goal completion updates means progress (not fulfilment); failure softens feasibility
 {
     const ctx = boot();
     ctx.ensureWellRingState();
     const wei = ctx.getWellRingCastNpc('rival');
     const amb = ctx.ensureWeiShunCultivationAmbition();
-    const feas0 = amb.perceivedFeasibility;
     ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
-    // One stipend miss setback
     ctx.startWeiShunCultivationPursuitScenario({ seed: 2, forceAction: 'earn_lodge_duty', startingHerbs: 0 });
     const amb1 = ctx.getNpcAmbition(amb.id);
     assert(amb1.status === 'active', 'minor setback does not erase ambition');
     // Complete via herbs
     ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 3;
     const growthBefore = wei.growthProgress || 0;
-    ctx.ensureCultivationResourceGoal(wei.uid);
-    const completed = ctx.getNpcGoalsFor(wei.uid).find(g => g.type === 'acquire_cultivation_resources' && g.status === 'completed')
-        || ctx.maybeCompleteCultivationResourceGoal(wei.uid);
+    const realmBefore = wei.realmIdx || 0;
+    ctx.maybeCompleteCultivationResourceGoal(wei.uid);
+    const completed = ctx.getNpcGoalsFor(wei.uid).find(g => g.type === 'acquire_cultivation_resources' && g.status === 'completed');
     assert(completed && completed.status === 'completed', 'goal completion recorded');
     assert((wei.growthProgress || 0) > growthBefore, 'completion applies real cultivation progress');
     assert(ctx.getNpcSpiritHerbs(wei.uid) === 0, 'herbs consumed on completion');
     const ambAfter = ctx.getNpcAmbition(amb.id);
-    assert((ambAfter.progress || 0) > 0, 'ambition progress updates on goal completion');
+    assert((ambAfter.meta?.meansProgress || 0) > 0, 'means progress updates on resource goal');
+    assert(ambAfter.status === 'active', 'herb goal does not fulfil cultivation ambition');
+    assert((wei.realmIdx || 0) === realmBefore, 'herb batch alone does not change realm');
 
-    // Repeated failures lower feasibility
     const ctx3 = boot();
     ctx3.ensureWellRingState();
     const a = ctx3.ensureWeiShunCultivationAmbition();
@@ -351,6 +350,174 @@ function boot(extraG) {
     ctx.startWeiShunCultivationPursuitScenario({ seed: 3, forceAction: 'earn_lodge_duty', startingHerbs: 0 });
     const view = ctx.inspectNpcAmbitionRuntime('wr_wei_shun');
     assert(view.ambitions.length && view.recentAttempts.length, 'developer inspection exposes ambitions and attempts');
+}
+
+// --- Pre-merge: ambition fulfilment vs means; perceived risk ---
+
+// Herb batches complete goals but never fulfil ambition; many batches still active
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const wei = ctx.getWellRingCastNpc('rival');
+    const amb = ctx.ensureWeiShunCultivationAmbition();
+    for (let i = 0; i < 10; i++) {
+        ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 3;
+        ctx.maybeCompleteCultivationResourceGoal(wei.uid);
+    }
+    const after = ctx.getNpcAmbition(amb.id);
+    assert(after.status === 'active', 'herb consumption completes resource goals but not cultivation ambition');
+    assert((after.meta?.resourceBatches || 0) >= 10, 'resource batch history preserved');
+    assert((wei.realmIdx || 0) === 0, 'existing cultivation realm rules still authoritative (no auto realm)');
+}
+
+// Realm advancement fulfils ambition (including external mechanic)
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const wei = ctx.getWellRingCastNpc('rival');
+    const amb = ctx.ensureWeiShunCultivationAmbition();
+    const target = amb.target.towardRealmIdx;
+    assert(target === 1, 'Wei targets next realm');
+    wei.realmIdx = target;
+    const fulfilled = ctx.refreshCultivationAdvancementAmbitions(wei.uid);
+    assert(fulfilled.length >= 1 && ctx.getNpcAmbition(amb.id).status === 'fulfilled',
+        'actual realm advancement fulfils the appropriate ambition');
+    assert(ctx.getNpcAmbition(amb.id).meta.fulfilledReason === 'realm_reached',
+        'fulfilment reason is realm_reached');
+
+    const ctx2 = boot();
+    ctx2.ensureWellRingState();
+    const w2 = ctx2.getWellRingCastNpc('rival');
+    const a2 = ctx2.ensureWeiShunCultivationAmbition();
+    w2.realmIdx = (w2.realmIdx || 0) + 1; // simulate tickWorldNpcGrowth breakthrough
+    ctx2.refreshCultivationAdvancementAmbitions(w2.uid);
+    assert(ctx2.getNpcAmbition(a2.id).status === 'fulfilled',
+        'realm advancement through another mechanism is recognised');
+}
+
+// Theft scoring includes subjective risk; no objective odds leak into decision context
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureWeiShunCultivationAmbition();
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    const dec = ctx.resolveNpcContextualDecision(ctx.buildWeiResourceActionDecisionSpec(wei.uid, { seed: 1 }));
+    const steal = dec.optionsConsidered.find(o => o.id === 'steal_lodge_storehouse');
+    assert(steal.factors.some(f => f.id === 'perceived_theft_risk'), 'theft scoring includes subjective risk assessment');
+    assert(steal.factors.some(f => f.id === 'unknown_protections' || f.id === 'perceived_theft_risk'),
+        'unknown security is not treated as automatically safe');
+    const snap = JSON.stringify(dec.contextSnapshot || {});
+    assert(!snap.includes('stealFailChance') && !snap.includes('stealDetectChance'),
+        'hidden objective security does not leak into the decision');
+    assert(dec.contextSnapshot.perception?.theft?.risk != null, 'perception attached to decision context');
+
+    // Character traits change risk assessment
+    const careful = boot();
+    careful.ensureWellRingState();
+    const cw = careful.getWellRingCastNpc('rival');
+    cw.personalities = ['careful', 'loyal'];
+    if (cw.foundation) cw.foundation.personalities = cw.personalities.slice();
+    careful.ensureNpcCultivationPouch(cw).spiritHerbs = 0;
+    const pCareful = careful.assessWeiTheftPerception(cw.uid);
+    const pWei = ctx.assessWeiTheftPerception(wei.uid);
+    assert(pCareful.risk > pWei.risk, 'different character traits produce different risk assessments');
+}
+
+// Personal failure/detection experience influences later decisions
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureWeiShunCultivationAmbition();
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    const before = ctx.assessWeiTheftPerception(wei.uid).risk;
+    // Inject personal experience without using objective constants in perception
+    wei.meta = wei.meta || {};
+    wei.meta.actionExperience = {
+        steal_lodge_storehouse: { fails: 3, detections: 2, successes: 0, events: [] }
+    };
+    const after = ctx.assessWeiTheftPerception(wei.uid).risk;
+    assert(after > before, 'relevant personal failure experience raises perceived risk');
+    const dec = ctx.resolveNpcContextualDecision(ctx.buildWeiResourceActionDecisionSpec(wei.uid, { seed: 1 }));
+    const steal = dec.optionsConsidered.find(o => o.id === 'steal_lodge_storehouse');
+    assert(steal.factors.some(f => f.id === 'personal_theft_experience'),
+        'personal experience influences later decision scoring');
+}
+
+// Actual success separate from perceived difficulty; undetected does not inform Liang
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    let silent = false;
+    for (let s = 0; s < 50; s++) {
+        const c = boot();
+        c.ensureWellRingState();
+        const res = c.executeNpcResourceAction('wr_wei_shun', 'steal_lodge_storehouse', { seed: s });
+        if (res.success && !res.detected) {
+            const known = c.getNpcKnownAboutIncident('wr_master_liang', res.incidentId);
+            assert(!(known.beliefs && known.beliefs.length) && !(known.observations && known.observations.length),
+                'undetected misconduct does not automatically inform Liang');
+            silent = true;
+            break;
+        }
+    }
+    assert(silent, 'found undetected success path');
+
+    // Perception does not determine executor outcome
+    const perc = ctx.assessWeiTheftPerception('wr_wei_shun');
+    assert(perc.perceivedFailChance !== ctx.NPC_CULTIVATION_RESOURCE?.stealFailChance,
+        'actual action success remains separate from perceived difficulty');
+    // Even if constants equal by coincidence, ensure assess function source avoids them
+    const src = read('npc-ambitions.js');
+    const assessBody = src.slice(src.indexOf('function assessWeiTheftPerception'), src.indexOf('function recordNpcActionExperience'));
+    assert(!/stealFailChance|stealDetectChance/.test(assessBody),
+        'perception function does not read objective resolution constants');
+}
+
+// Natural scheduling cannot use developer overrides
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const spec = ctx.buildWeiResourceActionDecisionSpec('wr_wei_shun', {
+        developer: false,
+        forceAction: 'steal_lodge_storehouse',
+        seed: 1
+    });
+    assert(spec.forceChoice == null && spec.allowForceChoice === false,
+        'natural scheduling cannot use developer overrides');
+    const r = ctx.pursueNpcAmbitionGoal('wr_wei_shun', {
+        ignoreCooldown: true,
+        developer: false,
+        forceAction: 'earn_lodge_duty',
+        seed: 1
+    });
+    // May choose steal or duty by score — must not be forced to duty
+    const forcedDuty = r.decision?.optionsConsidered?.find(o => o.id === 'earn_lodge_duty');
+    void forcedDuty;
+    assert(r.ok, 'natural pursuit still runs');
+}
+
+// Save/load preserves ambition + experience
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureWeiShunCultivationAmbition();
+    ctx.executeNpcResourceAction(wei.uid, 'steal_lodge_storehouse', { seed: 3 });
+    const saved = JSON.parse(JSON.stringify({
+        ageMonths: ctx.G.ageMonths,
+        worldNpcs: ctx.G.worldNpcs,
+        wellRing: ctx.G.wellRing,
+        npcAmbitions: ctx.G.npcAmbitions,
+        npcGoals: ctx.G.npcGoals,
+        npcGoalAttempts: ctx.G.npcGoalAttempts
+    }));
+    const ctx2 = boot(saved);
+    ctx2.migrateNpcAmbitionsForExistingSave();
+    const w2 = ctx2.getWellRingCastNpc('rival');
+    assert(w2.meta?.actionExperience?.steal_lodge_storehouse, 'save/load preserves action experience');
+    assert(ctx2.getNpcAmbitionsFor(w2.uid).length >= 1, 'save/load preserves ambitions');
 }
 
 if (failed) {

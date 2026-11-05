@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-05
 
 ## Focus
-- **NPC ambitions & goals** — Wei Shun cultivation pursuit slice · [`npc-agency-ambitions-goals.md`](ideas/npc-agency-ambitions-goals.md) · `cursor/npc-ambitions-goals`
+- **NPC ambitions & goals** — Wei cultivation pursuit + fulfilment/risk corrections · [`npc-agency-ambitions-goals.md`](ideas/npc-agency-ambitions-goals.md) · [PR #206](https://github.com/WanderingImmortal/tales-immortal-path/pull/206)
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

@@ -349,10 +349,12 @@ function syncRuntimeAmbitionsFromFoundation(actorId) {
             origin: 'foundation_seed',
             foundationRef: fa.id,
             target: { towardRealmIdx: (npc.realmIdx || 0) + 1 },
-            allowDuplicateType: false
+            allowDuplicateType: false,
+            meta: { startRealmIdx: npc.realmIdx || 0 }
         });
         if (amb) seeded.push(amb);
     });
+    refreshCultivationAdvancementAmbitions(actorId);
     return seeded;
 }
 
@@ -362,11 +364,15 @@ function ensureWeiShunCultivationAmbition() {
     if (!wei || wei.alive === false) return null;
     ensureNpcCultivationPouch(wei);
     syncRuntimeAmbitionsFromFoundation(wei.uid);
+    refreshCultivationAdvancementAmbitions(wei.uid);
     const active = getNpcAmbitionsFor(wei.uid, { activeOnly: true })
         .find(a => a.type === 'cultivation_advancement');
     if (active) return active;
+    const fulfilled = getNpcAmbitionsFor(wei.uid)
+        .find(a => a.type === 'cultivation_advancement' && a.status === 'fulfilled');
+    if (fulfilled) return fulfilled;
     // Fallback if foundation somehow lacks advancement (should not for ambitious Wei)
-    return createNpcAmbition({
+    const created = createNpcAmbition({
         actorId: wei.uid,
         type: 'cultivation_advancement',
         label: 'Advance cultivation',
@@ -375,8 +381,11 @@ function ensureWeiShunCultivationAmbition() {
         perceivedFeasibility: 0.55,
         origin: 'well_ring_default',
         foundationRef: 'advancement',
-        target: { towardRealmIdx: (wei.realmIdx || 0) + 1 }
+        target: { towardRealmIdx: (wei.realmIdx || 0) + 1 },
+        meta: { startRealmIdx: wei.realmIdx || 0 }
     });
+    refreshCultivationAdvancementAmbitions(wei.uid);
+    return created ? getNpcAmbition(created.id) : null;
 }
 
 /**
@@ -407,6 +416,53 @@ function ensureCultivationResourceGoal(actorId) {
     });
 }
 
+/**
+ * Fulfil cultivation_advancement only when authoritative realmIdx meets target.
+ * Herb batches / goals never mark this fulfilled.
+ */
+function refreshCultivationAdvancementAmbitions(actorId) {
+    ensureNpcAmbitionState();
+    const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
+    if (!npc) return [];
+    const realm = npc.realmIdx || 0;
+    const updated = [];
+    getNpcAmbitionsFor(actorId).forEach(amb => {
+        if (!amb || amb.type !== 'cultivation_advancement') return;
+        const live = G.npcAmbitions.byId[amb.id];
+        if (!live || live.status === 'abandoned') return;
+        const target = live.target && live.target.towardRealmIdx != null
+            ? live.target.towardRealmIdx
+            : null;
+        if (target == null) return;
+        if (live.meta.startRealmIdx == null) {
+            live.meta = Object.assign({}, live.meta || {}, {
+                startRealmIdx: Math.min(realm, Math.max(0, target - 1))
+            });
+        }
+        if (realm >= target) {
+            if (live.status !== 'fulfilled') {
+                live.status = 'fulfilled';
+                live.progress = 1;
+                live.meta = Object.assign({}, live.meta || {}, {
+                    fulfilledReason: 'realm_reached',
+                    fulfilledAtMonths: G.ageMonths || 0,
+                    fulfilledRealmIdx: realm
+                });
+                live.lastReconsiderAtMonths = G.ageMonths || 0;
+                updated.push(cloneNpcAmbitionRecord(live));
+            }
+            return;
+        }
+        if (live.status === 'fulfilled') return;
+        // Realm-based progress only (means/herb history lives in meta.meansProgress).
+        const start = live.meta.startRealmIdx != null ? live.meta.startRealmIdx : Math.max(0, target - 1);
+        const span = Math.max(1, target - start);
+        live.progress = clampAmbitionUnit((realm - start) / span);
+        if (live.progress >= 1) live.progress = 0.99;
+    });
+    return updated;
+}
+
 function maybeCompleteCultivationResourceGoal(actorId) {
     const herbs = getNpcSpiritHerbs(actorId);
     const need = NPC_CULTIVATION_RESOURCE.herbNeedForBoost;
@@ -415,7 +471,7 @@ function maybeCompleteCultivationResourceGoal(actorId) {
     const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
     if (!npc) return null;
 
-    // Consume a batch for real cultivation progress
+    // Consume a batch for real cultivation progress (means toward ambition — not fulfilment).
     adjustNpcSpiritHerbs(actorId, -need);
     npc.growthProgress = (npc.growthProgress || 0) + NPC_CULTIVATION_RESOURCE.growthProgressPerBatch;
 
@@ -433,16 +489,131 @@ function maybeCompleteCultivationResourceGoal(actorId) {
     if (amb) {
         const live = G.npcAmbitions.byId[amb.id];
         if (live) {
-            live.progress = (live.progress || 0) + 0.15;
+            live.meta = live.meta || {};
+            live.meta.resourceBatches = (live.meta.resourceBatches || 0) + 1;
+            live.meta.meansProgress = (live.meta.meansProgress || 0) + 0.15;
             live.perceivedFeasibility = clampAmbitionUnit((live.perceivedFeasibility || 0.5) + 0.05);
             live.lastReconsiderAtMonths = G.ageMonths || 0;
-            if (live.progress >= 1) {
-                live.status = 'fulfilled';
-                live.meta = Object.assign({}, live.meta || {}, { fulfilledReason: 'resource_boosts_applied' });
-            }
+            // Do NOT set status fulfilled here — only refreshCultivationAdvancementAmbitions does.
         }
     }
+    refreshCultivationAdvancementAmbitions(actorId);
     return goals[0] ? getNpcGoal(goals[0].id) : null;
+}
+
+/**
+ * Coarse subjective theft assessment — actor-facing only.
+ * Must NOT read NPC_CULTIVATION_RESOURCE.stealFailChance / stealDetectChance
+ * (those are objective executor values).
+ */
+function assessWeiTheftPerception(actorId) {
+    const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
+    const personalities = (typeof getEffectiveNpcPersonalities === 'function' && npc)
+        ? (getEffectiveNpcPersonalities(npc) || [])
+        : (npc?.personalities || []);
+    const expRoot = npc?.meta?.actionExperience || {};
+    const theftExp = expRoot.steal_lodge_storehouse || { fails: 0, detections: 0, successes: 0 };
+
+    // Uncertain baseline: lodge is familiar but protections are not fully known.
+    let perceivedFailChance = 0.38;
+    let perceivedDetectChance = 0.42;
+    let uncertainty = 0.28;
+
+    // Institutional familiarity (outer disciple) — slight layout confidence, not "known safe".
+    if (npc && (npc.lodgeRole || npc.affiliationId === 'well_ring_lodge' ||
+        (typeof WELL_RING_LODGE_ID !== 'undefined' && npc.affiliationId === WELL_RING_LODGE_ID))) {
+        uncertainty -= 0.08;
+        perceivedFailChance -= 0.04;
+    } else {
+        uncertainty += 0.1;
+        perceivedFailChance += 0.08;
+    }
+
+    // Own apparent capability (realm) — subjective confidence, not omniscient security read.
+    const realm = npc?.realmIdx || 0;
+    if (realm <= 0) {
+        perceivedFailChance += 0.08;
+        perceivedDetectChance += 0.06;
+    } else if (realm >= 2) {
+        perceivedFailChance -= 0.06;
+        perceivedDetectChance -= 0.04;
+    }
+
+    if (personalities.includes('bold')) {
+        perceivedFailChance -= 0.1;
+        perceivedDetectChance -= 0.08;
+    }
+    if (personalities.includes('ambitious')) {
+        perceivedFailChance -= 0.05;
+        uncertainty -= 0.03;
+    }
+    if (personalities.includes('careful')) {
+        perceivedFailChance += 0.14;
+        perceivedDetectChance += 0.12;
+        uncertainty += 0.06;
+    }
+    if (personalities.includes('cowardly')) {
+        perceivedFailChance += 0.18;
+        perceivedDetectChance += 0.14;
+        uncertainty += 0.08;
+    }
+
+    // Personal experience the actor lived through (not private undetected ledger rows).
+    perceivedFailChance += Math.min(0.25, (theftExp.fails || 0) * 0.08);
+    perceivedDetectChance += Math.min(0.3, (theftExp.detections || 0) * 0.12);
+    if ((theftExp.successes || 0) > 0 && (theftExp.detections || 0) === 0) {
+        perceivedDetectChance -= Math.min(0.1, theftExp.successes * 0.03);
+    }
+
+    perceivedFailChance = clampAmbitionUnit(perceivedFailChance);
+    perceivedDetectChance = clampAmbitionUnit(perceivedDetectChance);
+    uncertainty = clampAmbitionUnit(uncertainty);
+    // Combined reluctance: failure + detection + unknown protections.
+    const risk = clampAmbitionUnit(
+        0.4 * perceivedFailChance + 0.45 * perceivedDetectChance + 0.3 * uncertainty
+    );
+
+    return {
+        perceivedFailChance,
+        perceivedDetectChance,
+        uncertainty,
+        risk,
+        experience: {
+            fails: theftExp.fails || 0,
+            detections: theftExp.detections || 0,
+            successes: theftExp.successes || 0
+        }
+    };
+}
+
+function recordNpcActionExperience(actorId, actionId, result) {
+    const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
+    if (!npc || !actionId) return null;
+    npc.meta = npc.meta || {};
+    npc.meta.actionExperience = npc.meta.actionExperience || {};
+    const row = npc.meta.actionExperience[actionId] || {
+        fails: 0,
+        detections: 0,
+        successes: 0,
+        events: []
+    };
+    if (actionId === 'steal_lodge_storehouse') {
+        if (result && result.success) {
+            row.successes += 1;
+            // Detection is personal knowledge only when the actor knows they left a trail /
+            // were reported — use result.detected as the actor experiencing heat.
+            if (result.detected) row.detections += 1;
+        } else {
+            row.fails += 1;
+        }
+        row.events = (row.events || []).concat([{
+            atMonths: G.ageMonths || 0,
+            success: !!(result && result.success),
+            detected: !!(result && result.detected)
+        }]).slice(-8);
+    }
+    npc.meta.actionExperience[actionId] = row;
+    return cloneNpcAmbitionRecord(row);
 }
 
 const WEI_RESOURCE_ACTION_OPTIONS = [
@@ -480,6 +651,33 @@ const WEI_RESOURCE_ACTION_OPTIONS = [
                 s += 0.15;
                 factors.push({ id: 'pressure_risk', delta: 0.15 });
             }
+
+            // Subjective difficulty / consequences — never objective stealFailChance.
+            const perc = (ctx.perception && ctx.perception.theft) || null;
+            if (perc) {
+                const penalty = (perc.risk || 0) * 0.95;
+                s -= penalty;
+                factors.push({
+                    id: 'perceived_theft_risk',
+                    delta: -penalty,
+                    perceivedFailChance: perc.perceivedFailChance,
+                    perceivedDetectChance: perc.perceivedDetectChance,
+                    uncertainty: perc.uncertainty
+                });
+                if ((perc.uncertainty || 0) >= 0.2) {
+                    s -= 0.12;
+                    factors.push({ id: 'unknown_protections', delta: -0.12, note: 'unknown security not treated as safe' });
+                }
+                if ((perc.experience?.detections || 0) > 0 || (perc.experience?.fails || 0) > 0) {
+                    const heat = Math.min(0.35, (perc.experience.detections || 0) * 0.12 + (perc.experience.fails || 0) * 0.06);
+                    s -= heat;
+                    factors.push({ id: 'personal_theft_experience', delta: -heat });
+                }
+            } else {
+                // Missing perception → cautious default (unknown ≠ safe).
+                s -= 0.2;
+                factors.push({ id: 'unknown_risk_default', delta: -0.2 });
+            }
             return { score: s };
         }
     }
@@ -490,6 +688,8 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
     const herbs = getNpcSpiritHerbs(actorId);
     const need = NPC_CULTIVATION_RESOURCE.herbNeedForBoost;
     const shortfall = Math.max(0, need - herbs);
+    const developer = !!options.developer;
+    const perception = { theft: assessWeiTheftPerception(actorId) };
     return {
         actorId,
         accusedId: null,
@@ -499,11 +699,15 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
         evidenceStrength: 'weak',
         pressure: shortfall / need,
         resources: { spiritHerbs: herbs, need },
+        perception,
+        // Actor-facing risk summary for traces — not objective executor odds.
+        risks: { theftPerceived: perception.theft },
         optionDefs: WEI_RESOURCE_ACTION_OPTIONS,
         seed: options.seed,
-        developer: !!options.developer,
-        allowForceChoice: !!options.developer,
-        forceChoice: options.forceAction || null
+        developer,
+        allowForceChoice: developer,
+        // forceAction only in explicit developer/test context
+        forceChoice: developer ? (options.forceAction || null) : null
     };
 }
 
@@ -567,18 +771,22 @@ function executeNpcResourceAction(actorId, actionId, context) {
                 });
                 if (inc) effects.push({ type: 'incident', incidentId: inc.id, detected: false });
             }
-            return {
+            const failResult = {
                 success: false,
                 actionId,
                 effects,
-                notes: 'Theft attempt failed; left empty-handed.'
+                notes: 'Theft attempt failed; left empty-handed.',
+                detected: false
             };
+            recordNpcActionExperience(actorId, actionId, failResult);
+            return failResult;
         }
 
         const gained = NPC_CULTIVATION_RESOURCE.stealHerbGain;
         adjustNpcSpiritHerbs(actorId, gained);
         effects.push({ type: 'spirit_herbs_gained', amount: gained, source: 'theft' });
 
+        // Objective resolution — not exposed to decision scoring.
         const detected = rng() < NPC_CULTIVATION_RESOURCE.stealDetectChance;
         let incidentId = null;
         if (typeof createNpcIncident === 'function') {
@@ -634,7 +842,7 @@ function executeNpcResourceAction(actorId, actionId, context) {
             // Do not auto-start accusation situation — leave to natural/dev situation machinery.
         }
 
-        return {
+        const okResult = {
             success: true,
             actionId,
             effects,
@@ -644,6 +852,8 @@ function executeNpcResourceAction(actorId, actionId, context) {
             detected,
             incidentId
         };
+        recordNpcActionExperience(actorId, actionId, okResult);
+        return okResult;
     }
 
     return { success: false, actionId, effects: [{ type: 'unknown_action' }], notes: 'Unknown action.' };
@@ -700,6 +910,8 @@ function pursueNpcAmbitionGoal(actorId, options) {
     try {
         if (actorId === 'wr_wei_shun') ensureWeiShunCultivationAmbition();
         else syncRuntimeAmbitionsFromFoundation(actorId);
+        // Recognise realm gains from any existing mechanic before planning the next means-goal.
+        refreshCultivationAdvancementAmbitions(actorId);
 
         let goal = ensureCultivationResourceGoal(actorId);
         // If already had enough herbs, ensureCultivationResourceGoal may complete immediately
@@ -708,14 +920,21 @@ function pursueNpcAmbitionGoal(actorId, options) {
             return { ok: true, completedImmediately: true, goal };
         }
         if (!goal || goal.status !== 'active') {
+            // Ambition may already be fulfilled by realm — not an error for natural ticks.
+            const amb = getNpcAmbitionsFor(actorId, { activeOnly: true })
+                .find(a => a.type === 'cultivation_advancement');
+            if (!amb) {
+                return { ok: true, reason: 'ambition_fulfilled_or_absent', ambitions: getNpcAmbitionsFor(actorId) };
+            }
             return { ok: false, reason: 'no_active_goal' };
         }
 
+        const developer = !!options.developer;
         const decision = typeof resolveNpcContextualDecision === 'function'
             ? resolveNpcContextualDecision(buildWeiResourceActionDecisionSpec(actorId, {
                 seed: options.seed,
-                developer: !!options.developer,
-                forceAction: options.forceAction
+                developer,
+                forceAction: developer ? options.forceAction : null
             }))
             : null;
         if (!decision) {
@@ -754,6 +973,7 @@ function pursueNpcAmbitionGoal(actorId, options) {
         }
 
         const completed = maybeCompleteCultivationResourceGoal(actorId);
+        refreshCultivationAdvancementAmbitions(actorId);
         npc.meta.lastAmbitionPursuitMonths = G.ageMonths || 0;
 
         return {
@@ -796,14 +1016,20 @@ function startWeiShunCultivationPursuitScenario(options) {
  */
 function inspectNpcAmbitionRuntime(actorId) {
     ensureNpcAmbitionState();
+    refreshCultivationAdvancementAmbitions(actorId);
     const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
     return {
         actorId,
         alive: npc ? npc.alive !== false : null,
+        realmIdx: npc ? npc.realmIdx : null,
         pouch: npc ? cloneNpcAmbitionRecord(ensureNpcCultivationPouch(npc)) : null,
         ambitions: getNpcAmbitionsFor(actorId),
         goals: getNpcGoalsFor(actorId),
         recentAttempts: getNpcGoalAttemptsFor(actorId, 8),
+        theftPerception: assessWeiTheftPerception(actorId),
+        actionExperience: npc?.meta?.actionExperience
+            ? cloneNpcAmbitionRecord(npc.meta.actionExperience)
+            : null,
         foundationAmbitions: typeof getNpcFoundationAmbitions === 'function'
             ? getNpcFoundationAmbitions(actorId)
             : []
@@ -831,6 +1057,11 @@ function maybeNaturalWeiShunCultivationPursuit(/* deltaMonths */) {
 
 function tickNpcAmbitionPursuit(deltaMonths) {
     ensureNpcAmbitionState();
+    // Realm may have advanced via tickWorldNpcGrowth on the same clock — recognise it.
+    if (typeof getWellRingCastNpc === 'function') {
+        const wei = getWellRingCastNpc('rival');
+        if (wei && wei.uid) refreshCultivationAdvancementAmbitions(wei.uid);
+    }
     maybeNaturalWeiShunCultivationPursuit(deltaMonths);
 }
 
@@ -842,6 +1073,7 @@ function migrateNpcAmbitionsForExistingSave() {
         if (wei && wei.alive !== false) {
             ensureNpcCultivationPouch(wei);
             syncRuntimeAmbitionsFromFoundation(wei.uid);
+            refreshCultivationAdvancementAmbitions(wei.uid);
         }
     }
 }
