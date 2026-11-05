@@ -267,6 +267,7 @@ function promoteAmbientToPersistent(npc, context) {
         npc.wanderDueMonths = (G.ageMonths || 0) + pickWorldNpcWanderInterval();
     }
     clampWorldNpcProgress(npc);
+    if (typeof ensureNpcCharacterFoundation === 'function') ensureNpcCharacterFoundation(npc);
     enforcePersistentCap();
     return npc;
 }

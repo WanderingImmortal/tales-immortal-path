@@ -135,6 +135,7 @@ let G = {
     npcCombat: null,
     storyArcState: null,
     npcRelationships: null,
+    npcTies: null,
     storyCombat: null,
     sectQuests: null,
     worldEventQuests: null,
@@ -1149,9 +1150,15 @@ function loadState() {
             if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
             if (typeof migrateWellRingLodgeForExistingSave === 'function') migrateWellRingLodgeForExistingSave();
             else if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
+            if (typeof migrateNpcAgencyFoundationsAndTies === 'function') migrateNpcAgencyFoundationsAndTies();
+            else {
+                if (typeof migrateNpcFoundationsForExistingSave === 'function') migrateNpcFoundationsForExistingSave();
+                if (typeof migrateNpcTiesForExistingSave === 'function') migrateNpcTiesForExistingSave();
+            }
             if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
             if (typeof ensureAllWorldNpcRelationships === 'function') ensureAllWorldNpcRelationships();
             if (G.worldNpcs == null) G.worldNpcs = [];
+            if (G.npcTies == null) G.npcTies = null;
             if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
                 scheduleNextDemonicEmergence();
             }

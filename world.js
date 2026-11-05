@@ -1257,6 +1257,7 @@ function ensureWorldNpcs() {
             if (n.state === 'persistent' && n.unnamed == null) n.unnamed = false;
             ensureNpcPersonalities(n);
             clampWorldNpcProgress(n);
+            if (typeof ensureNpcCharacterFoundation === 'function') ensureNpcCharacterFoundation(n);
         }
     });
     const zoneIds = Object.keys(ZONES);
@@ -1341,6 +1342,7 @@ function generateWorldNpc(zoneId, options) {
     };
     if (options.personalities?.length) npc.personalities = options.personalities.slice();
     else ensureNpcPersonalities(npc);
+    if (typeof ensureNpcCharacterFoundation === 'function') ensureNpcCharacterFoundation(npc);
     return npc;
 }
 

@@ -698,6 +698,7 @@ function setupCreation(refreshOnly) {
         G.npcCombat = null;
         G.storyArcState = null;
         G.npcRelationships = null;
+        G.npcTies = null;
         G.storyCombat = null;
         G.sectQuests = null;
         G.worldEventQuests = null;

@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-05
 
 ## Focus
-- **Well-Ring lodge NPCs (Phase A)** — Master Liang + Wei Shun as persistent `G.worldNpcs` · [`npc-agency-well-ring.md`](ideas/npc-agency-well-ring.md) · `cursor/well-ring-lodge-npcs`
+- **NPC foundations & sparse ties (Phase B)** — authored Liang foundation + `G.npcTies` · [`npc-agency-foundations-ties.md`](ideas/npc-agency-foundations-ties.md) · `cursor/npc-foundations-ties`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap
