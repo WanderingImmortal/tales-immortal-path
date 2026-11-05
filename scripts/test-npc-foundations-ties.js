@@ -95,9 +95,19 @@ function boot(extraG) {
     ctx.ensureWellRingLodgeCast();
     const authored = ctx.getAuthoredCharacterFoundation('wr_master_liang');
     assert(!!authored && authored.source === 'authored', 'authored foundation exists for Master Liang');
-    assert(authored.personalities.includes('cunning') && authored.personalities.includes('loyal'), 'Liang personality tendencies reuse trait ids');
+    assert(authored.personalities.includes('careful') && authored.personalities.includes('loyal'), 'Liang defaults careful + loyal');
+    const master = ctx.getWellRingCastNpc('hall_master');
+    assert(
+        master.personalities.includes('careful') && master.personalities.includes('loyal'),
+        'new Master Liang NPCs use careful, loyal'
+    );
     const f = ctx.getNpcCharacterFoundation('wr_master_liang');
+    assert(
+        f.personalities.includes('careful') && f.personalities.includes('loyal'),
+        'foundation personalities agree with live traits'
+    );
     assert(f.values.some(v => v.id === 'lodge_legacy' && v.weight > 0.8), 'Liang values lodge legacy highly');
+    assert(f.values.some(v => v.id === 'pragmatism'), 'pragmatism remains a value not cunning');
     assert(f.ambitions.some(a => a.id === 'preserve_well_ring'), 'Liang ambition preserves lodge');
     assert(!f.ambitions.some(a => /dominat|immortal|heavens_rule/i.test(a.id)), 'no grand domination ambition');
     assert(f.lore?.foundationQualityNote && /city lord/i.test(f.lore.foundationQualityNote), 'FE quality lore recorded without system change');
@@ -107,7 +117,7 @@ function boot(extraG) {
     assert(vals.length >= 3 && ambs.length >= 1, 'value/ambition helpers resolve');
 }
 
-// --- Existing personality compatibility / no overwrite ---
+// --- Legacy Liang migrate only via dedicated migrate (ensure alone does not wipe unrecognised) ---
 {
     const ctx = boot({
         worldNpcs: [{
@@ -117,17 +127,20 @@ function boot(extraG) {
             zone: 'dustbone',
             realmIdx: 1,
             ageMonths: 500,
-            personalities: ['cunning', 'wise'],
+            personalities: ['proud', 'secretive'],
             alive: true,
-            state: 'persistent'
+            state: 'persistent',
+            lodgeMerit: 0
         }]
     });
     ctx.ensureNpcCharacterFoundation(ctx.G.worldNpcs[0]);
     assert(
-        ctx.G.worldNpcs[0].personalities[0] === 'cunning' && ctx.G.worldNpcs[0].personalities[1] === 'wise',
-        'existing personalities are not rerolled'
+        ctx.G.worldNpcs[0].personalities[0] === 'proud' && ctx.G.worldNpcs[0].personalities[1] === 'secretive',
+        'unrecognised personalities preserved by ensure'
     );
-    assert(ctx.getNpcCharacterFoundation('wr_master_liang').source === 'authored', 'authored still resolves by uid');
+    const f = ctx.getNpcCharacterFoundation('wr_master_liang');
+    assert(f.personalities.includes('proud') && f.personalities.includes('secretive'), 'foundation follows live unrecognised traits');
+    assert(f.source === 'authored', 'authored still resolves by uid');
 }
 
 // --- Procedural foundation stability ---

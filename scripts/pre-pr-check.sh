@@ -13,6 +13,7 @@ node scripts/test-time-npc-consistency.js
 node scripts/test-player-activity.js
 node scripts/test-well-ring-lodge-npcs.js
 node scripts/test-npc-foundations-ties.js
+node scripts/test-npc-personality-consistency.js
 node scripts/audit-cultivation-progression.js
 node scripts/audit-qi-density-recovery.js
 node scripts/audit-qi-purity-foundation.js

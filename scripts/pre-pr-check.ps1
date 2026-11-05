@@ -16,6 +16,8 @@ node scripts/test-well-ring-lodge-npcs.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/test-npc-foundations-ties.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+node scripts/test-npc-personality-consistency.js
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/audit-cultivation-progression.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host ''
