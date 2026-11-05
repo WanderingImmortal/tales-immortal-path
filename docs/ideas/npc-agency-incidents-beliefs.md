@@ -5,7 +5,7 @@
 | **Status** | `building` |
 | **Blocked on** | none for data layer; situation threads / rumour / chooser deferred |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/npc-incidents-beliefs` · Phase A [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201) · Phase B [#202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) · consistency [#203](https://github.com/WanderingImmortal/tales-immortal-path/pull/203) |
+| **Chat / PR** | [PR #204](https://github.com/WanderingImmortal/tales-immortal-path/pull/204) · Phase A [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201) · Phase B [#202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) · consistency [#203](https://github.com/WanderingImmortal/tales-immortal-path/pull/203) |
 | **Updated** | 2026-11-05 |
 
 **Hub:** [`npc-agency-well-ring.md`](npc-agency-well-ring.md) · [`npc-agency-foundations-ties.md`](npc-agency-foundations-ties.md) · [`jianghu-situation-threads.md`](jianghu-situation-threads.md)
