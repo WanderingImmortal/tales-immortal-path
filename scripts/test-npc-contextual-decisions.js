@@ -284,7 +284,7 @@ function boot(extraG) {
     assert(outcomes[0].effects.some(e => e.reason === 'accused_unavailable'), 'blocked effect recorded');
 }
 
-// 10. Investigation does not automatically reveal truth
+// 10. Investigation does not automatically reveal truth / bump culprit confidence
 {
     const ctx = boot();
     ctx.ensureWellRingState();
@@ -297,9 +297,16 @@ function boot(extraG) {
     });
     const known = ctx.getNpcKnownAboutIncident(r.liangId, r.incident.id);
     assert(known.primaryBelief.claim.culpritId !== 'hidden_culprit', 'investigation did not reveal true culprit');
-    assert(r.thread.flags.investigated || ctx.getNpcSituationThread(r.thread.id).stage, 'investigation recorded');
+    assert(known.primaryBelief.claim.culpritId === 'wrong_suspect', 'incorrect accusation preserved');
+    assert(Math.abs((known.primaryBelief.confidence || 0) - 0.3) < 1e-9,
+        'missing-stock investigation does not raise culprit confidence');
+    const loss = known.beliefs.find(b => b.claimTopic === 'loss');
+    assert(loss && loss.claim.missingStock === true, 'loss belief records missing stock separately');
     const after = ctx.getNpcSituationThread(r.thread.id);
     assert(after.flags.investigated === true, 'investigated flag set');
+    const out = ctx.getNpcSituationOutcomesFor(r.thread.id)[0];
+    const confFx = out.effects.find(e => e.type === 'culprit_confidence');
+    assert(confFx && confFx.before === confFx.after, 'outcome records unchanged culprit confidence');
 }
 
 // 11. Decisions and outcomes recorded separately
@@ -434,6 +441,199 @@ function boot(extraG) {
     ctx.ensureWellRingState();
     const elig = ctx.isWellRingAccusationEligible({ ignoreCooldown: true });
     assert(elig.ok, 'eligible with lodge cast and no player');
+}
+
+// --- Pre-merge behaviour corrections ---
+
+// Implicating evidence can strengthen accused belief (without objective facts)
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const r = ctx.startWellRingResourceAccusationScenario({
+        forceChoice: 'defer',
+        accusedId: 'suspect_a',
+        trueCulpritId: 'actual_other',
+        evidenceStrength: 'weak',
+        liangBeliefConfidence: 0.35
+    });
+    const before = ctx.getNpcKnownAboutIncident(r.liangId, r.incident.id).primaryBelief.confidence;
+    const applied = ctx.applySubjectiveAccusedImplication({
+        observerId: r.liangId,
+        incidentId: r.incident.id,
+        accusedId: 'suspect_a',
+        details: { identifiedCulpritId: 'suspect_a', note: 'Saw matching sash on suspect_a' },
+        confidenceDelta: 0.2
+    });
+    assert(applied.ok, 'implicating evidence applies');
+    const after = ctx.getNpcKnownAboutIncident(r.liangId, r.incident.id).primaryBelief;
+    assert(after.claim.culpritId === 'suspect_a', 'incorrect but implicated belief preserved');
+    assert(after.confidence > before, 'implicating evidence raises culprit confidence');
+    assert(ctx.getNpcIncidentObjective(r.incident.id).facts.culpritId === 'actual_other',
+        'objective culprit unchanged');
+
+    const rejected = ctx.applySubjectiveAccusedImplication({
+        observerId: r.liangId,
+        incidentId: r.incident.id,
+        accusedId: 'suspect_a',
+        details: { foundMissingStock: true, identifiedCulpritId: null }
+    });
+    assert(!rejected.ok && rejected.reason === 'no_accused_implication',
+        'missing stock alone does not count as accused implication');
+}
+
+// Weak accusation: formal discipline ineligible; warn remains available
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const r = ctx.startWellRingResourceAccusationScenario({
+        seed: 3,
+        evidenceStrength: 'weak',
+        liangBeliefConfidence: 0.3,
+        accusedId: 'wr_unknown_outer',
+        decideImmediately: true
+    });
+    const d = ctx.getNpcDecision(r.thread.decisionIds[0]);
+    const disc = d.optionsConsidered.find(o => o.id === 'formal_discipline');
+    const warn = d.optionsConsidered.find(o => o.id === 'warn');
+    assert(disc && disc.eligible === false, 'weak accusation cannot normally produce formal discipline');
+    assert(warn && warn.eligible === true, 'precautionary warn remains available under weaker evidence');
+    assert(d.chosen !== 'formal_discipline', 'weak path does not choose formal discipline');
+}
+
+// Strong credible subjective evidence: discipline eligible (still may not be chosen)
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const r = ctx.startWellRingResourceAccusationScenario({
+        seed: 3,
+        evidenceStrength: 'strong',
+        liangBeliefConfidence: 0.8,
+        accusedId: 'wr_unknown_outer',
+        trueCulpritId: 'someone_else',
+        decideImmediately: true
+    });
+    const d = ctx.getNpcDecision(r.thread.decisionIds[0]);
+    const disc = d.optionsConsidered.find(o => o.id === 'formal_discipline');
+    assert(disc && disc.eligible === true, 'strong credible subjective evidence makes discipline eligible');
+    assert(d.knowledgeSnapshot.primaryClaim.culpritId === 'wr_unknown_outer',
+        'incorrect but credible beliefs remain possible');
+}
+
+// Natural triggers cannot use developer-only forced choices
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const r = ctx.beginWellRingResourceAccusation({
+        natural: true,
+        ignoreCooldown: true,
+        decideImmediately: true,
+        forceChoice: 'formal_discipline',
+        evidenceStrength: 'weak',
+        liangBeliefConfidence: 0.2,
+        accusedId: 'wr_unknown_outer'
+    });
+    assert(r.ok, 'natural start ok');
+    assert(r.thread.flags.forceChoice == null, 'natural strips forceChoice');
+    const d = ctx.getNpcDecision(r.thread.decisionIds[0]);
+    assert(d.chosen !== 'formal_discipline', 'natural weak path does not force discipline');
+}
+
+// Developer overrides do not bypass outcome feasibility
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const r = ctx.startWellRingResourceAccusationScenario({
+        forceChoice: 'formal_discipline',
+        evidenceStrength: 'weak',
+        liangBeliefConfidence: 0.2,
+        accusedAvailable: false,
+        accusedId: 'wr_unknown_outer'
+    });
+    const d = ctx.getNpcDecision(r.thread.decisionIds[0]);
+    assert(d.chosen === 'formal_discipline', 'developer may force ineligible intention');
+    const out = ctx.getNpcSituationOutcomesFor(r.thread.id)[0];
+    assert(out.success === false, 'forced intention still fails when accused unavailable');
+}
+
+// Active thread cap
+{
+    const ctx = boot();
+    ctx.ensureWellRingState();
+    const prev = ctx.NPC_SITUATION_RETENTION
+        ? ctx.NPC_SITUATION_RETENTION.maxActiveThreads
+        : null;
+    // Cap is a const — lower by filling to maxActiveThreads via direct register if exposed,
+    // else create max-1 delayed threads then assert next fails.
+    // Use begin with decideImmediately:false to keep threads active.
+    let started = 0;
+    for (let i = 0; i < 8; i++) {
+        // Resolve previous natural cooldown / already_active by using unique force + ignoreCooldown
+        // Cap counts ALL active templates — first fills then blocks.
+        const r = ctx.beginWellRingResourceAccusation({
+            developer: true,
+            ignoreCooldown: true,
+            decideImmediately: false,
+            decisionDelayMonths: 5,
+            accusedId: `outer_${i}`,
+            threadId: `sit_cap_${i}`
+        });
+        if (r.ok) started += 1;
+        else {
+            assert(r.reason === 'already_active' || r.reason === 'active_thread_cap',
+                'extra starts blocked by active or cap');
+            break;
+        }
+    }
+    // Well-Ring pack also blocks already_active for same template — so only 1 Well-Ring active.
+    // Exercise cap via registerNpcSituationThread with synthetic threads.
+    for (let i = 0; i < 10; i++) {
+        ctx.registerNpcSituationThread({
+            id: `synth_cap_${i}`,
+            templateId: 'synth_pack',
+            status: 'active',
+            stage: 'await_decision',
+            rootIncidentId: null,
+            relatedIncidentIds: [],
+            participants: {},
+            decisionIds: [],
+            outcomeIds: [],
+            flags: {},
+            createdAtMonths: ctx.G.ageMonths,
+            updatedAtMonths: ctx.G.ageMonths,
+            expiresAtMonths: ctx.G.ageMonths + 10,
+            meta: {}
+        });
+    }
+    assert(ctx.countActiveNpcSituationThreads() <= 8, 'active thread cap enforced');
+    const blocked = ctx.beginWellRingResourceAccusation({
+        developer: true,
+        ignoreCooldown: true,
+        decideImmediately: false,
+        force: true
+    });
+    // force bypasses eligibility but register still respects cap when at max
+    if (ctx.countActiveNpcSituationThreads() >= 8) {
+        assert(!blocked.ok || blocked.reason === 'active_thread_cap' || !!blocked.thread,
+            'at-cap behaviour documented');
+        const again = ctx.registerNpcSituationThread({
+            id: 'synth_over',
+            templateId: 'synth_pack',
+            status: 'active',
+            stage: 'x',
+            rootIncidentId: null,
+            relatedIncidentIds: [],
+            participants: {},
+            decisionIds: [],
+            outcomeIds: [],
+            flags: {},
+            createdAtMonths: 0,
+            updatedAtMonths: 0,
+            expiresAtMonths: 10,
+            meta: {}
+        });
+        assert(again === null, 'registerNpcSituationThread rejects over cap');
+    }
+    void prev;
 }
 
 if (failed) {

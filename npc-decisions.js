@@ -304,7 +304,8 @@ function scoreNpcDecisionOptions(ctx, optionDefs) {
 
 /**
  * Pick among eligible options. Randomness varies among plausible choices;
- * never selects ineligible options. Floor keeps weak-but-valid inaction alive.
+ * never selects ineligible options in ordinary play.
+ * forceChoice only applies when allowForceChoice is true (developer/test).
  */
 function pickNpcDecisionOption(scored, rng, options) {
     options = options || {};
@@ -312,8 +313,9 @@ function pickNpcDecisionOption(scored, rng, options) {
     const eligible = scored.filter(o => o.eligible);
     if (!eligible.length) return null;
 
-    if (options.forceChoice) {
-        // Developer force may select an ineligible intention so outcome gates can be tested.
+    if (options.forceChoice && options.allowForceChoice) {
+        // Developer/test only — may select an ineligible intention so outcome gates can be tested.
+        // Outcome feasibility is still enforced separately (e.g. accused unavailable).
         const forced = scored.find(o => o.id === options.forceChoice) ||
             eligible.find(o => o.id === options.forceChoice);
         if (forced) return forced;
@@ -344,8 +346,10 @@ function resolveNpcContextualDecision(spec) {
     const optionDefs = spec.optionDefs || [];
     const scored = scoreNpcDecisionOptions(ctx, optionDefs);
     const rng = createNpcDecisionRng(spec.seed);
+    const allowForceChoice = !!(spec.allowForceChoice || spec.developer);
     const chosen = pickNpcDecisionOption(scored, rng, {
-        forceChoice: spec.forceChoice,
+        forceChoice: allowForceChoice ? spec.forceChoice : null,
+        allowForceChoice,
         scoreFloor: spec.scoreFloor,
         plausibleMargin: spec.plausibleMargin
     });

@@ -17,6 +17,24 @@ const NPC_SITUATION_RETENTION = {
 
 const WELL_RING_ACCUSATION_TEMPLATE = 'well_ring_resource_accusation';
 
+/**
+ * Formal discipline needs credible *subjective* implication of the accused —
+ * not merely confirmation that stock is missing, and never objective ledger facts.
+ * Thresholds are Well-Ring-pack conservative; not a universal justice rule.
+ */
+const WELL_RING_FORMAL_DISCIPLINE_MIN_CONFIDENCE = 0.65;
+const WELL_RING_FORMAL_DISCIPLINE_MIN_EVIDENCE = 'strong';
+
+function hasCredibleSubjectiveAccusedImplication(ctx) {
+    if (!ctx || !ctx.known || !ctx.known.primaryClaim) return false;
+    const claimCulprit = ctx.known.primaryClaim.culpritId;
+    if (!claimCulprit) return false;
+    if (ctx.accusedId && String(claimCulprit) !== String(ctx.accusedId)) return false;
+    if ((ctx.evidenceStrength || 'weak') !== WELL_RING_FORMAL_DISCIPLINE_MIN_EVIDENCE) return false;
+    if ((ctx.known.primaryConfidence || 0) + 1e-9 < WELL_RING_FORMAL_DISCIPLINE_MIN_CONFIDENCE) return false;
+    return true;
+}
+
 const WELL_RING_ACCUSATION_OPTIONS = [
     {
         id: 'ignore',
@@ -45,10 +63,12 @@ const WELL_RING_ACCUSATION_OPTIONS = [
         requiresBelief: true
     },
     {
+        // Precautionary caution — available under weaker evidence than formal discipline.
+        // Not a finding of guilt; does not require strong implicating certainty.
         id: 'warn',
-        label: 'Issue a quiet warning',
+        label: 'Issue a quiet precautionary warning',
         baseScore: 0.65,
-        tags: ['protect_institution', 'practical', 'needs_certainty'],
+        tags: ['protect_institution', 'practical', 'negotiate'],
         requiresAccusedAvailable: true,
         requiresBelief: true
     },
@@ -59,7 +79,13 @@ const WELL_RING_ACCUSATION_OPTIONS = [
         tags: ['harsh', 'protect_institution', 'needs_certainty', 'spectacle'],
         requiresAuthority: true,
         requiresAccusedAvailable: true,
-        requiresBelief: true
+        requiresBelief: true,
+        eligible(ctx) {
+            if (!ctx.authority) return false;
+            if (!ctx.accusedAvailable) return false;
+            if (!ctx.known?.primaryClaim) return false;
+            return hasCredibleSubjectiveAccusedImplication(ctx);
+        }
     }
 ];
 
@@ -116,14 +142,23 @@ function getNpcSituationThread(threadId) {
 
 function listActiveNpcSituationThreads(templateId) {
     ensureNpcSituationState();
+    rebuildNpcSituationActiveIndex();
     return (G.npcSituationThreads.activeIds || [])
         .map(id => G.npcSituationThreads.byId[id])
         .filter(t => t && t.status === 'active' && (!templateId || t.templateId === templateId))
         .map(cloneNpcSituationRecord);
 }
 
+function countActiveNpcSituationThreads() {
+    return listActiveNpcSituationThreads().length;
+}
+
 function hasActiveNpcSituation(templateId) {
     return listActiveNpcSituationThreads(templateId).length > 0;
+}
+
+function canStartNpcSituationThread() {
+    return countActiveNpcSituationThreads() < NPC_SITUATION_RETENTION.maxActiveThreads;
 }
 
 /** Retention hook for npc-incidents.js — protect active thread incident refs. */
@@ -153,6 +188,9 @@ function rebuildNpcSituationActiveIndex() {
 
 function registerNpcSituationThread(thread) {
     ensureNpcSituationState();
+    if (thread.status === 'active' && !canStartNpcSituationThread()) {
+        return null;
+    }
     G.npcSituationThreads.byId[thread.id] = thread;
     rebuildNpcSituationActiveIndex();
     if (thread.rootIncidentId) pinIncidentForSituation(thread.rootIncidentId);
@@ -307,6 +345,13 @@ function beginWellRingResourceAccusation(options) {
     if (!eligibility.ok && !options.force) {
         return { ok: false, reason: eligibility.reason, remaining: eligibility.remaining };
     }
+    if (!options.force && !canStartNpcSituationThread()) {
+        return { ok: false, reason: 'active_thread_cap' };
+    }
+
+    // forceChoice is developer/test only — never honour it on natural gameplay paths.
+    const developerCtx = !!(options.developer || options.allowForceChoice);
+    const forceChoice = developerCtx ? (options.forceChoice || null) : null;
 
     const { liangId, weiId } = resolveWellRingActorIds();
     const trueCulpritId = options.trueCulpritId || 'wr_unknown_outer';
@@ -415,7 +460,7 @@ function beginWellRingResourceAccusation(options) {
         decisionIds: [],
         outcomeIds: [],
         flags: {
-            developer: !!options.developer,
+            developer: developerCtx,
             natural: !!options.natural,
             evidenceStrength,
             accusationReliable,
@@ -424,7 +469,8 @@ function beginWellRingResourceAccusation(options) {
             pressure: Number(options.pressure) || 0,
             investigated: false,
             playerInvolved: false,
-            forceChoice: options.forceChoice || null
+            allowForceChoice: developerCtx,
+            forceChoice
         },
         createdAtMonths: now,
         updatedAtMonths: now,
@@ -435,7 +481,9 @@ function beginWellRingResourceAccusation(options) {
         }
     };
 
-    registerNpcSituationThread(thread);
+    if (!registerNpcSituationThread(thread)) {
+        return { ok: false, reason: 'active_thread_cap' };
+    }
 
     if (options.natural) {
         G.npcSituationThreads.lastNaturalByTemplate[WELL_RING_ACCUSATION_TEMPLATE] = now;
@@ -475,6 +523,7 @@ function startWellRingResourceAccusationScenario(options) {
 function buildWellRingAccusationDecisionSpec(thread, seed, forceChoice) {
     const liangId = thread.participants.hallMasterId;
     const accusedId = thread.participants.accusedId;
+    const allowForce = !!(thread.flags.developer || thread.flags.allowForceChoice);
     return {
         actorId: liangId,
         incidentId: thread.rootIncidentId,
@@ -488,8 +537,73 @@ function buildWellRingAccusationDecisionSpec(thread, seed, forceChoice) {
         pressure: Number(thread.flags.pressure) || 0,
         optionDefs: WELL_RING_ACCUSATION_OPTIONS,
         seed: seed != null ? seed : thread.meta?.seed,
-        forceChoice: forceChoice || thread.flags.forceChoice || null
+        developer: allowForce,
+        allowForceChoice: allowForce,
+        forceChoice: allowForce ? (forceChoice || thread.flags.forceChoice || null) : null
     };
+}
+
+/**
+ * Strengthen a culprit belief only when the observer's *subjective* details
+ * implicate that accused. Never reads objective incident.facts.
+ * Missing stock alone must not call this.
+ */
+function applySubjectiveAccusedImplication(spec) {
+    spec = spec || {};
+    ensureNpcSituationState();
+    const observerId = spec.observerId;
+    const incidentId = spec.incidentId;
+    const accusedId = spec.accusedId;
+    const details = spec.details && typeof spec.details === 'object' ? spec.details : {};
+    if (!observerId || !incidentId || !accusedId) {
+        return { ok: false, reason: 'missing_args' };
+    }
+
+    const implicatedId = details.identifiedCulpritId || details.implicatesAccusedId || null;
+    if (!implicatedId || String(implicatedId) !== String(accusedId)) {
+        return { ok: false, reason: 'no_accused_implication' };
+    }
+
+    if (typeof recordNpcObservation === 'function') {
+        recordNpcObservation({
+            observerId,
+            incidentId,
+            source: details.source || 'report',
+            direct: details.direct === true,
+            confidence: spec.observationConfidence != null ? spec.observationConfidence : 0.55,
+            details: Object.assign({}, details, {
+                implicatesAccusedId: accusedId,
+                note: details.note || 'Subjective detail that points at the accused.'
+            })
+        });
+    }
+
+    const existing = typeof getNpcBeliefAboutIncident === 'function'
+        ? getNpcBeliefAboutIncident(observerId, incidentId, 'culprit')
+        : null;
+    const bump = spec.confidenceDelta != null ? spec.confidenceDelta : 0.12;
+    if (existing && typeof updateNpcBelief === 'function') {
+        const nextConf = Math.min(0.95, (existing.confidence || 0.3) + bump);
+        const updated = updateNpcBelief(existing.id, {
+            claim: Object.assign({}, existing.claim || {}, { culpritId: accusedId }),
+            confidence: nextConf,
+            source: 'implicating_evidence'
+        }, { mode: 'force' });
+        return { ok: true, belief: updated, confidence: nextConf, created: false };
+    }
+    if (typeof formNpcBelief === 'function') {
+        const formed = formNpcBelief({
+            believerId: observerId,
+            incidentId,
+            claimTopic: 'culprit',
+            claim: { culpritId: accusedId, certaintyNote: 'implicated_by_detail' },
+            confidence: Math.min(0.95, (spec.baseConfidence != null ? spec.baseConfidence : 0.4) + bump),
+            source: 'implicating_evidence',
+            note: 'Belief strengthened by accused-implicating detail (not objective ledger).'
+        });
+        return { ok: true, belief: formed, confidence: formed?.confidence, created: true };
+    }
+    return { ok: false, reason: 'belief_api_missing' };
 }
 
 function attemptWellRingAccusationAction(thread, decision) {
@@ -519,35 +633,64 @@ function attemptWellRingAccusationAction(thread, decision) {
     }
 
     if (action === 'investigate') {
-        // Investigation does NOT reveal objective truth.
+        // Confirms missing stock / possible misconduct — does NOT implicate the accused,
+        // does NOT raise culprit-belief confidence, does NOT reveal objective truth.
         thread.flags.investigated = true;
-        const known = typeof getNpcKnownAboutIncident === 'function'
+        const knownBefore = typeof getNpcKnownAboutIncident === 'function'
             ? getNpcKnownAboutIncident(liangId, thread.rootIncidentId)
             : null;
-        const bel = known?.primaryBelief;
-        if (bel && typeof updateNpcBelief === 'function') {
-            // Slight confidence nudge only — no auto-correct to facts.culpritId.
-            const nextConf = Math.min(0.85, (bel.confidence || 0.3) + 0.08);
-            updateNpcBelief(bel.id, { confidence: nextConf }, { mode: 'force' });
-            effects.push({ type: 'belief_confidence_nudge', beliefId: bel.id, confidence: nextConf });
-        }
+        const culpritConfBefore = knownBefore?.primaryBelief?.confidence;
+
         if (typeof recordNpcObservation === 'function') {
             recordNpcObservation({
                 observerId: liangId,
                 incidentId: thread.rootIncidentId,
                 source: 'direct',
                 direct: true,
-                confidence: 0.45,
+                confidence: 0.7,
                 details: {
                     checkedStorehouse: true,
                     foundMissingStock: true,
                     identifiedCulpritId: null,
+                    implicatesAccusedId: null,
                     note: 'Quiet check confirmed missing stock; culprit still unclear.'
                 }
             });
-            effects.push({ type: 'observation_added', kind: 'investigation_partial' });
+            effects.push({ type: 'observation_added', kind: 'missing_stock_confirmed' });
         }
-        notes = 'Quiet investigation confirmed a loss but did not identify the culprit.';
+        // Separate loss/misconduct belief — distinct from culprit identity.
+        if (typeof formNpcBelief === 'function') {
+            const lossBelief = formNpcBelief({
+                believerId: liangId,
+                incidentId: thread.rootIncidentId,
+                claimTopic: 'loss',
+                claim: {
+                    missingStock: true,
+                    misconductSuspected: true
+                },
+                confidence: 0.72,
+                source: 'observation',
+                forceNew: true,
+                note: 'Confidence that resources are missing — not that a named accused stole them.'
+            });
+            if (lossBelief) effects.push({ type: 'loss_belief', beliefId: lossBelief.id, confidence: lossBelief.confidence });
+        }
+
+        const knownAfter = typeof getNpcKnownAboutIncident === 'function'
+            ? getNpcKnownAboutIncident(liangId, thread.rootIncidentId)
+            : null;
+        const culpritConfAfter = knownAfter?.primaryBelief?.confidence;
+        if (culpritConfBefore != null && culpritConfAfter != null && culpritConfAfter > culpritConfBefore + 1e-9) {
+            // Safety: investigation must not manufacture culprit confidence.
+            effects.push({ type: 'knowledge_guard', warning: 'culprit_confidence_unchanged_expected' });
+        }
+        effects.push({
+            type: 'culprit_confidence',
+            before: culpritConfBefore != null ? culpritConfBefore : null,
+            after: culpritConfAfter != null ? culpritConfAfter : null
+        });
+
+        notes = 'Quiet investigation confirmed a loss but did not identify or implicate the culprit.';
         effects.push({ type: 'thread_status', status: 'resolved', resolution: 'investigated_unresolved' });
         return { action, success: true, effects, notes };
     }
@@ -560,8 +703,8 @@ function attemptWellRingAccusationAction(thread, decision) {
     }
 
     if (action === 'warn') {
-        notes = 'A quiet warning was issued to the accused.';
-        effects.push({ type: 'warning', targetId: accusedId });
+        notes = 'A quiet precautionary warning was issued — not a formal finding of guilt.';
+        effects.push({ type: 'warning', targetId: accusedId, tone: 'precautionary' });
         if (accusedId === thread.participants.rivalId && typeof adjustWellRingRivalMerit === 'function') {
             adjustWellRingRivalMerit(-1);
             effects.push({ type: 'rival_merit_delta', delta: -1 });
@@ -571,7 +714,9 @@ function attemptWellRingAccusationAction(thread, decision) {
     }
 
     if (action === 'formal_discipline') {
-        // Requires authority — Liang has it as hall master; still may be socially costly.
+        // Outcome still requires authority + available accused. Credibility was an eligibility
+        // gate for ordinary picks; developer forceChoice may attempt unjust discipline, which
+        // is allowed as intention but remains a lodge-authority act (not auto-truth).
         notes = 'Formal discipline was attempted under lodge authority.';
         effects.push({ type: 'discipline', targetId: accusedId, severity: 'formal' });
         if (accusedId === thread.participants.rivalId && typeof adjustWellRingRivalMerit === 'function') {
