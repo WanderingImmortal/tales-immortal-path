@@ -2,8 +2,8 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` |
-| **Blocked on** | none for data layer; situation threads / rumour / chooser deferred |
+| **Status** | `building` (Phase C shipped; Phase D consumes this) |
+| **Blocked on** | rumour deferred; chooser/threads — [`npc-agency-contextual-decisions.md`](npc-agency-contextual-decisions.md) |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #204](https://github.com/WanderingImmortal/tales-immortal-path/pull/204) · Phase A [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201) · Phase B [#202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) · consistency [#203](https://github.com/WanderingImmortal/tales-immortal-path/pull/203) |
 | **Updated** | 2026-11-05 |

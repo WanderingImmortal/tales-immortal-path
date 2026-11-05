@@ -139,6 +139,9 @@ let G = {
     npcIncidents: null,
     npcObservations: null,
     npcBeliefs: null,
+    npcDecisions: null,
+    npcSituationThreads: null,
+    npcSituationOutcomes: null,
     storyCombat: null,
     sectQuests: null,
     worldEventQuests: null,
@@ -1163,9 +1166,14 @@ function loadState() {
             if (G.worldNpcs == null) G.worldNpcs = [];
             if (G.npcTies == null) G.npcTies = null;
             if (typeof migrateNpcIncidentsForExistingSave === 'function') migrateNpcIncidentsForExistingSave();
+            if (typeof migrateNpcDecisionsForExistingSave === 'function') migrateNpcDecisionsForExistingSave();
+            if (typeof migrateNpcSituationsForExistingSave === 'function') migrateNpcSituationsForExistingSave();
             if (G.npcIncidents == null) G.npcIncidents = null;
             if (G.npcObservations == null) G.npcObservations = null;
             if (G.npcBeliefs == null) G.npcBeliefs = null;
+            if (G.npcDecisions == null) G.npcDecisions = null;
+            if (G.npcSituationThreads == null) G.npcSituationThreads = null;
+            if (G.npcSituationOutcomes == null) G.npcSituationOutcomes = null;
             if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
                 scheduleNextDemonicEmergence();
             }
