@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-05
 
 ## Focus
-- **NPC personality consistency** — live traits as authority; Liang `careful`+`loyal` · [`npc-personality-consistency.md`](ideas/npc-personality-consistency.md) · `cursor/npc-personality-consistency`
+- **NPC incidents & imperfect knowledge** — objective ledger + observations + beliefs · [`npc-agency-incidents-beliefs.md`](ideas/npc-agency-incidents-beliefs.md) · `cursor/npc-incidents-beliefs`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

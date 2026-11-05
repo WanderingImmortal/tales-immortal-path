@@ -136,6 +136,9 @@ let G = {
     storyArcState: null,
     npcRelationships: null,
     npcTies: null,
+    npcIncidents: null,
+    npcObservations: null,
+    npcBeliefs: null,
     storyCombat: null,
     sectQuests: null,
     worldEventQuests: null,
@@ -1159,6 +1162,10 @@ function loadState() {
             if (typeof ensureAllWorldNpcRelationships === 'function') ensureAllWorldNpcRelationships();
             if (G.worldNpcs == null) G.worldNpcs = [];
             if (G.npcTies == null) G.npcTies = null;
+            if (typeof migrateNpcIncidentsForExistingSave === 'function') migrateNpcIncidentsForExistingSave();
+            if (G.npcIncidents == null) G.npcIncidents = null;
+            if (G.npcObservations == null) G.npcObservations = null;
+            if (G.npcBeliefs == null) G.npcBeliefs = null;
             if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
                 scheduleNextDemonicEmergence();
             }
