@@ -142,6 +142,10 @@ function buildNpcDecisionContext(spec) {
         pressure: Number(spec.pressure) || 0,
         resources: spec.resources || {},
         risks: spec.risks || {},
+        // Actor-facing perception only (e.g. perceived theft risk) — never objective resolver odds.
+        perception: spec.perception && typeof spec.perception === 'object'
+            ? cloneNpcDecisionRecord(spec.perception)
+            : null,
         availableOptionIds: Array.isArray(spec.availableOptionIds) ? spec.availableOptionIds.slice() : null
     };
 }
@@ -384,7 +388,9 @@ function resolveNpcContextualDecision(spec) {
             institutionalRole: ctx.institutionalRole,
             pressure: ctx.pressure,
             personalities: ctx.personalities.slice(),
-            tieToAccused: cloneNpcDecisionRecord(ctx.tieToAccused)
+            tieToAccused: cloneNpcDecisionRecord(ctx.tieToAccused),
+            perception: cloneNpcDecisionRecord(ctx.perception),
+            resources: cloneNpcDecisionRecord(ctx.resources)
         },
         seed: spec.seed != null ? spec.seed : null,
         outcomeId: null

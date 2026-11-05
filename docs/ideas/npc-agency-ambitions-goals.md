@@ -1,0 +1,122 @@
+# NPC agency — Phase E (ambitions & goal pursuit)
+
+| Field | Value |
+|-------|-------|
+| **Status** | `building` |
+| **Blocked on** | none for first slice |
+| **Issue** | none yet |
+| **Chat / PR** | [PR #206](https://github.com/WanderingImmortal/tales-immortal-path/pull/206) · [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201)–[#205](https://github.com/WanderingImmortal/tales-immortal-path/pull/205) |
+| **Updated** | 2026-11-05 |
+
+**Hub:** [`npc-agency-well-ring.md`](npc-agency-well-ring.md) · [`npc-agency-contextual-decisions.md`](npc-agency-contextual-decisions.md)
+
+## Intent
+
+Connect foundations → runtime ambitions → actionable goals → contextual action choice → real consequences. First vertical slice: **Wei Shun** pursues cultivation advancement by acquiring spirit herbs through lodge duty or risky theft.
+
+## Distinctions (do not collapse)
+
+| Layer | Meaning | Fulfils / decides |
+|-------|---------|-------------------|
+| **Long-term ambition** | Runtime desire (e.g. `cultivation_advancement` toward `towardRealmIdx`) | Fulfilled only when authoritative `npc.realmIdx >= target` (`fulfilledReason: realm_reached`) |
+| **Short-term goal** | Means toward an ambition (e.g. `acquire_cultivation_resources`) | Completing a herb batch completes the **goal**, bumps `meta.meansProgress` / `resourceBatches`, may add `growthProgress` — **never** marks the cultivation ambition fulfilled |
+| **Subjective action difficulty** | Actor-facing assessment (`assessWeiTheftPerception`) from familiarity, own realm, personality, personal experience, uncertainty | Influences soft scores only; never guarantees success |
+| **Objective action resolution** | Executor RNG (`stealFailChance` / `stealDetectChance`) | Determines actual success, herbs, incidents, detection |
+
+Herb consumption and resource boosts are **means**, not realm achievement. Realm may advance via any existing mechanic; `refreshCultivationAdvancementAmbitions` recognises it without a separate progression system.
+
+## Runtime schemas
+
+### Ambition (`G.npcAmbitions`)
+
+| Field | Notes |
+|-------|-------|
+| `id`, `actorId`, `type` | Stable runtime identity |
+| `priority`, `commitment`, `perceivedFeasibility` | 0–1 |
+| `status` | `active` · `suspended` · `fulfilled` · `abandoned` |
+| `origin` | e.g. `foundation_seed` |
+| `foundationRef` | Points at foundation ambition id — **does not mutate** foundations |
+| `target`, `progress`, `historyRefs` | `progress` for cultivation is realm-span only; means history in `meta` |
+| `meta.meansProgress`, `meta.resourceBatches` | Herb-path history without fulfilment |
+| `meta.fulfilledReason` | `realm_reached` when fulfilled |
+| `lastReconsiderAtMonths` | Shared clock |
+
+Foundation ambitions in `npc-foundations.js` remain authored/procedural character data.
+
+### Goal (`G.npcGoals`)
+
+Parent ambition, `type` (e.g. `acquire_cultivation_resources`), `target`, `constraints`, attempt counters, status.
+
+### Attempts (`G.npcGoalAttempts`)
+
+Bounded per-actor history of action attempts (decision id, effects, success).
+
+### Personal action experience (`npc.meta.actionExperience`)
+
+Bounded (last 8 events per action). Records fails / detections / successes the **actor lived through**. Does not propagate rumours; undetected theft does not inform Liang.
+
+### Minimal resources
+
+`npc.cultivationPouch.spiritHerbs` — smallest coherent pouch for this slice (not a full NPC economy).
+
+## Ambition fulfilment (cultivation)
+
+Exact condition for `cultivation_advancement` with `target.towardRealmIdx`:
+
+1. Actor exists on `G.worldNpcs` (authoritative realm).
+2. `npc.realmIdx >= target.towardRealmIdx`.
+3. Status set to `fulfilled`, `progress = 1`, `meta.fulfilledReason = 'realm_reached'`.
+
+Not fulfilment: completing herb goals, applying growthProgress boosts, meansProgress, or perceived feasibility nudges.
+
+## Goal generation
+
+When Wei has an active `cultivation_advancement` ambition and herbs &lt; need (3), create/keep `acquire_cultivation_resources`. When herbs ≥ need, consume a batch → `growthProgress` boost → complete goal → record means history → refresh realm-based ambition progress (still unfulfilled until realm).
+
+## Actions (executable)
+
+| Action | Preconditions | Consequences |
+|--------|---------------|--------------|
+| `earn_lodge_duty` | Alive Wei | +1 rival lodge merit; chance of 1 herb stipend |
+| `steal_lodge_storehouse` | Alive Wei | Success: +2 herbs + theft incident; may fail; may be detected → Liang report/belief (**not** auto accusation thread, **not** omniscient dump) |
+
+### Subjective theft risk inputs (`assessWeiTheftPerception`)
+
+Actor-facing only — **must not** read objective `stealFailChance` / `stealDetectChance`:
+
+- Baseline uncertainty (unknown protections ≠ safe)
+- Public lodge affiliation / familiarity
+- Own `realmIdx` (capability feel)
+- Personalities (bold / ambitious / careful / cowardly)
+- Personal `actionExperience` for theft (fails, detections, successes)
+
+Decision context carries `perception.theft`; score hook applies penalties (`perceived_theft_risk`, `unknown_protections`, `personal_theft_experience`). Executor still rolls objective odds.
+
+Selection uses `resolveNpcContextualDecision` with Wei personalities (ambitious/bold soft-boost theft; careful soft-penalises).
+
+## Scheduling
+
+- Shared clock via `registerWorldTick('npcAmbitions')`
+- Every **4** months, **22%** chance, focused **Wei only**
+- **3**-month attempt cooldown; in-flight guard; no global NPC scans
+- Developer: `startWeiShunCultivationPursuitScenario({ seed, forceAction, startingHerbs })` — `forceAction` only when `developer: true`; natural ticks strip overrides
+- Inspect: `inspectNpcAmbitionRuntime(actorId)` (developer-facing)
+
+## Reconsideration (minimal)
+
+Success nudges feasibility up; failure down slightly. Abandon/suspend only after repeated failure **and** low commitment/feasibility. One miss does not erase ambition. Personal theft failures raise perceived risk on later decisions.
+
+## Known limitations
+
+- Only Wei cultivation slice activated from foundations
+- No full NPC economy / GOAP / personality evolution
+- No rumour propagation; Liang learns only via report/detection paths
+- Perceived risk is coarse (no stealth sim / hidden guard model)
+- Natural theft does not auto-start Well-Ring accusation situations (incident + optional report only)
+- Some foundation fields still unused by the decision resolver (#205)
+- Steal remains attractive for ambitious+bold Wei under shortfall (~60% of seeds) — intentional soft scoring, not a hard block
+
+## Implementation
+
+- [`npc-ambitions.js`](../../npc-ambitions.js)
+- Tests: `scripts/test-npc-ambitions-goals.js`
