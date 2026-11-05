@@ -103,7 +103,7 @@ Same machinery as natural (`beginWellRingResourceAccusation`). Sets `developer` 
 - Requires living hall master + lodge cast; no active thread of this template; **48**-month cooldown after a natural spawn
 - Does not require player presence or involvement
 - Default accuse `wr_unknown_outer` with weak evidence (Wei is **not** auto-guilty)
-- **Limitation:** invents a plausible theft incident when it fires — does not yet derive theft from autonomous NPC resource-seeking behaviour
+- Prefers real discovered-but-unreacted storehouse losses ([PR #207](https://github.com/WanderingImmortal/tales-immortal-path/pull/207)) before inventing a weak anonymous rumour
 - Never honours `forceChoice`
 
 ## Player-facing

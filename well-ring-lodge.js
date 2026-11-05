@@ -278,4 +278,256 @@ function getWellRingLodgeMembers(options) {
 
 function migrateWellRingLodgeForExistingSave() {
     ensureWellRingLodgeCast();
+    ensureWellRingStorehouse();
+}
+
+// ---------------------------------------------------------------------------
+// Minimal lodge storehouse loss ledger (not a full inventory / economy).
+// Physical losses can exist before anyone notices. Culprit lives on the loss
+// record as objective metadata for tooling — never fed into NPC decisions.
+// ---------------------------------------------------------------------------
+
+const WELL_RING_STOREHOUSE = {
+    version: 1,
+    baselineHerbStock: 24,
+    inspectionEveryMonths: 3,
+    inspectionDiscoverChance: 0.55,
+    maxPendingLosses: 12,
+    maxLossRecords: 40
+};
+
+function ensureWellRingStorehouse() {
+    const wr = ensureWellRingShell();
+    if (!wr.storehouse || typeof wr.storehouse !== 'object') {
+        wr.storehouse = {
+            version: WELL_RING_STOREHOUSE.version,
+            herbStock: WELL_RING_STOREHOUSE.baselineHerbStock,
+            lossesById: {},
+            pendingDiscoveryIds: [],
+            reactedLossIds: [],
+            lastInspectionMonths: null,
+            nextLossSeq: 1
+        };
+    }
+    const sh = wr.storehouse;
+    if (sh.version == null) sh.version = WELL_RING_STOREHOUSE.version;
+    if (sh.herbStock == null) sh.herbStock = WELL_RING_STOREHOUSE.baselineHerbStock;
+    if (!sh.lossesById || typeof sh.lossesById !== 'object') sh.lossesById = {};
+    if (!Array.isArray(sh.pendingDiscoveryIds)) sh.pendingDiscoveryIds = [];
+    if (!Array.isArray(sh.reactedLossIds)) sh.reactedLossIds = [];
+    if (sh.nextLossSeq == null) sh.nextLossSeq = 1;
+    return sh;
+}
+
+function allocateWellRingStorehouseLossId() {
+    const sh = ensureWellRingStorehouse();
+    return `wrloss_${Math.floor(G.ageMonths || 0)}_${sh.nextLossSeq++}`;
+}
+
+function cloneWellRingStorehouseRecord(obj) {
+    return obj == null ? null : JSON.parse(JSON.stringify(obj));
+}
+
+/**
+ * Record an objective physical loss. Does not grant NPC knowledge.
+ * @param {{ amount?: number, incidentId?: string, trueCulpritId?: string|null, item?: string, discovered?: boolean, meta?: object }} spec
+ */
+function recordWellRingStorehouseLoss(spec) {
+    spec = spec || {};
+    const sh = ensureWellRingStorehouse();
+    const amount = Math.max(1, Math.floor(Number(spec.amount) || 1));
+    const id = spec.id || allocateWellRingStorehouseLossId();
+    if (sh.lossesById[id]) return cloneWellRingStorehouseRecord(sh.lossesById[id]);
+
+    sh.herbStock = Math.max(0, (sh.herbStock || 0) - amount);
+    const discovered = !!spec.discovered;
+    const loss = {
+        id,
+        orgId: WELL_RING_LODGE_ID,
+        item: spec.item || 'spirit_herb_pouch',
+        amount,
+        atMonths: spec.atMonths != null ? spec.atMonths : (G.ageMonths || 0),
+        incidentId: spec.incidentId || null,
+        // Objective only — tooling/tests. Decision resolvers must not read this.
+        trueCulpritId: spec.trueCulpritId != null ? spec.trueCulpritId : null,
+        discovered,
+        discoveredAtMonths: discovered ? (G.ageMonths || 0) : null,
+        discoveredBy: discovered ? (spec.discoveredBy || null) : null,
+        reactionThreadId: null,
+        meta: spec.meta && typeof spec.meta === 'object' ? cloneWellRingStorehouseRecord(spec.meta) : {}
+    };
+    sh.lossesById[id] = loss;
+    if (!discovered) {
+        if (!sh.pendingDiscoveryIds.includes(id)) sh.pendingDiscoveryIds.push(id);
+        while (sh.pendingDiscoveryIds.length > WELL_RING_STOREHOUSE.maxPendingLosses) {
+            sh.pendingDiscoveryIds.shift();
+        }
+    }
+    pruneWellRingStorehouseLosses();
+    if (loss.incidentId && typeof ensureNpcIncidentState === 'function') {
+        const inc = G.npcIncidents?.byId?.[loss.incidentId];
+        if (inc && !discovered) {
+            // Keep undiscovered theft incidents until discovery/reaction resolves them.
+            inc.pinned = true;
+            inc.meta = Object.assign({}, inc.meta || {}, { storehouseLossId: id, undiscoveredLoss: true });
+        }
+    }
+    return cloneWellRingStorehouseRecord(loss);
+}
+
+function pruneWellRingStorehouseLosses() {
+    const sh = ensureWellRingStorehouse();
+    const ids = Object.keys(sh.lossesById);
+    if (ids.length <= WELL_RING_STOREHOUSE.maxLossRecords) return;
+    const sorted = ids.slice().sort((a, b) => {
+        const la = sh.lossesById[a];
+        const lb = sh.lossesById[b];
+        // Prefer dropping old discovered reacted losses first
+        const sa = (la.discovered ? 1 : 0) + (la.reactionThreadId ? 1 : 0);
+        const sb = (lb.discovered ? 1 : 0) + (lb.reactionThreadId ? 1 : 0);
+        if (sa !== sb) return sb - sa;
+        return (la.atMonths || 0) - (lb.atMonths || 0);
+    });
+    while (sorted.length > WELL_RING_STOREHOUSE.maxLossRecords) {
+        const drop = sorted.shift();
+        const loss = sh.lossesById[drop];
+        if (!loss) continue;
+        if (!loss.discovered || !loss.reactionThreadId) continue;
+        delete sh.lossesById[drop];
+        sh.pendingDiscoveryIds = sh.pendingDiscoveryIds.filter(x => x !== drop);
+        sh.reactedLossIds = sh.reactedLossIds.filter(x => x !== drop);
+    }
+}
+
+function getWellRingStorehouseLoss(lossId) {
+    const sh = ensureWellRingStorehouse();
+    return cloneWellRingStorehouseRecord(sh.lossesById[lossId]);
+}
+
+function listWellRingStorehouseLosses(options) {
+    options = options || {};
+    const sh = ensureWellRingStorehouse();
+    return Object.values(sh.lossesById)
+        .filter(l => {
+            if (!l) return false;
+            if (options.undiscoveredOnly && l.discovered) return false;
+            if (options.discoveredOnly && !l.discovered) return false;
+            if (options.unreactedOnly && (l.reactionThreadId || (sh.reactedLossIds || []).includes(l.id))) return false;
+            return true;
+        })
+        .map(cloneWellRingStorehouseRecord);
+}
+
+function listPendingWellRingStorehouseDiscoveries() {
+    const sh = ensureWellRingStorehouse();
+    return (sh.pendingDiscoveryIds || [])
+        .map(id => sh.lossesById[id])
+        .filter(l => l && !l.discovered)
+        .map(cloneWellRingStorehouseRecord);
+}
+
+/**
+ * Mark a physical loss as noticed. Does not identify a culprit.
+ * Invokes optional notifyWellRingStorehouseLossDiscovered (defined by situations pack).
+ */
+function markWellRingStorehouseLossDiscovered(lossId, options) {
+    options = options || {};
+    const sh = ensureWellRingStorehouse();
+    const live = sh.lossesById[lossId];
+    if (!live) return { ok: false, reason: 'missing_loss' };
+    if (live.discovered && !options.forceRediscover) {
+        return { ok: true, already: true, loss: cloneWellRingStorehouseRecord(live) };
+    }
+    live.discovered = true;
+    live.discoveredAtMonths = G.ageMonths || 0;
+    live.discoveredBy = options.discoveredBy || 'routine_storehouse_inspection';
+    sh.pendingDiscoveryIds = (sh.pendingDiscoveryIds || []).filter(id => id !== lossId);
+    if (live.incidentId && G.npcIncidents?.byId?.[live.incidentId]) {
+        const inc = G.npcIncidents.byId[live.incidentId];
+        inc.meta = Object.assign({}, inc.meta || {}, { undiscoveredLoss: false, discoveredAtMonths: live.discoveredAtMonths });
+    }
+    const loss = cloneWellRingStorehouseRecord(live);
+    if (typeof notifyWellRingStorehouseLossDiscovered === 'function' && !options.skipNotify) {
+        notifyWellRingStorehouseLossDiscovered(loss, options);
+    }
+    return { ok: true, loss };
+}
+
+function markWellRingStorehouseLossReacted(lossId, threadId) {
+    const sh = ensureWellRingStorehouse();
+    const live = sh.lossesById[lossId];
+    if (live) live.reactionThreadId = threadId || live.reactionThreadId || true;
+    if (lossId && !(sh.reactedLossIds || []).includes(lossId)) {
+        sh.reactedLossIds = (sh.reactedLossIds || []).concat([lossId]).slice(-WELL_RING_STOREHOUSE.maxLossRecords);
+    }
+    return getWellRingStorehouseLoss(lossId);
+}
+
+/**
+ * Cheap shared-clock inspection — Well-Ring storehouse only; no global scans.
+ * Discovery establishes missing stock; never names a culprit.
+ */
+function tickWellRingStorehouseInspection(/* deltaMonths */) {
+    ensureWellRingLodgeCast();
+    const sh = ensureWellRingStorehouse();
+    const now = Math.floor(G.ageMonths || 0);
+    const every = WELL_RING_STOREHOUSE.inspectionEveryMonths;
+    if (sh.lastInspectionMonths != null && now - sh.lastInspectionMonths < every) {
+        return { ok: false, reason: 'not_due' };
+    }
+    sh.lastInspectionMonths = now;
+
+    const pending = listPendingWellRingStorehouseDiscoveries();
+    if (!pending.length) return { ok: true, inspected: true, discovered: [] };
+
+    const liang = getWellRingCastNpc('hall_master', { aliveOnly: true });
+    if (!liang) return { ok: false, reason: 'no_living_hall_master' };
+
+    const discovered = [];
+    // One loss per inspection pass — bounded work.
+    const candidate = pending[0];
+    const age = now - (candidate.atMonths || now);
+    // Plausible delay: never discover in the same month as the theft unless forced.
+    if (age < 1) return { ok: true, inspected: true, discovered: [], deferred: true };
+
+    const roll = Math.random();
+    if (roll > WELL_RING_STOREHOUSE.inspectionDiscoverChance) {
+        return { ok: true, inspected: true, discovered: [], chanceMiss: true, roll };
+    }
+
+    const result = markWellRingStorehouseLossDiscovered(candidate.id, {
+        discoveredBy: 'routine_storehouse_inspection'
+    });
+    if (result.ok && result.loss) discovered.push(result.loss);
+    return { ok: true, inspected: true, discovered };
+}
+
+/** Developer/test: force the next pending loss to be discovered now. */
+function forceDiscoverWellRingStorehouseLoss(lossId, options) {
+    options = options || {};
+    const sh = ensureWellRingStorehouse();
+    const id = lossId || (sh.pendingDiscoveryIds || [])[0];
+    if (!id) return { ok: false, reason: 'no_pending_loss' };
+    // Allow same-month discovery for deterministic tests.
+    return markWellRingStorehouseLossDiscovered(id, Object.assign({
+        discoveredBy: options.discoveredBy || 'developer_forced_inspection'
+    }, options));
+}
+
+function inspectWellRingStorehouseRuntime() {
+    const sh = ensureWellRingStorehouse();
+    return {
+        herbStock: sh.herbStock,
+        pendingDiscoveryIds: (sh.pendingDiscoveryIds || []).slice(),
+        reactedLossIds: (sh.reactedLossIds || []).slice(),
+        lastInspectionMonths: sh.lastInspectionMonths,
+        losses: listWellRingStorehouseLosses(),
+        pending: listPendingWellRingStorehouseDiscoveries()
+    };
+}
+
+if (typeof registerWorldTick === 'function') {
+    registerWorldTick('wellRingStorehouse', (delta) => {
+        tickWellRingStorehouseInspection(delta);
+    }, 44);
 }

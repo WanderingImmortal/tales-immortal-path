@@ -110,9 +110,10 @@ Success nudges feasibility up; failure down slightly. Abandon/suspend only after
 
 - Only Wei cultivation slice activated from foundations
 - No full NPC economy / GOAP / personality evolution
-- No rumour propagation; Liang learns only via report/detection paths
+- No rumour propagation; Liang learns only via report/detection paths or later storehouse discovery ([action → reaction](npc-agency-action-reaction-chain.md))
 - Perceived risk is coarse (no stealth sim / hidden guard model)
-- Natural theft does not auto-start Well-Ring accusation situations (incident + optional report only)
+- Successful theft records a physical lodge loss; undetected losses do not auto-accuse Wei
+- Detected theft may open an emergent situation via misconduct report (#207)
 - Some foundation fields still unused by the decision resolver (#205)
 - Steal remains attractive for ambitious+bold Wei under shortfall (~60% of seeds) — intentional soft scoring, not a hard block
 

@@ -331,18 +331,24 @@ function isWellRingAccusationEligible(options) {
 }
 
 /**
- * Shared machinery for developer + natural Well-Ring resource accusation.
+ * Shared machinery for developer + natural Well-Ring resource accusation / loss response.
  * Does not force guilt onto Wei Shun; does not invent privileged disciples.
+ * Supports loss-focused threads (no credible accused) and culprit-report threads.
  */
 function beginWellRingResourceAccusation(options) {
     options = options || {};
     ensureNpcSituationState();
     if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
+    if (typeof ensureWellRingStorehouse === 'function') ensureWellRingStorehouse();
     if (typeof ensureNpcIncidentState === 'function') ensureNpcIncidentState();
     if (typeof migrateNpcDecisionsForExistingSave === 'function') migrateNpcDecisionsForExistingSave();
 
     const eligibility = isWellRingAccusationEligible({ ignoreCooldown: !!options.ignoreCooldown || !!options.developer });
     if (!eligibility.ok && !options.force) {
+        // If a thread is already active, allow lightweight update path for new knowledge.
+        if (eligibility.reason === 'already_active' && options.updateActiveIfPresent) {
+            return updateActiveWellRingAccusationFromKnowledge(options);
+        }
         return { ok: false, reason: eligibility.reason, remaining: eligibility.remaining };
     }
     if (!options.force && !canStartNpcSituationThread()) {
@@ -354,16 +360,29 @@ function beginWellRingResourceAccusation(options) {
     const forceChoice = developerCtx ? (options.forceChoice || null) : null;
 
     const { liangId, weiId } = resolveWellRingActorIds();
-    const trueCulpritId = options.trueCulpritId || 'wr_unknown_outer';
-    const accusedId = options.accusedId || options.liangSuspectId || 'wr_unknown_outer';
-    const evidenceStrength = options.evidenceStrength || 'weak';
+    const lossFocused = !!options.lossFocused || options.accusedId === null;
+    const trueCulpritId = options.trueCulpritId != null
+        ? options.trueCulpritId
+        : (lossFocused ? null : 'wr_unknown_outer');
+    // Loss-focused: no named accused manufactured from the objective culprit.
+    const accusedId = lossFocused
+        ? null
+        : (options.accusedId || options.liangSuspectId || 'wr_unknown_outer');
+    const evidenceStrength = options.evidenceStrength || (lossFocused ? 'weak' : 'weak');
     const accusationReliable = options.accusationReliable != null
         ? !!options.accusationReliable
-        : accusedId === trueCulpritId;
+        : (!!accusedId && accusedId === trueCulpritId);
+    const accusedAvailable = lossFocused
+        ? false
+        : (options.accusedAvailable !== false);
 
-    // Objective incident — knowledge not auto-granted.
-    const incident = typeof createNpcIncident === 'function'
-        ? createNpcIncident({
+    // Objective incident — knowledge not auto-granted. Prefer reuse when loss already has one.
+    let incident = null;
+    if (options.incidentId && typeof getNpcIncidentObjective === 'function') {
+        incident = getNpcIncidentObjective(options.incidentId);
+    }
+    if (!incident && typeof createNpcIncident === 'function') {
+        incident = createNpcIncident({
             id: options.incidentId || null,
             type: 'theft',
             zoneId: 'dustbone',
@@ -371,25 +390,37 @@ function beginWellRingResourceAccusation(options) {
             orgId: typeof WELL_RING_LODGE_ID !== 'undefined' ? WELL_RING_LODGE_ID : 'well_ring_lodge',
             severity: 3,
             participants: [
-                { id: trueCulpritId, role: 'actor' },
+                trueCulpritId ? { id: trueCulpritId, role: 'actor' } : null,
                 { id: weiId, role: 'nearby' },
                 { id: liangId, role: 'authority' }
-            ],
+            ].filter(Boolean),
             facts: {
-                what: 'lodge_resource_misuse_or_theft',
+                what: lossFocused ? 'lodge_resource_loss_noticed' : 'lodge_resource_misuse_or_theft',
                 item: options.item || 'spirit_herb_pouch',
                 culpritId: trueCulpritId,
-                accusationReliable
+                accusationReliable,
+                lossFocused
             },
             pinned: true,
-            meta: { pack: WELL_RING_ACCUSATION_TEMPLATE }
-        })
-        : null;
+            meta: {
+                pack: WELL_RING_ACCUSATION_TEMPLATE,
+                storehouseLossId: options.storehouseLossId || null
+            }
+        });
+    }
 
     if (!incident) return { ok: false, reason: 'incident_create_failed' };
+    if (incident.pinned !== true && typeof ensureNpcIncidentState === 'function') {
+        const live = G.npcIncidents.byId[incident.id];
+        if (live) live.pinned = true;
+    }
 
     // Optional Wei partial observation (does not inform Liang).
-    if (options.weiObserves !== false && typeof recordNpcObservation === 'function') {
+    // Default on for classic rumour packs; off for emergent loss/discovery chains.
+    const weiObserves = options.weiObserves != null
+        ? !!options.weiObserves
+        : (!lossFocused && !options.emergent);
+    if (weiObserves && typeof recordNpcObservation === 'function') {
         recordNpcObservation({
             observerId: weiId,
             incidentId: incident.id,
@@ -402,26 +433,72 @@ function beginWellRingResourceAccusation(options) {
         });
     }
 
-    // Liang knowledge — explicit secondhand report only (never objective facts).
-    const liangConfidence = options.liangBeliefConfidence != null
-        ? options.liangBeliefConfidence
-        : (evidenceStrength === 'strong' ? 0.72 : evidenceStrength === 'moderate' ? 0.5 : 0.32);
+    // Liang knowledge — never inject objective culprit from the ledger.
+    // Loss belief is seeded for discovery / explicit requests; classic rumour packs
+    // still form culprit beliefs without implying a completed storehouse audit.
+    const seedLossBelief = options.seedLossBelief != null
+        ? !!options.seedLossBelief
+        : !!lossFocused;
 
-    if (typeof recordNpcObservation === 'function') {
-        recordNpcObservation({
-            observerId: liangId,
+    if (seedLossBelief && typeof formNpcBelief === 'function') {
+        if (typeof recordNpcObservation === 'function') {
+            recordNpcObservation({
+                observerId: liangId,
+                incidentId: incident.id,
+                source: options.lossObservationSource || (lossFocused ? 'direct' : 'report'),
+                direct: options.lossObservationDirect != null ? !!options.lossObservationDirect : !!lossFocused,
+                confidence: options.lossObservationConfidence != null ? options.lossObservationConfidence : 0.65,
+                details: {
+                    foundMissingStock: true,
+                    checkedStorehouse: !!lossFocused,
+                    identifiedCulpritId: null,
+                    implicatesAccusedId: null,
+                    heardFrom: options.reportSource || null,
+                    note: lossFocused
+                        ? 'Storehouse check shows missing herbs; no culprit identified.'
+                        : 'Report of missing lodge resources.'
+                }
+            });
+        }
+        formNpcBelief({
+            believerId: liangId,
             incidentId: incident.id,
-            source: 'report',
-            confidence: Math.max(0.2, liangConfidence - 0.05),
-            details: {
-                heardFrom: options.reportSource || 'outer_steward',
-                rumourCulpritId: accusedId,
-                evidenceStrength,
-                note: 'Secondhand lodge report — not personally witnessed.'
-            }
+            claimTopic: 'loss',
+            claim: {
+                missingStock: true,
+                misconductSuspected: options.misconductSuspected !== false
+            },
+            confidence: options.lossBeliefConfidence != null ? options.lossBeliefConfidence : 0.7,
+            source: lossFocused ? 'observation' : 'report',
+            forceNew: true,
+            note: 'Confidence that resources are missing — not that a named person stole them.'
         });
     }
-    if (typeof formNpcBelief === 'function') {
+
+    const formCulpritBelief = options.formCulpritBelief != null
+        ? !!options.formCulpritBelief
+        : (!lossFocused && !!accusedId);
+
+    if (formCulpritBelief && accusedId && typeof formNpcBelief === 'function') {
+        const liangConfidence = options.liangBeliefConfidence != null
+            ? options.liangBeliefConfidence
+            : (evidenceStrength === 'strong' ? 0.72 : evidenceStrength === 'moderate' ? 0.5 : 0.32);
+
+        if (typeof recordNpcObservation === 'function' && options.skipCulpritReportObservation !== true) {
+            recordNpcObservation({
+                observerId: liangId,
+                incidentId: incident.id,
+                source: options.culpritObservationSource || 'report',
+                direct: !!options.culpritObservationDirect,
+                confidence: Math.max(0.2, liangConfidence - 0.05),
+                details: Object.assign({
+                    heardFrom: options.reportSource || 'outer_steward',
+                    rumourCulpritId: accusedId,
+                    evidenceStrength,
+                    note: options.culpritObservationNote || 'Secondhand lodge report — not personally witnessed.'
+                }, options.culpritObservationDetails || {})
+            });
+        }
         formNpcBelief({
             believerId: liangId,
             incidentId: incident.id,
@@ -431,15 +508,15 @@ function beginWellRingResourceAccusation(options) {
                 certaintyNote: evidenceStrength === 'strong' ? 'fairly_sure' : 'uncertain'
             },
             confidence: liangConfidence,
-            source: 'report',
-            note: 'Hall master belief from lodge report.'
+            source: options.culpritBeliefSource || 'report',
+            note: 'Hall master belief from lodge report or observation.'
         });
     }
 
     // Optional importance: soft temporary institutional attachment flag on thread (not personality drift).
     const accusedImportant = options.accusedImportantToLiang != null
         ? !!options.accusedImportantToLiang
-        : (accusedId === weiId);
+        : (!!accusedId && accusedId === weiId);
 
     const threadId = options.threadId || allocateNpcSituationId('sit_wr_acc');
     const now = G.ageMonths || 0;
@@ -462,22 +539,26 @@ function beginWellRingResourceAccusation(options) {
         flags: {
             developer: developerCtx,
             natural: !!options.natural,
+            emergent: !!options.emergent,
+            lossFocused,
             evidenceStrength,
             accusationReliable,
-            accusedAvailable: options.accusedAvailable !== false,
+            accusedAvailable,
             accusedImportantToLiang: accusedImportant,
-            pressure: Number(options.pressure) || 0,
+            pressure: Number(options.pressure) || (lossFocused ? 0.35 : 0),
             investigated: false,
             playerInvolved: false,
             allowForceChoice: developerCtx,
-            forceChoice
+            forceChoice,
+            storehouseLossId: options.storehouseLossId || null
         },
         createdAtMonths: now,
         updatedAtMonths: now,
         expiresAtMonths: now + (options.durationMonths || NPC_SITUATION_RETENTION.defaultThreadMonths),
         meta: {
             pack: WELL_RING_ACCUSATION_TEMPLATE,
-            seed: options.seed != null ? options.seed : null
+            seed: options.seed != null ? options.seed : null,
+            storehouseLossId: options.storehouseLossId || null
         }
     };
 
@@ -487,6 +568,9 @@ function beginWellRingResourceAccusation(options) {
 
     if (options.natural) {
         G.npcSituationThreads.lastNaturalByTemplate[WELL_RING_ACCUSATION_TEMPLATE] = now;
+    }
+    if (options.storehouseLossId && typeof markWellRingStorehouseLossReacted === 'function') {
+        markWellRingStorehouseLossReacted(options.storehouseLossId, threadId);
     }
 
     const beatAt = options.decideImmediately
@@ -505,7 +589,39 @@ function beginWellRingResourceAccusation(options) {
         liangId,
         weiId,
         accusedId,
-        trueCulpritId
+        trueCulpritId,
+        lossFocused
+    };
+}
+
+/**
+ * If an accusation thread is already active, attach new subjective knowledge without
+ * spawning a duplicate punishment. Does not read objective culprit fields into decisions.
+ */
+function updateActiveWellRingAccusationFromKnowledge(options) {
+    options = options || {};
+    ensureNpcSituationState();
+    const active = listActiveNpcSituationThreads(WELL_RING_ACCUSATION_TEMPLATE)[0];
+    if (!active) return { ok: false, reason: 'no_active' };
+    const live = G.npcSituationThreads.byId[active.id];
+    if (!live) return { ok: false, reason: 'missing_thread' };
+
+    if (options.storehouseLossId && !live.flags.storehouseLossId) {
+        live.flags.storehouseLossId = options.storehouseLossId;
+        live.meta = live.meta || {};
+        live.meta.storehouseLossId = options.storehouseLossId;
+        if (typeof markWellRingStorehouseLossReacted === 'function') {
+            markWellRingStorehouseLossReacted(options.storehouseLossId, live.id);
+        }
+    }
+    if (options.pressure != null) {
+        live.flags.pressure = Math.max(Number(live.flags.pressure) || 0, Number(options.pressure) || 0);
+    }
+    live.updatedAtMonths = G.ageMonths || 0;
+    return {
+        ok: true,
+        updated: true,
+        thread: getNpcSituationThread(live.id)
     };
 }
 
@@ -518,6 +634,96 @@ function startWellRingResourceAccusationScenario(options) {
         decideImmediately: options.decideImmediately !== false,
         weiObserves: options.weiObserves != null ? options.weiObserves : true
     }, options));
+}
+
+/**
+ * Emergent response when a storehouse loss is discovered (no culprit named).
+ * Reuses the Well-Ring accusation pack in loss-focused mode.
+ */
+function notifyWellRingStorehouseLossDiscovered(loss, options) {
+    options = options || {};
+    if (!loss || !loss.id) return { ok: false, reason: 'no_loss' };
+    ensureNpcSituationState();
+    if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
+
+    const sh = typeof ensureWellRingStorehouse === 'function' ? ensureWellRingStorehouse() : null;
+    if (sh && (sh.reactedLossIds || []).includes(loss.id) && loss.reactionThreadId) {
+        return { ok: true, alreadyReacted: true, threadId: loss.reactionThreadId };
+    }
+
+    const { liang } = resolveWellRingActorIds();
+    if (!liang || liang.alive === false) return { ok: false, reason: 'no_living_hall_master' };
+
+    // Do not manufacture Wei guilt from an anonymous stock shortfall.
+    return beginWellRingResourceAccusation({
+        developer: !!options.developer,
+        natural: !!options.natural,
+        emergent: true,
+        ignoreCooldown: true,
+        updateActiveIfPresent: true,
+        lossFocused: true,
+        accusedId: null,
+        trueCulpritId: loss.trueCulpritId != null ? loss.trueCulpritId : null,
+        incidentId: loss.incidentId || null,
+        storehouseLossId: loss.id,
+        item: loss.item,
+        seedLossBelief: true,
+        formCulpritBelief: false,
+        weiObserves: false,
+        decideImmediately: options.decideImmediately != null ? !!options.decideImmediately : false,
+        decisionDelayMonths: options.decisionDelayMonths != null ? options.decisionDelayMonths : 1,
+        pressure: options.pressure != null ? options.pressure : 0.4,
+        forceChoice: options.forceChoice || null,
+        seed: options.seed
+    });
+}
+
+/**
+ * Emergent response when Liang receives a subjective misconduct report (e.g. detected theft).
+ * Uses the reporter's claimed suspect — never objective incident.facts.
+ */
+function notifyWellRingMisconductReport(spec) {
+    spec = spec || {};
+    ensureNpcSituationState();
+    if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
+
+    const suspectId = spec.suspectId || spec.rumourCulpritId || null;
+    if (!spec.incidentId) return { ok: false, reason: 'no_incident' };
+
+    const { liang } = resolveWellRingActorIds();
+    if (!liang || liang.alive === false) return { ok: false, reason: 'no_living_hall_master' };
+
+    // If Liang already has knowledge from the ambition executor, avoid double-forming
+    // identical culprit beliefs; still open/update a situation thread.
+    const alreadyKnows = typeof npcKnowsAboutIncident === 'function'
+        && npcKnowsAboutIncident(liang.uid || 'wr_master_liang', spec.incidentId);
+
+    return beginWellRingResourceAccusation({
+        developer: !!spec.developer,
+        natural: !!spec.natural,
+        emergent: true,
+        ignoreCooldown: true,
+        updateActiveIfPresent: true,
+        lossFocused: false,
+        accusedId: suspectId,
+        trueCulpritId: spec.trueCulpritId != null ? spec.trueCulpritId : suspectId,
+        incidentId: spec.incidentId,
+        storehouseLossId: spec.storehouseLossId || null,
+        evidenceStrength: spec.evidenceStrength || 'moderate',
+        liangBeliefConfidence: spec.liangBeliefConfidence != null ? spec.liangBeliefConfidence : 0.4,
+        seedLossBelief: spec.seedLossBelief != null ? !!spec.seedLossBelief : true,
+        formCulpritBelief: !alreadyKnows && !!suspectId,
+        skipCulpritReportObservation: alreadyKnows,
+        weiObserves: false,
+        accusedAvailable: spec.accusedAvailable !== false && !!suspectId,
+        accusedImportantToLiang: spec.accusedImportantToLiang,
+        reportSource: spec.reportSource || 'night_watch',
+        decideImmediately: spec.decideImmediately != null ? !!spec.decideImmediately : false,
+        decisionDelayMonths: spec.decisionDelayMonths != null ? spec.decisionDelayMonths : 1,
+        pressure: spec.pressure != null ? spec.pressure : 0.45,
+        forceChoice: spec.forceChoice || null,
+        seed: spec.seed
+    });
 }
 
 function buildWellRingAccusationDecisionSpec(thread, seed, forceChoice) {
@@ -886,6 +1092,19 @@ function maybeTriggerNaturalWellRingAccusation(/* deltaMonths */) {
     if (lastCheck != null && now - lastCheck < every) return null;
     G.npcSituationThreads.lastNaturalCheckMonths = now;
 
+    // Prefer real discovered-but-unreacted lodge losses over inventing a rumour incident.
+    if (typeof listWellRingStorehouseLosses === 'function') {
+        const pendingReaction = listWellRingStorehouseLosses({ discoveredOnly: true, unreactedOnly: true });
+        if (pendingReaction.length) {
+            const loss = pendingReaction[0];
+            return notifyWellRingStorehouseLossDiscovered(loss, {
+                natural: true,
+                decideImmediately: false,
+                decisionDelayMonths: 1
+            });
+        }
+    }
+
     const eligibility = isWellRingAccusationEligible();
     if (!eligibility.ok) return { ok: false, reason: eligibility.reason };
 
@@ -893,7 +1112,7 @@ function maybeTriggerNaturalWellRingAccusation(/* deltaMonths */) {
     const roll = Math.random();
     if (roll > chance) return { ok: false, reason: 'chance_miss', roll, chance };
 
-    // Natural: weak evidence, accuse anonymous outer (not auto-Wei guilt), no player.
+    // Fallback rumour pack: weak evidence, anonymous outer (not auto-Wei guilt).
     return beginWellRingResourceAccusation({
         natural: true,
         decideImmediately: false,
@@ -906,6 +1125,242 @@ function maybeTriggerNaturalWellRingAccusation(/* deltaMonths */) {
         accusedAvailable: true,
         weiObserves: true
     });
+}
+
+/**
+ * Deterministic developer scenarios for the ambition → loss → discovery → reaction chain.
+ * Uses the same storehouse / incident / situation machinery as natural play.
+ * Developer flags never leak into ordinary ticks.
+ */
+function runWellRingActionReactionScenario(kind, options) {
+    options = options || {};
+    ensureNpcSituationState();
+    if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
+    if (typeof ensureWellRingStorehouse === 'function') ensureWellRingStorehouse();
+    if (typeof ensureNpcAmbitionState === 'function') ensureNpcAmbitionState();
+
+    const wei = typeof getWellRingCastNpc === 'function' ? getWellRingCastNpc('rival') : null;
+    const liang = typeof getWellRingCastNpc === 'function' ? getWellRingCastNpc('hall_master') : null;
+    if (!wei || !liang) return { ok: false, reason: 'cast_incomplete' };
+
+    const seed = options.seed != null ? options.seed : 7;
+
+    if (kind === 'theft_undetected_never_discovered') {
+        const pursuit = typeof pursueNpcAmbitionGoal === 'function'
+            ? pursueNpcAmbitionGoal(wei.uid, {
+                developer: true,
+                ignoreCooldown: true,
+                seed,
+                forceAction: 'steal_lodge_storehouse',
+                forceTheftOutcome: 'success_undetected'
+            })
+            : null;
+        const losses = typeof listPendingWellRingStorehouseDiscoveries === 'function'
+            ? listPendingWellRingStorehouseDiscoveries()
+            : [];
+        const liangKnows = pursuit?.result?.incidentId && typeof npcKnowsAboutIncident === 'function'
+            ? npcKnowsAboutIncident(liang.uid, pursuit.result.incidentId)
+            : false;
+        return {
+            ok: true,
+            kind,
+            pursuit,
+            pendingLosses: losses,
+            liangKnowsIncident: liangKnows,
+            activeThreads: listActiveNpcSituationThreads(WELL_RING_ACCUSATION_TEMPLATE)
+        };
+    }
+
+    if (kind === 'theft_undetected_later_discovery') {
+        const pursuit = typeof pursueNpcAmbitionGoal === 'function'
+            ? pursueNpcAmbitionGoal(wei.uid, {
+                developer: true,
+                ignoreCooldown: true,
+                seed,
+                forceAction: 'steal_lodge_storehouse',
+                forceTheftOutcome: 'success_undetected'
+            })
+            : null;
+        const lossId = pursuit?.result?.effects?.find(e => e.type === 'storehouse_loss')?.lossId
+            || (typeof listPendingWellRingStorehouseDiscoveries === 'function'
+                ? listPendingWellRingStorehouseDiscoveries()[0]?.id
+                : null);
+        // Time passes before discovery.
+        G.ageMonths = (G.ageMonths || 0) + (options.discoveryDelayMonths != null ? options.discoveryDelayMonths : 4);
+        const discovery = typeof forceDiscoverWellRingStorehouseLoss === 'function'
+            ? forceDiscoverWellRingStorehouseLoss(lossId, { skipNotify: true })
+            : null;
+        const reaction = discovery?.loss
+            ? notifyWellRingStorehouseLossDiscovered(discovery.loss, {
+                developer: true,
+                decideImmediately: options.decideImmediately !== false,
+                decisionDelayMonths: 0,
+                forceChoice: options.forceChoice || null,
+                seed
+            })
+            : null;
+        const known = pursuit?.result?.incidentId && typeof getNpcKnownAboutIncident === 'function'
+            ? getNpcKnownAboutIncident(liang.uid, pursuit.result.incidentId)
+            : null;
+        const culpritBelief = (known?.beliefs || []).find(b => b.claimTopic === 'culprit');
+        return {
+            ok: true,
+            kind,
+            pursuit,
+            discovery,
+            reaction,
+            liangCulpritBelief: culpritBelief || null,
+            lossBelief: (known?.beliefs || []).find(b => b.claimTopic === 'loss') || null,
+            activeThreads: listActiveNpcSituationThreads(WELL_RING_ACCUSATION_TEMPLATE)
+        };
+    }
+
+    if (kind === 'theft_directly_observed') {
+        const pursuit = typeof pursueNpcAmbitionGoal === 'function'
+            ? pursueNpcAmbitionGoal(wei.uid, {
+                developer: true,
+                ignoreCooldown: true,
+                seed,
+                forceAction: 'steal_lodge_storehouse',
+                forceTheftOutcome: 'success_undetected'
+            })
+            : null;
+        const incidentId = pursuit?.result?.incidentId;
+        const lossId = pursuit?.result?.effects?.find(e => e.type === 'storehouse_loss')?.lossId;
+        if (lossId && typeof markWellRingStorehouseLossDiscovered === 'function') {
+            markWellRingStorehouseLossDiscovered(lossId, { skipNotify: true, discoveredBy: 'direct_witness' });
+        }
+        if (incidentId && typeof applySubjectiveAccusedImplication === 'function') {
+            applySubjectiveAccusedImplication({
+                observerId: liang.uid,
+                incidentId,
+                accusedId: wei.uid,
+                observationConfidence: 0.8,
+                confidenceDelta: 0.2,
+                baseConfidence: 0.55,
+                details: {
+                    source: 'direct',
+                    direct: true,
+                    identifiedCulpritId: wei.uid,
+                    implicatesAccusedId: wei.uid,
+                    note: 'Liang personally glimpsed Wei near the open herb chest.'
+                }
+            });
+        }
+        const reaction = beginWellRingResourceAccusation({
+            developer: true,
+            ignoreCooldown: true,
+            emergent: true,
+            lossFocused: false,
+            accusedId: wei.uid,
+            trueCulpritId: wei.uid,
+            incidentId,
+            storehouseLossId: lossId || null,
+            evidenceStrength: 'strong',
+            liangBeliefConfidence: 0.78,
+            seedLossBelief: true,
+            formCulpritBelief: false, // already formed via implication helper
+            skipCulpritReportObservation: true,
+            weiObserves: false,
+            accusedAvailable: true,
+            decideImmediately: options.decideImmediately !== false,
+            forceChoice: options.forceChoice || null,
+            seed
+        });
+        return { ok: true, kind, pursuit, reaction };
+    }
+
+    if (kind === 'theft_failed_no_witness') {
+        const pursuit = typeof pursueNpcAmbitionGoal === 'function'
+            ? pursueNpcAmbitionGoal(wei.uid, {
+                developer: true,
+                ignoreCooldown: true,
+                seed,
+                forceAction: 'steal_lodge_storehouse',
+                forceTheftOutcome: 'fail'
+            })
+            : null;
+        const pending = typeof listPendingWellRingStorehouseDiscoveries === 'function'
+            ? listPendingWellRingStorehouseDiscoveries()
+            : [];
+        const liangObs = typeof getNpcObservationsFor === 'function'
+            ? getNpcObservationsFor(liang.uid)
+            : [];
+        return {
+            ok: true,
+            kind,
+            pursuit,
+            pendingLosses: pending,
+            liangObservationCount: liangObs.length,
+            activeThreads: listActiveNpcSituationThreads(WELL_RING_ACCUSATION_TEMPLATE)
+        };
+    }
+
+    if (kind === 'suspicion_innocent_disciple') {
+        const pursuit = typeof pursueNpcAmbitionGoal === 'function'
+            ? pursueNpcAmbitionGoal(wei.uid, {
+                developer: true,
+                ignoreCooldown: true,
+                seed,
+                forceAction: 'steal_lodge_storehouse',
+                forceTheftOutcome: 'success_undetected'
+            })
+            : null;
+        const lossId = pursuit?.result?.effects?.find(e => e.type === 'storehouse_loss')?.lossId;
+        const incidentId = pursuit?.result?.incidentId;
+        if (lossId) {
+            markWellRingStorehouseLossDiscovered(lossId, { skipNotify: true });
+        }
+        const innocentId = options.innocentId || 'wr_innocent_outer';
+        const reaction = beginWellRingResourceAccusation({
+            developer: true,
+            ignoreCooldown: true,
+            emergent: true,
+            lossFocused: false,
+            accusedId: innocentId,
+            trueCulpritId: wei.uid,
+            incidentId,
+            storehouseLossId: lossId || null,
+            evidenceStrength: options.evidenceStrength || 'moderate',
+            liangBeliefConfidence: options.liangBeliefConfidence != null ? options.liangBeliefConfidence : 0.55,
+            seedLossBelief: true,
+            formCulpritBelief: true,
+            weiObserves: false,
+            accusedAvailable: true,
+            accusationReliable: false,
+            decideImmediately: options.decideImmediately !== false,
+            forceChoice: options.forceChoice || null,
+            seed
+        });
+        return { ok: true, kind, pursuit, reaction, innocentId };
+    }
+
+    if (kind === 'liang_learns_loss_inaction') {
+        const pursuit = typeof pursueNpcAmbitionGoal === 'function'
+            ? pursueNpcAmbitionGoal(wei.uid, {
+                developer: true,
+                ignoreCooldown: true,
+                seed,
+                forceAction: 'steal_lodge_storehouse',
+                forceTheftOutcome: 'success_undetected'
+            })
+            : null;
+        const lossId = pursuit?.result?.effects?.find(e => e.type === 'storehouse_loss')?.lossId;
+        G.ageMonths = (G.ageMonths || 0) + 3;
+        const discovery = typeof forceDiscoverWellRingStorehouseLoss === 'function'
+            ? forceDiscoverWellRingStorehouseLoss(lossId, { skipNotify: true })
+            : null;
+        const reaction = notifyWellRingStorehouseLossDiscovered(discovery?.loss || getWellRingStorehouseLoss(lossId), {
+            developer: true,
+            decideImmediately: true,
+            decisionDelayMonths: 0,
+            forceChoice: 'ignore',
+            seed
+        });
+        return { ok: true, kind, pursuit, discovery, reaction };
+    }
+
+    return { ok: false, reason: 'unknown_kind', kind };
 }
 
 function migrateNpcSituationsForExistingSave() {

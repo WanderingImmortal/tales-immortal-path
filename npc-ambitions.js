@@ -748,11 +748,17 @@ function executeNpcResourceAction(actorId, actionId, context) {
     }
 
     if (actionId === 'steal_lodge_storehouse') {
-        const fail = rng() < NPC_CULTIVATION_RESOURCE.stealFailChance;
+        // Developer/test may force outcomes; natural play uses objective RNG only.
+        const developer = !!context.developer;
+        const forced = developer ? context.forceTheftOutcome : null;
+        let fail = rng() < NPC_CULTIVATION_RESOURCE.stealFailChance;
+        if (forced === 'fail') fail = true;
+        if (forced === 'success_undetected' || forced === 'success_detected') fail = false;
+
         if (fail) {
             effects.push({ type: 'theft_failed' });
-            // Failed attempt may still leave a trace incident (no automatic Liang thread)
-            if (typeof createNpcIncident === 'function' && rng() < 0.5) {
+            // Failed attempt may still leave a trace incident (no automatic Liang knowledge/thread)
+            if (typeof createNpcIncident === 'function' && (developer ? forced === 'fail_with_trace' : rng() < 0.5)) {
                 const inc = createNpcIncident({
                     type: 'theft',
                     zoneId: 'dustbone',
@@ -787,7 +793,10 @@ function executeNpcResourceAction(actorId, actionId, context) {
         effects.push({ type: 'spirit_herbs_gained', amount: gained, source: 'theft' });
 
         // Objective resolution — not exposed to decision scoring.
-        const detected = rng() < NPC_CULTIVATION_RESOURCE.stealDetectChance;
+        let detected = rng() < NPC_CULTIVATION_RESOURCE.stealDetectChance;
+        if (forced === 'success_undetected') detected = false;
+        if (forced === 'success_detected') detected = true;
+
         let incidentId = null;
         if (typeof createNpcIncident === 'function') {
             const inc = createNpcIncident({
@@ -814,8 +823,30 @@ function executeNpcResourceAction(actorId, actionId, context) {
             if (incidentId) effects.push({ type: 'incident', incidentId, detected });
         }
 
-        // Detection ≠ omniscient guilt for others. Optional secondhand report only.
+        // Physical world loss — may exist before anyone notices.
+        let lossId = null;
+        if (typeof recordWellRingStorehouseLoss === 'function') {
+            const loss = recordWellRingStorehouseLoss({
+                amount: gained,
+                incidentId,
+                trueCulpritId: actorId,
+                item: 'spirit_herb_pouch',
+                discovered: false,
+                meta: { source: 'npc_ambition_theft' }
+            });
+            lossId = loss?.id || null;
+            if (lossId) effects.push({ type: 'storehouse_loss', lossId, amount: gained, discovered: false });
+        }
+
+        // Detection ≠ omniscient guilt. Optional secondhand report + emergent situation only.
         if (detected && incidentId && typeof recordNpcObservation === 'function') {
+            // Mark physical loss noticed without identifying via inspection (trail was reported).
+            if (lossId && typeof markWellRingStorehouseLossDiscovered === 'function') {
+                markWellRingStorehouseLossDiscovered(lossId, {
+                    skipNotify: true,
+                    discoveredBy: 'detection_report'
+                });
+            }
             recordNpcObservation({
                 observerId: 'wr_master_liang',
                 incidentId,
@@ -839,7 +870,23 @@ function executeNpcResourceAction(actorId, actionId, context) {
                 });
             }
             effects.push({ type: 'detection_report', to: 'wr_master_liang', omniscient: false });
-            // Do not auto-start accusation situation — leave to natural/dev situation machinery.
+            if (typeof notifyWellRingMisconductReport === 'function') {
+                const reaction = notifyWellRingMisconductReport({
+                    incidentId,
+                    suspectId: actorId,
+                    trueCulpritId: actorId,
+                    storehouseLossId: lossId,
+                    evidenceStrength: 'moderate',
+                    liangBeliefConfidence: 0.4,
+                    reportSource: 'night_watch',
+                    seedLossBelief: true,
+                    decideImmediately: false,
+                    decisionDelayMonths: 1
+                });
+                if (reaction?.thread) {
+                    effects.push({ type: 'situation_started', threadId: reaction.thread.id, emergent: true });
+                }
+            }
         }
 
         const okResult = {
@@ -850,7 +897,8 @@ function executeNpcResourceAction(actorId, actionId, context) {
                 ? 'Stole herbs but left a trail the lodge may notice.'
                 : 'Stole herbs without immediate detection.',
             detected,
-            incidentId
+            incidentId,
+            lossId
         };
         recordNpcActionExperience(actorId, actionId, okResult);
         return okResult;
@@ -942,7 +990,12 @@ function pursueNpcAmbitionGoal(actorId, options) {
         }
 
         const actionId = decision.chosen;
-        const result = executeNpcResourceAction(actorId, actionId, { seed: options.seed });
+        const result = executeNpcResourceAction(actorId, actionId, {
+            seed: options.seed,
+            developer,
+            // forceTheftOutcome is developer/test only — stripped on natural paths.
+            forceTheftOutcome: developer ? (options.forceTheftOutcome || null) : null
+        });
         if (typeof markNpcDecisionAttempted === 'function') markNpcDecisionAttempted(decision.id);
         if (typeof markNpcDecisionCompleted === 'function') markNpcDecisionCompleted(decision.id);
 
@@ -1007,7 +1060,8 @@ function startWeiShunCultivationPursuitScenario(options) {
         developer: true,
         ignoreCooldown: true,
         seed: options.seed,
-        forceAction: options.forceAction || null
+        forceAction: options.forceAction || null,
+        forceTheftOutcome: options.forceTheftOutcome || null
     });
 }
 

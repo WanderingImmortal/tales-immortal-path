@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-05
 
 ## Focus
-- **NPC ambitions & goals** — Wei cultivation pursuit + fulfilment/risk corrections · [`npc-agency-ambitions-goals.md`](ideas/npc-agency-ambitions-goals.md) · [PR #206](https://github.com/WanderingImmortal/tales-immortal-path/pull/206)
+- **NPC action → reaction** — Wei theft → lodge loss → Liang response · [`npc-agency-action-reaction-chain.md`](ideas/npc-agency-action-reaction-chain.md) · `cursor/npc-action-reaction-chain`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap
