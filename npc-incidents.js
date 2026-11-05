@@ -194,6 +194,11 @@ function incidentIsReferenced(incidentId) {
     if (bel && bel.length) return true;
     const active = G.npcIncidents.byId[incidentId] || G.npcIncidents.archived[incidentId];
     if (active?.pinned) return true;
+    // Active / dormant situation threads (Phase D)
+    if (typeof isIncidentReferencedBySituationThreads === 'function' &&
+        isIncidentReferencedBySituationThreads(incidentId)) {
+        return true;
+    }
     // Related links from other active incidents
     return Object.values(G.npcIncidents.byId).some(inc =>
         (inc.relatedIncidentIds || []).includes(incidentId)
