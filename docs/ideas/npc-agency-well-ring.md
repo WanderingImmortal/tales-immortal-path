@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Phase A) |
-| **Blocked on** | Phase B+ (ties, incidents, chooser) — not started |
+| **Status** | `building` (Phase A shipped; Phase B in flight) |
+| **Blocked on** | Phase C incidents / beliefs |
 | **Issue** | none yet |
-| **Chat / PR** | NPC Agency audit · `cursor/well-ring-lodge-npcs` |
+| **Chat / PR** | [PR #201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201) · Phase B `cursor/npc-foundations-ties` |
 | **Updated** | 2026-11-05 |
 
 **Hub:** [`jianghu-situation-threads.md`](jianghu-situation-threads.md) · [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md) · [`dustbone-living-board.md`](dustbone-living-board.md)
@@ -44,7 +44,7 @@ Turn Well-Ring Lodge named faces into stable `G.worldNpcs` so later social syste
 
 | Phase | Goal |
 |-------|------|
-| B | Sparse ties + authored foundations |
+| B | Sparse ties + authored foundations — [`npc-agency-foundations-ties.md`](npc-agency-foundations-ties.md) |
 | C | Incident ledger + beliefs |
 | D | `chooseNpcResponse` + Well-Ring pack |
 | E | Off-screen threads + interest-set LOD |
@@ -54,7 +54,8 @@ Turn Well-Ring Lodge named faces into stable `G.worldNpcs` so later social syste
 
 - [x] Well-Ring player mini-game ([`dustbone-lesser-sects.md`](dustbone-lesser-sects.md))
 - [x] World NPC vitals + scheduler ([`time-npc-state-consistency.md`](time-npc-state-consistency.md))
-- [ ] Phase B ties (next)
+- [x] Phase A cast ([PR #201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201))
+- [ ] Phase B foundations/ties (this follow-up)
 
 ## Open questions
 

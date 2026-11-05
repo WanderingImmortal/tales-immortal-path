@@ -18,7 +18,8 @@ const WELL_RING_CAST = {
         realmIdx: 1,
         ageMonths: 48 * 12,
         growthRate: 0.35,
-        personalities: ['cunning', 'wise'],
+        // Aligns with authored foundation in npc-foundations.js (Phase B). Existing saves keep prior traits.
+        personalities: ['cunning', 'loyal'],
         occupation: 'Well-Ring hall master'
     },
     rival: {
@@ -249,6 +250,10 @@ function ensureWellRingLodgeCast() {
     });
 
     syncWellRingRivalMerit();
+    if (typeof ensureNpcCharacterFoundation === 'function') {
+        createdOrFound.forEach(npc => ensureNpcCharacterFoundation(npc));
+    }
+    if (typeof seedCanonicalNpcTies === 'function') seedCanonicalNpcTies();
     return createdOrFound;
 }
 
