@@ -1147,6 +1147,8 @@ function loadState() {
             if (typeof ensureAlignmentState === 'function') ensureAlignmentState();
             if (typeof ensureNpcState === 'function') ensureNpcState();
             if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
+            if (typeof migrateWellRingLodgeForExistingSave === 'function') migrateWellRingLodgeForExistingSave();
+            else if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
             if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
             if (typeof ensureAllWorldNpcRelationships === 'function') ensureAllWorldNpcRelationships();
             if (G.worldNpcs == null) G.worldNpcs = [];

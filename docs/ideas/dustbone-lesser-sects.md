@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Well-Ring v1 in code) |
-| **Blocked on** | Play through; loyalty parked |
+| **Status** | `building` (Well-Ring v1 + Phase A cast) |
+| **Blocked on** | Play through; loyalty parked; NPC agency Phase B+ |
 | **Issue** | none yet |
-| **Chat / PR** | design chat 2026-07-31 · owner lean 2026-08-06 corrupt civic hall + FE lord spine · `cursor/redwell-corrupt-hall-design` |
-| **Updated** | 2026-08-06 |
+| **Chat / PR** | design chat 2026-07-31 · owner lean 2026-08-06 corrupt civic hall + FE lord spine · `cursor/redwell-corrupt-hall-design` · Phase A cast `cursor/well-ring-lodge-npcs` |
+| **Updated** | 2026-11-05 |
 
 **Not:** Sandveil tribes ([`sandveil-tribunal-cultures.md`](sandveil-tribunal-cultures.md)) · great sect branches (Heartlands docs) · guilds ([`creation-path-guilds.md`](creation-path-guilds.md))
 
@@ -324,6 +324,7 @@ Optional seasoning: well boss job skim, bazaar fence, innkeep rumor filter.
 - [x] Player founding gate vs early-FE NPC master — aligned (early FE)
 - [x] Join = stones, no trial (scam beat later)
 - [x] Master / rival names: Liang / Wei Shun
+- [x] Phase A: Master Liang + Wei Shun as persistent world NPCs ([`npc-agency-well-ring.md`](npc-agency-well-ring.md)) — not story `liang_chen`; no privileged disciple yet
 - [x] Manual = patched notebook
 - [x] Loyalty as full meter — **parked** (return for larger shady sects)
 - [x] Lord name + one memorable tick — only when interactions exist; “Redwell City Lord” fine until then

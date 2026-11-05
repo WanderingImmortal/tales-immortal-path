@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-05
 
 ## Focus
-- **Player activity routines** — one committed session and one repeatable cultivation routine on the living calendar · [`player-activity-routines.md`](ideas/player-activity-routines.md) · `cursor/player-activity-routines`
+- **Well-Ring lodge NPCs (Phase A)** — Master Liang + Wei Shun as persistent `G.worldNpcs` · [`npc-agency-well-ring.md`](ideas/npc-agency-well-ring.md) · `cursor/well-ring-lodge-npcs`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap
