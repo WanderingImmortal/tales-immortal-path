@@ -231,14 +231,8 @@ function actionFocusedCultivate() {
     }
     const months = getFocusedCultivateMonths();
     if (typeof isWorldClockLive === 'function' && isWorldClockLive()
-        && typeof startWorldClockProject === 'function') {
-        startWorldClockProject({
-            id: 'focused_cultivate',
-            kind: 'cultivate',
-            label: 'Focused cultivation',
-            durationMonths: months,
-            startLog: `🧘 You close the door for focused cultivation — about ${months} month${months === 1 ? '' : 's'}.`
-        });
+        && typeof startCommittedFocusedCultivation === 'function') {
+        startCommittedFocusedCultivation();
         if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
         if (typeof fullRender === 'function') fullRender();
         return;

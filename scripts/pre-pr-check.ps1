@@ -10,6 +10,8 @@ node scripts/audit-time-billing.js
 node scripts/audit-world-sim.js
 node scripts/test-time-npc-consistency.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+node scripts/test-player-activity.js
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/audit-cultivation-progression.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host ''

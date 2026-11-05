@@ -502,6 +502,7 @@ header .subtitle {
     right: 168px;
     z-index: 40;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 8px;
     padding: 6px 10px;
@@ -513,10 +514,72 @@ header .subtitle {
     font-size: 12px;
     color: #d8c8b0;
     pointer-events: auto;
+    max-width: min(420px, calc(100vw - 24px));
 }
 
 .world-clock-bar[hidden] {
     display: none !important;
+}
+
+.player-activity-panel {
+    flex: 1 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(120, 96, 64, 0.35);
+}
+
+.player-activity-panel[hidden] {
+    display: none !important;
+}
+
+.player-activity-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.player-activity-text span {
+    color: #b0a090;
+    font-size: 11px;
+}
+
+#playerActivityCancel {
+    border: 1px solid rgba(140, 112, 72, 0.55);
+    border-radius: 6px;
+    background: rgba(48, 36, 22, 0.9);
+    color: #efdfc4;
+    padding: 4px 8px;
+    cursor: pointer;
+    font: inherit;
+    flex: 0 0 auto;
+}
+
+.cultivation-hub-activity {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 4px 0 12px;
+}
+
+.cultivation-hub-activity button {
+    flex: 1 1 140px;
+    border: 1px solid rgba(140, 112, 72, 0.55);
+    border-radius: 8px;
+    background: rgba(48, 36, 22, 0.9);
+    color: #efdfc4;
+    padding: 8px 10px;
+    cursor: pointer;
+    font: inherit;
+}
+
+.cultivation-hub-activity-note {
+    flex: 1 0 100%;
+    margin: 0;
+    color: #b0a090;
+    font-size: 12px;
 }
 
 .world-clock-play {
@@ -8647,6 +8710,8 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 
     .world-clock-bar {
         right: 12px;
+        left: 12px;
+        max-width: none;
     }
 
     .scene-header {
@@ -12334,6 +12399,19 @@ body.phone-playtest-active {
     padding: 4px 6px;
     gap: 3px;
     border-radius: 8px;
+}
+
+.layout-phone-playtest .phone-top-bar:has(#playerActivityPanel:not([hidden])) {
+    flex-wrap: wrap;
+}
+
+.layout-phone-playtest .phone-clock-host:has(#playerActivityPanel:not([hidden])) {
+    max-width: 100%;
+    flex: 1 0 100%;
+}
+
+.layout-phone-playtest .player-activity-panel {
+    font-size: 11px;
 }
 
 .layout-phone-playtest .phone-clock-host .world-clock-speed {
