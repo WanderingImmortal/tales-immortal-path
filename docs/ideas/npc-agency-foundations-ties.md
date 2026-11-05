@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `building` (Phase B shipped; personality sync in #203) |
-| **Blocked on** | Phase C incidents / beliefs |
+| **Blocked on** | Phase C building — [`npc-agency-incidents-beliefs.md`](npc-agency-incidents-beliefs.md) |
 | **Issue** | none yet |
 | **Chat / PR** | [PR #202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) · consistency [`npc-personality-consistency.md`](npc-personality-consistency.md) |
 | **Updated** | 2026-11-05 |

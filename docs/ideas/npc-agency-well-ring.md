@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (Phase A shipped; Phase B in flight) |
-| **Blocked on** | Phase C incidents / beliefs |
+| **Status** | `building` (Phase A–B shipped; Phase C in flight) |
+| **Blocked on** | Phase C — [`npc-agency-incidents-beliefs.md`](npc-agency-incidents-beliefs.md) |
 | **Issue** | none yet |
-| **Chat / PR** | [PR #201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201) · Phase B `cursor/npc-foundations-ties` |
+| **Chat / PR** | [PR #201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201) · [#202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) · [#203](https://github.com/WanderingImmortal/tales-immortal-path/pull/203) |
 | **Updated** | 2026-11-05 |
 
 **Hub:** [`jianghu-situation-threads.md`](jianghu-situation-threads.md) · [`dustbone-lesser-sects.md`](dustbone-lesser-sects.md) · [`dustbone-living-board.md`](dustbone-living-board.md)
