@@ -1205,6 +1205,8 @@ function ensureWellRingState() {
     if (wr.rivalMerit == null) wr.rivalMerit = 4;
     if (wr.lastBoardMonth == null) wr.lastBoardMonth = -1;
     if (wr.lastTournamentYear == null) wr.lastTournamentYear = -1;
+    // Persistent cast (Master Liang, Wei Shun) — Phase A. Idempotent; safe on old saves.
+    if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
     return wr;
 }
 
@@ -1216,10 +1218,25 @@ function isWellRingMember() {
 function getWellRingBoardRows() {
     ensureWellRingState();
     const wr = G.wellRing;
+    const rivalMerit = typeof getWellRingRivalMerit === 'function'
+        ? getWellRingRivalMerit()
+        : (wr.rivalMerit || 0);
+    const rivalNpc = typeof getWellRingCastNpc === 'function'
+        ? getWellRingCastNpc('rival')
+        : null;
+    const rivalName = typeof getWellRingRivalDisplayName === 'function'
+        ? getWellRingRivalDisplayName()
+        : 'Wei Shun';
     const rows = [
         { name: 'You', merit: wr.merit || 0, you: true },
-        { name: 'Wei Shun', merit: wr.rivalMerit || 0, rival: true },
-        ...WELL_RING_BOARD_FAKES.map(f => ({ name: f.name, merit: f.merit + Math.floor((wr.rivalMerit || 0) / 4) }))
+        {
+            name: rivalName,
+            merit: rivalMerit,
+            rival: true,
+            uid: rivalNpc?.uid || (typeof WELL_RING_CAST !== 'undefined' ? WELL_RING_CAST.rival?.uid : null),
+            alive: rivalNpc ? rivalNpc.alive !== false : true
+        },
+        ...WELL_RING_BOARD_FAKES.map(f => ({ name: f.name, merit: f.merit + Math.floor(rivalMerit / 4) }))
     ];
     rows.sort((a, b) => (b.merit - a.merit) || a.name.localeCompare(b.name));
     return rows;
@@ -1246,18 +1263,27 @@ function tickWellRingCalendar() {
     if (steps > 0) {
         const origin = mark.uninitialized ? mark.nextMark - 1 : Math.floor(Number(wr.lastBoardMonth));
         for (let i = 0; i < steps; i++) {
-            if (Math.random() < 0.45) wr.rivalMerit = (wr.rivalMerit || 0) + 1;
+            if (Math.random() < 0.45) {
+                if (typeof adjustWellRingRivalMerit === 'function') adjustWellRingRivalMerit(1);
+                else wr.rivalMerit = (wr.rivalMerit || 0) + 1;
+            }
             const monthAt = origin + i + 1;
             if (wr.lastMissionMonth && monthAt - wr.lastMissionMonth >= 18) {
                 wr.merit = Math.max(0, (wr.merit || 0) - 1);
             }
         }
         wr.lastBoardMonth = mark.nextMark;
+        const rivalMeritNow = typeof getWellRingRivalMerit === 'function'
+            ? getWellRingRivalMerit()
+            : (wr.rivalMerit || 0);
+        const rivalLabel = typeof getWellRingRivalDisplayName === 'function'
+            ? getWellRingRivalDisplayName()
+            : 'Wei Shun';
         if (steps === 1 && Math.random() < 0.35) {
             const rank = getWellRingPlayerRank();
-            addLog(`💧 Well-Ring monthly board: you sit ${rank}${rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th'} — Wei Shun at ${wr.rivalMerit} merit.`);
+            addLog(`💧 Well-Ring monthly board: you sit ${rank}${rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th'} — ${rivalLabel} at ${rivalMeritNow} merit.`);
         } else if (steps > 1) {
-            addLog(`💧 Well-Ring board over ${steps} months — Wei Shun at ${wr.rivalMerit} merit.`);
+            addLog(`💧 Well-Ring board over ${steps} months — ${rivalLabel} at ${rivalMeritNow} merit.`);
         }
     }
 
@@ -1366,8 +1392,13 @@ function actionWellRingMission(missionId) {
     G.wellRing.merit = (G.wellRing.merit || 0) + meritGain;
     G.wellRing.lastMissionMonth = G.ageMonths || 0;
     if (Math.random() < 0.55) {
-        G.wellRing.rivalMerit = (G.wellRing.rivalMerit || 0) + 1 + (mission.dirty ? 1 : 0);
-        note += ' Wei Shun logged a run too.';
+        const bump = 1 + (mission.dirty ? 1 : 0);
+        if (typeof adjustWellRingRivalMerit === 'function') adjustWellRingRivalMerit(bump);
+        else G.wellRing.rivalMerit = (G.wellRing.rivalMerit || 0) + bump;
+        const rivalLabel = typeof getWellRingRivalDisplayName === 'function'
+            ? getWellRingRivalDisplayName()
+            : 'Wei Shun';
+        note += ` ${rivalLabel} logged a run too.`;
     }
     if (typeof maybeRedwellLordQuietThanks === 'function') {
         const thanks = maybeRedwellLordQuietThanks(mission);
@@ -1449,16 +1480,26 @@ function actionWellRingTournament() {
     wr.lastTournamentYear = year;
     wr.tournamentDue = false;
 
-    const seed = (wr.merit || 0) >= (wr.rivalMerit || 0);
+    const rivalMerit = typeof getWellRingRivalMerit === 'function'
+        ? getWellRingRivalMerit()
+        : (wr.rivalMerit || 0);
+    const rivalLabel = typeof getWellRingRivalDisplayName === 'function'
+        ? getWellRingRivalDisplayName()
+        : 'Wei Shun';
+    const masterLabel = typeof getWellRingMasterDisplayName === 'function'
+        ? getWellRingMasterDisplayName()
+        : 'Master Liang';
+    const seed = (wr.merit || 0) >= rivalMerit;
     let won = seed ? Math.random() < 0.62 : Math.random() < 0.38;
     let line;
     if (won) {
         wr.merit = (wr.merit || 0) + 4;
-        line = '💧 Promotion tournament — you take the yard nod. +4 merit. Master Liang\'s "inner nod" is only flavor; the board still rules.';
+        line = `💧 Promotion tournament — you take the yard nod. +4 merit. ${masterLabel}'s "inner nod" is only flavor; the board still rules.`;
     } else {
-        wr.rivalMerit = (wr.rivalMerit || 0) + 3;
+        if (typeof adjustWellRingRivalMerit === 'function') adjustWellRingRivalMerit(3);
+        else wr.rivalMerit = (wr.rivalMerit || 0) + 3;
         wr.merit = (wr.merit || 0) + 1;
-        line = '💧 Promotion tournament — Wei Shun edges you. +1 merit. The board will remember.';
+        line = `💧 Promotion tournament — ${rivalLabel} edges you. +1 merit. The board will remember.`;
     }
     if (!wr.heardFeeScam && (wr.merit || 0) >= 8) {
         wr.heardFeeScam = true;

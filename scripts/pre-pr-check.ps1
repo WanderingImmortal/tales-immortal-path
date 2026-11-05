@@ -12,6 +12,8 @@ node scripts/test-time-npc-consistency.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/test-player-activity.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+node scripts/test-well-ring-lodge-npcs.js
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 node scripts/audit-cultivation-progression.js
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host ''

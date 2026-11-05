@@ -209,8 +209,13 @@ function getPresentNpcEntries(zoneId) {
             if (isNpcPresent(id, zoneId)) entries.push({ type: 'story', id });
         });
         if (typeof getWorldNpcsInZone === 'function') {
+            const locId = typeof getCurrentLocationId === 'function'
+                ? getCurrentLocationId()
+                : G.currentLocation;
             getWorldNpcsInZone(zoneId).forEach(npc => {
                 if (npc.state === 'ambient') return;
+                // Authored home anchors (e.g. Well-Ring cast) only present at that location.
+                if (npc.homeLocationId && locId && npc.homeLocationId !== locId) return;
                 entries.push({ type: 'world', id: worldNpcId(npc.uid), npc });
             });
         }
