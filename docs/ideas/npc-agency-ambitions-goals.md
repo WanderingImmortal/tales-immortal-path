@@ -5,7 +5,7 @@
 | **Status** | `building` |
 | **Blocked on** | none for first slice |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/npc-ambitions-goals` · [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201)–[#205](https://github.com/WanderingImmortal/tales-immortal-path/pull/205) |
+| **Chat / PR** | [PR #206](https://github.com/WanderingImmortal/tales-immortal-path/pull/206) · [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201)–[#205](https://github.com/WanderingImmortal/tales-immortal-path/pull/205) |
 | **Updated** | 2026-11-05 |
 
 **Hub:** [`npc-agency-well-ring.md`](npc-agency-well-ring.md) · [`npc-agency-contextual-decisions.md`](npc-agency-contextual-decisions.md)
