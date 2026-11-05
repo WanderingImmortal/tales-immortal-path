@@ -5,7 +5,7 @@
 | **Status** | `building` |
 | **Blocked on** | none for first pack; rumour / full thread packs deferred |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/npc-contextual-decisions` · [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201)–[#204](https://github.com/WanderingImmortal/tales-immortal-path/pull/204) |
+| **Chat / PR** | [PR #205](https://github.com/WanderingImmortal/tales-immortal-path/pull/205) · [#201](https://github.com/WanderingImmortal/tales-immortal-path/pull/201)–[#204](https://github.com/WanderingImmortal/tales-immortal-path/pull/204) |
 | **Updated** | 2026-11-05 |
 
 **Hub:** [`npc-agency-well-ring.md`](npc-agency-well-ring.md) · [`npc-agency-incidents-beliefs.md`](npc-agency-incidents-beliefs.md) · [`jianghu-situation-threads.md`](jianghu-situation-threads.md)

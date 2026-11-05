@@ -75,7 +75,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [NPC agency — foundations & ties](npc-agency-foundations-ties.md) | `building` (Phase B shipped) | Phase C incidents / beliefs | [PR #202](https://github.com/WanderingImmortal/tales-immortal-path/pull/202) |
 | [NPC personality consistency](npc-personality-consistency.md) | `building` (#203) | none | [PR #203](https://github.com/WanderingImmortal/tales-immortal-path/pull/203) |
 | [NPC agency — incidents & imperfect knowledge](npc-agency-incidents-beliefs.md) | `building` (Phase C shipped) | situation threads / rumour later | [PR #204](https://github.com/WanderingImmortal/tales-immortal-path/pull/204) |
-| [NPC agency — contextual decisions](npc-agency-contextual-decisions.md) | `building` (Phase D) | rumour / multi-beat packs later | `cursor/npc-contextual-decisions` |
+| [NPC agency — contextual decisions](npc-agency-contextual-decisions.md) | `building` (Phase D) | rumour / multi-beat packs later | [PR #205](https://github.com/WanderingImmortal/tales-immortal-path/pull/205) |
 | [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `designed` (origins lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [World events — layered battlefield](world-events-layered-battlefield.md) | `idea` | Mid city; org tiers | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |
