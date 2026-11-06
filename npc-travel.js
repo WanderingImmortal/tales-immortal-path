@@ -106,6 +106,80 @@ function blankNpcTravelState(npc) {
     };
 }
 
+function isNpcTravelBodyUnresolved(npc) {
+    return !!(npc && npc.travel && npc.travel.status === 'unresolved');
+}
+
+/**
+ * Recover malformed / legacy travel rows without inventing a second map.
+ * Living NPCs stuck with no body are settled at a valid origin or marked unresolved.
+ * Dead aborted travellers stay without a body (no return teleport).
+ */
+function recoverNpcTravelState(npc) {
+    if (!npc || !npc.travel) return null;
+    const t = npc.travel;
+    const alive = npc.alive !== false;
+
+    if (t.status === 'travelling') {
+        const destOk = !!npcTravelLocationDef(t.destinationId);
+        const originOk = !!npcTravelLocationDef(t.originId);
+        if (!alive) {
+            return abortNpcJourney(npc, 'dead');
+        }
+        if (!destOk) {
+            return abortNpcJourney(npc, originOk ? 'invalid_destination' : 'invalid_travel_state');
+        }
+        if (!originOk) {
+            // Still on the road toward a known place, but origin is gone — keep travelling
+            // until arrival; settlement uses destination on completion.
+            return t;
+        }
+        if (npc.uid) trackNpcJourney(npc.uid);
+        return t;
+    }
+
+    if (t.status === 'aborted') {
+        if (npc.uid) untrackNpcJourney(npc.uid);
+        if (!alive) {
+            t.locationId = null;
+            t.arrivalApplied = true;
+            return t;
+        }
+        // Legacy living abort with null body — settle or mark unresolved.
+        if (!t.locationId || !npcTravelLocationDef(t.locationId)) {
+            return settleOrUnresolvedAfterAbort(npc, t.abortReason || 'recovered_abort');
+        }
+        t.status = 'present';
+        t.arrivalApplied = true;
+        return t;
+    }
+
+    if (t.status === 'unresolved') {
+        if (npc.uid) untrackNpcJourney(npc.uid);
+        t.arrivalApplied = true;
+        if (!alive) {
+            t.status = 'aborted';
+            t.locationId = null;
+            t.abortReason = t.abortReason || 'dead';
+            return t;
+        }
+        // Defined recovery: if the origin place exists again, settle there.
+        if (npcTravelLocationDef(t.originId)) {
+            return settleOrUnresolvedAfterAbort(npc, t.abortReason || 'recovered_unresolved');
+        }
+        t.locationId = null;
+        return t;
+    }
+
+    // present / unknown
+    if (!t.status) t.status = 'present';
+    if (t.status === 'present' && !t.locationId) {
+        t.locationId = npc.homeLocationId || npc.locationId || null;
+    }
+    if (npc.uid && t.status !== 'travelling') untrackNpcJourney(npc.uid);
+    return t;
+}
+
 function ensureNpcTravelState(npc) {
     if (!npc) return null;
     if (!npc.travel || typeof npc.travel !== 'object') {
@@ -113,9 +187,6 @@ function ensureNpcTravelState(npc) {
     }
     const t = npc.travel;
     if (!t.status) t.status = 'present';
-    if (t.status !== 'travelling' && !t.locationId) {
-        t.locationId = npc.homeLocationId || npc.locationId || null;
-    }
     if (!Array.isArray(t.companions)) t.companions = [];
     if (t.completionCount == null) t.completionCount = 0;
     if (t.fieldStayCount == null) t.fieldStayCount = 0;
@@ -129,7 +200,9 @@ function ensureNpcTravelState(npc) {
         });
         t.familiarLocationIds = ids;
     }
-    return t;
+    // Do not silently fill home onto aborted/unresolved bodies.
+    recoverNpcTravelState(npc);
+    return npc.travel;
 }
 
 function isNpcTravelling(npcOrId) {
@@ -140,16 +213,17 @@ function isNpcTravelling(npcOrId) {
 function getNpcSettledLocationId(npcOrId) {
     const npc = resolveTravelNpc(npcOrId);
     if (!npc) return null;
-    if (npc.travel && npc.travel.status === 'travelling') return null;
-    if (npc.travel && npc.travel.status === 'aborted') return npc.travel.locationId || null;
-    if (npc.travel && npc.travel.locationId) return npc.travel.locationId;
+    if (!npc.travel) return npc.homeLocationId || npc.locationId || null;
+    if (npc.travel.status === 'travelling' || npc.travel.status === 'unresolved') return null;
+    if (npc.travel.status === 'aborted') return npc.travel.locationId || null;
+    if (npc.travel.locationId) return npc.travel.locationId;
     return npc.homeLocationId || npc.locationId || null;
 }
 
 function isNpcPhysicallyPresentAt(npcOrId, locationId) {
     const npc = resolveTravelNpc(npcOrId);
     if (!npc || npc.alive === false || !locationId) return false;
-    if (isNpcTravelling(npc)) return false;
+    if (isNpcTravelling(npc) || isNpcTravelBodyUnresolved(npc)) return false;
     return getNpcSettledLocationId(npc) === locationId;
 }
 
@@ -539,22 +613,89 @@ function beginNpcJourney(npcOrId, spec) {
     };
 }
 
-function abortNpcJourney(npc, reason) {
-    if (!npc || !npc.travel || npc.travel.status !== 'travelling') return null;
+/**
+ * Prefer settling at the journey origin — not homeLocationId — when aborting a living traveller.
+ * Death stays terminal with no body placement.
+ */
+function settleOrUnresolvedAfterAbort(npc, reason) {
     const travel = npc.travel;
-    travel.status = 'aborted';
-    travel.locationId = null;
+    const originId = travel.originId;
+    const originOk = !!npcTravelLocationDef(originId);
     travel.arrivalApplied = true;
-    travel.abortReason = reason || 'aborted';
     travel.arrivedAtMonths = null;
+    travel.abortReason = reason || 'aborted';
     if (npc.uid) untrackNpcJourney(npc.uid);
+
+    if (npc.alive === false) {
+        travel.status = 'aborted';
+        travel.locationId = null;
+        return travel;
+    }
+
+    if (originOk) {
+        travel.status = 'present';
+        travel.locationId = originId;
+        const origin = npcTravelLocationDef(originId);
+        if (origin && origin.parentZone) npc.zone = origin.parentZone;
+        travel.lastAbort = {
+            atMonths: G.ageMonths || 0,
+            reason: travel.abortReason,
+            settledLocationId: originId
+        };
+        return travel;
+    }
+
+    travel.status = 'unresolved';
+    travel.locationId = null;
+    travel.lastAbort = {
+        atMonths: G.ageMonths || 0,
+        reason: travel.abortReason,
+        settledLocationId: null
+    };
     return travel;
+}
+
+function abortNpcJourney(npc, reason) {
+    if (!npc || !npc.travel) return null;
+    if (npc.travel.status !== 'travelling' && npc.travel.status !== 'unresolved') {
+        // Allow recovery re-entry only when already aborted with no body.
+        if (!(npc.travel.status === 'aborted' && npc.alive !== false && !npc.travel.locationId)) {
+            return null;
+        }
+    }
+    if (npc.travel.status === 'travelling' || npc.travel.status === 'unresolved') {
+        // Mark journey finished so it cannot complete later.
+        npc.travel.arrivalApplied = true;
+    }
+    return settleOrUnresolvedAfterAbort(npc, reason || 'aborted');
+}
+
+/** Living NPC cancels an active journey — settles at origin when possible. */
+function cancelNpcJourney(npcOrId, reason) {
+    const npc = resolveTravelNpc(npcOrId);
+    if (!npc) return { ok: false, reason: 'missing_npc' };
+    if (npc.alive === false) return { ok: false, reason: 'dead' };
+    ensureNpcTravelState(npc);
+    if (!npc.travel || npc.travel.status !== 'travelling') {
+        return { ok: false, reason: 'not_travelling' };
+    }
+    const travel = abortNpcJourney(npc, reason || 'cancelled');
+    return {
+        ok: true,
+        status: travel.status,
+        locationId: travel.locationId,
+        abortReason: travel.abortReason
+    };
 }
 
 function completeNpcJourney(npc) {
     const travel = npc.travel;
     const destId = travel.destinationId;
     const dest = npcTravelLocationDef(destId);
+    if (!dest) {
+        abortNpcJourney(npc, 'invalid_destination');
+        return null;
+    }
     travel.arrivalApplied = true;
     travel.status = 'present';
     travel.locationId = destId;
@@ -568,7 +709,7 @@ function completeNpcJourney(npc) {
         purpose: travel.purpose,
         method: travel.method
     };
-    if (dest && dest.parentZone) npc.zone = dest.parentZone;
+    if (dest.parentZone) npc.zone = dest.parentZone;
     if (travel.familiarLocationIds && destId && travel.familiarLocationIds.indexOf(destId) === -1) {
         travel.familiarLocationIds.push(destId);
     }
@@ -580,12 +721,19 @@ function completeNpcJourney(npc) {
 
 function resolveNpcTravelForActor(npcOrId, nowMonths) {
     const npc = resolveTravelNpc(npcOrId);
-    if (!npc || !npc.travel || npc.travel.status !== 'travelling') {
+    if (!npc || !npc.travel) return { changed: false };
+    ensureNpcTravelState(npc);
+
+    if (npc.travel.status !== 'travelling') {
         return { changed: false };
     }
     if (npc.alive === false) {
         abortNpcJourney(npc, 'dead');
         return { changed: true, aborted: true, reason: 'dead' };
+    }
+    if (!npcTravelLocationDef(npc.travel.destinationId)) {
+        abortNpcJourney(npc, 'invalid_destination');
+        return { changed: true, aborted: true, reason: 'invalid_destination' };
     }
     const now = nowMonths != null ? nowMonths : (G.ageMonths || 0);
     if (now + 1e-9 < npc.travel.arrivesAtMonths) {
@@ -595,6 +743,9 @@ function resolveNpcTravelForActor(npcOrId, nowMonths) {
         return { changed: false, duplicate: true };
     }
     const arrival = completeNpcJourney(npc);
+    if (!arrival) {
+        return { changed: true, aborted: true, reason: npc.travel.abortReason || 'invalid_destination' };
+    }
     return { changed: true, arrived: true, arrival };
 }
 
@@ -609,6 +760,7 @@ function tickNpcTravel() {
             untrackNpcJourney(uids[i]);
             continue;
         }
+        ensureNpcTravelState(npc);
         resolveNpcTravelForActor(npc, now);
     }
 }
@@ -616,12 +768,14 @@ function tickNpcTravel() {
 function describeNpcPresenceRestrictions(npc) {
     const lodge = (npc && npc.homeLocationId)
         || (typeof WELL_RING_HOME_LOCATION_ID !== 'undefined' ? WELL_RING_HOME_LOCATION_ID : null);
+    const unresolved = isNpcTravelBodyUnresolved(npc);
     return {
         travelling: isNpcTravelling(npc),
+        unresolved,
         settledLocationId: getNpcSettledLocationId(npc),
         lodgeDuty: lodge ? isNpcAvailableForLocationAction(npc, lodge) : false,
         storehouseTheft: lodge ? isNpcAvailableForLocationAction(npc, lodge) : false,
-        inPersonAtLodge: lodge ? isNpcAvailableForInPersonAt(npc, lodge) : !isNpcTravelling(npc)
+        inPersonAtLodge: lodge ? isNpcAvailableForInPersonAt(npc, lodge) : (!isNpcTravelling(npc) && !unresolved)
     };
 }
 
@@ -649,8 +803,11 @@ function inspectNpcTravel(actorId) {
         alive: npc.alive !== false,
         realmIdx: npc.realmIdx,
         status: travel.status,
-        locationId: travel.status === 'travelling' ? null : travel.locationId,
+        locationId: (travel.status === 'travelling' || travel.status === 'unresolved')
+            ? null
+            : travel.locationId,
         inTransit: travel.status === 'travelling',
+        unresolved: travel.status === 'unresolved',
         originId: travel.originId,
         destinationId: travel.destinationId,
         purpose: travel.purpose,
@@ -666,6 +823,7 @@ function inspectNpcTravel(actorId) {
         companions: (travel.companions || []).slice(),
         scheduleId: travel.scheduleId || null,
         abortReason: travel.abortReason || null,
+        lastAbort: travel.lastAbort ? JSON.parse(JSON.stringify(travel.lastAbort)) : null,
         lastArrival: travel.lastArrival ? JSON.parse(JSON.stringify(travel.lastArrival)) : null,
         options,
         choice,

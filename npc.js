@@ -215,6 +215,9 @@ function getPresentNpcEntries(zoneId) {
             getWorldNpcsInZone(zoneId).forEach(npc => {
                 if (npc.state === 'ambient') return;
                 if (typeof isNpcTravelling === 'function' && isNpcTravelling(npc)) return;
+                // Unresolved / dead-aborted travellers have no body — do not fall back to home.
+                if (npc.travel && (npc.travel.status === 'unresolved'
+                    || (npc.travel.status === 'aborted' && !npc.travel.locationId))) return;
                 // Settled travel location overrides the home anchor. Otherwise home still gates presence.
                 if (npc.travel && npc.travel.status === 'present' && npc.travel.locationId) {
                     if (locId && npc.travel.locationId !== locId) return;

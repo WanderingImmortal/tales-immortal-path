@@ -30,8 +30,8 @@ Player map travel stays the player action. NPCs do not spend the player's Qi or 
 
 | Field | Meaning |
 |-------|---------|
-| `status` | `present`, `travelling`, or `aborted` |
-| `locationId` | Settled place. Null while travelling or aborted — not either endpoint, and not a pass along the way |
+| `status` | `present`, `travelling`, `unresolved`, or `aborted` (dead) |
+| `locationId` | Settled place. Null while travelling, unresolved, or dead-aborted — not either endpoint, and not a pass along the way |
 | `originId` / `destinationId` | This leg |
 | `purpose` | Why (`cultivation_resources`, `return_home`). Independent of method |
 | `method` | `walk`, `light_body`, or `flight` |
@@ -52,6 +52,17 @@ Methods come from realm and condition. They are ways of travelling, not new tech
 
 Injury blocks light-body and flight. Incapacitation blocks every method. A location `minRealm` blocks the route. Dead characters cannot depart, and a death on the road aborts the leg instead of arriving.
 
+### Abort / recovery
+
+| Case | Result |
+|------|--------|
+| Living cancel / invalid destination / broken travel row | Journey cannot complete. Prefer settle at **origin** (not `homeLocationId`). |
+| Origin also invalid | `status: 'unresolved'`, no body — blocks location-bound actions; inspectable |
+| Death on the road | `status: 'aborted'`, `locationId: null` — no return teleport |
+| Legacy living abort with null body | Recovered on `ensureNpcTravelState` to origin or unresolved |
+
+`arrivalApplied` is set on abort so the leg cannot arrive later. `G.npcTravel.activeUids` is cleared.
+
 Flight being available does not mean it is chosen. Preference is scored from personality, pressure, and purpose. Ties prefer walking. A careful loyal Nascent Soul cultivator can still walk.
 
 ### Intent in this slice
@@ -64,6 +75,8 @@ Only purposes the current map can support:
 Wei’s existing herb goal treats “seek herbs in a nearby field” as one option beside lodge duty and theft. Seeds still pick duty and theft. Departure does not count as a failed goal.
 
 At the field he gathers into the existing spirit-herb pouch. If he is still short, and he is not careful or loyal, he can stay (capped). Otherwise he walks home. Reaching the herb batch still feeds the existing cultivation-progress grant; travel does not pause growth.
+
+Field herb gains are an **abstract stipend** (same class as lodge duty pay): they do not deplete a location stock. Finite field supplies wait on a later resource-source contract (#209).
 
 Judgement uses time, familiarity, personality, and goal pressure. It does not read encounter tables or zone danger.
 

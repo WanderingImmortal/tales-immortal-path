@@ -426,8 +426,118 @@ function weiOf(ctx) {
     ctx.tickNpcTravel();
     assert(wei.travel.status === 'aborted' && wei.travel.abortReason === 'dead', 'death aborts the journey');
     assert(wei.travel.locationId == null, 'death does not deliver him to the destination');
+    assert(!ctx.isNpcPhysicallyPresentAt(wei, 'redwell'), 'death does not return him to the origin');
     assert((wei.travel.completionCount || 0) === completions, 'aborted journey does not count as arrival');
     assert(!ctx.isNpcPhysicallyPresentAt(wei, 'dewcatch_scrub'), 'dead traveller is not present at the destination');
+    assert(ctx.G.npcTravel.activeUids.indexOf(wei.uid) === -1, 'death clears the active journey index');
+    ctx.G.ageMonths = (wei.travel.arrivesAtMonths || 0) + 20;
+    ctx.tickNpcTravel();
+    assert(wei.travel.status === 'aborted' && wei.travel.completionCount === completions, 'aborted dead journey cannot arrive later');
+}
+
+// Abort integrity: living cancel, invalid dest/route, save/load, unresolved
+{
+    // 1. Living cancellation settles at origin (not home-by-default)
+    const ctx = boot();
+    const wei = weiOf(ctx);
+    ctx.beginNpcJourney(wei, { destinationId: 'dewcatch_scrub', purpose: 'cultivation_resources' });
+    const cancel = ctx.cancelNpcJourney(wei, 'cancelled');
+    assert(cancel.ok && cancel.status === 'present' && cancel.locationId === 'redwell', 'living cancel settles at origin');
+    assert(wei.travel.arrivalApplied === true, 'cancel marks the leg finished');
+    assert(ctx.G.npcTravel.activeUids.indexOf(wei.uid) === -1, 'cancel clears active journey index');
+    assert(ctx.isNpcPhysicallyPresentAt(wei, 'redwell'), 'cancel restores presence at origin');
+    assert(ctx.isNpcAvailableForLocationAction(wei, 'redwell'), 'lodge actions available after safe settlement');
+
+    // Cancel mid return-home: origin is the field, not the lodge home
+    wei.travel = {
+        status: 'present', locationId: 'dewcatch_scrub', originId: null, destinationId: null,
+        purpose: null, method: null, departedAtMonths: null, arrivesAtMonths: null,
+        arrivedAtMonths: null, arrivalApplied: false, completionCount: 1, fieldStayCount: 1,
+        companions: [], scheduleId: null, familiarLocationIds: ['redwell', 'dewcatch_scrub'],
+        routeLocationIds: null, perceivedUncertainty: null, perceivedEffort: null,
+        abortReason: null, lastArrival: null
+    };
+    wei.zone = 'dustbone';
+    const startedHome = ctx.beginNpcJourney(wei, { destinationId: 'redwell', purpose: 'return_home' });
+    assert(startedHome.ok && startedHome.originId === 'dewcatch_scrub', 'return leg originates at the field');
+    const cancelReturn = ctx.cancelNpcJourney(wei.uid, 'cancelled');
+    assert(cancelReturn.ok && cancelReturn.locationId === 'dewcatch_scrub', 'cancel settles at journey origin, not homeLocationId');
+    assert(wei.homeLocationId === 'redwell', 'homeLocationId stays institutional home');
+    assert(ctx.isNpcPhysicallyPresentAt(wei, 'dewcatch_scrub'), 'body remains at field origin after cancel');
+    assert(!ctx.isNpcPhysicallyPresentAt(wei, 'redwell'), 'cancel does not teleport home');
+
+    // 2–3. Invalid destination / travel data while travelling
+    const ctx2 = boot();
+    const wei2 = weiOf(ctx2);
+    ctx2.beginNpcJourney(wei2, { destinationId: 'dewcatch_scrub', purpose: 'cultivation_resources' });
+    const completions2 = wei2.travel.completionCount || 0;
+    delete WORLD_LOCATIONS.dewcatch_scrub;
+    ctx2.ensureNpcTravelState(wei2);
+    assert(wei2.travel.status === 'present' && wei2.travel.locationId === 'redwell', 'invalid destination aborts to origin');
+    assert(wei2.travel.abortReason === 'invalid_destination', 'invalid destination reason recorded');
+    assert((wei2.travel.completionCount || 0) === completions2, 'invalid dest does not count as arrival');
+    assert(ctx2.G.npcTravel.activeUids.indexOf(wei2.uid) === -1, 'invalid dest clears active index');
+    ctx2.G.ageMonths = (wei2.travel.arrivesAtMonths || 0) + 50;
+    ctx2.tickNpcTravel();
+    assert(wei2.travel.completionCount === completions2, 'no duplicate arrival after invalid-dest abort');
+    WORLD_LOCATIONS.dewcatch_scrub = {
+        id: 'dewcatch_scrub', parentZone: 'dustbone', type: 'wilderness', name: 'Dewcatch Scrub',
+        tags: ['Explore', 'Herbs', 'Field']
+    };
+
+    // Unresolved when origin is also gone
+    const ctx3 = boot();
+    const wei3 = weiOf(ctx3);
+    ctx3.beginNpcJourney(wei3, { destinationId: 'dewcatch_scrub', purpose: 'cultivation_resources' });
+    const originSnap = wei3.travel.originId;
+    const destSnap = wei3.travel.destinationId;
+    delete WORLD_LOCATIONS[originSnap];
+    delete WORLD_LOCATIONS[destSnap];
+    ctx3.resolveNpcTravelForActor(wei3, (wei3.travel.arrivesAtMonths || 0) + 1);
+    assert(wei3.travel.status === 'unresolved', 'missing origin and destination leave unresolved body');
+    assert(wei3.travel.locationId == null, 'unresolved has no settled location');
+    assert(!ctx3.isNpcPhysicallyPresentAt(wei3, 'redwell'), 'unresolved is not present at lodge');
+    assert(!ctx3.isNpcAvailableForLocationAction(wei3, 'redwell'), 'lodge actions blocked while unresolved');
+    assert(!ctx3.canWorldNpcConverse(wei3), 'conversation blocked while unresolved');
+    const viewU = ctx3.inspectNpcTravel(wei3.uid);
+    assert(viewU.unresolved && viewU.abortReason, 'inspect exposes unresolved travel');
+    WORLD_LOCATIONS.redwell = {
+        id: 'redwell', parentZone: 'dustbone', type: 'city', name: 'Redwell', tags: ['City', 'Market']
+    };
+    WORLD_LOCATIONS.dewcatch_scrub = {
+        id: 'dewcatch_scrub', parentZone: 'dustbone', type: 'wilderness', name: 'Dewcatch Scrub',
+        tags: ['Explore', 'Herbs', 'Field']
+    };
+
+    // 5. Save/load after living abort
+    const ctx4 = boot();
+    const wei4 = weiOf(ctx4);
+    ctx4.beginNpcJourney(wei4, { destinationId: 'dewcatch_scrub', purpose: 'cultivation_resources' });
+    ctx4.cancelNpcJourney(wei4, 'cancelled');
+    const blob = JSON.parse(JSON.stringify({ travel: wei4.travel, reg: ctx4.G.npcTravel, age: ctx4.G.ageMonths }));
+    const ctx5 = boot();
+    const wei5 = weiOf(ctx5);
+    wei5.travel = blob.travel;
+    ctx5.G.npcTravel = blob.reg;
+    ctx5.G.ageMonths = blob.age;
+    ctx5.ensureNpcTravelState(wei5);
+    assert(wei5.travel.status === 'present' && wei5.travel.locationId === 'redwell', 'save/load keeps settled abort');
+    assert(ctx5.isNpcPhysicallyPresentAt(wei5, 'redwell'), 'presence intact after abort save/load');
+    assert(ctx5.G.npcTravel.activeUids.indexOf(wei5.uid) === -1, 'active index stays clean after abort load');
+
+    // Legacy living abort with null body recovers
+    const ctx6 = boot();
+    const wei6 = weiOf(ctx6);
+    wei6.travel = {
+        status: 'aborted', locationId: null, originId: 'redwell', destinationId: 'dewcatch_scrub',
+        purpose: 'cultivation_resources', method: 'walk', departedAtMonths: 100, arrivesAtMonths: 102,
+        arrivedAtMonths: null, arrivalApplied: true, completionCount: 0, fieldStayCount: 0,
+        companions: [], familiarLocationIds: ['redwell'], abortReason: 'legacy_null_body'
+    };
+    ctx6.G.npcTravel = { version: 1, activeUids: [wei6.uid] };
+    ctx6.ensureNpcTravelState(wei6);
+    assert(wei6.travel.status === 'present' && wei6.travel.locationId === 'redwell', 'legacy null-body abort recovers to origin');
+    assert(ctx6.G.npcTravel.activeUids.indexOf(wei6.uid) === -1, 'legacy recovery clears active index');
 }
 
 // 12. Ambitions and decisions still run; travel is not guaranteed
