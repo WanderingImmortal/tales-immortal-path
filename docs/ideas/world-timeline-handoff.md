@@ -48,7 +48,7 @@ Establish **when** major setting beats happened relative to each other (Seal →
 - [ ] Founder **silent Immortal** — **after** war; how long before mandate “extirpation” fiction spreads?
 - [ ] **Pulpit clone** tradition — restarted **when** after Tianjing?
 - [ ] **Great Draught** vs **Withdrawal** — duration of open harvest vs dormancy
-- [~] **“Now”** — **~3,000 years** since the Dao Wars ended (working, owner 2026-09-26; may change). Sleeping Dragon (Half-Step at Tianjing, Immortal now — owner 2026-09-26) still alive?
+- [~] **“Now”** — **~3,000 years** since the Dao Wars ended (working, owner 2026-09-26; may change). Sleeping Dragon / founding Immortal (Half-Step at Tianjing, Immortal now — owner 2026-09-26) still in voluntary seclusion beneath Tianjing; **reigning emperor** = his elder brother (family revision 2026-11-07 — [`tian-clan-family-history.md`](tian-clan-family-history.md)).
 
 ### Mandate & map
 

@@ -73,9 +73,9 @@ Soul cultivation was reviled, so no soul sect could stand openly. This one survi
 
 He has **not** crossed into Godhood, so he does not pay an Immortal's permanent bill. Heaven still permits a **limited claim** on the next realm's abilities, because the clock on his life is running. That is the same permission a Half-Step Immortal and a Demi-Saint get. It is not a blank check, and heaven has not forgotten him.
 
-He can still move when Immortals will not. They draw heaven's resistance if they act in the open, Saints are watched, and the Tian founder sleeps. A Pseudo God spending a limited claim is a problem the middle of the world cannot answer, and the top of the world would rather not wake to answer.
+He can still move when Immortals will not. They draw heaven's resistance if they act in the open, Saints are watched, and the Tian founding Immortal remains in seclusion. A Pseudo God spending a limited claim is a problem the middle of the world cannot answer, and the top of the world would rather not force him onto the board.
 
-**Mirror:** the Tian founder is a **restrained Immortal** who sleeps. The Emperor is still mortal at the threshold, and he uses the room that sleep leaves.
+**Mirror:** the Tian founding Immortal is a **restrained Immortal** in voluntary seclusion (publicly the "sleeping dragon"). The Hollow Throne Emperor is still mortal at the threshold, and he uses the room that restraint leaves.
 
 ### Arc — two paths lived, the third chosen *(owner)*
 

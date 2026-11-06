@@ -105,7 +105,7 @@ Pre-wars → Scar bleeding; Jade sea powers; innumerable minor sects
 Dao Wars → Heartlands = territorial prize; north reaches south; Jade naval; margins raided
 Half-Step → wars stop fast
 Settlement → charter; sea charter; northern isolation / recognition; Emberwild containment
-Post → buried founder; Yin Maiden formalizes (when); immortals accumulate
+Post → founding Immortal in seclusion; Yin Maiden formalizes (when); immortals accumulate
 Now → Phoenix Gambit (Heartlands politics)
 ```
 

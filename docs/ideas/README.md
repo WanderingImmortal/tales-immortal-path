@@ -116,7 +116,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [World timeline — author spine](world-timeline-author-spine.md) | `idea` | Eras, Warring States, sites; owner PC for prisoner | — |
 | [Sect & faction identities](sect-faction-identities.md) | `designed` | Merge peer sect PRs | — |
 | [Imperial clan — Tian Clan](imperial-clan.md) | `designed` (core lore) | City detail → [`imperial-city-tianjing.md`](imperial-city-tianjing.md) | — |
-| [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes | — |
+| [Tian Clan — family history & leadership](tian-clan-family-history.md) | `designed` (2026-11-07) | Emperor personal name; Tian Xu role; mother / assassin Opens | — |
+| [Imperial city — Longcheng + Tianjing](imperial-city-tianjing.md) | `idea` (workshop) | Noble clans; phase-1 map nodes; emperor name | — |
 | [Golden Core — peak condense (maximisation)](golden-core-condense-peak.md) | `idea` | FE redesign + owner GC design | — |
 | [Soul-into-body refining](soul-body-refining.md) | `idea` (stub) | Body path rewrite; forbidden branch of spirit path | — |
 | [Spirit / Soul path — full third path](spirit-path-full-design.md) | `designed` (sea from day one; ending is the three god kinds) | Abilities and idx 5 name still open | — |

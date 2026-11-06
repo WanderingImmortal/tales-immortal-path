@@ -188,8 +188,8 @@ She knows every major register entry by heart. She does **not** claim to be the 
 | **Envoy Lin Mei** | Outer gate — trained instrument; names prices early |
 | **Patriarch Yun Jian** (Sword) | Pragmatic ally — signs escorts and marriage rotations |
 | **Golden Phoenix** | Charter enemy — Gambit is **her** public crisis |
-| **Emperor Tian Xu** | Professional warmth — supply contracts and marriage courtesy |
-| **Regent Tian Mo** | Lotus-adjacent pragmatist — mid-scale pact success story |
+| **Reigning Tian emperor** *(elder brother; name Open)* | Professional warmth — supply contracts and marriage courtesy |
+| **Councillor Tian Mo** | Lotus-adjacent pragmatist — mid-scale pact success story |
 
 ---
 
@@ -225,7 +225,7 @@ She knows every major register entry by heart. She does **not** claim to be the 
 | **Mid** | Cadet marries Tian blood branch; Lotus elder on charter subcommittee; Sword–Lotus rotation marriage | Strong lines; scandal if broken |
 | **Founding great** | **Valley Supply Oath**, **Jade Bed Compact** *(names TBD)* | Core array anchors; invoked, rarely renewed |
 
-**Why strongest imperial ties:** Lotus wired itself into the mandate’s **household and pantry**. Rip them out → scandal, supply wobble, marriage fracture. Tian Mo (Lotus-adjacent regent) exemplifies mid-scale success without requiring imperial blood.
+**Why strongest imperial ties:** Lotus wired itself into the mandate’s **household and pantry**. Rip them out → scandal, supply wobble, marriage fracture. Tian Mo (Lotus-adjacent imperial councillor) exemplifies mid-scale success without requiring imperial blood.
 
 ---
 
