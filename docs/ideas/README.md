@@ -78,7 +78,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [NPC agency — contextual decisions](npc-agency-contextual-decisions.md) | `building` (Phase D shipped) | rumour / multi-beat packs later | [PR #205](https://github.com/WanderingImmortal/tales-immortal-path/pull/205) |
 | [NPC agency — ambitions & goals](npc-agency-ambitions-goals.md) | `building` (Phase E slice) | economy / more actors later | [PR #206](https://github.com/WanderingImmortal/tales-immortal-path/pull/206) |
 | [NPC agency — action → reaction chain](npc-agency-action-reaction-chain.md) | `building` | rumour / multi-lodge later | [PR #207](https://github.com/WanderingImmortal/tales-immortal-path/pull/207) |
-| [NPC travel, capability, and presence](npc-travel-presence.md) | `building` | caravans / regional danger later | `cursor/npc-travel-presence` |
+| [NPC travel, capability, and presence](npc-travel-presence.md) | `building` | caravans / regional danger later | [PR #208](https://github.com/WanderingImmortal/tales-immortal-path/pull/208) |
 | [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `designed` (origins lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [World events — layered battlefield](world-events-layered-battlefield.md) | `idea` | Mid city; org tiers | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |

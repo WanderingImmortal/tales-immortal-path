@@ -5,7 +5,7 @@
 | **Status** | `building` |
 | **Blocked on** | none for this slice |
 | **Issue** | none yet |
-| **Chat / PR** | `cursor/npc-travel-presence` |
+| **Chat / PR** | [PR #208](https://github.com/WanderingImmortal/tales-immortal-path/pull/208) · `cursor/npc-travel-presence` |
 | **Updated** | 2026-11-06 |
 
 ## Intent

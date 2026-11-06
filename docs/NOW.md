@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-06
 
 ## Focus
-- **NPC travel & presence** — Wei walks Redwell → Dewcatch for herbs · [`npc-travel-presence.md`](ideas/npc-travel-presence.md) · `cursor/npc-travel-presence`
+- **NPC travel & presence** — Wei walks Redwell → Dewcatch for herbs · [`npc-travel-presence.md`](ideas/npc-travel-presence.md) · [PR #208](https://github.com/WanderingImmortal/tales-immortal-path/pull/208)
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap
