@@ -127,6 +127,8 @@ function ensureWellRingLodgeWorldFormation() {
     const existing = G.worldFormations.byId[seed.id];
     if (existing && typeof existing === 'object') {
         // Preserve object identity + operating state across ensures.
+        // Do NOT reset integrity/active from seed defaults — that would undo world-time decay.
+        if (!existing.id) existing.id = seed.id;
         if (!existing.formationId) existing.formationId = seed.formationId;
         if (!existing.locationId) existing.locationId = seed.locationId;
         if (!existing.siteLabel) existing.siteLabel = seed.siteLabel;
@@ -134,6 +136,11 @@ function ensureWellRingLodgeWorldFormation() {
         if (!existing.ownerId) existing.ownerId = seed.ownerId;
         if (!existing.powerMode) existing.powerMode = seed.powerMode;
         if (existing.originUnresolved == null) existing.originUnresolved = true;
+        // Only fill missing integrity (corrupt/partial saves) — never restore the starter 88.
+        if (existing.integrity == null || !Number.isFinite(Number(existing.integrity))) {
+            existing.integrity = seed.initialIntegrity;
+        }
+        if (existing.active == null) existing.active = !!seed.initialActive;
         if (existing.scattered || existing.integrity <= 0) {
             existing.scattered = true;
             existing.integrity = 0;
@@ -350,8 +357,10 @@ function migrateWorldFormationsForExistingSave() {
     ensureWorldFormationsState();
 }
 
-if (typeof registerWorldTick === 'function') {
+let _worldFormationsTickRegistered = false;
+if (typeof registerWorldTick === 'function' && !_worldFormationsTickRegistered) {
     // Before worldNpcs growth (40) so growth sees current operating state.
+    _worldFormationsTickRegistered = true;
     registerWorldTick('worldFormations', (delta) => {
         tickWorldFormationInstallations(delta);
     }, 38);

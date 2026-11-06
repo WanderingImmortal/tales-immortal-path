@@ -237,6 +237,8 @@ function processWorldTimeLegacy(fromMonths, toMonths) {
     if (typeof maybeHeavenlyAlignmentEvent === 'function') maybeHeavenlyAlignmentEvent();
     if (typeof tickNpcWorld === 'function') tickNpcWorld(delta);
     if (typeof tickQuestSystems === 'function') tickQuestSystems(delta);
+    // Match processWorldTime ordering: world installs before NPC growth.
+    if (typeof tickWorldFormationInstallations === 'function') tickWorldFormationInstallations(delta);
     if (typeof tickWorldNpcGrowth === 'function') tickWorldNpcGrowth(delta);
     if (typeof tickSectSystems === 'function') tickSectSystems(delta);
     if (typeof tickFactionQuestDeadlines === 'function') tickFactionQuestDeadlines();

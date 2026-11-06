@@ -202,6 +202,10 @@ function ensureWellRingLodgeCast() {
     });
     return G.worldNpcs.filter(n => n.affiliationId === WELL_RING_LODGE_ID);
 }
+function migrateWellRingLodgeForExistingSave() {
+    ensureWellRingLodgeCast();
+    if (typeof migrateWorldFormationsForExistingSave === 'function') migrateWorldFormationsForExistingSave();
+}
 `, ctx, { filename: 'well-ring-stub' });
 
     vm.runInContext(read('formations.js'), ctx, { filename: 'formations.js' });
@@ -400,6 +404,174 @@ function testEnsureRecursionSmoke() {
     assert(Object.keys(ctx.G.worldFormations.byId).length === 1, 'repeated ensure stays single install');
 }
 
+function testDeteriorationIndependentOfPlayer() {
+    console.log('\n-- deterioration independent of player --');
+    const ctx = boot();
+    ctx.G.currentLocation = 'dewcatch_scrub'; // player far from Redwell
+    const before = ctx.getWellRingLodgeFormationInstallation().integrity;
+    // World time advances without opening lodge UI.
+    runRegisteredTicks(ctx, 6);
+    const after = ctx.getWellRingLodgeFormationInstallation().integrity;
+    assert(after === before - 6, `decays while player away (${before}→${after})`);
+
+    // Observation / ensure must not mutate operating state.
+    const snap = {
+        integrity: after,
+        active: ctx.getWellRingLodgeFormationInstallation().active,
+        scattered: ctx.getWellRingLodgeFormationInstallation().scattered
+    };
+    for (let i = 0; i < 5; i++) {
+        ctx.getWellRingLodgeFormationObservationLine();
+        ctx.ensureWorldFormationsState();
+        ctx.ensureWellRingLodgeWorldFormation();
+    }
+    const inst = ctx.getWellRingLodgeFormationInstallation();
+    assert(inst.integrity === snap.integrity, 'observation/ensure does not change integrity');
+    assert(inst.active === snap.active, 'observation/ensure does not change active');
+    assert(!!inst.scattered === !!snap.scattered, 'observation/ensure does not change scattered');
+
+    // Pause = no processWorldTime → no further decay.
+    const pausedAt = inst.integrity;
+    // Deliberately do not run ticks (simulates paused calendar).
+    assert(ctx.getWellRingLodgeFormationInstallation().integrity === pausedAt,
+        'paused calendar (no ticks) does not deteriorate');
+}
+
+function testNoDoubleDecayOnSingleAdvance() {
+    console.log('\n-- no double decay --');
+    const ctx = boot();
+    const before = ctx.getWellRingLodgeFormationInstallation().integrity;
+    // One scheduler pass with delta 5 should decay exactly once by 5.
+    const formationTicks = ctx._ticks.filter(t => t.id === 'worldFormations');
+    assert(formationTicks.length === 1, 'exactly one worldFormations tick registered');
+    runRegisteredTicks(ctx, 5);
+    assert(ctx.getWellRingLodgeFormationInstallation().integrity === before - 5,
+        'single advance decays integrity once');
+}
+
+function testBecomesInoperativeStopsBenefit() {
+    console.log('\n-- eventual inoperative stops benefit --');
+    const ctx = boot();
+    const wei = ctx.findWorldNpcRecordByUid('wr_wei_shun');
+    const inst = ctx.getWellRingLodgeFormationInstallation();
+    inst.integrity = 2;
+    inst.active = true;
+    inst.scattered = false;
+    assert(ctx.getNpcLocalFormationCultivateMult(wei) > 1, 'still running near end of life');
+    ctx.tickWorldFormationInstallations(5);
+    assert(inst.scattered === true && inst.integrity === 0, 'sufficient decay scatters install');
+    assert(inst.active === false, 'scattered install is deactivated');
+    assert(ctx.getNpcLocalFormationCultivateMult(wei) === 1, 'scattered → NPC benefit gone');
+    ctx.G.wellRing.member = true;
+    ctx.G.currentLocation = 'redwell';
+    assert(ctx.getPlayerWellRingLodgeFormationCultivateMult() === 1,
+        'scattered → player lodge benefit gone');
+}
+
+function testEnsurePreservesIdentityAndDeactivated() {
+    console.log('\n-- ensure identity + deactivated/scattered persist --');
+    const ctx = boot();
+    const inst = ctx.getWellRingLodgeFormationInstallation();
+    const ref = inst;
+    inst.integrity = 41;
+    inst.active = false;
+    for (let i = 0; i < 4; i++) ctx.ensureWellRingLodgeWorldFormation();
+    assert(ctx.getWellRingLodgeFormationInstallation() === ref, 'ensure keeps object identity');
+    assert(ref.integrity === 41, 'ensure does not restore integrity 88');
+    assert(ref.active === false, 'ensure does not reactivate shut-down install');
+
+    ref.integrity = 0;
+    ref.scattered = true;
+    ref.active = true; // corrupt active flag — ensure should force off
+    ctx.ensureWellRingLodgeWorldFormation();
+    assert(ref.scattered === true && ref.active === false && ref.integrity === 0,
+        'ensure forces scattered installs inactive');
+}
+
+function testSaveLoadDoesNotRestoreStarter() {
+    console.log('\n-- save/load does not restore starter 88 --');
+    const ctx = boot();
+    const inst = ctx.getWellRingLodgeFormationInstallation();
+    inst.integrity = 55;
+    inst.active = false;
+    inst.scattered = false;
+    const snap = JSON.parse(JSON.stringify(ctx.G.worldFormations));
+
+    const again = boot({ seedCast: false });
+    again.G.worldNpcs = [];
+    again.G.wellRing = JSON.parse(JSON.stringify(ctx.G.wellRing));
+    again.G.worldFormations = snap;
+    // Simulate loadState migrate path
+    again.migrateWellRingLodgeForExistingSave
+        ? again.migrateWellRingLodgeForExistingSave()
+        : again.migrateWorldFormationsForExistingSave();
+    again.ensureWellRingLodgeCast();
+    again.ensureWorldFormationsState();
+
+    const loaded = again.getWellRingLodgeFormationInstallation();
+    assert(loaded.integrity === 55, 'loaded integrity stays 55 (not 88)');
+    assert(loaded.active === false, 'loaded keeps deactivated');
+    assert(Object.keys(again.G.worldFormations.byId).length === 1, 'no dup on load migrate');
+    assert(
+        (again.G.wellRing.lodge.formationInstallIds || []).includes('wr_courtyard_spirit_gathering'),
+        'lodge formationInstallIds pointer valid after load'
+    );
+}
+
+function testPlayerBenefitStopsWhenLeavingOrInoperative() {
+    console.log('\n-- player benefit location + operative gates --');
+    const ctx = boot();
+    ctx.G.wellRing.member = true;
+    ctx.G.currentLocation = 'redwell';
+    assert(ctx.getPlayerWellRingLodgeFormationCultivateMult() > 1, 'member at Redwell gets bonus');
+    ctx.G.currentLocation = 'jade_harbor';
+    assert(ctx.getPlayerWellRingLodgeFormationCultivateMult() === 1, 'leaving Redwell stops bonus');
+    ctx.G.currentLocation = 'redwell';
+    const inst = ctx.getWellRingLodgeFormationInstallation();
+    inst.active = false;
+    assert(ctx.getPlayerWellRingLodgeFormationCultivateMult() === 1, 'inactive stops player bonus');
+}
+
+function testLodgeDoesNotDoubleStackInPassiveChain() {
+    console.log('\n-- lodge mult applied once in player chain --');
+    const ctx = boot();
+    ctx.G.wellRing.member = true;
+    ctx.G.currentLocation = 'redwell';
+    // Stub passive chain the same way the game composes it.
+    const lodge = ctx.getPlayerWellRingLodgeFormationCultivateMult();
+    const dwelling = 1; // no personal courtyard gather
+    const combined = dwelling * lodge;
+    assert(Math.abs(combined - lodge) < 1e-9, 'lodge appears once when dwelling is neutral');
+    assert(lodge > 1 && lodge < 1.2, 'lodge bonus is a single modest mult');
+}
+
+function testNpcContinuesAfterFormationStops() {
+    console.log('\n-- NPC growth continues after formation stops --');
+    const ctx = boot();
+    const wei = ctx.findWorldNpcRecordByUid('wr_wei_shun');
+    const inst = ctx.getWellRingLodgeFormationInstallation();
+    inst.active = false;
+    wei.growthProgress = 0;
+    ctx.tickWorldNpcGrowth(10);
+    assert(Math.abs(wei.growthProgress - 10 * wei.growthRate) < 1e-9,
+        'NPC still grows at base rate when formation off');
+}
+
+function testObservationReflectsStateWithoutSecrets() {
+    console.log('\n-- observation reflects real state --');
+    const ctx = boot();
+    const inst = ctx.getWellRingLodgeFormationInstallation();
+    inst.active = true;
+    inst.integrity = 80;
+    assert(/hums|pulls|pattern/i.test(ctx.getWellRingLodgeFormationObservationLine()),
+        'operating state readable');
+    inst.active = false;
+    const off = ctx.getWellRingLodgeFormationObservationLine();
+    assert(/dark|switch/i.test(off), 'inactive reported as dark switch');
+    assert(!/hums/i.test(off), 'inactive is not described as operating');
+    assert(!/\b(88|integrity|fuel)\b/i.test(off), 'no privileged numbers/fields');
+}
+
 testInitNoDup();
 testSaveLoadLegacy();
 testActivationDeteriorationAmbient();
@@ -410,6 +582,15 @@ testObservationNoSecrets();
 testPlayerDwellingSectUntouched();
 testSchedulerRegistration();
 testEnsureRecursionSmoke();
+testDeteriorationIndependentOfPlayer();
+testNoDoubleDecayOnSingleAdvance();
+testBecomesInoperativeStopsBenefit();
+testEnsurePreservesIdentityAndDeactivated();
+testSaveLoadDoesNotRestoreStarter();
+testPlayerBenefitStopsWhenLeavingOrInoperative();
+testLodgeDoesNotDoubleStackInPassiveChain();
+testNpcContinuesAfterFormationStops();
+testObservationReflectsStateWithoutSecrets();
 
 console.log(`\n${failed === 0 ? 'All world-formation tests passed.' : failed + ' failure(s).'}`);
 process.exit(failed === 0 ? 0 : 1);

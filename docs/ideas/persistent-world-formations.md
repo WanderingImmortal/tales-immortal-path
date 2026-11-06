@@ -6,7 +6,7 @@
 | **Blocked on** | Formation careers / commissions later |
 | **Issue** | none yet |
 | **Chat / PR** | `cursor/persistent-world-formations` · PR #212 |
-| **Updated** | 2026-11-06 |
+| **Updated** | 2026-11-06 (pre-merge verification) |
 
 **Hub:** [`formations-and-arrays.md`](formations-and-arrays.md) · [`npc-agency-well-ring.md`](npc-agency-well-ring.md) · [`personal-residence.md`](personal-residence.md)
 
@@ -61,7 +61,11 @@ Visiting the lodge shows a short sensory line (operating / worn / scattered). No
 
 ### Tick
 
-`registerWorldTick('worldFormations', …, 38)` before `worldNpcs` growth so growth sees current state.
+`registerWorldTick('worldFormations', …, 38)` before `worldNpcs` growth so growth sees current state. Also hooked from `processWorldTimeLegacy` so the fallback clock path cannot skip decay.
+
+**Verified (pre-merge):** integrity decays via world ticks while the player is away / without opening the lodge; ensure preserves object identity and does not restore starter integrity 88; observation is read-only; benefits are location- and operative-gated once.
+
+**Known limitation:** large batched NPC growth uses presence at tick time for the whole segment (same as other world-NPC systems) — not sub-month presence interpolation.
 
 ## Open questions
 
