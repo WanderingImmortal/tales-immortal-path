@@ -136,6 +136,7 @@ function boot() {
         'npc-incidents.js',
         'npc-decisions.js',
         'npc-situations.js',
+        'resource-sources.js',
         'npc-ambitions.js',
         'npc-converse.js'
     ].forEach(f => vm.runInContext(read(f), ctx, { filename: f }));

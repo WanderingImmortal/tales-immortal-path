@@ -1172,6 +1172,8 @@ function loadState() {
             if (typeof migrateNpcDecisionsForExistingSave === 'function') migrateNpcDecisionsForExistingSave();
             if (typeof migrateNpcSituationsForExistingSave === 'function') migrateNpcSituationsForExistingSave();
             if (typeof migrateNpcAmbitionsForExistingSave === 'function') migrateNpcAmbitionsForExistingSave();
+            if (typeof migrateResourceSourcesForExistingSave === 'function') migrateResourceSourcesForExistingSave();
+            else if (typeof ensureAllAuthoredResourceSources === 'function') ensureAllAuthoredResourceSources();
             if (G.npcIncidents == null) G.npcIncidents = null;
             if (G.npcObservations == null) G.npcObservations = null;
             if (G.npcBeliefs == null) G.npcBeliefs = null;

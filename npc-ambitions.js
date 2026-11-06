@@ -674,6 +674,12 @@ const WEI_RESOURCE_ACTION_OPTIONS = [
                 s -= pen;
                 factors.push({ id: 'travel_time', delta: -pen, months: journey.months });
             }
+            // Known empty field — prefer not to walk out for nothing; still eligible so an on-site attempt can send him home.
+            if (!journey?.alreadyThere && ctx.resources && ctx.resources.fieldHerbStock != null
+                && ctx.resources.fieldHerbStock <= 0) {
+                s -= 0.4;
+                factors.push({ id: 'field_depleted', delta: -0.4 });
+            }
             return { score: s };
         }
     },
@@ -757,6 +763,7 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
     const storehouseHerbStock = typeof getWellRingStorehouseHerbStock === 'function'
         ? getWellRingStorehouseHerbStock()
         : null;
+    const fieldHerbStock = getDewcatchSpiritHerbStock();
     let herbJourney = null;
     if (typeof findNpcDestinationForPurpose === 'function') {
         const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
@@ -784,6 +791,7 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
             spiritHerbs: herbs,
             need,
             storehouseHerbStock,
+            fieldHerbStock,
             theftAmount: NPC_CULTIVATION_RESOURCE.stealHerbGain,
             herbJourney
         },
@@ -799,8 +807,23 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
     };
 }
 
-function shouldRemainAtHerbField(npc, herbs, need) {
+function getDewcatchSpiritHerbSourceId() {
+    if (typeof findResourceSourceIdAtLocation === 'function') {
+        return findResourceSourceIdAtLocation('dewcatch_scrub', 'spirit_herb');
+    }
+    return 'dewcatch_scrub_spirit_herbs';
+}
+
+function getDewcatchSpiritHerbStock() {
+    const id = getDewcatchSpiritHerbSourceId();
+    if (!id || typeof getResourceSourceStock !== 'function') return null;
+    return getResourceSourceStock(id);
+}
+
+function shouldRemainAtHerbField(npc, herbs, need, fieldStock) {
     if (herbs >= need) return false;
+    // Depleted physical field — do not camp forever waiting for regen this slice.
+    if (fieldStock != null && fieldStock <= 0) return false;
     const stay = (npc.travel && npc.travel.fieldStayCount) || 0;
     if (stay >= NPC_CULTIVATION_RESOURCE.fieldStayCap) return false;
     const personalities = npc.personalities || [];
@@ -876,18 +899,97 @@ function executeNpcFieldHerbAction(actorId, npc, context, rng) {
         };
     }
 
+    // Physical presence required — alreadyThere from destination finder is not enough if travel lied.
+    if (typeof isNpcPhysicallyPresentAt === 'function' && !isNpcPhysicallyPresentAt(npc, found.locationId)) {
+        return {
+            success: false,
+            actionId: 'gather_field_herbs',
+            effects: [{ type: 'blocked', reason: 'not_present', locationId: found.locationId }],
+            notes: 'Not at the herb ground — gathering needs a body in the scrub.',
+            blockedReason: 'not_present'
+        };
+    }
+
     const developer = !!context.developer;
     const forced = developer ? context.forceFieldHerb : null;
+    const wantAmount = NPC_CULTIVATION_RESOURCE.fieldHerbGain;
+    const sourceId = (found.locationId === 'dewcatch_scrub')
+        ? getDewcatchSpiritHerbSourceId()
+        : (typeof findResourceSourceIdAtLocation === 'function'
+            ? findResourceSourceIdAtLocation(found.locationId, 'spirit_herb')
+            : null);
+    const fieldStockBefore = (sourceId && typeof getResourceSourceStock === 'function')
+        ? getResourceSourceStock(sourceId)
+        : null;
+
     let gained = 0;
-    if (forced === 'none') gained = 0;
-    else if (forced === 'gain' || rng() < NPC_CULTIVATION_RESOURCE.fieldHerbChance) {
-        gained = NPC_CULTIVATION_RESOURCE.fieldHerbGain;
-        adjustNpcSpiritHerbs(actorId, gained);
+    let transfer = null;
+    let gatherNote = null;
+
+    if (forced === 'none') {
+        gained = 0;
+        gatherNote = 'forced_miss';
+    } else if (fieldStockBefore != null && fieldStockBefore <= 0) {
+        gained = 0;
+        gatherNote = 'depleted';
+    } else if (forced === 'gain' || rng() < NPC_CULTIVATION_RESOURCE.fieldHerbChance) {
+        if (sourceId && typeof transferFromResourceSource === 'function') {
+            const month = Math.floor(G.ageMonths || 0);
+            const acquisitionKey = `field_gather:${actorId}:${sourceId}:${month}:${(npc.travel && npc.travel.completionCount) || 0}:${(npc.travel && npc.travel.fieldStayCount) || 0}`;
+            transfer = transferFromResourceSource({
+                sourceId,
+                amount: wantAmount,
+                resourceId: 'spirit_herb',
+                actorId,
+                requireLocationId: found.locationId,
+                acquisitionKey,
+                receiver: { kind: 'npc_spirit_herbs', actorId }
+            });
+            if (transfer.ok) {
+                gained = transfer.amount;
+            } else if (transfer.reason === 'duplicate_acquisition') {
+                gained = 0;
+                gatherNote = 'duplicate_acquisition';
+            } else if (transfer.reason === 'insufficient_stock') {
+                gained = 0;
+                gatherNote = 'depleted';
+            } else if (transfer.reason === 'not_present') {
+                return {
+                    success: false,
+                    actionId: 'gather_field_herbs',
+                    effects: [{ type: 'blocked', reason: 'not_present', locationId: found.locationId }],
+                    notes: 'Not at the herb ground — gathering needs a body in the scrub.',
+                    blockedReason: 'not_present'
+                };
+            } else {
+                gained = 0;
+                gatherNote = transfer.reason || 'transfer_failed';
+            }
+        } else {
+            // Fallback if resource-sources.js is unavailable — never invent stock when API exists but source missing.
+            gained = wantAmount;
+            adjustNpcSpiritHerbs(actorId, gained);
+            gatherNote = 'legacy_unstocked';
+        }
+    } else {
+        gatherNote = 'chance_miss';
     }
+
     const herbsNow = getNpcSpiritHerbs(actorId);
     const need = NPC_CULTIVATION_RESOURCE.herbNeedForBoost;
-    const remain = shouldRemainAtHerbField(npc, herbsNow, need);
-    const effects = [{ type: 'spirit_herbs_gained', amount: gained, source: 'field' }];
+    const fieldStockAfter = (sourceId && typeof getResourceSourceStock === 'function')
+        ? getResourceSourceStock(sourceId)
+        : fieldStockBefore;
+    const remain = shouldRemainAtHerbField(npc, herbsNow, need, fieldStockAfter);
+    const effects = [{
+        type: 'spirit_herbs_gained',
+        amount: gained,
+        source: 'field',
+        sourceId: sourceId || null,
+        stockBefore: fieldStockBefore,
+        stockAfter: fieldStockAfter,
+        note: gatherNote
+    }];
     if (remain) {
         if (npc.travel) npc.travel.fieldStayCount = (npc.travel.fieldStayCount || 0) + 1;
         effects.push({ type: 'remained', locationId: found.locationId });
@@ -911,15 +1013,20 @@ function executeNpcFieldHerbAction(actorId, npc, context, rng) {
             }
         }
     }
+    let notes = 'Worked the field and found no usable herbs.';
+    if (gained > 0) notes = 'Gathered spirit herbs from the scrub.';
+    else if (gatherNote === 'depleted') notes = 'The scrub is picked clean for now; no herbs left to take.';
+    else if (gatherNote === 'duplicate_acquisition') notes = 'Already gathered here this stretch.';
     return {
         success: gained > 0,
         actionId: 'gather_field_herbs',
         herbsGained: gained > 0,
         fieldGathered: true,
+        fieldDepleted: gatherNote === 'depleted' || (fieldStockAfter != null && fieldStockAfter <= 0 && gained <= 0),
+        sourceId: sourceId || null,
+        transfer: transfer || null,
         effects,
-        notes: gained > 0
-            ? 'Gathered spirit herbs in the field.'
-            : 'Worked the field and found no usable herbs.'
+        notes
     };
 }
 

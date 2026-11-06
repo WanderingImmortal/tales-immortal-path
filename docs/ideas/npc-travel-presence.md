@@ -76,7 +76,7 @@ Wei’s existing herb goal treats “seek herbs in a nearby field” as one opti
 
 At the field he gathers into the existing spirit-herb pouch. If he is still short, and he is not careful or loyal, he can stay (capped). Otherwise he walks home. Reaching the herb batch still feeds the existing cultivation-progress grant; travel does not pause growth.
 
-Field herb gains are an **abstract stipend** (same class as lodge duty pay): they do not deplete a location stock. Finite field supplies wait on a later resource-source contract (#209).
+Field herb gains now draw from the Dewcatch regenerating stock (`dewcatch_scrub_spirit_herbs`) — see [`resource-sources-wilderness-regen.md`](resource-sources-wilderness-regen.md) / PR #209. Lodge duty stipends remain abstract.
 
 Judgement uses time, familiarity, personality, and goal pressure. It does not read encounter tables or zone danger.
 

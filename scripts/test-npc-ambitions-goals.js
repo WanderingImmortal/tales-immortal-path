@@ -92,6 +92,7 @@ function boot(extraG) {
         'npc-incidents.js',
         'npc-decisions.js',
         'npc-situations.js',
+        'resource-sources.js',
         'npc-ambitions.js'
     ].forEach(f => vm.runInContext(read(f), ctx));
 
