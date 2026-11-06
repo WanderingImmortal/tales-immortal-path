@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-06
 
 ## Focus
-- **Formation inscription upkeep** — maintain Well-Ring court gather · [`formation-inscription-upkeep.md`](ideas/formation-inscription-upkeep.md) · `cursor/formation-inscription-upkeep`
+- **Institutional formation maintenance** — lodge work orders + paid upkeep · [`institutional-formation-maintenance.md`](ideas/institutional-formation-maintenance.md) · `cursor/lodge-formation-work-orders`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

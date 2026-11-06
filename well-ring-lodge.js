@@ -169,6 +169,20 @@ function ensureWellRingShell() {
     return G.wellRing;
 }
 
+/**
+ * Formation service economics (PR #214). Documented endowment — not infinite.
+ * Storehouse herbs (existing herbStock) supply spirit-herb chalk reagents.
+ */
+const WELL_RING_FORMATION_SERVICE = {
+    installId: 'wr_courtyard_spirit_gathering',
+    /** Need opens when integrity falls below sharp band (default 70). */
+    wageStones: 8,
+    chalkStones: 4,
+    herbAmount: 1,
+    /** Starting lodge treasury for chalk + wages. */
+    treasuryBaseline: 48
+};
+
 function ensureWellRingLodgeOrg() {
     const wr = ensureWellRingShell();
     if (!wr.lodge) {
@@ -179,7 +193,8 @@ function ensureWellRingLodgeOrg() {
             headquartersLocationId: WELL_RING_HOME_LOCATION_ID,
             memberUids: [],
             roles: {},
-            formationInstallIds: []
+            formationInstallIds: [],
+            treasuryStones: WELL_RING_FORMATION_SERVICE.treasuryBaseline
         };
     }
     const lodge = wr.lodge;
@@ -190,6 +205,28 @@ function ensureWellRingLodgeOrg() {
     if (!Array.isArray(lodge.memberUids)) lodge.memberUids = [];
     if (!lodge.roles || typeof lodge.roles !== 'object') lodge.roles = {};
     if (!Array.isArray(lodge.formationInstallIds)) lodge.formationInstallIds = [];
+    if (lodge.treasuryStones == null) {
+        lodge.treasuryStones = WELL_RING_FORMATION_SERVICE.treasuryBaseline;
+    }
+    // Inline work-order seed (avoid ensureWellRingFormationWorkOrder ↔ ensureWellRingLodgeOrg recursion).
+    const seedId = WELL_RING_FORMATION_SERVICE.installId;
+    if (!lodge.formationWork || typeof lodge.formationWork !== 'object'
+        || lodge.formationWork.installId !== seedId) {
+        lodge.formationWork = {
+            installId: seedId,
+            kind: 'inscription_maintain',
+            status: 'none',
+            openedAtMonths: null,
+            lastEvalAtMonths: null,
+            wageStones: WELL_RING_FORMATION_SERVICE.wageStones,
+            chalkStones: WELL_RING_FORMATION_SERVICE.chalkStones,
+            herbAmount: WELL_RING_FORMATION_SERVICE.herbAmount,
+            qualifiedPractitionerAvailable: false,
+            notes: null,
+            jobsCompleted: 0,
+            lastPaidJobAtMonths: null
+        };
+    }
 
     listWellRingCastDefs().forEach(def => {
         if (!lodge.memberUids.includes(def.uid)) lodge.memberUids.push(def.uid);
@@ -204,6 +241,285 @@ function ensureWellRingLodgeOrg() {
         ensureWellRingLodgeWorldFormation();
     }
     return lodge;
+}
+
+function ensureWellRingLodgeTreasury() {
+    const lodge = ensureWellRingLodgeOrg();
+    if (lodge.treasuryStones == null) {
+        lodge.treasuryStones = WELL_RING_FORMATION_SERVICE.treasuryBaseline;
+    }
+    return lodge;
+}
+
+/**
+ * Single persistent work order for the lodge court formation.
+ * status: none | needed | funded | deferred_insufficient | unserviceable
+ */
+function ensureWellRingFormationWorkOrder() {
+    const lodge = ensureWellRingLodgeOrg();
+    const seedId = WELL_RING_FORMATION_SERVICE.installId;
+    if (!lodge.formationWork || typeof lodge.formationWork !== 'object'
+        || lodge.formationWork.installId !== seedId) {
+        lodge.formationWork = {
+            installId: seedId,
+            kind: 'inscription_maintain',
+            status: 'none',
+            openedAtMonths: null,
+            lastEvalAtMonths: null,
+            wageStones: WELL_RING_FORMATION_SERVICE.wageStones,
+            chalkStones: WELL_RING_FORMATION_SERVICE.chalkStones,
+            herbAmount: WELL_RING_FORMATION_SERVICE.herbAmount,
+            qualifiedPractitionerAvailable: false,
+            notes: null,
+            jobsCompleted: 0,
+            lastPaidJobAtMonths: null
+        };
+    }
+    const work = lodge.formationWork;
+    if (work.wageStones == null) work.wageStones = WELL_RING_FORMATION_SERVICE.wageStones;
+    if (work.chalkStones == null) work.chalkStones = WELL_RING_FORMATION_SERVICE.chalkStones;
+    if (work.herbAmount == null) work.herbAmount = WELL_RING_FORMATION_SERVICE.herbAmount;
+    if (work.jobsCompleted == null) work.jobsCompleted = 0;
+    if (work.qualifiedPractitionerAvailable == null) work.qualifiedPractitionerAvailable = false;
+    return work;
+}
+
+function getWellRingFormationNeedBelowIntegrity() {
+    if (typeof getFormationF1aConfig === 'function') {
+        const sharp = getFormationF1aConfig().bands?.sharp;
+        if (sharp != null) return sharp;
+    }
+    return 70;
+}
+
+/**
+ * Named cast has no formation-pattern knowledge — do not invent it.
+ * Returns false until a future PR grants real expertise.
+ */
+function hasWellRingQualifiedFormationPractitioner() {
+    return false;
+}
+
+function canWellRingFundFormationMaintain() {
+    ensureWellRingLodgeTreasury();
+    if (typeof ensureWellRingStorehouse === 'function') ensureWellRingStorehouse();
+    const work = ensureWellRingFormationWorkOrder();
+    const lodge = G.wellRing.lodge;
+    const chalk = work.chalkStones || WELL_RING_FORMATION_SERVICE.chalkStones;
+    const wage = work.wageStones || WELL_RING_FORMATION_SERVICE.wageStones;
+    const herbs = work.herbAmount || WELL_RING_FORMATION_SERVICE.herbAmount;
+    const stonesNeed = chalk + wage;
+    if ((lodge.treasuryStones || 0) < stonesNeed) {
+        return { ok: false, reason: 'treasury', stonesNeed, herbsNeed: herbs };
+    }
+    const herbStock = typeof getWellRingStorehouseHerbStock === 'function'
+        ? getWellRingStorehouseHerbStock()
+        : (G.wellRing?.storehouse?.herbStock || 0);
+    if (herbStock < herbs) {
+        return { ok: false, reason: 'herbs', stonesNeed, herbsNeed: herbs };
+    }
+    return { ok: true, stonesNeed, herbsNeed: herbs };
+}
+
+/**
+ * Derive / update the single lodge formation work order from live installation state.
+ * Idempotent across ticks — does not duplicate jobs or reset integrity.
+ */
+function evaluateWellRingFormationMaintenanceNeed() {
+    if (typeof ensureWellRingLodgeWorldFormation === 'function') {
+        ensureWellRingLodgeWorldFormation();
+    }
+    if (typeof ensureWellRingStorehouse === 'function') ensureWellRingStorehouse();
+    const work = ensureWellRingFormationWorkOrder();
+    const inst = typeof getWorldFormationInstallation === 'function'
+        ? getWorldFormationInstallation(work.installId)
+        : null;
+    work.lastEvalAtMonths = G.ageMonths || 0;
+    work.qualifiedPractitionerAvailable = hasWellRingQualifiedFormationPractitioner();
+
+    if (!inst) {
+        work.status = 'none';
+        work.openedAtMonths = null;
+        work.notes = null;
+        return work;
+    }
+
+    const maintainCfg = typeof getWorldFormationInscriptionMaintainConfig === 'function'
+        ? getWorldFormationInscriptionMaintainConfig()
+        : { minIntegrity: 35 };
+    const needBelow = getWellRingFormationNeedBelowIntegrity();
+
+    // Healthy (sharp band or better) — no work.
+    if (!inst.scattered && (inst.integrity || 0) >= needBelow) {
+        work.status = 'none';
+        work.openedAtMonths = null;
+        work.notes = null;
+        return work;
+    }
+
+    if (work.openedAtMonths == null) work.openedAtMonths = G.ageMonths || 0;
+
+    // Too far gone for ordinary inscription maintain.
+    if (inst.scattered || (inst.integrity || 0) < (maintainCfg.minIntegrity || 35)) {
+        work.status = 'unserviceable';
+        work.notes = 'external_expertise_needed';
+        return work;
+    }
+
+    const fund = canWellRingFundFormationMaintain();
+    if (fund.ok) {
+        work.status = 'funded';
+        work.notes = work.qualifiedPractitionerAvailable ? null : 'awaiting_qualified_hand';
+    } else {
+        work.status = 'deferred_insufficient';
+        work.notes = fund.reason === 'treasury' ? 'short_on_stones' : 'short_on_herbs';
+    }
+    return work;
+}
+
+function getWellRingFormationWorkOrderPublicSummary() {
+    const work = evaluateWellRingFormationMaintenanceNeed();
+    const wage = work.wageStones || WELL_RING_FORMATION_SERVICE.wageStones;
+    const months = typeof getWorldFormationInscriptionMaintainConfig === 'function'
+        ? (getWorldFormationInscriptionMaintainConfig().months || 1)
+        : 1;
+    if (work.status === 'none') {
+        return { status: 'none', line: null, canTakePaidJob: false };
+    }
+    if (work.status === 'funded') {
+        return {
+            status: 'funded',
+            line: `The lodge seeks a hand for court formation maintenance — ${months} mo · pay ${wage}💎 (materials supplied).`,
+            wage,
+            months,
+            canTakePaidJob: true
+        };
+    }
+    if (work.status === 'deferred_insufficient') {
+        return {
+            status: 'deferred_insufficient',
+            line: 'The court formation needs attention, but the lodge cannot fund the work right now.',
+            canTakePaidJob: false
+        };
+    }
+    if (work.status === 'unserviceable') {
+        return {
+            status: 'unserviceable',
+            line: 'The court formation is too far gone for ordinary maintenance — external expertise would be needed.',
+            canTakePaidJob: false
+        };
+    }
+    if (work.status === 'needed') {
+        return {
+            status: 'needed',
+            line: 'The lodge has noted wear on the court formation.',
+            canTakePaidJob: false
+        };
+    }
+    return { status: work.status, line: null, canTakePaidJob: false };
+}
+
+function getWellRingPaidFormationMaintainBlockReason() {
+    evaluateWellRingFormationMaintenanceNeed();
+    const work = ensureWellRingFormationWorkOrder();
+    if (work.status === 'none') return 'The lodge has no formation work posted.';
+    if (work.status === 'deferred_insufficient') {
+        return 'The lodge cannot fund formation maintenance right now.';
+    }
+    if (work.status === 'unserviceable') {
+        return 'Ordinary maintenance cannot save this pattern — it needs structural repair.';
+    }
+    if (work.status !== 'funded') return 'No funded formation work is available.';
+
+    if (typeof getWorldFormationInscriptionMaintainBlockReason === 'function') {
+        const block = getWorldFormationInscriptionMaintainBlockReason(work.installId, {
+            fundingSource: 'institution'
+        });
+        if (block) return block;
+    }
+    const fund = canWellRingFundFormationMaintain();
+    if (!fund.ok) {
+        return fund.reason === 'treasury'
+            ? 'Lodge treasury cannot cover chalk and wages.'
+            : 'Lodge storehouse lacks the required herbs.';
+    }
+    return null;
+}
+
+/**
+ * Institution-funded inscription maintain. Consumes lodge treasury + storehouse herbs,
+ * runs the shared maintain resolver, pays wage once on success. No resource creation.
+ */
+let _performingWellRingPaidFormationMaintain = false;
+
+function performWellRingPaidFormationMaintain() {
+    if (_performingWellRingPaidFormationMaintain) {
+        return { success: false, message: 'Maintenance work is already in progress.' };
+    }
+    const block = getWellRingPaidFormationMaintainBlockReason();
+    if (block) return { success: false, message: block };
+
+    const work = ensureWellRingFormationWorkOrder();
+    const lodge = ensureWellRingLodgeTreasury();
+    if (typeof ensureWellRingStorehouse === 'function') ensureWellRingStorehouse();
+    const sh = G.wellRing.storehouse;
+    const chalk = work.chalkStones || WELL_RING_FORMATION_SERVICE.chalkStones;
+    const wage = work.wageStones || WELL_RING_FORMATION_SERVICE.wageStones;
+    const herbs = work.herbAmount || WELL_RING_FORMATION_SERVICE.herbAmount;
+    const totalStones = chalk + wage;
+
+    if ((lodge.treasuryStones || 0) < totalStones) {
+        return { success: false, message: 'Lodge treasury cannot cover the work.' };
+    }
+    if ((sh.herbStock || 0) < herbs) {
+        return { success: false, message: 'Lodge storehouse lacks herbs for the work.' };
+    }
+
+    _performingWellRingPaidFormationMaintain = true;
+    try {
+        // Reserve before work begins; refund only if work never starts (no time advance).
+        lodge.treasuryStones -= totalStones;
+        sh.herbStock -= herbs;
+
+        const res = typeof maintainWorldFormationInscription === 'function'
+            ? maintainWorldFormationInscription(work.installId, { fundingSource: 'institution' })
+            : { success: false, message: 'Maintenance unavailable.', timeAdvanced: false };
+
+        if (!res.success) {
+            if (!res.timeAdvanced && !res.costsConsumed) {
+                lodge.treasuryStones += totalStones;
+                sh.herbStock += herbs;
+            }
+            // No wage on failure — even if chalk/herbs were spent mid-work.
+            evaluateWellRingFormationMaintenanceNeed();
+            return res;
+        }
+
+        G.stones = (G.stones || 0) + wage;
+        work.jobsCompleted = (work.jobsCompleted || 0) + 1;
+        work.lastPaidJobAtMonths = G.ageMonths || 0;
+        evaluateWellRingFormationMaintenanceNeed();
+
+        return {
+            success: true,
+            message: `${res.message} The lodge pays you ${wage}💎.`,
+            wage,
+            installId: work.installId,
+            fundingSource: 'institution'
+        };
+    } finally {
+        _performingWellRingPaidFormationMaintain = false;
+    }
+}
+
+function actionWellRingPaidFormationMaintain() {
+    if (G.gameOver || G.inCombat) return;
+    const res = performWellRingPaidFormationMaintain();
+    if (typeof addLog === 'function') {
+        addLog(res.success ? `☯️ ${res.message}` : `🔒 ${res.message}`);
+    }
+    if (typeof fullRender === 'function') fullRender();
+    if (typeof openWellRingPopup === 'function') openWellRingPopup();
 }
 
 /** Sync rival board merit: NPC.lodgeMerit is authoritative once cast exists; mirror scalar for old saves/UI. */
@@ -291,11 +607,14 @@ function getWellRingLodgeMembers(options) {
 function migrateWellRingLodgeForExistingSave() {
     ensureWellRingLodgeCast();
     ensureWellRingStorehouse();
+    ensureWellRingLodgeTreasury();
+    ensureWellRingFormationWorkOrder();
     if (typeof migrateWorldFormationsForExistingSave === 'function') {
         migrateWorldFormationsForExistingSave();
     } else if (typeof ensureWellRingLodgeWorldFormation === 'function') {
         ensureWellRingLodgeWorldFormation();
     }
+    evaluateWellRingFormationMaintenanceNeed();
     // Bounded abstract resupply — does not rewrite herbStock or loss ledgers.
     if (typeof ensureInstitutionalProcurement === 'function') {
         ensureInstitutionalProcurement('well_ring_herb_external', { skipProcess: true });
@@ -577,4 +896,10 @@ if (typeof registerWorldTick === 'function') {
     registerWorldTick('wellRingStorehouse', (delta) => {
         tickWellRingStorehouseInspection(delta);
     }, 44);
+    // After worldFormations (38) so need reflects post-decay integrity; no resource spawn.
+    registerWorldTick('wellRingFormationService', () => {
+        if (typeof evaluateWellRingFormationMaintenanceNeed === 'function') {
+            evaluateWellRingFormationMaintenanceNeed();
+        }
+    }, 39);
 }
