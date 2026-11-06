@@ -425,6 +425,192 @@ const SOURCE_ID = 'dewcatch_scrub_spirit_herbs';
     assert(fieldStock === 6, 'abstract grant left Dewcatch stock alone');
 }
 
+// Integrity — regeneration consistency
+{
+    const ctx = boot({ ageMonths: 200 });
+    ctx.ensureAllAuthoredResourceSources();
+    const live = ctx.ensureResourceSource(SOURCE_ID, { skipRegen: true });
+    live.stock = 5;
+    live.lastProcessedMonths = 200;
+    live.maxStock = 10;
+    live.regenAmount = 1;
+    live.regenPeriodMonths = 2;
+
+    // Partial interval: +1 month of a 2-month period must not regen or advance the cursor.
+    ctx.G.ageMonths = 201;
+    ctx.processResourceSourceRegen(live, 201);
+    assert(live.stock === 5 && live.lastProcessedMonths === 200,
+        'partial regen interval leaves stock and lastProcessedMonths unchanged');
+    ctx.processResourceSourceRegen(live, 201);
+    assert(live.stock === 5 && live.lastProcessedMonths === 200,
+        'repeated process at the same world time does not regenerate twice');
+
+    // Mid-period save/load preserves the partial cursor, then completes on the next period boundary.
+    const snap = JSON.parse(JSON.stringify({
+        ageMonths: 201,
+        world: ctx.G.world
+    }));
+    const ctxLoad = boot({ ageMonths: snap.ageMonths, world: snap.world });
+    const loaded = ctxLoad.ensureResourceSource(SOURCE_ID, { skipRegen: true });
+    assert(loaded.stock === 5 && loaded.lastProcessedMonths === 200,
+        'partial regen interval survives save/load');
+    ctxLoad.G.ageMonths = 202;
+    assert(ctxLoad.getResourceSourceStock(SOURCE_ID) === 6, 'post-load boundary completes exactly one period');
+    assert(ctxLoad.ensureResourceSource(SOURCE_ID, { skipRegen: true }).lastProcessedMonths === 202,
+        'post-load regen advances lastProcessedMonths by whole periods only');
+
+    // Long skip ≡ month-by-month advances (uncapped and capped).
+    function regenFrom(startStock, startLast, endNow) {
+        const s = {
+            type: 'regenerating_stock',
+            stock: startStock,
+            maxStock: 10,
+            regenAmount: 1,
+            regenPeriodMonths: 2,
+            lastProcessedMonths: startLast
+        };
+        ctx.processResourceSourceRegen(s, endNow);
+        return { stock: s.stock, last: s.lastProcessedMonths };
+    }
+    function regenSteps(startStock, startLast, endNow) {
+        const s = {
+            type: 'regenerating_stock',
+            stock: startStock,
+            maxStock: 10,
+            regenAmount: 1,
+            regenPeriodMonths: 2,
+            lastProcessedMonths: startLast
+        };
+        for (let t = startLast + 1; t <= endNow; t++) ctx.processResourceSourceRegen(s, t);
+        return { stock: s.stock, last: s.lastProcessedMonths };
+    }
+    const jumpA = regenFrom(3, 100, 107);
+    const stepA = regenSteps(3, 100, 107);
+    assert(jumpA.stock === stepA.stock && jumpA.last === stepA.last,
+        'long skip matches stepped advances (uncapped)');
+    assert(jumpA.stock === 6 && jumpA.last === 106, 'uncapped skip applies floor(elapsed/period) only');
+    const jumpB = regenFrom(8, 100, 120);
+    const stepB = regenSteps(8, 100, 120);
+    assert(jumpB.stock === 10 && stepB.stock === 10 && jumpB.last === stepB.last,
+        'long skip and steps both clamp to maxStock');
+
+    // Legacy init: missing source gets initial stock once; remigrate does not restock.
+    const ctxLegacy = boot({ ageMonths: 500, world: null });
+    ctxLegacy.migrateResourceSourcesForExistingSave();
+    const first = ctxLegacy.getResourceSourceStock(SOURCE_ID);
+    ctxLegacy.debugSetResourceSourceStock(SOURCE_ID, 1);
+    ctxLegacy.migrateResourceSourcesForExistingSave();
+    ctxLegacy.migrateResourceSourcesForExistingSave();
+    assert(first === 6, 'legacy save initializes authored source at initialStock');
+    assert(ctxLegacy.getResourceSourceStock(SOURCE_ID) === 1,
+        'remigrate does not grant repeated initial stock');
+}
+
+// Integrity — transfer debit/credit safety
+{
+    const ctx = boot();
+    const wei = placeWeiAtDewcatch(ctx);
+    ctx.ensureAllAuthoredResourceSources();
+    ctx.debugSetResourceSourceStock(SOURCE_ID, 4);
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 2;
+
+    const failCredit = ctx.transferFromResourceSource({
+        sourceId: SOURCE_ID,
+        amount: 2,
+        resourceId: 'spirit_herb',
+        actorId: wei.uid,
+        receiver: {
+            credit() { return { ok: false, reason: 'dest_full' }; }
+        }
+    });
+    assert(!failCredit.ok && failCredit.reason === 'dest_full', 'failed destination credit is reported');
+    assert(ctx.getResourceSourceStock(SOURCE_ID) === 4 && ctx.getNpcSpiritHerbs(wei.uid) === 2,
+        'failed destination credit does not consume source stock or credit pouch');
+
+    const badDest = ctx.transferFromResourceSource({
+        sourceId: SOURCE_ID,
+        amount: 1,
+        resourceId: 'spirit_herb',
+        actorId: wei.uid,
+        receiver: { kind: 'mysterious_bag', actorId: wei.uid }
+    });
+    assert(!badDest.ok && badDest.reason === 'unknown_receiver', 'invalid destination inventory fails safely');
+    assert(ctx.getResourceSourceStock(SOURCE_ID) === 4 && ctx.getNpcSpiritHerbs(wei.uid) === 2,
+        'invalid destination leaves both inventories unchanged');
+
+    const short = ctx.transferFromResourceSource({
+        sourceId: SOURCE_ID,
+        amount: 9,
+        resourceId: 'spirit_herb',
+        actorId: wei.uid,
+        receiver: { kind: 'npc_spirit_herbs', actorId: wei.uid }
+    });
+    assert(!short.ok && short.reason === 'insufficient_stock', 'insufficient stock rejected');
+    assert(ctx.getResourceSourceStock(SOURCE_ID) === 4 && ctx.getNpcSpiritHerbs(wei.uid) === 2,
+        'insufficient stock leaves source and destination unchanged');
+
+    const dead = { uid: 'wr_dead_tester', alive: false, cultivationPouch: { spiritHerbs: 0 } };
+    ctx.G.worldNpcs.push(dead);
+    const deadCredit = ctx.transferFromResourceSource({
+        sourceId: SOURCE_ID,
+        amount: 1,
+        resourceId: 'spirit_herb',
+        actorId: dead.uid,
+        receiver: { kind: 'npc_spirit_herbs', actorId: dead.uid }
+    });
+    assert(!deadCredit.ok && deadCredit.reason === 'actor_unavailable', 'dead destination fails safely');
+    assert(ctx.getResourceSourceStock(SOURCE_ID) === 4, 'dead destination does not consume stock');
+
+    const once = ctx.transferFromResourceSource({
+        sourceId: SOURCE_ID,
+        amount: 1,
+        resourceId: 'spirit_herb',
+        actorId: wei.uid,
+        acquisitionKey: 'integrity_once',
+        receiver: { kind: 'npc_spirit_herbs', actorId: wei.uid }
+    });
+    assert(once.ok && once.stockAfter === 3 && ctx.getNpcSpiritHerbs(wei.uid) === 3,
+        'successful transfer debits source and credits destination exactly once');
+
+    // Same gathering event replay (Wei acquisition key) cannot duplicate rewards.
+    wei.personalities = ['ambitious', 'bold'];
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    ctx.debugSetResourceSourceStock(SOURCE_ID, 5);
+    wei.travel.fieldStayCount = 0;
+    wei.travel.completionCount = 2;
+    ctx.G.ageMonths = 777;
+    const g1 = ctx.executeNpcResourceAction(wei.uid, 'gather_field_herbs', {
+        developer: true, forceFieldHerb: 'gain', seed: 1
+    });
+    const stockAfterFirst = ctx.getResourceSourceStock(SOURCE_ID);
+    const herbsAfterFirst = ctx.getNpcSpiritHerbs(wei.uid);
+    // Force the body back to the field without advancing stay/completion counters used in the key.
+    if (ctx.isNpcTravelling(wei)) {
+        wei.travel.status = 'settled';
+        wei.travel.locationId = 'dewcatch_scrub';
+        wei.travel.destinationId = null;
+        wei.travel.originId = null;
+        wei.travel.arrivesAtMonths = null;
+        wei.travel.purpose = null;
+    }
+    wei.travel.fieldStayCount = 0;
+    wei.travel.completionCount = 2;
+    const g2 = ctx.executeNpcResourceAction(wei.uid, 'gather_field_herbs', {
+        developer: true, forceFieldHerb: 'gain', seed: 1
+    });
+    assert(g1.herbsGained && herbsAfterFirst === 1, 'first gather credits once');
+    assert(g2.notes && /Already gathered|duplicate/i.test(g2.notes + (g2.gatherNote || '')),
+        'repeated processing of the same gathering event is rejected');
+    assert(
+        (g2.transfer && g2.transfer.reason === 'duplicate_acquisition')
+        || (g2.effects || []).some(e => e.note === 'duplicate_acquisition'),
+        'duplicate gather records duplicate_acquisition'
+    );
+    assert(ctx.getResourceSourceStock(SOURCE_ID) === stockAfterFirst
+        && ctx.getNpcSpiritHerbs(wei.uid) === herbsAfterFirst,
+        'duplicate gather does not debit or credit again');
+}
+
 // Schema / contract smoke
 {
     const src = read('resource-sources.js');
