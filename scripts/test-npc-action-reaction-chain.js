@@ -335,6 +335,168 @@ function advance(ctx, months) {
         'inspection does not scan every NPC');
 }
 
+// 12. Physical inventory gates (empty / insufficient / forced success)
+{
+    const ctx = boot();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    ctx.ensureWellRingStorehouse().herbStock = 0;
+    const empty = ctx.executeNpcResourceAction(wei.uid, 'steal_lodge_storehouse', {
+        developer: true,
+        forceTheftOutcome: 'success_undetected',
+        seed: 1
+    });
+    assert(empty.success === false && empty.blockedReason === 'insufficient_storehouse_stock',
+        'empty storehouse cannot produce stolen herbs');
+    assert(ctx.getNpcSpiritHerbs(wei.uid) === 0, 'developer-forced success cannot create resources (empty)');
+    assert(ctx.ensureWellRingStorehouse().herbStock === 0, 'empty stock unchanged after blocked theft');
+    assert(ctx.listWellRingStorehouseLosses().length === 0, 'no phantom loss is recorded when theft cannot succeed');
+
+    ctx.ensureWellRingStorehouse().herbStock = 1;
+    const short = ctx.executeNpcResourceAction(wei.uid, 'steal_lodge_storehouse', {
+        developer: true,
+        forceTheftOutcome: 'success_detected',
+        seed: 2
+    });
+    assert(short.success === false && short.blockedReason === 'insufficient_storehouse_stock',
+        'insufficient stock blocks the full theft');
+    assert(ctx.getNpcSpiritHerbs(wei.uid) === 0, 'developer-forced success cannot create resources (short stock)');
+    assert(ctx.ensureWellRingStorehouse().herbStock === 1, 'insufficient stock unchanged');
+    assert(ctx.listWellRingStorehouseLosses().length === 0, 'no phantom loss on short stock');
+    assert(ctx.getNpcObservationsFor('wr_master_liang').length === 0, 'blocked theft creates no Liang observation');
+}
+
+// 13. Successful theft deducts and credits exactly once
+{
+    const ctx = boot();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    const stockBefore = ctx.ensureWellRingStorehouse().herbStock;
+    const okSteal = ctx.executeNpcResourceAction(wei.uid, 'steal_lodge_storehouse', {
+        developer: true,
+        forceTheftOutcome: 'success_undetected',
+        seed: 3
+    });
+    assert(okSteal.success === true && okSteal.lossId, 'successful theft with sufficient stock');
+    assert(ctx.getNpcSpiritHerbs(wei.uid) === 2, 'successful theft credits pouch exactly once');
+    assert(ctx.ensureWellRingStorehouse().herbStock === stockBefore - 2, 'successful theft deducts stock exactly once');
+    assert(ctx.listWellRingStorehouseLosses().length === 1, 'one loss record for one successful theft');
+}
+
+// 14. Goal pursuit handles insufficient stock safely (prefers duty)
+{
+    const ctx = boot();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    ctx.ensureWellRingStorehouse().herbStock = 0;
+    ctx.ensureWeiShunCultivationAmbition();
+    const pursuit = ctx.pursueNpcAmbitionGoal(wei.uid, {
+        developer: true,
+        ignoreCooldown: true,
+        seed: 4,
+        forceAction: 'steal_lodge_storehouse',
+        forceTheftOutcome: 'success_undetected'
+    });
+    // Developer may force the intention, but executor still blocks; no herbs / no loss.
+    assert(pursuit.ok, 'goal pursuit handles insufficient stock safely');
+    assert(ctx.getNpcSpiritHerbs(wei.uid) === 0, 'pursuit under empty stock creates no herbs');
+    assert(ctx.listWellRingStorehouseLosses().length === 0, 'pursuit under empty stock creates no loss');
+
+    const naturalPick = ctx.pursueNpcAmbitionGoal(wei.uid, {
+        developer: false,
+        ignoreCooldown: true,
+        seed: 5
+    });
+    assert(naturalPick.actionId === 'earn_lodge_duty', 'natural pursuit skips ineligible theft when stock empty');
+}
+
+// 15. Natural scheduler does not invent fictional accusations
+{
+    const ctx = boot();
+    const src = read('npc-situations.js');
+    assert(!/Fallback rumour pack/.test(src), 'natural scheduler source drops inventing fallback');
+    assert(/no_real_world_event/.test(src), 'natural scheduler documents real-event gate');
+    ctx.ensureNpcSituationState();
+    // Force the natural check window with no discovered losses.
+    ctx.G.npcSituationThreads.lastNaturalCheckMonths = null;
+    const result = ctx.maybeTriggerNaturalWellRingAccusation();
+    assert(result && result.ok === false && result.reason === 'no_real_world_event',
+        'natural scheduler does not invent fictional accusations');
+    assert(ctx.listActiveNpcSituationThreads().length === 0, 'no invented active accusation thread');
+}
+
+// 16. Real discovered losses still initiate situations
+{
+    const ctx = boot();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    const theft = ctx.executeNpcResourceAction(wei.uid, 'steal_lodge_storehouse', {
+        developer: true, forceTheftOutcome: 'success_undetected', seed: 6
+    });
+    ctx.G.ageMonths += 4;
+    const disc = ctx.forceDiscoverWellRingStorehouseLoss(theft.lossId, { skipNotify: true });
+    ctx.ensureNpcSituationState();
+    ctx.G.npcSituationThreads.lastNaturalCheckMonths = null;
+    // Place discovered loss as unreacted, then natural tick should react.
+    const nat = ctx.maybeTriggerNaturalWellRingAccusation();
+    assert(nat && nat.ok && (nat.thread || nat.lossFocused), 'real discovered losses still initiate situations');
+    assert(ctx.listActiveNpcSituationThreads('well_ring_resource_accusation').length >= 1,
+        'discovered loss yields active Well-Ring situation');
+    assert(disc.loss && disc.loss.discovered, 'loss remains discovered');
+}
+
+// 17. Real misconduct reports still initiate situations
+{
+    const ctx = boot();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    const theft = ctx.executeNpcResourceAction(wei.uid, 'steal_lodge_storehouse', {
+        developer: true, forceTheftOutcome: 'success_detected', seed: 7
+    });
+    assert(theft.success && theft.detected, 'detected theft path available');
+    assert(ctx.listActiveNpcSituationThreads().length >= 1, 'real misconduct reports still initiate situations');
+    const known = ctx.getNpcKnownAboutIncident('wr_master_liang', theft.incidentId);
+    assert((known.beliefs || []).some(b => b.claimTopic === 'culprit'), 'Liang has report-level culprit belief');
+}
+
+// 18. Developer accusation scenarios remain functional
+{
+    const ctx = boot();
+    const r = ctx.startWellRingResourceAccusationScenario({
+        forceChoice: 'defer',
+        evidenceStrength: 'weak',
+        accusedId: 'wr_unknown_outer',
+        decideImmediately: true
+    });
+    assert(r.ok && r.thread, 'developer accusation scenarios remain functional');
+    assert(r.thread.flags.developer === true, 'developer scenario marks developer flag');
+}
+
+// 19. Save/load preserves inventory and incident integrity
+{
+    const ctx = boot();
+    const wei = ctx.getWellRingCastNpc('rival');
+    ctx.ensureNpcCultivationPouch(wei).spiritHerbs = 0;
+    const stockBefore = ctx.ensureWellRingStorehouse().herbStock;
+    const theft = ctx.executeNpcResourceAction(wei.uid, 'steal_lodge_storehouse', {
+        developer: true, forceTheftOutcome: 'success_undetected', seed: 8
+    });
+    const saved = JSON.parse(JSON.stringify({
+        ageMonths: ctx.G.ageMonths,
+        worldNpcs: ctx.G.worldNpcs,
+        wellRing: ctx.G.wellRing,
+        npcIncidents: ctx.G.npcIncidents,
+        npcObservations: ctx.G.npcObservations,
+        npcBeliefs: ctx.G.npcBeliefs
+    }));
+    const ctx2 = boot(saved);
+    ctx2.migrateWellRingLodgeForExistingSave();
+    assert(ctx2.ensureWellRingStorehouse().herbStock === stockBefore - 2, 'save/load preserves inventory');
+    assert(ctx2.getNpcSpiritHerbs('wr_wei_shun') === 2, 'save/load preserves pouch credit');
+    assert(ctx2.listWellRingStorehouseLosses().length === 1, 'save/load preserves loss ledger');
+    assert(ctx2.getNpcIncidentObjective(theft.incidentId), 'save/load preserves incident integrity');
+}
+
 if (failed) {
     console.error(`\n${failed} assertion(s) failed.`);
     process.exit(1);

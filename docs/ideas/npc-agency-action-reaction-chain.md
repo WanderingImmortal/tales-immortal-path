@@ -86,11 +86,23 @@ Reuses #205 options: ignore, defer, investigate, speak, warn, formal_discipline 
 
 `forceTheftOutcome` / `forceChoice` only when `developer: true`.
 
+## Stock eligibility & transfer (theft)
+
+All-or-nothing for `stealHerbGain` (2):
+
+1. If `herbStock < 2` → theft **fails** (`insufficient_storehouse_stock`): no pouch credit, no deduction, no success loss/incident.
+2. Else deduct 2 from `herbStock`, credit Wei’s pouch once, record one loss (+ optional success incident / detection).
+3. Developer `forceTheftOutcome: success_*` cannot bypass the stock gate.
+4. Soft decision eligibility hides theft when stock is known insufficient so pursuit falls back to duty.
+
+Natural Well-Ring ticks only react to **discovered, unreacted** physical losses (plus misconduct reports that already opened threads at report time). No inventing anonymous accusations.
+
 ## Known limitations
 
 - Well-Ring / Wei–Liang slice only
 - No rumour propagation or stealth sim
-- Fallback natural accusation may still invent a weak anonymous rumour when no real loss exists
+- **No automatic storehouse replenishment yet** — stock only falls until manually/restored by future work
+- **Failed theft currently cannot be detected** — fail path never sets `detected`
 - Storehouse is a counter + loss ledger, not an economy
 
 ## Implementation

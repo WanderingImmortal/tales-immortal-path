@@ -628,6 +628,15 @@ const WEI_RESOURCE_ACTION_OPTIONS = [
         label: 'Risk stealing lodge herbs',
         baseScore: 0.4,
         tags: ['harsh', 'spectacle'],
+        // Physical feasibility — empty / insufficient stock cannot be a successful theft target.
+        eligible(ctx) {
+            const need = (ctx.resources && ctx.resources.theftAmount != null)
+                ? ctx.resources.theftAmount
+                : NPC_CULTIVATION_RESOURCE.stealHerbGain;
+            const stock = ctx.resources && ctx.resources.storehouseHerbStock;
+            if (stock == null) return true; // unknown → leave to executor gate
+            return stock >= need;
+        },
         scoreHook(ctx, score, factors) {
             // Ambitious / bold lean toward risk when short on herbs; not a hard lock.
             let s = score;
@@ -690,6 +699,9 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
     const shortfall = Math.max(0, need - herbs);
     const developer = !!options.developer;
     const perception = { theft: assessWeiTheftPerception(actorId) };
+    const storehouseHerbStock = typeof getWellRingStorehouseHerbStock === 'function'
+        ? getWellRingStorehouseHerbStock()
+        : null;
     return {
         actorId,
         accusedId: null,
@@ -698,7 +710,12 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
         accusedAvailable: true,
         evidenceStrength: 'weak',
         pressure: shortfall / need,
-        resources: { spiritHerbs: herbs, need },
+        resources: {
+            spiritHerbs: herbs,
+            need,
+            storehouseHerbStock,
+            theftAmount: NPC_CULTIVATION_RESOURCE.stealHerbGain
+        },
         perception,
         // Actor-facing risk summary for traces — not objective executor odds.
         risks: { theftPerceived: perception.theft },
@@ -749,8 +766,38 @@ function executeNpcResourceAction(actorId, actionId, context) {
 
     if (actionId === 'steal_lodge_storehouse') {
         // Developer/test may force outcomes; natural play uses objective RNG only.
+        // Physical stock is never bypassed — even developer-forced "success" needs supply.
         const developer = !!context.developer;
         const forced = developer ? context.forceTheftOutcome : null;
+        const stealAmount = NPC_CULTIVATION_RESOURCE.stealHerbGain;
+        const stockAvailable = typeof getWellRingStorehouseHerbStock === 'function'
+            ? getWellRingStorehouseHerbStock()
+            : null;
+        const canSupply = stockAvailable == null
+            ? true
+            : (typeof wellRingStorehouseCanSupply === 'function'
+                ? wellRingStorehouseCanSupply(stealAmount)
+                : stockAvailable >= stealAmount);
+
+        if (!canSupply) {
+            effects.push({
+                type: 'theft_blocked',
+                reason: 'insufficient_storehouse_stock',
+                stock: stockAvailable,
+                need: stealAmount
+            });
+            const blocked = {
+                success: false,
+                actionId,
+                effects,
+                notes: 'Storehouse shelves were bare of the hoped-for herbs; nothing taken.',
+                detected: false,
+                blockedReason: 'insufficient_storehouse_stock'
+            };
+            recordNpcActionExperience(actorId, actionId, blocked);
+            return blocked;
+        }
+
         let fail = rng() < NPC_CULTIVATION_RESOURCE.stealFailChance;
         if (forced === 'fail') fail = true;
         if (forced === 'success_undetected' || forced === 'success_detected') fail = false;
@@ -788,14 +835,49 @@ function executeNpcResourceAction(actorId, actionId, context) {
             return failResult;
         }
 
-        const gained = NPC_CULTIVATION_RESOURCE.stealHerbGain;
-        adjustNpcSpiritHerbs(actorId, gained);
-        effects.push({ type: 'spirit_herbs_gained', amount: gained, source: 'theft' });
-
-        // Objective resolution — not exposed to decision scoring.
+        // Objective detection roll — not exposed to decision scoring.
         let detected = rng() < NPC_CULTIVATION_RESOURCE.stealDetectChance;
         if (forced === 'success_undetected') detected = false;
         if (forced === 'success_detected') detected = true;
+
+        // All-or-nothing physical transfer: deduct stock first, then credit pouch exactly once.
+        const gained = stealAmount;
+        let lossId = null;
+        if (typeof recordWellRingStorehouseLoss === 'function') {
+            const loss = recordWellRingStorehouseLoss({
+                amount: gained,
+                incidentId: null,
+                trueCulpritId: actorId,
+                item: 'spirit_herb_pouch',
+                discovered: false,
+                meta: { source: 'npc_ambition_theft' }
+            });
+            if (!loss) {
+                effects.push({
+                    type: 'theft_blocked',
+                    reason: 'insufficient_storehouse_stock',
+                    stock: typeof getWellRingStorehouseHerbStock === 'function'
+                        ? getWellRingStorehouseHerbStock()
+                        : null,
+                    need: stealAmount
+                });
+                const blocked = {
+                    success: false,
+                    actionId,
+                    effects,
+                    notes: 'Storehouse shelves were bare of the hoped-for herbs; nothing taken.',
+                    detected: false,
+                    blockedReason: 'insufficient_storehouse_stock'
+                };
+                recordNpcActionExperience(actorId, actionId, blocked);
+                return blocked;
+            }
+            lossId = loss.id;
+            effects.push({ type: 'storehouse_loss', lossId, amount: gained, discovered: false });
+        }
+
+        adjustNpcSpiritHerbs(actorId, gained);
+        effects.push({ type: 'spirit_herbs_gained', amount: gained, source: 'theft' });
 
         let incidentId = null;
         if (typeof createNpcIncident === 'function') {
@@ -817,25 +899,15 @@ function executeNpcResourceAction(actorId, actionId, context) {
                     detected
                 },
                 pinned: detected,
-                meta: { source: 'npc_ambition_theft' }
+                meta: { source: 'npc_ambition_theft', storehouseLossId: lossId }
             });
             incidentId = inc?.id || null;
-            if (incidentId) effects.push({ type: 'incident', incidentId, detected });
-        }
-
-        // Physical world loss — may exist before anyone notices.
-        let lossId = null;
-        if (typeof recordWellRingStorehouseLoss === 'function') {
-            const loss = recordWellRingStorehouseLoss({
-                amount: gained,
-                incidentId,
-                trueCulpritId: actorId,
-                item: 'spirit_herb_pouch',
-                discovered: false,
-                meta: { source: 'npc_ambition_theft' }
-            });
-            lossId = loss?.id || null;
-            if (lossId) effects.push({ type: 'storehouse_loss', lossId, amount: gained, discovered: false });
+            if (incidentId) {
+                effects.push({ type: 'incident', incidentId, detected });
+                if (lossId && G.wellRing?.storehouse?.lossesById?.[lossId]) {
+                    G.wellRing.storehouse.lossesById[lossId].incidentId = incidentId;
+                }
+            }
         }
 
         // Detection ≠ omniscient guilt. Optional secondhand report + emergent situation only.

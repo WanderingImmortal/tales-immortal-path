@@ -1092,12 +1092,13 @@ function maybeTriggerNaturalWellRingAccusation(/* deltaMonths */) {
     if (lastCheck != null && now - lastCheck < every) return null;
     G.npcSituationThreads.lastNaturalCheckMonths = now;
 
-    // Prefer real discovered-but-unreacted lodge losses over inventing a rumour incident.
+    // Natural accusations originate only from real discovered physical losses.
+    // Misconduct reports open situations at the report site (notifyWellRingMisconductReport).
+    // Do NOT invent anonymous theft rumours without a corresponding world event.
     if (typeof listWellRingStorehouseLosses === 'function') {
         const pendingReaction = listWellRingStorehouseLosses({ discoveredOnly: true, unreactedOnly: true });
         if (pendingReaction.length) {
-            const loss = pendingReaction[0];
-            return notifyWellRingStorehouseLossDiscovered(loss, {
+            return notifyWellRingStorehouseLossDiscovered(pendingReaction[0], {
                 natural: true,
                 decideImmediately: false,
                 decisionDelayMonths: 1
@@ -1105,26 +1106,7 @@ function maybeTriggerNaturalWellRingAccusation(/* deltaMonths */) {
         }
     }
 
-    const eligibility = isWellRingAccusationEligible();
-    if (!eligibility.ok) return { ok: false, reason: eligibility.reason };
-
-    const chance = NPC_SITUATION_RETENTION.wellRingNaturalChance;
-    const roll = Math.random();
-    if (roll > chance) return { ok: false, reason: 'chance_miss', roll, chance };
-
-    // Fallback rumour pack: weak evidence, anonymous outer (not auto-Wei guilt).
-    return beginWellRingResourceAccusation({
-        natural: true,
-        decideImmediately: false,
-        decisionDelayMonths: 1,
-        evidenceStrength: 'weak',
-        accusedId: 'wr_unknown_outer',
-        trueCulpritId: 'wr_unknown_outer',
-        liangBeliefConfidence: 0.34,
-        accusedImportantToLiang: false,
-        accusedAvailable: true,
-        weiObserves: true
-    });
+    return { ok: false, reason: 'no_real_world_event' };
 }
 
 /**

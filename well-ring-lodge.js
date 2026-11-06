@@ -339,7 +339,12 @@ function recordWellRingStorehouseLoss(spec) {
     const id = spec.id || allocateWellRingStorehouseLossId();
     if (sh.lossesById[id]) return cloneWellRingStorehouseRecord(sh.lossesById[id]);
 
-    sh.herbStock = Math.max(0, (sh.herbStock || 0) - amount);
+    // All-or-nothing: never overdraw or create a phantom loss for more than exists.
+    const available = Math.max(0, Math.floor(Number(sh.herbStock) || 0));
+    if (available < amount) {
+        return null;
+    }
+    sh.herbStock = available - amount;
     const discovered = !!spec.discovered;
     const loss = {
         id,
@@ -397,6 +402,17 @@ function pruneWellRingStorehouseLosses() {
         sh.pendingDiscoveryIds = sh.pendingDiscoveryIds.filter(x => x !== drop);
         sh.reactedLossIds = sh.reactedLossIds.filter(x => x !== drop);
     }
+}
+
+function getWellRingStorehouseHerbStock() {
+    const sh = ensureWellRingStorehouse();
+    return Math.max(0, Math.floor(Number(sh.herbStock) || 0));
+}
+
+/** True when the storehouse can support an all-or-nothing removal of `amount` herbs. */
+function wellRingStorehouseCanSupply(amount) {
+    const need = Math.max(1, Math.floor(Number(amount) || 1));
+    return getWellRingStorehouseHerbStock() >= need;
 }
 
 function getWellRingStorehouseLoss(lossId) {

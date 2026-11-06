@@ -99,12 +99,13 @@ Same machinery as natural (`beginWellRingResourceAccusation`). Sets `developer` 
 
 ### Natural trigger
 
-- Every **6** months (check marker), **8%** chance if eligible
-- Requires living hall master + lodge cast; no active thread of this template; **48**-month cooldown after a natural spawn
+- Every **6** months (check marker)
+- Requires living hall master + lodge cast
 - Does not require player presence or involvement
-- Default accuse `wr_unknown_outer` with weak evidence (Wei is **not** auto-guilty)
-- Prefers real discovered-but-unreacted storehouse losses ([PR #207](https://github.com/WanderingImmortal/tales-immortal-path/pull/207)) before inventing a weak anonymous rumour
-- Never honours `forceChoice`
+- **Only** reacts to real discovered-but-unreacted storehouse losses ([PR #207](https://github.com/WanderingImmortal/tales-immortal-path/pull/207)); misconduct reports open threads at report time
+- Does **not** invent anonymous theft rumours without a corresponding world event
+- Developer scenarios (`startWellRingResourceAccusationScenario`) remain available
+- Never honours `forceChoice` on natural paths
 
 ## Player-facing
 
