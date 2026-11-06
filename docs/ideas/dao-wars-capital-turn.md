@@ -2,13 +2,13 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v3 — post-Tianjing Phoenix arc) |
-| **Blocked on** | Capital name lock ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)); chronicle entries |
+| **Status** | `designed` (v3 — post-Tianjing Phoenix arc; family spine 2026-11-07) |
+| **Blocked on** | Chronicle entries; emperor personal name |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent + owner, 2026-07-28 |
-| **Updated** | 2026-07-28 (v4 — contemplative dragon, Immortal-path technique) |
+| **Chat / PR** | Cloud agent + owner, 2026-07-28; family / leadership revision 2026-11-07 |
+| **Updated** | 2026-11-07 |
 
-**Intent:** One **grand stage** where the Dao Wars **turned** — Half-Step breakthrough, coalition assault on the Tian heartland, and the **aftershocks** each great sect still lies about. Parent: [`imperial-clan.md`](imperial-clan.md). Demon fallout: [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
+**Intent:** One **grand stage** where the Dao Wars **turned** — Half-Step breakthrough, coalition assault on the Tian heartland, and the **aftershocks** each great sect still lies about. Parent: [`imperial-clan.md`](imperial-clan.md). Family spine: [`tian-clan-family-history.md`](tian-clan-family-history.md). Demon fallout: [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
 ---
 
@@ -22,6 +22,21 @@
 **Design line:** *Militarily swift, politically messy.* One walk ended the coalition **as a fighting force**; **surrenders, purges, and charter** took seasons to years.
 
 > **Avatar layer (2026-09-26, not yet woven in):** war elders (idx 4, Celestial Avatar) stood their avatars over the siege lines; the walk made them **gutter out**, not shatter. Insert points per beat in [`celestial-avatar.md`](celestial-avatar.md) § Lore hooks. Polish pass pending.
+
+---
+
+## Before the siege — family context (canon 2026-11-07)
+
+The Tian Clan was already an **ancient formidable cultivation clan** from the Warring States Era — the imperial dynasty did **not** invent the clan.
+
+| Beat | Detail |
+|------|--------|
+| **Previous patriarch** | Father of the two brothers; stern wartime leader who privately hoped for continental peace **without** leaving an imperial master plan. |
+| **Assassination** | Killed **shortly before** the siege of Tianjing. Extraordinary feat — preparation / opportunity / specialised expertise. Killer, client, organisation, and whether anyone later identified them: all **Open**. Must **not** become the sole cause of the Half-Step or the wars' end. |
+| **Elder brother** | Recognised heir; inherited under emergency wartime conditions. **Immediately** prioritised clan survival and duty over vengeance. Coordinated Tianjing's defence **with** elders, commanders, and formation specialists — not alone. Later: political architect and **reigning emperor** of the mandate. |
+| **Younger brother** | Cultivation genius already in **clan-supported seclusion** pursuing an approaching unprecedented breakthrough. Success was **not** guaranteed; defenders could not safely assume he would emerge victorious. Breakthrough = cultivation and comprehension — **not** revenge-powered by the assassination. |
+
+Full character notes: [`tian-clan-family-history.md`](tian-clan-family-history.md).
 
 ---
 
@@ -47,7 +62,7 @@ Rumors had run for years: the Tian bred a **genius** at **peak Dao Manifestation
 
 **The two apexes (pre-walk):** Tian founder and **Sword Ancestor** both **peak Dao Manifestation** — the board’s ceiling **before** Half-Step existed. Chroniclers still argue whether the Sword Ancestor could have **killed** the genius **during** breakthrough if the inner defenses had failed one hour sooner.
 
-**Tian defenses held one beat too long** — long enough for the genius to **finish** Half-Step **inside** Tianjing’s cordon. Tian myth: **dragon’s patience**. Coalition myth: **curse of overconfidence**.
+**Tian defenses held one beat too long** — long enough for the genius to **finish** Half-Step **inside** Tianjing’s cordon. That hold was the work of **many** defenders under the elder brother's emergency patriarchy, not a solitary miracle. Tian myth: **dragon’s patience**. Coalition myth: **curse of overconfidence**.
 
 ---
 
@@ -116,7 +131,7 @@ Tianjing garden walk
 | **Why execution?** | Flame Emperor already **tested** the gate at Tianjing; second chance is **political**, not martial — refusal → **example** |
 | **Sword distance** | Sword Ancestor **already** on the mountain — execution is **Phoenix–Tian** finale; Sword chronicles note it without glory |
 
-**Founder personality (locked):** **contemplative dragon** — the **Seven Days of Weight** are not theatre or cruelty for sport. Tianjing goes **quiet** (bells stopped, qi like pressure before rain). The founder **learns** what Half-Step **is**: heaven’s weight, debt on the senses, a realm they believe **no one** has stood in before. Chroniclers call it **stillness more terrifying than rage**. Later **sleeping dragon** myth reads the week as the last time he **fully measured** the gate before he chose to **sleep** rather than **rule by walking the world**.
+**Founder personality (locked):** **contemplative dragon** — the **Younger brother** / imperial founding Immortal. The **Seven Days of Weight** are not theatre or cruelty for sport. Tianjing goes **quiet** (bells stopped, qi like pressure before rain). He **learns** what Half-Step **is**: heaven’s weight, debt on the senses, a realm they believe **no one** has stood in before. Chroniclers call it **stillness more terrifying than rage**. Later **sleeping dragon** myth reads the week as the last time he **fully measured** the gate before he chose **voluntary seclusion** rather than **rule by walking the world**. Public speech still says he **sleeps**; he is not literally unconscious.
 
 **Ember Crown — Immortal-path technique (locked):** When the founder **arrived** at the plain, he did not fight like a peak Dao Manifestation with bigger numbers. He **wielded one art** — **Immortal Path** proper, or so close the continent had **no name** for it — the first public glimpse of **what lies past the gate**. Formation lines **did not break** so much as **fail to apply**; flame law **could not seat** on the board. The **Flame Emperor’s execution** is remembered as **one gesture of that art** — not a duel sequence, not a weapon showcase — **judgment** expressed in a technique mortals would later call *pre-immortal* or *half-heaven*. Phoenix records **do not** name the form cleanly; Void archives **redact** the syllables.
 
@@ -161,16 +176,19 @@ Phoenix inner court: **records all of it** — injury at Tianjing, seven days, a
 | Lotus at capital | assault column | **Never** fought Tian; hedged **elsewhere** |
 | **Tianjing** vs Longcheng | single capital name | **Tianjing** = Dao Wars Tian city + today’s **inner** ring; **Longcheng** = post-mandate **outer** expansion |
 
-## Locked (owner 2026-07-28)
+## Locked (owner 2026-07-28 + family spine 2026-11-07)
 
 - **Founder tone:** **contemplative dragon** — Seven Days = consolidation and learning Half-Step, not predatory theatre.
 - **Ember Crown arrival:** **Immortal-path** technique (or indistinguishable from it) — working name **Dragon’s Edict** (龙敕); execution = **one gesture** of that art. Not player-teachable v1; Void copies **redact**.
+- **Family:** previous patriarch assassinated shortly before the siege (killer Open); elder brother emergency patriarchy + defence coordination; younger brother = Half-Step genius / later founding Immortal; breakthrough **not** revenge-powered; "sleeping dragon" = public myth for active seclusion.
+- **Note:** "younger brother inherits ash" in the Phoenix rows = the **Flame Emperor's** younger brother (Phoenix Immortal), **not** the Tian younger brother.
 
 ## Open questions
 
 - [ ] **Ember Crown Plain** — map node near caldera vs one-off chronicle only?
 - [ ] Named **minor clans** still extant post-war (owner: later)
 - [ ] Chronicle: playable beat at Tianjing vs Ember Crown vs elder dialogue only?
+- [ ] Patriarch assassination — identity / client / whether the later emperor pursued it (deliberately Open — see family doc)
 
 ## Implementation crumbs
 

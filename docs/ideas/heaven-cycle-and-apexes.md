@@ -22,7 +22,7 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 
 **Problem:** the Tian founder is one Immortal among several — the Sword Ancestor ascends after the peace, other sects gain Immortals, and the cult founder may be one too. Apex power alone doesn't explain the throne.
 
-**Founder (owner 2026-09-28):** first **public** Half-Step, at Tianjing, **later ascended to Immortal**; sleeps because he is **restrained** (knows the cost — see §2). Not the first ascension in history. The Void Seeker reached Immortal earlier without taking this public watershed.
+**Founding Immortal (owner 2026-09-28; family revision 2026-11-07):** first **public** Half-Step, at Tianjing, **later ascended to Immortal**; remains in **voluntary seclusion** because he is **restrained** (knows the cost — see §2). Public myth still calls this "sleep." Not the first ascension in history. The Void Seeker reached Immortal earlier without taking this public watershed. Family spine: [`tian-clan-family-history.md`](tian-clan-family-history.md).
 
 **Owner answer:**
 
@@ -44,7 +44,7 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 
 **Puppet house — whose?** (open) Tian front · a great sect's vote in the capital · someone off the board (grotto master / Heavenly Demon Cult; patriarch may not know).
 
-**Tension sources:** Tian is not one bloc (regents, blood branches, cadet lines); a noble house outgrowing a cadet Tian branch; nobody can prove the sleeping founder can still wake.
+**Tension sources:** Tian is not one bloc (imperial councillors, blood branches, cadet lines); a noble house outgrowing a cadet Tian branch; nobody can prove the founding Immortal will still **intervene** if stirred. The **reigning emperor** is the founding Immortal's elder brother (continuous reign since the mandate) — not a short-lived VR face; see family doc.
 
 ### Why no apex emerged during the Warring States (owner 2026-09-26)
 
@@ -88,7 +88,7 @@ Related: [`post-immortal-cosmology.md`](post-immortal-cosmology.md) (World Fortu
 |-----|-----------|
 | **Mortals → Dao Manifestation** | It never occurs to them. **Owner:** DM-equivalents notice the world getting worse over the ages but can't figure out why. |
 | **Immortals (long-lived)** | **Owner:** discover clues over time — possibly via **tribulation**; they feel the world doesn't want them to exist. *Suggestion:* post-ascension pressure never stops — like a body rejecting a transplant or pushing out a splinter; Immortal Calamities feel like being expelled, not tested. |
-| **Know exactly (owner)** | **Void Seeker**, **Tian founder** (restrained — sleeps), possibly the **Heavenly Demon**. It shapes their actions (guard · sleep · devour). *Why they don't tell — later.* |
+| **Know exactly (owner)** | **Void Seeker**, **Tian founding Immortal** (restrained — voluntary seclusion; public "sleep"), possibly the **Heavenly Demon**. It shapes their actions (guard · seclude · devour). *Why they don't tell — later.* |
 | **Knows the ways to godhood** | **Emperor of Souls** ([`hollow-throne-sect.md`](hollow-throne-sect.md)) — lived Worshipped and Devouring, seeks Personal. |
 
 **Red herring (suggestion):** elders blame the **Dao War law scars**, over-harvested veins and fading lineages — partly true, so nobody looks upward.
@@ -192,7 +192,7 @@ Lane words (from PR #127): qi → 仙 **Immortal** · body → 圣 **Saint** · 
 - [ ] Gap length between Half-Step and later Immortals (owner: generous, unspecified)
 - [ ] Which noble house is the puppet, and whose
 - [ ] Why the three who know stay silent (owner: later)
-- [x] Tian founder → ascended; sleeps as a restrained Immortal
+- [x] Tian founding Immortal → ascended; restrained voluntary seclusion (public "sleep")
 - [x] Body-path threshold state name → **Demi-Saint** (soul = Pseudo God, qi = Half-Step Immortal)
 - [ ] World qi: one global meter vs regional values; recovery rate
 - [ ] Saint post-apex growth steps — what each refinement needs

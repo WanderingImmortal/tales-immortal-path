@@ -200,7 +200,7 @@ Map node today: `phoenix_court` — floor heart; rim and pit are lore until sub-
 | **Jade Lotus** | Stagnation roots — **Phoenix Gambit** target; charter coup, not valley genocide |
 | **Celestial Sword** | Honor without renewal; ally of Lotus; blade without fire |
 | **Void Temple** | Hoarders of seals; stagnation dressed as wisdom |
-| **Tian Clan** | Mandate that **paused** the flame — enemy of **#8**, not open war on sleeping founder |
+| **Tian Clan** | Mandate that **paused** the flame — enemy of **#8**, not open war on the founding Immortal in seclusion |
 
 **Others’ read:** expansionists, pamphleteers, alignment cost; Gambit threat.
 

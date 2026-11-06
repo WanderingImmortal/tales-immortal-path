@@ -2,21 +2,38 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (core lore) — city: [`imperial-city-tianjing.md`](imperial-city-tianjing.md) |
-| **Blocked on** | City name lock; phase-1 map nodes | four-sect charter detail |
+| **Status** | `designed` (core lore) — city: [`imperial-city-tianjing.md`](imperial-city-tianjing.md); family: [`tian-clan-family-history.md`](tian-clan-family-history.md) |
+| **Blocked on** | Emperor personal name; phase-1 map nodes; four-sect charter detail |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent workshop, 2026-07-23 |
-| **Updated** | 2026-07-23 |
+| **Chat / PR** | Cloud agent workshop, 2026-07-23; family / leadership revision 2026-11-07 |
+| **Updated** | 2026-11-07 |
 
 ## Intent
 
-The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the founder — first **public** Half-Step, later **Immortal** — sleeps beneath the capital, restrained.
+The **Tian Clan** (天氏) — remembered by that name alone; older names are lost or deliberately buried — is the Azure Sky Continent's **sleeping dragon**. They do not rule through open tyranny. Everyone knows who the boss is. The court schemes beneath the surface; the **imperial founding Immortal** — first **public** Half-Step, later **Immortal** — remains in **voluntary seclusion** beneath the capital, restrained by cosmological cost. Public speech still calls him the sleeping dragon.
 
 **Imperial public face:** five-clawed true dragon (五爪真龙) — *only* the Tian may bear it; usurpation is existential treason.
 
 **Not the same as:** post-mortal **Heavenly Court** ([`post-immortal-cosmology.md`](post-immortal-cosmology.md)) — cosmic accounting, not the mortal throne.
 
-Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`sect-faction-identities.md`](sect-faction-identities.md), [`nine-realm-ladder.md`](nine-realm-ladder.md) (Half-Step Immortal).
+Related: [`tian-clan-family-history.md`](tian-clan-family-history.md), [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md), [`sect-faction-identities.md`](sect-faction-identities.md), [`nine-realm-ladder.md`](nine-realm-ladder.md) (Half-Step Immortal).
+
+---
+
+## Family spine (summary)
+
+Full detail: [`tian-clan-family-history.md`](tian-clan-family-history.md).
+
+| Figure | Role |
+|-------|------|
+| **Previous patriarch** | Father of the two brothers; late Warring States / Dao Wars clan head. Stern, war-shaped, privately wished for peace **without** leaving an imperial master plan. Assassinated shortly before the siege of Tianjing (killer **Open**). |
+| **Mother** | Died comparatively early; respectable high-middle-tier cultivator (*provisional*). Cause of death **Open** — not another assassination victim by default. |
+| **Elder brother** | Emergency wartime patriarch → **principal political architect** of the dynasty → **reigning emperor** (~3,000 years later). Temporary designation: *the reigning Tian emperor (elder brother)*. Name **Open**. Provisional: advanced Dao Manifestation expert. |
+| **Younger brother** | Cultivation genius; first **public** Half-Step; **founding Immortal of the imperial dynasty** (not founder of the ancient clan). Active seclusion beneath Tianjing — not literally asleep. |
+
+**Complementary achievements:** the elder kept the clan alive and then governed; the younger changed the continental power ceiling and then stepped back. Genuine familial affection — not puppet throne / hidden master.
+
+**Supersedes:** **Tian Xu** as reigning emperor (VR peak, ~200 years). Tian Xu's future role is **Open** — do not auto-recast.
 
 ---
 
@@ -24,19 +41,27 @@ Related: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md
 
 ### Before
 
+The Tian Clan was already a **formidable ancient cultivation clan** in the **Warring States Era**, long before any imperial dynasty.
+
 The **Dao Wars** (道战 — working name) — sects and rising powers tore the continent apart competing for dao fragments, veins, and breakthrough paths. Havoc at a scale the mortal board could not sustain.
 
 ### The turn
 
-The **Tian Clan** produced the first **public** Half-Step Immortal — the first to touch the gates of true immortality where the jianghu could see it. The Void Seeker had already ascended, privately, to guard his lock. The wars ended **swiftly** under that public might. Not a century of siege; a demonstration that the board had a new ceiling.
+Shortly before the siege of Tianjing, the previous patriarch was **assassinated**. The elder brother inherited under emergency wartime conditions and prioritised **clan survival** over vengeance. He coordinated Tianjing's defence with elders, commanders, and formation specialists.
+
+The younger brother — already in clan-supported seclusion pursuing an unprecedented breakthrough — became the first **public** Half-Step Immortal: the first to touch the gates of true immortality where the jianghu could see it. That breakthrough was **cultivation and comprehension**, not a revenge-powered answer to the assassination. The Void Seeker had already ascended, privately, to guard his lock. The wars ended **swiftly** under that public might. Not a century of siege; a demonstration that the board had a new ceiling.
 
 *(Older immortals among the top sects may remember the clan's **original name** and older sins. They do not dwell on it in public.)*
+
+Detail of siege, garden walk, Seven Days, Ember Crown, and **Dragon's Edict** (龙敕 — working name): [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md).
 
 ### The settlement
 
 An **uneasy peace**: great powers **capitulated** — not **surrendered**. Each great sect holds a **homeland bastion** defended by apex **sect arrays** even a Half-Step at the gate could not breach without unacceptable cost. The Tian ended the Dao Wars by forcing **charter borders** and mutual recognition, not by owning sect mountains.
 
-Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immortals of their own**. They **respect** throne authority and charter law; they do **not** bend the knee daily. The continent runs on **mutual deterrence**: Tian buried founder + imperial seal, sect arrays + hidden patriarchs.
+The **elder brother** became governing sovereign of the new mandate; the younger brother, after further ascension to **Immortal**, entered long **voluntary seclusion** beneath Tianjing rather than ruling the mortal board day to day.
+
+Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immortals of their own**. They **respect** throne authority and charter law; they do **not** bend the knee daily. The continent runs on **mutual deterrence**: Tian founding Immortal in seclusion + imperial seal, sect arrays + hidden patriarchs.
 
 | Power (draft) | Homeland | Dao Wars outcome (sketch) |
 |---------------|----------|---------------------------|
@@ -56,11 +81,12 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 
 ### Now
 
-- **Sleeping giant:** no open continental wars; scheming, charters, succession plots, buried deterrence.
-- **Founder** (first **public** Half-Step; **ascended to Immortal** after the mandate — owner 2026-09-28) **buried / sealed** under or within the capital — the dragon sleeps. Regents rule. Sects feud in lanes the charter allows.
-- **Public myth:** the founder chose sleep so the realm could heal.
-- **Sect whisper:** the founder sleeps because acting openly accrues heaven's debt — wake them only if the mandate cracks.
-- **Truth (owner):** a **restrained Immortal** — he knows what immortality costs the world and sleeps to keep his draw low. See [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md).
+- **Sleeping giant (public myth):** no open continental wars; scheming, charters, succession plots, buried deterrence. The continent still says the dragon **sleeps**.
+- **Founding Immortal** (first **public** Half-Step; **ascended to Immortal** after the mandate — owner 2026-09-28) remains in **active voluntary seclusion** under or within Tianjing — cultivating, contemplating, researching. Not unconscious. Cosmological restraint still applies. See [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md).
+- **Reigning emperor:** the **elder brother** — legitimate governing authority for ~3,000 years. Imperial councillors advise and compete for influence; they do **not** rule as a regency.
+- **Public myth:** the founding Immortal chose seclusion (called "sleep") so the realm could heal.
+- **Sect whisper:** he stays sealed because acting openly accrues heaven's debt — stir him only if the mandate cracks.
+- **Truth (owner):** a **restrained Immortal** — he knows what immortality costs the world and keeps his draw low through seclusion rather than open rule.
 
 ---
 
@@ -68,19 +94,19 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 
 | Layer | Role |
 |-------|------|
-| **Buried founder** | Sleeping **Immortal** (was the first public Half-Step) — ultimate Tian deterrence; waking = continental crisis |
-| **Imperial court** | Regents, blood branches, chancellors — **surface scheming** |
+| **Founding Immortal (underpalace)** | Restrained **Immortal** (was the first public Half-Step) — ultimate Tian deterrence; open intervention on the mortal board = continental crisis. Publicly the "sleeping dragon." |
+| **Reigning emperor** | Elder brother — holds **legitimate governing authority**; strategic direction of the realm. Provisional: advanced Dao Manifestation. Name Open. |
+| **Imperial council** | Blood branches and ministers — advise, petition, debate, influence. **Not** a regency. Hardliners (e.g. **Tian Lian**) vs pragmatists (e.g. **Tian Mo**). |
 | **Charter law** | Sect homelands + licensed rivalry; open conquest forbidden without imperial verdict |
 | **Sect arrays + immortals** | Each great sect **cannot be erased** by force alone — capitulated, never surrendered |
-| **Today's emperor** | Face of mandate — **Void Refinement peak** (sect-patriarch public tier); ancient ancestors + buried founder above — see [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) |
 
-**Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks waking the dragon *and* spending sect immortals against each other while the court watches.
+**Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks drawing the founding Immortal onto the board *and* spending sect immortals against each other while the court watches.
 
-**Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founder is the first **public** Half-Step. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
+**Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founding Immortal is the first **public** Half-Step. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
 
 ### The Heavenly Demon Cult — a managed threat (owner 2026-09-26)
 
-- The founder **knows** he did not truly kill the Heavenly Demon at Tianjing (only the Blood Clone) — [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md). That clone was **peak Dao Manifestation**. The Heavenly Demon was **not** Half-Step then (owner 2026-09-28).
+- The founding Immortal **knows** he did not truly kill the Heavenly Demon at Tianjing (only the Blood Clone) — [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md). That clone was **peak Dao Manifestation**. The Heavenly Demon was **not** Half-Step then (owner 2026-09-28).
 - **Publicly** the throne states the cult is gone.
 - He believes it is a **managed threat**: the cult **never leaves its lands**; the throne **doesn't want to pick that fight**; everyone else **rests easy** with the cult "dead."
 - *Suggestion — extra reasons not to fight:* two apex beings clashing openly draws heaven's resistance on both; Blood Sealing Gorge is a natural seal that a war could break; admitting the cult lives reopens the mandate's founding story.
@@ -121,16 +147,16 @@ Rep and alignment swing hard; chronicle logs the arc. `phoenix_win` gives Phoeni
 
 ### Lore fit with Tian + sect parity
 
-Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **charter coup** (Lotus trade mantle seized, halls humiliated, maybe a puppet envoy) — **not** wiping a sect whose arrays and immortals still exist. Lotus "endures" = charter survives. Tian may **allow** contained sect wars if they don't threaten the sleeping founder's seal — or quietly sabotage Phoenix if they get too close to five claws.
+Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **charter coup** (Lotus trade mantle seized, halls humiliated, maybe a puppet envoy) — **not** wiping a sect whose arrays and immortals still exist. Lotus "endures" = charter survives. Tian may **allow** contained sect wars if they don't threaten the underpalace seal — or quietly sabotage Phoenix if they get too close to five claws.
 
-*Future pass:* tie extreme outcomes to **imperial edict** or founder-stir rumor.
+*Future pass:* tie extreme outcomes to **imperial edict** or founding-Immortal-stir rumor.
 
 ---
 
 ## Symbol & identity
 
 - **Five-clawed true dragon** — imperial Tian only. Four claws = insult or foreign claim.
-- **"Sleeping dragon"** — continent metaphor; court motto; forbidden to mock in Heartlands.
+- **"Sleeping dragon"** — continent metaphor; court motto; forbidden to mock in Heartlands. **Public/myth language** — the Immortal is not literally asleep.
 - **Name:** **Tian Clan** (cliché on purpose — 天, heaven). Imperial style: *Tian [era name] Court* / *Mandate of Tian*.
 
 ---
@@ -138,8 +164,11 @@ Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **char
 ## Cultivation (open)
 
 - Imperial lineage manual TBD — likely **dragon / mandate / earth-metal** lean; **layered + unique** per manuals policy.
+- Preferred creative direction: **golden dragon Qi** manifestations and deeper symbolic expressions — **no** final canon name, Dao, or complete technique system approved yet.
+- **Do not conflate** prospective Tian clan dragon canon with **Nine Dragons Body Forging** unless a later doc explicitly links them.
 - Court may **license** sect lines rather than teach widely.
 - Tian cultivators: stricter heaven accounting? ([`tribulation-system-rework.md`](tribulation-system-rework.md))
+- **Dragon's Edict** (龙敕) remains a **working name** for the founding Immortal's historical Immortal-path technique at Ember Crown — not a player manual v1.
 
 ---
 
@@ -148,7 +177,7 @@ Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **char
 See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer capital workshop.
 
 - **Outer imperial city** — **Longcheng** (龙城) — continental hub: Celestial Market quarter, sect branch offices, associations, noble clans, Charter District.
-- **Inner Tianjing** (天京) — Tian Clan home grounds; 京 = royal capital; palace + sleeping founder seal.
+- **Inner Tianjing** (天京) — Tian Clan home grounds; 京 = royal capital; palace + underpalace seclusion of the founding Immortal.
 - **Outer heartlands** — wilderness buffer between sect peaks and the metropolis north.
 
 ---
@@ -158,23 +187,28 @@ See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer c
 - Imperial **favor** track separate from sect rep?
 - **Examination** at capital — root test, charter oaths.
 - Found sect → register with Tian charter?
-- Late-game: does the sleeping founder **wake**? (calamity / player choice — Chekhov's gun)
-- **Parked dialogue** — Emperor Tian Xu to equal-tier player: *“The Sword Immortal was the only one my ancestor feared — the only one who could have truly hurt him.”* See [`celestial-sword-sect.md`](celestial-sword-sect.md).
+- Late-game: does the founding Immortal **intervene** on the mortal board? (calamity / player choice — Chekhov's gun; prefer "stir / intervention" framing over literal "wake from sleep")
+- **Parked dialogue** — reigning Tian emperor (elder brother) to equal-tier player: *“The Sword Immortal was the only one my brother feared — the only one who could have truly hurt him.”* See [`celestial-sword-sect.md`](celestial-sword-sect.md). *(Supersedes older “my ancestor” wording tied to Tian Xu.)*
 
 ---
 
 ## Open questions
 
-- [ ] Founder's true name (pre-Tian) — ever revealed?
-- [ ] Dao Wars start date / how many generations of regents since burial?
+- [ ] Reigning emperor's personal name
+- [ ] Founding Immortal's true name (pre-Tian / private) — ever revealed?
+- [ ] Mother's realm, cause of death, background
+- [ ] Patriarch assassination — killer / client / whether the emperor knows (deliberately Open)
+- [ ] **Tian Xu** — future role undecided
 - [ ] Does Phoenix reunification seek to **replace** Tian or **become** Tian (five claws)?
 - [ ] Imperial rep: fifth faction vs overlay?
 - [ ] Dustbone: tribute fiction without direct rule?
+- [ ] Imperial dragon lineage manual — design pass
 
 ## Prerequisites
 
 - [ ] Lock four Heartlands sect identities **against** this charter table
-- [ ] Capital name + map node
+- [ ] Capital phase-1 map nodes
+- [ ] Emperor personal name (owner)
 
 ## Implementation crumbs (later)
 

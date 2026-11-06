@@ -145,7 +145,7 @@ Yun Jian does **not** claim to speak for the immortal’s will. When he acts in 
 | **Captain Wen Ning** | Longcheng arm; Yun Jian reads every charter filing Wen sends up |
 | **Jade Lotus** | Pragmatic ally — Yun Jian signs what honor allows |
 | **Golden Phoenix** | Cold contempt — Phoenix Gambit is **his** crisis to manage |
-| **Emperor Tian Xu** | Mutual professional respect; rare audiences when charter strains |
+| **Reigning Tian emperor** *(elder brother; name Open)* | Mutual professional respect; rare audiences when charter strains |
 
 ### Phoenix Gambit (his crisis)
 
@@ -200,7 +200,7 @@ Instead of a suicide stroke that would have left the mountain headless:
 
 ### After the mandate
 
-Centuries of charter peace gave the Sword Immortal what the war denied: time to **finish**. They stepped through Immortal Ascension and became the sect’s hidden immortal — comparable to other great powers’ apex assets, subject to the same **don’t act on the mortal board** calculus as Tian’s buried founder (different scale, same math).
+Centuries of charter peace gave the Sword Immortal what the war denied: time to **finish**. They stepped through Immortal Ascension and became the sect’s hidden immortal — comparable to other great powers’ apex assets, subject to the same **don’t act on the mortal board** calculus as Tian’s founding Immortal in seclusion (different scale, same math).
 
 **Public face:** Patriarch Yun Jian. **Continental truth:** storm Solitary Sword Mountain without charter cause and you may wake something that remembers the Dao Wars.
 
@@ -228,9 +228,9 @@ Centuries of charter peace gave the Sword Immortal what the war denied: time to 
 
 Even at **Dao Manifestation** during the Dao Wars, the **First Sword** law was the one force the rising Tian founder **feared could hurt him** — not defeat, but wound. That memory lives in Tian inner court.
 
-**Parked flavor** — if the player ever speaks to **Emperor Tian Xu** as an equal (late game, high imperial favor):
+**Parked flavor** — if the player ever speaks to the **reigning Tian emperor** (elder brother of the founding Immortal) as an equal (late game, high imperial favor):
 
-> *“The Sword Immortal was the only one my ancestor feared — the only one who could have truly hurt him.”*
+> *“The Sword Immortal was the only one my brother feared — the only one who could have truly hurt him.”*
 
 *Implementation: dialogue stub only; not a priority.*
 
