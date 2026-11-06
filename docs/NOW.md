@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-06
 
 ## Focus
-- **Lodge storehouse procurement** — bounded abstract resupply into Well-Ring herbs · [`institutional-procurement-storehouse.md`](ideas/institutional-procurement-storehouse.md) · PR #210
+- **Independent formation practice** — owned courtyard installs without founding a sect · [`formations-and-arrays.md`](ideas/formations-and-arrays.md) · `cursor/independent-formation-practice`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

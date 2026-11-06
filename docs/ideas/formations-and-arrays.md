@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (F0–F2b **shipped on main**; next = feel / payoff) |
+| **Status** | `building` (F0–F2b shipped; independent dwelling installs + ward/cultivate fixes in flight) |
 | **Blocked on** | Combat wards/kills: enemy **guards** + hit pipeline ([#116](https://github.com/WanderingImmortal/tales-immortal-path/pull/116), [`stats-to-meters-rework.md`](stats-to-meters-rework.md)). Ranks 4+: nine-realm names in code (not extra ranks). Essence sites / rites / array-assist as before. |
 | **Issue** | none yet |
-| **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (F1–F2b) · 2026-09-26 audit |
-| **Updated** | 2026-09-28 (avatar stand-in; stale PR pointers) |
+| **Chat / PR** | [PR #61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) (F1–F2b) · independent practice `cursor/independent-formation-practice` |
+| **Updated** | 2026-11-06 (independent dwelling installs) |
 
 ## Intent
 
@@ -85,6 +85,7 @@ Owner direction: patterns are laid on **valid anchors**, not arbitrary world til
 | Anchor (now / near) | Scale | Notes |
 |---------------------|-------|-------|
 | **Leader’s residence courtyard** | Formation | **Shipped v1** — `G.sect.residence.formations.slots` |
+| **Personal owned courtyard** | Formation | **Shipped** — `G.dwelling.formations.slots` (1 slot; owned + present). Permission helper is extensible (rent / sect lodging / commission later). |
 | **Sect map nodes** | Formation or array | `meditation_chamber`, `cultivation_hall`, `defense_array` — buildings today are flat %; future = host patterns |
 | **Guild / market / auction HQ** | Formation | **Later** — when those locations exist |
 | **World essence nodes** | Formation (essence) | **Later expansion** — sun terrace, moon pool, vein tap; pattern must match site tag |
@@ -556,24 +557,25 @@ F1–F2b is **on main**, not waiting on PR #61. The profession skeleton works: u
 
 **Do not climb to arrays / guilds / rites next.** The existing loop does not pay off yet. The landed lore (nine-realm ladder, Celestial Avatar, spirit path) does not change this loop.
 
-#### Bugs / wrong feel (fix before new verbs)
+#### Bugs / wrong feel
 
-| Issue | What happens | Where |
-|-------|--------------|-------|
-| **Ward math inverted / gated** | `getSectEventStoneLossMult` only applies defense when the loss mult is already `< 1`, then **adds** `(defense/100)*0.35` — so Iron Wall / Vein Seal often do nothing, and when they fire they can **worsen** already-soft losses. Vault save has the same `!= 1` gate. | `sect.js` |
-| **Courtyard cultivate double-counts gather %** | `actionResidenceCultivate` passes `extraMult = getResidenceFormationCultivateMult()`, but `runFocusedCultivateSession` already multiplies `getPassiveCultivationSupportMult()` (which includes that same residence %) **and** then `runCultivateSession` applies `extraMult` again on top of `getSectCultivationMult()` (chamber %). | `formations.js` → `passive-cultivation.js` → `actions.js` |
-| **Adept “soft” realm gate is hard** | Comment says formation-mains can attempt slightly early; `getFormationExamBlockReason` **blocks** below FE. | `formations.js` |
-| **Redwell sells zero manuals** | Starter bazaar `formations: []`. Threshold sells Stabilizer only; wards only at Heartlands / Jade. Early Dustbone runs stall after the unread gather. | `data.js` `MERCHANT_CATALOG` |
-| **“Light the mountain” has no trigger** | Wards default off (correct fantasy) but sect events fire on a timer with no raid-alert / command talisman. Player must leave the ward burning or miss the beat. | design vs `sect-expand.js` events |
-| **Lay always succeeds** | Doc first-lay fail / Trace risk never shipped. Fine for F1; do not add fail% until Trace exists. | — |
-| **No tests** | `formations.js` is ~1.5k lines, residence vs anchor APIs are near-duplicates, zero unit tests. | — |
+| Issue | Status | Notes |
+|-------|--------|-------|
+| **Ward math inverted / gated** | **Fixed** (independent-formation PR) | `getSectEventStoneLossMult` always softens when defense > 0. |
+| **Courtyard cultivate double-counts gather %** | **Fixed** (independent-formation PR) | `actionResidenceCultivate` no longer passes formation mult as `extraMult`. |
+| **Sect residence gather is global** | **Known locality inconsistency** | Sect courtyard % still applies via `getPassiveCultivationSupportMult` everywhere. Eventual design: bind benefits to the installation site (personal dwelling already is site-local). |
+| **Adept “soft” realm gate is hard** | Open | Comment says formation-mains can attempt slightly early; `getFormationExamBlockReason` **blocks** below FE. |
+| **Redwell sells zero manuals** | Open | Owned courtyard now grants unread Spirit Gathering; market SKUs still thin. |
+| **“Light the mountain” has no trigger** | Open | Wards default off; no raid-alert / command talisman. |
+| **Lay always succeeds** | Accepted for F1 | Do not add fail% until Trace exists. |
+| **Thin tests** | **Improved** | `scripts/test-independent-formations.js` covers dwelling installs, transitions, ward soften, cultivate-once. |
 
 #### Stacking (write the rule before a hall pattern)
 
 - Residence gather % hits **passive night circulation** and **every focused session** (via `getPassiveCultivationSupportMult`).
 - Meditation-chamber gather % hits **sect-wide** cultivate (`getSectCultivationMult`) — same soup as Cultivation Hall's flat `cultivationSpeedPct`.
-- Courtyard “Cultivate at quarters” currently **re-applies** residence % on top (bug above).
-- Defense rating is **added** to the building's `defenseRating`, then (buggily) fed into event stone-loss.
+- Personal dwelling gather % is **site-local** (only while at the dwelling settlement).
+- Defense rating is **added** to the building's `defenseRating`, then softens event stone-loss.
 
 Owner rule from this doc still stands: pattern should **replace or modulate** a building %, never silent additive soup. Cultivation Hall as a third gather anchor is **parked** until that rule is coded.
 

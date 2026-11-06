@@ -156,7 +156,8 @@ Pass: you can explain switch vs fuel vs integrity in one breath, and you never s
 ## Prerequisites
 
 - [x] Engine F1a/F1b on main (fuel / switch / integrity / shelf)
-- [ ] Quarters cultivate applies gather % **once** (live bug — fix when implementing this card)
+- [x] Quarters cultivate applies gather % **once** (double-count fixed in independent-formation PR)
+- [x] Can lay at owned personal courtyard without founding a sect
 - [ ] Playtest on courtyard only (owner)
 - [ ] After test: chamber / hall stacking rule (best-wins vs personal vs chamber-only)
 
