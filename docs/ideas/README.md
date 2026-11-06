@@ -79,7 +79,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [NPC agency — ambitions & goals](npc-agency-ambitions-goals.md) | `building` (Phase E slice) | economy / more actors later | [PR #206](https://github.com/WanderingImmortal/tales-immortal-path/pull/206) |
 | [NPC agency — action → reaction chain](npc-agency-action-reaction-chain.md) | `building` | rumour / multi-lodge later | [PR #207](https://github.com/WanderingImmortal/tales-immortal-path/pull/207) |
 | [NPC travel, capability, and presence](npc-travel-presence.md) | `building` | caravans / regional danger later | [PR #208](https://github.com/WanderingImmortal/tales-immortal-path/pull/208) |
-| [Shared resource sources & wilderness regen](resource-sources-wilderness-regen.md) | `building` | player reagent stock share later | PR #209 · `cursor/resource-sources-regen` |
+| [Shared resource sources & wilderness regen](resource-sources-wilderness-regen.md) | `shipped` | player reagent stock share later | [PR #209](https://github.com/WanderingImmortal/tales-immortal-path/pull/209) |
+| [Institutional procurement & storehouse refill](institutional-procurement-storehouse.md) | `building` | physical feeders / budgets later | PR #210 · `cursor/lodge-storehouse-procurement` |
 | [Sandveil Tribunal cultures](sandveil-tribunal-cultures.md) | `designed` (origins lock) | Tribe myth detail | [#94](https://github.com/WanderingImmortal/tales-immortal-path/pull/94) |
 | [World events — layered battlefield](world-events-layered-battlefield.md) | `idea` | Mid city; org tiers | — |
 | [Sect power pyramid, schools & food chain](sect-power-pyramid-and-schools.md) | `designed` (brainstorm) | World power map (owner) | — |

@@ -285,6 +285,10 @@ function getWellRingLodgeMembers(options) {
 function migrateWellRingLodgeForExistingSave() {
     ensureWellRingLodgeCast();
     ensureWellRingStorehouse();
+    // Bounded abstract resupply — does not rewrite herbStock or loss ledgers.
+    if (typeof ensureInstitutionalProcurement === 'function') {
+        ensureInstitutionalProcurement('well_ring_herb_external', { skipProcess: true });
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -296,6 +300,8 @@ function migrateWellRingLodgeForExistingSave() {
 const WELL_RING_STOREHOUSE = {
     version: 1,
     baselineHerbStock: 24,
+    /** Soft capacity for institutional procurement (PR #210). Theft can leave stock below this. */
+    herbCapacity: 24,
     inspectionEveryMonths: 3,
     inspectionDiscoverChance: 0.55,
     maxPendingLosses: 12,
@@ -308,6 +314,7 @@ function ensureWellRingStorehouse() {
         wr.storehouse = {
             version: WELL_RING_STOREHOUSE.version,
             herbStock: WELL_RING_STOREHOUSE.baselineHerbStock,
+            herbCapacity: WELL_RING_STOREHOUSE.herbCapacity,
             lossesById: {},
             pendingDiscoveryIds: [],
             reactedLossIds: [],
@@ -318,6 +325,8 @@ function ensureWellRingStorehouse() {
     const sh = wr.storehouse;
     if (sh.version == null) sh.version = WELL_RING_STOREHOUSE.version;
     if (sh.herbStock == null) sh.herbStock = WELL_RING_STOREHOUSE.baselineHerbStock;
+    // Capacity is additive metadata — never raise existing stock on migrate.
+    if (sh.herbCapacity == null) sh.herbCapacity = WELL_RING_STOREHOUSE.herbCapacity;
     if (!sh.lossesById || typeof sh.lossesById !== 'object') sh.lossesById = {};
     if (!Array.isArray(sh.pendingDiscoveryIds)) sh.pendingDiscoveryIds = [];
     if (!Array.isArray(sh.reactedLossIds)) sh.reactedLossIds = [];
@@ -538,13 +547,18 @@ function forceDiscoverWellRingStorehouseLoss(lossId, options) {
 
 function inspectWellRingStorehouseRuntime() {
     const sh = ensureWellRingStorehouse();
+    const procurement = typeof getInstitutionalProcurement === 'function'
+        ? getInstitutionalProcurement('well_ring_herb_external', { skipProcess: true })
+        : null;
     return {
         herbStock: sh.herbStock,
+        herbCapacity: sh.herbCapacity,
         pendingDiscoveryIds: (sh.pendingDiscoveryIds || []).slice(),
         reactedLossIds: (sh.reactedLossIds || []).slice(),
         lastInspectionMonths: sh.lastInspectionMonths,
         losses: listWellRingStorehouseLosses(),
-        pending: listPendingWellRingStorehouseDiscoveries()
+        pending: listPendingWellRingStorehouseDiscoveries(),
+        procurement
     };
 }
 
