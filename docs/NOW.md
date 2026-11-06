@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-06
 
 ## Focus
-- **Persistent world formations** — Well-Ring institutional Spirit Gathering · [`persistent-world-formations.md`](ideas/persistent-world-formations.md) · `cursor/persistent-world-formations`
+- **Formation inscription upkeep** — maintain Well-Ring court gather · [`formation-inscription-upkeep.md`](ideas/formation-inscription-upkeep.md) · `cursor/formation-inscription-upkeep`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

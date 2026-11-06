@@ -25,6 +25,36 @@ const WORLD_FORMATION_WELL_RING_GATHER_DEF = {
     originUnresolved: true
 };
 
+/**
+ * Inscription maintenance (ordinary upkeep of faded lines).
+ * Not structural repair — decayed/scattered installs need deeper work (later PR).
+ * Costs mirror personal-courtyard F1a maintain for early-game achievability.
+ */
+const WORLD_FORMATION_INSCRIPTION_MAINTAIN = {
+    /** Minimum integrity (inclusive) for ordinary inscription maintenance. Below = decayed/scattered. */
+    minIntegrityBandKey: 'fading',
+    stones: 4,
+    materials: { spirit_herb: 1 },
+    months: 1,
+    restore: 35
+};
+
+function getWorldFormationInscriptionMaintainConfig() {
+    const cfg = typeof getFormationF1aConfig === 'function' ? getFormationF1aConfig() : null;
+    const bandKey = WORLD_FORMATION_INSCRIPTION_MAINTAIN.minIntegrityBandKey || 'fading';
+    const minIntegrity = cfg?.bands?.[bandKey] ?? 35;
+    return {
+        minIntegrity,
+        stones: WORLD_FORMATION_INSCRIPTION_MAINTAIN.stones ?? cfg?.maintain?.stones ?? 4,
+        materials: WORLD_FORMATION_INSCRIPTION_MAINTAIN.materials
+            || cfg?.maintain?.materials
+            || { spirit_herb: 1 },
+        months: WORLD_FORMATION_INSCRIPTION_MAINTAIN.months ?? cfg?.maintain?.months ?? 1,
+        restore: WORLD_FORMATION_INSCRIPTION_MAINTAIN.restore ?? cfg?.maintain?.restore ?? 35,
+        integrityMax: cfg?.integrityMax ?? 100
+    };
+}
+
 let _ensuringWorldFormations = false;
 
 function ensureWorldFormationsState() {
@@ -288,6 +318,314 @@ function getWellRingLodgeFormationObservationLine() {
         return 'The court\'s gather formation still pulls a little, but the inscriptions look worn.';
     }
     return 'Faded gather lines cling to the meditation court — barely holding a thin draw.';
+}
+
+// ---------------------------------------------------------------------------
+// Inscription maintenance / institutional service permission (PR #213)
+// ---------------------------------------------------------------------------
+
+/**
+ * Centralised institutional service permission.
+ * Today: Well-Ring members may perform inscription_maintain on lodge installs.
+ * Extensible later for commissions / employment without rewriting action APIs.
+ *
+ * @returns {{ ok: boolean, reason: string|null, permissionKind: string|null }}
+ */
+function getWorldFormationServicePermission(installId, serviceKind) {
+    const inst = getWorldFormationInstallation(installId);
+    if (!inst) {
+        return { ok: false, reason: 'No formation installation here.', permissionKind: null };
+    }
+    const kind = serviceKind || 'inscription_maintain';
+    if (kind !== 'inscription_maintain') {
+        return { ok: false, reason: 'That service is not available yet.', permissionKind: null };
+    }
+
+    if (inst.ownerKind === 'institution' && inst.ownerId === 'well_ring_lodge') {
+        if (typeof isWellRingMember === 'function' && !isWellRingMember()) {
+            return {
+                ok: false,
+                reason: 'Only Well-Ring members may tend the lodge court formation.',
+                permissionKind: null
+            };
+        }
+        return { ok: true, reason: null, permissionKind: 'well_ring_member' };
+    }
+
+    return { ok: false, reason: 'You have no authority to tend this installation.', permissionKind: null };
+}
+
+/** Pattern familiarity for ordinary inscription work — deciphered diagram, not master rank. */
+function hasWorldFormationInscriptionFamiliarity(formationId) {
+    if (typeof isFormationDeciphered === 'function') {
+        return !!isFormationDeciphered(formationId);
+    }
+    if (typeof knowsFormation === 'function') return !!knowsFormation(formationId);
+    return !!(G.knownFormations || []).includes(formationId);
+}
+
+function isPlayerAtWorldFormationSite(inst) {
+    if (!inst?.locationId) return false;
+    if (typeof actionBlocked === 'function' && actionBlocked()) return false;
+    if (G.inCombat) return false;
+    const loc = typeof getCurrentLocationId === 'function'
+        ? getCurrentLocationId()
+        : (G.currentLocation || null);
+    return loc === inst.locationId;
+}
+
+function getWorldFormationConditionLabel(inst) {
+    if (!inst || inst.scattered || inst.integrity <= 0) return 'scattered';
+    const band = typeof getFormationIntegrityBand === 'function'
+        ? getFormationIntegrityBand(inst.integrity)
+        : 'sharp';
+    if (band === 'sharp') return 'healthy';
+    if (band === 'fading') return 'worn';
+    return 'severely_deteriorated';
+}
+
+/**
+ * Grounded inspect result — no raw integrity/fuel counters.
+ */
+function inspectWorldFormationInstallation(installId) {
+    ensureWorldFormationsState();
+    const id = installId || WORLD_FORMATION_INSTALL_WELL_RING_GATHER;
+    const inst = getWorldFormationInstallation(id);
+    if (!inst) {
+        return {
+            ok: false,
+            message: 'You find no formation to inspect.',
+            recognized: false,
+            operating: false,
+            condition: null,
+            canMaintain: false,
+            maintainBlock: 'No installation.',
+            needsStructuralRepair: false
+        };
+    }
+
+    const def = typeof getFormationDef === 'function' ? getFormationDef(inst.formationId) : null;
+    const recognized = hasWorldFormationInscriptionFamiliarity(inst.formationId);
+    const condition = getWorldFormationConditionLabel(inst);
+    const operating = isWorldFormationRunning(inst);
+    const maintainCfg = getWorldFormationInscriptionMaintainConfig();
+    const needsStructuralRepair = !!(inst.scattered || inst.integrity < maintainCfg.minIntegrity);
+    const maintainBlock = getWorldFormationInscriptionMaintainBlockReason(id);
+
+    let perception = getWellRingLodgeFormationObservationLine();
+    if (inst.id !== WORLD_FORMATION_INSTALL_WELL_RING_GATHER) {
+        perception = operating
+            ? 'Qi walks a laid pattern here.'
+            : 'A formation is laid, but it is not drawing.';
+    }
+
+    let knowledgeNote = '';
+    if (!recognized) {
+        knowledgeNote = 'You sense a formation needs attention, but the lines are opaque to you.';
+    } else if (needsStructuralRepair) {
+        knowledgeNote = `${def?.emoji || '☯️'} ${def?.name || 'Formation'} — the inscriptions are too far gone for ordinary maintenance. Structural repair is required.`;
+    } else if (condition === 'healthy' && inst.integrity >= maintainCfg.integrityMax) {
+        knowledgeNote = `${def?.emoji || '☯️'} ${def?.name || 'Formation'} — the lines are already sharp.`;
+    } else if (recognized) {
+        knowledgeNote = `${def?.emoji || '☯️'} ${def?.name || 'Formation'} — you could retrace the worn lines if permitted.`;
+    }
+
+    return {
+        ok: true,
+        installId: inst.id,
+        formationId: inst.formationId,
+        siteLabel: inst.siteLabel || null,
+        recognized,
+        name: recognized ? (def?.name || inst.formationId) : null,
+        emoji: recognized ? (def?.emoji || '☯️') : null,
+        operating,
+        condition,
+        perception,
+        knowledgeNote,
+        canMaintain: !maintainBlock,
+        maintainBlock,
+        needsStructuralRepair,
+        permission: getWorldFormationServicePermission(id, 'inscription_maintain')
+    };
+}
+
+function getWorldFormationInscriptionMaintainBlockReason(installId) {
+    if (typeof actionBlocked === 'function' && actionBlocked()) {
+        return 'You cannot tend formations right now.';
+    }
+    if (G.inCombat) return 'Cannot maintain a formation during combat.';
+    if (G.gameOver) return 'Your path has ended.';
+
+    const id = installId || WORLD_FORMATION_INSTALL_WELL_RING_GATHER;
+    const inst = getWorldFormationInstallation(id);
+    if (!inst) return 'No formation installation here.';
+
+    if (!isPlayerAtWorldFormationSite(inst)) {
+        return 'Travel to the formation\'s site before tending it.';
+    }
+
+    const perm = getWorldFormationServicePermission(id, 'inscription_maintain');
+    if (!perm.ok) return perm.reason;
+
+    if (!hasWorldFormationInscriptionFamiliarity(inst.formationId)) {
+        return 'You do not know this pattern well enough to retrace its inscriptions.';
+    }
+
+    const cfg = getWorldFormationInscriptionMaintainConfig();
+    if (inst.scattered || inst.integrity <= 0) {
+        return 'The pattern is scattered — ordinary maintenance cannot restore it. Structural repair is required.';
+    }
+    if (inst.integrity < cfg.minIntegrity) {
+        return 'The inscriptions are too badly deteriorated for ordinary maintenance. Structural repair is required.';
+    }
+    if (inst.integrity >= cfg.integrityMax) {
+        return 'The lines are already sharp — no inscription maintenance needed.';
+    }
+
+    if ((G.stones || 0) < (cfg.stones || 0)) {
+        return `Need ${cfg.stones} Spirit Stones for inscription chalk and focus.`;
+    }
+    if (cfg.materials && typeof getConstructionMaterialsBlock === 'function') {
+        const matBlock = getConstructionMaterialsBlock({ materials: cfg.materials });
+        if (matBlock) return matBlock;
+    } else if (cfg.materials) {
+        for (const [matId, qty] of Object.entries(cfg.materials)) {
+            const have = typeof getMaterialCount === 'function'
+                ? getMaterialCount(matId)
+                : (G.materials?.[matId] || 0);
+            if (have < qty) return `Need ${qty}× ${matId}.`;
+        }
+    }
+    return null;
+}
+
+/**
+ * Perform ordinary inscription maintenance on a world installation.
+ * Consumes materials/stones, advances time once, restores bounded integrity.
+ * Does not replace the authoritative install record. Cannot revive scattered/decayed.
+ */
+function maintainWorldFormationInscription(installId) {
+    const id = installId || WORLD_FORMATION_INSTALL_WELL_RING_GATHER;
+    const block = getWorldFormationInscriptionMaintainBlockReason(id);
+    if (block) return { success: false, message: block };
+
+    const instRef = getWorldFormationInstallation(id);
+    const def = typeof getFormationDef === 'function' ? getFormationDef(instRef.formationId) : null;
+    const cfg = getWorldFormationInscriptionMaintainConfig();
+    const months = cfg.months || 1;
+    const stones = cfg.stones || 0;
+    const materials = cfg.materials || {};
+
+    if (Object.keys(materials).length && typeof removeCraftMaterials === 'function') {
+        if (!removeCraftMaterials(materials)) {
+            return { success: false, message: 'Missing materials.' };
+        }
+    }
+    if (stones > 0) G.stones -= stones;
+
+    const label = `Maintaining ${def?.name || 'formation'} inscriptions`;
+    if (typeof advanceTime !== 'function' || !advanceTime(months, label)) {
+        if (Object.keys(materials).length && typeof addCraftMaterial === 'function') {
+            for (const [matId, qty] of Object.entries(materials)) addCraftMaterial(matId, qty);
+        }
+        if (stones > 0) G.stones += stones;
+        return { success: false, message: 'Your lifespan ends before the touch-up completes.' };
+    }
+
+    // Re-resolve after time advance (ticks may have decayed integrity during the month).
+    // Must be the same authoritative byId record — never a replaced copy.
+    const live = getWorldFormationInstallation(id);
+    if (!live || live !== instRef) {
+        return { success: false, message: 'The installation record changed unexpectedly during the work.' };
+    }
+    if (live.scattered || live.integrity < cfg.minIntegrity) {
+        return {
+            success: false,
+            message: 'While you worked, the pattern slipped beyond ordinary maintenance. Materials were spent.'
+        };
+    }
+
+    const before = live.integrity;
+    live.integrity = Math.min(cfg.integrityMax, live.integrity + (cfg.restore || 35));
+    live.scattered = false;
+    // Ambient installs stay as they were for active; do not force-on.
+    const band = typeof getFormationIntegrityBand === 'function'
+        ? getFormationIntegrityBand(live.integrity)
+        : 'sharp';
+    const bandLabel = typeof getFormationIntegrityLabel === 'function'
+        ? getFormationIntegrityLabel(band)
+        : band;
+
+    let fiNote = '';
+    if (typeof grantFormationInsight === 'function') {
+        const fiGain = (typeof getFormationF2bConfig === 'function'
+            ? getFormationF2bConfig().fi?.maintain
+            : null) ?? 3;
+        if (fiGain > 0) {
+            grantFormationInsight(fiGain);
+            fiNote = ` (+${fiGain} FI)`;
+        }
+    }
+
+    return {
+        success: true,
+        message: `${def?.emoji || '☯️'} ${def?.name || 'Formation'} inscriptions refreshed at the ${live.siteLabel || 'site'} (${bandLabel}).${fiNote}`,
+        before,
+        after: live.integrity,
+        installId: live.id
+    };
+}
+
+function renderWellRingFormationServiceHtml() {
+    const inspect = inspectWorldFormationInstallation(WORLD_FORMATION_INSTALL_WELL_RING_GATHER);
+    if (!inspect.ok) return '';
+
+    const cfg = getWorldFormationInscriptionMaintainConfig();
+    const costBits = [];
+    if (cfg.months) costBits.push(`${cfg.months} mo`);
+    if (cfg.stones) costBits.push(`${cfg.stones}💎`);
+    if (cfg.materials) {
+        Object.entries(cfg.materials).forEach(([matId, qty]) => {
+            const mat = typeof CRAFT_MATERIALS !== 'undefined' ? CRAFT_MATERIALS[matId] : null;
+            costBits.push(`${qty}× ${mat?.name || matId}`);
+        });
+    }
+    const costHint = costBits.join(' · ');
+
+    let condLabel = 'unknown';
+    if (inspect.condition === 'healthy') condLabel = 'healthy';
+    else if (inspect.condition === 'worn') condLabel = 'worn';
+    else if (inspect.condition === 'severely_deteriorated') condLabel = 'severely deteriorated';
+    else if (inspect.condition === 'scattered') condLabel = 'scattered';
+
+    let html = `<div class="tech-group-header" style="margin-top:10px;">☯️ Meditation court formation</div>`;
+    html += `<div class="desc" style="margin-bottom:6px;color:#a09080;">${inspect.perception}</div>`;
+    if (inspect.knowledgeNote) {
+        html += `<div class="desc" style="margin-bottom:6px;">${inspect.knowledgeNote}</div>`;
+    }
+    if (inspect.recognized) {
+        html += `<div class="desc" style="margin-bottom:8px;">Condition: <b>${condLabel}</b> · ${inspect.operating ? 'Operating' : 'Not drawing'}</div>`;
+    } else {
+        html += `<div class="desc" style="margin-bottom:8px;">Condition: <b>${condLabel}</b> (pattern unclear to you)</div>`;
+    }
+
+    const block = inspect.maintainBlock;
+    const can = inspect.canMaintain;
+    html += `<div class="popup-item${can ? ' can-buy' : ''}" id="wellRingFormationMaintainBtn" style="${can ? 'cursor:pointer;' : 'opacity:0.65;'}">
+        <div class="name">🖌️ Maintain inscriptions</div>
+        <div class="desc">${can
+            ? `Retrace worn lines · ${costHint}`
+            : (block || 'Cannot maintain')}</div>
+    </div>`;
+    return html;
+}
+
+function actionWellRingFormationMaintain() {
+    if (G.gameOver || G.inCombat) return;
+    const res = maintainWorldFormationInscription(WORLD_FORMATION_INSTALL_WELL_RING_GATHER);
+    if (typeof addLog === 'function') addLog(res.success ? `☯️ ${res.message}` : `🔒 ${res.message}`);
+    if (typeof fullRender === 'function') fullRender();
+    if (typeof openWellRingPopup === 'function') openWellRingPopup();
 }
 
 /**
