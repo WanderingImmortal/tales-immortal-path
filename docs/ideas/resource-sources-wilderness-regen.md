@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` |
+| **Status** | `shipped` |
 | **Blocked on** | none for Dewcatch / Wei slice |
 | **Issue** | none yet |
-| **Chat / PR** | PR #209 · `cursor/resource-sources-regen` |
+| **Chat / PR** | [PR #209](https://github.com/WanderingImmortal/tales-immortal-path/pull/209) |
 | **Updated** | 2026-11-06 |
 
 ## Intent

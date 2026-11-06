@@ -33,6 +33,12 @@ const ABSTRACT_RESOURCE_REWARDS = Object.freeze({
         type: RESOURCE_SOURCE_TYPES.ABSTRACT_REWARD,
         resourceId: 'spirit_herb',
         note: 'Sect garden pendingHerbs retains its own implementation.'
+    },
+    lodge_external_herb_supply: {
+        id: 'lodge_external_herb_supply',
+        type: RESOURCE_SOURCE_TYPES.ABSTRACT_REWARD,
+        resourceId: 'spirit_herb',
+        note: 'Well-Ring storehouse resupply channel — abstract external procurement, not a field deposit.'
     }
 });
 
@@ -60,6 +66,46 @@ const RESOURCE_SOURCE_DEFS = Object.freeze({
 });
 
 const RESOURCE_SOURCE_ACQUISITION_RETENTION = 80;
+
+/**
+ * Institutional procurement channels (PR #210).
+ * Separates physical sources from abstract external supply and institutional inventory.
+ * Extension points (not implemented): garden, mine, merchant, tribute, market.
+ */
+const PROCUREMENT_CHANNEL_TYPES = Object.freeze({
+    ABSTRACT_EXTERNAL_SUPPLY: 'abstract_external_supply',
+    PHYSICAL_SOURCE: 'physical_source',
+    CONTROLLED_GARDEN: 'controlled_garden',
+    CONTROLLED_MINE: 'controlled_mine',
+    MERCHANT: 'merchant',
+    TRIBUTE: 'tribute',
+    MARKET: 'market'
+});
+
+/**
+ * Authored institutional procurement schedules.
+ * Provisional Well-Ring numbers: recover eventually, but theft leaves a real gap.
+ */
+const INSTITUTIONAL_PROCUREMENT_DEFS = Object.freeze({
+    well_ring_herb_external: {
+        id: 'well_ring_herb_external',
+        institutionId: 'well_ring_lodge',
+        resourceId: 'spirit_herb',
+        channelType: PROCUREMENT_CHANNEL_TYPES.ABSTRACT_EXTERNAL_SUPPLY,
+        // Not Dewcatch — lodge resupply is an abstract external channel for now.
+        physicalSourceId: null,
+        destinationKind: 'well_ring_storehouse_herbs',
+        destinationId: 'well_ring_storehouse',
+        intervalMonths: 4,
+        maxPerDelivery: 3,
+        destinationCapacity: 24,
+        // Optional cost reserved for future institutional budgets — unused here.
+        cost: null,
+        notes: 'Provisional Redwell market/tribute deliveries into the Well-Ring herb storehouse.'
+    }
+});
+
+const INSTITUTIONAL_PROCUREMENT_HISTORY_RETENTION = 40;
 
 function cloneResourceSourceRecord(obj) {
     return obj == null ? null : JSON.parse(JSON.stringify(obj));
@@ -189,6 +235,323 @@ function ensureAllAuthoredResourceSources(options) {
 
 function migrateResourceSourcesForExistingSave() {
     ensureAllAuthoredResourceSources();
+    ensureAllInstitutionalProcurement();
+}
+
+// ---------------------------------------------------------------------------
+// Institutional procurement (bounded deliveries into institutional inventories)
+// ---------------------------------------------------------------------------
+
+function ensureWorldResourceProcurementRoot() {
+    if (typeof G === 'undefined') return null;
+    if (!G.world || typeof G.world !== 'object') G.world = {};
+    if (!G.world.resourceProcurement || typeof G.world.resourceProcurement !== 'object') {
+        G.world.resourceProcurement = {
+            version: RESOURCE_SOURCE_VERSION,
+            byId: {},
+            history: []
+        };
+    }
+    const root = G.world.resourceProcurement;
+    if (root.version == null) root.version = RESOURCE_SOURCE_VERSION;
+    if (!root.byId || typeof root.byId !== 'object') root.byId = {};
+    if (!Array.isArray(root.history)) root.history = [];
+    return root;
+}
+
+function getInstitutionalProcurementDef(procurementId) {
+    return INSTITUTIONAL_PROCUREMENT_DEFS[procurementId] || null;
+}
+
+function ensureInstitutionalProcurement(procurementId, options) {
+    options = options || {};
+    const root = ensureWorldResourceProcurementRoot();
+    if (!root) return null;
+    const def = getInstitutionalProcurementDef(procurementId);
+    if (!def) return root.byId[procurementId] || null;
+
+    let live = root.byId[procurementId];
+    if (!live || typeof live !== 'object') {
+        const now = resourceSourceNowMonths();
+        live = {
+            id: def.id,
+            institutionId: def.institutionId,
+            resourceId: def.resourceId,
+            channelType: def.channelType,
+            physicalSourceId: def.physicalSourceId || null,
+            destinationKind: def.destinationKind,
+            destinationId: def.destinationId || null,
+            intervalMonths: def.intervalMonths,
+            maxPerDelivery: def.maxPerDelivery,
+            destinationCapacity: def.destinationCapacity,
+            cost: def.cost != null ? def.cost : null,
+            lastProcessedMonths: now,
+            notes: def.notes || null
+        };
+        root.byId[procurementId] = live;
+    } else {
+        if (live.institutionId == null) live.institutionId = def.institutionId;
+        if (live.resourceId == null) live.resourceId = def.resourceId;
+        if (live.channelType == null) live.channelType = def.channelType;
+        if (live.destinationKind == null) live.destinationKind = def.destinationKind;
+        if (live.destinationId == null) live.destinationId = def.destinationId || null;
+        if (live.intervalMonths == null) live.intervalMonths = def.intervalMonths;
+        if (live.maxPerDelivery == null) live.maxPerDelivery = def.maxPerDelivery;
+        if (live.destinationCapacity == null) live.destinationCapacity = def.destinationCapacity;
+        if (live.physicalSourceId === undefined) live.physicalSourceId = def.physicalSourceId || null;
+        if (live.cost === undefined) live.cost = def.cost != null ? def.cost : null;
+        if (live.lastProcessedMonths == null) live.lastProcessedMonths = resourceSourceNowMonths();
+    }
+
+    if (!options.skipProcess) processInstitutionalProcurement(live, options.nowMonths);
+    return live;
+}
+
+function ensureAllInstitutionalProcurement(options) {
+    const root = ensureWorldResourceProcurementRoot();
+    if (!root) return null;
+    Object.keys(INSTITUTIONAL_PROCUREMENT_DEFS).forEach(id => ensureInstitutionalProcurement(id, options));
+    return root;
+}
+
+function getInstitutionalProcurement(procurementId, options) {
+    const live = ensureInstitutionalProcurement(procurementId, Object.assign({ skipProcess: true }, options || {}));
+    return cloneResourceSourceRecord(live);
+}
+
+function listInstitutionalProcurement(options) {
+    options = options || {};
+    ensureAllInstitutionalProcurement(Object.assign({ skipProcess: true }, options));
+    const root = ensureWorldResourceProcurementRoot();
+    if (!root) return [];
+    return Object.values(root.byId)
+        .filter(p => {
+            if (!p) return false;
+            if (options.institutionId && p.institutionId !== options.institutionId) return false;
+            if (options.resourceId && p.resourceId !== options.resourceId) return false;
+            return true;
+        })
+        .map(cloneResourceSourceRecord);
+}
+
+function readInstitutionalDestinationStock(proc) {
+    if (!proc) return { stock: 0, capacity: 0, ok: false, reason: 'no_proc' };
+    const capacity = Math.max(0, Math.floor(Number(proc.destinationCapacity) || 0));
+    if (proc.destinationKind === 'well_ring_storehouse_herbs') {
+        if (typeof ensureWellRingStorehouse !== 'function') {
+            return { stock: 0, capacity, ok: false, reason: 'no_storehouse' };
+        }
+        const sh = ensureWellRingStorehouse();
+        if (sh.herbCapacity == null) sh.herbCapacity = capacity;
+        const stock = Math.max(0, Math.floor(Number(sh.herbStock) || 0));
+        const cap = sh.herbCapacity != null ? Math.max(0, Math.floor(Number(sh.herbCapacity))) : capacity;
+        return { stock, capacity: cap, ok: true, storehouse: sh };
+    }
+    return { stock: 0, capacity, ok: false, reason: 'unknown_destination' };
+}
+
+/**
+ * Credit institutional inventory only — never invents a wilderness deposit.
+ * Abstract external supply creates stock at the institution; physical_source would debit a source (future).
+ */
+function creditInstitutionalProcurementDestination(proc, amount) {
+    const qty = Math.max(0, Math.floor(Number(amount) || 0));
+    if (qty <= 0) return { ok: true, credited: 0, reason: 'zero_amount' };
+    const dest = readInstitutionalDestinationStock(proc);
+    if (!dest.ok) return { ok: false, reason: dest.reason || 'destination_unavailable' };
+    const room = Math.max(0, dest.capacity - dest.stock);
+    const add = Math.min(qty, room);
+    if (add <= 0) {
+        return {
+            ok: true,
+            credited: 0,
+            reason: 'capacity_full',
+            stockBefore: dest.stock,
+            stockAfter: dest.stock,
+            capacity: dest.capacity
+        };
+    }
+    if (proc.destinationKind === 'well_ring_storehouse_herbs') {
+        dest.storehouse.herbStock = dest.stock + add;
+        return {
+            ok: true,
+            credited: add,
+            stockBefore: dest.stock,
+            stockAfter: dest.storehouse.herbStock,
+            capacity: dest.capacity
+        };
+    }
+    return { ok: false, reason: 'unknown_destination' };
+}
+
+function recordInstitutionalProcurementEvent(entry) {
+    const root = ensureWorldResourceProcurementRoot();
+    if (!root || !entry) return;
+    root.history.push({
+        id: entry.id || `proc_${resourceSourceNowMonths()}_${root.history.length + 1}`,
+        procurementId: entry.procurementId || null,
+        institutionId: entry.institutionId || null,
+        resourceId: entry.resourceId || null,
+        channelType: entry.channelType || null,
+        amount: entry.amount || 0,
+        reason: entry.reason || 'scheduled',
+        atMonths: entry.atMonths != null ? entry.atMonths : resourceSourceNowMonths(),
+        stockBefore: entry.stockBefore != null ? entry.stockBefore : null,
+        stockAfter: entry.stockAfter != null ? entry.stockAfter : null,
+        deliveryKey: entry.deliveryKey || null
+    });
+    while (root.history.length > INSTITUTIONAL_PROCUREMENT_HISTORY_RETENTION) {
+        root.history.shift();
+    }
+}
+
+function hasInstitutionalProcurementDelivery(deliveryKey) {
+    const root = ensureWorldResourceProcurementRoot();
+    if (!root || !deliveryKey) return false;
+    return (root.history || []).some(h => h && h.deliveryKey === deliveryKey);
+}
+
+function listInstitutionalProcurementHistory(options) {
+    options = options || {};
+    const root = ensureWorldResourceProcurementRoot();
+    if (!root) return [];
+    return (root.history || [])
+        .filter(h => {
+            if (!h) return false;
+            if (options.procurementId && h.procurementId !== options.procurementId) return false;
+            if (options.institutionId && h.institutionId !== options.institutionId) return false;
+            if (options.onlyDeliveries && !(h.amount > 0)) return false;
+            return true;
+        })
+        .map(cloneResourceSourceRecord);
+}
+
+/**
+ * Advance one procurement schedule to nowMonths.
+ * Partial intervals preserved; same-time re-entry is a no-op; large skips match stepped periods.
+ */
+function processInstitutionalProcurement(proc, nowMonths) {
+    if (!proc || !proc.id) return { ok: false, reason: 'no_proc' };
+    const now = Math.floor(nowMonths != null ? nowMonths : resourceSourceNowMonths());
+    const interval = Math.max(1, Math.floor(Number(proc.intervalMonths) || 1));
+    const maxPer = Math.max(0, Math.floor(Number(proc.maxPerDelivery) || 0));
+    let last = proc.lastProcessedMonths;
+    if (last == null || !Number.isFinite(last)) {
+        proc.lastProcessedMonths = now;
+        return { ok: true, delivered: 0, initialized: true };
+    }
+    last = Math.floor(last);
+    if (now <= last) return { ok: true, delivered: 0, reason: 'same_time' };
+    const elapsed = now - last;
+    const periods = Math.floor(elapsed / interval);
+    if (periods <= 0) return { ok: true, delivered: 0, reason: 'partial_interval' };
+
+    let totalDelivered = 0;
+    const events = [];
+    for (let i = 0; i < periods; i++) {
+        const at = last + (i + 1) * interval;
+        const deliveryKey = `procure:${proc.id}:${at}`;
+        if (hasInstitutionalProcurementDelivery(deliveryKey)) {
+            events.push({ atMonths: at, amount: 0, reason: 'duplicate_delivery', deliveryKey });
+            continue;
+        }
+
+        // Future physical_source channels would debit here; abstract external does not.
+        if (proc.channelType === PROCUREMENT_CHANNEL_TYPES.PHYSICAL_SOURCE && proc.physicalSourceId) {
+            events.push({ atMonths: at, amount: 0, reason: 'physical_source_unimplemented', deliveryKey });
+            recordInstitutionalProcurementEvent({
+                procurementId: proc.id,
+                institutionId: proc.institutionId,
+                resourceId: proc.resourceId,
+                channelType: proc.channelType,
+                amount: 0,
+                reason: 'physical_source_unimplemented',
+                atMonths: at,
+                deliveryKey
+            });
+            continue;
+        }
+
+        const destBefore = readInstitutionalDestinationStock(proc);
+        const room = destBefore.ok ? Math.max(0, destBefore.capacity - destBefore.stock) : 0;
+        const want = Math.min(maxPer, room);
+        if (want <= 0) {
+            recordInstitutionalProcurementEvent({
+                procurementId: proc.id,
+                institutionId: proc.institutionId,
+                resourceId: proc.resourceId,
+                channelType: proc.channelType,
+                amount: 0,
+                reason: 'capacity_full',
+                atMonths: at,
+                stockBefore: destBefore.stock,
+                stockAfter: destBefore.stock,
+                deliveryKey
+            });
+            events.push({ atMonths: at, amount: 0, reason: 'capacity_full' });
+            continue;
+        }
+
+        const credit = creditInstitutionalProcurementDestination(proc, want);
+        if (!credit.ok) {
+            recordInstitutionalProcurementEvent({
+                procurementId: proc.id,
+                institutionId: proc.institutionId,
+                resourceId: proc.resourceId,
+                channelType: proc.channelType,
+                amount: 0,
+                reason: credit.reason || 'credit_failed',
+                atMonths: at,
+                deliveryKey
+            });
+            events.push({ atMonths: at, amount: 0, reason: credit.reason || 'credit_failed' });
+            continue;
+        }
+
+        const credited = credit.credited || 0;
+        totalDelivered += credited;
+        const reason = credited > 0
+            ? (credited < maxPer ? 'scheduled_capacity_limited' : 'scheduled')
+            : 'capacity_full';
+        recordInstitutionalProcurementEvent({
+            procurementId: proc.id,
+            institutionId: proc.institutionId,
+            resourceId: proc.resourceId,
+            channelType: proc.channelType,
+            amount: credited,
+            reason,
+            atMonths: at,
+            stockBefore: credit.stockBefore,
+            stockAfter: credit.stockAfter,
+            deliveryKey
+        });
+        events.push({ atMonths: at, amount: credited, reason, stockAfter: credit.stockAfter });
+    }
+
+    proc.lastProcessedMonths = last + periods * interval;
+    return { ok: true, delivered: totalDelivered, periods, events };
+}
+
+function tickInstitutionalProcurement(/* deltaMonths */) {
+    ensureAllInstitutionalProcurement({ nowMonths: resourceSourceNowMonths() });
+    return { ok: true };
+}
+
+function inspectInstitutionalProcurementRuntime() {
+    ensureAllInstitutionalProcurement({ skipProcess: true });
+    return {
+        schedules: listInstitutionalProcurement(),
+        history: listInstitutionalProcurementHistory(),
+        channelTypes: Object.keys(PROCUREMENT_CHANNEL_TYPES)
+    };
+}
+
+/** Test/developer: set procurement cursor without delivering. */
+function debugSetInstitutionalProcurementCursor(procurementId, lastProcessedMonths) {
+    const live = ensureInstitutionalProcurement(procurementId, { skipProcess: true });
+    if (!live) return { ok: false, reason: 'unknown_procurement' };
+    live.lastProcessedMonths = Math.floor(Number(lastProcessedMonths) || 0);
+    return { ok: true, lastProcessedMonths: live.lastProcessedMonths };
 }
 
 function getResourceSource(sourceId, options) {
@@ -479,4 +842,7 @@ if (typeof registerWorldTick === 'function') {
     registerWorldTick('resourceSources', (delta) => {
         tickResourceSources(delta);
     }, 43);
+    registerWorldTick('institutionalProcurement', (delta) => {
+        tickInstitutionalProcurement(delta);
+    }, 42);
 }
