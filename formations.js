@@ -2,7 +2,14 @@
 // FORMATIONS.JS — Residence formations (F1a + F1b)
 // F1a: fuel + activation + integrity
 // F1b: shelf + decipher + master tier stub 0–2
+// Independent personal-dwelling installs (owned courtyard) without founding a sect.
 // ============================================
+
+/** Site ids for install permission / slot containers. Extensible — do not hard-code ownership as the only future path. */
+const FORMATION_SITE = {
+    PERSONAL_DWELLING: 'personal_dwelling',
+    SECT_RESIDENCE: 'sect_residence'
+};
 
 function getFormationF1aConfig() {
     return typeof FORMATION_F1A !== 'undefined' ? FORMATION_F1A : {
@@ -61,9 +68,367 @@ function ensureFormationState() {
         migrateKnownFormationsToShelf();
         ensureResidenceFormationSlots();
         ensureAllSectFormationAnchors();
+        ensurePersonalDwellingFormationState();
     } finally {
         _ensuringFormationState = false;
     }
+}
+
+/**
+ * Normalize personal-dwelling formation container and reconcile site validity.
+ * Ownership is today's install permission — not an inherent formation rule.
+ */
+function ensurePersonalDwellingFormationState() {
+    if (!G.dwelling || typeof G.dwelling !== 'object') return;
+    if (!G.dwelling.formations || typeof G.dwelling.formations !== 'object') {
+        G.dwelling.formations = { slots: [], siteSettlementId: null };
+    }
+    if (!Array.isArray(G.dwelling.formations.slots)) G.dwelling.formations.slots = [];
+    if (G.dwelling.formations.siteSettlementId === undefined) {
+        G.dwelling.formations.siteSettlementId = null;
+    }
+    reconcilePersonalDwellingFormationSite();
+    ensurePersonalDwellingFormationSlots();
+}
+
+/**
+ * Clear dwelling installs when ownership/site is invalid so they cannot
+ * silently duplicate, teleport, or stay active after loss of placement rights.
+ * @returns {{ cleared: boolean, reason: string|null }}
+ */
+function reconcilePersonalDwellingFormationSite() {
+    if (!G.dwelling || typeof G.dwelling !== 'object') {
+        return { cleared: false, reason: null };
+    }
+    if (!G.dwelling.formations || typeof G.dwelling.formations !== 'object') {
+        return { cleared: false, reason: null };
+    }
+    const form = G.dwelling.formations;
+    if (!Array.isArray(form.slots)) form.slots = [];
+    const hadLaid = form.slots.some(s => !!s);
+    const mode = G.dwelling.mode || 'homeless';
+    const settlementId = G.dwelling.settlementId || null;
+
+    // Current permission kind: owned dwelling. Future: rental / sect lodging / commission.
+    if (mode !== 'owned' || !settlementId) {
+        if (hadLaid || form.siteSettlementId) {
+            form.slots = [];
+            form.siteSettlementId = null;
+            return { cleared: true, reason: mode !== 'owned' ? 'ownership_lost' : 'site_missing' };
+        }
+        form.siteSettlementId = null;
+        return { cleared: false, reason: null };
+    }
+
+    if (form.siteSettlementId && form.siteSettlementId !== settlementId) {
+        form.slots = [];
+        form.siteSettlementId = settlementId;
+        return { cleared: true, reason: 'site_relocated' };
+    }
+
+    if (!form.siteSettlementId) form.siteSettlementId = settlementId;
+    return { cleared: false, reason: null };
+}
+
+/**
+ * Extensible install-permission probe for a formation site.
+ * Returns { ok, reason, permissionKind }. Future kinds plug in here
+ * (rental, sect accommodation, commissioned install) without rewriting lay APIs.
+ */
+function getFormationSiteInstallPermission(siteId) {
+    if (siteId === FORMATION_SITE.PERSONAL_DWELLING || siteId === 'personal_dwelling') {
+        if (typeof ensureQcDepthState === 'function') ensureQcDepthState();
+        ensurePersonalDwellingFormationState();
+        const mode = G.dwelling?.mode || 'homeless';
+        if (mode !== 'owned') {
+            return {
+                ok: false,
+                reason: 'You need a courtyard you may permanently inscribe (owned dwelling today).',
+                permissionKind: null
+            };
+        }
+        if (!G.dwelling?.settlementId) {
+            return { ok: false, reason: 'No dwelling site to inscribe.', permissionKind: null };
+        }
+        if (typeof isAtDwellingSettlement === 'function' && !isAtDwellingSettlement()) {
+            return {
+                ok: false,
+                reason: 'Travel to your dwelling settlement before inscribing formations.',
+                permissionKind: 'owned_dwelling'
+            };
+        }
+        return { ok: true, reason: null, permissionKind: 'owned_dwelling' };
+    }
+    if (siteId === FORMATION_SITE.SECT_RESIDENCE || siteId === 'sect_residence' || siteId === 'residence') {
+        if (typeof isSectFounded === 'function' && !isSectFounded()) {
+            return { ok: false, reason: 'Found a sect first.', permissionKind: null };
+        }
+        return { ok: true, reason: null, permissionKind: 'sect_leader_residence' };
+    }
+    return { ok: false, reason: 'Unknown formation site.', permissionKind: null };
+}
+
+function getPersonalDwellingFormationSlotCount() {
+    if ((G.dwelling?.mode || 'homeless') !== 'owned') return 0;
+    return 1;
+}
+
+function ensurePersonalDwellingFormationSlots() {
+    if (!G.dwelling?.formations) return;
+    const max = getPersonalDwellingFormationSlotCount();
+    const slots = G.dwelling.formations.slots;
+    while (slots.length < max) slots.push(null);
+    while (slots.length > max) slots.pop();
+    const known = G.knownFormations || [];
+    for (let i = 0; i < slots.length; i++) {
+        const normalized = normalizeResidenceFormationSlot(slots[i]);
+        if (normalized && !known.includes(normalized.id)) slots[i] = null;
+        else if (normalized && !formationCanLayAt(getFormationDef(normalized.id), 'residence')) slots[i] = null;
+        else slots[i] = normalized;
+    }
+}
+
+function getPersonalDwellingFormationSlot(slotIndex) {
+    ensurePersonalDwellingFormationSlots();
+    return G.dwelling?.formations?.slots?.[slotIndex] || null;
+}
+
+function getPersonalDwellingFormationEffects() {
+    ensurePersonalDwellingFormationState();
+    const fx = { cultivatePct: 0, foundationPerCultivate: 0, labels: [] };
+    // Local-hub rule: personal courtyard patterns only bless while you are there.
+    if (typeof isAtDwellingSettlement === 'function' && !isAtDwellingSettlement()) return fx;
+    if ((G.dwelling?.mode || 'homeless') !== 'owned') return fx;
+    (G.dwelling.formations?.slots || []).forEach(slot => {
+        if (!slot) return;
+        const mult = getFormationEffectMultForSlot(slot);
+        if (mult <= 0) return;
+        const def = getFormationDef(slot.id);
+        if (!def?.effects) return;
+        if (def.effects.cultivatePct) fx.cultivatePct += def.effects.cultivatePct * mult;
+        if (def.effects.foundationPerCultivate) {
+            fx.foundationPerCultivate += def.effects.foundationPerCultivate * mult;
+        }
+        const band = getFormationIntegrityBand(slot.integrity);
+        const bandNote = band === 'sharp' ? '' : ` (${getFormationIntegrityLabel(band)})`;
+        fx.labels.push(`${def.emoji} ${def.name}${bandNote}`);
+    });
+    fx.cultivatePct = Math.round(fx.cultivatePct * 10) / 10;
+    fx.foundationPerCultivate = Math.round(fx.foundationPerCultivate * 10) / 10;
+    return fx;
+}
+
+function getLayPersonalDwellingFormationBlockReason(slotIndex, formationId) {
+    ensureFormationState();
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot inscribe a formation right now.';
+    const perm = getFormationSiteInstallPermission(FORMATION_SITE.PERSONAL_DWELLING);
+    if (!perm.ok) return perm.reason;
+    const def = getFormationDef(formationId);
+    if (!def) return 'Unknown formation.';
+    if (def.implemented === false) return `${def.name} is not yet available.`;
+    if (!formationCanLayAt(def, 'residence')) return 'This formation cannot be laid at a personal courtyard.';
+    if (!knowsFormation(formationId)) {
+        if (!isFormationDeciphered(formationId)) {
+            if (getFormationShelfEntry(formationId)) {
+                return `Decipher ${def.name} on your formation shelf first.`;
+            }
+            return `You have no manual for ${def.name}.`;
+        }
+        const need = def.formationTier || 1;
+        return `Requires Formation Master tier ${need} (${getFormationMasterTitle(need)}) to lay.`;
+    }
+    const maxSlots = getPersonalDwellingFormationSlotCount();
+    if (slotIndex < 0 || slotIndex >= maxSlots) return 'Invalid formation slot.';
+    const cost = def.layCost;
+    if (!cost) return 'Cannot inscribe this formation.';
+    if (typeof getConstructionMaterialsBlock === 'function') {
+        const matBlock = getConstructionMaterialsBlock(cost);
+        if (matBlock) return matBlock;
+    }
+    return null;
+}
+
+function layPersonalDwellingFormation(slotIndex, formationId) {
+    const block = getLayPersonalDwellingFormationBlockReason(slotIndex, formationId);
+    if (block) return { success: false, message: block };
+    const def = getFormationDef(formationId);
+    const cost = def.layCost;
+    const months = cost.months || 2;
+    const label = `Inscribing ${def.name}`;
+    if (cost.materials && typeof removeCraftMaterials === 'function' && !removeCraftMaterials(cost.materials)) {
+        return { success: false, message: 'Missing materials.' };
+    }
+    if (!advanceTime(months, label)) {
+        if (cost.materials && typeof addCraftMaterial === 'function') {
+            for (const [matId, qty] of Object.entries(cost.materials)) {
+                addCraftMaterial(matId, qty);
+            }
+        }
+        return { success: false, message: 'Your lifespan ends before the inscription completes.' };
+    }
+    ensurePersonalDwellingFormationSlots();
+    const prev = G.dwelling.formations.slots[slotIndex];
+    const prevId = getResidenceFormationSlotId(prev);
+    G.dwelling.formations.siteSettlementId = G.dwelling.settlementId;
+    G.dwelling.formations.slots[slotIndex] = createResidenceFormationSlotState(formationId, {
+        active: true,
+        fuel: getFormationLayFuel(def)
+    });
+    const replaceNote = prevId && prevId !== formationId
+        ? ` Replaced ${getFormationDef(prevId)?.name || 'previous pattern'}.`
+        : '';
+    const fiGain = getFormationF2bConfig().fi?.lay ?? 8;
+    grantFormationInsight(fiGain);
+    return {
+        success: true,
+        message: `${def.emoji} ${def.name} inscribed at your courtyard — fueled and active.${replaceNote} (+${fiGain} FI)`
+    };
+}
+
+function clearPersonalDwellingFormationSlot(slotIndex) {
+    ensureFormationState();
+    const maxSlots = getPersonalDwellingFormationSlotCount();
+    if (slotIndex < 0 || slotIndex >= maxSlots) {
+        return { success: false, message: 'Invalid formation slot.' };
+    }
+    const prev = getPersonalDwellingFormationSlot(slotIndex);
+    if (!prev) return { success: false, message: 'Slot is already empty.' };
+    const prevId = getResidenceFormationSlotId(prev);
+    G.dwelling.formations.slots[slotIndex] = null;
+    const def = getFormationDef(prevId);
+    return { success: true, message: `${def?.emoji || '☯️'} Formation cleared from courtyard slot ${slotIndex + 1}.` };
+}
+
+function setPersonalDwellingFormationActive(slotIndex, active) {
+    ensureFormationState();
+    const slot = getPersonalDwellingFormationSlot(slotIndex);
+    if (!slot) return { success: false, message: 'Empty slot.' };
+    if (slot.scattered || slot.integrity <= 0) {
+        return { success: false, message: 'Pattern is scattered — clear and reinscribe.' };
+    }
+    const def = getFormationDef(slot.id);
+    if (active) {
+        if (slot.fuel <= 0) {
+            return { success: false, message: `${def?.name || 'Formation'} has no fuel. Add spirit stones first.` };
+        }
+        slot.active = true;
+        return { success: true, message: `${def?.emoji || '☯️'} ${def?.name || 'Formation'} activated.` };
+    }
+    slot.active = false;
+    return { success: true, message: `${def?.emoji || '☯️'} ${def?.name || 'Formation'} shut down — standing ready.` };
+}
+
+function togglePersonalDwellingFormationActive(slotIndex) {
+    const slot = getPersonalDwellingFormationSlot(slotIndex);
+    if (!slot) return { success: false, message: 'Empty slot.' };
+    return setPersonalDwellingFormationActive(slotIndex, !slot.active);
+}
+
+function getAddPersonalDwellingFormationFuelBlockReason(slotIndex, fuelUnits) {
+    ensureFormationState();
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot tend formations right now.';
+    const perm = getFormationSiteInstallPermission(FORMATION_SITE.PERSONAL_DWELLING);
+    if (!perm.ok) return perm.reason;
+    const slot = getPersonalDwellingFormationSlot(slotIndex);
+    if (!slot) return 'Empty slot.';
+    if (slot.scattered || slot.integrity <= 0) return 'Pattern is scattered — clear and reinscribe.';
+    const units = Math.max(0, Math.floor(Number(fuelUnits) || 0));
+    if (units <= 0) return 'Choose how much fuel to add.';
+    const def = getFormationDef(slot.id);
+    const capacity = getFormationFuelCapacity(def);
+    if (slot.fuel >= capacity) return 'Fuel stock is already full.';
+    const cfg = getFormationF1aConfig();
+    const room = capacity - slot.fuel;
+    const add = Math.min(units, room);
+    const cost = add * (cfg.stonePerFuel || 1);
+    if ((G.stones || 0) < cost) return `Need ${cost} Spirit Stones (have ${G.stones || 0}).`;
+    return null;
+}
+
+function addPersonalDwellingFormationFuel(slotIndex, fuelUnits) {
+    const block = getAddPersonalDwellingFormationFuelBlockReason(slotIndex, fuelUnits);
+    if (block) return { success: false, message: block };
+    const slot = getPersonalDwellingFormationSlot(slotIndex);
+    const def = getFormationDef(slot.id);
+    const cfg = getFormationF1aConfig();
+    const capacity = getFormationFuelCapacity(def);
+    const room = capacity - slot.fuel;
+    const add = Math.min(Math.floor(fuelUnits), room);
+    const cost = add * (cfg.stonePerFuel || 1);
+    G.stones -= cost;
+    slot.fuel += add;
+    return {
+        success: true,
+        message: `Fed ${def.emoji} ${def.name} with ${cost}💎 (+${add} mo fuel). Stock ${slot.fuel}/${capacity}.`
+    };
+}
+
+function getMaintainPersonalDwellingFormationBlockReason(slotIndex) {
+    ensureFormationState();
+    if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot tend formations right now.';
+    const perm = getFormationSiteInstallPermission(FORMATION_SITE.PERSONAL_DWELLING);
+    if (!perm.ok) return perm.reason;
+    const slot = getPersonalDwellingFormationSlot(slotIndex);
+    if (!slot) return 'Empty slot.';
+    if (slot.scattered || slot.integrity <= 0) {
+        return 'Pattern is scattered — clear and reinscribe.';
+    }
+    const cfg = getFormationF1aConfig();
+    if (slot.integrity >= cfg.integrityMax) return 'Lines are already sharp — no maintain needed.';
+    const cost = cfg.maintain || {};
+    if ((G.stones || 0) < (cost.stones || 0)) {
+        return `Need ${cost.stones} Spirit Stones to touch up the pattern.`;
+    }
+    if (cost.materials && typeof getConstructionMaterialsBlock === 'function') {
+        const matBlock = getConstructionMaterialsBlock({ materials: cost.materials });
+        if (matBlock) return matBlock;
+    }
+    return null;
+}
+
+function maintainPersonalDwellingFormation(slotIndex) {
+    const block = getMaintainPersonalDwellingFormationBlockReason(slotIndex);
+    if (block) return { success: false, message: block };
+    const slot = getPersonalDwellingFormationSlot(slotIndex);
+    const def = getFormationDef(slot.id);
+    const cfg = getFormationF1aConfig();
+    const cost = cfg.maintain || {};
+    const months = cost.months || 1;
+    if (cost.materials && typeof removeCraftMaterials === 'function' && !removeCraftMaterials(cost.materials)) {
+        return { success: false, message: 'Missing materials.' };
+    }
+    if ((cost.stones || 0) > 0) G.stones -= cost.stones;
+    if (!advanceTime(months, `Touching up ${def.name}`)) {
+        if (cost.materials && typeof addCraftMaterial === 'function') {
+            for (const [matId, qty] of Object.entries(cost.materials)) {
+                addCraftMaterial(matId, qty);
+            }
+        }
+        if ((cost.stones || 0) > 0) G.stones += cost.stones;
+        return { success: false, message: 'Your lifespan ends before the touch-up completes.' };
+    }
+    const before = slot.integrity;
+    slot.integrity = Math.min(cfg.integrityMax, slot.integrity + (cost.restore || 35));
+    slot.scattered = false;
+    const band = getFormationIntegrityBand(slot.integrity);
+    const fiGain = getFormationF2bConfig().fi?.maintain ?? 3;
+    grantFormationInsight(fiGain);
+    return {
+        success: true,
+        message: `${def.emoji} ${def.name} lines refreshed (${before}→${slot.integrity}, ${getFormationIntegrityLabel(band)}). (+${fiGain} FI)`
+    };
+}
+
+function grantPersonalDwellingStarterFormationManual(options) {
+    if (typeof grantStarterFormationManualForResidenceLevel === 'function') {
+        grantStarterFormationManualForResidenceLevel(1, options);
+        return;
+    }
+    grantFormationManual('spirit_gathering', {
+        silent: !!options?.silent,
+        deciphered: false,
+        source: 'dwelling_starter'
+    });
 }
 
 function migrateKnownFormationsToShelf() {
@@ -433,6 +798,7 @@ function isResidenceFormationRunning(slot) {
 function getResidenceFormationEffects() {
     ensureResidenceFormationSlots();
     const fx = { cultivatePct: 0, foundationPerCultivate: 0, labels: [] };
+    // Sect Leader's Quarters: currently global (known locality inconsistency — see docs).
     G.sect.residence.formations.slots.forEach(slot => {
         if (!slot) return;
         const mult = getFormationEffectMultForSlot(slot);
@@ -447,6 +813,11 @@ function getResidenceFormationEffects() {
         const bandNote = band === 'sharp' ? '' : ` (${getFormationIntegrityLabel(band)})`;
         fx.labels.push(`${def.emoji} ${def.name}${bandNote}`);
     });
+    // Personal dwelling: site-local only (via getPersonalDwellingFormationEffects).
+    const dwellFx = getPersonalDwellingFormationEffects();
+    fx.cultivatePct += dwellFx.cultivatePct || 0;
+    fx.foundationPerCultivate += dwellFx.foundationPerCultivate || 0;
+    if (dwellFx.labels?.length) fx.labels.push(...dwellFx.labels);
     fx.cultivatePct = Math.round(fx.cultivatePct * 10) / 10;
     fx.foundationPerCultivate = Math.round(fx.foundationPerCultivate * 10) / 10;
     return fx;
@@ -459,7 +830,8 @@ function getResidenceFormationCultivateMult() {
 
 function getLayFormationBlockReason(slotIndex, formationId) {
     ensureFormationState();
-    if (!isSectFounded()) return 'Found a sect first.';
+    const perm = getFormationSiteInstallPermission(FORMATION_SITE.SECT_RESIDENCE);
+    if (!perm.ok) return perm.reason;
     if (typeof actionBlocked === 'function' && actionBlocked()) return 'You cannot inscribe a formation right now.';
     const residenceLv = typeof getResidenceLevel === 'function' ? getResidenceLevel() : 0;
     if (residenceLv < 1) return 'Upgrade your quarters before laying formations.';
@@ -670,7 +1042,6 @@ function tickResidenceFormations(monthsPassed) {
  * Monthly tick for residence + sect anchors: active burn fuel; all laid lose integrity.
  */
 function tickAllFormationSlots(monthsPassed) {
-    if (typeof isSectFounded === 'function' && !isSectFounded()) return;
     if (!monthsPassed || monthsPassed <= 0) return;
     ensureFormationState();
     const cfg = getFormationF1aConfig();
@@ -720,11 +1091,17 @@ function tickAllFormationSlots(monthsPassed) {
         }
     }
 
-    tickSlots(G.sect.residence?.formations?.slots);
-    Object.keys(typeof FORMATION_ANCHORS !== 'undefined' ? FORMATION_ANCHORS : {}).forEach(anchorId => {
-        if (anchorId === 'residence') return;
-        tickSlots(G.sect.anchors?.[anchorId]?.slots);
-    });
+    // Personal courtyard ticks even without a sect.
+    tickSlots(G.dwelling?.formations?.slots);
+
+    const sectFounded = typeof isSectFounded !== 'function' || isSectFounded();
+    if (sectFounded) {
+        tickSlots(G.sect.residence?.formations?.slots);
+        Object.keys(typeof FORMATION_ANCHORS !== 'undefined' ? FORMATION_ANCHORS : {}).forEach(anchorId => {
+            if (anchorId === 'residence') return;
+            tickSlots(G.sect.anchors?.[anchorId]?.slots);
+        });
+    }
     if (fiAccrued > 0) grantFormationInsight(Math.floor(fiAccrued * 10) / 10);
 }
 
@@ -744,20 +1121,19 @@ function actionResidenceCultivate() {
         return;
     }
     const formFx = getResidenceFormationEffects();
-    const formMult = getResidenceFormationCultivateMult();
+    // Gather % already enters via getPassiveCultivationSupportMult → getResidenceFormationCultivateMult.
+    // Do not pass it again as extraMult (double-count bug).
     const bonusParts = [];
     if (formFx.cultivatePct > 0) bonusParts.push(`formations +${formFx.cultivatePct}%`);
     let cultMsg = '';
     if (typeof runFocusedCultivateSession === 'function') {
         cultMsg = runFocusedCultivateSession({
-            extraMult: formMult,
             extraFoundation: formFx.foundationPerCultivate || 0,
             bonusNoteParts: bonusParts,
             logPrefix: '🏠 At your quarters'
         });
     } else if (typeof runCultivateSession === 'function') {
         cultMsg = runCultivateSession({
-            extraMult: formMult,
             extraFoundation: formFx.foundationPerCultivate || 0,
             bonusNoteParts: bonusParts,
             logPrefix: '🏠 At your quarters'
@@ -793,6 +1169,152 @@ function formatFormationSlotStatusHtml(slot) {
         <span title="Inscription integrity — lines fade if neglected">${bandLabel} (${Math.floor(slot.integrity)})</span>
         <span class="sect-formation-running">${running ? 'Running' : 'Not running'}</span>
     </div>`;
+}
+
+/** Compact courtyard formation panel for the personal dwelling Lodge popup. */
+function renderPersonalDwellingFormationsHtml() {
+    ensureFormationState();
+    const cfg = getFormationF1aConfig();
+    const owned = (G.dwelling?.mode || 'homeless') === 'owned';
+    let html = `<div class="sect-section-title" style="margin-top:14px;">☯️ Courtyard Formations</div>`;
+    if (!owned) {
+        html += `<p class="sect-hint">Own a courtyard to permanently inscribe patterns here. Rent alone does not grant install rights.</p>`;
+        return html;
+    }
+    html += renderFormationShelfHtml();
+    const slotCount = getPersonalDwellingFormationSlotCount();
+    if (slotCount <= 0) {
+        html += `<p class="sect-hint">No formation slots on this dwelling.</p>`;
+        return html;
+    }
+
+    const layable = Object.keys(G.formationShelf || {})
+        .map(id => getFormationDef(id))
+        .filter(def => def && def.implemented !== false && knowsFormation(def.id) && formationCanLayAt(def, 'residence'));
+
+    const fx = getPersonalDwellingFormationEffects();
+    if (fx.cultivatePct > 0 || fx.foundationPerCultivate > 0) {
+        const parts = [];
+        if (fx.cultivatePct > 0) parts.push(`+${fx.cultivatePct}% cultivate`);
+        if (fx.foundationPerCultivate > 0) parts.push(`+${fx.foundationPerCultivate} Foundation/session`);
+        html += `<div class="sect-formation-summary">Running here: <strong>${parts.join(' · ')}</strong></div>`;
+    } else if ((G.dwelling.formations?.slots || []).some(Boolean)) {
+        html += `<div class="sect-formation-summary sect-formation-summary-idle">Pattern laid — not running here (fuel / switch / integrity), or you are away from this settlement.</div>`;
+    } else {
+        html += `<p class="sect-hint">Laid patterns need <strong>fuel</strong> and an <strong>on</strong> switch. Blessings only apply while you are at this settlement.</p>`;
+    }
+
+    ensurePersonalDwellingFormationSlots();
+    const slots = G.dwelling.formations.slots;
+    html += `<div class="sect-formation-slots">`;
+    for (let i = 0; i < slotCount; i++) {
+        const slot = slots[i];
+        const laidId = getResidenceFormationSlotId(slot);
+        const laidDef = laidId ? getFormationDef(laidId) : null;
+        const band = slot ? getFormationIntegrityBand(slot.integrity) : null;
+        html += `<div class="sect-formation-slot${band ? ` is-${band}` : ''}">`;
+        html += `<div class="sect-formation-slot-head"><span>Slot ${i + 1}</span>`;
+        if (laidDef) html += `<span class="sect-formation-active">${laidDef.emoji} ${laidDef.name}</span>`;
+        else html += `<span class="sect-formation-empty">Empty</span>`;
+        html += `</div>`;
+        if (laidDef && slot) {
+            html += `<p class="sect-hint">${laidDef.desc}</p>`;
+            html += formatFormationSlotStatusHtml(slot);
+            html += `<div class="sect-formation-controls">`;
+            if (!slot.scattered) {
+                html += `<button type="button" class="sect-action-btn dwelling-formation-toggle" data-dwelling-formation-toggle="${i}">
+                    ${slot.active ? 'Shut down' : 'Activate'}
+                </button>`;
+                (cfg.fuelPresets || [3, 6, 12]).forEach(units => {
+                    const fuelBlock = getAddPersonalDwellingFormationFuelBlockReason(i, units);
+                    html += `<button type="button" class="dwelling-formation-fuel" data-dwelling-formation-fuel="${i}" data-fuel-units="${units}"
+                        ${fuelBlock ? `disabled title="${escapeSectAttr(fuelBlock)}"` : ''}>
+                        +${units} mo fuel (${units * (cfg.stonePerFuel || 1)}💎)
+                    </button>`;
+                });
+                const maintainBlock = getMaintainPersonalDwellingFormationBlockReason(i);
+                html += `<button type="button" class="dwelling-formation-maintain" data-dwelling-formation-maintain="${i}"
+                    ${maintainBlock ? `disabled title="${escapeSectAttr(maintainBlock)}"` : ''}>
+                    Maintain lines (${cfg.maintain?.stones || 0}💎)
+                </button>`;
+            } else {
+                html += `<p class="sect-hint">Scattered — clear and reinscribe.</p>`;
+            }
+            html += `<button type="button" class="sect-action-btn dwelling-formation-clear" data-dwelling-formation-clear="${i}">Clear slot</button>`;
+            html += `</div>`;
+        }
+        if (layable.length) {
+            html += `<div class="sect-formation-lay-row">`;
+            layable.forEach(def => {
+                const block = getLayPersonalDwellingFormationBlockReason(i, def.id);
+                const cost = def.layCost;
+                const matHint = cost?.months ? `${cost.months}mo` : '';
+                html += `<button type="button" class="dwelling-formation-lay" data-dwelling-formation-lay="${def.id}" data-dwelling-formation-slot="${i}"
+                    ${block ? `disabled title="${escapeSectAttr(block)}"` : ''}>
+                    ${def.emoji} Inscribe ${def.name}${matHint ? ` (${matHint})` : ''}
+                </button>`;
+            });
+            html += `</div>`;
+        }
+        html += `</div>`;
+    }
+    html += `</div>`;
+    return html;
+}
+
+function wirePersonalDwellingFormationControls(root) {
+    if (!root) return;
+    root.querySelectorAll('[data-formation-decipher]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const res = decipherFormation(btn.getAttribute('data-formation-decipher'));
+            if (typeof addLog === 'function') addLog(res.message);
+            if (typeof openDwellingPopup === 'function') openDwellingPopup();
+            else if (typeof fullRender === 'function') fullRender();
+        });
+    });
+    root.querySelectorAll('[data-dwelling-formation-lay]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-dwelling-formation-lay');
+            const slot = Number(btn.getAttribute('data-dwelling-formation-slot'));
+            const res = layPersonalDwellingFormation(slot, id);
+            if (typeof addLog === 'function') addLog(res.message);
+            if (typeof openDwellingPopup === 'function') openDwellingPopup();
+            else if (typeof fullRender === 'function') fullRender();
+        });
+    });
+    root.querySelectorAll('[data-dwelling-formation-toggle]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const slot = Number(btn.getAttribute('data-dwelling-formation-toggle'));
+            const res = togglePersonalDwellingFormationActive(slot);
+            if (typeof addLog === 'function') addLog(res.message);
+            if (typeof openDwellingPopup === 'function') openDwellingPopup();
+        });
+    });
+    root.querySelectorAll('[data-dwelling-formation-fuel]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const slot = Number(btn.getAttribute('data-dwelling-formation-fuel'));
+            const units = Number(btn.getAttribute('data-fuel-units'));
+            const res = addPersonalDwellingFormationFuel(slot, units);
+            if (typeof addLog === 'function') addLog(res.message);
+            if (typeof openDwellingPopup === 'function') openDwellingPopup();
+        });
+    });
+    root.querySelectorAll('[data-dwelling-formation-maintain]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const slot = Number(btn.getAttribute('data-dwelling-formation-maintain'));
+            const res = maintainPersonalDwellingFormation(slot);
+            if (typeof addLog === 'function') addLog(res.message);
+            if (typeof openDwellingPopup === 'function') openDwellingPopup();
+        });
+    });
+    root.querySelectorAll('[data-dwelling-formation-clear]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const slot = Number(btn.getAttribute('data-dwelling-formation-clear'));
+            const res = clearPersonalDwellingFormationSlot(slot);
+            if (typeof addLog === 'function') addLog(res.message);
+            if (typeof openDwellingPopup === 'function') openDwellingPopup();
+        });
+    });
 }
 
 function renderFormationShelfHtml() {

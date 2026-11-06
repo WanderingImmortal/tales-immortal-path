@@ -177,6 +177,11 @@ function ensureQcDepthState() {
     if (G.dwelling.settlementId === 'bone_crossroads') {
         G.dwelling.settlementId = 'redwell';
     }
+    if (typeof ensurePersonalDwellingFormationState === 'function') {
+        ensurePersonalDwellingFormationState();
+    } else if (!G.dwelling.formations) {
+        G.dwelling.formations = { slots: [], siteSettlementId: null };
+    }
     if (!G.travelCautions) G.travelCautions = {};
     ensureRedwellMarketState();
     ensureRedwellSeats();
@@ -881,7 +886,11 @@ function actionBuyThresholdCourtyard() {
     G.dwelling.settlementId = 'redwell';
     G.dwelling.rentPaidThroughMonth = 0;
     ensureDwellingStash();
-    addLog(`🏠 You buy a sand-brick courtyard on Redwell\'s quiet edge (−${REDWELL_BUY.cost} Stones). Roof, chest, no rent — no cultivate boost. Open Lodge for your home.`);
+    if (typeof ensurePersonalDwellingFormationState === 'function') ensurePersonalDwellingFormationState();
+    if (typeof grantPersonalDwellingStarterFormationManual === 'function') {
+        grantPersonalDwellingStarterFormationManual({ silent: true });
+    }
+    addLog(`🏠 You buy a sand-brick courtyard on Redwell\'s quiet edge (−${REDWELL_BUY.cost} Stones). Roof, chest, a courtyard formation slot — Open Lodge to inscribe.`);
     fullRender();
 }
 
@@ -896,6 +905,9 @@ function tickDwellingRent() {
             G.dwelling.mode = 'homeless';
             G.dwelling.settlementId = null;
             G.dwelling.rentPaidThroughMonth = paidThrough;
+            if (typeof reconcilePersonalDwellingFormationSite === 'function') {
+                reconcilePersonalDwellingFormationSite();
+            }
             addLog('🏠 You cannot pay rent — turned out onto Redwell\'s streets.');
             return;
         }
@@ -1022,7 +1034,15 @@ function renderDwellingHomeBody(body, popup) {
             <button type="button" class="zone-travel-btn" id="dwellingBountyBtn" style="padding:6px 10px;font-size:12px;">🗡️ Bounty board</button>
         </div>
         ${stashHtml}
+        <div id="dwellingFormationsMount"></div>
     `;
+    const formMount = body.querySelector('#dwellingFormationsMount');
+    if (formMount && owned && typeof renderPersonalDwellingFormationsHtml === 'function') {
+        formMount.innerHTML = renderPersonalDwellingFormationsHtml();
+        if (typeof wirePersonalDwellingFormationControls === 'function') {
+            wirePersonalDwellingFormationControls(formMount);
+        }
+    }
 
     document.getElementById('dwellingRestBtn')?.addEventListener('click', () => {
         if (!isAtDwellingSettlement()) {

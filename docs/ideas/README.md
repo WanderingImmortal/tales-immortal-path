@@ -25,8 +25,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 |------|--------|------------|-------|
 | [Phone playtest layout](phone-playtest-layout.md) | `designed` | none — opt-in CSS shell | — |
 | [Root rite formations](root-rite-formations.md) | `designed` | Chronicle fate-rite project; formation tiers | — |
-| [Formations & arrays](formations-and-arrays.md) | `building` (F2b shipped; next = feel) | Event-ward placeholder; combat wards wait on guards | [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) · [#129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
-| [Spirit Gathering — first playtest pattern](spirit-gathering-formation.md) | `designed` | Courtyard test; stacking fix when coding | [#129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
+| [Formations & arrays](formations-and-arrays.md) | `building` (F2b + independent dwelling) | Combat wards wait on guards; sect gather still global | `cursor/independent-formation-practice` · [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
+| [Spirit Gathering — first playtest pattern](spirit-gathering-formation.md) | `designed` | Double-count fixed; playtest remaining | `cursor/independent-formation-practice` · [#129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
 | [Forging — equipment tiers & grades](forging-equipment-tiers.md) | `building` (Phase B) | Phase C rolls next; nine-realm for G | `cursor/forge-phase-b-grades` |
 | [Forge compose — Mundane slice](forge-compose-mundane-slice.md) | `building` | Playtest bands / UX | `cursor/forge-compose-mundane-ab43` |
 | [Forge — affix temperaments (parked)](forge-temperaments-idea.md) | `idea` | Quench shipped; owner call | — |
@@ -140,7 +140,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Economy framework](economy-framework.md) | `idea` (parked) | Stone tiers | — |
 | [Commerce & markets](commerce-and-markets.md) | `idea` (parked) | Economy framework | — |
 | [Work & professions](work-and-professions.md) | `idea` (parked) | Economy framework | — |
-| [Personal residence](personal-residence.md) | `building` (QC minimal home) | Full ladder later | `cursor/qc-playtest-fixes` |
+| [Personal residence](personal-residence.md) | `building` (QC home + courtyard formations) | Full ladder / hire later | `cursor/independent-formation-practice` |
 | [World standing & property](world-standing-and-property.md) | `idea` (parked) | Residence buy | — |
 | [Sect vs personal anchor](sect-vs-personal-anchor.md) | `idea` (parked) | Residence | — |
 | [Tribulation & breakthrough — xianxia feel](tribulation-xianxia-feel-brainstorm.md) | `designed` (brainstorm) | Damage depth; per-gate journeys | — |

@@ -401,8 +401,11 @@ function getSectEventStoneLossMult() {
         if (mult > 1) mult = 1 + (mult - 1) * (1 - soften);
         else if (mult < 1) mult = Math.max(mult, 1 - soften * 0.35);
     }
-    if (defense > 0 && mult < 1) {
-        mult = Math.max(0.45, mult + (defense / 100) * 0.35);
+    // Ward formations always soften event stone loss while running (not only when mult < 1).
+    if (defense > 0) {
+        const soften = Math.min(0.55, (defense / 100) * 0.35);
+        if (mult > 1) mult = 1 + (mult - 1) * (1 - soften);
+        else mult = Math.max(0.45, mult * (1 - soften));
     }
     return mult;
 }

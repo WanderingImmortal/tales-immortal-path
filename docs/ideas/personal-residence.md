@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `building` (QC minimal home) |
+| **Status** | `building` (QC minimal home + owned courtyard formations) |
 | **Blocked on** | Full ladder: [`economy-framework.md`](economy-framework.md), [`work-and-professions.md`](work-and-professions.md) |
 | **Issue** | none yet |
-| **Chat / PR** | QC playtest `cursor/qc-playtest-fixes` |
-| **Updated** | 2026-07-27 |
+| **Chat / PR** | QC playtest · independent formations `cursor/independent-formation-practice` |
+| **Updated** | 2026-11-06 |
 
 **Hub:** [`mortal-life-sim-cluster.md`](mortal-life-sim-cluster.md)  
 **Vision split:** [`sect-vs-personal-anchor.md`](sect-vs-personal-anchor.md)  
@@ -21,8 +21,10 @@
 | Mode | What |
 |------|------|
 | **Rent** | **Redwell Inn** → home screen (fiction + rest bonus + Rest here). Monthly rent tick. |
-| **Buy** | FE sand-brick courtyard + small **chest** (`G.dwelling.stash.materials`, cap 12) — **no cultivate speed** (manuals + formations only) |
+| **Buy** | FE sand-brick courtyard + chest (`G.dwelling.stash`) + **1 formation slot** (`G.dwelling.formations`) — house itself adds no cultivate speed; running patterns do (while present) |
 | **Homeless** | Inn opens rent/buy; rest penalty |
+
+**Formation install permission (today):** owned dwelling + present at settlement. Ownership is the current gate, not an inherent formation rule — rental / sect lodging / commissions can plug into `getFormationSiteInstallPermission` later. Loss of ownership or settlement relocate **clears** installs (no teleport / silent dup).
 
 Settlement: [`redwell-starter-city.md`](redwell-starter-city.md). Do **not** reuse sect Leader’s Quarters / `canAccessResidenceStash` for this.
 
@@ -55,9 +57,13 @@ Migrate off `G.sect.residence` / Leader's Quarters as **only** home; sect HQ = b
 ## Data sketch
 
 ```text
-G.dwelling = { mode, zoneId, settlementId, tier, deed, stash, formations, hires, rentPaidThrough }
+G.dwelling = {
+  mode, settlementId, rentPaidThroughMonth,
+  stash: { materials },
+  formations: { slots: [], siteSettlementId }
+}
 ```
 
 ## Implementation crumbs
 
-`qc-depth.js` (Lodge popup / stash), later `residence-stash.js` patterns, `formations.js`, `travel-kit.js`
+`qc-depth.js` (Lodge popup / stash / formation mount), `formations.js` (`layPersonalDwellingFormation`, reconcile on ownership loss), `residence-stash.js`, `travel-kit.js`
