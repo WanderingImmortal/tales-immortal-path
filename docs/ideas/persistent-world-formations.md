@@ -67,6 +67,10 @@ Visiting the lodge shows a short sensory line (operating / worn / scattered). No
 
 **Known limitation:** large batched NPC growth uses presence at tick time for the whole segment (same as other world-NPC systems) — not sub-month presence interpolation.
 
+### Follow-up
+
+Inscription maintenance (ordinary line-retrace): [`formation-inscription-upkeep.md`](formation-inscription-upkeep.md).
+
 ## Open questions
 
 - Who originally laid the Well-Ring court pattern?

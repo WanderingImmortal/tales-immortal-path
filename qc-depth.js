@@ -1609,16 +1609,15 @@ function openWellRingPopup() {
         ? '<div class="desc" style="margin-top:8px;color:#a09080;">You have heard the sash fee never returns — quiet pockets with the town\'s betters.</div>'
         : '';
 
-    const formationObserve = typeof getWellRingLodgeFormationObservationLine === 'function'
-        ? getWellRingLodgeFormationObservationLine()
-        : '';
-    const formationObserveHtml = formationObserve
-        ? `<div class="desc" style="margin-bottom:10px;color:#a09080;">${formationObserve}</div>`
-        : '';
+    const formationServiceHtml = typeof renderWellRingFormationServiceHtml === 'function'
+        ? renderWellRingFormationServiceHtml()
+        : (typeof getWellRingLodgeFormationObservationLine === 'function'
+            ? `<div class="desc" style="margin-bottom:10px;color:#a09080;">${getWellRingLodgeFormationObservationLine()}</div>`
+            : '');
 
     list.innerHTML = `
         <div class="desc" style="margin-bottom:8px;">Master Liang · outer sash · merit <b>${wr.merit || 0}</b> · board rank <b>${getWellRingPlayerRank()}</b></div>
-        ${formationObserveHtml}
+        ${formationServiceHtml}
         <div class="desc" style="margin-bottom:10px;line-height:1.45;"><b>Monthly board</b><br>${board}</div>
         <div class="popup-item${wr.tournamentDue ? ' can-buy' : ''}" id="wellRingTourneyBtn" style="${wr.tournamentDue ? 'cursor:pointer;' : 'opacity:0.65;'}">
             <div class="name">🏅 Yearly promotion tournament</div>
@@ -1659,6 +1658,21 @@ function openWellRingPopup() {
     document.getElementById('wellRingLeaveBtn')?.addEventListener('click', () => {
         popup.classList.remove('active');
         actionWellRingLeave();
+    });
+    document.getElementById('wellRingFormationMaintainBtn')?.addEventListener('click', () => {
+        if (typeof getWorldFormationInscriptionMaintainBlockReason === 'function') {
+            const block = getWorldFormationInscriptionMaintainBlockReason(
+                typeof WORLD_FORMATION_INSTALL_WELL_RING_GATHER !== 'undefined'
+                    ? WORLD_FORMATION_INSTALL_WELL_RING_GATHER
+                    : 'wr_courtyard_spirit_gathering'
+            );
+            if (block) {
+                if (typeof addLog === 'function') addLog(`🔒 ${block}`);
+                return;
+            }
+        }
+        popup.classList.remove('active');
+        if (typeof actionWellRingFormationMaintain === 'function') actionWellRingFormationMaintain();
     });
     popup.classList.add('active');
 }
