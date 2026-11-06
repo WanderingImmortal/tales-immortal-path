@@ -26,8 +26,9 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Phone playtest layout](phone-playtest-layout.md) | `designed` | none — opt-in CSS shell | — |
 | [Root rite formations](root-rite-formations.md) | `designed` | Chronicle fate-rite project; formation tiers | — |
 | [Formations & arrays](formations-and-arrays.md) | `building` (F2b + independent dwelling) | Combat wards wait on guards; sect gather still global | [#211](https://github.com/WanderingImmortal/tales-immortal-path/pull/211) · [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
-| [Persistent world formations](persistent-world-formations.md) | `building` (Well-Ring first install) | Careers / commissions later | [#212](https://github.com/WanderingImmortal/tales-immortal-path/pull/212) |
-| [Formation inscription upkeep](formation-inscription-upkeep.md) | `building` | Structural repair / hire later | `cursor/formation-inscription-upkeep` |
+| [Persistent world formations](persistent-world-formations.md) | `shipped` (Well-Ring first install) | Careers / commissions later | [#212](https://github.com/WanderingImmortal/tales-immortal-path/pull/212) |
+| [Formation inscription upkeep](formation-inscription-upkeep.md) | `shipped` | Structural repair later | [#213](https://github.com/WanderingImmortal/tales-immortal-path/pull/213) |
+| [Institutional formation maintenance](institutional-formation-maintenance.md) | `building` | NPC expertise / structural hire later | `cursor/lodge-formation-work-orders` |
 | [Spirit Gathering — first playtest pattern](spirit-gathering-formation.md) | `designed` | Double-count fixed; playtest remaining | `cursor/independent-formation-practice` · [#129](https://github.com/WanderingImmortal/tales-immortal-path/pull/129) |
 | [Forging — equipment tiers & grades](forging-equipment-tiers.md) | `building` (Phase B) | Phase C rolls next; nine-realm for G | `cursor/forge-phase-b-grades` |
 | [Forge compose — Mundane slice](forge-compose-mundane-slice.md) | `building` | Playtest bands / UX | `cursor/forge-compose-mundane-ab43` |

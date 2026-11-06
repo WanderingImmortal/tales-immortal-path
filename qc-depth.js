@@ -1674,6 +1674,19 @@ function openWellRingPopup() {
         popup.classList.remove('active');
         if (typeof actionWellRingFormationMaintain === 'function') actionWellRingFormationMaintain();
     });
+    document.getElementById('wellRingPaidFormationMaintainBtn')?.addEventListener('click', () => {
+        if (typeof getWellRingPaidFormationMaintainBlockReason === 'function') {
+            const block = getWellRingPaidFormationMaintainBlockReason();
+            if (block) {
+                if (typeof addLog === 'function') addLog(`🔒 ${block}`);
+                return;
+            }
+        }
+        popup.classList.remove('active');
+        if (typeof actionWellRingPaidFormationMaintain === 'function') {
+            actionWellRingPaidFormationMaintain();
+        }
+    });
     popup.classList.add('active');
 }
 

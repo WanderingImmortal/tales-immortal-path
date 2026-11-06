@@ -449,7 +449,14 @@ function inspectWorldFormationInstallation(installId) {
     };
 }
 
-function getWorldFormationInscriptionMaintainBlockReason(installId) {
+/**
+ * @param {string} [installId]
+ * @param {{ fundingSource?: 'player'|'institution' }} [options]
+ *   institution — skip player inventory/stone checks (caller funds from lodge stock).
+ */
+function getWorldFormationInscriptionMaintainBlockReason(installId, options) {
+    options = options || {};
+    const fundingSource = options.fundingSource || 'player';
     if (typeof actionBlocked === 'function' && actionBlocked()) {
         return 'You cannot tend formations right now.';
     }
@@ -482,6 +489,11 @@ function getWorldFormationInscriptionMaintainBlockReason(installId) {
         return 'The lines are already sharp — no inscription maintenance needed.';
     }
 
+    if (fundingSource === 'institution') {
+        // Institutional stock/treasury validated by the lodge job layer.
+        return null;
+    }
+
     if ((G.stones || 0) < (cfg.stones || 0)) {
         return `Need ${cfg.stones} Spirit Stones for inscription chalk and focus.`;
     }
@@ -501,12 +513,17 @@ function getWorldFormationInscriptionMaintainBlockReason(installId) {
 
 /**
  * Perform ordinary inscription maintenance on a world installation.
- * Consumes materials/stones, advances time once, restores bounded integrity.
- * Does not replace the authoritative install record. Cannot revive scattered/decayed.
+ * Consumes materials/stones (unless fundingSource: 'institution'), advances time once,
+ * restores bounded integrity. Does not pay wages — institutional jobs handle pay separately.
+ *
+ * @param {string} [installId]
+ * @param {{ fundingSource?: 'player'|'institution' }} [options]
  */
-function maintainWorldFormationInscription(installId) {
+function maintainWorldFormationInscription(installId, options) {
+    options = options || {};
+    const fundingSource = options.fundingSource || 'player';
     const id = installId || WORLD_FORMATION_INSTALL_WELL_RING_GATHER;
-    const block = getWorldFormationInscriptionMaintainBlockReason(id);
+    const block = getWorldFormationInscriptionMaintainBlockReason(id, options);
     if (block) return { success: false, message: block };
 
     const instRef = getWorldFormationInstallation(id);
@@ -515,33 +532,55 @@ function maintainWorldFormationInscription(installId) {
     const months = cfg.months || 1;
     const stones = cfg.stones || 0;
     const materials = cfg.materials || {};
+    let playerCostsTaken = false;
 
-    if (Object.keys(materials).length && typeof removeCraftMaterials === 'function') {
-        if (!removeCraftMaterials(materials)) {
-            return { success: false, message: 'Missing materials.' };
+    if (fundingSource === 'player') {
+        if (Object.keys(materials).length && typeof removeCraftMaterials === 'function') {
+            if (!removeCraftMaterials(materials)) {
+                return { success: false, message: 'Missing materials.' };
+            }
         }
+        if (stones > 0) G.stones -= stones;
+        playerCostsTaken = true;
     }
-    if (stones > 0) G.stones -= stones;
 
-    const label = `Maintaining ${def?.name || 'formation'} inscriptions`;
+    const label = fundingSource === 'institution'
+        ? `Lodge maintenance — ${def?.name || 'formation'}`
+        : `Maintaining ${def?.name || 'formation'} inscriptions`;
     if (typeof advanceTime !== 'function' || !advanceTime(months, label)) {
-        if (Object.keys(materials).length && typeof addCraftMaterial === 'function') {
-            for (const [matId, qty] of Object.entries(materials)) addCraftMaterial(matId, qty);
+        if (playerCostsTaken) {
+            if (Object.keys(materials).length && typeof addCraftMaterial === 'function') {
+                for (const [matId, qty] of Object.entries(materials)) addCraftMaterial(matId, qty);
+            }
+            if (stones > 0) G.stones += stones;
         }
-        if (stones > 0) G.stones += stones;
-        return { success: false, message: 'Your lifespan ends before the touch-up completes.' };
+        return {
+            success: false,
+            message: 'Your lifespan ends before the touch-up completes.',
+            timeAdvanced: false,
+            costsConsumed: false
+        };
     }
 
     // Re-resolve after time advance (ticks may have decayed integrity during the month).
     // Must be the same authoritative byId record — never a replaced copy.
     const live = getWorldFormationInstallation(id);
     if (!live || live !== instRef) {
-        return { success: false, message: 'The installation record changed unexpectedly during the work.' };
+        return {
+            success: false,
+            message: 'The installation record changed unexpectedly during the work.',
+            timeAdvanced: true,
+            costsConsumed: true,
+            fundingSource
+        };
     }
     if (live.scattered || live.integrity < cfg.minIntegrity) {
         return {
             success: false,
-            message: 'While you worked, the pattern slipped beyond ordinary maintenance. Materials were spent.'
+            message: 'While you worked, the pattern slipped beyond ordinary maintenance. Materials were spent.',
+            timeAdvanced: true,
+            costsConsumed: true,
+            fundingSource
         };
     }
 
@@ -567,12 +606,19 @@ function maintainWorldFormationInscription(installId) {
         }
     }
 
+    if (typeof evaluateWellRingFormationMaintenanceNeed === 'function') {
+        evaluateWellRingFormationMaintenanceNeed();
+    }
+
     return {
         success: true,
         message: `${def?.emoji || '☯️'} ${def?.name || 'Formation'} inscriptions refreshed at the ${live.siteLabel || 'site'} (${bandLabel}).${fiNote}`,
         before,
         after: live.integrity,
-        installId: live.id
+        installId: live.id,
+        fundingSource,
+        timeAdvanced: true,
+        costsConsumed: true
     };
 }
 
@@ -609,12 +655,31 @@ function renderWellRingFormationServiceHtml() {
         html += `<div class="desc" style="margin-bottom:8px;">Condition: <b>${condLabel}</b> (pattern unclear to you)</div>`;
     }
 
+    // Institutional paid work (public to members when the lodge posts need).
+    if (typeof getWellRingFormationWorkOrderPublicSummary === 'function') {
+        const job = getWellRingFormationWorkOrderPublicSummary();
+        if (job.line) {
+            html += `<div class="desc" style="margin-bottom:6px;color:#a09080;">${job.line}</div>`;
+            const paidBlock = typeof getWellRingPaidFormationMaintainBlockReason === 'function'
+                ? getWellRingPaidFormationMaintainBlockReason()
+                : 'Paid work unavailable.';
+            const canPaid = !paidBlock;
+            html += `<div class="popup-item${canPaid ? ' can-buy' : ''}" id="wellRingPaidFormationMaintainBtn" style="${canPaid ? 'cursor:pointer;' : 'opacity:0.65;'}">
+                <div class="name">🪙 Accept lodge maintenance work</div>
+                <div class="desc">${canPaid
+                    ? `Institution-funded · ${job.months || cfg.months || 1} mo · pay ${job.wage || 8}💎`
+                    : (paidBlock || 'Cannot take paid work')}</div>
+            </div>`;
+        }
+    }
+
+    // Self-funded maintain — distinct from institutional wages.
     const block = inspect.maintainBlock;
     const can = inspect.canMaintain;
     html += `<div class="popup-item${can ? ' can-buy' : ''}" id="wellRingFormationMaintainBtn" style="${can ? 'cursor:pointer;' : 'opacity:0.65;'}">
-        <div class="name">🖌️ Maintain inscriptions</div>
+        <div class="name">🖌️ Maintain inscriptions (self-funded)</div>
         <div class="desc">${can
-            ? `Retrace worn lines · ${costHint}`
+            ? `Retrace worn lines · ${costHint} · no lodge pay`
             : (block || 'Cannot maintain')}</div>
     </div>`;
     return html;
