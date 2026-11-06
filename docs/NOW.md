@@ -2,10 +2,10 @@
 
 Glanceable focus for humans and agents. Keep this short — details live in Issues and `docs/ideas/`.
 
-**Updated:** 2026-11-05
+**Updated:** 2026-11-06
 
 ## Focus
-- **NPC action → reaction** — Wei theft → lodge loss → Liang response · [`npc-agency-action-reaction-chain.md`](ideas/npc-agency-action-reaction-chain.md) · `cursor/npc-action-reaction-chain`
+- **NPC travel & presence** — Wei walks Redwell → Dewcatch for herbs · [`npc-travel-presence.md`](ideas/npc-travel-presence.md) · [PR #208](https://github.com/WanderingImmortal/tales-immortal-path/pull/208)
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

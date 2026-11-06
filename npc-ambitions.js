@@ -24,7 +24,10 @@ const NPC_CULTIVATION_RESOURCE = {
     dutyMeritGain: 1,
     stealHerbGain: 2,
     stealDetectChance: 0.35,
-    stealFailChance: 0.4
+    stealFailChance: 0.4,
+    fieldHerbChance: 0.6,
+    fieldHerbGain: 1,
+    fieldStayCap: 3
 };
 
 function ensureNpcAmbitionState() {
@@ -245,8 +248,10 @@ function recordNpcGoalAttempt(spec) {
         goal.attemptIds = goal.attemptIds || [];
         goal.attemptIds.push(id);
         goal.updatedAtMonths = G.ageMonths || 0;
-        if (row.success) goal.successCount = (goal.successCount || 0) + 1;
-        else goal.failureCount = (goal.failureCount || 0) + 1;
+        if (!spec.omitGoalTally) {
+            if (row.success) goal.successCount = (goal.successCount || 0) + 1;
+            else goal.failureCount = (goal.failureCount || 0) + 1;
+        }
     }
     pruneNpcGoalAttemptsForActor(row.actorId);
     return cloneNpcAmbitionRecord(row);
@@ -616,12 +621,61 @@ function recordNpcActionExperience(actorId, actionId, result) {
     return cloneNpcAmbitionRecord(row);
 }
 
+function npcAtLodgeForResourceAction(ctx) {
+    if (typeof isNpcAvailableForLocationAction !== 'function') return true;
+    const loc = typeof WELL_RING_HOME_LOCATION_ID !== 'undefined' ? WELL_RING_HOME_LOCATION_ID : 'redwell';
+    return isNpcAvailableForLocationAction(ctx.actorId, loc);
+}
+
 const WEI_RESOURCE_ACTION_OPTIONS = [
     {
         id: 'earn_lodge_duty',
         label: 'Earn lodge duty stipend',
         baseScore: 0.85,
-        tags: ['practical', 'cautious', 'protect_institution']
+        tags: ['practical', 'cautious', 'protect_institution'],
+        eligible(ctx) {
+            return npcAtLodgeForResourceAction(ctx);
+        }
+    },
+    {
+        id: 'gather_field_herbs',
+        label: 'Seek herbs in a nearby field',
+        baseScore: 0.62,
+        tags: ['practical', 'cautious'],
+        eligible(ctx) {
+            if (typeof findNpcDestinationForPurpose !== 'function') return false;
+            const journey = ctx.resources && ctx.resources.herbJourney;
+            if (!journey) return false;
+            if (journey.alreadyThere) return true;
+            return !!journey.worthwhile;
+        },
+        scoreHook(ctx, score, factors) {
+            let s = score;
+            const personalities = ctx.personalities || [];
+            if (personalities.includes('ambitious')) {
+                s += 0.12;
+                factors.push({ id: 'ambitious_field_herbs', delta: 0.12 });
+            }
+            if (personalities.includes('careful')) {
+                s += 0.08;
+                factors.push({ id: 'careful_legitimate_gather', delta: 0.08 });
+            }
+            if (personalities.includes('bold')) {
+                s -= 0.05;
+                factors.push({ id: 'bold_impatient_road', delta: -0.05 });
+            }
+            const journey = ctx.resources && ctx.resources.herbJourney;
+            if (journey && journey.unfamiliar) {
+                s -= 0.25;
+                factors.push({ id: 'unfamiliar_ground', delta: -0.25 });
+            }
+            if (journey && journey.months > 0) {
+                const pen = Math.min(0.2, journey.months * 0.02);
+                s -= pen;
+                factors.push({ id: 'travel_time', delta: -pen, months: journey.months });
+            }
+            return { score: s };
+        }
     },
     {
         id: 'steal_lodge_storehouse',
@@ -630,6 +684,7 @@ const WEI_RESOURCE_ACTION_OPTIONS = [
         tags: ['harsh', 'spectacle'],
         // Physical feasibility — empty / insufficient stock cannot be a successful theft target.
         eligible(ctx) {
+            if (!npcAtLodgeForResourceAction(ctx)) return false;
             const need = (ctx.resources && ctx.resources.theftAmount != null)
                 ? ctx.resources.theftAmount
                 : NPC_CULTIVATION_RESOURCE.stealHerbGain;
@@ -702,6 +757,21 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
     const storehouseHerbStock = typeof getWellRingStorehouseHerbStock === 'function'
         ? getWellRingStorehouseHerbStock()
         : null;
+    let herbJourney = null;
+    if (typeof findNpcDestinationForPurpose === 'function') {
+        const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
+        const found = npc ? findNpcDestinationForPurpose(npc, 'cultivation_resources') : null;
+        if (found) {
+            const assessment = found.assessment || {};
+            herbJourney = {
+                destinationId: found.locationId,
+                months: assessment.months || 0,
+                unfamiliar: !!assessment.unfamiliar,
+                worthwhile: !!assessment.worthwhile || !!found.alreadyThere,
+                alreadyThere: !!found.alreadyThere
+            };
+        }
+    }
     return {
         actorId,
         accusedId: null,
@@ -714,7 +784,8 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
             spiritHerbs: herbs,
             need,
             storehouseHerbStock,
-            theftAmount: NPC_CULTIVATION_RESOURCE.stealHerbGain
+            theftAmount: NPC_CULTIVATION_RESOURCE.stealHerbGain,
+            herbJourney
         },
         perception,
         // Actor-facing risk summary for traces — not objective executor odds.
@@ -728,6 +799,130 @@ function buildWeiResourceActionDecisionSpec(actorId, options) {
     };
 }
 
+function shouldRemainAtHerbField(npc, herbs, need) {
+    if (herbs >= need) return false;
+    const stay = (npc.travel && npc.travel.fieldStayCount) || 0;
+    if (stay >= NPC_CULTIVATION_RESOURCE.fieldStayCap) return false;
+    const personalities = npc.personalities || [];
+    if (personalities.includes('loyal') || personalities.includes('careful')) return false;
+    return true;
+}
+
+function executeNpcFieldHerbAction(actorId, npc, context, rng) {
+    context = context || {};
+    if (typeof resolveNpcTravelForActor === 'function') {
+        resolveNpcTravelForActor(npc, G.ageMonths || 0);
+    }
+    if (typeof isNpcTravelling === 'function' && isNpcTravelling(npc)) {
+        return {
+            success: false,
+            actionId: 'gather_field_herbs',
+            effects: [{ type: 'blocked', reason: 'in_transit' }],
+            notes: 'Already on the road.',
+            blockedReason: 'in_transit'
+        };
+    }
+    if (typeof findNpcDestinationForPurpose !== 'function' || typeof beginNpcJourney !== 'function') {
+        return {
+            success: false,
+            actionId: 'gather_field_herbs',
+            effects: [{ type: 'blocked', reason: 'no_travel' }],
+            notes: 'No travel route is available.',
+            blockedReason: 'no_travel'
+        };
+    }
+    const found = findNpcDestinationForPurpose(npc, 'cultivation_resources');
+    if (!found) {
+        return {
+            success: false,
+            actionId: 'gather_field_herbs',
+            effects: [{ type: 'blocked', reason: 'no_destination' }],
+            notes: 'No worthwhile herb ground is within reach.',
+            blockedReason: 'no_destination'
+        };
+    }
+    if (!found.alreadyThere) {
+        const herbs = getNpcSpiritHerbs(actorId);
+        const need = NPC_CULTIVATION_RESOURCE.herbNeedForBoost;
+        const pressure = need > 0 ? Math.max(0, need - herbs) / need : 0;
+        const started = beginNpcJourney(npc, {
+            destinationId: found.locationId,
+            purpose: 'cultivation_resources',
+            pressure
+        });
+        if (!started.ok) {
+            return {
+                success: false,
+                actionId: 'gather_field_herbs',
+                effects: [{ type: 'blocked', reason: started.reason, message: started.message }],
+                notes: started.message || 'Could not depart.',
+                blockedReason: started.reason
+            };
+        }
+        return {
+            success: true,
+            actionId: 'gather_field_herbs',
+            travelProgress: true,
+            effects: [{
+                type: 'journey_started',
+                destinationId: started.destinationId,
+                originId: started.originId,
+                method: started.method,
+                purpose: started.purpose,
+                arrivesAtMonths: started.arrivesAtMonths,
+                months: started.months
+            }],
+            notes: 'Set out toward herb ground. The road is not either endpoint.'
+        };
+    }
+
+    const developer = !!context.developer;
+    const forced = developer ? context.forceFieldHerb : null;
+    let gained = 0;
+    if (forced === 'none') gained = 0;
+    else if (forced === 'gain' || rng() < NPC_CULTIVATION_RESOURCE.fieldHerbChance) {
+        gained = NPC_CULTIVATION_RESOURCE.fieldHerbGain;
+        adjustNpcSpiritHerbs(actorId, gained);
+    }
+    const herbsNow = getNpcSpiritHerbs(actorId);
+    const need = NPC_CULTIVATION_RESOURCE.herbNeedForBoost;
+    const remain = shouldRemainAtHerbField(npc, herbsNow, need);
+    const effects = [{ type: 'spirit_herbs_gained', amount: gained, source: 'field' }];
+    if (remain) {
+        if (npc.travel) npc.travel.fieldStayCount = (npc.travel.fieldStayCount || 0) + 1;
+        effects.push({ type: 'remained', locationId: found.locationId });
+    } else {
+        const home = npc.homeLocationId
+            || (typeof WELL_RING_HOME_LOCATION_ID !== 'undefined' ? WELL_RING_HOME_LOCATION_ID : null);
+        if (home && home !== found.locationId) {
+            const back = beginNpcJourney(npc, {
+                destinationId: home,
+                purpose: 'return_home',
+                pressure: 0.2
+            });
+            if (back.ok) {
+                effects.push({
+                    type: 'journey_started',
+                    destinationId: back.destinationId,
+                    purpose: 'return_home',
+                    method: back.method,
+                    arrivesAtMonths: back.arrivesAtMonths
+                });
+            }
+        }
+    }
+    return {
+        success: gained > 0,
+        actionId: 'gather_field_herbs',
+        herbsGained: gained > 0,
+        fieldGathered: true,
+        effects,
+        notes: gained > 0
+            ? 'Gathered spirit herbs in the field.'
+            : 'Worked the field and found no usable herbs.'
+    };
+}
+
 function executeNpcResourceAction(actorId, actionId, context) {
     context = context || {};
     const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
@@ -738,6 +933,23 @@ function executeNpcResourceAction(actorId, actionId, context) {
     const rng = typeof createNpcDecisionRng === 'function'
         ? createNpcDecisionRng(context.seed != null ? context.seed + 17 : undefined)
         : () => Math.random();
+
+    if (actionId === 'earn_lodge_duty' || actionId === 'steal_lodge_storehouse') {
+        const lodgeId = typeof WELL_RING_HOME_LOCATION_ID !== 'undefined' ? WELL_RING_HOME_LOCATION_ID : 'redwell';
+        if (typeof isNpcAvailableForLocationAction === 'function' && !isNpcAvailableForLocationAction(npc, lodgeId)) {
+            return {
+                success: false,
+                actionId,
+                effects: [{ type: 'blocked', reason: 'not_present', locationId: lodgeId }],
+                notes: 'Not at the lodge — this needs a body on the grounds.',
+                blockedReason: 'not_present'
+            };
+        }
+    }
+
+    if (actionId === 'gather_field_herbs') {
+        return executeNpcFieldHerbAction(actorId, npc, context, rng);
+    }
 
     if (actionId === 'earn_lodge_duty') {
         // Legitimate: lodge work → merit + chance of herb stipend. Time cost implied by scheduler cadence.
@@ -1012,6 +1224,12 @@ function pursueNpcAmbitionGoal(actorId, options) {
     if (!npc || npc.alive === false) {
         return { ok: false, reason: 'actor_unavailable' };
     }
+    if (typeof resolveNpcTravelForActor === 'function') {
+        resolveNpcTravelForActor(npc, G.ageMonths || 0);
+    }
+    if (typeof isNpcTravelling === 'function' && isNpcTravelling(npc)) {
+        return { ok: false, reason: 'travelling' };
+    }
 
     // Cooldown / duplicate guard (natural path)
     if (!options.ignoreCooldown) {
@@ -1065,8 +1283,9 @@ function pursueNpcAmbitionGoal(actorId, options) {
         const result = executeNpcResourceAction(actorId, actionId, {
             seed: options.seed,
             developer,
-            // forceTheftOutcome is developer/test only — stripped on natural paths.
-            forceTheftOutcome: developer ? (options.forceTheftOutcome || null) : null
+            // forceTheftOutcome / forceFieldHerb are developer/test only — stripped on natural paths.
+            forceTheftOutcome: developer ? (options.forceTheftOutcome || null) : null,
+            forceFieldHerb: developer ? (options.forceFieldHerb || null) : null
         });
         if (typeof markNpcDecisionAttempted === 'function') markNpcDecisionAttempted(decision.id);
         if (typeof markNpcDecisionCompleted === 'function') markNpcDecisionCompleted(decision.id);
@@ -1075,22 +1294,29 @@ function pursueNpcAmbitionGoal(actorId, options) {
         // a stipend miss counts as a soft setback for ambition feasibility.
         const meaningfulSuccess = actionId === 'earn_lodge_duty'
             ? !!result.stipendGained
-            : !!result.success;
+            : (actionId === 'gather_field_herbs' ? !!result.herbsGained : !!result.success);
+        const travelOnly = !!result.travelProgress && !result.herbsGained;
 
         recordNpcGoalAttempt({
             actorId,
             goalId: goal.id,
             ambitionId: goal.ambitionId,
             actionId,
-            success: meaningfulSuccess,
+            success: travelOnly ? false : meaningfulSuccess,
+            omitGoalTally: travelOnly,
             decisionId: decision.id,
             effects: result.effects,
             notes: result.notes,
             factors: decision.factors,
-            meta: { actionExecuted: result.success !== false, stipendGained: !!result.stipendGained }
+            meta: {
+                actionExecuted: result.success !== false,
+                stipendGained: !!result.stipendGained,
+                travelProgress: !!result.travelProgress,
+                herbsGained: !!result.herbsGained
+            }
         });
 
-        if (goal.ambitionId) {
+        if (goal.ambitionId && !travelOnly) {
             reconsiderNpcAmbitionAfterAttempt(goal.ambitionId, {
                 success: meaningfulSuccess,
                 goalId: goal.id
@@ -1133,7 +1359,8 @@ function startWeiShunCultivationPursuitScenario(options) {
         ignoreCooldown: true,
         seed: options.seed,
         forceAction: options.forceAction || null,
-        forceTheftOutcome: options.forceTheftOutcome || null
+        forceTheftOutcome: options.forceTheftOutcome || null,
+        forceFieldHerb: options.forceFieldHerb || null
     });
 }
 

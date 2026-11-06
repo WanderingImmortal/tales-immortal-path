@@ -82,6 +82,7 @@ At immortal mortal-cap, loop shifts from **geography** to **jurisdiction** (edic
 ## Implementation crumbs
 
 - `data.js` — `ACTION_MONTHS.travel`, `ACTION_MONTHS.localTravel`
-- `world.js` — `travelToZone`, `actionExplore`
-- `locations.js` — `travelToLocation`
+- `world.js` — `travelToZone`, `actionExplore` (player only)
+- `locations.js` — `travelToLocation` (player only; any same-zone place, not the path graph)
 - `core.js` — `getEffectiveRealmTier` / path-aware realm for claims
+- `npc-travel.js` — NPC legs on `ZONE_LOCAL_LAYOUT` paths and the world clock. Walk / light-body / flight follow the realm bands above. First loop: Redwell ↔ Dewcatch Scrub. No caravans or danger sim yet. See [`npc-travel-presence.md`](npc-travel-presence.md).

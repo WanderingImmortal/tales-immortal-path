@@ -730,6 +730,11 @@ function buildWellRingAccusationDecisionSpec(thread, seed, forceChoice) {
     const liangId = thread.participants.hallMasterId;
     const accusedId = thread.participants.accusedId;
     const allowForce = !!(thread.flags.developer || thread.flags.allowForceChoice);
+    const lodgeId = typeof WELL_RING_HOME_LOCATION_ID !== 'undefined' ? WELL_RING_HOME_LOCATION_ID : 'redwell';
+    let accusedAvailable = thread.flags.accusedAvailable !== false;
+    if (accusedAvailable && typeof isNpcAvailableForInPersonAt === 'function' && !isNpcAvailableForInPersonAt(accusedId, lodgeId)) {
+        accusedAvailable = false;
+    }
     return {
         actorId: liangId,
         incidentId: thread.rootIncidentId,
@@ -737,7 +742,7 @@ function buildWellRingAccusationDecisionSpec(thread, seed, forceChoice) {
         threadId: thread.id,
         institutionalRole: 'hall_master',
         authority: true,
-        accusedAvailable: thread.flags.accusedAvailable !== false,
+        accusedAvailable,
         accusedImportant: !!thread.flags.accusedImportantToLiang,
         evidenceStrength: thread.flags.evidenceStrength || 'weak',
         pressure: Number(thread.flags.pressure) || 0,
@@ -822,6 +827,14 @@ function attemptWellRingAccusationAction(thread, decision) {
 
     // Authority / availability gates on outcome — intention may still have been chosen.
     if (['speak_to_accused', 'warn', 'formal_discipline'].includes(action)) {
+        const lodgeId = typeof WELL_RING_HOME_LOCATION_ID !== 'undefined' ? WELL_RING_HOME_LOCATION_ID : 'redwell';
+        const accusedNpc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(accusedId) : null;
+        if (accusedNpc && accusedNpc.alive !== false && typeof isNpcPhysicallyPresentAt === 'function' && !isNpcPhysicallyPresentAt(accusedNpc, lodgeId)) {
+            success = false;
+            notes = 'Accused is not at the lodge in person; the matter waits.';
+            effects.push({ type: 'blocked', reason: 'not_physically_present', locationId: lodgeId });
+            return { action, success, effects, notes, defer: true };
+        }
         if (thread.flags.accusedAvailable === false) {
             success = false;
             notes = 'Accused unavailable; action could not be carried out.';
@@ -1012,6 +1025,35 @@ function processNpcSituationBeat(threadId) {
         if (typeof markNpcDecisionAttempted === 'function') markNpcDecisionAttempted(decision.id);
 
         const attempt = attemptWellRingAccusationAction(thread, decision);
+        if (attempt.defer) {
+            thread.flags.decisionProcessed = false;
+            thread.stage = 'await_decision';
+            const accusedId = thread.participants?.accusedId;
+            let retryAt = (G.ageMonths || 0) + 1;
+            if (typeof getNpcExpectedArrivalMonths === 'function') {
+                const arrival = getNpcExpectedArrivalMonths(accusedId);
+                if (arrival != null && arrival > (G.ageMonths || 0)) retryAt = arrival;
+            }
+            if (thread.expiresAtMonths != null && retryAt > thread.expiresAtMonths) {
+                retryAt = thread.expiresAtMonths;
+            }
+            scheduleNpcSituationBeat(threadId, retryAt);
+            thread.meta = thread.meta || {};
+            thread.meta.lastTrace = {
+                decisionId: decision.id,
+                chosen: decision.chosen,
+                deferred: true,
+                notes: attempt.notes
+            };
+            return {
+                ok: true,
+                deferred: true,
+                reason: 'not_physically_present',
+                decision,
+                attempt,
+                thread: getNpcSituationThread(threadId)
+            };
+        }
         const outcome = recordNpcSituationOutcome({
             threadId,
             decisionId: decision.id,

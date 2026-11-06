@@ -62,6 +62,12 @@ function getWellRingCastNpc(key, options) {
 
 function isWellRingCastNpcPresent(npc, locationId) {
     if (!npc || npc.alive === false) return false;
+    if (npc.travel && typeof isNpcPhysicallyPresentAt === 'function') {
+        const loc = locationId != null
+            ? locationId
+            : (typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation);
+        return isNpcPhysicallyPresentAt(npc, loc);
+    }
     const zoneId = typeof currentZone !== 'undefined' ? currentZone : G.currentZone;
     if (npc.zone && zoneId && npc.zone !== zoneId) return false;
     const home = npc.homeLocationId || WELL_RING_HOME_LOCATION_ID;
