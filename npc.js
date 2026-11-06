@@ -214,8 +214,11 @@ function getPresentNpcEntries(zoneId) {
                 : G.currentLocation;
             getWorldNpcsInZone(zoneId).forEach(npc => {
                 if (npc.state === 'ambient') return;
-                // Authored home anchors (e.g. Well-Ring cast) only present at that location.
-                if (npc.homeLocationId && locId && npc.homeLocationId !== locId) return;
+                if (typeof isNpcTravelling === 'function' && isNpcTravelling(npc)) return;
+                // Settled travel location overrides the home anchor. Otherwise home still gates presence.
+                if (npc.travel && npc.travel.status === 'present' && npc.travel.locationId) {
+                    if (locId && npc.travel.locationId !== locId) return;
+                } else if (npc.homeLocationId && locId && npc.homeLocationId !== locId) return;
                 entries.push({ type: 'world', id: worldNpcId(npc.uid), npc });
             });
         }

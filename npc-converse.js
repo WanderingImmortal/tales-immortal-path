@@ -398,5 +398,11 @@ function recordWorldNpcDuelImpression(npc, playerWon) {
 }
 
 function canWorldNpcConverse(npc) {
-    return hasWorldNpcRelationship(npc) && npc.alive;
+    if (!hasWorldNpcRelationship(npc) || !npc.alive) return false;
+    if (typeof isNpcTravelling === 'function' && isNpcTravelling(npc)) return false;
+    if (npc.travel && npc.travel.status === 'present' && npc.travel.locationId && typeof getCurrentLocationId === 'function') {
+        const loc = getCurrentLocationId();
+        if (loc && npc.travel.locationId !== loc) return false;
+    }
+    return true;
 }
