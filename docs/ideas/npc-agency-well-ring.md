@@ -68,4 +68,5 @@ Turn Well-Ring Lodge named faces into stable `G.worldNpcs` so later social syste
 - `ensureWellRingState` → cast ensure (idempotent)
 - `getWellRingRivalMerit` / `adjustWellRingRivalMerit`
 - Presence filter in `getPresentNpcEntries` (`homeLocationId`)
-- Tests: `scripts/test-well-ring-lodge-npcs.js`
+- Institutional court formation: [`persistent-world-formations.md`](persistent-world-formations.md) · `G.worldFormations` + `lodge.formationInstallIds`
+- Tests: `scripts/test-well-ring-lodge-npcs.js` · `scripts/test-world-formations.js`

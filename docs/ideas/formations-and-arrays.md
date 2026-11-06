@@ -86,6 +86,7 @@ Owner direction: patterns are laid on **valid anchors**, not arbitrary world til
 |---------------------|-------|-------|
 | **Leader’s residence courtyard** | Formation | **Shipped v1** — `G.sect.residence.formations.slots` |
 | **Personal owned courtyard** | Formation | **Shipped** — `G.dwelling.formations.slots` (1 slot; owned + present). Permission helper is extensible (rent / sect lodging / commission later). |
+| **Institutional world install** | Formation | **Shipped (first)** — `G.worldFormations.byId` · Well-Ring meditation-court Spirit Gathering (ambient). See [`persistent-world-formations.md`](persistent-world-formations.md). |
 | **Sect map nodes** | Formation or array | `meditation_chamber`, `cultivation_hall`, `defense_array` — buildings today are flat %; future = host patterns |
 | **Guild / market / auction HQ** | Formation | **Later** — when those locations exist |
 | **World essence nodes** | Formation (essence) | **Later expansion** — sun terrace, moon pool, vein tap; pattern must match site tag |

@@ -1431,7 +1431,11 @@ function tickWorldNpcGrowth(monthsPassed) {
             clampWorldNpcProgress(npc);
         } else {
             const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
-            const rate = npc.growthRate || role.growthRate || 1;
+            let rate = npc.growthRate || role.growthRate || 1;
+            // Location-bound institutional formations (e.g. Well-Ring court gather).
+            if (typeof getNpcLocalFormationCultivateMult === 'function') {
+                rate *= getNpcLocalFormationCultivateMult(npc);
+            }
             npc.growthProgress += effectiveMonths * rate;
             while (npc.growthProgress >= base && canWorldNpcGrow(npc)) {
                 npc.growthProgress -= base;

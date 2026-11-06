@@ -74,6 +74,10 @@ function getPassiveCultivationSupportMult() {
     if (typeof getResidenceFormationCultivateMult === 'function') {
         mult *= getResidenceFormationCultivateMult();
     }
+    // Well-Ring lodge court — only while member and physically at Redwell.
+    if (typeof getPlayerWellRingLodgeFormationCultivateMult === 'function') {
+        mult *= getPlayerWellRingLodgeFormationCultivateMult();
+    }
     if (typeof getSectCultivationMult === 'function') {
         mult *= getSectCultivationMult();
     }
