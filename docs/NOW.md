@@ -5,7 +5,7 @@ Glanceable focus for humans and agents. Keep this short — details live in Issu
 **Updated:** 2026-11-06
 
 ## Focus
-- **Independent formation practice** — owned courtyard installs without founding a sect · [`formations-and-arrays.md`](ideas/formations-and-arrays.md) · `cursor/independent-formation-practice`
+- **Persistent world formations** — Well-Ring institutional Spirit Gathering · [`persistent-world-formations.md`](ideas/persistent-world-formations.md) · `cursor/persistent-world-formations`
 
 ## Next
 - **Combat reaction sandbox** — dev lab [`prototype/combat-sandbox/README.md`](../prototype/combat-sandbox/README.md) · playtest before any production combat swap

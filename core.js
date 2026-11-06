@@ -158,6 +158,7 @@ let G = {
     knownFormations: [],
     formationShelf: null,
     formationMaster: null,
+    worldFormations: null,
     cultivationMethod: null,
     methodShelf: null,
     foundationNatureId: null,

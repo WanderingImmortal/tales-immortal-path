@@ -1550,8 +1550,15 @@ function openWellRingPopup() {
     const wr = G.wellRing;
 
     if (!wr.member) {
+        const observe = typeof getWellRingLodgeFormationObservationLine === 'function'
+            ? getWellRingLodgeFormationObservationLine()
+            : '';
+        const observeHtml = observe
+            ? `<div class="desc" style="margin-bottom:10px;color:#a09080;">${observe}</div>`
+            : '';
         list.innerHTML = `
             <div class="desc" style="margin-bottom:10px;">Sand-brick fringe lodge. Master Liang (early FE) trains local outers to "keep the well and road quiet." Registration takes a sash fee — grit and ink, he says.</div>
+            ${observeHtml}
             <div class="popup-item can-buy" id="wellRingJoinBtn" style="cursor:pointer;">
                 <div class="name">💧 Pay outer registration</div>
                 <div class="desc">Join as outer · ${WELL_RING_JOIN_FEE} Stones · no trial</div>
@@ -1602,8 +1609,16 @@ function openWellRingPopup() {
         ? '<div class="desc" style="margin-top:8px;color:#a09080;">You have heard the sash fee never returns — quiet pockets with the town\'s betters.</div>'
         : '';
 
+    const formationObserve = typeof getWellRingLodgeFormationObservationLine === 'function'
+        ? getWellRingLodgeFormationObservationLine()
+        : '';
+    const formationObserveHtml = formationObserve
+        ? `<div class="desc" style="margin-bottom:10px;color:#a09080;">${formationObserve}</div>`
+        : '';
+
     list.innerHTML = `
         <div class="desc" style="margin-bottom:8px;">Master Liang · outer sash · merit <b>${wr.merit || 0}</b> · board rank <b>${getWellRingPlayerRank()}</b></div>
+        ${formationObserveHtml}
         <div class="desc" style="margin-bottom:10px;line-height:1.45;"><b>Monthly board</b><br>${board}</div>
         <div class="popup-item${wr.tournamentDue ? ' can-buy' : ''}" id="wellRingTourneyBtn" style="${wr.tournamentDue ? 'cursor:pointer;' : 'opacity:0.65;'}">
             <div class="name">🏅 Yearly promotion tournament</div>

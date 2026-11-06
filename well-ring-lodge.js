@@ -178,7 +178,8 @@ function ensureWellRingLodgeOrg() {
             zone: WELL_RING_HOME_ZONE_ID,
             headquartersLocationId: WELL_RING_HOME_LOCATION_ID,
             memberUids: [],
-            roles: {}
+            roles: {},
+            formationInstallIds: []
         };
     }
     const lodge = wr.lodge;
@@ -188,6 +189,7 @@ function ensureWellRingLodgeOrg() {
     if (!lodge.headquartersLocationId) lodge.headquartersLocationId = WELL_RING_HOME_LOCATION_ID;
     if (!Array.isArray(lodge.memberUids)) lodge.memberUids = [];
     if (!lodge.roles || typeof lodge.roles !== 'object') lodge.roles = {};
+    if (!Array.isArray(lodge.formationInstallIds)) lodge.formationInstallIds = [];
 
     listWellRingCastDefs().forEach(def => {
         if (!lodge.memberUids.includes(def.uid)) lodge.memberUids.push(def.uid);
@@ -197,6 +199,10 @@ function ensureWellRingLodgeOrg() {
         hallMasterUid: WELL_RING_CAST.hall_master.uid,
         rivalUid: WELL_RING_CAST.rival.uid
     };
+    // Authoritative install lives on G.worldFormations; lodge only keeps id pointers.
+    if (typeof ensureWellRingLodgeWorldFormation === 'function') {
+        ensureWellRingLodgeWorldFormation();
+    }
     return lodge;
 }
 
@@ -285,6 +291,11 @@ function getWellRingLodgeMembers(options) {
 function migrateWellRingLodgeForExistingSave() {
     ensureWellRingLodgeCast();
     ensureWellRingStorehouse();
+    if (typeof migrateWorldFormationsForExistingSave === 'function') {
+        migrateWorldFormationsForExistingSave();
+    } else if (typeof ensureWellRingLodgeWorldFormation === 'function') {
+        ensureWellRingLodgeWorldFormation();
+    }
     // Bounded abstract resupply — does not rewrite herbStock or loss ledgers.
     if (typeof ensureInstitutionalProcurement === 'function') {
         ensureInstitutionalProcurement('well_ring_herb_external', { skipProcess: true });
