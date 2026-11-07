@@ -160,7 +160,7 @@ The underpalace remains a sealed, restricted deterrence site. "Wake the dragon" 
 |---------|-------------|---------------------------|
 | **Elder** | Emergency patriarchy; wartime coordination of Tianjing's defence; charter politics; empire's governing architecture; continuous reign | Did not personally supply the Half-Step ceiling that broke the coalition |
 | **Younger** | Half-Step (then Immortal) watershed; garden walk; Seven Days; Ember Crown judgment / Dragon's Edict; founding Immortal deterrence | Did not invent the Tian Clan; did not single-handedly invent imperial administration |
-| **Elder → younger (Ember Crown)** | Advised on settlement risk while Flame Emperor remained defiant | Did **not** order the execution — younger brother **chose** confrontation as continental signal (detail: [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) § Ember Crown Plain) |
+| **Elder → younger (Ember Crown)** | Advised on settlement risk while Flame Emperor remained defiant | Did **not** order the execution — younger brother **chose** confrontation as continental signal (detail: [`dao-wars-capital-turn.md` — Ember Crown Plain](dao-wars-capital-turn.md#ember-crown-plain--character-politics-settlement-2026-11-07)) |
 
 **Together:** one brother kept the clan alive and then ruled; the other changed what power *meant* on the continent and then stepped back into restrained seclusion. Family first; legend second.
 

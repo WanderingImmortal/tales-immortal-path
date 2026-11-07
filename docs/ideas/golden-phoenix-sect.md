@@ -58,9 +58,11 @@ During the war the sect lived **Sect Rebirth** (Ascent **7**) — constant death
 
 **Flame Emperor** (焰帝) — paragon saint-king — pushed **Realm Reforge** (Ascent **8**): not “get our courts back” (they already had courts) but **burn the stale board** so the Heartlands order could renew under flame.
 
-### The kneel — paragon executed, brother stopped the war
+### The kneel — paragon executed, brother ended Phoenix open war
 
-Authoritative sequence and Tian-side politics: [`dao-wars-capital-turn.md`](dao-wars-capital-turn.md) § Ember Crown Plain. **Canon status:** events below marked **Canon** / **Provisional** / **Interpretation** / **Open** (same key as [`tian-clan-family-history.md`](tian-clan-family-history.md)).
+Coalition fighting broke at **Tianjing**; charter settlement followed over **seasons**. This arc ends **Phoenix open resistance** after Ember Crown — not the entire Dao Wars in one kneel.
+
+Authoritative sequence and Tian-side politics: [`dao-wars-capital-turn.md` — Ember Crown Plain (character, politics, settlement)](dao-wars-capital-turn.md#ember-crown-plain--character-politics-settlement-2026-11-07). **Canon status:** events below marked **Canon** / **Provisional** / **Interpretation** / **Open** (same key as [`tian-clan-family-history.md`](tian-clan-family-history.md)).
 
 #### Chronicle beats (**Canon**)
 
@@ -94,7 +96,7 @@ That brother later ascended as the **Phoenix Immortal** (凤凰仙).
 
 #### Why Tian singled out Phoenix (**Canon** + **Provisional**)
 
-Continued defiance after the garden walk blocked a **credible settlement**. The **reigning elder brother** (later emperor) advised on politics; the **Half-Step** **decided** the Ember Crown confrontation — a signal that **unrestricted conquest** was over. Targeting reflected Phoenix **expansionism**, **resistance**, and the **paragon’s weight** — **not** random sect hatred.
+Continued defiance after the garden walk blocked a **credible settlement**. The **elder Tian brother** (emergency patriarch, later reigning emperor) advised on politics; the **Half-Step** **decided** the Ember Crown confrontation — a signal that **unrestricted conquest** was over. Targeting reflected Phoenix **expansionism**, **resistance**, and the **paragon’s weight** — **not** random sect hatred.
 
 #### Settlement — what the stand might have bought (**Open** / **Interpretation**)
 

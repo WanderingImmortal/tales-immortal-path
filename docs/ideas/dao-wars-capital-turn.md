@@ -120,7 +120,7 @@ Tianjing garden walk
     → Seven Days of Weight (founder holds Tianjing; continent feels Half-Step)
     → Phoenix regroups at Ember Crown Plain — last Realm Reforge gamble
     → Tian march (deliberate, not rushed — business after the week)
-    → Flame Emperor refuses final terms / loses last stand
+    → Flame Emperor refuses to kneel; masses for last stand at Ember Crown / loses last stand
     → Half-Step EXECUTES (not duel) — demoralization; younger brother inherits ash
     → Open war ends when brother kneels; charter seasons follow
 ```
@@ -128,7 +128,7 @@ Tianjing garden walk
 | Beat | Detail |
 |------|--------|
 | **Why wait a week?** | Founder **consolidates** Half-Step *and* lets Phoenix **concentrate** — one strike breaks **hope**, not only soldiers |
-| **Why execution?** | Flame Emperor already **tested** the gate at Tianjing; second chance is **political**, not martial — refusal → **example** |
+| **Why execution?** | Flame Emperor already **tested** the gate at Tianjing and **refused to submit**; continued defiance at Ember Crown made **example** judgment necessary — not an honor duel. **No** documented ultimatum or formal negotiation during the Seven Days ([Ember Crown Plain — character, politics, settlement](#ember-crown-plain--character-politics-settlement-2026-11-07)). |
 | **Sword distance** | Sword Ancestor **already** on the mountain — execution is **Phoenix–Tian** finale; Sword chronicles note it without glory |
 
 **Founder personality (locked):** **contemplative dragon** — the **Younger brother** / imperial founding Immortal. The **Seven Days of Weight** are not theatre or cruelty for sport. Tianjing goes **quiet** (bells stopped, qi like pressure before rain). He **learns** what Half-Step **is**: heaven’s weight, debt on the senses, a realm they believe **no one** has stood in before. Chroniclers call it **stillness more terrifying than rage**. Later **sleeping dragon** myth reads the week as the last time he **fully measured** the gate before he chose **voluntary seclusion** rather than **rule by walking the world**. Public speech still says he **sleeps**; he is not literally unconscious.
