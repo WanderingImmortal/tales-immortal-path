@@ -5,8 +5,8 @@
 | **Status** | `designed` (v2 — economy + lineage sketch) |
 | **Blocked on** | Lineage manual implementation; Longcheng branch dialogue |
 | **Issue** | none yet |
-| **Chat / PR** | Heartlands sect pass, 2026-07-23 |
-| **Updated** | 2026-07-23 (Sword Immortal spine) |
+| **Chat / PR** | Heartlands sect pass, 2026-07-23; prior encounters with Tian genius 2026-11-07 |
+| **Updated** | 2026-11-07 (Sword Ancestor ↔ Tian prior encounters) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md) *(separate PR — pending)*. Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md).
 
@@ -52,7 +52,17 @@ The Sword Sect fought in the Dao Wars as a **major power** — not the largest, 
 
 Their apex asset was not the patriarch. It was **the Sword Ancestor** (剑祖) — war-era name for the one who would become **Sword Immortal** (剑仙). **Peak Dao Manifestation**, **wearing the law of the First Sword**, old enough to remember the continent before anyone spoke of “Tian.” **Not Immortal yet** — a **true peer** to the Tian founder **at peak DM** before Half-Step. Chroniclers still argue whether he could have ended the breakthrough if the inner walls had failed sooner.
 
+#### Prior encounters with the Tian genius *(vague — by design)*
+
+Before the Tian genius’s Half-Step breakthrough, the **Sword Ancestor** and the future founding Immortal had met as **opponents on several occasions**. Those meetings sat inside earlier conflicts of the wars and the pre-mandate scramble; **which battles, where, and who prevailed remain Open**. No formal duel, sworn rivalry, friendship, personal grudge, or secret agreement is locked.
+
+What is locked: both gained **firsthand** measure of the other’s capabilities, temperament, and judgement. At peak Dao Manifestation they were **roughly comparable** in overall cultivation and combat standing. Even among peak DM cultivators, the Sword Ancestor’s **killing potential** was exceptional — a credible danger under the right circumstances, **not** a guaranteed answer to a higher realm.
+
+That familiarity shaped decisions when the coalition collapsed at Tianjing. The Sword Ancestor already knew the Tian genius was formidable and could make a reasoned assessment of his likely conduct once the ceiling changed. The Tian genius already knew the Sword Ancestor’s extraordinary lethality and had cause **not to underestimate** that sword even after reaching Half-Step.
+
 When the tide turned at **Tianjing’s gates**, the Sword Ancestor **did not** throw the mountain into a suicide duel with the Half-Step. He **receded**, raised the **Ten Thousand Swords Seal Array** (万剑封山阵), and sent envoys.
+
+That withdrawal fit his judgement, his loyalty, and his Sword Dao principles — **not** cowardice, humiliation, or betrayal of the sword. He is devoted above all to the sword, but the Celestial Sword Sect raised, housed, and supported him; his loyalty to it may be exceptionally strong. He is **not** recklessly compelled to fight every powerful opponent. The sect was never primarily an expansionist power; **preserving Solitary Sword Mountain** mattered more than gambling its survival on an unnecessary confrontation.
 
 The array held. That is why Solitary Sword Mountain still stands.
 
@@ -188,7 +198,7 @@ Grey temples, plain steel-grey robes, **one** unadorned sword. No jewelry. Eyes 
 
 ### Why they survived the Dao Wars
 
-The Tian founder’s Half-Step breakthrough ended the war because the ceiling changed. At **Dao Manifestation**, the Sword Immortal could wound armies and wear a law on the battlefield — but could **not** break a Half-Step at the gate and knew it.
+The Tian founder’s Half-Step breakthrough ended the war because the ceiling changed. At **Dao Manifestation**, the Sword Immortal could wound armies and wear a law on the battlefield — but could **not** break a Half-Step at the gate and knew it. Prior encounters with the Tian genius (above) meant that assessment was **informed**, not a blank guess at an unknown peer.
 
 Instead of a suicide stroke that would have left the mountain headless:
 
@@ -196,7 +206,7 @@ Instead of a suicide stroke that would have left the mountain headless:
 2. The Sword Immortal **held the core** while patriarch and envoys treated with the Tian.
 3. Early capitulation preserved the array, the lineage, and the Sword Immortal’s life.
 
-**Lesson inner court teaches:** the perfect sword knows when **not** to cut.
+**Lesson inner court teaches:** the perfect sword knows when **not** to cut — and the mountain that raised the sword is worth keeping.
 
 ### After the mandate
 
@@ -206,11 +216,12 @@ Centuries of charter peace gave the Sword Immortal what the war denied: time to 
 
 ### Attitude (apex)
 
-**Fine with the peace.** Charter boredom is everyone else’s problem. The Sword Immortal is not plotting revival wars — they are walking toward the **Apex** of Sword Dao and care about **nothing else**.
+**Fine with the peace.** Charter boredom is everyone else’s problem. The Sword Immortal is not plotting revival wars — they pursue the **Apex** of Sword Dao above all. That devotion does **not** mean indifference to the sect that raised them.
 
 | Trait | How it shows |
 |-------|----------------|
 | **Single-minded** | Sword, array meditation, polish the dao — politics ignored unless the mountain is threatened |
+| **Loyalty** | The mountain housed him; existential threat to the sect is still reason to act |
 | **Peace** | Capitulation bought time; time bought ascension; no hunger to test the Tian again |
 | **Aloof** | Has not left the array core in living memory; speaks to patriarch only, and rarely |
 | **Will act** | Sepulcher desecration, array breach, existential threat to the mountain |
@@ -226,7 +237,7 @@ Centuries of charter peace gave the Sword Immortal what the war denied: time to 
 | **Sword Dao** | Polished to an **extreme**; centuries in the array core refining one line |
 | **Agency** | Still bound by immortal restrictions — power ≠ free movement on the mortal board |
 
-Even at **Dao Manifestation** during the Dao Wars, the **First Sword** law was the one force the rising Tian founder **feared could hurt him** — not defeat, but wound. That memory lives in Tian inner court.
+Even at **Dao Manifestation** during the Dao Wars, the **First Sword** law was the one force the rising Tian founder **feared could hurt him** — not defeat, but wound. Prior encounters made that judgement firsthand rather than rumour. That memory lives in Tian inner court.
 
 **Parked flavor** — if the player ever speaks to the **reigning Tian emperor** (elder brother of the founding Immortal) as an equal (late game, high imperial favor):
 
@@ -644,6 +655,9 @@ Patriarch and arrays stay on **Solitary Sword Mountain**. Longcheng is where the
 - [x] Masterwork swords — **auction events**, not market shelf *(owner 2026-07-23)*
 - [ ] Phoenix Gambit: does Sword **split** (purist vs pragmatist faction)?
 - [x] Sword Immortal meeting — **Half-Step minimum**; interaction design **parked**
+- [x] Sword Ancestor ↔ Tian genius **prior encounters** — several opponent meetings before Half-Step; familiarity informs Tianjing decisions *(2026-11-07)*
+- [ ] Prior encounter **battles / locations / winners** — deliberately Open (do not invent)
+- [ ] Formal rivalry / duel / grudge / pact between Sword Ancestor and Tian genius — **not** locked; leave absent unless owner opens
 
 ## Implementation crumbs (later)
 
