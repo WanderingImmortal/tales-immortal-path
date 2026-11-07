@@ -69,7 +69,7 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 | **Celestial Sword** | Heartlands — **Solitary Sword Mountain** (孤剑山) | Early capitulation — kept mountain honor; *also* licensed charter sword work when law must look clean |
 | **Jade Lotus** | Heartlands — silk courts & trade cities | Early alliance — best charter terms; *also* richest great sect commercially, not “a trade guild” |
 | **Void Temple** | Heartlands — observatory slopes | Neutral late — archives preserved by oath; *also* sealed-site monopoly, not “the library faction” |
-| **Golden Phoenix** | Heartlands — flame courts | Broken late — humiliating truce; *also* fuels modern revanchism; still a full martial flame sect |
+| **Golden Phoenix** | Heartlands — flame courts | Broken late — Flame Emperor **executed** at Ember Crown; younger brother’s truce; homelands retained under charter (why: Tian stability + negotiation — **Open** how much last stand mattered); *also* fuels modern revanchism |
 | **Yin Maiden Palace** | Frostbite (crown) | Isolation / recognition — peak Yin; northern quell + small reaches; silence debts |
 | **Vajra Ridge** | Frostbite (south spine) | Isolation / recognition — **monk body refiners**; held gate corridor; escort contracts |
 | **Frostpeak Monastery** *(code stub)* | Frostbite | → **Yin Maiden Palace** pivot; see [`frostbite-yin-sect.md`](frostbite-yin-sect.md) |

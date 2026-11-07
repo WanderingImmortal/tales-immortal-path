@@ -5,8 +5,8 @@
 | **Status** | `designed` (v1 — Ninth Ascent + immortal/patriarch split) |
 | **Blocked on** | Lineage manual implementation; Phoenix Gambit lore pass |
 | **Issue** | none yet |
-| **Chat / PR** | Heartlands sect pass, 2026-07-23 |
-| **Updated** | 2026-07-23 (Yan Jiao, Realm Reforge) |
+| **Chat / PR** | Heartlands sect pass 2026-07-23; Phoenix Court lore — builds on Tian family PR #215 |
+| **Updated** | 2026-11-07 (Flame Emperor / Ember Crown character pass) |
 
 Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Peers: [`celestial-sword-sect.md`](celestial-sword-sect.md), [`jade-lotus-sect.md`](jade-lotus-sect.md), [`void-temple-sect.md`](void-temple-sect.md).
 
@@ -23,7 +23,7 @@ Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperi
 | **Lineage** | *Stub* — flame / rebirth canon; `lineageId` TBD |
 | **Homeland** | **Great Flame Caldera** (大金焰壑) — rim courts, floor heart, central **rebirth pit** |
 | **Doctrine** | **The Nine Ascents** (涅槃九升) — nine cycles of renewal; **Realm Reforge** (界炉) = #8 |
-| **Paragon (dead)** | **Flame Emperor** (焰帝) — died in Dao Wars; death ended the war |
+| **Paragon (dead)** | **Flame Emperor** (焰帝) — executed at Ember Crown Plain; ended **Phoenix** open war (mandate settled charter over seasons) |
 | **Sect immortal** | **Phoenix Immortal** (凤凰仙) — younger brother who knelt; **tired guardian** |
 | **Patriarch** | **Yan Jiao** (炎骄) — **Ash Crown Patriarch** (烬冠宗主); arrogant fanatic |
 | **Player-facing herald** | **Herald Jin Rao** (金饶) — recruitment, raids *(code: `faction_phoenix_herald`)* |
@@ -58,17 +58,23 @@ During the war the sect lived **Sect Rebirth** (Ascent **7**) — constant death
 
 **Flame Emperor** (焰帝) — paragon saint-king — pushed **Realm Reforge** (Ascent **8**): not “get our courts back” (they already had courts) but **burn the stale board** so the Heartlands order could renew under flame.
 
-### The kneel — paragon executed, brother stopped the war
+### The kneel — paragon executed, brother ended Phoenix open war
 
-At **Tianjing’s gates**, the **Flame Emperor** **saw** the garden walk and **tested** the Half-Step — one **brief, terrible** clash — then **withdrew injured**, refusing to kneel ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)).
+Coalition fighting broke at **Tianjing**; charter settlement followed over **seasons**. This arc ends **Phoenix open resistance** after Ember Crown — not the entire Dao Wars in one kneel.
+
+Authoritative sequence and Tian-side politics: [`dao-wars-capital-turn.md` — Ember Crown Plain (character, politics, settlement)](dao-wars-capital-turn.md#ember-crown-plain--character-politics-settlement-2026-11-07). **Canon status:** events below marked **Canon** / **Provisional** / **Interpretation** / **Open** (same key as [`tian-clan-family-history.md`](tian-clan-family-history.md)).
+
+#### Chronicle beats (**Canon**)
+
+At **Tianjing’s gates**, the **Flame Emperor** **saw** the garden walk and **tested** the Half-Step — one **brief, terrible** clash — then **withdrew injured**, refusing to kneel.
 
 What followed is **not** denied in Phoenix records:
 
-1. **Seven Days of Weight** — the Half-Step **held Tianjing**; the continent **felt** the new ceiling; Phoenix **regrouped** for **Realm Reforge** (#8).
+1. **Seven Days of Weight** — the Half-Step **held Tianjing**; the continent **felt** the new ceiling; Phoenix **regrouped** for **Realm Reforge** (#8). He was already overwhelmingly powerful; the week is **acclimation**, not weakness.
 2. **Ember Crown Plain** (烬冠原) — second great muster; last flame gamble.
-3. **Execution** — the founder **did not** honor-duel the paragon. He **arrived** wielding an **Immortal-path** art — or so close the continent had no taxonomy — and **killed the Flame Emperor before both armies** in **one gesture** of that technique. Demoralization and **mandate** in one act. Pride **forbids** calling it assassination; inner court calls it **judgment**.
+3. **Execution** — the Tian founder **did not** honor-duel the paragon. After ~seven days he **arrived** wielding an **Immortal-path** art — working name **Dragon’s Edict** (龙敕) on the Tian side — or so close the continent had no taxonomy, and **killed the Flame Emperor before both armies** in **one gesture**. Demoralization and **mandate** in one act. Pride **forbids** calling it assassination; inner court calls it **judgment**.
 
-When he fell, his **younger brother** took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
+When he fell, his **younger brother** **witnessed** the execution, took command, saw the realm **bleeding out**, and chose **enough** — signed the humiliating truce that saved the caldera.
 
 | Loss | Effect |
 |------|--------|
@@ -76,7 +82,30 @@ When he fell, his **younger brother** took command, saw the realm **bleeding out
 | **Expansion rights** | Charter **caps** flame jurisdiction and absorption |
 | **Flame Emperor** | **Executed** at Ember Crown Plain — symbol for revanchists; eighth ring shrine **unfinished** |
 
-That brother later ascended as the **Phoenix Immortal**. Inner court still argues whether Half-Step would have ended it anyway.
+That brother later ascended as the **Phoenix Immortal** (凤凰仙).
+
+#### Flame Emperor (焰帝) — paragon, not caricature
+
+| Layer | Detail |
+|-------|--------|
+| **Canon** | Saint-king of the flame courts; **fanatical and capable** — expansion served **Realm Reforge** metaphysics, not cartoon evil. Among the war’s **largest** expansionists; **not** uniquely guilty (Sword marched Tianjing; others burned the board). |
+| **Provisional** | Pride and ambition **built** his rise; downfall when those traits met **Half-Step** force — **not** heaven punishing hubris. |
+| **Interpretation** | After Tianjing, likely judged victory **near-impossible** but **not** zero; Ember Crown may have aimed at **respect**, **autonomy**, or **negotiating leverage** (wound, survive, demonstrate strength) — **not** necessarily assassination of the Tian cultivator. Miscalculation + refusal to kneel without one last full test. |
+| **Provisional** | May have made **contingency** for sect survival without him (inheritance, younger brother succession, elders, resource continuity) — **no** named secret artefacts or last words in canon. |
+| **Open** | Whether he meant the stand as sacrifice. |
+
+#### Why Tian singled out Phoenix (**Canon** + **Provisional**)
+
+Continued defiance after the garden walk blocked a **credible settlement**. The **elder Tian brother** (emergency patriarch, later reigning emperor) advised on politics; the **Half-Step** **decided** the Ember Crown confrontation — a signal that **unrestricted conquest** was over. Targeting reflected Phoenix **expansionism**, **resistance**, and the **paragon’s weight** — **not** random sect hatred.
+
+#### Settlement — what the stand might have bought (**Open** / **Interpretation**)
+
+Inner court still argues whether the Half-Step would have ended Phoenix anyway. **Additionally Open:** whether the Flame Emperor’s resistance **influenced** charter terms (homeland kept, internal leadership, inheritance preserved). Tian had **own** reasons not to erase a great sect; the **younger brother’s kneel** was **indispensable**. Counterfactual **unknowable**; do **not** teach that execution **bought** the truce.
+
+| Layer | Detail |
+|-------|--------|
+| **Canon** | Phoenix **broke late** among the Heartlands four — humiliating truce, not total annihilation. |
+| **Open** | How much Ember Crown mattered vs negotiation and Tian stability calculus. |
 
 ### Now — smoldering revanchism
 
@@ -140,14 +169,16 @@ OUTER COURT — pamphleteers, raid zealots, flame legions
 
 ### Phoenix Immortal — younger brother
 
-Ascended after the truce. **Knowable** — not hidden like Lotus matriarch, not absent like Void Seeker.
+Ascended after the truce. **Knowable** — not hidden like Lotus matriarch, not absent like Void Seeker. **Personal name Open.**
 
 | Trait | How it shows |
 |-------|----------------|
-| **Tired** | Banked ember, not open wildfire |
+| **Tired** | Banked ember, not open wildfire — **experienced guardian**, not grief-recluse |
 | **Protective** | Wants people safe; caldera must survive |
 | **Clear-eyed** | Other sects have **immortals** too — that tier of war is **annihilation**, not Phoenix rebirth |
 | **Divided legacy** | Savior to pragmatists; quencher of Flame Emperor’s war to fanatics |
+| **Brother’s shadow** | Can **love, admire, and mourn** the Flame Emperor while refusing to repeat expansion that risks the sect — submission at Ember Crown was **costly**, not cowardly; he may have shared ambition **before** defeat |
+| **Tian** | No required friendship or feud with the founding Immortal in the present era — relationship **Open** |
 
 Rarely micromanages. **Blocks** mass siege on Lotus valley, prison rumors, anything that pulls **all** apexes into the open.
 
@@ -251,6 +282,9 @@ Techniques in culture: **Phoenix Ascent Palm**, ember fury set — rep unlocks T
 
 ## Open questions
 
+- [ ] Flame Emperor — personal name; documented contingency vs inner-court myth
+- [ ] Settlement counterfactual — resistance vs kneel in charter terms (**deliberately Open**)
+- [ ] Phoenix Immortal ↔ Tian founding Immortal present relationship
 - [ ] Sect Hanzi lock: 金凰宗 vs 金凤宗 vs 金凰剑宗
 - [ ] Herald Jin Rao — blood to Yan Jiao or separate cadet?
 - [ ] Lineage canon + manual tiers when pool ships

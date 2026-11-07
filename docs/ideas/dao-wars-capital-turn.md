@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (v3 — post-Tianjing Phoenix arc; family spine 2026-11-07) |
-| **Blocked on** | Chronicle entries; emperor personal name |
+| **Status** | `designed` (v4 — Flame Emperor / Ember Crown character pass; family spine 2026-11-07) |
+| **Blocked on** | Chronicle entries; emperor personal name; Flame Emperor personal name |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent + owner, 2026-07-28; family / leadership revision 2026-11-07 |
+| **Chat / PR** | Cloud agent + owner, 2026-07-28; family / leadership revision 2026-11-07; Phoenix Court pass 2026-11-07 |
 | **Updated** | 2026-11-07 |
 
 **Intent:** One **grand stage** where the Dao Wars **turned** — Half-Step breakthrough, coalition assault on the Tian heartland, and the **aftershocks** each great sect still lies about. Parent: [`imperial-clan.md`](imperial-clan.md). Family spine: [`tian-clan-family-history.md`](tian-clan-family-history.md). Demon fallout: [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
@@ -120,7 +120,7 @@ Tianjing garden walk
     → Seven Days of Weight (founder holds Tianjing; continent feels Half-Step)
     → Phoenix regroups at Ember Crown Plain — last Realm Reforge gamble
     → Tian march (deliberate, not rushed — business after the week)
-    → Flame Emperor refuses final terms / loses last stand
+    → Flame Emperor refuses to kneel; masses for last stand at Ember Crown / loses last stand
     → Half-Step EXECUTES (not duel) — demoralization; younger brother inherits ash
     → Open war ends when brother kneels; charter seasons follow
 ```
@@ -128,7 +128,7 @@ Tianjing garden walk
 | Beat | Detail |
 |------|--------|
 | **Why wait a week?** | Founder **consolidates** Half-Step *and* lets Phoenix **concentrate** — one strike breaks **hope**, not only soldiers |
-| **Why execution?** | Flame Emperor already **tested** the gate at Tianjing; second chance is **political**, not martial — refusal → **example** |
+| **Why execution?** | Flame Emperor already **tested** the gate at Tianjing and **refused to submit**; continued defiance at Ember Crown made **example** judgment necessary — not an honor duel. **No** documented ultimatum or formal negotiation during the Seven Days ([Ember Crown Plain — character, politics, settlement](#ember-crown-plain--character-politics-settlement-2026-11-07)). |
 | **Sword distance** | Sword Ancestor **already** on the mountain — execution is **Phoenix–Tian** finale; Sword chronicles note it without glory |
 
 **Founder personality (locked):** **contemplative dragon** — the **Younger brother** / imperial founding Immortal. The **Seven Days of Weight** are not theatre or cruelty for sport. Tianjing goes **quiet** (bells stopped, qi like pressure before rain). He **learns** what Half-Step **is**: heaven’s weight, debt on the senses, a realm they believe **no one** has stood in before. Chroniclers call it **stillness more terrifying than rage**. Later **sleeping dragon** myth reads the week as the last time he **fully measured** the gate before he chose **voluntary seclusion** rather than **rule by walking the world**. Public speech still says he **sleeps**; he is not literally unconscious.
@@ -143,6 +143,111 @@ Tianjing garden walk
 | **Void** | Copyists argue whether it was **true** Immortal Path or **Half-Step** wearing one **borrowed** heaven stroke |
 
 Phoenix inner court: **records all of it** — injury at Tianjing, seven days, arrival technique, execution — pride **forbids** denial ([`golden-phoenix-sect.md`](golden-phoenix-sect.md)).
+
+---
+
+## Ember Crown Plain — character, politics, settlement (2026-11-07)
+
+Companion depth (Phoenix Court voice): [`golden-phoenix-sect.md`](golden-phoenix-sect.md). Tian family spine: [`tian-clan-family-history.md`](tian-clan-family-history.md).
+
+### Canon status key (this section)
+
+| Mark | Meaning |
+|------|---------|
+| **Canon** | Established historical event or previously locked beat |
+| **Provisional** | Approved character / political direction; details may move |
+| **Interpretation** | Plausible in-world read of private motives — not established fact |
+| **Open** | Deliberately unsettled |
+
+**Do not** invent personal names for the Flame Emperor, Phoenix Immortal, or Tian brothers in other docs.
+
+### The Flame Emperor (焰帝) — leader, not fool
+
+| Layer | Detail |
+|-------|--------|
+| **Canon** | Formidable cultivator and **expansionist** leader of Golden Phoenix / Phoenix Court during the Dao Wars. Proud, ambitious, committed to Phoenix Dao and sect standing. Pushed **Realm Reforge** (#8) — burn the stale continental board, not merely recover lost border courts. Among the **largest** wartime expansionists; Phoenix was **not** uniquely guilty of aggression — Sword marched on Tianjing; Demon harvested the siege; lesser powers burned each other everywhere. |
+| **Provisional** | Pride and refusal to submit were **not** inherently foolish and were **not** heaven’s arbitrary punishment. For much of his life, confidence and ambition likely **fed** his success. Downfall came when those same qualities met an opponent **above** the category he had learned to fight. |
+| **Interpretation** | Neither idiot villain, infallible strategist, nor purely selfless martyr. |
+
+### After Tianjing — what he likely weighed *(interpretation)*
+
+**Canon:** At the gates he **tested** the Half-Step, was **injured**, **withdrew**, and **refused to kneel**.
+
+**Interpretation (likely strategic reasoning — not certain private thought):**
+
+- After that clash he could judge outright victory was **extraordinarily unlikely** — but **not** literally impossible.
+- He may still have believed in **meaningful outcomes short of victory**: wound the Half-Step, survive a punishing exchange, demonstrate that Phoenix remained too formidable to dissolve casually — improving **negotiating position** under the emerging Tian order.
+- **Ember Crown Plain** may have been a last attempt to show **institutional strength** worth political respect and **some autonomy**, not necessarily a bid to **kill** the Tian cultivator.
+- Failure mixed **miscalculation of power disparity** with **unwillingness to surrender pride** without **testing** that disparity once more at full muster.
+
+**Open:** Whether he framed the stand to himself as sacrifice, defiance, or calculated gamble.
+
+### Seven Days of Weight — what they were and were not
+
+| Layer | Detail |
+|-------|--------|
+| **Canon** | ~**seven days** between the Tianjing garden walk / Flame Emperor’s withdrawal and the Half-Step’s march to **Ember Crown Plain**. Tianjing goes quiet; the continent **feels** the new ceiling. |
+| **Canon** | The Half-Step uses the interval to **acclimate** and **explore** unprecedented Half-Step capacity — heaven’s weight, qi pressure, what the gate allows. Chroniclers: *stillness more terrifying than rage*. |
+| **Must not imply** | He was helpless, unstable, or **needed** seven days to become strong enough to defeat the Flame Emperor. He was already **overwhelmingly** powerful; the week is **familiarization**, not a power-up timer. |
+| **Open** | **Do not** invent a definitive ultimatum, secret negotiation, or hidden event during these seven days. |
+
+### Tian brothers — counsel vs judgment
+
+| Layer | Detail |
+|-------|--------|
+| **Canon** | The **elder brother** (emergency patriarch, later reigning emperor) was **consulted** on wider political consequences of the Flame Emperor’s continued defiance. An unbowed paragon of Phoenix expansionism was a **conspicuous obstacle** to a **credible continental settlement**. |
+| **Canon** | The elder could **advise** on charter politics, precedent, and stability; the decision to **confront and execute** the Flame Emperor at Ember Crown belonged to the **younger brother** (Half-Step / founding Immortal) — not an imperial order handed down, not the elder wielding the younger as a weapon. |
+| **Provisional** | The execution **demonstrated** that the era of **unrestricted conquest** had ended. Phoenix was singled out for **aggressive expansionism**, **continued resistance after Tianjing**, and the **political weight of its leader** — **not** arbitrary personal hatred of the sect. |
+| **Interpretation** | The Half-Step may have **respected** the Flame Emperor’s determination without believing it acceptable to leave him **in power**. |
+
+### Ember Crown — execution beat *(canon recap)*
+
+Phoenix masses for **Realm Reforge** (#8). The Half-Step **arrives** after the Seven Days. He does **not** honor-duel. **Dragon’s Edict** (龙敕 — **working name**) or indistinguishable art: **one gesture**; Flame Emperor **executed before both armies**. See merged fork above.
+
+### Flame Emperor — survival contingency *(provisional)*
+
+**Provisional historical direction:**
+
+The Flame Emperor could recognize that confronting the Half-Step might **cost his life**. While still allowing some chance of victory or meaningful resistance, he **may** have prepared Phoenix Court to **survive without him**:
+
+- Continuity of cultivation inheritance
+- Succession leaning on his **younger brother**
+- Trusted elders briefed to hold institutions
+- Critical resources guarded against leadership collapse
+
+**Do not** invent named artefacts, secret techniques, coded final orders, or confirmed last conversations.
+
+**Open:** Whether he **intended** the final stand as sacrifice.
+
+### Phoenix younger brother — witness and successor
+
+| Layer | Detail |
+|-------|--------|
+| **Canon** | **Personally witnessed** his elder brother’s execution at Ember Crown Plain. Took command of surviving forces; signed the humiliating truce that preserved the caldera; later ascended as **Phoenix Immortal** (凤凰仙). |
+| **Provisional** | Genuinely **loved and respected** the Flame Emperor. May have **supported or participated** in expansionist ambitions **before** defeat — not necessarily a lifelong ideological opponent. Perspective shifted substantially from **witnessing consequences**: brother’s death, military collapse, risk that continued defiance **annihilates** the sect. |
+| **Provisional** | Submission was **not** effortless or cowardly; **chose sect survival** over preserving pride. Defining moment — **do not** reduce his later personality to trauma-only or permanent grief-recluse. **Tired guardian** in the present era remains the lead read. |
+| **Open** | Present personal relationship between Phoenix Immortal and Tian founding Immortal — friends, reconciled enemies, or cool standoff all available. |
+
+### Did his resistance shape the imperial settlement? *(deliberately ambiguous)*
+
+| Layer | Detail |
+|-------|--------|
+| **Interpretation** | The Flame Emperor **may** have achieved **part** of a political objective despite dying — resistance could have influenced Tian assessment of Phoenix **identity**, **institutional strength**, and **will to defend independence**. |
+| **Interpretation** | That **may** have contributed to preserving ancestral lands, internal leadership, and cultivation inheritance under charter — **one factor among several**. |
+| **Canon** | Tian Clan had **independent** reasons not to annihilate a great sect: continental stability, cost of prolonged resistance, capitulation-not-surrender model ([`imperial-clan.md`](imperial-clan.md)). |
+| **Must not establish** | His death **directly purchased** the settlement. Historical counterfactual **unknowable**. |
+| **Provisional** | The **younger brother’s willingness to negotiate** was **indispensable** to survival — do not diminish it. He need **not** know whether the elder’s last stand moved the terms he received. |
+
+**Open (owner):** Precise degree of Flame Emperor influence on postwar Phoenix charter terms.
+
+### Moral complexity (no supernatural morality tale)
+
+| Layer | Detail |
+|-------|--------|
+| **Provisional** | The world does **not** supernaturally punish pride. Downfall = his decisions + opponent’s strength + political moment + misjudged interaction. |
+| **Provisional** | Resistance can be **courageous, calculated, prideful, and disastrous** at once. Younger brother’s submission need not make him morally **superior** — he inherited the **outcome** of the elder’s gamble. |
+
+**Preserve:** No ancient dragon-vs-phoenix rivalry as **origin** of Tian/Phoenix hostility; major documented animosity is **Dao Wars history**.
 
 ---
 
@@ -176,16 +281,21 @@ Phoenix inner court: **records all of it** — injury at Tianjing, seven days, a
 | Lotus at capital | assault column | **Never** fought Tian; hedged **elsewhere** |
 | **Tianjing** vs Longcheng | single capital name | **Tianjing** = Dao Wars Tian city + today’s **inner** ring; **Longcheng** = post-mandate **outer** expansion |
 
-## Locked (owner 2026-07-28 + family spine 2026-11-07)
+## Locked (owner 2026-07-28 + family spine 2026-11-07 + Phoenix Court 2026-11-07)
 
-- **Founder tone:** **contemplative dragon** — Seven Days = consolidation and learning Half-Step, not predatory theatre.
+- **Founder tone:** **contemplative dragon** — Seven Days = consolidation and learning Half-Step, not predatory theatre; **not** helpless until day seven.
 - **Ember Crown arrival:** **Immortal-path** technique (or indistinguishable from it) — working name **Dragon’s Edict** (龙敕); execution = **one gesture** of that art. Not player-teachable v1; Void copies **redact**.
 - **Family:** previous patriarch assassinated shortly before the siege (killer Open); elder brother emergency patriarchy + defence coordination; younger brother = Half-Step genius / later founding Immortal; breakthrough **not** revenge-powered; "sleeping dragon" = public myth for active seclusion.
 - **Note:** "younger brother inherits ash" in the Phoenix rows = the **Flame Emperor's** younger brother (Phoenix Immortal), **not** the Tian younger brother.
+- **Tian judgment:** elder brother **consulted** on settlement politics; younger brother **decided** Ember Crown confrontation / execution — demonstration that unrestricted conquest ended; Phoenix targeted for expansionism + resistance + leader’s weight, not arbitrary hatred.
+- **Flame Emperor:** proud expansionist **not** a fool; strategic reads at Ember Crown are **interpretation**, not mind-read canon.
+- **Settlement influence:** degree Flame Emperor’s resistance shaped Phoenix charter terms remains **Open** — do not assert direct purchase.
 
 ## Open questions
 
 - [ ] **Ember Crown Plain** — map node near caldera vs one-off chronicle only?
+- [ ] Did Flame Emperor’s last stand materially change Tian terms for Phoenix? (deliberately Open)
+- [ ] Flame Emperor personal name; explicit succession contingency evidence in Phoenix archives
 - [ ] Named **minor clans** still extant post-war (owner: later)
 - [ ] Chronicle: playable beat at Tianjing vs Ember Crown vs elder dialogue only?
 - [ ] Patriarch assassination — identity / client / whether the later emperor pursued it (deliberately Open — see family doc)
