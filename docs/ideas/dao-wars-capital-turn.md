@@ -5,8 +5,8 @@
 | **Status** | `designed` (v4 — Flame Emperor / Ember Crown character pass; family spine 2026-11-07) |
 | **Blocked on** | Chronicle entries; emperor personal name; Flame Emperor personal name |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent + owner, 2026-07-28; family / leadership revision 2026-11-07; Phoenix Court pass 2026-11-07 |
-| **Updated** | 2026-11-07 |
+| **Chat / PR** | Cloud agent + owner, 2026-07-28; family / leadership revision 2026-11-07; Phoenix Court pass 2026-11-07; Sword–Tian prior encounters 2026-11-07 |
+| **Updated** | 2026-11-07 (Sword Ancestor prior encounters cross-ref) |
 
 **Intent:** One **grand stage** where the Dao Wars **turned** — Half-Step breakthrough, coalition assault on the Tian heartland, and the **aftershocks** each great sect still lies about. Parent: [`imperial-clan.md`](imperial-clan.md). Family spine: [`tian-clan-family-history.md`](tian-clan-family-history.md). Demon fallout: [`heavenly-demon-cult.md`](heavenly-demon-cult.md).
 
@@ -72,7 +72,7 @@ The Half-Step emerged from Tianjing’s **inner keep / underpalace core** and **
 
 **Flame Emperor** **saw** the destruction at the gates. He **tested** the Half-Step’s power — a **brief, terrible exchange** — and **withdrew** rather than kneel, **injured** but alive. Phoenix inner court **does not deny** this; shame and pride **forbid** softening it into propaganda.
 
-**Sword Ancestor** read the tide **before** the mountain spent him. He **did not** duel the Half-Step to annihilation. He **receded** to Solitary Sword Mountain, raised the **Ten Thousand Swords Seal Array**, and sent envoys. The sect **openly accepts** their loss and their part in the assault — then **returns to the sword** ([`celestial-sword-sect.md`](celestial-sword-sect.md)).
+**Sword Ancestor** read the tide **before** the mountain spent him — informed in part by **prior encounters** with the Tian genius as opponents before the breakthrough (battles and outcomes deliberately vague; see [`celestial-sword-sect.md`](celestial-sword-sect.md) § Prior encounters). He **did not** duel the Half-Step to annihilation. He **receded** to Solitary Sword Mountain, raised the **Ten Thousand Swords Seal Array**, and sent envoys — judgement and loyalty to the mountain, not a panicked flight. The sect **openly accepts** their loss and their part in the assault — then **returns to the sword**.
 
 | Targeted with particular ferocity | Why (Tian / orthodox memory) |
 |-----------------------------------|------------------------------|
