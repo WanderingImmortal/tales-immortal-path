@@ -8,6 +8,15 @@
 | **Code** | [`sandbox/alchemy/`](../../sandbox/alchemy/) · sim [`prototype/property-alchemy/`](../../prototype/property-alchemy/) |
 | **Updated** | 2026-11-08 |
 
+## Readability (feedback layer)
+
+Dev lab presentation helpers in `prototype/property-alchemy/lab-explain.js` (no chemistry changes):
+
+- Ingredient inspect panel (defs + derived thermal activation/tolerance) with **knowledge-state scaffolding** (`unknown` / `reported` / `observed` / `established`) — lab always shows established.
+- Plain-language refinement summary that separates **process completion** from **product usefulness**.
+- Proportional spirit bar (released / bound / degraded) aligned with the material ledger.
+- Comparison interpretation notes (magnitudes + multi-input caveats; no automatic “better” ranking).
+
 ## Open from the main game
 
 Playtest → **Dev tools** → **🧪 Property alchemy lab** → `/sandbox/alchemy/`

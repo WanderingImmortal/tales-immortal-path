@@ -8,7 +8,16 @@ const { execSync } = require('child_process');
 
 const root = path.join(__dirname, '..');
 const proto = require(path.join(root, 'prototype', 'property-alchemy'));
-const { explainExperiment, formatMaterialLedger, compareExperiments, LAB_PRESETS } = require(path.join(
+const {
+    explainExperiment,
+    formatMaterialLedger,
+    compareExperiments,
+    LAB_PRESETS,
+    describeReagent,
+    summarizeRefinement,
+    formatSpiritBreakdown,
+    interpretComparison
+} = require(path.join(
     root,
     'prototype',
     'property-alchemy',
@@ -133,6 +142,65 @@ const histA = { input: LAB_PRESETS.dew_gentle.input, result: dewG };
 const histB = { input: LAB_PRESETS.dew_fierce.input, result: dewF };
 const cmp = compareExperiments(histA, histB);
 assert(cmp.some(r => r.different), 'compare highlights heat/product differences');
+
+const gritCard = describeReagent('exp_ironscar_grit');
+assert(gritCard.name === 'Ironscar Grit', 'describeReagent uses reagent definition name');
+assert(gritCard.properties.some(p => p.key === 'spirit' && p.display === '10'), 'describeReagent exposes spirit from def');
+assert(gritCard.properties.every(p => p.knowledgeState === 'established'), 'lab ingredient info uses established knowledge scaffolding');
+
+const gritGentle = proto.simulateRefinement({ ...LAB_PRESETS.grit_activation.input, trace: true });
+const gritFierce = proto.simulateRefinement({
+    reagents: [{ reagentId: 'exp_ironscar_grit', qty: 2 }],
+    heat: 'fierce',
+    introductionOrder: 'simultaneous',
+    trace: true
+});
+const sumGentle = summarizeRefinement(gritGentle);
+const sumMedium = summarizeRefinement(gritM);
+const sumFierce = summarizeRefinement(gritFierce);
+assert(sumGentle.headline.includes('no usable medicinal'), 'gentle grit: process≠product success');
+assert(sumGentle.materialLines.some(l => /bound|Insufficient/i.test(l)), 'gentle grit explains bound spirit');
+assert(sumMedium.materialLines.some(l => /released|bound/i.test(l)), 'medium grit mentions extraction/bound');
+assert(sumFierce.materialLines.some(l => /degrad/i.test(l)), 'fierce grit explains degradation');
+assert(sumGentle.note.includes('Process completion'), 'summary reminds process≠product');
+
+const bdGentle = formatSpiritBreakdown(gritGentle.material);
+const bdMedium = formatSpiritBreakdown(gritM.material);
+const bdFierce = formatSpiritBreakdown(gritFierce.material);
+assert(bdGentle.released === 0 && bdGentle.bound === 20 && bdGentle.degraded === 0, 'gentle grit breakdown matches ledger');
+assert(bdMedium.released === 5.3 && bdMedium.bound === 14.7 && bdMedium.degraded === 0, 'medium grit breakdown matches ledger');
+assert(bdFierce.released === 0 && bdFierce.bound === 0 && bdFierce.degraded === 20, 'fierce grit breakdown matches ledger');
+assert(
+    Math.abs(bdMedium.percentages.released + bdMedium.percentages.bound + bdMedium.percentages.degraded - 100) < 0.2,
+    'breakdown percentages sum ~100'
+);
+const bdZero = formatSpiritBreakdown({
+    released: { spirit: 0 },
+    bound: { spirit: 0 },
+    degraded: { spirit: 0 },
+    residual: { spirit: 0 },
+    conservation: { inputSpirit: 0 }
+});
+assert(bdZero.empty === true, 'zero-input breakdown marked empty');
+
+const gritCmp = interpretComparison(
+    { input: LAB_PRESETS.grit_activation.input, result: gritGentle },
+    { input: LAB_PRESETS.grit_medium.input, result: gritM }
+);
+assert(gritCmp.some(l => /Same ingredients|heat differs/i.test(l)), 'compare notes single-factor heat change');
+assert(gritCmp.some(l => /5\.3 more released spirit/i.test(l)), 'compare states released spirit magnitude');
+assert(gritCmp.some(l => /better run/i.test(l)), 'compare avoids declaring a universal winner');
+
+const multiCmp = interpretComparison(
+    { input: LAB_PRESETS.grit_activation.input, result: gritGentle },
+    { input: LAB_PRESETS.conflict_mix.input, result: proto.simulateRefinement(LAB_PRESETS.conflict_mix.input) }
+);
+assert(multiCmp.some(l => /Several inputs differ|correlated/i.test(l)), 'multi-input compare warns against single-cause claims');
+
+const labHtmlText = fs.readFileSync(labHtml, 'utf8');
+const labJsText = fs.readFileSync(labJs, 'utf8');
+assert(labHtmlText.includes('reagentInfo') && labHtmlText.includes('summaryOut'), 'lab HTML has readability panels');
+assert(labJsText.includes('summarizeRefinement') && labJsText.includes('formatSpiritBreakdown'), 'lab UI wires new helpers');
 
 const withTrace = proto.simulateRefinement({ ...repeatInput, trace: true });
 const noTrace = proto.simulateRefinement(repeatInput);

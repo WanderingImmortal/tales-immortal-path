@@ -33,6 +33,10 @@
       <div class="row">
         <select id="reagentPick"></select>
         <button type="button" id="addReagent">Add</button>
+        <button type="button" id="inspectReagent">Inspect</button>
+      </div>
+      <div id="reagentInfo" class="reagent-info" aria-live="polite">
+        <p class="muted">Select an ingredient and click Inspect (or change a row) to view its properties.</p>
       </div>
 
       <label for="introOrder">Introduction order</label>
@@ -79,8 +83,14 @@
     </section>
 
     <section class="panel" aria-label="Results">
-      <h2>Process outcome</h2>
+      <h2>Summary</h2>
+      <div id="summaryOut" class="summary-card"><p class="muted">Run an experiment to see a plain-language summary.</p></div>
+
+      <h2>Process &amp; product (detail)</h2>
       <div id="processOut"><p class="muted">Run an experiment to see results.</p></div>
+
+      <h2>Spirit distribution</h2>
+      <div id="spiritBreakdown" class="spirit-breakdown"><p class="muted">Released / bound / degraded appear here after a run.</p></div>
 
       <h2>Material outcome</h2>
       <div id="materialOut"></div>
@@ -110,6 +120,7 @@
         <select id="compareSelectA"></select>
         <select id="compareSelectB"></select>
       </div>
+      <div id="compareInterpret" class="compare-interpret muted">Pick two history entries to interpret differences.</div>
       <table class="compare" id="compareTable"></table>
     </section>
   </div>

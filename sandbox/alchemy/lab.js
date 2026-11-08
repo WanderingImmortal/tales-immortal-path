@@ -7,13 +7,19 @@
         return;
     }
 
-    const { EXPERIMENTAL_REAGENTS, REAGENT_IDS, simulateRefinement, explainExperiment,
-        formatMaterialLedger, compareExperiments, LAB_PRESETS } = AlchemyLab;
+    const {
+        EXPERIMENTAL_REAGENTS, REAGENT_IDS, simulateRefinement, explainExperiment,
+        formatMaterialLedger, compareExperiments, LAB_PRESETS,
+        describeReagent, summarizeRefinement, formatSpiritBreakdown, interpretComparison,
+        KNOWLEDGE_STATES
+    } = AlchemyLab;
 
     const els = {
         reagentList: document.getElementById('reagentList'),
         addReagent: document.getElementById('addReagent'),
         reagentPick: document.getElementById('reagentPick'),
+        inspectReagent: document.getElementById('inspectReagent'),
+        reagentInfo: document.getElementById('reagentInfo'),
         introOrder: document.getElementById('introOrder'),
         heatMode: document.getElementById('heatMode'),
         singleHeat: document.getElementById('singleHeat'),
@@ -25,7 +31,9 @@
         repeatBtn: document.getElementById('repeatBtn'),
         presetSelect: document.getElementById('presetSelect'),
         loadPreset: document.getElementById('loadPreset'),
+        summaryOut: document.getElementById('summaryOut'),
         processOut: document.getElementById('processOut'),
+        spiritBreakdown: document.getElementById('spiritBreakdown'),
         materialOut: document.getElementById('materialOut'),
         explainOut: document.getElementById('explainOut'),
         ledgerBody: document.getElementById('ledgerBody'),
@@ -33,6 +41,7 @@
         historyList: document.getElementById('historyList'),
         compareSelectA: document.getElementById('compareSelectA'),
         compareSelectB: document.getElementById('compareSelectB'),
+        compareInterpret: document.getElementById('compareInterpret'),
         compareTable: document.getElementById('compareTable')
     };
 
@@ -61,6 +70,38 @@
         return reagents;
     }
 
+    function renderReagentInfo(reagentId) {
+        const info = describeReagent(reagentId);
+        if (!info.properties.length) {
+            els.reagentInfo.innerHTML = `<p class="muted">${escapeHtml(info.note || 'No data.')}</p>`;
+            return;
+        }
+        const knowledgeMeta = (KNOWLEDGE_STATES && KNOWLEDGE_STATES.established) || {
+            label: 'Established',
+            hint: 'Full definition access in the development laboratory.'
+        };
+        els.reagentInfo.innerHTML = `
+      <div class="reagent-info-head">
+        <strong>${escapeHtml(info.name)}</strong>
+        <span class="knowledge-pill knowledge-established" title="${escapeHtml(knowledgeMeta.hint)}">${escapeHtml(knowledgeMeta.label)} (dev lab)</span>
+      </div>
+      <p class="reagent-note">${escapeHtml(info.note || '')}</p>
+      <p class="knowledge-scaffold muted">Future live play may show Unknown / Reported / Observed / Established per property. This lab exposes established values for testing.</p>
+      <dl class="prop-list">
+        ${info.properties.map(p => `
+          <div class="prop-row" data-knowledge="${escapeHtml(p.knowledgeState)}">
+            <dt>
+              ${escapeHtml(p.label)}
+              <span class="knowledge-tag">${escapeHtml((KNOWLEDGE_STATES?.[p.knowledgeState] || {}).label || p.knowledgeState)}</span>
+            </dt>
+            <dd>
+              <span class="prop-value">${escapeHtml(p.display)}</span>
+              <span class="prop-detail">${escapeHtml(p.detail)}</span>
+            </dd>
+          </div>`).join('')}
+      </dl>`;
+    }
+
     function addReagentRow(reagentId = 'exp_dawn_dew', qty = 1) {
         const div = document.createElement('div');
         div.className = 'ingredient-row';
@@ -70,8 +111,11 @@
     ).join('')}</select>
       <input class="reagent-qty" type="number" min="1" max="99" value="${qty}" />
       <button type="button" class="remove-reagent" title="Remove">×</button>`;
+        const select = div.querySelector('.reagent-id');
+        select.onchange = () => renderReagentInfo(select.value);
         div.querySelector('.remove-reagent').onclick = () => div.remove();
         els.reagentList.appendChild(div);
+        renderReagentInfo(reagentId);
     }
 
     function renderStages() {
@@ -111,13 +155,51 @@
         return traced;
     }
 
+    function renderSpiritBreakdown(material) {
+        const bd = formatSpiritBreakdown(material);
+        if (bd.empty) {
+            els.spiritBreakdown.innerHTML = '<p class="muted">No spirit registered for this run.</p>';
+            return;
+        }
+        const segments = [
+            { key: 'released', label: 'Released', value: bd.released, pct: bd.percentages.released, cls: 'seg-released' },
+            { key: 'bound', label: 'Bound', value: bd.bound, pct: bd.percentages.bound, cls: 'seg-bound' },
+            { key: 'degraded', label: 'Degraded', value: bd.degraded, pct: bd.percentages.degraded, cls: 'seg-degraded' }
+        ];
+        const bar = segments.map(s =>
+            s.pct > 0
+                ? `<span class="spirit-seg ${s.cls}" style="width:${s.pct}%" title="${s.label}: ${s.value}"></span>`
+                : ''
+        ).join('');
+        els.spiritBreakdown.innerHTML = `
+      <p class="spirit-input">Input spirit <strong>${bd.input}</strong></p>
+      <div class="spirit-bar" role="img" aria-label="Spirit distribution bar">${bar || '<span class="spirit-seg seg-empty" style="width:100%"></span>'}</div>
+      <ul class="spirit-legend">
+        ${segments.map(s =>
+            `<li><span class="swatch ${s.cls}"></span><strong>${s.label}</strong> ${s.value} <span class="muted">(${s.pct}%)</span></li>`
+        ).join('')}
+      </ul>`;
+    }
+
     function renderResult(input, result) {
+        const summary = summarizeRefinement(result);
         const proc = result.process?.outcome || result.outcome;
+        els.summaryOut.innerHTML = `
+      <p class="summary-headline">${escapeHtml(summary.headline)}</p>
+      <p class="summary-process outcome-${proc}">${escapeHtml(summary.processLine)}</p>
+      <ul class="summary-points">
+        ${summary.materialLines.map(l => `<li>${escapeHtml(l)}</li>`).join('')}
+        ${summary.productLines.map(l => `<li>${escapeHtml(l)}</li>`).join('')}
+      </ul>
+      <p class="summary-note muted">${escapeHtml(summary.note)}</p>`;
+
         els.processOut.innerHTML = `
-      <p class="outcome-${proc}"><strong>Process:</strong> ${proc}</p>
+      <p class="outcome-${proc}"><strong>Process:</strong> ${proc} · success flag ${result.process?.success ? 'yes' : 'no'}</p>
       <p>Peak instability: ${result.peakInstability} · Stability margin: ${result.stabilityMargin}</p>
       <p>Product: potency ${result.product.potency}, dominant ${result.product.dominantAffinity}, `
       + `suitability <em>${result.product.suitability}</em>, grade ${result.product.grade}</p>`;
+
+        renderSpiritBreakdown(result.material);
 
         const m = result.material;
         if (m) {
@@ -191,8 +273,11 @@
         const b = history.find(h => h.id === parseInt(els.compareSelectB.value, 10));
         if (!a || !b) {
             els.compareTable.innerHTML = '';
+            els.compareInterpret.innerHTML = '<span class="muted">Pick two history entries to interpret differences.</span>';
             return;
         }
+        const notes = interpretComparison(a, b);
+        els.compareInterpret.innerHTML = `<ul>${notes.map(n => `<li>${escapeHtml(n)}</li>`).join('')}</ul>`;
         const rows = compareExperiments(a, b);
         els.compareTable.innerHTML = `
       <thead><tr><th>Field</th><th>A</th><th>B</th></tr></thead>
@@ -232,6 +317,8 @@
     }
 
     els.addReagent.onclick = () => addReagentRow(els.reagentPick.value, 1);
+    els.inspectReagent.onclick = () => renderReagentInfo(els.reagentPick.value);
+    els.reagentPick.onchange = () => renderReagentInfo(els.reagentPick.value);
     els.heatMode.onchange = syncHeatModeUi;
     els.addStage.onclick = () => {
         const h = document.getElementById('stagePick').value;
