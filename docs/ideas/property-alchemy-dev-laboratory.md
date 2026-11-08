@@ -47,19 +47,21 @@ Legacy path `prototype/property-alchemy/lab/` redirects to `/sandbox/alchemy/`.
 
 | Area | Action |
 |------|--------|
-| **Presets** | Load #192 scenarios (grit activation, dew degradation, conflict, sequential heat, useful failure) |
-| **Ingredients** | Add/remove reagents, set qty, pick introduction order |
-| **Heat** | Single heat per phase, or **sequential heat stages** (chips — order matters) |
-| **Run / Repeat / Reset** | Deterministic sim; Repeat re-runs last inputs |
-| **Results** | Process outcome, material pools, plain-language explanation from trace |
-| **Ledger** | Spirit accounting table + conservation delta |
-| **History** | Session-only list; click two runs or use dropdowns to compare |
+| **Furnace** | Start / pause / resume; set gentle · medium · fierce any time |
+| **Ingredients** | Add to the furnace while refining (no fixed introduction order) |
+| **Time** | Sim clock advances in fixed steps; playback speed only batches ticks |
+| **Condense** | Player ends heating; product from accumulated furnace state (`furnace.js`) |
+| **Results** | Process outcome, material pools, plain-language explanation |
+| **Ledger** | Spirit accounting + technical inspection panel |
+| **History** | Session chronicle per run; compare two condensed experiments |
 
-## Multi-stage heating
+## Time-based model (assumptions)
 
-When **Sequential heat stages** is selected, each introduction **phase** runs every stage in order on that phase’s reagents (see PR #192 `heatStages` in `simulate.js`).
+- Timestep `SIM_DT` (0.1 sim units); heat duration affects extraction/degradation rates derived from `thermalFractions()`.
+- Released essence continues to respond to fierce heat (degradation).
+- `simulateRefinement()` remains for regression tests, not the player-facing lab.
 
-Example preset: **grit yang-first: fierce then gentle** — activates mineral on first stage before delicate yin phase receives gentle passes.
+Example play: preheat **fierce**, add **Ironscar Grit**, wait for extraction, reduce to **gentle**, add **Dawn Dew**, condense when stable.
 
 ## Tests
 

@@ -261,8 +261,57 @@ details pre {
   border-radius: 6px;
 }
 
+.furnace-vessel {
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #1a1410;
+}
+.flame-bar {
+  height: 64px;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0.35rem;
+  transition: filter 0.2s, background 0.25s;
+  background: linear-gradient(180deg, #252a31 0%, #12151a 100%);
+}
+.flame-off { opacity: 0.55; }
+.flame-gentle { background: linear-gradient(180deg, #3a4a3a 0%, #1a2618 40%, #4a9068 100%); }
+.flame-medium { background: linear-gradient(180deg, #4a3a28 0%, #6a4520 45%, #d4843a 100%); }
+.flame-fierce { background: linear-gradient(180deg, #4a2818 0%, #903818 40%, #e85828 100%); }
+.flame-active { filter: brightness(1.15); animation: flame-flicker 1.2s ease-in-out infinite alternate; }
+.flame-label { font-size: 0.8rem; font-weight: 600; text-shadow: 0 1px 2px #000; }
+.sim-time { font-size: 0.85rem; margin: 0.4rem 0 0; }
+.furnace-controls { margin-bottom: 0.75rem; }
+.flame-buttons button.active-heat { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.in-furnace-list { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
+.chronicle-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  max-height: 180px;
+  overflow-y: auto;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.live-mixture { margin-bottom: 0.75rem; font-size: 0.9rem; }
+.live-notes { margin: 0.35rem 0 0; font-size: 0.82rem; }
+.small-hint { font-size: 0.8rem; margin-top: 0; }
+
+@keyframes flame-flicker {
+  from { filter: brightness(1.05); }
+  to { filter: brightness(1.2); }
+}
+
 @media (max-width: 1100px) {
   .layout { grid-template-columns: 1fr; }
   .panel { border-right: none; border-bottom: 1px solid var(--border); }
   .top-bar { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .furnace-controls { display: grid; grid-template-columns: 1fr 1fr; }
+  .flame-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.35rem; }
 }

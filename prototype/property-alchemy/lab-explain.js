@@ -397,10 +397,30 @@ function formatMaterialLedger(material) {
  * @param {object} b — history entries with { input, result, label }
  * @returns {object[]}
  */
+function formatProcedureChronicle(procedure) {
+    if (!procedure) return '';
+    const lines = (procedure.chronicle || []).map(entry =>
+        `${entry.timeLabel || entry.time} — ${entry.message}`
+    );
+    if (procedure.duration != null) {
+        lines.push(`Duration: ${procedure.duration} sim units`);
+    }
+    return lines.join('\n');
+}
+
+function furnaceProcedureSummary(input) {
+    const ch = input?.procedure?.chronicle || [];
+    const heats = ch.filter(e => e.kind === 'heat_set').map(e => e.data?.heat || '?');
+  const intro = ch.filter(e => e.kind === 'introduce').length;
+  return `furnace · ${intro} intro(s) · flame ${heats.join('→') || input?.procedure?.actions?.find(a => a.heat)?.heat || '—'}`;
+}
+
 function compareExperiments(a, b) {
     const fields = [
-        ['Heat', x => x.input.heatStages?.join(' → ') || x.input.heat],
-        ['Introduction order', x => x.input.introductionOrder || 'simultaneous'],
+        ['Mode', x => x.input.mode === 'furnace' ? furnaceProcedureSummary(x.input) : 'instant (legacy)'],
+        ['Duration', x => x.input.mode === 'furnace' ? (x.input.duration ?? x.input.procedure?.duration) : '—'],
+        ['Heat', x => x.input.heatStages?.join(' → ') || x.input.heat || '—'],
+        ['Introduction order', x => x.input.introductionOrder || (x.input.mode === 'furnace' ? 'manual' : 'simultaneous')],
         ['Process outcome', x => x.result.process?.outcome || x.result.outcome],
         ['Peak instability', x => x.result.peakInstability],
         ['Released spirit', x => x.result.material?.released?.spirit],
@@ -442,10 +462,12 @@ function interpretComparison(a, b) {
     const heatA = heatSignature(a.input);
     const heatB = heatSignature(b.input);
     const reagentsDiffer = reagentSignature(a.input) !== reagentSignature(b.input);
-    const orderDiffer = (a.input?.introductionOrder || 'simultaneous')
+    const orderDiffer = a.input?.mode !== 'furnace' && (a.input?.introductionOrder || 'simultaneous')
         !== (b.input?.introductionOrder || 'simultaneous');
+    const procDiffer = a.input?.mode === 'furnace' && b.input?.mode === 'furnace'
+        && formatProcedureChronicle(a.input.procedure) !== formatProcedureChronicle(b.input.procedure);
     const heatDiffer = heatA !== heatB;
-    const inputDiffCount = [heatDiffer, reagentsDiffer, orderDiffer].filter(Boolean).length;
+    const inputDiffCount = [heatDiffer, reagentsDiffer, orderDiffer, procDiffer].filter(Boolean).length;
 
     if (inputDiffCount > 1) {
         lines.push('Several inputs differ between these runs — treat differences as correlated, not proven single-cause.');
@@ -455,6 +477,8 @@ function interpretComparison(a, b) {
         lines.push('Ingredient lists differ; heat and introduction order match.');
     } else if (orderDiffer && !heatDiffer && !reagentsDiffer) {
         lines.push('Only introduction order differs.');
+    } else if (procDiffer && !reagentsDiffer) {
+        lines.push('Furnace procedure (timing / flame / introductions) differs between runs.');
     }
 
     function pushNumericDelta(label, noun) {
@@ -560,5 +584,6 @@ module.exports = {
     explainExperiment,
     formatMaterialLedger,
     compareExperiments,
+    formatProcedureChronicle,
     LAB_PRESETS
 };

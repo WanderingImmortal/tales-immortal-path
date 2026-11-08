@@ -12,87 +12,80 @@
       <div>
         <p class="proto-badge">DEV PROTOTYPE — not live alchemy</p>
         <h1>Property Alchemy Laboratory</h1>
-        <p>Isolated developer tool — uses <code>prototype/property-alchemy</code> simulation only. Presets and reagents are test data; nothing writes to save / inventory.</p>
+        <p>Operate the interactive furnace — introduce materials, adjust the flame, observe the mixture, and condense when ready.</p>
       </div>
       <a class="back-link" href="../../index.html">← Main game</a>
     </div>
   </header>
 
   <div class="layout">
-    <section class="panel" aria-label="Experiment setup">
-      <h2>Setup</h2>
+    <section class="panel" aria-label="Furnace controls">
+      <h2>Furnace</h2>
 
-      <label>Presets (#192 findings)</label>
-      <div class="row">
-        <select id="presetSelect"></select>
-        <button type="button" id="loadPreset">Load preset</button>
-      </div>
-
-      <h2>Ingredients</h2>
-      <div id="reagentList"></div>
-      <div class="row">
-        <select id="reagentPick"></select>
-        <button type="button" id="addReagent">Add</button>
-        <button type="button" id="inspectReagent">Inspect</button>
-      </div>
-      <div id="reagentInfo" class="reagent-info" aria-live="polite">
-        <p class="muted">Select an ingredient and click Inspect (or change a row) to view its properties.</p>
-      </div>
-
-      <label for="introOrder">Introduction order</label>
-      <select id="introOrder">
-        <option value="simultaneous">Simultaneous</option>
-        <option value="yin_first">Yin first, then yang/neutral</option>
-        <option value="yang_first">Yang first, then yin/neutral</option>
-      </select>
-
-      <h2>Heat</h2>
-      <label for="heatMode">Mode</label>
-      <select id="heatMode">
-        <option value="single">Single heat for each phase</option>
-        <option value="stages">Sequential heat stages (per phase)</option>
-      </select>
-
-      <div id="singleHeatRow" class="row" style="margin-top:0.5rem">
-        <label for="singleHeat">Heat</label>
-        <select id="singleHeat">
-          <option value="gentle">Gentle</option>
-          <option value="medium" selected>Medium</option>
-          <option value="fierce">Fierce</option>
-        </select>
-      </div>
-
-      <div id="stagesPanel" style="display:none">
-        <p style="font-size:0.85rem;color:var(--muted)">Stages run in order after each phase’s reagents are added. Example: fierce activates grit, gentle protects dew.</p>
-        <div class="row">
-          <select id="stagePick">
-            <option value="gentle">gentle</option>
-            <option value="medium">medium</option>
-            <option value="fierce">fierce</option>
-          </select>
-          <button type="button" id="addStage">Add stage</button>
+      <section class="furnace-vessel" aria-live="polite">
+        <div id="flameBar" class="flame-bar flame-off" role="img" aria-label="Furnace flame">
+          <span id="flameLabel" class="flame-label">Off</span>
         </div>
-        <div id="stageList" class="heat-stages"></div>
-      </div>
+        <p id="furnaceStatus" class="furnace-status muted">Start the furnace to begin.</p>
+        <p id="simTime" class="sim-time">Elapsed 00:00.0</p>
+      </section>
 
-      <div class="row" style="margin-top:1rem">
-        <button type="button" class="primary" id="runBtn">Run experiment</button>
-        <button type="button" id="repeatBtn">Repeat last</button>
+      <div class="row furnace-controls">
+        <button type="button" class="primary" id="startBtn">Start</button>
+        <button type="button" id="pauseBtn">Pause</button>
+        <button type="button" id="resumeBtn">Resume</button>
+        <button type="button" id="condenseBtn">Condense</button>
         <button type="button" id="resetBtn">Reset</button>
       </div>
+
+      <label for="speedSelect">Playback speed (ticks only — outcomes unchanged)</label>
+      <select id="speedSelect">
+        <option value="1">1×</option>
+        <option value="2">2×</option>
+        <option value="5">5×</option>
+        <option value="10">10×</option>
+      </select>
+
+      <h2>Flame</h2>
+      <div class="flame-buttons row" role="group" aria-label="Flame intensity">
+        <button type="button" data-heat="gentle" id="heatGentle">Gentle</button>
+        <button type="button" data-heat="medium" id="heatMedium" class="active-heat">Medium</button>
+        <button type="button" data-heat="fierce" id="heatFierce">Fierce</button>
+      </div>
+
+      <h2>Add to furnace</h2>
+      <div class="row">
+        <select id="reagentPick" aria-label="Ingredient"></select>
+        <input id="addQty" type="number" min="1" max="99" value="1" aria-label="Quantity" />
+        <button type="button" id="addToFurnace">Add</button>
+      </div>
+      <button type="button" id="inspectReagent">Inspect ingredient</button>
+
+      <h3>In the furnace</h3>
+      <ul id="inFurnaceList" class="in-furnace-list"><li class="muted">Empty</li></ul>
+
+      <div id="reagentInfo" class="reagent-info" aria-live="polite">
+        <p class="muted">Inspect an ingredient to view established properties.</p>
+      </div>
+
+      <h2>Live chronicle</h2>
+      <ol id="chronicleLive" class="chronicle-list"></ol>
     </section>
 
-    <section class="panel" aria-label="Results">
-      <h2>Summary</h2>
-      <div id="summaryOut" class="summary-card"><p class="muted">Run an experiment to see a plain-language summary.</p></div>
+    <section class="panel" aria-label="Observation and results">
+      <h2>Mixture (live)</h2>
+      <div id="liveMixture" class="live-mixture">
+        <p>Instability: <strong id="liveInstability">0</strong> (peak <span id="livePeak">0</span>)</p>
+        <p>Polarity imbalance: <strong id="livePolarity">0</strong></p>
+        <p id="liveNotes" class="live-notes muted"></p>
+      </div>
+      <div id="spiritBreakdown" class="spirit-breakdown">
+        <p class="muted">Spirit distribution updates while refining.</p>
+      </div>
 
-      <h2>Process &amp; product (detail)</h2>
-      <div id="processOut"><p class="muted">Run an experiment to see results.</p></div>
-
-      <h2>Spirit distribution</h2>
-      <div id="spiritBreakdown" class="spirit-breakdown"><p class="muted">Released / bound / degraded appear here after a run.</p></div>
-
-      <h2>Material outcome</h2>
+      <h2>Results (after condensation)</h2>
+      <div id="summaryOut" class="summary-card"><p class="muted">Condense to see a plain-language summary.</p></div>
+      <div id="processOut"><p class="muted">—</p></div>
       <div id="materialOut"></div>
 
       <h2>Explanation</h2>
@@ -104,23 +97,27 @@
         <tbody id="ledgerBody"></tbody>
       </table>
 
+      <details open>
+        <summary>Technical inspection</summary>
+        <pre id="inspectJson"></pre>
+      </details>
       <details>
-        <summary>Technical trace (JSON)</summary>
-        <pre id="traceJson"></pre>
+        <summary>Procedure chronicle (full)</summary>
+        <pre id="chronicleJson"></pre>
       </details>
     </section>
 
     <section class="panel" aria-label="History and compare">
       <h2>Session history</h2>
-      <p style="font-size:0.8rem;color:var(--muted)">Click entries to pick A/B for comparison (max two selected).</p>
+      <p class="muted small-hint">Click entries for A/B compare (max two).</p>
       <div id="historyList"></div>
 
       <h2>Compare</h2>
       <div class="row">
-        <select id="compareSelectA"></select>
-        <select id="compareSelectB"></select>
+        <select id="compareSelectA" aria-label="Compare A"></select>
+        <select id="compareSelectB" aria-label="Compare B"></select>
       </div>
-      <div id="compareInterpret" class="compare-interpret muted">Pick two history entries to interpret differences.</div>
+      <div id="compareInterpret" class="compare-interpret muted">Pick two runs to compare.</div>
       <table class="compare" id="compareTable"></table>
     </section>
   </div>

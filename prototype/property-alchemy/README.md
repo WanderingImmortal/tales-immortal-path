@@ -5,7 +5,9 @@ Experimental emergent alchemy model — **not wired into the live game**.
 | Module | Role |
 |--------|------|
 | `reagents.js` | 10 test reagents and intrinsic properties |
-| `simulate.js` | Deterministic refinement / reaction rules |
+| `simulate.js` | Legacy instant refinement (regression / journal) |
+| `furnace.js` | Interactive time-based furnace (primary lab sim) |
+| `condense.js` | Shared condensation from material ledger |
 | `journal.js` | Experiment log, discoveries, saved formulas |
 | `harness.js` | Demonstration scenarios (emergent behaviour) |
 | `index.js` | Single export surface |
