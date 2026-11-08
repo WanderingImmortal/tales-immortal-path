@@ -1538,14 +1538,295 @@ var AlchemyLab = (() => {
   // prototype/property-alchemy/lab-explain.js
   var require_lab_explain = __commonJS({
     "prototype/property-alchemy/lab-explain.js"(exports, module) {
+      var { EXPERIMENTAL_REAGENTS } = require_reagents();
+      var { deriveThermalProfile } = require_thermal();
+      var KNOWLEDGE_STATES = {
+        unknown: {
+          id: "unknown",
+          label: "Unknown",
+          hint: "No reliable information yet."
+        },
+        reported: {
+          id: "reported",
+          label: "Reported",
+          hint: "Heard from a book, teacher, or other source \u2014 not personally verified."
+        },
+        observed: {
+          id: "observed",
+          label: "Observed",
+          hint: "Encountered during refinement. One run does not reveal every intrinsic trait."
+        },
+        established: {
+          id: "established",
+          label: "Established",
+          hint: "Supported by enough experience or (in this lab) full definition access."
+        }
+      };
+      var TERM_GLOSSARY = {
+        spirit: "Spiritual energy carried by the material. Heat may release, leave bound, or degrade it.",
+        yin: "Cool / receptive charge. Can clash with strong yang under heat.",
+        yang: "Hot / assertive charge. Amplifies catalytic heat pressure.",
+        volatility: "How readily heat agitates the material. High values raise instability risk.",
+        stability: "How much the material dampens mixture shocks.",
+        impurity: "Contaminant load. High impurity can leave a product impure even if the process completes.",
+        qi: "Medicinal affinity toward qi recovery / cultivation support.",
+        heat: "Medicinal affinity toward heat / yang warming effects.",
+        marrow: "Medicinal affinity toward body / marrow tempering.",
+        purify: "Cleansing affinity that can scrub impurities from a mixture.",
+        toxicity: "Hazard lean. High toxicity can make a product hazardous.",
+        activation: "Approximate heat where this material begins releasing spirit.",
+        tolerance: "Approximate heat beyond which released essence tends to degrade.",
+        released: "Spirit freed into the reactive mixture (available for condensation).",
+        bound: "Spirit still locked in the material \u2014 often needs more / different heat.",
+        degraded: "Spirit ruined by overheat or breakage \u2014 not available as medicine."
+      };
+      var HEAT_BANDS = [
+        { key: "gentle", value: 0.35, label: "gentle" },
+        { key: "medium", value: 0.65, label: "medium" },
+        { key: "fierce", value: 0.95, label: "fierce" }
+      ];
+      function nearestHeatLabel(value) {
+        let best = HEAT_BANDS[0];
+        let bestDist = Math.abs(value - best.value);
+        for (const band of HEAT_BANDS) {
+          const dist = Math.abs(value - band.value);
+          if (dist < bestDist) {
+            best = band;
+            bestDist = dist;
+          }
+        }
+        return best.label;
+      }
+      function heatRelationText(threshold, kind) {
+        const label = nearestHeatLabel(threshold);
+        if (kind === "activation") {
+          if (threshold <= 0.4) return `Begins releasing around ${label} heat or softer.`;
+          if (threshold <= 0.7) return `Needs about ${label} heat before much spirit releases.`;
+          return `Stubborn \u2014 release mainly near ${label} heat.`;
+        }
+        if (threshold <= 0.45) return `Fragile \u2014 essence degrades near ${label} heat.`;
+        if (threshold <= 0.8) return `Tolerates up to about ${label} heat before overburn.`;
+        return `Hardy \u2014 degrades mainly at ${label} heat.`;
+      }
+      function round1(n) {
+        return Math.round(Number(n) * 10) / 10;
+      }
+      function num(n, fallback = 0) {
+        const v = Number(n);
+        return Number.isFinite(v) ? v : fallback;
+      }
+      function describeReagent(reagentId, opts = {}) {
+        const def = EXPERIMENTAL_REAGENTS[reagentId];
+        if (!def) {
+          return {
+            id: reagentId,
+            name: reagentId,
+            note: "Unknown reagent id.",
+            knowledgeMode: opts.knowledgeMode || "lab",
+            properties: []
+          };
+        }
+        const profile = deriveThermalProfile(def);
+        const knowledgeState = "established";
+        const aff = def.affinities || {};
+        const properties = [
+          {
+            key: "spirit",
+            label: "Spirit content",
+            display: String(def.spirit),
+            detail: `Per unit. ${TERM_GLOSSARY.spirit}`,
+            knowledgeState,
+            glossary: TERM_GLOSSARY.spirit
+          },
+          {
+            key: "yin_yang",
+            label: "Yin / yang",
+            display: `${def.yin} / ${def.yang}`,
+            detail: `${TERM_GLOSSARY.yin} ${TERM_GLOSSARY.yang}`,
+            knowledgeState
+          },
+          {
+            key: "volatility",
+            label: "Volatility",
+            display: String(def.volatility),
+            detail: TERM_GLOSSARY.volatility,
+            knowledgeState,
+            glossary: TERM_GLOSSARY.volatility
+          },
+          {
+            key: "stability",
+            label: "Stability",
+            display: String(def.stability),
+            detail: TERM_GLOSSARY.stability,
+            knowledgeState,
+            glossary: TERM_GLOSSARY.stability
+          },
+          {
+            key: "impurity",
+            label: "Impurity",
+            display: String(def.impurity),
+            detail: TERM_GLOSSARY.impurity,
+            knowledgeState,
+            glossary: TERM_GLOSSARY.impurity
+          },
+          {
+            key: "affinities",
+            label: "Affinities (qi / heat / marrow / purify / toxicity)",
+            display: `${aff.qi ?? 0} / ${aff.heat ?? 0} / ${aff.marrow ?? 0} / ${aff.purify ?? 0} / ${aff.toxicity ?? 0}`,
+            detail: "Medicinal and hazard leanings used by condensation.",
+            knowledgeState
+          },
+          {
+            key: "activation",
+            label: "Heat activation (derived)",
+            display: `${profile.activationThreshold} (~${nearestHeatLabel(profile.activationThreshold)})`,
+            detail: heatRelationText(profile.activationThreshold, "activation"),
+            knowledgeState,
+            glossary: TERM_GLOSSARY.activation
+          },
+          {
+            key: "tolerance",
+            label: "Heat tolerance (derived)",
+            display: `${profile.toleranceMax} (~${nearestHeatLabel(profile.toleranceMax)})`,
+            detail: heatRelationText(profile.toleranceMax, "tolerance"),
+            knowledgeState,
+            glossary: TERM_GLOSSARY.tolerance
+          }
+        ];
+        return {
+          id: def.id,
+          name: def.name,
+          note: def.note || "",
+          knowledgeMode: opts.knowledgeMode || "lab",
+          knowledgeStates: KNOWLEDGE_STATES,
+          properties
+        };
+      }
+      function formatSpiritBreakdown(material) {
+        const released = num(material?.released?.spirit);
+        const bound = num(material?.bound?.spirit);
+        const degraded = num(material?.degraded?.spirit);
+        const input = material?.conservation?.inputSpirit != null ? num(material.conservation.inputSpirit) : round1(released + bound + degraded);
+        const partsSum = released + bound + degraded;
+        const denom = partsSum > 0 ? partsSum : input > 0 ? input : 1;
+        const pct = (v) => Math.round(v / denom * 1e3) / 10;
+        return {
+          input,
+          released,
+          bound,
+          degraded,
+          residual: num(material?.residual?.spirit),
+          percentages: {
+            released: partsSum === 0 && input === 0 ? 0 : pct(released),
+            bound: partsSum === 0 && input === 0 ? 0 : pct(bound),
+            degraded: partsSum === 0 && input === 0 ? 0 : pct(degraded)
+          },
+          empty: partsSum === 0 && input === 0
+        };
+      }
+      function processPlainLabel(outcome) {
+        switch (outcome) {
+          case "refined":
+            return "The process completed under control.";
+          case "unstable_salvage":
+            return "The process stayed only barely stable \u2014 you salvaged what you could.";
+          case "failed":
+            return "Instability ruined the condensation; the process failed.";
+          case "rupture":
+            return "The mixture ruptured under extreme instability.";
+          default:
+            return `Process outcome: ${outcome || "unknown"}.`;
+        }
+      }
+      function productPlainLines(result) {
+        const product = result.product || {};
+        const potency = num(product.potency);
+        const suitability = product.suitability || "n/a";
+        const lines = [];
+        if (potency <= 0 || suitability === "weak") {
+          lines.push("Product: little or no usable medicinal potency formed.");
+        } else if (suitability === "impure") {
+          lines.push(`Product: some potency (${potency}) formed, but impurity leaves it impure.`);
+        } else if (suitability === "hazardous") {
+          lines.push(`Product: potency ${potency}, but toxicity makes it hazardous.`);
+        } else if (suitability === "medicinal") {
+          lines.push(`Product: usable medicinal essence formed (potency ${potency}, dominant ${product.dominantAffinity}).`);
+        } else {
+          lines.push(`Product: suitability ${suitability}, potency ${potency}.`);
+        }
+        return lines;
+      }
+      function materialPlainLines(result) {
+        const m = result.material;
+        if (!m) return [];
+        const released = num(m.released?.spirit);
+        const bound = num(m.bound?.spirit);
+        const degraded = num(m.degraded?.spirit);
+        const input = num(m.conservation?.inputSpirit, released + bound + degraded);
+        const lines = [];
+        const traceKinds = new Set((result.trace || []).map((ev) => ev.kind));
+        if (degraded > 0 && degraded + 0.05 >= Math.max(released, bound) && degraded >= input * 0.45) {
+          lines.push(`Excessive heat (or breakage) degraded ${degraded} spirit \u2014 medicinal essence was lost.`);
+        } else if (degraded > 0.05) {
+          lines.push(`${degraded} spirit degraded (overburn / broken affinities).`);
+        }
+        if (bound > 0 && released <= 0.05 && degraded <= 0.05) {
+          lines.push(`Insufficient heat left ${bound} spirit still bound \u2014 almost nothing extracted.`);
+        } else if (bound > released && bound > 0.05) {
+          lines.push(`Much of the spirit remains bound (${bound}); only ${released} released.`);
+        } else if (released > 0.05) {
+          lines.push(`Extraction released ${released} spirit into the reactive mixture.`);
+        }
+        if (traceKinds.has("introduction_shock") || traceKinds.has("destabilisation")) {
+          lines.push("Incompatible interactions or shocks contributed to instability (see trace).");
+        }
+        if (released <= 0.05 && bound <= 0.05 && degraded <= 0.05 && input <= 0.05) {
+          lines.push("No measurable spirit moved \u2014 empty or zero-input run.");
+        }
+        return lines;
+      }
+      function summarizeRefinement(result) {
+        const proc = result.process?.outcome || result.outcome;
+        const processSuccess = !!(result.process?.success ?? result.success);
+        const potency = num(result.product?.potency);
+        const suitability = result.product?.suitability;
+        const productUseful = potency > 0 && suitability === "medicinal";
+        let headline;
+        if (proc === "rupture" || proc === "failed") {
+          headline = "Process failed \u2014 mixture damaged before a reliable product could form.";
+        } else if (processSuccess && productUseful) {
+          headline = "Process held, and a usable medicinal product formed.";
+        } else if (processSuccess && (potency <= 0 || suitability === "weak")) {
+          headline = "Process completed, but no usable medicinal product formed.";
+        } else if (processSuccess && suitability === "impure") {
+          headline = "Process completed, but the product is impure.";
+        } else if (processSuccess && suitability === "hazardous") {
+          headline = "Process completed, but the product is hazardous.";
+        } else {
+          headline = "Refinement finished with mixed results \u2014 inspect process vs product below.";
+        }
+        return {
+          headline,
+          processLine: processPlainLabel(proc),
+          processOutcome: proc,
+          processSuccess,
+          productUseful,
+          productLines: productPlainLines(result),
+          materialLines: materialPlainLines(result),
+          note: "Process completion is not the same as a useful product."
+        };
+      }
       function explainExperiment(result) {
         const lines = [];
-        const proc = result.process?.outcome || result.outcome;
-        lines.push(`Process: ${proc} (peak instability ${result.peakInstability}).`);
+        const summary = summarizeRefinement(result);
+        lines.push(summary.headline);
+        lines.push(summary.processLine);
+        summary.materialLines.forEach((l) => lines.push(l));
+        summary.productLines.forEach((l) => lines.push(l));
         if (result.material) {
           const m = result.material;
           lines.push(
-            `Material \u2014 released spirit ${m.released?.spirit ?? 0}, still bound ${m.bound?.spirit ?? 0}, degraded ${m.degraded?.spirit ?? 0}.`
+            `Material ledger \u2014 released ${m.released?.spirit ?? 0}, bound ${m.bound?.spirit ?? 0}, degraded ${m.degraded?.spirit ?? 0}.`
           );
           if (m.conservation && Math.abs(m.conservation.conservationDelta) > 0.05) {
             lines.push(`\u26A0 Conservation delta ${m.conservation.conservationDelta} (investigate).`);
@@ -1614,6 +1895,69 @@ var AlchemyLab = (() => {
           different: String(fn(a)) !== String(fn(b))
         }));
       }
+      function reagentSignature(input) {
+        return (input?.reagents || []).map((r) => `${r.qty}\xD7${r.reagentId}`).sort().join(",");
+      }
+      function heatSignature(input) {
+        return input?.heatStages?.join("\u2192") || input?.heat || "";
+      }
+      function interpretComparison(a, b) {
+        const lines = [];
+        const rows = compareExperiments(a, b);
+        const heatA = heatSignature(a.input);
+        const heatB = heatSignature(b.input);
+        const reagentsDiffer = reagentSignature(a.input) !== reagentSignature(b.input);
+        const orderDiffer = (a.input?.introductionOrder || "simultaneous") !== (b.input?.introductionOrder || "simultaneous");
+        const heatDiffer = heatA !== heatB;
+        const inputDiffCount = [heatDiffer, reagentsDiffer, orderDiffer].filter(Boolean).length;
+        if (inputDiffCount > 1) {
+          lines.push("Several inputs differ between these runs \u2014 treat differences as correlated, not proven single-cause.");
+        } else if (heatDiffer && !reagentsDiffer && !orderDiffer) {
+          lines.push(`Same ingredients; heat differs (${heatA || "\u2014"} vs ${heatB || "\u2014"}).`);
+        } else if (reagentsDiffer && !heatDiffer && !orderDiffer) {
+          lines.push("Ingredient lists differ; heat and introduction order match.");
+        } else if (orderDiffer && !heatDiffer && !reagentsDiffer) {
+          lines.push("Only introduction order differs.");
+        }
+        function pushNumericDelta(label, noun) {
+          const row = rows.find((r) => r.label === label);
+          if (!row || !row.different) return;
+          if (!Number.isFinite(Number(row.a)) || !Number.isFinite(Number(row.b))) {
+            lines.push(`${label}: ${row.a} \u2192 ${row.b}.`);
+            return;
+          }
+          const av = num(row.a);
+          const bv = num(row.b);
+          const d = round1(bv - av);
+          const abs = Math.abs(d);
+          if (abs < 0.05) return;
+          if (d > 0) lines.push(`B shows ${abs} more ${noun} than A (${av} \u2192 ${bv}).`);
+          else lines.push(`B shows ${abs} less ${noun} than A (${av} \u2192 ${bv}).`);
+        }
+        pushNumericDelta("Released spirit", "released spirit");
+        pushNumericDelta("Bound spirit", "bound spirit");
+        pushNumericDelta("Degraded spirit", "degraded spirit");
+        pushNumericDelta("Potency", "potency");
+        const peak = rows.find((r) => r.label === "Peak instability");
+        if (peak?.different) {
+          lines.push(`Peak instability changed from ${peak.a} to ${peak.b}.`);
+        }
+        const proc = rows.find((r) => r.label === "Process outcome");
+        if (proc?.different) lines.push(`Process outcome: ${proc.a} vs ${proc.b}.`);
+        const suit = rows.find((r) => r.label === "Suitability");
+        if (suit?.different) lines.push(`Product suitability: ${suit.a} vs ${suit.b}.`);
+        const dom = rows.find((r) => r.label === "Dominant affinity");
+        if (dom?.different) lines.push(`Dominant affinity: ${dom.a} vs ${dom.b}.`);
+        const meaningful = lines.some(
+          (l) => /released|bound|degraded|potency|instability|Process|suitability|affinity/i.test(l)
+        );
+        if (!meaningful) {
+          if (rows.every((r) => !r.different)) lines.push("No listed fields differ between these runs.");
+          else lines.push("Inputs or categorical fields differ; numeric spirit/product deltas are small or absent.");
+        }
+        lines.push("No automatic \u201Cbetter run\u201D ranking \u2014 usefulness depends on your goal.");
+        return lines;
+      }
       var LAB_PRESETS = {
         grit_activation: {
           name: "Ironscar Grit \u2014 gentle (bound-heavy)",
@@ -1661,6 +2005,12 @@ var AlchemyLab = (() => {
         }
       };
       module.exports = {
+        KNOWLEDGE_STATES,
+        TERM_GLOSSARY,
+        describeReagent,
+        summarizeRefinement,
+        formatSpiritBreakdown,
+        interpretComparison,
         explainExperiment,
         formatMaterialLedger,
         compareExperiments,
