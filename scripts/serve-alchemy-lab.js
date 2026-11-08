@@ -1,16 +1,15 @@
 /**
  * Serve the property-alchemy dev laboratory (static).
  * Run: node scripts/serve-alchemy-lab.js
- * Open: http://127.0.0.1:4173/prototype/property-alchemy/lab/index.html
+ * Open: http://127.0.0.1:4173/sandbox/alchemy/
  */
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-
 const { execSync } = require('child_process');
 
 const root = path.join(__dirname, '..');
-const bundle = path.join(root, 'prototype', 'property-alchemy', 'dist', 'lab-bundle.js');
+const bundle = path.join(root, 'sandbox', 'alchemy', 'lab-bundle.js');
 if (!fs.existsSync(bundle)) {
     execSync('node scripts/bundle-alchemy-lab.js', { cwd: root, stdio: 'inherit' });
 }
@@ -25,7 +24,9 @@ const MIME = {
 
 const server = http.createServer((req, res) => {
     let urlPath = decodeURIComponent(req.url.split('?')[0]);
-    if (urlPath === '/') urlPath = '/prototype/property-alchemy/lab/index.html';
+    if (urlPath === '/' || urlPath === '/sandbox/alchemy' || urlPath === '/sandbox/alchemy/') {
+        urlPath = '/sandbox/alchemy/index.html';
+    }
     const filePath = path.join(root, urlPath);
     if (!filePath.startsWith(root)) {
         res.writeHead(403);
@@ -45,5 +46,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '127.0.0.1', () => {
-    console.log(`Alchemy lab: http://127.0.0.1:${PORT}/prototype/property-alchemy/lab/index.html`);
+    console.log(`Alchemy lab: http://127.0.0.1:${PORT}/sandbox/alchemy/`);
 });

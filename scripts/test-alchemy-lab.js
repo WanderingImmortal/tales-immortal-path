@@ -32,8 +32,15 @@ function assert(cond, msg) {
 }
 
 execSync('node scripts/bundle-alchemy-lab.js', { cwd: root, stdio: 'pipe' });
-const bundlePath = path.join(root, 'prototype', 'property-alchemy', 'dist', 'lab-bundle.js');
-assert(fs.existsSync(bundlePath) && fs.statSync(bundlePath).size > 10000, 'lab bundle builds');
+const deployBundle = path.join(root, 'sandbox', 'alchemy', 'lab-bundle.js');
+const distBundle = path.join(root, 'prototype', 'property-alchemy', 'dist', 'lab-bundle.js');
+assert(fs.existsSync(deployBundle) && fs.statSync(deployBundle).size > 10000, 'sandbox lab bundle builds');
+assert(fs.existsSync(distBundle) && fs.statSync(distBundle).size > 10000, 'dist lab bundle copy exists');
+const labHtml = path.join(root, 'sandbox', 'alchemy', 'index.html');
+const labJs = path.join(root, 'sandbox', 'alchemy', 'lab.js');
+assert(fs.existsSync(labHtml) && fs.existsSync(labJs), 'sandbox alchemy lab UI present');
+const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+assert(indexHtml.includes('sandbox/alchemy/'), 'main game Dev tools links alchemy lab');
 
 Object.entries(LAB_PRESETS).forEach(([key, preset]) => {
     const r = proto.simulateRefinement({ ...preset.input, trace: true });

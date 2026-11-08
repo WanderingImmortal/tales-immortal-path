@@ -27,15 +27,45 @@ header {
   background: #12151a;
 }
 
+.top-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.proto-badge {
+  display: inline-block;
+  margin: 0 0 0.35rem;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--warn);
+  border-radius: 4px;
+  color: var(--warn);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 header h1 { margin: 0 0 0.25rem; font-size: 1.25rem; }
 header p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+.back-link {
+  flex-shrink: 0;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  padding-top: 0.15rem;
+}
+.back-link:hover { text-decoration: underline; }
+
 .muted { color: var(--muted); }
 
 .layout {
   display: grid;
   grid-template-columns: 340px 1fr 360px;
   gap: 0;
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 88px);
 }
 
 .panel {
@@ -134,4 +164,5 @@ details pre {
 @media (max-width: 1100px) {
   .layout { grid-template-columns: 1fr; }
   .panel { border-right: none; border-bottom: 1px solid var(--border); }
+  .top-bar { flex-direction: column; }
 }
