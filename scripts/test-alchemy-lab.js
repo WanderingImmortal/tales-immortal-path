@@ -199,8 +199,18 @@ assert(multiCmp.some(l => /Several inputs differ|correlated/i.test(l)), 'multi-i
 
 const labHtmlText = fs.readFileSync(labHtml, 'utf8');
 const labJsText = fs.readFileSync(labJs, 'utf8');
+const labCssText = fs.readFileSync(path.join(root, 'sandbox', 'alchemy', 'lab.css'), 'utf8');
 assert(labHtmlText.includes('reagentInfo') && labHtmlText.includes('summaryOut'), 'lab HTML has readability panels');
-assert(labJsText.includes('summarizeRefinement') && labJsText.includes('formatSpiritBreakdown'), 'lab UI wires new helpers');
+assert(labHtmlText.includes('condenseBtn') && !labHtmlText.includes('introOrder'), 'lab HTML uses interactive furnace');
+assert(labJsText.includes('createFurnaceState') && labJsText.includes('formatProcedureChronicle'), 'lab UI wires furnace');
+assert(labCssText.includes('@media (max-width: 480px)'), 'lab CSS includes mobile layout rules');
+
+try {
+    execSync('node scripts/test-furnace.js', { cwd: root, stdio: 'pipe' });
+    ok('furnace tests pass');
+} catch {
+    fail('furnace tests pass');
+}
 
 const withTrace = proto.simulateRefinement({ ...repeatInput, trace: true });
 const noTrace = proto.simulateRefinement(repeatInput);

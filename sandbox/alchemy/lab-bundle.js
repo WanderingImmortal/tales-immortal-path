@@ -1513,6 +1513,589 @@ var AlchemyLab = (() => {
     }
   });
 
+  // prototype/property-alchemy/condense.js
+  var require_condense = __commonJS({
+    "prototype/property-alchemy/condense.js"(exports, module) {
+      var { OUTCOME, polarityImbalance } = require_simulate();
+      function seededNoise(seed, salt) {
+        const x = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453;
+        return x - Math.floor(x);
+      }
+      function round1(n) {
+        return Math.round(n * 10) / 10;
+      }
+      function round3(n) {
+        return Math.round(n * 1e3) / 1e3;
+      }
+      function dominantKey(productEffects) {
+        const entries = Object.entries(productEffects).filter(([k]) => k !== "toxicity");
+        entries.sort((a, b) => b[1] - a[1]);
+        return entries[0]?.[0] || "none";
+      }
+      function gradeFromMargin(margin, impurityRatio) {
+        if (margin > 4 && impurityRatio < 0.15) return "high";
+        if (margin > 1 && impurityRatio < 0.35) return "mid";
+        return "low";
+      }
+      function summarizeSlice(slice) {
+        return {
+          spirit: round1(slice.spirit),
+          impurity: round1(slice.impurity),
+          affinities: {
+            qi: round1(slice.affinities.qi),
+            heat: round1(slice.affinities.heat),
+            marrow: round1(slice.affinities.marrow),
+            purify: round1(slice.affinities.purify),
+            toxicity: round1(slice.affinities.toxicity)
+          }
+        };
+      }
+      function buildDiagnostics(ctx) {
+        const suggestions = [];
+        if (ctx.peakInstability > 5) {
+          if (ctx.cauldron.affinities.purify < 8) {
+            suggestions.push("Add a purifying or stabilising reagent before catalysts.");
+          }
+          if (ctx.heat > 0.7) {
+            suggestions.push("Reduce heat \u2014 thermal drive is amplifying volatility.");
+          }
+          if (polarityImbalance(ctx.cauldron.yin, ctx.cauldron.yang) > 0.35) {
+            suggestions.push("Balance yin and yang in the mixture or add neutral binder.");
+          }
+        }
+        if (ctx.impurityRatio > 0.25) {
+          suggestions.push("Use gentle heat so purifying affinities can strip impurities.");
+        }
+        const playerObservations = [];
+        if (ctx.introductionShocks?.some((s) => s > 0.25)) {
+          playerObservations.push("Sharp polarity spike when later reagents entered the cauldron.");
+        }
+        if (ctx.thermalPeaks?.some((t) => t > 8)) {
+          playerObservations.push("Cauldron trembled from thermal pressure \u2014 volatility dominates.");
+        }
+        if (ctx.cauldron.affinities.purify > 10 && ctx.heat < 0.55) {
+          playerObservations.push("Purifying notes cleared as the mixture simmered.");
+        }
+        if (ctx.peakInstability > 11) {
+          playerObservations.push("Mixture lost coherence \u2014 structure collapsed before forming a pill.");
+        } else if (ctx.peakInstability > 5.5) {
+          playerObservations.push("Pill formed but cracks web the surface \u2014 unstable salvage.");
+        }
+        return {
+          polarityImbalance: round3(polarityImbalance(ctx.cauldron.yin, ctx.cauldron.yang)),
+          peakInstability: round3(ctx.peakInstability),
+          stabilityMargin: round3(ctx.stabilityMargin),
+          impurityRatio: round3(ctx.impurityRatio),
+          suggestedAdjustments: suggestions,
+          playerObservations
+        };
+      }
+      function condenseMaterialLedger(material, opts = {}) {
+        const {
+          peakInstability,
+          lastHeat = 0.65,
+          seed = 0,
+          procedure = null,
+          trace = null
+        } = opts;
+        let impurity = material.released.impurity;
+        const impurityBeforeScrub = impurity;
+        const purifyWork = material.released.affinities.purify * lastHeat * (lastHeat < 0.55 ? 0.14 : 0.05);
+        impurity = Math.max(0, impurity - purifyWork);
+        const impurityNoise = 1 + (seededNoise(seed, 1) - 0.5) * 0.06;
+        impurity *= impurityNoise;
+        const releasedSpirit = Math.max(1e-3, material.released.spirit);
+        const impurityRatio = impurity / releasedSpirit;
+        const spiritPotency = releasedSpirit * Math.max(0.2, 1 - impurityRatio * 0.65);
+        const aff = material.released.affinities;
+        const totalAff = aff.qi + aff.heat + aff.marrow + aff.purify;
+        const scale = totalAff > 0 ? spiritPotency / totalAff : 0;
+        const productEffects = {
+          qi: round1(aff.qi * scale * 0.1),
+          heat: round1(aff.heat * scale * 0.1),
+          marrow: round1(aff.marrow * scale * 0.1),
+          purify: round1(aff.purify * scale * 0.08),
+          toxicity: round1(aff.toxicity * scale * 0.12 + Math.max(0, peakInstability) * 0.4)
+        };
+        const stabilityMargin = material.released.stability * 0.08 + aff.purify * 0.05 - peakInstability;
+        let processOutcome = OUTCOME.REFINED;
+        if (peakInstability > 16) processOutcome = OUTCOME.RUPTURE;
+        else if (peakInstability > 8.5) processOutcome = OUTCOME.FAILED;
+        else if (peakInstability > 4.2) processOutcome = OUTCOME.UNSTABLE_SALVAGE;
+        const condenseFactor = processOutcome === OUTCOME.REFINED ? 1 : processOutcome === OUTCOME.UNSTABLE_SALVAGE ? 0.55 + Math.max(0, stabilityMargin) * 0.04 : 0.15;
+        if (processOutcome === OUTCOME.RUPTURE || processOutcome === OUTCOME.FAILED) {
+          productEffects.qi *= 0.15;
+          productEffects.heat *= 0.2;
+          productEffects.marrow *= 0.15;
+          productEffects.toxicity += 2 + peakInstability * 0.3;
+        } else if (processOutcome === OUTCOME.UNSTABLE_SALVAGE) {
+          productEffects.qi *= condenseFactor;
+          productEffects.heat *= condenseFactor;
+          productEffects.marrow *= condenseFactor;
+          productEffects.toxicity += 0.8;
+        }
+        const dominantAffinity = dominantKey(productEffects);
+        const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
+        const productSuitability = impurityRatio > 0.45 ? "impure" : productEffects.toxicity > 4 ? "hazardous" : potency >= 2 ? "medicinal" : "weak";
+        const diagnostics = buildDiagnostics({
+          peakInstability,
+          stabilityMargin,
+          impurityRatio,
+          heat: lastHeat,
+          introductionShocks: opts.introductionShocks || [],
+          thermalPeaks: opts.thermalPeaks || [],
+          cauldron: material.released
+        });
+        const materialOutcome = {
+          released: summarizeSlice(material.released),
+          bound: summarizeSlice(material.bound),
+          degraded: summarizeSlice(material.degraded),
+          residual: summarizeSlice(material.residual),
+          conservation: material.conservation
+        };
+        return {
+          process: {
+            outcome: processOutcome,
+            peakInstability: round3(peakInstability),
+            stabilityMargin: round3(stabilityMargin),
+            success: processOutcome === OUTCOME.REFINED || processOutcome === OUTCOME.UNSTABLE_SALVAGE
+          },
+          material: materialOutcome,
+          mixture: {
+            spirit: round1(releasedSpirit),
+            yin: round1(material.released.yin),
+            yang: round1(material.released.yang),
+            impurity: round1(impurity),
+            impurityRatio: round3(impurityRatio),
+            polarityImbalance: round3(polarityImbalance(material.released.yin, material.released.yang))
+          },
+          peakInstability: round3(peakInstability),
+          stabilityMargin: round3(stabilityMargin),
+          product: {
+            effects: productEffects,
+            dominantAffinity,
+            potency: round1(potency),
+            grade: gradeFromMargin(stabilityMargin, impurityRatio),
+            suitability: productSuitability
+          },
+          outcome: processOutcome,
+          success: processOutcome === OUTCOME.REFINED || processOutcome === OUTCOME.UNSTABLE_SALVAGE,
+          diagnostics,
+          observations: diagnostics.playerObservations,
+          procedure: procedure || void 0,
+          trace: trace || void 0,
+          purifyScrub: purifyWork > 0 ? round3(impurityBeforeScrub - impurity) : 0
+        };
+      }
+      module.exports = {
+        condenseMaterialLedger,
+        summarizeSlice,
+        buildDiagnostics
+      };
+    }
+  });
+
+  // prototype/property-alchemy/furnace.js
+  var require_furnace = __commonJS({
+    "prototype/property-alchemy/furnace.js"(exports, module) {
+      var { EXPERIMENTAL_REAGENTS } = require_reagents();
+      var { HEAT_VALUES, loadFromReagent, polarityImbalance } = require_simulate();
+      var {
+        deriveThermalProfile,
+        createMaterialLedger,
+        registerInputLoad,
+        recordThermalResult,
+        finalizeMaterialLedger,
+        mergeSlice,
+        scaleMaterialSlice,
+        emptyMaterialSlice,
+        thermalFractions
+      } = require_thermal();
+      var { condenseMaterialLedger } = require_condense();
+      var SIM_DT = 0.1;
+      var K_BOUND_TRANSFER = 0.42;
+      var K_RELEASED_DEGRADE = 0.28;
+      var K_INSTABILITY = 0.2;
+      function round3(n) {
+        return Math.round(n * 1e3) / 1e3;
+      }
+      function formatSimTime(t) {
+        const m = Math.floor(t / 60);
+        const s = t - m * 60;
+        return `${String(m).padStart(2, "0")}:${s.toFixed(1).padStart(4, "0")}`;
+      }
+      function cloneLedgerTotals(material) {
+        return {
+          released: material.released.spirit,
+          bound: Object.values(material.byReagent).reduce((s, b) => s + b.bound.spirit, 0),
+          degraded: material.degraded.spirit
+        };
+      }
+      function applyBoundIncremental(boundSlice, profile, heat, dt) {
+        if (boundSlice.spirit <= 1e-12) {
+          return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
+        }
+        const frac = thermalFractions(heat, profile);
+        const drive = frac.grossRelease * (0.2 + 0.8 * heat) * K_BOUND_TRANSFER * dt;
+        const transfer = boundSlice.spirit * Math.min(0.85, drive);
+        if (transfer <= 1e-12) {
+          return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
+        }
+        const act = Math.max(frac.releaseEfficiency + frac.degradeFraction, 1e-9);
+        const relW = frac.releaseEfficiency / act;
+        const degW = frac.degradeFraction / act;
+        const released = scaleMaterialSlice(boundSlice, transfer / boundSlice.spirit * relW);
+        const degraded = scaleMaterialSlice(boundSlice, transfer / boundSlice.spirit * degW);
+        degraded.affinities.qi *= 0.2;
+        degraded.affinities.marrow *= 0.2;
+        degraded.affinities.purify *= 0.15;
+        degraded.affinities.toxicity += degraded.spirit * 0.08;
+        const remainScale = Math.max(0, 1 - transfer / boundSlice.spirit);
+        Object.assign(boundSlice, scaleMaterialSlice(boundSlice, remainScale));
+        return { released, degraded };
+      }
+      function distributeReleasedDegraded(material, relDegraded) {
+        const totalReleased = Object.values(material.byReagent).reduce((s, b) => s + b.released.spirit, 0);
+        if (totalReleased <= 1e-9) {
+          mergeSlice(material.degraded, relDegraded);
+          return;
+        }
+        Object.values(material.byReagent).forEach((bucket) => {
+          const share = bucket.released.spirit / totalReleased;
+          if (share <= 1e-12) return;
+          const part = scaleMaterialSlice(relDegraded, share);
+          mergeSlice(bucket.degraded, part);
+          mergeSlice(material.degraded, part);
+        });
+      }
+      function applyReleasedIncremental(released, heat, dt) {
+        if (released.spirit <= 1e-12 || heat < 0.5) return null;
+        const vol = released.volatility / Math.max(released.spirit, 0.01);
+        const stab = released.stability / Math.max(released.spirit, 0.01);
+        const over = Math.min(1, Math.max(0, (heat - 0.48) / 0.45));
+        const rate = K_RELEASED_DEGRADE * over * (0.35 + vol * 0.04) * dt / (1 + stab * 0.08);
+        const amount = released.spirit * Math.min(0.4, rate);
+        if (amount <= 1e-12) return null;
+        const degraded = scaleMaterialSlice(released, amount / released.spirit);
+        degraded.affinities.qi *= 0.15;
+        degraded.affinities.toxicity += amount * 0.06;
+        const remain = Math.max(0, 1 - amount / released.spirit);
+        Object.assign(released, scaleMaterialSlice(released, remain));
+        return degraded;
+      }
+      function integrateInstability(material, heat, dt, running) {
+        const rel = material.released;
+        if (rel.spirit <= 1e-9 && heat <= 0) return { delta: 0, thermalDrive: 0 };
+        const clash = polarityImbalance(rel.yin, rel.yang);
+        const thermalDrive = rel.volatility / Math.max(rel.spirit, 0.01) * rel.spirit * 0.08 * heat * heat;
+        const polarityStrain = clash * (rel.spirit * 4e-3 + 1) * heat;
+        const purifyDamp = rel.affinities.purify * 6e-3 * (1.1 - heat * 0.35);
+        const stabilityDamp = rel.stability * 0.045;
+        const stepNet = (polarityStrain + thermalDrive * 0.38 - purifyDamp - stabilityDamp) * K_INSTABILITY * dt;
+        running.value += stepNet;
+        if (running.value > running.peak) running.peak = running.value;
+        return { delta: stepNet, thermalDrive };
+      }
+      function pushChronicle(state, kind, message, data) {
+        const entry = {
+          time: round3(state.time),
+          timeLabel: formatSimTime(state.time),
+          kind,
+          message,
+          ...data ? { data } : {}
+        };
+        state.chronicle.push(entry);
+        if (state.significantKinds.has(kind)) {
+          state.procedure.actions.push({ time: state.time, kind, ...data });
+        }
+      }
+      function createFurnaceState(opts = {}) {
+        const heatKey = opts.heat || "medium";
+        return {
+          time: 0,
+          seed: opts.seed ?? 0,
+          running: false,
+          paused: false,
+          condensed: false,
+          heatKey,
+          heatValue: HEAT_VALUES[heatKey] ?? HEAT_VALUES.medium,
+          material: createMaterialLedger(),
+          introduced: [],
+          runningInstability: 0,
+          peakInstability: 0,
+          introductionShocks: [],
+          thermalPeaks: [],
+          chronicle: [],
+          procedure: {
+            version: 1,
+            seed: opts.seed ?? 0,
+            simDt: SIM_DT,
+            actions: []
+          },
+          significantKinds: /* @__PURE__ */ new Set([
+            "furnace_start",
+            "furnace_pause",
+            "furnace_resume",
+            "heat_set",
+            "introduce",
+            "condense",
+            "reset"
+          ]),
+          result: null,
+          liveNotes: []
+        };
+      }
+      function snapshotFurnace(state) {
+        return {
+          time: round3(state.time),
+          running: state.running,
+          paused: state.paused,
+          condensed: state.condensed,
+          heat: state.heatKey,
+          peakInstability: round3(state.peakInstability),
+          instability: round3(state.runningInstability),
+          polarityImbalance: round3(polarityImbalance(
+            state.material.released.yin,
+            state.material.released.yang
+          )),
+          inFurnace: state.introduced.map((r) => ({ ...r })),
+          spirit: cloneLedgerTotals(state.material)
+        };
+      }
+      function startFurnace(state) {
+        if (state.condensed) return state;
+        state.running = true;
+        state.paused = false;
+        pushChronicle(state, "furnace_start", "Furnace ignited \u2014 refinement began.", { heat: state.heatKey });
+        return state;
+      }
+      function pauseFurnace(state) {
+        if (!state.running || state.condensed) return state;
+        state.paused = true;
+        pushChronicle(state, "furnace_pause", "Furnace paused.", null);
+        return state;
+      }
+      function resumeFurnace(state) {
+        if (state.condensed) return state;
+        state.paused = false;
+        if (!state.running) state.running = true;
+        pushChronicle(state, "furnace_resume", "Furnace resumed.", null);
+        return state;
+      }
+      function setFurnaceHeat(state, heatKey) {
+        if (state.condensed) return state;
+        const prev = state.heatKey;
+        state.heatKey = heatKey;
+        state.heatValue = HEAT_VALUES[heatKey] ?? HEAT_VALUES.medium;
+        if (prev !== heatKey) {
+          pushChronicle(
+            state,
+            "heat_set",
+            `Flame set to ${heatKey} heat.`,
+            { heat: heatKey, heatValue: state.heatValue }
+          );
+        }
+        return state;
+      }
+      function introduceToFurnace(state, reagentId, qty) {
+        if (state.condensed) throw new Error("Furnace already condensed.");
+        if (qty <= 0) throw new Error("Quantity must be positive.");
+        const load = loadFromReagent(reagentId, qty);
+        const hadReleased = state.material.released.spirit > 0.05;
+        registerInputLoad(state.material, load);
+        let shock = 0;
+        if (hadReleased && state.introduced.length > 0) {
+          const newCharge = polarityImbalance(load.yin, load.yang);
+          shock = newCharge * 0.55 * state.heatValue * (state.material.released.spirit * 6e-3 + 1);
+          state.runningInstability += shock;
+          state.peakInstability = Math.max(state.peakInstability, state.runningInstability);
+          state.introductionShocks.push(shock);
+        }
+        state.introduced.push({ reagentId, qty, introducedAt: round3(state.time) });
+        const name = EXPERIMENTAL_REAGENTS[reagentId]?.name || reagentId;
+        pushChronicle(
+          state,
+          "introduce",
+          `${qty}\xD7 ${name} introduced to the furnace.`,
+          { reagentId, qty, introductionShock: round3(shock) }
+        );
+        if (shock > 0.15) {
+          state.liveNotes.push("Polarity stirred as new material entered the hot mixture.");
+        }
+        return state;
+      }
+      function stepFurnace(state, dt = SIM_DT) {
+        if (!state.running || state.paused || state.condensed) return state;
+        if (dt <= 0) return state;
+        const heat = state.heatValue;
+        let notableExtract = false;
+        let notableDegrade = false;
+        Object.entries(state.material.byReagent).forEach(([reagentId, bucket]) => {
+          if (bucket.bound.spirit <= 1e-12) return;
+          const def = EXPERIMENTAL_REAGENTS[reagentId];
+          const profile = deriveThermalProfile(def);
+          const { released, degraded } = applyBoundIncremental(bucket.bound, profile, heat, dt);
+          if (released.spirit > 1e-9 || degraded.spirit > 1e-9) {
+            recordThermalResult(state.material, reagentId, released, degraded);
+            if (released.spirit > 0.02) notableExtract = true;
+            if (degraded.spirit > 0.02) notableDegrade = true;
+          }
+        });
+        const relDegraded = applyReleasedIncremental(state.material.released, heat, dt);
+        if (relDegraded) {
+          distributeReleasedDegraded(state.material, relDegraded);
+          notableDegrade = true;
+        }
+        const instRun = { value: state.runningInstability, peak: state.peakInstability };
+        const inst = integrateInstability(state.material, heat, dt, instRun);
+        state.runningInstability = instRun.value;
+        state.peakInstability = instRun.peak;
+        if (inst.thermalDrive > 8) state.thermalPeaks.push(inst.thermalDrive);
+        state.time += dt;
+        if (notableExtract && Math.floor(state.time * 2) !== Math.floor((state.time - dt) * 2)) {
+          state.liveNotes.push(heat < 0.5 ? "Essence slowly seeps from bound material." : "Heat drives spirit from the matrix.");
+        }
+        if (notableDegrade && heat > 0.7) {
+          state.liveNotes.push("Volatile components char under sustained fierce heat.");
+        }
+        if (state.peakInstability > 6 && state.liveNotes.length < 8) {
+          state.liveNotes.push("The mixture wavers \u2014 instability is building.");
+        }
+        return state;
+      }
+      function advanceFurnace(state, totalDt) {
+        if (totalDt <= 0) return state;
+        const steps = Math.round(totalDt / SIM_DT);
+        for (let i = 0; i < steps; i++) stepFurnace(state, SIM_DT);
+        const remainder = totalDt - steps * SIM_DT;
+        if (remainder > 1e-9) stepFurnace(state, remainder);
+        return state;
+      }
+      function condenseFurnace(state) {
+        if (state.condensed && state.result) return state.result;
+        state.running = false;
+        state.paused = true;
+        state.condensed = true;
+        const conservation = finalizeMaterialLedger(state.material);
+        state.material.conservation = conservation;
+        const materialView = {
+          released: state.material.released,
+          bound: state.material.bound,
+          degraded: state.material.degraded,
+          residual: state.material.residual,
+          conservation
+        };
+        const trace = state.chronicle.map((c) => ({
+          kind: c.kind,
+          message: c.message,
+          data: { time: c.time, ...c.data || {} }
+        }));
+        const result = condenseMaterialLedger(materialView, {
+          peakInstability: state.peakInstability,
+          lastHeat: state.heatValue,
+          seed: state.seed,
+          procedure: {
+            ...state.procedure,
+            duration: round3(state.time),
+            introduced: state.introduced,
+            chronicle: state.chronicle
+          },
+          introductionShocks: state.introductionShocks,
+          thermalPeaks: state.thermalPeaks,
+          trace
+        });
+        pushChronicle(state, "condense", "Condensation completed.", {
+          outcome: result.outcome,
+          peakInstability: result.peakInstability
+        });
+        state.result = result;
+        return result;
+      }
+      function resetFurnace(state, opts = {}) {
+        return createFurnaceState({ seed: opts.seed ?? state.seed, heat: opts.heat || "medium" });
+      }
+      function replayFurnaceProcedure(procedure, opts = {}) {
+        const dt = procedure.simDt ?? SIM_DT;
+        const state = createFurnaceState({ seed: procedure.seed ?? 0 });
+        const actions = [...procedure.actions || []].sort((a, b) => a.time - b.time);
+        const maxSteps = opts.maxSteps ?? 5e5;
+        const apply = (action) => {
+          switch (action.kind) {
+            case "furnace_start":
+              startFurnace(state);
+              break;
+            case "furnace_pause":
+              pauseFurnace(state);
+              break;
+            case "furnace_resume":
+              resumeFurnace(state);
+              break;
+            case "heat_set":
+              setFurnaceHeat(state, action.heat);
+              break;
+            case "introduce":
+              introduceToFurnace(state, action.reagentId, action.qty);
+              break;
+            case "condense":
+              condenseFurnace(state);
+              break;
+            case "reset":
+              Object.assign(state, resetFurnace(state));
+              break;
+            default:
+              break;
+          }
+        };
+        const advanceTo = (targetTime) => {
+          let steps = 0;
+          while (state.time < targetTime - 1e-9 && steps < maxSteps) {
+            if (state.running && !state.paused && !state.condensed) {
+              const step = Math.min(dt, targetTime - state.time);
+              stepFurnace(state, step);
+            } else {
+              state.time = targetTime;
+            }
+            steps++;
+          }
+        };
+        let idx = 0;
+        for (const action of actions) {
+          advanceTo(action.time);
+          apply(action);
+          if (state.condensed) return { state, result: state.result };
+          idx++;
+        }
+        if (opts.extraSimTime && state.running && !state.paused && !state.condensed) {
+          advanceFurnace(state, opts.extraSimTime);
+        }
+        if (!state.condensed && opts.autoCondense) {
+          condenseFurnace(state);
+        }
+        return { state, result: state.result };
+      }
+      module.exports = {
+        SIM_DT,
+        K_BOUND_TRANSFER,
+        K_RELEASED_DEGRADE,
+        createFurnaceState,
+        snapshotFurnace,
+        startFurnace,
+        pauseFurnace,
+        resumeFurnace,
+        setFurnaceHeat,
+        introduceToFurnace,
+        stepFurnace,
+        advanceFurnace,
+        condenseFurnace,
+        resetFurnace,
+        replayFurnaceProcedure,
+        formatSimTime,
+        applyBoundIncremental,
+        applyReleasedIncremental
+      };
+    }
+  });
+
   // prototype/property-alchemy/index.js
   var require_index = __commonJS({
     "prototype/property-alchemy/index.js"(exports, module) {
@@ -1523,6 +2106,8 @@ var AlchemyLab = (() => {
       var stressAudit = require_stress_audit();
       var thermal = require_thermal();
       var thermalHarness = require_thermal_harness();
+      var furnace = require_furnace();
+      var condense = require_condense();
       module.exports = {
         ...reagents,
         ...simulate,
@@ -1530,7 +2115,9 @@ var AlchemyLab = (() => {
         ...harness,
         ...stressAudit,
         ...thermal,
-        ...thermalHarness
+        ...thermalHarness,
+        ...furnace,
+        ...condense
       };
     }
   });
@@ -1875,10 +2462,28 @@ var AlchemyLab = (() => {
         }
         return { rows, conservation: material.conservation };
       }
+      function formatProcedureChronicle(procedure) {
+        if (!procedure) return "";
+        const lines = (procedure.chronicle || []).map(
+          (entry) => `${entry.timeLabel || entry.time} \u2014 ${entry.message}`
+        );
+        if (procedure.duration != null) {
+          lines.push(`Duration: ${procedure.duration} sim units`);
+        }
+        return lines.join("\n");
+      }
+      function furnaceProcedureSummary(input) {
+        const ch = input?.procedure?.chronicle || [];
+        const heats = ch.filter((e) => e.kind === "heat_set").map((e) => e.data?.heat || "?");
+        const intro = ch.filter((e) => e.kind === "introduce").length;
+        return `furnace \xB7 ${intro} intro(s) \xB7 flame ${heats.join("\u2192") || input?.procedure?.actions?.find((a) => a.heat)?.heat || "\u2014"}`;
+      }
       function compareExperiments(a, b) {
         const fields = [
-          ["Heat", (x) => x.input.heatStages?.join(" \u2192 ") || x.input.heat],
-          ["Introduction order", (x) => x.input.introductionOrder || "simultaneous"],
+          ["Mode", (x) => x.input.mode === "furnace" ? furnaceProcedureSummary(x.input) : "instant (legacy)"],
+          ["Duration", (x) => x.input.mode === "furnace" ? x.input.duration ?? x.input.procedure?.duration : "\u2014"],
+          ["Heat", (x) => x.input.heatStages?.join(" \u2192 ") || x.input.heat || "\u2014"],
+          ["Introduction order", (x) => x.input.introductionOrder || (x.input.mode === "furnace" ? "manual" : "simultaneous")],
           ["Process outcome", (x) => x.result.process?.outcome || x.result.outcome],
           ["Peak instability", (x) => x.result.peakInstability],
           ["Released spirit", (x) => x.result.material?.released?.spirit],
@@ -1907,9 +2512,10 @@ var AlchemyLab = (() => {
         const heatA = heatSignature(a.input);
         const heatB = heatSignature(b.input);
         const reagentsDiffer = reagentSignature(a.input) !== reagentSignature(b.input);
-        const orderDiffer = (a.input?.introductionOrder || "simultaneous") !== (b.input?.introductionOrder || "simultaneous");
+        const orderDiffer = a.input?.mode !== "furnace" && (a.input?.introductionOrder || "simultaneous") !== (b.input?.introductionOrder || "simultaneous");
+        const procDiffer = a.input?.mode === "furnace" && b.input?.mode === "furnace" && formatProcedureChronicle(a.input.procedure) !== formatProcedureChronicle(b.input.procedure);
         const heatDiffer = heatA !== heatB;
-        const inputDiffCount = [heatDiffer, reagentsDiffer, orderDiffer].filter(Boolean).length;
+        const inputDiffCount = [heatDiffer, reagentsDiffer, orderDiffer, procDiffer].filter(Boolean).length;
         if (inputDiffCount > 1) {
           lines.push("Several inputs differ between these runs \u2014 treat differences as correlated, not proven single-cause.");
         } else if (heatDiffer && !reagentsDiffer && !orderDiffer) {
@@ -1918,6 +2524,8 @@ var AlchemyLab = (() => {
           lines.push("Ingredient lists differ; heat and introduction order match.");
         } else if (orderDiffer && !heatDiffer && !reagentsDiffer) {
           lines.push("Only introduction order differs.");
+        } else if (procDiffer && !reagentsDiffer) {
+          lines.push("Furnace procedure (timing / flame / introductions) differs between runs.");
         }
         function pushNumericDelta(label, noun) {
           const row = rows.find((r) => r.label === label);
@@ -2014,6 +2622,7 @@ var AlchemyLab = (() => {
         explainExperiment,
         formatMaterialLedger,
         compareExperiments,
+        formatProcedureChronicle,
         LAB_PRESETS
       };
     }
