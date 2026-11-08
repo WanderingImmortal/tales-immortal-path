@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `idea` — owner workshop (v3); court leadership revised 2026-11-07 |
-| **Blocked on** | Noble clan count (7 vs 8); gray-layer design pass; phase-1 map nodes; emperor personal name |
+| **Status** | `designed` (core city / vein / access) — workshop detail still open |
+| **Blocked on** | Noble clan count (7 vs 8); gray-layer design pass; phase-1 map nodes; emperor personal name; named array / emergency vein mechanics |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent workshop, 2026-07-23; family / leadership revision 2026-11-07 |
-| **Updated** | 2026-11-07 |
+| **Chat / PR** | Cloud agent workshop, 2026-07-23; family / leadership revision 2026-11-07; Tianjing–Longcheng consolidation 2026-11-08 |
+| **Updated** | 2026-11-08 |
 
 ## Intent
 
@@ -31,6 +31,31 @@ So **Tianjing (天京)** is not the whole metropolis. It is the **inner city** �
 | **Underpalace** | (unnamed on maps) | Founding Immortal's sealed seclusion (public: sleeping-dragon seal) |
 
 **Player-facing English:** *Longcheng* · *the Imperial City* · inner ring = *Tianjing* when you earn the name.
+
+### Canon status key (this revision)
+
+| Mark | Meaning |
+|------|---------|
+| **Canon** | Established for this consolidation |
+| **Provisional** | Direction locked enough to write; details may move |
+| **Open** | Explicitly undecided — do not invent elsewhere |
+
+---
+
+## Tianjing vs Longcheng — residency & character (2026-11-08)
+
+| Claim | Status |
+|-------|--------|
+| **Tianjing** is the Tian Clan's **ancient, restricted ancestral city**, predating the imperial dynasty | **Canon** — already the Dao Wars seat; empire did not invent it |
+| **Longcheng** grew **around** Tianjing as the wider imperial metropolis after the mandate | **Canon** |
+| Tianjing houses the **emperor and household**, **extended clan branches**, retainers, and necessary staff | **Canon** |
+| Tianjing is **not** commercial real estate rented to outsiders | **Canon** — no independent outsider ownership / residency market |
+| **Access and settlement are controlled**; outsiders may **serve or work** there without acquiring independent residency rights | **Canon** |
+| Tianjing became **increasingly exclusive** over generations | **Provisional** — exact historical progression **Open** |
+| **Longcheng** supports ordinary population, commerce, government offices, specialist cultivation properties, and potentially **rented high-Qi land** | **Canon** (rented high-Qi parcels = available design hook, not a full economy pass) |
+| **Mortals** make up most of the population and workforce; **cultivators** hold disproportionately influential roles | **Canon** — both cities, especially Longcheng's streets and labour |
+
+**Do not:** treat Envoy Row / Guild Row as living inside Tianjing; treat Tianjing compounds as player-buyable housing; invent a generation-by-generation exclusivity timeline without owner lock.
 
 ---
 
@@ -298,17 +323,17 @@ Massive houses — cadet branches, marriage lines, mortal retainers by the thous
 
 ### 2. Inner Tianjing (天京) — Tian Clan home grounds
 
-**Who:** Tian blood, emperor's household, imperial councillors, Inner Service. Sect envoys **summoned**, never resident.
+**Who:** Tian blood (main lineage + extended branches housed by leave), emperor's household, imperial councillors, Inner Service, retainers and necessary staff. Sect envoys **summoned**, never resident as independent settlers. Outside workers and specialists may be **admitted to serve** without gaining residency rights — see § Tianjing vs Longcheng above.
 
 | District | Hook |
 |----------|------|
 | **Inner Gate** | Pei Yin (Inner Service) — favor / realm check |
-| **Ministry ring** | Veins, Rites, War (ceremonial) |
+| **Ministry ring** | Veins, Rites, War (ceremonial) — routine state offices that *touch* the inner city; bulk civil work still faces Longcheng |
 | **Councillor courts** | Blood-branch plotting for influence |
 | **Palace mount** | Emperor audiences (rare, high favor) |
 | **Street shrine** | Public sleeping-dragon cult — *not* the real underpalace |
 
-**Vibe:** Quiet after Longcheng's noise. Gold, jade, formation shimmer. You need a reason. The city **outside** the inner wall is for the world; **Tianjing** is for the mandate.
+**Vibe:** Quiet after Longcheng's noise. Gold, jade, formation shimmer. You need a reason. The city **outside** the inner wall is for the world; **Tianjing** is for the clan and the mandate — ancestral seat, not a marketplace with an imperial brand.
 
 ### 3. Underpalace — founding Immortal seal (endgame)
 
@@ -319,19 +344,43 @@ Massive houses — cadet branches, marriage lines, mortal retainers by the thous
 
 ---
 
-## Court structure — **revised lock (2026-11-07)**
+## Spiritual vein & defences (2026-11-08)
 
-Sect power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) — **public elders** ≈ Nascent Soul; **patriarch / public apex** ≈ Void Refinement; **ancestor vault** above that (Dao Seeking+, hidden). The **reigning Tian emperor** sits above ordinary patriarch-tier politics; exact stage is provisional (advanced Dao Manifestation — see family doc).
+Cross-check: Dao Wars siege held on **inner ramparts + deep arrays** ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)); formation craft general rules in [`formations-and-arrays.md`](formations-and-arrays.md); Formations Guild autonomy in [`creation-path-guilds.md`](creation-path-guilds.md).
+
+| Claim | Status |
+|-------|--------|
+| Tianjing sits on an **unusually advantageous spiritual environment** tied to a **major spiritual vein** | **Canon** |
+| Clan primarily benefits from **naturally emitted ambient Qi**, not aggressive vein extraction | **Canon** |
+| Possible benefits: cultivation conditions, valuable cultivation land, herb gardens, long-term environmental advantage | **Provisional menu** — do **not** auto-grant every resource type; pick per later design |
+| Vein's **dragon-like character** and any deep link to Tian **dragon symbolism** | **Open** — metaphor and heraldry exist; geological/qi “true dragon vein” is **not** locked |
+| Ancient **integrated grand defensive formation** of interconnected sub-formations, reinforced by **physical** walls / gates | **Canon** — matches “deep arrays” that bought the Half-Step one beat |
+| **Emergency access** to deeper vein energy as last-resort wartime capability | **Provisional** — mechanics, cost, and consequences **Open** |
+| **Formations Guild** designs / exams / market craft as an **independent** institution | **Canon** — **not** owned or controlled by the Tian Clan (Longcheng = prestige **branch**; HQ elsewhere) |
+
+**Named array conflict (flagged, not silently resolved):** open draft PR [#138](https://github.com/WanderingImmortal/tales-immortal-path/pull/138) proposes **Nine Dragons Seal the Capital** (九龙镇京阵) with fixed node roles. This consolidation locks only the **existence** of an ancient integrated grand defence. Whether that array is named Nine Dragons, how nodes map, and whether the vein itself is “dragon” remain **Open** until owner merges or revises #138 against this pass.
+
+**Do not:** invent new formation mechanics, player-castable imperial arrays, or claim the throne runs the Formations Guild.
+
+---
+
+## Court structure — **revised lock (2026-11-07)** + hands (2026-11-08)
+
+Sect power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md) — **public elders** ≈ Nascent Soul; **patriarch / public apex** ≈ Void Refinement; **ancestor vault** above that (Dao Seeking+, hidden). The **reigning Tian emperor** sits above ordinary patriarch-tier politics; exact stage is provisional (advanced Dao Manifestation — see family doc). Full clan / prince model: [`imperial-clan.md`](imperial-clan.md), [`tian-clan-family-history.md`](tian-clan-family-history.md).
 
 | Role | Fiction |
 |------|---------|
-| **Emperor** | **The reigning Tian emperor (elder brother)** — personal name **Open**. Founding Immortal's elder brother; has governed since the mandate (~3,000 years). Holds **legitimate governing authority**. Composes edicts, holds audiences; delegates routine administration; retains strategic direction. Pragmatic, capable of political ruthlessness; values stability; can mistake threats to Tian authority for threats to peace. **Not** a child puppet. **Not** Tian Xu. |
+| **Emperor** | **The reigning Tian emperor (elder brother)** — personal name **Open**. Founding Immortal's elder brother; has governed since the mandate (~3,000 years). Holds **legitimate governing authority**: strategic direction, major appointments, important decisions, empire's overall stability. Composes edicts, holds audiences; institutions handle routine administration. Pragmatic, capable of political ruthlessness; values stability; can mistake threats to Tian authority for threats to peace. **Not** a child puppet. **Not** Tian Xu. |
+| **Right hand** *(public)* | Senior adviser who helps **coordinate the formal imperial government** — visible, accountable, charter-facing. |
+| **Left hand** *(concealed)* | Personal servant of the emperor **outside** ordinary government channels; leads a **secret intelligence network** loyal to the **emperor**, not the bureaucracy. May be a Dao Wars-era companion and trusted friend who can **openly disagree** without disloyalty. Identity, cultivation, exact history **Open**. |
 | **Imperial council** | Advises, petitions, debates, influences — **not** a regency. Hardliners want him to break sect autonomy; pragmatists want balance and trade. |
 | **Founding Immortal** | Younger brother — sealed seclusion under Tianjing; ultimate deterrence; public "sleeping dragon." Active cultivation, not unconsciousness. |
 
+**Intelligence posture:** the left-hand network is **imperfect** — not omniscient, not an inevitable betrayal plot. Gaps, delays, and wrong reads remain possible.
+
 **Why this works:**
 - Emperor is a **real sovereign NPC** with Dao Wars memory and imperial continuity — audiences matter politically, not only as power flex
-- Succession is not urgent on mortal timescales, but blood branches still plot influence and eventual inheritance
+- Succession is not a timed prince tournament; blood branches still plot influence (see Imperial Princes in clan docs)
 - Council tension stays (Tian Lian vs Tian Mo) without implying the throne is empty or incompetent
 - **Supersedes (2026-11-07):** Tian Xu (天煦) as VR-peak reigning emperor (~200 years / looks 40). Tian Xu's future role is **Open** — do not auto-recast as prince, successor, or patriarch.
 
@@ -340,14 +389,18 @@ Sect power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-s
 | Role | Name | Job |
 |------|------|-----|
 | **Emperor** | *(name Open — elder brother)* | Reigning sovereign since mandate; provisional advanced Dao Manifestation; visible at high favor |
-| **Chancellor of Charter** | Wei An (魏安) | Bureaucracy; Wei clan; first contact |
+| **Right hand** | *(Open — see conflict note)* | Public senior adviser / government coordinator |
+| **Left hand** | *(identity Open)* | Concealed personal intelligence chief; not on public roster |
+| **Chancellor of Charter** | Wei An (魏安) | Bureaucracy; Wei clan; first contact — **preserve** |
 | **Councillor (hardline)** | Tian Lian (天濂) | Blood branch — break sect autonomy |
 | **Councillor (pragmatist)** | Tian Mo (天默) | Blood branch — Lotus-adjacent trade |
 | **Examination Proctor** | Shen Kui (沈魁) | Shen clan; census / examination |
 | **Dragon Guard captain** | Han Ce (韩策) | Inner gate; five-claw law |
-| **Inner Service** | Pei Yin (裴音) | Tianjing gatekeeper |
+| **Inner Service** | Pei Yin (裴音) | Tianjing gatekeeper — **not** the left hand by default |
 | **Founder shrine keeper** | Old Gu (顾翁) | Street shrine; sleeping-dragon riddles (myth voice) |
 | **Tian Xu** (天煦) | — | **Superseded as emperor** — role undecided; do not treat as current sovereign |
+
+**Conflict / mapping note:** **Wei An** remains Chancellor of Charter and a natural player first contact. Whether he **is** the emperor's public **right hand**, or the right hand is a **separate** named office above/beside the Chancellor, is **Open** — do not silently merge or replace Wei An.
 
 ---
 
@@ -427,12 +480,20 @@ Combat stays outside the city charter zone (wilderness, sect mountains).
 - [x] **Inner = Tianjing** — locked
 - [x] **Market quarter** — required, inside Longcheng — locked
 - [x] **Alchemists Guild** — HQ in Longcheng — locked
-- [x] **Formations Guild** — Branch in Longcheng (HQ elsewhere) — locked
+- [x] **Formations Guild** — Branch in Longcheng (HQ elsewhere); **independent** of Tian ownership — locked
 - [x] **Forgers Guild** — Branch in Longcheng; HQ deferred elsewhere — **recommend locked**
+- [x] Tianjing = restricted ancestral city; Longcheng = metropolis; controlled access / no outsider residency market — locked (2026-11-08)
+- [x] Major spiritual vein + ambient-Qi benefit + integrated grand defence — locked (2026-11-08)
 - [ ] **Noble clans:** 7 core (Wei, Shen, Pei, Qin, Su, Ye, Luo) + optional Ying?
 - [x] **Emperor = elder brother of founding Immortal** — continuous reign since mandate — locked (2026-11-07)
 - [x] **Tian Xu as reigning emperor** — **superseded** (future role Open)
 - [ ] **Emperor personal name**
+- [ ] **Right hand** identity — Wei An vs separate office
+- [ ] **Left hand** identity, cultivation, Dao Wars history
+- [ ] Tianjing exclusivity **timeline** (provisional direction only)
+- [ ] Vein **dragon-like** character; named grand array (reconcile or revise open PR #138)
+- [ ] Emergency deeper-vein access — mechanics / costs
+- [ ] Which ambient benefits (land / herbs / other) are actually present
 - [ ] **Phase 1 nodes:** gate + market + charter + tianjing gate — enough?
 
 ## Prerequisites

@@ -2,11 +2,11 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | `designed` (family / leadership lore lock — 2026-11-07) |
-| **Blocked on** | Elder brother's personal name; mother's realm / cause of death; Tian Xu's future role |
+| **Status** | `designed` (family / leadership lore lock — 2026-11-07; clan / princes / hands 2026-11-08) |
+| **Blocked on** | Elder brother's personal name; mother's realm / cause of death; Tian Xu's future role; prince roster; left/right hand identities |
 | **Issue** | none yet |
-| **Chat / PR** | Cursor task — Tian Clan family history consolidation |
-| **Updated** | 2026-11-07 |
+| **Chat / PR** | Cursor task — Tian Clan family history consolidation; Tianjing–Longcheng–clan pass 2026-11-08 |
+| **Updated** | 2026-11-08 |
 
 ## Intent
 
@@ -63,6 +63,8 @@ Give the **Tian Clan** a human family spine: a stern father shaped by war, a mot
     Elder brother remains the reigning emperor
     Younger brother remains an Immortal in voluntary active seclusion beneath Tianjing
     Imperial council advises; emperor holds legitimate governing authority
+    Public right hand coordinates formal government; concealed left hand runs personal intelligence
+    ≈ seven appointed Imperial Princes (names Open) — not a timed succession tournament
 ```
 
 ---
@@ -170,15 +172,35 @@ The underpalace remains a sealed, restricted deterrence site. "Wake the dragon" 
 
 | Piece | Status |
 |-------|--------|
-| Emperor holds **legitimate governing authority** | Canon |
+| Emperor holds **legitimate governing authority** | Canon — strategic direction, major appointments, important decisions, overall stability |
 | Imperial council advises, petitions, debates, influences | Canon — **not** a regency over a young or incompetent ruler |
-| Emperor delegates routine administration; retains strategic direction | Canon |
+| Government institutions handle routine administration | Canon — emperor retains genuine decision-making authority |
+| **Right hand** (public senior adviser) | Canon role — coordinates formal government; personal identity **Open** (Wei An mapping unresolved) |
+| **Left hand** (concealed personal agent) | Canon role — emperor-loyal intelligence outside bureaucracy; identity / cultivation / history **Open**; may be Dao Wars companion who can disagree without disloyalty |
+| Intelligence network imperfect | Canon posture — not omniscient; no assumed inevitable betrayal |
 | **Tian Lian** (天濂) — hardline approach to sect autonomy | Retain |
 | **Tian Mo** (天默) — pragmatic / trade-oriented approach | Retain |
 | Balance: imperial authority · great sect autonomy · regional governance | Preserve |
 | **Tian Xu** (天煦) as reigning emperor | **Superseded** — future role **Open**; do not auto-recast as prince / successor / patriarch |
 
-Court cast detail: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
+Court cast detail: [`imperial-city-tianjing.md`](imperial-city-tianjing.md). Clan / prince summary: [`imperial-clan.md`](imperial-clan.md).
+
+---
+
+## Clan structure & Imperial Princes (2026-11-08)
+
+| Layer | Detail |
+|-------|--------|
+| **Canon — structure** | Prestigious **main lineage** alongside numerous **extended branches**. Branches may be housed in Tianjing by leave; they do not turn the ancestral city into open real estate. |
+| **Canon — advancement** | Bloodline standing matters, but **talent, competence, and service** matter more than ancestry alone for major responsibilities. Avoid perfect-meritocracy fiction **and** perpetual inheritance murder as default clan culture. |
+| **Canon — Prince office** | **Imperial Prince** is an **appointed** prestigious position recognising exceptional cultivation potential and possible future suitability for imperial leadership. **Not** limited to the emperor's sons. Emperor has final appointment authority. |
+| **Provisional — roster size** | Approximately **seven** princes envisioned now. Whether seven is permanent is **Open**. |
+| **Canon — succession tone** | Not a timed succession tournament. Cultivation, ages, responsibilities, and ambitions may differ across the roster. Emperor seeks a successor who can keep a **powerful, stable empire** — not necessarily a future Half-Step Immortal. |
+| **Provisional — realm band** | Golden Core or higher is the **general expectation** for the current roster — not an absolute eligibility rule. |
+| **Open — individuals** | Names, talents, personal histories — **do not invent** the seven profiles here. |
+| **Open — transition** | Abdication vs death as the succession trigger. |
+
+**Conflict flag:** older docs may still imply succession urgency around a young **Tian Xu** face. That emperor reading is superseded; if Tian Xu returns, treat as a **possible** prince/cadet/other role only after owner lock — do not auto-insert him as one of the seven.
 
 ---
 
@@ -193,6 +215,9 @@ Court cast detail: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 | Principal **dragon-themed imperial lineage manual / clan canon** | **Not yet designed** |
 | Preferred creative lean | Golden dragon Qi manifestations and deeper symbolic expressions — **no** final canon name, associated Dao, or complete technique system approved |
 | **Nine Dragons Body Forging** | Separate body-path method — **do not conflate** with Tian clan dragon canon unless a later doc explicitly links them |
+| Tianjing major spiritual vein | **Canon** environment — ambient Qi benefit; aggressive extraction not the clan's primary mode ([`imperial-city-tianjing.md`](imperial-city-tianjing.md)) |
+| Vein as literal / qi "**dragon**" | **Open** — do not equate heraldry with geology |
+| Named "Nine Dragons" capital array (open PR #138) | **Conflict flagged** — grand integrated defence is Canon; that specific name/node scheme is **not** locked by this pass |
 
 ---
 
@@ -218,6 +243,9 @@ Court cast detail: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 - [ ] Exact **Dao Manifestation stage** for the emperor; nine-realm index reconciliation
 - [ ] Mother's realm, personality, background, cause of death
 - [ ] **Tian Xu** — retired title only, living cadet, historical era-name confusion, or cut?
+- [ ] **Right hand** identity (Wei An vs separate)
+- [ ] **Left hand** identity, cultivation, Dao Wars companion history
+- [ ] **Imperial Princes** — seven names / talents / histories; permanent count?; abdication vs death
 
 ### Assassination & politics
 
@@ -229,6 +257,8 @@ Court cast detail: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 
 - [ ] Imperial dragon lineage manual — name, Dao lean, technique system
 - [ ] Any link (or explicit non-link) to Nine Dragons Body Forging
+- [ ] Tianjing vein dragon-like character; named grand array vs open PR #138
+- [ ] Emergency deeper-vein access mechanics / consequences
 - [ ] What "intervention from the underpalace" looks like if the Immortal ever acts
 
 ### Continuity / conflicts flagged for later
@@ -236,6 +266,7 @@ Court cast detail: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 - [ ] Older "generations of regents since burial" wording — superseded by continuous reign of the elder brother; scrub remaining copies when found
 - [ ] Docs that still say the founder "sleeps" as literal truth — treat as myth voice or update to seclusion (see companions + light passes in related sect docs)
 - [ ] Phoenix settlement counterfactual — whether Ember Crown resistance affected charter terms ([`golden-phoenix-sect.md`](golden-phoenix-sect.md); deliberately **Open**)
+- [ ] Open PR [#138](https://github.com/WanderingImmortal/tales-immortal-path/pull/138) Nine Dragons capital array — reconcile with this pass's "name Open / vein dragon Open" stance before merge
 
 ## Prerequisites
 
