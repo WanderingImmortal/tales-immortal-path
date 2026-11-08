@@ -20,6 +20,18 @@ var AlchemyLab = (() => {
           affinities: { qi: 6, heat: 0, marrow: 0, purify: 4, toxicity: 0 },
           note: "Gentle carrier; stabilises volatile mixes at low heat."
         },
+        exp_amber_lily: {
+          id: "exp_amber_lily",
+          name: "Amber Lily",
+          spirit: 16,
+          yin: 8,
+          yang: 3,
+          volatility: 6,
+          stability: 13,
+          impurity: 2,
+          affinities: { qi: 9, heat: 0, marrow: 2, purify: 3, toxicity: 0 },
+          note: "Moderately delicate \u2014 rewards a brief medium burst, then gentle finishing."
+        },
         exp_dust_root: {
           id: "exp_dust_root",
           name: "Dust Root",
@@ -42,7 +54,7 @@ var AlchemyLab = (() => {
           stability: 22,
           impurity: 3,
           affinities: { qi: 18, heat: 0, marrow: 4, purify: 6, toxicity: 0 },
-          note: "Strong stabiliser and qi affinity."
+          note: "Extremely delicate at medium heat \u2014 gentle simmer extracts qi; sustained medium chars it."
         },
         exp_saltbrush: {
           id: "exp_saltbrush",
@@ -114,7 +126,19 @@ var AlchemyLab = (() => {
           stability: 6,
           impurity: 28,
           affinities: { qi: 2, heat: 4, marrow: 8, purify: 0, toxicity: 6 },
-          note: "Mineral weight and impurity; needs gentle refining."
+          note: "Mineral weight and impurity; stubborn at gentle heat \u2014 medium extracts faster."
+        },
+        exp_cinderscale: {
+          id: "exp_cinderscale",
+          name: "Cinderscale Flake",
+          spirit: 26,
+          yin: 6,
+          yang: 10,
+          volatility: 6,
+          stability: 18,
+          impurity: 14,
+          affinities: { qi: 4, heat: 6, marrow: 10, purify: 0, toxicity: 3 },
+          note: "Heat-resistant scale; needs sustained medium or fierce to release marrow essence."
         },
         exp_glowcap: {
           id: "exp_glowcap",
@@ -151,16 +175,19 @@ var AlchemyLab = (() => {
           0.18,
           0.88
         );
+        const moderateHerb = structural > 0.3 && catalytic < 0.24 && mineralWeight < 0.28;
         const toleranceMax = clamp(
-          0.5 + catalytic * 0.22 - delicate * 0.32 + structural * 0.08 + mineralWeight * 0.28,
+          0.5 + catalytic * 0.22 - delicate * 0.32 + structural * 0.08 + mineralWeight * 0.28 + (moderateHerb ? 0.15 : 0),
           0.42,
           0.99
         );
         const extractionWidth = clamp(0.1 + structural * 5e-3 + def.spirit / 500, 0.08, 0.22);
+        const stressSensitivity = clamp(0.35 + delicate * 0.45 - structural * 0.25 + catalytic * 0.2, 0.2, 1.1);
         return {
           activationThreshold: round3(activationThreshold),
           toleranceMax: round3(toleranceMax),
-          extractionWidth: round3(extractionWidth)
+          extractionWidth: round3(extractionWidth),
+          stressSensitivity: round3(stressSensitivity)
         };
       }
       function clamp(n, lo, hi) {
@@ -307,13 +334,20 @@ var AlchemyLab = (() => {
       }
       function ensureReagentBucket(ledger, reagentId) {
         if (!ledger.byReagent[reagentId]) {
-          ledger.byReagent[reagentId] = { bound: emptyMaterialSlice(), released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
+          ledger.byReagent[reagentId] = {
+            bound: emptyMaterialSlice(),
+            released: emptyMaterialSlice(),
+            degraded: emptyMaterialSlice(),
+            inputSpirit: 0,
+            overheatExposure: 0
+          };
         }
         return ledger.byReagent[reagentId];
       }
       function registerInputLoad(ledger, load) {
         ledger.inputSpirit += load.spirit;
         const bucket = ensureReagentBucket(ledger, load.reagentId);
+        bucket.inputSpirit += load.spirit;
         const slice = loadToMaterialSlice(load, EXPERIMENTAL_REAGENTS[load.reagentId]);
         mergeSlice(bucket.bound, slice);
       }
@@ -1713,7 +1747,7 @@ var AlchemyLab = (() => {
       } = require_thermal();
       var { condenseMaterialLedger } = require_condense();
       var SIM_DT = 0.1;
-      var K_BOUND_TRANSFER = 0.42;
+      var K_BOUND_TRANSFER = 0.36;
       var K_RELEASED_DEGRADE = 0.28;
       var K_INSTABILITY = 0.2;
       function round3(n) {
@@ -1731,19 +1765,33 @@ var AlchemyLab = (() => {
           degraded: material.degraded.spirit
         };
       }
-      function applyBoundIncremental(boundSlice, profile, heat, dt) {
+      function applyBoundIncremental(boundSlice, profile, heat, dt, bucket) {
         if (boundSlice.spirit <= 1e-12) {
           return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
         }
+        const w = profile.extractionWidth;
+        const overBand = Math.max(0, (heat - (profile.toleranceMax - w)) / Math.max(w, 0.05));
+        if (overBand > 0.05) {
+          bucket.overheatExposure += dt * overBand * profile.stressSensitivity;
+        } else {
+          bucket.overheatExposure = Math.max(0, bucket.overheatExposure - dt * 0.22);
+        }
         const frac = thermalFractions(heat, profile);
-        const drive = frac.grossRelease * (0.2 + 0.8 * heat) * K_BOUND_TRANSFER * dt;
-        const transfer = boundSlice.spirit * Math.min(0.85, drive);
+        const stressBias = 1 + Math.min(2.2, bucket.overheatExposure * 0.55);
+        let relW = frac.releaseEfficiency;
+        let degW = frac.degradeFraction * stressBias;
+        const norm = Math.max(relW + degW, 1e-9);
+        relW /= norm;
+        degW /= norm;
+        const inputSpirit = Math.max(bucket.inputSpirit, boundSlice.spirit);
+        const stubborn = heat < profile.activationThreshold + w * 0.55;
+        const remainRatio = boundSlice.spirit / inputSpirit;
+        const thresholdPenalty = stubborn ? Math.pow(Math.max(remainRatio, 0.05), 2.2) : 1;
+        const drive = frac.grossRelease * (0.18 + 0.82 * heat) * K_BOUND_TRANSFER * dt * thresholdPenalty;
+        const transfer = boundSlice.spirit * Math.min(0.75, drive);
         if (transfer <= 1e-12) {
           return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
         }
-        const act = Math.max(frac.releaseEfficiency + frac.degradeFraction, 1e-9);
-        const relW = frac.releaseEfficiency / act;
-        const degW = frac.degradeFraction / act;
         const released = scaleMaterialSlice(boundSlice, transfer / boundSlice.spirit * relW);
         const degraded = scaleMaterialSlice(boundSlice, transfer / boundSlice.spirit * degW);
         degraded.affinities.qi *= 0.2;
@@ -1769,11 +1817,11 @@ var AlchemyLab = (() => {
         });
       }
       function applyReleasedIncremental(released, heat, dt) {
-        if (released.spirit <= 1e-12 || heat < 0.5) return null;
+        if (released.spirit <= 1e-12 || heat < 0.52) return null;
         const vol = released.volatility / Math.max(released.spirit, 0.01);
         const stab = released.stability / Math.max(released.spirit, 0.01);
-        const over = Math.min(1, Math.max(0, (heat - 0.48) / 0.45));
-        const rate = K_RELEASED_DEGRADE * over * (0.35 + vol * 0.04) * dt / (1 + stab * 0.08);
+        const over = Math.min(1, Math.max(0, (heat - 0.5) / 0.42));
+        const rate = K_RELEASED_DEGRADE * over * over * (0.3 + vol * 0.045) * dt / (1 + stab * 0.1);
         const amount = released.spirit * Math.min(0.4, rate);
         if (amount <= 1e-12) return null;
         const degraded = scaleMaterialSlice(released, amount / released.spirit);
@@ -1934,7 +1982,7 @@ var AlchemyLab = (() => {
           if (bucket.bound.spirit <= 1e-12) return;
           const def = EXPERIMENTAL_REAGENTS[reagentId];
           const profile = deriveThermalProfile(def);
-          const { released, degraded } = applyBoundIncremental(bucket.bound, profile, heat, dt);
+          const { released, degraded } = applyBoundIncremental(bucket.bound, profile, heat, dt, bucket);
           if (released.spirit > 1e-9 || degraded.spirit > 1e-9) {
             recordThermalResult(state.material, reagentId, released, degraded);
             if (released.spirit > 0.02) notableExtract = true;
@@ -2462,26 +2510,46 @@ var AlchemyLab = (() => {
         }
         return { rows, conservation: material.conservation };
       }
+      function formatSimDuration(value) {
+        if (value == null || !Number.isFinite(Number(value))) return "\u2014";
+        return (Math.round(Number(value) * 10) / 10).toFixed(1);
+      }
+      function countIntroductionEvents(input) {
+        const actions = input?.procedure?.actions;
+        if (Array.isArray(actions) && actions.length) {
+          return actions.filter((a) => a.kind === "introduce").length;
+        }
+        if (Array.isArray(input?.procedure?.introduced) && input.procedure.introduced.length) {
+          return input.procedure.introduced.length;
+        }
+        if (Array.isArray(input?.reagents) && input.reagents.length) {
+          return input.reagents.length;
+        }
+        return (input?.procedure?.chronicle || []).filter((e) => e.kind === "introduce").length;
+      }
       function formatProcedureChronicle(procedure) {
         if (!procedure) return "";
         const lines = (procedure.chronicle || []).map(
-          (entry) => `${entry.timeLabel || entry.time} \u2014 ${entry.message}`
+          (entry) => `${entry.timeLabel || formatSimDuration(entry.time)} \u2014 ${entry.message}`
         );
         if (procedure.duration != null) {
-          lines.push(`Duration: ${procedure.duration} sim units`);
+          lines.push(`Duration: ${formatSimDuration(procedure.duration)} sim units`);
         }
         return lines.join("\n");
       }
       function furnaceProcedureSummary(input) {
         const ch = input?.procedure?.chronicle || [];
         const heats = ch.filter((e) => e.kind === "heat_set").map((e) => e.data?.heat || "?");
-        const intro = ch.filter((e) => e.kind === "introduce").length;
-        return `furnace \xB7 ${intro} intro(s) \xB7 flame ${heats.join("\u2192") || input?.procedure?.actions?.find((a) => a.heat)?.heat || "\u2014"}`;
+        const fromActions = input?.procedure?.actions?.filter((a) => a.kind === "heat_set").map((a) => a.heat);
+        const intro = countIntroductionEvents(input);
+        const qty = (input?.reagents || []).reduce((s, r) => s + (r.qty || 0), 0);
+        const qtyNote = qty > intro ? ` \xB7 ${qty} units` : "";
+        return `furnace \xB7 ${intro} intro(s)${qtyNote} \xB7 flame ${(heats.length ? heats : fromActions || []).join("\u2192") || "\u2014"}`;
       }
       function compareExperiments(a, b) {
         const fields = [
           ["Mode", (x) => x.input.mode === "furnace" ? furnaceProcedureSummary(x.input) : "instant (legacy)"],
-          ["Duration", (x) => x.input.mode === "furnace" ? x.input.duration ?? x.input.procedure?.duration : "\u2014"],
+          ["Duration", (x) => x.input.mode === "furnace" ? formatSimDuration(x.input.duration ?? x.input.procedure?.duration) : "\u2014"],
           ["Heat", (x) => x.input.heatStages?.join(" \u2192 ") || x.input.heat || "\u2014"],
           ["Introduction order", (x) => x.input.introductionOrder || (x.input.mode === "furnace" ? "manual" : "simultaneous")],
           ["Process outcome", (x) => x.result.process?.outcome || x.result.outcome],
@@ -2623,6 +2691,8 @@ var AlchemyLab = (() => {
         formatMaterialLedger,
         compareExperiments,
         formatProcedureChronicle,
+        formatSimDuration,
+        countIntroductionEvents,
         LAB_PRESETS
       };
     }

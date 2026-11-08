@@ -397,13 +397,32 @@ function formatMaterialLedger(material) {
  * @param {object} b — history entries with { input, result, label }
  * @returns {object[]}
  */
+function formatSimDuration(value) {
+    if (value == null || !Number.isFinite(Number(value))) return '—';
+    return (Math.round(Number(value) * 10) / 10).toFixed(1);
+}
+
+function countIntroductionEvents(input) {
+    const actions = input?.procedure?.actions;
+    if (Array.isArray(actions) && actions.length) {
+        return actions.filter(a => a.kind === 'introduce').length;
+    }
+    if (Array.isArray(input?.procedure?.introduced) && input.procedure.introduced.length) {
+        return input.procedure.introduced.length;
+    }
+    if (Array.isArray(input?.reagents) && input.reagents.length) {
+        return input.reagents.length;
+    }
+  return (input?.procedure?.chronicle || []).filter(e => e.kind === 'introduce').length;
+}
+
 function formatProcedureChronicle(procedure) {
     if (!procedure) return '';
     const lines = (procedure.chronicle || []).map(entry =>
-        `${entry.timeLabel || entry.time} — ${entry.message}`
+        `${entry.timeLabel || formatSimDuration(entry.time)} — ${entry.message}`
     );
     if (procedure.duration != null) {
-        lines.push(`Duration: ${procedure.duration} sim units`);
+        lines.push(`Duration: ${formatSimDuration(procedure.duration)} sim units`);
     }
     return lines.join('\n');
 }
@@ -411,14 +430,21 @@ function formatProcedureChronicle(procedure) {
 function furnaceProcedureSummary(input) {
     const ch = input?.procedure?.chronicle || [];
     const heats = ch.filter(e => e.kind === 'heat_set').map(e => e.data?.heat || '?');
-  const intro = ch.filter(e => e.kind === 'introduce').length;
-  return `furnace · ${intro} intro(s) · flame ${heats.join('→') || input?.procedure?.actions?.find(a => a.heat)?.heat || '—'}`;
+    const fromActions = input?.procedure?.actions
+        ?.filter(a => a.kind === 'heat_set')
+        .map(a => a.heat);
+    const intro = countIntroductionEvents(input);
+    const qty = (input?.reagents || []).reduce((s, r) => s + (r.qty || 0), 0);
+    const qtyNote = qty > intro ? ` · ${qty} units` : '';
+    return `furnace · ${intro} intro(s)${qtyNote} · flame ${(heats.length ? heats : fromActions || []).join('→') || '—'}`;
 }
 
 function compareExperiments(a, b) {
     const fields = [
         ['Mode', x => x.input.mode === 'furnace' ? furnaceProcedureSummary(x.input) : 'instant (legacy)'],
-        ['Duration', x => x.input.mode === 'furnace' ? (x.input.duration ?? x.input.procedure?.duration) : '—'],
+        ['Duration', x => (x.input.mode === 'furnace'
+            ? formatSimDuration(x.input.duration ?? x.input.procedure?.duration)
+            : '—')],
         ['Heat', x => x.input.heatStages?.join(' → ') || x.input.heat || '—'],
         ['Introduction order', x => x.input.introductionOrder || (x.input.mode === 'furnace' ? 'manual' : 'simultaneous')],
         ['Process outcome', x => x.result.process?.outcome || x.result.outcome],
@@ -585,5 +611,7 @@ module.exports = {
     formatMaterialLedger,
     compareExperiments,
     formatProcedureChronicle,
+    formatSimDuration,
+    countIntroductionEvents,
     LAB_PRESETS
 };

@@ -3,8 +3,10 @@
  *
  * Time model (documented assumptions):
  * - Fixed sim timestep SIM_DT; playback speed only batches ticks (outcomes unchanged).
- * - Bound extraction uses thermalFractions() rates scaled by duration (not full discrete stages per tick).
- * - Released essence can degrade under sustained high heat.
+ * - Bound extraction uses thermalFractions() split each tick, scaled by duration (not full stages per tick).
+ * - overheatExposure accrues above tolerance and biases bound→degraded (decays on gentle).
+ * - Sub-threshold gentle heat uses a stubborn-material rate penalty so minerals extract slowly.
+ * - Released essence can degrade under sustained medium/fierce heat (quadratic above ~0.5).
  * - Instability integrates continuously from polarity, volatility, and heat.
  */
 
@@ -27,7 +29,7 @@ const { condenseMaterialLedger } = require('./condense');
 const SIM_DT = 0.1;
 
 /** Bound → released/degraded kinetic scale (per sim second at full activation drive) */
-const K_BOUND_TRANSFER = 0.42;
+const K_BOUND_TRANSFER = 0.36;
 
 /** Released pool overheat degradation scale */
 const K_RELEASED_DEGRADE = 0.28;
@@ -58,22 +60,41 @@ function cloneLedgerTotals(material) {
 }
 
 /**
- * Incremental bound thermal step — moves spirit from bound toward released/degraded.
+ * Incremental bound thermal step — parallel release/degrade with sustained-overheat bias.
+ * exposure accumulates above tolerance; gentle heat lets it decay (no hard safe window).
  */
-function applyBoundIncremental(boundSlice, profile, heat, dt) {
+function applyBoundIncremental(boundSlice, profile, heat, dt, bucket) {
     if (boundSlice.spirit <= 1e-12) {
         return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
     }
+    const w = profile.extractionWidth;
+    const overBand = Math.max(0, (heat - (profile.toleranceMax - w)) / Math.max(w, 0.05));
+    if (overBand > 0.05) {
+        bucket.overheatExposure += dt * overBand * profile.stressSensitivity;
+    } else {
+        bucket.overheatExposure = Math.max(0, bucket.overheatExposure - dt * 0.22);
+    }
+
     const frac = thermalFractions(heat, profile);
-    const drive = frac.grossRelease * (0.2 + 0.8 * heat) * K_BOUND_TRANSFER * dt;
-    const transfer = boundSlice.spirit * Math.min(0.85, drive);
+    const stressBias = 1 + Math.min(2.2, bucket.overheatExposure * 0.55);
+    let relW = frac.releaseEfficiency;
+    let degW = frac.degradeFraction * stressBias;
+    const norm = Math.max(relW + degW, 1e-9);
+    relW /= norm;
+    degW /= norm;
+
+    const inputSpirit = Math.max(bucket.inputSpirit, boundSlice.spirit);
+    const stubborn = heat < profile.activationThreshold + w * 0.55;
+    const remainRatio = boundSlice.spirit / inputSpirit;
+    const thresholdPenalty = stubborn
+        ? Math.pow(Math.max(remainRatio, 0.05), 2.2)
+        : 1;
+
+    const drive = frac.grossRelease * (0.18 + 0.82 * heat) * K_BOUND_TRANSFER * dt * thresholdPenalty;
+    const transfer = boundSlice.spirit * Math.min(0.75, drive);
     if (transfer <= 1e-12) {
         return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
     }
-
-    const act = Math.max(frac.releaseEfficiency + frac.degradeFraction, 1e-9);
-    const relW = frac.releaseEfficiency / act;
-    const degW = frac.degradeFraction / act;
 
     const released = scaleMaterialSlice(boundSlice, (transfer / boundSlice.spirit) * relW);
     const degraded = scaleMaterialSlice(boundSlice, (transfer / boundSlice.spirit) * degW);
@@ -109,11 +130,11 @@ function distributeReleasedDegraded(material, relDegraded) {
 }
 
 function applyReleasedIncremental(released, heat, dt) {
-    if (released.spirit <= 1e-12 || heat < 0.5) return null;
+    if (released.spirit <= 1e-12 || heat < 0.52) return null;
     const vol = released.volatility / Math.max(released.spirit, 0.01);
     const stab = released.stability / Math.max(released.spirit, 0.01);
-    const over = Math.min(1, Math.max(0, (heat - 0.48) / 0.45));
-    const rate = K_RELEASED_DEGRADE * over * (0.35 + vol * 0.04) * dt / (1 + stab * 0.08);
+    const over = Math.min(1, Math.max(0, (heat - 0.5) / 0.42));
+    const rate = K_RELEASED_DEGRADE * over * over * (0.3 + vol * 0.045) * dt / (1 + stab * 0.1);
     const amount = released.spirit * Math.min(0.4, rate);
     if (amount <= 1e-12) return null;
 
@@ -292,7 +313,7 @@ function stepFurnace(state, dt = SIM_DT) {
         if (bucket.bound.spirit <= 1e-12) return;
         const def = EXPERIMENTAL_REAGENTS[reagentId];
         const profile = deriveThermalProfile(def);
-        const { released, degraded } = applyBoundIncremental(bucket.bound, profile, heat, dt);
+        const { released, degraded } = applyBoundIncremental(bucket.bound, profile, heat, dt, bucket);
         if (released.spirit > 1e-9 || degraded.spirit > 1e-9) {
             recordThermalResult(state.material, reagentId, released, degraded);
             if (released.spirit > 0.02) notableExtract = true;
