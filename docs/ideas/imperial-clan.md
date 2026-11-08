@@ -3,10 +3,10 @@
 | Field | Value |
 |-------|-------|
 | **Status** | `designed` (core lore) — city: [`imperial-city-tianjing.md`](imperial-city-tianjing.md); family: [`tian-clan-family-history.md`](tian-clan-family-history.md) |
-| **Blocked on** | Emperor personal name; phase-1 map nodes; four-sect charter detail |
+| **Blocked on** | Emperor personal name; phase-1 map nodes; four-sect charter detail; prince roster; left/right hand identities |
 | **Issue** | none yet |
-| **Chat / PR** | Cloud agent workshop, 2026-07-23; family / leadership revision 2026-11-07 |
-| **Updated** | 2026-11-07 |
+| **Chat / PR** | Cloud agent workshop, 2026-07-23; family / leadership revision 2026-11-07; Tianjing–Longcheng–clan consolidation 2026-11-08 |
+| **Updated** | 2026-11-08 |
 
 ## Intent
 
@@ -65,7 +65,7 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 
 | Power (draft) | Homeland | Dao Wars outcome (sketch) |
 |---------------|----------|---------------------------|
-| **Tian Clan** | Heartlands core (capital TBD) | Victor; became imperial mandate |
+| **Tian Clan** | Heartlands core — **Tianjing** (ancestral) + **Longcheng** (metropolis) | Victor; became imperial mandate |
 | **Celestial Sword** | Heartlands — **Solitary Sword Mountain** (孤剑山) | Early capitulation — kept mountain honor; *also* licensed charter sword work when law must look clean |
 | **Jade Lotus** | Heartlands — silk courts & trade cities | Early alliance — best charter terms; *also* richest great sect commercially, not “a trade guild” |
 | **Void Temple** | Heartlands — observatory slopes | Neutral late — archives preserved by oath; *also* sealed-site monopoly, not “the library faction” |
@@ -95,12 +95,35 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 | Layer | Role |
 |-------|------|
 | **Founding Immortal (underpalace)** | Restrained **Immortal** (was the first public Half-Step) — ultimate Tian deterrence; open intervention on the mortal board = continental crisis. Publicly the "sleeping dragon." |
-| **Reigning emperor** | Elder brother — holds **legitimate governing authority**; strategic direction of the realm. Provisional: advanced Dao Manifestation. Name Open. |
+| **Reigning emperor** | Elder brother — holds **legitimate governing authority**; strategic direction, major appointments, important decisions, empire stability. Provisional: advanced Dao Manifestation. Name Open. |
+| **Right hand** *(public)* | Senior adviser coordinating the **formal** imperial government. Visible; works through institutions. Identity mapping vs **Wei An** (Chancellor of Charter) — **Open** (see city doc). |
+| **Left hand** *(concealed)* | Emperor's **personal** agent outside ordinary channels; runs a secret intelligence network loyal to the **emperor**, not the state bureaucracy. May be a Dao Wars-era companion who can disagree without disloyalty. Identity / cultivation / history **Open**. Network is **imperfect** — not omniscient; no assumed betrayal arc. |
 | **Imperial council** | Blood branches and ministers — advise, petition, debate, influence. **Not** a regency. Hardliners (e.g. **Tian Lian**) vs pragmatists (e.g. **Tian Mo**). |
+| **Government institutions** | Handle **routine** administration (charter offices, ministries, examinations). Emperor retains genuine decision-making authority. |
 | **Charter law** | Sect homelands + licensed rivalry; open conquest forbidden without imperial verdict |
 | **Sect arrays + immortals** | Each great sect **cannot be erased** by force alone — capitulated, never surrendered |
 
 **Mutual deterrence:** Tian does not rule because sects are weak. Tian rules because breaking the charter risks drawing the founding Immortal onto the board *and* spending sect immortals against each other while the court watches.
+
+---
+
+## Clan structure & Imperial Princes (2026-11-08)
+
+| Claim | Status |
+|-------|--------|
+| Prestigious **main lineage** plus numerous **extended branches** | **Canon** |
+| Bloodline standing matters, but **cultivation talent, demonstrated competence, and service** weigh more than ancestry alone when assigning major responsibilities | **Canon** |
+| Clan is **neither** a perfect meritocracy **nor** a family perpetually murdering itself over inheritance | **Canon** — rivalry and favour exist; do not write endless fratricide as default tone |
+| ≈ **seven Imperial Princes** currently envisioned | **Provisional count** — whether seven is permanent is **Open** |
+| **Prince** = appointed prestigious position recognising exceptional cultivation potential and possible future suitability for imperial leadership — **not** limited to the emperor's biological sons | **Canon** |
+| Emperor has **final authority** over prince appointments | **Canon** |
+| Princes are **not** in a timed succession tournament; ages, cultivation, responsibilities, and ambitions may differ | **Canon** |
+| **Golden Core or higher** is the general expectation for the **current** roster — not an absolute eligibility rule for all time | **Provisional** |
+| Emperor seeks a successor who can maintain a **powerful, stable empire** — not necessarily someone who can reach Half-Step Immortal | **Canon** |
+| Names, individual talents, and personal histories of the seven | **Open** — **do not invent** character profiles in this pass |
+| Succession via abdication vs death | **Open** |
+
+Detail and open checklist: [`tian-clan-family-history.md`](tian-clan-family-history.md). City residency of branches: [`imperial-city-tianjing.md`](imperial-city-tianjing.md).
 
 **Why the Tian still rule once sects have Immortals (owner 2026-09-26):** a long gap separated the first Half-Step from later Immortals. In it the Tian and rising noble houses (Warring States survivors) centralised power and wealth. The top end is restrained with rough parity; the **middle** grew too strong to overthrow easily. Great powers acquiesce on the surface and claim authority in their own area. The founding Immortal is the first **public** Half-Step. Detail: [`heaven-cycle-and-apexes.md`](heaven-cycle-and-apexes.md) §1.
 
@@ -174,10 +197,11 @@ Under **capitulation-not-surrender**, "Phoenix absorbs Lotus" should mean **char
 
 ## Geography
 
-See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer capital workshop.
+See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer capital workshop (residency, vein, defences).
 
-- **Outer imperial city** — **Longcheng** (龙城) — continental hub: Celestial Market quarter, sect branch offices, associations, noble clans, Charter District.
-- **Inner Tianjing** (天京) — Tian Clan home grounds; 京 = royal capital; palace + underpalace seclusion of the founding Immortal.
+- **Outer imperial city** — **Longcheng** (龙城) — continental hub: Celestial Market quarter, sect branch offices, associations, noble clans, Charter District. Ordinary population, commerce, government face, specialist cultivation properties; potentially rented high-Qi land. Mortals dominate headcount; cultivators dominate influence.
+- **Inner Tianjing** (天京) — Tian Clan's **ancient restricted ancestral city** (predates the empire); emperor's household, clan branches, retainers, necessary staff. Controlled access; **not** outsider commercial real estate. Palace + underpalace seclusion of the founding Immortal.
+- **Spiritual environment** — major vein; clan draws mainly **ambient Qi** (not aggressive extraction). Dragon-like vein character **Open**. Ancient integrated grand defence + physical walls (**Canon**); emergency deeper-vein draw **Provisional**. **Formations Guild** independent of Tian ownership.
 - **Outer heartlands** — wilderness buffer between sect peaks and the metropolis north.
 
 ---
@@ -198,7 +222,11 @@ See **[`imperial-city-tianjing.md`](imperial-city-tianjing.md)** — two-layer c
 - [ ] Founding Immortal's true name (pre-Tian / private) — ever revealed?
 - [ ] Mother's realm, cause of death, background
 - [ ] Patriarch assassination — killer / client / whether the emperor knows (deliberately Open)
-- [ ] **Tian Xu** — future role undecided
+- [ ] **Tian Xu** — future role undecided; possible prince / cadet / cut?
+- [ ] **Right hand** — Wei An vs separate office
+- [ ] **Left hand** — identity, cultivation, history
+- [ ] **Imperial Princes** — names, talents, histories; whether seven is fixed; abdication vs death succession
+- [ ] Vein dragon-like character; named grand array (open PR #138 conflict)
 - [ ] Does Phoenix reunification seek to **replace** Tian or **become** Tian (five claws)?
 - [ ] Imperial rep: fifth faction vs overlay?
 - [ ] Dustbone: tribute fiction without direct rule?
