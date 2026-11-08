@@ -2,113 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0; url=/sandbox/alchemy/" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Property Alchemy — Dev Laboratory</title>
-  <link rel="stylesheet" href="lab.css" />
+  <title>Redirect — Property Alchemy Lab</title>
 </head>
 <body>
-  <header>
-    <h1>Property Alchemy Laboratory</h1>
-    <p>Isolated developer tool — uses <code>prototype/property-alchemy</code> simulation only. Not connected to live gameplay.</p>
-  </header>
-
-  <div class="layout">
-    <section class="panel" aria-label="Experiment setup">
-      <h2>Setup</h2>
-
-      <label>Presets (#192 findings)</label>
-      <div class="row">
-        <select id="presetSelect"></select>
-        <button type="button" id="loadPreset">Load preset</button>
-      </div>
-
-      <h2>Ingredients</h2>
-      <div id="reagentList"></div>
-      <div class="row">
-        <select id="reagentPick"></select>
-        <button type="button" id="addReagent">Add</button>
-      </div>
-
-      <label for="introOrder">Introduction order</label>
-      <select id="introOrder">
-        <option value="simultaneous">Simultaneous</option>
-        <option value="yin_first">Yin first, then yang/neutral</option>
-        <option value="yang_first">Yang first, then yin/neutral</option>
-      </select>
-
-      <h2>Heat</h2>
-      <label for="heatMode">Mode</label>
-      <select id="heatMode">
-        <option value="single">Single heat for each phase</option>
-        <option value="stages">Sequential heat stages (per phase)</option>
-      </select>
-
-      <div id="singleHeatRow" class="row" style="margin-top:0.5rem">
-        <label for="singleHeat">Heat</label>
-        <select id="singleHeat">
-          <option value="gentle">Gentle</option>
-          <option value="medium" selected>Medium</option>
-          <option value="fierce">Fierce</option>
-        </select>
-      </div>
-
-      <div id="stagesPanel" style="display:none">
-        <p style="font-size:0.85rem;color:var(--muted)">Stages run in order after each phase’s reagents are added. Example: fierce activates grit, gentle protects dew.</p>
-        <div class="row">
-          <select id="stagePick">
-            <option value="gentle">gentle</option>
-            <option value="medium">medium</option>
-            <option value="fierce">fierce</option>
-          </select>
-          <button type="button" id="addStage">Add stage</button>
-        </div>
-        <div id="stageList" class="heat-stages"></div>
-      </div>
-
-      <div class="row" style="margin-top:1rem">
-        <button type="button" class="primary" id="runBtn">Run experiment</button>
-        <button type="button" id="repeatBtn">Repeat last</button>
-        <button type="button" id="resetBtn">Reset</button>
-      </div>
-    </section>
-
-    <section class="panel" aria-label="Results">
-      <h2>Process outcome</h2>
-      <div id="processOut"><p class="muted">Run an experiment to see results.</p></div>
-
-      <h2>Material outcome</h2>
-      <div id="materialOut"></div>
-
-      <h2>Explanation</h2>
-      <div id="explainOut" class="explain"></div>
-
-      <h2>Material ledger</h2>
-      <table class="ledger">
-        <thead><tr><th>State</th><th>Spirit</th><th>Note</th></tr></thead>
-        <tbody id="ledgerBody"></tbody>
-      </table>
-
-      <details>
-        <summary>Technical trace (JSON)</summary>
-        <pre id="traceJson"></pre>
-      </details>
-    </section>
-
-    <section class="panel" aria-label="History and compare">
-      <h2>Session history</h2>
-      <p style="font-size:0.8rem;color:var(--muted)">Click entries to pick A/B for comparison (max two selected).</p>
-      <div id="historyList"></div>
-
-      <h2>Compare</h2>
-      <div class="row">
-        <select id="compareSelectA"></select>
-        <select id="compareSelectB"></select>
-      </div>
-      <table class="compare" id="compareTable"></table>
-    </section>
-  </div>
-
-  <script src="../dist/lab-bundle.js"></script>
-  <script src="lab-app.js"></script>
+  <p>Moved to <a href="/sandbox/alchemy/">/sandbox/alchemy/</a> (dev prototype, linked from Playtest → Dev tools).</p>
 </body>
 </html>

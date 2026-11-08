@@ -52,7 +52,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Property-based alchemy prototype](property-based-alchemy-prototype.md) | `building` | Owner review; live bridge | [#190](https://github.com/WanderingImmortal/tales-immortal-path/pull/190) |
 | [Property-based alchemy stress audit](property-based-alchemy-stress-audit.md) | `building` | Superseded by thermal PR for heat meta | [#191](https://github.com/WanderingImmortal/tales-immortal-path/pull/191) |
 | [Property-based alchemy — thermal activation](property-based-alchemy-thermal-activation.md) | `building` | Owner review; live bridge | [#192](https://github.com/WanderingImmortal/tales-immortal-path/pull/192) |
-| [Property alchemy dev laboratory](property-alchemy-dev-laboratory.md) | `building` | Hands-on lab review | `cursor/alchemy-lab-002d` |
+| [Property alchemy dev laboratory](property-alchemy-dev-laboratory.md) | `building` (Dev tools link) | Hands-on lab review | `cursor/alchemy-lab-dev-nav` |
 | [Combat reaction sandbox (prototype)](combat-reaction-sandbox-prototype.md) | `shipped` | Playtest feedback only | PR #195 |
 | [Dustbone surroundings (later)](dustbone-surroundings-later.md) | `idea` (parked) | Redwell starter slice | — || [Qi path — Foundation Establishment redesign](qi-foundation-establishment-redesign.md) | `idea` | Owner FE design pass | — |
 | [Golden Core — cultivation journey (substages & core quality)](golden-core-cultivation-journey.md) | `designed` (brainstorm) | FE redesign; tribulation limbo | — |
