@@ -328,7 +328,10 @@ var AlchemyLab = (() => {
           bound: emptyMaterialSlice(),
           degraded: emptyMaterialSlice(),
           residual: emptyMaterialSlice(),
+          expelled: emptyMaterialSlice(),
           inputSpirit: 0,
+          separationStuck: 0,
+          separationStuckMin: 0,
           byReagent: {}
         };
       }
@@ -339,7 +342,9 @@ var AlchemyLab = (() => {
             released: emptyMaterialSlice(),
             degraded: emptyMaterialSlice(),
             inputSpirit: 0,
-            overheatExposure: 0
+            overheatExposure: 0,
+            separationDifficulty: 1,
+            separationStuckFraction: 0.1
           };
         }
         return ledger.byReagent[reagentId];
@@ -1547,10 +1552,132 @@ var AlchemyLab = (() => {
     }
   });
 
+  // prototype/property-alchemy/separation.js
+  var require_separation = __commonJS({
+    "prototype/property-alchemy/separation.js"(exports, module) {
+      var { EXPERIMENTAL_REAGENTS } = require_reagents();
+      var { mergeSlice, scaleMaterialSlice, emptyMaterialSlice } = require_thermal();
+      var BASE_CAULDRON_SEP = 0.38;
+      function clamp(n, lo, hi) {
+        return Math.max(lo, Math.min(hi, n));
+      }
+      function round3(n) {
+        return Math.round(n * 1e3) / 1e3;
+      }
+      function deriveSeparationProfile(def) {
+        const mineralLoad = def.impurity / Math.max(def.spirit, 1);
+        const tierLoad = def.spirit / 28;
+        const volatility = def.volatility / 24;
+        const purifyEase = def.affinities.purify / 22;
+        const difficulty = clamp(
+          0.55 + mineralLoad * 0.95 + tierLoad * 0.22 + volatility * 0.18 - purifyEase * 0.12,
+          0.45,
+          2.4
+        );
+        const stuckFraction = clamp(
+          0.08 + mineralLoad * 0.35 + tierLoad * 0.06 - purifyEase * 0.05,
+          0.05,
+          0.62
+        );
+        const sootFactor = clamp(
+          0.04 + mineralLoad * 0.22 + volatility * 0.06 + def.impurity / 80,
+          0.03,
+          0.55
+        );
+        return {
+          difficulty: round3(difficulty),
+          stuckFraction: round3(stuckFraction),
+          sootFactor: round3(sootFactor)
+        };
+      }
+      function applyExtractionContamination(released, medicinalTransfer, overBand, sep, profile) {
+        if (medicinalTransfer <= 1e-12) return 0;
+        const stress = Math.min(1.8, profile.stressSensitivity * (0.35 + overBand * 0.9));
+        const soot = medicinalTransfer * sep.sootFactor * (0.12 + overBand * 0.88) * stress;
+        released.impurity += soot;
+        return soot;
+      }
+      function mixtureStuckFraction(material) {
+        const rel = material.released;
+        const buckets = Object.values(material.byReagent || {});
+        const releasedSpirit = buckets.reduce((s, b) => s + b.released.spirit, 0) || rel.spirit;
+        if (releasedSpirit <= 1e-9) return 0.1;
+        return clamp(
+          buckets.reduce((s, b) => {
+            const share = b.released.spirit / releasedSpirit;
+            return s + share * (b.separationStuckFraction ?? 0.1);
+          }, 0),
+          0.05,
+          0.72
+        );
+      }
+      function mixtureStuckFloor(material) {
+        const rel = material.released;
+        const frac = mixtureStuckFraction(material);
+        const proportional = rel.impurity * frac;
+        const loadMin = material.separationStuckMin || 0;
+        return Math.min(rel.impurity, Math.max(proportional, loadMin));
+      }
+      function applyPassiveSeparation(material, heat, dt) {
+        const rel = material.released;
+        if (rel.impurity <= 1e-12) return 0;
+        const buckets = Object.values(material.byReagent || {});
+        const releasedSpirit = buckets.reduce((s, b) => s + b.released.spirit, 0) || rel.spirit;
+        let difficulty = 1;
+        if (releasedSpirit > 1e-9) {
+          difficulty = buckets.reduce((s, b) => {
+            const share = b.released.spirit / releasedSpirit;
+            return s + share * (b.separationDifficulty || 1);
+          }, 0);
+        }
+        const gentleBonus = heat < 0.5 ? 1.25 : heat < 0.7 ? 0.9 : 0.42;
+        const purify = rel.affinities.purify;
+        const rate = BASE_CAULDRON_SEP * gentleBonus * (1 + purify * 0.015) * dt / difficulty;
+        const stuck = mixtureStuckFloor(material);
+        const removable = Math.max(0, rel.impurity - stuck);
+        if (removable <= 1e-12) return 0;
+        const removed = Math.min(removable, rel.impurity * Math.min(0.4, rate));
+        if (removed <= 1e-12) return 0;
+        rel.impurity -= removed;
+        if (!material.expelled) material.expelled = emptyMaterialSlice();
+        material.expelled.impurity += removed;
+        return removed;
+      }
+      function mixturePurityFromReleased(released) {
+        const med = Math.max(0, released.spirit);
+        const cont = Math.max(0, released.impurity);
+        const total = med + cont;
+        if (total <= 1e-12) return 0;
+        return clamp(med / total, 0, 1);
+      }
+      function registerSeparationLoad(ledger, load) {
+        const def = EXPERIMENTAL_REAGENTS[load.reagentId];
+        const sep = deriveSeparationProfile(def);
+        const bucket = ledger.byReagent[load.reagentId];
+        if (bucket) {
+          bucket.separationDifficulty = sep.difficulty;
+        }
+        bucket.separationStuckFraction = sep.stuckFraction;
+        ledger.separationStuckMin = (ledger.separationStuckMin || 0) + load.impurity * sep.stuckFraction * 0.2 + load.spirit * sep.stuckFraction * 0.035;
+      }
+      module.exports = {
+        BASE_CAULDRON_SEP,
+        deriveSeparationProfile,
+        applyExtractionContamination,
+        applyPassiveSeparation,
+        mixturePurityFromReleased,
+        mixtureStuckFloor,
+        mixtureStuckFraction,
+        registerSeparationLoad
+      };
+    }
+  });
+
   // prototype/property-alchemy/condense.js
   var require_condense = __commonJS({
     "prototype/property-alchemy/condense.js"(exports, module) {
       var { OUTCOME, polarityImbalance } = require_simulate();
+      var { mixturePurityFromReleased } = require_separation();
       function seededNoise(seed, salt) {
         const x = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453;
         return x - Math.floor(x);
@@ -1638,9 +1765,11 @@ var AlchemyLab = (() => {
         impurity = Math.max(0, impurity - purifyWork);
         const impurityNoise = 1 + (seededNoise(seed, 1) - 0.5) * 0.06;
         impurity *= impurityNoise;
-        const releasedSpirit = Math.max(1e-3, material.released.spirit);
-        const impurityRatio = impurity / releasedSpirit;
-        const spiritPotency = releasedSpirit * Math.max(0.2, 1 - impurityRatio * 0.65);
+        const releasedSpirit = material.released.spirit;
+        const effectiveSpirit = Math.max(1e-3, releasedSpirit);
+        const impurityRatio = impurity / effectiveSpirit;
+        const mixturePurity = releasedSpirit <= 0.05 ? 0 : mixturePurityFromReleased({ spirit: releasedSpirit, impurity });
+        const spiritPotency = effectiveSpirit * Math.max(0.2, 1 - impurityRatio * 0.65);
         const aff = material.released.affinities;
         const totalAff = aff.qi + aff.heat + aff.marrow + aff.purify;
         const scale = totalAff > 0 ? spiritPotency / totalAff : 0;
@@ -1670,7 +1799,7 @@ var AlchemyLab = (() => {
         }
         const dominantAffinity = dominantKey(productEffects);
         const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
-        const productSuitability = impurityRatio > 0.45 ? "impure" : productEffects.toxicity > 4 ? "hazardous" : potency >= 2 ? "medicinal" : "weak";
+        const productSuitability = mixturePurity < 0.52 || impurityRatio > 0.45 ? "impure" : productEffects.toxicity > 4 ? "hazardous" : potency >= 2 ? "medicinal" : "weak";
         const diagnostics = buildDiagnostics({
           peakInstability,
           stabilityMargin,
@@ -1680,11 +1809,17 @@ var AlchemyLab = (() => {
           thermalPeaks: opts.thermalPeaks || [],
           cauldron: material.released
         });
+        const expelled = material.expelled || { spirit: 0, impurity: 0, affinities: {}, yin: 0, yang: 0, volatility: 0, stability: 0 };
         const materialOutcome = {
           released: summarizeSlice(material.released),
           bound: summarizeSlice(material.bound),
           degraded: summarizeSlice(material.degraded),
           residual: summarizeSlice(material.residual),
+          expelled: {
+            spirit: round1(expelled.spirit),
+            contamination: round1(expelled.impurity),
+            impurity: round1(expelled.impurity)
+          },
           conservation: material.conservation
         };
         return {
@@ -1696,11 +1831,14 @@ var AlchemyLab = (() => {
           },
           material: materialOutcome,
           mixture: {
-            spirit: round1(releasedSpirit),
+            spirit: round1(releasedSpirit > 0.05 ? releasedSpirit : effectiveSpirit),
             yin: round1(material.released.yin),
             yang: round1(material.released.yang),
             impurity: round1(impurity),
+            contamination: round1(impurity),
             impurityRatio: round3(impurityRatio),
+            purity: round3(mixturePurity),
+            purityPercent: round1(mixturePurity * 100),
             polarityImbalance: round3(polarityImbalance(material.released.yin, material.released.yang))
           },
           peakInstability: round3(peakInstability),
@@ -1709,6 +1847,7 @@ var AlchemyLab = (() => {
             effects: productEffects,
             dominantAffinity,
             potency: round1(potency),
+            purity: round1(mixturePurity * 100),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
             suitability: productSuitability
           },
@@ -1746,6 +1885,14 @@ var AlchemyLab = (() => {
         thermalFractions
       } = require_thermal();
       var { condenseMaterialLedger } = require_condense();
+      var {
+        deriveSeparationProfile,
+        applyExtractionContamination,
+        applyPassiveSeparation,
+        registerSeparationLoad,
+        mixturePurityFromReleased,
+        mixtureStuckFloor
+      } = require_separation();
       var SIM_DT = 0.1;
       var K_BOUND_TRANSFER = 0.36;
       var K_RELEASED_DEGRADE = 0.28;
@@ -1762,10 +1909,13 @@ var AlchemyLab = (() => {
         return {
           released: material.released.spirit,
           bound: Object.values(material.byReagent).reduce((s, b) => s + b.bound.spirit, 0),
-          degraded: material.degraded.spirit
+          degraded: material.degraded.spirit,
+          contamination: material.released.impurity,
+          expelled: material.expelled?.impurity || 0,
+          purity: round3(mixturePurityFromReleased(material.released) * 100)
         };
       }
-      function applyBoundIncremental(boundSlice, profile, heat, dt, bucket) {
+      function applyBoundIncremental(boundSlice, profile, heat, dt, bucket, def) {
         if (boundSlice.spirit <= 1e-12) {
           return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
         }
@@ -1794,6 +1944,8 @@ var AlchemyLab = (() => {
         }
         const released = scaleMaterialSlice(boundSlice, transfer / boundSlice.spirit * relW);
         const degraded = scaleMaterialSlice(boundSlice, transfer / boundSlice.spirit * degW);
+        const sep = deriveSeparationProfile(def);
+        applyExtractionContamination(released, released.spirit, overBand, sep, profile);
         degraded.affinities.qi *= 0.2;
         degraded.affinities.marrow *= 0.2;
         degraded.affinities.purify *= 0.15;
@@ -1951,6 +2103,7 @@ var AlchemyLab = (() => {
         const load = loadFromReagent(reagentId, qty);
         const hadReleased = state.material.released.spirit > 0.05;
         registerInputLoad(state.material, load);
+        registerSeparationLoad(state.material, load);
         let shock = 0;
         if (hadReleased && state.introduced.length > 0) {
           const newCharge = polarityImbalance(load.yin, load.yang);
@@ -1982,13 +2135,21 @@ var AlchemyLab = (() => {
           if (bucket.bound.spirit <= 1e-12) return;
           const def = EXPERIMENTAL_REAGENTS[reagentId];
           const profile = deriveThermalProfile(def);
-          const { released, degraded } = applyBoundIncremental(bucket.bound, profile, heat, dt, bucket);
+          const { released, degraded } = applyBoundIncremental(
+            bucket.bound,
+            profile,
+            heat,
+            dt,
+            bucket,
+            def
+          );
           if (released.spirit > 1e-9 || degraded.spirit > 1e-9) {
             recordThermalResult(state.material, reagentId, released, degraded);
             if (released.spirit > 0.02) notableExtract = true;
             if (degraded.spirit > 0.02) notableDegrade = true;
           }
         });
+        applyPassiveSeparation(state.material, heat, dt);
         const relDegraded = applyReleasedIncremental(state.material.released, heat, dt);
         if (relDegraded) {
           distributeReleasedDegraded(state.material, relDegraded);
@@ -2031,6 +2192,8 @@ var AlchemyLab = (() => {
           bound: state.material.bound,
           degraded: state.material.degraded,
           residual: state.material.residual,
+          expelled: state.material.expelled || emptyMaterialSlice(),
+          separationStuck: mixtureStuckFloor(state.material),
           conservation
         };
         const trace = state.chronicle.map((c) => ({
@@ -2156,6 +2319,7 @@ var AlchemyLab = (() => {
       var thermalHarness = require_thermal_harness();
       var furnace = require_furnace();
       var condense = require_condense();
+      var separation = require_separation();
       module.exports = {
         ...reagents,
         ...simulate,
@@ -2165,7 +2329,8 @@ var AlchemyLab = (() => {
         ...thermal,
         ...thermalHarness,
         ...furnace,
-        ...condense
+        ...condense,
+        ...separation
       };
     }
   });
@@ -2175,6 +2340,7 @@ var AlchemyLab = (() => {
     "prototype/property-alchemy/lab-explain.js"(exports, module) {
       var { EXPERIMENTAL_REAGENTS } = require_reagents();
       var { deriveThermalProfile } = require_thermal();
+      var { deriveSeparationProfile } = require_separation();
       var KNOWLEDGE_STATES = {
         unknown: {
           id: "unknown",
@@ -2262,6 +2428,7 @@ var AlchemyLab = (() => {
           };
         }
         const profile = deriveThermalProfile(def);
+        const sep = deriveSeparationProfile(def);
         const knowledgeState = "established";
         const aff = def.affinities || {};
         const properties = [
@@ -2326,6 +2493,13 @@ var AlchemyLab = (() => {
             detail: heatRelationText(profile.toleranceMax, "tolerance"),
             knowledgeState,
             glossary: TERM_GLOSSARY.tolerance
+          },
+          {
+            key: "separation",
+            label: "Separation difficulty (derived)",
+            display: String(sep.difficulty),
+            detail: "Higher values resist passive cauldron separation; stuck fraction sets a contamination floor.",
+            knowledgeState
           }
         ];
         return {
@@ -2378,14 +2552,15 @@ var AlchemyLab = (() => {
         const potency = num(product.potency);
         const suitability = product.suitability || "n/a";
         const lines = [];
+        const purity = num(product.purity);
         if (potency <= 0 || suitability === "weak") {
           lines.push("Product: little or no usable medicinal potency formed.");
         } else if (suitability === "impure") {
-          lines.push(`Product: some potency (${potency}) formed, but impurity leaves it impure.`);
+          lines.push(`Product: potency ${potency}, but mixture contamination left purity at ${purity}%.`);
         } else if (suitability === "hazardous") {
           lines.push(`Product: potency ${potency}, but toxicity makes it hazardous.`);
         } else if (suitability === "medicinal") {
-          lines.push(`Product: usable medicinal essence formed (potency ${potency}, dominant ${product.dominantAffinity}).`);
+          lines.push(`Product: medicinal (potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
         } else {
           lines.push(`Product: suitability ${suitability}, potency ${potency}.`);
         }
@@ -2411,6 +2586,18 @@ var AlchemyLab = (() => {
           lines.push(`Much of the spirit remains bound (${bound}); only ${released} released.`);
         } else if (released > 0.05) {
           lines.push(`Extraction released ${released} spirit into the reactive mixture.`);
+        }
+        const contamination = num(result.mixture?.contamination ?? m.released?.impurity);
+        const expelled = num(m.expelled?.contamination ?? m.expelled?.impurity);
+        const purity = result.product?.purity ?? result.mixture?.purityPercent;
+        if (contamination > 0.05) {
+          lines.push(`Contamination in mixture: ${round1(contamination)} (purity ${purity != null ? purity + "%" : "n/a"}).`);
+        }
+        if (expelled > 0.05) {
+          lines.push(`Cauldron expelled ${expelled} contamination as waste (no extra essence created).`);
+        }
+        if (degraded > 0.05 && released > 0.05) {
+          lines.push("Degraded spirit is lost medicinal potential \u2014 it is not the same as mixture contamination.");
         }
         if (traceKinds.has("introduction_shock") || traceKinds.has("destabilisation")) {
           lines.push("Incompatible interactions or shocks contributed to instability (see trace).");
@@ -2496,9 +2683,11 @@ var AlchemyLab = (() => {
       function formatMaterialLedger(material) {
         if (!material) return { rows: [] };
         const rows = [
-          { label: "Released (reactive)", spirit: material.released?.spirit ?? 0, note: "Available for chemistry / condensation" },
+          { label: "Released (reactive)", spirit: material.released?.spirit ?? 0, note: "Medicinal essence in mixture" },
+          { label: "Contamination (in mixture)", spirit: material.released?.impurity ?? 0, note: "Unwanted residue with released essence" },
+          { label: "Expelled waste", spirit: material.expelled?.contamination ?? material.expelled?.impurity ?? 0, note: "Separated out \u2014 not medicinal" },
           { label: "Still bound", spirit: material.bound?.spirit ?? 0, note: "Unextracted \u2014 may respond to later heat" },
-          { label: "Degraded", spirit: material.degraded?.spirit ?? 0, note: "Overburn / broken affinities" },
+          { label: "Degraded", spirit: material.degraded?.spirit ?? 0, note: "Destroyed medicinal potential (\u2260 contamination)" },
           { label: "Residual (bound+degraded)", spirit: material.residual?.spirit ?? 0, note: "Salvage hook" }
         ];
         if (material.conservation) {
@@ -2558,6 +2747,9 @@ var AlchemyLab = (() => {
           ["Bound spirit", (x) => x.result.material?.bound?.spirit],
           ["Degraded spirit", (x) => x.result.material?.degraded?.spirit],
           ["Potency", (x) => x.result.product?.potency],
+          ["Purity %", (x) => x.result.product?.purity],
+          ["Contamination", (x) => x.result.mixture?.contamination ?? x.result.material?.released?.impurity],
+          ["Expelled waste", (x) => x.result.material?.expelled?.contamination],
           ["Dominant affinity", (x) => x.result.product?.dominantAffinity],
           ["Suitability", (x) => x.result.product?.suitability]
         ];

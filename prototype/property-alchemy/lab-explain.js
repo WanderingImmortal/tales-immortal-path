@@ -5,6 +5,7 @@
 
 const { EXPERIMENTAL_REAGENTS } = require('./reagents');
 const { deriveThermalProfile } = require('./thermal');
+const { deriveSeparationProfile } = require('./separation');
 
 /** Character knowledge states (scaffolding for a future live game). Lab uses established. */
 const KNOWLEDGE_STATES = {
@@ -107,6 +108,7 @@ function describeReagent(reagentId, opts = {}) {
         };
     }
     const profile = deriveThermalProfile(def);
+    const sep = deriveSeparationProfile(def);
     const knowledgeState = 'established';
     const aff = def.affinities || {};
 
@@ -173,6 +175,13 @@ function describeReagent(reagentId, opts = {}) {
             detail: heatRelationText(profile.toleranceMax, 'tolerance'),
             knowledgeState,
             glossary: TERM_GLOSSARY.tolerance
+        },
+        {
+            key: 'separation',
+            label: 'Separation difficulty (derived)',
+            display: String(sep.difficulty),
+            detail: 'Higher values resist passive cauldron separation; stuck fraction sets a contamination floor.',
+            knowledgeState
         }
     ];
 
@@ -235,14 +244,15 @@ function productPlainLines(result) {
     const potency = num(product.potency);
     const suitability = product.suitability || 'n/a';
     const lines = [];
+    const purity = num(product.purity);
     if (potency <= 0 || suitability === 'weak') {
         lines.push('Product: little or no usable medicinal potency formed.');
     } else if (suitability === 'impure') {
-        lines.push(`Product: some potency (${potency}) formed, but impurity leaves it impure.`);
+        lines.push(`Product: potency ${potency}, but mixture contamination left purity at ${purity}%.`);
     } else if (suitability === 'hazardous') {
         lines.push(`Product: potency ${potency}, but toxicity makes it hazardous.`);
     } else if (suitability === 'medicinal') {
-        lines.push(`Product: usable medicinal essence formed (potency ${potency}, dominant ${product.dominantAffinity}).`);
+        lines.push(`Product: medicinal (potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
     } else {
         lines.push(`Product: suitability ${suitability}, potency ${potency}.`);
     }
@@ -271,6 +281,19 @@ function materialPlainLines(result) {
         lines.push(`Much of the spirit remains bound (${bound}); only ${released} released.`);
     } else if (released > 0.05) {
         lines.push(`Extraction released ${released} spirit into the reactive mixture.`);
+    }
+
+    const contamination = num(result.mixture?.contamination ?? m.released?.impurity);
+    const expelled = num(m.expelled?.contamination ?? m.expelled?.impurity);
+    const purity = result.product?.purity ?? result.mixture?.purityPercent;
+    if (contamination > 0.05) {
+        lines.push(`Contamination in mixture: ${round1(contamination)} (purity ${purity != null ? purity + '%' : 'n/a'}).`);
+    }
+    if (expelled > 0.05) {
+        lines.push(`Cauldron expelled ${expelled} contamination as waste (no extra essence created).`);
+    }
+    if (degraded > 0.05 && released > 0.05) {
+        lines.push('Degraded spirit is lost medicinal potential — it is not the same as mixture contamination.');
     }
 
     if (traceKinds.has('introduction_shock') || traceKinds.has('destabilisation')) {
@@ -377,9 +400,11 @@ function explainExperiment(result) {
 function formatMaterialLedger(material) {
     if (!material) return { rows: [] };
     const rows = [
-        { label: 'Released (reactive)', spirit: material.released?.spirit ?? 0, note: 'Available for chemistry / condensation' },
+        { label: 'Released (reactive)', spirit: material.released?.spirit ?? 0, note: 'Medicinal essence in mixture' },
+        { label: 'Contamination (in mixture)', spirit: material.released?.impurity ?? 0, note: 'Unwanted residue with released essence' },
+        { label: 'Expelled waste', spirit: material.expelled?.contamination ?? material.expelled?.impurity ?? 0, note: 'Separated out — not medicinal' },
         { label: 'Still bound', spirit: material.bound?.spirit ?? 0, note: 'Unextracted — may respond to later heat' },
-        { label: 'Degraded', spirit: material.degraded?.spirit ?? 0, note: 'Overburn / broken affinities' },
+        { label: 'Degraded', spirit: material.degraded?.spirit ?? 0, note: 'Destroyed medicinal potential (≠ contamination)' },
         { label: 'Residual (bound+degraded)', spirit: material.residual?.spirit ?? 0, note: 'Salvage hook' }
     ];
     if (material.conservation) {
@@ -453,6 +478,9 @@ function compareExperiments(a, b) {
         ['Bound spirit', x => x.result.material?.bound?.spirit],
         ['Degraded spirit', x => x.result.material?.degraded?.spirit],
         ['Potency', x => x.result.product?.potency],
+        ['Purity %', x => x.result.product?.purity],
+        ['Contamination', x => x.result.mixture?.contamination ?? x.result.material?.released?.impurity],
+        ['Expelled waste', x => x.result.material?.expelled?.contamination],
         ['Dominant affinity', x => x.result.product?.dominantAffinity],
         ['Suitability', x => x.result.product?.suitability]
     ];

@@ -6,7 +6,7 @@
 | **Blocked on** | Author review after hands-on lab use |
 | **Issue** | none yet |
 | **Code** | [`sandbox/alchemy/`](../../sandbox/alchemy/) · sim [`prototype/property-alchemy/`](../../prototype/property-alchemy/) |
-| **Updated** | 2026-11-08 |
+| **Updated** | 2026-11-09 |
 
 ## Readability (feedback layer)
 
@@ -64,6 +64,8 @@ Legacy path `prototype/property-alchemy/lab/` redirects to `/sandbox/alchemy/`.
 Example play: preheat **fierce**, add **Ironscar Grit**, wait for extraction, reduce to **gentle**, add **Dawn Dew**, condense when stable.
 
 Thermal windows (2026 follow-up): **Foundation Root** needs gentle; **Amber Lily** rewards a short medium burst then gentle (avoid staying on medium); **Cinderscale** needs sustained medium. Overheat exposure accrues with duration — see `scripts/test-thermal-exposure.js`.
+
+**Contamination & purity (PR #223):** Extracted essence lands in `released.spirit`; mixture **contamination** is `released.impurity` (soot from rough extraction, not degraded spirit). The prototype furnace passively expels contamination into `expelled` at a cauldron-limited rate (`separation.js`; harder on mineral-heavy loads). Pill **purity** is essence ÷ (essence + contamination) at condense — distinct from potency, grade, and process outcome. Validation: `node scripts/test-purity-separation.js`.
 
 ## Tests
 

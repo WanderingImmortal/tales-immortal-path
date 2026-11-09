@@ -231,6 +231,13 @@ try {
     fail('thermal exposure validation passes');
 }
 
+try {
+    execSync('node scripts/test-purity-separation.js', { cwd: root, stdio: 'pipe' });
+    ok('purity separation validation passes');
+} catch {
+    fail('purity separation validation passes');
+}
+
 const withTrace = proto.simulateRefinement({ ...repeatInput, trace: true });
 const noTrace = proto.simulateRefinement(repeatInput);
 assert(

@@ -4,6 +4,7 @@
  */
 
 const { OUTCOME, polarityImbalance } = require('./simulate');
+const { mixturePurityFromReleased } = require('./separation');
 
 function seededNoise(seed, salt) {
     const x = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453;
@@ -108,9 +109,13 @@ function condenseMaterialLedger(material, opts = {}) {
     const impurityNoise = 1 + (seededNoise(seed, 1) - 0.5) * 0.06;
     impurity *= impurityNoise;
 
-    const releasedSpirit = Math.max(0.001, material.released.spirit);
-    const impurityRatio = impurity / releasedSpirit;
-    const spiritPotency = releasedSpirit * Math.max(0.2, 1 - impurityRatio * 0.65);
+    const releasedSpirit = material.released.spirit;
+    const effectiveSpirit = Math.max(0.001, releasedSpirit);
+    const impurityRatio = impurity / effectiveSpirit;
+    const mixturePurity = releasedSpirit <= 0.05
+        ? 0
+        : mixturePurityFromReleased({ spirit: releasedSpirit, impurity });
+    const spiritPotency = effectiveSpirit * Math.max(0.2, 1 - impurityRatio * 0.65);
 
     const aff = material.released.affinities;
     const totalAff = aff.qi + aff.heat + aff.marrow + aff.purify;
@@ -149,7 +154,7 @@ function condenseMaterialLedger(material, opts = {}) {
 
     const dominantAffinity = dominantKey(productEffects);
     const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
-    const productSuitability = impurityRatio > 0.45 ? 'impure'
+    const productSuitability = mixturePurity < 0.52 || impurityRatio > 0.45 ? 'impure'
         : productEffects.toxicity > 4 ? 'hazardous'
             : potency >= 2 ? 'medicinal' : 'weak';
 
@@ -163,11 +168,18 @@ function condenseMaterialLedger(material, opts = {}) {
         cauldron: material.released
     });
 
+    const expelled = material.expelled || { spirit: 0, impurity: 0, affinities: {}, yin: 0, yang: 0, volatility: 0, stability: 0 };
+
     const materialOutcome = {
         released: summarizeSlice(material.released),
         bound: summarizeSlice(material.bound),
         degraded: summarizeSlice(material.degraded),
         residual: summarizeSlice(material.residual),
+        expelled: {
+            spirit: round1(expelled.spirit),
+            contamination: round1(expelled.impurity),
+            impurity: round1(expelled.impurity)
+        },
         conservation: material.conservation
     };
 
@@ -180,11 +192,14 @@ function condenseMaterialLedger(material, opts = {}) {
         },
         material: materialOutcome,
         mixture: {
-            spirit: round1(releasedSpirit),
+            spirit: round1(releasedSpirit > 0.05 ? releasedSpirit : effectiveSpirit),
             yin: round1(material.released.yin),
             yang: round1(material.released.yang),
             impurity: round1(impurity),
+            contamination: round1(impurity),
             impurityRatio: round3(impurityRatio),
+            purity: round3(mixturePurity),
+            purityPercent: round1(mixturePurity * 100),
             polarityImbalance: round3(polarityImbalance(material.released.yin, material.released.yang))
         },
         peakInstability: round3(peakInstability),
@@ -193,6 +208,7 @@ function condenseMaterialLedger(material, opts = {}) {
             effects: productEffects,
             dominantAffinity,
             potency: round1(potency),
+            purity: round1(mixturePurity * 100),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
             suitability: productSuitability
         },

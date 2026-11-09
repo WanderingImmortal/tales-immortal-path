@@ -224,7 +224,10 @@ function createMaterialLedger() {
         bound: emptyMaterialSlice(),
         degraded: emptyMaterialSlice(),
         residual: emptyMaterialSlice(),
+        expelled: emptyMaterialSlice(),
         inputSpirit: 0,
+        separationStuck: 0,
+        separationStuckMin: 0,
         byReagent: {}
     };
 }
@@ -240,7 +243,9 @@ function ensureReagentBucket(ledger, reagentId) {
             released: emptyMaterialSlice(),
             degraded: emptyMaterialSlice(),
             inputSpirit: 0,
-            overheatExposure: 0
+            overheatExposure: 0,
+            separationDifficulty: 1,
+            separationStuckFraction: 0.1
         };
     }
     return ledger.byReagent[reagentId];
