@@ -7,6 +7,7 @@ const thermal = require('./thermal');
 const thermalHarness = require('./thermal-harness');
 const furnace = require('./furnace');
 const condense = require('./condense');
+const separation = require('./separation');
 
 module.exports = {
     ...reagents,
@@ -17,5 +18,6 @@ module.exports = {
     ...thermal,
     ...thermalHarness,
     ...furnace,
-    ...condense
+    ...condense,
+    ...separation
 };

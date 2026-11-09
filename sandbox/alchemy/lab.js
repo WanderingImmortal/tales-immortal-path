@@ -38,6 +38,10 @@
         liveInstability: document.getElementById('liveInstability'),
         livePeak: document.getElementById('livePeak'),
         livePolarity: document.getElementById('livePolarity'),
+        liveMedicinal: document.getElementById('liveMedicinal'),
+        liveContamination: document.getElementById('liveContamination'),
+        livePurity: document.getElementById('livePurity'),
+        liveExpelled: document.getElementById('liveExpelled'),
         liveNotes: document.getElementById('liveNotes'),
         spiritBreakdown: document.getElementById('spiritBreakdown'),
         summaryOut: document.getElementById('summaryOut'),
@@ -137,6 +141,10 @@
         els.liveInstability.textContent = snap.instability;
         els.livePeak.textContent = snap.peakInstability;
         els.livePolarity.textContent = snap.polarityImbalance;
+        els.liveMedicinal.textContent = snap.spirit.released;
+        els.liveContamination.textContent = snap.spirit.contamination ?? 0;
+        els.livePurity.textContent = snap.spirit.purity != null ? `${snap.spirit.purity}%` : '—';
+        els.liveExpelled.textContent = snap.spirit.expelled ?? 0;
 
         const status = furnace.condensed
             ? 'Condensed — reset to run again.'
@@ -216,8 +224,9 @@
 
         els.processOut.innerHTML = `
       <p class="outcome-${proc}"><strong>Process:</strong> ${proc}</p>
-      <p>Peak instability: ${result.peakInstability} · Grade ${result.product.grade}</p>
-      <p>Potency ${result.product.potency}, dominant ${result.product.dominantAffinity}, suitability ${result.product.suitability}</p>`;
+      <p>Peak instability: ${result.peakInstability} · Grade ${result.product.grade} · Purity ${result.product.purity ?? '—'}%</p>
+      <p>Potency ${result.product.potency}, dominant ${result.product.dominantAffinity}, suitability ${result.product.suitability}</p>
+      <p>Contamination ${result.mixture?.contamination ?? '—'} · Expelled ${result.material?.expelled?.contamination ?? 0}</p>`;
 
         const m = result.material;
         els.materialOut.innerHTML = m ? `

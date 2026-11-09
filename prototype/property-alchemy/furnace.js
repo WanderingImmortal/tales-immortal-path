@@ -7,6 +7,7 @@
  * - overheatExposure accrues above tolerance and biases bound→degraded (decays on gentle).
  * - Sub-threshold gentle heat uses a stubborn-material rate penalty so minerals extract slowly.
  * - Released essence can degrade under sustained medium/fierce heat (quadratic above ~0.5).
+ * - Contamination (released.impurity) is mixture residue; separation.js expels it passively (degraded ≠ contamination).
  * - Instability integrates continuously from polarity, volatility, and heat.
  */
 
@@ -24,6 +25,14 @@ const {
     thermalFractions
 } = require('./thermal');
 const { condenseMaterialLedger } = require('./condense');
+const {
+    deriveSeparationProfile,
+    applyExtractionContamination,
+    applyPassiveSeparation,
+    registerSeparationLoad,
+    mixturePurityFromReleased,
+    mixtureStuckFloor
+} = require('./separation');
 
 /** Base sim seconds per chemistry tick */
 const SIM_DT = 0.1;
@@ -55,7 +64,10 @@ function cloneLedgerTotals(material) {
     return {
         released: material.released.spirit,
         bound: Object.values(material.byReagent).reduce((s, b) => s + b.bound.spirit, 0),
-        degraded: material.degraded.spirit
+        degraded: material.degraded.spirit,
+        contamination: material.released.impurity,
+        expelled: material.expelled?.impurity || 0,
+        purity: round3(mixturePurityFromReleased(material.released) * 100)
     };
 }
 
@@ -63,7 +75,7 @@ function cloneLedgerTotals(material) {
  * Incremental bound thermal step — parallel release/degrade with sustained-overheat bias.
  * exposure accumulates above tolerance; gentle heat lets it decay (no hard safe window).
  */
-function applyBoundIncremental(boundSlice, profile, heat, dt, bucket) {
+function applyBoundIncremental(boundSlice, profile, heat, dt, bucket, def) {
     if (boundSlice.spirit <= 1e-12) {
         return { released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
     }
@@ -98,6 +110,8 @@ function applyBoundIncremental(boundSlice, profile, heat, dt, bucket) {
 
     const released = scaleMaterialSlice(boundSlice, (transfer / boundSlice.spirit) * relW);
     const degraded = scaleMaterialSlice(boundSlice, (transfer / boundSlice.spirit) * degW);
+    const sep = deriveSeparationProfile(def);
+    applyExtractionContamination(released, released.spirit, overBand, sep, profile);
     degraded.affinities.qi *= 0.2;
     degraded.affinities.marrow *= 0.2;
     degraded.affinities.purify *= 0.15;
@@ -276,6 +290,7 @@ function introduceToFurnace(state, reagentId, qty) {
     const hadReleased = state.material.released.spirit > 0.05;
 
     registerInputLoad(state.material, load);
+    registerSeparationLoad(state.material, load);
 
     let shock = 0;
     if (hadReleased && state.introduced.length > 0) {
@@ -313,13 +328,17 @@ function stepFurnace(state, dt = SIM_DT) {
         if (bucket.bound.spirit <= 1e-12) return;
         const def = EXPERIMENTAL_REAGENTS[reagentId];
         const profile = deriveThermalProfile(def);
-        const { released, degraded } = applyBoundIncremental(bucket.bound, profile, heat, dt, bucket);
+        const { released, degraded } = applyBoundIncremental(
+            bucket.bound, profile, heat, dt, bucket, def
+        );
         if (released.spirit > 1e-9 || degraded.spirit > 1e-9) {
             recordThermalResult(state.material, reagentId, released, degraded);
             if (released.spirit > 0.02) notableExtract = true;
             if (degraded.spirit > 0.02) notableDegrade = true;
         }
     });
+
+    applyPassiveSeparation(state.material, heat, dt);
 
     const relDegraded = applyReleasedIncremental(state.material.released, heat, dt);
     if (relDegraded) {
@@ -371,6 +390,8 @@ function condenseFurnace(state) {
         bound: state.material.bound,
         degraded: state.material.degraded,
         residual: state.material.residual,
+        expelled: state.material.expelled || emptyMaterialSlice(),
+        separationStuck: mixtureStuckFloor(state.material),
         conservation
     };
 
