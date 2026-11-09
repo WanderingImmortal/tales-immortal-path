@@ -68,9 +68,9 @@ function formatSimTime(t) {
 
 function cloneLedgerTotals(material) {
     return {
-        released: material.released.spirit,
-        bound: Object.values(material.byReagent).reduce((s, b) => s + b.bound.spirit, 0),
-        degraded: material.degraded.spirit,
+        released: round1(material.released.spirit),
+        bound: round1(Object.values(material.byReagent).reduce((s, b) => s + b.bound.spirit, 0)),
+        degraded: round1(material.degraded.spirit),
         contamination: material.released.impurity,
         expelled: material.expelled?.impurity || 0,
         purity: round3(mixturePurityFromReleased(material.released) * 100),

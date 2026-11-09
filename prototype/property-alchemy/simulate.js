@@ -13,6 +13,13 @@ const {
     finalizeMaterialLedger,
     mergeSlice
 } = require('./thermal');
+const {
+    emptyMedicinal,
+    productMedicinalFromReleased,
+    deriveProductSuitability,
+    peakMedicinalStrength
+} = require('./medicinal');
+const { mixturePurityFromReleased } = require('./separation');
 
 /** @typedef {'gentle' | 'medium' | 'fierce'} HeatProfile */
 /** @typedef {'simultaneous' | 'yin_first' | 'yang_first'} IntroductionOrder */
@@ -354,9 +361,24 @@ function simulateRefinement(input) {
 
     const dominantAffinity = dominantKey(productEffects);
     const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
-    const productSuitability = impurityRatio > 0.45 ? 'impure'
-        : productEffects.toxicity > 4 ? 'hazardous'
-            : potency >= 2 ? 'medicinal' : 'weak';
+    const mixturePurity = mixturePurityFromReleased({ spirit: releasedSpirit, impurity });
+    const productMedicinal = productMedicinalFromReleased(material.released.medicinal || emptyMedicinal(), {
+        mixturePurity,
+        impurityRatio,
+        condenseFactor: processOutcome === OUTCOME.REFINED ? 1 : condenseFactor,
+        processPenalty: processOutcome === OUTCOME.REFINED ? 1
+            : processOutcome === OUTCOME.UNSTABLE_SALVAGE ? condenseFactor
+                : 0.08
+    });
+    const productSuitability = deriveProductSuitability({
+        mixturePurity,
+        impurityRatio,
+        toxicity: productEffects.toxicity,
+        legacyPotency: potency,
+        productMedicinal,
+        processOutcome
+    });
+    const medicinalPeak = peakMedicinalStrength(productMedicinal);
 
     const diagnostics = buildDiagnostics({
         peakInstability,
@@ -406,8 +428,11 @@ function simulateRefinement(input) {
             effects: productEffects,
             dominantAffinity,
             potency: round1(potency),
+            legacyPotency: round1(potency),
+            medicinalPeak: round1(medicinalPeak),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
-            suitability: productSuitability
+            suitability: productSuitability,
+            medicinal: productMedicinal
         },
         outcome: processOutcome,
         success: processOutcome === OUTCOME.REFINED || processOutcome === OUTCOME.UNSTABLE_SALVAGE,

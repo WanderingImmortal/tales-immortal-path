@@ -71,6 +71,8 @@ Thermal windows (2026 follow-up): **Foundation Root** needs gentle; **Amber Lily
 
 **Stability diagnostics (PR #224):** Running instability only accrues strain while chemistry is active (extraction, degradation, separation); dormant mixtures relax toward neutral without erasing **peak** instability from earlier spikes. Ironscar Grit’s ~53% ceiling on the basic cauldron is mostly the separation **stuck floor** (`separationStuckMin` + proportional retain), not condensation scrub. Validation: `node scripts/test-furnace-stability.js`.
 
+**Product classification (PR #226):** `suitability: medicinal` when legacy affinity potency ≥ 2 **or** peak medicinal property ≥ 2; failed condense → `ruined`. Headlines follow suitability, not legacy potency alone.
+
 **Medicinal properties (PR #225):** Five property masses on material slices (`qiNourishment`, `woundStabilisation`, `tissueRestoration`, `boneRestoration`, `bloodRestoration`) travel with extraction/degradation like spirit; condense maps released ledger → `product.medicinal` and a profile-derived `experimentalName`. Distinct from spirit mass and legacy affinity scaling. Validation: `node scripts/test-medicinal-properties.js`.
 
 ## Tests

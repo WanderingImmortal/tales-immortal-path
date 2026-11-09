@@ -221,6 +221,7 @@ var AlchemyLab = (() => {
         bloodRestoration: "Blood-Restoring"
       };
       var MEDICINAL_LIST_THRESHOLD = 0.35;
+      var USEFUL_MEDICINAL_PEAK = 2;
       function round1(n) {
         return Math.round(n * 10) / 10;
       }
@@ -294,10 +295,41 @@ var AlchemyLab = (() => {
         });
         return out;
       }
+      function peakMedicinalStrength(medicinal) {
+        const ranked = rankMedicinalStrengths(medicinal);
+        return ranked[0]?.strength ?? 0;
+      }
+      function hasUsefulMedicinalProfile(medicinal) {
+        return peakMedicinalStrength(medicinal) >= USEFUL_MEDICINAL_PEAK;
+      }
+      function deriveProductSuitability(ctx) {
+        const {
+          mixturePurity,
+          impurityRatio,
+          toxicity,
+          legacyPotency,
+          productMedicinal,
+          processOutcome
+        } = ctx;
+        if (processOutcome === "failed" || processOutcome === "rupture") {
+          return "ruined";
+        }
+        if (mixturePurity < 0.52 || impurityRatio > 0.45) {
+          return "impure";
+        }
+        if (toxicity > 4) {
+          return "hazardous";
+        }
+        if (legacyPotency >= 2 || hasUsefulMedicinalProfile(productMedicinal)) {
+          return "medicinal";
+        }
+        return "weak";
+      }
       module.exports = {
         MEDICINAL_PROPERTY_IDS,
         MEDICINAL_LABELS,
         MEDICINAL_LIST_THRESHOLD,
+        USEFUL_MEDICINAL_PEAK,
         emptyMedicinal,
         normalizeMedicinalDef,
         medicinalLoadFromReagent,
@@ -306,7 +338,10 @@ var AlchemyLab = (() => {
         rankMedicinalStrengths,
         experimentalPillName,
         productMedicinalFromReleased,
-        summarizeMedicinal
+        summarizeMedicinal,
+        peakMedicinalStrength,
+        hasUsefulMedicinalProfile,
+        deriveProductSuitability
       };
     }
   });
@@ -552,6 +587,127 @@ var AlchemyLab = (() => {
     }
   });
 
+  // prototype/property-alchemy/separation.js
+  var require_separation = __commonJS({
+    "prototype/property-alchemy/separation.js"(exports, module) {
+      var { EXPERIMENTAL_REAGENTS } = require_reagents();
+      var { mergeSlice, scaleMaterialSlice, emptyMaterialSlice } = require_thermal();
+      var BASE_CAULDRON_SEP = 0.38;
+      function clamp(n, lo, hi) {
+        return Math.max(lo, Math.min(hi, n));
+      }
+      function round3(n) {
+        return Math.round(n * 1e3) / 1e3;
+      }
+      function deriveSeparationProfile(def) {
+        const mineralLoad = def.impurity / Math.max(def.spirit, 1);
+        const tierLoad = def.spirit / 28;
+        const volatility = def.volatility / 24;
+        const purifyEase = def.affinities.purify / 22;
+        const difficulty = clamp(
+          0.55 + mineralLoad * 0.95 + tierLoad * 0.22 + volatility * 0.18 - purifyEase * 0.12,
+          0.45,
+          2.4
+        );
+        const stuckFraction = clamp(
+          0.08 + mineralLoad * 0.35 + tierLoad * 0.06 - purifyEase * 0.05,
+          0.05,
+          0.62
+        );
+        const sootFactor = clamp(
+          0.04 + mineralLoad * 0.22 + volatility * 0.06 + def.impurity / 80,
+          0.03,
+          0.55
+        );
+        return {
+          difficulty: round3(difficulty),
+          stuckFraction: round3(stuckFraction),
+          sootFactor: round3(sootFactor)
+        };
+      }
+      function applyExtractionContamination(released, medicinalTransfer, overBand, sep, profile) {
+        if (medicinalTransfer <= 1e-12) return 0;
+        const stress = Math.min(1.8, profile.stressSensitivity * (0.35 + overBand * 0.9));
+        const soot = medicinalTransfer * sep.sootFactor * (0.12 + overBand * 0.88) * stress;
+        released.impurity += soot;
+        return soot;
+      }
+      function mixtureStuckFraction(material) {
+        const rel = material.released;
+        const buckets = Object.values(material.byReagent || {});
+        const releasedSpirit = buckets.reduce((s, b) => s + b.released.spirit, 0) || rel.spirit;
+        if (releasedSpirit <= 1e-9) return 0.1;
+        return clamp(
+          buckets.reduce((s, b) => {
+            const share = b.released.spirit / releasedSpirit;
+            return s + share * (b.separationStuckFraction ?? 0.1);
+          }, 0),
+          0.05,
+          0.72
+        );
+      }
+      function mixtureStuckFloor(material) {
+        const rel = material.released;
+        const frac = mixtureStuckFraction(material);
+        const proportional = rel.impurity * frac;
+        const loadMin = material.separationStuckMin || 0;
+        return Math.min(rel.impurity, Math.max(proportional, loadMin));
+      }
+      function applyPassiveSeparation(material, heat, dt) {
+        const rel = material.released;
+        if (rel.impurity <= 1e-12) return 0;
+        const buckets = Object.values(material.byReagent || {});
+        const releasedSpirit = buckets.reduce((s, b) => s + b.released.spirit, 0) || rel.spirit;
+        let difficulty = 1;
+        if (releasedSpirit > 1e-9) {
+          difficulty = buckets.reduce((s, b) => {
+            const share = b.released.spirit / releasedSpirit;
+            return s + share * (b.separationDifficulty || 1);
+          }, 0);
+        }
+        const gentleBonus = heat < 0.5 ? 1.25 : heat < 0.7 ? 0.9 : 0.42;
+        const purify = rel.affinities.purify;
+        const rate = BASE_CAULDRON_SEP * gentleBonus * (1 + purify * 0.015) * dt / difficulty;
+        const stuck = mixtureStuckFloor(material);
+        const removable = Math.max(0, rel.impurity - stuck);
+        if (removable <= 1e-12) return 0;
+        const removed = Math.min(removable, rel.impurity * Math.min(0.4, rate));
+        if (removed <= 1e-12) return 0;
+        rel.impurity -= removed;
+        if (!material.expelled) material.expelled = emptyMaterialSlice();
+        material.expelled.impurity += removed;
+        return removed;
+      }
+      function mixturePurityFromReleased(released) {
+        const med = Math.max(0, released.spirit);
+        const cont = Math.max(0, released.impurity);
+        const total = med + cont;
+        if (total <= 1e-12) return 0;
+        return clamp(med / total, 0, 1);
+      }
+      function registerSeparationLoad(ledger, load) {
+        const def = EXPERIMENTAL_REAGENTS[load.reagentId];
+        const sep = deriveSeparationProfile(def);
+        const bucket = ledger.byReagent[load.reagentId];
+        if (bucket) {
+          bucket.separationDifficulty = sep.difficulty;
+        }
+        bucket.separationStuckFraction = sep.stuckFraction;
+        ledger.separationStuckMin = (ledger.separationStuckMin || 0) + load.impurity * sep.stuckFraction * 0.2 + load.spirit * sep.stuckFraction * 0.035;
+      }
+      module.exports = {
+        BASE_CAULDRON_SEP,
+        deriveSeparationProfile,
+        applyExtractionContamination,
+        applyPassiveSeparation,
+        mixturePurityFromReleased,
+        mixtureStuckFloor,
+        mixtureStuckFraction,
+        registerSeparationLoad
+      };
+    }
+  });
+
   // prototype/property-alchemy/simulate.js
   var require_simulate = __commonJS({
     "prototype/property-alchemy/simulate.js"(exports, module) {
@@ -565,6 +721,13 @@ var AlchemyLab = (() => {
         finalizeMaterialLedger,
         mergeSlice
       } = require_thermal();
+      var {
+        emptyMedicinal,
+        productMedicinalFromReleased,
+        deriveProductSuitability,
+        peakMedicinalStrength
+      } = require_medicinal();
+      var { mixturePurityFromReleased } = require_separation();
       var HEAT_VALUES = {
         gentle: 0.35,
         medium: 0.65,
@@ -823,7 +986,22 @@ var AlchemyLab = (() => {
         });
         const dominantAffinity = dominantKey(productEffects);
         const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
-        const productSuitability = impurityRatio > 0.45 ? "impure" : productEffects.toxicity > 4 ? "hazardous" : potency >= 2 ? "medicinal" : "weak";
+        const mixturePurity = mixturePurityFromReleased({ spirit: releasedSpirit, impurity });
+        const productMedicinal = productMedicinalFromReleased(material.released.medicinal || emptyMedicinal(), {
+          mixturePurity,
+          impurityRatio,
+          condenseFactor: processOutcome === OUTCOME.REFINED ? 1 : condenseFactor,
+          processPenalty: processOutcome === OUTCOME.REFINED ? 1 : processOutcome === OUTCOME.UNSTABLE_SALVAGE ? condenseFactor : 0.08
+        });
+        const productSuitability = deriveProductSuitability({
+          mixturePurity,
+          impurityRatio,
+          toxicity: productEffects.toxicity,
+          legacyPotency: potency,
+          productMedicinal,
+          processOutcome
+        });
+        const medicinalPeak = peakMedicinalStrength(productMedicinal);
         const diagnostics = buildDiagnostics({
           peakInstability,
           stabilityMargin,
@@ -870,8 +1048,11 @@ var AlchemyLab = (() => {
             effects: productEffects,
             dominantAffinity,
             potency: round1(potency),
+            legacyPotency: round1(potency),
+            medicinalPeak: round1(medicinalPeak),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
-            suitability: productSuitability
+            suitability: productSuitability,
+            medicinal: productMedicinal
           },
           outcome: processOutcome,
           success: processOutcome === OUTCOME.REFINED || processOutcome === OUTCOME.UNSTABLE_SALVAGE,
@@ -1708,127 +1889,6 @@ var AlchemyLab = (() => {
     }
   });
 
-  // prototype/property-alchemy/separation.js
-  var require_separation = __commonJS({
-    "prototype/property-alchemy/separation.js"(exports, module) {
-      var { EXPERIMENTAL_REAGENTS } = require_reagents();
-      var { mergeSlice, scaleMaterialSlice, emptyMaterialSlice } = require_thermal();
-      var BASE_CAULDRON_SEP = 0.38;
-      function clamp(n, lo, hi) {
-        return Math.max(lo, Math.min(hi, n));
-      }
-      function round3(n) {
-        return Math.round(n * 1e3) / 1e3;
-      }
-      function deriveSeparationProfile(def) {
-        const mineralLoad = def.impurity / Math.max(def.spirit, 1);
-        const tierLoad = def.spirit / 28;
-        const volatility = def.volatility / 24;
-        const purifyEase = def.affinities.purify / 22;
-        const difficulty = clamp(
-          0.55 + mineralLoad * 0.95 + tierLoad * 0.22 + volatility * 0.18 - purifyEase * 0.12,
-          0.45,
-          2.4
-        );
-        const stuckFraction = clamp(
-          0.08 + mineralLoad * 0.35 + tierLoad * 0.06 - purifyEase * 0.05,
-          0.05,
-          0.62
-        );
-        const sootFactor = clamp(
-          0.04 + mineralLoad * 0.22 + volatility * 0.06 + def.impurity / 80,
-          0.03,
-          0.55
-        );
-        return {
-          difficulty: round3(difficulty),
-          stuckFraction: round3(stuckFraction),
-          sootFactor: round3(sootFactor)
-        };
-      }
-      function applyExtractionContamination(released, medicinalTransfer, overBand, sep, profile) {
-        if (medicinalTransfer <= 1e-12) return 0;
-        const stress = Math.min(1.8, profile.stressSensitivity * (0.35 + overBand * 0.9));
-        const soot = medicinalTransfer * sep.sootFactor * (0.12 + overBand * 0.88) * stress;
-        released.impurity += soot;
-        return soot;
-      }
-      function mixtureStuckFraction(material) {
-        const rel = material.released;
-        const buckets = Object.values(material.byReagent || {});
-        const releasedSpirit = buckets.reduce((s, b) => s + b.released.spirit, 0) || rel.spirit;
-        if (releasedSpirit <= 1e-9) return 0.1;
-        return clamp(
-          buckets.reduce((s, b) => {
-            const share = b.released.spirit / releasedSpirit;
-            return s + share * (b.separationStuckFraction ?? 0.1);
-          }, 0),
-          0.05,
-          0.72
-        );
-      }
-      function mixtureStuckFloor(material) {
-        const rel = material.released;
-        const frac = mixtureStuckFraction(material);
-        const proportional = rel.impurity * frac;
-        const loadMin = material.separationStuckMin || 0;
-        return Math.min(rel.impurity, Math.max(proportional, loadMin));
-      }
-      function applyPassiveSeparation(material, heat, dt) {
-        const rel = material.released;
-        if (rel.impurity <= 1e-12) return 0;
-        const buckets = Object.values(material.byReagent || {});
-        const releasedSpirit = buckets.reduce((s, b) => s + b.released.spirit, 0) || rel.spirit;
-        let difficulty = 1;
-        if (releasedSpirit > 1e-9) {
-          difficulty = buckets.reduce((s, b) => {
-            const share = b.released.spirit / releasedSpirit;
-            return s + share * (b.separationDifficulty || 1);
-          }, 0);
-        }
-        const gentleBonus = heat < 0.5 ? 1.25 : heat < 0.7 ? 0.9 : 0.42;
-        const purify = rel.affinities.purify;
-        const rate = BASE_CAULDRON_SEP * gentleBonus * (1 + purify * 0.015) * dt / difficulty;
-        const stuck = mixtureStuckFloor(material);
-        const removable = Math.max(0, rel.impurity - stuck);
-        if (removable <= 1e-12) return 0;
-        const removed = Math.min(removable, rel.impurity * Math.min(0.4, rate));
-        if (removed <= 1e-12) return 0;
-        rel.impurity -= removed;
-        if (!material.expelled) material.expelled = emptyMaterialSlice();
-        material.expelled.impurity += removed;
-        return removed;
-      }
-      function mixturePurityFromReleased(released) {
-        const med = Math.max(0, released.spirit);
-        const cont = Math.max(0, released.impurity);
-        const total = med + cont;
-        if (total <= 1e-12) return 0;
-        return clamp(med / total, 0, 1);
-      }
-      function registerSeparationLoad(ledger, load) {
-        const def = EXPERIMENTAL_REAGENTS[load.reagentId];
-        const sep = deriveSeparationProfile(def);
-        const bucket = ledger.byReagent[load.reagentId];
-        if (bucket) {
-          bucket.separationDifficulty = sep.difficulty;
-        }
-        bucket.separationStuckFraction = sep.stuckFraction;
-        ledger.separationStuckMin = (ledger.separationStuckMin || 0) + load.impurity * sep.stuckFraction * 0.2 + load.spirit * sep.stuckFraction * 0.035;
-      }
-      module.exports = {
-        BASE_CAULDRON_SEP,
-        deriveSeparationProfile,
-        applyExtractionContamination,
-        applyPassiveSeparation,
-        mixturePurityFromReleased,
-        mixtureStuckFloor,
-        mixtureStuckFraction,
-        registerSeparationLoad
-      };
-    }
-  });
-
   // prototype/property-alchemy/condense.js
   var require_condense = __commonJS({
     "prototype/property-alchemy/condense.js"(exports, module) {
@@ -1839,7 +1899,9 @@ var AlchemyLab = (() => {
         productMedicinalFromReleased,
         experimentalPillName,
         rankMedicinalStrengths,
-        summarizeMedicinal
+        summarizeMedicinal,
+        peakMedicinalStrength,
+        deriveProductSuitability
       } = require_medicinal();
       function seededNoise(seed, salt) {
         const x = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453;
@@ -1973,7 +2035,15 @@ var AlchemyLab = (() => {
         const experimentalName = experimentalPillName(productMedicinal);
         const dominantAffinity = dominantKey(productEffects);
         const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
-        const productSuitability = mixturePurity < 0.52 || impurityRatio > 0.45 ? "impure" : productEffects.toxicity > 4 ? "hazardous" : potency >= 2 ? "medicinal" : "weak";
+        const productSuitability = deriveProductSuitability({
+          mixturePurity,
+          impurityRatio,
+          toxicity: productEffects.toxicity,
+          legacyPotency: potency,
+          productMedicinal,
+          processOutcome
+        });
+        const medicinalPeak = peakMedicinalStrength(productMedicinal);
         const diagnostics = buildDiagnostics({
           peakInstability,
           stabilityMargin,
@@ -2025,6 +2095,8 @@ var AlchemyLab = (() => {
             purity: round1(mixturePurity * 100),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
             suitability: productSuitability,
+            legacyPotency: round1(potency),
+            medicinalPeak: round1(medicinalPeak),
             medicinal: productMedicinal,
             experimentalName,
             primaryMedicinal: medicinalRanked[0]?.id || null,
@@ -2083,6 +2155,9 @@ var AlchemyLab = (() => {
       var K_INSTABILITY = 0.2;
       var INSTABILITY_ACTIVITY_REF = 0.025;
       var INSTABILITY_EQUILIBRIUM_RATE = 2.4;
+      function round1(n) {
+        return Math.round(n * 10) / 10;
+      }
       function round3(n) {
         return Math.round(n * 1e3) / 1e3;
       }
@@ -2093,9 +2168,9 @@ var AlchemyLab = (() => {
       }
       function cloneLedgerTotals(material) {
         return {
-          released: material.released.spirit,
-          bound: Object.values(material.byReagent).reduce((s, b) => s + b.bound.spirit, 0),
-          degraded: material.degraded.spirit,
+          released: round1(material.released.spirit),
+          bound: round1(Object.values(material.byReagent).reduce((s, b) => s + b.bound.spirit, 0)),
+          degraded: round1(material.degraded.spirit),
           contamination: material.released.impurity,
           expelled: material.expelled?.impurity || 0,
           purity: round3(mixturePurityFromReleased(material.released) * 100),
@@ -2549,7 +2624,13 @@ var AlchemyLab = (() => {
       var { EXPERIMENTAL_REAGENTS } = require_reagents();
       var { deriveThermalProfile } = require_thermal();
       var { deriveSeparationProfile } = require_separation();
-      var { MEDICINAL_LABELS, MEDICINAL_PROPERTY_IDS, normalizeMedicinalDef } = require_medicinal();
+      var {
+        MEDICINAL_LABELS,
+        MEDICINAL_PROPERTY_IDS,
+        normalizeMedicinalDef,
+        hasUsefulMedicinalProfile,
+        peakMedicinalStrength
+      } = require_medicinal();
       var KNOWLEDGE_STATES = {
         unknown: {
           id: "unknown",
@@ -2775,25 +2856,40 @@ var AlchemyLab = (() => {
       }
       function productPlainLines(result) {
         const product = result.product || {};
-        const potency = num(product.potency);
+        const proc = result.process?.outcome || result.outcome;
+        const potency = num(product.legacyPotency ?? product.potency);
         const suitability = product.suitability || "n/a";
         const lines = [];
         const purity = num(product.purity);
-        if (potency <= 0 || suitability === "weak") {
-          lines.push("Product: little or no usable medicinal potency formed.");
+        const med = product.medicinal;
+        const medPeak = num(product.medicinalPeak ?? peakMedicinalStrength(med || {}));
+        const usefulProps = hasUsefulMedicinalProfile(med || {});
+        if (proc === "failed" || proc === "rupture" || suitability === "ruined") {
+          lines.push("Product: condensation failed \u2014 no reliable pill formed from this mixture.");
+        } else if (suitability === "weak") {
+          lines.push(
+            usefulProps ? "Product: unexpected weak classification \u2014 inspect medicinal peak and process outcome." : "Product: weak or negligible medicinal profile (low legacy potency and property strengths)."
+          );
         } else if (suitability === "impure") {
-          lines.push(`Product: potency ${potency}, but mixture contamination left purity at ${purity}%.`);
+          lines.push(
+            usefulProps ? `Product: useful medicinal properties (peak ${round1(medPeak)}) but impure (purity ${purity}%).` : `Product: impure mixture (purity ${purity}%) limits usefulness.`
+          );
         } else if (suitability === "hazardous") {
-          lines.push(`Product: potency ${potency}, but toxicity makes it hazardous.`);
+          lines.push(`Product: hazardous \u2014 legacy toxicity dominates (affinity potency ${potency}).`);
         } else if (suitability === "medicinal") {
-          lines.push(`Product: medicinal (potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
+          if (usefulProps && potency < 2) {
+            lines.push(
+              `Product: useful medicine from property profile (peak ${round1(medPeak)}; legacy affinity potency ${potency}).`
+            );
+          } else {
+            lines.push(`Product: medicinal (legacy potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
+          }
         } else {
-          lines.push(`Product: suitability ${suitability}, potency ${potency}.`);
+          lines.push(`Product: suitability ${suitability}, legacy potency ${potency}.`);
         }
         if (product.experimentalName) {
           lines.push(`Experimental label: ${product.experimentalName}`);
         }
-        const med = product.medicinal;
         if (med) {
           const profile = formatMedicinalStrengths(med);
           if (profile !== "negligible") {
@@ -2852,16 +2948,15 @@ var AlchemyLab = (() => {
       function summarizeRefinement(result) {
         const proc = result.process?.outcome || result.outcome;
         const processSuccess = !!(result.process?.success ?? result.success);
-        const potency = num(result.product?.potency);
         const suitability = result.product?.suitability;
-        const productUseful = potency > 0 && suitability === "medicinal";
+        const productUseful = processSuccess && suitability === "medicinal" && proc !== "rupture" && proc !== "failed";
         let headline;
         if (proc === "rupture" || proc === "failed") {
           headline = "Process failed \u2014 mixture damaged before a reliable product could form.";
         } else if (processSuccess && productUseful) {
           headline = "Process held, and a usable medicinal product formed.";
-        } else if (processSuccess && (potency <= 0 || suitability === "weak")) {
-          headline = "Process completed, but no usable medicinal product formed.";
+        } else if (processSuccess && suitability === "weak") {
+          headline = "Process completed, but only weak or negligible medicine formed.";
         } else if (processSuccess && suitability === "impure") {
           headline = "Process completed, but the product is impure.";
         } else if (processSuccess && suitability === "hazardous") {

@@ -10,7 +10,9 @@ const {
     productMedicinalFromReleased,
     experimentalPillName,
     rankMedicinalStrengths,
-    summarizeMedicinal
+    summarizeMedicinal,
+    peakMedicinalStrength,
+    deriveProductSuitability
 } = require('./medicinal');
 
 function seededNoise(seed, salt) {
@@ -176,9 +178,15 @@ function condenseMaterialLedger(material, opts = {}) {
 
     const dominantAffinity = dominantKey(productEffects);
     const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
-    const productSuitability = mixturePurity < 0.52 || impurityRatio > 0.45 ? 'impure'
-        : productEffects.toxicity > 4 ? 'hazardous'
-            : potency >= 2 ? 'medicinal' : 'weak';
+    const productSuitability = deriveProductSuitability({
+        mixturePurity,
+        impurityRatio,
+        toxicity: productEffects.toxicity,
+        legacyPotency: potency,
+        productMedicinal,
+        processOutcome
+    });
+    const medicinalPeak = peakMedicinalStrength(productMedicinal);
 
     const diagnostics = buildDiagnostics({
         peakInstability,
@@ -234,6 +242,8 @@ function condenseMaterialLedger(material, opts = {}) {
             purity: round1(mixturePurity * 100),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
             suitability: productSuitability,
+            legacyPotency: round1(potency),
+            medicinalPeak: round1(medicinalPeak),
             medicinal: productMedicinal,
             experimentalName,
             primaryMedicinal: medicinalRanked[0]?.id || null,
