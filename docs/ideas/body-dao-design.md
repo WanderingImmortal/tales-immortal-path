@@ -10,7 +10,7 @@
 
 **Why this doc exists:** Owner proposed that **Vessel Rule power** is not only “self-binding on tempered flesh” — it is **sworn under Body Dao purview**, because **all body refining** technically falls under that path. That parallels **Sword Dao** for sword cultivators and opens a **cosmology can of worms**. Park worms here; mechanics lean in [`vessel-rules-design.md`](vessel-rules-design.md); stack labels in [`law-taxonomy.md`](law-taxonomy.md).
 
-Related: [`body-realm-journey-and-vital-essence.md`](body-realm-journey-and-vital-essence.md) (Runeforging ↔ Body Dao lean), [`body-path-sect.md`](body-path-sect.md), [`body-martial-intent.md`](body-martial-intent.md), [`celestial-sword-sect.md`](celestial-sword-sect.md).
+Related: [`body-runeforging-and-vessel-rules.md`](body-runeforging-and-vessel-rules.md) (Runeforging as first direct Body Dao connection), [`body-realm-journey-and-vital-essence.md`](body-realm-journey-and-vital-essence.md), [`body-path-sect.md`](body-path-sect.md), [`body-martial-intent.md`](body-martial-intent.md), [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
 ---
 
