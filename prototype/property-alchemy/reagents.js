@@ -15,7 +15,8 @@
  * @property {number} volatility — heat-driven reactivity per unit
  * @property {number} stability — stabilising influence per unit
  * @property {number} impurity — contaminant load per unit
- * @property {Affinities} affinities — medicinal / hazard leanings
+ * @property {Affinities} affinities — reactivity / hazard leanings (legacy product scaling)
+ * @property {Partial<Record<'qiNourishment'|'woundStabilisation'|'tissueRestoration'|'boneRestoration'|'bloodRestoration', number>>} [medicinal] — per-unit medicinal property mass
  * @property {string} [note] — design blurb for docs
  */
 
@@ -31,6 +32,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 14,
         impurity: 2,
         affinities: { qi: 6, heat: 0, marrow: 0, purify: 4, toxicity: 0 },
+        medicinal: { qiNourishment: 3, woundStabilisation: 4 },
         note: 'Gentle carrier; stabilises volatile mixes at low heat.'
     },
     exp_amber_lily: {
@@ -43,6 +45,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 13,
         impurity: 2,
         affinities: { qi: 9, heat: 0, marrow: 2, purify: 3, toxicity: 0 },
+        medicinal: { qiNourishment: 8, tissueRestoration: 5 },
         note: 'Moderately delicate — rewards a brief medium burst, then gentle finishing.'
     },
     exp_dust_root: {
@@ -55,6 +58,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 10,
         impurity: 6,
         affinities: { qi: 12, heat: 0, marrow: 2, purify: 2, toxicity: 0 },
+        medicinal: { qiNourishment: 14 },
         note: 'Earthy binder; modest qi with some impurity.'
     },
     exp_foundation_root: {
@@ -67,6 +71,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 22,
         impurity: 3,
         affinities: { qi: 18, heat: 0, marrow: 4, purify: 6, toxicity: 0 },
+        medicinal: { qiNourishment: 22 },
         note: 'Extremely delicate at medium heat — gentle simmer extracts qi; sustained medium chars it.'
     },
     exp_saltbrush: {
@@ -79,6 +84,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 16,
         impurity: 1,
         affinities: { qi: 2, heat: 0, marrow: 0, purify: 20, toxicity: 0 },
+        medicinal: { woundStabilisation: 18 },
         note: 'Purifies and dampens polarity clashes.'
     },
     exp_marrow_thistle: {
@@ -91,6 +97,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 8,
         impurity: 5,
         affinities: { qi: 8, heat: 0, marrow: 22, purify: 2, toxicity: 0 },
+        medicinal: { boneRestoration: 18, qiNourishment: 2 },
         note: 'Marrow-forward; yin-leaning.'
     },
     exp_sun_stone: {
@@ -115,6 +122,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 3,
         impurity: 8,
         affinities: { qi: 2, heat: 16, marrow: 6, purify: 0, toxicity: 4 },
+        medicinal: { bloodRestoration: 22 },
         note: 'Volatile yang; pairs poorly without purifiers.'
     },
     exp_soul_mist: {
@@ -151,6 +159,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 18,
         impurity: 14,
         affinities: { qi: 4, heat: 6, marrow: 10, purify: 0, toxicity: 3 },
+        medicinal: { boneRestoration: 12 },
         note: 'Heat-resistant scale; needs sustained medium or fierce to release marrow essence.'
     },
     exp_glowcap: {
@@ -163,7 +172,34 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 7,
         impurity: 4,
         affinities: { qi: 14, heat: 0, marrow: 6, purify: 4, toxicity: 0 },
+        medicinal: { qiNourishment: 6, tissueRestoration: 12 },
         note: 'Soft yin qi and marrow support.'
+    },
+    exp_clot_moss: {
+        id: 'exp_clot_moss',
+        name: 'Clot Moss',
+        spirit: 12,
+        yin: 9,
+        yang: 2,
+        volatility: 3,
+        stability: 15,
+        impurity: 2,
+        affinities: { qi: 0, heat: 0, marrow: 0, purify: 6, toxicity: 0 },
+        medicinal: { woundStabilisation: 20 },
+        note: 'Dev test — wound stabilisation without qi lean.'
+    },
+    exp_skinmend_leaf: {
+        id: 'exp_skinmend_leaf',
+        name: 'Skinmend Leaf',
+        spirit: 14,
+        yin: 7,
+        yang: 4,
+        volatility: 5,
+        stability: 11,
+        impurity: 3,
+        affinities: { qi: 4, heat: 0, marrow: 0, purify: 2, toxicity: 0 },
+        medicinal: { tissueRestoration: 18 },
+        note: 'Dev test — tissue restoration; moderate heat tolerance.'
     }
 };
 

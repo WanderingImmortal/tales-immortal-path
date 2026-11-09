@@ -234,6 +234,7 @@ try {
 try {
     execSync('node scripts/test-purity-separation.js', { cwd: root, stdio: 'pipe' });
     execSync('node scripts/test-furnace-stability.js', { cwd: root, stdio: 'pipe' });
+    execSync('node scripts/test-medicinal-properties.js', { cwd: root, stdio: 'pipe' });
     ok('purity separation validation passes');
 } catch {
     fail('purity separation validation passes');
