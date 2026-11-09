@@ -10,6 +10,8 @@
 
 **Ceiling & refinement philosophy (owner-approved 2026-11-09):** [`body-refinement-philosophy-and-ceilings.md`](body-refinement-philosophy-and-ceilings.md) — extends this doc; does not replace nine-realm names or mortal dig topology below.
 
+**Vital Essence & idx 0–5 journey (2026-11-09):** [`body-realm-journey-and-vital-essence.md`](body-realm-journey-and-vital-essence.md) — Pearl as physical nexus; soak → pearl → nascent distinction; Runeforging / Body Dao framing.
+
 ## Intent
 
 Body cultivation should feel like **refining a living vessel** — layer by layer, organ by organ, with visible quality changes — closer in spirit to *Amazing Cultivation Simulator* body work than to qi’s “fill bar → break into a new realm.”
