@@ -12,7 +12,7 @@
 
 Body cultivation **excavates** different **physical layers** over time. Gains are mostly **additive** (+skin + flesh + bone + … per region/axis), not **multipliers** stacked on one number (qi path *may* use mult-style foundation — body lean is different). Effort **carries over**; idx 1 **adds new terms** to the same palm (or torso), it does not rewrite the old term.
 
-Related: [`body-external-tempering-depth.md`](body-external-tempering-depth.md) § Excavation, [`nine-realm-ladder.md`](nine-realm-ladder.md) idx 0–1.
+Related: [`body-refinement-philosophy-and-ceilings.md`](body-refinement-philosophy-and-ceilings.md) (realm ceilings, persistent properties), [`body-external-tempering-depth.md`](body-external-tempering-depth.md) § Excavation, [`nine-realm-ladder.md`](nine-realm-ladder.md) idx 0–1.
 
 ## Layer stack (lean)
 

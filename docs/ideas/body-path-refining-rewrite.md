@@ -8,6 +8,8 @@
 | **Chat / PR** | Body chamber triage 2026-08-05; **2026-10-12** body upper ladder design — cloud chat |
 | **Updated** | 2026-10-15 |
 
+**Ceiling & refinement philosophy (owner-approved 2026-11-09):** [`body-refinement-philosophy-and-ceilings.md`](body-refinement-philosophy-and-ceilings.md) — extends this doc; does not replace nine-realm names or mortal dig topology below.
+
 ## Intent
 
 Body cultivation should feel like **refining a living vessel** — layer by layer, organ by organ, with visible quality changes — closer in spirit to *Amazing Cultivation Simulator* body work than to qi’s “fill bar → break into a new realm.”

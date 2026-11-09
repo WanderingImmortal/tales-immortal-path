@@ -246,6 +246,8 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 
 ## Body path names (owner lock 2026-10-12 — idx 0–3 lean, idx 4–8 locked)
 
+**Refinement philosophy & ceilings (owner-approved direction 2026-11-09):** [`body-refinement-philosophy-and-ceilings.md`](body-refinement-philosophy-and-ceilings.md) — how realms change **refinement potential** (not RPG stat caps); potency vs properties; Essence Pearl → Inner Source continuity **unchanged** here.
+
 The live list (Bronze Skin through Indestructible Vajra) ranks materials. Replace with nine names when the ladder ships. **Saintly Flesh** stays the apex (Saint / 圣, parallel to Immortal / God).
 
 **Through-line:** **external shell** → **inner soak** → **Essence Pearl** seed → **Nascent Physique** born → **Physique Transformation** → **Runeforging** → **Source Furnace** → craft **Inner Source** → **Saintly Flesh**. Power is **made and installed**, not dao-comprehended. **Body lane does not use void/hollow vocabulary** at idx 5 — same **index** as qi Void Refinement, different fantasy.
