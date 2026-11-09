@@ -18,17 +18,21 @@ function deriveThermalProfile(def) {
         0.18,
         0.88
     );
+    const moderateHerb = structural > 0.3 && catalytic < 0.24 && mineralWeight < 0.28;
     const toleranceMax = clamp(
-        0.5 + catalytic * 0.22 - delicate * 0.32 + structural * 0.08 + mineralWeight * 0.28,
+        0.5 + catalytic * 0.22 - delicate * 0.32 + structural * 0.08 + mineralWeight * 0.28
+            + (moderateHerb ? 0.15 : 0),
         0.42,
         0.99
     );
     const extractionWidth = clamp(0.1 + structural * 0.005 + def.spirit / 500, 0.08, 0.22);
+    const stressSensitivity = clamp(0.35 + delicate * 0.45 - structural * 0.25 + catalytic * 0.2, 0.2, 1.1);
 
     return {
         activationThreshold: round3(activationThreshold),
         toleranceMax: round3(toleranceMax),
-        extractionWidth: round3(extractionWidth)
+        extractionWidth: round3(extractionWidth),
+        stressSensitivity: round3(stressSensitivity)
     };
 }
 
@@ -231,7 +235,13 @@ function createMaterialLedger() {
  */
 function ensureReagentBucket(ledger, reagentId) {
     if (!ledger.byReagent[reagentId]) {
-        ledger.byReagent[reagentId] = { bound: emptyMaterialSlice(), released: emptyMaterialSlice(), degraded: emptyMaterialSlice() };
+        ledger.byReagent[reagentId] = {
+            bound: emptyMaterialSlice(),
+            released: emptyMaterialSlice(),
+            degraded: emptyMaterialSlice(),
+            inputSpirit: 0,
+            overheatExposure: 0
+        };
     }
     return ledger.byReagent[reagentId];
 }
@@ -243,6 +253,7 @@ function ensureReagentBucket(ledger, reagentId) {
 function registerInputLoad(ledger, load) {
     ledger.inputSpirit += load.spirit;
     const bucket = ensureReagentBucket(ledger, load.reagentId);
+    bucket.inputSpirit += load.spirit;
     const slice = loadToMaterialSlice(load, EXPERIMENTAL_REAGENTS[load.reagentId]);
     mergeSlice(bucket.bound, slice);
 }

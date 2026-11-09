@@ -33,6 +33,18 @@ const EXPERIMENTAL_REAGENTS = {
         affinities: { qi: 6, heat: 0, marrow: 0, purify: 4, toxicity: 0 },
         note: 'Gentle carrier; stabilises volatile mixes at low heat.'
     },
+    exp_amber_lily: {
+        id: 'exp_amber_lily',
+        name: 'Amber Lily',
+        spirit: 16,
+        yin: 8,
+        yang: 3,
+        volatility: 6,
+        stability: 13,
+        impurity: 2,
+        affinities: { qi: 9, heat: 0, marrow: 2, purify: 3, toxicity: 0 },
+        note: 'Moderately delicate — rewards a brief medium burst, then gentle finishing.'
+    },
     exp_dust_root: {
         id: 'exp_dust_root',
         name: 'Dust Root',
@@ -55,7 +67,7 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 22,
         impurity: 3,
         affinities: { qi: 18, heat: 0, marrow: 4, purify: 6, toxicity: 0 },
-        note: 'Strong stabiliser and qi affinity.'
+        note: 'Extremely delicate at medium heat — gentle simmer extracts qi; sustained medium chars it.'
     },
     exp_saltbrush: {
         id: 'exp_saltbrush',
@@ -127,7 +139,19 @@ const EXPERIMENTAL_REAGENTS = {
         stability: 6,
         impurity: 28,
         affinities: { qi: 2, heat: 4, marrow: 8, purify: 0, toxicity: 6 },
-        note: 'Mineral weight and impurity; needs gentle refining.'
+        note: 'Mineral weight and impurity; stubborn at gentle heat — medium extracts faster.'
+    },
+    exp_cinderscale: {
+        id: 'exp_cinderscale',
+        name: 'Cinderscale Flake',
+        spirit: 26,
+        yin: 6,
+        yang: 10,
+        volatility: 6,
+        stability: 18,
+        impurity: 14,
+        affinities: { qi: 4, heat: 6, marrow: 10, purify: 0, toxicity: 3 },
+        note: 'Heat-resistant scale; needs sustained medium or fierce to release marrow essence.'
     },
     exp_glowcap: {
         id: 'exp_glowcap',

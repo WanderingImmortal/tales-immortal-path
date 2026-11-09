@@ -16,7 +16,9 @@ const {
     describeReagent,
     summarizeRefinement,
     formatSpiritBreakdown,
-    interpretComparison
+    interpretComparison,
+    countIntroductionEvents,
+    formatSimDuration
 } = require(path.join(
     root,
     'prototype',
@@ -202,6 +204,16 @@ const labJsText = fs.readFileSync(labJs, 'utf8');
 const labCssText = fs.readFileSync(path.join(root, 'sandbox', 'alchemy', 'lab.css'), 'utf8');
 assert(labHtmlText.includes('reagentInfo') && labHtmlText.includes('summaryOut'), 'lab HTML has readability panels');
 assert(labHtmlText.includes('condenseBtn') && !labHtmlText.includes('introOrder'), 'lab HTML uses interactive furnace');
+assert(labHtmlText.includes('0.25'), 'lab HTML offers slow playback speeds');
+assert(
+    countIntroductionEvents({
+        mode: 'furnace',
+        procedure: { actions: [{ kind: 'introduce' }, { kind: 'heat_set' }] },
+        reagents: [{ reagentId: 'x', qty: 2 }]
+    }) === 1,
+    'comparison counts introduction actions from procedure.actions'
+);
+assert(formatSimDuration(20.800000000000026) === '20.8', 'duration display rounds float noise');
 assert(labJsText.includes('createFurnaceState') && labJsText.includes('formatProcedureChronicle'), 'lab UI wires furnace');
 assert(labCssText.includes('@media (max-width: 480px)'), 'lab CSS includes mobile layout rules');
 
@@ -210,6 +222,13 @@ try {
     ok('furnace tests pass');
 } catch {
     fail('furnace tests pass');
+}
+
+try {
+    execSync('node scripts/test-thermal-exposure.js', { cwd: root, stdio: 'pipe' });
+    ok('thermal exposure validation passes');
+} catch {
+    fail('thermal exposure validation passes');
 }
 
 const withTrace = proto.simulateRefinement({ ...repeatInput, trace: true });

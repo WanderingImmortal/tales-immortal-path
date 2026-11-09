@@ -63,6 +63,8 @@ Legacy path `prototype/property-alchemy/lab/` redirects to `/sandbox/alchemy/`.
 
 Example play: preheat **fierce**, add **Ironscar Grit**, wait for extraction, reduce to **gentle**, add **Dawn Dew**, condense when stable.
 
+Thermal windows (2026 follow-up): **Foundation Root** needs gentle; **Amber Lily** rewards a short medium burst then gentle (avoid staying on medium); **Cinderscale** needs sustained medium. Overheat exposure accrues with duration — see `scripts/test-thermal-exposure.js`.
+
 ## Tests
 
 ```bash

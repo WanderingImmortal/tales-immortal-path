@@ -238,7 +238,8 @@
     }
 
     function pumpTicks(n) {
-        for (let i = 0; i < n; i++) {
+        const count = Math.max(0, Math.round(n));
+        for (let i = 0; i < count; i++) {
             if (!furnace.running || furnace.paused || furnace.condensed) return;
             stepFurnace(furnace, SIM_DT);
         }
@@ -246,8 +247,14 @@
     }
 
     function tickLoop() {
-        const speed = parseInt(els.speedSelect.value, 10) || 1;
-        pumpTicks(speed);
+        const speed = parseFloat(els.speedSelect.value) || 1;
+        if (furnace._tickAcc == null) furnace._tickAcc = 0;
+        furnace._tickAcc += speed;
+        const steps = Math.floor(furnace._tickAcc);
+        if (steps > 0) {
+            furnace._tickAcc -= steps;
+            pumpTicks(steps);
+        }
         if (!furnace.condensed) {
             animFrame = requestAnimationFrame(tickLoop);
         }
@@ -273,8 +280,13 @@
         return {
             mode: 'furnace',
             seed: furnace.seed,
-            duration: furnace.time,
-            procedure: JSON.parse(JSON.stringify(furnace.procedure)),
+            duration: Math.round(furnace.time * 10) / 10,
+            procedure: {
+                ...JSON.parse(JSON.stringify(furnace.procedure)),
+                duration: Math.round(furnace.time * 10) / 10,
+                chronicle: furnace.chronicle.map(e => ({ ...e })),
+                introduced: furnace.introduced.map(r => ({ ...r }))
+            },
             reagents: Object.entries(aggregateInFurnace()).map(([reagentId, qty]) => ({ reagentId, qty }))
         };
     }
@@ -336,6 +348,7 @@
     function fullReset() {
         if (animFrame) cancelAnimationFrame(animFrame);
         furnace = resetFurnace(furnace);
+        furnace._tickAcc = 0;
         lastChronicleLen = 0;
         lastResult = null;
         els.chronicleLive.innerHTML = '';
