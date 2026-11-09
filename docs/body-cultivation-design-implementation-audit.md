@@ -6,7 +6,7 @@
 | **Date** | 2026-11-09 |
 | **Evidence tags** | **Implemented** · **Documented** · **Inferred** · **Unresolved** |
 
-Companion: [`cultivation-capabilities-stat-architecture-audit.md`](cultivation-capabilities-stat-architecture-audit.md) (cross-path stats/combat). **Design locks (post-audit):** [`ideas/body-refinement-philosophy-and-ceilings.md`](ideas/body-refinement-philosophy-and-ceilings.md), [`ideas/body-realm-journey-and-vital-essence.md`](ideas/body-realm-journey-and-vital-essence.md).
+Companion: [`cultivation-capabilities-stat-architecture-audit.md`](cultivation-capabilities-stat-architecture-audit.md) (cross-path stats/combat). **Design locks (post-audit):** [`ideas/body-refinement-philosophy-and-ceilings.md`](ideas/body-refinement-philosophy-and-ceilings.md), [`ideas/body-realm-journey-and-vital-essence.md`](ideas/body-realm-journey-and-vital-essence.md), [`ideas/body-runeforging-and-vessel-rules.md`](ideas/body-runeforging-and-vessel-rules.md).
 
 **Authority rule:** For *lore intent*, prefer **owner-locked design docs** (`nine-realm-ladder.md` 2026-10-12, `body-path-refining-rewrite.md`). For *playable behaviour*, prefer **current code**. Where they disagree, both are listed — **not reconciled**.
 

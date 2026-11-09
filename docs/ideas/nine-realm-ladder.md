@@ -276,6 +276,8 @@ The live list (Bronze Skin through Indestructible Vajra) ranks materials. Replac
 
 ### Runeforging (idx 5)
 
+**Body Rune & foundational principles (owner lock 2026-11-09):** [`body-runeforging-and-vessel-rules.md`](body-runeforging-and-vessel-rules.md) — Runeforging breakthrough = **Body Rune** (connection capacity); then Strength / Endurance / Regeneration / Movement principle runes; Vessel Rule unique inscriptions; Da Chi / Unnamed.
+
 - Runes are **made**, not comprehended. **Major** keystones: recipes from **body arts** cultivated (soft linearity — pick order among unlocked arts). **Minor** filings: material tables within PT line.
 - **No dead runes** — failed forge must not waste a seat (scar / weaker variant / time — tune at implement).
 - **Physique Transformation** determines **what** runes you can forge (element/line), not meridian graphs.

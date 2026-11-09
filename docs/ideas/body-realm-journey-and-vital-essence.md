@@ -160,7 +160,7 @@ Continuous through-line (extends philosophy doc §3 table):
 
 **Organ placement** on/off body: **Provisional** — promising, **not mandatory**.
 
-**Relation to ladder § Runeforging:** Materials + body-art majors + minors **remain valid implementation paths**; this doc adds **Body Dao principle** framing — **not** a replacement for recipe-based forging in [`nine-realm-ladder.md`](nine-realm-ladder.md).
+**Relation to ladder § Runeforging:** Materials + body-art majors + minors **remain valid implementation paths**; **Body Rune** + principle connections — [`body-runeforging-and-vessel-rules.md`](body-runeforging-and-vessel-rules.md).
 
 ---
 
@@ -168,7 +168,7 @@ Continuous through-line (extends philosophy doc §3 table):
 
 | **Owner-approved** | **Provisional** |
 |-------------------|-----------------|
-| **Small set** of **broadly accessible** foundational runes at appropriate stage + knowledge/resources | Illustrative only: **Strength, Endurance, Regeneration, Vitality** — **not** final canonical list |
+| **Small set** of **broadly accessible** foundational runes at appropriate stage + knowledge/resources | **Locked set (2026-11-09):** Strength, Endurance, Regeneration, **Movement** — see [`body-runeforging-and-vessel-rules.md`](body-runeforging-and-vessel-rules.md) (Vitality **dropped** from preferred set) |
 | Express **aspects of physical cultivation**, not a fixed catalogue of unrelated combat techniques | Exact count, names, hanzi |
 | **No requirement** to inscribe **every** foundational rune to advance | Mandatory subsets vs “sufficient subset” math |
 | Ambition space: partial set, complete set, perfect one rune, discover **unique** runes | Slot count, tiers, combos, numeric bonuses — **do not implement in design lock** |

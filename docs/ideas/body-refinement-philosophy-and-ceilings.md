@@ -32,6 +32,7 @@ This doc **clarifies and extends** the nine-realm body ladder — it does **not*
 | [`body-path-sect.md`](body-path-sect.md) | Saint / Da Chi fiction |
 | [`body-martial-intent.md`](body-martial-intent.md) | 武意 — separate from refinement |
 | [`body-realm-journey-and-vital-essence.md`](body-realm-journey-and-vital-essence.md) | Idx **0–5** journey, Vital Essence, Pearl nexus, foundational runes |
+| [`body-runeforging-and-vessel-rules.md`](body-runeforging-and-vessel-rules.md) | Body Rune, four foundational runes, Rules, Da Chi |
 | [`cultivation-capabilities-stat-architecture-audit.md`](../cultivation-capabilities-stat-architecture-audit.md) | Cross-path stat audit |
 
 ---
