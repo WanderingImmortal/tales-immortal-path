@@ -8,7 +8,7 @@
  * - Sub-threshold gentle heat uses a stubborn-material rate penalty so minerals extract slowly.
  * - Released essence can degrade under sustained medium/fierce heat (quadratic above ~0.5).
  * - Contamination (released.impurity) is mixture residue; separation.js expels it passively (degraded ≠ contamination).
- * - Instability integrates continuously from polarity, volatility, and heat.
+ * - Instability integrates from polarity/volatility strain only while chemistry is active; dormant mixtures relax toward neutral.
  */
 
 const { EXPERIMENTAL_REAGENTS } = require('./reagents');
@@ -46,6 +46,12 @@ const K_RELEASED_DEGRADE = 0.28;
 /** Reactive instability integration */
 const K_INSTABILITY = 0.2;
 
+/** Spirit transfer scale at which strain terms apply at full strength (per tick). */
+const INSTABILITY_ACTIVITY_REF = 0.025;
+
+/** Exponential pull toward neutral instability when chemistry is dormant (per sim second). */
+const INSTABILITY_EQUILIBRIUM_RATE = 2.4;
+
 function round1(n) {
     return Math.round(n * 10) / 10;
 }
@@ -67,7 +73,9 @@ function cloneLedgerTotals(material) {
         degraded: material.degraded.spirit,
         contamination: material.released.impurity,
         expelled: material.expelled?.impurity || 0,
-        purity: round3(mixturePurityFromReleased(material.released) * 100)
+        purity: round3(mixturePurityFromReleased(material.released) * 100),
+        separationStuck: round3(mixtureStuckFloor(material)),
+        separationRemovable: round3(Math.max(0, material.released.impurity - mixtureStuckFloor(material)))
     };
 }
 
@@ -161,20 +169,35 @@ function applyReleasedIncremental(released, heat, dt) {
     return degraded;
 }
 
-function integrateInstability(material, heat, dt, running) {
+/**
+ * @param {number} tickActivity — spirit mass moved by extraction/degradation/separation this tick
+ */
+function integrateInstability(material, heat, dt, running, tickActivity = 0) {
     const rel = material.released;
-    if (rel.spirit <= 1e-9 && heat <= 0) return { delta: 0, thermalDrive: 0 };
+    if (rel.spirit <= 1e-9 && heat <= 0) {
+        return { delta: 0, thermalDrive: 0, dormant: true, reactive: 0 };
+    }
 
     const clash = polarityImbalance(rel.yin, rel.yang);
     const thermalDrive = (rel.volatility / Math.max(rel.spirit, 0.01)) * rel.spirit * 0.08 * heat * heat;
     const polarityStrain = clash * (rel.spirit * 0.004 + 1) * heat;
     const purifyDamp = rel.affinities.purify * 0.006 * (1.1 - heat * 0.35);
     const stabilityDamp = rel.stability * 0.045;
-    const stepNet = (polarityStrain + thermalDrive * 0.38 - purifyDamp - stabilityDamp) * K_INSTABILITY * dt;
+
+    const dormant = tickActivity <= 1e-10;
+    const reactive = dormant
+        ? 0
+        : Math.min(1, tickActivity / INSTABILITY_ACTIVITY_REF);
+
+    let stepNet = (polarityStrain + thermalDrive * 0.38 - purifyDamp - stabilityDamp) * reactive * K_INSTABILITY * dt;
+
+    if (dormant && rel.spirit > 1e-9) {
+        stepNet += -running.value * Math.min(1, INSTABILITY_EQUILIBRIUM_RATE * dt);
+    }
 
     running.value += stepNet;
     if (running.value > running.peak) running.peak = running.value;
-    return { delta: stepNet, thermalDrive };
+    return { delta: stepNet, thermalDrive, dormant, reactive: round3(reactive) };
 }
 
 function pushChronicle(state, kind, message, data) {
@@ -240,7 +263,9 @@ function snapshotFurnace(state) {
             state.material.released.yang
         )),
         inFurnace: state.introduced.map(r => ({ ...r })),
-        spirit: cloneLedgerTotals(state.material)
+        spirit: cloneLedgerTotals(state.material),
+        mixtureDormant: state.lastMixtureDormant === true,
+        instabilityReactive: state.lastInstabilityReactive ?? 0
     };
 }
 
@@ -323,6 +348,7 @@ function stepFurnace(state, dt = SIM_DT) {
     const heat = state.heatValue;
     let notableExtract = false;
     let notableDegrade = false;
+    let tickActivity = 0;
 
     Object.entries(state.material.byReagent).forEach(([reagentId, bucket]) => {
         if (bucket.bound.spirit <= 1e-12) return;
@@ -332,24 +358,29 @@ function stepFurnace(state, dt = SIM_DT) {
             bucket.bound, profile, heat, dt, bucket, def
         );
         if (released.spirit > 1e-9 || degraded.spirit > 1e-9) {
+            tickActivity += released.spirit + degraded.spirit;
             recordThermalResult(state.material, reagentId, released, degraded);
             if (released.spirit > 0.02) notableExtract = true;
             if (degraded.spirit > 0.02) notableDegrade = true;
         }
     });
 
-    applyPassiveSeparation(state.material, heat, dt);
+    const expelled = applyPassiveSeparation(state.material, heat, dt);
+    if (expelled > 1e-10) tickActivity += expelled * 0.35;
 
     const relDegraded = applyReleasedIncremental(state.material.released, heat, dt);
     if (relDegraded) {
+        tickActivity += relDegraded.spirit;
         distributeReleasedDegraded(state.material, relDegraded);
         notableDegrade = true;
     }
 
     const instRun = { value: state.runningInstability, peak: state.peakInstability };
-    const inst = integrateInstability(state.material, heat, dt, instRun);
+    const inst = integrateInstability(state.material, heat, dt, instRun, tickActivity);
     state.runningInstability = instRun.value;
     state.peakInstability = instRun.peak;
+    state.lastMixtureDormant = inst.dormant === true;
+    state.lastInstabilityReactive = inst.reactive;
     if (inst.thermalDrive > 8) state.thermalPeaks.push(inst.thermalDrive);
 
     state.time += dt;
@@ -517,5 +548,8 @@ module.exports = {
     replayFurnaceProcedure,
     formatSimTime,
     applyBoundIncremental,
-    applyReleasedIncremental
+    applyReleasedIncremental,
+    integrateInstability,
+    INSTABILITY_ACTIVITY_REF,
+    INSTABILITY_EQUILIBRIUM_RATE
 };

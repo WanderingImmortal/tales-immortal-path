@@ -292,6 +292,12 @@ function materialPlainLines(result) {
     if (expelled > 0.05) {
         lines.push(`Cauldron expelled ${expelled} contamination as waste (no extra essence created).`);
     }
+    const stuck = num(m.separationStuck);
+    if (stuck > 0.05 && contamination > stuck - 0.1) {
+        lines.push(
+            `Basic cauldron stuck floor ~${round1(stuck)} — remaining contamination is intentional equipment limit (not degraded spirit).`
+        );
+    }
     if (degraded > 0.05 && released > 0.05) {
         lines.push('Degraded spirit is lost medicinal potential — it is not the same as mixture contamination.');
     }
@@ -403,6 +409,13 @@ function formatMaterialLedger(material) {
         { label: 'Released (reactive)', spirit: material.released?.spirit ?? 0, note: 'Medicinal essence in mixture' },
         { label: 'Contamination (in mixture)', spirit: material.released?.impurity ?? 0, note: 'Unwanted residue with released essence' },
         { label: 'Expelled waste', spirit: material.expelled?.contamination ?? material.expelled?.impurity ?? 0, note: 'Separated out — not medicinal' },
+        ...(material.separationStuck != null
+            ? [{
+                label: 'Separation stuck floor',
+                spirit: material.separationStuck,
+                note: 'Contamination the basic cauldron cannot strip'
+            }]
+            : []),
         { label: 'Still bound', spirit: material.bound?.spirit ?? 0, note: 'Unextracted — may respond to later heat' },
         { label: 'Degraded', spirit: material.degraded?.spirit ?? 0, note: 'Destroyed medicinal potential (≠ contamination)' },
         { label: 'Residual (bound+degraded)', spirit: material.residual?.spirit ?? 0, note: 'Salvage hook' }

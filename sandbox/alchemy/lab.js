@@ -42,6 +42,8 @@
         liveContamination: document.getElementById('liveContamination'),
         livePurity: document.getElementById('livePurity'),
         liveExpelled: document.getElementById('liveExpelled'),
+        liveSeparable: document.getElementById('liveSeparable'),
+        liveStability: document.getElementById('liveStability'),
         liveNotes: document.getElementById('liveNotes'),
         spiritBreakdown: document.getElementById('spiritBreakdown'),
         summaryOut: document.getElementById('summaryOut'),
@@ -145,6 +147,15 @@
         els.liveContamination.textContent = snap.spirit.contamination ?? 0;
         els.livePurity.textContent = snap.spirit.purity != null ? `${snap.spirit.purity}%` : '—';
         els.liveExpelled.textContent = snap.spirit.expelled ?? 0;
+        const removable = snap.spirit.separationRemovable ?? 0;
+        els.liveSeparable.textContent = removable > 0.05 ? removable.toFixed(1) : '0 (stuck floor)';
+        if (snap.mixtureDormant) {
+            els.liveStability.textContent =
+                'Mixture dormant — ledger steady; running instability eases toward neutral (peak keeps earlier spikes).';
+        } else {
+            els.liveStability.textContent =
+                `Mixture reactive (drive ×${snap.instabilityReactive ?? 1}) — instability tracks active chemistry.`;
+        }
 
         const status = furnace.condensed
             ? 'Condensed — reset to run again.'

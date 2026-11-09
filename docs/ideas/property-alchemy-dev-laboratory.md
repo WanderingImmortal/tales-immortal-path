@@ -67,6 +67,8 @@ Thermal windows (2026 follow-up): **Foundation Root** needs gentle; **Amber Lily
 
 **Contamination & purity (PR #223):** Extracted essence lands in `released.spirit`; mixture **contamination** is `released.impurity` (soot from rough extraction, not degraded spirit). The prototype furnace passively expels contamination into `expelled` at a cauldron-limited rate (`separation.js`; harder on mineral-heavy loads). Pill **purity** is essence ÷ (essence + contamination) at condense — distinct from potency, grade, and process outcome. Validation: `node scripts/test-purity-separation.js`.
 
+**Stability diagnostics (PR #224):** Running instability only accrues strain while chemistry is active (extraction, degradation, separation); dormant mixtures relax toward neutral without erasing **peak** instability from earlier spikes. Ironscar Grit’s ~53% ceiling on the basic cauldron is mostly the separation **stuck floor** (`separationStuckMin` + proportional retain), not condensation scrub. Validation: `node scripts/test-furnace-stability.js`.
+
 ## Tests
 
 ```bash
