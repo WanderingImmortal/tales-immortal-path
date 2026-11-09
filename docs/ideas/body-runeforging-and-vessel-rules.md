@@ -6,7 +6,7 @@
 | **Extends** | [`body-refinement-philosophy-and-ceilings.md`](body-refinement-philosophy-and-ceilings.md) · [`body-realm-journey-and-vital-essence.md`](body-realm-journey-and-vital-essence.md) · [`nine-realm-ladder.md`](nine-realm-ladder.md) idx 5–8 |
 | **Blocked on** | Rune implement; swear gate; Rule adherence mechanics rework; Da Chi technique boundaries |
 | **Issue** | none yet |
-| **Chat / PR** | Lore lock PR 2026-11-09 (post #228 / #229) |
+| **Chat / PR** | Lore lock PR 2026-11-09 (#230); addendum 2026-11-09 (natural manifestation, Da Chi glabella) |
 | **Updated** | 2026-11-09 |
 
 ## Intent
@@ -61,9 +61,26 @@ Use **Body Rune** — not **Origin Rune** — as working name for the **Runeforg
 
 **Qualitative breakthrough:** A cultivator may enter Runeforging with a **profound** qualitative step (Body Dao **link** + **capacity**) while **combat power** surges mainly as **principle runes** succeed — analogous: soul arts need soul refinement before techniques; Body Dao inscriptions need **connection capacity**.
 
-**Do not lock:** slot count, capacity formula, anatomical site of Body Rune, numerical breakthrough threshold.
+**Do not lock:** slot count, capacity formula, **general** anatomical placement rules for all cultivators, numerical breakthrough threshold.
 
 **Gap vs older docs:** [`nine-realm-ladder.md`](nine-realm-ladder.md) § Runeforging describes majors/minors and forge load but **did not** name Body Rune — **this doc extends**, does not rename realms.
+
+### 2.1 Natural manifestation — **Owner-approved**
+
+| Principle | Direction |
+|-----------|-----------|
+| **Not user-designed** | The cultivator does **not** deliberately **design** the inscription’s appearance |
+| **Natural manifest** | On successful initial **direct** Body Dao connection, the Body Rune **manifests** on or **within** the body |
+| **Reflects understanding** | Form reflects the cultivator’s **understanding of Body Dao at breakthrough** — from refinement, comprehension, and **personal interpretation** of bodily existence |
+| **Not personality cosplay** | **Not** merely a visual of personality — similar personalities may differ; different personalities may converge |
+| **Sect traditions** | Shared teachings → **related** structures; **not** identical — experience and comprehension vary |
+| **Foundational runes unchanged** | Individual variation applies to the **Body Rune** only; Strength / Endurance / Regeneration / Movement stay **comparatively consistent** recognisable forms — **not** wholly personalised symbols |
+
+### 2.2 Body Rune development over time — **Provisional**
+
+As Body Dao connection deepens, the Body Rune’s appearance **may** refine or develop; **fundamental identity** should stay recognisable.
+
+**Do not lock:** mandatory visual stages, size growth, glow tiers, numeric ranks, transformation rules. **Visual development process — unresolved.**
 
 ---
 
@@ -146,9 +163,25 @@ Four **preferred** foundational principles (supersedes illustrative **Vitality**
 
 ---
 
-## 6. Owner-approved — Mad Arhat **Da Chi** & Rule of the Unnamed
+## 6. Owner-approved — Mad Arhat **Da Chi** (Body Rune + Rule)
 
 **Canon for Da Chi (fiction):** apex Vessel Rule = **Rule of the Unnamed** — **not** the workshop **Rule of Unyielding** candidate in [`vessel-rules-design.md`](vessel-rules-design.md) / [`body-path-sect.md`](body-path-sect.md) (see §8).
+
+Da Chi bears **two distinct inscriptions** — **do not merge** or treat the glabella Body Rune as granting the Rule’s abilities.
+
+### 6.1 Body Rune — glabella — **Owner-approved**
+
+| Property | Direction |
+|----------|-----------|
+| **Site** | **Glabella** (between eyebrows) — **Da Chi only**; does **not** mandate glabella for others |
+| **Role** | Initial **overarching** Body Dao connection; **capacity** for further inscriptions |
+| **Visual direction (provisional art)** | **Circulating Flow** — curved, flowing forms suggesting **continuous internal activity** and circulation |
+| **Understanding** | Living body never truly still — heart, blood, lungs, organs/tissues sustain life even in apparent stillness — **observation**, not a moral command to keep moving |
+| **Not Movement rune** | **Do not** reduce to locomotion, running, travel, or the foundational **Movement** principle |
+| **Not Rule power** | Does **not** by itself grant extraordinary combat enhancement or **Rule of the Unnamed** abilities |
+| **Character contrast** | Boisterous fighter; Body Rune reflects **contemplative** insight into bodily existence — **intentional**; understanding ≠ outward personality |
+
+### 6.2 Rule of the Unnamed — sternum unique rune — **Owner-approved**
 
 ### Revised Rule interpretation — **Owner-approved**
 
@@ -163,11 +196,10 @@ Four **preferred** foundational principles (supersedes illustrative **Vitality**
 
 **Personality:** **Owner-approved** — exuberant, boisterous, formidable; Rule does **not** require silence, modesty, or restrained personality.
 
-### Da Chi’s unique rune — **Owner-approved**
-
 | Property | Direction |
 |----------|-----------|
-| Tied to **Rule of the Unnamed** | Inseparable from Rule + connection |
+| **Separate from Body Rune** | Glabella = overarching connection; sternum = **Rule** manifestation |
+| Tied to **Rule of the Unnamed** | Inseparable from Rule + cultivated Body Dao connection |
 | **Forged into sternum bone** — not skin tattoo only | Normally hidden under robes |
 | **Not** enchantment, transferable ability, or power source separate from Rule |
 | **Cannot** reproduce by copying appearance |
@@ -187,7 +219,10 @@ Four **preferred** foundational principles (supersedes illustrative **Vitality**
 
 | Topic | Status |
 |-------|--------|
-| Body Rune **location**, visual, cultivate-Body-Rune loop | Unresolved |
+| Body Rune **general** placement rules; non-NPC visual generation | Unresolved |
+| Body Rune **refinement visual** over time | Provisional / unresolved |
+| Da Chi glabella **final artwork** (Circulating Flow) | Provisional |
+| cultivate-Body-Rune loop | Unresolved |
 | Connection **capacity** curve after Body Rune | Unresolved |
 | Foundational rune **hanzi** / sect variants | Unresolved |
 | Rule backlash **recovery** | Unresolved |
@@ -217,11 +252,13 @@ Historical text (Indestructible Vajra war-era naming, adherence stage combat stu
 
 ---
 
-## 9. Implementation crumbs (later only)
+## 9. Implementation crumbs (later only — not requirements)
 
 - `vessel-rules.js`, `VESSEL_RULES` in `data.js`
 - Future rune save shape (not specified here)
 - Inner Source **Z** still from **major** runes on body — ladder lock unchanged
+
+**Possible future art paths (acknowledged only):** shared SVG scaffolds, procedural variation on structure, handcrafted exceptions for major NPCs (e.g. Da Chi). **No** generator spec, assets, or anatomical UI in design PRs.
 
 ---
 
@@ -234,6 +271,8 @@ Historical text (Indestructible Vajra war-era naming, adherence stage combat stu
 5. **One** connection per principle; deepen rather than duplicate.  
 6. More runes = **genuine** capability increase; full set **valuable**, not required.  
 7. Vessel Rules can deepen personal connections → **unique** runes possible.  
-8. **Da Chi**: Rule of the Unnamed + **sternum** bone rune, hidden, unnamed.  
-9. Unresolved items **stay** unresolved.  
-10. **No** gameplay/balance/save/UI changes in the PR that added this file.
+8. **Body Rune** manifests **naturally** from Body Dao **understanding**; sects may share **related** forms.  
+9. **Da Chi**: **Glabella** Body Rune (Circulating Flow / internal activity) **≠** **sternum** Rule of the Unnamed rune.  
+10. Foundational four remain **consistent** forms; Movement ≠ Da Chi’s Body Rune meaning.  
+11. Unresolved items **stay** unresolved.  
+12. **No** gameplay/balance/save/UI changes in design-only PRs.
