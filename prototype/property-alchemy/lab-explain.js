@@ -6,7 +6,13 @@
 const { EXPERIMENTAL_REAGENTS } = require('./reagents');
 const { deriveThermalProfile } = require('./thermal');
 const { deriveSeparationProfile } = require('./separation');
-const { MEDICINAL_LABELS, MEDICINAL_PROPERTY_IDS, normalizeMedicinalDef } = require('./medicinal');
+const {
+    MEDICINAL_LABELS,
+    MEDICINAL_PROPERTY_IDS,
+    normalizeMedicinalDef,
+    hasUsefulMedicinalProfile,
+    peakMedicinalStrength
+} = require('./medicinal');
 
 /** Character knowledge states (scaffolding for a future live game). Lab uses established. */
 const KNOWLEDGE_STATES = {
@@ -265,25 +271,45 @@ function processPlainLabel(outcome) {
 
 function productPlainLines(result) {
     const product = result.product || {};
-    const potency = num(product.potency);
+    const proc = result.process?.outcome || result.outcome;
+    const potency = num(product.legacyPotency ?? product.potency);
     const suitability = product.suitability || 'n/a';
     const lines = [];
     const purity = num(product.purity);
-    if (potency <= 0 || suitability === 'weak') {
-        lines.push('Product: little or no usable medicinal potency formed.');
+    const med = product.medicinal;
+    const medPeak = num(product.medicinalPeak ?? peakMedicinalStrength(med || {}));
+    const usefulProps = hasUsefulMedicinalProfile(med || {});
+
+    if (proc === 'failed' || proc === 'rupture' || suitability === 'ruined') {
+        lines.push('Product: condensation failed — no reliable pill formed from this mixture.');
+    } else if (suitability === 'weak') {
+        lines.push(
+            usefulProps
+                ? 'Product: unexpected weak classification — inspect medicinal peak and process outcome.'
+                : 'Product: weak or negligible medicinal profile (low legacy potency and property strengths).'
+        );
     } else if (suitability === 'impure') {
-        lines.push(`Product: potency ${potency}, but mixture contamination left purity at ${purity}%.`);
+        lines.push(
+            usefulProps
+                ? `Product: useful medicinal properties (peak ${round1(medPeak)}) but impure (purity ${purity}%).`
+                : `Product: impure mixture (purity ${purity}%) limits usefulness.`
+        );
     } else if (suitability === 'hazardous') {
-        lines.push(`Product: potency ${potency}, but toxicity makes it hazardous.`);
+        lines.push(`Product: hazardous — legacy toxicity dominates (affinity potency ${potency}).`);
     } else if (suitability === 'medicinal') {
-        lines.push(`Product: medicinal (potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
+        if (usefulProps && potency < 2) {
+            lines.push(
+                `Product: useful medicine from property profile (peak ${round1(medPeak)}; legacy affinity potency ${potency}).`
+            );
+        } else {
+            lines.push(`Product: medicinal (legacy potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
+        }
     } else {
-        lines.push(`Product: suitability ${suitability}, potency ${potency}.`);
+        lines.push(`Product: suitability ${suitability}, legacy potency ${potency}.`);
     }
     if (product.experimentalName) {
         lines.push(`Experimental label: ${product.experimentalName}`);
     }
-    const med = product.medicinal;
     if (med) {
         const profile = formatMedicinalStrengths(med);
         if (profile !== 'negligible') {
@@ -354,17 +380,19 @@ function materialPlainLines(result) {
 function summarizeRefinement(result) {
     const proc = result.process?.outcome || result.outcome;
     const processSuccess = !!(result.process?.success ?? result.success);
-    const potency = num(result.product?.potency);
     const suitability = result.product?.suitability;
-    const productUseful = potency > 0 && suitability === 'medicinal';
+    const productUseful = processSuccess
+        && suitability === 'medicinal'
+        && proc !== 'rupture'
+        && proc !== 'failed';
 
     let headline;
     if (proc === 'rupture' || proc === 'failed') {
         headline = 'Process failed — mixture damaged before a reliable product could form.';
     } else if (processSuccess && productUseful) {
         headline = 'Process held, and a usable medicinal product formed.';
-    } else if (processSuccess && (potency <= 0 || suitability === 'weak')) {
-        headline = 'Process completed, but no usable medicinal product formed.';
+    } else if (processSuccess && suitability === 'weak') {
+        headline = 'Process completed, but only weak or negligible medicine formed.';
     } else if (processSuccess && suitability === 'impure') {
         headline = 'Process completed, but the product is impure.';
     } else if (processSuccess && suitability === 'hazardous') {

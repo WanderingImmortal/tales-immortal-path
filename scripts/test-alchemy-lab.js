@@ -160,7 +160,10 @@ const gritFierce = proto.simulateRefinement({
 const sumGentle = summarizeRefinement(gritGentle);
 const sumMedium = summarizeRefinement(gritM);
 const sumFierce = summarizeRefinement(gritFierce);
-assert(sumGentle.headline.includes('no usable medicinal'), 'gentle grit: process≠product success');
+assert(
+    /no usable medicinal|weak or negligible medicine/i.test(sumGentle.headline),
+    'gentle grit: process≠product success'
+);
 assert(sumGentle.materialLines.some(l => /bound|Insufficient/i.test(l)), 'gentle grit explains bound spirit');
 assert(sumMedium.materialLines.some(l => /released|bound/i.test(l)), 'medium grit mentions extraction/bound');
 assert(sumFierce.materialLines.some(l => /degrad/i.test(l)), 'fierce grit explains degradation');
@@ -235,6 +238,7 @@ try {
     execSync('node scripts/test-purity-separation.js', { cwd: root, stdio: 'pipe' });
     execSync('node scripts/test-furnace-stability.js', { cwd: root, stdio: 'pipe' });
     execSync('node scripts/test-medicinal-properties.js', { cwd: root, stdio: 'pipe' });
+    execSync('node scripts/test-medicinal-classification.js', { cwd: root, stdio: 'pipe' });
     ok('purity separation validation passes');
 } catch {
     fail('purity separation validation passes');

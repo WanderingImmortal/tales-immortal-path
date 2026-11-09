@@ -32,6 +32,9 @@ const EXPERIMENTAL_PILL_SHORT = {
 
 const MEDICINAL_LIST_THRESHOLD = 0.35;
 
+/** Minimum peak property strength for a condensed pill to count as medically useful. */
+const USEFUL_MEDICINAL_PEAK = 2;
+
 function round1(n) {
     return Math.round(n * 10) / 10;
 }
@@ -148,10 +151,54 @@ function summarizeMedicinal(medicinal) {
     return out;
 }
 
+function peakMedicinalStrength(medicinal) {
+    const ranked = rankMedicinalStrengths(medicinal);
+    return ranked[0]?.strength ?? 0;
+}
+
+function hasUsefulMedicinalProfile(medicinal) {
+    return peakMedicinalStrength(medicinal) >= USEFUL_MEDICINAL_PEAK;
+}
+
+/**
+ * @param {object} ctx
+ * @param {number} ctx.mixturePurity
+ * @param {number} ctx.impurityRatio
+ * @param {number} ctx.toxicity
+ * @param {number} ctx.legacyPotency — affinity-scaled legacy potency
+ * @param {ReturnType<typeof emptyMedicinal>} ctx.productMedicinal
+ * @param {string} ctx.processOutcome — refined | unstable_salvage | failed | rupture
+ */
+function deriveProductSuitability(ctx) {
+    const {
+        mixturePurity,
+        impurityRatio,
+        toxicity,
+        legacyPotency,
+        productMedicinal,
+        processOutcome
+    } = ctx;
+
+    if (processOutcome === 'failed' || processOutcome === 'rupture') {
+        return 'ruined';
+    }
+    if (mixturePurity < 0.52 || impurityRatio > 0.45) {
+        return 'impure';
+    }
+    if (toxicity > 4) {
+        return 'hazardous';
+    }
+    if (legacyPotency >= 2 || hasUsefulMedicinalProfile(productMedicinal)) {
+        return 'medicinal';
+    }
+    return 'weak';
+}
+
 module.exports = {
     MEDICINAL_PROPERTY_IDS,
     MEDICINAL_LABELS,
     MEDICINAL_LIST_THRESHOLD,
+    USEFUL_MEDICINAL_PEAK,
     emptyMedicinal,
     normalizeMedicinalDef,
     medicinalLoadFromReagent,
@@ -160,5 +207,8 @@ module.exports = {
     rankMedicinalStrengths,
     experimentalPillName,
     productMedicinalFromReleased,
-    summarizeMedicinal
+    summarizeMedicinal,
+    peakMedicinalStrength,
+    hasUsefulMedicinalProfile,
+    deriveProductSuitability
 };
