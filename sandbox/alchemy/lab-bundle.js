@@ -1897,6 +1897,8 @@ var AlchemyLab = (() => {
       var K_BOUND_TRANSFER = 0.36;
       var K_RELEASED_DEGRADE = 0.28;
       var K_INSTABILITY = 0.2;
+      var INSTABILITY_ACTIVITY_REF = 0.025;
+      var INSTABILITY_EQUILIBRIUM_RATE = 2.4;
       function round3(n) {
         return Math.round(n * 1e3) / 1e3;
       }
@@ -1912,7 +1914,9 @@ var AlchemyLab = (() => {
           degraded: material.degraded.spirit,
           contamination: material.released.impurity,
           expelled: material.expelled?.impurity || 0,
-          purity: round3(mixturePurityFromReleased(material.released) * 100)
+          purity: round3(mixturePurityFromReleased(material.released) * 100),
+          separationStuck: round3(mixtureStuckFloor(material)),
+          separationRemovable: round3(Math.max(0, material.released.impurity - mixtureStuckFloor(material)))
         };
       }
       function applyBoundIncremental(boundSlice, profile, heat, dt, bucket, def) {
@@ -1983,18 +1987,25 @@ var AlchemyLab = (() => {
         Object.assign(released, scaleMaterialSlice(released, remain));
         return degraded;
       }
-      function integrateInstability(material, heat, dt, running) {
+      function integrateInstability(material, heat, dt, running, tickActivity = 0) {
         const rel = material.released;
-        if (rel.spirit <= 1e-9 && heat <= 0) return { delta: 0, thermalDrive: 0 };
+        if (rel.spirit <= 1e-9 && heat <= 0) {
+          return { delta: 0, thermalDrive: 0, dormant: true, reactive: 0 };
+        }
         const clash = polarityImbalance(rel.yin, rel.yang);
         const thermalDrive = rel.volatility / Math.max(rel.spirit, 0.01) * rel.spirit * 0.08 * heat * heat;
         const polarityStrain = clash * (rel.spirit * 4e-3 + 1) * heat;
         const purifyDamp = rel.affinities.purify * 6e-3 * (1.1 - heat * 0.35);
         const stabilityDamp = rel.stability * 0.045;
-        const stepNet = (polarityStrain + thermalDrive * 0.38 - purifyDamp - stabilityDamp) * K_INSTABILITY * dt;
+        const dormant = tickActivity <= 1e-10;
+        const reactive = dormant ? 0 : Math.min(1, tickActivity / INSTABILITY_ACTIVITY_REF);
+        let stepNet = (polarityStrain + thermalDrive * 0.38 - purifyDamp - stabilityDamp) * reactive * K_INSTABILITY * dt;
+        if (dormant && rel.spirit > 1e-9) {
+          stepNet += -running.value * Math.min(1, INSTABILITY_EQUILIBRIUM_RATE * dt);
+        }
         running.value += stepNet;
         if (running.value > running.peak) running.peak = running.value;
-        return { delta: stepNet, thermalDrive };
+        return { delta: stepNet, thermalDrive, dormant, reactive: round3(reactive) };
       }
       function pushChronicle(state, kind, message, data) {
         const entry = {
@@ -2059,7 +2070,9 @@ var AlchemyLab = (() => {
             state.material.released.yang
           )),
           inFurnace: state.introduced.map((r) => ({ ...r })),
-          spirit: cloneLedgerTotals(state.material)
+          spirit: cloneLedgerTotals(state.material),
+          mixtureDormant: state.lastMixtureDormant === true,
+          instabilityReactive: state.lastInstabilityReactive ?? 0
         };
       }
       function startFurnace(state) {
@@ -2131,6 +2144,7 @@ var AlchemyLab = (() => {
         const heat = state.heatValue;
         let notableExtract = false;
         let notableDegrade = false;
+        let tickActivity = 0;
         Object.entries(state.material.byReagent).forEach(([reagentId, bucket]) => {
           if (bucket.bound.spirit <= 1e-12) return;
           const def = EXPERIMENTAL_REAGENTS[reagentId];
@@ -2144,21 +2158,26 @@ var AlchemyLab = (() => {
             def
           );
           if (released.spirit > 1e-9 || degraded.spirit > 1e-9) {
+            tickActivity += released.spirit + degraded.spirit;
             recordThermalResult(state.material, reagentId, released, degraded);
             if (released.spirit > 0.02) notableExtract = true;
             if (degraded.spirit > 0.02) notableDegrade = true;
           }
         });
-        applyPassiveSeparation(state.material, heat, dt);
+        const expelled = applyPassiveSeparation(state.material, heat, dt);
+        if (expelled > 1e-10) tickActivity += expelled * 0.35;
         const relDegraded = applyReleasedIncremental(state.material.released, heat, dt);
         if (relDegraded) {
+          tickActivity += relDegraded.spirit;
           distributeReleasedDegraded(state.material, relDegraded);
           notableDegrade = true;
         }
         const instRun = { value: state.runningInstability, peak: state.peakInstability };
-        const inst = integrateInstability(state.material, heat, dt, instRun);
+        const inst = integrateInstability(state.material, heat, dt, instRun, tickActivity);
         state.runningInstability = instRun.value;
         state.peakInstability = instRun.peak;
+        state.lastMixtureDormant = inst.dormant === true;
+        state.lastInstabilityReactive = inst.reactive;
         if (inst.thermalDrive > 8) state.thermalPeaks.push(inst.thermalDrive);
         state.time += dt;
         if (notableExtract && Math.floor(state.time * 2) !== Math.floor((state.time - dt) * 2)) {
@@ -2302,7 +2321,10 @@ var AlchemyLab = (() => {
         replayFurnaceProcedure,
         formatSimTime,
         applyBoundIncremental,
-        applyReleasedIncremental
+        applyReleasedIncremental,
+        integrateInstability,
+        INSTABILITY_ACTIVITY_REF,
+        INSTABILITY_EQUILIBRIUM_RATE
       };
     }
   });
@@ -2596,6 +2618,12 @@ var AlchemyLab = (() => {
         if (expelled > 0.05) {
           lines.push(`Cauldron expelled ${expelled} contamination as waste (no extra essence created).`);
         }
+        const stuck = num(m.separationStuck);
+        if (stuck > 0.05 && contamination > stuck - 0.1) {
+          lines.push(
+            `Basic cauldron stuck floor ~${round1(stuck)} \u2014 remaining contamination is intentional equipment limit (not degraded spirit).`
+          );
+        }
         if (degraded > 0.05 && released > 0.05) {
           lines.push("Degraded spirit is lost medicinal potential \u2014 it is not the same as mixture contamination.");
         }
@@ -2686,6 +2714,11 @@ var AlchemyLab = (() => {
           { label: "Released (reactive)", spirit: material.released?.spirit ?? 0, note: "Medicinal essence in mixture" },
           { label: "Contamination (in mixture)", spirit: material.released?.impurity ?? 0, note: "Unwanted residue with released essence" },
           { label: "Expelled waste", spirit: material.expelled?.contamination ?? material.expelled?.impurity ?? 0, note: "Separated out \u2014 not medicinal" },
+          ...material.separationStuck != null ? [{
+            label: "Separation stuck floor",
+            spirit: material.separationStuck,
+            note: "Contamination the basic cauldron cannot strip"
+          }] : [],
           { label: "Still bound", spirit: material.bound?.spirit ?? 0, note: "Unextracted \u2014 may respond to later heat" },
           { label: "Degraded", spirit: material.degraded?.spirit ?? 0, note: "Destroyed medicinal potential (\u2260 contamination)" },
           { label: "Residual (bound+degraded)", spirit: material.residual?.spirit ?? 0, note: "Salvage hook" }
