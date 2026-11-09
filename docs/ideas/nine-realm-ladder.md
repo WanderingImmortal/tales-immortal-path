@@ -248,6 +248,8 @@ Tie to [`city-tiers.md`](city-tiers.md) civic apex. Lifespan is how long **ambie
 
 **Refinement philosophy & ceilings (owner-approved direction 2026-11-09):** [`body-refinement-philosophy-and-ceilings.md`](body-refinement-philosophy-and-ceilings.md) — how realms change **refinement potential** (not RPG stat caps); potency vs properties; Essence Pearl → Inner Source continuity **unchanged** here.
 
+**Realm journey 0–5, Vital Essence & Runeforging (2026-11-09):** [`body-realm-journey-and-vital-essence.md`](body-realm-journey-and-vital-essence.md) — continuous idx 0–5 identities, physical Pearl nexus, foundational runes, combat parity; **extends** ceiling doc, does not rename realms.
+
 The live list (Bronze Skin through Indestructible Vajra) ranks materials. Replace with nine names when the ladder ships. **Saintly Flesh** stays the apex (Saint / 圣, parallel to Immortal / God).
 
 **Through-line:** **external shell** → **inner soak** → **Essence Pearl** seed → **Nascent Physique** born → **Physique Transformation** → **Runeforging** → **Source Furnace** → craft **Inner Source** → **Saintly Flesh**. Power is **made and installed**, not dao-comprehended. **Body lane does not use void/hollow vocabulary** at idx 5 — same **index** as qi Void Refinement, different fantasy.

@@ -128,6 +128,7 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 | [Body chamber — silhouette rebuild & anatomy pass](body-chamber-anatomy-rebuild.md) | `shipped` (polish) | Phase 3 xianxia layer parked | `cursor/body-silhouette-polish-0d8d` |
 | [Sil parts aligned to `#sil-shell`](sil-parts-shell-alignment.md) | `designed` | fit script + part audit | [#175](https://github.com/WanderingImmortal/tales-immortal-path/pull/175) |
 | [Body refinement — philosophy & realm ceilings](body-refinement-philosophy-and-ceilings.md) | **owner-approved direction** | Recipe model, save shape, regional combat | — |
+| [Body realm journey 0–5 — Vital Essence & Runeforging](body-realm-journey-and-vital-essence.md) | **owner-approved + provisional** | Pearl loop, rune kit, combat parity numbers | — |
 | [Body path — refining rewrite (ACS lean)](body-path-refining-rewrite.md) | `designed` | External/Inner split; upper ladder locked 2026-10-12 | — |
 | [External Tempering — baseline method (v1)](body-external-tempering-baseline.md) | `designed` | Material drops; chamber action refactor | — |
 | [External Tempering — ideal depth](body-external-tempering-depth.md) | `designed` | v1 baseline; regional strain | — |

@@ -8,7 +8,7 @@
 | **Chat / PR** | Cloud agent design chat, 2026-08-02 |
 | **Updated** | 2026-10-12 (swear gate migration lean — upper body path) |
 
-**Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md).
+**Code:** [`vessel-rules.js`](../../vessel-rules.js), `VESSEL_RULES` in [`data.js`](../../data.js). Taxonomy: [`law-taxonomy.md`](law-taxonomy.md) (personal oath under Body Dao purview). Cosmology stub: [`body-dao-design.md`](body-dao-design.md). Sect fiction: [`body-path-sect.md`](body-path-sect.md). Runeforging optional link: [`body-realm-journey-and-vital-essence.md`](body-realm-journey-and-vital-essence.md) §5 (Rules **not** mandatory for sanctification — tension with interior peak below).
 
 ## What they are (locked in code + taxonomy)
 
