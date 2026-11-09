@@ -18,6 +18,7 @@ var AlchemyLab = (() => {
           stability: 14,
           impurity: 2,
           affinities: { qi: 6, heat: 0, marrow: 0, purify: 4, toxicity: 0 },
+          medicinal: { qiNourishment: 3, woundStabilisation: 4 },
           note: "Gentle carrier; stabilises volatile mixes at low heat."
         },
         exp_amber_lily: {
@@ -30,6 +31,7 @@ var AlchemyLab = (() => {
           stability: 13,
           impurity: 2,
           affinities: { qi: 9, heat: 0, marrow: 2, purify: 3, toxicity: 0 },
+          medicinal: { qiNourishment: 8, tissueRestoration: 5 },
           note: "Moderately delicate \u2014 rewards a brief medium burst, then gentle finishing."
         },
         exp_dust_root: {
@@ -42,6 +44,7 @@ var AlchemyLab = (() => {
           stability: 10,
           impurity: 6,
           affinities: { qi: 12, heat: 0, marrow: 2, purify: 2, toxicity: 0 },
+          medicinal: { qiNourishment: 14 },
           note: "Earthy binder; modest qi with some impurity."
         },
         exp_foundation_root: {
@@ -54,6 +57,7 @@ var AlchemyLab = (() => {
           stability: 22,
           impurity: 3,
           affinities: { qi: 18, heat: 0, marrow: 4, purify: 6, toxicity: 0 },
+          medicinal: { qiNourishment: 22 },
           note: "Extremely delicate at medium heat \u2014 gentle simmer extracts qi; sustained medium chars it."
         },
         exp_saltbrush: {
@@ -66,6 +70,7 @@ var AlchemyLab = (() => {
           stability: 16,
           impurity: 1,
           affinities: { qi: 2, heat: 0, marrow: 0, purify: 20, toxicity: 0 },
+          medicinal: { woundStabilisation: 18 },
           note: "Purifies and dampens polarity clashes."
         },
         exp_marrow_thistle: {
@@ -78,6 +83,7 @@ var AlchemyLab = (() => {
           stability: 8,
           impurity: 5,
           affinities: { qi: 8, heat: 0, marrow: 22, purify: 2, toxicity: 0 },
+          medicinal: { boneRestoration: 18, qiNourishment: 2 },
           note: "Marrow-forward; yin-leaning."
         },
         exp_sun_stone: {
@@ -102,6 +108,7 @@ var AlchemyLab = (() => {
           stability: 3,
           impurity: 8,
           affinities: { qi: 2, heat: 16, marrow: 6, purify: 0, toxicity: 4 },
+          medicinal: { bloodRestoration: 22 },
           note: "Volatile yang; pairs poorly without purifiers."
         },
         exp_soul_mist: {
@@ -138,6 +145,7 @@ var AlchemyLab = (() => {
           stability: 18,
           impurity: 14,
           affinities: { qi: 4, heat: 6, marrow: 10, purify: 0, toxicity: 3 },
+          medicinal: { boneRestoration: 12 },
           note: "Heat-resistant scale; needs sustained medium or fierce to release marrow essence."
         },
         exp_glowcap: {
@@ -150,7 +158,34 @@ var AlchemyLab = (() => {
           stability: 7,
           impurity: 4,
           affinities: { qi: 14, heat: 0, marrow: 6, purify: 4, toxicity: 0 },
+          medicinal: { qiNourishment: 6, tissueRestoration: 12 },
           note: "Soft yin qi and marrow support."
+        },
+        exp_clot_moss: {
+          id: "exp_clot_moss",
+          name: "Clot Moss",
+          spirit: 12,
+          yin: 9,
+          yang: 2,
+          volatility: 3,
+          stability: 15,
+          impurity: 2,
+          affinities: { qi: 0, heat: 0, marrow: 0, purify: 6, toxicity: 0 },
+          medicinal: { woundStabilisation: 20 },
+          note: "Dev test \u2014 wound stabilisation without qi lean."
+        },
+        exp_skinmend_leaf: {
+          id: "exp_skinmend_leaf",
+          name: "Skinmend Leaf",
+          spirit: 14,
+          yin: 7,
+          yang: 4,
+          volatility: 5,
+          stability: 11,
+          impurity: 3,
+          affinities: { qi: 4, heat: 0, marrow: 0, purify: 2, toxicity: 0 },
+          medicinal: { tissueRestoration: 18 },
+          note: "Dev test \u2014 tissue restoration; moderate heat tolerance."
         }
       };
       var REAGENT_IDS = Object.keys(EXPERIMENTAL_REAGENTS);
@@ -161,10 +196,126 @@ var AlchemyLab = (() => {
     }
   });
 
+  // prototype/property-alchemy/medicinal.js
+  var require_medicinal = __commonJS({
+    "prototype/property-alchemy/medicinal.js"(exports, module) {
+      var MEDICINAL_PROPERTY_IDS = [
+        "qiNourishment",
+        "woundStabilisation",
+        "tissueRestoration",
+        "boneRestoration",
+        "bloodRestoration"
+      ];
+      var MEDICINAL_LABELS = {
+        qiNourishment: "Qi Nourishment",
+        woundStabilisation: "Wound Stabilisation",
+        tissueRestoration: "Tissue Restoration",
+        boneRestoration: "Bone Restoration",
+        bloodRestoration: "Blood Restoration"
+      };
+      var EXPERIMENTAL_PILL_SHORT = {
+        qiNourishment: "Qi Nourishing",
+        woundStabilisation: "Wound-Stabilising",
+        tissueRestoration: "Tissue-Restoring",
+        boneRestoration: "Bone-Mending",
+        bloodRestoration: "Blood-Restoring"
+      };
+      var MEDICINAL_LIST_THRESHOLD = 0.35;
+      function round1(n) {
+        return Math.round(n * 10) / 10;
+      }
+      function emptyMedicinal() {
+        return {
+          qiNourishment: 0,
+          woundStabilisation: 0,
+          tissueRestoration: 0,
+          boneRestoration: 0,
+          bloodRestoration: 0
+        };
+      }
+      function normalizeMedicinalDef(partial) {
+        const base = emptyMedicinal();
+        if (!partial) return base;
+        MEDICINAL_PROPERTY_IDS.forEach((k) => {
+          if (typeof partial[k] === "number" && partial[k] > 0) {
+            base[k] = partial[k];
+          }
+        });
+        return base;
+      }
+      function medicinalLoadFromReagent(def, qty) {
+        const perUnit = normalizeMedicinalDef(def.medicinal);
+        return scaleMedicinal(perUnit, qty);
+      }
+      function scaleMedicinal(medicinal, scale) {
+        if (scale <= 0) return emptyMedicinal();
+        const out = emptyMedicinal();
+        MEDICINAL_PROPERTY_IDS.forEach((k) => {
+          out[k] = (medicinal[k] || 0) * scale;
+        });
+        return out;
+      }
+      function mergeMedicinal(into, part) {
+        MEDICINAL_PROPERTY_IDS.forEach((k) => {
+          into[k] = (into[k] || 0) + (part[k] || 0);
+        });
+      }
+      function rankMedicinalStrengths(medicinal) {
+        return MEDICINAL_PROPERTY_IDS.map((id) => ({ id, strength: medicinal[id] || 0, label: MEDICINAL_LABELS[id] })).filter((e) => e.strength > MEDICINAL_LIST_THRESHOLD).sort((a, b) => b.strength - a.strength);
+      }
+      function experimentalPillName(medicinal) {
+        const ranked = rankMedicinalStrengths(medicinal);
+        if (!ranked.length) return "Inert Experimental Pill";
+        if (ranked.length === 1) {
+          return `${EXPERIMENTAL_PILL_SHORT[ranked[0].id]} Pill`;
+        }
+        const primary = EXPERIMENTAL_PILL_SHORT[ranked[0].id];
+        const secondary = EXPERIMENTAL_PILL_SHORT[ranked[1].id];
+        if (ranked[0].id === "qiNourishment" && (ranked[1].id === "woundStabilisation" || ranked[1].id === "tissueRestoration")) {
+          return "Qi & Healing Pill";
+        }
+        return `${primary} & ${secondary} Pill`;
+      }
+      function productMedicinalFromReleased(releasedMedicinal, ctx) {
+        const purityScale = Math.max(0.1, ctx.mixturePurity);
+        const condense = ctx.condenseFactor * Math.max(0.12, 1 - ctx.impurityRatio * 0.4);
+        const penalty = ctx.processPenalty;
+        const out = emptyMedicinal();
+        MEDICINAL_PROPERTY_IDS.forEach((k) => {
+          const raw = Math.max(0, releasedMedicinal[k] || 0);
+          out[k] = round1(raw * purityScale * condense * penalty);
+        });
+        return out;
+      }
+      function summarizeMedicinal(medicinal) {
+        const out = emptyMedicinal();
+        MEDICINAL_PROPERTY_IDS.forEach((k) => {
+          out[k] = round1(medicinal[k] || 0);
+        });
+        return out;
+      }
+      module.exports = {
+        MEDICINAL_PROPERTY_IDS,
+        MEDICINAL_LABELS,
+        MEDICINAL_LIST_THRESHOLD,
+        emptyMedicinal,
+        normalizeMedicinalDef,
+        medicinalLoadFromReagent,
+        scaleMedicinal,
+        mergeMedicinal,
+        rankMedicinalStrengths,
+        experimentalPillName,
+        productMedicinalFromReleased,
+        summarizeMedicinal
+      };
+    }
+  });
+
   // prototype/property-alchemy/thermal.js
   var require_thermal = __commonJS({
     "prototype/property-alchemy/thermal.js"(exports, module) {
       var { EXPERIMENTAL_REAGENTS } = require_reagents();
+      var { emptyMedicinal, mergeMedicinal, scaleMedicinal, medicinalLoadFromReagent } = require_medicinal();
       function deriveThermalProfile(def) {
         const mineralWeight = def.impurity / 32 + def.spirit / 90;
         const delicate = (def.affinities.purify + def.affinities.qi * 0.6 + def.affinities.marrow * 0.3) / 35;
@@ -223,7 +374,8 @@ var AlchemyLab = (() => {
           volatility: 0,
           stability: 0,
           impurity: 0,
-          affinities: emptyAff()
+          affinities: emptyAff(),
+          medicinal: emptyMedicinal()
         };
       }
       function emptyAff() {
@@ -256,7 +408,8 @@ var AlchemyLab = (() => {
           volatility: slice.volatility * scale,
           stability: slice.stability * scale,
           impurity: slice.impurity * scale,
-          affinities: scaleAff(slice.affinities, scale)
+          affinities: scaleAff(slice.affinities, scale),
+          medicinal: scaleMedicinal(slice.medicinal || emptyMedicinal(), scale)
         };
       }
       function mergeSlice(into, part) {
@@ -267,6 +420,8 @@ var AlchemyLab = (() => {
         into.stability += part.stability;
         into.impurity += part.impurity;
         into.affinities = addAff(into.affinities, part.affinities);
+        if (!into.medicinal) into.medicinal = emptyMedicinal();
+        mergeMedicinal(into.medicinal, part.medicinal || emptyMedicinal());
       }
       function loadToMaterialSlice(load, def) {
         return {
@@ -276,7 +431,8 @@ var AlchemyLab = (() => {
           volatility: load.volatility,
           stability: load.stability,
           impurity: load.impurity,
-          affinities: { ...load.affinities }
+          affinities: { ...load.affinities },
+          medicinal: medicinalLoadFromReagent(def, load.spirit / Math.max(def.spirit, 1))
         };
       }
       function applyThermalPass(boundSlice, profile, heat, reagentId, trace, emitTrace) {
@@ -1678,6 +1834,13 @@ var AlchemyLab = (() => {
     "prototype/property-alchemy/condense.js"(exports, module) {
       var { OUTCOME, polarityImbalance } = require_simulate();
       var { mixturePurityFromReleased } = require_separation();
+      var {
+        emptyMedicinal,
+        productMedicinalFromReleased,
+        experimentalPillName,
+        rankMedicinalStrengths,
+        summarizeMedicinal
+      } = require_medicinal();
       function seededNoise(seed, salt) {
         const x = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453;
         return x - Math.floor(x);
@@ -1708,7 +1871,8 @@ var AlchemyLab = (() => {
             marrow: round1(slice.affinities.marrow),
             purify: round1(slice.affinities.purify),
             toxicity: round1(slice.affinities.toxicity)
-          }
+          },
+          medicinal: summarizeMedicinal(slice.medicinal || emptyMedicinal())
         };
       }
       function buildDiagnostics(ctx) {
@@ -1797,6 +1961,16 @@ var AlchemyLab = (() => {
           productEffects.marrow *= condenseFactor;
           productEffects.toxicity += 0.8;
         }
+        const processPenalty = processOutcome === OUTCOME.REFINED ? 1 : processOutcome === OUTCOME.UNSTABLE_SALVAGE ? condenseFactor : 0.08;
+        const releasedMedicinal = material.released.medicinal || emptyMedicinal();
+        const productMedicinal = productMedicinalFromReleased(releasedMedicinal, {
+          mixturePurity,
+          impurityRatio,
+          condenseFactor: processOutcome === OUTCOME.REFINED ? 1 : condenseFactor,
+          processPenalty
+        });
+        const medicinalRanked = rankMedicinalStrengths(productMedicinal);
+        const experimentalName = experimentalPillName(productMedicinal);
         const dominantAffinity = dominantKey(productEffects);
         const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
         const productSuitability = mixturePurity < 0.52 || impurityRatio > 0.45 ? "impure" : productEffects.toxicity > 4 ? "hazardous" : potency >= 2 ? "medicinal" : "weak";
@@ -1839,7 +2013,8 @@ var AlchemyLab = (() => {
             impurityRatio: round3(impurityRatio),
             purity: round3(mixturePurity),
             purityPercent: round1(mixturePurity * 100),
-            polarityImbalance: round3(polarityImbalance(material.released.yin, material.released.yang))
+            polarityImbalance: round3(polarityImbalance(material.released.yin, material.released.yang)),
+            medicinal: summarizeMedicinal(releasedMedicinal)
           },
           peakInstability: round3(peakInstability),
           stabilityMargin: round3(stabilityMargin),
@@ -1849,7 +2024,16 @@ var AlchemyLab = (() => {
             potency: round1(potency),
             purity: round1(mixturePurity * 100),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
-            suitability: productSuitability
+            suitability: productSuitability,
+            medicinal: productMedicinal,
+            experimentalName,
+            primaryMedicinal: medicinalRanked[0]?.id || null,
+            secondaryMedicinal: medicinalRanked[1]?.id || null,
+            medicinalProfile: medicinalRanked.map((e) => ({
+              id: e.id,
+              label: e.label,
+              strength: round1(e.strength)
+            }))
           },
           outcome: processOutcome,
           success: processOutcome === OUTCOME.REFINED || processOutcome === OUTCOME.UNSTABLE_SALVAGE,
@@ -2342,6 +2526,7 @@ var AlchemyLab = (() => {
       var furnace = require_furnace();
       var condense = require_condense();
       var separation = require_separation();
+      var medicinal = require_medicinal();
       module.exports = {
         ...reagents,
         ...simulate,
@@ -2352,7 +2537,8 @@ var AlchemyLab = (() => {
         ...thermalHarness,
         ...furnace,
         ...condense,
-        ...separation
+        ...separation,
+        ...medicinal
       };
     }
   });
@@ -2363,6 +2549,7 @@ var AlchemyLab = (() => {
       var { EXPERIMENTAL_REAGENTS } = require_reagents();
       var { deriveThermalProfile } = require_thermal();
       var { deriveSeparationProfile } = require_separation();
+      var { MEDICINAL_LABELS, MEDICINAL_PROPERTY_IDS, normalizeMedicinalDef } = require_medicinal();
       var KNOWLEDGE_STATES = {
         unknown: {
           id: "unknown",
@@ -2433,6 +2620,16 @@ var AlchemyLab = (() => {
       }
       function round1(n) {
         return Math.round(Number(n) * 10) / 10;
+      }
+      function formatMedicinalDefShort(partial) {
+        const m = normalizeMedicinalDef(partial);
+        const parts = MEDICINAL_PROPERTY_IDS.filter((id) => (m[id] || 0) > 0).map((id) => `${MEDICINAL_LABELS[id]} ${m[id]}`);
+        return parts.length ? parts.join(" \xB7 ") : "\u2014";
+      }
+      function formatMedicinalStrengths(medicinal) {
+        if (!medicinal) return "\u2014";
+        const parts = MEDICINAL_PROPERTY_IDS.filter((id) => (medicinal[id] || 0) > 0.05).map((id) => `${MEDICINAL_LABELS[id]} ${round1(medicinal[id])}`);
+        return parts.length ? parts.join(" \xB7 ") : "negligible";
       }
       function num(n, fallback = 0) {
         const v = Number(n);
@@ -2522,6 +2719,13 @@ var AlchemyLab = (() => {
             display: String(sep.difficulty),
             detail: "Higher values resist passive cauldron separation; stuck fraction sets a contamination floor.",
             knowledgeState
+          },
+          {
+            key: "medicinal",
+            label: "Medicinal properties (per unit)",
+            display: formatMedicinalDefShort(def.medicinal),
+            detail: "Property mass carried through extraction into the reactive mixture (distinct from spirit and affinity hazards).",
+            knowledgeState
           }
         ];
         return {
@@ -2585,6 +2789,16 @@ var AlchemyLab = (() => {
           lines.push(`Product: medicinal (potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
         } else {
           lines.push(`Product: suitability ${suitability}, potency ${potency}.`);
+        }
+        if (product.experimentalName) {
+          lines.push(`Experimental label: ${product.experimentalName}`);
+        }
+        const med = product.medicinal;
+        if (med) {
+          const profile = formatMedicinalStrengths(med);
+          if (profile !== "negligible") {
+            lines.push(`Medicinal profile: ${profile}`);
+          }
         }
         return lines;
       }
@@ -2784,7 +2998,11 @@ var AlchemyLab = (() => {
           ["Contamination", (x) => x.result.mixture?.contamination ?? x.result.material?.released?.impurity],
           ["Expelled waste", (x) => x.result.material?.expelled?.contamination],
           ["Dominant affinity", (x) => x.result.product?.dominantAffinity],
-          ["Suitability", (x) => x.result.product?.suitability]
+          ["Suitability", (x) => x.result.product?.suitability],
+          ["Experimental pill", (x) => x.result.product?.experimentalName || "\u2014"],
+          ["Qi nourishment", (x) => x.result.product?.medicinal?.qiNourishment ?? 0],
+          ["Wound stabilisation", (x) => x.result.product?.medicinal?.woundStabilisation ?? 0],
+          ["Tissue restoration", (x) => x.result.product?.medicinal?.tissueRestoration ?? 0]
         ];
         return fields.map(([label, fn]) => ({
           label,

@@ -5,6 +5,13 @@
 
 const { OUTCOME, polarityImbalance } = require('./simulate');
 const { mixturePurityFromReleased } = require('./separation');
+const {
+    emptyMedicinal,
+    productMedicinalFromReleased,
+    experimentalPillName,
+    rankMedicinalStrengths,
+    summarizeMedicinal
+} = require('./medicinal');
 
 function seededNoise(seed, salt) {
     const x = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453;
@@ -41,7 +48,8 @@ function summarizeSlice(slice) {
             marrow: round1(slice.affinities.marrow),
             purify: round1(slice.affinities.purify),
             toxicity: round1(slice.affinities.toxicity)
-        }
+        },
+        medicinal: summarizeMedicinal(slice.medicinal || emptyMedicinal())
     };
 }
 
@@ -152,6 +160,20 @@ function condenseMaterialLedger(material, opts = {}) {
         productEffects.toxicity += 0.8;
     }
 
+    const processPenalty = processOutcome === OUTCOME.REFINED ? 1
+        : processOutcome === OUTCOME.UNSTABLE_SALVAGE ? condenseFactor
+            : 0.08;
+
+    const releasedMedicinal = material.released.medicinal || emptyMedicinal();
+    const productMedicinal = productMedicinalFromReleased(releasedMedicinal, {
+        mixturePurity,
+        impurityRatio,
+        condenseFactor: processOutcome === OUTCOME.REFINED ? 1 : condenseFactor,
+        processPenalty
+    });
+    const medicinalRanked = rankMedicinalStrengths(productMedicinal);
+    const experimentalName = experimentalPillName(productMedicinal);
+
     const dominantAffinity = dominantKey(productEffects);
     const potency = Math.max(productEffects.qi, productEffects.heat, productEffects.marrow);
     const productSuitability = mixturePurity < 0.52 || impurityRatio > 0.45 ? 'impure'
@@ -200,7 +222,8 @@ function condenseMaterialLedger(material, opts = {}) {
             impurityRatio: round3(impurityRatio),
             purity: round3(mixturePurity),
             purityPercent: round1(mixturePurity * 100),
-            polarityImbalance: round3(polarityImbalance(material.released.yin, material.released.yang))
+            polarityImbalance: round3(polarityImbalance(material.released.yin, material.released.yang)),
+            medicinal: summarizeMedicinal(releasedMedicinal)
         },
         peakInstability: round3(peakInstability),
         stabilityMargin: round3(stabilityMargin),
@@ -210,7 +233,16 @@ function condenseMaterialLedger(material, opts = {}) {
             potency: round1(potency),
             purity: round1(mixturePurity * 100),
             grade: gradeFromMargin(stabilityMargin, impurityRatio),
-            suitability: productSuitability
+            suitability: productSuitability,
+            medicinal: productMedicinal,
+            experimentalName,
+            primaryMedicinal: medicinalRanked[0]?.id || null,
+            secondaryMedicinal: medicinalRanked[1]?.id || null,
+            medicinalProfile: medicinalRanked.map((e) => ({
+                id: e.id,
+                label: e.label,
+                strength: round1(e.strength)
+            }))
         },
         outcome: processOutcome,
         success: processOutcome === OUTCOME.REFINED || processOutcome === OUTCOME.UNSTABLE_SALVAGE,

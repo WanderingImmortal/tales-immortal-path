@@ -3,6 +3,7 @@
  */
 
 const { EXPERIMENTAL_REAGENTS } = require('./reagents');
+const { emptyMedicinal, mergeMedicinal, scaleMedicinal, medicinalLoadFromReagent } = require('./medicinal');
 
 /**
  * @param {import('./reagents').ReagentDef} def
@@ -78,7 +79,8 @@ function emptyMaterialSlice() {
         volatility: 0,
         stability: 0,
         impurity: 0,
-        affinities: emptyAff()
+        affinities: emptyAff(),
+        medicinal: emptyMedicinal()
     };
 }
 
@@ -119,7 +121,8 @@ function scaleMaterialSlice(slice, scale) {
         volatility: slice.volatility * scale,
         stability: slice.stability * scale,
         impurity: slice.impurity * scale,
-        affinities: scaleAff(slice.affinities, scale)
+        affinities: scaleAff(slice.affinities, scale),
+        medicinal: scaleMedicinal(slice.medicinal || emptyMedicinal(), scale)
     };
 }
 
@@ -131,6 +134,8 @@ function mergeSlice(into, part) {
     into.stability += part.stability;
     into.impurity += part.impurity;
     into.affinities = addAff(into.affinities, part.affinities);
+    if (!into.medicinal) into.medicinal = emptyMedicinal();
+    mergeMedicinal(into.medicinal, part.medicinal || emptyMedicinal());
 }
 
 /**
@@ -145,7 +150,8 @@ function loadToMaterialSlice(load, def) {
         volatility: load.volatility,
         stability: load.stability,
         impurity: load.impurity,
-        affinities: { ...load.affinities }
+        affinities: { ...load.affinities },
+        medicinal: medicinalLoadFromReagent(def, load.spirit / Math.max(def.spirit, 1))
     };
 }
 

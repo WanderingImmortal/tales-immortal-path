@@ -14,8 +14,18 @@
         resetFurnace, snapshotFurnace, formatSimTime, SIM_DT,
         explainExperiment, formatMaterialLedger, compareExperiments,
         describeReagent, summarizeRefinement, formatSpiritBreakdown,
-        interpretComparison, formatProcedureChronicle, KNOWLEDGE_STATES
+        interpretComparison, formatProcedureChronicle, KNOWLEDGE_STATES,
+        MEDICINAL_LABELS, MEDICINAL_PROPERTY_IDS
     } = AlchemyLab;
+
+    function formatMedicinalProduct(product) {
+        const med = product?.medicinal;
+        if (!med) return 'Medicinal profile: —';
+        const parts = MEDICINAL_PROPERTY_IDS
+            .filter((id) => (med[id] || 0) > 0.05)
+            .map((id) => `${MEDICINAL_LABELS[id]} ${med[id]}`);
+        return parts.length ? `Medicinal strengths: ${parts.join(' · ')}` : 'Medicinal profile: negligible';
+    }
 
     const els = {
         flameBar: document.getElementById('flameBar'),
@@ -237,6 +247,8 @@
       <p class="outcome-${proc}"><strong>Process:</strong> ${proc}</p>
       <p>Peak instability: ${result.peakInstability} · Grade ${result.product.grade} · Purity ${result.product.purity ?? '—'}%</p>
       <p>Potency ${result.product.potency}, dominant ${result.product.dominantAffinity}, suitability ${result.product.suitability}</p>
+      <p><strong>${escapeHtml(result.product.experimentalName || 'Experimental pill')}</strong></p>
+      <p class="medicinal-profile">${escapeHtml(formatMedicinalProduct(result.product))}</p>
       <p>Contamination ${result.mixture?.contamination ?? '—'} · Expelled ${result.material?.expelled?.contamination ?? 0}</p>`;
 
         const m = result.material;

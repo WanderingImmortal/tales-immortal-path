@@ -6,6 +6,7 @@
 const { EXPERIMENTAL_REAGENTS } = require('./reagents');
 const { deriveThermalProfile } = require('./thermal');
 const { deriveSeparationProfile } = require('./separation');
+const { MEDICINAL_LABELS, MEDICINAL_PROPERTY_IDS, normalizeMedicinalDef } = require('./medicinal');
 
 /** Character knowledge states (scaffolding for a future live game). Lab uses established. */
 const KNOWLEDGE_STATES = {
@@ -83,6 +84,22 @@ function heatRelationText(threshold, kind) {
 
 function round1(n) {
     return Math.round(Number(n) * 10) / 10;
+}
+
+function formatMedicinalDefShort(partial) {
+    const m = normalizeMedicinalDef(partial);
+    const parts = MEDICINAL_PROPERTY_IDS
+        .filter((id) => (m[id] || 0) > 0)
+        .map((id) => `${MEDICINAL_LABELS[id]} ${m[id]}`);
+    return parts.length ? parts.join(' · ') : '—';
+}
+
+function formatMedicinalStrengths(medicinal) {
+    if (!medicinal) return '—';
+    const parts = MEDICINAL_PROPERTY_IDS
+        .filter((id) => (medicinal[id] || 0) > 0.05)
+        .map((id) => `${MEDICINAL_LABELS[id]} ${round1(medicinal[id])}`);
+    return parts.length ? parts.join(' · ') : 'negligible';
 }
 
 function num(n, fallback = 0) {
@@ -182,6 +199,13 @@ function describeReagent(reagentId, opts = {}) {
             display: String(sep.difficulty),
             detail: 'Higher values resist passive cauldron separation; stuck fraction sets a contamination floor.',
             knowledgeState
+        },
+        {
+            key: 'medicinal',
+            label: 'Medicinal properties (per unit)',
+            display: formatMedicinalDefShort(def.medicinal),
+            detail: 'Property mass carried through extraction into the reactive mixture (distinct from spirit and affinity hazards).',
+            knowledgeState
         }
     ];
 
@@ -255,6 +279,16 @@ function productPlainLines(result) {
         lines.push(`Product: medicinal (potency ${potency}, purity ${purity}%, dominant ${product.dominantAffinity}).`);
     } else {
         lines.push(`Product: suitability ${suitability}, potency ${potency}.`);
+    }
+    if (product.experimentalName) {
+        lines.push(`Experimental label: ${product.experimentalName}`);
+    }
+    const med = product.medicinal;
+    if (med) {
+        const profile = formatMedicinalStrengths(med);
+        if (profile !== 'negligible') {
+            lines.push(`Medicinal profile: ${profile}`);
+        }
     }
     return lines;
 }
@@ -495,7 +529,11 @@ function compareExperiments(a, b) {
         ['Contamination', x => x.result.mixture?.contamination ?? x.result.material?.released?.impurity],
         ['Expelled waste', x => x.result.material?.expelled?.contamination],
         ['Dominant affinity', x => x.result.product?.dominantAffinity],
-        ['Suitability', x => x.result.product?.suitability]
+        ['Suitability', x => x.result.product?.suitability],
+        ['Experimental pill', x => x.result.product?.experimentalName || '—'],
+        ['Qi nourishment', x => x.result.product?.medicinal?.qiNourishment ?? 0],
+        ['Wound stabilisation', x => x.result.product?.medicinal?.woundStabilisation ?? 0],
+        ['Tissue restoration', x => x.result.product?.medicinal?.tissueRestoration ?? 0]
     ];
     return fields.map(([label, fn]) => ({
         label,
