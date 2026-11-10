@@ -70,6 +70,8 @@ Master ladder reminder: 3 Adept → 4 Array Disciple → 5 Formation Master → 
 
 Day-to-day Adept (and mid ranks) should not require a continent trek to HQ.
 
+**Lore note (2026-11-10):** an **early-Manifestation Formation Guild grandmaster** may reside for centuries in an **independent sanctuary city** while retaining guild ties — professional **grandmaster** = proficiency band, not cultivation realm. Fiction: [`independent-sanctuary-city-state.md`](independent-sanctuary-city-state.md). Guild rank ladder detail remains **Open** beyond [`formations-and-arrays.md`](formations-and-arrays.md) lean.
+
 ### Agent lean (aligned)
 
 - Ship **Formations Guild + zone-hub branches** before specialist-sect fiction.
