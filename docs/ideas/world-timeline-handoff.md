@@ -57,6 +57,13 @@ Establish **when** major setting beats happened relative to each other (Seal →
 - [ ] **Archive Oath** (Void) — **after** capital outcome clear
 - [ ] **Lotus** never assaulted Tian — what they did **same years** elsewhere
 
+### Poison Guild / 仙眠
+
+- [~] **Early heaven** ≫ **WS ~100k y** · **Dao Wars ~0.5–3k y** · **Imperial Sky ~3k y** — [`world-timeline-author-spine.md`](world-timeline-author-spine.md) (2026-10-04)
+- [~] WS **slices** (array age, vein wars, fragment hunts, late deterrence) — author table in spine
+- [~] Poison Guild ~**75–85k y** BP; Qing / 仙眠 scroll ~**55k y** BP ([`poison-path.md`](poison-path.md))
+- [~] Longcheng branch ~**1.1k y** BP; 仙眠 brew rebuild ~**450y**; Pei myth ~**380y**
+
 ### Memory / who remembers
 
 - [ ] **QC/GC** “cult dead” — how many **generations** since Withdrawal?
