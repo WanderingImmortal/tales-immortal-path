@@ -6,7 +6,7 @@
 | **Blocked on** | Elder brother's personal name; mother's realm / cause of death; Tian Xu's future role; prince roster; left/right hand identities |
 | **Issue** | none yet |
 | **Chat / PR** | Cursor task — Tian Clan family history consolidation; Tianjing–Longcheng–clan pass 2026-11-08 |
-| **Updated** | 2026-11-08 |
+| **Updated** | 2026-11-10 |
 
 ## Intent
 
@@ -129,10 +129,15 @@ The assassination is **not** the sole cause of the younger brother's breakthroug
 - Takes governing seriously without personally managing every local matter
 - Pragmatic; capable of political ruthlessness; not automatically correct or benevolent in every decision
 - Cares about subjects **collectively** without needing to know or personally protect every individual
+- **Humour, pride, and personality** — not an emotionless political machine; can enjoy sharp banter and controlled mischief in negotiation (see Jade Lotus bluff response below)
 - **Potential flaw:** can mistake threats to Tian authority for threats to peace (not a mandatory plot event)
 - Father's lessons shaped him; **his decisions and achievements remain his own**
 
 He inherited a clan under siege and subsequently helped create an empire.
+
+### Jade Lotus bluff — first imperial negotiations (canon pointer)
+
+When **Leng Shuyu**’s post–Half-Step bluff reached the court, the elder brother **saw through it immediately**, consulted his younger brother, and **chose negotiation** over instant humiliation. He ran the opening talks **tense on purpose** — payback for unauthorized use of the Tian name — while keeping the substance **serious**. **Provisional** illustrative tone: *"Ah, if it isn't the allies we didn't know we had."* Full beat: [`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md). Treaty detail remains **Open**.
 
 ---
 
@@ -144,6 +149,33 @@ He inherited a clan under siege and subsequently helped create an empire.
 | **Present** | An **Immortal** who **voluntarily remains in seclusion** beneath Tianjing — actively cultivating, contemplating, researching, and refining. **Not** literally unconscious or asleep. Cosmological restrictions on Immortals still bind him; he does not automatically intervene in ordinary administration. |
 | **Further cultivation** | Need not pursue a new realm; may deepen comprehension, refine techniques, or study other disciplines. |
 | **Open** | True personal name (pre-mandate / private); exact post-ascension practice agenda. |
+
+### Private life and ordinary human appetite (canon direction)
+
+Immense power and public stature do **not** erase ordinary interests.
+
+| Layer | Detail |
+|-------|--------|
+| **Canon** | Can be **mischievous, sociable, curious, occasionally provocative**; enjoys experiences far from high politics |
+| **Canon** | Sometimes wanders **Tianjing** (or other suitable places) with cultivation and identity **concealed**, appearing as an ordinary passer-by |
+| **Canon** | Motives are usually **mundane**: food, conversation, street life, games, drink, unexpected encounters, the freedom of being treated as nobody special |
+| **Provisional** | May include tavern arguments or brawls — sometimes **instigated** by his own provocation, not always innocent; if he fights physically, he **restrains** himself (no Immortal might on mortals) |
+| **Canon** | Outings are **occasional**, not a constant gimmick |
+| **Canon** | He is **not** always secretly testing people, seeking disciples, dispensing rewards, or engineering lessons — **sometimes he is simply enjoying life** |
+| **Open** | Frequency, specific locations, any single tavern incident |
+
+**Public duties** remain real; this private side **complements** seclusion and deterrence, not replaces them.
+
+### Sibling relationship beyond statecraft (canon direction)
+
+The elder brother is among the few who can treat the founding Immortal as a **younger sibling**, not only a legend — teasing, exasperation, affection, arguments, shared humour.
+
+| Layer | Detail |
+|-------|--------|
+| **Provisional anecdote** | They may have attempted **at least one** joint stroll through Tianjing in disguise; the younger brother's mischief produced a **chaotic evening** |
+| **Open** | Exact brawl, dialogue, location, or outcome — **do not** canonise from this sketch |
+
+On the Lotus bluff, the younger brother found Shuyu's audacity **hilarious**; the elder turned that into **negotiation with teeth**. Neither brother was fooled; neither was gratuitously cruel. Detail: [`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md).
 
 ### "Sleeping dragon" language
 
