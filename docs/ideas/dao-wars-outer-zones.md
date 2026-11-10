@@ -19,6 +19,8 @@
 
 **Distance alone did not spare anyone** — but **most territorial prizes** (veins, fragment clusters, great sect homelands to absorb) sat in the **Heartlands**. Outer zones were **touched** (trade, raids, contracts, refugees) without being where the **map was redrawn**.
 
+**Refuge sketch (unnamed):** at least one **independent sanctuary city-state** began as a **Dao Wars refuge** and survived via restraint and defensible arrays — not as a charter great sect. Present-day detail: [`independent-sanctuary-city-state.md`](independent-sanctuary-city-state.md) (**Open** geography).
+
 **This doc is a living sketch** — as more great sect identity docs land ([`outer-zone-great-powers.md`](outer-zone-great-powers.md)), the war roster grows. Core frame stays: **Heartlands = prize**; outer = **angles, bargains, mistakes**.
 
 ## Territorial logic (owner lock — 2026-08-02)

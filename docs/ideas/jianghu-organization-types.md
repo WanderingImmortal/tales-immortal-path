@@ -40,6 +40,9 @@ Realm pyramid lives in [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-
 | **Clan / house** | Blood + marriage | **High** — family shame is real | Born or marry in | Cadet branches; rarely mass recruit | Rare; mostly rep / marriage fiction |
 | **Tribe** | Blood + land + rite | **High** — shared survival | Born; ritual adoption rare | Camp + caravan scale; **not** sect headcount | Contracts / oaths, not outer court |
 | **Civic seat** | Office + law | N/A (institutional) | Appointed / inherited seat | City garrison, wells, registry | Jobs, bounties, conscription |
+| **Independent sanctuary city-state** | **Sanctuary law** + commerce | Medium-high — credibility matters | Refuge + lawful settlement; merchants welcome | City arrays, DM deterrence; **not** sect span | Fiction — rep / contracts (**Open** map) |
+
+**Independent sanctuary city-state (lean):** [`independent-sanctuary-city-state.md`](independent-sanctuary-city-state.md) — Dao Wars refuge → wealthy **neutral** hub; **not** a great sect or imperial dependency. Weight today ≈ **four Dao Manifestation** companions + formation depth; Weight **grew over ~3,000 y**, not instant.
 
 **Rule:** tribes / clans / houses are **not** “weak sects.” They are **different social machines**.
 

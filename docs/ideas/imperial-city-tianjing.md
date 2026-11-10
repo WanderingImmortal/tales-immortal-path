@@ -223,6 +223,7 @@ Once found, stays found (same spirit as forbidden entrances in [`local-world-map
 | **Services** | Deniable kills, kidnapping, protection, **gray bounty board** |
 | **NPC vs player** | Nobles, sects, rivals hire against the player; player can take contracts later |
 | **Relationship** | Sometimes hires **Poison Guild** for toxin work — separate invoice, separate org |
+| **Contract economics** | Difficulty / risk vs reward — some targets become **impractical** (e.g. formation grandmaster behind city arrays); cancellation without public notice **Open** — see [`independent-sanctuary-city-state.md`](independent-sanctuary-city-state.md) § Figure B |
 
 **Poison Guild** *(name TBD — “Poison Hall” in older notes)*
 
