@@ -57,7 +57,7 @@ Rumors had run for years: the Tian bred a **genius** at **peak Dao Manifestation
 
 | Power | Stance |
 |-------|--------|
-| **Jade Lotus** | **Would not** war against the Tian — squeezed by Phoenix/Sword elsewhere, consolidated valley, **supply and marriage hedges** toward the rising clan; **bloomed** after the walk ([`jade-lotus-sect.md`](jade-lotus-sect.md)). |
+| **Jade Lotus** | **Would not** war against the Tian — squeezed by Phoenix/Sword elsewhere, consolidated valley, late **hedges**; after Half-Step, **Leng Shuyu’s bluff** → real Tian talks ([`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md)); **bloomed** after the walk ([`jade-lotus-sect.md`](jade-lotus-sect.md)). |
 | **Void Temple** | **Silent** for most of the war — prison and seals first; **Archive Oath** only after outcome clear ([`void-temple-sect.md`](void-temple-sect.md)). |
 
 **The two apexes (pre-walk):** Tian founder and **Sword Ancestor** both **peak Dao Manifestation** — the board’s ceiling **before** Half-Step existed. Chroniclers still argue whether the Sword Ancestor could have **killed** the genius **during** breakthrough if the inner defenses had failed one hour sooner.

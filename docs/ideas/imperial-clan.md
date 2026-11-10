@@ -6,7 +6,7 @@
 | **Blocked on** | Emperor personal name; phase-1 map nodes; four-sect charter detail; prince roster; left/right hand identities |
 | **Issue** | none yet |
 | **Chat / PR** | Cloud agent workshop, 2026-07-23; family / leadership revision 2026-11-07; Tianjing–Longcheng–clan consolidation 2026-11-08 |
-| **Updated** | 2026-11-08 |
+| **Updated** | 2026-11-10 |
 
 ## Intent
 
@@ -34,6 +34,24 @@ Full detail: [`tian-clan-family-history.md`](tian-clan-family-history.md).
 **Complementary achievements:** the elder kept the clan alive and then governed; the younger changed the continental power ceiling and then stepped back. Genuine familial affection — not puppet throne / hidden master.
 
 **Supersedes:** **Tian Xu** as reigning emperor (VR peak, ~200 years). Tian Xu's future role is **Open** — do not auto-recast.
+
+**Jade Lotus mandate ties:** Late-war **bluff and negotiation** with **Leng Shuyu** — [`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md). Matriarch psychology: [`jade-lotus-sect.md`](jade-lotus-sect.md) § Matriarch.
+
+---
+
+## World tone — harsh setting, human people (canon principle)
+
+**Canon:** Wandering Immortal’s cultivation world is **dangerous, unequal, competitive, and often ruthless**. That does **not** mean every person is cruel.
+
+Cultivators — including apex figures — can show **kindness, humour, generosity, loyalty, pettiness, affection, selfishness**, and ordinary pleasures. Institutions and incentives may be harsh while individuals are mixed.
+
+| Figure | Illustration (not universal benevolence) |
+|--------|------------------------------------------|
+| **Mad Arhat Da Chi** | Boisterous, passionate about martial cultivation — not defined solely by cruelty ([`body-path-sect.md`](body-path-sect.md)) |
+| **Founding Tian Immortal (younger brother)** | Overwhelming power; still enjoys mundane life incognito ([`tian-clan-family-history.md`](tian-clan-family-history.md)) |
+| **Leng Shuyu** | Selfish, controlling, manipulative — **not** sadistic or malice-driven ([`jade-lotus-sect.md`](jade-lotus-sect.md)) |
+
+**Avoid by default:** every kindness is a secret test; every friendly stranger is a disguised master; every positive beat is betrayal bait. Aim for **believable human variety**, not a uniformly benevolent or uniformly cruel world.
 
 ---
 
@@ -67,7 +85,7 @@ Over the peace (~3,000 years — working, owner 2026-09-26), sects gained **immo
 |---------------|----------|---------------------------|
 | **Tian Clan** | Heartlands core — **Tianjing** (ancestral) + **Longcheng** (metropolis) | Victor; became imperial mandate |
 | **Celestial Sword** | Heartlands — **Solitary Sword Mountain** (孤剑山) | Early capitulation — kept mountain honor; *also* licensed charter sword work when law must look clean |
-| **Jade Lotus** | Heartlands — silk courts & trade cities | Early alliance — best charter terms; *also* richest great sect commercially, not “a trade guild” |
+| **Jade Lotus** | Heartlands — silk courts & trade cities | Early mandate ally — best charter terms; origin includes post–Half-Step **bluff → negotiation** ([`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md)); *also* richest great sect commercially, not “a trade guild” |
 | **Void Temple** | Heartlands — observatory slopes | Neutral late — archives preserved by oath; *also* sealed-site monopoly, not “the library faction” |
 | **Golden Phoenix** | Heartlands — flame courts | Broken late — Flame Emperor **executed** at Ember Crown; younger brother’s truce; homelands retained under charter (why: Tian stability + negotiation — **Open** how much last stand mattered); *also* fuels modern revanchism |
 | **Yin Maiden Palace** | Frostbite (crown) | Isolation / recognition — peak Yin; northern quell + small reaches; silence debts |

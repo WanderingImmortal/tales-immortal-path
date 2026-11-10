@@ -4,9 +4,9 @@
 |-------|-------|
 | **Status** | `designed` (v2 — lineage + techniques sketch) |
 | **Blocked on** | Lineage manual implementation in `CULTIVATION_METHOD_POOL`; Matriarch reveal beats |
-| **Updated** | 2026-07-23 (Jade Lotus Canon lineage) |
+| **Updated** | 2026-11-10 (Matriarch psychology; Tian alliance origin cross-link) |
 
-Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md) *(PR #69 — pending)*. Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Sword alliance mirror: [`celestial-sword-sect.md`](celestial-sword-sect.md).
+Parent index: [`sect-faction-identities.md`](sect-faction-identities.md). Imperial context: [`imperial-clan.md`](imperial-clan.md); alliance origin: [`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md). Power bands: [`sect-power-pyramid-and-schools.md`](sect-power-pyramid-and-schools.md). Sword alliance mirror: [`celestial-sword-sect.md`](celestial-sword-sect.md).
 
 **Design principle:** Lotus is a **full great sect** — valley, array, immortals, Lotus Dao — *also* the Heartlands’ strongest commercial and marriage power. Longcheng is a satellite footprint, not the identity.
 
@@ -58,15 +58,15 @@ Lotus was **not** pushed into the valley by the Tian Clan. They were **squeezed*
 
 When the board broke, Lotus **consolidated** into **Jade Lotus Valley**, raised the **Pure Lotus Array**, and stopped trying to hold every court at once. Enemies called it hiding. Lotus called it **concentrating roots**.
 
-The **Tian** offer was alliance, not siege — Lotus **never marched on Tianjing** and **would not** war against the rising clan:
+Lotus **never marched on Tianjing** and **would not** war against the rising Tian Clan. Late in the war — **after** the genius’s **Half-Step** breakthrough reversed the board — **Matriarch Leng Shuyu** ran a **dangerous bluff**: she implied to Lotus enemies that the sect already had a **meaningful understanding** with the ascendant Tian, exaggerating a tie that was **not yet formal**. That bought time; then she had to **make it real** in negotiations with the Tian brothers before the lie collapsed. Detail: [`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md).
 
-- Recognize valley sovereignty and charter borders.
-- Marriage reaffirmation and supply contracts in crisis.
-- Best charter terms among mandate allies.
+**Canon posture:** Lotus did **not** steer the Tian victory or foresee Half-Step. The bluff exploited a moment **after** the fact.
 
-Lotus accepted the mandate **early in the peace** — grain, herbs, and marriage legitimacy — and **bloomed publicly** after the Tianjing walk while Sword and Phoenix were still bleeding ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)). Phoenix broke **late** and was humiliated. Lotus had **hedged** (bonds, supply) against Phoenix/Sword squeeze — **not** against Tian. Sword calls post-war bloom opportunism. Lotus bought **time** with disciples and treaties — and won.
+Mid-war hedging continued in parallel — bonds, supply lines, disciple placement — against Phoenix/Sword squeeze, **not** as an anti-Tian strategy.
 
-**Matriarch Leng Shuyu** was already apex-adjacent during the retreat; she ascended to **true Immortal** after the mandate settled. Heaven’s restrictions stalled further cultivation — her obsession turned **inward**, then **outward** through proxies.
+Lotus aligned with the mandate **early in the peace** and **bloomed publicly** after the Tianjing walk while Sword and Phoenix were still bleeding ([`dao-wars-capital-turn.md`](dao-wars-capital-turn.md)). Phoenix broke **late** and was humiliated. Sword calls post-war bloom opportunism. Lotus bought **time** with disciples, treaties, and the bluff — and won **best charter terms** among mandate allies once talks succeeded.
+
+**Matriarch Leng Shuyu** was already apex-adjacent during the valley retreat; she ascended to **true Immortal** after the mandate settled.
 
 ### Now
 
@@ -115,14 +115,25 @@ OUTER COURT — disciples, farms, marriage candidates in training
 
 ### Who she is
 
-Leng Shuyu survived the Dao Wars by **spending bonds** faster than enemies could cut them — emergency marriages, supply oaths, disciples placed in houses that would owe the valley for generations.
+**Canon — before Immortality:** Shuyu was always **perceptive** and capable of political manipulation, but manipulation was **not** her only tool. She was a more **personally active** cultivator: negotiate, intervene, fight, build relationships, resolve matters **directly** when that was the right answer. Under Dao Wars pressure she proved **resourceful** — spending **bonds** faster than enemies could cut them (emergency marriages, supply oaths, disciples placed in houses that would owe the valley for generations), alongside the late-war **imperial bluff** ([`jade-lotus-imperial-alliance-origin.md`](jade-lotus-imperial-alliance-origin.md)).
 
-After Immortal Ascension, **heaven blocked further cultivation** and priced open intervention in mortal affairs. She did not go mad — she went **meticulous**. Machination became the only game that still rewarded her: edicts not signed, motions tabled, Phoenix envoys embarrassed in charter court.
+**Canon — after Immortality:** **Heaven blocked further cultivation** and priced open intervention on the mortal board. Unlike immortals who withdraw into long cultivation or quiet guardianship, Shuyu **remains determined to shape worldly affairs** — but increasingly through **proxies**, obligations, alliances, and indirect leverage rather than personal appearance. That shift was **gradual** over centuries and millennia, an **intensification** of earlier talents, not proof she always treated people as counters only.
 
-Disciples are **assets with potential** — indoctrinated first, deployed second. Affection is optional; **utility is mandatory**.
+**Canon — motivations (overlapping):**
 
-**Not:** cartoon seductress, merchant queen caricature, warm grandmother healer.  
-**Is:** the reason “Lotus endures” is a **system**, not hope.
+1. **Influence and power** — political leverage, obligations, economic reach, institutional control (not necessarily greater personal cultivation strength).
+2. **Satisfaction and entertainment** — successful schemes, clever manoeuvres, the pleasure of shaping outcomes.
+
+Influence and control **outrank** amusement. She is **obsessive, intelligent, patient, pragmatic, and selfish** — **not** inherently malicious or sadistic. **Jade Lotus** is both foundation of her power and an institution she **values**; she takes calculated risks, not reckless gambles for fun.
+
+**Canon — temperament:** Exceptional lifespan means a failed move against a mortal house may be **revisited decades later** when leadership turns. Ordinary setbacks often read as **mild disappointment and adaptation**, not melodramatic fury. She is **not** omniscient or infallible; another immortal on equal footing could genuinely **bother** her if she lost — **no named rivalry** is fixed yet. She can **like, respect, or appreciate** individuals while still using them politically. Detachment toward short-lived perspectives can be a **flaw**; she is **not** canonically incapable of affection, remorse, or attachment.
+
+**Provisional tone:** Successful schemes still give her pleasure — the continent’s most dangerous gossip columnist with an immortal lifespan — but that pleasure is **secondary** to control.
+
+Disciples remain **political assets with potential** — indoctrinated first, deployed second — without denying that affection or loyalty can exist case by case.
+
+**Not:** cartoon seductress, merchant queen caricature, warm grandmother healer, sadistic schemer for sport.  
+**Is:** the reason “Lotus endures” is a **system**, not hope — maintained by someone who **chose** indirect rule after learning heaven’s bill.
 
 ### The restriction twist
 
@@ -132,7 +143,7 @@ Disciples are **assets with potential** — indoctrinated first, deployed second
 | Long game, scandal, famine leverage | One-strike apex duels |
 | Purification / siege denial | Acting openly without heaven’s debt |
 
-She is almost **twisted by pleasure** in successful schemes — the continent’s most dangerous gossip columnist with an immortal lifespan.
+Register Lotus Path (契莲道) and bond-node work align with how she **reads** relationships and obligation; this pass does **not** add a breakthrough revelation, new Dao ability, or player mechanic.
 
 ### Relationship to Lin Qingyi
 
@@ -485,6 +496,11 @@ Shared progress on `jade_lotus_qi_line`. Working layer names:
 
 ## Open questions
 
+- [ ] Shuyu — age, origins, matriarch vs predecessor before Dao Wars  
+- [ ] Imperial bluff — exact wording, enemies deterred, chronicle vs rumor delivery  
+- [ ] First Tian negotiations — treaty terms, marriages, named participants  
+- [ ] Shuyu vs Tian brothers — personal relationship after the mandate (**Open**)  
+- [ ] Named immortal rival for Shuyu (**do not invent**)  
 - [ ] Founding compact names (Valley Supply Oath, Jade Bed Compact)  
 - [ ] **Tidal Lotus** (Jade archipelago) — cousin sect, splinter, or unrelated name collision?  
 - [ ] Array backlash on broken bonds — revisit after playtesting  
