@@ -6,7 +6,7 @@
 | **Blocked on** | Elder brother's personal name; mother's realm / cause of death; Tian Xu's future role; prince roster; left/right hand identities |
 | **Issue** | none yet |
 | **Chat / PR** | Cursor task — Tian Clan family history consolidation; Tianjing–Longcheng–clan pass 2026-11-08 |
-| **Updated** | 2026-11-10 |
+| **Updated** | 2026-11-11 |
 
 ## Intent
 
@@ -163,6 +163,8 @@ Immense power and public stature do **not** erase ordinary interests.
 | **Canon** | Outings are **occasional**, not a constant gimmick |
 | **Canon** | He is **not** always secretly testing people, seeking disciples, dispensing rewards, or engineering lessons — **sometimes he is simply enjoying life** |
 | **Open** | Frequency, specific locations, any single tavern incident |
+| **Fate reads** | Peak seers generally **cannot divine his future** (Immortal gulf). Extraordinary effort might catch a **present** fragment only — often mundane. **Provisional** contrast with an earnest Fate cultivator: [`fate-divination-seer-tradition.md`](fate-divination-seer-tradition.md) § Seer (not canon until owner lock) |
+| **Perception** | Long study of other Daos may let him **notice or respond** to attempted divination — **not** automatic for all Immortals |
 
 **Public duties** remain real; this private side **complements** seclusion and deterrence, not replaces them.
 
