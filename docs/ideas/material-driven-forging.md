@@ -241,3 +241,46 @@ Candidate low-rank essences (not locked roster): Fire Essence, Frost Essence, Ea
 **Current conceptual framework:** element (fire, frost, dark etc.), property (what it does), potency (strength of effect), depth (what level of existence it interacts with). A flame may burn physical matter, Qi, soul, void or karmic connections; frost may absorb heat, slow Qi, preserve against decay or arrest time. These are illustrative, not new roster entries. Both greater potency within the same domain and deeper interaction can justify higher rank. A gentle Dao-level essence is not low rank merely because it is harmless. Interaction with its underlying domain may be necessary to grasp or refine it; a karmic flame is not automatically wieldable by a first-realm cultivator. Reject resistance/control difficulty as a universal rank test.
 
 **Next design discussion:** clarify qualitative realm transitions across all three cultivation paths, then revisit material/essence rank demarcations. No nine-rank essence ladder is settled; especially middle ranks remain hazy. Realm-equivalent capability is a working direction, not a finalized classification algorithm. Do not implement numerical thresholds or assume Dao/void/karma access gates until the realm review.
+
+
+### Essence follow-up — provisional rank framework (November 2026)
+
+This supersedes the earlier potency/depth-based classification proposal. Material rank has a shared realm-equivalent meaning, not a universal advancement mechanism across families. Metals, crystals, living resources and essences may qualify for the same rank for different reasons. Purity can affect rank in a particular material lineage with a finite ceiling (illustrative only); purity is not equipment grade, and no universal purity-to-rank rule is intended.
+
+For essences specifically, rank describes the sophistication of their spiritual existence. Element and properties describe their nature and applications. New capabilities may follow from rank rather than being arbitrary prerequisites for it. Do not require essences to imitate cultivator anatomy or breakthroughs (e.g. a miniature Golden Core).
+
+| Rank | Working intrinsic distinction |
+|---|---|
+| 1 — Mundane (Qi Condensation equivalent) | Condensed spiritual energy expresses a coherent identity; sufficiently dispersing or depleting it destroys that identity. Compatible energy can sustain it. |
+| 2 — Tempered (Foundation Establishment equivalent) | Identity has an established structure that can survive severe energy depletion and recover under suitable conditions. It is not indestructible. |
+| 3 — Treasure (Golden Core equivalent) | Identity begins imposing its nature beyond itself, actively influencing surrounding spiritual energy rather than merely producing incidental physical effects. Conversion of ambient Qi is a candidate mechanism, not unlimited growth. |
+| 4 — Spiritual (Nascent Soul equivalent) | Increasingly integrated identity exhibits autonomous, lifelike responses or spiritual instinct, without necessarily being alive, conscious or possessing a soul. |
+| 5–8 | Undetermined; revisit alongside cultivation realm definitions. |
+| 9 — Immortal | Heavenly tribulation on ascension or birth; possible emergence of genuine spiritual life and a soul. Exact outcomes and universality unresolved. |
+
+Rank 3 environmental influence can be substantial: an uncontained flame might noticeably warm a town and scorch objects within a few metres, without setting the whole town ablaze. Distances are illustrative, not balance targets. Distinguish ordinary heat emitted by any flame from active imposition of its nature upon ambient Qi. Non-destructive essences can likewise influence environments. An essence may originate in a suitable environment and later sustain a spiritual ecosystem; removal could gradually change local resources and conditions. Sects may value leaving one in place. Dao-level influence may eventually affect underlying principles, but no specific rank gate is locked.
+
+Rank 4 instinct might manifest as attraction to compatible energy, avoidance of threats, resistance to containment or familiar responses to an owner's Qi. These are examples of consequences, not mandatory abilities. Life could emerge unintentionally as a byproduct of increasing spiritual integration, rather than through deliberate cultivation. Do not equate rank with intelligence.
+
+#### Initial example roster (working designs)
+
+| Essence | Rank | Element / property | Applications and occurrence |
+|---|---|---|---|
+| Emberheart Flame | 1 | Fire / sustained heat | Concentrated Yang Qi and persistent heat; absorbs compatible spiritual energy rather than physical fuel. Fire-aligned Qi, thermal tempering, cauldron and forge heat. |
+| Earth Marrow | 1 | Earth / physical reinforcement | Dense viscous spiritual concentration, deep earth-aligned deposits under pressure. Reinforcement techniques, bone/tissue refinement, structural and formation materials. |
+| Soul Mist | 1 | Soul affinity (element classification provisional) / spiritual nourishment | Cohesive mist in undisturbed compatible spiritual energy. Soul nourishment, spiritual recovery, pills and formations. Does not itself possess a soul. |
+| Everfrost Essence | 2 | Frost / heat absorption | Persistent cold and concentrated Yin Qi. Frost-aligned Qi, cold tempering, cooling, preservation and quenching. Can retain identity when severely depleted and recover. |
+
+Earth Marrow and Soul Mist reuse existing alchemy names; reconcile proposed identities with live/prototype behaviour before implementation. Emberheart and Everfrost are proposed new identities; reconcile existing Frost Essence rather than automatically duplicate it. Rank 1 frost could have exactly the same property as Everfrost; the distinction is persistence of identity, not a new ability. Rank 1 components risk permanent exhaustion, while Rank 2 components may be rechargeable. Exact depletion, consumption, containment and replenishment mechanics remain open.
+
+#### Properties, effectiveness and knowledge
+
+Drop universal potency as an essence characteristic or rank criterion. Effectiveness is application-specific: temperature, heat output, efficiency, reinforcement, affected volume, soul injury, etc. Candidate descriptors are rank, element, properties, energy capacity and saturation (filled fraction). Higher rank generally permits greater scope of expression, but not superiority in every property. A gentle higher-rank flame need not be hotter than a lower-rank combat flame. Interaction with a property domain may still be required for handling/refinement; exact gates remain open.
+
+Separate actual rank and properties from identified characteristics. A cultivator may mistake a soul-burning flame for a mediocre thermal flame because they cannot perceive soul damage; a specialist may recognize its value. A depleted Rank 2 essence might be mistaken for Rank 1. Appraisal depends on knowledge, perception, specialization and cultivation; it need not reveal everything. Misidentification can create economic opportunities and mistakes for NPCs and players alike. Do not infer rank solely from an exotic property or apparent damage. Soul-burning flame is hypothetical, not a new roster entry or a settled low-rank access rule.
+
+#### Immortal essence / awakened life — parked lore opportunity
+
+An Immortal essence might become an independent living being, potentially a unique character who was never a mortal cultivator or demon beast. A long-existing essence could be newly conscious. Ascension of the essence and birth of a soul may be separate or simultaneous. Heavenly tribulation is the working direction, analogous to immortal ascension and high treasures/pills; whether every Immortal essence awakens, only some do, or one unprecedented example exists is unresolved. Possible outcomes include destruction, regression, successful material ascension and awakening. A soul emerging during tribulation and a first conscious desire to survive are illustrative possibilities only.
+
+Open: when consciousness first becomes possible; whether a soul is generated, bestowed or catalysed; what happens if ascension succeeds but soul formation fails; whether awakened essences cultivate, reincarnate or fall under immortal usage restrictions; how refinement affects essence identity; whether human form is possible. No new species, character, cultivation path or cosmology rule is canonized here. Defer ranks 5–8 and these questions until realm/soul/cosmology review. No implementation authorized.
