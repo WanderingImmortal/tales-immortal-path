@@ -87,3 +87,7 @@ This checkpoint supersedes earlier illustrative ceilings and encounter assumptio
 - Persistent conflict could later support human assassins/rivals too, but no human NPC rewrite authorized. Audit existing spotlight NPC, encounter generation, world clock, injury/status persistence and combat exit paths before implementation. Keep this independent of reaction sandbox migration and aggregate ecology.
 
 No new code, stats, species, loot tables, or combat rewrite approved by this checkpoint.
+
+
+## Latest loot direction
+Owner now prefers species-specific beast loot over generic rank-only drops, superseding the earlier generic baseline. Challenging hunts, distinctive species properties and geographic scarcity make acquiring particular materials a meaningful time investment; a cultivator may choose to travel, trade, hunt or change crafting/refinement plans. Preserve species identity and rank in material design; exact item roster, stacking and legacy ID migration remain open. No loot implementation authorized. See [materials checkpoint](material-driven-forging.md) for simplified properties and QC/FE physical benchmarks.
