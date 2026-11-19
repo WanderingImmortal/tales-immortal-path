@@ -330,3 +330,75 @@ Latest owner discussion supersedes earlier generic beast loot and exhaustive uni
 - Deliberate spiritual overload/self-detonation is a parked artefact idea, not default equipment behavior. Ordinary weapon destruction need not yield meaningful explosive attack; spiritual treasures and purpose-built artefacts may differ. Contact/remote activation, risk, damage and mechanics unresolved; defer to artefact/inscription pass.
 
 Next: assign experimental physical and Qi affinity values for starting materials using iron reference and these benchmarks; test meaningful differences before expanding scope. Reconcile existing equipment tier/grade and registries before implementation. No code changes authorized.
+
+
+## November 19 checkpoint — mundane metals, penetration and basic Qi reinforcement
+
+Owner-approved design direction and initial testing values; not production balance or implementation authorization. This section supersedes earlier experimental six-property tables and unresolved basic reinforcement proposals. Numerical combat outcomes remain targets, not calculated results.
+
+### Rank 1 (Mundane) metals — initial test roster
+
+| Material | Hardness | Toughness | Density | Qi affinity |
+|---|---:|---:|---:|---:|
+| Iron | 10 | 10 | 10 | 10 |
+| Copper | 4 | 12 | 11.4 | 15 |
+| Blackiron | 22 | 8 | 16 | 8 |
+| Silversteel | 7 | 18 | 6 | 10 |
+| Redvein | 8 | 10 | 12 | 12 |
+
+- Iron is the reference across all four properties, abundant, cheap, reliable and versatile. Scale is not a percentage or necessarily a linear combat multiplier.
+- Copper: common, malleable, good Qi conduction/affinity; artefacts, formation inlays and support components rather than primary cutting weapons. Same volume weighs about 14% more than iron.
+- Blackiron: naturally hard, dense and relatively brittle, not a product of Qi or inscriptions. Semi-rare/uncommon, moderately pricey, a meaningful upgrade with downsides, not wealthy-exclusive. Aspirational for ordinary mortals, accessible to established QC; full armour costs more material than a sword. Raw 3–5x iron price was suggested, not approved. Average passive peak QC should not routinely break a Blackiron sword; exceptional stress can.
+- Silversteel: light (60% iron mass for equal volume), tough, elastic, softer edge; flexible armour, bows, springs, machinery and siege engines. Uncommon with strong institutional demand from smaller cities and mortal/low-rank armies; may cost more than Blackiron. No fixed price.
+- Redvein: exceptional heat absorption, retention AND resistance to heat-induced deformation; furnace and cauldron metal. Relatively rare, likely rarest of these five, premium demand from alchemists/smiths makes ordinary weapons economically unattractive, not forbidden. Fire-aligned weapon applications possible, not established. Reconcile existing Redvein Chip. Thermal values deferred.
+- Processing difficulty is explicitly parked: later a common raw material could be extremely difficult to work, causing large raw-to-finished price differences (specialist smith, equipment, treatment). No current processing premium, recipes, prices or rarity rates approved.
+
+### Physical resolution and equipment condition
+
+Hardness resists indentation/local deformation and supports edge retention; toughness resists fracture/tearing; density determines mass given geometry, not direct damage. Strength relative to mass affects acceleration, handling and recovery; momentum/impact depend on motion and contact. Elasticity and thermal properties are specialized, not new universal stats. Finished object construction, thickness, geometry and processing matter; material properties are not object combat stats.
+
+Player-facing vocabulary: Pierce Power, Cut Power, Impact Power and corresponding Pierce Resist, Cut Resist, Impact Resist. Use relevant attack channel; stopped penetration may transfer residual blunt impact. Armour can remain intact while wearer suffers blunt injury. Hardness alone is not impact resistance. Skin/scales and flesh/internal resilience can be abstracted as layers; no precise organ trajectories required.
+
+Penetration depends on physical attack intensity, point/edge geometry, ability to maintain that geometry and target resistance (hardness, toughness, thickness/construction). Weapon hardness gives diminishing benefits once sufficiently hard relative to target; no raw hardness multiplier to damage against soft flesh. Soft armour can resist cutting/penetration through tough fibres, stretching and resistance to tearing. Hard plate is legitimately excellent direct physical protection; do not artificially weaken it against cuts. Soft armour offers flexibility, coverage, low weight, padding where present and material-specific spiritual properties. Inner garments under outer armour are desirable as a possible layering model; built-in linings contribute to armour impact protection. Sequential vs combined resistance, slots and coverage mechanics remain open. High-rank silk may outperform lower-rank plate. Extremely dense high-rank metals may make heavy armour practical chiefly for body cultivators; no class restrictions, density does not automatically imply durability. Availability, strength, mobility, Qi expenditure and peculiar properties determine choices.
+
+No routine durability tax or hidden wear accumulation below tolerance. Exceptional contact stress can cause edge/tip damage (reduces cut/pierce effectiveness), deformation (handling), structural cracks (reduced tolerance), or breakage (unusable). Severity abstraction, direct severe damage possible; no tracking exact bend angles, repeated loss of same tip or accidental straightening. Repair/reforge details deferred. Copper tends to deform, Blackiron chip/fracture, Silversteel resist fracture but softer edge. No ordinary rust/age wear planned. Contact stress depends on attack power, contact type, target resistance/support/displacement; successful penetration may relieve stress. Hard target gently poked does not automatically break weapon. Separate deformation and fracture tolerance candidates; no formula or thresholds beyond reference below. No dedicated sword-clash system required; potential reaction sandbox contact later.
+
+### Physical reference tests (working targets)
+
+Reference A: healthy mortal full-strength swing with ordinary iron sword against rigidly supported iron plate: contact stress 5, sword damage threshold 10. Passive peak QC same reference stress 15–20 (3–4x contact stress, not direct strength multiplier). No active Qi. Exact plate thickness, geometry, thresholds and active values unresolved. Earlier illustrative material-specific deformation/fracture numbers are superseded; penetration changes contact stress, so resolve penetration before calibrating equipment damage.
+
+Reference B: identical competent sword patterns, centre thrust against rigidly supported ordinary iron plate armour, no active Qi. Different test from A.
+
+| Attacker | Iron sword | Blackiron sword |
+|---|---|---|
+| Mortal | Scratches | Scratches/minor dent, no penetration |
+| Early QC | Minor dent | Significant dent |
+| Mid QC | Significant dent | Partial penetration possible |
+| Late QC | Partial penetration | Likely full penetration |
+| Peak QC | Partial penetration, full possible | Reliable full penetration |
+
+Owner anchors: mortal Blackiron cannot pierce ordinary iron armour; exhausted mid QC with Blackiron should still harm a mortal in iron armour; passive peak QC Blackiron reliably penetrates iron armour. Peak QC iron may penetrate if point survives, not reliably. Intermediate rows are proposed tuning targets. Partial breach may wound with reduced residual power; stopped attack can cause blunt trauma. No fixed Pierce Power/Resist formula or numbers approved. Earlier illustrative power/efficiency tables are not final.
+
+Passive peak QC with unreinforced Blackiron also provisionally breaches basic density-1 Qi armour, with reduced remaining power. Same sword against unreinforced Blackiron armour: significant local damage/possible cracking, not reliable penetration (working target accepted for now). Internally reinforced iron sword in mortal hands still cannot reliably puncture iron armour; reinforcement alone does not supply physical force. Passive peak QC with reinforced iron should reliably penetrate iron armour (proposed). Against Blackiron armour, reinforced iron or ordinary Blackiron partial penetration possible, reinforced Blackiron full penetration possible; these are illustrative, not guaranteed or calculated. Armour can itself be internally reinforced.
+
+### Qi foundations and cultivation progression
+
+Ordinary unaligned Qi can exert physical force, but is not inherently sharp. Quantity/reserves, density, purity, control and cultivation structure are distinct. QC is accumulation: equal density/purity and equivalent applied coating/infusion give equal immediate protection, regardless of Early vs Peak reservoir size. Peak has more Qi to sustain use; passive physique, deliberate refinement of Qi, control, techniques, experience, equipment and wealth can create a large actual power gap. Do not make peak merely marginally stronger socially or mechanically; even poorly equipped peak should be formidable. No automatic large per-unit Qi strength increase just from QC stage. Baseline density 1, ordinary/low-average purity (exact purity scale open). FE meridian/foundation structure permits much better circulation/externalisation without requiring drastically different Qi. QC externalisation limited, FE easier; exact unlocks/output limits unresolved. Basic bodily reinforcement acceptable; limited inefficient physical augmentation more toward peak QC, not a generic large offensive multiplier. Qi can supplement muscular force; sophisticated augmentation generally technique-based. Techniques are refined skills exploiting underlying principles, not arbitrary new magic.
+
+Qi nature vs manipulation: inherently sharp Sword Qi could make simple coating cutting; ordinary Qi requires a technique to concentrate/shape a cutting edge. Sword cultivators can still benefit from those techniques. Not exclusive access to sword techniques. Thick ordinary coating may blunt effective edge; exact geometry and offensive effects open. Reconcile inherent nature acquisition with existing FE nature stamp/manual lore; no new QC nature unlock approved.
+
+External basic Qi armour resists direct contact/penetration but momentum can transfer (knockback/impact); defensive techniques can absorb, distribute or redirect kinetic force. Ordinary mortal iron weapons reliably stopped by basic active density-1 coating even at early QC; mortal Blackiron likely stopped too (proposed), passive early QC thrust stopped (proposed), passive peak QC Blackiron can breach (accepted provisional). Equivalent coating strength at equal applied Qi quality, not equal endurance. Early QC can exhaust quickly; militia attrition remains meaningful. Exact coating strength, coverage, activation, cost, output and impact transfer unresolved.
+
+### Internal reinforcement — agreed baseline
+
+Qi permeating compatible material resists deformation/displacement of the space it occupies (hydraulic-like analogy, not literal outward pressure simulation). It supplements structural resistance; material remains contact surface. Basic reinforcement adds equally to effective hardness and toughness, does not change density, intrinsic composition, sharpness or directly add attack power. Better point retention may improve actual penetration under stress. No direct damage bonus against soft targets where weapon already maintains geometry.
+
+Initial test value: **+10 effective hardness and +10 effective toughness** for full ordinary density-1 baseline reinforcement at average purity, assuming compatible material and equivalent achieved reinforcement. Iron 20/20, Copper 14/22, Blackiron 32/18, Silversteel 17/28, Redvein 18/20 if equally reinforced. Not a universal guarantee that every material can accept this amount; capacity/compatibility and exact scaling remain open. Additive baseline chosen for simplicity; inscriptions may improve organization/efficiency or produce multiplicative/specialized effects later. No inscription formula approved.
+
+Qi affinity primarily determines ease/efficiency of infusion and cost of equivalent reinforcement. Capacity/safe reinforcement limit constrains instantaneous strength; retention governs dissipation. Keep affinity universal, capacity/retention derived or special where useful, not mandatory exposed stats. Large dantian reserve cannot make a small weapon pool withstand arbitrary single impact. Qi flows from dantian into weapon, like pool to kiddy pool. Qi is consumed when doing work resisting physical stress; negligible consumption for easy contacts, more for demanding ones, reinforcement can be overwhelmed. Automatically replenish while connected, no manual topping-up combat chore; enable/disable is candidate UI. Exhaustion prevents replenishment. Slow natural dissipation when disconnected accepted; ordinary combat should not require micromanagement. Exceptional retention can last centuries/millennia. Distinguish temporary reinforcement from permanent material saturation/advancement; exact relation open.
+
+Lore opportunity (owner suggested): ancient sword in Celestial Sword Sect slowly leaking ancient Sword Qi for young disciples to comprehend. Exceptional retention and dense stored Qi explain persistence; finite inheritance, replenishing with another cultivator's Qi may not reproduce original qualities. Exact sword, owner, age, access, comprehension mechanics and danger not canonized.
+
+### Practical next steps
+
+Five mundane metals now have initial test values. Next roster pass: Ironwood, Springwood, Cloudwood, Incensewood, Stillwood. Prefer simple values and distinct identities; do not reopen exhaustive theory for each material. Small isolated material-combat sandbox suggested to test reference outcomes before committing formulas or production migration; not yet authorized to implement. Resolve penetration, then contact stress/tolerance and Qi effects against reference tests; tune numbers rather than overdesign. Preserve existing combat architecture, audit registry/equipment tier/grade and cultivation lore before implementation. No gameplay code, price changes, schema migration or merge authorized by this checkpoint.
