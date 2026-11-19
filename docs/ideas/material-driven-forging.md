@@ -402,3 +402,74 @@ Lore opportunity (owner suggested): ancient sword in Celestial Sword Sect slowly
 ### Practical next steps
 
 Five mundane metals now have initial test values. Next roster pass: Ironwood, Springwood, Cloudwood, Incensewood, Stillwood. Prefer simple values and distinct identities; do not reopen exhaustive theory for each material. Small isolated material-combat sandbox suggested to test reference outcomes before committing formulas or production migration; not yet authorized to implement. Resolve penetration, then contact stress/tolerance and Qi effects against reference tests; tune numbers rather than overdesign. Preserve existing combat architecture, audit registry/equipment tier/grade and cultivation lore before implementation. No gameplay code, price changes, schema migration or merge authorized by this checkpoint.
+
+
+## 2026-11-19 checkpoint — mundane woods, fibres, hides and bones
+
+All numbers are initial playtest targets, not production balance. Columns H/T/D/Q are hardness, toughness, density and Qi affinity, iron remains 10/10/10/10. Density compares equal-volume mass, not finished equipment weight. No forced weaknesses or unique niches: later materials may overlap substantially; local availability, production, price and processing matter. This is a starting roster, not an exhaustive catalogue.
+
+### Woods — ordinary mature Rank 1 specimens
+
+| Material | H | T | D | Q |
+|---|---:|---:|---:|---:|
+| Ironwood | 10 | 9 | 3 | 8 |
+| Springwood | 3 | 14 | 1.5 | 8 |
+| Cloudwood | 1 | 3 | 0.4 | 12 |
+| Incensewood | 2 | 4 | 1.2 | 10 |
+| Stillwood | 6 | 3 | 2 | 10 |
+
+- Ironwood: mature mundane wood as hard as iron, lighter, less suited to mass-dependent heavy hits; no additional toughness penalty needed before tests. Older specimens can become much harder.
+- Spiritual environment/nourishment determines attainable lifespan of trees; growth beyond ordinary lifespan requires sufficient spiritual resources. Age is a useful quality indicator rather than a separate independent spiritual exposure progression. Exact age bands, ceilings, growth rates and higher-rank values deferred.
+- Springwood: exceptional elasticity, relatively common compared with Silversteel, typical QC archer bow material; flexible shafts, springs and mechanisms. Other woods and metals may overlap these applications.
+- Cloudwood: light, porous, absorbent; candidate treatment/infusion medium, lightweight artefact components. Absorption is not automatically Qi retention. Highly provisional, potentially substantial changes once actual treatments, artefacts and absorption uses exist.
+- Incensewood: aromatic oils/resins, incense, alchemy, fragrant furnishings; calming/concentration aid proposed, not a fixed cultivation bonus. Rebalance after alchemy/meditation/cultivation aids mature.
+- Stillwood: exceptional dimensional stability (resists warping/swelling), relatively brittle; candidate formation plates and precision components. Revisit once formation mechanics establish what it actually contributes; no automatic Qi affinity bonus.
+
+### Fibres — initial targets
+
+| Material | H | T | D | Q | Tensile strength (qualitative) |
+|---|---:|---:|---:|---:|---|
+| Hemp | 0.5 | 8 | 1.9 | 3 | Moderate |
+| Silk | 0.5 | 12 | 1.7 | 10 | High |
+| Cloudfloss | 0.1 | 2 | 0.8 | 5 | Low |
+| Veinthread | 0.5 | 6 | 1.5 | 18 | Moderate |
+| Ironscale Sinew | 1 | 18 | 1.8 | 5 | Very high |
+| Ashfang Sinew | 0.5 | 16 | 1.5 | 10 | High |
+
+- Hemp cheap abundant general clothing, rope, bindings. Silk baseline mundane silkworm product, smoother, stronger, better Qi affinity; limited production and price justify advantages. Spiritual species and higher ranks later.
+- Cloudfloss common fluffy plant fibre, compressibility/recovery, padding and insulation, impact cushioning under hard armour rather than primary woven protection.
+- Veinthread efficiently transports Qi along its length; embroidery, flexible inscriptions/formation connections and reinforcement pathways, analogous to conductive copper inlay. Uncommon, small quantities potentially sufficient. Natural vascular fibre versus processed/manufactured thread origin undecided. Revisit with formations/inscriptions.
+- Species-specific sinews replace generic Beast Sinew as actual loot/material identity. Ironscale transmits large muscular forces, very high tensile strength, moderate elasticity; Ashfang suited to agile repeated loading, high elasticity, higher Qi affinity. Revised values are working proposals, exact bow performance deferred. No need for every beast part to have a supernatural property. Anatomy/lifestyle can make a physically weaker beast superior in a particular application.
+- Supplementary elasticity abstracts stretch, recovery and useful elastic recoil/energy return for game purposes; do not add separate extensibility/resilience stats merely for terminology. Tensile strength is supplementary for now, not a fifth mandatory universal stat; numerical scale deferred.
+
+### Construction and intuitive crafting
+
+Keep material properties separate from finished equipment performance. A fibre, rope, woven robe and layered armour exploit the same material differently. Hardness resists local deformation; toughness covers material failure/energy absorption including tearing; tensile strength resists pulling stress. Tensile strength contributes to slash resistance through load sharing and resisting rupture, but cannot by itself prevent a sharp edge severing fibres. Weave/construction controls load distribution and separation, layering/thickness and geometry. No per-fibre or thread-count simulation required.
+
+Direction of influence, not coefficients: woven armour hardness minor, toughness major, tensile strength significant; plate hardness/toughness major, tensile minor; bowstring tensile major, toughness moderate, hardness negligible. Density affects mass. Earlier illustrative 10/50/40 slash weighting is NOT approved; a simple weighted sum may overvalue tensile strength when fibres sever easily. Derive/tune construction-specific mappings from outcomes in sandbox; no final formula. Keep same combat principles across families, no artificial damage-type weaknesses.
+
+Owner anchors: mortal iron sword cuts ordinary hemp robe and even Rank 1 spiritual silk robe; higher-rank fibres may stop mortal iron sword. Purpose-built layered armour can outperform a thin robe of same material. Multilayer hemp significant resistance but possibly breached; Rank 1 spiritual silk armour potentially stops blade are proposed tests, not settled outcomes. Stopped blade may still transfer blunt force. Ordinary silk is not automatically spiritual silk armour.
+
+Crafting UI should teach through hands-on selection, intuitive material descriptions and finished-equipment previews (cut/pierce/impact resistance etc.), not lengthy compulsory tutorials or requiring material science knowledge. Experienced players can learn property interactions and optimize. No fixed preview values/UI implementation approved.
+
+### Hides — agreed initial targets
+
+| Material | H | T | D | Q |
+|---|---:|---:|---:|---:|
+| Ordinary Hide | 2 | 10 | 1.3 | 5 |
+| Ashfang Hide | 3 | 16 | 1.5 | 10 |
+| Ironscale Hide | 4 | 18 | 2 | 5 |
+
+Ordinary hide cheap and versatile; tanning/treatment distinguishes soft leather and hardened armour. Ashfang flexible tough spiritually receptive, desirable mobile QC equipment. Mortal iron sword can cut Ashfang hide; deeper muscle/bone and active hostile beast still matter. Ironscale has skin under its mineral-like protective scales; values exclude scales. Candidate processing routes separate scales and hide, or preserve scales intact for naturally armoured leather. Exact harvesting yields, anatomy and processing mechanics open.
+
+### Bones — working targets
+
+| Material | H | T | D | Q |
+|---|---:|---:|---:|---:|
+| Ordinary Bone | 5 | 4 | 2.5 | 5 |
+| Ashfang Bone | 8 | 8 | 3 | 10 |
+| Ironscale Bone | 14 | 12 | 5 | 5 |
+
+Ordinary bone relatively brittle, handles/tools/decorative uses. Ashfang lightweight more durable and spiritually receptive. Ironscale supports heavy scales/powerful muscles; harder and tougher than iron at half equal-volume mass is acceptable as working target, limited by harvesting, irregular geometry, processing and price. Bone daggers possible. No assumption all Ironscale tissues must outperform Ashfang. Lone Ironscale considerably more threatening than lone Ashfang; pack cooperation is Ashfang's strength. See beast ecology checkpoint. Price/yield comparisons not fixed.
+
+Next: scales, then remaining skeletal candidates (horn/shell as appropriate), continue roster. Exact resistance equations, numerical tensile/elasticity, higher-rank values, processing, economy and gameplay implementation remain deferred. No code or merge authorized.
