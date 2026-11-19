@@ -91,3 +91,12 @@ No new code, stats, species, loot tables, or combat rewrite approved by this che
 
 ## Latest loot direction
 Owner now prefers species-specific beast loot over generic rank-only drops, superseding the earlier generic baseline. Challenging hunts, distinctive species properties and geographic scarcity make acquiring particular materials a meaningful time investment; a cultivator may choose to travel, trade, hunt or change crafting/refinement plans. Preserve species identity and rank in material design; exact item roster, stacking and legacy ID migration remain open. No loot implementation authorized. See [materials checkpoint](material-driven-forging.md) for simplified properties and QC/FE physical benchmarks.
+
+
+## 2026-11-19 checkpoint — social strategies and material anatomy
+
+Owner distinguishes predominantly solitary beasts that rely on individual strength from social beasts that rely on group cooperation. A lone Ironscale Lizard is a considerable threat and substantially more dangerous than a lone Ashfang Wolf at comparable development. Ashfang packs can threaten opponents individual wolves cannot. Exact encounter difficulty, group sizes and balance remain open; not a universal binary taxonomy or fixed combat rating.
+
+Ironscales can reproduce without permanent packs. Owner suggested small groups/family units as possible exceptions to solitary adults. Candidate ecology: temporary mating encounters, nesting female guarding eggs/young, juvenile siblings remaining near birthplace before dispersing into individual territories. These are proposals, not fixed reproductive canon. Juvenile groups and protective nesting adults could create encounter variety. Breeding cycles, clutch size, parental behaviour, population density and simulation mechanics deferred to ecology pass.
+
+Species-specific anatomy matters: Ironscale has skin beneath protective scales; separate hide and scale harvesting or intact scaled-hide processing are candidates. Ashfang hide can be cut by an ordinary mortal iron sword; muscle, bone, movement and active defence remain obstacles. Ironscale bone and sinew can be physically formidable, but Ashfang sinew may excel in elastic recoil due to agile movement. No requirement that physical-development tendency makes every Ironscale tissue superior. See [material checkpoint](material-driven-forging.md) for initial values and processing notes. Hunting yield and prices remain open. No implementation or merge authorized.
