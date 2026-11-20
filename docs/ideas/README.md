@@ -23,6 +23,8 @@ Fleshed-out designs that are **not fully shipped** yet. Markdown holds the visio
 
 | Idea | Status | Blocked on | Issue |
 |------|--------|------------|-------|
+| [Unified materials & material-driven forging](material-driven-forging.md) | `idea` | Material audit; property and combat design | — |
+| [Beast ecology & regional encounters](beast-ecology-and-encounters.md) | `idea` | Encounter audit; habitat and development tuning | — |
 | [Phone playtest layout](phone-playtest-layout.md) | `designed` | none — opt-in CSS shell | — |
 | [Root rite formations](root-rite-formations.md) | `designed` | Chronicle fate-rite project; formation tiers | — |
 | [Formations & arrays](formations-and-arrays.md) | `building` (F2b + independent dwelling) | Combat wards wait on guards; sect gather still global | [#211](https://github.com/WanderingImmortal/tales-immortal-path/pull/211) · [#61](https://github.com/WanderingImmortal/tales-immortal-path/pull/61) |
