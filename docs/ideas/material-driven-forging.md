@@ -547,3 +547,60 @@ Amber Lily grows in freshwater ponds/lakes/sheltered waterways; one flower harve
 ### Remaining boundaries
 
 Existing Dustbone QC book includes ten reagents (Dust Root, Saltbrush Tip, Dawn Dew, Marrow Thistle, Ironscar Grit, Sun Stone, Redvein Chip, Seep Dew, Glowcap, Bone Marrow Resin). Clot Moss, Skinmend Leaf, Amber Lily and Foundation Root appear in experimental alchemy contexts, not automatically live Dustbone QC additions; preserve its closed-book doctrine until explicit review. Exact botanical spawn tables, cultivation/harvest rates, pricing, recipes, Qi potency, spiritual perception, formations, talismans and economy are deferred. Do not auto-merge this draft PR or implement gameplay.
+
+
+## 2026-11-21 checkpoint — remaining alchemical materials and Ashcoil Python (design only)
+
+This checkpoint records provisional owner decisions after the 2026-11-20 checkpoint. **No gameplay, recipes, registries, numerical combat formulas, or alchemy prototype have been changed.** Where this section contradicts older provisional examples, use this newer direction. Material H/T/D/Q values are preliminary playtest proposals, not balance approval.
+
+### Silent Bell (previously discussed, not in prior checkpoint)
+
+- Rank 1 flower in deep dark forests/jungles and occasionally caves; harvest the flower as one item.
+- Briefly **suppresses or interrupts Qi circulation**; it does not destroy Qi, damage meridians, drain the dantian or inflict spiritual taint. Strong for its rank against QC but naturally **short-lived**.
+- External contact (e.g. flowers thrown at a QC face) can briefly disturb circulation; prepared solution delivered into a wound, such as a coated sword, has a more consequential internal effect. Qi techniques/reinforcement may temporarily fail. FE can generally better resist or expel Rank 1 effects; exact mechanics unresolved.
+- Alchemy might extend duration with other ingredients without increasing suppressive strength. Detoxification/bloodletting and distribution through blood remain open; do not implement a new spiritual contamination mechanism.
+
+### Sun Stone and higher-ranked Yang Stone
+
+- **Sun Stone is distinct from Sun Crystal.** Sun Crystal converts supplied **light-aspected Qi** into heat; Sun Stone already holds concentrated, somewhat volatile **Yang Qi**. It is a faintly luminous golden-orange mineral, warm to touch; heat/refinement may trigger rapid Yang release. Not intrinsically a sunlight-fed rock.
+- Working origin: lower-rank Sun Stones develop near deposits of **higher-ranked Yang Stone**, including underground. Yang Stone's own origin, rank, mechanism (emission versus ambient accumulation) and properties are intentionally deferred. Sun Stone occurrence can hint at deeper Yang Stone deposits, not guarantee accessible ore.
+- Retain uncommon local Dustbone/Ironscar alchemy occurrence provisionally; danger/volatility is not itself proof of exceptional rarity. Existing Sunscar Burst Pill is not redesigned.
+- **Proposed Rank 1 physical targets:** H12 / T4 / D3.5 / Q12. Distinctive Yang behaviour is not reduced to generic Q.
+
+### Blood Crystal — manufactured rank-dependent material family
+
+- Predominantly **manufactured** by concentrating and purifying **large quantities of blood**; naturally formed crystals are possible only in unusual, non-ordinary circumstances. Source blood quality/rank primarily sets potential; processing and losses matter. Manufacturers usually avoid mixing widely different source ranks to obtain predictable outcomes. Mere volume of low-rank blood should not substitute without limit for high-rank blood.
+- Active crystals contain concentrated **blood-related nourishment** for physical/body refinement and healing, plus spiritual energy useful for cultivation. Not just generic red Spirit Stones. Higher-rank Blood Crystal can become a formidable **structural/weapon material**, with physical strength rising markedly, not a universal rank multiplier for all materials.
+- **Proposed illustrative H/T/D/Q:** R1 8/3/3/16; R2 18/14/4/20; R3 35/32/5/25. These are conversation proposals only, especially R2/R3.
+- Depletion makes a crystal **inert**, removing usable stored energy/active spiritual function but **preserving its inherent physical properties**. Unlike exhausted Spirit Stones, it does not crumble. Ordinary Qi recharging is not established and is provisionally disfavoured. An inert Rank 3 crystal remains a physically strong Rank 3 material.
+- Heavenly Demon Cult may manufacture crystals at scale for cultivation, alchemy and formations, then recycle spent crystals into weapons, armour, buildings and infrastructure. This provides an accumulated construction stock without requiring every structure to be made from newly produced active crystals; mass blood extraction remains an intentionally grim feature of the faction. Heavenly Demon's weapon from exceptionally high-rank blood crystal is an evocative possibility, not a defined artefact. Blood essence versus harvested Vital Essence mechanism remains open.
+
+### Spirit Mist (formerly prototype Soul Mist); Soul Mist deferred to ~Rank 4
+
+- Rename low-rank **Soul Mist** to **Spirit Mist** in the future alchemy reconciliation. **Soul Mist** becomes a prospective approximately Rank 4 version, whose higher-rank capabilities are not yet designed. Do not silently rename existing IDs or rewrite recipes without migration review.
+- Spirit Mist is **spirit energy condensed into a physically perceptible mist**, comparatively easy to absorb/refine. Its key use is developing the **Spirit Sea**, not an arbitrary 'Spirit-path-only' compatibility bonus. Useful throughout **Sea Opening** and potentially into middle/late **Sea Expansion**, but quantity needed rises enormously as the sea expands; no artificial efficiency cliff.
+- Sea Opening establishes/stabilises the sea and early function; Sea Expansion grows it further (working interpretation only). Precise energy mechanics and terminology distinction between 'spirit' and 'spiritual' await Soul/Spirit-path review. Mist containment, dispersal, alchemy and formation uses remain open. Old fixed Yin-heavy identity is **not settled as universal**; aspect variants are possible.
+- Earlier essence example roster calling Soul Mist Rank 1 is superseded by this naming/rank direction.
+
+### Ironscar Grit — commercial processed dust
+
+- A **relatively standardised, mineral-rich commercial concentrate** processed from Dustbone dust around Ironscar Quarry. It is a blend, not a unique mineral species. It caught on for cheap, predictable, versatile alchemical use; remains relatively impure and difficult to extract fully.
+- Do **not** simulate each constituent, each historical dust layer, or per-batch composition. Region/depth lore may vary but is not a gameplay mandate. It is granular feedstock, so conventional solid-item H/T/D/Q need not be assigned unless a solid product is later created.
+
+### Ashcoil Python, Cinderscale and Cinderscale Flake
+
+- **Ashcoil Python** replaces 'Cinderscale Python' as the species name. It is an **apex Rank 1** massive snake, approximately **30 m long as an ordinary mature adult** (not a unique ancient boss); head may be raised around a standing 6-foot person's height. Naturally sparse population, long reproductive intervals and/or few surviving offspring; large territories. Exact mass, scale size, breeding biology and habitat not fixed.
+- Formidable cunning predator: follows traces, stalks humans, chooses ambush opportunities, may withdraw and retry; not sluggish or stupid. Bite threatens through raw crushing/tearing force, alongside constriction, agility for size and tough flexible armour. Even an early FE cultivator with disastrously poor Qi reinforcement (density 1 example) can be in serious danger; do not impose guaranteed rank-vs-rank victories. Fire control or venom **not established**; natural heat resistance is sufficient.
+- **Cinderscale** is an intact scale harvested from the python; **Cinderscale Flake** is a shaving/fragment from the same material, with the same intrinsic properties but smaller usable geometry. Both are physically difficult to work; intact scales may be used as protective plates and fitted equipment, flakes may be ground into composite coatings.
+- **Proposed Rank 1 Cinderscale H16/T24/D5/Q8**, versus Ironscale Scale H18/T14/D6/Q5: slightly softer, substantially tougher/flexible, with **separate exceptional heat resistance**. Exact heat limits, processing and yield remain open. A mature python yields many scales, but hunting one is rare and extremely dangerous in lower-tier regions.
+- **Important prototype correction needed later:** Remove Cinderscale Flake's current direct medicinal/bone-restoration effects and its status as a conventional pill ingredient. Its settled primary use is **heat-resistant crafting**, notably cauldron linings. Intact scales may be fitted as lining plates; flakes may be ground and bound/fired into a uniform ceramic/mineral coating. This is a lore/material process direction, **not yet a designed cauldron-upgrade mechanic**.
+- A Cinderscale lining should help a vessel tolerate **higher operating temperatures and resist thermal deterioration**, **not** magically stabilise volatile reagents, reduce Yin–Yang clashes or boost pill purity. If a cauldron already handles the required temperature, flakes should confer no arbitrary alchemy bonus. Avoid inventing extra volatility axes just to justify their presence. Whether the live cauldron system needs higher-temperature equipment limits and how to integrate flakes is a deferred implementation question.
+- Ashcoil Python **flesh, blood, bones, organs and other resources** may be harvestable with body-related uses, but are deliberately **not designed** here. No new loot list required.
+
+### Unfinished materials — explicit revisit note
+
+**Bone Marrow Resin, Redvein Chip and Seep Dew still need their own material-specific review.** Do not treat their existing prototype/book descriptions as fully settled. Bone Marrow Resin currently implies dense Qi/essence packing; Redvein Chip is a quarry reagent related to Redvein metal; Seep Dew is a dense carrier distinct from Dawn Dew. Determine actual identity, origin and cross-profession applications later. Keep the existing Dustbone QC book and recipe behaviour intact pending deliberate review.
+
+### Scope and handoff
+
+This is a **design checkpoint only**. Do not modify runtime alchemy, item IDs, save migrations, recipe balance, cauldron behaviour or beast spawns on this PR. Next owner-requested design topic: **a player-founded/personal sect**, as a meeting point of formations, alchemy, NPCs, techniques and construction. Sect design is not defined in this material checkpoint.
