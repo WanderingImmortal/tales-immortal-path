@@ -473,3 +473,77 @@ Ordinary hide cheap and versatile; tanning/treatment distinguishes soft leather 
 Ordinary bone relatively brittle, handles/tools/decorative uses. Ashfang lightweight more durable and spiritually receptive. Ironscale supports heavy scales/powerful muscles; harder and tougher than iron at half equal-volume mass is acceptable as working target, limited by harvesting, irregular geometry, processing and price. Bone daggers possible. No assumption all Ironscale tissues must outperform Ashfang. Lone Ironscale considerably more threatening than lone Ashfang; pack cooperation is Ashfang's strength. See beast ecology checkpoint. Price/yield comparisons not fixed.
 
 Next: scales, then remaining skeletal candidates (horn/shell as appropriate), continue roster. Exact resistance equations, numerical tensile/elasticity, higher-rank values, processing, economy and gameplay implementation remain deferred. No code or merge authorized.
+
+## 2026-11-20 checkpoint — crystals, botanicals and Dustbone ecology (design only)
+
+This records owner-reviewed conversation direction, **not implemented gameplay, fixed recipes, economics, ecology or formulas**. The four universal material stats H/T/D/Q remain an initial playtest scale (iron = 10/10/10/10). Botanical medicinal properties need not receive arbitrary hardness/tensile balance. One useful harvestable material/part per botanical for now; flavourful other plant anatomy does not generate separate inventory items.
+
+### Material-rank terminology and lineage
+
+Replace provisional material rank 8 **Law** with **Empyrean** and rank 9 **Immortal** with **Transcendent**. Full path-neutral material ladder: Mundane, Tempered, Treasure, Spiritual, Celestial, Silent, Dao, Empyrean, Transcendent. Rank is not necessarily in a material's name. Material lineage/variety, rank, rarity, origin and advancement potential are distinct. Baseline jade varieties can exist across ranks without implying any individual mundane jade specimen can simply be cultivated to Rank 9. Some materials have low natural ceilings or originate at higher ranks. Do not require nine variants of every material.
+
+### Additional Rank 1 mineral and scale targets
+
+| Material | H | T | D | Q | Identity |
+|---|---:|---:|---:|---:|---|
+| Ironscale Scale | 18 | 14 | 6 | 5 | Tough hard lightweight natural armour; harvested shape/coverage limits |
+| Granite | 14 | 3 | 3.5 | 3 | Abundant hard brittle construction stone, mortars/grinding, basic formation supports |
+| Fireclay (fired) | 5 | 2 | 2.8 | 5 | Raw malleable, fired heat-resistant/insulating furnace/crucible/cauldron lining |
+| Jade | 12 | 9 | 4 | 15 | Tough spiritually receptive carvings, slips, tokens, plates, artefacts |
+| Hollowstone | 8 | 4 | 0.8 | 5 | Porous lightweight vibration damping, insulation/housings; assassin boot lining candidate |
+| Limestone | 4 | 2 | 3 | 2 | Cheap abundant bulk building, mortar/plaster/flux and other processing possibilities |
+
+Ironscale scales can stop a mortal iron sword and a passive peak-QC swing with an unreinforced iron sword; the weapon may deform, blunt or fail under sufficient force. This is a benchmark, not a universal penetration formula. Armour coverage and gaps are equipment-level abstractions deferred to combat/equipment. Horn/shell material families wait for species that actually have them. Fireclay thermal and Redvein heat-absorption/retention distinction remains qualitative. Hollowstone industrial and equipment roles are provisional. Jade is reasonably accessible, not inherently a rare luxury.
+
+### Rank 1 crystals — working values
+
+| Material | H | T | D | Q | Defining identity |
+|---|---:|---:|---:|---:|---|
+| Clear Quartz | 15 | 2 | 3.4 | 12 | Cheap predictable Qi transmission; reliable formation node, brittle |
+| Echo Crystal | 10 | 3 | 3 | 15 | Selective Qi-pattern/signature resonance, sensing, identification, signalling and relay |
+| Sun Crystal | 12 | 3 | 3.5 | 10 | Absorbs **light-aspected Qi**, converting spiritual energy to heat; not extraordinary ordinary-light absorption |
+| Dusk Crystal | 10 | 3 | 3.8 | 8 | Obstructs **spiritual perception**, not necessarily ordinary Qi passage or ordinary eyesight |
+| Spirit Stone (saturated) | 8 | 3 | 3 | 20 | High-Qi-storage currency/cultivation/formation/artefact energy resource |
+
+Echo Crystal relay possibilities: passive resonance with propagation/response delay and losses; powered relays reproduce a detected signal using local Qi, not free amplification. Exact Qi-wave physics, inscription dependency, timing and range deferred. Clear Quartz transmission versus copper conduction requires later formation design.
+
+Sun Crystal does not consume ambient visible light or make ordinary objects dark. Light-aspected Qi supply is a dependency; heat utility and relation to existing **Sun Stone** alchemical reagent need later reconciliation. Higher-rank optical effects are only a possibility, not canon.
+
+Dusk Crystal spiritual opacity is separate from Qi affinity/transmission and does not necessarily hide its own presence. Its obstruction can be noticed as a blind spot and potentially overcome by powerful spiritual senses; exact perception mechanics deferred. **Dusk Crystal deposits may be difficult to find precisely because spiritual searching fails**, affecting discoverability/market supply independently of geological abundance. Concealment cloak or formation combining Dusk Crystal and Glowcap-derived Yin ink/treatment is a **speculative example, not a recipe**; powdered-crystal efficacy, concealment inscriptions, and visual invisibility not established.
+
+Spirit Stone's **crystalline integrity depends on contained Qi**. As Qi is depleted, its structure weakens and ultimately crumbles into spiritually inert dust; completely spent stones cannot be simply recharged as intact empty batteries. Partial recharge, depletion curves, purity and production mechanics unresolved. Initial H/T/D/Q apply to saturated stone; physical properties can degrade with depletion.
+
+### Botanical philosophy
+
+Botanicals have inherent properties rather than fixed one-to-one pill recipes. Most have some mild raw effect when eaten/used, varying by species and dosage; processing can extract, concentrate, refine, stabilize or combine properties, and can also damage/destroy delicate properties. Some future botanicals may be toxic raw but valuable after correct processing. Raw consumption can be useful yet inefficient compared with competent alchemy (not fixed percentages). Overlapping properties between plants are normal. Distinguish actual properties from what characters/alchemists know how to exploit; discovery and experimentation matter. One harvested item/part per botanical for now. No per-leaf wound calculations, herb cellular biology or guaranteed rank-based medicinal multipliers.
+
+| Botanical | Working rank / supply | One harvested part | Identity and applications |
+|---|---|---|---|
+| Dust Root | Rank 1, common | Deep root | Modest, somewhat impure Qi nourishment and alchemical binder; hardy Dustbone dust adaptation |
+| Saltbrush Tip | Rank 1, common | Young shoot/tip | Mild purification, clears muddy Qi and moderates mineral impurities; living shrubs subtly freshen nearby air |
+| Marrow Thistle | Rank 1 typically, uncommon | Thistles from thorny bush | **Bone and marrow nourishment**, secondary inefficient bone repair; ground/processed |
+| Glowcap | Rank 1, uncommon | Mushroom cap | Mild **stable Yin-aspected Qi**, suitable alchemical stabilizer/Yin reagent; minor bodily stabilization side effect, possible talisman/formation ink |
+| Clot Moss | Rank 1, regionally common | Moss | Mild blood clotting and replenishment; raw may help small cuts, not life-threatening sword wounds |
+| Skinmend Leaf | Rank 1, provisionally common | Leaf | Noticeably speeds natural flesh/soft-tissue healing with sustained sufficient treatment; not instantaneous regeneration |
+| Foundation Root | Rank 1, rare; likely Rank 2 natural ceiling | Root | Considerable quantity of **clean, readily assimilated Qi**, released steadily so cultivator can organize intake; valuable raw but inefficient compared with alchemical refinement |
+| Amber Lily | Rank 1, rarity/ceiling open | Flower | Freshwater **water lily**; flesh nourishment, body-cultivation support and mild Qi/recovery side effects, distinct emphasis from wound-repair Skinmend |
+
+Dust Root: deep roots reach buried viable soil/moisture through accumulated dust. Dustbone is **not inherently a conventional desert**: the land is blanketed by dust from past civilizations, with potentially varied depths and three established dust layers of as-yet-undefined properties. Its current aridity and scattered habitable pockets are consequences of this history. Oases/settlements may arise through shallow deposits, excavation, deep wells and continuing maintenance; **all explanations provisional** pending three dynasties' scale, chronology, dust mechanics and geography. Preserve core image of a continent blanketed by its past without asserting geological details. Vegetation likely concentrated in habitable pockets and surviving patches; Dust Root may occur outside cultivated areas.
+
+Saltbrush's mild freshening effect is an incidental nicety, **not** major quality-of-life infrastructure, miraculous environmental cleansing or a luxury industry. Avoid inventing a dangerous impurity-storage mechanic. Its main value is alchemical.
+
+Marrow Thistle is a thorny perennial bush with somewhat stricter growing conditions, repeatedly harvestable thistles; overharvesting stresses/damages it and can kill it. Most remain Rank 1, likely low natural ceiling. Certain beasts may graze it: an Ironscale Lizard eating an entire bush is a plausible ecology example, not a prescribed encounter or feeding simulator. It primarily nourishes bones, and using it to heal fractures wastes much of its medicinal potential.
+
+Glowcap in Bonehollow Caverns or comparable damp sheltered caverns. Its Yin character should **not** imply rapid Yang-like regeneration; earlier prototype tissue-restoration emphasis is superseded by stable Yin and alchemical usefulness. Minor bodily stabilization is incidental; not universally stabilizing every reaction. Its glow's physical/spiritual cause unresolved.
+
+Clot Moss grows near but not submerged in freshwater, damp banks and shaded ground. Relatively little grows naturally in Dustbone, but **ordinary urban supply can be plentiful and reasonably priced** through bulk imports, city cultivation and scattered wild pockets, with a modest trade premium rather than extreme scarcity. Regional abundance differs from market availability; other materials may follow similar supply patterns. Emberwild as possible botanical exporter only; continental trade networks not designed.
+
+Skinmend Leaf example: a moderate cut that might recover in ~2 days naturally could recover in ~1 day with sufficient **ongoing treatment**, not one leaf or one dose; this is a loose illustration **not** a fixed 50% healing modifier or real-world medical assertion. Severe injury limitations remain. Habitat open.
+
+Foundation Root may be defended by Yao-Qi-leaning beasts. Rank 1 beasts can recognize valuable food/territory without understanding plant maturation or breakthrough theory; more deliberate Rank 2 guarding/harvest timing is possible, not mandatory intelligence or behaviour. Rank 2 Foundation Root may provide substantial useful Qi to an FE cultivator but does **not** intrinsically grant FE breakthrough success. Root's stability is about controlled release, not automatically organizing the user's Qi.
+
+Amber Lily grows in freshwater ponds/lakes/sheltered waterways; one flower harvested. Nourishes **healthy flesh and physical refinement** (especially body cultivators), rather than specifically closing wounds; overlap with other medicinal herbs allowed. Raw effects mild, proper processing can improve usefulness. No fixed farming, scarcity or upper rank.
+
+### Remaining boundaries
+
+Existing Dustbone QC book includes ten reagents (Dust Root, Saltbrush Tip, Dawn Dew, Marrow Thistle, Ironscar Grit, Sun Stone, Redvein Chip, Seep Dew, Glowcap, Bone Marrow Resin). Clot Moss, Skinmend Leaf, Amber Lily and Foundation Root appear in experimental alchemy contexts, not automatically live Dustbone QC additions; preserve its closed-book doctrine until explicit review. Exact botanical spawn tables, cultivation/harvest rates, pricing, recipes, Qi potency, spiritual perception, formations, talismans and economy are deferred. Do not auto-merge this draft PR or implement gameplay.
