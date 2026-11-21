@@ -405,12 +405,13 @@ function getBreakthroughLifespanPreview(realmIdx, tier) {
     tier = tier || getBreakthroughTierForRealm(realmIdx);
     const scale = getBreakthroughTierScale(tier);
     const nextCap = getLifespanForRealm(realmIdx);
-    const gainedMonths = Math.max(0, nextCap - G.lifespanMonths);
+    const currentLifespan = getPlayerLifespanMonths();
+    const gainedMonths = Math.max(0, nextCap - currentLifespan);
     const scaledGain = Math.floor(gainedMonths * scale.lifespanMult);
     return {
         tier,
         scale,
-        currentLifespan: G.lifespanMonths,
+        currentLifespan,
         nextCap,
         gainedYears: Math.floor(scaledGain / 12),
         peakGainedYears: Math.floor(gainedMonths / 12),

@@ -548,7 +548,7 @@ function getDiscipleCount() {
 }
 
 function joinPlayerSect(npc, role) {
-    if (!npc?.uid || getWorldNpcByUid(npc.uid) !== npc || npc.state === 'ambient'
+    if (!npc?.alive || !npc.uid || getWorldNpcByUid(npc.uid) !== npc || npc.state === 'ambient'
         || getSectDiscipleMembership(npc.uid) || hasOtherSectMembership(npc)) return null;
     const membership = createDiscipleMembership(npc, role, G.ageMonths || 0);
     G.sect.discipleRecords.push(membership);
@@ -1363,7 +1363,7 @@ function canRecruitWorldNpc(npc) {
 
 function getRecruitWorldNpcBlockReason(npc) {
     if (!isSectFounded()) return 'Found your sect before recruiting wanderers.';
-    if (!npc?.uid || getWorldNpcByUid(npc.uid) !== npc) return 'They are gone.';
+    if (!npc?.alive || !npc.uid || getWorldNpcByUid(npc.uid) !== npc) return 'They are gone.';
     if (getSectDiscipleMembership(npc.uid)) return 'Already in your sect.';
     if (hasOtherSectMembership(npc)) return 'They already belong to another organization.';
     if (npc.state === 'ambient') return 'Get to know them before inviting them to join.';
@@ -1389,7 +1389,9 @@ function recruitWorldNpcToSect(npc) {
     }
     const afterTimeBlock = getRecruitWorldNpcBlockReason(npc);
     if (afterTimeBlock) return { success: false, message: afterTimeBlock };
-    joinPlayerSect(npc, 'acolyte');
+    if (!joinPlayerSect(npc, 'acolyte')) {
+        return { success: false, message: 'They can no longer join your sect.' };
+    }
     addSectRenown(3);
     shiftSectReputation('npc_recruit');
     if (typeof markSectActivity === 'function') markSectActivity();

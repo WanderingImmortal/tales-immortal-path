@@ -42,7 +42,7 @@ function renderOverlayLifespanChip() {
     const urgency = getLifespanUrgencyClass();
     chip.className = 'overlay-lifespan-chip' + (urgency ? ` ${urgency}` : '');
 
-    const age = typeof formatYears === 'function' ? formatYears(G.ageMonths) : `${G.ageMonths || 0}m`;
+    const age = typeof formatYears === 'function' ? formatYears(getPlayerAgeMonths()) : `${G.ageMonths || 0}m`;
     if (urgency === 'immortal') {
         textEl.textContent = `Age ${age} · Immortal`;
         return;
@@ -70,7 +70,7 @@ function renderStatus() {
         trackStrip.textContent = `${mark('dantian')}⚡ ${getDantianRealm()}  ${mark('vessel')}💪 ${getVesselRealm()}  ${mark('spirit')}🧠 ${getSpiritRealm()}${embryoBadge}`;
     }
     const ageEl = document.getElementById('ageDisplay');
-    ageEl.textContent = formatYears(G.ageMonths);
+    ageEl.textContent = formatYears(getPlayerAgeMonths());
     if (typeof renderWorldClockBar === 'function') renderWorldClockBar();
     const lifeEl = document.getElementById('lifespanDisplay');
     const lifeBanner = document.getElementById('lifespanBanner');
@@ -82,7 +82,7 @@ function renderStatus() {
         if (lifeBannerText) lifeBannerText.textContent = 'Immortal — no mortal limit';
     } else {
         const remaining = getYearsRemaining();
-        lifeEl.textContent = `${formatYears(G.lifespanMonths)} (${remaining} left)`;
+        lifeEl.textContent = `${formatYears(getPlayerLifespanMonths())} (${remaining} left)`;
         lifeEl.className = remaining <= 10 ? 'lifespan-critical' : remaining <= 25 ? 'lifespan-low' : '';
         if (lifeBanner) {
             lifeBanner.className = 'lifespan-banner'
@@ -91,7 +91,7 @@ function renderStatus() {
         if (lifeBannerText) {
             lifeBannerText.textContent = remaining <= 10
                 ? `⚠️ ${remaining} years left — cultivate or perish!`
-                : `${formatYears(G.lifespanMonths)} total · ${remaining} years remaining`;
+                : `${formatYears(getPlayerLifespanMonths())} total · ${remaining} years remaining`;
         }
     }
     document.getElementById('fameDisplay').textContent = G.fame + ' (' + fameLevel.title + ')';

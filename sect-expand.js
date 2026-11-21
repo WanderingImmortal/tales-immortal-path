@@ -1016,16 +1016,16 @@ function openSectSuccessionPopup() {
     popup.classList.add('active');
 }
 
-function applySuccessorStats(disciple) {
-    const role = disciple?.role || 'acolyte';
-    const mult = SECT_LEGACY.statMult[role] || 0.6;
-    const drop = SECT_LEGACY.leaderRealmDrop[role] ?? 2;
-    const track = typeof getFocusTrack === 'function' ? getFocusTrack() : 'dantian';
-    const prevIdx = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx(track) : (G.realmIdx ?? 0);
-    const nextIdx = Math.max(0, prevIdx - drop);
-    if (typeof setTrackRealmIdx === 'function') setTrackRealmIdx(track, nextIdx);
-    else G.realmIdx = nextIdx;
-    if (typeof syncLegacyPathShims === 'function') syncLegacyPathShims();
+function applySuccessorStats(disciple, npc) {
+    const mult = SECT_LEGACY.statMult[disciple.role] || 0.6;
+    // World NPCs have one realm index. Map it to Qi cultivation on handoff.
+    G.path = 'qi';
+    G.realmIdx = npc.realmIdx;
+    if (typeof setTrackRealmIdx === 'function') {
+        G.cultivation = null;
+        setTrackRealmIdx('dantian', npc.realmIdx);
+        syncRealmConsolidationFromFocusTrack();
+    }
 
     const path = PATHS[G.path] || PATHS.qi;
     const base = path.base;
@@ -1078,13 +1078,11 @@ function applySectSuccession(discipleUid) {
     G.sect.treasureEnshrinedThisLeader = false;
     passDownHeirloomsOnSuccession(G.sect.leaderGeneration);
     unlockSectSpiritIfEligible();
-    applySuccessorStats(disciple);
+    applySuccessorStats(disciple, npc);
 
-    const successorAge = SECT_LEGACY.successorAgeYears * 12;
-    const ageShift = successorAge - G.ageMonths;
-    G.sect.discipleRecords.forEach(member => { member.joinedMonths += ageShift; });
-    G.ageMonths = successorAge;
-    G.lifespanMonths = G.ageMonths + getLifespanForRealm(G.realmIdx) * 12;
+    // Keep world deadlines and service dates on the same calendar across leaders.
+    G.playerBirthMonth = G.ageMonths - npc.ageMonths;
+    G.lifespanMonths = G.playerBirthMonth + getWorldNpcLifespanMonths(npc);
     const tBonus = getSectHeirloomBonuses();
     grantFoundation(tBonus.foundationBonus || 0);
     addSectRenown(tBonus.renownBonus || 0);

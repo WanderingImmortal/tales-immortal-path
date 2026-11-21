@@ -15,7 +15,8 @@ function newGame() {
     });
     const run = source => vm.runInContext(source, context);
     const files = [
-        'data.js', 'core.js', 'foundation.js', 'forbidden.js', 'world-scheduler.js', 'world.js',
+        'data.js', 'core.js', 'foundation.js', 'cultivation-tracks.js', 'forbidden.js',
+        'world-scheduler.js', 'world.js',
         'sect.js', 'sect-expand.js', 'sect-buildings.js', 'npc.js', 'story-arcs.js'
     ];
     for (const file of files) {
@@ -103,6 +104,23 @@ test('the normal world clock ages and cultivates a recruit once per interval', (
         processWorldTime(G.ageMonths, G.ageMonths + 1);
         npc.realmIdx
     `), 1);
+});
+
+test('a dead NPC still in the world registry cannot join through either recruitment path', () => {
+    const run = newGame();
+    assert.equal(run(`
+        npc.alive = false;
+        advanceTime = () => { throw new Error('Ineligible recruitment advanced time'); };
+        G.worldNpcs.includes(npc) && !canRecruitWorldNpc(npc) &&
+            !runRecruit().success && !addSectDisciple(npc, 'acolyte') &&
+            getDiscipleCount() === 0 && G.fame === 100
+    `), true);
+    assert.equal(run(`
+        // Guard the membership write even if a lookup returns tombstones.
+        getWorldNpcByUid = uid => G.worldNpcs.find(person => person.uid === uid);
+        getRecruitWorldNpcBlockReason(npc) === 'They are gone.' &&
+            !joinPlayerSect(npc, 'acolyte') && getDiscipleCount() === 0
+    `), true);
 });
 
 test('death during recruitment stops the action without granting membership or rewards', () => {
@@ -239,7 +257,7 @@ test('story recruitment reuses the redeemed NPC and gives Liang Chen one world i
     `), true);
 });
 
-test('succession takes control of the chosen living disciple and clears their study', () => {
+test('succession uses the NPC realm and age while preserving calendar dates', () => {
     const run = newGame();
     assert.equal(run(`
         advanceTime = () => true;
@@ -251,11 +269,44 @@ test('succession takes control of the chosen living disciple and clears their st
         assignDiscipleStudy(npc.uid, manual);
         const other = addSectDisciple('Other', 'acolyte');
         G.ageMonths += 24;
+        npc.realmIdx = 2;
+        setTrackRealmIdx('vessel', 4);
+        setTrackRealmIdx('dantian', 5);
+        setFocusTrack('vessel');
+        const calendarMonth = G.ageMonths;
+        const joinedMonth = other.joinedMonths;
+        const npcLifespan = getWorldNpcLifespanMonths(npc);
+        const eventMonth = calendarMonth + 2;
+        const firings = [];
+        registerWorldEventHandler('succession_test', () => firings.push(G.ageMonths));
+        scheduleWorldEvent('succession_test', eventMonth);
         applySectSuccession(npc.uid);
         G.sect.leaderNpcUid === npc.uid && G.name === npc.name &&
             !getWorldNpcByUid(npc.uid) && !getSectDiscipleMembership(npc.uid) &&
             getDiscipleCount() === 1 && getDiscipleMonthsServed(other) === 24 &&
+            other.joinedMonths === joinedMonth && G.ageMonths === calendarMonth &&
+            getPlayerAgeMonths() === npc.ageMonths && getPlayerLifespanMonths() === npcLifespan &&
+            G.lifespanMonths - G.ageMonths === npcLifespan - npc.ageMonths &&
+            getFocusTrack() === 'dantian' && getEffectiveRealmTier() === npc.realmIdx &&
+            getTrackRealmIdx('vessel') === 0 && getTrackRealmIdx('spirit') === 0 &&
             getActiveManualStudies().length === 0
+    `), true);
+    assert.equal(run(`
+        tickQuestSystems = () => {};
+        processWorldTime(calendarMonth, eventMonth + 1);
+        firings.join() === String(eventMonth) && getPlayerAgeMonths() === npc.ageMonths + 3
+    `), true);
+    assert.equal(run(`
+        setTrackRealmIdx('dantian', 3);
+        extendLifespanOnBreakthrough();
+        getPlayerLifespanMonths() === getLifespanForRealm(3)
+    `), true);
+    assert.equal(run(`
+        saveState();
+        const birthMonth = G.playerBirthMonth;
+        G.playerBirthMonth = 0;
+        loadState() && G.playerBirthMonth === birthMonth &&
+            getPlayerAgeMonths() === npc.ageMonths + 3
     `), true);
 });
 

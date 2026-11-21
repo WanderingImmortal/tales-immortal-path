@@ -921,6 +921,15 @@ function getIntentTier(usesOrIntent) {
 }
 
 // ===== TIME & LIFESPAN =====
+// G.ageMonths and G.lifespanMonths are calendar months. A successor can have a different birth month.
+function getPlayerAgeMonths() {
+    return G.ageMonths - (G.playerBirthMonth || 0);
+}
+
+function getPlayerLifespanMonths() {
+    return G.lifespanMonths - (G.playerBirthMonth || 0);
+}
+
 function getLifespanForRealm(realmIdx) {
     const years = LIFESPAN_BY_REALM[Math.min(realmIdx, LIFESPAN_BY_REALM.length - 1)];
     return years * 12;
@@ -964,7 +973,7 @@ function formatDuration(months) {
 }
 
 function formatActionTimeMeta(months, remainStr) {
-    return `${formatDuration(months)} · Age ${formatYears(G.ageMonths)} · ${remainStr}`;
+    return `${formatDuration(months)} · Age ${formatYears(getPlayerAgeMonths())} · ${remainStr}`;
 }
 
 function advanceTime(months, activity, options) {
@@ -1031,7 +1040,7 @@ function advanceTime(months, activity, options) {
             return true;
         }
         G.gameOver = true;
-        addLog(`💀 Your lifespan ends at ${formatYears(G.lifespanMonths)}. The Dao remains unclaimed...`);
+        addLog(`💀 Your lifespan ends at ${formatYears(getPlayerLifespanMonths())}. The Dao remains unclaimed...`);
         if (typeof triggerBitterReincarnation === 'function') {
             setTimeout(() => triggerBitterReincarnation(), 600);
         }
@@ -1049,7 +1058,7 @@ function applySharedCalendarObligations() {
 function extendLifespanOnBreakthrough(tier) {
     // Lifespan uses highest tier across dantian, vessel, and spirit tracks.
     const tierIdx = typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx;
-    const newCap = getLifespanForRealm(tierIdx);
+    const newCap = (G.playerBirthMonth || 0) + getLifespanForRealm(tierIdx);
     if (newCap <= G.lifespanMonths) return;
     const scale = typeof getBreakthroughTierScale === 'function' && tier
         ? getBreakthroughTierScale(tier).lifespanMult
@@ -1065,11 +1074,12 @@ function extendLifespanOnBreakthrough(tier) {
             ? getBreakthroughTierScale(tier).label
             : null;
         const tierNote = tierLabel && tier !== 'peak' && tier !== 'perfect' ? ` (${tierLabel} seal)` : '';
-        addLog(`🌿 Breakthrough extends your life by ${gainedYears} years${tierNote}! Lifespan: ${formatYears(G.lifespanMonths)}.`);
+        addLog(`🌿 Breakthrough extends your life by ${gainedYears} years${tierNote}! Lifespan: ${formatYears(getPlayerLifespanMonths())}.`);
     }
 }
 
 function initLifespan() {
+    G.playerBirthMonth = 0;
     G.ageMonths = STARTING_AGE_YEARS * 12;
     G.lifespanMonths = getLifespanForRealm(0);
 }
@@ -1087,6 +1097,7 @@ function loadState() {
         if (raw) {
             const data = JSON.parse(raw);
             Object.assign(G, data);
+            G.playerBirthMonth = data.playerBirthMonth ?? 0;
             if (G.trait && !G.trait.id && typeof TRAITS !== 'undefined') {
                 const match = TRAITS.find(t => t.name === G.trait.name);
                 if (match) G.trait = match;

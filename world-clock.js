@@ -243,7 +243,7 @@ function emitWorldClockMonthlyDigest() {
     const monthFloor = Math.floor(G.ageMonths || 0);
     if (monthFloor <= (G.worldClock.lastDigestMonth || 0)) return;
     G.worldClock.lastDigestMonth = monthFloor;
-    const age = typeof formatYears === 'function' ? formatYears(G.ageMonths) : `${G.ageMonths}m`;
+    const age = typeof formatYears === 'function' ? formatYears(getPlayerAgeMonths()) : `${G.ageMonths}m`;
     const busy = getWorldClockActivityLabel();
     const tail = busy ? ` (${busy})` : '';
     if (typeof addLog === 'function') {
@@ -334,7 +334,7 @@ function renderWorldClockBar() {
         }
     }
 
-    if (ageEl) ageEl.textContent = formatWorldClockAge(G.ageMonths);
+    if (ageEl) ageEl.textContent = formatWorldClockAge(getPlayerAgeMonths());
     if (typeof renderPlayerActivityPanel === 'function') renderPlayerActivityPanel();
     if (actEl) {
         const label = getWorldClockActivityLabel();
