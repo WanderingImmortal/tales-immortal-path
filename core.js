@@ -1325,6 +1325,7 @@ function migrateLoadedGameState(data) {
     if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
     if (typeof migrateLesserSectsForExistingSave === 'function') migrateLesserSectsForExistingSave();
     if (typeof migrateWorldPopulationForExistingSave === 'function') migrateWorldPopulationForExistingSave();
+    if (typeof migrateNpcPresenceForExistingSave === 'function') migrateNpcPresenceForExistingSave();
     if (typeof migrateOrganizationProfilesForExistingSave === 'function') migrateOrganizationProfilesForExistingSave();
     if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
     if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();

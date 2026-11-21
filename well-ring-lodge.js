@@ -62,7 +62,7 @@ function getWellRingCastNpc(key, options) {
 
 function isWellRingCastNpcPresent(npc, locationId) {
     if (!npc || npc.alive === false) return false;
-    if (npc.travel && typeof isNpcPhysicallyPresentAt === 'function') {
+    if (typeof isNpcPhysicallyPresentAt === 'function') {
         const loc = locationId != null
             ? locationId
             : (typeof getCurrentLocationId === 'function' ? getCurrentLocationId() : G.currentLocation);

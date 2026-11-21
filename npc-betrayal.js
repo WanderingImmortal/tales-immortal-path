@@ -136,9 +136,12 @@ function isPlayerVulnerableForBetrayal() {
 
 function getPendingBetrayalNpcInZone(zoneId) {
     zoneId = zoneId || (typeof getMainZoneId === 'function' ? getMainZoneId() : G.currentZone);
-    const candidates = (G.worldNpcs || []).filter(n =>
-        n.alive && n.intent === 'pending' && n.zone === zoneId && hasWorldNpcRelationship(n)
-    );
+    const candidates = (G.worldNpcs || []).filter(npc => {
+        if (!npc.alive || npc.intent !== 'pending' || !hasWorldNpcRelationship(npc)) return false;
+        if (typeof resolveNpcPresence !== 'function') return npc.zone === zoneId;
+        const presence = resolveNpcPresence(npc);
+        return presence.status === 'present' && presence.zoneId === zoneId;
+    });
     if (!candidates.length) return null;
     candidates.sort((a, b) => (a.intentSinceMonth || 0) - (b.intentSinceMonth || 0));
     return candidates[0];

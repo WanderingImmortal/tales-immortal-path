@@ -55,9 +55,13 @@ function getActiveManualStudies() {
     return G.sect.buildingMeta.manual_hall.studies.slice();
 }
 
-function isDiscipleStudying(discipleUid) {
-    ensureManualHallMeta();
-    return G.sect.buildingMeta.manual_hall.studies.some(s => s.discipleUid === discipleUid);
+function getNpcManualHallStudy(uid) {
+    return G.sect?.buildingMeta?.manual_hall?.studies?.find(study => study.discipleUid === uid) || null;
+}
+
+function isNpcAtManualHall(npc) {
+    const headquarters = getSectMissionHeadquarters();
+    return !!headquarters && isNpcPhysicallyPresentAt(npc, headquarters.id);
 }
 
 function getDiscipleStudySpeedMult(disciple) {
@@ -87,10 +91,12 @@ function getDiscipleStudyBlockReason(discipleUid, techName) {
     const member = getSectTrainingMember(discipleUid);
     const disciple = getDiscipleNpc(member);
     if (!disciple) return 'Member not found.';
-    if (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(discipleUid)) return 'They are on a sect mission.';
+    const claim = getNpcActivityClaim(discipleUid);
+    if (claim === 'sect_mission') return 'They are on a sect mission.';
+    if (claim === 'manual_hall') return `${disciple.name} is already studying.`;
+    if (!isNpcAtManualHall(disciple)) return `${disciple.name} must be at sect headquarters to study.`;
     if (!canDiscipleAccessManualHall(member)) return 'The Manual Hall requires Inner rank or above, or full elder status.';
     if (disciple.knownTechniques?.includes(techName)) return `${disciple.name} already knows this art.`;
-    if (isDiscipleStudying(discipleUid)) return `${disciple.name} is already studying.`;
     const entry = getManualHallEntry(techName);
     if (!entry || entry.count < 1) return 'No copy of that manual in the hall.';
     const active = getActiveManualStudies().length;
@@ -199,11 +205,8 @@ function cancelDiscipleStudy(studyUid) {
 
 function completeDiscipleStudy(study) {
     const npc = getDiscipleNpc(getSectTrainingMember(study.discipleUid));
-    if (!npc) return;
-    if (!npc.knownTechniques) npc.knownTechniques = [];
-    if (!npc.knownTechniques.includes(study.techName)) {
-        npc.knownTechniques.push(study.techName);
-    }
+    if (!npc || npc.knownTechniques?.includes(study.techName)) return;
+    (npc.knownTechniques ||= []).push(study.techName);
     ensureManualHallMeta();
     const entry = getManualHallEntry(study.techName);
     if (entry) {
@@ -219,29 +222,52 @@ function completeDiscipleStudy(study) {
     addLog(`📜 ${npc.name} completes study of ${study.techName}! +${renownGain} sect renown.`);
 }
 
+function reconcileManualHallStudies() {
+    const hall = G.sect?.buildingMeta?.manual_hall;
+    if (!hall?.studies?.length) return;
+    const claimed = new Set();
+    hall.studies = hall.studies.filter(study => {
+        const uid = study.discipleUid;
+        const npc = getDiscipleNpc(getSectTrainingMember(uid));
+        if (getBuildingLevel('manual_hall') > 0 && npc && !claimed.has(uid)
+            && isNpcAtManualHall(npc) && getNpcActivityClaim(uid) === 'manual_hall') {
+            claimed.add(uid);
+            return true;
+        }
+        addLog(`📜 ${npc?.name || 'A disciple'} could not continue Manual Hall study. No manual was consumed.`);
+        return false;
+    });
+}
+
+function getNextManualHallStudyBoundary(now) {
+    const studies = G.sect?.buildingMeta?.manual_hall?.studies;
+    if (!studies?.length || getBuildingLevel('manual_hall') < 1) return Infinity;
+    let next = Infinity;
+    for (const study of studies) {
+        const member = getSectTrainingMember(study.discipleUid);
+        const npc = getDiscipleNpc(member);
+        if (!npc || !isNpcAtManualHall(npc) || getNpcActivityClaim(npc.uid) !== 'manual_hall') continue;
+        const remaining = (study.totalMonths - study.progressMonths) / getDiscipleStudySpeedMult(member);
+        if (remaining > 1e-9) next = Math.min(next, now + remaining);
+    }
+    return next;
+}
+
 function tickManualHallStudy(monthsPassed) {
     if (!isSectFounded() || monthsPassed <= 0) return;
-    if (getBuildingLevel('manual_hall') < 1) return;
-    ensureManualHallMeta();
-    const studies = G.sect.buildingMeta.manual_hall.studies;
-    if (!studies.length) return;
+    reconcileManualHallStudies();
+    const studies = G.sect.buildingMeta?.manual_hall?.studies;
+    if (!studies?.length) return;
     const completed = [];
-    studies.forEach(study => {
+    for (const study of studies) {
         const disciple = getSectTrainingMember(study.discipleUid);
-        if (!getDiscipleNpc(disciple)) {
-            completed.push(study.uid);
-            return;
-        }
         study.progressMonths += monthsPassed * getDiscipleStudySpeedMult(disciple);
-        if (study.progressMonths >= study.totalMonths) completed.push(study.uid);
-    });
-    completed.forEach(uid => {
-        const idx = studies.findIndex(s => s.uid === uid);
-        if (idx < 0) return;
-        const study = studies[idx];
-        studies.splice(idx, 1);
-        completeDiscipleStudy(study);
-    });
+        if (study.progressMonths + 1e-9 >= study.totalMonths) completed.push(study);
+    }
+    if (completed.length) {
+        G.sect.buildingMeta.manual_hall.studies = studies.filter(study => !completed.includes(study));
+        completed.forEach(completeDiscipleStudy);
+    }
 }
 
 function getSectDiscipleKnownArtsCount() {
@@ -326,8 +352,8 @@ function renderManualHallPanelHtml() {
     ensureSectState();
     const disciples = getSectDisciplesAndElders();
     const eligibleDisciples = disciples.filter(canDiscipleAccessManualHall);
-    const freeDisciples = eligibleDisciples.filter(d => !isDiscipleStudying(d.uid)
-        && !(typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(d.uid)));
+    const freeDisciples = eligibleDisciples.filter(d => !getNpcActivityClaim(d.uid)
+        && isNpcAtManualHall(getDiscipleNpc(d)));
     const hallManuals = collection.filter(e => e.count > 0);
     if (freeDisciples.length && hallManuals.length && studies.length < slots) {
         html += `<div class="sect-section-title sect-subsection">🧑‍🎓 Assign Study</div>`;
@@ -350,7 +376,7 @@ function renderManualHallPanelHtml() {
     } else if (!eligibleDisciples.length) {
         html += `<p class="sect-hint">The Manual Hall requires Inner rank or above, or full elder status.</p>`;
     } else if (!freeDisciples.length) {
-        html += `<p class="sect-hint">All eligible members are occupied.</p>`;
+        html += `<p class="sect-hint">No eligible members are available at headquarters.</p>`;
     }
 
     const artsCount = getSectDiscipleKnownArtsCount();

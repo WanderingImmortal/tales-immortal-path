@@ -214,18 +214,11 @@ function getPresentNpcEntries(zoneId) {
             const locId = typeof getCurrentLocationId === 'function'
                 ? getCurrentLocationId()
                 : G.currentLocation;
+            const locationZone = typeof getLocationDef === 'function' ? getLocationDef(locId)?.parentZone : zoneId;
             getWorldNpcsInZone(zoneId).forEach(npc => {
                 if (npc.state === 'ambient') return;
-                if (typeof isNpcTravelling === 'function' && isNpcTravelling(npc)) return;
-                // Unresolved / dead-aborted travellers have no body — do not fall back to home.
-                if (npc.travel && (npc.travel.status === 'unresolved'
-                    || (npc.travel.status === 'aborted' && !npc.travel.locationId))) return;
-                // Settled travel location overrides the home anchor. Otherwise home still gates presence.
-                if (npc.travel && npc.travel.status === 'present' && npc.travel.locationId) {
-                    if (locId && npc.travel.locationId !== locId) return;
-                } else if (npc.homeLocationId && locId && npc.homeLocationId !== locId) return;
-                if (locId && typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(npc.uid)
-                    && typeof isNpcPhysicallyPresentAt === 'function' && !isNpcPhysicallyPresentAt(npc, locId)) return;
+                if (locId && locationZone === zoneId && typeof isNpcPhysicallyPresentAt === 'function'
+                    && !isNpcPhysicallyPresentAt(npc, locId)) return;
                 entries.push({ type: 'world', id: worldNpcId(npc.uid), npc });
             });
         }
@@ -1102,6 +1095,7 @@ function getNpcMenuActions(npcId) {
 
 function     openNpcPopup(npcId) {
     const zoneId = G.currentZone || currentZone;
+    if (isWorldNpcId(npcId) && !getPresentNpcEntries(zoneId).some(entry => entry.id === npcId)) return;
     const present = typeof getKnownNpcEntries === 'function'
         ? getKnownNpcEntries(zoneId)
         : getPresentNpcEntries(zoneId);

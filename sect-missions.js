@@ -78,8 +78,9 @@ function getSectMissionHeadquarters() {
 }
 
 function isNpcLocalToSectHeadquarters(npc, hq) {
-    const locationId = getNpcSettledLocationId(npc);
-    return npc.zone === hq.parentZone && (!locationId || locationId === hq.id);
+    const presence = resolveNpcPresence(npc);
+    // Keep the existing same-zone reporting rule for otherwise unplaced mission staff.
+    return presence.zoneId === hq.parentZone && (presence.coarse || presence.locationId === hq.id);
 }
 
 function getSectPatrolCapability(npc) {
@@ -98,8 +99,7 @@ function planSectMission(uid, type, routine = false) {
     if (getActiveSectMissions().length >= SECT_MISSION_LIMIT) return blocked('The sect already has an active assignment.');
     const npc = getDiscipleNpc(getSectDiscipleMembership(uid));
     if (!npc || npc.state === 'ambient') return blocked('Choose a living disciple.');
-    if (isDiscipleStudying(uid) || isNpcOnSectMission(uid) || isNpcTravelling(npc)
-        || isNpcTravelBodyUnresolved(npc) || npcTravelCondition(npc)) {
+    if (getNpcActivityClaim(uid) || isNpcTravelling(npc) || npcTravelCondition(npc)) {
         return blocked('That disciple is occupied or unable to undertake field work.');
     }
     const hq = getSectMissionHeadquarters();
@@ -152,7 +152,7 @@ function assignSectMission(uid, type, routine = false) {
         status: 'active', phase: walkMonths ? 'outbound' : 'work'
     };
     // Otherwise unplaced NPCs report to headquarters within their current zone.
-    const needsLocalPlacement = !getNpcSettledLocationId(npc);
+    const needsLocalPlacement = resolveNpcPresence(npc).coarse;
     if (needsLocalPlacement) {
         npc.locationId = hq.id;
         mission.temporaryPlacement = true;
@@ -317,8 +317,7 @@ function reviewSectMissions() {
     scheduleSectMissionReview();
     const hq = getSectMissionHeadquarters();
     if (!hq || G.sectSuccessionActive || department.proposal || getActiveSectMissions().length >= SECT_MISSION_LIMIT
-        || npcTravelCondition(elder) || isNpcTravelling(elder) || isNpcTravelBodyUnresolved(elder)
-        || isDiscipleStudying(elder.uid) || !isNpcLocalToSectHeadquarters(elder, hq)) return;
+        || npcTravelCondition(elder) || getNpcActivityClaim(elder.uid) || !isNpcLocalToSectHeadquarters(elder, hq)) return;
     const priorities = department.safety === 'gathering_only' ? ['gather']
         : [department.priority, department.priority === 'gather' ? 'patrol' : 'gather'];
     for (const type of priorities) {
