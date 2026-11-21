@@ -16,7 +16,7 @@ function newGame() {
     const run = source => vm.runInContext(source, context);
     const files = [
         'data.js', 'core.js', 'foundation.js', 'cultivation-tracks.js', 'forbidden.js',
-        'world-scheduler.js', 'locations.js', 'world.js', 'npc-travel.js', 'resource-sources.js', 'ambient-npcs.js', 'procedural-lesser-sects.js',
+        'world-scheduler.js', 'advance-time-rules.js', 'locations.js', 'world.js', 'npc-travel.js', 'resource-sources.js', 'ambient-npcs.js', 'procedural-lesser-sects.js',
         'sect.js', 'sect-missions.js', 'sect-expand.js', 'sect-inventory.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'quests.js', 'story-arcs.js'
     ];
     for (const file of files) {

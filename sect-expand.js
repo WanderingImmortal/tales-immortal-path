@@ -801,10 +801,16 @@ function rollSectEvent() {
     return weighted[Math.floor(Math.random() * weighted.length)];
 }
 
+function getNextSectEventBoundary(now) {
+    if (!isSectFounded() || G.sect.pendingEvent || G.sect.lastEventMonths == null) return null;
+    const due = G.sect.lastEventMonths + SECT_EVENT_BALANCE.intervalMonths;
+    return due > now + 1e-9 ? due : null;
+}
+
 function tickSectRandomEvents(monthsPassed) {
     if (!isSectFounded() || monthsPassed <= 0) return;
     ensureSectExpansionState();
-    if (G.sect.pendingEvent) return;
+    if (G.sect.pendingEvent || (typeof getPlayerTimeAttention === 'function' && getPlayerTimeAttention())) return;
 
     const since = (G.ageMonths || 0) - (G.sect.lastEventMonths || 0);
     if (since < SECT_EVENT_BALANCE.intervalMonths) return;

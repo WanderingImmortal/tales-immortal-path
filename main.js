@@ -684,6 +684,7 @@ function setupCreation(refreshOnly) {
         G.pendingAlignmentFriction = null;
         G.npcState = null;
         G.worldNpcs = [];
+        G.passiveCultivation = null;
         G.world = {
             lesserSects: { version: 1, seed: null, generatedAtMonths: 0, sects: [] },
             geography: { version: 1, populationSeed: null, initialized: false },
@@ -819,7 +820,23 @@ function initGame() {
             setTimeout(() => openAncientBargainPopup(G.ancients.pendingBargain), 600);
         }
         fullRender();
-        if (G._pendingTribulation && typeof runPendingTribulationIfAny === 'function') {
+        if (G.sect?.pendingEvent && typeof openSectEventPopup === 'function') {
+            openSectEventPopup(G.sect.pendingEvent.eventId);
+        }
+        if (G.encounterState && typeof renderEncounterOverlay === 'function') {
+            renderEncounterOverlay();
+            document.getElementById('encounterOverlay')?.classList.add('active');
+        }
+        if (G.transcendencePerkOffer?.active && typeof renderTranscendencePerkPopup === 'function') {
+            renderTranscendencePerkPopup();
+            document.getElementById('transcendencePerkPopup')?.classList.add('active');
+        }
+        if (G.tribulationState?.active && typeof renderTribulationOverlay === 'function') {
+            renderTribulationOverlay();
+            document.getElementById('tribulationOverlay')?.classList.add('active');
+        }
+        if (G.sectSuccessionActive && typeof openSectSuccessionPopup === 'function') openSectSuccessionPopup();
+        if (!G.tribulationState?.active && G._pendingTribulation && typeof runPendingTribulationIfAny === 'function') {
             requestAnimationFrame(() => runPendingTribulationIfAny());
         }
     } else {

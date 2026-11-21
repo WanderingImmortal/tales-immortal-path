@@ -983,6 +983,9 @@ function advanceTime(months, activity, options) {
         : (Number(months) || 0);
     if (months <= 0) return true;
     if (G.gameOver) return false;
+    if ((typeof getWorldClockProject === 'function' && getWorldClockProject())
+        || (typeof getPlayerActivity === 'function' && getPlayerActivity())
+        || (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive())) return false;
     if (typeof shouldPauseLivingClockForPlayerAdvance === 'function'
         && shouldPauseLivingClockForPlayerAdvance(months, opts)
         && typeof setWorldClockPaused === 'function') {
@@ -994,40 +997,24 @@ function advanceTime(months, activity, options) {
     if (G.forbiddenLifespanMult && G.forbiddenLifespanMult > 1 && months >= 1) {
         months = Math.max(1, Math.floor(months / G.forbiddenLifespanMult));
     }
-    const billedMonths = months;
-    const deferLogs = !!G._actionLog;
-    if (deferLogs) G._deferringLogs = true;
-    let chronicleBatch = [];
-    const runSlice = (stepMonths) => {
-        const fromMonths = G.ageMonths;
-        const toMonths = fromMonths + stepMonths;
-        if (typeof processWorldTime === 'function') {
-            const batch = processWorldTime(fromMonths, toMonths, { activity, months: stepMonths }) || [];
-            chronicleBatch = chronicleBatch.concat(batch);
-        } else {
-            if (typeof processWorldTimeLegacy === 'function') {
-                const batch = processWorldTimeLegacy(fromMonths, toMonths) || [];
-                chronicleBatch = chronicleBatch.concat(batch);
-            }
-            G.ageMonths = toMonths;
-        }
-        if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(stepMonths);
-        if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
-        if (!opts.skipPassiveCirculation && typeof tickPassiveCultivationForMonths === 'function') {
-            tickPassiveCultivationForMonths(stepMonths);
-        }
-        return true;
-    };
-    if (typeof advanceMonthsInActivitySlices === 'function') advanceMonthsInActivitySlices(months, runSlice);
-    else runSlice(months);
-    if (deferLogs) G._deferringLogs = false;
+    const deferLogs = G._deferringLogs;
+    if (G._actionLog) G._deferringLogs = true;
+    let result;
+    try {
+        result = advanceSharedWorldTime(months, activity, opts);
+    } finally {
+        G._deferringLogs = deferLogs;
+    }
     const remaining = getYearsRemaining();
     const remainStr = isImmortal() ? 'immortal' : `${remaining}y left`;
-    const timeMeta = formatActionTimeMeta(billedMonths, remainStr);
+    const timeMeta = formatActionTimeMeta(result.elapsed, remainStr);
     const worldMeta = typeof formatWorldChronicleLine === 'function'
-        ? formatWorldChronicleLine(chronicleBatch)
+        ? formatWorldChronicleLine(result.batch)
         : '';
-    if (G._actionLog) {
+    if (!result.complete && result.elapsed > 1e-9) {
+        if (G._actionLog && typeof cancelActionLog === 'function') cancelActionLog();
+        addLog(`⏳ ${activity} stopped after ${timeMeta}.${worldMeta ? ' ' + worldMeta : ''}`);
+    } else if (G._actionLog) {
         const extras = G._pendingActionMeta?.extras || [];
         G._pendingActionMeta = { time: timeMeta, world: worldMeta, extras };
     } else {
@@ -1035,18 +1022,7 @@ function advanceTime(months, activity, options) {
         if (worldMeta) line += ` ${worldMeta}`;
         addLog(line);
     }
-    if (!isImmortal() && G.ageMonths >= G.lifespanMonths) {
-        if (typeof trySectLeaderSuccessionOnDeath === 'function' && trySectLeaderSuccessionOnDeath()) {
-            return true;
-        }
-        G.gameOver = true;
-        addLog(`💀 Your lifespan ends at ${formatYears(getPlayerLifespanMonths())}. The Dao remains unclaimed...`);
-        if (typeof triggerBitterReincarnation === 'function') {
-            setTimeout(() => triggerBitterReincarnation(), 600);
-        }
-        return false;
-    }
-    return true;
+    return result.complete;
 }
 
 /** Rent and lodge-board upkeep. Same elapsed months, every time-advance entry point. */
@@ -1098,6 +1074,9 @@ function loadState() {
             const data = JSON.parse(raw);
             Object.assign(G, data);
             G.playerBirthMonth = data.playerBirthMonth ?? 0;
+            G.passiveCultivation = data.passiveCultivation ?? null;
+            G._quietTime = G._deferringLogs = G._actionLog = false;
+            G._pendingActionMeta = null;
             if (G.trait && !G.trait.id && typeof TRAITS !== 'undefined') {
                 const match = TRAITS.find(t => t.name === G.trait.name);
                 if (match) G.trait = match;
@@ -1144,7 +1123,7 @@ function loadState() {
             if (G.tribulationCombat === undefined) G.tribulationCombat = null;
             if (!G.tribulationMarks) G.tribulationMarks = [];
             if (!G.transcendencePerks) G.transcendencePerks = [];
-            G.transcendencePerkOffer = null;
+            G.transcendencePerkOffer = data.transcendencePerkOffer ?? null;
             G.lastTribulationCue = null;
             G.lastTranscendenceCue = null;
             if (typeof migrateSaveToCultivationTracks === 'function') migrateSaveToCultivationTracks();
@@ -1254,6 +1233,13 @@ function loadState() {
             ensurePillStock();
             applyVitalityToMaxHp();
             ensureForbiddenState();
+            const attention = typeof getPlayerTimeAttention === 'function' ? getPlayerTimeAttention() : null;
+            if (attention && (G.worldClock?.project || G.worldClock?.stance || G.playerActivity)) {
+                interruptPlayerTime(attention);
+            } else if (G.worldClock?.project && typeof getWorldClockProjectStopReason === 'function') {
+                const blocked = getWorldClockProjectStopReason();
+                if (blocked) cancelWorldClockProject(null, blocked);
+            }
             try {
                 if (typeof catchUpPlayerActivity === 'function') catchUpPlayerActivity();
             } catch (activityErr) {

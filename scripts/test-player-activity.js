@@ -67,6 +67,7 @@ function boot() {
             }
         }
     });
+    vm.runInContext(fs.readFileSync(path.join(root, 'advance-time-rules.js'), 'utf8'), ctx);
     ctx.awards = awards;
     ctx.slices = slices;
     vm.runInContext(fs.readFileSync(path.join(root, 'world-scheduler.js'), 'utf8'), ctx);

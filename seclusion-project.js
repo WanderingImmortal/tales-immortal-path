@@ -65,24 +65,27 @@ function pickSeclusionEvents(yearsTarget) {
     return events.sort((a, b) => a.year - b.year);
 }
 
-function applySeclusionYearGains() {
+function applySeclusionYearGains(yearFraction = 1, partial = false) {
     if (typeof runCultivateSession !== 'function') return;
     // Quiet growth — a fraction of a normal cultivate, no spam logs
     const prevDefer = G._deferringLogs;
+    const prevQuiet = G._quietTime;
     G._deferringLogs = true;
     G._quietTime = true;
     try {
         runCultivateSession({
             extraMult: 0.22,
+            yieldScale: yearFraction,
+            circulationOnly: partial,
             logPrefix: 'Seclusion',
             silent: true
         });
         if (typeof applySeclusionYearBandProgress === 'function') {
-            applySeclusionYearBandProgress();
+            applySeclusionYearBandProgress(yearFraction);
         }
     } finally {
         G._deferringLogs = prevDefer;
-        G._quietTime = false;
+        G._quietTime = prevQuiet;
     }
 }
 
@@ -146,20 +149,24 @@ function startSeclusionProject(years) {
         events,
         speed: 1,
         onYear: () => applySeclusionYearGains(),
+        onPartialYear: fraction => applySeclusionYearGains(fraction, true),
         onComplete: (snap) => finishSeclusionProject(snap, startAge)
     });
 }
 
 function finishSeclusionProject(snap, startAgeMonths) {
     const yearsDone = snap.yearsDone || 0;
+    const elapsed = snap.elapsedMonths ?? yearsDone * 12;
+    const duration = formatDuration(elapsed);
     const startY = Math.floor((startAgeMonths || 0) / 12);
     const endY = Math.floor((G.ageMonths || 0) / 12);
     const reason = snap.reason || 'complete';
     const events = snap.shownEvents || [];
 
-    let subtitle = `${yearsDone} year${yearsDone === 1 ? '' : 's'} in seclusion (Age ${startY}–${endY}).`;
+    let subtitle = `${duration} in seclusion (Age ${startY}–${endY}).`;
     if (reason === 'stopped') subtitle += ' You emerged early.';
     if (reason === 'death') subtitle += ' Lifespan ended in the grotto.';
+    if (reason === 'interrupted') subtitle += ' An interruption ended your retreat.';
 
     const saveDiary = () => {
         if (typeof appendQuestJournalEntry === 'function') {
@@ -169,24 +176,22 @@ function finishSeclusionProject(snap, startAgeMonths) {
             appendQuestJournalEntry({
                 kind: 'seclusion',
                 emoji: '🗻',
-                title: reason === 'stopped'
-                    ? `Early emergence — ${yearsDone} years`
-                    : `Seclusion — ${yearsDone} years`,
+                title: reason === 'complete' ? `Seclusion — ${duration}` : `Early emergence — ${duration}`,
                 objective: `Age ${startY}–${endY}. ${beats}`,
                 status: 'complete'
             });
         }
 
-        const logHtml = reason === 'stopped'
-            ? `<u><b>🗻 You leave seclusion after ${yearsDone} years</b></u> (Age ${startY}→${endY}).`
-            : `<u><b>🗻 Seclusion complete — ${yearsDone} years</b></u> (Age ${startY}→${endY}).`;
+        const logHtml = reason !== 'complete'
+            ? `<u><b>🗻 Seclusion ends after ${duration}</b></u> (Age ${startY}→${endY}).`
+            : `<u><b>🗻 Seclusion complete — ${duration}</b></u> (Age ${startY}→${endY}).`;
         addLog({ html: logHtml, cls: 'log-seclusion-done' });
 
-        if (typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
+        if ((reason === 'complete' || reason === 'stopped') && typeof triggerTutorial === 'function') triggerTutorial('first_cultivate');
         fullRender();
     };
 
-    if (typeof showHighlightReelPopup === 'function') {
+    if ((reason === 'complete' || reason === 'stopped') && typeof showHighlightReelPopup === 'function') {
         showHighlightReelPopup({
             title: reason === 'stopped' ? '🗻 You emerge' : '🗻 Seclusion ends',
             subtitle,

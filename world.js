@@ -1076,9 +1076,9 @@ function encounterApplyEffects(effects, closeOverlay) {
     }
     const label = state?.encounter?.title || effects.log || 'Zone encounter';
     beginActionLog();
-    if (!advanceTime(months, label)) {
+    if (!advanceTime(months, label, { allowCurrentAttention: true })) {
         cancelActionLog();
-        closeEncounterOverlay();
+        if (G.encounterState === state) closeEncounterOverlay();
         fullRender();
         return;
     }

@@ -110,11 +110,9 @@ function fireWorldEvent(ev) {
  *
  * Future player routines should not add a second clock. Bill time with advanceTime
  * (a player decision) or advanceTimeQuiet (playback). Both call processWorldTime, which
- * segments on G.worldSchedule, then applySharedCalendarObligations (rent, lodge board).
- * Activity-specific gains stay on the caller: passive weeks, focused sessions, seclusion years.
- * Playback speed is the world-clock timer or the seclusion timer — not another simulation clock.
- * To interrupt a large advance, scheduleWorldEvent at the completion month; world-clock
- * projects still finish on the week loop when endsAtMonths has passed.
+ * segments on G.worldSchedule and optional calendar boundaries. The caller can account for
+ * elapsed time and stop after an event that requires the player's attention.
+ * Playback speed changes how often callers request time on this same calendar.
  */
 function runWorldTicks(fromMonths, toMonths, context) {
     const delta = toMonths - fromMonths;
@@ -205,6 +203,19 @@ function initWorldSchedulerRegistries() {
     }, 70);
 }
 
+function runCalendarWorldStep(context, step) {
+    if (!context.quiet) return step();
+    const quiet = G._quietTime;
+    const defer = G._deferringLogs;
+    G._quietTime = G._deferringLogs = true;
+    try {
+        return step();
+    } finally {
+        G._quietTime = quiet;
+        G._deferringLogs = defer;
+    }
+}
+
 function processWorldTime(fromMonths, toMonths, context) {
     initWorldSchedulerRegistries();
     ensureWorldSchedulerState();
@@ -212,22 +223,19 @@ function processWorldTime(fromMonths, toMonths, context) {
     beginWorldChronicleBatch();
     context = context || {};
     let cursor = fromMonths;
-    const end = toMonths;
-    while (cursor < end - 1e-9) {
-        const due = pullScheduledEventsAfter(cursor, end);
-        const segmentEnd = due.length ? due[0].at : end;
-        if (segmentEnd > cursor + 1e-9) {
-            G.ageMonths = segmentEnd;
-            runWorldTicks(cursor, segmentEnd, context);
-        }
-        fireScheduledEventsAtBoundary(cursor, segmentEnd);
+    while (cursor < toMonths - 1e-9) {
+        const due = pullScheduledEventsAfter(cursor, toMonths);
+        const segmentEnd = Math.min(toMonths, due[0]?.at ?? Infinity, context.nextBoundary?.(cursor) ?? Infinity);
+        if (segmentEnd <= cursor + 1e-9) break;
+
+        G.ageMonths = segmentEnd;
+        runCalendarWorldStep(context, () => runWorldTicks(cursor, segmentEnd, context));
+        context.onElapsed?.(segmentEnd - cursor);
+        runCalendarWorldStep(context, () => fireScheduledEventsAtBoundary(cursor, segmentEnd));
         cursor = segmentEnd;
+        if (context.shouldStop?.()) break;
     }
-    if (cursor < end - 1e-9) {
-        G.ageMonths = end;
-        runWorldTicks(cursor, end, context);
-    }
-    G.ageMonths = end;
+    G.ageMonths = cursor;
     return endWorldChronicleBatch();
 }
 

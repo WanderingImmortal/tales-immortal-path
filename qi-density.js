@@ -54,9 +54,9 @@ function computeQiCultivationSessionGains(opts) {
 
     const replenishMult = getQiReplenishEffortMult();
     const fillRaw = getMaxQi() * fillRatio * cultMult * scale * qiRegMult / replenishMult;
-    const fillGain = scale < 1
-        ? Math.max(0, Math.round(fillRaw))
-        : Math.max(1, Math.floor(fillRaw));
+    let fillGain = Math.max(1, Math.floor(fillRaw));
+    if (o.roundFillDown) fillGain = Math.max(0, Math.floor(fillRaw));
+    else if (scale < 1) fillGain = Math.max(0, Math.round(fillRaw));
 
     const compressionBlend = getQiCompressionSessionBlend();
     let densGain = 0;

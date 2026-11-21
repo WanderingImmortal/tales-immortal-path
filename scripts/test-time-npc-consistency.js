@@ -351,11 +351,12 @@ function extractUntil(src, startName, nextName) {
     const quiet = read('time-playback.js');
     const clock = read('world-clock.js');
     const seclusion = read('seclusion-project.js');
-    assert(core.includes('applySharedCalendarObligations'), 'player advances apply shared calendar obligations');
-    assert(quiet.includes('applySharedCalendarObligations'), 'quiet playback applies shared calendar obligations');
-    assert(core.includes('skipPassiveCirculation'), 'dedicated actions can skip passive circulation');
-    assert(!quiet.includes('tickPassiveCultivation'), 'quiet playback does not grant passive cultivation');
-    assert(clock.includes('tickPassiveCultivationWeek'), 'living calendar weeks still grant passive cultivation');
+    const shared = read('advance-time-rules.js');
+    assert(core.includes('advanceSharedWorldTime') && quiet.includes('advanceSharedWorldTime'),
+        'paid and quiet advances use the same calendar accounting entry point');
+    assert(shared.includes('applySharedCalendarObligations'), 'shared spans apply the calendar obligations');
+    assert(quiet.includes('skipPassiveCirculation: true'), 'seclusion replaces ordinary passive circulation');
+    assert(!clock.includes('tickPassiveCultivationWeek'), 'the living calendar has no second passive payout');
     assert(seclusion.includes('applySeclusionYearGains'), 'seclusion keeps its own yearly cultivation hook');
     assert(!read('world-clock.js').includes('tickDwellingRent()'), 'clock week does not charge rent a second time');
 }

@@ -39,12 +39,9 @@ function playerActivityBoundaryMonths(ageMonths) {
 
 function playerActivityStopReason(activity) {
     if (!G || G.gameOver) return { status: 'blocked', message: 'Your journey has ended.' };
-    if (G.inCombat) return { status: 'interrupted', message: 'Combat interrupts your practice.' };
-    if (typeof isTribulationActive === 'function' && isTribulationActive()) {
-        return { status: 'interrupted', message: 'Tribulation interrupts your practice.' };
-    }
-    if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) {
-        return { status: 'interrupted', message: 'A choice waits before you can continue.' };
+    const attention = getPlayerTimeAttention();
+    if (attention || isPlayerLifespanExhausted()) {
+        return { status: 'interrupted', message: attention || 'Your lifespan has ended.' };
     }
     if (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive()) {
         return { status: 'interrupted', message: 'Seclusion takes your full attention.' };
@@ -99,6 +96,7 @@ function beginPlayerActivity(spec) {
         base.endsAtMonths = age + months;
         base.nextSessionAtMonths = null;
     }
+    if (typeof clearWorldClockStance === 'function') clearWorldClockStance(true);
     G.playerActivity = base;
     G.playerActivityLast = null;
     if (typeof addLog === 'function' && spec.startLog) addLog(spec.startLog);
@@ -174,14 +172,13 @@ function settlePlayerActivityOnce() {
     const a = getPlayerActivity();
     if (!a) return;
     const age = G.ageMonths || 0;
-    const dueAt = a.kind === 'routine' ? a.nextSessionAtMonths : a.endsAtMonths;
-    if (dueAt == null || age + 1e-9 < dueAt) return;
-
     const stop = playerActivityStopReason(a);
     if (stop) {
         stopPlayerActivity(stop.status, `🔒 ${stop.message}`);
         return;
     }
+    const dueAt = a.kind === 'routine' ? a.nextSessionAtMonths : a.endsAtMonths;
+    if (dueAt == null || age + 1e-9 < dueAt) return;
     if (a.kind === 'committed' && a.awarded) {
         stopPlayerActivity('completed', '🧘 The focused session is already complete.');
         return;
@@ -206,13 +203,11 @@ function catchUpPlayerActivity() {
     while (guard++ < PLAYER_ACTIVITY_CATCHUP_CAP) {
         const a = getPlayerActivity();
         if (!a) return;
-        const dueAt = a.kind === 'routine' ? a.nextSessionAtMonths : a.endsAtMonths;
-        if (dueAt == null || (G.ageMonths || 0) + 1e-9 < dueAt) return;
         const before = a.nextSessionAtMonths;
         settlePlayerActivityOnce();
         const after = getPlayerActivity();
         if (!after) return;
-        if (after.kind === 'routine' && after.nextSessionAtMonths <= before) return;
+        if (after.kind !== 'routine' || after.nextSessionAtMonths <= before) return;
     }
 }
 
@@ -224,18 +219,22 @@ function catchUpPlayerActivity() {
 function advanceMonthsInActivitySlices(totalMonths, runSlice) {
     let left = Number(totalMonths) || 0;
     let guard = 0;
+    const initialActivity = getPlayerActivity();
     catchUpPlayerActivity();
+    if (initialActivity && !getPlayerActivity()) return;
     while (left > 1e-9 && guard++ < 600) {
         const age = G.ageMonths || 0;
         let step = left;
         const boundary = playerActivityBoundaryMonths(age);
         if (boundary != null && boundary > age + 1e-9) step = Math.min(step, boundary - age);
         if (step <= 1e-9) break;
+        const running = getPlayerActivity();
         const proceeded = runSlice(step);
         left -= step;
         if (proceeded === false) break;
         if ((G.ageMonths || 0) < age + step - 1e-6) break;
         catchUpPlayerActivity();
+        if (running && !getPlayerActivity()) break;
     }
 }
 

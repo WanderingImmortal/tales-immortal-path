@@ -27,50 +27,9 @@ function clearTimePlaybackTimer() {
  * Advance months without spamming the event log (for watch-mode ticks).
  * Still runs world schedule / lifespan / gameOver.
  */
-function advanceTimeQuiet(months, activity) {
+function advanceTimeQuiet(months, activity, options = {}) {
     if (months <= 0) return true;
-    if (G.gameOver) return false;
-    if (typeof applyPlaytestTimeMonths === 'function') {
-        months = applyPlaytestTimeMonths(months);
-    }
-    if (G.forbiddenLifespanMult && G.forbiddenLifespanMult > 1 && months >= 1) {
-        months = Math.max(1, Math.floor(months / G.forbiddenLifespanMult));
-    }
-    const prevDefer = G._deferringLogs;
-    const runSlice = (stepMonths) => {
-        const fromMonths = G.ageMonths;
-        const toMonths = fromMonths + stepMonths;
-        G._deferringLogs = true;
-        G._quietTime = true;
-        try {
-            if (typeof processWorldTime === 'function') {
-                processWorldTime(fromMonths, toMonths, { activity, months: stepMonths, quiet: true });
-            } else {
-                G.ageMonths = toMonths;
-            }
-            if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(stepMonths);
-        } finally {
-            G._deferringLogs = prevDefer;
-            G._quietTime = false;
-        }
-        if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
-        if (G.gameOver) return false;
-        return true;
-    };
-    if (typeof advanceMonthsInActivitySlices === 'function') advanceMonthsInActivitySlices(months, runSlice);
-    else runSlice(months);
-    if (!isImmortal() && G.ageMonths >= G.lifespanMonths) {
-        if (typeof trySectLeaderSuccessionOnDeath === 'function' && trySectLeaderSuccessionOnDeath()) {
-            return true;
-        }
-        G.gameOver = true;
-        addLog(`💀 Your lifespan ends at ${formatYears(getPlayerLifespanMonths())}. The Dao remains unclaimed...`);
-        if (typeof triggerBitterReincarnation === 'function') {
-            setTimeout(() => triggerBitterReincarnation(), 600);
-        }
-        return false;
-    }
-    return true;
+    return advanceSharedWorldTime(months, activity, { ...options, quiet: true }).complete;
 }
 
 function msPerPlaybackYear(speed) {
@@ -83,18 +42,25 @@ function msPerPlaybackYear(speed) {
 function startTimePlayback(opts) {
     opts = opts || {};
     if (_playbackState?.running) return { success: false, message: 'Already in seclusion.' };
+    const busy = typeof getWorldClockBusyReason === 'function' ? getWorldClockBusyReason() : null;
+    const block = busy || getPlayerTimeAttention() || (isPlayerLifespanExhausted() ? 'Your lifespan has ended.' : null);
+    if (block) return { success: false, message: block };
+    if (typeof clearWorldClockStance === 'function') clearWorldClockStance(true);
+    if (typeof setWorldClockPaused === 'function') setWorldClockPaused(true);
     const yearsTarget = Math.max(1, Math.floor(opts.years || 10));
     _playbackState = {
         running: true,
         paused: false,
         speed: opts.speed || 1,
         yearsDone: 0,
+        elapsedMonths: 0,
         yearsTarget,
         startAgeMonths: G.ageMonths || 0,
         activity: opts.activity || 'Seclusion',
         events: Array.isArray(opts.events) ? opts.events.slice() : [],
         shownEvents: [],
         onYear: typeof opts.onYear === 'function' ? opts.onYear : null,
+        onPartialYear: typeof opts.onPartialYear === 'function' ? opts.onPartialYear : null,
         onComplete: typeof opts.onComplete === 'function' ? opts.onComplete : null,
         ended: false
     };
@@ -119,34 +85,33 @@ function runPlaybackYearTick() {
         return;
     }
 
-    // Clamp last partial year if lifespan is short
-    let months = 12;
-    if (!isImmortal()) {
-        const left = Math.max(0, (G.lifespanMonths || 0) - (G.ageMonths || 0));
-        if (left <= 0) {
-            finishTimePlayback('death');
-            return;
+    const from = G.ageMonths;
+    const ok = advanceTimeQuiet(12, st.activity, { skipPassiveCirculation: true });
+    const elapsed = Math.max(0, G.ageMonths - from);
+    st.elapsedMonths += elapsed;
+    try {
+        if (ok) {
+            st.yearsDone++;
+            st.onYear?.(st.yearsDone, st);
+        } else if (elapsed > 1e-9 && !G.gameOver && !G.sectSuccessionActive) {
+            st.onPartialYear?.(Math.min(1, elapsed / 12));
         }
-        months = Math.min(12, left);
+    } catch (err) {
+        console.error('Seclusion reward failed', err);
+        finishTimePlayback('interrupted');
+        return;
     }
-
-    const ok = advanceTimeQuiet(months, st.activity);
-    st.yearsDone += 1;
-
-    if (st.onYear) {
-        try { st.onYear(st.yearsDone, st); } catch (e) { /* ignore */ }
+    if (ok) {
+        st.events.filter(ev => ev.year === st.yearsDone).forEach(ev => {
+            st.shownEvents.push({ year: st.yearsDone, ageMonths: G.ageMonths, text: ev.text, emoji: ev.emoji || '✨' });
+        });
     }
-
-    const hit = st.events.filter(ev => ev.year === st.yearsDone);
-    hit.forEach(ev => {
-        st.shownEvents.push({ year: st.yearsDone, ageMonths: G.ageMonths, text: ev.text, emoji: ev.emoji || '✨' });
-    });
-
+    if (typeof saveState === 'function') saveState();
     renderTimePlaybackOverlay();
     if (typeof renderStats === 'function') renderStats();
 
     if (!ok || G.gameOver) {
-        finishTimePlayback('death');
+        finishTimePlayback(G.gameOver || G.sectSuccessionActive ? 'death' : 'interrupted');
         return;
     }
     if (st.yearsDone >= st.yearsTarget) {
