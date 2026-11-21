@@ -62,7 +62,7 @@ function isDiscipleStudying(discipleUid) {
 
 function getDiscipleStudySpeedMult(disciple) {
     const b = MANUAL_HALL_BALANCE;
-    const roleMult = b.roleStudySpeed?.[disciple.role] ?? 1;
+    const roleMult = b.roleStudySpeed?.[disciple.rank] ?? 1;
     const traitMult = b.traitStudySpeed?.[getDiscipleNpc(disciple)?.sectTemperament] ?? 1;
     const daoPct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('daoSpeedPct') : 0;
     const hallPct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('studySpeedPct') : 0;
@@ -77,10 +77,17 @@ function getDiscipleStudyMonths(template) {
     return Math.max(1, Math.ceil(base * mult));
 }
 
+function canDiscipleAccessManualHall(member) {
+    return isRankedSectMember(member) && (G.sect.policies.techniqueAccess === 'disciples'
+        || DISCIPLE_ROLES[member.rank]?.order >= DISCIPLE_ROLES.elder.order);
+}
+
 function getDiscipleStudyBlockReason(discipleUid, techName) {
     if (getBuildingLevel('manual_hall') < 1) return 'Build the Manual Hall first.';
-    const disciple = getDiscipleNpc(getSectDiscipleMembership(discipleUid));
+    const member = getSectDiscipleMembership(discipleUid);
+    const disciple = getDiscipleNpc(member);
     if (!disciple) return 'Disciple not found.';
+    if (!canDiscipleAccessManualHall(member)) return 'The Manual Hall requires Elder rank or above.';
     if (disciple.knownTechniques?.includes(techName)) return `${disciple.name} already knows this art.`;
     if (isDiscipleStudying(discipleUid)) return `${disciple.name} is already studying.`;
     const entry = getManualHallEntry(techName);
@@ -239,7 +246,7 @@ function tickManualHallStudy(monthsPassed) {
 function getSectDiscipleKnownArtsCount() {
     ensureSectState();
     let n = 0;
-    G.sect.discipleRecords.forEach(d => {
+    getSectDiscipleMemberships().forEach(d => {
         n += getDiscipleNpc(d)?.knownTechniques?.length || 0;
     });
     return n;
@@ -316,15 +323,17 @@ function renderManualHallPanelHtml() {
     }
 
     ensureSectState();
-    const freeDisciples = G.sect.discipleRecords.filter(d => !isDiscipleStudying(d.uid));
+    const disciples = getSectDiscipleMemberships();
+    const eligibleDisciples = disciples.filter(canDiscipleAccessManualHall);
+    const freeDisciples = eligibleDisciples.filter(d => !isDiscipleStudying(d.uid));
     const hallManuals = collection.filter(e => e.count > 0);
     if (freeDisciples.length && hallManuals.length && studies.length < slots) {
         html += `<div class="sect-section-title sect-subsection">🧑‍🎓 Assign Study</div>`;
         html += `<div class="manual-hall-assign-row">`;
         html += `<select id="manualHallDiscipleSelect" class="manual-hall-select">`;
         freeDisciples.forEach(d => {
-            const roleDef = DISCIPLE_ROLES[d.role];
-            html += `<option value="${escapeSectAttr(d.uid)}">${escapeSectAttr(getDiscipleNpc(d)?.name || '')} (${roleDef?.label || d.role})</option>`;
+            const roleDef = DISCIPLE_ROLES[d.rank];
+            html += `<option value="${escapeSectAttr(d.uid)}">${escapeSectAttr(getDiscipleNpc(d)?.name || '')} (${roleDef?.label || d.rank})</option>`;
         });
         html += `</select>`;
         html += `<select id="manualHallTechSelect" class="manual-hall-select">`;
@@ -334,16 +343,18 @@ function renderManualHallPanelHtml() {
         html += `</select>`;
         html += `<button type="button" class="sect-action-btn" id="btnAssignStudy">📖 Begin Study</button>`;
         html += `</div>`;
-    } else if (G.sect.discipleRecords.length && !freeDisciples.length) {
-        html += `<p class="sect-hint">All disciples are currently studying.</p>`;
-    } else if (!G.sect.discipleRecords.length) {
+    } else if (!disciples.length) {
         html += `<p class="sect-hint">Recruit disciples to assign manual study.</p>`;
+    } else if (!eligibleDisciples.length) {
+        html += `<p class="sect-hint">The Manual Hall requires Elder rank or above.</p>`;
+    } else if (!freeDisciples.length) {
+        html += `<p class="sect-hint">All eligible disciples are currently studying.</p>`;
     }
 
     const artsCount = getSectDiscipleKnownArtsCount();
     if (artsCount > 0) {
         html += `<div class="sect-section-title sect-subsection">✦ Disciple Arts (${artsCount})</div>`;
-        G.sect.discipleRecords.forEach(d => {
+        getSectDiscipleMemberships().forEach(d => {
             const npc = getDiscipleNpc(d);
             if (!npc?.knownTechniques?.length) return;
             html += `<div class="manual-hall-disciple-arts"><strong>${escapeSectAttr(npc.name)}</strong>: ${npc.knownTechniques.map(n => escapeSectAttr(n)).join(', ')}</div>`;

@@ -17,7 +17,7 @@ function newGame() {
     const files = [
         'data.js', 'core.js', 'foundation.js', 'cultivation-tracks.js', 'forbidden.js',
         'world-scheduler.js', 'world.js', 'ambient-npcs.js', 'procedural-lesser-sects.js',
-        'sect.js', 'sect-expand.js', 'sect-buildings.js', 'npc.js', 'quests.js', 'story-arcs.js'
+        'sect.js', 'sect-expand.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'quests.js', 'story-arcs.js'
     ];
     for (const file of files) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
@@ -70,7 +70,8 @@ test('recruitment keeps the registered UID and character state and prevents dupl
         const { sectTemperament, ...after } = npc;
         JSON.stringify(after) === before &&
             G.worldNpcs.length === 1 && getWorldNpcByUid(npc.uid) === npc &&
-            Object.keys(getSectDiscipleMembership(npc.uid)).sort().join() === 'joinedMonths,role,uid' &&
+            Object.keys(getSectDiscipleMembership(npc.uid)).sort().join() ===
+                'affiliation,duties,joinedMonths,lifetimeContribution,meritBalance,position,rank,uid' &&
             G.npcAmbitions[npc.uid].objective === 'cultivate'
     `), true);
     assert.equal(run('runRecruit().success'), false);
@@ -146,7 +147,7 @@ test('promotion, studying, and death resolve membership by UID', () => {
         G.ageMonths += 120;
         const rankChanged = promoteDisciple(npc.uid).success;
         const membership = getSectDiscipleMembership(npc.uid);
-        rankChanged && membership.role === DISCIPLE_ROLES.acolyte.promoteReq.next && npc.role === 'wanderer'
+        rankChanged && membership.rank === DISCIPLE_ROLES.acolyte.promoteReq.next && npc.role === 'wanderer'
     `), true);
     assert.equal(run(`
         setNpcCultivationFocus(npc, 'vessel');
@@ -226,7 +227,7 @@ test('loading restores a matched recruit and preserves unmatched and name-only d
         const study = getActiveManualStudies()[0];
         restored.impression === 12 && restored.ageMonths === 300 && !restored.recruitedToSect &&
             restored.knownTechniques.join() === 'Old art,Hall art' && restored.sectTemperament === 'wise' &&
-            lin.joinedMonths === 220 && lin.role === 'core' && study.discipleUid === uid && study.progressMonths === 3 &&
+            lin.joinedMonths === 220 && lin.rank === 'core' && study.discipleUid === uid && study.progressMonths === 3 &&
             getWorldNpcByUid('disc_bo').name === 'Bo' && G.disciples.includes('Name only') &&
             getDiscipleCount() === 3
     `), true);
@@ -332,7 +333,7 @@ test('ambiguous legacy recruits preserve the disciple without reviving a guessed
         migrateSectForExistingSave();
         const member = getSectDiscipleMembership('disc_lin');
         !npc.alive && !second.alive && getDiscipleCount() === 1 &&
-            member.role === 'inner' && member.joinedMonths === 230 && getDiscipleNpc(member).name === 'Lin'
+            member.rank === 'inner' && member.joinedMonths === 230 && getDiscipleNpc(member).name === 'Lin'
     `), true);
 });
 
@@ -493,5 +494,176 @@ test('ambient promotion and lesser-sect registration initialize the world NPC tr
         promoted && getWorldNpcByUid('pine_member') === member &&
             member.cultivation.dantian.realmIdx === 2 &&
             member.cultivation.focusTrack === 'vessel' && member.cultivation.vessel.growthProgress === 14
+    `), true);
+});
+
+test('full members, guest elders and outsiders use one roster without changing the NPC', () => {
+    const run = newGame();
+    assert.equal(run(`
+        advanceTime = () => true;
+        setNpcCultivationFocus(npc, 'vessel');
+        npc.knownTechniques = ['Falling Leaf'];
+        const outsider = generateWorldNpc('dustbone', { roleId: 'wanderer', allowRandomDemonic: false });
+        const guest = generateWorldNpc('dustbone', { roleId: 'sect_elder', allowRandomDemonic: false });
+        const admin = generateWorldNpc('dustbone', { roleId: 'wanderer', allowRandomDemonic: false });
+        guest.affiliationId = 'another_school';
+        G.worldNpcs.push(guest, outsider, admin);
+        const contracted = recordSectGuestAgreement(guest, { service: 'Teach alchemy', compensationStones: 20, durationMonths: 6 });
+        const recruited = runRecruit().success;
+        const appointed = setSectMemberPosition(npc.uid, 'specialist');
+        const nonRanked = joinPlayerSect(admin, null, 'administrator');
+        const full = getSectAffiliation(npc.uid);
+        const guestCanStudy = assignDiscipleStudy(guest.uid, TECHNIQUE_POOL[0].name).success;
+        recruited && appointed && full.affiliation === 'full' && full.position === 'specialist' && full.rank === 'acolyte' &&
+            nonRanked.affiliation === 'full' && nonRanked.position === 'administrator' && nonRanked.rank === null &&
+            getDiscipleNpc(full) === npc && npc.role === 'wanderer' &&
+            npc.cultivation.focusTrack === 'vessel' && npc.knownTechniques[0] === 'Falling Leaf' &&
+            contracted === getSectAffiliation(guest.uid) && contracted.affiliation === 'guest' &&
+            contracted.position === 'elder' && guest.affiliationId === 'another_school' &&
+            getWorldNpcByUid(guest.uid) === guest && !getSectAffiliation(outsider.uid) &&
+            !getSectDiscipleMembership(guest.uid) && !getSectDiscipleMembership(admin.uid) &&
+            getDiscipleCount() === 1 && G.disciples.join() === 'Lin' &&
+            !canRecruitWorldNpc(guest) && !setSectMemberPosition(guest.uid, 'administrator') &&
+            !guestCanStudy && !promoteDisciple(guest.uid).success
+    `), true);
+});
+
+test('guest agreements validate terms, expire on the calendar, and end on NPC death', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const terms = { service: 'Teach array theory', compensationStones: 12, durationMonths: 2 };
+        const invalidRejected = !recordSectGuestAgreement(npc, { ...terms, compensationStones: -1 }) &&
+            !recordSectGuestAgreement(npc, { ...terms, durationMonths: 0 });
+        const agreement = recordSectGuestAgreement(npc, terms);
+        const start = G.ageMonths;
+        const age = npc.ageMonths;
+        const before = agreement.agreement.endsAtMonths === start + 2 &&
+            !canRecruitWorldNpc(npc) && !recordSectGuestAgreement(npc, terms);
+        tickQuestSystems = () => {};
+        processWorldTime(start, start + 2);
+        const expired = !getSectAffiliation(npc.uid) && G.sect.memberships.length === 0 &&
+            npc.alive && npc.ageMonths === age + 2 && canRecruitWorldNpc(npc);
+        const openEnded = recordSectGuestAgreement(npc, { service: 'Advise the founder' });
+        killWorldNpc(npc, 'old age');
+        invalidRejected && before && expired && openEnded.agreement.endsAtMonths === null &&
+            !getSectAffiliation(npc.uid) && G.sect.memberships.length === 0
+    `), true);
+});
+
+test('policy controls persist changes and apply promotion and Manual Hall rules to new actions', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const defaults = { support: 'as_available', promotion: 'seniority', techniqueAccess: 'disciples', dutyExpectation: 'voluntary' };
+        const validDefaults = Object.entries(defaults).every(([key, value]) => G.sect.policies[key] === value);
+        advanceTime = () => true;
+        runRecruit();
+        G.sect.buildings.manual_hall = 1;
+        ensureManualHallMeta();
+        const [first, second] = TECHNIQUE_POOL;
+        const hall = G.sect.buildingMeta.manual_hall;
+        hall.collection[first.name] = { count: 1 };
+        hall.collection[second.name] = { count: 1 };
+        const existingStudy = assignDiscipleStudy(npc.uid, first.name).success;
+        const defaultServiceGate = !!getPromoteBlockReason(npc.uid);
+        const originalDoctrine = G.sect.doctrine;
+        const dropdown = {
+            dataset: { sectPolicy: 'techniqueAccess' }, value: 'elders',
+            addEventListener(event, handler) { if (event === 'change') this.change = handler; }
+        };
+        bindSectGroundsEvents({
+            querySelector: () => null,
+            querySelectorAll: selector => selector === '[data-sect-policy]' ? [dropdown] : []
+        });
+        dropdown.change();
+        const savedByUi = JSON.parse(localStorage.getItem('xianxia_save')).sect.policies.techniqueAccess === 'elders';
+        const restricted = renderSectPoliciesHtml().includes('value="elders" selected');
+        tickManualHallStudy(100);
+        const assignedContinued = npc.knownTechniques.includes(first.name);
+        const newStudyBlocked = !assignDiscipleStudy(npc.uid, second.name).success;
+        const policyEdited = setSectPolicy('promotion', 'renown') && setSectPolicy('support', 'allowance') &&
+            setSectPolicy('dutyExpectation', 'assigned') && !setSectPolicy('promotion', 'invalid');
+        const promoted = promoteDisciple(npc.uid).success;
+        const newStudyAfterPromotion = assignDiscipleStudy(npc.uid, second.name).success;
+        saveState();
+        delete G.sect.policies;
+        const loaded = loadState();
+        validDefaults && existingStudy && defaultServiceGate && savedByUi && restricted && assignedContinued &&
+            newStudyBlocked && policyEdited && promoted && newStudyAfterPromotion && loaded &&
+            G.sect.policies.promotion === 'renown' && G.sect.policies.support === 'allowance' &&
+            G.sect.policies.dutyExpectation === 'assigned' && G.sect.policies.techniqueAccess === 'elders' &&
+            G.sect.doctrine === originalDoctrine
+    `), true);
+});
+
+test('Phase 1 UID rosters migrate with rank, service, active study and conservative policy defaults', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const uid = npc.uid;
+        delete G.sect.memberships;
+        delete G.sect.policies;
+        G.sect.discipleIdentityVersion = 1;
+        G._sectMigrated = true;
+        G.sect.discipleRecords = [{ uid, role: 'elder', joinedMonths: 150 }];
+        G.disciples = ['Lin'];
+        const art = TECHNIQUE_POOL[0].name;
+        G.sect.buildings.manual_hall = 1;
+        G.sect.buildingMeta.manual_hall = {
+            collection: { [art]: { count: 1 } },
+            studies: [{ uid: 'study', discipleUid: uid, techName: art, progressMonths: 1, totalMonths: 6 }]
+        };
+        saveState();
+        const loaded = loadState();
+        const member = getSectDiscipleMembership(uid);
+        loaded && !Object.hasOwn(G.sect, 'discipleRecords') && G.sect.memberships.length === 1 &&
+            member.rank === 'elder' && member.position === 'disciple' && member.joinedMonths === 150 &&
+            member.lifetimeContribution === 0 && member.meritBalance === 0 && member.duties.length === 0 &&
+            getDiscipleNpc(member) === getWorldNpcByUid(uid) && getActiveManualStudies()[0].discipleUid === uid &&
+            G.sect.policies.promotion === 'seniority' && G.sect.policies.techniqueAccess === 'disciples'
+    `), true);
+});
+
+test('remaining affiliates, guest terms, contributions and duties survive succession and save/load', () => {
+    const run = newGame();
+    assert.equal(run(`
+        advanceTime = () => true;
+        runRecruit();
+        const staff = addSectDisciple('Bo', 'acolyte');
+        const guest = generateWorldNpc('dustbone', { roleId: 'sect_elder', allowRandomDemonic: false });
+        G.worldNpcs.push(guest);
+        const terms = recordSectGuestAgreement(guest, { service: '<Appraise manuals>', compensationStones: 4, durationMonths: 8 });
+        const accounting = creditSectContribution(staff.uid, 12) && spendSectMerit(staff.uid, 7) &&
+            !spendSectMerit(staff.uid, 6) && !creditSectContribution(staff.uid, -1) &&
+            !creditSectContribution(staff.uid, 0.5) && !creditSectContribution(guest.uid, 1);
+        const duties = setSectMemberDuties(staff.uid, [' Archive records ', 'Archive records']) &&
+            !setSectMemberDuties(staff.uid, ['']) && staff.duties.join() === 'Archive records';
+        const station = G.ageMonths;
+        const guestRejected = !applySectSuccession(guest.uid) && !G.gameOver;
+        const succession = applySectSuccession(npc.uid);
+        const view = renderOtherSectAffiliationsHtml();
+        const escaped = view.includes('&lt;Appraise manuals>') && view.includes('4 Spirit Stones agreed');
+        saveState();
+        const loaded = loadState();
+        const remaining = getSectAffiliation(staff.uid);
+        const retainedGuest = getSectAffiliation(guest.uid);
+        accounting && duties && guestRejected && succession && escaped && loaded &&
+            !getSectAffiliation(npc.uid) && G.sect.leaderNpcUid === npc.uid && G.ageMonths === station &&
+            remaining.lifetimeContribution === 12 && remaining.meritBalance === 5 &&
+            remaining.duties.join() === 'Archive records' && remaining.joinedMonths === staff.joinedMonths &&
+            retainedGuest.agreement.endsAtMonths === terms.agreement.endsAtMonths &&
+            retainedGuest.agreement.compensationStones === 4 && getWorldNpcByUid(guest.uid).alive
+    `), true);
+});
+
+test('a sect collapse ends full and guest affiliations while leaving their NPCs in the world', () => {
+    const run = newGame();
+    assert.equal(run(`
+        advanceTime = () => true;
+        runRecruit();
+        const guest = generateWorldNpc('dustbone', { roleId: 'sect_elder', allowRandomDemonic: false });
+        G.worldNpcs.push(guest);
+        recordSectGuestAgreement(guest, { service: 'Inspect the wards' });
+        const collapsed = applySectSuccession(null);
+        collapsed && G.gameOver && G.sect.memberships.length === 0 && G.disciples.length === 0 &&
+            getWorldNpcByUid(npc.uid) === npc && getWorldNpcByUid(guest.uid) === guest
     `), true);
 });

@@ -1494,7 +1494,7 @@ function killWorldNpc(npc, reason) {
         recordWorldNpcKill(npc, reason);
     }
     npc.alive = false;
-    if (typeof removeSectDisciple === 'function') removeSectDisciple(npc.uid);
+    if (typeof removeSectAffiliation === 'function') removeSectAffiliation(npc.uid);
     if (npc.met || npc.isDemonicTalent) {
         const zoneName = ZONES[npc.zone]?.name || npc.zone;
         addLog(`💀 ${npc.name} (${NPC_ROLES[npc.role]?.label || npc.role}) passed from ${reason} in the ${zoneName}.`);
