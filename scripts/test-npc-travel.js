@@ -129,6 +129,7 @@ function boot() {
         hasScheduledWorldEvent() { return false; }
     });
     [
+        'cultivation-tracks.js',
         'npc-foundations.js',
         'npc-ties.js',
         'well-ring-lodge.js',
@@ -321,7 +322,7 @@ function weiOf(ctx) {
     ctx.G.ageMonths = wei.travel.arrivesAtMonths - 1;
     ctx.tickNpcTravel();
     assert(ctx.isNpcTravelling(wei), 'arrival waits until the clock reaches the month');
-    wei.growthProgress = 4;
+    ctx.addNpcCultivationProgress(wei, 'dantian', 4);
     ctx.G.ageMonths = wei.travel.arrivesAtMonths;
     ctx.tickNpcTravel();
     ctx.tickNpcTravel();

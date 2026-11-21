@@ -235,6 +235,7 @@ function spawnAmbientNpc(zoneId) {
         demonicThreat: 0,
         demonicMet: false
     };
+    setNpcCultivationFocus(npc, rollNpcCultivationFocus(NPC_ROLES[roleId] || NPC_ROLES.wanderer));
     ensureNpcPersonalities(npc);
     if (activity.typicalRoles.includes('sorrowful') && !npc.personalities.includes('sorrowful') && Math.random() < 0.6) {
         if (npc.personalities.length >= 2) npc.personalities[0] = 'sorrowful';
@@ -250,7 +251,10 @@ function promoteAmbientToPersistent(npc, context) {
     context = context || {};
     npc.name = rollPersistentNpcName();
     npc.unnamed = false;
-    npc.realmIdx = resolveRealmFromBand(npc.realmBand);
+    const cultivation = ensureNpcCultivation(npc);
+    const focus = cultivation.focusTrack;
+    const track = cultivation[focus];
+    track.realmIdx = Math.min(resolveRealmFromBand(npc.realmBand), getWorldNpcMaxRealm(npc, focus));
     npc.recentBeat = generateRecentBeat(npc);
     npc.metAtMonth = G.ageMonths || 0;
     npc.metAtZone = context.zoneId || npc.zone;
@@ -263,11 +267,12 @@ function promoteAmbientToPersistent(npc, context) {
     npc.metBefore = true;
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
     npc.growthRate = role.growthRate || 0;
-    npc.growthProgress = Math.floor(Math.random() * 40);
+    track.growthProgress = Math.floor(Math.random() * 40);
+    syncNpcCultivationLegacyFields(npc);
     if (role.canWander) {
         npc.wanderDueMonths = (G.ageMonths || 0) + pickWorldNpcWanderInterval();
     }
-    clampWorldNpcProgress(npc);
+    clampWorldNpcThreat(npc);
     if (typeof ensureNpcCharacterFoundation === 'function') ensureNpcCharacterFoundation(npc);
     enforcePersistentCap();
     return npc;

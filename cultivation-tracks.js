@@ -118,8 +118,51 @@ function remapConsolidationKeys(consolidation) {
     return next;
 }
 
+// NPC tracks share realm indices with the player and keep their own lightweight growth units.
+function ensureNpcCultivation(npc) {
+    const cultivation = npc.cultivation ||= {};
+    if (!CULTIVATION_TRACKS.includes(cultivation.focusTrack)) cultivation.focusTrack = 'dantian';
+    CULTIVATION_TRACKS.forEach(track => {
+        const state = cultivation[track] ||= {};
+        const isQi = track === 'dantian';
+        if (!Number.isFinite(state.realmIdx)) {
+            state.realmIdx = isQi && Number.isFinite(npc.realmIdx) ? npc.realmIdx : 0;
+        }
+        state.realmIdx = Math.max(0, Math.floor(state.realmIdx));
+        if (!Number.isFinite(state.growthProgress)) {
+            state.growthProgress = isQi && Number.isFinite(npc.growthProgress) ? npc.growthProgress : 0;
+        }
+        state.growthProgress = Math.max(0, state.growthProgress);
+    });
+    syncNpcCultivationLegacyFields(npc);
+    return cultivation;
+}
+
+function syncNpcCultivationLegacyFields(npc) {
+    // Existing combat, Qi sensing, organizations and ambitions read the Qi baseline.
+    npc.realmIdx = npc.cultivation.dantian.realmIdx;
+    npc.growthProgress = npc.cultivation.dantian.growthProgress;
+}
+
+function setNpcCultivationFocus(npc, track) {
+    if (!CULTIVATION_TRACKS.includes(track)) return false;
+    ensureNpcCultivation(npc).focusTrack = track;
+    return true;
+}
+
+function addNpcCultivationProgress(npc, track, amount) {
+    if (!CULTIVATION_TRACKS.includes(track)) return;
+    ensureNpcCultivation(npc)[track].growthProgress += amount;
+    syncNpcCultivationLegacyFields(npc);
+}
+
+function rollNpcCultivationFocus(role) {
+    if (role.cultivator === false) return 'dantian';
+    return CULTIVATION_TRACKS[Math.floor(Math.random() * CULTIVATION_TRACKS.length)];
+}
+
 function migrateNpcRealmIdx(npc) {
-    if (!npc || npc.realmIdx == null) return;
+    if (!npc || Number.isFinite(npc.cultivation?.dantian?.realmIdx) || npc.realmIdx == null) return;
     if (npc.realmIdx >= 4) npc.realmIdx = remapRealmIdxSevenToNine(npc.realmIdx);
 }
 

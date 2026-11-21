@@ -119,7 +119,7 @@ function registerLesserSectNpcsOnWorld(state) {
     state.sects.forEach(sect => {
         (sect.members || []).forEach(m => {
             if (existing.has(m.uid)) return;
-            G.worldNpcs.push({
+            const npc = {
                 uid: m.uid,
                 name: m.name,
                 role: m.role === 'founder' || m.role === 'leader' ? 'sect_elder' : (sect.focus === 'wandering' ? 'wanderer' : 'disciple'),
@@ -137,7 +137,9 @@ function registerLesserSectNpcsOnWorld(state) {
                 spawnedAtMonths: sect.foundedAtMonths || G.ageMonths || 0,
                 wanderDueMonths: null,
                 lesserSectId: sect.id
-            });
+            };
+            if (typeof ensureNpcCultivation === 'function') ensureNpcCultivation(npc);
+            G.worldNpcs.push(npc);
             existing.add(m.uid);
         });
     });

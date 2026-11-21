@@ -86,6 +86,7 @@ function boot(extraG) {
     ctx.findWorldNpcRecordByUid = (uid) => (ctx.G.worldNpcs || []).find(n => n.uid === uid) || null;
 
     [
+        'cultivation-tracks.js',
         'npc-foundations.js',
         'npc-ties.js',
         'well-ring-lodge.js',
@@ -390,7 +391,8 @@ function boot(extraG) {
     ctx2.ensureWellRingState();
     const w2 = ctx2.getWellRingCastNpc('rival');
     const a2 = ctx2.ensureWeiShunCultivationAmbition();
-    w2.realmIdx = (w2.realmIdx || 0) + 1; // simulate tickWorldNpcGrowth breakthrough
+    w2.cultivation.dantian.realmIdx++; // simulate a Qi breakthrough
+    ctx.syncNpcCultivationLegacyFields(w2);
     ctx2.refreshCultivationAdvancementAmbitions(w2.uid);
     assert(ctx2.getNpcAmbition(a2.id).status === 'fulfilled',
         'realm advancement through another mechanism is recognised');

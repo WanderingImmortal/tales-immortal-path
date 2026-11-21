@@ -1252,11 +1252,12 @@ function ensureWorldNpcs() {
     if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
     if (!G.nextDemonicEmergenceMonths) scheduleNextDemonicEmergence();
     G.worldNpcs.forEach(n => {
+        ensureNpcCultivation(n);
         if (n.alive) {
             if (!n.state) n.state = 'persistent';
             if (n.state === 'persistent' && n.unnamed == null) n.unnamed = false;
             ensureNpcPersonalities(n);
-            clampWorldNpcProgress(n);
+            clampWorldNpcThreat(n);
             if (typeof ensureNpcCharacterFoundation === 'function') ensureNpcCharacterFoundation(n);
         }
     });
@@ -1320,14 +1321,14 @@ function generateWorldNpc(zoneId, options) {
     const ageYears = role.cultivator === false
         ? 18 + Math.floor(Math.random() * 40)
         : 16 + Math.floor(Math.random() * 20) + realmIdx * 8;
+    const name = options.name || rollWorldNpcName();
+    const growthProgress = Math.floor(Math.random() * 40);
     const npc = {
         uid,
-        name: options.name || rollWorldNpcName(),
+        name,
         role: roleId,
         zone: zoneId,
-        realmIdx,
         ageMonths: ageYears * 12,
-        growthProgress: Math.floor(Math.random() * 40),
         growthRate: isDemonic ? NPC_ROLES.demonic_talent.growthRate : role.growthRate,
         isDemonicTalent: isDemonic,
         demonicThreat: isDemonic ? 5 : 0,
@@ -1340,6 +1341,12 @@ function generateWorldNpc(zoneId, options) {
             ? (G.ageMonths || 0) + pickWorldNpcWanderInterval()
             : null
     };
+    const focus = CULTIVATION_TRACKS.includes(options.focusTrack)
+        ? options.focusTrack : (isDemonic ? 'dantian' : rollNpcCultivationFocus(role));
+    const cultivation = ensureNpcCultivation(npc);
+    cultivation.focusTrack = focus;
+    cultivation[focus] = { realmIdx, growthProgress };
+    syncNpcCultivationLegacyFields(npc);
     if (options.personalities?.length) npc.personalities = options.personalities.slice();
     else ensureNpcPersonalities(npc);
     if (typeof ensureNpcCharacterFoundation === 'function') ensureNpcCharacterFoundation(npc);
@@ -1365,8 +1372,9 @@ function getWorldNpcsInZone(zoneId) {
     return (G.worldNpcs || []).filter(n => n.alive && n.zone === zoneId);
 }
 
-function getWorldNpcMaxRealm(npc) {
-    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
+function getWorldNpcMaxRealm(npc, track = 'dantian') {
+    const path = TRACK_TO_LEGACY_PATH[track];
+    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx(path) : 8;
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
     let max;
     if (npc.isDemonicTalent) {
@@ -1383,10 +1391,7 @@ function getWorldNpcThreatCap() {
     return NPC_ECOSYSTEM.demonicThreatCap ?? 36;
 }
 
-function clampWorldNpcProgress(npc) {
-    if (!npc) return;
-    const maxRealm = getWorldNpcMaxRealm(npc);
-    if (npc.realmIdx > maxRealm) npc.realmIdx = maxRealm;
+function clampWorldNpcThreat(npc) {
     const threatCap = getWorldNpcThreatCap();
     if ((npc.demonicThreat || 0) > threatCap) npc.demonicThreat = threatCap;
 }
@@ -1394,7 +1399,11 @@ function clampWorldNpcProgress(npc) {
 function getWorldNpcLifespanMonths(npc) {
     const role = NPC_ROLES[npc.role] || NPC_ROLES.villager;
     if (role.cultivator === false) return (role.lifespanYears || 75) * 12;
-    if (role.lifespanUsesRealm) return LIFESPAN_BY_REALM[Math.min(npc.realmIdx, LIFESPAN_BY_REALM.length - 1)] * 12;
+    if (role.lifespanUsesRealm) {
+        const cultivation = ensureNpcCultivation(npc);
+        const realm = Math.max(...CULTIVATION_TRACKS.map(track => cultivation[track].realmIdx));
+        return LIFESPAN_BY_REALM[Math.min(realm, LIFESPAN_BY_REALM.length - 1)] * 12;
+    }
     return 80 * 12;
 }
 
@@ -1402,7 +1411,9 @@ function canWorldNpcGrow(npc) {
     if (!npc.alive) return false;
     const role = NPC_ROLES[npc.role] || NPC_ROLES.villager;
     if (role.cultivator === false || role.growthRate <= 0) return false;
-    return npc.realmIdx < getWorldNpcMaxRealm(npc);
+    const cultivation = ensureNpcCultivation(npc);
+    const track = cultivation.focusTrack;
+    return cultivation[track].realmIdx < getWorldNpcMaxRealm(npc, track);
 }
 
 function tickWorldNpcGrowth(monthsPassed) {
@@ -1420,6 +1431,9 @@ function tickWorldNpcGrowth(monthsPassed) {
         }
         npc.ageMonths += effectiveMonths;
         const atLifespanEnd = npc.ageMonths >= lifespanMonths;
+        const cultivation = ensureNpcCultivation(npc);
+        const focus = cultivation.focusTrack;
+        const track = cultivation[focus];
         if (!canWorldNpcGrow(npc)) {
             if (npc.isDemonicTalent && !npc.demonicMet) {
                 const threatCap = getWorldNpcThreatCap();
@@ -1428,34 +1442,34 @@ function tickWorldNpcGrowth(monthsPassed) {
                     (npc.demonicThreat || 0) + Math.floor(effectiveMonths / 12) * NPC_ECOSYSTEM.demonicThreatPerGrowth
                 );
             }
-            clampWorldNpcProgress(npc);
         } else {
             const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
             let rate = npc.growthRate || role.growthRate || 1;
             // Location-bound institutional formations (e.g. Well-Ring court gather).
-            if (typeof getNpcLocalFormationCultivateMult === 'function') {
+            if (focus === 'dantian' && typeof getNpcLocalFormationCultivateMult === 'function') {
                 rate *= getNpcLocalFormationCultivateMult(npc);
             }
-            npc.growthProgress += effectiveMonths * rate;
-            while (npc.growthProgress >= base && canWorldNpcGrow(npc)) {
-                npc.growthProgress -= base;
+            const ceiling = getWorldNpcMaxRealm(npc, focus);
+            track.growthProgress += effectiveMonths * rate;
+            while (track.growthProgress >= base && track.realmIdx < ceiling) {
+                track.growthProgress -= base;
                 if (Math.random() < (role.breakthroughChance || 0.25)) {
-                    const prev = npc.realmIdx;
-                    npc.realmIdx = Math.min(npc.realmIdx + 1, getWorldNpcMaxRealm(npc));
-                    if (npc.isDemonicTalent && !npc.demonicMet) {
+                    track.realmIdx++;
+                    if (focus === 'dantian' && npc.isDemonicTalent && !npc.demonicMet) {
                         const threatCap = getWorldNpcThreatCap();
                         npc.demonicThreat = Math.min(
                             threatCap,
                             (npc.demonicThreat || 0) + NPC_ECOSYSTEM.demonicThreatPerGrowth
                         );
-                        if (npc.demonicThreat >= NPC_ECOSYSTEM.demonicThreatLogThreshold && prev < npc.realmIdx) {
-                            maybeLogDemonicThreat(npc);
+                        if (npc.demonicThreat >= NPC_ECOSYSTEM.demonicThreatLogThreshold) {
+                            maybeLogDemonicThreat(npc, track.realmIdx);
                         }
                     }
                 }
             }
-            clampWorldNpcProgress(npc);
+            syncNpcCultivationLegacyFields(npc);
         }
+        clampWorldNpcThreat(npc);
         if (atLifespanEnd) {
             killWorldNpc(npc, 'old age');
             return;
@@ -1501,10 +1515,10 @@ function spawnVengeanceDemonicTalent(zoneId, fallenName) {
     addLog(`😈 ${fallenName}'s death births a Demonic Talent — ${npc.name} rises on pure will for revenge!`);
 }
 
-function maybeLogDemonicThreat(npc) {
+function maybeLogDemonicThreat(npc, realmIdx) {
     if (npc._threatLogged) return;
     npc._threatLogged = true;
-    const realm = getNpcRealmName(npc.realmIdx);
+    const realm = getNpcRealmName(realmIdx, 'qi');
     addLog(`😈 A Demonic Talent grows unchecked — ${npc.name} reaches ${realm} (${ZONES[npc.zone]?.name || npc.zone}).`);
 }
 

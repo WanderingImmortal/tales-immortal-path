@@ -272,6 +272,7 @@ function createSectDiscipleNpc(name, legacyUid, authoredNpcId) {
         roleId: authored ? 'rival' : 'disciple',
         realmIdx: authored?.strengthScalesWithPlayer ? G.realmIdx : authored?.strengthRealm,
         personalities: authored?.personalities,
+        focusTrack: authored ? 'dantian' : undefined,
         allowRandomDemonic: false
     });
     if (authored) {

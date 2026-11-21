@@ -16,8 +16,8 @@ function newGame() {
     const run = source => vm.runInContext(source, context);
     const files = [
         'data.js', 'core.js', 'foundation.js', 'cultivation-tracks.js', 'forbidden.js',
-        'world-scheduler.js', 'world.js',
-        'sect.js', 'sect-expand.js', 'sect-buildings.js', 'npc.js', 'story-arcs.js'
+        'world-scheduler.js', 'world.js', 'ambient-npcs.js', 'procedural-lesser-sects.js',
+        'sect.js', 'sect-expand.js', 'sect-buildings.js', 'npc.js', 'quests.js', 'story-arcs.js'
     ];
     for (const file of files) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
@@ -26,6 +26,7 @@ function newGame() {
         // DOM logging and quest UI are outside this simulation harness.
         addLog = () => {};
         generateSectQuest = () => {};
+        openSectEventPopup = () => {};
         function findNpcQuest() { return null; }
         function ensureNpcQuestState() {}
         function ensureSectInventory() { G.sect.inventory ||= { stones: 0, materials: {}, items: [] }; }
@@ -42,9 +43,11 @@ function newGame() {
         ensureSectState();
         const originalAge = G.ageMonths;
         const npc = generateWorldNpc('dustbone', {
-            name: 'Lin', roleId: 'wanderer', realmIdx: 0, allowRandomDemonic: false
+            name: 'Lin', roleId: 'wanderer', realmIdx: 0, focusTrack: 'dantian', allowRandomDemonic: false
         });
-        Object.assign(npc, { talkCount: 10, ageMonths: 300, wanderDueMonths: null, growthProgress: 0 });
+        Object.assign(npc, { talkCount: 10, ageMonths: 300, wanderDueMonths: null });
+        npc.cultivation.dantian.growthProgress = 0;
+        syncNpcCultivationLegacyFields(npc);
         G.worldNpcs.push(npc);
         const runRecruit = () => recruitWorldNpcToSect(npc);
     `);
@@ -100,7 +103,7 @@ test('the normal world clock ages and cultivates a recruit once per interval', (
     `), true);
     assert.equal(run(`
         Math.random = () => 0;
-        npc.growthProgress = NPC_ECOSYSTEM.growthMonthsPerBreakthrough - npc.growthRate;
+        npc.cultivation.dantian.growthProgress = NPC_ECOSYSTEM.growthMonthsPerBreakthrough - npc.growthRate;
         processWorldTime(G.ageMonths, G.ageMonths + 1);
         npc.realmIdx
     `), 1);
@@ -146,6 +149,7 @@ test('promotion, studying, and death resolve membership by UID', () => {
         rankChanged && membership.role === DISCIPLE_ROLES.acolyte.promoteReq.next && npc.role === 'wanderer'
     `), true);
     assert.equal(run(`
+        setNpcCultivationFocus(npc, 'vessel');
         G.sect.buildings.manual_hall = 1;
         ensureManualHallMeta();
         const [first, second] = TECHNIQUE_POOL;
@@ -154,7 +158,7 @@ test('promotion, studying, and death resolve membership by UID', () => {
         hall.collection[second.name] = { count: 1 };
         const assigned = assignDiscipleStudy(npc.uid, first.name).success;
         tickManualHallStudy(100);
-        assigned && npc.knownTechniques.includes(first.name) &&
+        assigned && npc.knownTechniques.includes(first.name) && npc.cultivation.focusTrack === 'vessel' &&
             !membership.knownTechniques && !hall.collection[first.name]
     `), true);
     assert.equal(run(`
@@ -269,7 +273,10 @@ test('succession uses the NPC realm and age while preserving calendar dates', ()
         assignDiscipleStudy(npc.uid, manual);
         const other = addSectDisciple('Other', 'acolyte');
         G.ageMonths += 24;
-        npc.realmIdx = 2;
+        npc.cultivation.dantian.realmIdx = 2;
+        npc.cultivation.vessel.realmIdx = 3;
+        npc.cultivation.spirit.realmIdx = 1;
+        setNpcCultivationFocus(npc, 'vessel');
         setTrackRealmIdx('vessel', 4);
         setTrackRealmIdx('dantian', 5);
         setFocusTrack('vessel');
@@ -287,8 +294,8 @@ test('succession uses the NPC realm and age while preserving calendar dates', ()
             other.joinedMonths === joinedMonth && G.ageMonths === calendarMonth &&
             getPlayerAgeMonths() === npc.ageMonths && getPlayerLifespanMonths() === npcLifespan &&
             G.lifespanMonths - G.ageMonths === npcLifespan - npc.ageMonths &&
-            getFocusTrack() === 'dantian' && getEffectiveRealmTier() === npc.realmIdx &&
-            getTrackRealmIdx('vessel') === 0 && getTrackRealmIdx('spirit') === 0 &&
+            getFocusTrack() === 'vessel' && getEffectiveRealmTier() === 3 &&
+            getTrackRealmIdx('dantian') === 2 && getTrackRealmIdx('vessel') === 3 && getTrackRealmIdx('spirit') === 1 &&
             getActiveManualStudies().length === 0
     `), true);
     assert.equal(run(`
@@ -297,16 +304,18 @@ test('succession uses the NPC realm and age while preserving calendar dates', ()
         firings.join() === String(eventMonth) && getPlayerAgeMonths() === npc.ageMonths + 3
     `), true);
     assert.equal(run(`
-        setTrackRealmIdx('dantian', 3);
+        setTrackRealmIdx('vessel', 4);
         extendLifespanOnBreakthrough();
-        getPlayerLifespanMonths() === getLifespanForRealm(3)
+        getPlayerLifespanMonths() === getLifespanForRealm(4)
     `), true);
     assert.equal(run(`
         saveState();
         const birthMonth = G.playerBirthMonth;
         G.playerBirthMonth = 0;
         loadState() && G.playerBirthMonth === birthMonth &&
-            getPlayerAgeMonths() === npc.ageMonths + 3
+            getPlayerAgeMonths() === npc.ageMonths + 3 && getFocusTrack() === 'vessel' &&
+            getTrackRealmIdx('dantian') === 2 && getTrackRealmIdx('vessel') === 4 &&
+            getTrackRealmIdx('spirit') === 1
     `), true);
 });
 
@@ -324,5 +333,165 @@ test('ambiguous legacy recruits preserve the disciple without reviving a guessed
         const member = getSectDiscipleMembership('disc_lin');
         !npc.alive && !second.alive && getDiscipleCount() === 1 &&
             member.role === 'inner' && member.joinedMonths === 230 && getDiscipleNpc(member).name === 'Lin'
+    `), true);
+});
+
+test('procedural NPCs start with realm and progress on their chosen focus', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const focuses = new Set();
+        for (let i = 0; i < 24; i++) {
+            const person = generateWorldNpc('dustbone', { roleId: 'wanderer', realmIdx: 1, allowRandomDemonic: false });
+            const { focusTrack, dantian } = person.cultivation;
+            const focused = person.cultivation[focusTrack];
+            const otherTracks = CULTIVATION_TRACKS.filter(track => track !== focusTrack);
+            if (focused.realmIdx !== 1 || focused.growthProgress < 0 || focused.growthProgress >= 40 ||
+                person.realmIdx !== dantian.realmIdx || person.growthProgress !== dantian.growthProgress ||
+                otherTracks.some(track => person.cultivation[track].realmIdx || person.cultivation[track].growthProgress)) {
+                throw new Error('Unexpected starting cultivation for ' + focusTrack);
+            }
+            focuses.add(focusTrack);
+        }
+        [...focuses].sort().join()
+    `), 'dantian,spirit,vessel');
+});
+
+test('authored and demonic Qi specialists retain their starting realms', () => {
+    const run = newGame();
+    assert.equal(run(`
+        setTrackRealmIdx('dantian', 2);
+        const authored = createSectDiscipleNpc('Liang Chen', null, 'liang_chen');
+        const demonic = generateWorldNpc('dustbone', { roleId: 'demonic_talent', forceDemonic: true, realmIdx: 1 });
+        authored.cultivation.focusTrack === 'dantian' && authored.realmIdx === 2 &&
+            authored.cultivation.dantian.realmIdx === 2 && demonic.cultivation.focusTrack === 'dantian' &&
+            demonic.realmIdx === 1 && demonic.cultivation.dantian.realmIdx === 1
+    `), true);
+});
+
+test('a legacy NPC keeps its realm and growth as Qi even above its current growth ceiling', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const uid = npc.uid;
+        delete npc.cultivation;
+        Object.assign(npc, { realmIdx: 4, growthProgress: 83.5, knownTechniques: ['Falling Leaf'] });
+        G.mortalLadderVersion = 7;
+        G._nineRealmLadderMigrated = false;
+        localStorage.setItem('xianxia_save', JSON.stringify(G));
+        if (!loadState()) throw new Error('Legacy save did not load');
+        const restored = getWorldNpcByUid(uid);
+        const c = restored.cultivation;
+        c.focusTrack === 'dantian' && restored.realmIdx === 5 && c.dantian.realmIdx === 5 &&
+            restored.growthProgress === 83.5 && c.dantian.growthProgress === 83.5 &&
+            c.vessel.realmIdx === 0 && c.spirit.realmIdx === 0 && !canWorldNpcGrow(restored) &&
+            restored.knownTechniques.join() === 'Falling Leaf'
+    `), true);
+});
+
+test('growth follows a recruit’s focus and advances all three tracks independently', () => {
+    const run = newGame();
+    assert.equal(run(`
+        advanceTime = () => true;
+        runRecruit();
+        const base = NPC_ECOSYSTEM.growthMonthsPerBreakthrough;
+        const age = npc.ageMonths;
+        addNpcCultivationProgress(npc, 'dantian', base - 1);
+        setNpcCultivationFocus(npc, 'vessel');
+        addNpcCultivationProgress(npc, 'vessel', base - 1);
+        Math.random = () => 0;
+        tickWorldNpcGrowth(2);
+        const tracks = npc.cultivation;
+        const bodyAdvanced = tracks.vessel.realmIdx === 1 && tracks.vessel.growthProgress === 1 &&
+            tracks.dantian.realmIdx === 0 && tracks.dantian.growthProgress === base - 1 &&
+            tracks.spirit.realmIdx === 0 && tracks.spirit.growthProgress === 0 && npc.realmIdx === 0;
+        setNpcCultivationFocus(npc, 'dantian');
+        tickWorldNpcGrowth(3);
+        const qiAdvanced = tracks.dantian.realmIdx === 1 && tracks.dantian.growthProgress === 2 &&
+            tracks.vessel.realmIdx === 1 && tracks.vessel.growthProgress === 1 && npc.realmIdx === 1;
+        setNpcCultivationFocus(npc, 'spirit');
+        addNpcCultivationProgress(npc, 'spirit', base - 1);
+        const invalidFocusRejected = !setNpcCultivationFocus(npc, 'alchemy');
+        tickWorldNpcGrowth(4);
+        bodyAdvanced && qiAdvanced && invalidFocusRejected && tracks.focusTrack === 'spirit' &&
+            tracks.spirit.realmIdx === 1 && tracks.spirit.growthProgress === 3 &&
+            tracks.dantian.growthProgress === 2 && tracks.vessel.growthProgress === 1 &&
+            npc.ageMonths === age + 9 && npc.growthProgress === 2 &&
+            getDiscipleNpc(getSectDiscipleMembership(npc.uid)) === npc
+    `), true);
+});
+
+test('track focus, fractional progress and learned arts survive save and load', () => {
+    const run = newGame();
+    assert.equal(run(`
+        advanceTime = () => true;
+        runRecruit();
+        npc.cultivation.vessel.realmIdx = 2;
+        npc.cultivation.spirit.realmIdx = 1;
+        setNpcCultivationFocus(npc, 'spirit');
+        addNpcCultivationProgress(npc, 'vessel', 22.5);
+        addNpcCultivationProgress(npc, 'spirit', 37.75);
+        npc.knownTechniques = ['Falling Leaf'];
+        const uid = npc.uid;
+        const expected = JSON.stringify(npc.cultivation);
+        saveState();
+        G.worldNpcs = [];
+        if (!loadState()) throw new Error('NPC tracks did not load');
+        const restored = getDiscipleNpc(getSectDiscipleMembership(uid));
+        JSON.stringify(restored.cultivation) === expected &&
+            restored.knownTechniques.join() === 'Falling Leaf' && restored.realmIdx === 0
+    `), true);
+});
+
+test('the strongest track sets lifespan while combat keeps the Qi baseline and text names each path', () => {
+    const run = newGame();
+    assert.equal(run(`
+        npc.cultivation.vessel.realmIdx = 2;
+        npc.cultivation.spirit.realmIdx = 1;
+        setNpcCultivationFocus(npc, 'vessel');
+        const qiOnly = { realmIdx: npc.realmIdx };
+        const sameCombat = JSON.stringify(calcNpcCombatStats(npc, 'rival')) ===
+            JSON.stringify(calcNpcCombatStats(qiOnly, 'rival'));
+        setTrackRealmIdx('spirit', 3);
+        setFocusTrack('spirit');
+        const observation = getWorldNpcObserveText(npc);
+        const correctNames = observation.includes('Qi: ' + PATHS.qi.realms[0]) &&
+            observation.includes('Body: ' + PATHS.body.realms[2]) &&
+            observation.includes('Soul: ' + PATHS.soul.realms[1]) &&
+            getWorldNpcStrengthLabel(npc).includes('Peer · Qi: ' + PATHS.qi.realms[0]);
+        npc.ageMonths = getLifespanForRealm(0);
+        const longLife = getWorldNpcLifespanMonths(npc) === getLifespanForRealm(2);
+        tickWorldNpcGrowth(1);
+        const survivedQiLimit = npc.alive && npc.ageMonths === getLifespanForRealm(0) + 1;
+        npc.ageMonths = getLifespanForRealm(2) - 1;
+        tickWorldNpcGrowth(2);
+        sameCombat && correctNames && longLife && survivedQiLimit &&
+            !npc.alive && npc.ageMonths === getLifespanForRealm(2)
+    `), true);
+});
+
+test('ambient promotion and lesser-sect registration initialize the world NPC tracks once', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const stranger = spawnAmbientNpc('dustbone');
+        const stateBefore = stranger.cultivation;
+        setNpcCultivationFocus(stranger, 'spirit');
+        stranger.role = 'wanderer';
+        stranger.realmBand = 'foundation';
+        promoteAmbientToPersistent(stranger);
+        const promoted = stranger.state === 'persistent' && stranger.cultivation === stateBefore &&
+            stranger.cultivation.focusTrack === 'spirit' &&
+            stranger.cultivation.spirit.realmIdx >= 1 && stranger.cultivation.dantian.realmIdx === 0 &&
+            stranger.realmIdx === 0 && stranger.growthProgress === 0;
+        const lesserSect = { sects: [{
+            id: 'pine_branch', zone: 'dustbone',
+            members: [{ uid: 'pine_member', name: 'Bo', role: 'disciple', realmIdx: 2 }]
+        }] };
+        registerLesserSectNpcsOnWorld(lesserSect);
+        const member = getWorldNpcByUid('pine_member');
+        setNpcCultivationFocus(member, 'vessel');
+        addNpcCultivationProgress(member, 'vessel', 14);
+        registerLesserSectNpcsOnWorld(lesserSect);
+        promoted && getWorldNpcByUid('pine_member') === member &&
+            member.cultivation.dantian.realmIdx === 2 &&
+            member.cultivation.focusTrack === 'vessel' && member.cultivation.vessel.growthProgress === 14
     `), true);
 });

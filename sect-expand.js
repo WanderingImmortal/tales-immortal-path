@@ -1018,14 +1018,10 @@ function openSectSuccessionPopup() {
 
 function applySuccessorStats(disciple, npc) {
     const mult = SECT_LEGACY.statMult[disciple.role] || 0.6;
-    // World NPCs have one realm index. Map it to Qi cultivation on handoff.
-    G.path = 'qi';
-    G.realmIdx = npc.realmIdx;
-    if (typeof setTrackRealmIdx === 'function') {
-        G.cultivation = null;
-        setTrackRealmIdx('dantian', npc.realmIdx);
-        syncRealmConsolidationFromFocusTrack();
-    }
+    const cultivation = ensureNpcCultivation(npc);
+    G.cultivation = null;
+    CULTIVATION_TRACKS.forEach(track => setTrackRealmIdx(track, cultivation[track].realmIdx));
+    setFocusTrack(cultivation.focusTrack);
 
     const path = PATHS[G.path] || PATHS.qi;
     const base = path.base;
