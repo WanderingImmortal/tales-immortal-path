@@ -980,8 +980,101 @@ function getSectTreasureBonuses() {
     return getSectHeirloomBonuses();
 }
 
+// The office points at the persistent actor. The player temporarily controls that actor.
+function isPlayerControlledNpc(npc) {
+    return !!npc?.uid && G.sect?.leaderNpcUid === npc.uid;
+}
+
+function getPlayerControlledNpc() {
+    const uid = G.sect?.leaderNpcUid;
+    return uid ? getWorldNpcByUid(uid) : null;
+}
+
+function getSuccessorJourneyBlockReason() {
+    return getPlayerControlledNpc()?.travel?.status === 'travelling'
+        ? 'Your successor is still on the road. Let world time advance to finish the journey.'
+        : null;
+}
+
+function syncPlayerControlledNpc(npc = getPlayerControlledNpc()) {
+    if (!npc) return;
+    npc.ageMonths = getPlayerAgeMonths();
+    npc.lifespanMonths = G.sectSuccessionActive ? npc.lifespanMonths : getPlayerLifespanMonths();
+    if (npc.cultivation) syncNpcCultivationLegacyFields(npc);
+    if (typeof resolveNpcPresence === 'function') {
+        const presence = resolveNpcPresence(npc);
+        if (presence.zoneId) npc.zone = presence.zoneId;
+        if (presence.locationId) npc.locationId = presence.locationId;
+    }
+}
+
+function endPlayerControlledNpcLife(reason) {
+    const npc = getPlayerControlledNpc();
+    if (!npc) return;
+    syncPlayerControlledNpc(npc);
+    killWorldNpc(npc, reason);
+}
+
+function useNpcCultivationForPlayer(npc) {
+    G.cultivation = ensureNpcCultivation(npc);
+    ensureCultivationTracksState();
+    syncRealmConsolidationFromFocusTrack();
+    refreshSoulEmbryoFromTracks();
+}
+
+function migrateSectLeaderIdentity() {
+    const uid = G.sect?.leaderNpcUid;
+    if (typeof uid !== 'string' || !uid) return;
+    const records = (G.worldNpcs || []).filter(npc => npc?.uid === uid);
+    const ended = !!(G.gameOver || G.sectSuccessionActive || G.reincarnationIntent);
+    let leader = records.find(npc => npc.alive) || records[0];
+    if (!leader) {
+        // Old succession saves removed this actor. Recover only evidence kept in the player save.
+        leader = {
+            uid, name: G.name, alive: !ended, state: 'persistent',
+            ageMonths: getPlayerAgeMonths(), lifespanMonths: getPlayerLifespanMonths(),
+            zone: G.currentZone, locationId: G.currentLocation,
+            cultivation: G.cultivation,
+            knownTechniques: (G.techniques || []).map(technique => technique.name).filter(Boolean),
+            legacyIdentityIncomplete: true
+        };
+        (G.worldNpcs ||= []).push(leader);
+    } else if (records.length > 1) {
+        // Prefer the living row and retain its values. Only fill missing fields from the same named actor.
+        for (const other of records) {
+            if (other === leader || other.name !== leader.name) continue;
+            for (const [key, value] of Object.entries(other)) {
+                if (leader[key] == null && key !== 'alive') leader[key] = value;
+            }
+        }
+        G.worldNpcs = G.worldNpcs.filter(other => other?.uid !== uid || other === leader);
+    }
+    if (ended) leader.alive = false;
+    if (!leader.alive) return;
+    leader.cultivation ||= G.cultivation;
+    if (leader.cultivation && G.cultivation?.soulEmbryo && leader.cultivation.soulEmbryo == null) {
+        leader.cultivation.soulEmbryo = true;
+        leader.cultivation.soulEmbryoOrigin = G.cultivation.soulEmbryoOrigin;
+    }
+    useNpcCultivationForPlayer(leader);
+    syncPlayerControlledNpc(leader);
+}
+
+function setPlayerLocationFromNpc(npc) {
+    if (typeof resolveNpcPresence !== 'function') return;
+    const presence = resolveNpcPresence(npc);
+    // The map can show the journey’s origin while physical presence remains in transit.
+    const locationId = presence.status === 'travelling' ? npc.travel.originId : presence.locationId;
+    const zoneId = presence.zoneId || (typeof getLocationDef === 'function' && getLocationDef(locationId)?.parentZone);
+    if (!locationId || !zoneId) return;
+    currentZone = G.currentZone = zoneId;
+    G.currentLocation = locationId;
+    if (G.ancients) G.ancients.activeSubZone = null;
+}
+
 function trySectLeaderSuccessionOnDeath() {
     if (!isSectFounded() || G.sectSuccessionActive) return false;
+    endPlayerControlledNpcLife('old age');
     G.sectSuccessionActive = true;
     G.lifespanMonths = G.ageMonths + 1;
     openSectSuccessionPopup();
@@ -1026,10 +1119,7 @@ function openSectSuccessionPopup() {
 
 function applySuccessorStats(disciple, npc) {
     const mult = SECT_LEGACY.statMult[isFullSectElder(disciple) ? 'elder' : disciple.rank] || 0.6;
-    const cultivation = ensureNpcCultivation(npc);
-    G.cultivation = null;
-    CULTIVATION_TRACKS.forEach(track => setTrackRealmIdx(track, cultivation[track].realmIdx));
-    setFocusTrack(cultivation.focusTrack);
+    useNpcCultivationForPlayer(npc);
 
     const path = PATHS[G.path] || PATHS.qi;
     const base = path.base;
@@ -1044,11 +1134,13 @@ function applySuccessorStats(disciple, npc) {
 }
 
 function applySectSuccession(discipleUid) {
+    if (!G.sectSuccessionActive) return false;
     ensureSectExpansionState();
     const disciple = getSectTrainingMember(discipleUid);
     const npc = getDiscipleNpc(disciple);
     if (discipleUid && !npc) return false;
 
+    endPlayerControlledNpcLife('old age');
     const prevLeader = G.name;
     const prevGen = G.sect.leaderGeneration || 1;
 
@@ -1070,9 +1162,8 @@ function applySectSuccession(discipleUid) {
         return true;
     }
 
-    removeSectAffiliation(npc.uid);
-    // The successor is now controlled through G, outside the world NPC simulation.
-    G.worldNpcs = G.worldNpcs.filter(other => other.uid !== npc.uid);
+    setPlayerLocationFromNpc(npc);
+    removeSectAffiliation(npc.uid, { preserveJourney: true });
     G.sect.leaderNpcUid = npc.uid;
     G.name = npc.name;
     G.sect.leaderGeneration = prevGen + 1;
@@ -1084,6 +1175,10 @@ function applySectSuccession(discipleUid) {
     // Keep world deadlines and service dates on the same calendar across leaders.
     G.playerBirthMonth = G.ageMonths - npc.ageMonths;
     G.lifespanMonths = G.playerBirthMonth + getWorldNpcLifespanMonths(npc);
+    npc.lifespanMonths = getPlayerLifespanMonths();
+    for (const name of npc.knownTechniques || []) {
+        if (typeof learnTechnique === 'function') learnTechnique(name, { skipGates: true, silent: true });
+    }
     const tBonus = getSectHeirloomBonuses();
     grantFoundation(tBonus.foundationBonus || 0);
     addSectRenown(tBonus.renownBonus || 0);

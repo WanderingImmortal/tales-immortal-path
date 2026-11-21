@@ -87,7 +87,8 @@ function shuffleArray(arr) {
 
 function gatherUnmetWorldNpcCandidates(zoneId, locationId) {
     return (G.worldNpcs || []).filter(n => {
-        if (!n.alive || n.met || n.isDemonicTalent) return false;
+        if (!n.alive || n.met || n.isDemonicTalent
+            || (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(n))) return false;
         const presence = resolveNpcPresence(n);
         return presence.zoneId === zoneId && (!locationId || presence.locationId === locationId);
     });

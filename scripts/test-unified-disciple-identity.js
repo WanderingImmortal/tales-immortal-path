@@ -11,13 +11,14 @@ function newGame() {
             setItem: (key, value) => storage.set(key, value),
             getItem: key => storage.get(key)
         },
-        console
+        console,
+        document: { addEventListener() {}, getElementById: () => null }
     });
     const run = source => vm.runInContext(source, context);
     const files = [
         'data.js', 'core.js', 'foundation.js', 'cultivation-tracks.js', 'forbidden.js',
         'world-scheduler.js', 'advance-time-rules.js', 'locations.js', 'world.js', 'npc-travel.js', 'resource-sources.js', 'ambient-npcs.js', 'procedural-lesser-sects.js',
-        'sect.js', 'sect-missions.js', 'sect-expand.js', 'sect-inventory.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'npc-presence.js', 'quests.js', 'story-arcs.js'
+        'sect.js', 'sect-missions.js', 'sect-expand.js', 'sect-inventory.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'npc-presence.js', 'quests.js', 'story-arcs.js', 'main.js'
     ];
     for (const file of files) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
@@ -291,9 +292,10 @@ test('succession uses the NPC realm and age while preserving calendar dates', ()
         const firings = [];
         registerWorldEventHandler('succession_test', () => firings.push(G.ageMonths));
         scheduleWorldEvent('succession_test', eventMonth);
+        G.sectSuccessionActive = true;
         applySectSuccession(npc.uid);
         G.sect.leaderNpcUid === npc.uid && G.name === npc.name &&
-            !getWorldNpcByUid(npc.uid) && !getSectDiscipleMembership(npc.uid) &&
+            getWorldNpcByUid(npc.uid) === npc && !getSectDiscipleMembership(npc.uid) &&
             getDiscipleCount() === 1 && getDiscipleMonthsServed(other) === 24 &&
             other.joinedMonths === joinedMonth && G.ageMonths === calendarMonth &&
             getPlayerAgeMonths() === npc.ageMonths && getPlayerLifespanMonths() === npcLifespan &&
@@ -305,7 +307,7 @@ test('succession uses the NPC realm and age while preserving calendar dates', ()
     assert.equal(run(`
         tickQuestSystems = () => {};
         processWorldTime(calendarMonth, eventMonth + 1);
-        firings.join() === String(eventMonth) && getPlayerAgeMonths() === npc.ageMonths + 3
+        firings.join() === String(eventMonth) && getPlayerAgeMonths() === npc.ageMonths && npc.ageMonths === 303
     `), true);
     assert.equal(run(`
         setTrackRealmIdx('vessel', 4);
@@ -317,7 +319,7 @@ test('succession uses the NPC realm and age while preserving calendar dates', ()
         const birthMonth = G.playerBirthMonth;
         G.playerBirthMonth = 0;
         loadState() && G.playerBirthMonth === birthMonth &&
-            getPlayerAgeMonths() === npc.ageMonths + 3 && getFocusTrack() === 'vessel' &&
+            getPlayerAgeMonths() === npc.ageMonths && npc.ageMonths === 303 && getFocusTrack() === 'vessel' &&
             getTrackRealmIdx('dantian') === 2 && getTrackRealmIdx('vessel') === 4 &&
             getTrackRealmIdx('spirit') === 1
     `), true);
@@ -643,6 +645,7 @@ test('remaining affiliates, guest terms, contributions and duties survive succes
         const duties = setSectMemberDuties(staff.uid, [' Archive records ', 'Archive records']) &&
             !setSectMemberDuties(staff.uid, ['']) && staff.duties.join() === 'Archive records';
         const station = G.ageMonths;
+        G.sectSuccessionActive = true;
         const guestRejected = !applySectSuccession(guest.uid) && !G.gameOver;
         const succession = applySectSuccession(npc.uid);
         const view = renderOtherSectAffiliationsHtml();
@@ -668,6 +671,7 @@ test('a sect collapse ends full and guest affiliations while leaving their NPCs 
         const guest = generateWorldNpc('dustbone', { roleId: 'sect_elder', allowRandomDemonic: false });
         G.worldNpcs.push(guest);
         recordSectGuestAgreement(guest, { service: 'Inspect the wards' });
+        G.sectSuccessionActive = true;
         const collapsed = applySectSuccession(null);
         collapsed && G.gameOver && G.sect.memberships.length === 0 && G.disciples.length === 0 &&
             getWorldNpcByUid(npc.uid) === npc && getWorldNpcByUid(guest.uid) === guest
@@ -863,6 +867,7 @@ test('death and departure fail assignments, while succession preserves remaining
         graduateSectDisciple(elder.uid);
         appointSectMissionElder(elder.uid);
         const active = assignSectMission(worker.uid, 'patrol').mission;
+        G.sectSuccessionActive = true;
         const successor = applySectSuccession(heir.uid);
         const preserved = active.status === 'active' && getSectMissionElder()?.uid === elder.uid;
         removeSectAffiliation(worker.uid);
@@ -883,6 +888,7 @@ test('sect collapse ends assignments and delegation before a calendar catch-up',
         appointSectMissionElder(elder.uid);
         setSectMissionMode('delegated');
         const active = assignSectMission(npc.uid, 'gather').mission;
+        G.sectSuccessionActive = true;
         const collapsed = applySectSuccession(null);
         processWorldTime(G.ageMonths, G.ageMonths + 12);
         collapsed && active.status === 'failed' && !getSectMissionElder() &&
@@ -946,7 +952,7 @@ for (const [cause, interrupt] of [
     ['death', "killWorldNpc(npc, 'old age')"],
     ['departure', 'removeSectAffiliation(npc.uid)'],
     ['disappearance', 'G.worldNpcs = G.worldNpcs.filter(person => person !== npc)'],
-    ['sect collapse', 'applySectSuccession(null)']
+    ['sect collapse', 'G.sectSuccessionActive = true; applySectSuccession(null)']
 ]) {
     test(`collected cargo returns exactly once after ${cause}`, () => {
         const run = newGame();
@@ -1178,5 +1184,114 @@ test('a later lifespan expiry does not erase a Hall completion earlier in the sa
         processWorldTime(G.ageMonths, G.ageMonths + duration + 2);
         !npc.alive && npc.knownTechniques.includes(manual) && getNpcActivityClaim(npc.uid) === null &&
             G.sect.chronicle.some(entry => entry.months === finishedAt && entry.text.includes('mastered'))
+    `), true);
+});
+
+test('succession retains the actor and track objects, techniques, and relationship history through reload', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        const uid = npc.uid;
+        const other = generateWorldNpc('jade', { roleId: 'wanderer' });
+        G.worldNpcs.push(other);
+        const beforeOther = JSON.stringify(other);
+        const beforeSects = JSON.stringify(G.sect.worldSects);
+        npc.personalities = ['careful'];
+        npc.relationship = { trust: 12 };
+        npc.history = [{ note: 'Met in Redwell' }];
+        npc.knownTechniques = [TECHNIQUE_POOL[0].name];
+        npc.cultivation.dantian.growthProgress = 41.25;
+        npc.cultivation.vessel.stage = 'existing stage';
+        const tracks = npc.cultivation;
+        G.sectSuccessionActive = true;
+        const applied = applySectSuccession(uid);
+        const repeated = !applySectSuccession(uid);
+        const sameActor = getPlayerControlledNpc() === npc && G.cultivation === tracks
+            && G.techniques.some(technique => technique.name === npc.knownTechniques[0]);
+        const untouched = JSON.stringify(other) === beforeOther && JSON.stringify(G.sect.worldSects) === beforeSects;
+        tickQuestSystems = () => {};
+        processWorldTime(G.ageMonths, G.ageMonths + 2);
+        const noDoubleProgress = npc.ageMonths === 302 && npc.growthProgress === 41.25;
+        setTrackRealmIdx('vessel', 2);
+        saveState();
+        const serialized = JSON.parse(localStorage.getItem('xianxia_save'));
+        if (!loadState()) throw new Error('Reload failed');
+        const restored = getPlayerControlledNpc();
+        applied && repeated && sameActor && untouched && noDoubleProgress && !serialized.cultivation &&
+            restored.uid === uid && restored.cultivation === G.cultivation &&
+            restored.cultivation.vessel.realmIdx === 2 && restored.cultivation.vessel.stage === 'existing stage' &&
+            restored.cultivation.dantian.growthProgress === 41.25 && restored.ageMonths === 302 &&
+            restored.relationship.trust === 12 && restored.personalities.join() === 'careful' &&
+            restored.history[0].note === 'Met in Redwell' && G.worldNpcs.filter(n => n.uid === uid).length === 1
+    `), true);
+});
+
+test('an heir on an active mission keeps the real journey while the roster claim is released', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        const trip = assignSectMission(npc.uid, 'gather');
+        const travel = npc.travel;
+        const arrival = travel.arrivesAtMonths;
+        G.sectSuccessionActive = true;
+        const inherited = applySectSuccession(npc.uid);
+        const onRoad = travel === npc.travel && resolveNpcPresence(npc.uid).status === 'travelling' &&
+            !isNpcPhysicallyPresentAt(npc.uid, 'redwell') && !isNpcPhysicallyPresentAt(npc.uid, 'dewcatch_scrub') &&
+            trip.mission.status === 'failed' && getSuccessorJourneyBlockReason() &&
+            beginNpcJourney(npc.uid, { destinationId: 'redwell' }).reason === 'already_travelling';
+        tickQuestSystems = () => {};
+        saveState();
+        if (!loadState()) throw new Error('Travel reload failed');
+        const restored = getPlayerControlledNpc();
+        const persisted = restored.uid === npc.uid && isNpcTravelling(restored) && getSuccessorJourneyBlockReason();
+        processWorldTime(G.ageMonths, arrival);
+        inherited && onRoad && persisted && G.currentLocation === 'dewcatch_scrub' &&
+            isNpcPhysicallyPresentAt(npc.uid, 'dewcatch_scrub') && !getSuccessorJourneyBlockReason() &&
+            !getPresentNpcEntries('dustbone').some(entry => entry.id === worldNpcId(npc.uid))
+    `), true);
+});
+
+test('a controlled successor dies once at lifespan expiry and remains historically resolvable after replacement', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        const heir = addSectDisciple('Next', 'inner');
+        const next = getDiscipleNpc(heir);
+        npc.ageMonths = getWorldNpcLifespanMonths(npc) - 2;
+        G.sectSuccessionActive = true;
+        const first = applySectSuccession(npc.uid);
+        openSectSuccessionPopup = () => {};
+        tickQuestSystems = () => {};
+        advanceTime(4, 'Age the leader');
+        const expired = !npc.alive && !getWorldNpcByUid(npc.uid) && findWorldNpcRecordByUid(npc.uid) === npc &&
+            npc.ageMonths === getWorldNpcLifespanMonths(npc) && G.sectSuccessionActive;
+        const second = applySectSuccession(heir.uid);
+        first && expired && second && getPlayerControlledNpc() === next && next.alive &&
+            !npc.alive && !applySectSuccession(npc.uid)
+    `), true);
+});
+
+test('legacy leader migration recovers known fields and resolves duplicate rows without duplicating the actor', () => {
+    const run = newGame();
+    assert.equal(run(`
+        G.name = 'Legacy leader';
+        G.sect.leaderNpcUid = 'missing-leader';
+        G.playerBirthMonth = 60;
+        G.lifespanMonths = 900;
+        setTrackRealmIdx('spirit', 2);
+        G.techniques = [{ name: TECHNIQUE_POOL[0].name }];
+        localStorage.setItem('xianxia_save', JSON.stringify(G));
+        if (!loadState()) throw new Error('Missing actor migration failed');
+        const recovered = getPlayerControlledNpc();
+        const restored = recovered.uid === 'missing-leader' && recovered.legacyIdentityIncomplete &&
+            recovered.ageMonths === 300 && recovered.lifespanMonths === 840 &&
+            recovered.cultivation.spirit.realmIdx === 2 && recovered.knownTechniques.length === 1 &&
+            !recovered.personalities && !recovered.relationship;
+        G.worldNpcs.unshift({ uid: recovered.uid, name: recovered.name, alive: false, history: ['archived'] });
+        saveState();
+        if (!loadState()) throw new Error('Duplicate actor migration failed');
+        const deduped = getPlayerControlledNpc();
+        restored && G.worldNpcs.filter(n => n.uid === deduped.uid).length === 1 &&
+            deduped.alive && deduped.history[0] === 'archived' && G.cultivation === deduped.cultivation
     `), true);
 });

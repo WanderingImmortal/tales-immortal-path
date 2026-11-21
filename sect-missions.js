@@ -182,7 +182,7 @@ function getSectMissionCargo(mission) {
     return mission.cargo;
 }
 
-function finishSectMission(mission, success, outcome) {
+function finishSectMission(mission, success, outcome, options) {
     if (mission.status !== 'active') return;
     const cargo = getSectMissionCargo(mission);
     if (!success && cargo?.status === 'in_transit') {
@@ -200,7 +200,7 @@ function finishSectMission(mission, success, outcome) {
     cancelWorldEvents(event => event.id === mission.id);
     if (success) creditSectContribution(mission.npcUid, 1);
     const npc = getWorldNpcByUid(mission.npcUid);
-    if (!success && npc?.travel?.purpose === 'sect_mission' && isNpcTravelling(npc)) {
+    if (!options?.preserveJourney && !success && npc?.travel?.purpose === 'sect_mission' && isNpcTravelling(npc)) {
         cancelNpcJourney(npc, 'sect_mission_ended');
     }
     if (mission.temporaryPlacement && npc?.locationId === mission.headquartersId) {
@@ -287,11 +287,11 @@ function resolveSectMissionStep({ missionId }) {
     } else finishSectMission(mission, false, 'Sect stores were full and could not accept the herbs.');
 }
 
-function endSectMissionMembership(uid) {
+function endSectMissionMembership(uid, options) {
     const department = G.sect?.missionDepartment;
     if (!department) return;
     for (const mission of getActiveSectMissions()) {
-        if (mission.npcUid === uid) finishSectMission(mission, false, 'The assigned disciple left the roster.');
+        if (mission.npcUid === uid) finishSectMission(mission, false, 'The assigned disciple left the roster.', options);
     }
     if (department.proposal?.npcUid === uid) department.proposal = null;
     if (department.elderUid === uid) dismissSectMissionElder();

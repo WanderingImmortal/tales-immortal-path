@@ -214,7 +214,7 @@ function getPresentNpcEntries(zoneId) {
                 : G.currentLocation;
             const locationZone = typeof getLocationDef === 'function' ? getLocationDef(locId)?.parentZone : zoneId;
             getWorldNpcsInZone(zoneId).forEach(npc => {
-                if (npc.state === 'ambient') return;
+                if (npc.state === 'ambient' || (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc))) return;
                 if (locId && locationZone === zoneId && typeof isNpcPhysicallyPresentAt === 'function'
                     && !isNpcPhysicallyPresentAt(npc, locId)) return;
                 entries.push({ type: 'world', id: worldNpcId(npc.uid), npc });

@@ -141,6 +141,8 @@ function learnTechnique(techName, opts) {
         uses: 0
     };
     G.techniques.push(newTech);
+    const leader = typeof getPlayerControlledNpc === 'function' ? getPlayerControlledNpc() : null;
+    if (leader && !(leader.knownTechniques ||= []).includes(techName)) leader.knownTechniques.push(techName);
     if (!opts?.silent) addLog(`📜 You learned ${techName}! (${template.rarity})`);
     return true;
 }

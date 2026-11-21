@@ -219,6 +219,8 @@ function syncLegacyPathShims() {
     const track = getFocusTrack();
     G.path = TRACK_TO_LEGACY_PATH[track] || 'qi';
     G.realmIdx = G.cultivation[track]?.realmIdx ?? 0;
+    const leader = typeof getPlayerControlledNpc === 'function' ? getPlayerControlledNpc() : null;
+    if (leader?.cultivation === G.cultivation) syncNpcCultivationLegacyFields(leader);
 }
 
 /** Before save / after load: focus track is source of truth; heal legacy-only realmIdx drift. */

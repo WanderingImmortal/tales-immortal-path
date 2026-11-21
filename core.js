@@ -1044,6 +1044,7 @@ function extendLifespanOnBreakthrough(tier) {
     const gainedMonths = Math.floor((newCap - G.lifespanMonths) * scale);
     if (gainedMonths <= 0) return;
     G.lifespanMonths += gainedMonths;
+    if (typeof syncPlayerControlledNpc === 'function') syncPlayerControlledNpc();
     const gainedYears = Math.floor(gainedMonths / 12);
     if (isImmortal()) {
         addLog(`✨ You transcend mortal lifespan! Old age can no longer claim you.`);
@@ -1101,7 +1102,12 @@ function saveState(options = {}) {
         G.currentZone = currentZone;
         if (typeof ensureRunId === 'function') ensureRunId();
         if (typeof prepareGameStateForSave === 'function') prepareGameStateForSave();
-        const snapshot = JSON.stringify(G);
+        if (typeof syncPlayerControlledNpc === 'function') syncPlayerControlledNpc();
+        // The active leader owns the track object. The player shares it in memory.
+        const leader = typeof getPlayerControlledNpc === 'function' ? getPlayerControlledNpc() : null;
+        const snapshot = JSON.stringify(G, function(key, value) {
+            return this === G && key === 'cultivation' && leader?.cultivation === value ? undefined : value;
+        });
         stage = 'write';
         // Web Storage leaves the old value intact when setItem fails.
         localStorage.setItem(RUN_SAVE_KEY, snapshot);
@@ -1242,7 +1248,8 @@ function migrateLoadedGameState(data) {
     if (typeof migrateSaveToCultivationTracks === 'function') {
         // Earlier load hooks may initialize tracks or sync the legacy mirrors.
         // Migrate from the saved fields, including when an older save is loaded again.
-        G.cultivation = data.cultivation;
+        const leader = typeof getPlayerControlledNpc === 'function' ? getPlayerControlledNpc() : null;
+        G.cultivation = data.cultivation ?? leader?.cultivation;
         G._cultivationTracksMigrated = data._cultivationTracksMigrated;
         G.path = data.path;
         G.realmIdx = data.realmIdx;
@@ -1326,6 +1333,7 @@ function migrateLoadedGameState(data) {
     if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
     if (typeof migrateLesserSectsForExistingSave === 'function') migrateLesserSectsForExistingSave();
     if (typeof migrateWorldPopulationForExistingSave === 'function') migrateWorldPopulationForExistingSave();
+    if (typeof migrateSectLeaderIdentity === 'function') migrateSectLeaderIdentity();
     if (typeof migrateNpcPresenceForExistingSave === 'function') migrateNpcPresenceForExistingSave();
     if (typeof migrateOrganizationProfilesForExistingSave === 'function') migrateOrganizationProfilesForExistingSave();
     if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
