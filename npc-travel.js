@@ -225,7 +225,8 @@ function resolveNpcPresence(npcOrId) {
         return { status: 'unavailable' };
     }
 
-    const placedId = travel?.locationId || npc.locationId || npc.homeLocationId;
+    const controlled = typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc);
+    const placedId = (controlled && G.currentLocation) || travel?.locationId || npc.locationId || npc.homeLocationId;
     const placed = npcTravelLocationDef(placedId);
     if (placedId && !placed) return { status: 'unavailable' };
     const zoneId = placed?.parentZone || npc.zone;
@@ -537,6 +538,9 @@ function beginNpcJourney(npcOrId, spec) {
     if (isNpcTravelling(npc)) {
         return { ok: false, reason: 'already_travelling', message: 'Already on the road.' };
     }
+    if (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc)) {
+        return { ok: false, reason: 'player_controlled', message: 'You control this character’s travel.' };
+    }
     const claim = getNpcActivityClaim(npc.uid);
     if (claim === 'manual_hall') {
         return { ok: false, reason: claim, message: 'They are studying in the Manual Hall.' };
@@ -735,6 +739,11 @@ function completeNpcJourney(npc) {
         method: travel.method
     };
     if (dest.parentZone) npc.zone = dest.parentZone;
+    if (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc)) {
+        currentZone = G.currentZone = dest.parentZone;
+        G.currentLocation = destId;
+        if (G.ancients) G.ancients.activeSubZone = null;
+    }
     if (travel.familiarLocationIds && destId && travel.familiarLocationIds.indexOf(destId) === -1) {
         travel.familiarLocationIds.push(destId);
     }

@@ -1328,7 +1328,7 @@ function pursueNpcAmbitionGoal(actorId, options) {
     options = options || {};
     ensureNpcAmbitionState();
     const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
-    if (!npc || npc.alive === false) {
+    if (!npc || npc.alive === false || (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc))) {
         return { ok: false, reason: 'actor_unavailable' };
     }
     if (typeof resolveNpcTravelForActor === 'function') {

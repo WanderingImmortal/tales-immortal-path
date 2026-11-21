@@ -109,7 +109,8 @@ function tickWorldNpcRelationships(monthsPassed) {
     if (!G.worldNpcs?.length || monthsPassed <= 0) return;
     const b = NPC_CONVERSE_BALANCE;
     G.worldNpcs.forEach(npc => {
-        if (!hasWorldNpcRelationship(npc)) return;
+        if (!hasWorldNpcRelationship(npc)
+            || (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc))) return;
         if (npc.lastTalkMonths == null && npc.metAtMonth == null && (npc.talkCount || 0) < 1) return;
         const last = npc.lastTalkMonths ?? npc.metAtMonth ?? G.ageMonths;
         if (G.ageMonths <= last) return;

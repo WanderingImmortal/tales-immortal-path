@@ -91,6 +91,8 @@ function getMerchantCatalogKey() {
 }
 
 function travelToLocation(locationId) {
+    const journey = typeof getSuccessorJourneyBlockReason === 'function' ? getSuccessorJourneyBlockReason() : null;
+    if (journey) return { success: false, message: journey };
     const loc = getLocationDef(locationId);
     if (!loc) return { success: false, message: 'Unknown place.' };
     const zoneId = typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone);

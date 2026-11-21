@@ -1252,6 +1252,7 @@ function ensureWorldNpcs() {
     if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
     if (!G.nextDemonicEmergenceMonths) scheduleNextDemonicEmergence();
     G.worldNpcs.forEach(n => {
+        if (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(n)) return;
         ensureNpcCultivation(n);
         if (n.alive) {
             if (!n.state) n.state = 'persistent';
@@ -1409,6 +1410,7 @@ function clampWorldNpcThreat(npc) {
 }
 
 function getWorldNpcLifespanMonths(npc) {
+    if (Number.isFinite(npc.lifespanMonths)) return npc.lifespanMonths;
     const role = NPC_ROLES[npc.role] || NPC_ROLES.villager;
     if (role.cultivator === false) return (role.lifespanYears || 75) * 12;
     if (role.lifespanUsesRealm) {
@@ -1433,6 +1435,10 @@ function tickWorldNpcGrowth(monthsPassed) {
     const base = NPC_ECOSYSTEM.growthMonthsPerBreakthrough;
     G.worldNpcs.forEach(npc => {
         if (!npc.alive) return;
+        if (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc)) {
+            syncPlayerControlledNpc(npc);
+            return;
+        }
         if (npc.state === 'ambient') return;
         let lifespanMonths = getWorldNpcLifespanMonths(npc);
         if (npc.ageMonths >= lifespanMonths) {

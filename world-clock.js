@@ -99,6 +99,8 @@ function getWorldClockStance() {
 
 /** Lock reason while a timed project (transit / job / seek) is running. */
 function getWorldClockBusyReason() {
+    const journey = typeof getSuccessorJourneyBlockReason === 'function' ? getSuccessorJourneyBlockReason() : null;
+    if (journey) return journey;
     const p = getWorldClockProject();
     if (p) {
         if (p.kind === 'transit') return `You are traveling — ${p.label || 'on the road'}.`;

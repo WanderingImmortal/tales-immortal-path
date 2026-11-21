@@ -49,7 +49,8 @@ function applyConverseFlagsFromLine(npc, topicId, stance) {
 }
 
 function countPendingBetrayalNpcs() {
-    return (G.worldNpcs || []).filter(n => n.alive && n.intent === 'pending').length;
+    return (G.worldNpcs || []).filter(n => n.alive && n.intent === 'pending'
+        && !(typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(n))).length;
 }
 
 function maybeSetupBetrayalIntent(npc, topicId, stance) {
@@ -137,7 +138,8 @@ function isPlayerVulnerableForBetrayal() {
 function getPendingBetrayalNpcInZone(zoneId) {
     zoneId = zoneId || (typeof getMainZoneId === 'function' ? getMainZoneId() : G.currentZone);
     const candidates = (G.worldNpcs || []).filter(npc => {
-        if (!npc.alive || npc.intent !== 'pending' || !hasWorldNpcRelationship(npc)) return false;
+        if (!npc.alive || npc.intent !== 'pending' || !hasWorldNpcRelationship(npc)
+            || (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc))) return false;
         if (typeof resolveNpcPresence !== 'function') return npc.zone === zoneId;
         const presence = resolveNpcPresence(npc);
         return presence.status === 'present' && presence.zoneId === zoneId;

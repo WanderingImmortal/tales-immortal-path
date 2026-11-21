@@ -693,7 +693,8 @@ function getDiscipleCount() {
 
 function canRecordSectAffiliation(npc) {
     return npc?.alive && npc.uid && getWorldNpcByUid(npc.uid) === npc
-        && npc.state !== 'ambient' && !getSectAffiliation(npc.uid);
+        && npc.state !== 'ambient' && !getSectAffiliation(npc.uid)
+        && !(typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc));
 }
 
 function joinPlayerSect(npc, rank, position = 'disciple') {
@@ -785,12 +786,12 @@ function addSectDisciple(npcOrName, role, options) {
     return record;
 }
 
-function removeSectAffiliation(uid) {
+function removeSectAffiliation(uid, options) {
     const records = G.sect?.memberships;
     const index = records?.findIndex(member => member.uid === uid) ?? -1;
     if (index < 0) return;
     const [member] = records.splice(index, 1);
-    if (typeof endSectMissionMembership === 'function') endSectMissionMembership(uid);
+    if (typeof endSectMissionMembership === 'function') endSectMissionMembership(uid, options);
     if (!isRankedSectMember(member) && !isFullSectElder(member)) return;
     const hall = G.sect.buildingMeta?.manual_hall;
     if (hall?.studies) hall.studies = hall.studies.filter(study => study.discipleUid !== uid);

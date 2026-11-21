@@ -506,6 +506,7 @@ function handlePlayerCombatDefeat() {
     if (typeof isTribulationCombat === 'function' && isTribulationCombat()) { tribulationCombatDefeat(); return; }
     G.hp = 0;
     addCombatLog(`💀 You have been defeated...`, 'entry-hp');
+    if (typeof endPlayerControlledNpcLife === 'function') endPlayerControlledNpcLife('defeat');
     G.gameOver = true;
     if (typeof triggerBitterReincarnation === 'function') triggerBitterReincarnation();
     endCombat();

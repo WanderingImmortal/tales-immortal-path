@@ -93,6 +93,8 @@ function renderSectMapHeaderHtml() {
         <div class="sect-stage-badge">${stage.emoji} ${stage.label}</div>
         ${docDef ? `<div class="sect-doctrine-tag">${docDef.emoji} ${docDef.label}</div>` : ''}
     </div>`;
+    const leader = typeof getPlayerControlledNpc === 'function' ? getPlayerControlledNpc() : null;
+    if (leader) html += `<p class="sect-hint">Sect leader · ${escapeSectAttr(leader.name)}</p>`;
     html += `<div class="sect-stat-grid sect-map-stat-grid">
         <div class="sect-stat"><span class="label">Renown</span><span class="value">${G.sect.renown || 0}</span></div>
         <div class="sect-stat"><span class="label">Disciples</span><span class="value">${getDiscipleCount()}</span></div>

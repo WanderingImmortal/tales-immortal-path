@@ -193,7 +193,7 @@ function calcNpcCombatStats(npc, type) {
 }
 
 function startNpcCombat(npc, type) {
-    if (!npc?.alive || G.inCombat) return false;
+    if (!npc?.alive || G.inCombat || (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc))) return false;
     ensureNpcQuestState();
     const stats = calcNpcCombatStats(npc, type);
     const suffix = type === 'demonic' ? '(Demonic Talent)' : '(Rival)';
