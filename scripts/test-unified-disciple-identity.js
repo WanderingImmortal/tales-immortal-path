@@ -336,21 +336,36 @@ test('ambiguous legacy recruits preserve the disciple without reviving a guessed
     `), true);
 });
 
-test('new NPCs initialize all three tracks and procedural focus can be Qi, Body or Soul', () => {
+test('procedural NPCs start with realm and progress on their chosen focus', () => {
     const run = newGame();
     assert.equal(run(`
         const focuses = new Set();
         for (let i = 0; i < 24; i++) {
             const person = generateWorldNpc('dustbone', { roleId: 'wanderer', realmIdx: 1, allowRandomDemonic: false });
-            const { focusTrack, dantian, vessel, spirit } = person.cultivation;
-            if (dantian.realmIdx !== 1 || dantian.growthProgress !== person.growthProgress ||
-                vessel.realmIdx || vessel.growthProgress || spirit.realmIdx || spirit.growthProgress) {
-                throw new Error('Unexpected starting cultivation');
+            const { focusTrack, dantian } = person.cultivation;
+            const focused = person.cultivation[focusTrack];
+            const otherTracks = CULTIVATION_TRACKS.filter(track => track !== focusTrack);
+            if (focused.realmIdx !== 1 || focused.growthProgress < 0 || focused.growthProgress >= 40 ||
+                person.realmIdx !== dantian.realmIdx || person.growthProgress !== dantian.growthProgress ||
+                otherTracks.some(track => person.cultivation[track].realmIdx || person.cultivation[track].growthProgress)) {
+                throw new Error('Unexpected starting cultivation for ' + focusTrack);
             }
             focuses.add(focusTrack);
         }
         [...focuses].sort().join()
     `), 'dantian,spirit,vessel');
+});
+
+test('authored and demonic Qi specialists retain their starting realms', () => {
+    const run = newGame();
+    assert.equal(run(`
+        setTrackRealmIdx('dantian', 2);
+        const authored = createSectDiscipleNpc('Liang Chen', null, 'liang_chen');
+        const demonic = generateWorldNpc('dustbone', { roleId: 'demonic_talent', forceDemonic: true, realmIdx: 1 });
+        authored.cultivation.focusTrack === 'dantian' && authored.realmIdx === 2 &&
+            authored.cultivation.dantian.realmIdx === 2 && demonic.cultivation.focusTrack === 'dantian' &&
+            demonic.realmIdx === 1 && demonic.cultivation.dantian.realmIdx === 1
+    `), true);
 });
 
 test('a legacy NPC keeps its realm and growth as Qi even above its current growth ceiling', () => {
@@ -459,11 +474,13 @@ test('ambient promotion and lesser-sect registration initialize the world NPC tr
         const stranger = spawnAmbientNpc('dustbone');
         const stateBefore = stranger.cultivation;
         setNpcCultivationFocus(stranger, 'spirit');
+        stranger.role = 'wanderer';
         stranger.realmBand = 'foundation';
         promoteAmbientToPersistent(stranger);
         const promoted = stranger.state === 'persistent' && stranger.cultivation === stateBefore &&
             stranger.cultivation.focusTrack === 'spirit' &&
-            stranger.realmIdx === stranger.cultivation.dantian.realmIdx;
+            stranger.cultivation.spirit.realmIdx >= 1 && stranger.cultivation.dantian.realmIdx === 0 &&
+            stranger.realmIdx === 0 && stranger.growthProgress === 0;
         const lesserSect = { sects: [{
             id: 'pine_branch', zone: 'dustbone',
             members: [{ uid: 'pine_member', name: 'Bo', role: 'disciple', realmIdx: 2 }]

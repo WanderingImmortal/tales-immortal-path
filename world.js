@@ -1321,14 +1321,14 @@ function generateWorldNpc(zoneId, options) {
     const ageYears = role.cultivator === false
         ? 18 + Math.floor(Math.random() * 40)
         : 16 + Math.floor(Math.random() * 20) + realmIdx * 8;
+    const name = options.name || rollWorldNpcName();
+    const growthProgress = Math.floor(Math.random() * 40);
     const npc = {
         uid,
-        name: options.name || rollWorldNpcName(),
+        name,
         role: roleId,
         zone: zoneId,
-        realmIdx,
         ageMonths: ageYears * 12,
-        growthProgress: Math.floor(Math.random() * 40),
         growthRate: isDemonic ? NPC_ROLES.demonic_talent.growthRate : role.growthRate,
         isDemonicTalent: isDemonic,
         demonicThreat: isDemonic ? 5 : 0,
@@ -1341,10 +1341,12 @@ function generateWorldNpc(zoneId, options) {
             ? (G.ageMonths || 0) + pickWorldNpcWanderInterval()
             : null
     };
-    // Preserve the ecosystem's starting Qi baseline. Focus controls future growth.
     const focus = CULTIVATION_TRACKS.includes(options.focusTrack)
         ? options.focusTrack : (isDemonic ? 'dantian' : rollNpcCultivationFocus(role));
-    setNpcCultivationFocus(npc, focus);
+    const cultivation = ensureNpcCultivation(npc);
+    cultivation.focusTrack = focus;
+    cultivation[focus] = { realmIdx, growthProgress };
+    syncNpcCultivationLegacyFields(npc);
     if (options.personalities?.length) npc.personalities = options.personalities.slice();
     else ensureNpcPersonalities(npc);
     if (typeof ensureNpcCharacterFoundation === 'function') ensureNpcCharacterFoundation(npc);

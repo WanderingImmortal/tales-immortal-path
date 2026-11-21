@@ -252,7 +252,9 @@ function promoteAmbientToPersistent(npc, context) {
     npc.name = rollPersistentNpcName();
     npc.unnamed = false;
     const cultivation = ensureNpcCultivation(npc);
-    cultivation.dantian.realmIdx = Math.min(resolveRealmFromBand(npc.realmBand), getWorldNpcMaxRealm(npc));
+    const focus = cultivation.focusTrack;
+    const track = cultivation[focus];
+    track.realmIdx = Math.min(resolveRealmFromBand(npc.realmBand), getWorldNpcMaxRealm(npc, focus));
     npc.recentBeat = generateRecentBeat(npc);
     npc.metAtMonth = G.ageMonths || 0;
     npc.metAtZone = context.zoneId || npc.zone;
@@ -265,7 +267,7 @@ function promoteAmbientToPersistent(npc, context) {
     npc.metBefore = true;
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
     npc.growthRate = role.growthRate || 0;
-    cultivation.dantian.growthProgress = Math.floor(Math.random() * 40);
+    track.growthProgress = Math.floor(Math.random() * 40);
     syncNpcCultivationLegacyFields(npc);
     if (role.canWander) {
         npc.wanderDueMonths = (G.ageMonths || 0) + pickWorldNpcWanderInterval();
