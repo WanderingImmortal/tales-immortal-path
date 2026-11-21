@@ -30,6 +30,20 @@ The Mad Arhat Da Chi repeatedly arrives seeking a fight, disrupting the Sword Im
 
 ---
 
+## Sword Immortal — the sect as his sword
+
+**Provisional character metaphor, not a literal technique or structural analogy.** The Sword Immortal loves the Celestial Sword Sect about as deeply as he loves the sword. Because Sword Dao shapes how he sees the world, he instinctively thinks of the sect as *his sword*: something he has devoted ages to forging and trusts to answer when called upon. He does not try to map disciples to hilts, guards, or edges; the image is emotional, not mechanical or mystical.
+
+His seclusion and lack of interest in daily administration are not indifference. He trusts the sect, and especially Yun Jian, to act without his constant direction. He also answers when the mountain truly needs him. The sect is loved for its own sake, not merely as a tool for pursuing greater Sword Dao. This does not imply ownership of its members or that every decision must reflect his preferences.
+
+**Possible conversational expression (not fixed dialogue):**
+
+> “Would you draw a sword you did not trust?”
+
+> “A sword does not cease to be a good sword because its edge has chipped.”
+
+**Related character beat:** Yun Jian, who reveres the ancestor and handles the mountain's affairs, may assume the ancestor is painstakingly writing a heavenly scripture *for the sect*. In fact, the Solitary Sword Path is his battered working diary, full of failed experiments and Da Chi interruptions. Yun Jian's mistake is affectionate admiration, not resentment; the ancestor genuinely loves the sect even if his private research is not primarily an institutional project.
+
 ## New loose ideas
 
 Add future moments below, retaining attribution and provisional status. Avoid turning this scratchpad into a substitute for the sect or character lore files.
