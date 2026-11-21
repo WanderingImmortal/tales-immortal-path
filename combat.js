@@ -507,7 +507,7 @@ function handlePlayerCombatDefeat() {
     G.hp = 0;
     addCombatLog(`💀 You have been defeated...`, 'entry-hp');
     G.gameOver = true;
-    if (typeof triggerBitterReincarnation === 'function') setTimeout(() => triggerBitterReincarnation(), 600);
+    if (typeof triggerBitterReincarnation === 'function') triggerBitterReincarnation();
     endCombat();
 }
 

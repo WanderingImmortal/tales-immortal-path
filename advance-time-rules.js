@@ -84,7 +84,7 @@ function handlePlayerLifespanExhaustion() {
     if (typeof trySectLeaderSuccessionOnDeath === 'function' && trySectLeaderSuccessionOnDeath()) return;
     G.gameOver = true;
     addLog(`💀 Your lifespan ends at ${formatYears(getPlayerLifespanMonths())}. The Dao remains unclaimed...`);
-    if (typeof triggerBitterReincarnation === 'function') setTimeout(() => triggerBitterReincarnation(), 600);
+    if (typeof triggerBitterReincarnation === 'function') triggerBitterReincarnation();
 }
 
 function interruptPlayerTime(reason) {

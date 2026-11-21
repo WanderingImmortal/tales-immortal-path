@@ -1062,6 +1062,7 @@ function initLifespan() {
 }
 
 // ===== SAVE / LOAD =====
+const RUN_SAVE_KEY = 'xianxia_save';
 let saveFailure = null;
 let loadFailure = null;
 let loadingSave = false;
@@ -1081,25 +1082,28 @@ function reportPersistenceFailure(operation, stage, error, previous) {
     return failure;
 }
 
-function showSaveFailure(message) {
-    const notice = typeof document === 'undefined' ? null : document.getElementById?.('save-status');
+function showSaveFailure(message, elementId = 'save-status') {
+    const notice = typeof document === 'undefined' ? null : document.getElementById?.(elementId);
     if (notice && notice.textContent !== message) {
         notice.textContent = message;
         notice.hidden = !message;
     }
 }
 
-function saveState() {
-    if (loadingSave || loadFailure) return false;
+function saveState(options = {}) {
+    if (loadingSave || loadFailure || !G.name) return false;
+    if (typeof isLegacyReadBlocked === 'function' && isLegacyReadBlocked()) return false;
+    if (G.reincarnationIntent && !options.writeReincarnationIntent) return false;
 
     let stage = 'serialize';
     try {
         G.currentZone = currentZone;
+        if (typeof ensureRunId === 'function') ensureRunId();
         if (typeof prepareGameStateForSave === 'function') prepareGameStateForSave();
         const snapshot = JSON.stringify(G);
         stage = 'write';
         // Web Storage leaves the old value intact when setItem fails.
-        localStorage.setItem('xianxia_save', snapshot);
+        localStorage.setItem(RUN_SAVE_KEY, snapshot);
     } catch (error) {
         saveFailure = reportPersistenceFailure('save', stage, error, saveFailure);
         showSaveFailure(saveFailure.name === 'QuotaExceededError'
@@ -1110,6 +1114,7 @@ function saveState() {
 
     if (saveFailure) showSaveFailure('');
     saveFailure = null;
+    if (typeof commitSavedCarryPerk === 'function') commitSavedCarryPerk();
     return true;
 }
 
@@ -1140,7 +1145,7 @@ function loadState() {
     let stage = 'read';
     loadingSave = true;
     try {
-        const raw = localStorage.getItem('xianxia_save');
+        const raw = localStorage.getItem(RUN_SAVE_KEY);
         if (raw === null) {
             loadFailure = null;
             return false;
@@ -1149,6 +1154,7 @@ function loadState() {
         const data = JSON.parse(raw);
         stage = 'validate';
         validateLoadedSave(data);
+        if (typeof validateReincarnationState === 'function') validateReincarnationState(data);
 
         stage = 'migrate';
         // Legacy migration helpers read G. Give them an isolated candidate and block saves
@@ -1164,6 +1170,9 @@ function loadState() {
     } finally {
         loadingSave = false;
     }
+
+    if (G.reincarnationIntent) return true;
+    if (typeof commitSavedCarryPerk === 'function') commitSavedCarryPerk();
 
     // Settling activities can render or save. Run it only after migration commits, retaining
     // the existing attention checks and catch-up behavior.
@@ -1370,6 +1379,6 @@ function recoverLoadedPlayerActivity() {
 
 function resetGame() {
     if (!confirm("Reset your cultivation journey? All progress lost.")) return;
-    localStorage.removeItem('xianxia_save');
+    localStorage.removeItem(RUN_SAVE_KEY);
     location.reload();
 }

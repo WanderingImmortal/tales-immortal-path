@@ -457,7 +457,6 @@ function applyDrawbackStartingEffects() {
 }
 
 function setupCreation(refreshOnly) {
-    if (typeof loadLegacy === 'function') loadLegacy();
     renderLegacyChroniclePanel(document.getElementById('legacyChroniclePanel'));
     renderCreationSpiritCompositions();
     renderCreationSpiritGrades();
@@ -564,7 +563,6 @@ function setupCreation(refreshOnly) {
             const traitIds = [...creationState.selectedTraits];
             G.traits = traitIds.map(id => TRAIT_BY_ID[id]).filter(Boolean);
             G.trait = G.traits[0] || null;
-            G._reincarnationHandled = false;
             G.gameOver = false;
             G.inCombat = false;
             G.combatPhase = 'player';
@@ -763,15 +761,8 @@ function setupCreation(refreshOnly) {
         addLog(`🚶 You begin without a sect. Earn Fame, then found your legacy from the Sect panel.`);
         if (typeof grantStarterGear === 'function') grantStarterGear();
         if (typeof grantStarterAlchemyMaterials === 'function') grantStarterAlchemyMaterials();
-        document.getElementById('creation-screen').style.display = 'none';
-        document.getElementById('game-screen').style.display = 'flex';
-        if (typeof resetWorldClockForGameStart === 'function') resetWorldClockForGameStart();
-        fullRender();
-        if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
-        saveState();
-        setTimeout(function() {
-            if (typeof triggerTutorial === 'function') triggerTutorial('first_boot');
-        }, 500);
+        if (G.carryPerkReceipt) saveCarriedLifeAndEnter();
+        else enterCreatedGame();
         });
     }
 }
@@ -791,15 +782,49 @@ function grantRandomAdeptTechnique() {
 }
 
 
+function enterCreatedGame() {
+    document.getElementById('load-error').hidden = true;
+    document.getElementById('creation-screen').style.display = 'none';
+    document.getElementById('game-screen').style.display = 'flex';
+    if (typeof resetWorldClockForGameStart === 'function') resetWorldClockForGameStart();
+    fullRender();
+    if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
+    saveState();
+    setTimeout(function() {
+        if (typeof triggerTutorial === 'function') triggerTutorial('first_boot');
+    }, 500);
+}
+
+function saveCarriedLifeAndEnter() {
+    if (!saveState()) {
+        showLoadRecovery('Your new life could not be saved. Check browser storage, then retry.', saveCarriedLifeAndEnter);
+        return;
+    }
+    enterCreatedGame();
+}
+
+function showLoadRecovery(message, retry = () => location.reload()) {
+    document.getElementById('creation-screen').style.display = 'none';
+    document.getElementById('game-screen').style.display = 'none';
+    const detail = document.getElementById('load-error-detail');
+    if (detail) detail.textContent = message;
+    document.getElementById('load-error').hidden = false;
+    document.getElementById('retry-load').onclick = retry;
+}
+
 // ===== INIT =====
 function initGame() {
-    if (typeof loadLegacy === 'function') loadLegacy();
+    if (typeof loadLegacy === 'function' && !loadLegacy()) {
+        showLoadRecovery('Legacy progress could not be loaded. Any existing data is untouched. Check browser storage, then retry.');
+        return;
+    }
     const loaded = loadState();
     if (getSaveLoadDiagnostics().loadFailure) {
-        document.getElementById('creation-screen').style.display = 'none';
-        document.getElementById('game-screen').style.display = 'none';
-        document.getElementById('load-error').hidden = false;
-        document.getElementById('retry-load').onclick = () => location.reload();
+        showLoadRecovery('Any data in the existing save slot is untouched. Check browser storage access, then retry.');
+        return;
+    }
+    if (loaded && G.reincarnationIntent) {
+        returnToCreationAfterReincarnation();
         return;
     }
     ensureForbiddenState();
