@@ -2,7 +2,7 @@
 // CORE.JS — Game state, save/load, helpers
 // ============================================
 
-let G = {
+const createInitialGameState = () => ({
     name: "Wandering Immortal",
     path: "qi",
     realmIdx: 0,
@@ -164,7 +164,8 @@ let G = {
     foundationNatureId: null,
     foundationNatureGrade: null,
     worldClock: null
-};
+});
+let G = createInitialGameState();
 
 // ===== HELPERS =====
 function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
@@ -1061,213 +1062,310 @@ function initLifespan() {
 }
 
 // ===== SAVE / LOAD =====
+let saveFailure = null;
+let loadFailure = null;
+let loadingSave = false;
+
+function getSaveLoadDiagnostics() {
+    return {
+        saveFailure: saveFailure && { ...saveFailure },
+        loadFailure: loadFailure && { ...loadFailure }
+    };
+}
+
+function reportPersistenceFailure(operation, stage, error, previous) {
+    const failure = { stage, name: error?.name || 'Error', message: error?.message || String(error) };
+    if (!previous || previous.stage !== stage || previous.name !== failure.name) {
+        console.error(`Game ${operation} failed (${stage}):`, error);
+    }
+    return failure;
+}
+
+function showSaveFailure(message) {
+    const notice = typeof document === 'undefined' ? null : document.getElementById?.('save-status');
+    if (notice && notice.textContent !== message) {
+        notice.textContent = message;
+        notice.hidden = !message;
+    }
+}
+
 function saveState() {
-    G.currentZone = currentZone;
-    if (typeof prepareGameStateForSave === 'function') prepareGameStateForSave();
-    try { localStorage.setItem('xianxia_save', JSON.stringify(G)); } catch(e) {}
+    if (loadingSave || loadFailure) return false;
+
+    let stage = 'serialize';
+    try {
+        G.currentZone = currentZone;
+        if (typeof prepareGameStateForSave === 'function') prepareGameStateForSave();
+        const snapshot = JSON.stringify(G);
+        stage = 'write';
+        // Web Storage leaves the old value intact when setItem fails.
+        localStorage.setItem('xianxia_save', snapshot);
+    } catch (error) {
+        saveFailure = reportPersistenceFailure('save', stage, error, saveFailure);
+        showSaveFailure(saveFailure.name === 'QuotaExceededError'
+            ? 'Game not saved. Browser storage is full. Free up space to resume autosaving.'
+            : 'Game not saved. Check browser storage access and keep this page open until saving resumes.');
+        return false;
+    }
+
+    if (saveFailure) showSaveFailure('');
+    saveFailure = null;
+    return true;
+}
+
+function validateLoadedSave(data) {
+    if (!data || typeof data !== 'object' || Array.isArray(data)
+        || typeof data.name !== 'string' || !data.name.trim()) {
+        throw new TypeError('Expected a saved character object with a name.');
+    }
+    for (const key of ['techniques', 'inventory', 'worldNpcs', 'worldSchedule']) {
+        if (data[key] != null && !Array.isArray(data[key])) {
+            throw new TypeError(`Expected ${key} to be an array.`);
+        }
+    }
+    for (const key of ['cultivation', 'sect', 'worldClock', 'playerActivity']) {
+        if (data[key] != null && (typeof data[key] !== 'object' || Array.isArray(data[key]))) {
+            throw new TypeError(`Expected ${key} to be an object.`);
+        }
+    }
+    if (data.ageMonths != null && (!Number.isFinite(data.ageMonths) || data.ageMonths < 0)) {
+        throw new TypeError('Expected a valid world calendar date.');
+    }
 }
 
 function loadState() {
+    if (loadingSave) return false;
+    const previousState = G;
+    const previousZone = currentZone;
+    let stage = 'read';
+    loadingSave = true;
     try {
         const raw = localStorage.getItem('xianxia_save');
-        if (raw) {
-            const data = JSON.parse(raw);
-            Object.assign(G, data);
-            G.playerBirthMonth = data.playerBirthMonth ?? 0;
-            G.passiveCultivation = data.passiveCultivation ?? null;
-            G._quietTime = G._deferringLogs = G._actionLog = false;
-            G._pendingActionMeta = null;
-            if (G.trait && !G.trait.id && typeof TRAITS !== 'undefined') {
-                const match = TRAITS.find(t => t.name === G.trait.name);
-                if (match) G.trait = match;
-            }
-            if (!G.traits?.length && G.trait) G.traits = [G.trait];
-            if (typeof ensureTalentState === 'function') ensureTalentState();
-            if (typeof ensureHeavenLedgerState === 'function') ensureHeavenLedgerState();
-            if (typeof ensureCultivationMethodState === 'function') ensureCultivationMethodState();
-            if (!G.creationDrawbacks) G.creationDrawbacks = [];
-            if (!G.techniques) G.techniques = [];
-            if (!G.disciples) G.disciples = [];
-            if (!G.log) G.log = [];
-            if (!G.combatLog) G.combatLog = [];
-            if (!G.sectTechs) G.sectTechs = [];
-            if (!G.meridians) G.meridians = Array(13).fill(false);
-            if (!G.meridianAttempts) G.meridianAttempts = Array(13).fill(0);
-            if (!G.physiqueUnlocked) G.physiqueUnlocked = [];
-            if (typeof ensurePhysiqueCultivationState === 'function') ensurePhysiqueCultivationState();
-            if (typeof migratePhysiqueCultivationForExistingSave === 'function') migratePhysiqueCultivationForExistingSave();
-            if (typeof syncPhysiqueBonuses === 'function') syncPhysiqueBonuses();
-            if (!G.daoFragments) G.daoFragments = [];
-            if (!G.trueDaos) G.trueDaos = [];
-            if (!G.primeDaos) G.primeDaos = [];
-            if (!G.mergedDaos) G.mergedDaos = [];
-            if (typeof ensureDaoState === 'function') ensureDaoState();
-            if (!G.weaponIntentChoices) G.weaponIntentChoices = [];
-            if (!G.weaponIntents) G.weaponIntents = [];
-            if (G.activeIntentWeapon == null) G.activeIntentWeapon = null;
-            if (typeof ensureIntentState === 'function') ensureIntentState();
-            if (G.vesselRule === undefined) G.vesselRule = null;
-            if (G.vesselRuleCooldownUntilMonth == null) G.vesselRuleCooldownUntilMonth = 0;
-            if (typeof ensureVesselRuleState === 'function') ensureVesselRuleState();
-            if (G.soulMass === undefined) G.soulMass = null;
-            if (!G.inventory) G.inventory = [];
-            if (!G.legendaryMaterials) G.legendaryMaterials = [];
-            if (typeof ensureGearState === 'function') ensureGearState();
-            if (G.travelRingId === undefined) G.travelRingId = null;
-            if (typeof ensureTravelRing === 'function') ensureTravelRing();
-            if (!G.refinedLegendary) G.refinedLegendary = [];
-            if (G.encounterState === undefined) G.encounterState = null;
-            if (G.encounterCombat === undefined) G.encounterCombat = null;
-            if (G.ancientGuardianCombat === undefined) G.ancientGuardianCombat = null;
-            if (G.tribulationState === undefined) G.tribulationState = null;
-            if (G.tribulationCombat === undefined) G.tribulationCombat = null;
-            if (!G.tribulationMarks) G.tribulationMarks = [];
-            if (!G.transcendencePerks) G.transcendencePerks = [];
-            G.transcendencePerkOffer = data.transcendencePerkOffer ?? null;
-            G.lastTribulationCue = null;
-            G.lastTranscendenceCue = null;
-            if (typeof migrateSaveToCultivationTracks === 'function') {
-                // Earlier load hooks may initialize tracks or sync the legacy mirrors.
-                // Migrate from the saved fields, including when an older save is loaded again.
-                G.cultivation = data.cultivation;
-                G._cultivationTracksMigrated = data._cultivationTracksMigrated;
-                G.path = data.path;
-                G.realmIdx = data.realmIdx;
-                G.realmConsolidation = data.realmConsolidation;
-                migrateSaveToCultivationTracks();
-            }
-            else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
-            if (typeof migrateNineRealmLadder === 'function') {
-                G.mortalLadderVersion = data.mortalLadderVersion;
-                G._nineRealmLadderMigrated = data._nineRealmLadderMigrated;
-                migrateNineRealmLadder();
-            }
-            if (typeof repairCultivationRealmSync === 'function') repairCultivationRealmSync();
-            if (typeof clearStuckChamberOverlayFlags === 'function') clearStuckChamberOverlayFlags();
-            // Soul Mass after track/embryo migration so latent↔active split sees correct soul birth state.
-            if (typeof ensureSoulMassState === 'function') ensureSoulMassState();
-            if (typeof migrateConsolidationState === 'function') migrateConsolidationState();
-            else if (typeof ensureConsolidationState === 'function') ensureConsolidationState();
-            if (typeof ensureCultivationBaseState === 'function') ensureCultivationBaseState();
-            if (typeof migrateCultivationBaseFromLegacy === 'function') migrateCultivationBaseFromLegacy();
-            if (typeof migrateQiSystem === 'function') migrateQiSystem();
-            if (typeof migrateTechniqueRenames === 'function') migrateTechniqueRenames();
-            if (typeof migrateTechniqueManuals === 'function') migrateTechniqueManuals();
-            if (typeof migrateLegacyScars === 'function') migrateLegacyScars();
-            if (G.daoAlignment == null) G.daoAlignment = 0;
-            if (!G.alignmentLog) G.alignmentLog = [];
-            if (!G.alignmentActionUses) G.alignmentActionUses = {};
-            if (typeof ensureDaoAlignment === 'function') ensureDaoAlignment();
-            if (typeof ensureAlignmentState === 'function') ensureAlignmentState();
-            if (typeof ensureNpcState === 'function') ensureNpcState();
-            if (typeof migrateSectDiscipleMemberships === 'function') migrateSectDiscipleMemberships();
-            if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
-            if (typeof migrateWellRingLodgeForExistingSave === 'function') migrateWellRingLodgeForExistingSave();
-            else if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
-            if (typeof migrateNpcAgencyFoundationsAndTies === 'function') migrateNpcAgencyFoundationsAndTies();
-            else {
-                if (typeof migrateNpcFoundationsForExistingSave === 'function') migrateNpcFoundationsForExistingSave();
-                if (typeof migrateNpcTiesForExistingSave === 'function') migrateNpcTiesForExistingSave();
-            }
-            if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
-            if (typeof ensureAllWorldNpcRelationships === 'function') ensureAllWorldNpcRelationships();
-            if (G.worldNpcs == null) G.worldNpcs = [];
-            if (G.npcTies == null) G.npcTies = null;
-            if (typeof migrateNpcIncidentsForExistingSave === 'function') migrateNpcIncidentsForExistingSave();
-            if (typeof migrateNpcDecisionsForExistingSave === 'function') migrateNpcDecisionsForExistingSave();
-            if (typeof migrateNpcSituationsForExistingSave === 'function') migrateNpcSituationsForExistingSave();
-            if (typeof migrateNpcAmbitionsForExistingSave === 'function') migrateNpcAmbitionsForExistingSave();
-            if (typeof migrateResourceSourcesForExistingSave === 'function') migrateResourceSourcesForExistingSave();
-            else if (typeof ensureAllAuthoredResourceSources === 'function') ensureAllAuthoredResourceSources();
-            if (G.npcIncidents == null) G.npcIncidents = null;
-            if (G.npcObservations == null) G.npcObservations = null;
-            if (G.npcBeliefs == null) G.npcBeliefs = null;
-            if (G.npcDecisions == null) G.npcDecisions = null;
-            if (G.npcSituationThreads == null) G.npcSituationThreads = null;
-            if (G.npcSituationOutcomes == null) G.npcSituationOutcomes = null;
-            if (G.npcAmbitions == null) G.npcAmbitions = null;
-            if (G.npcGoals == null) G.npcGoals = null;
-            if (G.npcGoalAttempts == null) G.npcGoalAttempts = null;
-            if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
-                scheduleNextDemonicEmergence();
-            }
-            if (!G.worldSchedule) G.worldSchedule = [];
-            if (!G.worldChronicle) G.worldChronicle = [];
-            if (typeof ensureWorldClockState === 'function') ensureWorldClockState();
-            if (typeof ensurePlayerActivityState === 'function') ensurePlayerActivityState();
-            if (typeof migrateWorldScheduleFromLegacy === 'function') migrateWorldScheduleFromLegacy();
-            if (typeof ensureNpcQuestState === 'function') ensureNpcQuestState();
-            if (typeof ensureStoryQuestState === 'function') ensureStoryQuestState();
-            if (typeof ensureExtendedQuestState === 'function') ensureExtendedQuestState();
-            if (typeof syncStoryNpcQuests === 'function') syncStoryNpcQuests();
-            if (typeof syncStoryQuestLog === 'function') syncStoryQuestLog();
-            if (typeof ensureTutorialState === 'function') ensureTutorialState();
-            if (typeof migrateTutorialForExistingSave === 'function') migrateTutorialForExistingSave();
-            if (typeof ensureGearState === 'function') ensureGearState();
-            if (typeof migrateGearForExistingSave === 'function') migrateGearForExistingSave();
-            if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
-            if (typeof migrateAlchemyForExistingSave === 'function') migrateAlchemyForExistingSave();
-            if (typeof ensureForgeState === 'function') ensureForgeState();
-            if (typeof migrateForgeForExistingSave === 'function') migrateForgeForExistingSave();
-            if (typeof ensureSectState === 'function') ensureSectState();
-            if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
-            if (typeof migrateLesserSectsForExistingSave === 'function') migrateLesserSectsForExistingSave();
-            if (typeof migrateWorldPopulationForExistingSave === 'function') migrateWorldPopulationForExistingSave();
-            if (typeof migrateOrganizationProfilesForExistingSave === 'function') migrateOrganizationProfilesForExistingSave();
-            if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
-            if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();
-            if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
-            if (typeof ensureAncientsState === 'function') ensureAncientsState();
-            if (typeof ensureFactionState === 'function') ensureFactionState();
-            ensureAffinities();
-            if (!G.maxHp) G.maxHp = G.hp || 70;
-            if (G.currentZone) currentZone = G.currentZone;
-            else G.currentZone = currentZone;
-            if (typeof getDefaultLocationForZone === 'function') {
-                if (!G.currentLocation) G.currentLocation = getDefaultLocationForZone(G.currentZone || currentZone);
-            }
-            if (typeof ensureLocationState === 'function') ensureLocationState();
-            if (G.ageMonths == null) G.ageMonths = STARTING_AGE_YEARS * 12;
-            if (G.combatResource == null) G.combatResource = 0;
-            if (G.maxCombatResource == null) G.maxCombatResource = 0;
-            if (G.fortifyActive == null) G.fortifyActive = false;
-            if (G.qiExhausted == null) G.qiExhausted = false;
-            if (!G.forbiddenTitles) G.forbiddenTitles = [];
-            if (G.forbiddenLifespanMult == null) G.forbiddenLifespanMult = 1;
-            if (G.mirrorTrial == null) G.mirrorTrial = false;
-            if (G.crucibleTrial == null) G.crucibleTrial = false;
-            if (G.crucibleRegenMult == null) G.crucibleRegenMult = 1;
-            if (G.silenceTrial == null) G.silenceTrial = false;
-            if (G.silenceEchoResist == null) G.silenceEchoResist = 0;
-            if (G.mawTrial == null) G.mawTrial = false;
-            if (G.mawDoubtResist == null) G.mawDoubtResist = 0;
-            if (G.combatPhase == null) G.combatPhase = 'player';
-            if (G.vitalityHpBonus == null) G.vitalityHpBonus = 0;
-            ensurePillStock();
-            applyVitalityToMaxHp();
-            ensureForbiddenState();
-            const attention = typeof getPlayerTimeAttention === 'function' ? getPlayerTimeAttention() : null;
-            if (attention && (G.worldClock?.project || G.worldClock?.stance || G.playerActivity)) {
-                interruptPlayerTime(attention);
-            } else if (G.worldClock?.project && typeof getWorldClockProjectStopReason === 'function') {
-                const blocked = getWorldClockProjectStopReason();
-                if (blocked) cancelWorldClockProject(null, blocked);
-            }
-            try {
-                if (typeof catchUpPlayerActivity === 'function') catchUpPlayerActivity();
-            } catch (activityErr) {
-                console.error('player activity catch-up failed', activityErr);
-            }
-            DAO_FRAGMENT_POOL.filter(f => f.forbiddenClear).forEach(f => {
-                if (G.daoState?.fragments?.includes(f.name) && !getGroundProgress(f.forbiddenClear).cleared) {
-                    G.daoState.fragments = G.daoState.fragments.filter(d => d !== f.name);
-                    syncDaoFragmentArrays();
-                }
-            });
-            return true;
+        if (raw === null) {
+            loadFailure = null;
+            return false;
         }
-    } catch(e) {}
-    return false;
+        stage = 'parse';
+        const data = JSON.parse(raw);
+        stage = 'validate';
+        validateLoadedSave(data);
+
+        stage = 'migrate';
+        // Legacy migration helpers read G. Give them an isolated candidate and block saves
+        // until every migration succeeds. Missing fields start from fresh defaults on each load.
+        G = { ...createInitialGameState(), ...data };
+        migrateLoadedGameState(data);
+        loadFailure = null;
+    } catch (error) {
+        G = previousState;
+        currentZone = previousZone;
+        loadFailure = reportPersistenceFailure('load', stage, error, loadFailure);
+        return false;
+    } finally {
+        loadingSave = false;
+    }
+
+    // Settling activities can render or save. Run it only after migration commits, retaining
+    // the existing attention checks and catch-up behavior.
+    try {
+        recoverLoadedPlayerActivity();
+    } catch (error) {
+        console.error('player activity catch-up failed', error);
+    }
+    return true;
+}
+
+function migrateLoadedGameState(data) {
+    G.playerBirthMonth = data.playerBirthMonth ?? 0;
+    G.passiveCultivation = data.passiveCultivation ?? null;
+    G._quietTime = G._deferringLogs = G._actionLog = false;
+    G._pendingActionMeta = null;
+    if (G.trait && !G.trait.id && typeof TRAITS !== 'undefined') {
+        const match = TRAITS.find(t => t.name === G.trait.name);
+        if (match) G.trait = match;
+    }
+    if (!G.traits?.length && G.trait) G.traits = [G.trait];
+    if (typeof ensureTalentState === 'function') ensureTalentState();
+    if (typeof ensureHeavenLedgerState === 'function') ensureHeavenLedgerState();
+    if (typeof ensureCultivationMethodState === 'function') ensureCultivationMethodState();
+    if (!G.creationDrawbacks) G.creationDrawbacks = [];
+    if (!G.techniques) G.techniques = [];
+    if (!G.disciples) G.disciples = [];
+    if (!G.log) G.log = [];
+    if (!G.combatLog) G.combatLog = [];
+    if (!G.sectTechs) G.sectTechs = [];
+    if (!G.meridians) G.meridians = Array(13).fill(false);
+    if (!G.meridianAttempts) G.meridianAttempts = Array(13).fill(0);
+    if (!G.physiqueUnlocked) G.physiqueUnlocked = [];
+    if (typeof ensurePhysiqueCultivationState === 'function') ensurePhysiqueCultivationState();
+    if (typeof migratePhysiqueCultivationForExistingSave === 'function') migratePhysiqueCultivationForExistingSave();
+    if (typeof syncPhysiqueBonuses === 'function') syncPhysiqueBonuses();
+    if (!G.daoFragments) G.daoFragments = [];
+    if (!G.trueDaos) G.trueDaos = [];
+    if (!G.primeDaos) G.primeDaos = [];
+    if (!G.mergedDaos) G.mergedDaos = [];
+    if (typeof ensureDaoState === 'function') ensureDaoState();
+    if (!G.weaponIntentChoices) G.weaponIntentChoices = [];
+    if (!G.weaponIntents) G.weaponIntents = [];
+    if (G.activeIntentWeapon == null) G.activeIntentWeapon = null;
+    if (typeof ensureIntentState === 'function') ensureIntentState();
+    if (G.vesselRule === undefined) G.vesselRule = null;
+    if (G.vesselRuleCooldownUntilMonth == null) G.vesselRuleCooldownUntilMonth = 0;
+    if (typeof ensureVesselRuleState === 'function') ensureVesselRuleState();
+    if (G.soulMass === undefined) G.soulMass = null;
+    if (!G.inventory) G.inventory = [];
+    if (!G.legendaryMaterials) G.legendaryMaterials = [];
+    if (typeof ensureGearState === 'function') ensureGearState();
+    if (G.travelRingId === undefined) G.travelRingId = null;
+    if (typeof ensureTravelRing === 'function') ensureTravelRing();
+    if (!G.refinedLegendary) G.refinedLegendary = [];
+    if (G.encounterState === undefined) G.encounterState = null;
+    if (G.encounterCombat === undefined) G.encounterCombat = null;
+    if (G.ancientGuardianCombat === undefined) G.ancientGuardianCombat = null;
+    if (G.tribulationState === undefined) G.tribulationState = null;
+    if (G.tribulationCombat === undefined) G.tribulationCombat = null;
+    if (!G.tribulationMarks) G.tribulationMarks = [];
+    if (!G.transcendencePerks) G.transcendencePerks = [];
+    G.transcendencePerkOffer = data.transcendencePerkOffer ?? null;
+    G.lastTribulationCue = null;
+    G.lastTranscendenceCue = null;
+    if (typeof migrateSaveToCultivationTracks === 'function') {
+        // Earlier load hooks may initialize tracks or sync the legacy mirrors.
+        // Migrate from the saved fields, including when an older save is loaded again.
+        G.cultivation = data.cultivation;
+        G._cultivationTracksMigrated = data._cultivationTracksMigrated;
+        G.path = data.path;
+        G.realmIdx = data.realmIdx;
+        G.realmConsolidation = data.realmConsolidation;
+        migrateSaveToCultivationTracks();
+    }
+    else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
+    if (typeof migrateNineRealmLadder === 'function') {
+        G.mortalLadderVersion = data.mortalLadderVersion;
+        G._nineRealmLadderMigrated = data._nineRealmLadderMigrated;
+        migrateNineRealmLadder();
+    }
+    if (typeof repairCultivationRealmSync === 'function') repairCultivationRealmSync();
+    if (typeof clearStuckChamberOverlayFlags === 'function') clearStuckChamberOverlayFlags();
+    // Soul Mass after track/embryo migration so latent↔active split sees correct soul birth state.
+    if (typeof ensureSoulMassState === 'function') ensureSoulMassState();
+    if (typeof migrateConsolidationState === 'function') migrateConsolidationState();
+    else if (typeof ensureConsolidationState === 'function') ensureConsolidationState();
+    if (typeof ensureCultivationBaseState === 'function') ensureCultivationBaseState();
+    if (typeof migrateCultivationBaseFromLegacy === 'function') migrateCultivationBaseFromLegacy();
+    if (typeof migrateQiSystem === 'function') migrateQiSystem();
+    if (typeof migrateTechniqueRenames === 'function') migrateTechniqueRenames();
+    if (typeof migrateTechniqueManuals === 'function') migrateTechniqueManuals();
+    if (typeof migrateLegacyScars === 'function') migrateLegacyScars();
+    if (G.daoAlignment == null) G.daoAlignment = 0;
+    if (!G.alignmentLog) G.alignmentLog = [];
+    if (!G.alignmentActionUses) G.alignmentActionUses = {};
+    if (typeof ensureDaoAlignment === 'function') ensureDaoAlignment();
+    if (typeof ensureAlignmentState === 'function') ensureAlignmentState();
+    if (typeof ensureNpcState === 'function') ensureNpcState();
+    if (typeof migrateSectDiscipleMemberships === 'function') migrateSectDiscipleMemberships();
+    if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
+    if (typeof migrateWellRingLodgeForExistingSave === 'function') migrateWellRingLodgeForExistingSave();
+    else if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();
+    if (typeof migrateNpcAgencyFoundationsAndTies === 'function') migrateNpcAgencyFoundationsAndTies();
+    else {
+        if (typeof migrateNpcFoundationsForExistingSave === 'function') migrateNpcFoundationsForExistingSave();
+        if (typeof migrateNpcTiesForExistingSave === 'function') migrateNpcTiesForExistingSave();
+    }
+    if (typeof ensureAmbientNpcState === 'function') ensureAmbientNpcState();
+    if (typeof ensureAllWorldNpcRelationships === 'function') ensureAllWorldNpcRelationships();
+    if (G.worldNpcs == null) G.worldNpcs = [];
+    if (G.npcTies == null) G.npcTies = null;
+    if (typeof migrateNpcIncidentsForExistingSave === 'function') migrateNpcIncidentsForExistingSave();
+    if (typeof migrateNpcDecisionsForExistingSave === 'function') migrateNpcDecisionsForExistingSave();
+    if (typeof migrateNpcSituationsForExistingSave === 'function') migrateNpcSituationsForExistingSave();
+    if (typeof migrateNpcAmbitionsForExistingSave === 'function') migrateNpcAmbitionsForExistingSave();
+    if (typeof migrateResourceSourcesForExistingSave === 'function') migrateResourceSourcesForExistingSave();
+    else if (typeof ensureAllAuthoredResourceSources === 'function') ensureAllAuthoredResourceSources();
+    if (G.npcIncidents == null) G.npcIncidents = null;
+    if (G.npcObservations == null) G.npcObservations = null;
+    if (G.npcBeliefs == null) G.npcBeliefs = null;
+    if (G.npcDecisions == null) G.npcDecisions = null;
+    if (G.npcSituationThreads == null) G.npcSituationThreads = null;
+    if (G.npcSituationOutcomes == null) G.npcSituationOutcomes = null;
+    if (G.npcAmbitions == null) G.npcAmbitions = null;
+    if (G.npcGoals == null) G.npcGoals = null;
+    if (G.npcGoalAttempts == null) G.npcGoalAttempts = null;
+    if (G.nextDemonicEmergenceMonths == null && typeof scheduleNextDemonicEmergence === 'function') {
+        scheduleNextDemonicEmergence();
+    }
+    if (!G.worldSchedule) G.worldSchedule = [];
+    if (!G.worldChronicle) G.worldChronicle = [];
+    if (typeof ensureWorldClockState === 'function') ensureWorldClockState();
+    if (typeof ensurePlayerActivityState === 'function') ensurePlayerActivityState();
+    if (typeof migrateWorldScheduleFromLegacy === 'function') migrateWorldScheduleFromLegacy();
+    if (typeof ensureNpcQuestState === 'function') ensureNpcQuestState();
+    if (typeof ensureStoryQuestState === 'function') ensureStoryQuestState();
+    if (typeof ensureExtendedQuestState === 'function') ensureExtendedQuestState();
+    if (typeof syncStoryNpcQuests === 'function') syncStoryNpcQuests();
+    if (typeof syncStoryQuestLog === 'function') syncStoryQuestLog();
+    if (typeof ensureTutorialState === 'function') ensureTutorialState();
+    if (typeof migrateTutorialForExistingSave === 'function') migrateTutorialForExistingSave();
+    if (typeof ensureGearState === 'function') ensureGearState();
+    if (typeof migrateGearForExistingSave === 'function') migrateGearForExistingSave();
+    if (typeof ensureAlchemyState === 'function') ensureAlchemyState();
+    if (typeof migrateAlchemyForExistingSave === 'function') migrateAlchemyForExistingSave();
+    if (typeof ensureForgeState === 'function') ensureForgeState();
+    if (typeof migrateForgeForExistingSave === 'function') migrateForgeForExistingSave();
+    if (typeof ensureSectState === 'function') ensureSectState();
+    if (typeof migrateSectForExistingSave === 'function') migrateSectForExistingSave();
+    if (typeof migrateLesserSectsForExistingSave === 'function') migrateLesserSectsForExistingSave();
+    if (typeof migrateWorldPopulationForExistingSave === 'function') migrateWorldPopulationForExistingSave();
+    if (typeof migrateOrganizationProfilesForExistingSave === 'function') migrateOrganizationProfilesForExistingSave();
+    if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
+    if (typeof migrateMilestonesFromLegacy === 'function') migrateMilestonesFromLegacy();
+    if (typeof initActionUnlockSnapshot === 'function') initActionUnlockSnapshot();
+    if (typeof ensureAncientsState === 'function') ensureAncientsState();
+    if (typeof ensureFactionState === 'function') ensureFactionState();
+    ensureAffinities();
+    if (!G.maxHp) G.maxHp = G.hp || 70;
+    if (G.currentZone) currentZone = G.currentZone;
+    else G.currentZone = currentZone;
+    if (typeof getDefaultLocationForZone === 'function') {
+        if (!G.currentLocation) G.currentLocation = getDefaultLocationForZone(G.currentZone || currentZone);
+    }
+    if (typeof ensureLocationState === 'function') ensureLocationState();
+    if (G.ageMonths == null) G.ageMonths = STARTING_AGE_YEARS * 12;
+    if (G.combatResource == null) G.combatResource = 0;
+    if (G.maxCombatResource == null) G.maxCombatResource = 0;
+    if (G.fortifyActive == null) G.fortifyActive = false;
+    if (G.qiExhausted == null) G.qiExhausted = false;
+    if (!G.forbiddenTitles) G.forbiddenTitles = [];
+    if (G.forbiddenLifespanMult == null) G.forbiddenLifespanMult = 1;
+    if (G.mirrorTrial == null) G.mirrorTrial = false;
+    if (G.crucibleTrial == null) G.crucibleTrial = false;
+    if (G.crucibleRegenMult == null) G.crucibleRegenMult = 1;
+    if (G.silenceTrial == null) G.silenceTrial = false;
+    if (G.silenceEchoResist == null) G.silenceEchoResist = 0;
+    if (G.mawTrial == null) G.mawTrial = false;
+    if (G.mawDoubtResist == null) G.mawDoubtResist = 0;
+    if (G.combatPhase == null) G.combatPhase = 'player';
+    if (G.vitalityHpBonus == null) G.vitalityHpBonus = 0;
+    ensurePillStock();
+    applyVitalityToMaxHp();
+    ensureForbiddenState();
+    DAO_FRAGMENT_POOL.filter(f => f.forbiddenClear).forEach(f => {
+        if (G.daoState?.fragments?.includes(f.name) && !getGroundProgress(f.forbiddenClear).cleared) {
+            G.daoState.fragments = G.daoState.fragments.filter(d => d !== f.name);
+            syncDaoFragmentArrays();
+        }
+    });
+}
+
+function recoverLoadedPlayerActivity() {
+    const attention = typeof getPlayerTimeAttention === 'function' ? getPlayerTimeAttention() : null;
+    if (attention && (G.worldClock?.project || G.worldClock?.stance || G.playerActivity)) {
+        interruptPlayerTime(attention);
+    } else if (G.worldClock?.project && typeof getWorldClockProjectStopReason === 'function') {
+        const blocked = getWorldClockProjectStopReason();
+        if (blocked) cancelWorldClockProject(null, blocked);
+    }
+    if (typeof catchUpPlayerActivity === 'function') catchUpPlayerActivity();
 }
 
 function resetGame() {

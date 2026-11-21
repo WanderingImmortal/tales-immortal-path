@@ -18,6 +18,13 @@
         <div id="playtestModeBanner" class="playtest-mode-banner" aria-live="polite">⚗️ PLAYTEST MODE</div>
     </header>
 
+    <p id="save-status" role="alert" hidden></p>
+    <section id="load-error" aria-labelledby="load-error-title" hidden>
+        <h2 id="load-error-title">Could not load your game</h2>
+        <p>Any data in the existing save slot is untouched. Check browser storage access, then retry.</p>
+        <button type="button" id="retry-load">Retry loading</button>
+    </section>
+
     <!-- CHARACTER CREATION -->
     <div id="creation-screen" class="creation-screen">
         <aside class="creation-art creation-art-left" aria-hidden="true">
@@ -1508,9 +1515,9 @@
 <script src="cultivation-tracks.js?v=5"></script>
 <script src="talent.js?v=2"></script>
 <script src="legacy.js?v=2"></script>
-<script src="world-scheduler.js?v=6"></script>
+<script src="world-scheduler.js?v=7"></script>
 <script src="advance-time-rules.js?v=4"></script>
-<script src="core.js?v=52"></script>
+<script src="core.js?v=53"></script>
 <script src="qi-density.js?v=2"></script>
 <script src="qi-purity.js?v=1"></script>
 <script src="qc-fe-foundation.js?v=1"></script>
@@ -1599,6 +1606,6 @@
 <script src="phone-playtest.js?v=2"></script>
 <script src="action-help.js?v=1"></script>
 <script src="overlay-keyboard.js?v=2"></script>
-<script src="main.js?v=51"></script>
+<script src="main.js?v=52"></script>
 </body>
 </html>
