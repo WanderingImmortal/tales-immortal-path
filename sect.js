@@ -61,11 +61,7 @@ function ensureSectState() {
     if (G.sect.foundedLocationId === undefined) G.sect.foundedLocationId = null;
     ensureSectReputation();
     if (G.sect.stage && G.sect.stage !== 'wandering' && !G.sect.doctrine) inferSectDoctrineFromAlignment();
-    syncDisciplesFromLegacy();
-    syncSectLegacyFields();
-    G.sect.discipleRecords.forEach(d => {
-        if (!d.knownTechniques) d.knownTechniques = [];
-    });
+    migrateSectDiscipleMemberships();
     if (typeof ensureResidenceStash === 'function') ensureResidenceStash();
 }
 
@@ -251,32 +247,115 @@ function renderDoctrinePickerHtml() {
         </div>`;
 }
 
-function syncDisciplesFromLegacy() {
-    if (!G.sect?.discipleRecords) return;
-    (G.disciples || []).forEach(name => {
-        if (typeof name !== 'string') return;
-        if (!G.sect.discipleRecords.some(d => d.name === name)) {
-            G.sect.discipleRecords.push(createDiscipleRecord(name, 'acolyte'));
-        }
+function getDiscipleNpc(membership) {
+    return membership ? getWorldNpcByUid(membership.uid) : null;
+}
+
+function getSectDiscipleMembership(uid) {
+    return G.sect?.discipleRecords?.find(member => member.uid === uid) || null;
+}
+
+function hasOtherSectMembership(npc) {
+    return !!(npc.lesserSectId || npc.affiliationId || G.world?.lesserSects?.sects?.some(sect =>
+        sect.members?.some(member => member.uid === npc.uid)
+    ));
+}
+
+function createSectDiscipleNpc(name, legacyUid, authoredNpcId) {
+    const zone = G.sect.foundedZone || getMainZoneId() || 'dustbone';
+    const authored = authoredNpcId && NPCS[authoredNpcId];
+    const preferredUid = authoredNpcId || legacyUid;
+    const uid = !G.worldNpcs?.some(other => other.uid === preferredUid) ? preferredUid : undefined;
+    const npc = generateWorldNpc(zone, {
+        uid,
+        name,
+        roleId: authored ? 'rival' : 'disciple',
+        realmIdx: authored?.strengthScalesWithPlayer ? G.realmIdx : authored?.strengthRealm,
+        personalities: authored?.personalities,
+        allowRandomDemonic: false
     });
+    if (authored) {
+        const storyRecord = G.npcState?.[authoredNpcId];
+        npc.met = !!storyRecord?.met;
+        npc.talkCount = storyRecord?.talkCount || 0;
+    }
+    npc.state = 'persistent';
+    if (!G.worldNpcs) G.worldNpcs = [];
+    G.worldNpcs.push(npc);
+    return npc;
+}
+
+function createDiscipleMembership(npc, role, joinedMonths) {
+    if (!npc.sectTemperament) {
+        npc.sectTemperament = typeof rollDiscipleTraitId === 'function' ? rollDiscipleTraitId() : 'loyal';
+    }
+    return { uid: npc.uid, role: role || 'acolyte', joinedMonths };
+}
+
+function migrateSectDiscipleMemberships() {
+    if (G.sect?.discipleIdentityVersion === 1) return;
+    const legacyNames = (G.disciples || []).filter(name => typeof name === 'string');
+    if (!G.sect) {
+        if (!legacyNames.length && !G.sectName) return;
+        G.sect = createEmptySectState();
+    }
+    const legacyRecords = G.sect.discipleRecords || [];
+    const hadNamedSect = G.sectName && G.sectName !== 'Wandering Sect';
+    if (getSectStageId() === 'wandering' && (legacyNames.length || legacyRecords.length || hadNamedSect)) {
+        G.sect.stage = 'founding';
+        G.sect.name = G.sectName || (G.name + "'s Sect");
+        G.sect.foundedAtMonths = G.sect.foundedAtMonths || G.ageMonths || 0;
+        G.sect.renown = Math.max(G.sect.renown || 0, Math.max(legacyNames.length, legacyRecords.length) * 3 + Math.floor((G.fame || 0) / 5));
+    }
+    const representedNames = new Set(legacyRecords.map(record => record.name));
+    const records = legacyRecords.concat([...new Set(legacyNames)]
+        .filter(name => !representedNames.has(name))
+        .map(name => ({ name })));
+    const studies = G.sect.buildingMeta?.manual_hall?.studies || [];
+    const liangArc = G.storyArcState?.liang_chen_rival;
+    const liangJoined = ['ally', 'recruit'].includes(liangArc?.liangFate || liangArc?.flags?.resolutionChoice);
+    const redemption = G.demonicRedemption;
+    const redeemedNpc = redemption?.status === 'complete' && G.questJournal?.some(entry =>
+        entry.arcId === 'demonic_redemption' && entry.resolution === 'redeem')
+        ? getWorldNpcByUid(redemption.targetUid) : null;
+    G.sect.discipleRecords = records.map(record => {
+        // The old save stored only the name on both sides of recruitment.
+        const candidates = (G.worldNpcs || []).filter(npc => npc.recruitedToSect && !npc.alive && npc.name === record.name);
+        const uniqueRecord = records.filter(other => other.name === record.name).length === 1;
+        let npc = candidates.length === 1 && uniqueRecord && !hasOtherSectMembership(candidates[0]) ? candidates[0] : null;
+        if (redeemedNpc && uniqueRecord && record.name === redeemedNpc.name && !hasOtherSectMembership(redeemedNpc)) {
+            npc = redeemedNpc;
+        }
+        if (npc) {
+            npc.alive = true;
+            npc.state = 'persistent';
+            delete npc.recruitedToSect;
+        } else {
+            const authoredNpcId = uniqueRecord && liangJoined && record.name === NPCS.liang_chen.name
+                ? 'liang_chen' : null;
+            npc = createSectDiscipleNpc(record.name, record.uid, authoredNpcId);
+            if (authoredNpcId) liangArc.joinedWorldRoster = true;
+        }
+        npc.sectTemperament ||= record.trait;
+        if (record.knownTechniques?.length) {
+            npc.knownTechniques = [...new Set([...(npc.knownTechniques || []), ...record.knownTechniques])];
+        }
+        if (record.uid && record.uid !== npc.uid) {
+            studies.filter(study => study.discipleUid === record.uid).forEach(study => {
+                study.discipleUid = npc.uid;
+            });
+        }
+        return createDiscipleMembership(npc, record.role, record.joinedMonths ?? (G.ageMonths || 0));
+    });
+    studies.forEach(study => { delete study.discipleName; });
+    G.sect.discipleIdentityVersion = 1;
+    syncSectLegacyFields();
 }
 
 function migrateSectForExistingSave() {
     ensureSectState();
+    syncSectLegacyFields();
     if (G._sectMigrated) return;
-    const legacyNames = (G.disciples || []).filter(n => typeof n === 'string');
-    const hadNamedSect = G.sectName && G.sectName !== 'Wandering Sect';
-    if (G.sect.stage === 'wandering' && (legacyNames.length > 0 || hadNamedSect)) {
-        G.sect.stage = 'founding';
-        G.sect.name = G.sectName || (G.name + "'s Sect");
-        G.sect.foundedAtMonths = G.sect.foundedAtMonths || G.ageMonths || 0;
-        G.sect.renown = Math.max(G.sect.renown, legacyNames.length * 3 + Math.floor((G.fame || 0) / 5));
-    }
-    legacyNames.forEach(name => {
-        if (!G.sect.discipleRecords.some(d => d.name === name)) {
-            G.sect.discipleRecords.push(createDiscipleRecord(name, 'acolyte'));
-        }
-    });
     if (G.sect.stage !== 'wandering' && !G.sect.name) {
         G.sect.name = G.sectName || (G.name + "'s Sect");
     }
@@ -288,7 +367,6 @@ function migrateSectForExistingSave() {
         if (!G.sect.residence) G.sect.residence = { level: 0, stash: [], lastRestMonths: null, formations: { slots: [] } };
         if (typeof migrateFormationsForExistingSave === 'function') migrateFormationsForExistingSave();
     }
-    syncSectLegacyFields();
     G._sectMigrated = true;
 }
 
@@ -300,7 +378,7 @@ function syncSectLegacyFields() {
         G.sectName = G.sect.name || (G.name + "'s Sect");
         G.sect.name = G.sectName;
     }
-    G.disciples = G.sect.discipleRecords.map(d => d.name);
+    G.disciples = G.sect.discipleRecords.map(getDiscipleNpc).filter(Boolean).map(npc => npc.name);
 }
 
 function getSectStageId() {
@@ -469,35 +547,48 @@ function getDiscipleCount() {
     return G.sect.discipleRecords.length;
 }
 
-function createDiscipleRecord(name, role) {
-    const trait = typeof rollDiscipleTraitId === 'function' ? rollDiscipleTraitId() : 'loyal';
-    return {
-        uid: `disc_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
-        name,
-        role: role || 'acolyte',
-        trait,
-        joinedMonths: G.ageMonths || 0,
-        knownTechniques: []
-    };
+function joinPlayerSect(npc, role) {
+    if (!npc?.uid || getWorldNpcByUid(npc.uid) !== npc || npc.state === 'ambient'
+        || getSectDiscipleMembership(npc.uid) || hasOtherSectMembership(npc)) return null;
+    const membership = createDiscipleMembership(npc, role, G.ageMonths || 0);
+    G.sect.discipleRecords.push(membership);
+    syncSectLegacyFields();
+    return membership;
 }
 
-function addSectDisciple(name, role, options) {
+function addSectDisciple(npcOrName, role, options) {
     ensureSectState();
-    options = options || {};
-    if (G.sect.discipleRecords.some(d => d.name === name)) return null;
-    const record = createDiscipleRecord(name, role || 'acolyte');
-    G.sect.discipleRecords.push(record);
-    syncSectLegacyFields();
-    if (options.announceTrait !== false && typeof getDiscipleTraitDef === 'function') {
-        const td = getDiscipleTraitDef(record.trait);
-        addLog(`${td.emoji} ${name} shows a ${td.label.toLowerCase()} temperament — ${td.desc}`);
+    let npc = npcOrName;
+    if (typeof npcOrName === 'string') {
+        if (options?.authoredNpcId) {
+            if (G.worldNpcs?.some(other => other.uid === options.authoredNpcId)) return null;
+        } else if (G.disciples.includes(npcOrName)) {
+            return null;
+        }
+        npc = createSectDiscipleNpc(npcOrName, null, options?.authoredNpcId);
+    }
+    const record = joinPlayerSect(npc, role);
+    if (!record) return null;
+    if (options?.announceTrait !== false && typeof getDiscipleTraitDef === 'function') {
+        const td = getDiscipleTraitDef(npc.sectTemperament);
+        addLog(`${td.emoji} ${npc.name} shows a ${td.label.toLowerCase()} temperament — ${td.desc}`);
     }
     return record;
 }
 
+function removeSectDisciple(uid) {
+    const records = G.sect?.discipleRecords;
+    const index = records?.findIndex(member => member.uid === uid) ?? -1;
+    if (index < 0) return;
+    records.splice(index, 1);
+    const hall = G.sect.buildingMeta?.manual_hall;
+    if (hall?.studies) hall.studies = hall.studies.filter(study => study.discipleUid !== uid);
+    syncSectLegacyFields();
+}
+
 function rollRecruitName() {
     const pool = SECT_RECRUIT_NAMES.filter(n =>
-        !G.sect.discipleRecords.some(d => d.name === n)
+        !G.disciples.includes(n)
     );
     const names = pool.length ? pool : SECT_RECRUIT_NAMES;
     return names[Math.floor(Math.random() * names.length)];
@@ -719,7 +810,7 @@ function pickWorldSectZone(excludeZones) {
 }
 
 function rollWorldSectChampionName() {
-    const pool = SECT_RECRUIT_NAMES.filter(n => !G.sect.discipleRecords.some(d => d.name === n));
+    const pool = SECT_RECRUIT_NAMES.filter(n => !G.disciples.includes(n));
     return pool.length
         ? pool[Math.floor(Math.random() * pool.length)]
         : SECT_RECRUIT_NAMES[Math.floor(Math.random() * SECT_RECRUIT_NAMES.length)];
@@ -1160,8 +1251,8 @@ function getDiscipleMonthsServed(disciple) {
 
 function getPromoteBlockReason(uid) {
     ensureSectState();
-    const d = G.sect.discipleRecords.find(x => x.uid === uid);
-    if (!d) return 'Disciple not found.';
+    const d = getSectDiscipleMembership(uid);
+    if (!getDiscipleNpc(d)) return 'Disciple not found.';
     const roleDef = DISCIPLE_ROLES[d.role];
     const req = roleDef?.promoteReq;
     if (!req) return 'Already at highest rank.';
@@ -1186,22 +1277,23 @@ function promoteDisciple(uid) {
     ensureSectState();
     const block = getPromoteBlockReason(uid);
     if (block) return { success: false, message: block };
-    const d = G.sect.discipleRecords.find(x => x.uid === uid);
+    const d = getSectDiscipleMembership(uid);
+    const npc = getDiscipleNpc(d);
     const nextRole = DISCIPLE_ROLES[d.role].promoteReq.next;
     const nextDef = DISCIPLE_ROLES[nextRole];
     d.role = nextRole;
     addSectRenown(2);
     shiftSectReputation('promote_disciple');
     if (typeof getDiscipleTraitDef === 'function') {
-        const traitDef = getDiscipleTraitDef(d.trait);
+        const traitDef = getDiscipleTraitDef(npc.sectTemperament);
         if (traitDef?.respectOnPromote) {
             shiftSectReputation('promote_disciple', { respect: traitDef.respectOnPromote });
-            addLog(`👑 ${d.name}'s noble bearing impresses the jianghu (+${traitDef.respectOnPromote} Respect).`);
+            addLog(`👑 ${npc.name}'s noble bearing impresses the jianghu (+${traitDef.respectOnPromote} Respect).`);
         }
     }
     if (typeof markSectActivity === 'function') markSectActivity();
-    addLog(`📿 ${d.name} promoted to ${nextDef.emoji} ${nextDef.label}!`);
-    return { success: true, message: `${d.name} is now ${nextDef.label}.` };
+    addLog(`📿 ${npc.name} promoted to ${nextDef.emoji} ${nextDef.label}!`);
+    return { success: true, message: `${npc.name} is now ${nextDef.label}.` };
 }
 
 function getSectInfluenceZone() {
@@ -1266,21 +1358,15 @@ function shiftSectInfluence(zoneId) {
 }
 
 function canRecruitWorldNpc(npc) {
-    ensureSectState();
-    if (!isSectFounded()) return false;
-    if (!npc?.alive || npc.recruitedToSect) return false;
-    if (!SECT_NPC_RECRUIT.roles.includes(npc.role)) return false;
-    if ((G.sect.renown || 0) < SECT_NPC_RECRUIT.renownMin) return false;
-    if ((npc.talkCount || 0) < getSectRecruitTalkMin()) return false;
-    if (G.sect.discipleRecords.some(d => d.name === npc.name)) return false;
-    const recruitBlock = getRecruitBlockReason();
-    return !recruitBlock;
+    return !getRecruitWorldNpcBlockReason(npc);
 }
 
 function getRecruitWorldNpcBlockReason(npc) {
     if (!isSectFounded()) return 'Found your sect before recruiting wanderers.';
-    if (!npc?.alive) return 'They are gone.';
-    if (npc.recruitedToSect) return 'Already in your sect.';
+    if (!npc?.uid || getWorldNpcByUid(npc.uid) !== npc) return 'They are gone.';
+    if (getSectDiscipleMembership(npc.uid)) return 'Already in your sect.';
+    if (hasOtherSectMembership(npc)) return 'They already belong to another organization.';
+    if (npc.state === 'ambient') return 'Get to know them before inviting them to join.';
     if (!SECT_NPC_RECRUIT.roles.includes(npc.role)) return 'This person is not suited to join as a disciple.';
     if ((G.sect.renown || 0) < SECT_NPC_RECRUIT.renownMin) {
         return `Need ${SECT_NPC_RECRUIT.renownMin} Sect Renown to recruit NPCs.`;
@@ -1298,15 +1384,18 @@ function recruitWorldNpcToSect(npc) {
     if (!advanceTime(ACTION_MONTHS.recruit, `Recruiting ${npc.name} to the sect`)) {
         return { success: false, message: 'Your lifespan ends before they swear oaths.' };
     }
-    const record = addSectDisciple(npc.name, 'acolyte', { announceTrait: false });
-    npc.alive = false;
-    npc.recruitedToSect = true;
+    if (G.sectSuccessionActive || G.gameOver) {
+        return { success: false, message: 'Recruitment was interrupted by the end of your leadership.' };
+    }
+    const afterTimeBlock = getRecruitWorldNpcBlockReason(npc);
+    if (afterTimeBlock) return { success: false, message: afterTimeBlock };
+    joinPlayerSect(npc, 'acolyte');
     addSectRenown(3);
     shiftSectReputation('npc_recruit');
     if (typeof markSectActivity === 'function') markSectActivity();
     G.fame += 2;
-    if (record && typeof getDiscipleTraitDef === 'function') {
-        const td = getDiscipleTraitDef(record.trait);
+    if (typeof getDiscipleTraitDef === 'function') {
+        const td = getDiscipleTraitDef(npc.sectTemperament);
         addLog(`👤 ${npc.name} swears loyalty to ${G.sect.name} — ${td.emoji} ${td.label}.`);
     } else {
         addLog(`👤 ${npc.name} swears loyalty to ${G.sect.name}!`);

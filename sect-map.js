@@ -198,8 +198,10 @@ function renderSectCourtyardHtml() {
     if (getDiscipleCount()) {
         html += `<div class="sect-section-title">📿 Disciples</div><div class="sect-disciple-list">`;
         G.sect.discipleRecords.forEach(d => {
+            const npc = getDiscipleNpc(d);
+            if (!npc) return;
             const role = DISCIPLE_ROLES[d.role] || DISCIPLE_ROLES.acolyte;
-            const traitDef = typeof getDiscipleTraitDef === 'function' ? getDiscipleTraitDef(d.trait) : null;
+            const traitDef = typeof getDiscipleTraitDef === 'function' ? getDiscipleTraitDef(npc.sectTemperament) : null;
             const traitTip = traitDef
                 ? escapeSectAttr(`${traitDef.desc}${traitDef.effectDesc ? ' — ' + traitDef.effectDesc : ''}`)
                 : '';
@@ -208,7 +210,7 @@ function renderSectCourtyardHtml() {
             const canPromote = !promoteBlock && role.promoteReq;
             html += `<div class="sect-disciple-row">
                 <div class="sect-disciple-info">
-                    <span class="name">${role.emoji} ${d.name}${traitDef ? ` <span class="sect-trait-tag" title="${traitTip}">${traitDef.emoji} ${traitDef.label}</span>` : ''}</span>
+                    <span class="name">${role.emoji} ${escapeSectAttr(npc.name)}${traitDef ? ` <span class="sect-trait-tag" title="${traitTip}">${traitDef.emoji} ${traitDef.label}</span>` : ''}</span>
                     <span class="role">${role.label} · ${served}y service</span>
                 </div>
                 ${canPromote

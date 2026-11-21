@@ -61,10 +61,8 @@ function applyArcCompletionExtras(arcId, resolution) {
     if (arcId === 'liang_chen_rival') {
         const fate = state?.liangFate || state?.flags?.resolutionChoice;
         if (fate === 'recruit' || fate === 'ally') {
-            if (!G.disciples.includes('Liang Chen')) {
-                if (typeof addSectDisciple === 'function') addSectDisciple('Liang Chen', 'core');
-                else G.disciples.push('Liang Chen');
-            }
+            const member = addSectDisciple('Liang Chen', 'core', { authoredNpcId: 'liang_chen' });
+            if (member) state.joinedWorldRoster = true;
             shiftNpcRelationship('liang_chen', 40);
         } else {
             shiftNpcRelationship('liang_chen', -40);
@@ -380,11 +378,7 @@ function resolveDemonicRedemption(choiceId) {
             npc.role = 'disciple';
             npc.demonicThreat = 0;
         }
-        const name = npc?.name || 'Redeemed Prodigy';
-        if (!G.disciples.includes(name)) {
-            if (typeof addSectDisciple === 'function') addSectDisciple(name, 'acolyte');
-            else G.disciples.push(name);
-        }
+        if (npc) addSectDisciple(npc, 'acolyte');
         applyStoryArcRewards(def.rewards?.disciple);
     } else {
         if (npc) {
@@ -635,14 +629,14 @@ function finishSectQuest(sq) {
 
 function tickSectQuestGeneration(monthsPassed) {
     ensureExtendedQuestState();
-    if (!G.disciples.length) return;
-    if (typeof isSectFounded === 'function' && !isSectFounded()) return;
-    G._sectQuestTick = (G._sectQuestTick || 0) + monthsPassed;
-    if (G._sectQuestTick >= SECT_QUEST_BALANCE.tickMonths) {
-        G._sectQuestTick = 0;
-        const active = getActiveSectQuestCount();
-        if (active < SECT_QUEST_BALANCE.maxActive && Math.random() < SECT_QUEST_BALANCE.randomChanceBase + G.disciples.length * 0.03) {
-            generateSectQuest();
+    if (G.disciples.length && (typeof isSectFounded !== 'function' || isSectFounded())) {
+        G._sectQuestTick = (G._sectQuestTick || 0) + monthsPassed;
+        if (G._sectQuestTick >= SECT_QUEST_BALANCE.tickMonths) {
+            G._sectQuestTick = 0;
+            const active = getActiveSectQuestCount();
+            if (active < SECT_QUEST_BALANCE.maxActive && Math.random() < SECT_QUEST_BALANCE.randomChanceBase + G.disciples.length * 0.03) {
+                generateSectQuest();
+            }
         }
     }
     (G.sectQuests || []).forEach(sq => {

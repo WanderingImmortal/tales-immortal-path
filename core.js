@@ -1157,6 +1157,7 @@ function loadState() {
             if (typeof ensureDaoAlignment === 'function') ensureDaoAlignment();
             if (typeof ensureAlignmentState === 'function') ensureAlignmentState();
             if (typeof ensureNpcState === 'function') ensureNpcState();
+            if (typeof migrateSectDiscipleMemberships === 'function') migrateSectDiscipleMemberships();
             if (typeof ensureWorldNpcs === 'function') ensureWorldNpcs();
             if (typeof migrateWellRingLodgeForExistingSave === 'function') migrateWellRingLodgeForExistingSave();
             else if (typeof ensureWellRingLodgeCast === 'function') ensureWellRingLodgeCast();

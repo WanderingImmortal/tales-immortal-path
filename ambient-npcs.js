@@ -184,7 +184,8 @@ function enforceAmbientCap(zoneId) {
 
 function enforcePersistentCap() {
     const cap = AMBIENT_NPC_CAPS.persistentGlobal;
-    const promoted = (G.worldNpcs || []).filter(n => n.alive && n.state === 'persistent' && n.metAtMonth != null);
+    const promoted = (G.worldNpcs || []).filter(n => n.alive && n.state === 'persistent' && n.metAtMonth != null
+        && !(typeof getSectDiscipleMembership === 'function' && getSectDiscipleMembership(n.uid)));
     if (promoted.length <= cap) return;
     const sorted = promoted.sort((a, b) => {
         const imp = (a.impression || 0) - (b.impression || 0);
