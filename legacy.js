@@ -20,31 +20,105 @@ function getDefaultLegacy() {
             artificialRoot: false
         },
         chronicle: [],
+        completedRunIds: [],
         pendingCarryPerk: null
     };
 }
 
 let Legacy = getDefaultLegacy();
 
+let legacyFailure = null;
+let legacyReadBlocked = false;
+
+function isLegacyReadBlocked() {
+    return legacyReadBlocked;
+}
+
+function reportLegacyFailure(stage, error) {
+    legacyFailure = reportPersistenceFailure('legacy', stage, error, legacyFailure);
+    showSaveFailure('Legacy progress could not be saved or loaded. Check browser storage and retry.', 'legacy-status');
+}
+
+function clearLegacyFailure() {
+    legacyFailure = null;
+    showSaveFailure('', 'legacy-status');
+}
+
 function loadLegacy() {
+    let stage = 'read';
     try {
         const raw = localStorage.getItem(LEGACY_STORAGE_KEY);
-        if (!raw) {
-            Legacy = getDefaultLegacy();
-            return Legacy;
+        stage = 'parse';
+        const data = raw === null ? {} : JSON.parse(raw);
+        const isRecord = value => value && typeof value === 'object' && !Array.isArray(value);
+        if (!isRecord(data) || (data.version != null && data.version !== 1)
+            || (data.unlocks != null && !isRecord(data.unlocks))
+            || (data.chronicle != null && !Array.isArray(data.chronicle))
+            || (data.completedRunIds != null && (!Array.isArray(data.completedRunIds)
+                || !data.completedRunIds.every(isRunId)))
+            || (data.pendingCarryToken != null && !isRunId(data.pendingCarryToken))
+            || (data.pendingCarryPerk != null && !findCarryPerk(data.pendingCarryPerk))
+            || ['totalRuns', 'successfulReincarnations', 'bonusCP'].some(key =>
+                data[key] != null && (!Number.isSafeInteger(data[key]) || data[key] < 0))) {
+            throw new TypeError('Invalid legacy record.');
         }
-        const data = JSON.parse(raw);
-        Legacy = { ...getDefaultLegacy(), ...data, unlocks: { ...getDefaultLegacy().unlocks, ...(data.unlocks || {}) } };
-    } catch (e) {
-        Legacy = getDefaultLegacy();
+        const defaults = getDefaultLegacy();
+        Legacy = {
+            ...defaults, ...data,
+            unlocks: { ...defaults.unlocks, ...data.unlocks },
+            chronicle: data.chronicle ?? [],
+            completedRunIds: data.completedRunIds ?? []
+        };
+    } catch (error) {
+        legacyReadBlocked = true;
+        reportLegacyFailure(stage, error);
+        return null;
     }
+    if (legacyReadBlocked) clearLegacyFailure();
+    legacyReadBlocked = false;
     return Legacy;
 }
 
-function saveLegacy() {
+function saveLegacy(candidate) {
+    if (legacyReadBlocked) return false;
     try {
-        localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(Legacy));
-    } catch (e) { /* ignore */ }
+        localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(candidate));
+    } catch (error) {
+        reportLegacyFailure('write', error);
+        return false;
+    }
+    Legacy = candidate;
+    clearLegacyFailure();
+    return true;
+}
+
+function isRunId(value) {
+    return typeof value === 'string' && value.length > 0;
+}
+
+function ensureRunId() {
+    return G.runId ||= globalThis.crypto?.randomUUID?.()
+        || `run-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+}
+
+function findCarryPerk(id) {
+    return LEGACY_CARRY_PERKS.find(perk => perk.id === id);
+}
+
+function validateReincarnationState(data) {
+    if (data.runId != null && !isRunId(data.runId)) throw new TypeError('Invalid run identifier.');
+    const intent = data.reincarnationIntent;
+    if (intent != null && (!isRunId(data.runId) || intent.version !== 1
+        || !['bitter', 'true'].includes(intent.endType)
+        || (intent.carryPerkId != null && (intent.endType !== 'true' || !findCarryPerk(intent.carryPerkId)))
+        || !intent.entry || intent.entry.name !== data.name || intent.entry.endType !== intent.endType
+        || typeof intent.message !== 'string')) {
+        throw new TypeError('Unrecognized reincarnation transition.');
+    }
+    const receipt = data.carryPerkReceipt;
+    if (receipt != null && (!isRunId(data.runId) || !isRunId(receipt?.token) || !findCarryPerk(receipt.perkId))) {
+        throw new TypeError('Unrecognized carry perk receipt.');
+    }
 }
 
 function getLegacyBonusCP() {
@@ -98,72 +172,121 @@ function buildChronicleEntry(endType) {
     };
 }
 
-function applyLegacyUnlocksOnTrueReincarnation() {
-    const n = Legacy.successfulReincarnations;
+function applyLegacyUnlocksOnTrueReincarnation(legacy) {
+    const n = legacy.successfulReincarnations;
     if (n >= 1) {
-        Legacy.unlocks.secondTraitSlot = true;
-        Legacy.unlocks.mutantRoot = true;
+        legacy.unlocks.secondTraitSlot = true;
+        legacy.unlocks.mutantRoot = true;
+        legacy.unlocks.fallenNoble = true;
     }
-    if (n >= 1) Legacy.unlocks.fallenNoble = true;
-    if (n >= 2) Legacy.unlocks.heavenlyRoot = true;
+    if (n >= 2) legacy.unlocks.heavenlyRoot = true;
 }
 
-function awardLegacyBonusCP(endType) {
-    const table = typeof LEGACY_BONUS_CP !== 'undefined' ? LEGACY_BONUS_CP : { bitter: 1, true: 2 };
-    const gain = table[endType] || 0;
-    Legacy.bonusCP = (Legacy.bonusCP || 0) + gain;
-    return gain;
+function stageRunEnd(endType, carryPerkId, message) {
+    if (!G.name || G.sectSuccessionActive || G.reincarnationIntent) return false;
+    ensureRunId();
+    G.reincarnationIntent = { version: 1, endType, carryPerkId, message, entry: buildChronicleEntry(endType) };
+    return true;
 }
 
-function processRunEnd(endType) {
-    loadLegacy();
-    Legacy.totalRuns = (Legacy.totalRuns || 0) + 1;
-    const entry = buildChronicleEntry(endType);
-    Legacy.chronicle = [entry, ...(Legacy.chronicle || [])].slice(0, 5);
-
-    let cpGain = 0;
-    if (endType === 'true') {
-        Legacy.successfulReincarnations = (Legacy.successfulReincarnations || 0) + 1;
-        applyLegacyUnlocksOnTrueReincarnation();
-        cpGain = awardLegacyBonusCP('true');
-    } else {
-        cpGain = awardLegacyBonusCP('bitter');
+// The active run save doubles as the journal. Only this path can write a pending intent.
+function persistRunEndIntent() {
+    try {
+        validateReincarnationState(G);
+        const raw = localStorage.getItem(RUN_SAVE_KEY);
+        if (raw !== null) {
+            const stored = JSON.parse(raw);
+            validateLoadedSave(stored);
+            validateReincarnationState(stored);
+            if (stored.runId != null && stored.runId !== G.runId) {
+                throw new Error('The active save belongs to a different life.');
+            }
+            if (stored.reincarnationIntent) {
+                if (JSON.stringify(stored.reincarnationIntent) !== JSON.stringify(G.reincarnationIntent)) {
+                    throw new Error('The active save contains a different transition.');
+                }
+                return true;
+            }
+        }
+        return saveState({ writeReincarnationIntent: true });
+    } catch (error) {
+        reportLegacyFailure('read-run', error);
+        return false;
     }
-    saveLegacy();
-    try { localStorage.removeItem('xianxia_save'); } catch (e) { /* ignore */ }
-    return { cpGain, entry };
 }
 
-function clearRunStateForReincarnation() {
-    try { localStorage.removeItem('xianxia_save'); } catch (e) { /* ignore */ }
+function processRunEnd() {
+    const intent = G.reincarnationIntent;
+    if (!intent || !persistRunEndIntent()) return null;
+    let stage = 'commit-run';
+    try {
+        if (!loadLegacy()) return null;
+        const cpGain = LEGACY_BONUS_CP[intent.endType];
+        if (!Legacy.completedRunIds.includes(G.runId)) {
+            // A prior carry receipt can still need cleanup after a failed legacy write.
+            if (!commitSavedCarryPerk()) return null;
+            const next = {
+                ...Legacy,
+                totalRuns: (Legacy.totalRuns || 0) + 1,
+                bonusCP: (Legacy.bonusCP || 0) + cpGain,
+                completedRunIds: [...Legacy.completedRunIds, G.runId],
+                chronicle: [intent.entry, ...Legacy.chronicle].slice(0, 5),
+                unlocks: { ...Legacy.unlocks }
+            };
+            if (intent.endType === 'true') {
+                next.successfulReincarnations = (next.successfulReincarnations || 0) + 1;
+                applyLegacyUnlocksOnTrueReincarnation(next);
+                if (intent.carryPerkId) {
+                    next.pendingCarryPerk = intent.carryPerkId;
+                    next.pendingCarryToken = G.runId;
+                }
+            }
+            if (!saveLegacy(next)) return null;
+        }
+
+        stage = 'remove-run';
+        localStorage.removeItem(RUN_SAVE_KEY);
+        clearLegacyFailure();
+        return { cpGain, ...intent };
+    } catch (error) {
+        reportLegacyFailure(stage, error);
+        return null;
+    }
+}
+
+function returnToCreationAfterReincarnation() {
+    const result = processRunEnd();
+    if (!result) {
+        showLoadRecovery('Reincarnation is paused. Check browser storage, then retry.', returnToCreationAfterReincarnation);
+        return false;
+    }
+
     G = { log: [], gameOver: false };
     currentZone = 'dustbone';
-}
-
-function returnToCreationAfterReincarnation(endType, message) {
-    const result = processRunEnd(endType);
-    clearRunStateForReincarnation();
+    document.getElementById('load-error').hidden = true;
     document.getElementById('game-screen').style.display = 'none';
     document.getElementById('creation-screen').style.display = '';
     if (typeof resetCreationState === 'function') resetCreationState();
-    if (typeof setupCreation === 'function') setupCreation(true);
-    openReincarnationSummaryModal(endType, message, result.cpGain);
+    setupCreation();
+    openReincarnationSummaryModal(result.endType, result.message, result.cpGain);
+    return true;
 }
 
 function triggerBitterReincarnation(reason) {
-    if (G._reincarnationHandled) return;
-    G._reincarnationHandled = true;
-    const msg = reason || 'Your path ends in bitterness. The wheel turns — you may begin anew.';
+    if (!G.gameOver || !stageRunEnd('bitter', null,
+        reason || 'Your path ends in bitterness. The wheel turns — you may begin anew.')) return;
+    const dyingRun = G;
+    persistRunEndIntent();
     setTimeout(() => {
-        returnToCreationAfterReincarnation('bitter', msg);
-    }, 800);
+        if (G === dyingRun) returnToCreationAfterReincarnation();
+    }, 1400);
 }
 
 function triggerTrueReincarnation(carryPerkId) {
-    if (carryPerkId) Legacy.pendingCarryPerk = carryPerkId;
-    saveLegacy();
-    const msg = 'You shed this mortal shell willingly. True Reincarnation carries your legacy forward.';
-    returnToCreationAfterReincarnation('true', msg);
+    if (!isImmortal() || (carryPerkId && !findCarryPerk(carryPerkId))) return false;
+    if (!stageRunEnd('true', carryPerkId || null,
+        'You shed this mortal shell willingly. True Reincarnation carries your legacy forward.')) return false;
+    return returnToCreationAfterReincarnation();
 }
 
 function openReincarnationSummaryModal(endType, message, cpGain) {
@@ -254,18 +377,28 @@ function openTrueReincarnationChoice() {
     modal.classList.add('active');
 }
 
+function getPendingCarryToken() {
+    return Legacy.pendingCarryToken || 'pre-transaction-carry';
+}
+
 function applyPendingCarryPerk() {
-    const perkId = Legacy?.pendingCarryPerk;
-    if (!perkId) return;
-    const perk = LEGACY_CARRY_PERKS?.find(p => p.id === perkId);
-    if (!perk) return;
+    const perk = findCarryPerk(Legacy.pendingCarryPerk);
+    if (!perk || G.carryPerkReceipt) return;
+    ensureRunId();
+    const perkId = perk.id;
     if (perkId === 'echo_of_qi') G._legacyCultivateBonusPct = 5;
     if (perkId === 'echo_of_foundation') grantFoundation(3);
     if (perkId === 'echo_of_fortune') G.stones = (G.stones || 0) + 25;
     if (perkId === 'echo_of_memory') G._legacyDaoBonusPct = 5;
+    G.carryPerkReceipt = { token: getPendingCarryToken(), perkId };
     addLog(`🌀 Legacy echo: ${perk.name} — ${perk.desc}`);
-    Legacy.pendingCarryPerk = null;
-    saveLegacy();
+}
+
+// Call only after the receipt and its effects are durable in the active run save.
+function commitSavedCarryPerk() {
+    const receipt = G.carryPerkReceipt;
+    if (!receipt || receipt.token !== getPendingCarryToken() || receipt.perkId !== Legacy.pendingCarryPerk) return true;
+    return saveLegacy({ ...Legacy, pendingCarryPerk: null, pendingCarryToken: null });
 }
 
 function getLegacyCultivateBonusMult() {
@@ -280,7 +413,6 @@ function getLegacyDaoBonusMult() {
 
 function renderLegacyChroniclePanel(container) {
     if (!container) return;
-    loadLegacy();
     const runs = Legacy.totalRuns || 0;
     const bonus = getLegacyBonusCP();
     const reinc = Legacy.successfulReincarnations || 0;
@@ -296,10 +428,4 @@ function renderLegacyChroniclePanel(container) {
     }
     html += '</div>';
     container.innerHTML = html;
-}
-
-function checkGameOverForReincarnation() {
-    if (G.gameOver && !G._reincarnationHandled && !G.sectSuccessionActive) {
-        triggerBitterReincarnation();
-    }
 }
