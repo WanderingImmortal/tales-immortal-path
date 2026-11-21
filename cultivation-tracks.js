@@ -50,28 +50,20 @@ function ensureCultivationTracksState() {
 }
 
 function migrateSaveToCultivationTracks() {
-    if (G._cultivationTracksMigrated) {
-        ensureCultivationTracksState();
+    const hadCultivation = CULTIVATION_TRACKS.some(track => !!G.cultivation?.[track]);
+    const track = normalizeCultivationTrackId(G.path);
+    const realmIdx = G.realmIdx ?? 0;
+    const consolidation = G.realmConsolidation;
+    ensureCultivationTracksState();
+    if (hadCultivation && G._cultivationTracksMigrated) {
+        syncRealmConsolidationFromFocusTrack();
         return;
     }
-    const hadCultivation = !!G.cultivation?.dantian;
-    ensureCultivationTracksState();
 
     if (!hadCultivation) {
-        const legacyPath = G.path || 'qi';
-        const track = LEGACY_PATH_TO_TRACK[legacyPath] || 'dantian';
-        const realmIdx = G.realmIdx ?? 0;
         G.cultivation[track].realmIdx = realmIdx;
-        if (G.realmConsolidation && Object.keys(G.realmConsolidation).length) {
-            G.cultivation[track].consolidation = { ...G.realmConsolidation };
-        }
+        G.cultivation[track].consolidation = { ...consolidation };
         G.cultivation.focusTrack = track;
-        CULTIVATION_TRACKS.forEach(t => {
-            if (t !== track) {
-                G.cultivation[t].realmIdx = 0;
-                G.cultivation[t].consolidation = {};
-            }
-        });
     }
 
     if (G.cultivation.soulEmbryo == null || !G.cultivation.soulEmbryo) {

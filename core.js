@@ -1126,9 +1126,22 @@ function loadState() {
             G.transcendencePerkOffer = data.transcendencePerkOffer ?? null;
             G.lastTribulationCue = null;
             G.lastTranscendenceCue = null;
-            if (typeof migrateSaveToCultivationTracks === 'function') migrateSaveToCultivationTracks();
+            if (typeof migrateSaveToCultivationTracks === 'function') {
+                // Earlier load hooks may initialize tracks or sync the legacy mirrors.
+                // Migrate from the saved fields, including when an older save is loaded again.
+                G.cultivation = data.cultivation;
+                G._cultivationTracksMigrated = data._cultivationTracksMigrated;
+                G.path = data.path;
+                G.realmIdx = data.realmIdx;
+                G.realmConsolidation = data.realmConsolidation;
+                migrateSaveToCultivationTracks();
+            }
             else if (typeof ensureCultivationTracksState === 'function') ensureCultivationTracksState();
-            if (typeof migrateNineRealmLadder === 'function') migrateNineRealmLadder();
+            if (typeof migrateNineRealmLadder === 'function') {
+                G.mortalLadderVersion = data.mortalLadderVersion;
+                G._nineRealmLadderMigrated = data._nineRealmLadderMigrated;
+                migrateNineRealmLadder();
+            }
             if (typeof repairCultivationRealmSync === 'function') repairCultivationRealmSync();
             if (typeof clearStuckChamberOverlayFlags === 'function') clearStuckChamberOverlayFlags();
             // Soul Mass after track/embryo migration so latent↔active split sees correct soul birth state.
