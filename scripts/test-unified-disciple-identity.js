@@ -667,3 +667,47 @@ test('a sect collapse ends full and guest affiliations while leaving their NPCs 
             getWorldNpcByUid(npc.uid) === npc && getWorldNpcByUid(guest.uid) === guest
     `), true);
 });
+
+test('contribution credits reject overflow of either balance without partial writes', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const member = joinPlayerSect(npc);
+        const max = Number.MAX_SAFE_INTEGER;
+        member.lifetimeContribution = max;
+        member.meritBalance = 3;
+        const lifetimeRejected = !creditSectContribution(npc.uid, 1) &&
+            member.lifetimeContribution === max && member.meritBalance === 3;
+        // A restored or externally granted merit balance can reach the limit independently.
+        member.lifetimeContribution = 3;
+        member.meritBalance = max;
+        const meritRejected = !creditSectContribution(npc.uid, 1) &&
+            member.lifetimeContribution === 3 && member.meritBalance === max;
+        member.meritBalance = max - 1;
+        lifetimeRejected && meritRejected && creditSectContribution(npc.uid, 1) &&
+            member.lifetimeContribution === 4 && member.meritBalance === max
+    `), true);
+});
+
+test('guest elders retain outside affiliations and can hold only one player-sect affiliation', () => {
+    const run = newGame();
+    assert.equal(run(`
+        advanceTime = () => true;
+        npc.lesserSectId = 'pine_school';
+        const terms = { service: 'Advise the founder' };
+        const guest = recordSectGuestAgreement(npc, terms);
+        const retainedOutsideAffiliation = guest?.affiliation === 'guest' && npc.lesserSectId === 'pine_school';
+        const duplicateRejected = !recordSectGuestAgreement(npc, terms) &&
+            getSectAffiliation(npc.uid) === guest && G.sect.memberships.length === 1;
+        delete npc.lesserSectId;
+        const fullWhileGuestRejected = !joinPlayerSect(npc) && !runRecruit().success &&
+            getSectAffiliation(npc.uid) === guest;
+        npc.lesserSectId = 'pine_school';
+        removeSectAffiliation(npc.uid);
+        const fullWithOutsideRejected = !joinPlayerSect(npc) && !runRecruit().success && npc.lesserSectId === 'pine_school';
+        delete npc.lesserSectId;
+        const full = joinPlayerSect(npc);
+        retainedOutsideAffiliation && duplicateRejected && fullWhileGuestRejected && fullWithOutsideRejected &&
+            full?.affiliation === 'full' && !recordSectGuestAgreement(npc, terms) &&
+            getSectAffiliation(npc.uid) === full && G.sect.memberships.length === 1
+    `), true);
+});

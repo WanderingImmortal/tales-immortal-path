@@ -642,7 +642,7 @@ function joinPlayerSect(npc, rank, position = 'disciple') {
     return membership;
 }
 
-// Records terms already agreed with a guest. Settling compensation belongs to the negotiation flow.
+// Guest agreements coexist with outside affiliations. Each NPC has at most one active player-sect affiliation.
 function recordSectGuestAgreement(npc, terms) {
     ensureSectState();
     if (!isSectFounded() || !canRecordSectAffiliation(npc)) return null;
@@ -680,10 +680,12 @@ function setSectMemberDuties(uid, duties) {
 
 function creditSectContribution(uid, amount) {
     const member = getSectAffiliation(uid);
-    if (member?.affiliation !== 'full' || !Number.isSafeInteger(amount) || amount <= 0
-        || !Number.isSafeInteger(member.lifetimeContribution + amount)) return false;
-    member.lifetimeContribution += amount;
-    member.meritBalance += amount;
+    if (member?.affiliation !== 'full' || !Number.isSafeInteger(amount) || amount <= 0) return false;
+    const lifetimeContribution = member.lifetimeContribution + amount;
+    const meritBalance = member.meritBalance + amount;
+    if (!Number.isSafeInteger(lifetimeContribution) || !Number.isSafeInteger(meritBalance)) return false;
+    member.lifetimeContribution = lifetimeContribution;
+    member.meritBalance = meritBalance;
     return true;
 }
 
