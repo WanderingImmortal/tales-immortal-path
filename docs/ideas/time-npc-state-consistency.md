@@ -21,7 +21,7 @@ There is one simulation clock: `G.ageMonths`, advanced by `processWorldTime` in 
 | `advanceTime` / `advanceTimeQuiet` | Both use shared elapsed-time accounting for world ticks, alchemy decay, rent, Well-Ring obligations, and passive circulation. Paid actions apply action-time modifiers. Quiet calls request exact calendar spans. |
 | `flushWorldClockWeek` | Requests a quiet quarter-month, capped by the active project deadline. The Explore stance pays only after an uninterrupted week. |
 | Dedicated cultivation | Skips passive circulation for its own elapsed span. Completed focused sessions use the existing payout. |
-| Long seclusion | Requests quiet calendar time with passive circulation suppressed. Each complete, uninterrupted year earns the existing annual session. A partial year records elapsed time without an annual payout. |
+| Long seclusion | Requests quiet calendar time with passive circulation suppressed. Each complete, uninterrupted year earns the existing annual session. An interrupted year credits elapsed Qi circulation and Qi Condensation band progress proportionally. Whole-year events, stats, and side income require completion. Death or succession ends the retreat without carrying an unfinished year into the next life. |
 
 The scheduler breaks spans on world events, rent dates, Well-Ring month boundaries, and lifespan. Player activity and project deadlines also bound advances. Ordinary scheduled events continue in chronological order. Combat, encounter choices, tribulations, mandatory choices, and succession stop new work at the boundary where they become active.
 

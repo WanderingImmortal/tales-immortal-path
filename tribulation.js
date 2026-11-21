@@ -207,7 +207,7 @@ function getTribulationTypeDef(typeId) {
 }
 
 function tribulationAdvanceTime(months, label) {
-    return advanceTime(months, label || 'Heavenly tribulation');
+    return advanceTime(months, label || 'Heavenly tribulation', { allowCurrentAttention: true });
 }
 
 function getLightningResistPower() {
@@ -463,7 +463,7 @@ function tribulationChoose(idx) {
     if (!tribulationMeetsRequire(choice.require)) {
         addLog(`⚡ ${choice.failLog || 'You are not ready.'}`);
         if (choice.fail) {
-            tribulationApplyChoiceEffects(choice.fail, choice.fail);
+            if (!tribulationApplyChoiceEffects(choice.fail, choice.fail)) return;
             tribulationApplyScriptedFailScar(choice.fail);
             if (state.phase === 'trial' && choice.fail.combat) {
                 document.getElementById('tribulationOverlay').classList.remove('active');
@@ -472,7 +472,7 @@ function tribulationChoose(idx) {
                 return;
             }
         } else {
-            tribulationApplyChoiceEffects({ score: 0, months: choice.months || 2 }, choice);
+            if (!tribulationApplyChoiceEffects({ score: 0, months: choice.months || 2 }, choice)) return;
         }
         if (state.phase === 'omen') {
             state.phase = 'trial';
@@ -488,14 +488,14 @@ function tribulationChoose(idx) {
         return;
     }
 
+    addLog(`${getTribulationTypeDef(state.type).emoji} ${choice.log}`);
+    if (!tribulationApplyChoiceEffects(choice, choice)) return;
+
     if (choice.requirePill) {
         ensurePillStock();
         const pillId = Object.keys(G.pillStock).find(id => G.pillStock[id] > 0) || 'spirit_gathering';
         G.pillStock[pillId] = Math.max(0, (G.pillStock[pillId] || 0) - 1);
     }
-
-    addLog(`${getTribulationTypeDef(state.type).emoji} ${choice.log}`);
-    tribulationApplyChoiceEffects(choice, choice);
 
     if (state.phase === 'omen') {
         state.phase = 'trial';
@@ -518,8 +518,8 @@ function tribulationApplyChoiceEffects(effects, sourceChoice) {
     const months = effects.months != null ? effects.months : (sourceChoice?.months || TRIBULATION_BALANCE.omenMonths);
     const label = `${getTribulationTypeDef(state.type).name} — ${getTribulationPhaseLabel(state.phase)}`;
     if (!tribulationAdvanceTime(months, label)) {
-        finishTribulation();
-        return;
+        if (G.gameOver || G.sectSuccessionActive) finishTribulation();
+        return false;
     }
     if (effects.score != null) state.trialScore += effects.score;
     else if (sourceChoice?.score) state.trialScore += sourceChoice.score;
@@ -527,6 +527,7 @@ function tribulationApplyChoiceEffects(effects, sourceChoice) {
     else if (sourceChoice?.scarRisk) state.scarRisk = (state.scarRisk || 0) + sourceChoice.scarRisk;
     if (sourceChoice?.id) state.choicesMade.push(sourceChoice.id);
     if (sourceChoice) state.lastChoice = sourceChoice;
+    return true;
 }
 
 function tribulationApplyScriptedFailScar(effects) {
@@ -760,7 +761,7 @@ function tribulationResolveAftermath(choice) {
     }
 
     if (!tribulationAdvanceTime(choice.months || TRIBULATION_BALANCE.aftermathMonths, `${getTribulationTypeDef(state.type).name} — Aftermath`)) {
-        finishTribulation();
+        if (G.gameOver || G.sectSuccessionActive) finishTribulation();
         return;
     }
 

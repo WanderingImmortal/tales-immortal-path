@@ -113,10 +113,10 @@ function getSeclusionYearGatherUnits() {
     return 12 * getFocusedGatherUnits();
 }
 
-function applySeclusionYearBandProgress() {
+function applySeclusionYearBandProgress(yearFraction = 1) {
     if (typeof isQiCondensationRealm === 'function' && isQiCondensationRealm()
         && typeof applyQcGatherBandProgress === 'function') {
-        const units = getSeclusionYearGatherUnits();
+        const units = getSeclusionYearGatherUnits() * yearFraction;
         if (units > 0) applyQcGatherBandProgress(units);
     }
 }
@@ -164,8 +164,8 @@ function maybeLogPassiveCirculation() {
 }
 
 /** One calendar week of automatic circulation. */
-function tickPassiveCultivationWeek() {
-    if (!canRunPassiveCultivation()) return;
+function tickPassiveCultivationWeek(earned = false) {
+    if (!earned && !canRunPassiveCultivation()) return;
     ensurePassiveCultivationState();
     const b = PASSIVE_CULTIVATION_BALANCE;
     const yieldScale = b.passiveYieldScale * getPassiveCultivationSupportMult();
@@ -176,16 +176,16 @@ function tickPassiveCultivationWeek() {
 }
 
 /** Batch passive ticks when time jumps in paused / action mode. */
-function tickPassiveCultivationForMonths(months) {
+function tickPassiveCultivationForMonths(months, earned = false) {
     const m = Number(months) || 0;
-    if (m <= 0 || !canRunPassiveCultivation()) return;
+    if (m <= 0 || (!earned && !canRunPassiveCultivation())) return;
     ensurePassiveCultivationState();
     const state = G.passiveCultivation;
     const weekMonths = typeof WORLD_CLOCK_WEEK_MONTHS !== 'undefined' ? WORLD_CLOCK_WEEK_MONTHS : 0.25;
     const accumulated = (state.pendingMonths || 0) + m;
     const weeks = Math.floor((accumulated + 1e-9) / weekMonths);
     state.pendingMonths = Math.max(0, accumulated - weeks * weekMonths);
-    for (let i = 0; i < weeks; i++) tickPassiveCultivationWeek();
+    for (let i = 0; i < weeks; i++) tickPassiveCultivationWeek(earned);
 }
 
 function getFocusedCultivateMonths() {

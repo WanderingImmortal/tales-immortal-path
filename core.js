@@ -984,7 +984,8 @@ function advanceTime(months, activity, options) {
     if (months <= 0) return true;
     if (G.gameOver) return false;
     if ((typeof getWorldClockProject === 'function' && getWorldClockProject())
-        || (typeof getPlayerActivity === 'function' && getPlayerActivity())) return false;
+        || (typeof getPlayerActivity === 'function' && getPlayerActivity())
+        || (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive())) return false;
     if (typeof shouldPauseLivingClockForPlayerAdvance === 'function'
         && shouldPauseLivingClockForPlayerAdvance(months, opts)
         && typeof setWorldClockPaused === 'function') {
@@ -1000,7 +1001,7 @@ function advanceTime(months, activity, options) {
     if (G._actionLog) G._deferringLogs = true;
     let result;
     try {
-        result = advanceSharedWorldTime(months, activity, { ...opts, allowCurrentAttention: true });
+        result = advanceSharedWorldTime(months, activity, opts);
     } finally {
         G._deferringLogs = deferLogs;
     }
@@ -1010,7 +1011,10 @@ function advanceTime(months, activity, options) {
     const worldMeta = typeof formatWorldChronicleLine === 'function'
         ? formatWorldChronicleLine(result.batch)
         : '';
-    if (G._actionLog) {
+    if (!result.complete && result.elapsed > 1e-9) {
+        if (G._actionLog && typeof cancelActionLog === 'function') cancelActionLog();
+        addLog(`⏳ ${activity} stopped after ${timeMeta}.${worldMeta ? ' ' + worldMeta : ''}`);
+    } else if (G._actionLog) {
         const extras = G._pendingActionMeta?.extras || [];
         G._pendingActionMeta = { time: timeMeta, world: worldMeta, extras };
     } else {
@@ -1232,6 +1236,9 @@ function loadState() {
             const attention = typeof getPlayerTimeAttention === 'function' ? getPlayerTimeAttention() : null;
             if (attention && (G.worldClock?.project || G.worldClock?.stance || G.playerActivity)) {
                 interruptPlayerTime(attention);
+            } else if (G.worldClock?.project && typeof getWorldClockProjectStopReason === 'function') {
+                const blocked = getWorldClockProjectStopReason();
+                if (blocked) cancelWorldClockProject(null, blocked);
             }
             try {
                 if (typeof catchUpPlayerActivity === 'function') catchUpPlayerActivity();

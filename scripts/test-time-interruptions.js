@@ -21,7 +21,7 @@ function boot() {
     });
     const scripts = [
         'data.js', 'world-scheduler.js', 'advance-time-rules.js', 'core.js', 'cultivation-tracks.js',
-        'foundation.js', 'forbidden.js', 'world.js', 'passive-cultivation.js', 'player-activity.js',
+        'foundation.js', 'qi-density.js', 'forbidden.js', 'world.js', 'passive-cultivation.js', 'player-activity.js',
         'time-playback.js', 'world-clock.js', 'seclusion-project.js'
     ];
     for (const file of scripts) {
@@ -34,6 +34,8 @@ function boot() {
         G.currentZone = 'dustbone';
         G.payments = G.decay = G.annualGains = G.focusedGains = G.exploreGains = G.projectGains = 0;
         G.log = [];
+        G.partialGains = 0;
+        G.bandGains = 0;
         addLog = () => {};
         function fullRender() { saveState(); }
         function renderStats() {}
@@ -47,9 +49,12 @@ function boot() {
             G.payments = Math.floor(G.ageMonths) - 240;
         }
         runCultivateSession = options => {
-            if (options.extraMult === 0.22) G.annualGains++;
+            if (options.circulationOnly) G.partialGains += options.yieldScale;
+            else if (options.extraMult === 0.22) G.annualGains++;
             else if (!options.quiet) G.focusedGains++;
         };
+        function isQiCondensationRealm() { return true; }
+        function applyQcGatherBandProgress(gain) { G.bandGains += gain; }
         runExploreStanceWeek = () => G.exploreGains++;
         function finishThresholdJobProject() { G.projectGains++; }
         function isTribulationActive() { return !!G.tribulationState?.active; }
@@ -163,16 +168,23 @@ test('a live project completes against its own fractional deadline exactly once'
     `), true);
 });
 
-test('a seclusion interruption partway through the second year keeps the completed year only', () => {
+test('an eleven-month seclusion interruption pays proportional circulation once and keeps annual milestones', () => {
     assert.equal(boot()(`
         registerWorldEventHandler('tribulation', () => { G.tribulationState = { active: true }; });
-        scheduleWorldEvent('tribulation', 257);
+        scheduleWorldEvent('tribulation', 263);
         startSeclusionProject(10);
+        const unrelatedBlocked = !advanceTime(1, 'Unrelated work') && G.ageMonths === 240;
+        const yearUnits = getSeclusionYearGatherUnits();
         runPlaybackYearTick();
-        const first = G.ageMonths === 252 && G.annualGains === 1;
+        const first = G.ageMonths === 252 && G.annualGains === 1 && G.bandGains === yearUnits;
         runPlaybackYearTick();
-        first && G.ageMonths === 257 && G.annualGains === 1 && !isTimePlaybackActive() &&
-            G.decay === 17 && !G.passiveCultivation?.weeksCirculated
+        const interrupted = G.ageMonths === 263 && G.annualGains === 1 &&
+            G.partialGains === 11 / 12 && Math.abs(G.bandGains - yearUnits * (1 + 11 / 12)) < 1e-9 &&
+            !isTimePlaybackActive() && G.decay === 23 && !G.passiveCultivation?.weeksCirculated;
+        const savedBand = G.bandGains;
+        const loaded = loadState();
+        runPlaybackYearTick();
+        unrelatedBlocked && first && interrupted && loaded && G.bandGains === savedBand && G.partialGains === 11 / 12
     `), true);
 });
 
@@ -232,5 +244,100 @@ test('a job stops when its facility closes during a larger advance', () => {
         scheduleWorldEvent('close_board', 241);
         const completed = advanceTimeQuiet(6, 'Job');
         !completed && G.ageMonths === 241 && G.projectGains === 0 && !getWorldClockProject()
+    `), true);
+});
+
+test('small ordinary spans and a large span award the same passive weeks at fractional boundaries', () => {
+    const small = boot();
+    const large = boot();
+    const stats = '[G.passiveCultivation.weeksCirculated, G.passiveCultivation.pendingMonths.toFixed(8), G.bandGains.toFixed(8)].join()';
+    assert.equal(small(`
+        for (let i = 0; i < 100; i++) advanceTimeQuiet(0.013, 'Small span');
+        ${stats}
+    `), large(`
+        advanceTimeQuiet(1.3, 'Large span');
+        ${stats}
+    `));
+});
+
+test('an interruption raised by the world tick preserves ordinary passive time already earned', () => {
+    assert.equal(boot()(`
+        advanceTimeQuiet(0.125, 'Walk');
+        registerWorldTick('omen', () => { G.tribulationState = { active: true }; });
+        const interrupted = !advanceTimeQuiet(0.125, 'Walk') && G.ageMonths === 240.25 &&
+            G.passiveCultivation.weeksCirculated === 1 && G.passiveCultivation.pendingMonths === 0;
+        const blocked = !advanceTimeQuiet(1, 'Walk');
+        interrupted && blocked && G.ageMonths === 240.25 && G.passiveCultivation.weeksCirculated === 1
+    `), true);
+});
+
+test('cancellation inside a larger advance stops at its event and preserves the cancelled status', () => {
+    assert.equal(boot()(`
+        startCommittedFocusedCultivation();
+        const dates = [];
+        registerWorldEventHandler('cancel_focus', () => { dates.push(G.ageMonths); cancelPlayerActivity(); });
+        registerWorldEventHandler('later', () => dates.push(G.ageMonths));
+        scheduleWorldEvent('cancel_focus', 241);
+        scheduleWorldEvent('later', 242);
+        const done = advanceTimeQuiet(8, 'Focus');
+        const cancelled = !done && G.ageMonths === 241 && G.focusedGains === 0 &&
+            G.playerActivityLast.status === 'cancelled' && dates.join() === '241';
+        advanceTimeQuiet(1, 'New activity');
+        cancelled && dates.join() === '241,242' && G.focusedGains === 0
+    `), true);
+});
+
+test('cancelling an unfinished project at a scheduled boundary stops the rest of the requested span', () => {
+    assert.equal(boot()(`
+        startWorldClockProject({ id: 'threshold_job', durationMonths: 4 });
+        registerWorldEventHandler('cancel_job', () => cancelWorldClockProject('threshold_job'));
+        scheduleWorldEvent('cancel_job', 241);
+        const done = advanceTimeQuiet(8, 'Job');
+        !done && G.ageMonths === 241 && G.projectGains === 0 && !getWorldClockProject()
+    `), true);
+});
+
+test('ordinary paid actions cannot bypass a pending decision while an explicit choice may bill time', () => {
+    assert.equal(boot()(`
+        G.transcendencePerkOffer = { active: true };
+        const blocked = !advanceTime(1, 'Unrelated work') && G.ageMonths === 240;
+        const choice = advanceTime(1, 'Resolve decision', { allowCurrentAttention: true });
+        blocked && choice && G.ageMonths === 241
+    `), true);
+});
+
+test('a job whose work board was lost on a saved date is removed on load', () => {
+    assert.equal(boot()(`
+        function getThresholdJobFacilityBlock() { return G.boardClosed ? 'The work board closed.' : null; }
+        startWorldClockProject({ id: 'threshold_job', durationMonths: 2 });
+        G.boardClosed = true;
+        saveState();
+        loadState() && !getWorldClockProject() && G.projectGains === 0 && G.ageMonths === 240
+    `), true);
+});
+
+test('partial-year Qi refill rounds down instead of exceeding the full-session amount', () => {
+    assert.equal(boot()(`
+        getMaxQi = () => 100;
+        getQiReplenishEffortMult = () => 1;
+        getQiCompressionSessionBlend = () => 0;
+        const full = computeQiCultivationSessionGains({ fillRatio: 0.019 });
+        const partial = computeQiCultivationSessionGains({ fillRatio: 0.019, scale: 11 / 12, roundFillDown: true });
+        const tiny = computeQiCultivationSessionGains({ fillRatio: 0.019, scale: 1 / 12, roundFillDown: true });
+        full.fillGain === 1 && partial.fillGain <= full.fillGain && tiny.fillGain === 0
+    `), true);
+});
+
+test('a failed action reports time already spent even if its caller cancels the action log', () => {
+    assert.equal(boot()(`
+        const messages = [];
+        addLog = message => messages.push(message);
+        function cancelActionLog() { G._actionLog = false; G._pendingActionMeta = null; }
+        registerWorldEventHandler('ambush', () => { G.inCombat = true; });
+        scheduleWorldEvent('ambush', 241);
+        G._actionLog = true;
+        const completed = advanceTime(3, 'Repairing gear');
+        cancelActionLog();
+        !completed && G.ageMonths === 241 && messages.some(message => message.includes('Repairing gear stopped after 1 month'))
     `), true);
 });

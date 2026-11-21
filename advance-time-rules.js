@@ -59,13 +59,14 @@ function catchUpIntervalMarks(lastMark, now, interval, maxSteps) {
 function getPlayerTimeAttentionReasons() {
     const reasons = [];
     if (G.gameOver || G.sectSuccessionActive) reasons.push('Your leadership or journey has ended.');
-    if (G.inCombat || G.encounterState) reasons.push('A hostile encounter interrupts your activity.');
+    if (G.inCombat) reasons.push('Combat interrupts your activity.');
+    if (G.encounterState) reasons.push('An encounter requires your attention.');
     if (G._pendingTribulation || (typeof isTribulationActive === 'function' && isTribulationActive())) {
         reasons.push('A tribulation interrupts your activity.');
     }
-    if ((typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) || G.sect?.pendingEvent || G.ancients?.pendingBargain) {
-        reasons.push('A decision requires your attention.');
-    }
+    if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) reasons.push('A perk choice requires your attention.');
+    if (G.sect?.pendingEvent) reasons.push('A sect decision requires your attention.');
+    if (G.ancients?.pendingBargain) reasons.push('A bargain requires your attention.');
     return reasons;
 }
 
@@ -109,12 +110,16 @@ function advanceSharedWorldTime(months, activity, options = {}) {
     };
     let batch = [];
     let reason = note();
+    let cancelled = false;
     const runSlice = step => {
         const existingActivity = typeof getPlayerActivity === 'function' ? getPlayerActivity() : null;
         const project = typeof getWorldClockProject === 'function' ? getWorldClockProject() : null;
         const from = G.ageMonths;
         const end = Math.min(from + step, project?.endsAtMonths ?? Infinity);
-        const suppressPassive = options.skipPassiveCirculation || existingActivity || project?.id === 'focused_cultivate';
+        const suppressPassive = options.skipPassiveCirculation || existingActivity || project?.id === 'focused_cultivate'
+            || (typeof canRunPassiveCultivation === 'function' && !canRunPassiveCultivation());
+        const assignmentEnded = () => (existingActivity && getPlayerActivity() !== existingActivity)
+            || (project && getWorldClockProject() !== project);
         batch = batch.concat(processWorldTime(from, end, {
             activity, quiet: !!options.quiet,
             nextBoundary: now => {
@@ -128,13 +133,14 @@ function advanceSharedWorldTime(months, activity, options = {}) {
                 if (typeof tickAlchemySupplyDecay === 'function') tickAlchemySupplyDecay(elapsed);
                 if (typeof applySharedCalendarObligations === 'function') applySharedCalendarObligations();
                 if (!suppressPassive && typeof tickPassiveCultivationForMonths === 'function') {
-                    tickPassiveCultivationForMonths(elapsed);
+                    tickPassiveCultivationForMonths(elapsed, true);
                 }
             },
-            shouldStop: () => !!note()
+            shouldStop: () => !!note() || !!assignmentEnded()
         }) || []);
         reason = note();
-        if (reason) return false;
+        cancelled = !!assignmentEnded();
+        if (reason || cancelled) return false;
         if (project && typeof tickWorldClockProjectAfterAdvance === 'function') {
             tickWorldClockProjectAfterAdvance();
             reason = note();
@@ -155,5 +161,5 @@ function advanceSharedWorldTime(months, activity, options = {}) {
     }
     handlePlayerLifespanExhaustion();
     if (reason && typeof saveState === 'function') saveState();
-    return { elapsed, batch, complete: !reason && elapsed >= months - 1e-9 };
+    return { elapsed, batch, complete: !reason && !cancelled && elapsed >= months - 1e-9 };
 }

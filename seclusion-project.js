@@ -65,7 +65,7 @@ function pickSeclusionEvents(yearsTarget) {
     return events.sort((a, b) => a.year - b.year);
 }
 
-function applySeclusionYearGains() {
+function applySeclusionYearGains(yearFraction = 1, partial = false) {
     if (typeof runCultivateSession !== 'function') return;
     // Quiet growth — a fraction of a normal cultivate, no spam logs
     const prevDefer = G._deferringLogs;
@@ -75,11 +75,13 @@ function applySeclusionYearGains() {
     try {
         runCultivateSession({
             extraMult: 0.22,
+            yieldScale: yearFraction,
+            circulationOnly: partial,
             logPrefix: 'Seclusion',
             silent: true
         });
         if (typeof applySeclusionYearBandProgress === 'function') {
-            applySeclusionYearBandProgress();
+            applySeclusionYearBandProgress(yearFraction);
         }
     } finally {
         G._deferringLogs = prevDefer;
@@ -147,6 +149,7 @@ function startSeclusionProject(years) {
         events,
         speed: 1,
         onYear: () => applySeclusionYearGains(),
+        onPartialYear: fraction => applySeclusionYearGains(fraction, true),
         onComplete: (snap) => finishSeclusionProject(snap, startAge)
     });
 }

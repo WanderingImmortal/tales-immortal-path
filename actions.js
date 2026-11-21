@@ -72,13 +72,14 @@ function runCultivateSession(options) {
             densityMin: b.cultivateDensityMin,
             densityMax: b.cultivateDensityMax,
             fillRatio: b.cultivateFillRatio,
+            roundFillDown: opts.circulationOnly,
             qiRegMult
         })
         : null;
     const densGain = sessionGains ? sessionGains.densGain : 0;
     const fillGain = sessionGains
         ? sessionGains.fillGain
-        : Math.max(1, Math.floor(getMaxQi() * b.cultivateFillRatio * cultMult * scale));
+        : Math.max(opts.circulationOnly ? 0 : 1, Math.floor(getMaxQi() * b.cultivateFillRatio * cultMult * scale));
     if (sessionGains && typeof computeQiPuritySessionGain === 'function') {
         computeQiPuritySessionGain(sessionGains, { cultMult, scale });
     }
@@ -87,6 +88,8 @@ function runCultivateSession(options) {
     if (purityGain) G.qiPurity = (G.qiPurity || 0) + purityGain;
     G.qi = Math.min(getMaxQi(), G.qi + fillGain);
     clampCurrentQi();
+    // Partial seclusion settles circulation without a completed session's discrete rewards.
+    if (opts.circulationOnly) return '';
     const statGainBase = 1 + Math.floor((typeof getEffectiveRealmTier === 'function' ? getEffectiveRealmTier() : G.realmIdx) / 2);
     const statGain = scale < 1
         ? (Math.random() < scale * statGainBase ? 1 : 0)

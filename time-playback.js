@@ -60,6 +60,7 @@ function startTimePlayback(opts) {
         events: Array.isArray(opts.events) ? opts.events.slice() : [],
         shownEvents: [],
         onYear: typeof opts.onYear === 'function' ? opts.onYear : null,
+        onPartialYear: typeof opts.onPartialYear === 'function' ? opts.onPartialYear : null,
         onComplete: typeof opts.onComplete === 'function' ? opts.onComplete : null,
         ended: false
     };
@@ -86,16 +87,21 @@ function runPlaybackYearTick() {
 
     const from = G.ageMonths;
     const ok = advanceTimeQuiet(12, st.activity, { skipPassiveCirculation: true });
-    st.elapsedMonths += Math.max(0, G.ageMonths - from);
-    if (ok) {
-        st.yearsDone++;
-        try {
+    const elapsed = Math.max(0, G.ageMonths - from);
+    st.elapsedMonths += elapsed;
+    try {
+        if (ok) {
+            st.yearsDone++;
             st.onYear?.(st.yearsDone, st);
-        } catch (err) {
-            console.error('Seclusion reward failed', err);
-            finishTimePlayback('interrupted');
-            return;
+        } else if (elapsed > 1e-9 && !G.gameOver && !G.sectSuccessionActive) {
+            st.onPartialYear?.(Math.min(1, elapsed / 12));
         }
+    } catch (err) {
+        console.error('Seclusion reward failed', err);
+        finishTimePlayback('interrupted');
+        return;
+    }
+    if (ok) {
         st.events.filter(ev => ev.year === st.yearsDone).forEach(ev => {
             st.shownEvents.push({ year: st.yearsDone, ageMonths: G.ageMonths, text: ev.text, emoji: ev.emoji || '✨' });
         });
