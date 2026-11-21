@@ -85,10 +85,12 @@ function shuffleArray(arr) {
     return a;
 }
 
-function gatherUnmetWorldNpcCandidates(zoneId) {
-    return (G.worldNpcs || []).filter(n =>
-        n.alive && !n.met && n.state !== 'ambient' && n.zone === zoneId && !n.isDemonicTalent
-    );
+function gatherUnmetWorldNpcCandidates(zoneId, locationId) {
+    return (G.worldNpcs || []).filter(n => {
+        if (!n.alive || n.met || n.isDemonicTalent) return false;
+        const presence = resolveNpcPresence(n);
+        return presence.zoneId === zoneId && (!locationId || presence.locationId === locationId);
+    });
 }
 
 function buildCrowdSketch(npc) {
@@ -105,7 +107,9 @@ function buildCrowdSketch(npc) {
 
 function getCrowdNpcList() {
     const uids = G.crowdSessionUids || [];
-    return uids.map(uid => getWorldNpcByUid(uid)).filter(n => n && n.alive);
+    const locationId = getCurrentLocationId();
+    return uids.map(uid => getWorldNpcByUid(uid)).filter(npc => npc && (npc.state === 'ambient'
+        ? npc.crowdLocationId === locationId : isNpcPhysicallyPresentAt(npc, locationId)));
 }
 
 function getCrowdNpcCards() {
@@ -121,8 +125,8 @@ function getCrowdNpcCards() {
 }
 
 function approachCrowdNpc(uid) {
-    const npc = getWorldNpcByUid(uid);
-    if (!npc || !npc.alive) return;
+    const npc = getCrowdNpcList().find(npc => npc.uid === uid);
+    if (!npc) return;
     const zoneId = typeof getMainZoneId === 'function' ? getMainZoneId() : (G.currentZone || currentZone);
     const locationId = getCurrentLocationId();
     if (typeof maybePromoteAmbientNpc === 'function' && isAmbientNpc(npc)) {
@@ -179,7 +183,7 @@ function actionLookAround() {
 
     let target = rollLookAroundCount(locationId);
     const crowd = [];
-    const unmet = shuffleArray(gatherUnmetWorldNpcCandidates(zoneId));
+    const unmet = shuffleArray(gatherUnmetWorldNpcCandidates(zoneId, locationId));
     unmet.slice(0, Math.min(2, target)).forEach(npc => {
         if (locationId) npc.crowdLocationId = locationId;
         crowd.push(npc);

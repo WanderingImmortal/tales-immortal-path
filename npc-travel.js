@@ -56,7 +56,7 @@ function resolveTravelNpc(npcOrId) {
     if (!npcOrId) return null;
     if (typeof npcOrId === 'object') return npcOrId;
     if (typeof findWorldNpcRecordByUid === 'function') return findWorldNpcRecordByUid(npcOrId);
-    return null;
+    return typeof getWorldNpcByUid === 'function' ? getWorldNpcByUid(npcOrId) : null;
 }
 
 function touchNpcTravelRegistry() {
@@ -81,7 +81,7 @@ function untrackNpcJourney(uid) {
 }
 
 function blankNpcTravelState(npc) {
-    const home = npc && (npc.homeLocationId || npc.locationId) || null;
+    const home = npc && (npc.locationId || npc.homeLocationId) || null;
     return {
         status: 'present',
         locationId: home,
@@ -129,11 +129,7 @@ function recoverNpcTravelState(npc) {
         if (!destOk) {
             return abortNpcJourney(npc, originOk ? 'invalid_destination' : 'invalid_travel_state');
         }
-        if (!originOk) {
-            // Still on the road toward a known place, but origin is gone — keep travelling
-            // until arrival; settlement uses destination on completion.
-            return t;
-        }
+        // A valid destination can still be reached if the original location was removed.
         if (npc.uid) trackNpcJourney(npc.uid);
         return t;
     }
@@ -174,7 +170,7 @@ function recoverNpcTravelState(npc) {
     // present / unknown
     if (!t.status) t.status = 'present';
     if (t.status === 'present' && !t.locationId) {
-        t.locationId = npc.homeLocationId || npc.locationId || null;
+        t.locationId = npc.locationId || npc.homeLocationId || null;
     }
     if (npc.uid && t.status !== 'travelling') untrackNpcJourney(npc.uid);
     return t;
@@ -210,21 +206,40 @@ function isNpcTravelling(npcOrId) {
     return !!(npc && npc.travel && npc.travel.status === 'travelling');
 }
 
-function getNpcSettledLocationId(npcOrId) {
+// Activity claims are projections of the existing durable assignments, keyed by NPC UID.
+function getNpcActivityClaim(uid) {
+    if (!uid) return null;
+    if (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(uid)) return 'sect_mission';
+    if (typeof getNpcManualHallStudy === 'function' && getNpcManualHallStudy(uid)) return 'manual_hall';
+    return null;
+}
+
+function resolveNpcPresence(npcOrId) {
     const npc = resolveTravelNpc(npcOrId);
-    if (!npc) return null;
-    if (!npc.travel) return npc.homeLocationId || npc.locationId || null;
-    if (npc.travel.status === 'travelling' || npc.travel.status === 'unresolved') return null;
-    if (npc.travel.status === 'aborted') return npc.travel.locationId || null;
-    if (npc.travel.locationId) return npc.travel.locationId;
-    return npc.homeLocationId || npc.locationId || null;
+    if (!npc || npc.alive === false) return { status: 'unavailable' };
+    if (npc.state === 'ambient') return { status: 'inactive' };
+    const activity = getNpcActivityClaim(npc.uid);
+    const travel = npc.travel;
+    if (travel?.status === 'travelling') return { status: 'travelling', activity };
+    if (travel?.status === 'unresolved' || (travel?.status === 'aborted' && !travel.locationId)) {
+        return { status: 'unavailable' };
+    }
+
+    const placedId = travel?.locationId || npc.locationId || npc.homeLocationId;
+    const placed = npcTravelLocationDef(placedId);
+    if (placedId && !placed) return { status: 'unavailable' };
+    const zoneId = placed?.parentZone || npc.zone;
+    const locationId = placed ? placedId : (typeof getDefaultLocationForZone === 'function'
+        ? getDefaultLocationForZone(zoneId) : null);
+    return { status: activity ? 'occupied' : 'present', activity, zoneId, locationId, coarse: !placed };
+}
+
+function getNpcSettledLocationId(npcOrId) {
+    return resolveNpcPresence(npcOrId).locationId || null;
 }
 
 function isNpcPhysicallyPresentAt(npcOrId, locationId) {
-    const npc = resolveTravelNpc(npcOrId);
-    if (!npc || npc.alive === false || !locationId) return false;
-    if (isNpcTravelling(npc) || isNpcTravelBodyUnresolved(npc)) return false;
-    return getNpcSettledLocationId(npc) === locationId;
+    return !!locationId && getNpcSettledLocationId(npcOrId) === locationId;
 }
 
 /**
@@ -522,8 +537,15 @@ function beginNpcJourney(npcOrId, spec) {
     if (isNpcTravelling(npc)) {
         return { ok: false, reason: 'already_travelling', message: 'Already on the road.' };
     }
-    if (spec.purpose !== 'sect_mission' && typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(npc.uid)) {
-        return { ok: false, reason: 'sect_mission', message: 'They are on a sect mission.' };
+    const claim = getNpcActivityClaim(npc.uid);
+    if (claim === 'manual_hall') {
+        return { ok: false, reason: claim, message: 'They are studying in the Manual Hall.' };
+    }
+    if (claim === 'sect_mission' && spec.purpose !== 'sect_mission') {
+        return { ok: false, reason: claim, message: 'They are on a sect mission.' };
+    }
+    if (npc.state === 'ambient') {
+        return { ok: false, reason: 'inactive', message: 'This NPC is not available for detailed travel.' };
     }
     const destinationId = spec.destinationId;
     const dest = npcTravelLocationDef(destinationId);
@@ -531,7 +553,7 @@ function beginNpcJourney(npcOrId, spec) {
         return { ok: false, reason: 'unknown_destination', message: 'Unknown place.' };
     }
     ensureNpcTravelState(npc);
-    const originId = getNpcSettledLocationId(npc) || npc.homeLocationId;
+    const originId = getNpcSettledLocationId(npc);
     if (!originId || !npcTravelLocationDef(originId)) {
         return { ok: false, reason: 'unknown_origin', message: 'No current place to depart from.' };
     }

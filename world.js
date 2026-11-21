@@ -1367,9 +1367,21 @@ function getWorldNpcById(id) {
     return uid ? getWorldNpcByUid(uid) : null;
 }
 
+function migrateNpcPresenceForExistingSave() {
+    if (typeof touchNpcTravelRegistry !== 'function') return;
+    touchNpcTravelRegistry().activeUids = [];
+    for (const npc of G.worldNpcs || []) {
+        if (npc.travel) ensureNpcTravelState(npc);
+        const presence = resolveNpcPresence(npc);
+        if (presence.zoneId && !presence.coarse) npc.zone = presence.zoneId;
+    }
+    if (typeof reconcileManualHallStudies === 'function') reconcileManualHallStudies();
+}
+
 function getWorldNpcsInZone(zoneId) {
     ensureWorldNpcs();
-    return (G.worldNpcs || []).filter(n => n.alive && n.zone === zoneId);
+    return (G.worldNpcs || []).filter(n => n.alive &&
+        (typeof resolveNpcPresence === 'function' ? resolveNpcPresence(n).zoneId : n.zone) === zoneId);
 }
 
 function getWorldNpcMaxRealm(npc, track = 'dantian') {
@@ -1491,13 +1503,18 @@ function tickWorldNpcGrowth(monthsPassed) {
 }
 
 function tickWorldNpcWander(npc) {
-    if (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(npc.uid)) return;
     const role = NPC_ROLES[npc.role];
-    if (!role?.canWander || !npc.wanderDueMonths) return;
-    if (G.ageMonths < npc.wanderDueMonths) return;
-    const zones = Object.keys(ZONES).filter(z => z !== npc.zone);
+    if (!role?.canWander || !npc.wanderDueMonths || G.ageMonths < npc.wanderDueMonths) return;
+    const presence = typeof resolveNpcPresence === 'function' ? resolveNpcPresence(npc) : null;
+    // An unbound local placement can move with the coarse simulation. Detailed
+    // travel and home anchors are moved by the journey system instead.
+    if (presence ? presence.status !== 'present' || npc.homeLocationId || npc.travel?.locationId
+        : npc.travel || npc.homeLocationId || npc.locationId
+            || (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(npc.uid))) return;
+    const zones = Object.keys(ZONES).filter(z => z !== (presence?.zoneId || npc.zone));
     if (!zones.length) return;
     npc.zone = zones[Math.floor(Math.random() * zones.length)];
+    delete npc.locationId;
     npc.wanderDueMonths = G.ageMonths + pickWorldNpcWanderInterval();
 }
 

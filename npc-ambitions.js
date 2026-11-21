@@ -1337,6 +1337,9 @@ function pursueNpcAmbitionGoal(actorId, options) {
     if (typeof isNpcTravelling === 'function' && isNpcTravelling(npc)) {
         return { ok: false, reason: 'travelling' };
     }
+    if (typeof getNpcActivityClaim === 'function' && getNpcActivityClaim(actorId)) {
+        return { ok: false, reason: 'occupied' };
+    }
 
     // Cooldown / duplicate guard (natural path)
     if (!options.ignoreCooldown) {

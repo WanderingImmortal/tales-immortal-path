@@ -17,7 +17,7 @@ function newGame() {
     const files = [
         'data.js', 'core.js', 'foundation.js', 'cultivation-tracks.js', 'forbidden.js',
         'world-scheduler.js', 'advance-time-rules.js', 'locations.js', 'world.js', 'npc-travel.js', 'resource-sources.js', 'ambient-npcs.js', 'procedural-lesser-sects.js',
-        'sect.js', 'sect-missions.js', 'sect-expand.js', 'sect-inventory.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'quests.js', 'story-arcs.js'
+        'sect.js', 'sect-missions.js', 'sect-expand.js', 'sect-inventory.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'npc-presence.js', 'quests.js', 'story-arcs.js'
     ];
     for (const file of files) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
@@ -216,8 +216,10 @@ test('loading restores a matched recruit and preserves unmatched and name-only d
             { uid: 'disc_lin', name: 'Lin', role: 'core', trait: 'wise', joinedMonths: 220, knownTechniques: ['Hall art'] },
             { uid: 'disc_bo', name: 'Bo', role: 'acolyte', joinedMonths: 300 }
         ];
+        // An active pre-UID study still needs its Hall and an unfinished duration.
+        G.sect.buildings.manual_hall = 1;
         G.sect.buildingMeta.manual_hall = {
-            collection: {}, studies: [{ uid: 'study', discipleUid: 'disc_lin', discipleName: 'Lin', progressMonths: 3 }]
+            collection: {}, studies: [{ uid: 'study', discipleUid: 'disc_lin', discipleName: 'Lin', progressMonths: 3, totalMonths: 6 }]
         };
         localStorage.setItem('xianxia_save', JSON.stringify(G));
         loadState()
@@ -1018,5 +1020,163 @@ test('graduation eligibility and its explanation read the current sect rule', ()
         const description = describeSectGraduationRule();
         const graduated = graduateSectDisciple(npc.uid).success;
         defaultBlocks && eligible && description.includes('Inner Disciple') && description.includes('1 year') && graduated
+    `), true);
+});
+
+test('a journey owns the NPC presence even when the cached zone and legacy anchor disagree', () => {
+    const run = newGame();
+    assert.equal(run(`
+        npc.locationId = 'redwell';
+        npc.wanderDueMonths = G.ageMonths;
+        const sees = zone => getPresentNpcEntries(zone).some(entry => entry.npc === npc);
+        const atOrigin = sees('dustbone') && isNpcPhysicallyPresentAt(npc.uid, 'redwell');
+        const trip = beginNpcJourney(npc.uid, { destinationId: 'dewcatch_scrub', method: 'walk' });
+        tickWorldNpcWander(npc);
+        const travelling = trip.ok && resolveNpcPresence(npc.uid).status === 'travelling' &&
+            npc.zone === 'dustbone' && !sees('dustbone') && !isNpcPhysicallyPresentAt(npc.uid, 'dewcatch_scrub') &&
+            !gatherUnmetWorldNpcCandidates('dustbone', 'redwell').includes(npc);
+        // Simulate a stale cache left by older wandering code.
+        npc.zone = 'jade';
+        tickQuestSystems = () => {};
+        processWorldTime(G.ageMonths, trip.arrivesAtMonths);
+        npc.zone = 'jade';
+        G.currentLocation = 'dewcatch_scrub';
+        const arrived = sees('dustbone') && !sees('jade') && getWorldNpcByUid(npc.uid) === npc &&
+            isNpcPhysicallyPresentAt(npc.uid, 'dewcatch_scrub');
+        atOrigin && travelling && arrived
+    `), true);
+});
+
+test('Manual Hall claims block travel and wandering, release on cancellation, and reject absent students', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        G.sect.buildings.manual_hall = 1;
+        ensureManualHallMeta();
+        const manual = TECHNIQUE_POOL[0].name;
+        G.sect.buildingMeta.manual_hall.collection[manual] = { count: 1 };
+        const trip = beginNpcJourney(npc.uid, { destinationId: 'dewcatch_scrub', method: 'walk' });
+        const onRoad = trip.ok && !assignDiscipleStudy(npc.uid, manual).success;
+        G.ageMonths = trip.arrivesAtMonths;
+        tickNpcTravel();
+        const away = !assignDiscipleStudy(npc.uid, manual).success;
+        const back = beginNpcJourney(npc.uid, { destinationId: 'redwell', method: 'walk' });
+        G.ageMonths = back.arrivesAtMonths;
+        tickNpcTravel();
+        const study = assignDiscipleStudy(npc.uid, manual);
+        const duplicate = !assignDiscipleStudy(npc.uid, manual).success && getActiveManualStudies().length === 1;
+        const blocked = beginNpcJourney(npc.uid, { destinationId: 'dewcatch_scrub' }).reason === 'manual_hall';
+        npc.wanderDueMonths = G.ageMonths;
+        tickWorldNpcWander(npc);
+        const stayed = npc.zone === 'dustbone' && resolveNpcPresence(npc.uid).status === 'occupied';
+        const cancelled = cancelDiscipleStudy(study.study.uid).success && getNpcActivityClaim(npc.uid) === null;
+        onRoad && away && back.ok && study.success && duplicate && blocked && stayed && cancelled &&
+            beginNpcJourney(npc.uid, { destinationId: 'dewcatch_scrub', method: 'walk' }).ok
+    `), true);
+});
+
+test('a saved Hall study completes once at the same boundary in bulk and stepped advances', () => {
+    const play = steps => {
+        const run = newGame();
+        return JSON.parse(run(`
+            joinPlayerSect(npc, 'inner');
+            npc.locationId = 'redwell';
+            npc.wanderDueMonths = null;
+            G.sect.buildings.manual_hall = 1;
+            ensureManualHallMeta();
+            const manual = TECHNIQUE_POOL[0].name;
+            G.sect.buildingMeta.manual_hall.collection[manual] = { count: 1 };
+            const assignment = assignDiscipleStudy(npc.uid, manual);
+            if (!assignment.success) throw new Error(assignment.message);
+            tickQuestSystems = () => {};
+            const beforeGrowth = npc.growthProgress;
+            processWorldTime(G.ageMonths, G.ageMonths + 1);
+            saveState();
+            if (!loadState()) throw new Error('Reload failed');
+            const restored = getWorldNpcByUid(npc.uid);
+            const claimedOnLoad = getNpcActivityClaim(restored.uid) === 'manual_hall';
+            for (const months of ${JSON.stringify(steps)}) processWorldTime(G.ageMonths, G.ageMonths + months);
+            const completions = G.sect.chronicle.filter(entry => entry.text.includes('mastered'));
+            JSON.stringify({
+                claimedOnLoad, claim: getNpcActivityClaim(restored.uid), knows: restored.knownTechniques.filter(art => art === manual).length,
+                copies: getManualHallEntry(manual)?.count || 0, completionAt: completions.map(entry => entry.months),
+                growth: restored.growthProgress - beforeGrowth,
+                canTravel: beginNpcJourney(restored.uid, { destinationId: 'dewcatch_scrub', method: 'walk' }).ok
+            })
+        `));
+    };
+    const bulk = play([12]);
+    assert.deepEqual(bulk, play(Array(48).fill(0.25)));
+    assert.equal(bulk.claimedOnLoad, true);
+    assert.equal(bulk.claim, null);
+    assert.equal(bulk.knows, 1);
+    assert.equal(bulk.copies, 0);
+    assert.equal(bulk.completionAt.length, 1);
+    assert.ok(bulk.growth > 0);
+    assert.equal(bulk.canTravel, true);
+});
+
+test('legacy travel wins over a conflicting study and rebuilds the active index on load', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        const uid = npc.uid;
+        G.sect.buildings.manual_hall = 1;
+        ensureManualHallMeta();
+        const manual = TECHNIQUE_POOL[0].name;
+        G.sect.buildingMeta.manual_hall.collection[manual] = { count: 1 };
+        const trip = beginNpcJourney(uid, { destinationId: 'dewcatch_scrub', method: 'walk' });
+        G.sect.buildingMeta.manual_hall.studies.push({
+            uid: 'legacy-study', discipleUid: uid, techName: manual, progressMonths: 3, totalMonths: 6
+        });
+        npc.travel.originId = 'removed-place';
+        npc.zone = 'jade';
+        G.npcTravel = null;
+        saveState();
+        if (!loadState()) throw new Error('Reload failed');
+        const restored = getWorldNpcByUid(uid);
+        const migrated = trip.ok && isNpcTravelling(restored) && G.npcTravel.activeUids.includes(uid) &&
+            !getNpcActivityClaim(uid) && getManualHallEntry(manual).count === 1;
+        G.ageMonths = trip.arrivesAtMonths;
+        tickNpcTravel();
+        migrated && isNpcPhysicallyPresentAt(uid, 'dewcatch_scrub') && restored.zone === 'dustbone' &&
+            !restored.knownTechniques?.includes(manual)
+    `), true);
+});
+
+test('unavailable students release Hall claims without consuming manuals or earning rewards', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        G.sect.buildings.manual_hall = 1;
+        ensureManualHallMeta();
+        const manual = TECHNIQUE_POOL[0].name;
+        G.sect.buildingMeta.manual_hall.collection[manual] = { count: 1 };
+        const study = assignDiscipleStudy(npc.uid, manual);
+        npc.state = 'ambient';
+        const inactive = resolveNpcPresence(npc.uid).status === 'inactive';
+        tickManualHallStudy(12);
+        study.success && inactive && !getNpcActivityClaim(npc.uid) &&
+            getManualHallEntry(manual).count === 1 && !npc.knownTechniques?.includes(manual)
+    `), true);
+});
+
+test('a later lifespan expiry does not erase a Hall completion earlier in the same advance', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        G.sect.buildings.manual_hall = 1;
+        ensureManualHallMeta();
+        const manual = TECHNIQUE_POOL[0].name;
+        G.sect.buildingMeta.manual_hall.collection[manual] = { count: 1 };
+        const member = getSectTrainingMember(npc.uid);
+        const study = assignDiscipleStudy(npc.uid, manual).study;
+        const duration = study.totalMonths / getDiscipleStudySpeedMult(member);
+        const finishedAt = G.ageMonths + duration;
+        npc.ageMonths = getWorldNpcLifespanMonths(npc) - duration - 1;
+        tickQuestSystems = () => {};
+        processWorldTime(G.ageMonths, G.ageMonths + duration + 2);
+        !npc.alive && npc.knownTechniques.includes(manual) && getNpcActivityClaim(npc.uid) === null &&
+            G.sect.chronicle.some(entry => entry.months === finishedAt && entry.text.includes('mastered'))
     `), true);
 });

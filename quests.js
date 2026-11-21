@@ -510,7 +510,7 @@ function openNpcQuestDetail(q) {
     }
     if (q.giverUid && typeof getWorldNpcByUid === 'function') {
         const npc = getWorldNpcByUid(q.giverUid);
-        if (npc?.alive && npc.zone === currentZone) {
+        if (npc?.alive && isNpcPhysicallyPresentAt(npc, getCurrentLocationId())) {
             choices.innerHTML += `<button type="button" class="popup-item quest-choice" data-quest-goto-npc="${npc.uid}">👤 Find ${q.giverName || npc.name}</button>`;
         }
     }
@@ -824,7 +824,7 @@ function focusQuestEntry(q) {
     }
     if (q.giverUid && typeof getWorldNpcByUid === 'function') {
         const npc = getWorldNpcByUid(q.giverUid);
-        if (npc?.alive && npc.zone === currentZone) {
+        if (npc?.alive && isNpcPhysicallyPresentAt(npc, getCurrentLocationId())) {
             openNpcPopup(worldNpcId(q.giverUid));
             return;
         }

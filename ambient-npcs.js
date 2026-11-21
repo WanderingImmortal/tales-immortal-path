@@ -263,6 +263,9 @@ function promoteAmbientToPersistent(npc, context) {
     npc.trust = 0;
     npc.history = [{ month: G.ageMonths || 0, text: 'First met on the road.' }];
     npc.state = 'persistent';
+    if (typeof getLocationDef === 'function' && getLocationDef(npc.metAtLocationId)?.parentZone === npc.zone) {
+        npc.locationId = npc.metAtLocationId;
+    }
     npc.met = true;
     npc.metBefore = true;
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;

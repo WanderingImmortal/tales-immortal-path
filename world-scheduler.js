@@ -225,7 +225,9 @@ function processWorldTime(fromMonths, toMonths, context) {
     let cursor = fromMonths;
     while (cursor < toMonths - 1e-9) {
         const due = pullScheduledEventsAfter(cursor, toMonths);
-        const segmentEnd = Math.min(toMonths, due[0]?.at ?? Infinity, context.nextBoundary?.(cursor) ?? Infinity);
+        const studyBoundary = typeof getNextManualHallStudyBoundary === 'function'
+            ? getNextManualHallStudyBoundary(cursor) : Infinity;
+        const segmentEnd = Math.min(toMonths, due[0]?.at ?? Infinity, studyBoundary, context.nextBoundary?.(cursor) ?? Infinity);
         if (segmentEnd <= cursor + 1e-9) break;
 
         G.ageMonths = segmentEnd;
