@@ -62,7 +62,7 @@ function isDiscipleStudying(discipleUid) {
 
 function getDiscipleStudySpeedMult(disciple) {
     const b = MANUAL_HALL_BALANCE;
-    const roleMult = b.roleStudySpeed?.[disciple.rank] ?? 1;
+    const roleMult = b.roleStudySpeed?.[isFullSectElder(disciple) ? 'elder' : disciple.rank] ?? 1;
     const traitMult = b.traitStudySpeed?.[getDiscipleNpc(disciple)?.sectTemperament] ?? 1;
     const daoPct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('daoSpeedPct') : 0;
     const hallPct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('studySpeedPct') : 0;
@@ -78,16 +78,17 @@ function getDiscipleStudyMonths(template) {
 }
 
 function canDiscipleAccessManualHall(member) {
-    return isRankedSectMember(member) && (G.sect.policies.techniqueAccess === 'disciples'
-        || DISCIPLE_ROLES[member.rank]?.order >= DISCIPLE_ROLES.elder.order);
+    return isFullSectElder(member) || (isRankedSectMember(member) && (G.sect.policies.techniqueAccess === 'disciples'
+        || DISCIPLE_ROLES[member.rank]?.order >= DISCIPLE_ROLES.inner.order));
 }
 
 function getDiscipleStudyBlockReason(discipleUid, techName) {
     if (getBuildingLevel('manual_hall') < 1) return 'Build the Manual Hall first.';
-    const member = getSectDiscipleMembership(discipleUid);
+    const member = getSectTrainingMember(discipleUid);
     const disciple = getDiscipleNpc(member);
-    if (!disciple) return 'Disciple not found.';
-    if (!canDiscipleAccessManualHall(member)) return 'The Manual Hall requires Elder rank or above.';
+    if (!disciple) return 'Member not found.';
+    if (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(discipleUid)) return 'They are on a sect mission.';
+    if (!canDiscipleAccessManualHall(member)) return 'The Manual Hall requires Inner rank or above, or full elder status.';
     if (disciple.knownTechniques?.includes(techName)) return `${disciple.name} already knows this art.`;
     if (isDiscipleStudying(discipleUid)) return `${disciple.name} is already studying.`;
     const entry = getManualHallEntry(techName);
@@ -160,7 +161,7 @@ function withdrawManualFromHall(techName, qty) {
 function assignDiscipleStudy(discipleUid, techName) {
     const block = getDiscipleStudyBlockReason(discipleUid, techName);
     if (block) return { success: false, message: block };
-    const membership = getSectDiscipleMembership(discipleUid);
+    const membership = getSectTrainingMember(discipleUid);
     const npc = getDiscipleNpc(membership);
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     const totalMonths = getDiscipleStudyMonths(template);
@@ -189,7 +190,7 @@ function cancelDiscipleStudy(studyUid) {
     if (idx < 0) return { success: false, message: 'Study assignment not found.' };
     const study = studies[idx];
     studies.splice(idx, 1);
-    const npc = getDiscipleNpc(getSectDiscipleMembership(study.discipleUid));
+    const npc = getDiscipleNpc(getSectTrainingMember(study.discipleUid));
     return {
         success: true,
         message: `${npc?.name || 'The disciple'} stops studying ${study.techName}. Progress lost.`
@@ -197,7 +198,7 @@ function cancelDiscipleStudy(studyUid) {
 }
 
 function completeDiscipleStudy(study) {
-    const npc = getDiscipleNpc(getSectDiscipleMembership(study.discipleUid));
+    const npc = getDiscipleNpc(getSectTrainingMember(study.discipleUid));
     if (!npc) return;
     if (!npc.knownTechniques) npc.knownTechniques = [];
     if (!npc.knownTechniques.includes(study.techName)) {
@@ -226,7 +227,7 @@ function tickManualHallStudy(monthsPassed) {
     if (!studies.length) return;
     const completed = [];
     studies.forEach(study => {
-        const disciple = getSectDiscipleMembership(study.discipleUid);
+        const disciple = getSectTrainingMember(study.discipleUid);
         if (!getDiscipleNpc(disciple)) {
             completed.push(study.uid);
             return;
@@ -246,7 +247,7 @@ function tickManualHallStudy(monthsPassed) {
 function getSectDiscipleKnownArtsCount() {
     ensureSectState();
     let n = 0;
-    getSectDiscipleMemberships().forEach(d => {
+    getSectDisciplesAndElders().forEach(d => {
         n += getDiscipleNpc(d)?.knownTechniques?.length || 0;
     });
     return n;
@@ -269,7 +270,7 @@ function renderManualHallPanelHtml() {
     if (studies.length) {
         html += `<div class="sect-section-title sect-subsection">📖 Active Studies</div>`;
         studies.forEach(study => {
-            const disciple = getSectDiscipleMembership(study.discipleUid);
+            const disciple = getSectTrainingMember(study.discipleUid);
             const speed = disciple ? getDiscipleStudySpeedMult(disciple) : 1;
             const pct = Math.min(100, Math.floor((study.progressMonths / study.totalMonths) * 100));
             const remain = Math.max(0, Math.ceil((study.totalMonths - study.progressMonths) / speed));
@@ -323,16 +324,17 @@ function renderManualHallPanelHtml() {
     }
 
     ensureSectState();
-    const disciples = getSectDiscipleMemberships();
+    const disciples = getSectDisciplesAndElders();
     const eligibleDisciples = disciples.filter(canDiscipleAccessManualHall);
-    const freeDisciples = eligibleDisciples.filter(d => !isDiscipleStudying(d.uid));
+    const freeDisciples = eligibleDisciples.filter(d => !isDiscipleStudying(d.uid)
+        && !(typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(d.uid)));
     const hallManuals = collection.filter(e => e.count > 0);
     if (freeDisciples.length && hallManuals.length && studies.length < slots) {
         html += `<div class="sect-section-title sect-subsection">🧑‍🎓 Assign Study</div>`;
         html += `<div class="manual-hall-assign-row">`;
         html += `<select id="manualHallDiscipleSelect" class="manual-hall-select">`;
         freeDisciples.forEach(d => {
-            const roleDef = DISCIPLE_ROLES[d.rank];
+            const roleDef = isFullSectElder(d) ? { label: 'Elder' } : DISCIPLE_ROLES[d.rank];
             html += `<option value="${escapeSectAttr(d.uid)}">${escapeSectAttr(getDiscipleNpc(d)?.name || '')} (${roleDef?.label || d.rank})</option>`;
         });
         html += `</select>`;
@@ -346,15 +348,15 @@ function renderManualHallPanelHtml() {
     } else if (!disciples.length) {
         html += `<p class="sect-hint">Recruit disciples to assign manual study.</p>`;
     } else if (!eligibleDisciples.length) {
-        html += `<p class="sect-hint">The Manual Hall requires Elder rank or above.</p>`;
+        html += `<p class="sect-hint">The Manual Hall requires Inner rank or above, or full elder status.</p>`;
     } else if (!freeDisciples.length) {
-        html += `<p class="sect-hint">All eligible disciples are currently studying.</p>`;
+        html += `<p class="sect-hint">All eligible members are occupied.</p>`;
     }
 
     const artsCount = getSectDiscipleKnownArtsCount();
     if (artsCount > 0) {
         html += `<div class="sect-section-title sect-subsection">✦ Disciple Arts (${artsCount})</div>`;
-        getSectDiscipleMemberships().forEach(d => {
+        getSectDisciplesAndElders().forEach(d => {
             const npc = getDiscipleNpc(d);
             if (!npc?.knownTechniques?.length) return;
             html += `<div class="manual-hall-disciple-arts"><strong>${escapeSectAttr(npc.name)}</strong>: ${npc.knownTechniques.map(n => escapeSectAttr(n)).join(', ')}</div>`;
@@ -369,9 +371,11 @@ function getTreasuryPendingTithe() {
     return G.sect.buildingMeta.treasury?.pendingTithe || 0;
 }
 
-/** Disciple tithe banked per cultivate when treasury is built (0 without disciples). */
+/** Member tithe banked per cultivate when the treasury is built. */
 function getTreasuryTithePerCultivate() {
-    if (!G.disciples?.length) return 0;
+    const supporters = typeof getSectDisciplesAndElders === 'function'
+        ? getSectDisciplesAndElders().length : G.disciples?.length;
+    if (!supporters) return 0;
     const income = typeof getSectDiscipleIncome === 'function' ? getSectDiscipleIncome() : G.disciples.length;
     const fameBonus = typeof getFameLevel === 'function' ? getFameLevel().bonus : 0;
     return income + fameBonus;

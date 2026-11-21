@@ -1479,6 +1479,7 @@ function tickWorldNpcGrowth(monthsPassed) {
 }
 
 function tickWorldNpcWander(npc) {
+    if (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(npc.uid)) return;
     const role = NPC_ROLES[npc.role];
     if (!role?.canWander || !npc.wanderDueMonths) return;
     if (G.ageMonths < npc.wanderDueMonths) return;

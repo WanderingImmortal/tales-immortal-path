@@ -522,6 +522,9 @@ function beginNpcJourney(npcOrId, spec) {
     if (isNpcTravelling(npc)) {
         return { ok: false, reason: 'already_travelling', message: 'Already on the road.' };
     }
+    if (spec.purpose !== 'sect_mission' && typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(npc.uid)) {
+        return { ok: false, reason: 'sect_mission', message: 'They are on a sect mission.' };
+    }
     const destinationId = spec.destinationId;
     const dest = npcTravelLocationDef(destinationId);
     if (!dest) {

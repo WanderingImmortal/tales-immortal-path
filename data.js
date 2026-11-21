@@ -3826,7 +3826,7 @@ const MANUAL_BALANCE = {
 const MANUAL_HALL_BALANCE = {
     studyMonthsMult: 3,
     renownByRarity: { common: 1, uncommon: 2, rare: 4, legendary: 8 },
-    roleStudySpeed: { acolyte: 1, elder: 0.88, core: 0.78, successor: 0.68 },
+    roleStudySpeed: { acolyte: 1, inner: 0.88, elder: 0.88, core: 0.78, successor: 0.68 },
     traitStudySpeed: { wise: 0.85, ambitious: 0.92, loyal: 1, generous: 1, mysterious: 0.9 }
 };
 
@@ -5476,14 +5476,14 @@ const DISCIPLE_ROLES = {
         order: 0,
         desc: 'Gather resources and train basics.',
         incomeBonus: 1,
-        promoteReq: { renown: 8, monthsServed: 24, next: 'elder' }
+        promoteReq: { renown: 8, monthsServed: 24, next: 'inner' }
     },
-    elder: {
-        id: 'elder',
-        label: 'Elder',
-        emoji: '👴',
+    inner: {
+        id: 'inner',
+        label: 'Inner Disciple',
+        emoji: '📿',
         order: 1,
-        desc: 'Lead missions and teach juniors.',
+        desc: 'An experienced disciple.',
         incomeBonus: 2,
         promoteReq: { renown: 20, monthsServed: 48, next: 'core' }
     },
@@ -6446,7 +6446,7 @@ const SECT_FRIENDLY_SUFFIXES = ['Sect', 'Order', 'Monastery'];
 // ----- Sect legacy (chronicle, heirlooms, legend, spirit) -----
 const SECT_LEGACY = {
     chaosResourceLossPct: 0.5,
-    statMult: { successor: 0.92, core: 0.82, elder: 0.72, acolyte: 0.62 },
+    statMult: { successor: 0.92, core: 0.82, inner: 0.72, elder: 0.72, acolyte: 0.62 },
     maxChronicleEntries: 50,
     maxHeirlooms: 12,
     heirloomBonusPerGeneration: 0.03,
