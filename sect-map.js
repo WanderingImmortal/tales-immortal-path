@@ -168,6 +168,52 @@ function renderSectMapHtml() {
     return html;
 }
 
+function renderSectPoliciesHtml() {
+    const policies = ensureSectPolicies();
+    return `<div class="sect-section-title">Sect Policies</div>` +
+        Object.entries(SECT_POLICY_OPTIONS).map(([key, policy]) => `
+            <div class="sect-action-block">
+                <label>${policy.label}
+                    <select class="manual-hall-select" data-sect-policy="${key}">
+                        ${Object.entries(policy.choices).map(([value, label]) =>
+                            `<option value="${value}"${policies[key] === value ? ' selected' : ''}>${label}</option>`
+                        ).join('')}
+                    </select>
+                </label>
+                <p class="sect-hint">${policy.hint}</p>
+            </div>`
+        ).join('');
+}
+
+function renderOtherSectAffiliationsHtml() {
+    const affiliates = getActiveSectAffiliations().filter(member => !isRankedSectMember(member));
+    if (!affiliates.length) return '';
+    return `<div class="sect-section-title">Other Affiliates</div><div class="sect-disciple-list">` +
+        affiliates.map(member => {
+            const npc = getWorldNpcByUid(member.uid);
+            if (!npc) return '';
+            if (member.affiliation === 'full') {
+                return `<div class="sect-disciple-row"><div class="sect-disciple-info">
+                    <span class="name">${escapeSectAttr(npc.name)}</span>
+                    <span class="role">${SECT_MEMBER_POSITIONS[member.position]} · Full member</span>
+                    ${renderSectMemberServiceHtml(member)}
+                </div></div>`;
+            }
+            const { service, compensationStones, endsAtMonths } = member.agreement;
+            const duration = endsAtMonths == null ? 'Open-ended' : `${formatDuration(endsAtMonths - G.ageMonths)} remaining`;
+            return `<div class="sect-disciple-row"><div class="sect-disciple-info">
+                <span class="name">${escapeSectAttr(npc.name)}</span>
+                <span class="role">Guest Elder · ${escapeSectAttr(service)}</span>
+                <span class="role">${compensationStones} Spirit Stones agreed · ${duration}</span>
+            </div></div>`;
+        }).join('') + '</div>';
+}
+
+function renderSectMemberServiceHtml(member) {
+    return `<span class="role">${member.lifetimeContribution} lifetime contributions · ${member.meritBalance} merit available</span>
+        ${member.duties.length ? `<span class="role">Duties · ${escapeSectAttr(member.duties.join(', '))}</span>` : ''}`;
+}
+
 function renderSectCourtyardHtml() {
     const stage = getSectStageDef();
     const docDef = getSectDoctrineDef();
@@ -197,10 +243,10 @@ function renderSectCourtyardHtml() {
 
     if (getDiscipleCount()) {
         html += `<div class="sect-section-title">📿 Disciples</div><div class="sect-disciple-list">`;
-        G.sect.discipleRecords.forEach(d => {
+        getSectDiscipleMemberships().forEach(d => {
             const npc = getDiscipleNpc(d);
             if (!npc) return;
-            const role = DISCIPLE_ROLES[d.role] || DISCIPLE_ROLES.acolyte;
+            const role = DISCIPLE_ROLES[d.rank] || DISCIPLE_ROLES.acolyte;
             const traitDef = typeof getDiscipleTraitDef === 'function' ? getDiscipleTraitDef(npc.sectTemperament) : null;
             const traitTip = traitDef
                 ? escapeSectAttr(`${traitDef.desc}${traitDef.effectDesc ? ' — ' + traitDef.effectDesc : ''}`)
@@ -211,10 +257,11 @@ function renderSectCourtyardHtml() {
             html += `<div class="sect-disciple-row">
                 <div class="sect-disciple-info">
                     <span class="name">${role.emoji} ${escapeSectAttr(npc.name)}${traitDef ? ` <span class="sect-trait-tag" title="${traitTip}">${traitDef.emoji} ${traitDef.label}</span>` : ''}</span>
-                    <span class="role">${role.label} · ${served}y service</span>
+                    <span class="role">${role.label}${d.position === 'disciple' ? '' : ' · ' + SECT_MEMBER_POSITIONS[d.position]} · ${served}y service</span>
+                    ${renderSectMemberServiceHtml(d)}
                 </div>
                 ${canPromote
-                    ? `<button type="button" class="sect-promote-btn" data-promote-disc="${d.uid}">↑ Promote</button>`
+                    ? `<button type="button" class="sect-promote-btn" data-promote-disc="${escapeSectAttr(d.uid)}">↑ Promote</button>`
                     : ''}
             </div>`;
         });
@@ -222,6 +269,9 @@ function renderSectCourtyardHtml() {
     } else {
         html += `<p class="sect-hint">No disciples yet. Recruit from the main action bar once your fame spreads.</p>`;
     }
+
+    html += renderOtherSectAffiliationsHtml();
+    html += renderSectPoliciesHtml();
 
     if (meetsStageRequirement('regional')) {
         html += `<div class="sect-section-title">🌏 Zone Influence</div>`;
@@ -433,6 +483,13 @@ function renderConstructionChoicesHtml(targetId, targetLevel, cost) {
 
 function bindSectGroundsEvents(container) {
     if (!container) return;
+    container.querySelectorAll('[data-sect-policy]').forEach(select => {
+        select.addEventListener('change', function() {
+            if (!setSectPolicy(this.dataset.sectPolicy, this.value)) return;
+            saveState();
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+        });
+    });
     container.querySelectorAll('[data-sect-view]').forEach(el => {
         el.addEventListener('click', function() {
             setSectGroundsView(this.dataset.sectView);

@@ -2,6 +2,51 @@
 // SECT.JS — Sect progression, buildings, disciples
 // ============================================
 
+const SECT_MEMBER_POSITIONS = {
+    disciple: 'Disciple',
+    specialist: 'Specialist',
+    administrator: 'Administrator',
+    elder: 'Elder'
+};
+
+const SECT_POLICY_OPTIONS = {
+    support: {
+        label: 'Member support',
+        choices: { as_available: 'Support as resources allow', allowance: 'Plan cultivation allowances' },
+        hint: 'Records a support commitment for future budgeting.'
+    },
+    promotion: {
+        label: 'Promotion',
+        choices: { seniority: 'Renown and service time', renown: 'Renown alone' },
+        hint: 'Sets eligibility for the existing disciple ranks.'
+    },
+    techniqueAccess: {
+        label: 'Manual Hall access',
+        choices: { disciples: 'All ranked disciples', elders: 'Elder rank and above' },
+        hint: 'Applies to new study assignments.'
+    },
+    dutyExpectation: {
+        label: 'Duty expectation',
+        choices: { voluntary: 'Voluntary service', assigned: 'Assigned responsibilities' },
+        hint: 'Records expectations for future duties.'
+    }
+};
+
+function ensureSectPolicies() {
+    const policies = G.sect.policies ||= {};
+    for (const [key, { choices }] of Object.entries(SECT_POLICY_OPTIONS)) {
+        if (!Object.hasOwn(choices, policies[key])) policies[key] = Object.keys(choices)[0];
+    }
+    return policies;
+}
+
+function setSectPolicy(key, value) {
+    if (!isSectFounded() || !Object.hasOwn(SECT_POLICY_OPTIONS, key)
+        || !Object.hasOwn(SECT_POLICY_OPTIONS[key].choices, value)) return false;
+    ensureSectPolicies()[key] = value;
+    return true;
+}
+
 function createEmptySectState() {
     const buildings = {};
     Object.keys(SECT_BUILDINGS).forEach(id => { buildings[id] = 0; });
@@ -11,7 +56,7 @@ function createEmptySectState() {
         renown: 0,
         resources: { stones: 0, spiritHerbs: 0, ironOre: 0 },
         buildings,
-        discipleRecords: [],
+        memberships: [],
         rivals: [],
         worldSects: [],
         alliances: [],
@@ -51,7 +96,6 @@ function ensureSectState() {
             if (G.sect.buildings[id] == null) G.sect.buildings[id] = 0;
         });
     }
-    if (!G.sect.discipleRecords) G.sect.discipleRecords = [];
     if (!G.sect.resources) G.sect.resources = { stones: 0, spiritHerbs: 0, ironOre: 0 };
     if (!G.sect.rivals) G.sect.rivals = [];
     if (!G.sect.worldSects) G.sect.worldSects = [];
@@ -62,6 +106,7 @@ function ensureSectState() {
     ensureSectReputation();
     if (G.sect.stage && G.sect.stage !== 'wandering' && !G.sect.doctrine) inferSectDoctrineFromAlignment();
     migrateSectDiscipleMemberships();
+    ensureSectPolicies();
     if (typeof ensureResidenceStash === 'function') ensureResidenceStash();
 }
 
@@ -251,8 +296,30 @@ function getDiscipleNpc(membership) {
     return membership ? getWorldNpcByUid(membership.uid) : null;
 }
 
+function isActiveSectAffiliation(member) {
+    return member.affiliation === 'full' || (member.affiliation === 'guest'
+        && (member.agreement.endsAtMonths == null || member.agreement.endsAtMonths > G.ageMonths));
+}
+
+function getActiveSectAffiliations() {
+    return (G.sect?.memberships || []).filter(isActiveSectAffiliation);
+}
+
+function getSectAffiliation(uid) {
+    return G.sect?.memberships?.find(member => member.uid === uid && isActiveSectAffiliation(member)) || null;
+}
+
+function isRankedSectMember(member) {
+    return member?.affiliation === 'full' && member.rank != null;
+}
+
+function getSectDiscipleMemberships() {
+    return (G.sect?.memberships || []).filter(isRankedSectMember);
+}
+
 function getSectDiscipleMembership(uid) {
-    return G.sect?.discipleRecords?.find(member => member.uid === uid) || null;
+    const member = getSectAffiliation(uid);
+    return isRankedSectMember(member) ? member : null;
 }
 
 function hasOtherSectMembership(npc) {
@@ -286,15 +353,23 @@ function createSectDiscipleNpc(name, legacyUid, authoredNpcId) {
     return npc;
 }
 
-function createDiscipleMembership(npc, role, joinedMonths) {
-    if (!npc.sectTemperament) {
-        npc.sectTemperament = typeof rollDiscipleTraitId === 'function' ? rollDiscipleTraitId() : 'loyal';
-    }
-    return { uid: npc.uid, role: role || 'acolyte', joinedMonths };
+function createFullSectMembership(uid, rank, joinedMonths, position = 'disciple') {
+    return {
+        uid, affiliation: 'full', position, rank, joinedMonths,
+        lifetimeContribution: 0, meritBalance: 0, duties: []
+    };
 }
 
 function migrateSectDiscipleMemberships() {
-    if (G.sect?.discipleIdentityVersion === 1) return;
+    if (G.sect?.discipleIdentityVersion === 1) {
+        if (!Array.isArray(G.sect.memberships) || Array.isArray(G.sect.discipleRecords)) {
+            G.sect.memberships = (G.sect.discipleRecords || []).map(record =>
+                createFullSectMembership(record.uid, record.role || 'acolyte', record.joinedMonths ?? (G.ageMonths || 0))
+            );
+            delete G.sect.discipleRecords;
+        }
+        return;
+    }
     const legacyNames = (G.disciples || []).filter(name => typeof name === 'string');
     if (!G.sect) {
         if (!legacyNames.length && !G.sectName) return;
@@ -319,7 +394,7 @@ function migrateSectDiscipleMemberships() {
     const redeemedNpc = redemption?.status === 'complete' && G.questJournal?.some(entry =>
         entry.arcId === 'demonic_redemption' && entry.resolution === 'redeem')
         ? getWorldNpcByUid(redemption.targetUid) : null;
-    G.sect.discipleRecords = records.map(record => {
+    G.sect.memberships = records.map(record => {
         // The old save stored only the name on both sides of recruitment.
         const candidates = (G.worldNpcs || []).filter(npc => npc.recruitedToSect && !npc.alive && npc.name === record.name);
         const uniqueRecord = records.filter(other => other.name === record.name).length === 1;
@@ -337,7 +412,7 @@ function migrateSectDiscipleMemberships() {
             npc = createSectDiscipleNpc(record.name, record.uid, authoredNpcId);
             if (authoredNpcId) liangArc.joinedWorldRoster = true;
         }
-        npc.sectTemperament ||= record.trait;
+        npc.sectTemperament ||= record.trait || (typeof rollDiscipleTraitId === 'function' ? rollDiscipleTraitId() : 'loyal');
         if (record.knownTechniques?.length) {
             npc.knownTechniques = [...new Set([...(npc.knownTechniques || []), ...record.knownTechniques])];
         }
@@ -346,9 +421,10 @@ function migrateSectDiscipleMemberships() {
                 study.discipleUid = npc.uid;
             });
         }
-        return createDiscipleMembership(npc, record.role, record.joinedMonths ?? (G.ageMonths || 0));
+        return createFullSectMembership(npc.uid, record.role || 'acolyte', record.joinedMonths ?? (G.ageMonths || 0));
     });
     studies.forEach(study => { delete study.discipleName; });
+    delete G.sect.discipleRecords;
     G.sect.discipleIdentityVersion = 1;
     syncSectLegacyFields();
 }
@@ -379,7 +455,7 @@ function syncSectLegacyFields() {
         G.sectName = G.sect.name || (G.name + "'s Sect");
         G.sect.name = G.sectName;
     }
-    G.disciples = G.sect.discipleRecords.map(getDiscipleNpc).filter(Boolean).map(npc => npc.name);
+    G.disciples = getSectDiscipleMemberships().map(getDiscipleNpc).filter(Boolean).map(npc => npc.name);
 }
 
 function getSectStageId() {
@@ -545,16 +621,81 @@ function applySectCultivateBuildingEffects(statGain) {
 
 function getDiscipleCount() {
     ensureSectState();
-    return G.sect.discipleRecords.length;
+    return getSectDiscipleMemberships().length;
 }
 
-function joinPlayerSect(npc, role) {
-    if (!npc?.alive || !npc.uid || getWorldNpcByUid(npc.uid) !== npc || npc.state === 'ambient'
-        || getSectDiscipleMembership(npc.uid) || hasOtherSectMembership(npc)) return null;
-    const membership = createDiscipleMembership(npc, role, G.ageMonths || 0);
-    G.sect.discipleRecords.push(membership);
+function canRecordSectAffiliation(npc) {
+    return npc?.alive && npc.uid && getWorldNpcByUid(npc.uid) === npc
+        && npc.state !== 'ambient' && !getSectAffiliation(npc.uid);
+}
+
+function joinPlayerSect(npc, rank, position = 'disciple') {
+    if (!canRecordSectAffiliation(npc) || hasOtherSectMembership(npc)
+        || !Object.hasOwn(SECT_MEMBER_POSITIONS, position)) return null;
+    if (rank === undefined) rank = position === 'disciple' ? 'acolyte' : null;
+    if (rank !== null && !Object.hasOwn(DISCIPLE_ROLES, rank)) return null;
+    removeSectAffiliation(npc.uid);
+    if (rank) npc.sectTemperament ||= typeof rollDiscipleTraitId === 'function' ? rollDiscipleTraitId() : 'loyal';
+    const membership = createFullSectMembership(npc.uid, rank ?? null, G.ageMonths || 0, position);
+    G.sect.memberships.push(membership);
     syncSectLegacyFields();
     return membership;
+}
+
+// Guest agreements coexist with outside affiliations. Each NPC has at most one active player-sect affiliation.
+function recordSectGuestAgreement(npc, terms) {
+    ensureSectState();
+    if (!isSectFounded() || !canRecordSectAffiliation(npc)) return null;
+    const { service, compensationStones = 0, durationMonths = null } = terms || {};
+    if (typeof service !== 'string' || !service.trim() || !Number.isSafeInteger(compensationStones) || compensationStones < 0) {
+        return null;
+    }
+    if (durationMonths != null && (!Number.isSafeInteger(durationMonths) || durationMonths <= 0)) return null;
+    const joinedMonths = G.ageMonths || 0;
+    const endsAtMonths = durationMonths == null ? null : joinedMonths + durationMonths;
+    if (endsAtMonths != null && (!Number.isFinite(endsAtMonths) || endsAtMonths > Number.MAX_SAFE_INTEGER)) return null;
+    removeSectAffiliation(npc.uid);
+    const membership = {
+        uid: npc.uid, affiliation: 'guest', position: 'elder', joinedMonths,
+        agreement: { service: service.trim(), compensationStones, endsAtMonths }
+    };
+    G.sect.memberships.push(membership);
+    return membership;
+}
+
+function setSectMemberPosition(uid, position) {
+    const member = getSectAffiliation(uid);
+    if (member?.affiliation !== 'full' || !Object.hasOwn(SECT_MEMBER_POSITIONS, position)) return false;
+    member.position = position;
+    return true;
+}
+
+function setSectMemberDuties(uid, duties) {
+    const member = getSectAffiliation(uid);
+    if (member?.affiliation !== 'full' || !Array.isArray(duties)
+        || ![...duties].every(duty => typeof duty === 'string' && duty.trim())) return false;
+    member.duties = [...new Set(duties.map(duty => duty.trim()))];
+    return true;
+}
+
+function creditSectContribution(uid, amount) {
+    const member = getSectAffiliation(uid);
+    if (member?.affiliation !== 'full' || !Number.isSafeInteger(amount) || amount <= 0) return false;
+    const lifetimeContribution = member.lifetimeContribution + amount;
+    const meritBalance = member.meritBalance + amount;
+    if (!Number.isSafeInteger(lifetimeContribution) || !Number.isSafeInteger(meritBalance)) return false;
+    member.lifetimeContribution = lifetimeContribution;
+    member.meritBalance = meritBalance;
+    return true;
+}
+
+function spendSectMerit(uid, amount) {
+    const member = getSectAffiliation(uid);
+    if (member?.affiliation !== 'full' || !Number.isSafeInteger(amount) || amount <= 0 || amount > member.meritBalance) {
+        return false;
+    }
+    member.meritBalance -= amount;
+    return true;
 }
 
 function addSectDisciple(npcOrName, role, options) {
@@ -577,11 +718,12 @@ function addSectDisciple(npcOrName, role, options) {
     return record;
 }
 
-function removeSectDisciple(uid) {
-    const records = G.sect?.discipleRecords;
+function removeSectAffiliation(uid) {
+    const records = G.sect?.memberships;
     const index = records?.findIndex(member => member.uid === uid) ?? -1;
     if (index < 0) return;
-    records.splice(index, 1);
+    const [member] = records.splice(index, 1);
+    if (!isRankedSectMember(member)) return;
     const hall = G.sect.buildingMeta?.manual_hall;
     if (hall?.studies) hall.studies = hall.studies.filter(study => study.discipleUid !== uid);
     syncSectLegacyFields();
@@ -1254,7 +1396,7 @@ function getPromoteBlockReason(uid) {
     ensureSectState();
     const d = getSectDiscipleMembership(uid);
     if (!getDiscipleNpc(d)) return 'Disciple not found.';
-    const roleDef = DISCIPLE_ROLES[d.role];
+    const roleDef = DISCIPLE_ROLES[d.rank];
     const req = roleDef?.promoteReq;
     if (!req) return 'Already at highest rank.';
     const renownReq = typeof getDisciplePromoteRenownRequired === 'function'
@@ -1263,6 +1405,7 @@ function getPromoteBlockReason(uid) {
     if ((G.sect.renown || 0) < renownReq) {
         return `Need ${renownReq} Sect Renown (have ${G.sect.renown || 0}).`;
     }
+    if (G.sect.policies.promotion === 'renown') return null;
     const monthsReq = typeof getDiscipleRequiredServiceMonths === 'function'
         ? getDiscipleRequiredServiceMonths(d)
         : req.monthsServed;
@@ -1280,9 +1423,9 @@ function promoteDisciple(uid) {
     if (block) return { success: false, message: block };
     const d = getSectDiscipleMembership(uid);
     const npc = getDiscipleNpc(d);
-    const nextRole = DISCIPLE_ROLES[d.role].promoteReq.next;
+    const nextRole = DISCIPLE_ROLES[d.rank].promoteReq.next;
     const nextDef = DISCIPLE_ROLES[nextRole];
-    d.role = nextRole;
+    d.rank = nextRole;
     addSectRenown(2);
     shiftSectReputation('promote_disciple');
     if (typeof getDiscipleTraitDef === 'function') {
@@ -1365,7 +1508,9 @@ function canRecruitWorldNpc(npc) {
 function getRecruitWorldNpcBlockReason(npc) {
     if (!isSectFounded()) return 'Found your sect before recruiting wanderers.';
     if (!npc?.alive || !npc.uid || getWorldNpcByUid(npc.uid) !== npc) return 'They are gone.';
-    if (getSectDiscipleMembership(npc.uid)) return 'Already in your sect.';
+    const affiliation = getSectAffiliation(npc.uid);
+    if (affiliation?.affiliation === 'full') return 'Already in your sect.';
+    if (affiliation) return 'End the guest agreement before inviting them as a full member.';
     if (hasOtherSectMembership(npc)) return 'They already belong to another organization.';
     if (npc.state === 'ambient') return 'Get to know them before inviting them to join.';
     if (!SECT_NPC_RECRUIT.roles.includes(npc.role)) return 'This person is not suited to join as a disciple.';
@@ -1778,8 +1923,8 @@ function formatBuildingCost(buildingId) {
 function getSectDiscipleIncome() {
     ensureSectState();
     let income = 0;
-    G.sect.discipleRecords.forEach(d => {
-        const role = DISCIPLE_ROLES[d.role] || DISCIPLE_ROLES.acolyte;
+    getSectDiscipleMemberships().forEach(d => {
+        const role = DISCIPLE_ROLES[d.rank] || DISCIPLE_ROLES.acolyte;
         let bonus = role.incomeBonus || 1;
         if (typeof getDiscipleTraitMult === 'function') {
             bonus = Math.floor(bonus * getDiscipleTraitMult(d, 'growthMult'));
@@ -1795,6 +1940,7 @@ function getSectDiscipleIncome() {
 function tickSectSystems(monthsPassed) {
     ensureSectState();
     if (!isSectFounded() || monthsPassed <= 0) return;
+    G.sect.memberships = getActiveSectAffiliations();
     tickSectConstruction();
     tickSectAlliances();
     if (typeof tickManualHallStudy === 'function') tickManualHallStudy(monthsPassed);

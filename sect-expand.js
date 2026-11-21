@@ -191,7 +191,7 @@ function getDiscipleTraitEffectSummary(traitId) {
 }
 
 function getDiscipleRequiredServiceMonths(disciple) {
-    const roleDef = DISCIPLE_ROLES[disciple?.role];
+    const roleDef = DISCIPLE_ROLES[disciple?.rank];
     const req = roleDef?.promoteReq;
     if (!req) return Infinity;
     const mult = getDiscipleTraitMult(disciple, 'promoteMonthsMult');
@@ -199,7 +199,7 @@ function getDiscipleRequiredServiceMonths(disciple) {
 }
 
 function getDisciplePromoteRenownRequired(disciple) {
-    const roleDef = DISCIPLE_ROLES[disciple?.role];
+    const roleDef = DISCIPLE_ROLES[disciple?.rank];
     const req = roleDef?.promoteReq;
     if (!req) return 0;
     const reduction = getDiscipleTraitDef(getDiscipleNpc(disciple)?.sectTemperament).promoteRenownReduction || 0;
@@ -208,9 +208,10 @@ function getDisciplePromoteRenownRequired(disciple) {
 
 function getSectTraitIncomeMult() {
     ensureSectExpansionState();
-    const count = Math.max(1, G.sect.discipleRecords.length);
+    const disciples = getSectDiscipleMemberships();
+    const count = Math.max(1, disciples.length);
     let mult = 1;
-    G.sect.discipleRecords.forEach(d => {
+    disciples.forEach(d => {
         let incomeMult = getDiscipleTraitMult(d, 'incomeMult');
         const def = getDiscipleTraitDef(getDiscipleNpc(d)?.sectTemperament);
         if (def.jealousMinDisciples && count >= def.jealousMinDisciples && def.incomeMultPerDisciple) {
@@ -223,9 +224,10 @@ function getSectTraitIncomeMult() {
 
 function getSectTraitCombatMult() {
     ensureSectExpansionState();
-    const count = Math.max(1, G.sect.discipleRecords.length);
+    const disciples = getSectDiscipleMemberships();
+    const count = Math.max(1, disciples.length);
     let mult = 1;
-    G.sect.discipleRecords.forEach(d => {
+    disciples.forEach(d => {
         mult += (getDiscipleTraitMult(d, 'combatMult') - 1) / count;
     });
     return mult;
@@ -236,7 +238,7 @@ function getSectTraitCombatMultForEvents() {
     let mult = getSectTraitCombatMult();
     let brave = 0;
     let coward = 0;
-    G.sect.discipleRecords.forEach(d => {
+    getSectDiscipleMemberships().forEach(d => {
         const temperament = getDiscipleNpc(d)?.sectTemperament;
         if (temperament === 'brave') brave++;
         if (temperament === 'cowardly') coward++;
@@ -246,9 +248,10 @@ function getSectTraitCombatMultForEvents() {
 
 function getSectTraitEventStoneLossMult() {
     ensureSectExpansionState();
-    const count = Math.max(1, G.sect.discipleRecords.length);
+    const disciples = getSectDiscipleMemberships();
+    const count = Math.max(1, disciples.length);
     let mult = 1;
-    G.sect.discipleRecords.forEach(d => {
+    disciples.forEach(d => {
         const lossMult = getDiscipleTraitDef(getDiscipleNpc(d)?.sectTemperament).eventStoneLossMult;
         if (lossMult) mult += (lossMult - 1) / count;
     });
@@ -258,7 +261,7 @@ function getSectTraitEventStoneLossMult() {
 function getSectTraitDiplomacyBonus() {
     ensureSectExpansionState();
     let bonus = 0;
-    G.sect.discipleRecords.forEach(d => {
+    getSectDiscipleMemberships().forEach(d => {
         bonus += getDiscipleTraitDef(getDiscipleNpc(d)?.sectTemperament).diplomacyBonus || 0;
     });
     return bonus;
@@ -267,7 +270,7 @@ function getSectTraitDiplomacyBonus() {
 function getSectTraitRaidRenownBonus() {
     ensureSectExpansionState();
     let bonus = 0;
-    G.sect.discipleRecords.forEach(d => {
+    getSectDiscipleMemberships().forEach(d => {
         bonus += getDiscipleTraitDef(getDiscipleNpc(d)?.sectTemperament).raidRenownBonus || 0;
     });
     return bonus;
@@ -275,7 +278,7 @@ function getSectTraitRaidRenownBonus() {
 
 function applyDiscipleTraitEventEffects() {
     ensureSectExpansionState();
-    const disciples = G.sect.discipleRecords;
+    const disciples = getSectDiscipleMemberships();
     if (!disciples.length) return;
 
     const generous = disciples.filter(d => getDiscipleNpc(d)?.sectTemperament === 'generous').length;
@@ -899,7 +902,7 @@ function applySectEventChoice(eventId, choiceKey) {
     }
 
     if (fx.cultivationCheck) {
-        const wise = G.sect.discipleRecords.filter(d => getDiscipleNpc(d)?.sectTemperament === 'wise').length;
+        const wise = getSectDiscipleMemberships().filter(d => getDiscipleNpc(d)?.sectTemperament === 'wise').length;
         if (wise > 0) {
             const per = DISCIPLE_TRAITS.wise.cultivateFoundationBonus || 1;
             const gain = wise * per;
@@ -992,10 +995,10 @@ function openSectSuccessionPopup() {
     const list = document.getElementById('sectSuccessionChoices');
     let html = `<button type="button" class="popup-item sect-succession-choice" data-succession="">
         <div class="name">💀 No successor — sect falls into chaos</div>
-        <div class="desc">Lose 50% resources and all disciples</div>
+        <div class="desc">Lose 50% resources and release all affiliates</div>
     </button>`;
-    G.sect.discipleRecords.forEach(d => {
-        const role = DISCIPLE_ROLES[d.role] || DISCIPLE_ROLES.acolyte;
+    getSectDiscipleMemberships().forEach(d => {
+        const role = DISCIPLE_ROLES[d.rank] || DISCIPLE_ROLES.acolyte;
         const npc = getDiscipleNpc(d);
         if (!npc) return;
         const trait = getDiscipleTraitDef(npc.sectTemperament);
@@ -1008,7 +1011,7 @@ function openSectSuccessionPopup() {
     list.querySelectorAll('.sect-succession-choice').forEach(btn => {
         btn.onclick = function() {
             const uid = this.dataset.succession || null;
-            applySectSuccession(uid || null);
+            if (!applySectSuccession(uid)) return;
             popup.classList.remove('active');
             fullRender();
         };
@@ -1017,7 +1020,7 @@ function openSectSuccessionPopup() {
 }
 
 function applySuccessorStats(disciple, npc) {
-    const mult = SECT_LEGACY.statMult[disciple.role] || 0.6;
+    const mult = SECT_LEGACY.statMult[disciple.rank] || 0.6;
     const cultivation = ensureNpcCultivation(npc);
     G.cultivation = null;
     CULTIVATION_TRACKS.forEach(track => setTrackRealmIdx(track, cultivation[track].realmIdx));
@@ -1037,6 +1040,10 @@ function applySuccessorStats(disciple, npc) {
 
 function applySectSuccession(discipleUid) {
     ensureSectExpansionState();
+    const disciple = getSectDiscipleMembership(discipleUid);
+    const npc = getDiscipleNpc(disciple);
+    if (discipleUid && !npc) return false;
+
     const prevLeader = G.name;
     const prevGen = G.sect.leaderGeneration || 1;
 
@@ -1047,25 +1054,17 @@ function applySectSuccession(discipleUid) {
         if (G.sect.resources) {
             G.sect.resources.stones = Math.floor((G.sect.resources.stones || 0) * (1 - SECT_LEGACY.chaosResourceLossPct));
         }
-        G.sect.discipleRecords.slice().forEach(d => removeSectDisciple(d.uid));
+        G.sect.memberships.slice().forEach(member => removeSectAffiliation(member.uid));
         addSectRenown(-Math.floor((G.sect.renown || 0) * 0.3));
         appendSectChronicle(`${G.sect.name} fell into chaos — disciples scattered.`, '💀');
         addLog(`💀 Without a successor, ${G.sect.name} collapses into chaos!`);
         G.sectSuccessionActive = false;
         G.gameOver = true;
         addLog(`💀 Your lineage ends. The sect may not recover.`);
-        return;
+        return true;
     }
 
-    const disciple = getSectDiscipleMembership(discipleUid);
-    const npc = getDiscipleNpc(disciple);
-    if (!npc) {
-        G.sectSuccessionActive = false;
-        G.gameOver = true;
-        return;
-    }
-
-    removeSectDisciple(npc.uid);
+    removeSectAffiliation(npc.uid);
     // The successor is now controlled through G, outside the world NPC simulation.
     G.worldNpcs = G.worldNpcs.filter(other => other.uid !== npc.uid);
     G.sect.leaderNpcUid = npc.uid;
@@ -1091,6 +1090,7 @@ function applySectSuccession(discipleUid) {
 
     G.sectSuccessionActive = false;
     G.gameOver = false;
+    return true;
 }
 
 function tickSectExpansion(monthsPassed) {
