@@ -18,13 +18,12 @@ There is one simulation clock: `G.ageMonths`, advanced by `processWorldTime` in 
 
 | Entry | What runs |
 |-------|-----------|
-| `advanceTime` | Player actions. `processWorldTime`, alchemy supply decay, `applySharedCalendarObligations` (rent, Well-Ring board), then passive circulation unless `skipPassiveCirculation`. |
-| `advanceTimeQuiet` | World-clock weeks and long seclusion years. Same world ticks, alchemy decay, and shared obligations. No passive circulation. |
-| `flushWorldClockWeek` | Calls `advanceTimeQuiet(0.25)`, then the stance week: passive cultivation, explore stance, project completion. |
-| Dedicated cultivation, chamber, breakthrough seclusion | `advanceTime` with `skipPassiveCirculation`, plus that activity's own session. |
-| Long seclusion | One quiet year at a time, then `applySeclusionYearGains`. Pause, speed, and early exit stay on the playback timer. |
+| `advanceTime` / `advanceTimeQuiet` | Both use shared elapsed-time accounting for world ticks, alchemy decay, rent, Well-Ring obligations, and passive circulation. Paid actions apply action-time modifiers. Quiet calls request exact calendar spans. |
+| `flushWorldClockWeek` | Requests a quiet quarter-month, capped by the active project deadline. The Explore stance pays only after an uninterrupted week. |
+| Dedicated cultivation | Skips passive circulation for its own elapsed span. Completed focused sessions use the existing payout. |
+| Long seclusion | Requests quiet calendar time with passive circulation suppressed. Each complete, uninterrupted year earns the existing annual session. A partial year records elapsed time without an annual payout. |
 
-`processWorldTime` walks `[from, to]` in segments that stop at the next `G.worldSchedule` event. For each segment it sets `G.ageMonths` to the segment end, runs `WORLD_TICKS`, then fires events due at that instant.
+The scheduler breaks spans on world events, rent dates, Well-Ring month boundaries, and lifespan. Player activity and project deadlines also bound advances. Ordinary scheduled events continue in chronological order. Combat, encounter choices, tribulations, mandatory choices, and succession stop new work at the boundary where they become active.
 
 Registered ticks, in order: scar healing, alignment, `tickNpcWorld` (stub), quests, ambient NPCs and relationships, `tickWorldNpcGrowth`, player-sect systems, faction quest deadlines, faction systems.
 
@@ -60,7 +59,7 @@ Affiliation changes are not a live system. Lesser-sect NPCs are registered with 
 
 ## Still different on purpose
 
-- Clock weeks grant passive cultivation. Quiet playback does not.
+- Ordinary elapsed time accumulates fractional passive weeks across advances and saves.
 - Dedicated cultivation and breakthrough seclusion skip passive and apply their own session.
 - Long seclusion applies `applySeclusionYearGains` once per year.
 - Working, resting, and secluded years are not the same player outcome. They do share world ticks and upkeep.
@@ -70,8 +69,9 @@ Affiliation changes are not a live system. Lesser-sect NPCs are registered with 
 - NPC breakthroughs are still one random roll per filled progress bar. Matching the month total does not match every roll.
 - The Well-Ring tournament is one `tournamentDue` flag, not a queue of missed years.
 - `tickDwellingRent` treats a stored `rentPaidThroughMonth` of `0` as "start from now" (`0` is falsy). Starting a rental sets the mark to the current month + 1.
-- No recruitment, succession, or autonomous lesser-sect growth. A dead leader stays the named leader and contributes no living power; nobody is promoted.
-- `G.worldClock.project` still completes on the week loop after `endsAtMonths`. It is not a scheduled world event, so a single `advanceTime` that jumps past the end does not run the project completion handler until the calendar week loop runs.
+- Timed projects settle on their existing clock deadline. An incompatible paid action is blocked while a project or cultivation activity owns that time.
+- NPC background cultivation intentionally continues during trips, study, and missions. Sect missions exclude Manual Hall study and incompatible travel, but the Manual Hall has no presence or travel-time requirement of its own. A later NPC scheduler can separate future dedicated training from background progression and handle existing assignments explicitly.
+- Unscheduled stochastic ticks can still sample differently when spans are split differently. Scheduled events use their stored dates.
 - The `organization` blob saved on a lesser sect can be stale. The map brief re-derives when `G.worldNpcs` is present.
 
 ## Future routine integration
@@ -89,6 +89,7 @@ Do not add a second clock. A routine should:
 
 ```bash
 node scripts/test-time-npc-consistency.js
+node scripts/test-time-interruptions.js
 node scripts/test-org-foundations.js
 node scripts/audit-world-sim.js
 ```

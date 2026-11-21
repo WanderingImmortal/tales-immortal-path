@@ -676,16 +676,20 @@ function isThresholdJobDry(jobId) {
     return now < until;
 }
 
+function getThresholdJobFacilityBlock() {
+    if (!isAtRedwell()) return '👷 Work boards are in Redwell. Walk there first.';
+    if (typeof settlementHasJobs === 'function' && !settlementHasJobs('redwell')) {
+        return '👷 No work boards are posted in Redwell right now.';
+    }
+    return null;
+}
+
 function actionThresholdWork(jobId) {
     if (G.gameOver || G.inCombat) return;
     ensureQcDepthState();
-    if (!isAtRedwell()) {
-        addLog('👷 Work boards are in Redwell. Walk there first.');
-        fullRender();
-        return;
-    }
-    if (typeof settlementHasJobs === 'function' && !settlementHasJobs('redwell')) {
-        addLog('👷 No work boards are posted in Redwell right now.');
+    const facilityBlock = getThresholdJobFacilityBlock();
+    if (facilityBlock) {
+        addLog(facilityBlock);
         fullRender();
         return;
     }
@@ -721,6 +725,13 @@ function actionThresholdWork(jobId) {
     beginActionLog();
     if (!advanceTime(job.months, job.name)) {
         cancelActionLog();
+        fullRender();
+        return;
+    }
+    const completionBlock = getThresholdJobFacilityBlock();
+    if (completionBlock) {
+        cancelActionLog();
+        addLog(completionBlock);
         fullRender();
         return;
     }

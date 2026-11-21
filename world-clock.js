@@ -51,8 +51,7 @@ function isWorldClockPlayRequested() {
 
 function isWorldClockHardFrozen() {
     if (typeof G === 'undefined' || !G) return true;
-    if (G.gameOver) return true;
-    if (G.inCombat) return true;
+    if (getPlayerTimeAttention()) return true;
     if (typeof isTribulationActive === 'function' && isTribulationActive()) return true;
     if (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive()) return true;
     if (typeof isTranscendencePerkPending === 'function' && isTranscendencePerkPending()) return true;
@@ -165,6 +164,7 @@ function startWorldClockProject(spec) {
         if (typeof addLog === 'function') addLog(`🔒 ${getWorldClockBusyReason()}`);
         return false;
     }
+    if (getPlayerTimeAttention() || isPlayerLifespanExhausted() || (typeof isTimePlaybackActive === 'function' && isTimePlaybackActive())) return false;
     const duration = Math.max(WORLD_CLOCK_WEEK_MONTHS, Number(spec.durationMonths) || WORLD_CLOCK_WEEK_MONTHS);
     clearWorldClockStance(true);
     G.worldClock.project = {
@@ -222,7 +222,14 @@ function completeWorldClockProject() {
     else if (typeof saveState === 'function') saveState();
 }
 
+function getWorldClockProjectStopReason() {
+    if (getWorldClockProject()?.id !== 'threshold_job') return null;
+    if (typeof getThresholdJobFacilityBlock === 'function') return getThresholdJobFacilityBlock();
+    return null;
+}
+
 function tickWorldClockProjectAfterAdvance() {
+    if (getPlayerTimeAttention() || isPlayerLifespanExhausted() || getWorldClockProjectStopReason()) return;
     const p = getWorldClockProject();
     if (!p) return;
     if ((G.ageMonths || 0) + 1e-9 >= p.endsAtMonths) {
@@ -231,7 +238,6 @@ function tickWorldClockProjectAfterAdvance() {
 }
 
 function tickWorldClockStanceWeek() {
-    if (typeof tickPassiveCultivationWeek === 'function') tickPassiveCultivationWeek();
     const stance = getWorldClockStance();
     if (stance === 'explore' && typeof runExploreStanceWeek === 'function') {
         runExploreStanceWeek();
@@ -377,14 +383,17 @@ function renderWorldClockBar() {
 function flushWorldClockWeek() {
     if (!isWorldClockLive()) return false;
     const activity = getWorldClockActivityLabel() || 'Living calendar';
-    const ok = typeof advanceTimeQuiet === 'function'
-        ? advanceTimeQuiet(WORLD_CLOCK_WEEK_MONTHS, activity)
-        : (typeof advanceTime === 'function' ? advanceTime(WORLD_CLOCK_WEEK_MONTHS, activity) : false);
+    // A legacy save may contain a project already due at the current age.
+    tickWorldClockProjectAfterAdvance();
+    if (!isWorldClockLive()) return false;
+    const project = getWorldClockProject();
+    const months = project ? Math.min(WORLD_CLOCK_WEEK_MONTHS, project.endsAtMonths - G.ageMonths) : WORLD_CLOCK_WEEK_MONTHS;
+    const dedicated = project || (typeof getPlayerActivity === 'function' && getPlayerActivity());
+    const ok = advanceTimeQuiet(months, activity);
 
     maybeWarnDwellingRentRunway();
-    tickWorldClockStanceWeek();
+    if (ok && !dedicated && isWorldClockLive()) tickWorldClockStanceWeek();
     emitWorldClockMonthlyDigest();
-    tickWorldClockProjectAfterAdvance();
 
     if (typeof renderStatus === 'function') renderStatus();
     renderWorldClockBar();
@@ -399,6 +408,8 @@ function flushWorldClockWeek() {
 
 function worldClockFrame(ts) {
     _worldClockTimer = requestAnimationFrame(worldClockFrame);
+    const attention = getPlayerTimeAttention();
+    if (attention && (getWorldClockBusyReason() || getWorldClockStance())) interruptPlayerTime(attention);
     if (!isWorldClockLive()) {
         _worldClockLastTs = 0;
         _worldClockAccumMs = 0;

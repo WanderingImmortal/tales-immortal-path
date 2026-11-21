@@ -131,6 +131,7 @@ function canRunPassiveCultivation() {
 function applyPassiveCultivationQiGain(yieldScale, logPrefix) {
     if (typeof runCultivateSession !== 'function') return;
     const prevDefer = G._deferringLogs;
+    const prevQuiet = G._quietTime;
     G._deferringLogs = true;
     G._quietTime = true;
     try {
@@ -142,7 +143,7 @@ function applyPassiveCultivationQiGain(yieldScale, logPrefix) {
         });
     } finally {
         G._deferringLogs = prevDefer;
-        G._quietTime = false;
+        G._quietTime = prevQuiet;
     }
 }
 
@@ -178,7 +179,12 @@ function tickPassiveCultivationWeek() {
 function tickPassiveCultivationForMonths(months) {
     const m = Number(months) || 0;
     if (m <= 0 || !canRunPassiveCultivation()) return;
-    const weeks = Math.max(1, Math.round(m * (typeof WORLD_CLOCK_WEEK_MONTHS !== 'undefined' ? 1 / WORLD_CLOCK_WEEK_MONTHS : 4)));
+    ensurePassiveCultivationState();
+    const state = G.passiveCultivation;
+    const weekMonths = typeof WORLD_CLOCK_WEEK_MONTHS !== 'undefined' ? WORLD_CLOCK_WEEK_MONTHS : 0.25;
+    const accumulated = (state.pendingMonths || 0) + m;
+    const weeks = Math.floor((accumulated + 1e-9) / weekMonths);
+    state.pendingMonths = Math.max(0, accumulated - weeks * weekMonths);
     for (let i = 0; i < weeks; i++) tickPassiveCultivationWeek();
 }
 
@@ -242,7 +248,9 @@ function actionFocusedCultivate() {
         return;
     }
     if (typeof beginActionLog === 'function') beginActionLog();
-    if (typeof advanceTime === 'function' && !advanceTime(months, 'Focused cultivation', { skipPassiveCirculation: true })) {
+    if (typeof advanceTime === 'function' && !advanceTime(months, 'Focused cultivation', {
+        skipPassiveCirculation: true, invalidateIfEvicted: G.dwelling?.mode === 'rent'
+    })) {
         if (typeof cancelActionLog === 'function') cancelActionLog();
         if (typeof fullRender === 'function') fullRender();
         return;
