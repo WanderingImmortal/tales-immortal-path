@@ -1422,19 +1422,19 @@ function tickWorldNpcGrowth(monthsPassed) {
     G.worldNpcs.forEach(npc => {
         if (!npc.alive) return;
         if (npc.state === 'ambient') return;
-        const lifespanMonths = getWorldNpcLifespanMonths(npc);
-        const aliveMonths = Math.max(0, lifespanMonths - npc.ageMonths);
-        const effectiveMonths = Math.min(monthsPassed, aliveMonths);
-        if (effectiveMonths <= 0) {
-            if (npc.ageMonths >= lifespanMonths) killWorldNpc(npc, 'old age');
+        let lifespanMonths = getWorldNpcLifespanMonths(npc);
+        if (npc.ageMonths >= lifespanMonths) {
+            killWorldNpc(npc, 'old age');
             return;
         }
-        npc.ageMonths += effectiveMonths;
-        const atLifespanEnd = npc.ageMonths >= lifespanMonths;
+        if (monthsPassed <= 0) return;
+
+        let remaining = monthsPassed;
         const cultivation = ensureNpcCultivation(npc);
         const focus = cultivation.focusTrack;
         const track = cultivation[focus];
         if (!canWorldNpcGrow(npc)) {
+            const effectiveMonths = Math.min(remaining, lifespanMonths - npc.ageMonths);
             if (npc.isDemonicTalent && !npc.demonicMet) {
                 const threatCap = getWorldNpcThreatCap();
                 npc.demonicThreat = Math.min(
@@ -1450,27 +1450,39 @@ function tickWorldNpcGrowth(monthsPassed) {
                 rate *= getNpcLocalFormationCultivateMult(npc);
             }
             const ceiling = getWorldNpcMaxRealm(npc, focus);
-            track.growthProgress += effectiveMonths * rate;
-            while (track.growthProgress >= base && track.realmIdx < ceiling) {
-                track.growthProgress -= base;
-                if (Math.random() < (role.breakthroughChance || 0.25)) {
-                    track.realmIdx++;
-                    if (focus === 'dantian' && npc.isDemonicTalent && !npc.demonicMet) {
-                        const threatCap = getWorldNpcThreatCap();
-                        npc.demonicThreat = Math.min(
-                            threatCap,
-                            (npc.demonicThreat || 0) + NPC_ECOSYSTEM.demonicThreatPerGrowth
-                        );
-                        if (npc.demonicThreat >= NPC_ECOSYSTEM.demonicThreatLogThreshold) {
-                            maybeLogDemonicThreat(npc, track.realmIdx);
-                        }
+            while (track.realmIdx < ceiling && rate > 0) {
+                const untilExpiry = lifespanMonths - npc.ageMonths;
+                const untilAttempt = Math.max(0, (base - track.growthProgress) / rate);
+                // Lifespan expiry wins ties. The NPC must still be alive to attempt a breakthrough.
+                if (untilAttempt >= untilExpiry - 1e-9 || untilAttempt > remaining + 1e-9) {
+                    track.growthProgress += Math.min(remaining, untilExpiry) * rate;
+                    break;
+                }
+
+                const elapsed = Math.min(untilAttempt, remaining);
+                npc.ageMonths += elapsed;
+                remaining -= elapsed;
+                track.growthProgress = Math.max(0, track.growthProgress - base);
+                if (Math.random() >= (role.breakthroughChance || 0.25)) continue;
+
+                track.realmIdx++;
+                lifespanMonths = getWorldNpcLifespanMonths(npc);
+                if (focus === 'dantian' && npc.isDemonicTalent && !npc.demonicMet) {
+                    const threatCap = getWorldNpcThreatCap();
+                    npc.demonicThreat = Math.min(
+                        threatCap,
+                        (npc.demonicThreat || 0) + NPC_ECOSYSTEM.demonicThreatPerGrowth
+                    );
+                    if (npc.demonicThreat >= NPC_ECOSYSTEM.demonicThreatLogThreshold) {
+                        maybeLogDemonicThreat(npc, track.realmIdx);
                     }
                 }
             }
             syncNpcCultivationLegacyFields(npc);
         }
+        npc.ageMonths = Math.min(lifespanMonths, npc.ageMonths + remaining);
         clampWorldNpcThreat(npc);
-        if (atLifespanEnd) {
+        if (npc.ageMonths >= lifespanMonths) {
             killWorldNpc(npc, 'old age');
             return;
         }

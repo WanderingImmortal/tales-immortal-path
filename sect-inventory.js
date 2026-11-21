@@ -81,11 +81,12 @@ function withdrawSectInventoryStones(amount) {
 function withdrawSectInventoryMaterial(matId, qty) {
     ensureSectInventory();
     const have = getSectMaterialCount(matId);
-    const take = Math.min(have, qty || have);
-    if (take <= 0) return 0;
+    const requested = qty ?? have;
+    if (!Number.isSafeInteger(requested) || requested <= 0) return 0;
+    const take = Math.min(have, requested);
+    if (take <= 0 || typeof addCraftMaterial !== 'function' || !addCraftMaterial(matId, take)) return 0;
     G.sect.inventory.materials[matId] = have - take;
-    if (G.sect.inventory.materials[matId] <= 0) delete G.sect.inventory.materials[matId];
-    if (typeof addCraftMaterial === 'function') addCraftMaterial(matId, take);
+    if (G.sect.inventory.materials[matId] === 0) delete G.sect.inventory.materials[matId];
     return take;
 }
 
