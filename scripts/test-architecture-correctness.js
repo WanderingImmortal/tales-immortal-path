@@ -89,3 +89,47 @@ test('sect withdrawal credits only available stock and cannot withdraw it twice'
     const run = sectStorage();
     assert.equal(run('JSON.stringify([withdraw(2), withdraw(2), withdraw(2), counts()])'), '[2,1,0,[0,3]]');
 });
+
+function npcNearExpiry(monthsUntilAttempt, roll) {
+    const run = game(['data.js', 'core.js', 'cultivation-tracks.js', 'world.js']);
+    run(`
+        addLog = () => {};
+        let attempts = 0;
+        Math.random = () => { attempts++; return ${roll}; };
+        const npc = { alive: true, role: 'wanderer', realmIdx: 0, growthRate: 1,
+            growthProgress: NPC_ECOSYSTEM.growthMonthsPerBreakthrough - ${monthsUntilAttempt} };
+        G.realmIdx = 2;
+        const originalLifespan = getWorldNpcLifespanMonths(npc);
+        npc.ageMonths = originalLifespan - 10;
+        G.worldNpcs = [npc];
+        const result = () => JSON.stringify({
+            alive: npc.alive, monthsPastOldLifespan: npc.ageMonths - originalLifespan,
+            realm: npc.realmIdx, attempts
+        });
+    `);
+    return run;
+}
+
+test('an NPC that breaks through before expiry survives bulk and stepped time', () => {
+    const bulk = npcNearExpiry(1, 0);
+    const stepped = npcNearExpiry(1, 0);
+    const expected = { alive: true, monthsPastOldLifespan: 2, realm: 1, attempts: 1 };
+    assert.deepEqual(JSON.parse(bulk('tickWorldNpcGrowth(12); result()')), expected);
+    assert.deepEqual(JSON.parse(stepped('for (let i = 0; i < 48; i++) tickWorldNpcGrowth(0.25); result()')), expected);
+});
+
+test('a failed near-death breakthrough consumes the attempt and the NPC dies at expiry', () => {
+    const run = npcNearExpiry(1, 0.99);
+    assert.deepEqual(JSON.parse(run('tickWorldNpcGrowth(12); tickWorldNpcGrowth(120); result()')),
+        { alive: false, monthsPastOldLifespan: 0, realm: 0, attempts: 1 });
+});
+
+for (const [when, months] of [['at', 10], ['after', 11]]) {
+    test(`an NPC cannot attempt a breakthrough ${when} lifespan expiry`, () => {
+        const bulk = npcNearExpiry(months, 0);
+        const stepped = npcNearExpiry(months, 0);
+        const expected = { alive: false, monthsPastOldLifespan: 0, realm: 0, attempts: 0 };
+        assert.deepEqual(JSON.parse(bulk('tickWorldNpcGrowth(12); result()')), expected);
+        assert.deepEqual(JSON.parse(stepped('for (let i = 0; i < 12; i++) tickWorldNpcGrowth(1); result()')), expected);
+    });
+}
