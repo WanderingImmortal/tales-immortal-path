@@ -147,7 +147,7 @@ test('late migration failure rolls back nested state and zone, suppresses writes
     assert.equal(run('ensureLocationState = () => {}; loadState()'), true);
     assert.equal(run(`G.name === 'Lin' && currentZone === 'jade' && G.path === 'body' &&
         G.cultivation.vessel.realmIdx === 3 && G.realmConsolidation[3].defense === 9 &&
-        G.worldSchedule.find(event => event.id === 'old').at === 242 && catchUps === 1`), true);
+        G.worldSchedule.find(event => event.id === 'old').at === 200 && catchUps === 1`), true);
     const first = run('JSON.stringify(G)');
     assert.equal(run('loadState()'), true);
     assert.equal(run('JSON.stringify(G)'), first);

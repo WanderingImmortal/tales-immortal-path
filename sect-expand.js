@@ -832,17 +832,15 @@ function tickSectRandomEvents(monthsPassed) {
 function openSectEventPopup(eventId) {
     const ev = SECT_EVENTS[eventId];
     if (!ev) return;
-    const popup = document.getElementById('sectEventPopup');
+    const popup = typeof document === 'undefined' ? null : document.getElementById('sectEventPopup');
+    // Missing presentation leaves the existing decision pending for the UI to reopen.
+    if (!popup) return;
     const powerCtx = getSectEventPowerContext();
     const pendingRival = G.sect.pendingEvent?.rivalId
         ? (typeof getWorldSectById === 'function' ? getWorldSectById(G.sect.pendingEvent.rivalId) : null)
         : null;
     if (pendingRival) powerCtx.rival = pendingRival;
     const eventText = resolveSectEventText(ev, powerCtx);
-    if (!popup) {
-        applySectEventChoice(eventId, Object.keys(ev.choices)[0]);
-        return;
-    }
     document.getElementById('sectEventTitle').textContent = ev.title;
     document.getElementById('sectEventText').textContent = eventText;
     const choices = document.getElementById('sectEventChoices');
@@ -865,7 +863,8 @@ function openSectEventPopup(eventId) {
 function applySectEventChoice(eventId, choiceKey) {
     const ev = SECT_EVENTS[eventId];
     const choice = ev?.choices?.[choiceKey];
-    if (!ev || !choice) return;
+    if (!ev || !choice || G.sect?.pendingEvent?.eventId !== eventId) return;
+    if (typeof assertWorldTimeAvailable === 'function') assertWorldTimeAvailable();
 
     G.sect.pendingEvent = null;
     const fx = choice.effects || {};

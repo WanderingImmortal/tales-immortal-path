@@ -221,7 +221,7 @@ function scheduleNpcSituationBeat(threadId, atMonths) {
     ensureNpcSituationState();
     const t = G.npcSituationThreads.byId[threadId];
     if (!t || t.status !== 'active') return null;
-    const at = Math.floor(atMonths != null ? atMonths : (G.ageMonths || 0));
+    const at = atMonths ?? (G.ageMonths || 0);
     t.nextBeatAt = at;
     t.updatedAtMonths = G.ageMonths || 0;
     if (typeof scheduleWorldEvent === 'function') {
@@ -576,10 +576,10 @@ function beginWellRingResourceAccusation(options) {
     const beatAt = options.decideImmediately
         ? now
         : now + (options.decisionDelayMonths != null ? options.decisionDelayMonths : 0);
-    scheduleNpcSituationBeat(threadId, beatAt);
-
     if (options.decideImmediately || beatAt <= now) {
         processNpcSituationBeat(threadId);
+    } else {
+        scheduleNpcSituationBeat(threadId, beatAt);
     }
 
     return {
@@ -1117,8 +1117,9 @@ function tickNpcSituationThreads(deltaMonths) {
             setNpcSituationStatus(id, 'expired', { stage: 'expired' });
             return;
         }
-        // Process due beats even if scheduler event was lost on legacy path
-        if (t.nextBeatAt != null && t.nextBeatAt <= now && !t.flags?.decisionProcessed) {
+        // Only schedulerless callers process delayed beats directly.
+        if (typeof scheduleWorldEvent !== 'function' && t.nextBeatAt != null && t.nextBeatAt <= now
+            && !t.flags?.decisionProcessed) {
             processNpcSituationBeat(id);
         }
     });
@@ -1396,7 +1397,11 @@ function migrateNpcSituationsForExistingSave() {
         if (t.rootIncidentId) pinIncidentForSituation(t.rootIncidentId);
         (t.relatedIncidentIds || []).forEach(pinIncidentForSituation);
         if (t.status === 'active' && t.nextBeatAt != null && !t.flags?.decisionProcessed) {
-            scheduleNpcSituationBeat(t.id, t.nextBeatAt);
+            const id = `npc_sit_beat_${t.id}`;
+            if (Number.isFinite(t.nextBeatAt) && (typeof hasScheduledWorldEvent !== 'function'
+                || !hasScheduledWorldEvent('npc_situation_beat', id))) {
+                scheduleNpcSituationBeat(t.id, Math.max(G.ageMonths || 0, t.nextBeatAt));
+            }
         }
     });
 }

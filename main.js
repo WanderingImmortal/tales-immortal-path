@@ -691,6 +691,7 @@ function setupCreation(refreshOnly) {
         };
         G.nextDemonicEmergenceMonths = null;
         G.worldSchedule = [];
+        G.worldEventBoundary = null;
         G.worldChronicle = [];
         G.npcQuests = [];
         G.npcKillLog = [];
