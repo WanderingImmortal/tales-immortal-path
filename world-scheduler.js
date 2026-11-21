@@ -5,7 +5,7 @@
 const WORLD_EVENT_HANDLERS = {};
 const WORLD_TICKS = [];
 let _worldSchedulerInited = false;
-let _worldScheduleMigrated = false;
+const migratedWorldSchedules = new WeakSet();
 
 function registerWorldEventHandler(type, fn) {
     if (type && typeof fn === 'function') WORLD_EVENT_HANDLERS[type] = fn;
@@ -151,8 +151,7 @@ function flushWorldSchedule(fromMonths, toMonths) {
 }
 
 function migrateWorldScheduleFromLegacy() {
-    if (_worldScheduleMigrated) return;
-    _worldScheduleMigrated = true;
+    if (migratedWorldSchedules.has(G)) return;
     ensureWorldSchedulerState();
     const now = G.ageMonths || 0;
     if (G.nextDemonicEmergenceMonths != null && G.nextDemonicEmergenceMonths <= now) {
@@ -167,6 +166,7 @@ function migrateWorldScheduleFromLegacy() {
         if (e.at <= now) e.at = now + Math.max(1, Math.floor((e.type === 'phoenix_war_advance' ? 12 : 2)));
     });
     G.worldSchedule.sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
+    migratedWorldSchedules.add(G);
 }
 
 function initWorldSchedulerRegistries() {

@@ -794,8 +794,15 @@ function grantRandomAdeptTechnique() {
 // ===== INIT =====
 function initGame() {
     if (typeof loadLegacy === 'function') loadLegacy();
-    ensureForbiddenState();
     const loaded = loadState();
+    if (getSaveLoadDiagnostics().loadFailure) {
+        document.getElementById('creation-screen').style.display = 'none';
+        document.getElementById('game-screen').style.display = 'none';
+        document.getElementById('load-error').hidden = false;
+        document.getElementById('retry-load').onclick = () => location.reload();
+        return;
+    }
+    ensureForbiddenState();
     if (typeof ensureSectState === 'function') ensureSectState();
     if (typeof ensureAncientsState === 'function') ensureAncientsState();
     if (typeof ensureFactionState === 'function') ensureFactionState();
