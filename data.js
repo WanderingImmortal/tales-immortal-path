@@ -6446,8 +6446,6 @@ const SECT_FRIENDLY_SUFFIXES = ['Sect', 'Order', 'Monastery'];
 // ----- Sect legacy (chronicle, heirlooms, legend, spirit) -----
 const SECT_LEGACY = {
     chaosResourceLossPct: 0.5,
-    successorAgeYears: 22,
-    leaderRealmDrop: { successor: 0, core: 0, elder: 1, acolyte: 2 },
     statMult: { successor: 0.92, core: 0.82, elder: 0.72, acolyte: 0.62 },
     maxChronicleEntries: 50,
     maxHeirlooms: 12,

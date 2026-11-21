@@ -147,6 +147,8 @@ function isNpcPresent(npcId, zoneId) {
     const def = getNpcDef(npcId);
     if (!def || !isNpcImplemented(npcId)) return false;
     zoneId = zoneId || currentZone;
+    // Once Liang joins, his world NPC controls his location and survival.
+    if (npcId === 'liang_chen' && G.storyArcState?.liang_chen_rival?.joinedWorldRoster) return false;
     if (npcId === 'wei_collector') {
         if (zoneId === def.homeZone) return true;
         ensureNpcState();

@@ -1310,12 +1310,12 @@ function generateWorldNpc(zoneId, options) {
     options = options || {};
     let roleId = options.roleId || rollNpcRoleForZone(zoneId);
     let isDemonic = !!options.forceDemonic;
-    if (!isDemonic && Math.random() < NPC_ECOSYSTEM.demonicSpawnChance) {
+    if (!isDemonic && options.allowRandomDemonic !== false && Math.random() < NPC_ECOSYSTEM.demonicSpawnChance) {
         isDemonic = true;
         roleId = 'demonic_talent';
     }
     const role = NPC_ROLES[roleId] || NPC_ROLES.wanderer;
-    const uid = `wn_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+    const uid = options.uid || `wn_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
     const realmIdx = options.realmIdx != null ? options.realmIdx : rollWorldNpcStartRealm(role);
     const ageYears = role.cultivator === false
         ? 18 + Math.floor(Math.random() * 40)
@@ -1480,6 +1480,7 @@ function killWorldNpc(npc, reason) {
         recordWorldNpcKill(npc, reason);
     }
     npc.alive = false;
+    if (typeof removeSectDisciple === 'function') removeSectDisciple(npc.uid);
     if (npc.met || npc.isDemonicTalent) {
         const zoneName = ZONES[npc.zone]?.name || npc.zone;
         addLog(`💀 ${npc.name} (${NPC_ROLES[npc.role]?.label || npc.role}) passed from ${reason} in the ${zoneName}.`);

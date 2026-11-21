@@ -26,10 +26,6 @@ function ensureManualHallMeta() {
     if (!mh.studies) mh.studies = [];
 }
 
-function ensureDiscipleKnownTechniques(disciple) {
-    if (!disciple.knownTechniques) disciple.knownTechniques = [];
-}
-
 function getManualHallCapacity() {
     return typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('manualHallCapacity') : 0;
 }
@@ -59,11 +55,6 @@ function getActiveManualStudies() {
     return G.sect.buildingMeta.manual_hall.studies.slice();
 }
 
-function getDiscipleByUid(uid) {
-    ensureSectState();
-    return G.sect.discipleRecords.find(d => d.uid === uid) || null;
-}
-
 function isDiscipleStudying(discipleUid) {
     ensureManualHallMeta();
     return G.sect.buildingMeta.manual_hall.studies.some(s => s.discipleUid === discipleUid);
@@ -72,7 +63,7 @@ function isDiscipleStudying(discipleUid) {
 function getDiscipleStudySpeedMult(disciple) {
     const b = MANUAL_HALL_BALANCE;
     const roleMult = b.roleStudySpeed?.[disciple.role] ?? 1;
-    const traitMult = b.traitStudySpeed?.[disciple.trait] ?? 1;
+    const traitMult = b.traitStudySpeed?.[getDiscipleNpc(disciple)?.sectTemperament] ?? 1;
     const daoPct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('daoSpeedPct') : 0;
     const hallPct = typeof getSectBuildingBonus === 'function' ? getSectBuildingBonus('studySpeedPct') : 0;
     const sectMult = 1 + (daoPct + hallPct) / 100;
@@ -88,10 +79,9 @@ function getDiscipleStudyMonths(template) {
 
 function getDiscipleStudyBlockReason(discipleUid, techName) {
     if (getBuildingLevel('manual_hall') < 1) return 'Build the Manual Hall first.';
-    const disciple = getDiscipleByUid(discipleUid);
+    const disciple = getDiscipleNpc(getSectDiscipleMembership(discipleUid));
     if (!disciple) return 'Disciple not found.';
-    ensureDiscipleKnownTechniques(disciple);
-    if (disciple.knownTechniques.includes(techName)) return `${disciple.name} already knows this art.`;
+    if (disciple.knownTechniques?.includes(techName)) return `${disciple.name} already knows this art.`;
     if (isDiscipleStudying(discipleUid)) return `${disciple.name} is already studying.`;
     const entry = getManualHallEntry(techName);
     if (!entry || entry.count < 1) return 'No copy of that manual in the hall.';
@@ -163,24 +153,24 @@ function withdrawManualFromHall(techName, qty) {
 function assignDiscipleStudy(discipleUid, techName) {
     const block = getDiscipleStudyBlockReason(discipleUid, techName);
     if (block) return { success: false, message: block };
-    const disciple = getDiscipleByUid(discipleUid);
+    const membership = getSectDiscipleMembership(discipleUid);
+    const npc = getDiscipleNpc(membership);
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     const totalMonths = getDiscipleStudyMonths(template);
     ensureManualHallMeta();
     const study = {
         uid: `study_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
         discipleUid,
-        discipleName: disciple.name,
         techName,
         progressMonths: 0,
         totalMonths,
         startedMonths: G.ageMonths || 0
     };
     G.sect.buildingMeta.manual_hall.studies.push(study);
-    const monthsLabel = Math.ceil(totalMonths / getDiscipleStudySpeedMult(disciple));
+    const monthsLabel = Math.ceil(totalMonths / getDiscipleStudySpeedMult(membership));
     return {
         success: true,
-        message: `${disciple.name} begins studying ${techName} (~${monthsLabel} months).`,
+        message: `${npc.name} begins studying ${techName} (~${monthsLabel} months).`,
         study
     };
 }
@@ -192,18 +182,19 @@ function cancelDiscipleStudy(studyUid) {
     if (idx < 0) return { success: false, message: 'Study assignment not found.' };
     const study = studies[idx];
     studies.splice(idx, 1);
+    const npc = getDiscipleNpc(getSectDiscipleMembership(study.discipleUid));
     return {
         success: true,
-        message: `${study.discipleName} stops studying ${study.techName}. Progress lost.`
+        message: `${npc?.name || 'The disciple'} stops studying ${study.techName}. Progress lost.`
     };
 }
 
 function completeDiscipleStudy(study) {
-    const disciple = getDiscipleByUid(study.discipleUid);
-    if (!disciple) return;
-    ensureDiscipleKnownTechniques(disciple);
-    if (!disciple.knownTechniques.includes(study.techName)) {
-        disciple.knownTechniques.push(study.techName);
+    const npc = getDiscipleNpc(getSectDiscipleMembership(study.discipleUid));
+    if (!npc) return;
+    if (!npc.knownTechniques) npc.knownTechniques = [];
+    if (!npc.knownTechniques.includes(study.techName)) {
+        npc.knownTechniques.push(study.techName);
     }
     ensureManualHallMeta();
     const entry = getManualHallEntry(study.techName);
@@ -215,9 +206,9 @@ function completeDiscipleStudy(study) {
     const renownGain = MANUAL_HALL_BALANCE?.renownByRarity?.[template?.rarity] ?? 1;
     G.sect.renown = (G.sect.renown || 0) + renownGain;
     if (G.sect.chronicle) {
-        G.sect.chronicle.push({ months: G.ageMonths || 0, text: `${disciple.name} mastered ${study.techName} from the hall archives.` });
+        G.sect.chronicle.push({ months: G.ageMonths || 0, text: `${npc.name} mastered ${study.techName} from the hall archives.` });
     }
-    addLog(`📜 ${disciple.name} completes study of ${study.techName}! +${renownGain} sect renown.`);
+    addLog(`📜 ${npc.name} completes study of ${study.techName}! +${renownGain} sect renown.`);
 }
 
 function tickManualHallStudy(monthsPassed) {
@@ -228,8 +219,8 @@ function tickManualHallStudy(monthsPassed) {
     if (!studies.length) return;
     const completed = [];
     studies.forEach(study => {
-        const disciple = getDiscipleByUid(study.discipleUid);
-        if (!disciple) {
+        const disciple = getSectDiscipleMembership(study.discipleUid);
+        if (!getDiscipleNpc(disciple)) {
             completed.push(study.uid);
             return;
         }
@@ -249,8 +240,7 @@ function getSectDiscipleKnownArtsCount() {
     ensureSectState();
     let n = 0;
     G.sect.discipleRecords.forEach(d => {
-        ensureDiscipleKnownTechniques(d);
-        n += d.knownTechniques.length;
+        n += getDiscipleNpc(d)?.knownTechniques?.length || 0;
     });
     return n;
 }
@@ -272,12 +262,12 @@ function renderManualHallPanelHtml() {
     if (studies.length) {
         html += `<div class="sect-section-title sect-subsection">📖 Active Studies</div>`;
         studies.forEach(study => {
-            const disciple = getDiscipleByUid(study.discipleUid);
+            const disciple = getSectDiscipleMembership(study.discipleUid);
             const speed = disciple ? getDiscipleStudySpeedMult(disciple) : 1;
             const pct = Math.min(100, Math.floor((study.progressMonths / study.totalMonths) * 100));
             const remain = Math.max(0, Math.ceil((study.totalMonths - study.progressMonths) / speed));
             html += `<div class="manual-hall-study-row">
-                <div class="manual-hall-study-head"><strong>${escapeSectAttr(study.discipleName)}</strong> · ${escapeSectAttr(study.techName)}</div>
+                <div class="manual-hall-study-head"><strong>${escapeSectAttr(getDiscipleNpc(disciple)?.name || 'Former disciple')}</strong> · ${escapeSectAttr(study.techName)}</div>
                 <div class="manual-hall-progress"><div class="manual-hall-progress-fill" style="width:${pct}%"></div></div>
                 <div class="manual-hall-study-meta">${pct}% · ~${remain}mo left</div>
                 <button type="button" class="sect-action-btn sect-action-btn-sm" data-cancel-study="${escapeSectAttr(study.uid)}">Cancel study</button>
@@ -334,7 +324,7 @@ function renderManualHallPanelHtml() {
         html += `<select id="manualHallDiscipleSelect" class="manual-hall-select">`;
         freeDisciples.forEach(d => {
             const roleDef = DISCIPLE_ROLES[d.role];
-            html += `<option value="${escapeSectAttr(d.uid)}">${escapeSectAttr(d.name)} (${roleDef?.label || d.role})</option>`;
+            html += `<option value="${escapeSectAttr(d.uid)}">${escapeSectAttr(getDiscipleNpc(d)?.name || '')} (${roleDef?.label || d.role})</option>`;
         });
         html += `</select>`;
         html += `<select id="manualHallTechSelect" class="manual-hall-select">`;
@@ -354,9 +344,9 @@ function renderManualHallPanelHtml() {
     if (artsCount > 0) {
         html += `<div class="sect-section-title sect-subsection">✦ Disciple Arts (${artsCount})</div>`;
         G.sect.discipleRecords.forEach(d => {
-            ensureDiscipleKnownTechniques(d);
-            if (!d.knownTechniques.length) return;
-            html += `<div class="manual-hall-disciple-arts"><strong>${escapeSectAttr(d.name)}</strong>: ${d.knownTechniques.map(n => escapeSectAttr(n)).join(', ')}</div>`;
+            const npc = getDiscipleNpc(d);
+            if (!npc?.knownTechniques?.length) return;
+            html += `<div class="manual-hall-disciple-arts"><strong>${escapeSectAttr(npc.name)}</strong>: ${npc.knownTechniques.map(n => escapeSectAttr(n)).join(', ')}</div>`;
         });
     }
 

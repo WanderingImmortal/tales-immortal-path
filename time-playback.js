@@ -64,7 +64,7 @@ function advanceTimeQuiet(months, activity) {
             return true;
         }
         G.gameOver = true;
-        addLog(`💀 Your lifespan ends at ${formatYears(G.lifespanMonths)}. The Dao remains unclaimed...`);
+        addLog(`💀 Your lifespan ends at ${formatYears(getPlayerLifespanMonths())}. The Dao remains unclaimed...`);
         if (typeof triggerBitterReincarnation === 'function') {
             setTimeout(() => triggerBitterReincarnation(), 600);
         }
