@@ -64,3 +64,28 @@ test('modern save keeps all tracks when legacy mirrors disagree', () => {
     `));
     assert.deepEqual(state, { loaded: true, unchanged: true, path: 'body', realm: 3, consolidation: { 3: { defense: 12 } } });
 });
+
+function sectStorage() {
+    const run = game(['data.js', 'core.js', 'gear.js', 'travel-kit.js', 'sect.js', 'sect-inventory.js']);
+    run(`
+        addLog = () => {};
+        G.sect = { inventory: { materials: { spirit_herb: 3 } } };
+        const withdraw = qty => withdrawSectInventoryMaterial('spirit_herb', qty);
+        const counts = () => [getSectMaterialCount('spirit_herb'), getMaterialCount('spirit_herb')];
+    `);
+    return run;
+}
+
+test('sect withdrawals preserve stock on full-kit rejection, including retries', () => {
+    const run = sectStorage();
+    assert.equal(run(`
+        G.inventory = Array(Math.ceil(getTravelKitCapacity() / TRAVEL_KIT_BALANCE.curioWeight)).fill('curio');
+        JSON.stringify([withdraw(2), withdraw(2), counts()])
+    `), '[0,0,[3,0]]');
+    assert.equal(run(`G.inventory = []; JSON.stringify([withdraw(2), counts()])`), '[2,[1,2]]');
+});
+
+test('sect withdrawal credits only available stock and cannot withdraw it twice', () => {
+    const run = sectStorage();
+    assert.equal(run('JSON.stringify([withdraw(2), withdraw(2), withdraw(2), counts()])'), '[2,1,0,[0,3]]');
+});

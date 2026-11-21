@@ -782,7 +782,12 @@ function bindSectGroundsEvents(container) {
                     ? withdrawSectInventoryMaterial(this.dataset.withdrawMat, parseInt(this.dataset.withdrawQty, 10))
                     : 0;
                 const mat = CRAFT_MATERIALS[this.dataset.withdrawMat];
-                result = { success: taken > 0, message: taken > 0 ? `Withdrew ${taken}× ${mat?.name || this.dataset.withdrawMat}.` : 'Nothing to withdraw.' };
+                result = {
+                    success: taken > 0,
+                    message: taken > 0
+                        ? `Withdrew ${taken}× ${mat?.name || this.dataset.withdrawMat}.`
+                        : 'No materials withdrawn.'
+                };
             }
             if (result?.message) addLog(result.success ? `📦 ${result.message}` : `📦 ${result.message}`);
             if (typeof renderSectPopup === 'function') renderSectPopup();
