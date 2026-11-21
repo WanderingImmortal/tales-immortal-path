@@ -22,7 +22,7 @@ const SECT_POLICY_OPTIONS = {
     },
     techniqueAccess: {
         label: 'Manual Hall access',
-        choices: { disciples: 'All ranked disciples', elders: 'Elder rank and above' },
+        choices: { disciples: 'All ranked disciples', elders: 'Inner rank and above, plus elders' },
         hint: 'Applies to new study assignments.'
     },
     dutyExpectation: {
@@ -106,6 +106,7 @@ function ensureSectState() {
     ensureSectReputation();
     if (G.sect.stage && G.sect.stage !== 'wandering' && !G.sect.doctrine) inferSectDoctrineFromAlignment();
     migrateSectDiscipleMemberships();
+    migrateSectElders();
     ensureSectPolicies();
     if (typeof ensureResidenceStash === 'function') ensureResidenceStash();
 }
@@ -310,7 +311,73 @@ function getSectAffiliation(uid) {
 }
 
 function isRankedSectMember(member) {
-    return member?.affiliation === 'full' && member.rank != null;
+    return member?.affiliation === 'full' && member.status !== 'elder' && member.rank != null;
+}
+
+function isFullSectElder(member) {
+    return member?.affiliation === 'full' && member.status === 'elder';
+}
+
+function getSectDisciplesAndElders() {
+    return (G.sect?.memberships || []).filter(member => isRankedSectMember(member) || isFullSectElder(member));
+}
+
+function getSectTrainingMember(uid) {
+    const member = getSectAffiliation(uid);
+    return isRankedSectMember(member) || isFullSectElder(member) ? member : null;
+}
+
+function migrateSectElders() {
+    if (G.sect.elderStatusVersion === 1) return;
+    for (const member of G.sect.memberships) {
+        if (member.affiliation !== 'full' || member.rank !== 'elder') continue;
+        member.status = 'elder';
+        member.rank = null;
+        if (member.position === 'disciple') member.position = 'elder';
+    }
+    G.sect.elderStatusVersion = 1;
+    syncSectLegacyFields();
+}
+
+const DEFAULT_SECT_GRADUATION_RULE = Object.freeze({ minimumRank: 'core', serviceMonths: 60 });
+
+function getSectGraduationRule() {
+    const rule = G.sect?.graduationRule;
+    const { minimumRank, serviceMonths } = DEFAULT_SECT_GRADUATION_RULE;
+    return {
+        minimumRank: Object.hasOwn(DISCIPLE_ROLES, rule?.minimumRank) ? rule.minimumRank : minimumRank,
+        serviceMonths: Number.isSafeInteger(rule?.serviceMonths) && rule.serviceMonths >= 0 ? rule.serviceMonths : serviceMonths
+    };
+}
+
+function describeSectGraduationRule(rule = getSectGraduationRule()) {
+    return `Graduation requires ${DISCIPLE_ROLES[rule.minimumRank].label} rank or above and ${formatDuration(rule.serviceMonths)} of sect service.`;
+}
+
+function getSectGraduationBlockReason(uid) {
+    if (!isSectFounded() || G.gameOver || G.sectSuccessionActive) return 'An active sect leader is required.';
+    const member = getSectDiscipleMembership(uid);
+    if (!getDiscipleNpc(member)) return 'Choose a living ranked disciple.';
+    const rule = getSectGraduationRule();
+    if ((DISCIPLE_ROLES[member.rank]?.order ?? -1) < DISCIPLE_ROLES[rule.minimumRank].order
+        || getDiscipleMonthsServed(member) < rule.serviceMonths) return describeSectGraduationRule(rule);
+    if (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(uid)) return 'Finish the active assignment first.';
+    return null;
+}
+
+function graduateSectDisciple(uid) {
+    ensureSectState();
+    const block = getSectGraduationBlockReason(uid);
+    if (block) return { success: false, message: block };
+    const member = getSectDiscipleMembership(uid);
+    const npc = getDiscipleNpc(member);
+    member.status = 'elder';
+    member.rank = null;
+    if (member.position === 'disciple') member.position = 'elder';
+    syncSectLegacyFields();
+    const message = `${npc.name} graduated as a full-member elder.`;
+    if (typeof appendSectChronicle === 'function') appendSectChronicle(message, '📿');
+    return { success: true, message };
 }
 
 function getSectDiscipleMemberships() {
@@ -704,7 +771,7 @@ function addSectDisciple(npcOrName, role, options) {
     if (typeof npcOrName === 'string') {
         if (options?.authoredNpcId) {
             if (G.worldNpcs?.some(other => other.uid === options.authoredNpcId)) return null;
-        } else if (G.disciples.includes(npcOrName)) {
+        } else if (getSectDisciplesAndElders().some(member => getDiscipleNpc(member)?.name === npcOrName)) {
             return null;
         }
         npc = createSectDiscipleNpc(npcOrName, null, options?.authoredNpcId);
@@ -723,16 +790,16 @@ function removeSectAffiliation(uid) {
     const index = records?.findIndex(member => member.uid === uid) ?? -1;
     if (index < 0) return;
     const [member] = records.splice(index, 1);
-    if (!isRankedSectMember(member)) return;
+    if (typeof endSectMissionMembership === 'function') endSectMissionMembership(uid);
+    if (!isRankedSectMember(member) && !isFullSectElder(member)) return;
     const hall = G.sect.buildingMeta?.manual_hall;
     if (hall?.studies) hall.studies = hall.studies.filter(study => study.discipleUid !== uid);
     syncSectLegacyFields();
 }
 
 function rollRecruitName() {
-    const pool = SECT_RECRUIT_NAMES.filter(n =>
-        !G.disciples.includes(n)
-    );
+    const currentNames = new Set(getSectDisciplesAndElders().map(member => getDiscipleNpc(member)?.name));
+    const pool = SECT_RECRUIT_NAMES.filter(name => !currentNames.has(name));
     const names = pool.length ? pool : SECT_RECRUIT_NAMES;
     return names[Math.floor(Math.random() * names.length)];
 }
@@ -1923,9 +1990,9 @@ function formatBuildingCost(buildingId) {
 function getSectDiscipleIncome() {
     ensureSectState();
     let income = 0;
-    getSectDiscipleMemberships().forEach(d => {
+    getSectDisciplesAndElders().forEach(d => {
         const role = DISCIPLE_ROLES[d.rank] || DISCIPLE_ROLES.acolyte;
-        let bonus = role.incomeBonus || 1;
+        let bonus = isFullSectElder(d) ? DISCIPLE_ROLES.inner.incomeBonus : (role.incomeBonus || 1);
         if (typeof getDiscipleTraitMult === 'function') {
             bonus = Math.floor(bonus * getDiscipleTraitMult(d, 'growthMult'));
         }

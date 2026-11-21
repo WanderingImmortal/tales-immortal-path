@@ -810,6 +810,17 @@ function grantAbstractResourceReward(spec) {
     return { ok: true, amount, abstract: true, abstractId, credit, acquisitionKey: acquisitionKey || null };
 }
 
+function returnCollectedResourceToSource(sourceId, resourceId, amount) {
+    if (!Number.isSafeInteger(amount) || amount <= 0) return 0;
+    const source = ensureResourceSource(sourceId);
+    if (!source || source.resourceId !== resourceId || source.type === RESOURCE_SOURCE_TYPES.ABSTRACT_REWARD) return 0;
+    const stock = Math.max(0, Math.floor(Number(source.stock) || 0));
+    const capacity = source.maxStock ?? Number.MAX_SAFE_INTEGER;
+    const returned = Math.max(0, Math.min(amount, capacity - stock));
+    source.stock = stock + returned;
+    return returned;
+}
+
 /** World-tick: advance regenerating sources without inventing new stock beyond max. */
 function tickResourceSources(/* deltaMonths */) {
     ensureAllAuthoredResourceSources({ nowMonths: resourceSourceNowMonths() });

@@ -224,6 +224,8 @@ function getPresentNpcEntries(zoneId) {
                 if (npc.travel && npc.travel.status === 'present' && npc.travel.locationId) {
                     if (locId && npc.travel.locationId !== locId) return;
                 } else if (npc.homeLocationId && locId && npc.homeLocationId !== locId) return;
+                if (locId && typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(npc.uid)
+                    && typeof isNpcPhysicallyPresentAt === 'function' && !isNpcPhysicallyPresentAt(npc, locId)) return;
                 entries.push({ type: 'world', id: worldNpcId(npc.uid), npc });
             });
         }

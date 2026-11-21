@@ -195,7 +195,7 @@ function renderOtherSectAffiliationsHtml() {
             if (member.affiliation === 'full') {
                 return `<div class="sect-disciple-row"><div class="sect-disciple-info">
                     <span class="name">${escapeSectAttr(npc.name)}</span>
-                    <span class="role">${SECT_MEMBER_POSITIONS[member.position]} · Full member</span>
+                    <span class="role">${isFullSectElder(member) ? 'Full-member elder' : 'Full member'} · ${SECT_MEMBER_POSITIONS[member.position]}</span>
                     ${renderSectMemberServiceHtml(member)}
                 </div></div>`;
             }
@@ -212,6 +212,120 @@ function renderOtherSectAffiliationsHtml() {
 function renderSectMemberServiceHtml(member) {
     return `<span class="role">${member.lifetimeContribution} lifetime contributions · ${member.meritBalance} merit available</span>
         ${member.duties.length ? `<span class="role">Duties · ${escapeSectAttr(member.duties.join(', '))}</span>` : ''}`;
+}
+
+function renderSectMissionsHtml() {
+    const department = ensureSectMissionDepartment();
+    const elder = getSectMissionElder();
+    const hq = getSectMissionHeadquarters();
+    const options = (choices, selected) => Object.entries(choices).map(([value, label]) =>
+        `<option value="${value}" ${value === selected ? 'selected' : ''}>${label}</option>`
+    ).join('');
+    let html = `<div class="sect-section-title">Sect Assignments</div>
+        <p class="sect-hint">One active assignment. Gathering uses stocked herb sites at headquarters or one road away. Patrols take two months.</p>`;
+    if (hq) {
+        html += `<p class="sect-hint">Patrol readiness requires Qi or Body at tier ${getSectPatrolRequirement(hq) + 1}.</p>`;
+    }
+    if (elder) {
+        html += `<div class="sect-disciple-row"><span>Mission Elder · ${escapeSectAttr(elder.name)}</span>
+            <button type="button" class="sect-action-btn" data-mission-action="dismiss">Dismiss</button></div>`;
+    } else {
+        html += '<p class="sect-hint">Appoint a full-member elder to unlock supervision and delegation.</p>';
+        getActiveSectAffiliations().filter(isFullSectElder).forEach(member => {
+            const npc = getWorldNpcByUid(member.uid);
+            if (npc) html += `<button type="button" class="sect-action-btn" data-mission-action="appoint"
+                data-mission-uid="${escapeSectAttr(member.uid)}">Appoint ${escapeSectAttr(npc.name)}</button>`;
+        });
+    }
+
+    html += `<div class="sect-action-block"><label>Management
+        <select class="manual-hall-select" data-mission-setting="mode">${options({
+            direct: 'Direct', ...(elder ? { supervised: 'Supervised', delegated: 'Delegated' } : {})
+        }, department.mode)}</select></label></div>`;
+    if (elder && department.mode !== 'direct') {
+        html += `<div class="sect-action-block">
+            <label>Routine priority <select class="manual-hall-select" data-mission-setting="priority">${options({
+                gather: 'Gathering first', patrol: 'Patrol first'
+            }, department.priority)}</select></label>
+            <label>Safety <select class="manual-hall-select" data-mission-setting="safety">${options({
+                routine: 'Routine local work', gathering_only: 'Gathering only'
+            }, department.safety)}</select></label>
+        </div>`;
+    }
+
+    if (department.proposal) {
+        const { npcUid, type } = department.proposal;
+        const name = getWorldNpcByUid(npcUid)?.name || 'Unavailable disciple';
+        html += `<div class="sect-action-block"><p>Proposal · ${escapeSectAttr(name)} · ${SECT_MISSION_TYPES[type].label}</p>
+            <button type="button" class="sect-action-btn" data-mission-action="approve">Approve</button>
+            <button type="button" class="sect-action-btn" data-mission-action="decline">Decline</button>
+        </div>`;
+    }
+
+    const active = getActiveSectMissions();
+    if (!active.length) {
+        const plans = [];
+        for (const member of getSectDiscipleMemberships()) {
+            for (const [type, def] of Object.entries(SECT_MISSION_TYPES)) {
+                const plan = planSectMission(member.uid, type);
+                if (!plan.npc) continue;
+                plans.push(`<option value="${escapeSectAttr(member.uid)}" data-mission-type="${type}">
+                    ${escapeSectAttr(plan.npc.name)} · ${def.label} · ${escapeSectAttr(plan.destination.name)}
+                </option>`);
+            }
+        }
+        if (plans.length) html += `<div class="sect-action-block"><label>Direct assignment
+            <select class="manual-hall-select" id="sectMissionPlan">${plans.join('')}</select></label>
+            <button type="button" class="sect-action-btn" data-mission-action="assign">Assign</button></div>`;
+        else html += '<p class="sect-hint">Assignments require an available disciple at headquarters and a reachable work site.</p>';
+    }
+    const history = department.missions.filter(mission => mission.status !== 'active').slice(-6).reverse();
+    for (const mission of [...active, ...history]) {
+        const name = getWorldNpcByUid(mission.npcUid)?.name || mission.npcName;
+        const location = getLocationDef(mission.destinationId)?.name || mission.destinationId;
+        const detail = mission.status === 'active'
+            ? `${mission.phase === 'work' ? 'Working' : mission.phase === 'outbound' ? 'Travelling' : 'Returning'} · ${formatDuration(Math.max(0, mission.expectedAtMonths - G.ageMonths))} remaining`
+            : `${mission.status === 'completed' ? 'Completed' : 'Failed'} · ${mission.outcome}`;
+        html += `<div class="sect-disciple-row"><div class="sect-disciple-info">
+            <span class="name">${escapeSectAttr(name)} · ${SECT_MISSION_TYPES[mission.type].label}</span>
+            <span class="role">${escapeSectAttr(location)} · ${escapeSectAttr(detail)}</span>
+        </div></div>`;
+    }
+    return html;
+}
+
+function bindSectMissionPanelEvents(container) {
+    const refresh = () => {
+        saveState();
+        if (typeof renderSectPopup === 'function') renderSectPopup();
+    };
+    container.querySelectorAll('[data-mission-setting]').forEach(select => {
+        select.addEventListener('change', () => {
+            const mode = select.dataset.missionSetting === 'mode';
+            const changed = mode ? setSectMissionMode(select.value) : setSectMissionPriorities(
+                container.querySelector('[data-mission-setting="priority"]').value,
+                container.querySelector('[data-mission-setting="safety"]').value
+            );
+            if (changed) refresh();
+        });
+    });
+    const actions = {
+        appoint: button => appointSectMissionElder(button.dataset.missionUid),
+        dismiss: () => dismissSectMissionElder(),
+        approve: () => decideSectMissionProposal(true),
+        decline: () => decideSectMissionProposal(false),
+        assign: () => {
+            const option = container.querySelector('#sectMissionPlan')?.selectedOptions[0];
+            return option && assignSectMission(option.value, option.dataset.missionType);
+        }
+    };
+    container.querySelectorAll('[data-mission-action]').forEach(button => {
+        button.addEventListener('click', () => {
+            const result = actions[button.dataset.missionAction]?.(button);
+            if (result?.message && (!result.success || button.dataset.missionAction === 'decline')) addLog(result.message);
+            refresh();
+        });
+    });
 }
 
 function renderSectCourtyardHtml() {
@@ -242,7 +356,8 @@ function renderSectCourtyardHtml() {
     }
 
     if (getDiscipleCount()) {
-        html += `<div class="sect-section-title">📿 Disciples</div><div class="sect-disciple-list">`;
+        html += `<div class="sect-section-title">📿 Disciples</div>
+            <p class="sect-hint">${escapeSectAttr(describeSectGraduationRule())}</p><div class="sect-disciple-list">`;
         getSectDiscipleMemberships().forEach(d => {
             const npc = getDiscipleNpc(d);
             if (!npc) return;
@@ -254,6 +369,7 @@ function renderSectCourtyardHtml() {
             const served = Math.floor(getDiscipleMonthsServed(d) / 12);
             const promoteBlock = getPromoteBlockReason(d.uid);
             const canPromote = !promoteBlock && role.promoteReq;
+            const graduationBlock = getSectGraduationBlockReason(d.uid);
             html += `<div class="sect-disciple-row">
                 <div class="sect-disciple-info">
                     <span class="name">${role.emoji} ${escapeSectAttr(npc.name)}${traitDef ? ` <span class="sect-trait-tag" title="${traitTip}">${traitDef.emoji} ${traitDef.label}</span>` : ''}</span>
@@ -263,6 +379,9 @@ function renderSectCourtyardHtml() {
                 ${canPromote
                     ? `<button type="button" class="sect-promote-btn" data-promote-disc="${escapeSectAttr(d.uid)}">↑ Promote</button>`
                     : ''}
+                <button type="button" class="sect-action-btn" data-graduate-disciple="${escapeSectAttr(d.uid)}"
+                    ${graduationBlock ? `disabled title="${escapeSectAttr(graduationBlock)}"` : ''}>Graduate as Elder</button>
+                ${graduationBlock ? `<span class="role">${escapeSectAttr(graduationBlock)}</span>` : ''}
             </div>`;
         });
         html += `</div>`;
@@ -271,6 +390,7 @@ function renderSectCourtyardHtml() {
     }
 
     html += renderOtherSectAffiliationsHtml();
+    html += renderSectMissionsHtml();
     html += renderSectPoliciesHtml();
 
     if (meetsStageRequirement('regional')) {
@@ -483,6 +603,15 @@ function renderConstructionChoicesHtml(targetId, targetLevel, cost) {
 
 function bindSectGroundsEvents(container) {
     if (!container) return;
+    bindSectMissionPanelEvents(container);
+    container.querySelectorAll('[data-graduate-disciple]').forEach(button => {
+        button.addEventListener('click', () => {
+            const result = graduateSectDisciple(button.dataset.graduateDisciple);
+            addLog(result.message);
+            saveState();
+            if (typeof renderSectPopup === 'function') renderSectPopup();
+        });
+    });
     container.querySelectorAll('[data-sect-policy]').forEach(select => {
         select.addEventListener('change', function() {
             if (!setSectPolicy(this.dataset.sectPolicy, this.value)) return;

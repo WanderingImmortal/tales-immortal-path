@@ -127,7 +127,9 @@ function runCultivateSession(options) {
     let factionPassive = null;
     // Full-session side incomes — skip on fractional weekly stance ticks
     if (scale >= 1) {
-        if (G.disciples.length > 0) {
+        const hasSectSupport = typeof getSectDisciplesAndElders === 'function'
+            ? getSectDisciplesAndElders().length > 0 : G.disciples.length > 0;
+        if (hasSectSupport) {
             const income = typeof getTreasuryTithePerCultivate === 'function'
                 ? getTreasuryTithePerCultivate()
                 : (typeof getSectDiscipleIncome === 'function'
