@@ -92,6 +92,7 @@ function boot(extraG) {
     ctx.findWorldNpcRecordByUid = (uid) => (ctx.G.worldNpcs || []).find(n => n.uid === uid) || null;
 
     [
+        'cultivation-tracks.js',
         'npc-foundations.js',
         'npc-ties.js',
         'well-ring-lodge.js',

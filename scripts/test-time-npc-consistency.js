@@ -327,12 +327,13 @@ function extractUntil(src, startName, nextName) {
             getWorldNpcMaxRealm: () => 8,
             getWorldNpcLifespanMonths: () => 800 * 12,
             canWorldNpcGrow: () => true,
-            clampWorldNpcProgress: () => {},
+            clampWorldNpcThreat: () => {},
             tickWorldNpcWander: () => {},
             killWorldNpc: (npc) => { npc.alive = false; },
             Math,
             console
         });
+        vm.runInContext(read('cultivation-tracks.js'), ctx);
         const fn = extractUntil(read('world.js'), 'tickWorldNpcGrowth(', 'tickWorldNpcWander');
         vm.runInContext(fn, ctx);
         if (mode === 'batch') ctx.tickWorldNpcGrowth(24);

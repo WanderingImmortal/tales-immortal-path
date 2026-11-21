@@ -128,7 +128,7 @@ function boot(options = {}) {
         },
         getWorldNpcMaxRealm: () => 3,
         getWorldNpcLifespanMonths: () => 200 * 12,
-        clampWorldNpcProgress: () => {},
+        clampWorldNpcThreat: () => {},
         killWorldNpc: (npc) => { npc.alive = false; },
         tickWorldNpcWander: () => {},
         ensureNpcPersonalities: () => {},
@@ -212,6 +212,7 @@ function migrateWellRingLodgeForExistingSave() {
     vm.runInContext(read('world-formations.js'), ctx, { filename: 'world-formations.js' });
 
     // Extract growth helpers + tickWorldNpcGrowth (formation mult hook).
+    vm.runInContext(read('cultivation-tracks.js'), ctx);
     const worldSrc = read('world.js');
     const canStart = worldSrc.indexOf('function canWorldNpcGrow');
     const growthEnd = worldSrc.indexOf('function tickWorldNpcWander');
@@ -321,7 +322,6 @@ function testNpcBenefitOnceAndAbsent() {
     assert(mult > 1, 'present disciple gets mult');
 
     // Growth applies mult exactly once through rate *= mult
-    wei.growthProgress = 0;
     ctx.tickWorldNpcGrowth(10);
     const expected = 10 * baseRate * mult;
     assert(Math.abs(wei.growthProgress - expected) < 1e-9,
@@ -551,7 +551,6 @@ function testNpcContinuesAfterFormationStops() {
     const wei = ctx.findWorldNpcRecordByUid('wr_wei_shun');
     const inst = ctx.getWellRingLodgeFormationInstallation();
     inst.active = false;
-    wei.growthProgress = 0;
     ctx.tickWorldNpcGrowth(10);
     assert(Math.abs(wei.growthProgress - 10 * wei.growthRate) < 1e-9,
         'NPC still grows at base rate when formation off');

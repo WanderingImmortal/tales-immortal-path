@@ -175,10 +175,10 @@ function getNpcDispositionLabel(npcId) {
     return `${d.emoji} ${d.label}`;
 }
 
-function getNpcRealmName(realmIdx) {
-    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx() : 8;
+function getNpcRealmName(realmIdx, path = G.path) {
+    const cap = typeof getMaxCultivationRealmIdx === 'function' ? getMaxCultivationRealmIdx(path) : 8;
     const idx = clamp(realmIdx, 0, cap);
-    return PATHS[G.path].realms[idx] || PATHS[G.path].realms[cap] || 'Transcendent';
+    return PATHS[path].realms[idx] || PATHS[path].realms[cap] || 'Transcendent';
 }
 
 function getNpcStrengthLabel(npcId) {
@@ -266,9 +266,18 @@ function getWorldNpcDispositionLabel(npc) {
     return `${d.emoji} ${d.label}`;
 }
 
+function getWorldNpcCultivationLabel(npc, track) {
+    const cultivation = ensureNpcCultivation(npc);
+    track = track || cultivation.focusTrack;
+    const path = TRACK_TO_LEGACY_PATH[track];
+    const label = { qi: 'Qi', body: 'Body', soul: 'Soul' }[path];
+    return `${label}: ${getNpcRealmName(cultivation[track].realmIdx, path)}`;
+}
+
 function getWorldNpcStrengthLabel(npc) {
-    const realmName = getNpcRealmName(npc.realmIdx);
-    const diff = npc.realmIdx - G.realmIdx;
+    const realmName = getWorldNpcCultivationLabel(npc, 'dantian');
+    const playerQiRealm = typeof getTrackRealmIdx === 'function' ? getTrackRealmIdx('dantian') : G.realmIdx;
+    const diff = npc.realmIdx - playerQiRealm;
     const prefix = npc.isDemonicTalent ? '😈' : '⚡';
     if (diff >= 3) return `${prefix} Far above · ${realmName}`;
     if (diff >= 1) return `${prefix} Stronger · ${realmName}`;
@@ -429,7 +438,7 @@ function getWorldNpcGreeting(npc) {
         return `${intro}Just a mortal, ${npc.name}. Pay no mind unless you need directions.`;
     }
     const prefix = remeet || `${famePrefix}${auraNote}`;
-    return `${prefix}${role.label} ${npc.name}, ${getNpcRealmName(npc.realmIdx)} cultivation.`;
+    return `${prefix}${role.label} ${npc.name} · ${getWorldNpcCultivationLabel(npc)}.`;
 }
 
 function getWorldNpcTalkLine(npc) {
@@ -442,12 +451,14 @@ function getWorldNpcTalkLine(npc) {
 function getWorldNpcObserveText(npc) {
     const role = NPC_ROLES[npc.role] || NPC_ROLES.wanderer;
     const personalityLine = formatPersonalityLabels(npc);
+    const cultivation = ensureNpcCultivation(npc);
+    const focus = cultivation.focusTrack;
     const lines = [
         `Role: ${role.label}`,
         personalityLine ? `Personality: ${personalityLine}` : null,
-        `Realm: ${getNpcRealmName(npc.realmIdx)}`,
+        ...CULTIVATION_TRACKS.map(track => getWorldNpcCultivationLabel(npc, track)),
         `Age: ~${formatYears(npc.ageMonths)}`,
-        `Growth: ${Math.round(npc.growthProgress || 0)}/${NPC_ECOSYSTEM.growthMonthsPerBreakthrough} progress`
+        `Focused growth (${getWorldNpcCultivationLabel(npc, focus)}): ${Math.round(cultivation[focus].growthProgress)}/${NPC_ECOSYSTEM.growthMonthsPerBreakthrough} progress`
     ].filter(Boolean);
     if (typeof getWorldNpcImpressionLabel === 'function' && hasWorldNpcRelationship(npc)) {
         lines.push(`Impression: ${getWorldNpcImpressionLabel(npc)} (${npc.impression > 0 ? '+' : ''}${npc.impression || 0})`);
@@ -940,7 +951,7 @@ function renderWorldNpcConversePopup(npc) {
     const personalityHint = formatPersonalityLabels(npc);
     let subtitle = personalityHint
         ? `${role.label} · ${personalityHint}`
-        : `${role.label} · ${getNpcRealmName(npc.realmIdx)}`;
+        : `${role.label} · ${getWorldNpcCultivationLabel(npc)}`;
     if (npc.recentBeat && npc.state === 'persistent') subtitle += ` · ${npc.recentBeat}`;
     if (typeof getWorldNpcImpressionLabel === 'function') {
         subtitle += ` · ${getWorldNpcImpressionLabel(npc)}`;
@@ -1193,7 +1204,7 @@ function renderNpcPopup() {
         const personalityHint = formatPersonalityLabels(npc);
         let subtitle = personalityHint
             ? `${role.label} · ${personalityHint}`
-            : `${role.label} · ${getNpcRealmName(npc.realmIdx)}`;
+            : `${role.label} · ${getWorldNpcCultivationLabel(npc)}`;
         if (npc.recentBeat && npc.state === 'persistent') {
             subtitle += ` · ${npc.recentBeat}`;
         }

@@ -153,10 +153,11 @@ function bootCast(extraG) {
     ctx.G.realmIdx = 0;
 
     // Pull growth functions from world.js via regex blocks.
+    vm.runInContext(read('cultivation-tracks.js'), ctx);
     const growthChunk = [
         'function getWorldNpcMaxRealm',
         'function getWorldNpcThreatCap',
-        'function clampWorldNpcProgress',
+        'function clampWorldNpcThreat',
         'function getWorldNpcLifespanMonths',
         'function canWorldNpcGrow',
         'function tickWorldNpcGrowth',

@@ -476,9 +476,9 @@ function maybeCompleteCultivationResourceGoal(actorId) {
     const npc = typeof findWorldNpcRecordByUid === 'function' ? findWorldNpcRecordByUid(actorId) : null;
     if (!npc) return null;
 
-    // Consume a batch for real cultivation progress (means toward ambition — not fulfilment).
+    // Existing herb goals support the Qi realm tracked by these ambitions.
     adjustNpcSpiritHerbs(actorId, -need);
-    npc.growthProgress = (npc.growthProgress || 0) + NPC_CULTIVATION_RESOURCE.growthProgressPerBatch;
+    addNpcCultivationProgress(npc, 'dantian', NPC_CULTIVATION_RESOURCE.growthProgressPerBatch);
 
     goals.forEach(g => {
         const live = G.npcGoals.byId[g.id];

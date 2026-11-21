@@ -139,12 +139,13 @@ function tickNpcGrowthModel(npc, monthsPassed, lifespanMonths, useDeathCap) {
         console
     });
     const worldJs = fs.readFileSync(path.join(root, 'world.js'), 'utf8');
+    vm.runInContext(fs.readFileSync(path.join(root, 'cultivation-tracks.js'), 'utf8'), npcCtx);
     const fnMatch = worldJs.match(/function tickWorldNpcGrowth[\s\S]*?\nfunction tickWorldNpcWander/);
     vm.runInContext(
         'function getWorldNpcMaxRealm() { return 8; }\n'
         + 'function getWorldNpcLifespanMonths() { return 100; }\n'
         + 'function canWorldNpcGrow() { return true; }\n'
-        + 'function clampWorldNpcProgress() {}\n'
+        + 'function clampWorldNpcThreat() {}\n'
         + 'function killWorldNpc(npc) { npc.alive = false; }\n'
         + fnMatch[0].replace(/\nfunction tickWorldNpcWander$/, ''),
         npcCtx,
@@ -156,7 +157,7 @@ function tickNpcGrowthModel(npc, monthsPassed, lifespanMonths, useDeathCap) {
         fail(`Test C — world.js tick growth ${npc.growthProgress} alive=${npc.alive}`);
     } else ok('Test C — world.js tickWorldNpcGrowth caps at lifespan');
     npc.alive = false;
-    npc.growthProgress = 5;
+    npcCtx.addNpcCultivationProgress(npc, 'dantian', 5 - npc.growthProgress);
     npcCtx.tickWorldNpcGrowth(24);
     if (npc.growthProgress !== 5) fail('Test C — dead NPC should not gain progress');
     else ok('Test C — dead NPC does not progress');
@@ -204,7 +205,7 @@ function tickNpcGrowthModel(npc, monthsPassed, lifespanMonths, useDeathCap) {
     perfCtx.getWorldNpcMaxRealm = () => 8;
     perfCtx.getWorldNpcLifespanMonths = () => 120 * 12;
     perfCtx.canWorldNpcGrow = () => true;
-    perfCtx.clampWorldNpcProgress = () => {};
+    perfCtx.clampWorldNpcThreat = () => {};
     perfCtx.tickWorldNpcWander = () => {};
     perfCtx.killWorldNpc = (npc) => { npc.alive = false; };
     G.worldNpcs = Array.from({ length: 80 }, (_, i) => ({
@@ -218,6 +219,7 @@ function tickNpcGrowthModel(npc, monthsPassed, lifespanMonths, useDeathCap) {
         state: 'persistent'
     }));
     const worldJs = fs.readFileSync(path.join(root, 'world.js'), 'utf8');
+    vm.runInContext(fs.readFileSync(path.join(root, 'cultivation-tracks.js'), 'utf8'), perfCtx);
     const fnMatch = worldJs.match(/function tickWorldNpcGrowth[\s\S]*?\nfunction tickWorldNpcWander/);
     if (fnMatch) {
         vm.runInContext(fnMatch[0].replace(/\nfunction tickWorldNpcWander$/, ''), perfCtx, { filename: 'tickWorldNpcGrowth-extract' });

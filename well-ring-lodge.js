@@ -574,6 +574,7 @@ function ensureWellRingLodgeCast() {
         } else {
             backfillWellRingCastNpc(npc, def);
         }
+        if (typeof ensureNpcCultivation === 'function') ensureNpcCultivation(npc);
         createdOrFound.push(npc);
     });
 
