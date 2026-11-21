@@ -97,17 +97,15 @@ function executeWeiWanderMove() {
     ensureWeiWanderScheduled();
 }
 
-function ensureWeiWanderScheduled() {
+function ensureWeiWanderScheduled(force = false) {
     ensureNpcState();
     const wei = G.npcState.wei_collector;
     if (!wei) return;
     if (!wei.wanderZone) wei.wanderZone = pickWeiWanderZone();
     if (!wei.wanderDueMonths) wei.wanderDueMonths = (G.ageMonths || 0) + pickWeiWanderInterval();
     if (typeof scheduleWorldEvent !== 'function') return;
-    if (wei.wanderDueMonths <= G.ageMonths) {
-        wei.wanderDueMonths = G.ageMonths + pickWeiWanderInterval();
-    }
-    scheduleWorldEvent('wei_wander', wei.wanderDueMonths, {}, { id: 'wei_wander' });
+    if (!force && typeof hasScheduledWorldEvent === 'function' && hasScheduledWorldEvent('wei_wander', 'wei_wander')) return;
+    scheduleWorldEvent('wei_wander', Math.max(G.ageMonths || 0, wei.wanderDueMonths), {}, { id: 'wei_wander' });
 }
 
 function tickWeiWandering() {
@@ -120,7 +118,7 @@ function refreshNpcWandering(force) {
     const wei = G.npcState.wei_collector;
     wei.wanderZone = pickWeiWanderZone();
     wei.wanderDueMonths = G.ageMonths + pickWeiWanderInterval();
-    ensureWeiWanderScheduled();
+    ensureWeiWanderScheduled(true);
 }
 
 function getNpcDef(npcId) {

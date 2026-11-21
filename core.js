@@ -983,6 +983,7 @@ function advanceTime(months, activity, options) {
         ? resolveBillableAdvanceMonths(months, opts)
         : (Number(months) || 0);
     if (months <= 0) return true;
+    if (typeof assertWorldTimeAvailable === 'function') assertWorldTimeAvailable();
     if (G.gameOver) return false;
     if ((typeof getWorldClockProject === 'function' && getWorldClockProject())
         || (typeof getPlayerActivity === 'function' && getPlayerActivity())

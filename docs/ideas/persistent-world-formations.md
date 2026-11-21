@@ -61,7 +61,7 @@ Visiting the lodge shows a short sensory line (operating / worn / scattered). No
 
 ### Tick
 
-`registerWorldTick('worldFormations', …, 38)` before `worldNpcs` growth so growth sees current state. Also hooked from `processWorldTimeLegacy` so the fallback clock path cannot skip decay.
+`registerWorldTick('worldFormations', …, 38)` before `worldNpcs` growth so growth sees current state.
 
 **Verified (pre-merge):** integrity decays via world ticks while the player is away / without opening the lodge; ensure preserves object identity and does not restore starter integrity 88; observation is read-only; benefits are location- and operative-gated once.
 

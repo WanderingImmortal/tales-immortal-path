@@ -2,13 +2,23 @@
 // WORLD-SCHEDULER.JS — Central world clock & scheduled jianghu events
 // ============================================
 
-const WORLD_EVENT_HANDLERS = {};
+const WORLD_EVENT_HANDLERS = Object.create(null);
+const WORLD_EVENT_RETRY_SAFE = new Set();
+const MAX_WORLD_EVENTS_PER_BOUNDARY = 128;
+let worldTimeProcessing = false;
+
+function assertWorldTimeAvailable() {
+    if (worldTimeProcessing) throw new Error('A world-time advance is already in progress.');
+}
 const WORLD_TICKS = [];
 let _worldSchedulerInited = false;
 const migratedWorldSchedules = new WeakSet();
 
-function registerWorldEventHandler(type, fn) {
-    if (type && typeof fn === 'function') WORLD_EVENT_HANDLERS[type] = fn;
+function registerWorldEventHandler(type, fn, { retrySafe = false } = {}) {
+    if (!type || typeof fn !== 'function') return;
+    WORLD_EVENT_HANDLERS[type] = fn;
+    if (retrySafe) WORLD_EVENT_RETRY_SAFE.add(type);
+    else WORLD_EVENT_RETRY_SAFE.delete(type);
 }
 
 function registerWorldTick(id, fn, priority) {
@@ -21,27 +31,47 @@ function ensureWorldSchedulerState() {
     if (!G.worldChronicle) G.worldChronicle = [];
 }
 
-function scheduleWorldEvent(type, atMonths, payload, opts) {
+function compareWorldEvents(a, b) {
+    return a.at - b.at || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+}
+
+function isPendingWorldEvent(event) {
+    return !!event && !event.failure && !event.dispatching;
+}
+
+function scheduleWorldEvent(type, atMonths, payload, opts = {}) {
+    if (typeof type !== 'string' || !type) throw new TypeError('Expected a world event type.');
+    if (!Number.isFinite(atMonths) || atMonths < (G.ageMonths ?? 0) || atMonths < 0) {
+        throw new RangeError('World events require a finite timestamp at or after the current month.');
+    }
     ensureWorldSchedulerState();
-    opts = opts || {};
-    payload = payload || {};
-    const at = Math.floor(atMonths);
-    const id = opts.id || `${type}_${at}_${Math.random().toString(36).slice(2, 7)}`;
-    G.worldSchedule = G.worldSchedule.filter(e => e.id !== id);
-    G.worldSchedule.push({ id, type, at, payload, silent: !!opts.silent });
-    G.worldSchedule.sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
+    const boundaryIds = G.worldEventBoundary?.at === atMonths ? G.worldEventBoundary.ids : [];
+    let id = opts?.id;
+    if (id == null) {
+        const base = `${type}_${atMonths}_${Math.random().toString(36).slice(2, 7)}`;
+        id = base;
+        for (let suffix = 1; boundaryIds?.includes?.(id) || G.worldSchedule.some(row => row?.id === id); suffix++) {
+            id = `${base}_${suffix}`;
+        }
+    }
+    if (typeof id !== 'string' || !id) throw new TypeError('Expected a world event ID.');
+    if (boundaryIds?.includes?.(id)) return null;
+    // Upsert pending work only. An in-flight or quarantined occurrence keeps its record.
+    cancelWorldEvents(event => event.id === id);
+    G.worldSchedule.push({ id, type, at: atMonths, payload: payload || {}, silent: !!opts?.silent });
     return id;
 }
 
 function cancelWorldEvents(filterFn) {
     ensureWorldSchedulerState();
     if (typeof filterFn !== 'function') return;
-    G.worldSchedule = G.worldSchedule.filter(e => !filterFn(e));
+    G.worldSchedule = G.worldSchedule.filter(event => !isPendingWorldEvent(event) || !filterFn(event));
 }
 
 function hasScheduledWorldEvent(type, id) {
     ensureWorldSchedulerState();
     return G.worldSchedule.some(e => {
+        if (!e || e.dispatching) return false;
         if (type && e.type !== type) return false;
         if (id && e.id !== id) return false;
         return true;
@@ -90,17 +120,63 @@ function emitWorldChronicleSummary(batch, context) {
     return line;
 }
 
-function fireWorldEvent(ev) {
-    const handler = WORLD_EVENT_HANDLERS[ev.type];
-    if (!handler) return;
-    const prevAge = G.ageMonths;
-    if (Math.abs(G.ageMonths - ev.at) > 1e-6) G.ageMonths = ev.at;
+function quarantineWorldEvent(event, reason, message) {
+    delete event.dispatching;
+    delete event.retryRequested;
+    event.failure = { reason, message, atMonths: G.ageMonths };
+}
+
+function reportWorldEventFailure(event) {
+    console.error(`World event ${event.id} (${event.type}) quarantined:`, event.failure.message);
+    appendWorldChronicle({
+        type: 'world_event_failure', emoji: '⚠️',
+        summary: `World event ${event.type} paused (${event.failure.reason}).`
+    });
+}
+
+function getFailedWorldEvents() {
+    ensureWorldSchedulerState();
+    return G.worldSchedule.filter(event => event?.failure)
+        .map(({ id, type, at, failure }) => ({ id, type, at, ...failure }));
+}
+
+// Unknown handlers never ran. Other handlers may be retried only if explicitly replay-safe.
+function retryFailedWorldEvent(id, at) {
+    assertWorldTimeAvailable();
+    if (typeof getSaveLoadDiagnostics === 'function' && getSaveLoadDiagnostics().loadFailure) return false;
+    ensureWorldSchedulerState();
+    const matches = G.worldSchedule.filter(event => event?.id === id && event.failure
+        && (at === undefined || at === event.at));
+    if (matches.length !== 1) return false;
+    const [event] = matches;
+    const reason = event.failure.reason;
+    if (!WORLD_EVENT_HANDLERS[event.type]
+        || (reason !== 'unknown_handler' && !(['handler_error', 'interrupted_dispatch'].includes(reason)
+            && WORLD_EVENT_RETRY_SAFE.has(event.type)))
+        || G.worldSchedule.some(other => isPendingWorldEvent(other) && other.id === id)) return false;
+    delete event.failure;
+    event.retryRequested = true;
+    return true;
+}
+
+function fireWorldEvent(event) {
+    const handler = WORLD_EVENT_HANDLERS[event.type];
+    if (!handler) {
+        quarantineWorldEvent(event, 'unknown_handler', 'No handler is registered for this event type.');
+        reportWorldEventFailure(event);
+        return;
+    }
+    event.dispatching = true;
+    const age = G.ageMonths;
     try {
-        handler(ev.payload || {}, ev);
-    } catch (err) {
-        console.error('World event failed:', ev.type, err);
+        handler(event.payload || {}, event);
+        G.worldSchedule = G.worldSchedule.filter(row => row !== event);
+    } catch (error) {
+        G.ageMonths = age;
+        quarantineWorldEvent(event, 'handler_error', error?.message || String(error));
+        reportWorldEventFailure(event);
     } finally {
-        G.ageMonths = prevAge;
+        G.ageMonths = age;
     }
 }
 
@@ -122,50 +198,71 @@ function runWorldTicks(fromMonths, toMonths, context) {
     });
 }
 
-function pullScheduledEventsAfter(cursorMonths, endMonths) {
-    ensureWorldSchedulerState();
-    return G.worldSchedule
-        .filter(e => e.at > cursorMonths + 1e-9 && e.at <= endMonths + 1e-9)
-        .sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
+function pullScheduledEventsThrough(endMonths) {
+    return G.worldSchedule.filter(event => isPendingWorldEvent(event) && event.at <= endMonths)
+        .sort(compareWorldEvents);
 }
 
-function fireScheduledEventsAtBoundary(cursorMonths, boundaryMonths) {
-    const atBoundary = G.worldSchedule.filter(
-        e => e.at > cursorMonths + 1e-9 && Math.abs(e.at - boundaryMonths) < 1e-6
-    );
-    if (!atBoundary.length) return;
-    atBoundary.sort((a, b) => a.id.localeCompare(b.id));
-    G.worldSchedule = G.worldSchedule.filter(e => !atBoundary.some(f => f.id === e.id));
-    G.ageMonths = boundaryMonths;
-    for (const ev of atBoundary) fireWorldEvent(ev);
-}
-
-/** Fire due schedule events in (from, to] without advancing world ticks (legacy helper). */
-function flushWorldSchedule(fromMonths, toMonths) {
-    ensureWorldSchedulerState();
-    if (toMonths <= fromMonths) return;
-    const due = G.worldSchedule.filter(e => e.at > fromMonths && e.at <= toMonths);
-    G.worldSchedule = G.worldSchedule.filter(e => e.at <= fromMonths || e.at > toMonths);
-    due.sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
-    for (const ev of due) fireWorldEvent(ev);
+function fireScheduledEventsAtBoundary(boundaryMonths) {
+    let due = pullScheduledEventsThrough(boundaryMonths);
+    if (!due.length) return;
+    if (G.worldEventBoundary?.at !== boundaryMonths) {
+        G.worldEventBoundary = { at: boundaryMonths, ids: [], count: 0 };
+    }
+    const boundary = G.worldEventBoundary;
+    while (due.length && boundary.count < MAX_WORLD_EVENTS_PER_BOUNDARY) {
+        const [event] = due;
+        boundary.count++;
+        if (boundary.ids.includes(event.id) && !event.retryRequested) {
+            quarantineWorldEvent(event, 'duplicate_occurrence', 'This ID was already dispatched at this boundary.');
+            reportWorldEventFailure(event);
+        } else {
+            if (!boundary.ids.includes(event.id)) boundary.ids.push(event.id);
+            delete event.retryRequested;
+            fireWorldEvent(event);
+        }
+        // Handlers can add or cancel work. Re-select by requested timestamp and ID.
+        due = pullScheduledEventsThrough(boundaryMonths);
+    }
+    if (due.length) {
+        for (const event of due) {
+            quarantineWorldEvent(event, 'chain_limit', 'The same-boundary dispatch limit was reached.');
+        }
+        reportWorldEventFailure(due[0]);
+    }
 }
 
 function migrateWorldScheduleFromLegacy() {
     if (migratedWorldSchedules.has(G)) return;
     ensureWorldSchedulerState();
-    const now = G.ageMonths || 0;
-    if (G.nextDemonicEmergenceMonths != null && G.nextDemonicEmergenceMonths <= now) {
-        G.nextDemonicEmergenceMonths = now + 6;
+    const now = G.ageMonths ?? 0;
+    const boundary = G.worldEventBoundary;
+    if (boundary != null && (!Number.isFinite(boundary.at) || !Array.isArray(boundary.ids)
+        || !boundary.ids.every(id => typeof id === 'string') || !Number.isSafeInteger(boundary.count)
+        || boundary.count < boundary.ids.length || boundary.count > MAX_WORLD_EVENTS_PER_BOUNDARY)) {
+        throw new TypeError('Invalid saved world event boundary.');
     }
-    if (G.nextDemonicEmergenceMonths != null && !hasScheduledWorldEvent('demonic_emergence', 'demonic_emergence_next')) {
-        scheduleWorldEvent('demonic_emergence', G.nextDemonicEmergenceMonths, {}, { id: 'demonic_emergence_next' });
+    G.worldSchedule = G.worldSchedule.map(event => {
+        if (!event || typeof event.id !== 'string' || !event.id || typeof event.type !== 'string'
+            || !event.type || !Number.isFinite(event.at) || event.at < 0) {
+            if (event?.failure?.reason === 'invalid_event') return event;
+            const invalid = event && typeof event === 'object' ? { ...event } : { raw: event };
+            quarantineWorldEvent(invalid, 'invalid_event', 'Invalid saved event ID, type, or timestamp.');
+            reportWorldEventFailure(invalid);
+            return invalid;
+        }
+        if (event.dispatching) {
+            quarantineWorldEvent(event, 'interrupted_dispatch', 'Saved during dispatch. Effects may already have been applied.');
+            reportWorldEventFailure(event);
+        }
+        return event;
+    });
+    if (Number.isFinite(G.nextDemonicEmergenceMonths)
+        && !hasScheduledWorldEvent('demonic_emergence', 'demonic_emergence_next')) {
+        scheduleWorldEvent('demonic_emergence', Math.max(now, G.nextDemonicEmergenceMonths), {}, { id: 'demonic_emergence_next' });
     }
     if (typeof ensureWeiWanderScheduled === 'function') ensureWeiWanderScheduled();
     if (typeof ensurePhoenixWarScheduled === 'function') ensurePhoenixWarScheduled();
-    G.worldSchedule.forEach(e => {
-        if (e.at <= now) e.at = now + Math.max(1, Math.floor((e.type === 'phoenix_war_advance' ? 12 : 2)));
-    });
-    G.worldSchedule.sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
     migratedWorldSchedules.add(G);
 }
 
@@ -216,43 +313,40 @@ function runCalendarWorldStep(context, step) {
     }
 }
 
-function processWorldTime(fromMonths, toMonths, context) {
-    initWorldSchedulerRegistries();
-    ensureWorldSchedulerState();
-    migrateWorldScheduleFromLegacy();
-    beginWorldChronicleBatch();
-    context = context || {};
-    let cursor = fromMonths;
-    while (cursor < toMonths - 1e-9) {
-        const due = pullScheduledEventsAfter(cursor, toMonths);
-        const studyBoundary = typeof getNextManualHallStudyBoundary === 'function'
-            ? getNextManualHallStudyBoundary(cursor) : Infinity;
-        const segmentEnd = Math.min(toMonths, due[0]?.at ?? Infinity, studyBoundary, context.nextBoundary?.(cursor) ?? Infinity);
-        if (segmentEnd <= cursor + 1e-9) break;
-
-        G.ageMonths = segmentEnd;
-        runCalendarWorldStep(context, () => runWorldTicks(cursor, segmentEnd, context));
-        context.onElapsed?.(segmentEnd - cursor);
-        runCalendarWorldStep(context, () => fireScheduledEventsAtBoundary(cursor, segmentEnd));
-        cursor = segmentEnd;
-        if (context.shouldStop?.()) break;
+function processWorldTime(fromMonths, toMonths, context = {}) {
+    assertWorldTimeAvailable();
+    if (!Number.isFinite(fromMonths) || !Number.isFinite(toMonths) || toMonths < fromMonths) {
+        throw new RangeError('Invalid world-time interval.');
     }
-    G.ageMonths = cursor;
-    return endWorldChronicleBatch();
-}
+    context ||= {};
+    worldTimeProcessing = true;
+    try {
+        initWorldSchedulerRegistries();
+        ensureWorldSchedulerState();
+        migrateWorldScheduleFromLegacy();
+        beginWorldChronicleBatch();
+        let cursor = fromMonths;
+        G.ageMonths = cursor;
+        // Legacy overdue work runs at the current calendar date in original timestamp order.
+        runCalendarWorldStep(context, () => fireScheduledEventsAtBoundary(cursor));
+        while (cursor < toMonths && !context.shouldStop?.()) {
+            const due = pullScheduledEventsThrough(toMonths);
+            const studyBoundary = typeof getNextManualHallStudyBoundary === 'function'
+                ? getNextManualHallStudyBoundary(cursor) : Infinity;
+            const activityBoundary = context.nextBoundary?.(cursor) ?? Infinity;
+            const segmentEnd = Math.min(toMonths, due[0]?.at ?? Infinity, studyBoundary, activityBoundary);
+            if (segmentEnd <= cursor) break;
 
-function processWorldTimeLegacy(fromMonths, toMonths) {
-    const delta = toMonths - fromMonths;
-    if (typeof checkScarTimeHealing === 'function') checkScarTimeHealing();
-    if (typeof maybeHeavenlyAlignmentEvent === 'function') maybeHeavenlyAlignmentEvent();
-    if (typeof tickNpcWorld === 'function') tickNpcWorld(delta);
-    if (typeof tickQuestSystems === 'function') tickQuestSystems(delta);
-    // Match processWorldTime ordering: world installs before NPC growth.
-    if (typeof tickWorldFormationInstallations === 'function') tickWorldFormationInstallations(delta);
-    if (typeof tickWorldNpcGrowth === 'function') tickWorldNpcGrowth(delta);
-    if (typeof tickSectSystems === 'function') tickSectSystems(delta);
-    if (typeof tickFactionQuestDeadlines === 'function') tickFactionQuestDeadlines();
-    if (typeof tickFactionSystems === 'function') tickFactionSystems(delta);
-    if (typeof maybeDemonicEmergence === 'function') maybeDemonicEmergence();
-    return [];
+            G.ageMonths = segmentEnd;
+            runCalendarWorldStep(context, () => runWorldTicks(cursor, segmentEnd, context));
+            context.onElapsed?.(segmentEnd - cursor);
+            runCalendarWorldStep(context, () => fireScheduledEventsAtBoundary(segmentEnd));
+            cursor = segmentEnd;
+        }
+        G.ageMonths = cursor;
+        return endWorldChronicleBatch();
+    } finally {
+        worldTimeProcessing = false;
+        G._worldChronicleBatch = null;
+    }
 }

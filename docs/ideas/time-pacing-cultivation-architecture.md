@@ -34,14 +34,12 @@ See git history for full billing model and passive-batch notes.
 
 `processWorldTime(from, to)` in `world-scheduler.js`:
 
-1. Walk the interval in **segments** bounded by the next scheduled event in `(cursor, to]`, or `to` if none.
-2. For each segment `[cursor, segmentEnd]`: run **`runWorldTicks`** (all `WORLD_TICKS` with that delta), set `G.ageMonths = segmentEnd`.
-3. **Fire** all schedule events with `at === segmentEnd` (removed from `G.worldSchedule`), with world state already advanced to that date.
-4. Repeat until `cursor === to`.
+1. Drain work due at the starting date. Overdue saved events keep their original timestamps for ordering and run at the current date.
+2. Advance to the next event or activity boundary. Set `G.ageMonths`, run world ticks, and account for elapsed time before dispatching that boundary’s events.
+3. Select pending work by exact timestamp, then by ID. Recheck after each handler so new same-date events and cancellations take effect. Each ID can dispatch once per boundary unless explicitly retried. After 128 dispatch attempts at one boundary, quarantine the remaining due work.
+4. Check for interruption after the boundary. Paid actions, quiet advances, and seclusion share this scheduler. The scheduler rejects nested advances.
 
-`advanceTime` / `advanceTimeQuiet` still call `processWorldTime` once per billed span; seclusion playback uses the same spine per year step.
-
-`flushWorldSchedule(from, to)` remains a **legacy events-only** helper (no ticks) for callers that only need to fire handlers.
+New requests must use finite timestamps at or after the current date. Fractions are preserved. An unknown handler or a throw leaves a quarantined event in the save and records a diagnostic. Loading a save captured during a handler also quarantines that event. Use `getFailedWorldEvents()` to inspect failures and `retryFailedWorldEvent(id, at)` to requeue an event after repair. A handler that already ran can be retried only if it was declared replay-safe. Partial handler effects can survive a failure.
 
 ### Confirmed issues fixed
 
