@@ -356,7 +356,8 @@ function renderSectCourtyardHtml() {
     }
 
     if (getDiscipleCount()) {
-        html += `<div class="sect-section-title">📿 Disciples</div><div class="sect-disciple-list">`;
+        html += `<div class="sect-section-title">📿 Disciples</div>
+            <p class="sect-hint">${escapeSectAttr(describeSectGraduationRule())}</p><div class="sect-disciple-list">`;
         getSectDiscipleMemberships().forEach(d => {
             const npc = getDiscipleNpc(d);
             if (!npc) return;

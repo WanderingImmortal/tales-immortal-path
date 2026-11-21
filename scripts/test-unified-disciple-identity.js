@@ -765,14 +765,21 @@ test('gathering travels out and back, delivers actual stock once, and survives a
         const reached = isNpcPhysicallyPresentAt(npc, 'dewcatch_scrub') && mission.phase === 'work';
         saveState();
         if (!loadState()) throw new Error('Reload failed');
+        const working = getActiveSectMissions()[0];
+        processWorldTime(G.ageMonths, working.nextAtMonths);
+        const carrying = working.phase === 'return' && working.cargo.status === 'in_transit' &&
+            getSectMaterialCount('spirit_herb') === 0;
+        saveState();
+        if (!loadState()) throw new Error('Return reload failed');
         const restored = getActiveSectMissions()[0];
-        const limit = G.ageMonths + 24;
-        processWorldTime(G.ageMonths, limit);
-        const completed = restored.status === 'completed' && restored.finishedMonths === mission.expectedAtMonths &&
+        const restoredCargo = restored.cargo.status === 'in_transit' && restored.cargo.amount === 1;
+        processWorldTime(G.ageMonths, G.ageMonths + 24);
+        const completed = restored.status === 'completed' && restored.cargo.status === 'delivered' &&
+            restored.finishedMonths === mission.expectedAtMonths &&
             getSectMaterialCount('spirit_herb') === 1 && hasResourceSourceAcquisition(mission.id);
         resolveSectMissionStep({ missionId: mission.id });
         processWorldTime(G.ageMonths, G.ageMonths + 1);
-        travelStarted && secondRejected && reached && completed && getSectMaterialCount('spirit_herb') === 1 &&
+        travelStarted && secondRejected && reached && carrying && restoredCargo && completed && getSectMaterialCount('spirit_herb') === 1 &&
             getSectAffiliation(uid).lifetimeContribution === 1 && getSectAffiliation(uid).meritBalance === 1
     `), true);
 });
@@ -901,9 +908,13 @@ test('a careful Mission Elder avoids a borderline patrol and full stores block d
         const careful = department.proposal?.type === 'gather';
         setSectMissionMode('direct');
         const gather = assignSectMission(npc.uid, 'gather').mission;
+        const source = ensureResourceSource(gather.sourceId);
+        source.regenAmount = 0;
+        const before = source.stock;
         G.sect.inventory.materials.iron_ore = getSectInventoryCapacity();
         processWorldTime(G.ageMonths, gather.expectedAtMonths);
         careful && gather.status === 'failed' && gather.outcome.includes('stores were full') &&
+            gather.cargo.status === 'returned' && source.stock === before &&
             getSectMaterialCount('spirit_herb') === 0 && getSectAffiliation(npc.uid).meritBalance === 0
     `), true);
 });
@@ -925,5 +936,87 @@ test('a Phase 2B elder keeps service, merit, assigned duties and arts when statu
         loaded && isFullSectElder(migrated) && migrated.rank === null && migrated.position === 'specialist' &&
             getDiscipleMonthsServed(migrated) === 42 && migrated.lifetimeContribution === 9 && migrated.meritBalance === 5 &&
             migrated.duties[0] === 'Catalogue manuals' && getWorldNpcByUid(npc.uid).knownTechniques[0] === 'Falling Leaf'
+    `), true);
+});
+
+for (const [cause, interrupt] of [
+    ['aborted return', "cancelNpcJourney(npc.uid, 'road_closed')"],
+    ['death', "killWorldNpc(npc, 'old age')"],
+    ['departure', 'removeSectAffiliation(npc.uid)'],
+    ['disappearance', 'G.worldNpcs = G.worldNpcs.filter(person => person !== npc)'],
+    ['sect collapse', 'applySectSuccession(null)']
+]) {
+    test(`collected cargo returns exactly once after ${cause}`, () => {
+        const run = newGame();
+        assert.equal(run(`
+            joinPlayerSect(npc);
+            tickQuestSystems = () => {};
+            const mission = assignSectMission(npc.uid, 'gather').mission;
+            const source = ensureResourceSource(mission.sourceId);
+            source.regenAmount = 0;
+            const originalStock = source.stock;
+            processWorldTime(G.ageMonths, mission.expectedAtMonths - 2);
+            const collected = mission.phase === 'return' && mission.cargo.status === 'in_transit' &&
+                source.stock === originalStock - 1;
+            ${interrupt};
+            processWorldTime(G.ageMonths, mission.expectedAtMonths + 2);
+            resolveSectMissionStep({ missionId: mission.id });
+            collected && mission.status === 'failed' && mission.cargo.status === 'returned' &&
+                mission.outcome.includes('Returned 1 Spirit Herb') && source.stock === originalStock &&
+                getSectMaterialCount('spirit_herb') === 0
+        `), true);
+    });
+}
+
+test('cargo loss at a full source is recorded without increasing stock over capacity', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc);
+        tickQuestSystems = () => {};
+        const mission = assignSectMission(npc.uid, 'gather').mission;
+        processWorldTime(G.ageMonths, mission.expectedAtMonths - 2);
+        const source = ensureResourceSource(mission.sourceId);
+        source.stock = source.maxStock;
+        removeSectAffiliation(npc.uid);
+        mission.cargo.status === 'lost' && mission.outcome.includes('source was full or unavailable') &&
+            source.stock === source.maxStock && getSectMaterialCount('spirit_herb') === 0
+    `), true);
+});
+
+test('delegation chooses junior gatherers and the least overqualified safe patroller', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const junior = joinPlayerSect(npc);
+        const qualified = addSectDisciple('Qualified', 'inner');
+        const veteran = addSectDisciple('Veteran', 'core');
+        const elder = addSectDisciple('Elder', 'core');
+        getWorldNpcByUid(qualified.uid).cultivation.vessel.realmIdx = 1;
+        getWorldNpcByUid(veteran.uid).cultivation.vessel.realmIdx = 4;
+        getWorldNpcByUid(elder.uid).personalities = ['bold'];
+        elder.joinedMonths -= 60;
+        graduateSectDisciple(elder.uid);
+        appointSectMissionElder(elder.uid);
+        setSectMissionMode('supervised');
+        setSectMissionPriorities('gather', 'routine');
+        reviewSectMissions();
+        const department = ensureSectMissionDepartment();
+        const prefersJunior = department.proposal?.npcUid === junior.uid && department.proposal.type === 'gather';
+        setSectMissionPriorities('patrol', 'routine');
+        reviewSectMissions();
+        prefersJunior && department.proposal?.npcUid === qualified.uid && department.proposal.type === 'patrol'
+    `), true);
+});
+
+test('graduation eligibility and its explanation read the current sect rule', () => {
+    const run = newGame();
+    assert.equal(run(`
+        const disciple = joinPlayerSect(npc, 'inner');
+        const defaultBlocks = !!getSectGraduationBlockReason(npc.uid);
+        G.sect.graduationRule = { minimumRank: 'inner', serviceMonths: 12 };
+        disciple.joinedMonths -= 12;
+        const eligible = !getSectGraduationBlockReason(npc.uid) && disciple.rank === 'inner';
+        const description = describeSectGraduationRule();
+        const graduated = graduateSectDisciple(npc.uid).success;
+        defaultBlocks && eligible && description.includes('Inner Disciple') && description.includes('1 year') && graduated
     `), true);
 });

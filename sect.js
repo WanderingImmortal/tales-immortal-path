@@ -339,16 +339,28 @@ function migrateSectElders() {
     syncSectLegacyFields();
 }
 
-const SECT_ELDER_RULE = { minimumRank: 'core', serviceMonths: 60 };
+const DEFAULT_SECT_GRADUATION_RULE = Object.freeze({ minimumRank: 'core', serviceMonths: 60 });
+
+function getSectGraduationRule() {
+    const rule = G.sect?.graduationRule;
+    const { minimumRank, serviceMonths } = DEFAULT_SECT_GRADUATION_RULE;
+    return {
+        minimumRank: Object.hasOwn(DISCIPLE_ROLES, rule?.minimumRank) ? rule.minimumRank : minimumRank,
+        serviceMonths: Number.isSafeInteger(rule?.serviceMonths) && rule.serviceMonths >= 0 ? rule.serviceMonths : serviceMonths
+    };
+}
+
+function describeSectGraduationRule(rule = getSectGraduationRule()) {
+    return `Graduation requires ${DISCIPLE_ROLES[rule.minimumRank].label} rank or above and ${formatDuration(rule.serviceMonths)} of sect service.`;
+}
 
 function getSectGraduationBlockReason(uid) {
     if (!isSectFounded() || G.gameOver || G.sectSuccessionActive) return 'An active sect leader is required.';
     const member = getSectDiscipleMembership(uid);
     if (!getDiscipleNpc(member)) return 'Choose a living ranked disciple.';
-    if ((DISCIPLE_ROLES[member.rank]?.order ?? -1) < DISCIPLE_ROLES[SECT_ELDER_RULE.minimumRank].order
-        || getDiscipleMonthsServed(member) < SECT_ELDER_RULE.serviceMonths) {
-        return `Requires Core rank or above and ${formatDuration(SECT_ELDER_RULE.serviceMonths)} of sect service.`;
-    }
+    const rule = getSectGraduationRule();
+    if ((DISCIPLE_ROLES[member.rank]?.order ?? -1) < DISCIPLE_ROLES[rule.minimumRank].order
+        || getDiscipleMonthsServed(member) < rule.serviceMonths) return describeSectGraduationRule(rule);
     if (typeof isNpcOnSectMission === 'function' && isNpcOnSectMission(uid)) return 'Finish the active assignment first.';
     return null;
 }

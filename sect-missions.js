@@ -173,8 +173,25 @@ function assignSectMission(uid, type, routine = false) {
     return { success: true, message, mission };
 }
 
+function getSectMissionCargo(mission) {
+    // Active assignments saved before cargo had an explicit disposition stored only the amount.
+    if (!mission.cargo && mission.status === 'active' && mission.herbs > 0) {
+        mission.cargo = { amount: mission.herbs, status: 'in_transit' };
+        delete mission.herbs;
+    }
+    return mission.cargo;
+}
+
 function finishSectMission(mission, success, outcome) {
     if (mission.status !== 'active') return;
+    const cargo = getSectMissionCargo(mission);
+    if (!success && cargo?.status === 'in_transit') {
+        cargo.returned = returnCollectedResourceToSource(mission.sourceId, 'spirit_herb', cargo.amount);
+        cargo.status = cargo.returned === cargo.amount ? 'returned' : 'lost';
+        if (cargo.returned) outcome += ` Returned ${cargo.returned} Spirit Herb to the source.`;
+        const lost = cargo.amount - cargo.returned;
+        if (lost) outcome += ` Lost ${lost} Spirit Herb because the source was full or unavailable.`;
+    }
     mission.status = success ? 'completed' : 'failed';
     mission.finishedMonths = G.ageMonths;
     mission.outcome = outcome;
@@ -215,7 +232,8 @@ function resolveSectMissionStep({ missionId }) {
     const returning = mission.phase === 'return';
     const target = returning ? mission.headquartersId : mission.destinationId;
     if (!isNpcPhysicallyPresentAt(npc, target)) {
-        finishSectMission(mission, false, 'The disciple did not reach the assignment site.');
+        finishSectMission(mission, false, returning ? 'The disciple did not return to headquarters.'
+            : 'The disciple did not reach the assignment site.');
         return;
     }
     if (mission.phase === 'outbound') {
@@ -242,7 +260,9 @@ function resolveSectMissionStep({ missionId }) {
         const result = transferFromResourceSource({
             sourceId: mission.sourceId, resourceId: 'spirit_herb', amount: 1, actorId: npc.uid,
             requireLocationId: mission.destinationId, acquisitionKey: mission.id,
-            receiver: { kind: 'sect_mission_cargo', credit: amount => { mission.herbs = amount; } }
+            receiver: { kind: 'sect_mission_cargo', credit: amount => {
+                mission.cargo = { amount, status: 'in_transit' };
+            } }
         });
         if (!result.ok) mission.gatherFailure = 'The disciple could not collect herbs from the patch.';
         if (mission.destinationId !== mission.headquartersId) {
@@ -258,9 +278,12 @@ function resolveSectMissionStep({ missionId }) {
             return;
         }
     }
-    if (mission.gatherFailure) finishSectMission(mission, false, mission.gatherFailure);
-    else if (addSectInventoryMaterial('spirit_herb', mission.herbs) > 0) {
-        finishSectMission(mission, true, `Delivered ${mission.herbs} Spirit Herb to the sect stores.`);
+    const cargo = getSectMissionCargo(mission);
+    if (cargo?.status !== 'in_transit') {
+        finishSectMission(mission, false, mission.gatherFailure || 'There were no herbs to deliver.');
+    } else if (addSectInventoryMaterial('spirit_herb', cargo.amount) === cargo.amount) {
+        cargo.status = 'delivered';
+        finishSectMission(mission, true, `Delivered ${cargo.amount} Spirit Herb to the sect stores.`);
     } else finishSectMission(mission, false, 'Sect stores were full and could not accept the herbs.');
 }
 
@@ -301,11 +324,16 @@ function reviewSectMissions() {
     for (const type of priorities) {
         const carefulPatrol = type === 'patrol' && elder.personalities?.includes('careful');
         const candidates = getSectDiscipleMemberships()
-            .map(member => planSectMission(member.uid, type, true))
+            .map(member => ({ ...planSectMission(member.uid, type, true), rank: DISCIPLE_ROLES[member.rank]?.order ?? 0 }))
             .filter(plan => plan.npc)
-            .map(plan => ({ ...plan, capability: getSectPatrolCapability(plan.npc) }))
+            .map(plan => {
+                const capability = getSectPatrolCapability(plan.npc);
+                const spirit = ensureNpcCultivation(plan.npc).spirit.realmIdx;
+                return { ...plan, capability, highestRealm: Math.max(capability, spirit) };
+            })
             .filter(plan => !carefulPatrol || plan.capability > getSectPatrolRequirement(plan.hq));
-        candidates.sort((a, b) => b.capability - a.capability || a.npc.uid.localeCompare(b.npc.uid));
+        candidates.sort((a, b) => (type === 'patrol' ? a.capability - b.capability : a.walkMonths - b.walkMonths)
+            || a.rank - b.rank || a.highestRealm - b.highestRealm || a.npc.uid.localeCompare(b.npc.uid));
         const npc = candidates[0]?.npc;
         if (!npc) continue;
         if (department.mode === 'supervised') {
