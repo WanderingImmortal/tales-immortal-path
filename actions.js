@@ -315,8 +315,12 @@ function buyPill(pillId) {
     }
     beginActionLog();
     if (!advanceTime(0, `Purchasing ${pill.name}`)) { cancelActionLog(); fullRender(); return; }
+    if (!addPill(pillId, 1)) {
+        cancelActionLog();
+        fullRender();
+        return;
+    }
     G.stones -= item.price;
-    addPill(pillId, 1);
     if (zoneId === 'redwell' && typeof consumeRedwellMarketBuy === 'function') {
         consumeRedwellMarketBuy('pill', pillId);
     }

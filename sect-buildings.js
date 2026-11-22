@@ -99,9 +99,11 @@ function getDiscipleStudyBlockReason(discipleUid, techName) {
     if (disciple.knownTechniques?.includes(techName)) return `${disciple.name} already knows this art.`;
     const entry = getManualHallEntry(techName);
     if (!entry || entry.count < 1) return 'No copy of that manual in the hall.';
-    const active = getActiveManualStudies().length;
+    const studies = getActiveManualStudies();
+    const reserved = studies.filter(study => study.techName === techName).length;
+    if (reserved >= entry.count) return 'All copies of that manual are reserved for study.';
     const slots = getManualStudySlots();
-    if (active >= slots) return `All ${slots} study slot${slots !== 1 ? 's' : ''} are occupied.`;
+    if (studies.length >= slots) return `All ${slots} study slot${slots !== 1 ? 's' : ''} are occupied.`;
     const template = TECHNIQUE_POOL.find(t => t.name === techName);
     if (!template) return 'Unknown technique.';
     return null;
@@ -152,15 +154,21 @@ function withdrawManualFromHall(techName, qty) {
     if (getActiveManualStudies().some(s => s.techName === techName)) {
         return { success: false, message: 'Cannot withdraw — a disciple is studying this manual.' };
     }
-    entry.count -= amount;
-    if (entry.count <= 0) delete G.sect.buildingMeta.manual_hall.collection[techName];
+    let delivered = 0;
     if (typeof grantManual === 'function') {
-        for (let i = 0; i < amount; i++) grantManual(techName, { silent: true });
+        while (delivered < amount && grantManual(techName, { silent: true })) delivered++;
     }
+    if (!delivered) {
+        const message = typeof getTravelKitFullMessage === 'function'
+            ? getTravelKitFullMessage() : 'Could not stow the manual in your travel kit.';
+        return { success: false, message };
+    }
+    entry.count -= delivered;
+    if (entry.count <= 0) delete G.sect.buildingMeta.manual_hall.collection[techName];
     return {
         success: true,
-        message: `Withdrew ${amount}× ${techName} to your travel kit.`,
-        withdrawn: amount
+        message: `Withdrew ${delivered}× ${techName} to your travel kit.`,
+        withdrawn: delivered
     };
 }
 
@@ -206,13 +214,11 @@ function cancelDiscipleStudy(studyUid) {
 function completeDiscipleStudy(study) {
     const npc = getDiscipleNpc(getSectTrainingMember(study.discipleUid));
     if (!npc || npc.knownTechniques?.includes(study.techName)) return;
-    (npc.knownTechniques ||= []).push(study.techName);
-    ensureManualHallMeta();
     const entry = getManualHallEntry(study.techName);
-    if (entry) {
-        entry.count -= 1;
-        if (entry.count <= 0) delete G.sect.buildingMeta.manual_hall.collection[study.techName];
-    }
+    if (!entry || !(entry.count >= 1)) return;
+    entry.count -= 1;
+    if (entry.count <= 0) delete G.sect.buildingMeta.manual_hall.collection[study.techName];
+    (npc.knownTechniques ||= []).push(study.techName);
     const template = TECHNIQUE_POOL.find(t => t.name === study.techName);
     const renownGain = MANUAL_HALL_BALANCE?.renownByRarity?.[template?.rarity] ?? 1;
     G.sect.renown = (G.sect.renown || 0) + renownGain;
@@ -226,12 +232,18 @@ function reconcileManualHallStudies() {
     const hall = G.sect?.buildingMeta?.manual_hall;
     if (!hall?.studies?.length) return;
     const claimed = new Set();
+    // Studies reserve copies in their stored assignment order, including old saves.
+    const reserved = new Map();
     hall.studies = hall.studies.filter(study => {
         const uid = study.discipleUid;
         const npc = getDiscipleNpc(getSectTrainingMember(uid));
+        const copies = hall.collection?.[study.techName]?.count || 0;
+        const used = reserved.get(study.techName) || 0;
         if (getBuildingLevel('manual_hall') > 0 && npc && !claimed.has(uid)
+            && !npc.knownTechniques?.includes(study.techName) && used < copies
             && isNpcAtManualHall(npc) && getNpcActivityClaim(uid) === 'manual_hall') {
             claimed.add(uid);
+            reserved.set(study.techName, used + 1);
             return true;
         }
         addLog(`📜 ${npc?.name || 'A disciple'} could not continue Manual Hall study. No manual was consumed.`);

@@ -757,14 +757,19 @@ function buyTechnique(techName) {
         fullRender();
         return;
     }
+    if (typeof grantManual !== 'function' || !grantManual(techName, { silent: true })) {
+        cancelActionLog();
+        const reason = typeof getTravelKitFullMessage === 'function' ? getTravelKitFullMessage() : '';
+        addLog(`🏪 Could not deliver the ${techName} manual. ${reason}`.trim());
+        fullRender();
+        return;
+    }
     G.stones -= finalPrice;
-    const gotManual = typeof grantManual === 'function' && grantManual(techName, { silent: true });
     const discountNote = finalPrice < item.price ? ` (Jade Lotus favor: −${item.price - finalPrice})` : '';
-    const learnNote = gotManual ? ' — manual shelved' : '';
-    if (gotManual && zoneId === 'redwell' && typeof consumeRedwellMarketBuy === 'function') {
+    if (zoneId === 'redwell' && typeof consumeRedwellMarketBuy === 'function') {
         consumeRedwellMarketBuy('tech', techName);
     }
-    commitActionLog(`🏪 Purchased ${techName} manual for ${finalPrice} Stones${discountNote}${learnNote}.`);
+    commitActionLog(`🏪 Purchased ${techName} manual for ${finalPrice} Stones${discountNote} — manual shelved.`);
     renderMerchantPopup();
     fullRender();
 }
