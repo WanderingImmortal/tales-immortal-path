@@ -26,21 +26,66 @@ explicit author approval to mark a design accepted, rejected, or superseded.
 When superseded, link the dated records both ways and preserve the earlier
 reasoning. If a discussion or source cannot be recovered, say what is unknown.
 
+## Discover before designing or changing gameplay
+
+Scale discovery to the consequences of the change:
+
+- **Small:** Check the affected code and existing tests. A routine fix,
+  documentation correction, or behaviour-preserving refactor needs no formal
+  handover.
+- **Medium:** Read the owning design note, trace the affected production paths,
+  and check important dependencies and tests.
+- **Major or cross-system:** Before choosing a design or editing gameplay, trace
+  design history, production behaviour, dependencies, persistence, and tests.
+  Start with the task and `docs/NOW.md` for context, then follow relevant topic
+  notes, audits, architecture proposals, Git history, Issues, and open and merged
+  PRs. Check for shipped or partial work, prior attempts, deferred or replaced
+  approaches, and overlapping active work. State where access or history is
+  incomplete.
+
+Find the accepted decisions, their scope and reasoning, and alternatives that
+were deferred, rejected, superseded, or remain open. Newer notes and merged code
+alone are insufficient evidence of approval. Follow actual production entry
+points and gates; distinguish reachable behaviour, partial implementations,
+and prototypes or developer tools. Cite the code or test that verifies each
+important claim and label assumptions and coverage gaps. For discrepancies,
+distinguish a documented compromise, an evidenced accidental divergence, a
+suspected divergence, and an unknown historical decision.
+
+Trace the relevant state from creation and ownership through writers, readers,
+and derived effects. Check save/load, migration, reset, and carry between lives
+where applicable. Check clock, background ticks, interruptions, and event
+ordering where they matter. Compare player and NPC capabilities and establish
+whether differences are intentional. For NPC decisions, distinguish world
+truth, what the actor could observe or learn, and what the actor believes.
+Identify the tests that protect those boundaries and the important gaps.
+Stop at the boundaries that affect the requested work.
+
+For substantial gameplay work, share a brief plain-English discovery handover
+before committing to a direction. Say what exists, what was intended and which
+alternatives remain, what is missing or inconsistent, what else could be
+affected or lost, what can be reused, what needs an author decision, and the
+smallest sensible next step. Chat is enough for the handover. Keep durable
+findings in the existing owning note, Issue, or PR. A well-understood change
+can proceed after the handover; use the approval boundary below when a choice
+affects the intended game. See the [discovery examples](../../docs/ideas/README.md#worked-examples-pre-work-discovery).
+
 ## Check design before implementation
 
 The author owns lore, characterization, and intended experience. Mechanics that
 change world rules, progression, balance, or capabilities are collaborative.
 Agents own technical choices that preserve agreed behaviour and compatibility.
 
-Before implementing a gameplay change and again before opening its PR, compare
-the proposed behaviour with relevant accepted design notes and current code and
-test contracts. If it conflicts with an accepted rule or materially narrows
+Use discovery to compare proposed behaviour with accepted design and current
+code and test contracts before implementation. Recheck the comparison before
+opening the PR. If it conflicts with an accepted rule or materially narrows
 the intended experience, show the author the evidence, explain the divergence
 in plain language, and identify the gain, sacrifice, affected systems, and
 compatibility risks. Ask for a focused decision before committing to that
 gameplay direction. Independent technical investigation can continue. An
 unimplemented aspiration or a newer exploratory idea does not by itself create
-or supersede an accepted rule. Routine fixes that restore an established
+or supersede an accepted rule. Preserve conflicting exploratory ideas and
+name the unresolved choice. Routine fixes that restore an established
 contract can proceed. If the evidence leaves a consequential creative or
 mechanical choice open, ask about that choice instead of settling it silently.
 
