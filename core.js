@@ -978,6 +978,7 @@ function formatActionTimeMeta(months, remainStr) {
 }
 
 function advanceTime(months, activity, options) {
+    if (!canMutateGame()) return false;
     const opts = options && typeof options === 'object' ? options : {};
     months = typeof resolveBillableAdvanceMonths === 'function'
         ? resolveBillableAdvanceMonths(months, opts)
@@ -1092,7 +1093,13 @@ function showSaveFailure(message, elementId = 'save-status') {
     }
 }
 
+// Standalone simulation fixtures omit the browser ownership adapter.
+function canMutateGame() {
+    return typeof saveOwnership === 'undefined' || saveOwnership.canWrite();
+}
+
 function saveState(options = {}) {
+    if (!canMutateGame()) return false;
     if (loadingSave || loadFailure || !G.name) return false;
     if (typeof isLegacyReadBlocked === 'function' && isLegacyReadBlocked()) return false;
     if (!options.writeReincarnationIntent && (G.reincarnationIntent
@@ -1147,7 +1154,7 @@ function validateLoadedSave(data) {
 }
 
 function loadState() {
-    if (loadingSave) return false;
+    if (!canMutateGame() || loadingSave) return false;
     const previousState = G;
     const previousZone = currentZone;
     let stage = 'read';
@@ -1389,7 +1396,8 @@ function recoverLoadedPlayerActivity() {
 }
 
 function resetGame() {
-    if (!confirm("Reset your cultivation journey? All progress lost.")) return;
+    if (!canMutateGame()) return;
+    if (!confirm("Reset your cultivation journey? All progress lost.") || !canMutateGame()) return;
     localStorage.removeItem(RUN_SAVE_KEY);
     location.reload();
 }

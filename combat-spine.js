@@ -98,11 +98,15 @@ function calcCombatSpineSpeed(forPlayer) {
     return Math.max(8, Math.min(40, spd));
 }
 
-function teardownCombatSpine() {
-    if (G.combatSpine && G.combatSpine.tickHandle) {
+function stopCombatSpineLoop() {
+    if (G.combatSpine?.tickHandle) {
         clearInterval(G.combatSpine.tickHandle);
         G.combatSpine.tickHandle = null;
     }
+}
+
+function teardownCombatSpine() {
+    stopCombatSpineLoop();
     G.combatSpine = null;
     const gridEl = document.getElementById('combatGridPanel');
     if (gridEl) gridEl.innerHTML = '';
@@ -116,6 +120,7 @@ function startCombatSpineLoop() {
 }
 
 function combatSpineIntervalTick() {
+    if (!canMutateGame()) return;
     if (!isCombatSpineActive() || !G.enemy || G.gameOver) return;
     const spine = G.combatSpine;
     const dt = COMBAT_SPINE_BALANCE.tickMs;
@@ -313,6 +318,7 @@ function combatSpineRunEnemyAction() {
     if (typeof setCombatInputEnabled === 'function') setCombatInputEnabled(false);
 
     setTimeout(() => {
+        if (!canMutateGame()) return;
         spine.enemyActing = false;
         if (!G.inCombat || !G.enemy) return;
         if (G.enemy.skipTurns > 0) {

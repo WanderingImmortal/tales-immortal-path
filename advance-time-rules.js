@@ -96,6 +96,9 @@ function interruptPlayerTime(reason) {
 
 /** A shared world span. Callers choose whether they own the time for dedicated work. */
 function advanceSharedWorldTime(months, activity, options = {}) {
+    if (typeof canMutateGame === 'function' && !canMutateGame()) {
+        return { elapsed: 0, batch: [], complete: false };
+    }
     if (typeof assertWorldTimeAvailable === 'function') assertWorldTimeAvailable();
     const initialAge = G.ageMonths;
     const initialAttention = options.allowCurrentAttention ? getPlayerTimeAttentionReasons() : [];

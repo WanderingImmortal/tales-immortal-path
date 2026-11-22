@@ -7,17 +7,24 @@ const test = base.extend({
         const errors = [];
         const loaded = new Set();
 
-        page.on('pageerror', error => errors.push(error.stack || error.message));
-        page.on('requestfailed', request => {
-            if (isLocal(request.url())) {
-                errors.push(`${request.url()}: ${request.failure()?.errorText}`);
-            }
-        });
-        page.on('response', response => {
-            if (!isLocal(response.url())) return;
-            if (response.ok()) loaded.add(response.url());
-            else errors.push(`${response.url()}: HTTP ${response.status()}`);
-        });
+        const watchPage = activePage => {
+            activePage.on('pageerror', error => errors.push(error.stack || error.message));
+            activePage.on('console', message => {
+                if (message.type() === 'error') errors.push(message.text());
+            });
+            activePage.on('requestfailed', request => {
+                if (isLocal(request.url())) {
+                    errors.push(`${request.url()}: ${request.failure()?.errorText}`);
+                }
+            });
+            activePage.on('response', response => {
+                if (!isLocal(response.url())) return;
+                if (response.ok()) loaded.add(response.url());
+                else errors.push(`${response.url()}: HTTP ${response.status()}`);
+            });
+        };
+        watchPage(page);
+        context.on('page', watchPage);
 
         // Keep the real game offline. Google Fonts is optional presentation.
         await context.route('**/*', route => {
@@ -30,7 +37,7 @@ const test = base.extend({
         });
 
         await use({ page, loaded });
-        expect(errors, 'Uncaught page errors or failed local game requests').toEqual([]);
+        expect(errors, 'Browser errors or failed local game requests').toEqual([]);
     }
 });
 
@@ -53,8 +60,11 @@ async function gatherQi(page) {
     await page.getByRole('button', { name: '🧘 Cultivate', exact: true }).click();
     await expect(page.getByRole('heading', { name: /Three Refinements/ })).toBeVisible();
     await page.getByRole('button', { name: /Dantian Chamber/ }).click();
+    const entries = page.getByText(/You draw heaven's breath into your dantian/);
+    const before = await entries.count();
     await page.getByRole('button', { name: /🌬️ Gather Qi/ }).click();
-    await expect(page.getByText(/You draw heaven's breath into your dantian/)).toBeVisible();
+    await expect(entries).toHaveCount(before + 1);
+    await expect(entries.first()).toBeVisible();
 }
 
 async function readSave(page) {
@@ -112,4 +122,50 @@ test('reload restores the new character and the result of one gather', async ({ 
     await expect(page.locator('#game-screen')).toBeVisible();
     await expect(page.getByText('Welcome back, Mei Reload.', { exact: false })).toBeVisible();
     expect(await readSave(page)).toEqual(after);
+});
+
+
+test('a second tab cannot write and must reload after the owner closes', async ({ game: { page }, context }) => {
+    await createCharacter(page, 'Mei Owner');
+    await gatherQi(page);
+    const saved = await readSave(page);
+    const savedBytes = await page.evaluate(() => localStorage.getItem('xianxia_save'));
+
+    const other = await context.newPage();
+    await other.goto('/');
+    const reload = other.getByRole('button', { name: 'Reload', exact: true });
+    await expect(other.getByRole('status')).toContainText('This save is active in another tab');
+    await expect(other.locator('#game-screen')).toBeHidden();
+    await expect(other.locator('#creation-screen')).toBeHidden();
+    expect(await other.evaluate(() => ({
+        clockStopped: _worldClockTimer === null,
+        saveAccepted: saveState(),
+        advanceAccepted: advanceTime(1, 'Blocked tab')
+    }))).toEqual({ clockStopped: true, saveAccepted: false, advanceAccepted: false });
+    expect(await other.evaluate(() => localStorage.getItem('xianxia_save'))).toBe(savedBytes);
+
+    await reload.click();
+    await expect(other.getByRole('status')).toContainText('This save is active in another tab');
+    expect(await readSave(other)).toEqual(saved);
+
+    await page.close();
+    await expect(other.getByRole('status')).toContainText('This save is active in another tab');
+    expect(await other.evaluate(() => saveState())).toBe(false);
+    await reload.click();
+    await expect(other.getByText('Welcome back, Mei Owner.', { exact: false })).toBeVisible();
+    expect(await readSave(other)).toEqual(saved);
+    await gatherQi(other);
+    expect(await readSave(other)).toEqual({
+        ...saved,
+        ageMonths: saved.ageMonths + 0.25,
+        chamberGatherCount: saved.chamberGatherCount + 1
+    });
+
+    expect(await other.evaluate(() => {
+        const clockWasRunning = _worldClockTimer !== null;
+        window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true }));
+        window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }));
+        return { clockWasRunning, clockStopped: _worldClockTimer === null, saveAccepted: saveState() };
+    })).toEqual({ clockWasRunning: true, clockStopped: true, saveAccepted: false });
+    await expect(other.getByRole('status')).toContainText('Its unsaved progress cannot safely be committed');
 });

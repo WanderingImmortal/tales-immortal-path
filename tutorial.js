@@ -162,6 +162,7 @@ function suspendTutorialPopupForHighStakesFlow() {
 }
 
 function triggerTutorial(id) {
+    if (!canMutateGame()) return;
     const def = getTutorialDef(id);
     if (!def || isTutorialComplete(id)) return;
     if (tutorialQueue.includes(id)) return;
@@ -230,6 +231,7 @@ function showTutorialPopup(id, reviewMode) {
 }
 
 function runPendingTribulationIfAny() {
+    if (!canMutateGame()) return;
     if (!G._pendingTribulation) return;
     const opts = G._pendingTribulation;
     G._pendingTribulation = null;

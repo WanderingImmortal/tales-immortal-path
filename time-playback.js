@@ -45,6 +45,9 @@ function msPerPlaybackYear(speed) {
 }
 
 function startTimePlayback(opts) {
+    if (typeof canMutateGame === 'function' && !canMutateGame()) {
+        return { success: false, message: 'This tab does not own the save.' };
+    }
     opts = opts || {};
     if (_playbackState?.running) return { success: false, message: 'Already in seclusion.' };
     const busy = typeof getWorldClockBusyReason === 'function' ? getWorldClockBusyReason() : null;
@@ -82,6 +85,7 @@ function scheduleNextPlaybackTick() {
 }
 
 function runPlaybackYearTick() {
+    if (typeof canMutateGame === 'function' && !canMutateGame()) return;
     if (!_playbackState?.running || _playbackState.paused || _playbackState.ended || _playbackSettling) return;
 
     const st = _playbackState;

@@ -11,12 +11,13 @@ function storage() {
     return { values: new Map(), blocked: new Set(), calls: [] };
 }
 
-function game(disk = storage()) {
+function game(disk = storage(), locks) {
     const elements = new Map();
     const timers = [];
     let id = 0;
     const context = vm.createContext({
         console: { ...console, error() {} },
+        navigator: { locks },
         crypto: { randomUUID: () => `run-${++id}` },
         setTimeout: callback => timers.push(callback),
         document: {
@@ -44,8 +45,10 @@ function game(disk = storage()) {
             }
         }
     });
-    for (const file of ['data.js', 'legacy.js', 'core.js', 'foundation.js', 'cultivation-tracks.js',
-        'forbidden.js', 'world.js', 'main.js']) {
+    const files = ['data.js', 'legacy.js', 'core.js', 'foundation.js', 'cultivation-tracks.js',
+        'forbidden.js', 'world.js', 'main.js'];
+    if (locks !== undefined) files.unshift('save-ownership.js');
+    for (const file of files) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
     }
     const run = code => vm.runInContext(code, context);
@@ -286,4 +289,141 @@ test('replaying an older completed journal after another life cannot award it ag
     game(g.disk).run('initGame()');
     assert.equal(g.active(), null);
     assert.equal(g.disk.values.get(legacyKey), committed);
+});
+
+
+function sharedLocks() {
+    let held = false;
+    return {
+        async request(name, options, callback) {
+            assert.equal(name, 'wandering-immortal:save-writer');
+            assert.equal(options.mode, 'exclusive');
+            assert.equal(options.ifAvailable, true);
+            if (held) return callback(null);
+            held = true;
+            try {
+                return await callback({ name });
+            } finally {
+                held = false;
+            }
+        }
+    };
+}
+
+function requestOwnership(tab) {
+    return tab.run(`new Promise(resolve => {
+        globalThis.lockLifetime = saveOwnership.start(() => resolve('owned'), resolve);
+    })`);
+}
+
+async function closeOwner(tab) {
+    tab.run('saveOwnership.release()');
+    await tab.run('lockLifetime');
+}
+
+test('only the first runtime starts writable and closing it permits a fresh load', async () => {
+    const disk = storage();
+    const locks = sharedLocks();
+    const owner = game(disk, locks);
+    const neighbor = game(disk, locks);
+    assert.equal(owner.run('saveState()'), false);
+    assert.equal(await requestOwnership(owner), 'owned');
+    assert.equal(owner.run("G.name = 'Lin'; saveState()"), true);
+    assert.equal(await requestOwnership(neighbor), 'busy');
+    const before = disk.calls.length;
+    assert.equal(neighbor.run('loadState()'), false);
+    assert.equal(neighbor.run("advanceTime(1, 'Unowned action')"), false);
+    assert.equal(neighbor.run('saveState()'), false);
+    assert.equal(neighbor.run('saveLegacy({ bonusCP: 99 })'), false);
+    neighbor.run('resetGame()'); // Never asks for confirmation in a non-owner.
+    assert.equal(disk.calls.length, before);
+
+    await closeOwner(owner);
+    assert.equal(neighbor.run('saveState()'), false);
+    const reloaded = game(disk, locks);
+    assert.equal(await requestOwnership(reloaded), 'owned');
+    assert.equal(reloaded.run("loadState() && G.name === 'Lin' && saveState()"), true);
+    const saved = disk.values.get(runKey);
+    reloaded.run('globalThis.confirm = () => { saveOwnership.release(); return true; }; resetGame()');
+    await reloaded.run('lockLifetime');
+    assert.equal(disk.values.get(runKey), saved);
+});
+
+test('a stale runtime cannot overwrite a reincarnation or commit its old journal', async () => {
+    const disk = storage();
+    const locks = sharedLocks();
+    const stale = game(disk, locks);
+    assert.equal(await requestOwnership(stale), 'owned');
+    assert.equal(stale.run("G.name = 'First'; G.runId = 'first-life'; saveState()"), true);
+    assert.equal(stale.run("stageRunEnd('true', 'echo_of_fortune', 'The wheel turns') && persistRunEndIntent()"), true);
+    await closeOwner(stale);
+
+    const next = game(disk, locks);
+    assert.equal(await requestOwnership(next), 'owned');
+    next.run('initGame()');
+    assert.equal(next.active(), null);
+    assert.equal(next.legacy().totalRuns, 1);
+    assert.equal(next.legacy().pendingCarryPerk, 'echo_of_fortune');
+
+    const pending = new Map(disk.values);
+    stale.run("loadLegacy(); G.stones = 20; applyPendingCarryPerk()");
+    assert.equal(stale.run('G.stones'), 20);
+    assert.equal(stale.run('processRunEnd()'), null);
+    assert.deepEqual(disk.values, pending);
+
+    next.run("G.name = 'Second'; G.runId = 'second-life'; G.stones = 20; applyPendingCarryPerk(); saveCarriedLifeAndEnter()");
+    assert.equal(next.active().runId, 'second-life');
+    assert.equal(next.active().stones, 45);
+    assert.equal(next.legacy().pendingCarryPerk, null);
+    const committed = new Map(disk.values);
+    assert.equal(stale.run('delete G.reincarnationIntent; saveState()'), false,
+        'ordinary stale autosave must fail even after its local journal is cleared');
+    assert.equal(stale.run("triggerTrueReincarnation('echo_of_fortune')"), false);
+    assert.deepEqual(disk.values, committed);
+    assert.equal(next.legacy().totalRuns, 1);
+    await closeOwner(next);
+});
+
+test('failed owner writes preserve the previous bytes and do not release ownership', async () => {
+    const disk = storage();
+    const locks = sharedLocks();
+    const owner = game(disk, locks);
+    assert.equal(await requestOwnership(owner), 'owned');
+    assert.equal(owner.run("G.name = 'Lin'; saveState()"), true);
+    const prior = disk.values.get(runKey);
+    disk.blocked.add(`write:${runKey}`);
+    assert.equal(owner.run('G.stones += 25; saveState()'), false);
+    assert.equal(disk.values.get(runKey), prior);
+    assert.equal(await requestOwnership(game(disk, locks)), 'busy');
+    disk.blocked.clear();
+    assert.equal(owner.run('saveState()'), true);
+    assert.equal(owner.active().stones, JSON.parse(prior).stones + 25);
+    await closeOwner(owner);
+});
+
+test('missing or rejected Web Locks keep gameplay and both save slots blocked', async () => {
+    for (const locks of [null, { request: () => Promise.reject(new Error('Storage context denied')) }]) {
+        const tab = game(storage(), locks);
+        assert.equal(await requestOwnership(tab), 'unsupported');
+        assert.equal(tab.run('saveState() || saveLegacy({ bonusCP: 1 })'), false);
+        tab.run('initGame()');
+        assert.equal(tab.run('creations'), 0);
+        assert.equal(tab.disk.calls.length, 0);
+    }
+});
+
+test('a cancelled acquisition cannot initialize an abandoned document', async () => {
+    let deliver;
+    const locks = {
+        request(_name, _options, callback) {
+            return new Promise(resolve => { deliver = () => resolve(callback({})); });
+        }
+    };
+    const tab = game(storage(), locks);
+    tab.run(`globalThis.lockLifetime = saveOwnership.start(() => initGame(), () => initGame());
+        saveOwnership.release();`);
+    deliver();
+    await tab.run('lockLifetime');
+    assert.equal(tab.run('creations'), 0);
+    assert.equal(tab.run('saveState()'), false);
 });

@@ -80,7 +80,7 @@ function loadLegacy() {
 }
 
 function saveLegacy(candidate) {
-    if (legacyReadBlocked) return false;
+    if (!canMutateGame() || legacyReadBlocked) return false;
     try {
         localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(candidate));
     } catch (error) {
@@ -183,6 +183,7 @@ function applyLegacyUnlocksOnTrueReincarnation(legacy) {
 }
 
 function stageRunEnd(endType, carryPerkId, message) {
+    if (!canMutateGame()) return false;
     if (!G.name || G.sectSuccessionActive || G.reincarnationIntent) return false;
     ensureRunId();
     G.reincarnationIntent = { version: 1, endType, carryPerkId, message, entry: buildChronicleEntry(endType) };
@@ -191,6 +192,7 @@ function stageRunEnd(endType, carryPerkId, message) {
 
 // The active run save doubles as the journal. Only this path can write a pending intent.
 function persistRunEndIntent() {
+    if (!canMutateGame()) return false;
     try {
         validateReincarnationState(G);
         const raw = localStorage.getItem(RUN_SAVE_KEY);
@@ -255,6 +257,7 @@ function processRunEnd() {
 }
 
 function returnToCreationAfterReincarnation() {
+    if (!canMutateGame()) return false;
     const result = processRunEnd();
     if (!result) {
         showLoadRecovery('Reincarnation is paused. Check browser storage, then retry.', returnToCreationAfterReincarnation);
@@ -382,6 +385,7 @@ function getPendingCarryToken() {
 }
 
 function applyPendingCarryPerk() {
+    if (!canMutateGame()) return;
     const perk = findCarryPerk(Legacy.pendingCarryPerk);
     if (!perk || G.carryPerkReceipt) return;
     ensureRunId();
