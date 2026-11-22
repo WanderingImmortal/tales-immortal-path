@@ -13,16 +13,17 @@ Goal: catch infinite recursion and render/ensure loops **before** merge — the 
 
 If the task changed any `.js` file:
 
-1. **Run both audits** (from repo root):
+1. **Run unified verification** with Node.js 24:
    ```bash
-   node scripts/audit-ensure-sync-recursion.js
-   node scripts/audit-storage-recursion.js
+   npm run verify
    ```
-   Or: `bash scripts/pre-pr-check.sh` / `.\scripts\pre-pr-check.ps1`
+   The command includes both recursion audits and the gameplay regression suites
+   used by GitHub Actions. The Bash and PowerShell pre-PR scripts run the same
+   checks.
 
 2. **If an audit fails because of recursion in your changes** (or code your diff directly calls):
    - Fix it on **this branch** — prefer a small guard (`if (_ensuringX) return`) or splitting `ensureX` / `ensureXCore`.
-   - Re-run both audits until they pass.
+   - Re-run unified verification until they pass.
    - Do **not** leave a PR open with a failing audit you introduced.
 
 3. **If an audit fails on unrelated legacy code** you did not touch:
@@ -35,16 +36,10 @@ If the task changed any `.js` file:
 
 Skip audits for investigation-only tasks with **no** `.js` changes.
 
-## PR test plan (required line)
+## PR test plan
 
-Include a short **Safety checks** block:
-
-```markdown
-### Safety checks
-- audit-ensure-sync-recursion.js: pass
-- audit-storage-recursion.js: pass
-- (optional) Other notes: …
-```
+Report the result of `npm run verify`. If a check fails, name the script and
+explain any pre-existing failure that is outside the PR scope.
 
 ## What counts as "your changes"
 
