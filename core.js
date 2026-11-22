@@ -1095,7 +1095,8 @@ function showSaveFailure(message, elementId = 'save-status') {
 function saveState(options = {}) {
     if (loadingSave || loadFailure || !G.name) return false;
     if (typeof isLegacyReadBlocked === 'function' && isLegacyReadBlocked()) return false;
-    if (G.reincarnationIntent && !options.writeReincarnationIntent) return false;
+    if (!options.writeReincarnationIntent && (G.reincarnationIntent
+        || (typeof isTimePlaybackSettling === 'function' && isTimePlaybackSettling()))) return false;
 
     let stage = 'serialize';
     try {

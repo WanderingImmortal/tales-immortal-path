@@ -188,6 +188,53 @@ test('an eleven-month seclusion interruption pays proportional circulation once 
     `), true);
 });
 
+test('a failed interrupted seclusion checkpoint retains the last settled year and can be retried', () => {
+    const run = boot();
+    assert.equal(run(`
+        G.name = 'Lin';
+        registerWorldEventHandler('tribulation', () => {
+            G.tribulationState = { active: true };
+            fullRender();
+        });
+        scheduleWorldEvent('tribulation', 263, {}, { id: 'retreat-interruption' });
+        startSeclusionProject(10);
+        runPlaybackYearTick();
+        const settled = localStorage.value;
+        const writes = [];
+        const write = localStorage.setItem;
+        localStorage.setItem = function(key, value) {
+            const snapshot = JSON.parse(value);
+            writes.push([snapshot.ageMonths, snapshot.partialGains]);
+            if (snapshot.partialGains) {
+                const error = new Error('Storage full');
+                error.name = 'QuotaExceededError';
+                throw error;
+            }
+            write.call(this, key, value);
+        };
+        runPlaybackYearTick();
+        JSON.parse(settled).ageMonths
+    `), 252);
+    assert.equal(run('localStorage.value === settled'), true,
+        'a snapshot without the proportional reward must never replace the previous checkpoint');
+    const saved = run('localStorage.value');
+    assert.equal(boot()(`
+        localStorage.value = ${JSON.stringify(saved)};
+        loadState() && G.ageMonths === 252 && G.annualGains === 1 && G.partialGains === 0
+    `), true);
+    assert.equal(run('writes.length > 0 && writes.every(([age, gain]) => age === 263 && gain === 11 / 12)'), true);
+    assert.equal(run(`
+        localStorage.setItem = write;
+        saveState() && loadState()
+    `), true);
+    run('runPlaybackYearTick()');
+    assert.equal(run('G.ageMonths'), 263);
+    assert.equal(run('G.partialGains'), 11 / 12);
+    assert.equal(run('G.annualGains'), 1);
+    assert.equal(run('G.decay'), 23);
+    assert.equal(run('G.tribulationState.active && !isTimePlaybackActive()'), true);
+});
+
 test('seclusion reaches lifespan exhaustion exactly without an annual award or later event', () => {
     assert.equal(boot()(`
         startSeclusionProject(10);

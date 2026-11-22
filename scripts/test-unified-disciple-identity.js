@@ -4,7 +4,7 @@ const path = require('node:path');
 const test = require('node:test');
 const vm = require('node:vm');
 
-function newGame() {
+function newGame(extraFiles = []) {
     const storage = new Map();
     const context = vm.createContext({
         localStorage: {
@@ -18,7 +18,7 @@ function newGame() {
     const files = [
         'data.js', 'core.js', 'foundation.js', 'cultivation-tracks.js', 'forbidden.js',
         'world-scheduler.js', 'advance-time-rules.js', 'locations.js', 'world.js', 'npc-travel.js', 'resource-sources.js', 'ambient-npcs.js', 'procedural-lesser-sects.js',
-        'sect.js', 'sect-missions.js', 'sect-expand.js', 'sect-inventory.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'npc-presence.js', 'quests.js', 'story-arcs.js', 'main.js'
+        'sect.js', 'sect-missions.js', 'sect-expand.js', 'sect-inventory.js', 'sect-buildings.js', 'sect-map.js', 'npc.js', 'npc-presence.js', 'quests.js', 'story-arcs.js', 'main.js', ...extraFiles
     ];
     for (const file of files) {
         vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
@@ -217,10 +217,12 @@ test('loading restores a matched recruit and preserves unmatched and name-only d
             { uid: 'disc_lin', name: 'Lin', role: 'core', trait: 'wise', joinedMonths: 220, knownTechniques: ['Hall art'] },
             { uid: 'disc_bo', name: 'Bo', role: 'acolyte', joinedMonths: 300 }
         ];
-        // An active pre-UID study still needs its Hall and an unfinished duration.
+        // An active pre-UID study needs a Hall, a copy, and unfinished progress.
         G.sect.buildings.manual_hall = 1;
         G.sect.buildingMeta.manual_hall = {
-            collection: {}, studies: [{ uid: 'study', discipleUid: 'disc_lin', discipleName: 'Lin', progressMonths: 3, totalMonths: 6 }]
+            collection: { [TECHNIQUE_POOL[0].name]: { count: 1 } },
+            studies: [{ uid: 'study', discipleUid: 'disc_lin', discipleName: 'Lin',
+                techName: TECHNIQUE_POOL[0].name, progressMonths: 3, totalMonths: 6 }]
         };
         localStorage.setItem('xianxia_save', JSON.stringify(G));
         loadState()
@@ -1294,4 +1296,138 @@ test('legacy leader migration recovers known fields and resolves duplicate rows 
         restored && G.worldNpcs.filter(n => n.uid === deduped.uid).length === 1 &&
             deduped.alive && deduped.history[0] === 'archived' && G.cultivation === deduped.cultivation
     `), true);
+});
+
+test('one Hall copy reserves one assignment across reload and becomes available on cancellation', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        const second = generateWorldNpc('dustbone', { name: 'Mei', roleId: 'wanderer' });
+        G.worldNpcs.push(second);
+        joinPlayerSect(second, 'inner');
+        npc.locationId = second.locationId = 'redwell';
+        G.sect.buildings.manual_hall = 3;
+        ensureManualHallMeta();
+        const manual = TECHNIQUE_POOL[0].name;
+        G.sect.buildingMeta.manual_hall.collection[manual] = { count: 1 };
+        assignDiscipleStudy(npc.uid, manual).success
+    `), true);
+    assert.equal(run('assignDiscipleStudy(second.uid, manual).success'), false);
+    assert.equal(run('saveState() && loadState()'), true);
+    assert.equal(run('assignDiscipleStudy(second.uid, manual).success'), false);
+    assert.equal(run(`
+        cancelDiscipleStudy(getActiveManualStudies()[0].uid).success &&
+            getNpcActivityClaim(npc.uid) === null && assignDiscipleStudy(second.uid, manual).success
+    `), true);
+    run('tickManualHallStudy(100); tickManualHallStudy(100)');
+    assert.equal(run('getWorldNpcByUid(second.uid).knownTechniques.filter(name => name === manual).length'), 1);
+    assert.equal(run('getManualHallEntry(manual)'), null);
+});
+
+test('legacy overbooked Hall studies keep the first valid reservation without granting a second reward', () => {
+    const run = newGame();
+    assert.equal(run(`
+        joinPlayerSect(npc, 'inner');
+        const second = generateWorldNpc('dustbone', { name: 'Mei', roleId: 'wanderer' });
+        G.worldNpcs.push(second);
+        joinPlayerSect(second, 'inner');
+        npc.locationId = second.locationId = 'redwell';
+        G.sect.buildings.manual_hall = 3;
+        ensureManualHallMeta();
+        const manual = TECHNIQUE_POOL[0].name;
+        G.sect.buildingMeta.manual_hall.collection[manual] = { count: 1 };
+        const first = assignDiscipleStudy(npc.uid, manual);
+        G.sect.buildingMeta.manual_hall.studies.push({ ...first.study, uid: 'legacy-second', discipleUid: second.uid });
+        saveState() && loadState()
+    `), true);
+    assert.equal(run('getActiveManualStudies().length'), 1);
+    assert.equal(run('getActiveManualStudies()[0].discipleUid'), run('npc.uid'));
+    const renown = run('G.sect.renown');
+    run('tickManualHallStudy(100); tickManualHallStudy(100)');
+    assert.equal(run('getWorldNpcByUid(npc.uid).knownTechniques.includes(manual)'), true);
+    assert.equal(run('!!getWorldNpcByUid(second.uid).knownTechniques?.includes(manual)'), false);
+    assert.equal(run('G.sect.renown'), renown + run('MANUAL_HALL_BALANCE.renownByRarity[TECHNIQUE_POOL[0].rarity] ?? 1'));
+});
+
+test('Hall withdrawal keeps undelivered copies when the travel kit rejects delivery', () => {
+    const run = newGame(['techniques.js', 'travel-kit.js']);
+    run(`
+        G.sect.buildings.manual_hall = 1;
+        ensureManualHallMeta();
+        const manual = TECHNIQUE_POOL[0].name;
+        G.sect.buildingMeta.manual_hall.collection[manual] = { count: 2 };
+        const kitLoad = getTravelKitUsed;
+        getTravelKitUsed = () => getTravelKitCapacity();
+    `);
+    assert.equal(run('withdrawManualFromHall(manual, 2).success'), false);
+    assert.equal(run('getManualHallEntry(manual).count'), 2);
+    assert.equal(run('!!getManualShelfEntry(manual)'), false);
+    run('getTravelKitUsed = kitLoad');
+    assert.equal(run('withdrawManualFromHall(manual, 2).withdrawn'), 2);
+    assert.equal(run('getManualShelfEntry(manual).count'), 2);
+    assert.equal(run('withdrawManualFromHall(manual, 2).success'), false);
+});
+
+test('a rejected market delivery leaves currency and Redwell stock intact', () => {
+    const run = newGame(['techniques.js', 'travel-kit.js', 'qc-depth.js', 'actions.js']);
+    run(`
+        function fullRender() {}
+        function renderMerchantPopup() {}
+        function renderPillPopup() {}
+        function beginActionLog() {}
+        function cancelActionLog() {}
+        function commitActionLog() {}
+        getMerchantCatalogKey = () => 'redwell';
+        G.stones = 1000;
+        const market = ensureRedwellMarketState();
+        const manual = { technique: TECHNIQUE_POOL[0].name, price: 45 };
+        market.methodSlots = [{ methodId: 'fixture-method' }];
+        market.techSlots = [manual];
+        ensurePillStock();
+        const pill = getResolvedMerchantCatalog('redwell').pills[0];
+        const pillCount = G.pillStock?.[pill.id] || 0;
+        const kitLoad = getTravelKitUsed;
+        getTravelKitUsed = () => getTravelKitCapacity();
+    `);
+    assert.deepEqual(JSON.parse(run(`
+        buyTechnique(manual.technique);
+        const afterManual = G.stones;
+        buyPill(pill.id);
+        JSON.stringify({ afterManual, afterPill: G.stones, pillStock: market.pillLeft[pill.id] })
+    `)), { afterManual: 1000, afterPill: 1000, pillStock: run('pill.stockLeft') });
+    assert.equal(run('market.techSlots.length'), 1);
+    assert.equal(run("getResolvedMerchantCatalog('redwell').pills[0].stockLeft"), run('pill.stockLeft'));
+    run('getTravelKitUsed = kitLoad; buyTechnique(manual.technique); buyPill(pill.id)');
+    assert.equal(run('G.stones'), 1000 - run('manual.price + pill.price'));
+    assert.equal(run('getManualShelfEntry(manual.technique).count'), 1);
+    assert.equal(run('G.pillStock[pill.id]'), run('pillCount + 1'));
+    assert.equal(run('market.techSlots.length'), 0);
+    assert.equal(run('market.pillLeft[pill.id]'), run('pill.stockLeft - 1'));
+});
+
+test('ambient promotion retires an eligible actor at the cap while preserving the active successor', () => {
+    const run = newGame();
+    run(`
+        joinPlayerSect(npc, 'inner');
+        Object.assign(npc, { state: 'persistent', metAtMonth: 1, impression: -10, talkCount: 1 });
+        G.sectSuccessionActive = true;
+        if (!applySectSuccession(npc.uid)) throw new Error('Succession failed');
+        const cap = AMBIENT_NPC_CAPS.persistentGlobal;
+        for (let i = 0; i < cap - 1; i++) {
+            G.worldNpcs.push({
+                uid: 'cap-' + i, alive: true, state: 'persistent', metAtMonth: 1,
+                impression: 5, talkCount: 0, zone: 'dustbone'
+            });
+        }
+        const traveller = G.worldNpcs.find(n => n.uid === 'cap-0');
+        traveller.impression = -9;
+        traveller.travel = { status: 'travelling' };
+        const ambient = spawnAmbientNpc('dustbone');
+        promoteAmbientToPersistent(ambient);
+    `);
+    assert.equal(run('traveller.alive'), true);
+    assert.equal(run('getPlayerControlledNpc() === npc && npc.alive && G.cultivation === npc.cultivation'), true);
+    assert.equal(run("G.worldNpcs.filter(n => n.alive && n.state === 'persistent' && n.metAtMonth != null).length"), run('cap'));
+    assert.equal(run('saveState() && loadState()'), true);
+    assert.equal(run('getPlayerControlledNpc()?.uid === npc.uid && getPlayerControlledNpc().cultivation === G.cultivation'), true);
 });

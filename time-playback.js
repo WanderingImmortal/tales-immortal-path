@@ -7,6 +7,11 @@ const TIME_PLAYBACK_SPEEDS = [1, 3, 10];
 
 let _playbackState = null;
 let _playbackTimer = null;
+let _playbackSettling = false;
+
+function isTimePlaybackSettling() {
+    return _playbackSettling;
+}
 
 function isTimePlaybackActive() {
     return !!_playbackState?.running;
@@ -77,7 +82,7 @@ function scheduleNextPlaybackTick() {
 }
 
 function runPlaybackYearTick() {
-    if (!_playbackState?.running || _playbackState.paused || _playbackState.ended) return;
+    if (!_playbackState?.running || _playbackState.paused || _playbackState.ended || _playbackSettling) return;
 
     const st = _playbackState;
     if (st.yearsDone >= st.yearsTarget) {
@@ -85,21 +90,29 @@ function runPlaybackYearTick() {
         return;
     }
 
-    const from = G.ageMonths;
-    const ok = advanceTimeQuiet(12, st.activity, { skipPassiveCirculation: true });
-    const elapsed = Math.max(0, G.ageMonths - from);
-    st.elapsedMonths += elapsed;
+    let ok;
+    // Calendar interruptions and renders can save before the proportional reward
+    // is applied. Hold ordinary saves until this synchronous tick is settled.
+    _playbackSettling = true;
     try {
-        if (ok) {
-            st.yearsDone++;
-            st.onYear?.(st.yearsDone, st);
-        } else if (elapsed > 1e-9 && !G.gameOver && !G.sectSuccessionActive) {
-            st.onPartialYear?.(Math.min(1, elapsed / 12));
+        const from = G.ageMonths;
+        ok = advanceTimeQuiet(12, st.activity, { skipPassiveCirculation: true });
+        const elapsed = Math.max(0, G.ageMonths - from);
+        st.elapsedMonths += elapsed;
+        try {
+            if (ok) {
+                st.yearsDone++;
+                st.onYear?.(st.yearsDone, st);
+            } else if (elapsed > 1e-9 && !G.gameOver && !G.sectSuccessionActive) {
+                st.onPartialYear?.(Math.min(1, elapsed / 12));
+            }
+        } catch (err) {
+            console.error('Seclusion reward failed', err);
+            finishTimePlayback('interrupted');
+            return;
         }
-    } catch (err) {
-        console.error('Seclusion reward failed', err);
-        finishTimePlayback('interrupted');
-        return;
+    } finally {
+        _playbackSettling = false;
     }
     if (ok) {
         st.events.filter(ev => ev.year === st.yearsDone).forEach(ev => {

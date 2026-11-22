@@ -192,10 +192,15 @@ function enforcePersistentCap() {
         if (imp !== 0) return imp;
         return (a.talkCount || 0) - (b.talkCount || 0);
     });
-    while (sorted.length > cap) {
-        const victim = sorted.shift();
-        if (victim && (victim.talkCount || 0) < 2) victim.alive = false;
-        else break;
+    let excess = sorted.length - cap;
+    for (const npc of sorted) {
+        if (excess <= 0) break;
+        if ((npc.talkCount || 0) >= 2
+            || (typeof isPlayerControlledNpc === 'function' && isPlayerControlledNpc(npc))
+            || (typeof isNpcTravelling === 'function' && isNpcTravelling(npc))
+            || (typeof getNpcActivityClaim === 'function' && getNpcActivityClaim(npc.uid))) continue;
+        npc.alive = false;
+        excess--;
     }
 }
 
