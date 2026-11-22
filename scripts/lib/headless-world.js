@@ -193,7 +193,6 @@ function simulateWorld({ seed = 42, months = 12, checkpoint = 12 } = {}, prepare
     };
     let state;
     let startMonth;
-    let lastCheckedState;
     let phase = 'initialize';
     let world;
     const occurrences = new Set();
@@ -214,7 +213,6 @@ function simulateWorld({ seed = 42, months = 12, checkpoint = 12 } = {}, prepare
             throw new Error(`Invalid calendar month: ${state.ageMonths}`);
         }
         checkState(state, report);
-        lastCheckedState = state;
     };
 
     try {
@@ -247,9 +245,8 @@ function simulateWorld({ seed = 42, months = 12, checkpoint = 12 } = {}, prepare
         result.status = result.diagnostics.errors.length ? 'error' : result.interruption ? 'interrupted' : 'completed';
     } catch (error) {
         report('errors', phase, error.message);
-        if (result.initial && lastCheckedState) {
-            result.final = snapshot(lastCheckedState, lastCheckedState.ageMonths - startMonth);
-        }
+        // A malformed state can make snapshot construction itself fail.
+        result.final = result.checkpoints.at(-1) ?? result.initial;
     }
     result.diagnostics.deferredTimers = world?.deferredTimers() ?? null;
     result.executionMs = Number(process.hrtime.bigint() - started) / 1e6;

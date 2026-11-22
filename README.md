@@ -138,7 +138,7 @@ regions, focus-track realm indexes, activities, organizations, stock, scheduled
 work, and a SHA-256 digest of the serialized game state. A `null` metric means
 the corresponding state is unavailable. Diagnostics include actual scheduler
 dispatch order, reported errors and warnings, and the number of deferred
-callbacks. A failed step may end with the last inspected snapshot. Expected
+callbacks. If a step throws, the report retains the latest completed snapshot. Expected
 interruptions exit successfully with status `interrupted`. Errors or
 invariant violations produce status `error` and a nonzero exit code.
 

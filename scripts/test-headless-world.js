@@ -67,6 +67,15 @@ test('quarantined scheduler work and corrupt state are visible as errors', () =>
     assert.equal(invalid.status, 'error');
     assert.equal(invalid.final.elapsedMonths, 0);
     assert.deepEqual(invalid.diagnostics.errors.map(error => error.code), ['live-npc-uid', 'inventory-count']);
+
+    const brokenSnapshot = simulateWorld({ months: 1 }, evaluate => evaluate(`
+        registerWorldTick('harness_corruption', () => {
+            G.world.resourceSources.byId.harness_corruption = null;
+        }, 99);
+    `));
+    assert.equal(brokenSnapshot.status, 'error');
+    assert.ok(brokenSnapshot.diagnostics.errors.some(error => error.code === 'advance'));
+    assert.deepEqual(brokenSnapshot.final, brokenSnapshot.initial);
 });
 
 test('CLI emits JSON without touching a save in the working directory and reports bad input', () => {
