@@ -40,8 +40,10 @@ For gameplay changes, explain the gain and the sacrifice of important tradeoffs.
 For a temporary compromise, link the intended behaviour in the owning note and
 say what would prompt revisiting it.
 
-Below the summary, include the implementation approach, affected systems, save
-compatibility, applicable verification, and limitations or deferred work.
+Use pre-work discovery evidence in these same answers. Include what the change
+preserves and any known compromise. Below the summary, include the approach,
+affected dependencies, save compatibility, verification, and limitations or
+deferred work.
 Small fixes can use a short paragraph and test result in place of separate
 sections. Follow the [verification guidance](pre-pr-safety-checks.mdc).
 See the [demonic talent example](../../docs/ideas/README.md#worked-example-demonic-talent-proposal).

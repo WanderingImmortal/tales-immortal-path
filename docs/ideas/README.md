@@ -33,6 +33,34 @@ The [audit records the shipped and exploratory accounts](../audits/development-w
 lifespan, encounter tuning, and what observers can actually know. Verification
 would cover these boundaries before any production change.
 
+## Worked examples: pre-work discovery
+
+- **Demonic talent redesign.** Trace NPC generation, the player-relative growth
+  ceiling, and the encounter threat score. Compare shipped behaviour with the
+  [parity direction](world-cultivation-parity.md) and [exploratory talent direction](../audits/development-workflow-design-knowledge.md#demonic-talent-evidence-and-handoff).
+  The original rationale for the ceiling is unknown. Check saved NPC fields,
+  cultivation and lifespan, world ticks, encounter tuning, and what other NPCs
+  can learn before reacting. Reuse the existing NPC and encounter paths while
+  investigating. Ask whether growth independence is an approved first slice
+  and whether current encounter rules should hold during it. Start with a
+  production baseline trace. [Growth](../../world.js#L1393) · [Encounters](../../quests.js#L145) · [Save/load](../../core.js) · [Knowledge](../../npc-incidents.js)
+- **Forgotten foundation stamping.** A request to add a cultivation method's
+  foundation nature can look new when the manuals note calls P2 designed.
+  Issue #54 and merged PR #55 lead to the existing seal path. Trace its caller,
+  then check the current stamp, path lock, and tests before proposing the
+  missing slice. Reuse the stamp if the request is for another eligible
+  method. A rule that changes when a path locks needs separate design review.
+  [Manuals](cultivation-manuals-framework.md) · [Issue #54](https://github.com/WanderingImmortal/tales-immortal-path/issues/54) · [PR #55](https://github.com/WanderingImmortal/tales-immortal-path/pull/55) · [Stamp](../../cultivation-methods.js#L224) · [Seal caller](../../consolidation.js#L586)
+- **Change how travelling NPCs count as present.** Detailed journeys and
+  departure, arrival, and recovery write travel state. Coarse wandering can
+  update the zone, while scene and assignment checks consume resolved
+  presence. Hall study and sect missions also claim the actor's time. Trace
+  reload during travel and a controlled successor inheriting a journey before
+  changing any selector. Reuse the presence resolver and identity regressions.
+  If the aim is to show travellers on a map, start with a display slice that
+  preserves physical availability. Allowing duties while in transit is a
+  gameplay choice. [Travel and presence](../../npc-travel.js#L210) · [Writer and save handoff](https://github.com/WanderingImmortal/tales-immortal-path/pull/247) · [Succession regressions](../../scripts/test-unified-disciple-identity.js)
+
 ## Index
 
 | Idea | Status | Blocked on | Issue |
