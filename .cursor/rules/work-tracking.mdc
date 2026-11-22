@@ -1,44 +1,58 @@
 ---
-description: Hybrid work tracking — docs/ideas + GitHub Issues + docs/NOW.md
+description: Hybrid work tracking and design preservation in existing topic notes
 alwaysApply: true
 ---
 
 # Work tracking (ideas + Issues)
 
-Keep designs and the build queue out of chat-only memory.
-
-## Two homes
-
 | Kind of knowledge | Where |
-|-------------------|--------|
-| Fleshed-out design (vision, mechanics, open questions, blocked-on) | `docs/ideas/<topic>.md` |
-| Actionable build work (bugs, implementable chunks, prerequisites) | GitHub Issue |
-| Current focus (short) | `docs/NOW.md` |
+|-------------------|-------|
+| Design intent, decisions, alternatives, and unresolved questions | Owning note in `docs/ideas/` |
+| Actionable build work | GitHub Issue |
+| Current focus | `docs/NOW.md` |
 
-Do **not** leave a solid design only in the conversation. Do **not** open an Issue for every vague musing — park it as an idea first.
+## Preserve consequential design discussions
 
-## When a chat designs something without shipping it
+Search for the owning note first and use the [idea template](../../docs/ideas/_template.md).
+Proactively capture a durable idea, meaningful fork, or decision before the context
+is lost. Do this in the related note update, design handoff, or PR when practical.
+A short dated entry is enough. Skip passing hypotheticals and avoid separate PRs
+for minor thoughts. Add an index link when a new owning note is needed.
 
-Before ending (or before switching topics):
+Record the reason and known tradeoffs alongside the alternatives. An implemented
+choice does not imply another option was rejected. Keep unapproved ideas proposed,
+and preserve conflicting ideas with their status and relationship visible. Use
+explicit author approval to mark a design accepted, rejected, or superseded.
+When superseded, link the dated records both ways and preserve the earlier
+reasoning. If a discussion or source cannot be recovered, say what is unknown.
 
-1. Create or update `docs/ideas/<short-kebab>.md` from `docs/ideas/_template.md`
-2. Set **Status** (`idea` / `designed` / …) and **Blocked on** if prerequisites exist
-3. Add a row to `docs/ideas/README.md` index
-4. Link the chat title / branch / PR in the idea file when useful
+## Check design before implementation
 
-## When work becomes actionable
+The author owns lore, characterization, and intended experience. Mechanics that
+change world rules, progression, balance, or capabilities are collaborative.
+Agents own technical choices that preserve agreed behaviour and compatibility.
 
-1. Open a GitHub Issue for the **next implementable chunk** (often a prerequisite, not the whole vision)
-2. Link Issue ↔ idea file both ways
-3. Set idea status to `building` when a branch is actively implementing it
-4. Update `docs/NOW.md` Focus / Next / Blocked (keep it short)
+Before implementing a gameplay change and again before opening its PR, compare
+the proposed behaviour with relevant accepted design notes and current code and
+test contracts. If it conflicts with an accepted rule or materially narrows
+the intended experience, show the author the evidence, explain the divergence
+in plain language, and identify the gain, sacrifice, affected systems, and
+compatibility risks. Ask for a focused decision before committing to that
+gameplay direction. Independent technical investigation can continue. An
+unimplemented aspiration or a newer exploratory idea does not by itself create
+or supersede an accepted rule. Routine fixes that restore an established
+contract can proceed. If the evidence leaves a consequential creative or
+mechanical choice open, ask about that choice instead of settling it silently.
 
-## When shipping
+## Queue and ship the agreed slice
 
-1. Close the Issue via PR as usual
-2. Set idea status to `shipped` (or leave a phase-2 section if only part landed)
-3. Trim `docs/NOW.md` Focus
-
-## Retroactive mining
-
-Past agent chats are **not** reliable sources of truth. Do not pretend transcript scrapes are complete. Prefer: user memory → new idea stubs → Issues when ready.
+1. Open an Issue for the next authorized implementation slice or prerequisite and
+   link it with the owning note. Open Issues for unapproved ideas only when
+   explicitly requested. Update `NOW.md` when current focus changes.
+2. Open the PR with the [branch and handoff guidance](github-branch-workflow.mdc).
+3. On merge, close the relevant Issue and update only the affected topic and
+   implementation slice. Link to PR and test evidence. Distinguish proposed work,
+   a landed prototype, partial implementation, completion within stated scope,
+   and known divergence. A merge does not approve a design, implement deferred
+   scope, or resolve alternatives. Preserve unresolved options, past reasoning,
+   and deferred work in the owning note.

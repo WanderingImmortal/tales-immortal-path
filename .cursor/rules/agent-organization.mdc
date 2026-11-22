@@ -62,8 +62,8 @@ Do **not** leave default titles like “New chat”. Do **not** keep `[WIP]` aft
 
 1. Commit on `cursor/<topic>` (never `main`).
 2. `git push -u origin HEAD`
-3. If `.js` changed: run recursion audits (`bash scripts/pre-pr-check.sh`); fix in-scope failures.
-4. `gh pr create` with Summary + Test plan (include Safety checks — see `pre-pr-safety-checks.mdc`).
+3. Follow the [pre-PR verification guidance](pre-pr-safety-checks.mdc).
+4. Open the PR using the [branch workflow and handoff guidance](github-branch-workflow.mdc).
 5. Rename chat to `[C·PR#N] <topic> — PR #N` and paste the PR URL in the reply.
 6. Do not stop at “branch pushed” without a PR.
 

@@ -5,9 +5,9 @@ Project rules live in [`.cursor/rules/`](.cursor/rules/) and **apply to local an
 | Rule | Purpose |
 |------|---------|
 | `agent-organization.mdc` | Chat titles `[L·WIP]` / `[C·PR#N]`, one branch per agent, status script |
-| `github-branch-workflow.mdc` | `cursor/*` branches, push, **open PRs** (mandatory for cloud) |
+| `github-branch-workflow.mdc` | `cursor/*` branches, push, open PRs, and explain changes in plain English |
 | `pre-pr-safety-checks.mdc` | Run unified verification before PRs and fix in-scope failures |
-| `work-tracking.mdc` | Park designs in `docs/ideas/`; queue builds as GitHub Issues; keep `docs/NOW.md` short |
+| `work-tracking.mdc` | Preserve decisions and alternatives, check design approval, and track build slices |
 | `client-migration-guardrails.mdc` | Warn before high migration-cost patterns; no extra doc reads unless combat/client task |
 
 ## Verification

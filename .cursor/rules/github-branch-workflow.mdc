@@ -17,6 +17,35 @@ Same workflow for **local** and **cloud** agents. Cloud VMs are not a substitute
 6. Reply with branch name + PR URL.
 7. **No force-push** to `main`/`master`. Do not update git config.
 
+## PR handoff
+
+Begin every substantial PR with a short **Plain-English summary** for the author
+to read on mobile. Explain any technical term needed to understand the impact.
+Answer these five questions before the implementation details:
+
+- **What changed?** Describe the actual change.
+- **What does it mean for the game?** Explain what players, NPCs, or the world
+  will experience. For technical work, explain the practical benefit.
+- **What was lost, restricted, simplified, or replaced?** State the meaningful
+  effects. Say briefly when there are none.
+- **Does it change the design direction?** Cite the relevant accepted decisions.
+  State whether there is no known divergence, a documented simplification, a
+  proposed design change, a suspected accidental divergence, or insufficient
+  evidence to judge. Use the [design approval guidance](work-tracking.mdc)
+  before proceeding with a conflicting gameplay change.
+- **What decision does the author need to make?** Include genuine creative or
+  mechanical choices only. Say when none are needed.
+
+For gameplay changes, explain the gain and the sacrifice of important tradeoffs.
+For a temporary compromise, link the intended behaviour in the owning note and
+say what would prompt revisiting it.
+
+Below the summary, include the implementation approach, affected systems, save
+compatibility, applicable verification, and limitations or deferred work.
+Small fixes can use a short paragraph and test result in place of separate
+sections. Follow the [verification guidance](pre-pr-safety-checks.mdc).
+See the [demonic talent example](../../docs/ideas/README.md#worked-example-demonic-talent-proposal).
+
 ## Cloud agents (extra)
 
 - Your workspace is ephemeral. If it is not on `origin` with a PR, the work is effectively lost to the user.
