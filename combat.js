@@ -1111,6 +1111,7 @@ function scheduleOpponentTurn() {
     updateCombatUI();
     clearCombatTurnTimer();
     G.combatTurnTimer = setTimeout(() => {
+        if (!canMutateGame()) return;
         G.combatTurnTimer = null;
         if (!G.inCombat || !G.enemy) return;
         opponentTurn();

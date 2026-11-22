@@ -817,6 +817,7 @@ function showLoadRecovery(message, retry = () => location.reload()) {
 
 // ===== INIT =====
 function initGame() {
+    if (!canMutateGame()) return;
     if (typeof loadLegacy === 'function' && !loadLegacy()) {
         showLoadRecovery('Legacy progress could not be loaded. Any existing data is untouched. Check browser storage, then retry.');
         return;
@@ -880,7 +881,7 @@ function initGame() {
 }
 
 // ===== EVENT BINDING =====
-document.addEventListener('DOMContentLoaded', function() {
+function initOwnedGameUi() {
     // Core buttons
     document.getElementById('btnCultivate').addEventListener('click', () => {
         if (typeof openCultivationHub === 'function') openCultivationHub();
@@ -1102,6 +1103,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start the game
     if (typeof initWorldClockUi === 'function') initWorldClockUi();
     initGame();
+}
+
+function showSaveOwnershipBlock(reason) {
+    const messages = {
+        busy: 'This save is active in another tab. Reload after closing the active tab, or return to that tab to continue.',
+        stale: 'This tab no longer owns the save. Its unsaved progress cannot safely be committed. Reload to open the current save.',
+        unsupported: 'This browser could not lock the save. Use a current browser on HTTPS or localhost, then reload.'
+    };
+    document.body.classList.remove('save-owner');
+    document.getElementById('save-ownership-detail').textContent = messages[reason];
+    const reload = document.getElementById('retry-save-ownership');
+    reload.hidden = false;
+    reload.focus();
+}
+
+function stopOwnedGame() {
+    stopWorldClockLoop();
+    clearTimePlaybackTimer();
+    clearCombatTurnTimer();
+    stopCombatSpineLoop();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const panel = document.getElementById('save-ownership');
+    document.getElementById('retry-save-ownership').onclick = () => location.reload();
+    for (const type of ['click', 'keydown']) {
+        window.addEventListener(type, event => {
+            if (!canMutateGame() && !panel.contains(event.target)) event.stopImmediatePropagation();
+        }, true);
+    }
+
+    window.addEventListener('pagehide', () => {
+        const owned = saveOwnership.canWrite();
+        saveOwnership.release();
+        if (owned) {
+            document.body.classList.remove('save-owner');
+            stopOwnedGame();
+        }
+    });
+    window.addEventListener('pageshow', event => {
+        if (event.persisted) showSaveOwnershipBlock('stale');
+    });
+
+    saveOwnership.start(() => {
+        document.body.classList.add('save-owner');
+        initOwnedGameUi();
+    }, reason => {
+        if (reason === 'stale') stopOwnedGame();
+        showSaveOwnershipBlock(reason);
+    });
 });
 
 function toggleAdvancedStats() {

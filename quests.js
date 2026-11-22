@@ -942,6 +942,7 @@ function onExploreForStoryQuests(zoneId) {
 }
 
 function openStoryConfrontationPopup(arcId) {
+    if (!canMutateGame()) return;
     const def = STORY_ARCS[arcId];
     const boss = STORY_ARC_BOSSES[def?.stages?.[3]?.bossId];
     if (!def || !boss) return;
@@ -963,6 +964,7 @@ function openStoryConfrontationPopup(arcId) {
 }
 
 function openStoryResolutionPopup(arcId) {
+    if (!canMutateGame()) return;
     if (typeof openStoryResolutionPopupEx === 'function') {
         openStoryResolutionPopupEx(arcId);
         return;

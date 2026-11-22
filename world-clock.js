@@ -409,6 +409,7 @@ function flushWorldClockWeek() {
 }
 
 function worldClockFrame(ts) {
+    if (!canMutateGame()) return;
     _worldClockTimer = requestAnimationFrame(worldClockFrame);
     const attention = getPlayerTimeAttention();
     if (attention && (getWorldClockBusyReason() || getWorldClockStance())) interruptPlayerTime(attention);
@@ -469,10 +470,12 @@ function initWorldClockUi() {
     });
 
     window.addEventListener('blur', () => {
+        if (!canMutateGame()) return;
         _worldClockBlurred = true;
         renderWorldClockBar();
     });
     window.addEventListener('focus', () => {
+        if (!canMutateGame()) return;
         _worldClockBlurred = false;
         _worldClockLastTs = 0;
         renderWorldClockBar();

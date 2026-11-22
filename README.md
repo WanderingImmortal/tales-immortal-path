@@ -4,7 +4,38 @@ A xianxia text adventure — cultivate, explore, fight, and ascend.
 
 ## Play locally
 
-Open `index.html` in a web browser (Chrome, Firefox, or Edge). No build step required.
+Open the game in a current browser with Web Locks support. For local play, run
+`node tests/browser/serve.js` and open `http://127.0.0.1:4175`. This serves the
+game without a build or dependency install. Opening `index.html` directly works
+only where the browser allows Web Locks and storage for local files. Use the
+same origin to reopen a save.
+
+## Single-writer saves
+
+The first tab to acquire the browser's exclusive Web Lock may play. The lock
+covers the active save and legacy record together. Other tabs show a reload
+screen before loading or starting their game. Reloading while the owner is
+active stays blocked. Close or navigate away from the owner, then reload the
+blocked tab to load the last successful save. A restored history page that
+released ownership also requires reload and warns about unsaved progress.
+Browser document teardown releases the lock even if a tab crashes. The game
+does not take over an open or suspended owner.
+
+Autosaves, migration catch-up, creation, and ordinary saves go through
+`saveState()`. The same ownership gate protects the legacy record, carry
+receipt cleanup, reincarnation journal and active-slot removal, and reset.
+UI settings, playtest options, and playtest feedback use separate storage keys
+and do not participate in the gameplay transaction. A failed write preserves
+the prior durable record. Save files need no ownership fields or revision.
+
+Use HTTPS or localhost in a browser with Web Locks. If the API is missing or
+denied, the game blocks play and writes. BroadcastChannel and storage events
+can notify tabs, but cannot make a read followed by a write atomic. The game
+uses the browser-held lock instead of an expiring localStorage lease. The
+guarantee applies to cooperating game pages sharing the same origin and
+browser storage context. Reload or close tabs running a build from before
+this safeguard. Browser profiles, storage partitions, and different origins
+have separate saves.
 
 ## Verification
 
@@ -41,8 +72,8 @@ runs offline after installation, with optional Google Fonts replaced by local
 fallback fonts.
 
 The suite verifies the production page and first character, one Gather Qi action
-in the Dantian Chamber, and persistence of that action after reload. The tests read
-the browser's `xianxia_save` slot to verify exact elapsed months and gather count.
+in the Dantian Chamber, persistence after reload, and two-tab ownership and
+recovery. The tests read the browser's `xianxia_save` slot to verify exact elapsed months and gather count.
 Player interactions drive all game and save changes. Combat, NPC interactions,
 other cultivation paths, save migrations, and mobile layouts are outside this
 smoke suite.

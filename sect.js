@@ -1638,6 +1638,7 @@ function calcSectRivalCombatStats(rival) {
 }
 
 function startSectRivalDuel(rivalId) {
+    if (!canMutateGame()) return;
     ensureSectState();
     if (G.inCombat) return { success: false, message: 'Already in combat.' };
     const rival = getWorldSectById(rivalId) || G.sect.rivals.find(r => r.id === rivalId);
