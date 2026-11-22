@@ -29,6 +29,9 @@ and which gameplay paths the scenario exercises.
 
 ## Work tracking
 
+Use the [Design Authority Map](docs/design-authority.md) to find the owning
+decision during discovery and reconciliation.
+
 | Layer | Location |
 |-------|----------|
 | Current focus | [`docs/NOW.md`](docs/NOW.md) |
