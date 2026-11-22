@@ -82,6 +82,71 @@ Failures write a screenshot and `trace.zip` in the test's `test-results/`
 directory. Open the trace locally with `npx playwright show-trace path/to/trace.zip`.
 GitHub Actions uploads the same files in the `playwright-failures` artifact.
 
+## Headless world simulation
+
+Run the production world in Node.js 24 without dependencies, a browser, or
+a real save slot.
+
+```sh
+npm run --silent simulate:world -- --seed 42 --years 10 --checkpoint 24 --output world-run.json
+```
+
+- `--seed` takes an unsigned 32-bit integer and defaults to 42.
+- Choose `--months` or `--years` in whole units. The default is 12 months.
+  A duration of zero captures the starting snapshot.
+- `--checkpoint` sets the interval in positive whole months and defaults to 12.
+- JSON goes to stdout unless `--output` names a new file. Use npm's
+  `--silent` flag for a JSON-only stream. Existing output files are protected.
+
+The `ordinary-start` scenario loads the local scripts in `index.html` order,
+uses the production creation handler with its default choices, and uses the
+production load path to initialize the saved character and world in the same
+VM. Storage is an in-memory map. The VM grants its single document simulated
+ownership and omits DOM-only log and status rendering. Real timers are held
+rather than executed, including the opening tutorial. The player makes no
+active choices and receives only ordinary passive circulation.
+
+The runner requests one month at a time through quiet
+`advanceSharedWorldTime()`. The production scheduler subdivides those spans
+around due events and other time boundaries. This includes lifespan, passive
+cultivation, supply decay, and shared calendar obligations. Calling
+`processWorldTime()` directly would omit the shared player accounting.
+`advanceTime()` also checks paid-action rules, and seclusion playback adds
+its own year settlement and rewards. Neither mode is exercised here.
+
+The calendar ticks NPC growth, travel, ambient activity, ambitions, situations,
+resource sources, procurement, formations, faction deadlines, and sect
+systems when their production conditions apply. Redwell stock refreshes
+through shared calendar obligations. The default character has no sect, lodge
+membership, or player-started faction agenda. Inactive paths include Hall
+study, sect missions, faction story choices, combat, encounter-driven ambient
+promotion, and holdings the player has yet to acquire. A registered tick can
+run without changing state. The runner stops at a mandatory decision or the
+end of the player's lifespan. It leaves decisions and reincarnation to the
+player.
+
+The VM seeds `Math.random()` and fixes the date used by production ID
+generation. For the same build, Node runtime, seed, and options, the report is
+reproducible except for `executionMs`. Checkpoints observe state without
+changing tick cadence. Smaller or larger world-time requests can change the
+order or frequency of production rolls, so outputs apply to this monthly mode.
+
+The JSON report includes `schemaVersion`, `configuration`, `initial`,
+`checkpoints`, `final`, `diagnostics`, `status`, `interruption`, and
+`executionMs`. Snapshots contain calendar and roster counts, recorded NPC
+regions, focus-track realm indexes, activities, organizations, stock, scheduled
+work, and a SHA-256 digest of the serialized game state. A `null` metric means
+the corresponding state is unavailable. Diagnostics include actual scheduler
+dispatch order, reported errors and warnings, and the number of deferred
+callbacks. A failed step may end with the last inspected snapshot. Expected
+interruptions exit successfully with status `interrupted`. Errors or
+invariant violations produce status `error` and a nonzero exit code.
+
+`npm run verify` discovers the short harness tests automatically. For changes
+to world ticks, rerun the affected seed and compare event order, checkpoint
+metrics, and final hashes. Use longer runs locally to investigate changes
+beyond the PR smoke coverage.
+
 ## Project layout
 
 - `index.html` — main page
