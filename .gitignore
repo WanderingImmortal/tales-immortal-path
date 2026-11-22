@@ -34,3 +34,7 @@ node_modules/
 # Build output (if added later)
 dist/
 build/
+
+# Playwright failure artifacts
+/test-results/
+/playwright-report/

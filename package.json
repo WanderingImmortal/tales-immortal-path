@@ -1,11 +1,13 @@
 {
   "name": "tales-immortal-path",
   "private": true,
-  "description": "Optional dev deps for art pipeline scripts only",
+  "description": "Development tools for the browser smoke tests and art pipeline",
   "scripts": {
-    "verify": "node scripts/verify.js"
+    "verify": "node scripts/verify.js",
+    "test:browser": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "jimp": "^1.6.0",
     "polygon-clipping": "^0.15.7",
     "potrace": "^2.1.8"

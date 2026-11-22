@@ -39,7 +39,9 @@ Skip audits for investigation-only tasks with **no** `.js` changes.
 ## PR test plan
 
 Report the result of `npm run verify`. If a check fails, name the script and
-explain any pre-existing failure that is outside the PR scope.
+explain any pre-existing failure that is outside the PR scope. For changes
+to browser entry points or the smoke-tested player flows, also report
+`npm run test:browser`. See `README.md#browser-smoke-tests` for setup and traces.
 
 ## What counts as "your changes"
 

@@ -19,6 +19,38 @@ once, with two exclusions:
 - `test-property-alchemy-audit.js` spawns `test-property-alchemy.js`, which the
   runner already executes directly.
 
+## Browser smoke tests
+
+With Node.js 24, install the locked dependencies and Chromium once, then run
+the browser suite:
+
+```sh
+npm ci --ignore-scripts
+npx playwright install --only-shell chromium
+npm run test:browser
+```
+
+On Linux, use `npx playwright install --with-deps --only-shell chromium` if
+Chromium's system libraries are missing. If the browser download is unavailable,
+set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to the absolute path of an installed Chromium.
+CI uses Playwright's pinned browser.
+
+Playwright serves the production game on `127.0.0.1:4175` and closes the server
+and browser at the end. Each test starts with fresh browser storage. The suite
+runs offline after installation, with optional Google Fonts replaced by local
+fallback fonts.
+
+The suite verifies the production page and first character, one Gather Qi action
+in the Dantian Chamber, and persistence of that action after reload. The tests read
+the browser's `xianxia_save` slot to verify exact elapsed months and gather count.
+Player interactions drive all game and save changes. Combat, NPC interactions,
+other cultivation paths, save migrations, and mobile layouts are outside this
+smoke suite.
+
+Failures write a screenshot and `trace.zip` in the test's `test-results/`
+directory. Open the trace locally with `npx playwright show-trace path/to/trace.zip`.
+GitHub Actions uploads the same files in the `playwright-failures` artifact.
+
 ## Project layout
 
 - `index.html` — main page

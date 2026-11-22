@@ -16,6 +16,11 @@ Run `npm run verify` before opening or updating a code PR. It uses Node.js 24
 and runs the same audits and regression suites as GitHub Actions. See the
 [README](README.md#verification) for suite selection and exclusions.
 
+Run `npm run test:browser` alongside Node verification for changes to production
+script loading, UI controls, character creation, cultivation, or save/load flows.
+The Node suite can pass even when the browser interface fails. See the
+[README](README.md#browser-smoke-tests) for setup, coverage, and failure traces.
+
 ## Work tracking
 
 | Layer | Location |
