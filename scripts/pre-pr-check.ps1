@@ -1,28 +1,3 @@
-# Pre-PR recursion audits. Run from repo root: .\scripts\pre-pr-check.ps1
 $ErrorActionPreference = 'Stop'
-Set-Location (Split-Path $PSScriptRoot -Parent)
-
-Write-Host '=== Pre-PR recursion audits ==='
-node scripts/audit-ensure-sync-recursion.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-node scripts/audit-storage-recursion.js
-node scripts/audit-time-billing.js
-node scripts/audit-world-sim.js
-node scripts/test-time-npc-consistency.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-node scripts/test-player-activity.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-node scripts/test-well-ring-lodge-npcs.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-node scripts/test-npc-foundations-ties.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-node scripts/test-npc-personality-consistency.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-node scripts/audit-cultivation-progression.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-Write-Host ''
-Write-Host '=== Body overlay fit audit ==='
-node scripts/audit-body-overlay-fit.js
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-Write-Host ''
-Write-Host 'All pre-PR audits passed.'
+node (Join-Path $PSScriptRoot 'verify.js')
+exit $LASTEXITCODE

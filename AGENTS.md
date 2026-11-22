@@ -6,9 +6,15 @@ Project rules live in [`.cursor/rules/`](.cursor/rules/) and **apply to local an
 |------|---------|
 | `agent-organization.mdc` | Chat titles `[L·WIP]` / `[C·PR#N]`, one branch per agent, status script |
 | `github-branch-workflow.mdc` | `cursor/*` branches, push, **open PRs** (mandatory for cloud) |
-| `pre-pr-safety-checks.mdc` | Run recursion audits before PRs; fix in-scope loops |
+| `pre-pr-safety-checks.mdc` | Run unified verification before PRs and fix in-scope failures |
 | `work-tracking.mdc` | Park designs in `docs/ideas/`; queue builds as GitHub Issues; keep `docs/NOW.md` short |
 | `client-migration-guardrails.mdc` | Warn before high migration-cost patterns; no extra doc reads unless combat/client task |
+
+## Verification
+
+Run `npm run verify` before opening or updating a code PR. It uses Node.js 24
+and runs the same audits and regression suites as GitHub Actions. See the
+[README](README.md#verification) for suite selection and exclusions.
 
 ## Work tracking
 
