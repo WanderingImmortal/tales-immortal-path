@@ -89,6 +89,19 @@ name the unresolved choice. Routine fixes that restore an established
 contract can proceed. If the evidence leaves a consequential creative or
 mechanical choice open, ask about that choice instead of settling it silently.
 
+## Reconcile the affected slice
+
+Use the [system reconciliation guide](../../docs/system-reconciliation.md)
+during discovery when revisiting a substantial system with conflicting evidence
+or unclear maturity. Reuse the evidence already gathered. When finishing
+significant work, update the affected slice and its verification in the owning
+note. When you find a contradiction, record it there and apply the existing
+design approval boundary to consequential choices.
+
+Keep small changes to the relevant check. Do broader reviews of selected
+systems when requested. A reconciliation can be a brief update or handover,
+with no separate report file or recurring review required.
+
 ## Queue and ship the agreed slice
 
 1. Open an Issue for the next authorized implementation slice or prerequisite and

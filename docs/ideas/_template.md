@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Implementation** | (scope and stage, e.g. proposed, prototype, partial, or complete within the stated scope; flag known divergence) |
+| **Implementation** | (brief scope and stage, or point to Scoped completeness below) |
 | **Blocked on** | (prerequisite decisions, mechanics, or Issues) |
 | **Issue / PR** | (links for the relevant implementation slice, when available) |
 | **Updated** | YYYY-MM-DD |
@@ -24,6 +24,14 @@ Mechanics, player experience, and edge cases. Label exploratory material.
 - **Alternatives:** Name each meaningful option and say whether it is compatible, conflicting, or unresolved relative to the recorded direction. Capture known gains and sacrifices, along with its own disposition where known.
 - **History:** If an explicit author decision supersedes this entry, link both entries and identify what changed. Keep the original reasoning and alternatives.
 - **Implementation evidence:** Link the relevant code, Issues, PRs, and tests when available. For a temporary compromise, record the intended behaviour and what would trigger revisiting it.
+
+## Scoped completeness (when reconciled)
+
+Use one entry per affected slice. See the [reconciliation guide](../system-reconciliation.md).
+
+| Slice | Design | Implementation | Verification | Alignment | Remaining work |
+|-------|--------|----------------|--------------|-----------|----------------|
+| … | … | … | … | … | … |
 
 ## Prerequisites and open questions
 
