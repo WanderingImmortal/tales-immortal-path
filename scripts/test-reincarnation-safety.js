@@ -343,7 +343,10 @@ test('only the first runtime starts writable and closing it permits a fresh load
     const reloaded = game(disk, locks);
     assert.equal(await requestOwnership(reloaded), 'owned');
     assert.equal(reloaded.run("loadState() && G.name === 'Lin' && saveState()"), true);
-    await closeOwner(reloaded);
+    const saved = disk.values.get(runKey);
+    reloaded.run('globalThis.confirm = () => { saveOwnership.release(); return true; }; resetGame()');
+    await reloaded.run('lockLifetime');
+    assert.equal(disk.values.get(runKey), saved);
 });
 
 test('a stale runtime cannot overwrite a reincarnation or commit its old journal', async () => {

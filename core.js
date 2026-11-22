@@ -1397,7 +1397,7 @@ function recoverLoadedPlayerActivity() {
 
 function resetGame() {
     if (!canMutateGame()) return;
-    if (!confirm("Reset your cultivation journey? All progress lost.")) return;
+    if (!confirm("Reset your cultivation journey? All progress lost.") || !canMutateGame()) return;
     localStorage.removeItem(RUN_SAVE_KEY);
     location.reload();
 }
