@@ -4,7 +4,8 @@
   "description": "Development tools for the browser smoke tests and art pipeline",
   "scripts": {
     "verify": "node scripts/verify.js",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "simulate:world": "node scripts/simulate-world.js"
   },
   "devDependencies": {
     "@playwright/test": "1.58.2",
