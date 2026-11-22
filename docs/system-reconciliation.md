@@ -7,8 +7,9 @@ the roles of notes, the index, Issues, PRs, code, tests, and current priorities.
 
 ## Compare the evidence
 
-1. **Intended design.** Cite the accepted direction, its approval scope and
-   recorded reasons. Keep constraints, compromises and their revisit
+1. **Intended design.** Use the [Design Authority Map](design-authority.md) to
+   locate the owning decision. Cite the accepted direction, its approval scope
+   and recorded reasons. Keep constraints, compromises and their revisit
    conditions, exploratory alternatives, deferred or superseded decisions, and
    open questions visible. Mark unavailable reasoning as unknown. Approval
    requires evidence beyond a newer note or a merged implementation.

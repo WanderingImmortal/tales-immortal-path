@@ -28,7 +28,9 @@ reasoning. If a discussion or source cannot be recovered, say what is unknown.
 
 ## Discover before designing or changing gameplay
 
-Scale discovery to the consequences of the change:
+Use the [Design Authority Map](../../docs/design-authority.md) to locate the
+owning decision when design evidence matters. Scale discovery to the
+consequences of the change:
 
 - **Small:** Check the affected code and existing tests. A routine fix,
   documentation correction, or behaviour-preserving refactor needs no formal

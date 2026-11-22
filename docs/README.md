@@ -1,5 +1,8 @@
 # Project docs
 
+Use the [Design Authority Map](design-authority.md) to find owning decisions
+and resolve disagreements between sources.
+
 ## Work tracking (hybrid)
 
 | Layer | Answers | Location |
