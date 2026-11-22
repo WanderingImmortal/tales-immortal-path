@@ -1,23 +1,37 @@
-# Ideas (parked designs)
+# Ideas (design notes)
 
-Fleshed-out designs that are **not fully shipped** yet. Markdown holds the vision; GitHub Issues hold the build queue.
+Topic notes hold design intent and history. GitHub Issues hold the build queue.
+Use the [idea template](_template.md) and follow the [work-tracking guidance](../../.cursor/rules/work-tracking.mdc).
+Existing index labels are shorthand for the linked slice. A shipped entry may
+refer to a prototype or a partial implementation. Check the owning note and
+linked PR for scope and preserve the note after shipping.
 
-## How to use
+## Worked example: demonic talent proposal
 
-1. Copy `_template.md` → `<short-kebab-topic>.md`
-2. Fill **Status**, **Intent**, **Design notes**, **Prerequisites**
-3. When ready to build (or build a prerequisite): open a GitHub Issue, link it in the table, set status to `building`
-4. When shipped: set status to `shipped` (or delete / archive if you prefer a lean index)
+Example opening for a future **proposal PR**. This is a sample handoff.
+The [audit records the shipped and exploratory accounts](../audits/development-workflow-design-knowledge.md#demonic-talent-evidence-and-handoff).
 
-## Status meanings
+**Plain-English summary**
 
-| Status | Meaning |
-|--------|---------|
-| `idea` | Sketch — not ready to implement |
-| `designed` | Solid enough to build once prerequisites exist |
-| `building` | Active Issue / branch exists |
-| `shipped` | In the game (merged) |
-| `dropped` | Won't do (keep a one-line why) |
+- **What changed?** This proposal describes letting exceptionally gifted NPCs
+  grow on their own terms. The shipped game limits some of their growth relative
+  to the player and uses a threat score that can affect encounters.
+- **What it means for the game:** Under the proposal, an NPC could outpace the
+  player. An unusual achievement could draw interest if someone learns of it.
+  That interest could mean an offer of help, exploitation, or opposition.
+- **What was lost or simplified?** The proposed growth change would sacrifice
+  some predictability in exchange for more independent NPC progression. The
+  existing encounter rules would need a separate decision.
+- **Design direction:** Proposed change requiring approval. The direction that
+  extraordinary talent need not imply demonic arts or automatic hostility is
+  exploratory. The original rationale for the live growth limit is unknown.
+- **Author decision:** Should the first slice separate NPC growth from the
+  player's realm while retaining the current encounter rules, or wait until
+  growth and encounters can be reviewed together?
+
+**Technical notes:** A future implementation would trace saves, cultivation,
+lifespan, encounter tuning, and what observers can actually know. Verification
+would cover these boundaries before any production change.
 
 ## Index
 
