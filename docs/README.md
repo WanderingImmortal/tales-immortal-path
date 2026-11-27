@@ -18,3 +18,7 @@ and resolve disagreements between sources.
 **Rule of thumb:** rich design → `docs/ideas/`; ready to implement (or a clear prerequisite chunk) → open an Issue and link both ways.
 
 Use [system reconciliation](system-reconciliation.md) to compare those sources for a specific gameplay slice.
+
+## Audits
+
+- [Mobile UI and UX audit](audits/mobile-ui-ux-audit.md) covers verified layout and interaction findings, screenshots, the proposed PR sequence, and decisions for owner review.

@@ -8,6 +8,8 @@
 | **Chat / PR** | Cloud agent — phone playtest sketch (2026-09-23) |
 | **Updated** | 2026-09-23 |
 
+The [mobile UI and UX audit](../audits/mobile-ui-ux-audit.md) records the shipped phone layout and its test evidence. Its follow-up proposals are pending developer review.
+
 ## Intent
 
 Play the same game on a phone **without replacing the PC layout you like**. An explicit **Phone playtest layout** toggle switches to a second, playtest-oriented shell: scene and actions first, stats tucked away, log easy to reach. Default remains today’s desktop-first UI (including existing narrow-screen `@media` rules when the toggle is off).
