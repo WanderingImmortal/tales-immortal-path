@@ -251,3 +251,9 @@ would cover these boundaries before any production change.
 | [Heaven's cycle, false immortality & the three apexes](heaven-cycle-and-apexes.md) | `idea` | Idx 5 spirit name; world qi sketch | — |
 | [Lore consistency review (2026-09)](lore-consistency-review-2026-09.md) | `idea` (checklist) | Owner calls per item | — |
 | [The Hollow Throne — shadow soul sect (Fengdu)](hollow-throne-sect.md) | `idea` | Hidden antagonist, not a player home sect | — |
+
+## Innate gifts and war legends (2026-11-28)
+
+- [Innate gifts](innate-gifts.md) — accepted creation philosophy and Twin Aspect Soul; other gifts exploratory.
+- [Soul shearing](soul-shearing.md) — accepted risk direction, provisional procedure.
+- [War legends](war-legends.md) — living roster; Soul King and tentative Zither Dao confrontation.
