@@ -71,12 +71,16 @@ and browser at the end. Each test starts with fresh browser storage. The suite
 runs offline after installation, with optional Google Fonts replaced by local
 fallback fonts.
 
-The suite verifies the production page and first character, one Gather Qi action
-in the Dantian Chamber, persistence after reload, and two-tab ownership and
-recovery. The tests read the browser's `xianxia_save` slot to verify exact elapsed months and gather count.
-Player interactions drive all game and save changes. Combat, NPC interactions,
-other cultivation paths, save migrations, and mobile layouts are outside this
-smoke suite.
+Desktop tests verify the production page and first character, one Gather Qi
+action in the Dantian Chamber, persistence after reload, and two-tab ownership
+and recovery. Mobile touch tests cover seclusion dismissal and settlement, the
+Three Refinements hub, map tabs and sect grounds, and Cultivate with the
+landscape log collapsed and expanded. The tests read the browser's
+`xianxia_save` slot to check state after player actions. Run just the mobile
+checks with `npm run test:browser -- tests/browser/mobile.spec.js`.
+
+Combat, NPC interactions, other cultivation paths, and save migrations remain
+outside this smoke suite.
 
 Failures write a screenshot and `trace.zip` in the test's `test-results/`
 directory. Open the trace locally with `npx playwright show-trace path/to/trace.zip`.

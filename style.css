@@ -7744,6 +7744,7 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 
 .map-tabs {
     display: flex;
+    flex-shrink: 0;
     gap: 8px;
     margin: 0 18px 10px;
     border-bottom: 1px solid var(--ink-border);
@@ -7754,6 +7755,7 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 }
 
 .map-tab-btn {
+    flex-shrink: 0;
     font-family: inherit;
     font-size: 13px;
     min-height: 44px;
@@ -10717,6 +10719,10 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 
 .cultivation-hub-shell {
     width: min(720px, 94vw);
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
     padding: 28px 32px 32px;
     background:
         radial-gradient(ellipse 70% 45% at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 55%),
@@ -10768,8 +10774,7 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
     color: var(--ink-text);
     cursor: pointer;
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: auto minmax(0, 1fr);
     column-gap: 14px;
     row-gap: 4px;
     transition: background 0.15s, border-color 0.15s, transform 0.1s;
@@ -10782,9 +10787,16 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 }
 
 .cultivation-hub-icon {
+    grid-column: 1;
     grid-row: 1 / 3;
     font-size: 1.8rem;
     align-self: center;
+}
+
+.cultivation-hub-name,
+.cultivation-hub-desc,
+.cultivation-hub-note {
+    grid-column: 2;
 }
 
 .cultivation-hub-name {
@@ -10793,7 +10805,6 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 }
 
 .cultivation-hub-desc {
-    grid-column: 2;
     font-size: 0.82rem;
     color: var(--ink-text-muted);
     line-height: 1.35;
@@ -10819,6 +10830,12 @@ html.at-qi-condensation .action-with-help:has(#btnConsolidate) {
 .cultivation-hub-close:hover {
     background: var(--ink-hover);
     color: var(--ink-text);
+}
+
+@media (max-width: 480px) {
+    .cultivation-hub-shell {
+        padding-inline: 16px;
+    }
 }
 
 #soulChamberOverlay {
@@ -12838,5 +12855,40 @@ body.phone-sheet-open {
         max-width: 480px;
         left: 50%;
         transform: translateX(-50%);
+    }
+}
+
+@media (orientation: landscape) and (max-height: 480px) {
+    .layout-phone-playtest {
+        --phone-log-h: 64px;
+        --phone-log-h-expanded: min(38dvh, 160px);
+    }
+
+    .layout-phone-playtest .game-screen {
+        min-height: 0;
+        padding-bottom: 0;
+    }
+
+    .layout-phone-playtest > header,
+    .layout-phone-playtest .phone-top-bar {
+        padding-bottom: 4px;
+        margin-bottom: 6px;
+    }
+
+    .layout-phone-playtest .phone-focal {
+        display: none;
+    }
+
+    .layout-phone-playtest .main-layout {
+        min-height: 56px;
+    }
+
+    .layout-phone-playtest .phone-bottom-chrome {
+        /* Keep expanded log and dock below the scene at short heights. */
+        position: static;
+        order: 1;
+        flex-shrink: 0;
+        max-width: none;
+        transform: none;
     }
 }

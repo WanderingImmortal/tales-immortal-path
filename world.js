@@ -135,8 +135,9 @@ function openLocalMap(zoneId, preview) {
 
 function openSectMap() {
     mapPopupUi.tab = 'sect';
-    renderMapPopup();
+    // The sect renderer selects its mount point from the active map tab.
     document.getElementById('mapPopup')?.classList.add('active');
+    renderMapPopup();
     document.getElementById('sectPopup')?.classList.remove('active');
 }
 
