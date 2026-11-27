@@ -6,7 +6,7 @@
 | **Blocked on** | none |
 | **Issue** | none yet |
 | **Chat / PR** | Playtest 2026-08-17 · `cursor/playtest-breakthrough-escape-6077` |
-| **Updated** | 2026-08-17 |
+| **Updated** | 2026-11-27 |
 
 ## Intent
 
@@ -19,7 +19,8 @@ Players expect **Escape** to back out of menus and full-screen panels. Layer 1 c
 - Global `keydown` listener (same input guard as Space → world clock).
 - Walk a fixed close order: small choice popups → chambers → hub → journal-scale panels.
 - Use existing `close*` helpers where they reset `G.inQiChamber` etc.; otherwise remove `.active`.
-- **Blocked on Escape:** combat, tribulation, transcendence perk choice, active tutorial spotlight popup, creation screen.
+- **Blocked on Escape:** combat, tribulation, transcendence perk choice, active tutorial spotlight popup, creation screen, and active seclusion playback.
+- Phone Back also leaves active seclusion on screen, including while paused. Emerge ends playback through the existing settlement path. [Phase 1 verification](../audits/mobile-ui-ux-audit.md#phase-1-verification)
 - Action-help `?` popover closes first if open.
 
 Implementation: `overlay-keyboard.js` · `initOverlayKeyboardEscape()` from `main.js`.

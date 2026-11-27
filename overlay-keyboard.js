@@ -8,7 +8,8 @@ const ESCAPE_BLOCK_OVERLAY_IDS = new Set([
     'combatOverlay',
     'tribulationOverlay',
     'transcendencePerkPopup',
-    'tutorialPopup'
+    'tutorialPopup',
+    'timePlaybackOverlay'
 ]);
 
 /**
@@ -28,7 +29,6 @@ const ESCAPE_OVERLAY_CLOSE_ORDER = [
     { id: 'breakthroughPopup', close: () => typeof closeBreakthrough === 'function' && closeBreakthrough() },
     { id: 'seclusionPickerPopup', close: () => document.getElementById('seclusionPickerPopup')?.classList.remove('active') },
     { id: 'highlightReelPopup', close: () => typeof closeHighlightReelPopup === 'function' && closeHighlightReelPopup() },
-    { id: 'timePlaybackOverlay', close: () => typeof hideTimePlaybackOverlay === 'function' && hideTimePlaybackOverlay() },
     { id: 'npcPopup', close: () => typeof closeNpcPopup === 'function' && closeNpcPopup() },
     { id: 'merchantPopup', close: () => document.getElementById('merchantPopup')?.classList.remove('active') },
     { id: 'thresholdJobsPopup', close: () => document.getElementById('thresholdJobsPopup')?.classList.remove('active') },

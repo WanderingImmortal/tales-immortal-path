@@ -17,7 +17,8 @@ const PHONE_POPUP_BACK_BLOCK_IDS = new Set([
     'combatOverlay',
     'tribulationOverlay',
     'transcendencePerkPopup',
-    'tutorialPopup'
+    'tutorialPopup',
+    'timePlaybackOverlay'
 ]);
 
 let _phoneSheetOpen = null;

@@ -60,7 +60,10 @@ function openCultivationHub() {
             : (PATHS[G.path]?.name || G.path);
     }
     if (typeof renderCultivationHubCards === 'function') renderCultivationHubCards();
-    document.getElementById('cultivationHubOverlay')?.classList.add('active');
+    const overlay = document.getElementById('cultivationHubOverlay');
+    overlay?.classList.add('active');
+    const shell = overlay?.querySelector('.cultivation-hub-shell');
+    if (shell) shell.scrollTop = 0;
 }
 
 function closeCultivationHub() {

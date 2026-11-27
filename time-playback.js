@@ -176,14 +176,18 @@ function finishTimePlayback(reason) {
     if (typeof snapshot.onComplete === 'function') {
         snapshot.onComplete(snapshot);
     }
+    if (typeof updatePhoneOverlayBack === 'function') updatePhoneOverlayBack();
 }
 
 function showTimePlaybackOverlay() {
     const el = document.getElementById('timePlaybackOverlay');
     if (el) el.classList.add('active');
+    if (typeof updatePhoneOverlayBack === 'function') updatePhoneOverlayBack();
 }
 
 function hideTimePlaybackOverlay() {
+    // Pause keeps the session active. Only settlement may remove its controls.
+    if (isTimePlaybackActive()) return;
     const el = document.getElementById('timePlaybackOverlay');
     if (el) el.classList.remove('active');
 }
