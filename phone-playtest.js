@@ -13,24 +13,10 @@ const PHONE_SHEET_TITLES = {
 
 const PHONE_MORE_GROUPS = ['quests', 'people', 'playtest'];
 
-const PHONE_POPUP_BACK_BLOCK_IDS = new Set([
-    'combatOverlay',
-    'tribulationOverlay',
-    'transcendencePerkPopup',
-    'tutorialPopup',
-    'timePlaybackOverlay'
-]);
-
-let _phoneSheetOpen = null;
 let _phoneGroupRestore = new Map();
 
 function isPhonePlaytestLayoutEnabled() {
     return !!getUiSetting('phonePlaytestLayout');
-}
-
-function isPhoneGroupSheetOpen() {
-    const sheet = document.getElementById('phoneGroupSheet');
-    return !!sheet && !sheet.hidden;
 }
 
 function getPhoneGroupEl(key) {
@@ -62,16 +48,10 @@ function restoreAllPhoneGroups() {
 }
 
 function closePhoneGroupSheet() {
-    const sheet = document.getElementById('phoneGroupSheet');
-    if (!sheet) return;
-    restoreAllPhoneGroups();
-    sheet.hidden = true;
-    _phoneSheetOpen = null;
-    document.body.classList.remove('phone-sheet-open');
-    updatePhoneOverlayBack();
+    closeOverlaySurface('phoneGroupSheet');
 }
 
-function openPhoneGroupSheet(key) {
+function openPhoneGroupSheet(key, opener) {
     if (!isPhonePlaytestLayoutEnabled()) return;
     const body = document.getElementById('phoneGroupSheetBody');
     const titleEl = document.getElementById('phoneGroupSheetTitle');
@@ -100,35 +80,7 @@ function openPhoneGroupSheet(key) {
         }
     }
 
-    sheet.hidden = false;
-    _phoneSheetOpen = key;
-    document.body.classList.add('phone-sheet-open');
-    updatePhoneOverlayBack();
-}
-
-function getActivePhoneDismissiblePopup() {
-    const overlays = document.querySelectorAll('.popup-overlay.active');
-    for (const el of overlays) {
-        if (PHONE_POPUP_BACK_BLOCK_IDS.has(el.id)) continue;
-        return el;
-    }
-    return null;
-}
-
-function phoneOverlayBackAction() {
-    if (getActivePhoneDismissiblePopup()) {
-        if (typeof closeTopEscapeOverlay === 'function' && closeTopEscapeOverlay()) {
-            updatePhoneOverlayBack();
-            return;
-        }
-        getActivePhoneDismissiblePopup()?.classList.remove('active');
-        if (typeof fullRender === 'function') fullRender();
-        updatePhoneOverlayBack();
-        return;
-    }
-    if (isPhoneGroupSheetOpen()) {
-        closePhoneGroupSheet();
-    }
+    openOverlaySurface('phoneGroupSheet', { opener, usesHidden: true, onClose: restoreAllPhoneGroups });
 }
 
 function updatePhoneOverlayBack() {
@@ -138,8 +90,7 @@ function updatePhoneOverlayBack() {
         btn.hidden = true;
         return;
     }
-    const show = isPhoneGroupSheetOpen() || !!getActivePhoneDismissiblePopup();
-    btn.hidden = !show;
+    btn.hidden = !canDismissTopOverlay();
 }
 
 function syncPhonePlaytestHeader() {
@@ -244,9 +195,9 @@ function initPhonePlaytestLayout() {
         });
     }
 
-    document.getElementById('phoneCultivateCta')?.addEventListener('click', () => {
+    document.getElementById('phoneCultivateCta')?.addEventListener('click', event => {
         closePhoneGroupSheet();
-        if (typeof openCultivationHub === 'function') openCultivationHub();
+        if (typeof openCultivationHub === 'function') openCultivationHub(event.currentTarget);
         else document.getElementById('btnCultivate')?.click();
         updatePhoneOverlayBack();
     });
@@ -254,41 +205,30 @@ function initPhonePlaytestLayout() {
     document.querySelectorAll('.phone-dock-btn[data-phone-sheet]').forEach(btn => {
         btn.addEventListener('click', () => {
             const key = btn.getAttribute('data-phone-sheet');
-            if (key) openPhoneGroupSheet(key);
+            if (key) openPhoneGroupSheet(key, btn);
         });
     });
 
-    document.getElementById('phoneOpenCharacter')?.addEventListener('click', () => {
-        openPhoneGroupSheet('character');
+    document.getElementById('phoneOpenCharacter')?.addEventListener('click', event => {
+        openPhoneGroupSheet('character', event.currentTarget);
     });
 
     document.getElementById('phoneGroupSheetClose')?.addEventListener('click', closePhoneGroupSheet);
     document.getElementById('phoneGroupSheetBackdrop')?.addEventListener('click', closePhoneGroupSheet);
-    document.getElementById('phoneOverlayBack')?.addEventListener('click', phoneOverlayBackAction);
+    document.getElementById('phoneOverlayBack')?.addEventListener('click', dismissTopOverlay);
 
     document.getElementById('phoneGroupSheetBody')?.addEventListener('click', (ev) => {
         const btn = ev.target.closest('button');
-        if (!btn || !isPhoneGroupSheetOpen()) return;
+        if (!btn || document.getElementById('phoneGroupSheet').hidden) return;
         if (btn.id === 'phoneGroupSheetClose') return;
         if (btn.classList.contains('phone-dock-btn')) return;
         if (btn.classList.contains('details-toggle') && btn.id !== 'playtestAdd') {
             return;
         }
         window.setTimeout(() => {
-            closePhoneGroupSheet();
-            updatePhoneOverlayBack();
+            if (!overlayHasChild('phoneGroupSheet')) closePhoneGroupSheet();
         }, 0);
     });
-
-    document.addEventListener('click', (ev) => {
-        if (!isPhonePlaytestLayoutEnabled()) return;
-        const inSheet = ev.target.closest('#phoneGroupSheetBody');
-        if (inSheet) return;
-        const actionBtn = ev.target.closest('#phoneGroupSheetBody button, .sidebar button, .actions-panel button');
-        if (actionBtn && isPhoneGroupSheetOpen()) {
-            window.setTimeout(updatePhoneOverlayBack, 50);
-        }
-    }, true);
 
     phonePlaytestMoveChrome();
 }

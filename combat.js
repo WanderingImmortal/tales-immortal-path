@@ -1001,6 +1001,9 @@ function endCombat(exitCtx) {
     G.npcCombat = null;
     clearCombatStatus();
     G.vesselRuleCombat = null;
+    if (document.getElementById('techPopup')?.classList.contains('tech-popup-combat')) {
+        closeOverlaySurface('techPopup', { restoreFocus: false });
+    }
     const overlay = document.getElementById('combatOverlay');
     if (overlay) overlay.classList.remove('active');
     const fleeBtn = document.getElementById('cbFlee');
@@ -1508,12 +1511,9 @@ function toggleCombatTechLoadout(name) {
     return { ok: true, pinned: true };
 }
 
-function combatSkill() {
+function combatSkill(opener) {
     if (!canPlayerAct()) return;
-    const popup = document.getElementById('techPopup');
-    if (popup) popup.classList.add('tech-popup-combat');
-    renderTechPopup();
-    popup?.classList.add('active');
+    openTechniquePanel(opener, { combat: true });
 }
 
 function applyTrueDaoEffectsToEnemy(fx) {
@@ -1540,8 +1540,7 @@ function executeCombatTechnique(tech) {
 }
 
 function combatUseTechnique(name) {
-    const techPopup = document.getElementById('techPopup');
-    techPopup?.classList.remove('active', 'tech-popup-combat');
+    closeOverlaySurface('techPopup');
     if (!canPlayerAct()) return;
     const tech = getTechniqueByName(name);
     if (!tech) return;

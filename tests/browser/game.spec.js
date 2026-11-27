@@ -128,3 +128,56 @@ test('a second tab cannot write and must reload after the owner closes', async (
     })).toEqual({ clockWasRunning: true, clockStopped: true, saveAccepted: false });
     await expect(other.getByRole('status')).toContainText('Its unsaved progress cannot safely be committed');
 });
+
+test('chamber Return restores the hub and its launcher without a save or duplicate cleanup', async ({ game: { page } }) => {
+    await createCharacter(page, 'Mei Navigation');
+    const cultivate = page.locator('#btnCultivate');
+    await cultivate.click();
+    const hub = page.getByRole('dialog', { name: /Three Refinements/ });
+    await expect(hub.getByRole('heading')).toBeFocused();
+    const dantian = hub.getByRole('button', { name: /Dantian Chamber/ });
+    await dantian.click();
+    const chamber = page.getByRole('dialog', { name: /Qi Cultivation Chamber/ });
+    await expect(chamber.getByRole('heading')).toBeFocused();
+    await expect(hub).toBeHidden();
+    const before = await page.evaluate(() => {
+        window.closeObservations = { writes: 0, cleanups: 0 };
+        const write = Storage.prototype.setItem;
+        Storage.prototype.setItem = function (key, value) {
+            if (key === 'xianxia_save') window.closeObservations.writes++;
+            return write.call(this, key, value);
+        };
+        const cleanup = hideChamberTechPicker;
+        hideChamberTechPicker = () => {
+            window.closeObservations.cleanups++;
+            cleanup();
+        };
+        return { age: G.ageMonths, save: localStorage.getItem('xianxia_save') };
+    });
+
+    const help = chamber.getByRole('button', { name: 'About Gather Qi' });
+    await help.click();
+    const popover = page.locator('#actionHelpPopover');
+    await expect(popover.getByRole('button', { name: 'Close' })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(popover).toBeHidden();
+    await expect(help).toBeFocused();
+    await expect(chamber).toBeVisible();
+
+    // Space activates the focused Return button inside the dialog.
+    await chamber.getByRole('button', { name: /Return/ }).press('Space');
+    await expect(chamber).toBeHidden();
+    await expect(dantian).toBeFocused();
+    await page.evaluate(() => closeQiChamber());
+    await page.keyboard.press('Escape');
+    await expect(hub).toBeHidden();
+    await expect(cultivate).toBeFocused();
+    expect(await page.evaluate(() => ({
+        age: G.ageMonths,
+        save: localStorage.getItem('xianxia_save'),
+        chamber: G.inQiChamber,
+        hub: G.inCultivationHub,
+        clockPaused: G.worldClock.paused,
+        ...window.closeObservations
+    }))).toEqual({ ...before, chamber: false, hub: false, clockPaused: true, writes: 0, cleanups: 1 });
+});

@@ -12892,3 +12892,64 @@ body.phone-sheet-open {
         transform: none;
     }
 }
+
+/* Overlay layout primitives. Existing panels retain their own width and theme. */
+body.overlay-scroll-locked {
+    overflow: hidden;
+}
+
+.overlay-panel {
+    min-inline-size: 0;
+}
+
+.overlay-scroll {
+    min-block-size: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+}
+
+.overlay-frame {
+    overflow: hidden;
+}
+
+.overlay-frame > .overlay-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--ink-border);
+    margin: 0;
+    padding: 0 12px 0 0;
+}
+
+.overlay-header h2 {
+    position: static;
+    border: 0;
+    padding-inline-end: 12px;
+}
+
+.overlay-header .close-btn {
+    position: static;
+    order: 0;
+    align-self: center;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.overlay-frame > .overlay-scroll {
+    margin-inline: 0;
+}
+
+.overlay-frame .map-sect-scroll {
+    max-height: none;
+    overflow: visible;
+}
+
+.action-help-popover.overlay-scroll {
+    max-height: min(30rem, calc(100dvh - 16px));
+}
+
+@media (max-width: 768px) {
+    .popup-overlay:not(#combatOverlay) .overlay-panel {
+        max-block-size: 92dvh;
+    }
+}

@@ -401,11 +401,11 @@ function actionRecruit() {
 }
 
 // ----- SECT -----
-function actionSect() {
+function actionSect(opener) {
     if (actionBlocked()) return;
     if (!guardAction('sect')) return;
     if (typeof isSectFounded === 'function' && isSectFounded() && typeof openSectMap === 'function') {
-        openSectMap();
+        openSectMap(opener);
         return;
     }
     renderSectPopup();
@@ -519,12 +519,9 @@ function actionCombat() {
 }
 
 // ----- TECHNIQUES -----
-function actionTech() {
+function actionTech(opener) {
     if (G.gameOver) return;
-    const popup = document.getElementById('techPopup');
-    popup?.classList.remove('tech-popup-combat');
-    renderTechPopup();
-    popup?.classList.add('active');
+    openTechniquePanel(opener);
 }
 
 // ----- MERIDIANS -----

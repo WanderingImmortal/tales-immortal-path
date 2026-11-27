@@ -463,6 +463,7 @@ function initWorldClockUi() {
         if (ev.code !== 'Space' && ev.key !== ' ') return;
         const tag = (ev.target && ev.target.tagName) || '';
         if (tag === 'INPUT' || tag === 'TEXTAREA' || ev.target?.isContentEditable) return;
+        if (ev.target.closest?.('[role="dialog"] button')) return;
         const game = document.getElementById('game-screen');
         if (!game || game.style.display === 'none') return;
         ev.preventDefault();

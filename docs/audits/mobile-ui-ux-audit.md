@@ -128,6 +128,10 @@ The six mobile regression cases reproduced the audited failures on the base revi
 
 The phone layout still uses its opt-in setting. Wider redesign choices, including a default rollout, the permanent dock hierarchy, browser history behavior, seclusion minimization, calendar and log presentation, and iconography, remain for developer approval. Physical devices, operating system chrome and screen readers remain unverified.
 
+## Phase 2 navigation
+
+The developer-approved principles, shared lifecycle and first set of migrated surfaces are recorded in the [overlay navigation design note](../ideas/escape-key-overlay-navigation.md). The coverage includes chamber return, map navigation history, focus and scroll restoration, and dismissing Combat Arts while the fight remains active.
+
 ## Mobile regression testing
 
 Extend the current Playwright suite, which uses a single 1440 × 1000 Chromium viewport and covers boot, Gather Qi, reload and ownership. Use fresh storage per test. Keep a starter save driven by public UI and controlled seeded fixtures for dense inventory, advanced chambers, founded sect, active activity, combat and forced choice cases. Use deterministic data or seeded randomness where available. Keep optional fonts deterministic in CI and exercise the shipped webfont and its fallback in manual review. [Playwright config](https://github.com/WanderingImmortal/tales-immortal-path/blob/307bf21c8c7edf96582b866865e840b0d88b8da1/playwright.config.js#L5) · [Existing browser tests](https://github.com/WanderingImmortal/tales-immortal-path/blob/307bf21c8c7edf96582b866865e840b0d88b8da1/tests/browser/game.spec.js#L49)

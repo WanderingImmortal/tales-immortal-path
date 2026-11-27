@@ -883,9 +883,9 @@ function initGame() {
 // ===== EVENT BINDING =====
 function initOwnedGameUi() {
     // Core buttons
-    document.getElementById('btnCultivate').addEventListener('click', () => {
-        if (typeof openCultivationHub === 'function') openCultivationHub();
-        else if (typeof openQiChamber === 'function') openQiChamber();
+    document.getElementById('btnCultivate').addEventListener('click', event => {
+        if (typeof openCultivationHub === 'function') openCultivationHub(event.currentTarget);
+        else if (typeof openQiChamber === 'function') openQiChamber(event.currentTarget);
         else actionCultivate();
     });
     document.getElementById('btnConsolidate').addEventListener('click', actionConsolidate);
@@ -898,9 +898,9 @@ function initOwnedGameUi() {
     document.getElementById('btnPill').addEventListener('click', actionPill);
     document.getElementById('btnRecuperate').addEventListener('click', actionRecuperate);
     document.getElementById('btnRecruit').addEventListener('click', actionRecruit);
-    document.getElementById('btnSect').addEventListener('click', actionSect);
+    document.getElementById('btnSect').addEventListener('click', event => actionSect(event.currentTarget));
     document.getElementById('btnFactions').addEventListener('click', actionFactionsWrapper);
-    document.getElementById('btnMap').addEventListener('click', actionMap);
+    document.getElementById('btnMap').addEventListener('click', event => actionMap(event.currentTarget));
     document.getElementById('btnMarket').addEventListener('click', actionMarket);
     document.getElementById('btnThresholdJobs')?.addEventListener('click', () => {
         if (typeof openThresholdJobsPopup === 'function') openThresholdJobsPopup();
@@ -915,7 +915,7 @@ function initOwnedGameUi() {
         if (typeof openRedwellCityLordPopup === 'function') openRedwellCityLordPopup();
     });
     document.getElementById('btnCombat').addEventListener('click', actionCombat);
-    document.getElementById('btnTech').addEventListener('click', actionTech);
+    document.getElementById('btnTech').addEventListener('click', event => actionTech(event.currentTarget));
     document.getElementById('btnReset').addEventListener('click', resetGame);
     document.getElementById('btnTrueReincarnation')?.addEventListener('click', () => {
         if (typeof openTrueReincarnationChoice === 'function') openTrueReincarnationChoice();
@@ -957,7 +957,7 @@ function initOwnedGameUi() {
 
     // Popup close buttons
     document.getElementById('techClose').addEventListener('click', function() {
-        document.getElementById('techPopup')?.classList.remove('active', 'tech-popup-combat');
+        closeOverlaySurface('techPopup');
     });
     document.getElementById('techSortBar')?.querySelectorAll('[data-tech-sort]').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -980,9 +980,6 @@ function initOwnedGameUi() {
     document.getElementById('daoClose').addEventListener('click', function() {
         document.getElementById('daoPopup').classList.remove('active');
     });
-    document.getElementById('mapClose').addEventListener('click', function() {
-        document.getElementById('mapPopup').classList.remove('active');
-    });
     document.getElementById('thresholdJobsClose')?.addEventListener('click', function() {
         document.getElementById('thresholdJobsPopup')?.classList.remove('active');
     });
@@ -1000,7 +997,7 @@ function initOwnedGameUi() {
     document.getElementById('cbSealBlood')?.addEventListener('click', () => {
         if (typeof combatSealBlood === 'function') combatSealBlood();
     });
-    document.getElementById('cbSkill').addEventListener('click', combatSkill);
+    document.getElementById('cbSkill').addEventListener('click', event => combatSkill(event.currentTarget));
     document.getElementById('cbFlee').addEventListener('click', combatFlee);
     document.getElementById('cbVoidStep').addEventListener('click', combatVoidStep);
     document.getElementById('cbMoveN')?.addEventListener('click', () => {
@@ -1027,11 +1024,11 @@ function initOwnedGameUi() {
 
     // Advanced stats toggle
     document.getElementById('btnStatsToggle').addEventListener('click', toggleAdvancedStats);
-    document.getElementById('btnStatGuide')?.addEventListener('click', () => {
-        if (typeof actionStatGuide === 'function') actionStatGuide();
+    document.getElementById('btnStatGuide')?.addEventListener('click', event => {
+        if (typeof actionStatGuide === 'function') actionStatGuide(event.currentTarget);
     });
     document.getElementById('statGuideClose')?.addEventListener('click', () => {
-        document.getElementById('statGuidePopup')?.classList.remove('active');
+        closeOverlaySurface('statGuidePopup');
     });
 
     document.getElementById('forbiddenClose')?.addEventListener('click', () => {
@@ -1050,11 +1047,11 @@ function initOwnedGameUi() {
     document.getElementById('combatRewardClose')?.addEventListener('click', () => {
         if (typeof closeCombatRewardPopup === 'function') closeCombatRewardPopup();
     });
-    document.getElementById('btnQuestJournal')?.addEventListener('click', () => {
-        if (typeof openQuestJournal === 'function') openQuestJournal();
+    document.getElementById('btnQuestJournal')?.addEventListener('click', event => {
+        if (typeof openQuestJournal === 'function') openQuestJournal(undefined, event.currentTarget);
     });
     document.getElementById('questJournalClose')?.addEventListener('click', () => {
-        document.getElementById('questJournalPopup')?.classList.remove('active');
+        closeOverlaySurface('questJournalPopup');
     });
     document.querySelectorAll('#questJournalTabs .journal-tab').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -1098,7 +1095,7 @@ function initOwnedGameUi() {
         executePeakGrind();
     });
 
-    if (typeof initOverlayKeyboardEscape === 'function') initOverlayKeyboardEscape();
+    initOverlayNavigation();
 
     // Start the game
     if (typeof initWorldClockUi === 'function') initWorldClockUi();

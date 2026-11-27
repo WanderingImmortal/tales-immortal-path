@@ -166,6 +166,7 @@ function bindZoneLocationEvents(container) {
     container.querySelectorAll('[data-location-travel]').forEach(btn => {
         btn.addEventListener('click', function() {
             const result = travelToLocation(this.dataset.locationTravel);
+            if (result.success) discardOverlaySteps('mapPopup');
             addLog(result.message);
             if (typeof mapPopupUi !== 'undefined') {
                 mapPopupUi.selectedLocationId = this.dataset.locationTravel;
@@ -363,9 +364,11 @@ function renderLocalLocationDetailHtml(zoneId, locationId, preview) {
 
 function selectLocalMapLocation(locationId) {
     if (!locationId || typeof mapPopupUi === 'undefined') return;
+    if (mapPopupUi.selectedLocationId !== locationId) rememberMapNavigation();
     mapPopupUi.selectedLocationId = locationId;
     mountLocalMap();
     requestAnimationFrame(() => {
+        if (mapPopupUi.tab !== 'local' || mapPopupUi.selectedLocationId !== locationId) return;
         const detailEl = document.getElementById('localMapDetail');
         detailEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     });

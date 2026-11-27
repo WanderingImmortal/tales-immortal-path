@@ -49,9 +49,7 @@ function getEmphasisLabel(track) {
     return labels[track] || track;
 }
 
-function openCultivationHub() {
-    if (cultivationHubBlocked()) return;
-    G.inCultivationHub = true;
+function renderCultivationHub() {
     const pathEl = document.getElementById('cultivationHubPrimaryPath');
     if (pathEl) {
         const track = typeof getFocusTrack === 'function' ? getFocusTrack() : null;
@@ -60,31 +58,32 @@ function openCultivationHub() {
             : (PATHS[G.path]?.name || G.path);
     }
     if (typeof renderCultivationHubCards === 'function') renderCultivationHubCards();
-    const overlay = document.getElementById('cultivationHubOverlay');
-    overlay?.classList.add('active');
-    const shell = overlay?.querySelector('.cultivation-hub-shell');
+}
+
+function openCultivationHub(opener) {
+    if (cultivationHubBlocked()) return;
+    G.inCultivationHub = true;
+    renderCultivationHub();
+    const overlay = openOverlaySurface('cultivationHubOverlay', {
+        opener,
+        onSuspend: () => { G.inCultivationHub = false; },
+        onResume: () => {
+            G.inCultivationHub = true;
+            renderCultivationHub();
+        },
+        onClose: () => { G.inCultivationHub = false; }
+    });
+    const shell = overlay?.querySelector('.overlay-scroll');
     if (shell) shell.scrollTop = 0;
 }
 
 function closeCultivationHub() {
-    G.inCultivationHub = false;
-    document.getElementById('cultivationHubOverlay')?.classList.remove('active');
-}
-
-function chooseCultivationChamber(kind) {
-    closeCultivationHub();
-    if (kind === 'qi' && typeof openQiChamber === 'function') {
-        openQiChamber();
-    } else if (kind === 'body' && typeof openBodyChamber === 'function') {
-        openBodyChamber();
-    } else if (kind === 'soul' && typeof openSoulChamber === 'function') {
-        openSoulChamber();
-    }
+    closeOverlaySurface('cultivationHubOverlay');
 }
 
 function initCultivationHubEvents() {
-    document.getElementById('cultivationHubQi')?.addEventListener('click', () => chooseCultivationChamber('qi'));
-    document.getElementById('cultivationHubBody')?.addEventListener('click', () => chooseCultivationChamber('body'));
-    document.getElementById('cultivationHubSoul')?.addEventListener('click', () => chooseCultivationChamber('soul'));
+    document.getElementById('cultivationHubQi')?.addEventListener('click', event => openQiChamber(event.currentTarget));
+    document.getElementById('cultivationHubBody')?.addEventListener('click', event => openBodyChamber(event.currentTarget));
+    document.getElementById('cultivationHubSoul')?.addEventListener('click', event => openSoulChamber(event.currentTarget));
     document.getElementById('cultivationHubClose')?.addEventListener('click', closeCultivationHub);
 }

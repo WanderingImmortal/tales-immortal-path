@@ -49,7 +49,7 @@ test('active seclusion keeps Pause and Emerge available through dismissal attemp
     await expect(back).toBeHidden();
     await page.keyboard.press('Escape');
     await expect(overlay).toBeVisible();
-    expect(await page.evaluate(() => closeTopEscapeOverlay())).toBe(false);
+    expect(await page.evaluate(() => dismissTopOverlay())).toBe(false);
     await page.evaluate(() => hideTimePlaybackOverlay());
     await expect(overlay).toBeVisible();
 
@@ -187,4 +187,126 @@ test('Cultivate is touch-operable at first paint in short landscape with either 
     await expect(page.locator('#cultivationHubOverlay')).toBeVisible();
     await page.locator('#cultivationHubQi').tap();
     await expect(page.locator('#qiChamberOverlay')).toBeVisible();
+});
+
+test('phone Back retraces map layers and restores scene clock and sheet focus', async ({ game: { page } }) => {
+    await createCharacter(page);
+    const clockStart = new Date('2026-01-01T00:00:00Z');
+    await page.clock.install({ time: clockStart });
+    await page.clock.pauseAt(new Date(clockStart.getTime() + 1000));
+    const play = page.locator('#worldClockPlayPause');
+    await play.tap();
+    await expect(play).toContainText('Pause');
+    const before = await page.evaluate(() => ({ age: G.ageMonths, save: localStorage.getItem('xianxia_save') }));
+
+    const world = page.locator('[data-phone-sheet="world"]');
+    await world.tap();
+    const mapButton = page.locator('#btnMap');
+    await mapButton.tap();
+    await expect(page.getByRole('dialog', { name: /World Map/ })).toBeVisible();
+    await expect(page.locator('#mapTitle')).toBeFocused();
+    await expect(play).toContainText('Held');
+    await expect(page.locator('body')).toHaveClass(/overlay-scroll-locked/);
+    const content = page.locator('#mapPopup .overlay-scroll');
+    const scrollY = await page.evaluate(() => window.scrollY);
+    const scrollTop = await content.evaluate(element => {
+        element.scrollTop = 80;
+        return element.scrollTop;
+    });
+    expect(scrollTop).toBeGreaterThan(0);
+    expect(await page.evaluate(() => window.scrollY)).toBe(scrollY);
+    await tapMapTab(page, /Region/, '#mapContinentPanel');
+    await tapMapTab(page, /Local/, '#mapLocalPanel');
+    const place = page.getByRole('button', { name: /Brine-Well Hamlet/ });
+    await place.tap();
+    await expect(page.locator('#localMapDetail')).toContainText('Brine-Well Hamlet');
+    await page.clock.runFor(5200);
+    expect(await page.evaluate(() => G.ageMonths)).toBe(before.age);
+
+    const back = page.getByRole('button', { name: 'Back', exact: true });
+    await back.tap();
+    await expect(page.locator('#localMapDetail')).toContainText('Redwell');
+    await back.tap();
+    await expect(page.locator('#mapTabContinent')).toBeFocused();
+    await expect(page.locator('#mapContinentPanel')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#mapTabWorld')).toBeFocused();
+    await expect(page.locator('#mapWorldPanel')).toBeVisible();
+    expect(await content.evaluate(element => element.scrollTop)).toBe(scrollTop);
+    await back.tap();
+    await expect(mapButton).toBeFocused();
+    await expect(play).toContainText('Pause');
+    await back.tap();
+    await expect(world).toBeFocused();
+    await expect(page.locator('body')).not.toHaveClass(/overlay-scroll-locked/);
+    expect(await page.evaluate(() => ({ age: G.ageMonths, save: localStorage.getItem('xianxia_save') }))).toEqual(before);
+});
+
+test('a nested stats guide keeps keyboard focus within the dialog and returns to Character', async ({ game: { page } }) => {
+    await createCharacter(page);
+    const character = page.locator('#phoneOpenCharacter');
+    await character.tap();
+    const guideButton = page.locator('#btnStatGuide');
+    await guideButton.tap();
+    const guide = page.getByRole('dialog', { name: /Cultivation Stats/ });
+    await expect(guide.getByRole('heading')).toBeFocused();
+    const close = guide.getByRole('button', { name: 'Close' });
+    await page.keyboard.press('Shift+Tab');
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+    await close.tap();
+    await expect(guideButton).toBeFocused();
+    await page.getByRole('button', { name: 'Back', exact: true }).tap();
+    await expect(character).toBeFocused();
+});
+
+test('the other cultivation chambers return to their cards', async ({ game: { page } }) => {
+    await createCharacter(page);
+    const back = page.getByRole('button', { name: 'Back', exact: true });
+    await page.locator('#phoneCultivateCta').tap();
+    for (const { card, chamber, flag, close } of [
+        { card: '#cultivationHubBody', chamber: '#bodyChamberOverlay', flag: 'inBodyChamber', close: '#bodyChamberReturn' },
+        { card: '#cultivationHubSoul', chamber: '#soulChamberOverlay', flag: 'inSoulChamber', close: null }
+    ]) {
+        const launcher = page.locator(card);
+        await launcher.tap();
+        await expect(page.locator(chamber)).toBeVisible();
+        const exit = close ? page.locator(close) : back;
+        await exit.tap();
+        await expect(launcher).toBeFocused();
+        expect(await page.evaluate(key => G[key], flag)).toBe(false);
+    }
+    await back.tap();
+    await expect(page.locator('#phoneCultivateCta')).toBeFocused();
+});
+
+test('combat techniques dismiss by Escape and phone Back while combat stays committed', async ({ game: { page } }) => {
+    await createCharacter(page);
+    await openPhoneAction(page, 'world', '#btnCombat');
+    const combat = page.locator('#combatOverlay');
+    await expect(combat).toBeVisible();
+    const techButton = combat.locator('#cbSkill');
+    const back = page.getByRole('button', { name: 'Back', exact: true });
+    const state = () => page.evaluate(() => ({
+        age: G.ageMonths, enemyHp: G.enemy.hp, phase: G.combatPhase, save: localStorage.getItem('xianxia_save')
+    }));
+    await expect(techButton).toBeEnabled();
+    const before = await state();
+    await techButton.tap();
+    const technique = page.getByRole('dialog', { name: /Combat Arts/ });
+    await expect(technique.getByRole('heading')).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(technique).toBeHidden();
+    await expect(techButton).toBeFocused();
+    await expect(back).toBeHidden();
+    await page.keyboard.press('Escape');
+    await expect(combat).toBeVisible();
+
+    await techButton.tap();
+    await back.tap();
+    await expect(technique).toBeHidden();
+    await expect(techButton).toBeFocused();
+    await expect(combat).toBeVisible();
+    expect(await state()).toEqual(before);
 });

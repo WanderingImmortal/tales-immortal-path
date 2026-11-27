@@ -666,7 +666,7 @@ function bodyChamberActionBlocked() {
         || (typeof isTribulationActive === 'function' && isTribulationActive());
 }
 
-function openBodyChamber() {
+function openBodyChamber(opener) {
     if (bodyChamberActionBlocked()) return;
     ensureBodyChamberState();
     ensureExternalSalvePlaytestStarter();
@@ -674,17 +674,21 @@ function openBodyChamber() {
         setFocusTrack('vessel');
     }
     G.inBodyChamber = true;
-    document.getElementById('bodyChamberOverlay')?.classList.add('active');
     if (!isBodyLayerUnlocked(G.bodyChamber.activeTab)) {
         G.bodyChamber.activeTab = 'skin';
     }
     renderBodyChamberUI();
+    openOverlaySurface('bodyChamberOverlay', {
+        opener,
+        suspendParent: true,
+        onClose: () => { G.inBodyChamber = false; }
+    });
+    renderStatus();
+    syncPhonePlaytestHeader();
 }
 
 function closeBodyChamber() {
-    G.inBodyChamber = false;
-    document.getElementById('bodyChamberOverlay')?.classList.remove('active');
-    fullRender();
+    closeOverlaySurface('bodyChamberOverlay');
 }
 
 function setBodyChamberTab(layerId) {

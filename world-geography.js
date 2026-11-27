@@ -81,7 +81,6 @@ function mountWorldGeographyOverview() {
 
     el.querySelectorAll('[data-continent-id]').forEach(btn => {
         btn.addEventListener('click', () => {
-            mapPopupUi.continentId = btn.dataset.continentId;
             if (typeof setMapPopupTab === 'function') setMapPopupTab('continent', { continentId: btn.dataset.continentId });
         });
     });
