@@ -2119,7 +2119,7 @@ function bindSectPanelEvents(container) {
         const result = foundSect(nameInput?.value, doctrine);
         if (result.message && !result.success) addLog(`🏯 ${result.message}`);
         if (result.success && typeof openSectMap === 'function') {
-            openSectMap();
+            openSectMap(null);
         } else if (typeof renderSectPopup === 'function') {
             renderSectPopup();
         }

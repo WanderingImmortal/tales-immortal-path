@@ -83,16 +83,34 @@ let mapPopupUi = {
 };
 
 // ===== MAP FUNCTIONS =====
-function actionMap() {
+function actionMap(opener) {
     if (G.gameOver) return;
     mapPopupUi.tab = 'world';
     mapPopupUi.previewMode = false;
     mapPopupUi.localZoneId = getMainZoneId();
     mapPopupUi.selectedLocationId = null;
     mapPopupUi.worldSelectedZoneId = getMainZoneId();
+    openMapSurface(opener);
     renderMapPopup();
-    document.getElementById('mapPopup').classList.add('active');
+}
+
+function openMapSurface(opener) {
+    const existing = findOverlaySurface('mapPopup');
+    const overlay = openOverlaySurface('mapPopup', { opener, suspendParent: true });
+    if (!existing && overlay) overlay.querySelector('.overlay-scroll').scrollTop = 0;
     document.getElementById('sectPopup')?.classList.remove('active');
+}
+
+function rememberMapNavigation() {
+    const previous = { ...mapPopupUi };
+    const scrollRegion = document.querySelector('#mapPopup .overlay-scroll');
+    const scrollTop = scrollRegion?.scrollTop ?? 0;
+    rememberOverlayStep('mapPopup', () => {
+        Object.assign(mapPopupUi, previous);
+        renderMapPopup();
+        if (scrollRegion) scrollRegion.scrollTop = scrollTop;
+        focusOverlayControl(document.querySelector('#mapPopup .map-tab-btn[aria-selected="true"]'));
+    });
 }
 
 function setMapPopupTab(tab, opts) {
@@ -100,6 +118,8 @@ function setMapPopupTab(tab, opts) {
     if (tab === 'continent') next = 'continent';
     else if (tab === 'local') next = 'local';
     else if (tab === 'sect') next = 'sect';
+    const layerChanged = mapPopupUi.tab !== next;
+    if (layerChanged) rememberMapNavigation();
     mapPopupUi.tab = next;
     if (next === 'continent') {
         const main = getMainZoneId();
@@ -122,23 +142,30 @@ function setMapPopupTab(tab, opts) {
         mapPopupUi.worldSelectedZoneId = opts.zoneId;
     }
     renderMapPopup();
+    if (layerChanged) {
+        const scrollRegion = document.querySelector('#mapPopup .overlay-scroll');
+        if (scrollRegion) scrollRegion.scrollTop = 0;
+        if (!document.activeElement?.getClientRects().length) {
+            focusOverlayControl(document.querySelector('#mapPopup .map-tab-btn[aria-selected="true"]'));
+        }
+    }
 }
 
 function openLocalMap(zoneId, preview) {
     const mainHere = getMainZoneId();
     const z = zoneId || mainHere;
     const isPreview = preview != null ? !!preview : (z !== mainHere || (typeof isInHiddenSubZone === 'function' && isInHiddenSubZone()));
+    const opening = !findOverlaySurface('mapPopup');
+    if (opening) mapPopupUi.tab = 'local';
+    openMapSurface();
     setMapPopupTab('local', { zoneId: z, preview: isPreview });
-    document.getElementById('mapPopup')?.classList.add('active');
-    document.getElementById('sectPopup')?.classList.remove('active');
 }
 
-function openSectMap() {
-    mapPopupUi.tab = 'sect';
-    // The sect renderer selects its mount point from the active map tab.
-    document.getElementById('mapPopup')?.classList.add('active');
-    renderMapPopup();
-    document.getElementById('sectPopup')?.classList.remove('active');
+function openSectMap(opener) {
+    // Set the initial layer before mounting when opening from outside the map.
+    if (!findOverlaySurface('mapPopup')) mapPopupUi.tab = 'sect';
+    openMapSurface(opener);
+    setMapPopupTab('sect');
 }
 
 function isMapSectTabOpen() {
@@ -460,6 +487,7 @@ function applyTravelArrival(zoneId, opts) {
     if (typeof fireSceneNoticesOnArrive === 'function') {
         fireSceneNoticesOnArrive({ locationId: G.currentLocation, zoneId });
     }
+    discardOverlaySteps('mapPopup');
     mapPopupUi.tab = 'local';
     mapPopupUi.previewMode = false;
     mapPopupUi.localZoneId = zoneId;
@@ -470,9 +498,7 @@ function applyTravelArrival(zoneId, opts) {
 }
 
 function bindMapEvents() {
-    document.getElementById('mapClose').addEventListener('click', function() {
-        document.getElementById('mapPopup').classList.remove('active');
-    });
+    document.getElementById('mapClose').addEventListener('click', () => closeOverlaySurface('mapPopup'));
     document.getElementById('mapTabWorld')?.addEventListener('click', () => setMapPopupTab('world'));
     document.getElementById('mapTabContinent')?.addEventListener('click', () => {
         const main = getMainZoneId();
@@ -485,7 +511,7 @@ function bindMapEvents() {
             openSectMap();
             return;
         }
-        document.getElementById('mapPopup')?.classList.remove('active');
+        closeOverlaySurface('mapPopup', { returnToParent: false });
         if (typeof actionSect === 'function') actionSect();
     });
 }

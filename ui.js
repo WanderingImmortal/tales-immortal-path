@@ -1357,6 +1357,18 @@ function bindTechPinButtons(root) {
     });
 }
 
+function openTechniquePanel(opener, { combat = false } = {}) {
+    const popup = document.getElementById('techPopup');
+    if (!popup) return;
+    popup.classList.toggle('tech-popup-combat', combat);
+    renderTechPopup();
+    openOverlaySurface('techPopup', {
+        opener,
+        suspendParent: !combat,
+        onClose: () => popup.classList.remove('tech-popup-combat')
+    });
+}
+
 function renderTechPopup() {
     const el = document.getElementById('techList');
     const sortBar = document.getElementById('techSortBar');
@@ -2004,9 +2016,9 @@ function renderStatGuidePopup() {
     list.innerHTML = html;
 }
 
-function actionStatGuide() {
+function actionStatGuide(opener) {
     renderStatGuidePopup();
-    document.getElementById('statGuidePopup')?.classList.add('active');
+    openOverlaySurface('statGuidePopup', { opener, suspendParent: true });
 }
 
 /** One delegated listener — survives innerHTML refresh; reliable on mobile touch. */
@@ -2438,13 +2450,13 @@ function renderQuestJournalPopup(tabId) {
     list.innerHTML = '<p class="quest-journal-empty">Diary unavailable.</p>';
 }
 
-function openQuestJournal(tabId) {
+function openQuestJournal(tabId, opener) {
     tabId = typeof normalizeJournalTab === 'function'
         ? normalizeJournalTab(tabId || window._journalTab || 'path')
         : (tabId || window._journalTab || 'path');
     window._journalTab = tabId;
     if (typeof renderQuestJournalPopup === 'function') renderQuestJournalPopup(tabId);
-    document.getElementById('questJournalPopup')?.classList.add('active');
+    openOverlaySurface('questJournalPopup', { opener, suspendParent: true });
 }
 
 function showCombatVictoryPopup(opts) {

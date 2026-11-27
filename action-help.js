@@ -11,10 +11,7 @@ function setHoverTooltip(el, text) {
 }
 
 function closeActionHelpPopover() {
-    const pop = document.getElementById('actionHelpPopover');
-    if (!pop) return;
-    pop.hidden = true;
-    _actionHelpAnchor = null;
+    closeOverlaySurface('actionHelpPopover');
 }
 
 function positionActionHelpPopover(anchor) {
@@ -56,8 +53,14 @@ function openActionHelpPopover(anchor, content) {
     }
     statsEl.hidden = !statsEl.innerHTML;
 
-    pop.hidden = false;
+    closeOverlaySurface('actionHelpPopover', { restoreFocus: false });
     _actionHelpAnchor = anchor;
+    openOverlaySurface('actionHelpPopover', {
+        opener: anchor,
+        usesHidden: true,
+        modal: false,
+        onClose: () => { _actionHelpAnchor = null; }
+    });
     positionActionHelpPopover(anchor);
 }
 
@@ -123,10 +126,7 @@ function initActionHelp() {
         const pop = document.getElementById('actionHelpPopover');
         if (!pop || pop.hidden) return;
         if (e.target.closest('#actionHelpPopover') || e.target.closest('.action-help-btn')) return;
-        closeActionHelpPopover();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeActionHelpPopover();
+        closeOverlaySurface('actionHelpPopover', { restoreFocus: false });
     });
     window.addEventListener('resize', () => {
         if (_actionHelpAnchor) positionActionHelpPopover(_actionHelpAnchor);

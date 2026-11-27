@@ -210,20 +210,23 @@ function chamberActionBlocked() {
         || (typeof isTribulationActive === 'function' && isTribulationActive());
 }
 
-function openQiChamber() {
+function openQiChamber(opener) {
     if (chamberActionBlocked()) return;
     ensureChamberState();
     G.inQiChamber = true;
-    const overlay = document.getElementById('qiChamberOverlay');
-    if (overlay) overlay.classList.add('active');
     renderChamberUI();
+    openOverlaySurface('qiChamberOverlay', {
+        opener,
+        suspendParent: true,
+        onClose: () => {
+            G.inQiChamber = false;
+            hideChamberTechPicker();
+        }
+    });
 }
 
-function closeQiChamber() {
-    G.inQiChamber = false;
-    hideChamberTechPicker();
-    document.getElementById('qiChamberOverlay')?.classList.remove('active');
-    fullRender();
+function closeQiChamber(options) {
+    closeOverlaySurface('qiChamberOverlay', options);
 }
 
 function hideChamberTechPicker() {
@@ -610,7 +613,7 @@ function chamberCondenseCore() {
     G.chamberCoreCondensed = true;
     triggerChamberAnim('condense');
     commitActionLog(`💎 Qi compresses into a nascent golden core (${Math.round(chance)}% chance). Heaven's tribulation descends!`);
-    closeQiChamber();
+    closeQiChamber({ returnToParent: false });
     const tribOpts = { breakStyle: 'balanced', context: 'breakthrough', transitionId: 'fe_to_gc', limbo: true };
     if (typeof beginTribulationWithTutorial === 'function') {
         beginTribulationWithTutorial('balanced', tribOpts);

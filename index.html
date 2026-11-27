@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=109" />
+    <link rel="stylesheet" href="style.css?v=110" />
 </head>
 <body>
 <section id="save-ownership" aria-labelledby="save-ownership-title">
@@ -168,12 +168,12 @@
         <button type="button" id="phoneOverlayBack" class="phone-overlay-back" hidden aria-label="Back">← Back</button>
         <div class="phone-group-sheet" id="phoneGroupSheet" hidden>
             <div class="phone-group-sheet-backdrop" id="phoneGroupSheetBackdrop"></div>
-            <div class="phone-group-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="phoneGroupSheetTitle">
+            <div class="phone-group-sheet-panel overlay-panel" role="dialog" aria-modal="true" aria-labelledby="phoneGroupSheetTitle">
                 <header class="phone-group-sheet-header">
-                    <h3 id="phoneGroupSheetTitle">Actions</h3>
+                    <h3 id="phoneGroupSheetTitle" data-overlay-focus tabindex="-1">Actions</h3>
                     <button type="button" class="phone-group-sheet-close" id="phoneGroupSheetClose" aria-label="Close">✕</button>
                 </header>
-                <div class="phone-group-sheet-body" id="phoneGroupSheetBody"></div>
+                <div class="phone-group-sheet-body overlay-scroll" id="phoneGroupSheetBody"></div>
             </div>
         </div>
         <div id="worldClockBar" class="world-clock-bar" hidden aria-label="Living calendar">
@@ -610,8 +610,8 @@
 </div>
 
 <div class="popup-overlay" id="questJournalPopup">
-    <div class="popup-box quest-journal-box">
-        <h2>📖 Diary</h2>
+    <div class="popup-box quest-journal-box overlay-panel overlay-scroll" role="dialog" aria-modal="true" aria-labelledby="questJournalTitle">
+        <h2 id="questJournalTitle" data-overlay-focus tabindex="-1">📖 Diary</h2>
         <p class="quest-journal-hint" id="questJournalHint">Your life as a story — not a spreadsheet.</p>
         <div class="quest-journal-tabs" id="questJournalTabs">
             <button type="button" class="journal-tab active" data-journal-tab="path">My path</button>
@@ -721,9 +721,9 @@
 </div>
 
 <div class="popup-overlay" id="cultivationHubOverlay">
-    <div class="cultivation-hub-shell">
+    <div class="cultivation-hub-shell overlay-panel overlay-scroll" role="dialog" aria-modal="true" aria-labelledby="cultivationHubTitle">
         <header class="cultivation-hub-header">
-            <h2 class="cultivation-hub-title">🧘 Three Refinements</h2>
+            <h2 id="cultivationHubTitle" data-overlay-focus tabindex="-1" class="cultivation-hub-title">🧘 Three Refinements</h2>
             <p class="cultivation-hub-subtitle">Every cultivator walks dantian, vessel, and spirit. Choose where to refine yourself today.</p>
             <p class="cultivation-hub-path-note">Current focus track: <span id="cultivationHubPrimaryPath">—</span></p>
         </header>
@@ -756,9 +756,9 @@
 </div>
 
 <div class="popup-overlay" id="soulChamberOverlay">
-    <div class="soul-chamber-shell">
+    <div class="soul-chamber-shell overlay-panel overlay-scroll" role="dialog" aria-modal="true" aria-labelledby="soulChamberTitle">
         <header class="soul-chamber-header">
-            <h2 class="soul-chamber-title">🧠 Soul Palace</h2>
+            <h2 id="soulChamberTitle" data-overlay-focus tabindex="-1" class="soul-chamber-title">🧠 Soul Palace</h2>
             <p class="soul-chamber-subtitle">Spirit track — Chapter 1: Spirit Foundation. Chapter 2: Soul Cultivation opens when the soul is born (fourth realm on any path).</p>
             <p class="soul-palace-embryo-status" id="soulPalaceEmbryoStatus"></p>
             <p class="soul-mass-status" id="soulMassStatus"></p>
@@ -799,9 +799,9 @@
 </div>
 
 <div class="popup-overlay" id="bodyChamberOverlay">
-    <div class="body-chamber-shell">
+    <div class="body-chamber-shell overlay-panel overlay-scroll" role="dialog" aria-modal="true" aria-labelledby="bodyChamberTitle">
         <header class="body-chamber-header">
-            <h2 class="body-chamber-title">💪 Body Cultivation Chamber</h2>
+            <h2 id="bodyChamberTitle" data-overlay-focus tabindex="-1" class="body-chamber-title">💪 Body Cultivation Chamber</h2>
             <p class="body-chamber-subtitle">Refine your form layer by layer — from skin to nerves.</p>
             <div class="body-chamber-physique-section" id="bodyPhysiqueSection">
                 <div class="body-chamber-physique-project" id="bodyPhysiqueProject" hidden></div>
@@ -999,9 +999,9 @@
 </div>
 
 <div class="popup-overlay" id="qiChamberOverlay">
-    <div class="chamber-shell">
+    <div class="chamber-shell overlay-panel overlay-scroll" role="dialog" aria-modal="true" aria-labelledby="qiChamberTitle">
         <header class="chamber-header">
-            <h2 class="chamber-title">☯ Qi Cultivation Chamber</h2>
+            <h2 id="qiChamberTitle" data-overlay-focus tabindex="-1" class="chamber-title">☯ Qi Cultivation Chamber</h2>
             <p class="chamber-subtitle">The void hums. Your dantian awaits.</p>
             <p class="chamber-path" id="chamberCultivationPath">Path: —</p>
         </header>
@@ -1287,8 +1287,8 @@
 </div>
 
 <div class="popup-overlay" id="techPopup">
-    <div class="popup-box">
-        <h2>📜 Techniques</h2>
+    <div class="popup-box overlay-panel overlay-scroll" role="dialog" aria-modal="true" aria-labelledby="techPopupTitle">
+        <h2 id="techPopupTitle" data-overlay-focus tabindex="-1">📜 Techniques</h2>
         <p id="techLoadoutHint" class="tech-loadout-hint">Combat loadout — pin arts for fights.</p>
         <div class="tech-sort-bar" id="techSortBar">
             <button type="button" class="tech-sort-btn active" data-tech-sort="path">By Path</button>
@@ -1458,54 +1458,58 @@
 </div>
 
 <div class="popup-overlay" id="mapPopup">
-    <div class="popup-box map-popup-box">
-        <h2>🗺️ World Map</h2>
+    <div class="popup-box map-popup-box overlay-panel overlay-frame" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
+        <header class="overlay-header">
+            <h2 id="mapTitle" data-overlay-focus tabindex="-1">🗺️ World Map</h2>
+            <button type="button" class="close-btn" id="mapClose">Close Map</button>
+        </header>
         <div class="map-popup-intro">
             World → continent → region → local places. Roads stay open; danger still applies. <span id="currentZoneDisplay">Current: Unknown</span>
         </div>
         <div class="map-tabs" role="tablist" aria-label="Map layers">
-            <button type="button" class="map-tab-btn active" id="mapTabWorld" data-map-tab="world" role="tab" aria-selected="true">🌍 World</button>
-            <button type="button" class="map-tab-btn" id="mapTabContinent" data-map-tab="continent" role="tab" aria-selected="false">🌏 Region</button>
-            <button type="button" class="map-tab-btn" id="mapTabLocal" data-map-tab="local" role="tab" aria-selected="false">📍 Local</button>
-            <button type="button" class="map-tab-btn" id="mapTabSect" data-map-tab="sect" role="tab" aria-selected="false">🏯 Sect</button>
+            <button type="button" class="map-tab-btn active" id="mapTabWorld" aria-controls="mapWorldPanel" data-map-tab="world" role="tab" aria-selected="true">🌍 World</button>
+            <button type="button" class="map-tab-btn" id="mapTabContinent" aria-controls="mapContinentPanel" data-map-tab="continent" role="tab" aria-selected="false">🌏 Region</button>
+            <button type="button" class="map-tab-btn" id="mapTabLocal" aria-controls="mapLocalPanel" data-map-tab="local" role="tab" aria-selected="false">📍 Local</button>
+            <button type="button" class="map-tab-btn" id="mapTabSect" aria-controls="mapSectPanel" data-map-tab="sect" role="tab" aria-selected="false">🏯 Sect</button>
         </div>
-        <div id="mapWorldPanel" class="map-tab-panel map-geo-panel" role="tabpanel">
-            <div id="continentMap" class="continent-map-wrap"></div>
-            <div id="zoneInfo" class="zone-info-panel">
-                Tap a continent to continue.
+        <div class="overlay-scroll map-scroll">
+            <div id="mapWorldPanel" aria-labelledby="mapTabWorld" class="map-tab-panel map-geo-panel" role="tabpanel">
+                <div id="continentMap" class="continent-map-wrap"></div>
+                <div id="zoneInfo" class="zone-info-panel">
+                    Tap a continent to continue.
+                </div>
+            </div>
+            <div id="mapContinentPanel" aria-labelledby="mapTabContinent" class="map-tab-panel map-geo-panel" role="tabpanel" hidden>
+                <div id="continentMapInner" class="continent-map-wrap"></div>
+                <div id="zoneInfoContinent" class="zone-info-panel">
+                    Tap a region to learn more.
+                </div>
+            </div>
+            <div id="mapLocalPanel" aria-labelledby="mapTabLocal" class="map-tab-panel" role="tabpanel" hidden>
+                <div id="localMapHeader" class="local-map-header"></div>
+                <div id="localMapScene" class="local-map-scene-wrap"></div>
+                <div id="localMapDetail" class="zone-info-panel local-map-detail">
+                    Click a place on the local map.
+                </div>
+            </div>
+            <div id="mapSectPanel" aria-labelledby="mapTabSect" class="map-tab-panel map-sect-panel" role="tabpanel" hidden>
+                <div id="mapSectInfo" class="sect-info-scroll map-sect-scroll"></div>
             </div>
         </div>
-        <div id="mapContinentPanel" class="map-tab-panel map-geo-panel" role="tabpanel" hidden>
-            <div id="continentMapInner" class="continent-map-wrap"></div>
-            <div id="zoneInfoContinent" class="zone-info-panel">
-                Tap a region to learn more.
-            </div>
-        </div>
-        <div id="mapLocalPanel" class="map-tab-panel" role="tabpanel" hidden>
-            <div id="localMapHeader" class="local-map-header"></div>
-            <div id="localMapScene" class="local-map-scene-wrap"></div>
-            <div id="localMapDetail" class="zone-info-panel local-map-detail">
-                Click a place on the local map.
-            </div>
-        </div>
-        <div id="mapSectPanel" class="map-tab-panel map-sect-panel" role="tabpanel" hidden>
-            <div id="mapSectInfo" class="sect-info-scroll map-sect-scroll"></div>
-        </div>
-        <button class="close-btn" id="mapClose">Close Map</button>
     </div>
 </div>
 
 <div class="popup-overlay" id="statGuidePopup">
-    <div class="popup-box stat-guide-box">
-        <h2>❓ Cultivation Stats</h2>
+    <div class="popup-box stat-guide-box overlay-panel overlay-scroll" role="dialog" aria-modal="true" aria-labelledby="statGuideTitle">
+        <h2 id="statGuideTitle" data-overlay-focus tabindex="-1">❓ Cultivation Stats</h2>
         <p class="stat-guide-intro">Hover stat chips in the sidebar for quick tips.</p>
         <div id="statGuideList" class="stat-guide-list"></div>
         <button class="close-btn" id="statGuideClose">Close</button>
     </div>
 </div>
 
-<div id="actionHelpPopover" class="action-help-popover" hidden>
-    <button type="button" class="action-help-popover-close" id="actionHelpPopoverClose" aria-label="Close">×</button>
+<div id="actionHelpPopover" class="action-help-popover overlay-scroll" role="dialog" aria-labelledby="actionHelpTitle" hidden>
+    <button type="button" class="action-help-popover-close" id="actionHelpPopoverClose" data-overlay-focus aria-label="Close">×</button>
     <div class="action-help-popover-title" id="actionHelpTitle"></div>
     <div class="action-help-popover-desc" id="actionHelpDesc"></div>
     <div class="action-help-popover-stats" id="actionHelpStats"></div>
@@ -1555,15 +1559,15 @@
 <script src="formations.js?v=7"></script>
 <script src="world-formations.js?v=4"></script>
 <script src="sect-map.js?v=10"></script>
-<script src="sect.js?v=30"></script>
+<script src="sect.js?v=31"></script>
 <script src="sect-missions.js?v=4"></script>
 <script src="sect-expand.js?v=15"></script>
 <script src="cultivation.js?v=23"></script>
 <script src="intent.js?v=7"></script>
 <script src="tribulation.js?v=18"></script>
-<script src="locations.js?v=5"></script>
-<script src="world-geography.js?v=1"></script>
-<script src="world.js?v=44"></script>
+<script src="locations.js?v=6"></script>
+<script src="world-geography.js?v=2"></script>
+<script src="world.js?v=45"></script>
 <script src="npc-foundations.js?v=2"></script>
 <script src="npc-ties.js?v=1"></script>
 <script src="npc-incidents.js?v=1"></script>
@@ -1587,32 +1591,32 @@
 <script src="forbidden.js?v=3"></script>
 <script src="npc.js?v=32"></script>
 <script src="quests.js?v=14"></script>
-<script src="ui.js?v=68"></script>
+<script src="ui.js?v=69"></script>
 <script src="action-gates.js?v=6"></script>
-<script src="actions.js?v=44"></script>
-<script src="chamber.js?v=13"></script>
+<script src="actions.js?v=45"></script>
+<script src="chamber.js?v=14"></script>
 <script src="body-skeleton-art.js?v=1"></script>
-<script src="body-chamber.js?v=29"></script>
+<script src="body-chamber.js?v=30"></script>
 <script src="cultivation-chamber-steps.js?v=1"></script>
 <script src="vessel-rules.js?v=3"></script>
 <script src="physique-cultivation.js?v=3"></script>
-<script src="soul-chamber.js?v=5"></script>
+<script src="soul-chamber.js?v=6"></script>
 <script src="soul-mass.js?v=2"></script>
-<script src="cultivation-hub.js?v=5"></script>
+<script src="cultivation-hub.js?v=6"></script>
 <script src="story-arcs.js?v=6"></script>
 <script src="chronicle-diary.js?v=2"></script>
 <script src="player-activity.js?v=4"></script>
 <script src="time-playback.js?v=8"></script>
-<script src="world-clock.js?v=11"></script>
+<script src="world-clock.js?v=12"></script>
 <script src="seclusion-project.js?v=3"></script>
 <script src="combat-spine.js?v=2"></script>
-<script src="combat.js?v=41"></script>
+<script src="combat.js?v=42"></script>
 <script src="playtest-feedback.js?v=1"></script>
 <script src="playtest-mode.js?v=3"></script>
 <script src="settings.js?v=2"></script>
-<script src="phone-playtest.js?v=3"></script>
-<script src="action-help.js?v=1"></script>
-<script src="overlay-keyboard.js?v=3"></script>
-<script src="main.js?v=56"></script>
+<script src="phone-playtest.js?v=4"></script>
+<script src="action-help.js?v=2"></script>
+<script src="overlay-navigation.js?v=1"></script>
+<script src="main.js?v=57"></script>
 </body>
 </html>

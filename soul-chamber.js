@@ -255,23 +255,25 @@ function soulChamberActionBlocked() {
         || (typeof isTribulationActive === 'function' && isTribulationActive());
 }
 
-function openSoulChamber() {
+function openSoulChamber(opener) {
     if (soulChamberActionBlocked()) return;
     ensureSoulChamberState();
     G.inSoulChamber = true;
-    document.getElementById('soulChamberOverlay')?.classList.add('active');
     if (!isSoulPalaceDeepUnlocked()) {
         G.soulChamber.activeTab = 'prelude';
     } else if (!isSoulLayerUnlocked(G.soulChamber.activeTab)) {
         G.soulChamber.activeTab = 'awakened';
     }
     renderSoulChamberUI();
+    openOverlaySurface('soulChamberOverlay', {
+        opener,
+        suspendParent: true,
+        onClose: () => { G.inSoulChamber = false; }
+    });
 }
 
 function closeSoulChamber() {
-    G.inSoulChamber = false;
-    document.getElementById('soulChamberOverlay')?.classList.remove('active');
-    fullRender();
+    closeOverlaySurface('soulChamberOverlay');
 }
 
 function setSoulChamberTab(layerId) {
