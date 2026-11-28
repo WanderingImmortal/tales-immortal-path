@@ -6,13 +6,15 @@
 | **Blocked on** | **Living world** — `fateOutline`, decision stubs, scheduler/chronicle payoffs ([`jianghu-situation-threads.md`](jianghu-situation-threads.md)); owner 2026-10-14: **design done, implement not ready** |
 | **Issue** | none yet |
 | **Chat / PR** | Spirit Root design · [PR #149](https://github.com/WanderingImmortal/tales-immortal-path/pull/149) |
-| **Updated** | 2026-10-14 (unwritten-book metaphor) |
+| **Updated** | 2026-11-11 (divination lore cross-link) |
 
 ## Intent
 
 Xianxia uses **命**, **气数**, **运势**, **天机**, divination, and “counter-heaven” in **different ways** — sometimes incompatible in the same novel. Before we wire **Spirit Root Fate (命)**, we need one **game definition** so Fate is not “see the future” (too strong, wrong shelf) and not a duplicate of **Karma**, **Time Dao**, or **fate rite theft**.
 
 **Player-facing one-liner (lean):** Fate walkers **read which way luck is leaning** and **tilt the board** — they do **not** receive a spoiler script of tomorrow.
+
+**Lore companion (2026-11-11):** conscious **divination** practice, tier limits, Immortal resistance, true-name resonance, and the provisional **Seer** character — [`fate-divination-seer-tradition.md`](fate-divination-seer-tradition.md). This file stays the **mechanics / fortune-stream** owner; that file stays **fiction-first** for seers and names.
 
 ---
 
@@ -244,6 +246,7 @@ Before adding a Fate art or inherit:
 
 ## Related docs
 
+- [`fate-divination-seer-tradition.md`](fate-divination-seer-tradition.md) — divination limits, true-name resonance, Seer tradition (lore)
 - [`soul-root-dao.md`](soul-root-dao.md) — Fate inherit ladder, fortune stream fields
 - [`root-rite-formations.md`](root-rite-formations.md) — **not** Spirit Fate
 - [`immortal-powers-adaptation.md`](immortal-powers-adaptation.md) — Time & prophecy refusal
