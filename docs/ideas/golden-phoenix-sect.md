@@ -54,6 +54,8 @@ The **Great Flame Caldera** became the heart — a volcanic bowl, rim forts, flo
 
 Phoenix was among the **largest expansionists** — absorbing lesser flame schools, cutting Lotus routes, bleeding Sword honor lines. They were **not** winning the whole continent; **Tian** was the ceiling, not the only enemy.
 
+**Working wartime expansion detail (author discussion 2026-11-28):** the Court may have had eight Dao Manifestation cultivators at its height (range 7–9), unusually numerous but less unified than most great sects because absorbed lineages retained interests and identities. Exact roster, stages, founding companions and present count are open; the younger brother's wartime realm is not fixed here. Affiliated ancestors are not necessarily available for offensive campaigns. The [Black Flame Queen](war-legends.md#black-flame-queen) was a proposed early serious roadblock: the Flame Emperor considered her a nuisance to suppress after consolidation, prioritising expansion. Her sovereign black heavenly flame and resistance are provisional; no personal duel outcome established. This does not replace the established Ember Crown settlement.
+
 During the war the sect lived **Sect Rebirth** (Ascent **7**) — constant death and rise on the battlefield, absorption and renewal as one organism.
 
 **Flame Emperor** (焰帝) — paragon saint-king — pushed **Realm Reforge** (Ascent **8**): not “get our courts back” (they already had courts) but **burn the stale board** so the Heartlands order could renew under flame.
