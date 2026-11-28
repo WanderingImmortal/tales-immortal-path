@@ -46,6 +46,18 @@ A conventionally outstanding military record during the Dao Wars, potentially on
 
 Candidate founder of an independent flame sect, potentially attracting lineages resisting Phoenix absorption. Founding chronology, disciples, territory, present survival and temperament remain open. See [Golden Phoenix](golden-phoenix-sect.md) for faction history and working wartime numbers. The Queen's resistance must fit the existing Flame Emperor execution and charter settlement.
 
+## The Asura — developing concept
+
+Slaughter Dao cultivator, preferred affiliation Heavenly Demon Cult (Blood Cult in discussion). His distinguishing trait is zealotry for slaughter, beyond mere enjoyment or cultivation utility. Frequently entrusted with independent destructive wartime assignments; notoriously prone to disregarding orders or continuing fighting beyond his assigned objective. Brutal even by Cult standards; leadership values his power but finds him difficult to restrain. Exact realm, cultivation mechanics, historical deeds, relationships and present fate remain open. Slaughter Dao need not compel indiscriminate killing; distinguish the individual's choices from the Dao itself.
+
+## Additional candidate legends (parked)
+
+- Blood General: Blood Dao Cult ancestor who relishes warfare, distinct from the Heavenly Demon's calculated ambitions.
+- Smiling Sword: outwardly courteous orthodox Sword Dao ancestor with a disturbing wartime reputation; institutional discomfort with his legacy.
+- Killing Saint (working title, not a confirmed realm): independent body cultivator whose martial pursuit emphasises killing rather than defeating opponents; contrast with Da Chi. Relationship between Killing Intent and Martial Intent unresolved.
+
+All three are candidate concepts, not established individuals or fixed titles.
+
 ## Future candidate
 
 A seemingly undefeatable martial cultivator whose opponents have not discovered a reliable way to overcome them; distinct from the Envoy, whose deterrence is the price of engagement. No identity or mechanics assigned.
