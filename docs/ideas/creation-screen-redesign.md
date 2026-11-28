@@ -138,3 +138,7 @@ Until then: **keep current creation screen**; no partial origin/debt work that d
 - `main.js` — `applyOriginEffects`, creation UI
 - `talent.js` — `getDrawback*`, `getOriginCultivateSpeedMult`
 - `legacy.js` — unlock catalog for origins / manuals / compositions
+
+## Later author direction (2026-11-28)
+
+See [Innate gifts](innate-gifts.md) for accepted creation-point philosophy and Twin Aspect Soul. Earlier numerical prices and slot proposals remain provisional; no implementation authorised by this link.

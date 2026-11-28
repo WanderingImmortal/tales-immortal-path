@@ -207,3 +207,7 @@ Aligns with [`imperial-clan.md`](imperial-clan.md) world-tone principle where ap
 ## Implementation crumbs
 
 **None** — lore only. No `data.js`, factions, formations, or map nodes.
+
+## Tentative wartime connection (2026-11-28)
+
+See [War legends](war-legends.md) for the proposed Soul King confrontation involving the Zither Dao resident (or her master if chronology requires). This is tentative history and does not alter established city leadership or arrival chronology.

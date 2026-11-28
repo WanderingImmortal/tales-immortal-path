@@ -34,7 +34,7 @@ Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated event
 
 ### Imperial Sky Era
 
-- **Length so far: ~3,000 years** since the Dao Wars ended *(working anchor, owner 2026-09-26 — may change with later lore)*. Derived anchors: Yun Jian (~3,200–3,500) a young elder in the war, patriarch ~2,000 years; Da Chi's sainthood ~midway through the peace; Tian founder and Sword Ancestor ascend inside this span.
+- **Length so far: ~12,000–15,000 years** since the Dao Wars ended (author-approved working revision, 2026-11-28; supersedes the ~3,000-year anchor). Allows generations of cultivation, consolidation, multiple ascensions and possible rise and fall of later apex powers. Reconcile dependent dates before treating them as current: Yun Jian's age, Sword patriarch's age, Da Chi's sainthood, sanctuary city-state growth and other peace-era durations. Preserve event ordering; do not mechanically rescale ages or invent dates.
 - Tian are the **ruling faction** for a **set duration** (years TBD).
 - Rose from the **Dao War Era** / mandate settlement.
 - Public story: founder **chose mercy** and charter — **propaganda**; insiders add **homeland arrays make extermination too costly** (mechanics TBD).
@@ -87,6 +87,10 @@ Companion: [`world-timeline-handoff.md`](world-timeline-handoff.md) (dated event
 | **Where DMs live** | Almost all in **sects/clans still around** (or to be fleshed out) at Dao War time |
 | **Roamers** | At most 1–2 with legendary stories — **shelved** |
 | **DM combat in Warring States** | Rare **field** use until taboo break; **homeland arrays** are defensive geometry |
+
+### Working DM population bands (2026-11-28)
+
+Author accepted provisional bands: smaller law-backed sect/clan 1; typical great sect 2–4; particularly powerful great sect 4–6; Phoenix Court 7–9 (working wartime peak 8); Imperial Clan broader than most great sects, exact count open. These are not universal quotas or a census. Two simultaneous DMs were rare at the earlier Warring States taboo break; distinguish eras and wartime coalitions from later consolidated institutions. Present Phoenix count remains open. Affiliation is not equivalent to reliable offensive deployment.
 
 ### Half-Step vs coalition vs sect mountains
 

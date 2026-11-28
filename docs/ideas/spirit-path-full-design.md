@@ -209,3 +209,7 @@ Idx 5's name is not locked. It may be the dissolve those three kinds answer.
 - `cultivation.js:377` — `markSpiritTrackConsolidated(newIdx)` marks the *new* realm → chain hole
 - `tribulation.js` — `heart_demon` type already exists
 - `data.js` — `PATHS.soul`, `SOUL_CHAMBER_*`, `SOUL_MASS_BALANCE`, `SOUL_CONDENSATION_*`, `COMBAT_PATH_CONFIG.soul` (Focus)
+
+## Multiple souls (2026-11-28)
+
+See [Twin Aspect Soul](innate-gifts.md#twin-aspect-soul) and [Soul shearing](soul-shearing.md) for the accepted direction and open mechanics. Existing Soul Birth terminology and realm gates require reconciliation before implementation; no gate changes approved here.
