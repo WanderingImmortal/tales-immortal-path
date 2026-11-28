@@ -48,15 +48,24 @@ Candidate founder of an independent flame sect, potentially attracting lineages 
 
 ## The Asura — developing concept
 
-Slaughter Dao cultivator, preferred affiliation Heavenly Demon Cult (Blood Cult in discussion). His distinguishing trait is zealotry for slaughter, beyond mere enjoyment or cultivation utility. Frequently entrusted with independent destructive wartime assignments; notoriously prone to disregarding orders or continuing fighting beyond his assigned objective. Brutal even by Cult standards; leadership values his power but finds him difficult to restrain. Exact realm, cultivation mechanics, historical deeds, relationships and present fate remain open. Slaughter Dao need not compel indiscriminate killing; distinguish the individual's choices from the Dao itself.
+Heavenly Demon Cult (Blood Cult in discussion) Slaughter Dao cultivator, almost feral. His zeal for slaughter exceeds mere enjoyment or cultivation utility. Already rough around the edges before cultivation, his peculiar technique progressively amplified his primal instincts. His intelligence remains intact: he applies it to instinctive priorities and adapts intelligently in battle, rather than planning campaigns. His cultivation is brutal, involving flesh and blood and a willingness to endure hardship to advance. Killing can provide opportunities for Dao comprehension, but kills do not directly award cultivation or guarantee enlightenment. Slaughter Dao itself does not compel indiscriminate killing.
+
+His abode resembles a prison even during the war, but he is indifferent to confinement so long as he has opportunities to fight. Frequently deployed independently on destructive assignments, prone to ignoring orders and continuing beyond his objective. Leadership values his strength but cannot reliably restrain him. The Heavenly Demon may have personally disciplined him after incidents; early deployment alongside armies and subsequent preference for independent assignments are tentative. An experimental technique originating with the Heavenly Demon is a possibility, not established; exact mechanics, realm and origins remain open.
+
+Preferred postwar direction: sealed by his own Cult after the Heavenly Demon's apparent death, rather than killed. His voluntary return to his abode and subsequent sealing during seclusion, potentially using existing suppression formations and collective ancestor strength, is a candidate explanation, not a resolved event. The Blood General may have been involved. Other outcomes (death, hunted fugitive, disappearance) were considered. Survival into the present, seal conditions, ability to cultivate within it and release conditions remain unresolved. The Cult's need for secrecy makes his wartime value a peacetime liability.
+
+## Blood General — developing concept
+
+Heavenly Demon Cult military commander, cold, calculating, disciplined and liberal in his use of extreme violence. Contrasts with the Asura's feral zeal: his actions are deliberate and subordinated to duty. Fiercely loyal to the Heavenly Demon. During the campaign in which the Heavenly Demon apparently died, he witnesses the loss and immediately carries out the retreat without hesitation, despite its personal impact. This is duty, not cowardice or indifference. His precise command remit and subsequent role in the wider withdrawal remain open.
+
+Wears full crimson plate armour, more than decoration: a treasure that grew alongside him throughout his cultivation. Progressive refinement and incorporation of his Dao are possible explanations; exact abilities and materials remain undecided. His Dao is explicitly not settled despite his title. His role in sealing the Asura, survival into the present and knowledge of the Heavenly Demon's surviving true body are open questions, not established history.
 
 ## Additional candidate legends (parked)
 
-- Blood General: Blood Dao Cult ancestor who relishes warfare, distinct from the Heavenly Demon's calculated ambitions.
 - Smiling Sword: outwardly courteous orthodox Sword Dao ancestor with a disturbing wartime reputation; institutional discomfort with his legacy.
 - Killing Saint (working title, not a confirmed realm): independent body cultivator whose martial pursuit emphasises killing rather than defeating opponents; contrast with Da Chi. Relationship between Killing Intent and Martial Intent unresolved.
 
-All three are candidate concepts, not established individuals or fixed titles.
+Both are candidate concepts, not established individuals or fixed titles.
 
 ## Future candidate
 
