@@ -30,6 +30,26 @@ Resonance between souls derived from the same original soul is a possible explan
 
 Potentially a lesser-known legend remembered for a single feat rather than a long military career. Appearing, defeating her assigned opponent and leaving fits her reserved character. Her existing city history and current role remain governed by the sanctuary note. Do not establish a second identity, new master or wartime city affiliation without review.
 
+## Envoy of the River of Time (provisional title)
+
+Ancient male Time Dao Manifestation cultivator. Serene, equanimous and difficult to perturb; at peace with mortality but not finished exploring his Dao. Even forming his Time Law Seed took immense time. His reputation rests on the cost of fighting him, not invincibility.
+
+Preferred history: participated in a single major Dao Wars battle in exchange for an exceptionally precious life-extension herb or treasure. Within his domain cultivators visibly aged and died as their remaining lifespans passed in moments. Witnesses regarded him as an envoy or avatar of the River of Time. A good general retreats upon his arrival; a great general rebukes the order to engage him.
+
+The domain involves genuine temporal progression, not merely decay. Differential rates of bodily/soul time and conscious perception are a candidate explanation for why victims cannot exploit the domain as cultivation time. Exact mechanics, resistance, costs, constructive applications and the relationship between bodily lifespan, soul lifespan and any Heavenly limit remain open; no new immortality loophole is established. Exact age, battle, employer, present status and title remain provisional.
+
+## Black Flame Queen
+
+Female Fire Dao powerhouse with a distinctive black heavenly flame. She discovered and tamed it; studying it assisted her own Dao comprehension. Its proposed sovereign property is dominion over other flames, not an unconditional victory over every Fire cultivator. Exact flame name, origin, law and limits remain open.
+
+A conventionally outstanding military record during the Dao Wars, potentially one of the first serious obstacles to Phoenix expansion. The Flame Emperor regarded her as a nuisance to be dealt with after consolidation, prioritising further expansion over suppressing her resistance. She need not have defeated him personally. Peak Dao Manifestation is a working suggestion, not a locked realm.
+
+Candidate founder of an independent flame sect, potentially attracting lineages resisting Phoenix absorption. Founding chronology, disciples, territory, present survival and temperament remain open. See [Golden Phoenix](golden-phoenix-sect.md) for faction history and working wartime numbers. The Queen's resistance must fit the existing Flame Emperor execution and charter settlement.
+
+## Future candidate
+
+A seemingly undefeatable martial cultivator whose opponents have not discovered a reliable way to overcome them; distinct from the Envoy, whose deterrence is the price of engagement. No identity or mechanics assigned.
+
 ## Expansion
 
 Add future legends with core identity, cultivation at the time, distinctive feats, tentative motives, relationships, last known condition and present status. Existing timeline and faction notes retain ownership of era chronology and faction history.
